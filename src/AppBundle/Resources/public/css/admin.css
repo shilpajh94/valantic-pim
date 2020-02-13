@@ -1,0 +1,217 @@
+.pimcore_class_Product .x-panel-default-outer-border-trbl {border:none;}
+.pimcore_class_Product .x-fieldset {border:none; border-top:1px dotted #000 !important;}
+.pimcore_class_Product .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}
+.pimcore_class_Product .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}
+
+.pimcore_body .x-tab-default-top.x-tab-active {border-top: 2px solid #ffa100 !important;}
+.x-tab.x-tab-active.x-tab-default .x-tab-inner-default {color:#000 !important;}
+.pimcore_class_Product .object_localizedfields_panel .x-toolbar-default {background-color:#fff;}
+.pimcore_class_Product .x-panel-header-default {background-color:#fff !important;}
+.pimcore_class_Product .x-panel-header-title-default {color:#ffa100 !important; font-size:17px !important; background-color:#fff !important;} 
+.pimcore_class_Product .object_localizedfields_panel .x-docked-top {border-bottom-width:1px !important}
+.pimcore_class_Product .object_localizedfields_panel .x-panel-default-outer-border-rbl {border-bottom-color:#fff !important; border-right-color:#fff !important; border-left-color:#fff !important;}
+.pimcore_class_Product .object_localizedfields_panel .pimcore_object_panel_edit .x-toolbar-text-default {color:#ffa100 !important;}
+
+.objectlayout_element_completenessAttributes .x-toolbar {
+    display: None !important;
+}
+
+/*.pimcore_class_Product .object_localizedfields_panel .x-docked-top {*/
+    /*border:None;*/
+/*}*/
+
+.custButtonsToolbar {
+    border: None;
+    margin-top: 2%;
+}
+
+
+/*.objectlayout_element_Text_Modules_Marketing_2 * {*/
+    /*max-width: 100% !important;*/
+    /*max-width: auto !important;*/
+/*}*/
+/*.objectlayout_element_Text_Modules_Marketing_2 label + div,*/
+/*.objectlayout_element_Text_Modules_Marketing_2 label + div *{*/
+    /*min-width: 17px;*/
+/*}*/
+
+/*.objectlayout_element_Text_Modules_Marketing_1,*/
+/*.objectlayout_element_Text_Modules_Marketing_2 {*/
+    /*min-width: 50% !important;*/
+    /*max-width: 50% !important;*/
+    /*position: static  !important;*/
+    /*width: 50% !important;*/
+    /*overflow: auto !important;*/
+    /*float: left !important;*/
+/*}*/
+
+/*.objectlayout_element_Text_Modules_Marketing_1 > div,*/
+/*.objectlayout_element_Text_Modules_Marketing_2 > div{*/
+/*max-width: 100% !important;*/
+/*}*/
+
+/*.objectlayout_element_Text_Modules_Marketing_1 >  div,*/
+/*.objectlayout_element_Text_Modules_Marketing_1 >  div > div,*/
+/*.objectlayout_element_Text_Modules_Marketing_1 >  div > div > div{*/
+    /*width: 980px !important;*/
+/*}*/
+
+
+/*.objectlayout_element_Text_Modules_Marketing_2{*/
+    /*float: right !important;*/
+/*}*/
+/*body .objectlayout_element_Text_Modules_Marketing_2 > div{*/
+    /*min-width: 100% !important;*/
+/*}*/
+
+/*.objectlayout_element_Text_Modules_Marketing_1 > div,*/
+/*.objectlayout_element_Text_Modules_Marketing_2 > div*/
+
+/*{*/
+    /*min-width: 100% !important;*/
+    /*position: static !important;*/
+/*}*/
+
+/*.objectlayout_element_Text_Modules_Marketing_1 > div:first-child *{*/
+    /*min-width: 100%;*/
+/*}*/
+
+.x-toolbar-text{
+    min-width: 100px !important;
+}
+
+
+/*
+
+label[data-ref="labelEl"] + div[id^="textfield"]{
+    width: 80% !important;
+    min-width: 80% !important;
+}
+
+label[data-ref="labelEl"] + div{
+    width: 80% !important;
+    min-width: 80% !important;
+}*/
+
+
+.customExpand .objectlayout_element_Text_Modules_Marketing_1, 
+.customExpand .objectlayout_element_Text_Modules_Marketing_2{
+width: 50% !important;
+min-width: 50% !important;
+max-width: 50% !important;
+    top: 0 !important;
+    visibility: visible !important;
+}
+
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1{
+width: calc(100% - 43px) !important;
+min-width: calc(100% - 43px) !important;
+max-width: calc(100% - 43px) !important;
+}
+.customCollapse .pimcore_class_Product .x-panel-header-default{
+    background-color: #fff !important;
+    border: solid 1px #ddd !important;
+    right: 0px !important;
+}
+
+
+
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div, 
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > .x-box-inner,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > .x-box-inner .x-box-target,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt .object_localizedfields_panel,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div > div, 
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div > div .x-autocontainer-outerCt, 
+
+
+
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > .x-box-inner,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > .x-box-inner .x-box-target,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div,
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div > div, 
+.customExpand .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div > div .x-autocontainer-outerCt, 
+
+
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > .x-box-inner,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > .x-box-inner .x-box-target,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt,
+.customCollapse  .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt > div,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div,
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div > div, 
+.customCollapse .objectlayout_element_Text_Modules_Marketing_1 > div > div.x-autocontainer-outerCt .object_localizedfields_panel > div > div > div .x-autocontainer-outerCt
+
+{
+width: 100% !important;
+min-width: 100% !important;
+max-width:100% !important;
+}
+
+
+
+.customExpand .objectlayout_element_Text_Modules_Marketing_2 > div > .x-box-inner .x-box-target div[aria-label="Collapse panel"]{
+left:auto !important;
+right: 0 !important
+}
+
+.customExpand .objectlayout_element_Text_Modules_Marketing_2{
+    left: 50% !important;
+    right:auto !important;
+}
+
+.objectlayout_element_Assets .pimcore_inline_upload{
+    display: None;
+}
+
+.objectlayout_element_Extras .pimcore_inline_upload{
+    display: None;
+}
+
+div.pimcore_inline_upload{
+    display: None;
+}
+
+a.pimcore_inline_upload{
+    display: None;
+}
+
+a[data-qtip="Crop"] {
+    display: None;
+}
+
+a[data-qtip="Clear Marker, Hotspot and Cropping Data"] {
+    display: None;
+}
+
+a[data-qtip="Add marker or hotspots"] {
+    display: None;
+}
+
+
+#pimcore_signet {
+    background-color: #feb013;
+}
+
+div.pimcore_class_Product div.object_field div.x-panel-body div.x-autocontainer-innerCt div.x-toolbar{
+display: None !important;
+}
+
+.x-item-disabled, .x-item-disabled * {
+    pointer-events: auto !important;
+}
+
+.pimcore_droptarget_image {
+    background: None !important;
+}
