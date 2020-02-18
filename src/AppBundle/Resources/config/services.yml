@@ -10,9 +10,9 @@ services:
         public: false
         
     # Add listener to manipulate data object while saving it
-#    AppBundle\EventListener\ObjectListener:
-#        tags:
-#            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
+    AppBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
             
     AppBundle\EventListener\AdminAssetsListener:
         tags:

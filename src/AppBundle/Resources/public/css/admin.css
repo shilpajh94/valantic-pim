@@ -12,13 +12,14 @@
 .pimcore_class_Product .object_localizedfields_panel .x-panel-default-outer-border-rbl {border-bottom-color:#fff !important; border-right-color:#fff !important; border-left-color:#fff !important;}
 .pimcore_class_Product .object_localizedfields_panel .pimcore_object_panel_edit .x-toolbar-text-default {color:#ffa100 !important;}
 
+/*
 .objectlayout_element_completenessAttributes .x-toolbar {
     display: None !important;
 }
 
-/*.pimcore_class_Product .object_localizedfields_panel .x-docked-top {*/
-    /*border:None;*/
-/*}*/
+.pimcore_class_Product .object_localizedfields_panel .x-docked-top {
+    border:None;
+}
 
 .custButtonsToolbar {
     border: None;
@@ -26,62 +27,62 @@
 }
 
 
-/*.objectlayout_element_Text_Modules_Marketing_2 * {*/
-    /*max-width: 100% !important;*/
-    /*max-width: auto !important;*/
-/*}*/
-/*.objectlayout_element_Text_Modules_Marketing_2 label + div,*/
-/*.objectlayout_element_Text_Modules_Marketing_2 label + div *{*/
-    /*min-width: 17px;*/
-/*}*/
+.objectlayout_element_Text_Modules_Marketing_2 * {
+    max-width: 100% !important;
+    max-width: auto !important;
+}
+.objectlayout_element_Text_Modules_Marketing_2 label + div,
+.objectlayout_element_Text_Modules_Marketing_2 label + div *{
+    min-width: 17px;
+}
 
-/*.objectlayout_element_Text_Modules_Marketing_1,*/
-/*.objectlayout_element_Text_Modules_Marketing_2 {*/
-    /*min-width: 50% !important;*/
-    /*max-width: 50% !important;*/
-    /*position: static  !important;*/
-    /*width: 50% !important;*/
-    /*overflow: auto !important;*/
-    /*float: left !important;*/
-/*}*/
+.objectlayout_element_Text_Modules_Marketing_1,
+.objectlayout_element_Text_Modules_Marketing_2 {
+    min-width: 50% !important;
+    max-width: 50% !important;
+    position: static  !important;
+    width: 50% !important;
+    overflow: auto !important;
+    float: left !important;
+}
 
-/*.objectlayout_element_Text_Modules_Marketing_1 > div,*/
-/*.objectlayout_element_Text_Modules_Marketing_2 > div{*/
-/*max-width: 100% !important;*/
-/*}*/
+.objectlayout_element_Text_Modules_Marketing_1 > div,
+.objectlayout_element_Text_Modules_Marketing_2 > div{
+max-width: 100% !important;
+}
 
-/*.objectlayout_element_Text_Modules_Marketing_1 >  div,*/
-/*.objectlayout_element_Text_Modules_Marketing_1 >  div > div,*/
-/*.objectlayout_element_Text_Modules_Marketing_1 >  div > div > div{*/
-    /*width: 980px !important;*/
-/*}*/
+.objectlayout_element_Text_Modules_Marketing_1 >  div,
+.objectlayout_element_Text_Modules_Marketing_1 >  div > div,
+.objectlayout_element_Text_Modules_Marketing_1 >  div > div > div{
+    width: 980px !important;
+}
 
 
-/*.objectlayout_element_Text_Modules_Marketing_2{*/
-    /*float: right !important;*/
-/*}*/
-/*body .objectlayout_element_Text_Modules_Marketing_2 > div{*/
-    /*min-width: 100% !important;*/
-/*}*/
+.objectlayout_element_Text_Modules_Marketing_2{
+    float: right !important;
+}
+body .objectlayout_element_Text_Modules_Marketing_2 > div{
+    min-width: 100% !important;
+}
 
-/*.objectlayout_element_Text_Modules_Marketing_1 > div,*/
-/*.objectlayout_element_Text_Modules_Marketing_2 > div*/
+.objectlayout_element_Text_Modules_Marketing_1 > div,
+.objectlayout_element_Text_Modules_Marketing_2 > div
 
-/*{*/
-    /*min-width: 100% !important;*/
-    /*position: static !important;*/
-/*}*/
+{
+    min-width: 100% !important;
+    position: static !important;
+}
 
-/*.objectlayout_element_Text_Modules_Marketing_1 > div:first-child *{*/
-    /*min-width: 100%;*/
-/*}*/
+.objectlayout_element_Text_Modules_Marketing_1 > div:first-child *{
+    min-width: 100%;
+}
 
 .x-toolbar-text{
     min-width: 100px !important;
 }
 
 
-/*
+
 
 label[data-ref="labelEl"] + div[id^="textfield"]{
     width: 80% !important;
@@ -91,7 +92,7 @@ label[data-ref="labelEl"] + div[id^="textfield"]{
 label[data-ref="labelEl"] + div{
     width: 80% !important;
     min-width: 80% !important;
-}*/
+}
 
 
 .customExpand .objectlayout_element_Text_Modules_Marketing_1, 
@@ -214,4 +215,4 @@ display: None !important;
 
 .pimcore_droptarget_image {
     background: None !important;
-}
+}*/
