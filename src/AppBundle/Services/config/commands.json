@@ -1,0 +1,34 @@
+{
+    "ifs": {
+        "name":"ifs",
+        "title":"IFS",
+        "type":"Importer",
+        "fileType":["csv","xlsx"],
+        "description":"This command will import 'Master Category'",
+        "paramRequired": 0,
+        "params":["filePath"], 
+        "feederClass":"AppBundle\\Services\\Category",
+        "validatorClass":"AppBundle\\Services\\Validator\\Category",
+        "mappedClass":"Pimcore\\Model\\DataObject\\Category",
+        "defaultSheet":"",
+        "filePath":"/Logs/CategoryImport/Inbox/ptg.csv",
+        "archiveDir":"/Logs/CategoryImport/Archive",
+        "failedDir":"/Logs/CategoryImport/Failed"
+    },
+    "product": {
+        "name":"product",
+        "title":"Product",
+        "type":"Importer",
+        "fileType":["csv","xlsx"],
+        "description":"This command will import 'Product SKU'",
+        "paramRequired": 0,
+        "params":["filePath"], 
+        "feederClass":"AppBundle\\Services\\Product",
+        "validatorClass":"AppBundle\\Services\\Validator\\Product",
+        "mappedClass":"Pimcore\\Model\\DataObject\\Product",
+        "defaultSheet":"",
+        "filePath":"/Logs/ProductImport/Inbox/mm.csv",
+        "archiveDir":"/Logs/ProductImport/Archive",
+        "failedDir":"/Logs/ProductImport/Failed"
+    }
+}
