@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T13:47:12+01:00
-* IP: 192.168.9.128
+* Generated at: 2020-02-19T12:24:59+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -11,7 +11,7 @@ Fields Summary:
 - unitOfWeight [input]
 - netWeight [numeric]
 - numberOfPlies [numeric]
-- brandName [input]
+- brandName [multiselect]
 - tubeMaterial [multiselect]
 - tubeCharacteristic [multiselect]
 - tubeColor [multiselect]
@@ -305,16 +305,31 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'FRONTIER 200',
+                            'value' => 'FRONTIER 200',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Vintner Reserver',
+                            'value' => 'Vintner Reserver',
+                          ),
+                        ),
                          'width' => 300,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'list',
+                         'optionsProviderClass' => 'AppBundle\\Website\\OptionsProvider',
+                         'optionsProviderData' => 'Brand|Name',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
                          'name' => 'brandName',
                          'title' => 'Brand Name',
                          'tooltip' => '
@@ -322,7 +337,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',

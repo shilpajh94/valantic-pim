@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T13:47:09+01:00
-* IP: 192.168.9.188
+* Generated at: 2020-02-19T12:03:25+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -14,11 +14,6 @@ Fields Summary:
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
-    0 => 
-    array (
-      'classname' => 'Product',
-      'fieldname' => 'Specification',
-    ),
   ),
    'title' => '6 Digit Base data',
    'group' => '',
