@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T11:43:28+01:00
+* Generated at: 2020-02-19T11:53:42+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -84,6 +84,7 @@ Fields Summary:
 - SIOPLevel4 [manyToManyObjectRelation]
 - SIOPLevel5 [manyToManyObjectRelation]
 - SIOPLevel6 [manyToManyObjectRelation]
+- SalesOrg [advancedManyToManyObjectRelation]
 - Plants [advancedManyToManyObjectRelation]
 - SalesOrgData [advancedManyToManyObjectRelation]
 - Specification [objectbricks]
@@ -102,7 +103,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Products',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1581504208,
+   'modificationDate' => 1582109622,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2991,6 +2992,55 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              7 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+                 'allowedClassId' => 'SalesOrganisation',
+                 'visibleFields' => 'code,name',
+                 'columns' => 
+                array (
+                  0 => 
+                  array (
+                    'type' => 'text',
+                    'position' => 1,
+                    'key' => 'name',
+                    'id' => 'extModel1433-1',
+                  ),
+                ),
+                 'columnKeys' => 
+                array (
+                  0 => 'name',
+                ),
+                 'fieldtype' => 'advancedManyToManyObjectRelation',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
+                 'enableBatchEdit' => false,
+                 'allowMultipleAssignments' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => '',
+                 'queryColumnType' => 'text',
+                 'relationType' => true,
+                 'allowToCreateNewObject' => true,
+                 'optimizedAdminLoading' => false,
+                 'lazyLoading' => true,
+                 'classes' => NULL,
+                 'pathFormatterClass' => '',
+                 'name' => 'SalesOrg',
+                 'title' => 'Sales Org',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
