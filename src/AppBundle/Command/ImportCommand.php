@@ -30,11 +30,7 @@ class ImportCommand extends AbstractCommand
         */
         /* monitoring-item-id: We don't need to paas it explicitly because, plugin do it */
         $this->addOption(
-<<<<<<< HEAD
             'monitoring-item-idmonitoring-item-id',
-=======
-            'monitoring-item-id',
->>>>>>> master
             null,
             InputOption::VALUE_REQUIRED,
             'Contains the monitoring item if executed via the Pimcore backend'

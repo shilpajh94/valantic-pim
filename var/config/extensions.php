@@ -2,6 +2,8 @@
 
 return [
     "bundle" => [
-        "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE
+        "ADAuthBundle\\ADAuthBundle" => TRUE,
+        "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
+        "ImportBundle\\ImportBundle" => TRUE
     ]
 ];
