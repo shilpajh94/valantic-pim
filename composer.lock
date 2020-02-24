@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "28561f16f341d91a48819270bc29e67c",
+    "content-hash": "1dc03804d0b410758a644eead5fb42ec",
     "packages": [
         {
             "name": "amnuts/opcache-gui",
@@ -1533,6 +1533,41 @@
             "time": "2020-01-20T21:40:59+00:00"
         },
         {
+            "name": "elements/process-manager-bundle",
+            "version": "v3.0.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elements-at/ProcessManager.git",
+                "reference": "7950279a66bdff5c57ef5b23d257ef712665735a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elements-at/ProcessManager/zipball/7950279a66bdff5c57ef5b23d257ef712665735a",
+                "reference": "7950279a66bdff5c57ef5b23d257ef712665735a",
+                "shasum": ""
+            },
+            "require": {
+                "mtdowling/cron-expression": "^1.1.0",
+                "pimcore/pimcore": ">=6.0"
+            },
+            "type": "pimcore-bundle",
+            "extra": {
+                "pimcore": {
+                    "bundles": [
+                        "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elements\\Bundle\\ProcessManagerBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "The Process Manager allows you to manage (define,execute...) arbitrary processes/commands in the Pimcore backend.",
+            "time": "2020-02-17T20:20:38+00:00"
+        },
+        {
             "name": "endroid/qr-code",
             "version": "3.7.5",
             "source": {
@@ -2934,6 +2969,51 @@
                 "youtube"
             ],
             "time": "2020-01-03T00:35:55+00:00"
+        },
+        {
+            "name": "mtdowling/cron-expression",
+            "version": "v1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtdowling/cron-expression.git",
+                "reference": "9be552eebcc1ceec9776378f7dcc085246cacca6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/9be552eebcc1ceec9776378f7dcc085246cacca6",
+                "reference": "9be552eebcc1ceec9776378f7dcc085246cacca6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0|~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cron\\": "src/Cron/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
+            "keywords": [
+                "cron",
+                "schedule"
+            ],
+            "abandoned": "dragonmantank/cron-expression",
+            "time": "2019-12-28T04:23:06+00:00"
         },
         {
             "name": "mustangostang/spyc",

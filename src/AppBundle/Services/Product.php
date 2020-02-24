@@ -10,7 +10,8 @@ use AppBundle\Services\Validator\Validator;
 use AppBundle\Controller\LogController as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use AppBundle\Services\Helper\Util;
-
+use AppBundle\Services\Model\ProductModel;
+use AppBundle\Services\Category as CategoryService;
 class Product
 {
     public $name; // Command Name
@@ -30,6 +31,9 @@ class Product
     private $reader;
     private $level;
     private $cek; // Current Error Key
+    private $productModel;
+    private $siop;
+    private $catInstance;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -38,6 +42,8 @@ class Product
         $this->util = new Util;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        $this->productModel = new ProductModel;
+        $this->catInstance = new CategoryService;
     }
     public function config($param = array())
     {
@@ -99,6 +105,12 @@ class Product
             $levelInfo = $this->instance->getLevels($this->getData('code'), $this->reader);
             // p_r($levelInfo);
             if ($levelInfo['status']) {
+                /* Check or Update Category In Master */
+                $this->catInstance->createCategory($levelInfo['levels']);
+                /* End */
+                /* Set SIOP array to map SIOP tab */
+                $this->setSiop($levelInfo['levels']);
+                /* End */
                 $catObj = $this->createCategory($levelInfo['levels']);
                 if ($catObj) {
                     /* Brand / Base Product */
@@ -128,6 +140,15 @@ class Product
         }
     }
 
+    public function setSiop($levelInfo) {
+        foreach ($levelInfo as $info) {
+            $l = $info['level'];
+            $o = $this->catInstance->getObjectByFullCode($info['levelFullCode'], $info['bu']);
+            // p_r($info['fullCode']);
+            $this->siop[$l] = $o;
+        }
+    }
+
     public function createCategory($levelInfo)
     {
         foreach ($levelInfo as $info) {
@@ -150,8 +171,10 @@ class Product
 
     public function updateCategory($levelInfo, $parentObj = "")
     {
-        $catObj = $this->getObjectByFullCode($levelInfo['fullCode'], $levelInfo['bu']);
+        $catObj = $this->catInstance->getObjectByFullCode($levelInfo['fullCode'], $levelInfo['bu']);
+        
         if ($catObj && $catObj->getId()) {
+            
             $catObj = $this->getObjectByPath($levelInfo['objectPath'], $levelInfo['bu']);
             if (empty($catObj)) {
                 $this->monitoringItem->setMessage('New Folder')->save();
@@ -190,6 +213,7 @@ class Product
         }
         
     }
+
     public function getObjectByPath($path, $bu)
     {
         $obj = DataObject::getByPath($path);
@@ -198,23 +222,6 @@ class Product
         }
         return false;
     }
-
-    public function getObjectByFullCode($code, $bu)
-    {
-        if (!empty($code)) {
-            $obj = new DataObject\Category\Listing();
-            $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
-            $obj->setLimit(1);
-            $obj->load();
-
-            foreach ($obj as $o) {
-                if ($o->getId())
-                    return $o;
-            }
-        }
-        return false;
-    }
-
 
     /* Brand / Base Product */
     private function createCommonProductSpecification($parentObj)
@@ -228,6 +235,7 @@ class Product
         if (is_numeric($oldMaterial)) {
             if ($this->configuredData['oldMaterialLength'] == $len) {
                 $cmnPrdSpecCode = substr($oldMaterial, 0, $this->configuredData['cmnPrdSpecLength']);
+                $productType = $this->productModel->getProductType($this->configuredData['cmnPrdSpecLength']);
                 if ($parentObj) {
                     if (!empty($parentObj) && $parentObj->getId()) {
                         $parentId = $parentObj->getId();
@@ -241,6 +249,8 @@ class Product
                         }
 
                         /* Update Object */
+                        /* Base Data */
+                        $prdSpecObj->setProductType($productType);
                         $prdSpecObj->setArticleNumber($this->getData('material'));
                         $prdSpecObj->setSapDescriptionLanguage($this->getData('language'));
                         $prdSpecObj->setSapDescription($this->getData('description'));
@@ -250,6 +260,7 @@ class Product
                         $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                         $prdSpecObj->setPublished(1);
                         $prdSpecObj->save();
+                        $this->productModel->setSiop($this->siop, $prdSpecObj);
                         return $prdSpecObj;
                     }
                 }
@@ -272,6 +283,7 @@ class Product
         if (is_numeric($oldMaterial)) {
             if ($this->configuredData['oldMaterialLength'] == $len) {
                 $cmnSpecCode = substr($oldMaterial, 0, $this->configuredData['cmnSpecLength']);
+                $productType = $this->productModel->getProductType($this->configuredData['cmnSpecLength']);
                 if ($parentObj) {
                     if (!empty($parentObj) && $parentObj->getId()) {
                         $parentId = $parentObj->getId();
@@ -285,6 +297,7 @@ class Product
                         }
 
                         /* Update Object */
+                        $prdSpecObj->setProductType($productType);
                         $prdSpecObj->setArticleNumber($this->getData('material'));
                         $prdSpecObj->setSapDescriptionLanguage($this->getData('language'));
                         $prdSpecObj->setSapDescription($this->getData('description'));
@@ -294,6 +307,7 @@ class Product
                         $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                         $prdSpecObj->setPublished(1);
                         $prdSpecObj->save();
+                        $this->productModel->setSiop($this->siop, $prdSpecObj);
                         return $prdSpecObj;
                     }
                 }

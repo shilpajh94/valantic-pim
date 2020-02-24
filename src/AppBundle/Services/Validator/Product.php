@@ -17,6 +17,7 @@ class Product
     public $businessUnit;
     public $validCategories;
     public $rowCnt;
+    public $productType;
 
     public function __construct()
     {
@@ -93,6 +94,11 @@ class Product
         /* $this->parentPath = array(
             'IFS'   =>  
         ); */
+        $this->productType = array(
+            6   =>  '6Digit',
+            9   =>  '9Digit',
+            14  =>  'Base (14 Digit)'
+        );
     }
 
     public function getLevels($code, $reader = array())
