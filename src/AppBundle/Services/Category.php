@@ -47,11 +47,10 @@ class Category
             $spreadsheet = Import::load($this->filePath);
             $result = $this->instance->validateSpreadSheet($spreadsheet);
             $this->configuredData = $this->instance->getAllProps();
-            if(!$result['status']) {
+            if (!$result['status']) {
                 $this->monitoringItem->getLogger()->error($result['message']);
             }
             $this->import($spreadsheet);
-            
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -60,7 +59,7 @@ class Category
         }
     }
 
-    
+
 
     public function import($spreadsheet)
     {
@@ -79,7 +78,7 @@ class Category
         $sheetColumns = $this->configuredData['columns'];
         foreach ($activeSheet as $rowCnt => $reader) {
             if ($rowCnt == 0) {
-                Import::setCell(self::FILE_LAST_COL.'1', 'Status');
+                Import::setCell(self::FILE_LAST_COL . '1', 'Status');
                 continue;
             }
             $flag = true;
@@ -87,7 +86,7 @@ class Category
             /* Validate each row's column value */
             $this->instance->rowCnt = $this->currentStep;
             $result = $this->instance->validateRow($this->reader);
-            if(!$result['status']) {
+            if (!$result['status']) {
                 $success = false;
                 $flag = false;
                 $this->monitoringItem->getLogger()->error($result['message']);
@@ -98,8 +97,8 @@ class Category
             $levelInfo = $this->instance->getLevels($this->reader['code'], $this->reader['description']);
             // p_r($levelInfo);die;
             if ($levelInfo['status']) {
-                if(!$this->createCategory($levelInfo['levels'])) {
-                    $this->monitoringItem->getLogger()->error("Code '".$this->reader['code']."' failed to process");
+                if (!$this->createCategory($levelInfo['levels'])) {
+                    $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
                     $flag = false;
                     $success = false;
                 }
@@ -110,11 +109,11 @@ class Category
                 $flag = false;
                 $success = false;
             }
-            if(!$flag) {
+            if (!$flag) {
                 $failedCnt++;
-                Import::setCell(self::FILE_LAST_COL.$this->currentStep, 'Failed');
+                Import::setCell(self::FILE_LAST_COL . $this->currentStep, 'Failed');
             } else {
-                Import::setCell(self::FILE_LAST_COL.$this->currentStep, 'Success');
+                Import::setCell(self::FILE_LAST_COL . $this->currentStep, 'Success');
             }
             /* if ($rowCnt > 5) {
                 break;
@@ -131,25 +130,25 @@ class Category
             'archivePath'   =>  $this->archiveDir,
             'failedPath'    =>  $this->failedDir,
             'status'        =>  $success,
-            'fileName'      =>  $this->name.'-'.date('Ymd')
+            'fileName'      =>  $this->name . '-' . date('Ymd')
         );
         $movedAssetObj = $this->util->moveFile($moveParam);
         /* Set Application Logger Message */
-        if($success) {
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='".$movedAssetObj->getFileSystemPath()."'>Download Log</a>");
-        } else {            
+        if ($success) {
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
+        } else {
             $fileObject = new FileObject($movedAssetObj->getData());
             /* \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='".$movedAssetObj->getFileSystemPath()."'>Download Log</a>",[
                 'fileObject'    => $fileObject
             ]); */
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='".$movedAssetObj->getFileSystemPath()."'>Download Log</a>");
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
         }
     }
 
     public function createCategory($levelInfo)
     {
-        foreach ($levelInfo as $info) {            
-            $parentObj = $this->getObjectByFullCode($info['parentFullCode'],$info['bu']);
+        foreach ($levelInfo as $info) {
+            $parentObj = $this->getObjectByFullCode($info['parentFullCode'], $info['bu']);
             if (!empty($parentObj)) {
                 /* Create or Update Object */
                 if ($this->updateCategory($info, $parentObj)) {
@@ -167,20 +166,20 @@ class Category
 
     public function updateCategory($levelInfo, $parentObj = "")
     {
-        $catObj = $this->getObjectByFullCode($levelInfo['fullCode'],$levelInfo['bu']);
+        $catObj = $this->getObjectByFullCode($levelInfo['fullCode'], $levelInfo['bu']);
 
         if (empty($catObj)) {
             $this->monitoringItem->setMessage('New Category Insertion ')->save();
             $catObj = new DataObject\ProductCategory();
         } else {
-            $this->monitoringItem->setMessage('Updating '.$levelInfo['fullCode'].' '.$catObj->getId())->save();
+            $this->monitoringItem->setMessage('Updating ' . $levelInfo['fullCode'] . ' ' . $catObj->getId())->save();
             $catObj = DataObject::getById($catObj->getId());
         }
 
         /* Setting current processing workload outof total workload */
         $this->monitoringItem->setCurrentWorkload($this->currentStep)
             ->setTotalWorkload($this->totalSteps)
-            ->setDefaultProcessMessage("Processing Raw code '".$levelInfo['fullCode']."', code: '".$levelInfo['code']."', Full Code: '".$levelInfo['levelFullCode']."'")
+            ->setDefaultProcessMessage("Processing Raw code '" . $levelInfo['fullCode'] . "', code: '" . $levelInfo['code'] . "', Full Code: '" . $levelInfo['levelFullCode'] . "'")
             ->save();
 
         $objKey = $levelInfo['objectKey']; //'description';
@@ -195,27 +194,34 @@ class Category
         // p_r($levelInfo['code']);
         $catObj->setCode($levelInfo['code']);
         $catObj->setFullCode($levelInfo['levelFullCode']);
-        if (empty($parentObj)) {
-            $parentObj = $this->getObjectByFullCode($levelInfo['parentFullCode'],$levelInfo['bu']);
+
+        if ($levelInfo['level'] == 2) {
+            $catObj->setParentId($levelInfo['parentId']);
+        } else {
+            if (empty($parentObj)) {
+                $parentObj = $this->getObjectByFullCode($levelInfo['parentFullCode'], $levelInfo['bu']);
+            }
+
+            if ($parentObj) {
+                $catObj->setParentId($parentObj->getId());
+                $catObj->setParentCategoryCode($parentObj->getCode());
+                $catObj->setParentObjectId($parentObj->getId());
+            }
         }
 
-        if ($parentObj) {
-            $catObj->setParentId($parentObj->getId());
-            $catObj->setParentCategoryCode($parentObj->getCode());
-            $catObj->setParentObjectId($parentObj->getId());
-        }
-        if(isset($this->reader) && isset($this->reader['description']))
-        $catObj->setDescription($this->reader['description'], 'en');
-        
+
+        if (isset($this->reader) && isset($this->reader['description']))
+            $catObj->setDescription($this->reader['description'], 'en');
+
         $catObj->setPublished(1);
         $catObj->save();
-        if(empty($catObj)) {
-            $this->monitoringItem->getLogger()->error("Code '".$levelInfo['code']."' and level ".$levelInfo['level']." could not processed ");
+        if (empty($catObj)) {
+            $this->monitoringItem->getLogger()->error("Code '" . $levelInfo['code'] . "' and level " . $levelInfo['level'] . " could not processed ");
             return false;
         }
         return $catObj->getId();
     }
-    
+
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
@@ -223,7 +229,7 @@ class Category
             $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);
             $obj->load();
-            
+
             foreach ($obj as $o) {
                 if ($o->getId())
                     return $o;

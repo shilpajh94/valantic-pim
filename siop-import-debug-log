@@ -1850,3 +1850,5 @@
 [2020-02-24 11:44:45] app.NOTICE: New Category Insertion  {"component":"SIOP Import","source":"Elements\\Bundle\\ProcessManagerBundle\\Logger::log:25"} []
 [2020-02-24 11:44:45] app.NOTICE: Processing Processing Raw code '0430003520100', code: '100', Full Code: '0430003520100' 911 from 911 (0 remaining) {"component":"SIOP Import","source":"Elements\\Bundle\\ProcessManagerBundle\\Logger::log:25"} []
 [2020-02-24 11:44:45] app.NOTICE: Job finished {"component":"SIOP Import","source":"Elements\\Bundle\\ProcessManagerBundle\\Logger::log:25"} []
+[2020-02-24 14:31:16] app.INFO: Execution Command: /usr/bin/php /home/praganosis/projects/contitech_stage/contitech/bin/console conti:import -c ifs --monitoring-item-id=8 in Background {"component":"SIOP Import","source":"Elements\\Bundle\\ProcessManagerBundle\\Helper::executeJob:64"} []
+[2020-02-24 14:31:16] app.NOTICE:  {"component":"SIOP Import","source":"Elements\\Bundle\\ProcessManagerBundle\\Logger::log:25"} []

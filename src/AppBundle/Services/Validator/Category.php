@@ -3,6 +3,7 @@
 namespace AppBundle\Services\Validator;
 
 use Exception;
+use Pimcore\Model\DataObject;
 
 class Category
 {
@@ -52,7 +53,7 @@ class Category
         $this->root = array(
             'type'      =>  'dataObject',
             'subType'   =>  'folder',
-            // 'fullPath'  =>  '/Master List/SIOP Master List/SIOP Engineered Products',
+            'fullPath'  =>  '/Master List/SIOP Master List/SIOP Engineered Products',
             'id'        =>  2,
             'parentId'  =>  ''
         );
@@ -82,6 +83,7 @@ class Category
     public function getLevels($code, $kn = "")
     {
         $buCode = $this->isValidCategoryFormat($code);
+        $bu = $this->businessUnit[$buCode];
         if (!$this->isValideCodeLength($code)) {
             return array(
                 'status' => false,
@@ -108,13 +110,17 @@ class Category
                 'levelFullCode' =>  $levelFullCode,
                 'parentFullCode' =>  $parentFullCode,
                 'level'         =>  $i,
-                'bu'            =>  $this->businessUnit[$buCode]
+                'bu'            =>  $bu
             );
             if ($i == $level) {
                 $levels[$i]['objectKey'] = $kn;
             } else {
                 $levels[$i]['objectKey'] = $kn . $levelFullCode;
             }
+            /* If level is 2 then get it's parent id */
+            if(2==$i) {
+                $levels[$i]['parentId'] = $this->getLevel2ParentId($bu);
+            } 
         }
 
         return array(
@@ -157,6 +163,14 @@ class Category
     {
         $len = strlen($code);
         return in_array($len, $this->levelLength);
+    }
+
+    public function getLevel2ParentId($bu) {
+        $path = $this->root['fullPath'].'/'.$bu;
+        $o = DataObject::getByPath($path);
+        if(!empty($o)) {
+            return $o->getId();
+        }
     }
 
     public function isValidCategoryFormat($code)
