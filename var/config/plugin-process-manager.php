@@ -24,7 +24,7 @@ return [
         //'disableShortcutMenu' => true, //disables the shortcut menu on the left side in the admin interface
     ],
     'email' => [
-        'recipients' => explode(';', (string) $systemConfig['applicationlog']['mail_notification']['mail_receiver']), //gets a reporting e-mail when a process is dead
+        'recipients' => explode(';', (string)$systemConfig['applicationlog']['mail_notification']['mail_receiver']), //gets a reporting e-mail when a process is dead
     ],
     'executorClasses' => [
         [
@@ -55,24 +55,11 @@ return [
     'executorActionClasses' => [
         [
             'class' => '\\Elements\\Bundle\\ProcessManagerBundle\\Executor\\Action\\Download'
-        ],
-        [
-            'class' => '\\Elements\\Bundle\\ProcessManagerBundle\\Executor\\Action\\Import'
         ]
     ],
     'executorCallbackClasses' => [
         [
             'class' => '\\Elements\\Bundle\\ProcessManagerBundle\\Executor\\Callback\\ExecutionNote'
-        ],
-        [
-            "name" => "exportProducts",
-            "class" => "\\Elements\\Bundle\\ProcessManagerBundle\\Executor\\Callback\\General",
-            "extJsClass" => "pimcore.plugin.PLUGINNAME.processmanager.executor.callback.exportProducts",
-        ],
-        [
-            'name'  =>  'importMaster',
-            'class' => '\\Elements\\Bundle\\ProcessManagerBundle\\Executor\\Callback\\ImportMaster',
-            'extJsClass' => "pimcore.plugin.PLUGINNAME.processmanager.executor.callback.importMaster",
-        ],
+        ]
     ]
 ];
