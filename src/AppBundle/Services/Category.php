@@ -95,6 +95,7 @@ class Category
             $this->currentStep = $rowCnt + 1;
             $len = strlen($this->reader['code']);
             $levelInfo = $this->instance->getLevels($this->reader['code'], $this->reader['description']);
+            $this->monitoringItem->setMessage(json_encode($levelInfo))->save();
             // p_r($levelInfo);die;
             if ($levelInfo['status']) {
                 if (!$this->createCategory($levelInfo['levels'])) {
@@ -148,25 +149,32 @@ class Category
     public function createCategory($levelInfo)
     {
         foreach ($levelInfo as $info) {
-            $parentObj = $this->getObjectByFullCode($info['parentFullCode'], $info['bu']);
-            if (!empty($parentObj)) {
-                /* Create or Update Object */
-                if ($this->updateCategory($info, $parentObj)) {
+            $obj = $this->getObjectByFullCode($info['levelFullCode'], $info['bu']);
+            if(!empty($obj) && $obj->getId()) {
+                if ($this->updateCategory($info)) {
                     return true;
                 }
-                return false;
             } else {
-                $key = key($levelInfo);
-                unset($levelInfo[$key]);
-                $this->createCategory($levelInfo);
-            }
+                $parentObj = $this->getObjectByFullCode($info['parentFullCode'], $info['bu']);
+                if (!empty($parentObj)) {
+                    /* Create or Update Object */
+                    if ($this->updateCategory($info, $parentObj)) {
+                        return true;
+                    }
+                    return false;
+                } else {
+                    $key = key($levelInfo);
+                    unset($levelInfo[$key]);
+                    $this->createCategory($levelInfo);
+                }
+            } 
             return $this->updateCategory($info);
         }
     }
 
     public function updateCategory($levelInfo, $parentObj = "")
     {
-        $catObj = $this->getObjectByFullCode($levelInfo['fullCode'], $levelInfo['bu']);
+        $catObj = $this->getObjectByFullCode($levelInfo['levelFullCode'], $levelInfo['bu']);
 
         if (empty($catObj)) {
             $this->monitoringItem->setMessage('New Category Insertion ')->save();
@@ -187,7 +195,7 @@ class Category
         $catObj->setKey(\Pimcore\Model\Element\Service::getValidKey($objKey, 'object'));
 
         /* Updating Object Here */
-        $catObj->setBusinessUnit('');
+        $catObj->setBusinessUnit($levelInfo['bu']);
         $catObj->setIndustry('');
         // p_r($levelInfo['level']);
         $catObj->setLevel($levelInfo['level']);
@@ -195,6 +203,7 @@ class Category
         $catObj->setCode($levelInfo['code']);
         $catObj->setFullCode($levelInfo['levelFullCode']);
 
+        
         if ($levelInfo['level'] == 2) {
             $catObj->setParentId($levelInfo['parentId']);
         } else {
