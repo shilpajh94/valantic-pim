@@ -9,6 +9,10 @@ class Util {
     /* this function will validate imported excel file columns with main class
     and return the configured data with column indexs of file which is in process
     to import */
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     public function validate($param = array())
     {
         // return true;
@@ -116,6 +120,10 @@ class Util {
             return end($arr);
         }
         return false;
+<<<<<<< HEAD
     }
     
+=======
+    } 
+>>>>>>> master
 }

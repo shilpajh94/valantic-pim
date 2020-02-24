@@ -52,7 +52,11 @@ class Category
         $this->root = array(
             'type'      =>  'dataObject',
             'subType'   =>  'folder',
+<<<<<<< HEAD
             'fullPath'  =>  '/Master Category',
+=======
+            // 'fullPath'  =>  '/Master List/SIOP Master List/SIOP Engineered Products',
+>>>>>>> master
             'id'        =>  2,
             'parentId'  =>  ''
         );

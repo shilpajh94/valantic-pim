@@ -170,8 +170,13 @@ class Category
         $catObj = $this->getObjectByFullCode($levelInfo['fullCode'],$levelInfo['bu']);
 
         if (empty($catObj)) {
+<<<<<<< HEAD
             $this->monitoringItem->setMessage('New Insertion ')->save();
             $catObj = new DataObject\Category();
+=======
+            $this->monitoringItem->setMessage('New Category Insertion ')->save();
+            $catObj = new DataObject\ProductCategory();
+>>>>>>> master
         } else {
             $this->monitoringItem->setMessage('Updating '.$levelInfo['fullCode'].' '.$catObj->getId())->save();
             $catObj = DataObject::getById($catObj->getId());
@@ -204,7 +209,13 @@ class Category
             $catObj->setParentCategoryCode($parentObj->getCode());
             $catObj->setParentObjectId($parentObj->getId());
         }
+<<<<<<< HEAD
         $catObj->setDescription($this->reader['description'], 'en');
+=======
+        if(isset($this->reader) && isset($this->reader['description']))
+        $catObj->setDescription($this->reader['description'], 'en');
+        
+>>>>>>> master
         $catObj->setPublished(1);
         $catObj->save();
         if(empty($catObj)) {
@@ -213,10 +224,18 @@ class Category
         }
         return $catObj->getId();
     }
+<<<<<<< HEAD
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
             $obj = new DataObject\Category\Listing();
+=======
+    
+    public function getObjectByFullCode($code, $bu)
+    {
+        if (!empty($code)) {
+            $obj = new DataObject\ProductCategory\Listing();
+>>>>>>> master
             $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);
             $obj->load();

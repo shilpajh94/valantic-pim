@@ -9,11 +9,19 @@
         "params":["filePath"], 
         "feederClass":"AppBundle\\Services\\Category",
         "validatorClass":"AppBundle\\Services\\Validator\\Category",
+<<<<<<< HEAD
         "mappedClass":"Pimcore\\Model\\DataObject\\Category",
         "defaultSheet":"",
         "filePath":"/Logs/CategoryImport/Inbox/ptg.csv",
         "archiveDir":"/Logs/CategoryImport/Archive",
         "failedDir":"/Logs/CategoryImport/Failed"
+=======
+        "mappedClass":"Pimcore\\Model\\DataObject\\ProductCategory",
+        "defaultSheet":"",
+        "filePath":"/Logs/Master List/SIOP Master List/Inbox/siop.csv",
+        "archiveDir":"/Logs/Master List/SIOP Master List/Archive",
+        "failedDir":"/Logs/Master List/SIOP Master List/Failed"
+>>>>>>> master
     },
     "product": {
         "name":"product",
@@ -27,8 +35,14 @@
         "validatorClass":"AppBundle\\Services\\Validator\\Product",
         "mappedClass":"Pimcore\\Model\\DataObject\\Product",
         "defaultSheet":"",
+<<<<<<< HEAD
         "filePath":"/Logs/ProductImport/Inbox/mm.csv",
         "archiveDir":"/Logs/ProductImport/Archive",
         "failedDir":"/Logs/ProductImport/Failed"
+=======
+        "filePath":"/Logs/Product Master/Inbox/mm.csv",
+        "archiveDir":"/Logs/Product Master/Archive",
+        "failedDir":"/Logs/Product Master/Failed"
+>>>>>>> master
     }
 }
