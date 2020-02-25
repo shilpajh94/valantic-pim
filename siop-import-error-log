@@ -8,3 +8,6 @@
 [2020-02-25 08:48:57] app.ERROR: Column for code is not valid at row number 1. Please check the code position or it's content length 
 [2020-02-25 08:48:57] app.ERROR: Column for code is not valid at row number 2. Please check the code position or it's content length 
 [2020-02-25 08:48:59] app.ERROR: Column for code is not valid at row number 10. Please check the code position or it's content length 
+[2020-02-25 09:58:47] app.ERROR: {"monitoring-item-idmonitoring-item-id":null,"commandType":"ifs","help":false,"quiet":false,"verbose":false,"version":false,"ansi":false,"no-ansi":false,"no-interaction":false,"ignore-maintenance-mode":false,"maintenance-mode":false,"env":"prod","no-debug":false} 
+[2020-02-25 09:58:47] app.ERROR: Column for code is not valid at row number 1. Please check the code position or it's content length 
+[2020-02-25 09:58:47] app.ERROR: Column for code is not valid at row number 2. Please check the code position or it's content length 
