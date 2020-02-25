@@ -12,6 +12,7 @@ use Elements\Bundle\ProcessManagerBundle;
 use AppBundle\Services\Helper\Util;
 use AppBundle\Services\Model\ProductModel;
 use AppBundle\Services\Category as CategoryService;
+
 class Product
 {
     public $name; // Command Name
@@ -34,6 +35,7 @@ class Product
     private $productModel;
     private $siop;
     private $catInstance;
+    private $rowStatus;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -106,11 +108,17 @@ class Product
             // p_r($levelInfo);
             if ($levelInfo['status']) {
                 /* Check or Update Category In Master */
+                $this->catInstance->currentStep = $this->currentStep;
                 $this->catInstance->createCategory($levelInfo['levels']);
+                if (isset($this->catInstance->rowStatus[$this->currentStep]) && !empty($this->catInstance->rowStatus[$this->currentStep])) {
+                    $this->rowStatus[$this->currentStep] = 'Category enriched in master. ';
+                    $this->rowStatus[$this->currentStep] .= $this->catInstance->rowStatus[$this->currentStep];
+                }
                 /* End */
                 /* Set SIOP array to map SIOP tab */
                 $this->setSiop($levelInfo['levels']);
                 /* End */
+
                 $catObj = $this->createCategory($levelInfo['levels']);
                 if ($catObj) {
                     /* Brand / Base Product */
@@ -140,7 +148,9 @@ class Product
         }
     }
 
-    public function setSiop($levelInfo) {
+    /* Get the category object level wise */
+    public function setSiop($levelInfo)
+    {
         foreach ($levelInfo as $info) {
             $l = $info['level'];
             $o = $this->catInstance->getObjectByFullCode($info['levelFullCode'], $info['bu']);
@@ -149,6 +159,7 @@ class Product
         }
     }
 
+    /* Hierarchy Category */
     public function createCategory($levelInfo)
     {
         foreach ($levelInfo as $info) {
@@ -172,9 +183,9 @@ class Product
     public function updateCategory($levelInfo, $parentObj = "")
     {
         $catObj = $this->catInstance->getObjectByFullCode($levelInfo['fullCode'], $levelInfo['bu']);
-        
+
         if ($catObj && $catObj->getId()) {
-            
+
             $catObj = $this->getObjectByPath($levelInfo['objectPath'], $levelInfo['bu']);
             if (empty($catObj)) {
                 $this->monitoringItem->setMessage('New Folder')->save();
@@ -208,10 +219,9 @@ class Product
             }
             return $catObj;
         } else {
-            p_r($levelInfo['fullCode'].' does not exist');
+            p_r($levelInfo['fullCode'] . ' does not exist');
             return false;
         }
-        
     }
     public function getObjectByPath($path, $bu)
     {
@@ -222,7 +232,7 @@ class Product
         return false;
     }
 
-    /* Brand / Base Product */
+    /* Brand / Base Product / 6 digit */
     private function createCommonProductSpecification($parentObj)
     {
         $oldMaterial = $this->getData('oldMaterial');
@@ -257,6 +267,7 @@ class Product
                         $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
                         $prdSpecObj->setManufacter($this->getData('manufacture'));
                         $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
+                        $prdSpecObj->setSiopFullCode($this->getData('code'));
                         $prdSpecObj->setPublished(1);
                         $prdSpecObj->save();
                         $this->productModel->setSiop($this->siop, $prdSpecObj);
@@ -270,7 +281,7 @@ class Product
         return $flag;
     }
 
-    /* Skeleton */
+    /* Skeleton / 9 digit */
     private function createCommomSpecification($parentObj)
     {
         $oldMaterial = $this->getData('oldMaterial');
@@ -304,6 +315,7 @@ class Product
                         $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
                         $prdSpecObj->setManufacter($this->getData('manufacture'));
                         $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
+                        $prdSpecObj->setSiopFullCode($this->getData('code'));
                         $prdSpecObj->setPublished(1);
                         $prdSpecObj->save();
                         $this->productModel->setSiop($this->siop, $prdSpecObj);

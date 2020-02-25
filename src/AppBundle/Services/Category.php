@@ -24,7 +24,7 @@ class Category
     private $logFileName;
     private $monitoringItem;
     private $totalSteps;
-    private $currentStep;
+    public $currentStep;
     private $currentLevel;
     private $errors;
     private $reader;
