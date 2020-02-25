@@ -65,3 +65,6 @@ nbproject
 # Process manager log
 siop-import-debug-log
 siop-import-error-log
+
+# Ignore bundle
+/src/SapBwBundle/*
