@@ -30,6 +30,7 @@ class Category
     private $reader;
     private $level;
     private $cek; // Current Error Key
+    public $rowStatus;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -81,6 +82,7 @@ class Category
                 Import::setCell(self::FILE_LAST_COL . '1', 'Status');
                 continue;
             }
+            $this->currentStep = $rowCnt + 1;
             $flag = true;
             $this->reader = array_combine($sheetColumns, $reader);
             /* Validate each row's column value */
@@ -90,31 +92,34 @@ class Category
                 $success = false;
                 $flag = false;
                 $this->monitoringItem->getLogger()->error($result['message']);
-            }
-
-            $this->currentStep = $rowCnt + 1;
-            $len = strlen($this->reader['code']);
-            $levelInfo = $this->instance->getLevels($this->reader['code'], $this->reader['description']);
-            $this->monitoringItem->setMessage(json_encode($levelInfo))->save();
-            // p_r($levelInfo);die;
-            if ($levelInfo['status']) {
-                if (!$this->createCategory($levelInfo['levels'])) {
-                    $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
+                $this->rowStatus[$this->currentStep] .= $result['message'];
+            } else {
+                $len = strlen($this->reader['code']);
+                $levelInfo = $this->instance->getLevels($this->reader['code'], $this->reader['description']);
+                $this->monitoringItem->setMessage(json_encode($levelInfo))->save();
+                // p_r($levelInfo);die;
+                if ($levelInfo['status']) {
+                    if (!$this->createCategory($levelInfo['levels'])) {
+                        $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
+                        $flag = false;
+                        $success = false;
+                    }
+                } else {
+                    /* Validation Error */
+                    // p_r($levelInfo['message']);
+                    $this->monitoringItem->getLogger()->error($levelInfo['message']);
                     $flag = false;
                     $success = false;
                 }
-            } else {
-                /* Validation Error */
-                // p_r($levelInfo['message']);
-                $this->monitoringItem->getLogger()->error($levelInfo['message']);
-                $flag = false;
-                $success = false;
             }
+
             if (!$flag) {
                 $failedCnt++;
-                Import::setCell(self::FILE_LAST_COL . $this->currentStep, 'Failed');
+                $this->rowStatus[$this->currentStep] .= 'Status: Failed';
+                Import::setCell(self::FILE_LAST_COL . $this->currentStep, $this->rowStatus[$this->currentStep]);
             } else {
-                Import::setCell(self::FILE_LAST_COL . $this->currentStep, 'Success');
+                $this->rowStatus[$this->currentStep] .= 'Status Success';
+                Import::setCell(self::FILE_LAST_COL . $this->currentStep, $this->rowStatus[$this->currentStep]);
             }
             /* if ($rowCnt > 5) {
                 break;
@@ -150,7 +155,8 @@ class Category
     {
         foreach ($levelInfo as $info) {
             $obj = $this->getObjectByFullCode($info['levelFullCode'], $info['bu']);
-            if(!empty($obj) && $obj->getId()) {
+            if (!empty($obj) && $obj->getId()) {
+                $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
                 if ($this->updateCategory($info)) {
                     return true;
                 }
@@ -158,16 +164,18 @@ class Category
                 $parentObj = $this->getObjectByFullCode($info['parentFullCode'], $info['bu']);
                 if (!empty($parentObj)) {
                     /* Create or Update Object */
+                    $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
                     if ($this->updateCategory($info, $parentObj)) {
                         return true;
                     }
                     return false;
                 } else {
+                    $this->rowStatus[$this->currentStep] .= 'Parent missing at level ' . $info['level'] . ' Code: ' . $info['code'] . ' Parent Code: ' . $info['parentCode'] . '. ';
                     $key = key($levelInfo);
                     unset($levelInfo[$key]);
                     $this->createCategory($levelInfo);
                 }
-            } 
+            }
             return $this->updateCategory($info);
         }
     }
@@ -203,7 +211,7 @@ class Category
         $catObj->setCode($levelInfo['code']);
         $catObj->setFullCode($levelInfo['levelFullCode']);
 
-        
+
         if ($levelInfo['level'] == 2) {
             $catObj->setParentId($levelInfo['parentId']);
         } else {
