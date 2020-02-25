@@ -1,0 +1,3 @@
+siop_homepage:
+    path:     /siop
+    defaults: { _controller: SiopBundle:Default:index }
