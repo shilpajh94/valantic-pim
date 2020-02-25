@@ -5,6 +5,6 @@ return [
         "ADAuthBundle\\ADAuthBundle" => TRUE,
         "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
-        "SiopBundle\\SiopBundle" => TRUE
+        "SiopBundle\\SiopBundle" => FALSE
     ]
 ];

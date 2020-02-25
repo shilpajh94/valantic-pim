@@ -2,15 +2,14 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Controller\LogController as Logger;
+use ImportBundle\Controller\LogController as Logger;
 use League\Csv\Reader;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use AppBundle\Services\Import;
-use AppBundle\Services\Lookup;
+use ImportBundle\Services\Lookup;
 use Elements\Bundle\ProcessManagerBundle\ExecutionTraitClass;
 use Symfony\Component\Console\Input\InputOption;
 use Throwable;
