@@ -118,4 +118,26 @@ class Util {
         }
         return false;
     } 
+
+    /**
+     * This function is used for getting folder id.
+     *
+     * @param array
+     * @return N\A
+     * @author Mahesh Lakher
+     * @throws \HttpException
+     */
+    public static function getFolderId($fullPath, $folderName, $parentObj = ''){
+                
+        $folderObj = \Pimcore\Model\DataObject::getByPath('/'.$fullPath);        
+        if($folderObj) {
+            return $folderObj->getId();
+        } else {
+            $folderObj = new \Pimcore\Model\DataObject\Folder();
+            $folderObj->setParentId( ($parentObj) ? $parentObj : 1 );
+            $folderObj->setKey( $folderName );
+            $folderObj->save();
+            return $folderObj->getId();
+        }
+    }   
 }
