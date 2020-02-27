@@ -51,8 +51,12 @@ class ObjectBricks implements SelectOptionsProviderInterface
         $list = new DataObject\Objectbrick\Definition\Listing();
         $list = $list->load();
 //
+        $array = [];
         foreach ($list as $object) {
-            $result[] = array('key' => $object->getKey(), 'value' => $object->getKey());
+            if (!empty($object->getGroup()) && !in_array($object->getGroup(), $array)) {
+                $result[] = array('key' => $object->getGroup(), 'value' => $object->getGroup());
+                $array[] = $object->getGroup();
+            }
         }
 
         return $result;

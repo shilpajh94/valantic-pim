@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Website;
+namespace AppBundle\OptionProvider;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +11,7 @@ namespace AppBundle\Website;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 
-class OptionsProvider implements SelectOptionsProviderInterface {
+class GenericOptionsProvider implements SelectOptionsProviderInterface {
 
     /**
      * @param $context array
@@ -19,8 +19,6 @@ class OptionsProvider implements SelectOptionsProviderInterface {
      * @return array
      */
     public function getOptions($context, $fieldDefinition) {
-
-
         $allAvailablelArray = array();
         $displayFieldData = $fieldDefinition->getOptionsProviderData();
         if ($displayFieldData) {

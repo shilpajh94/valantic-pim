@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-05T11:08:02+01:00
+* Generated at: 2020-02-25T10:23:51+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,12 +19,12 @@ Fields Summary:
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'id' => '3',
    'name' => 'Brand',
-   'description' => NULL,
-   'creationDate' => NULL,
-   'modificationDate' => 1580897282,
-   'userOwner' => NULL,
+   'description' => '',
+   'creationDate' => 0,
+   'modificationDate' => 1582622631,
+   'userOwner' => 0,
    'userModification' => 2,
-   'parentClass' => NULL,
+   'parentClass' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -128,7 +128,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
@@ -240,15 +240,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'locked' => false,
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f516.svg',
-   'previewUrl' => NULL,
+   'previewUrl' => '',
    'group' => 'Product',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => NULL,
+   'linkGeneratorReference' => '',
    'propertyVisibility' => 
   array (
     'grid' => 
     array (
       'id' => true,
+      'key' => false,
       'path' => true,
       'published' => true,
       'modificationDate' => true,
@@ -257,6 +258,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     'search' => 
     array (
       'id' => true,
+      'key' => false,
       'path' => true,
       'published' => true,
       'modificationDate' => true,

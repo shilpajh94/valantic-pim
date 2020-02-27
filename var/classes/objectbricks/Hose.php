@@ -324,7 +324,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'list',
-                         'optionsProviderClass' => 'AppBundle\\Website\\OptionsProvider',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => 'Brand|Name',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',

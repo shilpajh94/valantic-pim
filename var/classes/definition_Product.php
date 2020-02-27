@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-19T12:20:04+01:00
+* Generated at: 2020-02-27T11:05:44+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: 192.168.9.188
 
 
 Fields Summary: 
@@ -104,7 +104,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1582111204,
+   'modificationDate' => 1582797944,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3532,6 +3532,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   2 => 'PTG',
                   3 => 'Synchronous',
                   4 => 'Hose14',
+                  5 => 'Accessories',
+                  6 => 'INHFittingsVariant',
+                  7 => 'HydFittingsVariant',
                 ),
                  'maxItems' => '',
                  'border' => false,
