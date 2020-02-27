@@ -78,8 +78,7 @@ class SalesMaterial
         $distributionChannelFolderId = $this->util->getFolderId(MASTER_LIST."/".DISTRIBUTION_CHANNEL,DISTRIBUTION_CHANNEL,$masterListId);
         $salesMaterialMasterFolderId = $this->util->getFolderId(MATERIALMASTER."/".SALESMATERIALMASTER,SALESMATERIALMASTER, $materialMasterId);
         $plantMaterialMasterFolderId = $this->util->getFolderId(MATERIALMASTER."/".PLANTMATERIALMASTER,PLANTMATERIALMASTER, $materialMasterId);
-
-
+             
         $allSuccess = true;
         if(count($excelDataNewArray))
         {
@@ -103,8 +102,7 @@ class SalesMaterial
                 ->setDefaultProcessMessage("ROW - '".$this->currentStep."', Material: '".$material."', Sales Org: '".$salesOrg."', Distribution Channel: '".$distributionChannel)
                 ->save();
                 
-                $errorsData = array();
-                
+                $errorsData = array();                
                 if(empty(trim($material)))
                     $errorsData[] = 'Material should not be blank.';
 
@@ -158,24 +156,21 @@ class SalesMaterial
         );
         $movedAssetObj = $this->util->moveFile($moveParam);
 
+        $countMsg = "\nTotal Records:".$totalRow.", ";
+        $countMsg .= "\nSuccess Records:".$this->successCount.", ";
+        $countMsg .= "\nFailed Records:".$this->failedCount.", ";
+        $countMsg .= "\nCreated Records:".$this->createdCount.", ";
+        $countMsg .= "\nUpdated Records:".$this->updatedCount.", ";
+
         if ($allSuccess) {
             $applicationLogMessage = "Sales Material Master Imported successfully.";
-            $applicationLogMessage .= "\nTotal Records : ".$totalRow;
-            $applicationLogMessage .= "\nSuccess Records : ".$this->successCount;
-            $applicationLogMessage .= "\nFailed Records : ".$this->failedCount;
-            $applicationLogMessage .= "\nCreated Records : ".$this->createdCount;
-            $applicationLogMessage .= "\nUpdated Records : ".$this->updatedCount;
-
+            $applicationLogMessage .= $countMsg;
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);
 
         } else {
 
             $applicationLogMessage = "Sales material command failed to import ".$this->failedCount." Record(s) out of $totalRow Record(s)";
-            $applicationLogMessage .= "\nTotal Records : ".$totalRow;
-            $applicationLogMessage .= "\nSuccess Records : ".$this->successCount;
-            $applicationLogMessage .= "\nFailed Records : ".$this->failedCount;
-            $applicationLogMessage .= "\nCreated Records : ".$this->createdCount;
-            $applicationLogMessage .= "\nUpdated Records : ".$this->updatedCount;
+            $applicationLogMessage .= $countMsg;
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($applicationLogMessage);
 
         }
@@ -196,10 +191,7 @@ class SalesMaterial
         $salesOrg = $this->getFieldValue($rowvalue,'Sales Org', '');
         $distributionChannel = $this->getFieldValue($rowvalue,'Distribution Channel', '');
         $material = $this->getFieldValue($rowvalue,'Material', '');
-
-        $salesMaterialKey = $material."-".$salesOrg."-".$distributionChannel;
-
-        
+        $salesMaterialKey = $material."-".$salesOrg."-".$distributionChannel;  
         
         $errorData = array();
 
@@ -284,6 +276,7 @@ class SalesMaterial
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
+            $objectPlant->setPublished(TRUE);   
             $objectPlant->save();   
         }
         return $objectPlant;
@@ -300,7 +293,8 @@ class SalesMaterial
             $object->setCode($distributionChannelKey);
             $object->setName($distributionChannelDesc);
             $object->setParentId($distributionChannelFolderId);
-            $object->save();   
+            $object->setPublished(TRUE);   
+            $object->save(); 
         }
         return $object;
 
@@ -316,6 +310,7 @@ class SalesMaterial
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
             $object->setParentId($salesOrganizationsFolderId);
+	    $object->setPublished(TRUE); 
             $object->save();   
         }
         return $object;
@@ -323,12 +318,18 @@ class SalesMaterial
     }
 
     public function getFieldValue($rowvalue, $string, $checkNumber){
-        $index = array_search($string, $this->fileColumns);
-        
-        $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
-        if($string == 'Standard Pack Quantity')
+        if(!empty($string))
         {
-            $value = new DataObject\Data\QuantityValue($value, '');
+            $index = array_search($string, $this->fileColumns);
+            $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
+            if($checkNumber == 'UNIT')
+            {
+                $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
+                $value = (!is_null($unit)) ? $unit->getId() : '';
+            }
+        }
+        else{
+            $value = ($checkNumber == 'NUMBER') ? 0 : '';
         }
         return $value;
     }

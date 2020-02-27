@@ -76,7 +76,7 @@ class PlantMaterial
         $plantFolderId = $this->util->getFolderId(MASTER_LIST."/".PLANTS,PLANTS, $masterListId);
         $countryFolderId = $this->util->getFolderId(MASTER_LIST."/".COUNTRY,COUNTRY,$masterListId);
         $plantMaterialMasterFolderId = $this->util->getFolderId(MATERIALMASTER."/".PLANTMATERIALMASTER,PLANTMATERIALMASTER, $materialMasterId);
-
+             
         $allSuccess = true;
         if(count($excelDataNewArray))
         {
@@ -148,24 +148,21 @@ class PlantMaterial
         );
         $movedAssetObj = $this->util->moveFile($moveParam);
 
+        $countMsg = "\nTotal Records:".$totalRow.", ";
+        $countMsg .= "\nSuccess Records:".$this->successCount.", ";
+        $countMsg .= "\nFailed Records:".$this->failedCount.", ";
+        $countMsg .= "\nCreated Records:".$this->createdCount.", ";
+        $countMsg .= "\nUpdated Records:".$this->updatedCount.", ";
+
         if ($allSuccess) {
             $applicationLogMessage = "Plant Material Master Imported successfully.";
-            $applicationLogMessage .= "\nTotal Records : ".$totalRow;
-            $applicationLogMessage .= "\nSuccess Records : ".$this->successCount;
-            $applicationLogMessage .= "\nFailed Records : ".$this->failedCount;
-            $applicationLogMessage .= "\nCreated Records : ".$this->createdCount;
-            $applicationLogMessage .= "\nUpdated Records : ".$this->updatedCount;
-
+            $applicationLogMessage .= $countMsg;
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);
 
         } else {
 
             $applicationLogMessage = "Plant material command failed to import ".$this->failedCount." Record(s) out of $totalRow Record(s)";
-            $applicationLogMessage .= "\nTotal Records : ".$totalRow;
-            $applicationLogMessage .= "\nSuccess Records : ".$this->successCount;
-            $applicationLogMessage .= "\nFailed Records : ".$this->failedCount;
-            $applicationLogMessage .= "\nCreated Records : ".$this->createdCount;
-            $applicationLogMessage .= "\nUpdated Records : ".$this->updatedCount;
+            $applicationLogMessage .= $countMsg;
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($applicationLogMessage);
 
         }
@@ -189,7 +186,6 @@ class PlantMaterial
 
         try{        
             
-            $material = $this->getFieldValue($rowvalue,'Material', '');
             $materialObj = $this->getMaterialObject($material);
             if($materialObj)
             {
@@ -206,7 +202,7 @@ class PlantMaterial
                 else{
                     $this->updatedCount++;
                 }
-            
+                
                 $countryName = $this->getFieldValue($rowvalue,'Country of Origin – Code', '');
                 $plantObj = $this->getPlantObject($plantName, $plantFolderId);
                 $countryObj = $this->getCountryObject($countryName, $countryFolderId);
@@ -217,7 +213,12 @@ class PlantMaterial
                 $objectPlantMaster->setCommodityCode($this->getFieldValue($rowvalue,'Commodity Code',''));
                 $objectPlantMaster->setMinOrderQuantity($this->getFieldValue($rowvalue,'Min. Order Quantity','NUMBER'));
                 $objectPlantMaster->setOrderingQuantityIcrements($this->getFieldValue($rowvalue,'Ordering Quantity Increments', 'NUMBER'));
-                $objectPlantMaster->setStandardPackQuantity($this->getFieldValue($rowvalue,'Standard Pack Quantity','NUMBER'));
+
+                $quantityUnitId = $this->getFieldValue($rowvalue,'Standard Pack Quantity - UOM','UNIT');
+                $quantityValue = $this->getFieldValue($rowvalue,'Standard Pack Quantity','NUMBER');
+                $standardPackQuantity = new DataObject\Data\QuantityValue($quantityValue, $quantityUnitId);
+
+                $objectPlantMaster->setStandardPackQuantity($standardPackQuantity);
                 $objectPlantMaster->setOutsidePurchaseIdentifier($this->getFieldValue($rowvalue,'', ''));
                 $objectPlantMaster->setPlantProfitCenter($this->getFieldValue($rowvalue,'Profit Center', ''));
                 $objectPlantMaster->setMRPController($this->getFieldValue($rowvalue,'MRP Controller', ''));
@@ -225,7 +226,7 @@ class PlantMaterial
                 $objectPlantMaster->setSafetyStock($this->getFieldValue($rowvalue,'Safety Stock', 'NUMBER'));
                 $objectPlantMaster->setStockIndicator($this->getFieldValue($rowvalue,'Stock Indicator', ''));
                 $objectPlantMaster->setTariffCodes('');
-                // $objectPlantMaster->setPublished(TRUE);                   
+                $objectPlantMaster->setPublished(TRUE);                   
                 $objectPlantMaster->save();    
 
                 if(empty($objectPlantMaster)) 
@@ -270,6 +271,7 @@ class PlantMaterial
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
+            $objectPlant->setPublished(TRUE);   
             $objectPlant->save();   
         }
         return $objectPlant;
@@ -286,6 +288,7 @@ class PlantMaterial
             $objectCountry->setCode($countryKey);
             $objectCountry->setName($countryKey);
             $objectCountry->setParentId($countryFolderId);
+            $objectCountry->setPublished(TRUE);   
             $objectCountry->save();   
         }
         return $objectCountry;
@@ -293,12 +296,18 @@ class PlantMaterial
     }
 
     public function getFieldValue($rowvalue, $string, $checkNumber){
-        $index = array_search($string, $this->fileColumns);
-        
-        $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
-        if($string == 'Standard Pack Quantity')
+        if(!empty($string))
         {
-            $value = new DataObject\Data\QuantityValue($value, '');
+            $index = array_search($string, $this->fileColumns);
+            $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
+            if($checkNumber == 'UNIT')
+            {
+                $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
+                $value = (!is_null($unit)) ? $unit->getId() : '';
+            }
+        }
+        else{
+            $value = ($checkNumber == 'NUMBER') ? 0 : '';
         }
         return $value;
     }
