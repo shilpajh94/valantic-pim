@@ -37,3 +37,36 @@ services:
         resource: '../../Command/*'
         tags: ['console.command']
         
+    # Services
+    # this service will be common throughout the project
+    app.common_helper:
+        class: AppBundle\Helper\Common
+        public: true
+
+    # this service will hook the rest services defined in commands.yml
+    import.lookup_service:
+        class: ImportBundle\Services\Lookup
+        public: true
+
+    # this service contain the logic to import siop record
+    import.category_service:
+        class: ImportBundle\Services\Category\Category
+        public: true
+
+    # this service will validate each single row which has to be import and have some 
+    # logical code. eg: get list of level
+    import.category_validator_service:
+        class: ImportBundle\Services\Category\Validator\Category
+        public: true
+
+    # Pim catgory(SIOP) class
+    pim.category_service:
+        class: Pimcore\Model\DataObject\ProductCategory
+        public: true
+
+    # Pim category listing class
+    pim.category_listing_service:
+        class: Pimcore\Model\DataObject\ProductCategory\Listing
+        public: true
+
+    

@@ -14,25 +14,23 @@ class Lookup
         which will load the object and return it back to its receiver        
     */
     public $name;
-    public $title;
-    public $type;
     public $fileType;
     public $description;
-    public $paramRequired;
-    public $params;
-    public $feederClass;
-    public $validatorClass;
-    public $mappedClass;
-    public $defaultSheet;
+    public $feederService;
+    public $validatorService;
+    public $mappedService;
+    public $listingService;
     public $filePath;
     private $datetime;
     public $logFileName;
     public $archiveDir;
     public $failedDir;
     public $sysFilePath;
+    private $common;
     public function __construct()
     {
         $this->datetime = date('Ymd his');
+        $this->common = \Pimcore::getContainer()->get('app.common_helper');
     }
     public function execDataFeeder($commands = array())
     {
@@ -49,16 +47,17 @@ class Lookup
         try {
             if ($this->validateAllowedFileType()) {
                 /* Get actual file path from PIM */
-                $obj = \Pimcore\Model\Asset::getByPath($this->filePath);                
+                $obj = \Pimcore\Model\Asset::getByPath($this->filePath);
                 $this->sysFilePath = $obj->getFileSystemPath();
-                $feederObj = new $this->feederClass;
+                $feederObj = $this->common->getInstance($this->feederService);
                 $params = array(
                     'filePath'          =>  $this->sysFilePath,
                     'inboxFilePath'     =>  $this->filePath,
                     'archiveDir'        =>  $this->archiveDir,
                     'failedDir'         =>  $this->failedDir,
-                    'validatorClass'    =>  $this->validatorClass,
-                    'mappedClass'       =>  $this->mappedClass,
+                    'validatorService'  =>  $this->validatorService,
+                    'mappedService'     =>  $this->mappedService,
+                    'listingService'    =>  $this->listingService,
                     'logFileName'       =>  $this->logFileName,
                     'name'              =>  $this->name
                 );
@@ -75,11 +74,12 @@ class Lookup
     the properties of the current class */
     public function getCommandConfig($cmd)
     {
-        $commands = (array) json_decode(file_get_contents(__DIR__ . "/config/commands.json"));
+        $this->common->loadConfig();
+        $commands = $this->common->getParameter($cmd);
         try {
-            if (array_key_exists($cmd, $commands)) {
+            if (!empty($commands) && $commands['name']==$cmd) {
                 /* Updating properties of the current class */
-                foreach ($commands[$cmd] as $k => $v) {
+                foreach ($commands as $k => $v) {
                     $this->$k = $v;
                 }
             } else {
@@ -111,7 +111,9 @@ class Lookup
         if (!empty($commands)) {
             foreach ($commands as $k => $v) {
                 if (!empty($v)) {
-                    $this->$k = $v;
+                    if (property_exists($this, $k)) {
+                        $this->$k = $v;
+                    }
                 }
             }
         }
@@ -120,12 +122,13 @@ class Lookup
 
     private function setLogFileName($logFileName = "")
     {
-        $className = explode("\\", $this->mappedClass);
+        /* $className = explode("\\", $this->mappedService);
         $className = end($className);
         if (!empty($className)) {
             $this->logFileName = $className . $this->datetime;
         } else {
             $this->logFileName = $logFileName . $this->datetime;
-        }
+        } */
+        $this->logFileName = $logFileName . $this->datetime;
     }
 }
