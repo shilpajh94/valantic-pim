@@ -45,5 +45,20 @@
         "filePath":"/Logs/MaterialMaster/PlantMaterialMaster/Inbox/MaterialPlant_MARC.csv",
         "archiveDir":"/Logs/MaterialMaster/PlantMaterialMaster/Archive",
         "failedDir":"/Logs/MaterialMaster/PlantMaterialMaster/Failed"
+    },
+    "salesMaterial": {
+        "name":"salesMaterial",
+        "title":"Sales Material",
+        "type":"Importer",
+        "fileType":["csv","xlsx"],
+        "description":"This command will import 'Sales Material Master'",
+        "paramRequired": 0,
+        "params":["filePath"], 
+        "feederClass":"ImportBundle\\Services\\SalesMaterial\\SalesMaterial",
+        "mappedClass":"Pimcore\\Model\\DataObject\\SalesMaterialMaster",
+        "defaultSheet":"",
+        "filePath":"/Logs/MaterialMaster/SalesMaterialMaster/Inbox/MaterialSales_MVKE.csv",
+        "archiveDir":"/Logs/MaterialMaster/SalesMaterialMaster/Archive",
+        "failedDir":"/Logs/MaterialMaster/SalesMaterialMaster/Failed"
     }
 }
