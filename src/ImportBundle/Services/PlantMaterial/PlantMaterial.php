@@ -297,12 +297,18 @@ class PlantMaterial
     }
 
     public function getFieldValue($rowvalue, $string, $checkNumber){
-        $index = array_search($string, $this->fileColumns);
-        $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
-        if($checkNumber == 'UNIT')
+        if(!empty($string))
         {
-            $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
-            $value = (!is_null($unit)) ? $unit->getId() : '';
+            $index = array_search($string, $this->fileColumns);
+            $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
+            if($checkNumber == 'UNIT')
+            {
+                $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
+                $value = (!is_null($unit)) ? $unit->getId() : '';
+            }
+        }
+        else{
+            $value = ($checkNumber == 'NUMBER') ? 0 : '';
         }
         return $value;
     }
