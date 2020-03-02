@@ -1,17 +1,14 @@
 <?php
 namespace ImportBundle\Services\SalesMaterial;
 
-
 use Exception;
 use Pimcore\Model\DataObject;
-use Pimcore\Log\FileObject;
 use Throwable;
 use ImportBundle\Controller\LogController as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Helper\Util;
 use ImportBundle\Services\Import;
-
-
+use ImportBundle\Services\ImportConstants;
 
 class SalesMaterial
 {
@@ -35,12 +32,12 @@ class SalesMaterial
     public $rowStatus;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SALES MATERIAL MASTER';
-    const FILE_LAST_COL = 'O';
     private $failedCount = 0;
     private $successCount = 0;
     private $createdCount = 0;
     private $updatedCount = 0;
     private $fileColumns = array();
+    private $approvedSalesOrg = array();
 
     public function __construct()
     {
@@ -64,6 +61,11 @@ class SalesMaterial
     {
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
+
+        $highestDataColumnIndex =  \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($worksheetHighestColumnRow['highestDataColumn']);
+        $nextColumnIndex = $highestDataColumnIndex + 1;
+        $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
+
         $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
         $activeSheet = $spreadsheet->getActiveSheet()->toArray();
         $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
@@ -71,14 +73,13 @@ class SalesMaterial
         $this->monitoringItem->setMessage('File Information')->save();
         $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
         
-        $masterListId = $this->util->getFolderId(MASTER_LIST,MASTER_LIST);
-        $materialMasterId = $this->util->getFolderId(MATERIALMASTER,MATERIALMASTER);
-        $plantFolderId = $this->util->getFolderId(MASTER_LIST."/".PLANTS,PLANTS, $masterListId);
-        $salesOrganizationsFolderId = $this->util->getFolderId(MASTER_LIST."/".SALES_ORGANIZATIONS,SALES_ORGANIZATIONS,$masterListId);
-        $distributionChannelFolderId = $this->util->getFolderId(MASTER_LIST."/".DISTRIBUTION_CHANNEL,DISTRIBUTION_CHANNEL,$masterListId);
-        $salesMaterialMasterFolderId = $this->util->getFolderId(MATERIALMASTER."/".SALESMATERIALMASTER,SALESMATERIALMASTER, $materialMasterId);
-        $plantMaterialMasterFolderId = $this->util->getFolderId(MATERIALMASTER."/".PLANTMATERIALMASTER,PLANTMATERIALMASTER, $materialMasterId);
-             
+        $masterListId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_FOLDER)->getId();
+        $materialMasterId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_FOLDER)->getId();
+        $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
+        $salesOrganizationsFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER)->getId();
+        $distributionChannelFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
+        $salesMaterialMasterFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER)->getId();
+       
         $allSuccess = true;
         if(count($excelDataNewArray))
         {
@@ -89,17 +90,18 @@ class SalesMaterial
             $this->totalSteps = $totalRow;
             $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
-            Import::setCell(self::FILE_LAST_COL . '1', 'Status');
+            Import::setCell($nextColumn . '1', 'Status');
             foreach ($excelDataNewArray as $rowCount => $rowvalue) {
                 
                 $salesOrg = $this->getFieldValue($rowvalue,'Sales Org', '');
                 $distributionChannel = $this->getFieldValue($rowvalue,'Distribution Channel', '');
                 $material = $this->getFieldValue($rowvalue,'Material', '');
+                $plantName = $this->getFieldValue($rowvalue,'Plant', '');
                
                 $this->currentStep = $rowCount + 1;
                 $this->monitoringItem->setCurrentWorkload($this->currentStep)
                 ->setTotalWorkload($this->totalSteps)
-                ->setDefaultProcessMessage("ROW - '".$this->currentStep."', Material: '".$material."', Sales Org: '".$salesOrg."', Distribution Channel: '".$distributionChannel)
+                ->setDefaultProcessMessage("Row: '".$this->currentStep."', Material: '".$material."', Sales Org: '".$salesOrg."', Distribution Channel: '".$distributionChannel."', Plant: '".$plantName)
                 ->save();
                 
                 $errorsData = array();                
@@ -108,6 +110,9 @@ class SalesMaterial
 
                 if(empty(trim($salesOrg)))
                     $errorsData[] = 'Sales Org should not be blank.';
+                
+                if(!isset($this->approvedSalesOrg[$salesOrg]))
+                    $errorsData[] = 'Sales Org-'.$salesOrg.' should belong to '. implode(', ',$this->approvedSalesOrg);
 
                 if(empty(trim($distributionChannel)))
                     $errorsData[] = 'Distribution Channel should not be blank.';
@@ -118,29 +123,27 @@ class SalesMaterial
                     $data['plantFolderId'] = $plantFolderId;
                     $data['salesOrganizationsFolderId'] = $salesOrganizationsFolderId;
                     $data['distributionChannelFolderId'] = $distributionChannelFolderId;
-                    $data['plantMaterialMasterFolderId'] = $plantMaterialMasterFolderId;
                     $errorsData = $this->importSalesMaterial($rowvalue, $data);
                 }
 
                 if(isset($errorsData['SUCCESS']))
                 {
                     $this->successCount++;
-                    $errorsString = "SUCCESS : ".$errorsData['SUCCESS'];
+                    $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
                     $this->monitoringItem->setMessage($errorsString)->save();
                 }
                 else if(count($errorsData))
                 {
                     $allSuccess = false;
-                    $errorsString = "Failed : ";
+                    $errorsString = "FAILED: ";
                     $errorsString .= implode(' ', $errorsData);
                     $this->failedCount++;
                     $this->monitoringItem->setMessage($errorsString)->save();
                 }
-
-                Import::setCell(self::FILE_LAST_COL.($rowCount+2),$errorsString);
+                Import::setCell($nextColumn.($rowCount+2),$errorsString);
             }
         }
-
+        
         $this->monitoringItem->setMessage('Importing stop from: ' . $this->filePath)->save();
         $this->monitoringItem->setWorkloadCompleted()->save();
         
@@ -186,7 +189,6 @@ class SalesMaterial
         $plantFolderId = $data['plantFolderId']; 
         $salesOrganizationsFolderId = $data['salesOrganizationsFolderId'];
         $distributionChannelFolderId = $data['distributionChannelFolderId'];
-        $plantMaterialMasterFolderId = $data['plantMaterialMasterFolderId'];
 
         $salesOrg = $this->getFieldValue($rowvalue,'Sales Org', '');
         $distributionChannel = $this->getFieldValue($rowvalue,'Distribution Channel', '');
@@ -200,8 +202,15 @@ class SalesMaterial
             $materialObj = $this->getMaterialObject($material);
             if($materialObj)
             {
-                $objectSalesMaster = DataObject\SalesMaterialMaster::getByPath("/".MATERIALMASTER."/".SALESMATERIALMASTER."/".$salesMaterialKey);
+                $objectSalesMaster = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$salesMaterialKey);
             
+                $plantName = $this->getFieldValue($rowvalue,'Plant', '');
+                $salesOrgDesc = $this->getFieldValue($rowvalue,'Sales Org Desc', '');
+                $distributionChannelDesc = $this->getFieldValue($rowvalue,'Distribution Channel Desc', '');
+                $plantObj = $this->getPlantObject($plantName, $plantFolderId);
+                $salesOrgObj = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
+                $distributionChannelObj = $this->getDistributionChannelObject($distributionChannel, $distributionChannelDesc, $distributionChannelFolderId);
+
                 $createdOrUpdated = 'Updated';
                 if(!$objectSalesMaster){      
                     $createdOrUpdated = 'Created'; 
@@ -213,14 +222,7 @@ class SalesMaterial
                 else{
                     $this->updatedCount++;
                 }
-                
-                $plantName = $this->getFieldValue($rowvalue,'Plant', '');
-                $salesOrgDesc = $this->getFieldValue($rowvalue,'Sales Org Desc', '');
-                $distributionChannelDesc = $this->getFieldValue($rowvalue,'Distribution Channel Desc', '');
-                $plantObj = $this->getPlantObject($plantName, $plantFolderId);
-                $salesOrgObj = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
-                $distributionChannelObj = $this->getDistributionChannelObject($distributionChannel, $distributionChannelDesc, $distributionChannelFolderId);
-
+               
                 $objectSalesMaster->setMaterial($materialObj);
                 $objectSalesMaster->setSalesOrganization($salesOrgObj);
                 $objectSalesMaster->setDistributionChannel($distributionChannelObj);
@@ -230,23 +232,20 @@ class SalesMaterial
                 $objectSalesMaster->setPricePageFlag($this->getFieldValue($rowvalue,'Material Group 2',''));
                 $objectSalesMaster->setSalesStatus('');
                 $objectSalesMaster->setPrivateBrand('');
-                // $objectSalesMaster->setPublished(TRUE);                   
+                $objectSalesMaster->setPublished(TRUE);                   
                 $objectSalesMaster->save(); 
 
-
-                if(empty($objectSalesMaster)) 
-                    $errorData[] = "Sales Material Code - '".$salesMaterialKey."',  Material: '".$material."', Sales Org: '".$salesOrg."', Distribution Channel: '".$distributionChannel."' could not processed ";
+                if(empty($objectSalesMaster))
+                    $errorData[] = "Sales Material Code: ".$salesMaterialKey.",  Material: ".$material.", Sales Org: ".$salesOrg.", Distribution Channel: ".$distributionChannel.", Plant: ".$plantName.", could not processed ";
                 else
-                    $errorData['SUCCESS'] = "Sales Material Code - '".$salesMaterialKey." has been ".$createdOrUpdated.".";
-                   
+                    $errorData['SUCCESS'] = "Sales Material Code: ".$salesMaterialKey." has been ".$createdOrUpdated.".";
             }
             else{
-                $errorData[] = "Material : ".$material. " not found.";
+                $errorData[] = "Material: ".$material. " not found.";
             }
-                
         } 
         catch (\Exception $e) {
-            $errorData[] = "Sales Material Code - '".$plantMaterialKey. " - ".$e->getMessage();
+            $errorData[] = "Sales Material Code: ".$salesMaterialKey. " - ".$e->getMessage();
         }
 
         return $errorData;
@@ -256,11 +255,12 @@ class SalesMaterial
     public function getMaterialObject($MaterialKey){
         
         $objectMaterial = new DataObject\Product\Listing();
-        $objectMaterial->setCondition("o_key LIKE ?", "%".$MaterialKey."%");
+        $objectMaterial->setCondition("articleNumber LIKE ?", "%".$MaterialKey."%");
         $objectMaterial->setLimit(1);
         $objectMaterial->load();
         
         foreach ($objectMaterial as $material) {
+            $this->monitoringItem->setMessage("Material: ".$MaterialKey." found")->save();
             return $material;
         }
 
@@ -269,7 +269,7 @@ class SalesMaterial
 
     public function getPlantObject($plantKey, $plantFolderId){
         
-        $objectPlant = DataObject\Plant::getByPath("/".MASTER_LIST."/".PLANTS."/".$plantKey);
+        $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
         if(!$objectPlant)
         {
             $objectPlant = new DataObject\Plant();
@@ -277,7 +277,11 @@ class SalesMaterial
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
             $objectPlant->setPublished(TRUE);   
-            $objectPlant->save();   
+            $objectPlant->save();  
+            $this->monitoringItem->setMessage("Plant: ".$plantKey." not found in master list, plant created")->save();
+        }
+        else{
+            $this->monitoringItem->setMessage("Plant: ".$plantKey." found in master list")->save();
         }
         return $objectPlant;
 
@@ -285,7 +289,7 @@ class SalesMaterial
 
     public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId){
         
-        $object = DataObject\DistributionChannel::getByPath("/".MASTER_LIST."/".DISTRIBUTION_CHANNEL."/".$distributionChannelKey);
+        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
         if(!$object)
         {
             $object = new DataObject\DistributionChannel();
@@ -295,6 +299,10 @@ class SalesMaterial
             $object->setParentId($distributionChannelFolderId);
             $object->setPublished(TRUE);   
             $object->save(); 
+            $this->monitoringItem->setMessage("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created")->save();
+        }
+        else{
+            $this->monitoringItem->setMessage("Distribution Channel: ".$distributionChannelKey." found in master list")->save();
         }
         return $object;
 
@@ -302,7 +310,7 @@ class SalesMaterial
 
     public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId){
         
-        $object = DataObject\SalesOrganisation::getByPath("/".MASTER_LIST."/".SALES_ORGANIZATIONS."/".$salesOrgKey);
+        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
         if(!$object)
         {
             $object = new DataObject\SalesOrganisation();
@@ -310,8 +318,12 @@ class SalesMaterial
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
             $object->setParentId($salesOrganizationsFolderId);
-	    $object->setPublished(TRUE); 
+	        $object->setPublished(TRUE); 
             $object->save();   
+            $this->monitoringItem->setMessage("Sales Org: ".$salesOrgKey." not found in master list, sales org created")->save();
+        }
+        else{
+            $this->monitoringItem->setMessage("Sales Org: ".$salesOrgKey." found in master list")->save();
         }
         return $object;
 

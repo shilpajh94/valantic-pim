@@ -69,4 +69,23 @@ services:
         class: Pimcore\Model\DataObject\ProductCategory\Listing
         public: true
 
+    # this service contain the logic to import siop record
+    import.sales_material_master_import_service:
+        class: ImportBundle\Services\SalesMaterial\SalesMaterial
+        public: true
+    
+    # this service contain the logic to import siop record
+    pim.sales_material_master_import_service:
+        class: Pimcore\Model\DataObject\SalesMaterialMaster
+        public: true
+
+    # this service contain the logic to import siop record
+    import.plant_material_master_import_service:
+        class: ImportBundle\Services\PlantMaterial\PlantMaterial
+        public: true
+    
+    # this service contain the logic to import siop record
+    pim.plant_material_master_import_service:
+        class: Pimcore\Model\DataObject\PlantMaterialMaster
+        public: true
     

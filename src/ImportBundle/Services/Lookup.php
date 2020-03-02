@@ -27,6 +27,7 @@ class Lookup
     public $failedDir;
     public $sysFilePath;
     private $common;
+    private $approvedSalesOrg;
     public function __construct()
     {
         $this->datetime = date('Ymd his');
@@ -51,6 +52,7 @@ class Lookup
                 $this->sysFilePath = $obj->getFileSystemPath();
                 $feederObj = $this->common->getInstance($this->feederService);
                 $params = array(
+                    'approvedSalesOrg'  =>  $this->approvedSalesOrg,
                     'filePath'          =>  $this->sysFilePath,
                     'inboxFilePath'     =>  $this->filePath,
                     'archiveDir'        =>  $this->archiveDir,

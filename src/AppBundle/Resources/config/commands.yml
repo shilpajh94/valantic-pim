@@ -34,4 +34,22 @@ parameters:
     filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv'
     archiveDir: '/Logs/Master List/SIOP Master List/Archive'
     failedDir: '/Logs/Master List/SIOP Master List/Failed'
-  
+  salesMaterial:
+    name: 'salesMaterial'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Sales Material Master"'
+    feederService: 'import.sales_material_master_import_service'
+    mappedService: 'pim.sales_material_master_import_service'
+    filePath: '/Logs/MaterialMaster/SalesMaterialMaster/Inbox/MaterialSales_MVKE.csv'
+    archiveDir: '/Logs/MaterialMaster/SalesMaterialMaster/Archive'
+    failedDir: '/Logs/MaterialMaster/SalesMaterialMaster/Failed'
+    approvedSalesOrg: {0109: '0109-US', 0310: '0310-Canada', 0252: '0252-Export', 0644: '0644-Mexico'}
+  plantMaterial:
+    name: 'plantMaterial'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Plant Material Master"'
+    feederService: 'import.plant_material_master_import_service'
+    mappedService: 'pim.plant_material_master_import_service'
+    filePath: '/Logs/MaterialMaster/PlantMaterialMaster/Inbox/MaterialPlant_MARC.csv'
+    archiveDir: '/Logs/MaterialMaster/PlantMaterialMaster/Archive'
+    failedDir: '/Logs/MaterialMaster/PlantMaterialMaster/Failed'
