@@ -1,17 +1,14 @@
 <?php
 namespace ImportBundle\Services\PlantMaterial;
 
-
 use Exception;
 use Pimcore\Model\DataObject;
-use Pimcore\Log\FileObject;
 use Throwable;
 use ImportBundle\Controller\LogController as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Helper\Util;
 use ImportBundle\Services\Import;
-
-
+use ImportBundle\Services\ImportConstants;
 
 class PlantMaterial
 {
@@ -35,7 +32,6 @@ class PlantMaterial
     public $rowStatus;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
-    const FILE_LAST_COL = 'P';
     private $failedCount = 0;
     private $successCount = 0;
     private $createdCount = 0;
@@ -64,6 +60,11 @@ class PlantMaterial
     {
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
+
+        $highestDataColumnIndex =  \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($worksheetHighestColumnRow['highestDataColumn']);
+        $nextColumnIndex = $highestDataColumnIndex + 1;
+        $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
+
         $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
         $activeSheet = $spreadsheet->getActiveSheet()->toArray();
         $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
@@ -71,12 +72,12 @@ class PlantMaterial
         $this->monitoringItem->setMessage('File Information')->save();
         $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
         
-        $masterListId = $this->util->getFolderId(MASTER_LIST,MASTER_LIST);
-        $materialMasterId = $this->util->getFolderId(MATERIALMASTER,MATERIALMASTER);
-        $plantFolderId = $this->util->getFolderId(MASTER_LIST."/".PLANTS,PLANTS, $masterListId);
-        $countryFolderId = $this->util->getFolderId(MASTER_LIST."/".COUNTRY,COUNTRY,$masterListId);
-        $plantMaterialMasterFolderId = $this->util->getFolderId(MATERIALMASTER."/".PLANTMATERIALMASTER,PLANTMATERIALMASTER, $materialMasterId);
-             
+	    $masterListId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_FOLDER)->getId();
+        $materialMasterId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_FOLDER)->getId();
+        $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
+        $countryFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
+        $plantMaterialMasterFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER)->getId();
+        
         $allSuccess = true;
         if(count($excelDataNewArray))
         {
@@ -87,7 +88,7 @@ class PlantMaterial
             $this->totalSteps = $totalRow;
             $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
-            Import::setCell(self::FILE_LAST_COL . '1', 'Status');
+            Import::setCell($nextColumn . '1', 'Status');
             foreach ($excelDataNewArray as $rowCount => $rowvalue) {
                 
                 $plantName = $this->getFieldValue($rowvalue,'Plant', '');
@@ -96,7 +97,7 @@ class PlantMaterial
                 $this->currentStep = $rowCount + 1;
                 $this->monitoringItem->setCurrentWorkload($this->currentStep)
                 ->setTotalWorkload($this->totalSteps)
-                ->setDefaultProcessMessage("ROW - '".$this->currentStep."', Plant: '".$plantName."', Material: '".$material."'")
+                ->setDefaultProcessMessage("Row: '".$this->currentStep."', Plant: '".$plantName."', Material: '".$material."'")
                 ->save();
                 
                 $errorsData = array();
@@ -117,19 +118,18 @@ class PlantMaterial
                 if(isset($errorsData['SUCCESS']))
                 {
                     $this->successCount++;
-                    $errorsString = "SUCCESS : ".$errorsData['SUCCESS'];
+                    $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
                     $this->monitoringItem->setMessage($errorsString)->save();
                 }
                 else if(count($errorsData))
                 {
                     $allSuccess = false;
-                    $errorsString = "Failed : ";
+                    $errorsString = "FAILED: ";
                     $errorsString .= implode(' ', $errorsData);
                     $this->failedCount++;
                     $this->monitoringItem->setMessage($errorsString)->save();
                 }
-
-                Import::setCell(self::FILE_LAST_COL.($rowCount+2),$errorsString);
+                Import::setCell($nextColumn.($rowCount+2),$errorsString);
             }
         }
 
@@ -186,12 +186,15 @@ class PlantMaterial
 
         try{        
             
-            $material = $this->getFieldValue($rowvalue,'Material', '');
             $materialObj = $this->getMaterialObject($material);
             if($materialObj)
             {
-                $objectPlantMaster = DataObject\PlantMaterialMaster::getByPath("/".MATERIALMASTER."/".PLANTMATERIALMASTER."/".$plantMaterialKey);
+                $objectPlantMaster = DataObject\PlantMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$plantMaterialKey);
             
+		        $countryName = $this->getFieldValue($rowvalue,'Country of Origin – Code', '');
+                $plantObj = $this->getPlantObject($plantName, $plantFolderId);
+                $countryObj = $this->getCountryObject($countryName, $countryFolderId);
+
                 $createdOrUpdated = 'Updated';
                 if(!$objectPlantMaster){      
                     $createdOrUpdated = 'Created'; 
@@ -204,9 +207,6 @@ class PlantMaterial
                     $this->updatedCount++;
                 }
                 
-                $countryName = $this->getFieldValue($rowvalue,'Country of Origin – Code', '');
-                $plantObj = $this->getPlantObject($plantName, $plantFolderId);
-                $countryObj = $this->getCountryObject($countryName, $countryFolderId);
                 $objectPlantMaster->setPlant($plantObj);
                 $objectPlantMaster->setMaterial($materialObj);
                 $objectPlantMaster->setCountryOfOrigin($countryObj);
@@ -231,18 +231,17 @@ class PlantMaterial
                 $objectPlantMaster->save();    
 
                 if(empty($objectPlantMaster)) 
-                    $errorData[] = "Plant Material Code - '".$plantMaterialKey."', Plant: '".$plantName."', Material: '".$material."' could not processed ";
+                    $errorData[] = "Plant Material Code: ".$plantMaterialKey.", Plant: ".$plantName.", Material: ".$material." could not processed ";
                 else
-                    $errorData['SUCCESS'] = "Plant Material Code - '".$plantMaterialKey." has been ".$createdOrUpdated.".";
+                    $errorData['SUCCESS'] = "Plant Material Code: ".$plantMaterialKey." has been ".$createdOrUpdated.".";
                    
             }
             else{
-                $errorData[] = "Material : ".$material. " not found.";
+                $errorData[] = "Material: ".$material. " not found.";
             }
-                
         } 
         catch (\Exception $e) {
-            $errorData[] = "Plant Material Code - '".$plantMaterialKey. " - ".$e->getMessage();
+            $errorData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
         }
 
         return $errorData;
@@ -252,11 +251,12 @@ class PlantMaterial
     public function getMaterialObject($MaterialKey){
         
         $objectMaterial = new DataObject\Product\Listing();
-        $objectMaterial->setCondition("o_key LIKE ?", "%".$MaterialKey."%");
+        $objectMaterial->setCondition("articleNumber LIKE ?", "%".$MaterialKey."%");
         $objectMaterial->setLimit(1);
         $objectMaterial->load();
         
         foreach ($objectMaterial as $material) {
+            $this->monitoringItem->setMessage("Material: ".$MaterialKey." found")->save();
             return $material;
         }
 
@@ -265,7 +265,7 @@ class PlantMaterial
 
     public function getPlantObject($plantKey, $plantFolderId){
         
-        $objectPlant = DataObject\Plant::getByPath("/".MASTER_LIST."/".PLANTS."/".$plantKey);
+        $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
         if(!$objectPlant)
         {
             $objectPlant = new DataObject\Plant();
@@ -273,7 +273,11 @@ class PlantMaterial
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
             $objectPlant->setPublished(TRUE);   
-            $objectPlant->save();   
+            $objectPlant->save();  
+            $this->monitoringItem->setMessage("Plant: ".$plantKey." not found in master list, plant created")->save();
+        }
+        else{
+            $this->monitoringItem->setMessage("Plant: ".$plantKey." found in master list")->save();
         }
         return $objectPlant;
 
@@ -281,7 +285,7 @@ class PlantMaterial
 
     public function getCountryObject($countryKey, $countryFolderId){
         
-        $objectCountry = DataObject\Country::getByPath("/".MASTER_LIST."/".COUNTRY."/".$countryKey);
+        $objectCountry = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryKey);
         if(!$objectCountry)
         {
             $objectCountry = new DataObject\Country();
@@ -291,6 +295,10 @@ class PlantMaterial
             $objectCountry->setParentId($countryFolderId);
             $objectCountry->setPublished(TRUE);   
             $objectCountry->save();   
+            $this->monitoringItem->setMessage("Country: ".$countryKey." not found in master list, country created")->save(); 
+        }
+        else{
+            $this->monitoringItem->setMessage("Country: ".$countryKey." found in master list")->save();
         }
         return $objectCountry;
 

@@ -18,8 +18,8 @@ class Category
     public $archiveDir;
     public $failedDir;
     public $configuredData; // We will pull the data from configured class for this variable
-    private $mappedClass;
-    private $validatorClass;
+    private $listingService;
+    private $validatorService;
     private $logFileName;
     private $monitoringItem;
     private $totalSteps;
@@ -33,17 +33,24 @@ class Category
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
+    private $common;
     public function __construct()
     {
         $this->util = new Util;
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        $this->common = \Pimcore::getContainer()->get('app.common_helper');
     }
+    /* 
+        Update the defualt properties
+        Validate the sheet header
+        If all ok, will paas spreadsheet object to import function for further processing
+    */
     public function config($param = array())
     {
         try {
             $this->updateDefaults($param);
-            $this->instance = new $this->validatorClass;
+            $this->instance = $this->common->getInstance($this->validatorService);
             $spreadsheet = Import::load($this->filePath);
             $result = $this->instance->validateSpreadSheet($spreadsheet);
             $this->configuredData = $this->instance->getAllProps();
@@ -70,7 +77,6 @@ class Category
         $success = true;
         $this->totalSteps = $totalRow;
         $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
-
         $this->monitoringItem->setMessage('File Information')->save();
         $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
         /* Setting Parent Information in log */
@@ -142,10 +148,7 @@ class Category
         if ($success) {
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
         } else {
-            $fileObject = new FileObject($movedAssetObj->getData());
-            /* \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='".$movedAssetObj->getFileSystemPath()."'>Download Log</a>",[
-                'fileObject'    => $fileObject
-            ]); */
+            $fileObject = new FileObject($movedAssetObj->getData());            
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
         }
     }
@@ -204,9 +207,7 @@ class Category
         /* Updating Object Here */
         $catObj->setBusinessUnit($levelInfo['bu']);
         $catObj->setIndustry('');
-        // p_r($levelInfo['level']);
         $catObj->setLevel($levelInfo['level']);
-        // p_r($levelInfo['code']);
         $catObj->setCode($levelInfo['code']);
         $catObj->setFullCode($levelInfo['levelFullCode']);
 
@@ -241,7 +242,8 @@ class Category
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
-            $obj = new DataObject\ProductCategory\Listing();
+            // $obj = $this->common->getInstance($this->listingService);
+            $obj = new DataObject\ProductCategory\Listing;
             $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);
             $obj->load();

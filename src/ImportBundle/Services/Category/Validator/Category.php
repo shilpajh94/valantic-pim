@@ -24,32 +24,7 @@ class Category
         $this->rowCnt = 0;
         /* Column name and it's position */
         $this->columns = array('code', 'level', 'description', 'status');
-        $this->level = array(
-            1   => array(
-                'codeLength'        =>  2,
-                'fullCodeLength'    =>  2
-            ),
-            2   => array(
-                'codeLength'        =>  4,
-                'fullCodeLength'    =>  6
-            ),
-            3   => array(
-                'codeLength'        =>  4,
-                'fullCodeLength'    =>  10
-            ),
-            4   => array(
-                'codeLength'        =>  3,
-                'fullCodeLength'    =>  13
-            ),
-            5   => array(
-                'codeLength'        =>  3,
-                'fullCodeLength'    =>  16
-            ),
-            6   => array(
-                'codeLength'        =>  2,
-                'fullCodeLength'    =>  18
-            ),
-        );
+        
         $this->root = array(
             'type'      =>  'dataObject',
             'subType'   =>  'folder',
@@ -129,11 +104,18 @@ class Category
         );
     }
 
+    /**
+     * this function will extract fullcode of given level
+     */
     public function extractFullCodeLevelWise($currLevel, $code)
     {
         $levelLength = $this->levelLength[$currLevel];
         return substr($code, 0, $levelLength);
     }
+
+    /**
+     * this function will extract code of given level
+      */
     public function extractCodeLevelWise($level, $code)
     {
         $len = strlen($code);

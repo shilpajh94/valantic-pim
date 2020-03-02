@@ -2,14 +2,11 @@
 
 namespace AppBundle\Command;
 
-use ImportBundle\Controller\LogController as Logger;
-use League\Csv\Reader;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use ImportBundle\Services\Lookup;
 use Elements\Bundle\ProcessManagerBundle\ExecutionTraitClass;
 use Symfony\Component\Console\Input\InputOption;
 use Throwable;
@@ -29,7 +26,7 @@ class ImportCommand extends AbstractCommand
         */
         /* monitoring-item-id: We don't need to paas it explicitly because, plugin do it */
         $this->addOption(
-            'monitoring-item-id',
+            'monitoring-item-idmonitoring-item-id',
             null,
             InputOption::VALUE_REQUIRED,
             'Contains the monitoring item if executed via the Pimcore backend'
@@ -47,7 +44,7 @@ class ImportCommand extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            /* We will options instead of argument */
+            /* We will use options instead of argument */
             $options = $input->getOptions();
 
             if (isset($options['monitoring-item-id']) && !empty($options['monitoring-item-id'])) {
@@ -57,14 +54,11 @@ class ImportCommand extends AbstractCommand
                 'commandType'   =>  $options['commandType'] ?: null,
                 'filePath'      =>  $options['filePath'] ?: null
             );
-            // p_r($options['commandType']);die;
-            Logger::error("cmmd", json_encode($options));
+            
             $commands = $input->getArguments();
 
             array_shift($commands);
-            // p_r($commands);die;
-            $lookupObj = new Lookup;
-            // $lookupObj->execDataFeeder($commands);
+            $lookupObj = \Pimcore::getContainer()->get('import.lookup_service');
             $lookupObj->execDataFeeder($lookupParam);
         } catch (Throwable $t) {
             echo $t->getMessage();
