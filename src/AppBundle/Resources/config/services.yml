@@ -10,9 +10,9 @@ services:
         public: false
         
     # Add listener to manipulate data object while saving it
-    AppBundle\EventListener\ObjectListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
+#    AppBundle\EventListener\ObjectListener:
+#        tags:
+#            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
             
     AppBundle\EventListener\AdminAssetsListener:
         tags:
@@ -43,21 +43,11 @@ services:
         class: AppBundle\Helper\Common
         public: true
 
-    # this service will hook the rest services defined in commands.yml
-    import.lookup_service:
-        class: ImportBundle\Services\Lookup
+    # Global category helper
+    app.category_helper:
+        class: AppBundle\Helper\Category
         public: true
-
-    # this service contain the logic to import siop record
-    import.category_service:
-        class: ImportBundle\Services\Category\Category
-        public: true
-
-    # this service will validate each single row which has to be import and have some 
-    # logical code. eg: get list of level
-    import.category_validator_service:
-        class: ImportBundle\Services\Category\Validator\Category
-        public: true
+      
 
     # Pim catgory(SIOP) class
     pim.category_service:
@@ -69,23 +59,4 @@ services:
         class: Pimcore\Model\DataObject\ProductCategory\Listing
         public: true
 
-    # this service contain the logic to import siop record
-    import.sales_material_master_import_service:
-        class: ImportBundle\Services\SalesMaterial\SalesMaterial
-        public: true
-    
-    # this service contain the logic to import siop record
-    pim.sales_material_master_import_service:
-        class: Pimcore\Model\DataObject\SalesMaterialMaster
-        public: true
-
-    # this service contain the logic to import siop record
-    import.plant_material_master_import_service:
-        class: ImportBundle\Services\PlantMaterial\PlantMaterial
-        public: true
-    
-    # this service contain the logic to import siop record
-    pim.plant_material_master_import_service:
-        class: Pimcore\Model\DataObject\PlantMaterialMaster
-        public: true
     

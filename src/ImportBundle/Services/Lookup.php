@@ -4,6 +4,7 @@ namespace ImportBundle\Services;
 
 use Exception;
 use Throwable;
+use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Controller\LogController as Logger;
 
 class Lookup
@@ -27,11 +28,12 @@ class Lookup
     public $failedDir;
     public $sysFilePath;
     private $common;
-    private $approvedSalesOrg;
+    private $monitoringItem;
     public function __construct()
     {
         $this->datetime = date('Ymd his');
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
     }
     public function execDataFeeder($commands = array())
     {
@@ -47,8 +49,19 @@ class Lookup
     {
         try {
             if ($this->validateAllowedFileType()) {
+
                 /* Get actual file path from PIM */
                 $obj = \Pimcore\Model\Asset::getByPath($this->filePath);
+                if(is_null($obj))
+                {
+                    $message = 'No files to proceed. Please check the directory. '.$this->filePath;
+                    if($this->monitoringItem->id){
+                        $this->monitoringItem->setMessage($message)->setCompleted();
+                    }
+                    echo $message;
+                    die;
+                }
+                
                 $this->sysFilePath = $obj->getFileSystemPath();
                 $feederObj = $this->common->getInstance($this->feederService);
                 $params = array(
@@ -68,8 +81,13 @@ class Lookup
             }
         } catch (Throwable $th) {
             Logger::error($this->logFileName, $th);
-            // echo $th->getMessage();
-            die;
+            $message = $th->getMessage().' Only '.implode(' and ', $this->fileType). 'are allowed.';
+            if($this->monitoringItem->id){
+                $this->monitoringItem->setMessage($message)->setCompleted();
+            }
+            echo $message;
+            die; 
+           
         }
     }
     /* This function will check, does command exist or not, if it exist then it load the configuration command and update
@@ -96,7 +114,7 @@ class Lookup
 
     public function validateAllowedFileType()
     {
-        $ext = end(explode('.', $this->filePath));
+        $ext = strtolower(end(explode('.', $this->filePath)));
         try {
             if (in_array($ext, $this->fileType)) {
                 return true;
@@ -105,6 +123,7 @@ class Lookup
             }
         } catch (\Throwable $th) {
             throw $th;
+            die;
         }
     }
     /* This function will override the default configuration */

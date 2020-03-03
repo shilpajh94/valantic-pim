@@ -24,6 +24,7 @@ parameters:
     archiveDir: '/Logs/Master List/SIOP Master List/Archive'
     failedDir: '/Logs/Master List/SIOP Master List/Failed'
     objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products'
+    columnName: ['code', 'level', 'description']
   product:
     name: 'product'
     fileType: ['csv', 'xlsx']

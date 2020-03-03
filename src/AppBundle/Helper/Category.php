@@ -1,0 +1,138 @@
+<?php
+
+namespace AppBundle\Helper;
+
+use Pimcore\Model\DataObject;
+
+class Category
+{
+    private $common;
+    private $root;
+    private $codeLength;
+    private $validCategories;
+    private $businessUnit;
+    public function __construct()
+    {
+        /* Initiate common helper */
+        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        /* Loading global configuration for category */
+        $this->loadConfig = $this->common->loadConfig('category.yml');
+        $this->root = $this->common->getParameter('root');
+        $this->codeLength = $this->common->getParameter('codeLength');
+        $this->levelLength = $this->common->getParameter('levelLength');
+        $this->validCategories = $this->common->getParameter('validCategories');
+        $this->businessUnit = $this->common->getParameter('businessUnit');
+    }
+
+    public function getLevels($code, $kn = "")
+    {        
+        $buCode = $this->isValidCategoryFormat($code);
+        $bu = $this->businessUnit[$buCode];
+        if (!$this->isValideCodeLength($code)) {
+            return array(
+                'status' => false,
+                'message' => 'code "' . $code . '" length is not valid'
+            );
+        }
+        if (!$buCode) {
+            return array(
+                'status' => false,
+                'message' => 'code "' . $code . '" does not belong to any valid category'
+            );
+        }
+        $len = strlen($code);
+        $level = $this->getLevelByLength($len);
+        $levels = array();
+        for ($i = $level; $i >= 2; $i--) {
+            $parentLevel = $this->getParentLevel($i);
+            $levelFullCode = $this->extractFullCodeLevelWise($i, $code);
+            $parentFullCode = $this->extractFullCodeLevelWise(($i - 1), $code);
+            $levels[$i] = array(
+                'code'  =>  $this->extractCodeLevelWise($i, $code),
+                'parentCode'    =>  $this->extractCodeLevelWise($parentLevel, $code),
+                'fullCode'      =>  $code,
+                'levelFullCode' =>  $levelFullCode,
+                'parentFullCode' =>  $parentFullCode,
+                'level'         =>  $i,
+                'bu'            =>  $bu
+            );
+            if ($i == $level) {
+                $levels[$i]['objectKey'] = $kn;
+            } else {
+                $levels[$i]['objectKey'] = $kn . $levelFullCode;
+            }
+            /* If level is 2 then get it's parent id */
+            if (2 == $i) {
+                $levels[$i]['parentId'] = $this->getLevel2ParentId($bu);
+            }
+        }
+
+        return array(
+            'status'    =>  true,
+            'levels'    =>  $levels
+        );
+    }
+
+    /**
+     * this function will extract fullcode of given level
+     */
+    public function extractFullCodeLevelWise($currLevel, $code)
+    {
+        $levelLength = $this->levelLength[$currLevel];
+        return substr($code, 0, $levelLength);
+    }
+
+    /**
+     * this function will extract code of given level
+     */
+    public function extractCodeLevelWise($level, $code)
+    {
+        $len = strlen($code);
+        $codeLength = $this->codeLength[$level];
+        $levelLength = $this->levelLength[$level];
+        // p_r($levelLength);
+
+        $levelCode = substr($code, 0, $levelLength);
+        $len = strlen($levelCode);
+        $from = $len - $codeLength;
+        return substr($levelCode, $from, $len);
+    }
+
+    public function getParentLevel($currLevel)
+    {
+        // if(2==$currLevel) {
+        //     return $currLevel;
+        // }
+        return $currLevel - 1;
+    }
+    public function getLevelByLength($len)
+    {
+        return array_search($len, $this->levelLength);
+    }
+
+    public function isValideCodeLength($code)
+    {
+        $len = strlen($code);
+        return in_array($len, $this->levelLength);
+    }
+
+    public function getLevel2ParentId($bu)
+    {
+        $path = $this->root['fullPath'] . '/' . $bu;
+        $o = DataObject::getByPath($path);
+        if (!empty($o)) {
+            return $o->getId();
+        }
+    }
+
+    public function isValidCategoryFormat($code)
+    {
+        $levelLen = $this->levelLength;
+        $startLevel = array_shift($levelLen);
+        $startLvlcode = $this->extractCodeLevelWise($startLevel, $code);
+        if (in_array($startLvlcode, $this->validCategories)) {
+            return $startLvlcode;
+        }
+        return false;
+    }
+}
