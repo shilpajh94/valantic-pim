@@ -43,21 +43,11 @@ services:
         class: AppBundle\Helper\Common
         public: true
 
-    # this service will hook the rest services defined in commands.yml
-    import.lookup_service:
-        class: ImportBundle\Services\Lookup
+    # Global category helper
+    app.category_helper:
+        class: AppBundle\Helper\Category
         public: true
-
-    # this service contain the logic to import siop record
-    import.category_service:
-        class: ImportBundle\Services\Category\Category
-        public: true
-
-    # this service will validate each single row which has to be import and have some 
-    # logical code. eg: get list of level
-    import.category_validator_service:
-        class: ImportBundle\Services\Category\Validator\Category
-        public: true
+      
 
     # Pim catgory(SIOP) class
     pim.category_service:

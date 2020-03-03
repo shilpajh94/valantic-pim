@@ -1,0 +1,36 @@
+parameters:
+  # Csv header information
+  sheet:
+    columnName: ['code', 'level', 'description']
+  # Root information
+  root:
+    type: 'dataObject'
+    subType:  'object'
+    fullPath: '/Master List/SIOP Master List/SIOP Engineered Products'
+    id: 2
+  # SIOP code length for each level
+  codeLength:
+    1:  2
+    2:  4
+    3:  4
+    4:  3
+    5:  3
+    6:  2
+  # SIOP full code length for each level
+  levelLength:
+    1:  2
+    2:  6
+    3:  10
+    4:  13
+    5:  16
+    6:  18
+  # Valid Categories for import
+  validCategories:
+    'Industrial House': 1000
+    'Hydraulics': 1500
+    'PTP':  3000
+  # Valid Business Unit
+  businessUnit:
+    1000: 'IFS'
+    1500: 'IFS'
+    3000: 'PTG'

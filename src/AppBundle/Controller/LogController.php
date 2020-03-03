@@ -2,11 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use Pimcore\Controller\FrontendController;
 use Pimcore\Log\Simple;
 use Throwable;
 use Elements\Bundle\ProcessManagerBundle;
-class LogController extends FrontendController
+class LogController
 {
     private static $isEnable=1;
     private static $monitoringItem;

@@ -1,26 +1,22 @@
 <?php
 
-namespace AppBundle\Services;
+namespace ImportBundle\Services\Model;
 
-use Exception;
 use Pimcore\Model\DataObject;
 use Pimcore\Log\FileObject;
-use Throwable;
-use AppBundle\Services\Validator\Validator;
-use AppBundle\Controller\LogController as Logger;
+use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
-use AppBundle\Services\Helper\Util;
+use ImportBundle\Services\Import;
 
-class Category
+class CategoryModel
 {
     public $name; // Command Name
     public $filePath;
     public $inboxFilePath;
     public $archiveDir;
     public $failedDir;
-    public $configuredData; // We will pull the data from configured class for this variable
-    private $mappedClass;
-    private $validatorClass;
+    private $listingService;
+    private $validatorService;
     private $logFileName;
     private $monitoringItem;
     private $totalSteps;
@@ -29,27 +25,46 @@ class Category
     private $errors;
     private $reader;
     private $level;
-    private $cek; // Current Error Key
     public $rowStatus;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
+    private $common;
+    private $catHelper;
     public function __construct()
     {
-        $this->util = new Util;
-        /* Initilize monitoring item and set the number of steps will take to complete the task */
-        $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+        try {
+            /* Initilize monitoring item and set the number of steps will take to complete the task */
+            $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
+            $this->common = \Pimcore::getContainer()->get('app.common_helper');
+            /* Load category configuration file */
+            $this->common->loadConfig("category.yml");
+            /* Initiating global category helper */
+            $this->catHelper = $this->common->getInstance('app.category_helper');
+        } catch (\Throwable $th) {
+            //throw $th;
+            Logger::error($this->logFileName, $th);
+            // echo $th->getMessage();
+            die;
+        }
     }
+    /* 
+        Update the defualt properties
+        Validate the sheet header
+        If all ok, will paas spreadsheet object to import function for further processing
+    */
     public function config($param = array())
     {
         try {
             $this->updateDefaults($param);
-            $this->instance = new $this->validatorClass;
+            $this->instance = $this->common->getInstance($this->validatorService);
             $spreadsheet = Import::load($this->filePath);
             $result = $this->instance->validateSpreadSheet($spreadsheet);
-            $this->configuredData = $this->instance->getAllProps();
             if (!$result['status']) {
+                $this->monitoringItem->setMessage($result['message'])->save();
                 $this->monitoringItem->getLogger()->error($result['message']);
+                $this->monitoringItem->setCompleted();
+                die;
             }
             $this->import($spreadsheet);
         } catch (\Throwable $th) {
@@ -71,12 +86,12 @@ class Category
         $success = true;
         $this->totalSteps = $totalRow;
         $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
-
         $this->monitoringItem->setMessage('File Information')->save();
         $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
         /* Setting Parent Information in log */
         $this->monitoringItem->setMessage('Object and Parent Stats')->save();
-        $sheetColumns = $this->configuredData['columns'];
+        $sheetColumns = $this->common->getParameterItem('sheet', 'columnName');
+        
         foreach ($activeSheet as $rowCnt => $reader) {
             if ($rowCnt == 0) {
                 Import::setCell(self::FILE_LAST_COL . '1', 'Status');
@@ -88,6 +103,8 @@ class Category
             /* Validate each row's column value */
             $this->instance->rowCnt = $this->currentStep;
             $result = $this->instance->validateRow($this->reader);
+
+            // $this->monitoringItem->setCurrentStep($this->currentStep)->save();
             if (!$result['status']) {
                 $success = false;
                 $flag = false;
@@ -95,9 +112,8 @@ class Category
                 $this->rowStatus[$this->currentStep] .= $result['message'];
             } else {
                 $len = strlen($this->reader['code']);
-                $levelInfo = $this->instance->getLevels($this->reader['code'], $this->reader['description']);
-                $this->monitoringItem->setMessage(json_encode($levelInfo))->save();
-                // p_r($levelInfo);die;
+                $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
+                
                 if ($levelInfo['status']) {
                     if (!$this->createCategory($levelInfo['levels'])) {
                         $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
@@ -106,7 +122,6 @@ class Category
                     }
                 } else {
                     /* Validation Error */
-                    // p_r($levelInfo['message']);
                     $this->monitoringItem->getLogger()->error($levelInfo['message']);
                     $flag = false;
                     $success = false;
@@ -136,17 +151,14 @@ class Category
             'archivePath'   =>  $this->archiveDir,
             'failedPath'    =>  $this->failedDir,
             'status'        =>  $success,
-            'fileName'      =>  $this->name . '-' . date('Ymd')
+            'fileName'      =>  $this->name . '-' . date('Y-m-d-his')
         );
-        $movedAssetObj = $this->util->moveFile($moveParam);
+        $movedAssetObj = $this->common->moveFile($moveParam);
         /* Set Application Logger Message */
         if ($success) {
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
         } else {
             $fileObject = new FileObject($movedAssetObj->getData());
-            /* \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='".$movedAssetObj->getFileSystemPath()."'>Download Log</a>",[
-                'fileObject'    => $fileObject
-            ]); */
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
         }
     }
@@ -205,9 +217,7 @@ class Category
         /* Updating Object Here */
         $catObj->setBusinessUnit($levelInfo['bu']);
         $catObj->setIndustry('');
-        // p_r($levelInfo['level']);
         $catObj->setLevel($levelInfo['level']);
-        // p_r($levelInfo['code']);
         $catObj->setCode($levelInfo['code']);
         $catObj->setFullCode($levelInfo['levelFullCode']);
 
@@ -242,7 +252,8 @@ class Category
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
-            $obj = new DataObject\ProductCategory\Listing();
+            // $obj = $this->common->getInstance($this->listingService);
+            $obj = new DataObject\ProductCategory\Listing;
             $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);
             $obj->load();
