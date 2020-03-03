@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-27T12:58:04+01:00
-* IP: 192.168.9.188
+* Generated at: 2020-03-03T08:00:01+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -154,7 +154,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   ),
    'title' => '',
    'group' => 'HYD_FITTINGS',
-   'key' => 'HydFittingsVariant',
+   'key' => 'HydFittingsFert',
    'parentClass' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -2593,7 +2593,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '',
                  'height' => '',
                  'maxItems' => '',
-                 'renderType' => 'list',
+                 'renderType' => 'tags',
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
                  'queryColumnType' => 'text',

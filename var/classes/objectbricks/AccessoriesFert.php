@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-27T07:18:54+01:00
+* Generated at: 2020-03-03T07:52:59+01:00
 * IP: 127.0.0.1
 
 
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   ),
    'title' => '',
    'group' => 'HYD_ACCESSORIES',
-   'key' => 'Accessories',
+   'key' => 'AccessoriesFert',
    'parentClass' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -253,8 +253,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -296,7 +296,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -326,7 +326,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -554,7 +554,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left:30px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -584,7 +584,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left:30px;',
                          'permissions' => NULL,
                          'datatype' => 'data',

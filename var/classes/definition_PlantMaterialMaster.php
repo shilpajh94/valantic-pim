@@ -1,16 +1,16 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T12:16:29+01:00
+* Generated at: 2020-02-28T13:07:52+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.9.188
+* IP: 127.0.0.1
 
 
 Fields Summary: 
+- Material [manyToManyObjectRelation]
 - Plant [manyToOneRelation]
-- Material [manyToOneRelation]
 - CountryOfOrigin [manyToOneRelation]
 - PlannedDeliveryTime [numeric]
 - CommodityCode [input]
@@ -32,7 +32,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1581506189,
+   'modificationDate' => 1582891671,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -144,24 +144,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'fieldtype' => 'manyToOneRelation',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 230,
-                         'assetUploadPath' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
                          'relationType' => true,
-                         'queryColumnType' => 
-                        array (
-                          'id' => 'int(11)',
-                          'type' => 'enum(\'document\',\'asset\',\'object\')',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
+                         'visibleFields' => 
                         array (
                         ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
                         array (
                         ),
                          'lazyLoading' => true,
@@ -169,17 +165,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'Plant',
+                            'classes' => 'Product',
                           ),
                         ),
-                         'pathFormatterClass' => 'AppBundle\\Formatter\\PathFormatter',
-                         'name' => 'Plant',
-                         'title' => 'Plant',
+                         'pathFormatterClass' => '',
+                         'name' => 'Material',
+                         'title' => 'Material',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -213,12 +209,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'classes' => 'Product',
+                            'classes' => 'Plant',
                           ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\PathFormatter',
-                         'name' => 'Material',
-                         'title' => 'Material',
+                         'name' => 'Plant',
+                         'title' => 'Plant',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,

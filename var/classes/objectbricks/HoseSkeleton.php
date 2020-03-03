@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T13:46:04+01:00
-* IP: 192.168.9.128
+* Generated at: 2020-03-03T07:59:02+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -43,7 +43,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   ),
    'title' => 'Hose 9 Digit',
    'group' => 'IFS-INH-HYD',
-   'key' => 'Hose9',
+   'key' => 'HoseSkeleton',
    'parentClass' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -940,72 +940,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'Synthetic Fabric',
-                            'value' => 'Synthetic Fabric',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'Wire Helix',
-                            'value' => 'Wire Helix',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Aramid',
-                            'value' => 'Aramid',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Rayon',
-                            'value' => 'Rayon',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Polyester',
-                            'value' => 'Polyester',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Synthetic yarn',
-                            'value' => 'Synthetic yarn',
-                          ),
-                          6 => 
-                          array (
-                            'key' => '1 Braid Steel Wire',
-                            'value' => '1 Braid Steel Wire',
-                          ),
-                          7 => 
-                          array (
-                            'key' => '2 Braid Steel Wire',
-                            'value' => '2 Braid Steel Wire',
-                          ),
-                          8 => 
-                          array (
-                            'key' => '1 Braid Synthetic Yarn',
-                            'value' => '1 Braid Synthetic Yarn',
-                          ),
-                          9 => 
-                          array (
-                            'key' => '2 Braid Synthetic Yarn',
-                            'value' => '2 Braid Synthetic Yarn',
-                          ),
-                          10 => 
-                          array (
-                            'key' => '1 Braid Synthetic Yarn with Static Wire',
-                            'value' => '1 Braid Synthetic Yarn with Static Wire',
-                          ),
-                          11 => 
-                          array (
-                            'key' => '2 Braid Synthetic Yarn with Static Wire',
-                            'value' => '2 Braid Synthetic Yarn with Static Wire',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',

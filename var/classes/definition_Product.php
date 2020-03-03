@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-27T11:05:44+01:00
+* Generated at: 2020-03-03T07:51:31+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.9.188
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -86,8 +86,8 @@ Fields Summary:
 - SIOPLevel4 [manyToManyObjectRelation]
 - SIOPLevel5 [manyToManyObjectRelation]
 - SIOPLevel6 [manyToManyObjectRelation]
-- SalesOrgData [advancedManyToManyObjectRelation]
-- Plants [advancedManyToManyObjectRelation]
+- SalesOrgData [reverseManyToManyObjectRelation]
+- Plants [reverseManyToManyObjectRelation]
 - Specification [objectbricks]
 - BrandData [objectbricks]
 - Digit14 [objectbricks]
@@ -104,7 +104,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1582797944,
+   'modificationDate' => 1583218291,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3317,33 +3317,25 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'allowedClassId' => 'SalesMaterialMaster',
-                 'visibleFields' => 'SalesOrganization,DeliveringPlant,DistributionChannel,SalesUOM,SalesStatus,pricePageFlag,epixFlag',
-                 'columns' => 
-                array (
-                ),
-                 'columnKeys' => 
-                array (
-                ),
-                 'fieldtype' => 'advancedManyToManyObjectRelation',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
+              Pimcore\Model\DataObject\ClassDefinition\Data\ReverseManyToManyObjectRelation::__set_state(array(
+                 'fieldtype' => 'reverseManyToManyObjectRelation',
+                 'ownerClassName' => 'SalesMaterialMaster',
+                 'ownerClassId' => NULL,
+                 'ownerFieldName' => 'Material',
+                 'lazyLoading' => true,
                  'width' => '',
                  'height' => '',
                  'maxItems' => '',
                  'queryColumnType' => 'text',
+                 'phpdocType' => 'array',
                  'relationType' => true,
+                 'visibleFields' => NULL,
                  'allowToCreateNewObject' => true,
                  'optimizedAdminLoading' => false,
-                 'lazyLoading' => true,
-                 'classes' => 
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
+                 'classes' => NULL,
                  'pathFormatterClass' => '',
                  'name' => 'SalesOrgData',
                  'title' => 'Sales Data',
@@ -3360,33 +3352,25 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleSearch' => false,
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'allowedClassId' => 'PlantMaterialMaster',
-                 'visibleFields' => 'Plant,PlantProfitCenter,CountryOfOrigin,CommodityCode,StandardPackQuantity,MinOrderQuantity',
-                 'columns' => 
-                array (
-                ),
-                 'columnKeys' => 
-                array (
-                ),
-                 'fieldtype' => 'advancedManyToManyObjectRelation',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
+              Pimcore\Model\DataObject\ClassDefinition\Data\ReverseManyToManyObjectRelation::__set_state(array(
+                 'fieldtype' => 'reverseManyToManyObjectRelation',
+                 'ownerClassName' => 'PlantMaterialMaster',
+                 'ownerClassId' => NULL,
+                 'ownerFieldName' => 'Material',
+                 'lazyLoading' => true,
                  'width' => '',
                  'height' => '',
                  'maxItems' => '',
                  'queryColumnType' => 'text',
+                 'phpdocType' => 'array',
                  'relationType' => true,
+                 'visibleFields' => NULL,
                  'allowToCreateNewObject' => true,
                  'optimizedAdminLoading' => false,
-                 'lazyLoading' => true,
-                 'classes' => 
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
+                 'classes' => NULL,
                  'pathFormatterClass' => '',
                  'name' => 'Plants',
                  'title' => 'Plants Data',
@@ -3431,7 +3415,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'Hose',
+                  0 => 'HoseBase',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3479,7 +3463,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'Hose9',
+                  0 => 'HoseSkeleton',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3527,14 +3511,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'Belts',
-                  1 => 'Metal',
-                  2 => 'PTG',
-                  3 => 'Synchronous',
-                  4 => 'Hose14',
-                  5 => 'Accessories',
-                  6 => 'INHFittingsVariant',
-                  7 => 'HydFittingsVariant',
+                  0 => 'AccessoriesFert',
+                  1 => 'PTGFert',
+                  2 => 'MetalFert',
+                  3 => 'BeltsFert',
+                  4 => 'SynchronousFert',
+                  5 => 'HoseFert',
+                  6 => 'HydFittingsFert',
+                  7 => 'INHFittingsFert',
                 ),
                  'maxItems' => '',
                  'border' => false,
