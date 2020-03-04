@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T12:23:26+01:00
+* Generated at: 2020-03-04T08:01:25+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.9.188
+* IP: 192.168.9.195
 
 
 Fields Summary: 
@@ -14,12 +14,12 @@ Fields Summary:
 - Level [numeric]
 - code [input]
 - fullCode [input]
-- localizedfields [localizedfields]
--- description [textarea]
-- image [image]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
+- localizedfields [localizedfields]
+-- description [textarea]
+- image [image]
 */ 
 
 
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1583234606,
+   'modificationDate' => 1583305285,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -73,7 +73,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => '',
+         'title' => 'SIOP ',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -90,7 +90,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'SIOP ',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -305,7 +305,205 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      5 => 
+                    ),
+                     'locked' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'ParentObjectId',
+                         'title' => 'Parent Object Id',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'ParentCategoryCode',
+                         'title' => 'Parent Category Code',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'HYD_ACCESSORIES',
+                            'value' => 'HYD_ACCESSORIES',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'PTG',
+                            'value' => 'PTG',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'IFS-INH-HYD',
+                            'value' => 'IFS-INH-HYD',
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'HYD_FITTINGS',
+                            'value' => 'HYD_FITTINGS',
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'INH_FITTINGS',
+                            'value' => 'INH_FITTINGS',
+                          ),
+                        ),
+                         'width' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'list',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\ObjectBricks',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'RelatedObjectBrick',
+                         'title' => 'Related Classification Name',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                  )),
+                ),
+                 'locked' => false,
+              )),
+            ),
+             'locked' => false,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+             'fieldtype' => 'fieldset',
+             'labelWidth' => 100,
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => '',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 100,
+                 'layout' => 'hbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'fieldtype' => 'localizedfields',
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -347,7 +545,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'maxTabs' => NULL,
                          'labelWidth' => 200,
                          'border' => false,
-                         'provideSplitView' => true,
+                         'provideSplitView' => false,
                          'tabPosition' => NULL,
                          'hideLabelsWhenTabsReached' => -1,
                          'referencedFields' => 
@@ -399,118 +597,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'image',
                          'title' => 'Logo',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'ParentObjectId',
-                         'title' => 'Parent Object Id',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'ParentCategoryCode',
-                         'title' => 'Parent Category Code',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                         'fieldtype' => 'multiselect',
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'HYD_ACCESSORIES',
-                            'value' => 'HYD_ACCESSORIES',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'PTG',
-                            'value' => 'PTG',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'IFS-INH-HYD',
-                            'value' => 'IFS-INH-HYD',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'HYD_FITTINGS',
-                            'value' => 'HYD_FITTINGS',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'INH_FITTINGS',
-                            'value' => 'INH_FITTINGS',
-                          ),
-                        ),
-                         'width' => '',
-                         'height' => '',
-                         'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\ObjectBricks',
-                         'optionsProviderData' => '',
-                         'queryColumnType' => 'text',
-                         'columnType' => 'text',
-                         'phpdocType' => 'array',
-                         'dynamicOptions' => false,
-                         'name' => 'RelatedObjectBrick',
-                         'title' => 'Related Classification Name',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
