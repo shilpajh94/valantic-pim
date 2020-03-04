@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-11T13:51:04+01:00
+* Generated at: 2020-03-03T12:23:26+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: 192.168.9.188
 
 
 Fields Summary: 
@@ -14,12 +14,11 @@ Fields Summary:
 - Level [numeric]
 - code [input]
 - fullCode [input]
-- Plant [advancedManyToManyObjectRelation]
 - localizedfields [localizedfields]
 -- description [textarea]
 - image [image]
-- ParentCategoryCode [input]
 - ParentObjectId [numeric]
+- ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
 */ 
 
@@ -29,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1581425464,
+   'modificationDate' => 1583234606,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -91,7 +90,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Category',
+             'title' => 'SIOP ',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -307,49 +306,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                         'allowedClassId' => 'Plant',
-                         'visibleFields' => 'Plant,city',
-                         'columns' => 
-                        array (
-                        ),
-                         'columnKeys' => 
-                        array (
-                        ),
-                         'fieldtype' => 'advancedManyToManyObjectRelation',
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
-                         'enableBatchEdit' => false,
-                         'allowMultipleAssignments' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'width' => 300,
-                         'height' => '',
-                         'maxItems' => '',
-                         'queryColumnType' => 'text',
-                         'relationType' => true,
-                         'allowToCreateNewObject' => true,
-                         'optimizedAdminLoading' => false,
-                         'lazyLoading' => true,
-                         'classes' => 
-                        array (
-                        ),
-                         'pathFormatterClass' => '',
-                         'name' => 'Plant',
-                         'title' => 'Plant',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                          'fieldtype' => 'localizedfields',
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -457,32 +413,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'ParentCategoryCode',
-                         'title' => 'Parent Category Code',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -512,33 +442,61 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'ParentCategoryCode',
+                         'title' => 'Parent Category Code',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          'A' => 
+                          0 => 
                           array (
-                            0 => 
-                            array (
-                              'key' => 'Belts',
-                              'value' => 'Belts',
-                            ),
-                            1 => 
-                            array (
-                              'key' => 'Hose14',
-                              'value' => 'Hose14',
-                            ),
-                            2 => 
-                            array (
-                              'key' => 'Hose9',
-                              'value' => 'Hose9',
-                            ),
-                            3 => 
-                            array (
-                              'key' => 'Hose',
-                              'value' => 'Hose',
-                            ),
+                            'key' => 'HYD_ACCESSORIES',
+                            'value' => 'HYD_ACCESSORIES',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'PTG',
+                            'value' => 'PTG',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'IFS-INH-HYD',
+                            'value' => 'IFS-INH-HYD',
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'HYD_FITTINGS',
+                            'value' => 'HYD_FITTINGS',
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'INH_FITTINGS',
+                            'value' => 'INH_FITTINGS',
                           ),
                         ),
                          'width' => '',
@@ -558,7 +516,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => '',
+                         'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
