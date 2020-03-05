@@ -1,3 +1,0 @@
-sap_bw_homepage:
-    path:     /sap_bw
-    defaults: { _controller: SapBwBundle:Default:index }

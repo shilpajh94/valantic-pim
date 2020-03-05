@@ -1,0 +1,10 @@
+## YAML Template.
+Parameters: 
+  Classname: Products
+  CategoryClassname: ProductCategory
+  CategoryFieldnameInClass: category
+  ObjectbrickFieldnameInClass: attributes
+  BuildCategoryFieldnameInClass: buildCategory
+  BuildObjectbrickFieldnameInClass: buildAttributes
+       
+    

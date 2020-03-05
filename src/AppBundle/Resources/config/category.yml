@@ -2,6 +2,7 @@ parameters:
   # Csv header information
   sheet:
     columnName: ['code', 'level', 'description']
+    lastColName: 'D'
   # Root information
   root:
     type: 'dataObject'

@@ -36,5 +36,5 @@ services:
     # this service will validate each single row which has to be import and have some 
     # logical code. eg: get list of level
     import.category_validator_service:
-        class: ImportBundle\Services\Category\Validator\Category
+        class: ImportBundle\Services\Validator\Category
         public: true

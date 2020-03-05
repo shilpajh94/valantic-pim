@@ -5,7 +5,7 @@ namespace ImportBundle\Services;
 use Exception;
 use Throwable;
 use Elements\Bundle\ProcessManagerBundle;
-use ImportBundle\Controller\LogController as Logger;
+use AppBundle\Logger\AppLogger as Logger;
 
 class Lookup
 {
@@ -29,12 +29,20 @@ class Lookup
     public $sysFilePath;
     private $common;
     private $monitoringItem;
+
     public function __construct()
     {
-        $this->datetime = date('Ymd his');
+        $this->datetime = date('Ymdhis');
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
     }
+
+    /**
+     * set log file name
+     * load the command configuration
+     * update the predefined properties with received value in params
+     * param type: array
+     */
     public function execDataFeeder($commands = array())
     {
         $cmd = array_shift($commands); // Getting the command name      
@@ -45,25 +53,29 @@ class Lookup
         $this->execute();
     }
 
+    /**
+     * Validate allowed file types
+     * Lookup for the fill at specified location
+     * Send further to responsible class to process the import
+    */
     public function execute()
     {
         try {
             if ($this->validateAllowedFileType()) {
-
                 /* Get actual file path from PIM */
                 $obj = \Pimcore\Model\Asset::getByPath($this->filePath);
                 if(is_null($obj))
                 {
-                    $message = 'No files to proceed. Please check the directory. '.$this->filePath;
+                    $message = sprintf(IMPORT_FILE_NOT_FOUND, $this->filePath);
                     if($this->monitoringItem->id){
-                        $this->monitoringItem->setMessage($message)->setCompleted();
+                        throw new Exception($message);
                     }
-                    echo $message;
                     die;
                 }
                 
                 $this->sysFilePath = $obj->getFileSystemPath();
-                $feederObj = $this->common->getInstance($this->feederService);
+                $feederObj = \Pimcore::getContainer()->get($this->feederService);
+                
                 $params = array(
                     'filePath'          =>  $this->sysFilePath,
                     'inboxFilePath'     =>  $this->filePath,
@@ -75,16 +87,17 @@ class Lookup
                     'logFileName'       =>  $this->logFileName,
                     'name'              =>  $this->name
                 );
-                // p_r($params);die;
                 $feederObj->config($params);
+            } else {
+                throw new Exception(sprintf(ALLOWED_FILE_TYPES, implode(' and ', $this->fileType)));
             }
         } catch (Throwable $th) {
-            Logger::error($this->logFileName, $th);
-            $message = $th->getMessage().' Only '.implode(' and ', $this->fileType). 'are allowed.';
+            $message = $th->getMessage();
             if($this->monitoringItem->id){
-                $this->monitoringItem->setMessage($message)->setCompleted();
+                $this->monitoringItem->setMessage($message)->save();
+                $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
             }
-            echo $message;
+            Logger::error($this->logFileName, $th);
             die; 
            
         }
@@ -93,8 +106,10 @@ class Lookup
     the properties of the current class */
     public function getCommandConfig($cmd)
     {
-        $this->common->loadConfig();
-        $commands = $this->common->getParameter($cmd);
+        /* $this->common->loadConfig();
+        $commands = $this->common->getParameter($cmd); */
+        $commands = \Pimcore::getContainer()->get('app.config_provider_service')->getCommandConfig();
+        $commands = $this->common->getParameter($commands, $cmd);
         try {
             if (!empty($commands) && $commands['name']==$cmd) {
                 /* Updating properties of the current class */
@@ -102,7 +117,7 @@ class Lookup
                     $this->$k = $v;
                 }
             } else {
-                throw new Exception("Invalid command: '$cmd' command not found");
+                throw new Exception(sprintf(INVALID_COMMAND, $cmd));
             }
         } catch (Throwable $th) {
             Logger::error($this->logFileName, $th);
@@ -111,20 +126,24 @@ class Lookup
         }
     }
 
+    /**
+     * Validate the mentioned allowed type in configuration file (AppBundle\Resources\config\commands.yml)
+    */
     public function validateAllowedFileType()
     {
-        $ext = strtolower(end(explode('.', $this->filePath)));
+        $ext = $this->common->getExt($this->filePath);
         try {
             if (in_array($ext, $this->fileType)) {
                 return true;
             } else {
-                throw new Exception('This command does not support the given file format.');
+                throw new Exception(FILE_FORMAT_DOESNOT_SUPPORT);
             }
         } catch (\Throwable $th) {
             throw $th;
             die;
         }
     }
+
     /* This function will override the default configuration */
     private function updateDefaults($commands)
     {
@@ -137,9 +156,12 @@ class Lookup
                 }
             }
         }
-        $this->setLogFileName();
+        // $this->setLogFileName();
     }
 
+    /**
+     * Setting log file name
+    */
     private function setLogFileName($logFileName = "")
     {
         /* $className = explode("\\", $this->mappedService);

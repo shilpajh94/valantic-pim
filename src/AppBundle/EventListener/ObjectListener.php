@@ -16,6 +16,7 @@ namespace AppBundle\EventListener;
 
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject\ProductLine;
+use Pimcore\Model\DataObject;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class ObjectListener
@@ -59,16 +60,29 @@ class ObjectListener
         $data = $event->getArgument('data');
         if ($currentObject instanceof \Pimcore\Model\DataObject\Product) {
             $validLayouts = $data['validLayouts'];
-            $currentLayout = $data['currentLayoutId'];
             $productType = $currentObject->getProductType();
+            $layoutName = '';
             if($productType == "Base") {
-                $data['currentLayoutId'] = 3;
+                $layoutName = 'digit14';
             } else if($productType == "6Digit") {
-                $data['currentLayoutId'] = 1;
+                $layoutName = 'digit6';
             } else if($productType == "9Digit") {
-                $data['currentLayoutId'] = 2;
+                $layoutName = 'digit9';
             }
-            $event->setArgument('data', $data);
+            if (!empty($layoutName)) {
+                $customLayout = DataObject\ClassDefinition\CustomLayout::getByName($layoutName); //Id($data['currentLayoutId']);
+                $customLayoutDefinition = $customLayout->getLayoutDefinitions();
+                $data['currentLayoutId'] = $customLayout->getId();
+                $data['layout'] = $customLayoutDefinition;
+                foreach ($validLayouts as $layoutData) {
+                    if ($layoutData['id'] == $data['currentLayoutId']) {
+                        $newValidLayouts[] = $layoutData;
+                        $data['validLayouts'] = $newValidLayouts;
+                    }
+                }
+                $event->setArgument('data', $data);
+            }
+            
         }
     }
 }
