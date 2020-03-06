@@ -12,4 +12,5 @@ class ImportConstants
     const MATERIAL_MASTER_FOLDER = 'MaterialMaster';
     const MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER = 'MaterialMaster/PlantMaterialMaster';
     const MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER = 'MaterialMaster/SalesMaterialMaster';
+    const IMPORT_TABLE_ID_SEPARATOR = '$';
 }

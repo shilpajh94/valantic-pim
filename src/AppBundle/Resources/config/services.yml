@@ -57,6 +57,4 @@ services:
     # Pim category listing class
     pim.category_listing_service:
         class: Pimcore\Model\DataObject\ProductCategory\Listing
-        public: true
-
-    
+        public: true    

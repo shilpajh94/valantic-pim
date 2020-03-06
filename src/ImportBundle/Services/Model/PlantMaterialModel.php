@@ -8,6 +8,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
+use Pimcore\Db;
 
 class PlantMaterialModel
 {
@@ -37,9 +38,15 @@ class PlantMaterialModel
     private $updatedCount = 0;
     private $fileColumns = array();
     private $common;
+    private $plantMaterialCsvColumn = array();
+    private $db;
+    private $material_plant_import_master = 'material_plant_import_master';
+    private $material_plant_import_temp = 'material_plant_import_temp';
+    private $material_plant_import_log = 'material_plant_import_log';
 
     public function __construct()
     {
+        $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
     }
@@ -49,6 +56,11 @@ class PlantMaterialModel
             $this->updateDefaults($param);
             $spreadsheet = Import::load($this->filePath);
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
+
+            /**
+             * getting list of the plant material csv file columns mapping
+             */
+            $this->plantMaterialCsvColumn = $this->common->getParameterItem($this->name, 'plantMaterialCsvColumn');
             $this->import($spreadsheet);
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th);
@@ -58,18 +70,18 @@ class PlantMaterialModel
 
     public function import($spreadsheet)
     {
+
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
 
         /**
          * Optaining next column from last column for "status" field
          */
-        $highestDataColumnIndex =  \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($worksheetHighestColumnRow['highestDataColumn']);
-        $nextColumnIndex = $highestDataColumnIndex + 1;
-        $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
+        // $highestDataColumnIndex =  \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($worksheetHighestColumnRow['highestDataColumn']);
+        // $nextColumnIndex = $highestDataColumnIndex + 1;
+        // $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
 
         $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
-        $activeSheet = $spreadsheet->getActiveSheet()->toArray();
 
         /**
          * get all the data from the spreadsheet
@@ -89,7 +101,7 @@ class PlantMaterialModel
         $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
         $countryFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
         $plantMaterialMasterFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER)->getId();
-        
+
         $allSuccess = true;
         if(count($excelDataNewArray))
         {
@@ -102,7 +114,11 @@ class PlantMaterialModel
              * remove column header from array excelDataNewArray. Only data remains.
              */
             array_shift($excelDataNewArray); 
-
+            
+            $this->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
+            $excelDataNewArray = $this->getDelta();         // Get delta data
+            $this->updateMaster();                          // update master table
+            
             /**
              * total number of rows without header row
              */
@@ -110,14 +126,21 @@ class PlantMaterialModel
             $this->totalSteps = $totalRow;
             $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
+            
+            $columnPlant = $this->plantMaterialCsvColumn['plant'];
+            $columnMaterial = $this->plantMaterialCsvColumn['material'];
+            $columncountryOfOrigin = $this->plantMaterialCsvColumn['countryOfOrigin'];
+
             /**
              * adding a new column 'status' to csv/excel file
              */
-            Import::setCell($nextColumn . '1', 'Status');
-            foreach ($excelDataNewArray as $rowCount => $rowvalue) {
+            // Import::setCell($nextColumn . '1', 'Status');
+            foreach ($excelDataNewArray as $rowCount => $rowvalueRecord) {
+                $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
                 
-                $plantName = $this->getFieldValue($rowvalue,'Plant', '');
-                $material = $this->getFieldValue($rowvalue,'Material', '');
+                $plantName = $this->getFieldValue($rowvalue,$columnPlant, '');
+                $material = $this->getFieldValue($rowvalue,$columnMaterial, '');
+                $countryName = $this->getFieldValue($rowvalue,$columncountryOfOrigin, '');
                
                 $this->currentStep = $rowCount + 1;
                 $this->monitoringItem->setCurrentWorkload($this->currentStep)
@@ -135,6 +158,9 @@ class PlantMaterialModel
                 if(empty(trim($material)))
                     $errorsData[] = 'Material should not be blank.';
 
+                if(empty(trim($countryName)))
+                    $errorsData[] = 'Country Name should not be blank.';
+
                 if(!count($errorsData))
                 {
                     $data['plantMaterialMasterFolderId'] = $plantMaterialMasterFolderId;
@@ -142,33 +168,42 @@ class PlantMaterialModel
                     $data['countryFolderId'] = $countryFolderId;
                     $errorsData = $this->importPlantMaterial($rowvalue, $data);
                 }
-
+                $statusCode = '';
                 if(isset($errorsData['SUCCESS']))
                 {
                     $this->successCount++;
                     $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
                     $this->monitoringItem->setMessage($errorsString)->save();
+                    $statusCode = 'SUCCESS';
+                    $excelDataNewArray[$rowCount]['failedReason'] = '';
                 }
                 else if(count($errorsData))
                 {
                     $allSuccess = false;
                     $errorsString = "FAILED: ";
-                    $errorsString .= implode(' ', $errorsData);
+                    $allErrorsInString = implode(' ', $errorsData);
+                    $errorsString .= $allErrorsInString;
                     $this->failedCount++;
                     $this->monitoringItem->setMessage($errorsString)->save();
+                    $statusCode = 'FAILED';
+                    $excelDataNewArray[$rowCount]['failedReason'] = $allErrorsInString;
                 }
+
+                $excelDataNewArray[$rowCount]['statusCode'] = $statusCode;
 
                 /**
                  * add above error/success message in newly created status column
                  */
-                Import::setCell($nextColumn.($rowCount+2),$errorsString);
+                // Import::setCell($nextColumn.($rowCount+2),$errorsString);
             }
+            $this->insertDataToLogTable($excelDataNewArray);
+            $this->truncateTempTable();
         }
-        
+
         $this->monitoringItem->setMessage('Importing stop from: ' . $this->filePath)->save();
         $this->monitoringItem->setWorkloadCompleted()->save();
         
-        Import::save();
+        // Import::save();
         
         /**
          * Move imported file from inbox to archive or failed as per status
@@ -180,7 +215,7 @@ class PlantMaterialModel
             'status'        =>  $allSuccess,
             'fileName'      =>  date('Ymd')."_".time()
         );
-        $movedAssetObj = $this->common->moveFile($moveParam);
+        // $movedAssetObj = $this->common->moveFile($moveParam);
 
         $countMsg = "\nTotal Records:".$totalRow.", ";
         $countMsg .= "\nSuccess Records:".$this->successCount.", ";
@@ -215,8 +250,25 @@ class PlantMaterialModel
         $plantFolderId = $data['plantFolderId'];
         $countryFolderId = $data['countryFolderId'];
 
-        $plantName = $this->getFieldValue($rowvalue,'Plant', '');
-        $material = $this->getFieldValue($rowvalue,'Material', '');
+        $columnPlant = $this->plantMaterialCsvColumn['plant'];
+        $columnMaterial = $this->plantMaterialCsvColumn['material'];
+        $columnCountryOfOrigin = $this->plantMaterialCsvColumn['countryOfOrigin'];
+        $columnPlanDeliveryTime = $this->plantMaterialCsvColumn['planDeliveryTime'];
+        $columnCommodityCode = $this->plantMaterialCsvColumn['commodityCode'];
+        $columnMinOrderQty = $this->plantMaterialCsvColumn['minOrderQty'];
+        $columnOrderQtyInc = $this->plantMaterialCsvColumn['orderQtyInc'];
+        $columnStdPackQtyUOM = $this->plantMaterialCsvColumn['stdPackQtyUOM'];
+        $columnStdPackQty = $this->plantMaterialCsvColumn['stdPackQty'];
+        $columnOutsidePurchaseIdentifier = $this->plantMaterialCsvColumn['outsidePurchaseIdentifier'];
+        $columnProfitCenter = $this->plantMaterialCsvColumn['profitCenter'];
+
+        $columnMrpController = $this->plantMaterialCsvColumn['mrpController'];
+        $columnTotalReplLeadTime = $this->plantMaterialCsvColumn['totalReplLeadTime'];
+        $columnSafetyStock = $this->plantMaterialCsvColumn['safetyStock'];
+        $columnStockIndicator = $this->plantMaterialCsvColumn['stockIndicator'];
+        
+        $plantName = $this->getFieldValue($rowvalue,$columnPlant, '');
+        $material = $this->getFieldValue($rowvalue,$columnMaterial, '');
         $plantMaterialKey = $material."-".$plantName;
 
         $errorData = array();
@@ -231,7 +283,7 @@ class PlantMaterialModel
                  */
                 $objectPlantMaster = DataObject\PlantMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$plantMaterialKey);
             
-		$countryName = $this->getFieldValue($rowvalue,'Country of Origin – Code', '');
+		        $countryName = $this->getFieldValue($rowvalue,$columnCountryOfOrigin, '');
                 $plantObj = $this->getPlantObject($plantName, $plantFolderId);
                 $countryObj = $this->getCountryObject($countryName, $countryFolderId);
 
@@ -250,22 +302,22 @@ class PlantMaterialModel
                 $objectPlantMaster->setPlant($plantObj);
                 $objectPlantMaster->setMaterial($materialObj);
                 $objectPlantMaster->setCountryOfOrigin($countryObj);
-                $objectPlantMaster->setPlannedDeliveryTime($this->getFieldValue($rowvalue,'Planned Delivery Time in Days','NUMBER'));
-                $objectPlantMaster->setCommodityCode($this->getFieldValue($rowvalue,'Commodity Code',''));
-                $objectPlantMaster->setMinOrderQuantity($this->getFieldValue($rowvalue,'Min. Order Quantity','NUMBER'));
-                $objectPlantMaster->setOrderingQuantityIcrements($this->getFieldValue($rowvalue,'Ordering Quantity Increments', 'NUMBER'));
+                $objectPlantMaster->setPlannedDeliveryTime($this->getFieldValue($rowvalue,$columnPlanDeliveryTime,'NUMBER'));
+                $objectPlantMaster->setCommodityCode($this->getFieldValue($rowvalue,$columnCommodityCode,''));
+                $objectPlantMaster->setMinOrderQuantity($this->getFieldValue($rowvalue,$columnMinOrderQty,'NUMBER'));
+                $objectPlantMaster->setOrderingQuantityIcrements($this->getFieldValue($rowvalue,$columnOrderQtyInc, 'NUMBER'));
 
-                $quantityUnitId = $this->getFieldValue($rowvalue,'Standard Pack Quantity - UOM','UNIT');
-                $quantityValue = $this->getFieldValue($rowvalue,'Standard Pack Quantity','NUMBER');
+                $quantityUnitId = $this->getFieldValue($rowvalue,$columnStdPackQtyUOM,'UNIT');
+                $quantityValue = $this->getFieldValue($rowvalue,$columnStdPackQty,'NUMBER');
                 $standardPackQuantity = new DataObject\Data\QuantityValue($quantityValue, $quantityUnitId);
 
                 $objectPlantMaster->setStandardPackQuantity($standardPackQuantity);
-                $objectPlantMaster->setOutsidePurchaseIdentifier($this->getFieldValue($rowvalue,'', ''));
-                $objectPlantMaster->setPlantProfitCenter($this->getFieldValue($rowvalue,'Profit Center', ''));
-                $objectPlantMaster->setMRPController($this->getFieldValue($rowvalue,'MRP Controller', ''));
-                $objectPlantMaster->setTotalReplenismentLeadTime($this->getFieldValue($rowvalue,'Total replenishment lead time', 'NUMBER'));
-                $objectPlantMaster->setSafetyStock($this->getFieldValue($rowvalue,'Safety Stock', 'NUMBER'));
-                $objectPlantMaster->setStockIndicator($this->getFieldValue($rowvalue,'Stock Indicator', ''));
+                $objectPlantMaster->setOutsidePurchaseIdentifier($this->getFieldValue($rowvalue,$columnOutsidePurchaseIdentifier, ''));
+                $objectPlantMaster->setPlantProfitCenter($this->getFieldValue($rowvalue,$columnProfitCenter, ''));
+                $objectPlantMaster->setMRPController($this->getFieldValue($rowvalue,$columnMrpController, ''));
+                $objectPlantMaster->setTotalReplenismentLeadTime($this->getFieldValue($rowvalue,$columnTotalReplLeadTime, 'NUMBER'));
+                $objectPlantMaster->setSafetyStock($this->getFieldValue($rowvalue,$columnSafetyStock, 'NUMBER'));
+                $objectPlantMaster->setStockIndicator($this->getFieldValue($rowvalue,$columnStockIndicator, ''));
                 $objectPlantMaster->setTariffCodes('');
                 $objectPlantMaster->setPublished(TRUE);                   
                 $objectPlantMaster->save();    
@@ -359,18 +411,19 @@ class PlantMaterialModel
      *  return corresponding value of a key from an array
      */
     public function getFieldValue($rowvalue, $string, $checkNumber){
+        $value = ($checkNumber == 'NUMBER') ? 0 : '';
         if(!empty($string))
         {
-            $index = array_search($string, $this->fileColumns);
-            $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
-            if($checkNumber == 'UNIT')
+            if(in_array($string, $this->fileColumns))
             {
-                $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
-                $value = (!is_null($unit)) ? $unit->getId() : '';
+                $index = array_search($string, $this->fileColumns);
+                $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
+                if($checkNumber == 'UNIT')
+                {
+                    $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
+                    $value = (!is_null($unit)) ? $unit->getId() : '';
+                }
             }
-        }
-        else{
-            $value = ($checkNumber == 'NUMBER') ? 0 : '';
         }
         return $value;
     }
@@ -386,4 +439,90 @@ class PlantMaterialModel
             }
         }
     }
+
+    public function insertDataInTemp($arrData)
+    {
+        $columnPlant = $this->plantMaterialCsvColumn['plant'];
+        $columnMaterial = $this->plantMaterialCsvColumn['material'];
+        $sql      = "INSERT INTO {$this->material_plant_import_temp} (id, record, hash) VALUES";
+        $values   = '';
+        $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
+        foreach ($arrData as $data) {
+            $material = $this->getFieldValue($data,$columnMaterial, '');
+            $plantName = $this->getFieldValue($data,$columnPlant, '');
+            $id     = $material.ImportConstants::IMPORT_TABLE_ID_SEPARATOR.$plantName;
+            $record = addslashes(json_encode($data, true));
+            $hash   = md5($record);
+            $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
+        }
+
+        if ($values) {
+            $query = $sql.rtrim($values, ',').$update ;
+            $this->db->query($query);
+        }
+    }
+
+        /**
+     * Function to find the Delta record(s)
+     *
+     * @return array
+     */
+    public function getDelta()
+    {
+        try {
+            $sql   = "SELECT t.id, t.record FROM {$this->material_plant_import_temp} t LEFT JOIN {$this->material_plant_import_master} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL";
+            $delta = $this->db->fetchAll($sql);
+
+            return $delta;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
+     * Function to update master table
+     */
+    public function updateMaster()
+    {        
+        try {
+            $sql = "REPLACE INTO {$this->material_plant_import_master} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->material_plant_import_temp} t LEFT JOIN {$this->material_plant_import_master} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
+     * Function to truncate article temp table
+     */
+    public function truncateTempTable()
+    {
+        try {
+            $sql = "TRUNCATE TABLE {$this->material_plant_import_temp}";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
+     * Function to insert processed data to log table
+     */
+    public function insertDataToLogTable($data)
+    {
+        try {
+            $sql = "INSERT INTO {$this->material_plant_import_log} (id, record, statusCode, failedReason, createdAt) VALUES";
+            foreach ($data as $dataKey => $dataValue) {
+                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'",now()),';
+            }
+            if($values)
+            {
+                $query = $sql.rtrim($values, ',') ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    
 }
