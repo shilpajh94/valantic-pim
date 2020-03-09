@@ -40,6 +40,7 @@ class PlantMaterialModel
     private $common;
     private $plantMaterialCsvColumn = array();
     private $db;
+    private $commandConfig;
     private $material_plant_import_master = 'material_plant_import_master';
     private $material_plant_import_temp = 'material_plant_import_temp';
     private $material_plant_import_log = 'material_plant_import_log';
@@ -56,11 +57,12 @@ class PlantMaterialModel
             $this->updateDefaults($param);
             $spreadsheet = Import::load($this->filePath);
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
-
+            $this->commandConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCommandConfig();
+            
             /**
              * getting list of the plant material csv file columns mapping
              */
-            $this->plantMaterialCsvColumn = $this->common->getParameterItem($this->name, 'plantMaterialCsvColumn');
+            $this->plantMaterialCsvColumn = $this->common->getParameterItem($this->commandConfig, 'plantMaterial', 'plantMaterialCsvColumn');
             $this->import($spreadsheet);
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th);
@@ -70,7 +72,7 @@ class PlantMaterialModel
 
     public function import($spreadsheet)
     {
-
+    
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
 
@@ -442,6 +444,7 @@ class PlantMaterialModel
 
     public function insertDataInTemp($arrData)
     {
+        
         $columnPlant = $this->plantMaterialCsvColumn['plant'];
         $columnMaterial = $this->plantMaterialCsvColumn['material'];
         $sql      = "INSERT INTO {$this->material_plant_import_temp} (id, record, hash) VALUES";

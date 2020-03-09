@@ -42,6 +42,7 @@ class SalesMaterialModel
     private $common;
     private $salesMaterialCsvColumn = array();
     private $db;
+    private $commandConfig;
     private $material_sales_import_master = 'material_sales_import_master';
     private $material_sales_import_temp = 'material_sales_import_temp';
     private $material_sales_import_log = 'material_sales_import_log';
@@ -58,22 +59,23 @@ class SalesMaterialModel
             $this->updateDefaults($param);
             $spreadsheet = Import::load($this->filePath);
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
-            $this->common->loadConfig();
+            $this->commandConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCommandConfig();
+            // $this->common->loadConfig();
 
             /**
              * getting list of the approved sales organizations from config for which sale material need to create
              */
-            $this->approvedSalesOrg = $this->common->getParameterItem($this->name, 'approvedSalesOrg');
+            $this->approvedSalesOrg = $this->common->getParameterItem($this->commandConfig, 'salesMaterial', 'approvedSalesOrg');
 
             /**
              * getting list of the approved private material group
              */
-            $this->privateMaterialGroup = $this->common->getParameterItem($this->name, 'privateMaterialGroup');
+            $this->privateMaterialGroup = $this->common->getParameterItem($this->commandConfig, 'salesMaterial', 'privateMaterialGroup');
 
             /**
              * getting list of the sales material csv file columns mapping
              */
-            $this->salesMaterialCsvColumn = $this->common->getParameterItem($this->name, 'salesMaterialCsvColumn');
+            $this->salesMaterialCsvColumn = $this->common->getParameterItem($this->commandConfig, 'salesMaterial', 'salesMaterialCsvColumn');
             $this->import($spreadsheet);
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th);
@@ -83,7 +85,6 @@ class SalesMaterialModel
 
     public function import($spreadsheet)
     {
-
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
 

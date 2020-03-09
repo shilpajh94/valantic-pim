@@ -67,6 +67,10 @@ parameters:
       'materialGroup5': 'Material Group 5'
       'salesUnit': 'Sales Unit'
       'baseProductHier': 'Base Product Hier'
+    table:
+      tempTable: 'material_sales_import_temp'
+      masterTable:  'material_sales_import_master'
+      logTable: 'material_sales_import_log'
   plantMaterial:
     name: 'plantMaterial'
     fileType: ['csv', 'xlsx']
@@ -98,3 +102,7 @@ parameters:
       'deleteFlag': 'Delete Flag'
       'procurementType': 'Procurement Type'
       'outsidePurchaseIdentifier': ''
+    table:
+      tempTable: 'material_plant_import_temp'
+      masterTable:  'material_plant_import_master'
+      logTable: 'material_plant_import_log'
