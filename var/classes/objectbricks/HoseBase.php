@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-19T12:24:59+01:00
+* Generated at: 2020-03-03T07:58:42+01:00
 * IP: 127.0.0.1
 
 
@@ -44,7 +44,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   ),
    'title' => 'Hose (6 Digit)',
    'group' => 'IFS-INH-HYD',
-   'key' => 'Hose',
+   'key' => 'HoseBase',
    'parentClass' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -323,8 +323,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => 'AppBundle\\Website\\OptionsProvider',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => 'Brand|Name',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -337,7 +337,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -351,82 +351,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'EPDM',
-                            'value' => 'EPDM',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'SBR',
-                            'value' => 'SBR',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Nitrile',
-                            'value' => 'Nitrile',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Chemivic (NBR/PVC)',
-                            'value' => 'Chemivic (NBR/PVC)',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'CPE',
-                            'value' => 'CPE',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'CR (Chloroprene)',
-                            'value' => 'CR (Chloroprene)',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Synthetic Rubber',
-                            'value' => 'Synthetic Rubber',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Nylon',
-                            'value' => 'Nylon',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Chlorobutyl',
-                            'value' => 'Chlorobutyl',
-                          ),
-                          9 => 
-                          array (
-                            'key' => 'PVC',
-                            'value' => 'PVC',
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'TPV',
-                            'value' => 'TPV',
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'TPU',
-                            'value' => 'TPU',
-                          ),
-                          12 => 
-                          array (
-                            'key' => 'PE',
-                            'value' => 'PE',
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'PP',
-                            'value' => 'PP',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
-                         'optionsProviderClass' => '',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -452,57 +382,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'ARPM Class A oil resistance',
-                            'value' => 'ARPM Class A oil resistance',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'ARPM Class B oil resistance',
-                            'value' => 'ARPM Class B oil resistance',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'ARPM Class C oil resistance',
-                            'value' => 'ARPM Class C oil resistance',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Low Temperature',
-                            'value' => 'Low Temperature',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Heat Resistant',
-                            'value' => 'Heat Resistant',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Silicone Free',
-                            'value' => 'Silicone Free',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Chemical Resistant',
-                            'value' => 'Chemical Resistant',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Fuel-Resistant',
-                            'value' => 'Fuel-Resistant',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Flame-Resistant',
-                            'value' => 'Flame-Resistant',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -528,57 +413,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'Black',
-                            'value' => 'Black',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'White',
-                            'value' => 'White',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Blue',
-                            'value' => 'Blue',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Red',
-                            'value' => 'Red',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Yellow',
-                            'value' => 'Yellow',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Green',
-                            'value' => 'Green',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Purple',
-                            'value' => 'Purple',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Orange',
-                            'value' => 'Orange',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Clear',
-                            'value' => 'Clear',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -909,7 +749,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
@@ -1150,7 +990,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
@@ -1406,7 +1246,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
@@ -1455,102 +1295,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'EPDM',
-                            'value' => 'EPDM',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'SBR',
-                            'value' => 'SBR',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Nitrile',
-                            'value' => 'Nitrile',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Chemivic (NBR/PVC)',
-                            'value' => 'Chemivic (NBR/PVC)',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'CPE',
-                            'value' => 'CPE',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'CR (Chloroprene)',
-                            'value' => 'CR (Chloroprene)',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'CSM',
-                            'value' => 'CSM',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'ECO',
-                            'value' => 'ECO',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Synthetic Rubber',
-                            'value' => 'Synthetic Rubber',
-                          ),
-                          9 => 
-                          array (
-                            'key' => 'XNBR',
-                            'value' => 'XNBR',
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'Carbryn',
-                            'value' => 'Carbryn',
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'Textile',
-                            'value' => 'Textile',
-                          ),
-                          12 => 
-                          array (
-                            'key' => 'Futurin Synthetic Rubber',
-                            'value' => 'Futurin Synthetic Rubber',
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'PVC',
-                            'value' => 'PVC',
-                          ),
-                          14 => 
-                          array (
-                            'key' => 'TPV',
-                            'value' => 'TPV',
-                          ),
-                          15 => 
-                          array (
-                            'key' => 'TPU',
-                            'value' => 'TPU',
-                          ),
-                          16 => 
-                          array (
-                            'key' => 'PE',
-                            'value' => 'PE',
-                          ),
-                          17 => 
-                          array (
-                            'key' => 'PP',
-                            'value' => 'PP',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -1576,122 +1326,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'Microban',
-                            'value' => 'Microban',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'Ribbed',
-                            'value' => 'Ribbed',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Smooth',
-                            'value' => 'Smooth',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Hexagon',
-                            'value' => 'Hexagon',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Octogon',
-                            'value' => 'Octogon',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Corrugated',
-                            'value' => 'Corrugated',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Conductive',
-                            'value' => 'Conductive',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Non-conductive',
-                            'value' => 'Non-conductive',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Abrasion resistant',
-                            'value' => 'Abrasion resistant',
-                          ),
-                          9 => 
-                          array (
-                            'key' => 'Oil resistant',
-                            'value' => 'Oil resistant',
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'ARPM Class A oil resistance',
-                            'value' => 'ARPM Class A oil resistance',
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'ARPM Class B oil resistance',
-                            'value' => 'ARPM Class B oil resistance',
-                          ),
-                          12 => 
-                          array (
-                            'key' => 'ARPM Class C oil resistance',
-                            'value' => 'ARPM Class C oil resistance',
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'Low Temperature',
-                            'value' => 'Low Temperature',
-                          ),
-                          14 => 
-                          array (
-                            'key' => 'Heat Resistant',
-                            'value' => 'Heat Resistant',
-                          ),
-                          15 => 
-                          array (
-                            'key' => 'Wrapped',
-                            'value' => 'Wrapped',
-                          ),
-                          16 => 
-                          array (
-                            'key' => 'Grooved',
-                            'value' => 'Grooved',
-                          ),
-                          17 => 
-                          array (
-                            'key' => 'Pin-Pricked',
-                            'value' => 'Pin-Pricked',
-                          ),
-                          18 => 
-                          array (
-                            'key' => 'Ozone Resistant',
-                            'value' => 'Ozone Resistant',
-                          ),
-                          19 => 
-                          array (
-                            'key' => 'Chemical Resistant',
-                            'value' => 'Chemical Resistant',
-                          ),
-                          20 => 
-                          array (
-                            'key' => 'Fuel-Resistant',
-                            'value' => 'Fuel-Resistant',
-                          ),
-                          21 => 
-                          array (
-                            'key' => 'Flame-Resistant',
-                            'value' => 'Flame-Resistant',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -1717,82 +1357,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'Black',
-                            'value' => 'Black',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'White',
-                            'value' => 'White',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'Gray',
-                            'value' => 'Gray',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'Blue',
-                            'value' => 'Blue',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Red',
-                            'value' => 'Red',
-                          ),
-                          5 => 
-                          array (
-                            'key' => 'Brick Red',
-                            'value' => 'Brick Red',
-                          ),
-                          6 => 
-                          array (
-                            'key' => 'Green',
-                            'value' => 'Green',
-                          ),
-                          7 => 
-                          array (
-                            'key' => 'Dark Green',
-                            'value' => 'Dark Green',
-                          ),
-                          8 => 
-                          array (
-                            'key' => 'Brown',
-                            'value' => 'Brown',
-                          ),
-                          9 => 
-                          array (
-                            'key' => 'Purple',
-                            'value' => 'Purple',
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'Orange',
-                            'value' => 'Orange',
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'Yellow',
-                            'value' => 'Yellow',
-                          ),
-                          12 => 
-                          array (
-                            'key' => 'Purple',
-                            'value' => 'Purple',
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'Clear',
-                            'value' => 'Clear',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
@@ -1978,7 +1548,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
@@ -2049,7 +1619,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',
@@ -2250,7 +1820,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '',
                          'optionsProviderData' => '',
                          'queryColumnType' => 'text',

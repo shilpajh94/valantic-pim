@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T12:19:52+01:00
+* Generated at: 2020-02-28T13:06:51+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,7 +9,7 @@
 
 
 Fields Summary: 
-- Material [manyToOneRelation]
+- Material [manyToManyObjectRelation]
 - SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
 - SalesUOM [input]
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1581506392,
+   'modificationDate' => 1582891611,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -100,24 +100,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'fieldtype' => 'manyToOneRelation',
-                 'width' => '',
-                 'assetUploadPath' => '',
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'fieldtype' => 'manyToManyObjectRelation',
+                 'width' => 650,
+                 'height' => '',
+                 'maxItems' => '',
+                 'queryColumnType' => 'text',
+                 'phpdocType' => 'array',
                  'relationType' => true,
-                 'queryColumnType' => 
-                array (
-                  'id' => 'int(11)',
-                  'type' => 'enum(\'document\',\'asset\',\'object\')',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
+                 'visibleFields' => 
                 array (
                 ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
+                 'allowToCreateNewObject' => false,
+                 'optimizedAdminLoading' => false,
+                 'visibleFieldDefinitions' => 
                 array (
                 ),
                  'lazyLoading' => true,
@@ -135,7 +131,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',

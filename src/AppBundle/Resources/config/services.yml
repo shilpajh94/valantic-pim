@@ -57,4 +57,9 @@ services:
     # Pim category listing class
     pim.category_listing_service:
         class: Pimcore\Model\DataObject\ProductCategory\Listing
-        public: true    
+        public: true
+
+    
+    app.config_provider_service:
+        class: AppBundle\Services\ConfigProviderService
+        public: true

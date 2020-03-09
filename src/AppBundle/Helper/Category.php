@@ -11,17 +11,18 @@ class Category
     private $codeLength;
     private $validCategories;
     private $businessUnit;
+    private $catConfigData;
     public function __construct()
     {
         /* Initiate common helper */
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
         /* Loading global configuration for category */
-        $this->loadConfig = $this->common->loadConfig('category.yml');
-        $this->root = $this->common->getParameter('root');
-        $this->codeLength = $this->common->getParameter('codeLength');
-        $this->levelLength = $this->common->getParameter('levelLength');
-        $this->validCategories = $this->common->getParameter('validCategories');
-        $this->businessUnit = $this->common->getParameter('businessUnit');
+        $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
+        $this->root = $this->common->getParameter($this->catConfigData, 'root');
+        $this->codeLength = $this->common->getParameter($this->catConfigData, 'codeLength');
+        $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
+        $this->validCategories = $this->common->getParameter($this->catConfigData, 'validCategories');
+        $this->businessUnit = $this->common->getParameter($this->catConfigData, 'businessUnit');
     }
 
     public function getLevels($code, $kn = "")
@@ -122,6 +123,14 @@ class Category
         $o = DataObject::getByPath($path);
         if (!empty($o)) {
             return $o->getId();
+        } else {
+            $pobj = DataObject::getByPath($this->root['fullPath']);
+            if($pobj) {
+                $buFol = new DataObject\Folder;
+                $buFol->setKey($bu);
+                $buFol->setParentId($pobj->getId());
+                $buFol->save();
+            }
         }
     }
 

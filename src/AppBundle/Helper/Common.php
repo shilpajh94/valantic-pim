@@ -9,31 +9,21 @@ use Symfony\Component\DependencyInjection\Loader;
 
 class Common
 {
-    public $config;
-    public $path;
-    
-    public function __construct($path=__DIR__ . '/../Resources/config')
-    {
-        $this->path = $path;
-    }
-    public function loadConfig($file="commands.yml")
-    {
-        $this->config = new ContainerBuilder();
-        $loader = new Loader\YamlFileLoader($this->config, new FileLocator($this->path));
-        $loader->load($file);        
-        return $this->config;
-    }
 
-    public function getParameter($key) {
-        return $this->config->getParameter($key);        
+    public function getParameter($data, $key) {
+        if(!empty($data) && isset($data['parameters'])) {
+            return isset($data['parameters'][$key])?$data['parameters'][$key]:false;       
+        }
     }
 
     public function getInstance($service) {
         return \Pimcore::getContainer()->get($service);
     }
 
-    public function getParameterItem($key, $item) {
-        return $this->config->getParameter($key)[$item];
+    public function getParameterItem($data, $key, $item) {
+        if(!empty($data) && isset($data['parameters'])) {
+            return isset($data['parameters'][$key])&&isset($data['parameters'][$key][$item])?$data['parameters'][$key][$item]:false;       
+        }
     }
 
     public function moveFile($param)
@@ -80,7 +70,7 @@ class Common
     {
         if (!empty($fileName)) {
             $arr = explode(".", $fileName);
-            return end($arr);
+            return strtolower(end($arr));
         }
         return false;
     }

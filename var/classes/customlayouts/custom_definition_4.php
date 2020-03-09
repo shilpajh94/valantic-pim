@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T14:51:21+01:00
+* Generated at: 2020-02-28T13:08:28+01:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'PTG',
    'description' => '',
    'creationDate' => 1581513163,
-   'modificationDate' => 1581515481,
+   'modificationDate' => 1582891708,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -2520,28 +2520,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'permissions' => NULL,
                          'childs' => 
                         array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                             'fieldtype' => 'checkbox',
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'tinyint(1)',
-                             'columnType' => 'tinyint(1)',
-                             'phpdocType' => 'boolean',
-                             'name' => 'SAPDelta',
-                             'title' => 'SAP / Delta Y/N',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                              'fieldtype' => 'checkbox',
@@ -2964,18 +2942,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'allowedClassId' => 'SalesMaterialMaster',
-                 'visibleFields' => 'SalesOrganization,DeliveringPlant,DistributionChannel,SalesUOM,SalesStatus,pricePageFlag,epixFlag',
-                 'columns' => 
-                array (
-                ),
-                 'columnKeys' => 
-                array (
-                ),
-                 'fieldtype' => 'advancedManyToManyObjectRelation',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
+                 'visibleFields' => NULL,
+                 'fieldtype' => 'reverseManyToManyObjectRelation',
+                 'phpdocType' => 'array',
                  'visibleFieldDefinitions' => 
                 array (
                 ),
@@ -2987,9 +2956,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'allowToCreateNewObject' => true,
                  'optimizedAdminLoading' => false,
                  'lazyLoading' => true,
-                 'classes' => 
-                array (
-                ),
+                 'classes' => NULL,
                  'pathFormatterClass' => '',
                  'name' => 'SalesOrgData',
                  'title' => 'Sales Data',
@@ -3004,21 +2971,15 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'ownerClassName' => 'SalesMaterialMaster',
+                 'ownerClassId' => NULL,
+                 'ownerFieldName' => 'Material',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
-                 'allowedClassId' => 'PlantMaterialMaster',
-                 'visibleFields' => 'Plant,PlantProfitCenter,CountryOfOrigin,CommodityCode,StandardPackQuantity,MinOrderQuantity',
-                 'columns' => 
-                array (
-                ),
-                 'columnKeys' => 
-                array (
-                ),
-                 'fieldtype' => 'advancedManyToManyObjectRelation',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
-                 'enableBatchEdit' => false,
-                 'allowMultipleAssignments' => false,
+                 'visibleFields' => NULL,
+                 'fieldtype' => 'reverseManyToManyObjectRelation',
+                 'phpdocType' => 'array',
                  'visibleFieldDefinitions' => 
                 array (
                 ),
@@ -3030,9 +2991,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'allowToCreateNewObject' => true,
                  'optimizedAdminLoading' => false,
                  'lazyLoading' => true,
-                 'classes' => 
-                array (
-                ),
+                 'classes' => NULL,
                  'pathFormatterClass' => '',
                  'name' => 'Plants',
                  'title' => 'Plants Data',
@@ -3047,6 +3006,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'ownerClassName' => 'PlantMaterialMaster',
+                 'ownerClassId' => NULL,
+                 'ownerFieldName' => 'Material',
               )),
             ),
              'locked' => false,
@@ -3082,6 +3044,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                   2 => 'PTG',
                   3 => 'Synchronous',
                   4 => 'Hose14',
+                  5 => 'Accessories',
+                  6 => 'INHFittingsVariant',
+                  7 => 'HydFittingsVariant',
                 ),
                  'maxItems' => '',
                  'border' => false,

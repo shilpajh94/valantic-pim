@@ -1,6 +1,6 @@
 <?php
 
-namespace ImportBundle\Services\Category\Validator;
+namespace ImportBundle\Services\Validator;
 
 use Exception;
 use Pimcore\Model\DataObject;
@@ -18,15 +18,15 @@ class Category
     public $businessUnit;
     public $validCategories;
     public $rowCnt;
-
+    private $catConfigData;
     public function __construct()
     {
         $this->rowCnt = 0;
         /* Column name and it's position */
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->common->loadConfig('category.yml');
-        $this->catHelper = $this->common->getInstance('app.category_helper');
-        $this->columns = $this->common->getParameterItem('sheet','columnName');
+        $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
+        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+        $this->columns = $this->common->getParameterItem($this->catConfigData, 'sheet','columnName');
     }
     public function validateSpreadSheet($spreadsheet)
     {

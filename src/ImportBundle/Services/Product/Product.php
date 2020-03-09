@@ -182,7 +182,6 @@ class Product
     public function updateCategory($levelInfo, $parentObj = "")
     {
         $catObj = $this->catInstance->getObjectByFullCode($levelInfo['fullCode'], $levelInfo['bu']);
-
         if ($catObj && $catObj->getId()) {
 
             $catObj = $this->getObjectByPath($levelInfo['objectPath'], $levelInfo['bu']);

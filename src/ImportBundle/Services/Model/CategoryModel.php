@@ -7,6 +7,7 @@ use Pimcore\Log\FileObject;
 use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
+use ImportBundle\Services\ImportConstants;
 
 class CategoryModel
 {
@@ -28,9 +29,10 @@ class CategoryModel
     public $rowStatus;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
-    const FILE_LAST_COL = 'D';
+    private $fileLastCol;
     private $common;
     private $catHelper;
+    private $catConfigData;
     public function __construct()
     {
         try {
@@ -38,9 +40,11 @@ class CategoryModel
             $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
             /* Load category configuration file */
-            $this->common->loadConfig("category.yml");
+            $this->catConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getCategoryConfig();
             /* Initiating global category helper */
-            $this->catHelper = $this->common->getInstance('app.category_helper');
+            $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+
+            $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -57,13 +61,13 @@ class CategoryModel
     {
         try {
             $this->updateDefaults($param);
-            $this->instance = $this->common->getInstance($this->validatorService);
+            $this->instance = \Pimcore::getContainer()->get($this->validatorService);
             $spreadsheet = Import::load($this->filePath);
             $result = $this->instance->validateSpreadSheet($spreadsheet);
             if (!$result['status']) {
                 $this->monitoringItem->setMessage($result['message'])->save();
                 $this->monitoringItem->getLogger()->error($result['message']);
-                $this->monitoringItem->setCompleted();
+                $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
                 die;
             }
             $this->import($spreadsheet);
@@ -76,90 +80,124 @@ class CategoryModel
     }
 
 
-
+    private function createSIOPParentHier()
+    {
+        try {
+            $id = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SIOP_MASTER_LIST_FOLDER)->getId();
+            $cat = DataObject\ProductCategory::getByPath("/" . ImportConstants::MASTER_LIST_SIOP_MASTER_LIST_FOLDER . "/" . ImportConstants::SIOP_ENGINEERED_PRODUCTS_NAME);
+            if (empty($cat)) {
+                $cat = new DataObject\ProductCategory;
+                $cat->setKey(ImportConstants::SIOP_ENGINEERED_PRODUCTS_NAME);
+                $cat->setParentId($id);
+                $cat->setLevel(1);
+                $cat->setCode('04');
+                $cat->setFullCode('04');
+                $cat->setParentCategoryCode('04');
+                $cat->setDescription(ImportConstants::SIOP_ENGINEERED_PRODUCTS_NAME);
+                $cat->setPublished(1);
+                $cat->save();
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     public function import($spreadsheet)
     {
-        $activeSheet = $spreadsheet->getActiveSheet()->toArray();
-        /* Number of rows in a sheet */
-        $totalRow = count($activeSheet);
-        $failedCnt = 0;
-        $success = true;
-        $this->totalSteps = $totalRow;
-        $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
-        $this->monitoringItem->setMessage('File Information')->save();
-        $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
-        /* Setting Parent Information in log */
-        $this->monitoringItem->setMessage('Object and Parent Stats')->save();
-        $sheetColumns = $this->common->getParameterItem('sheet', 'columnName');
-        
-        foreach ($activeSheet as $rowCnt => $reader) {
-            if ($rowCnt == 0) {
-                Import::setCell(self::FILE_LAST_COL . '1', 'Status');
-                continue;
-            }
-            $this->currentStep = $rowCnt + 1;
-            $flag = true;
-            $this->reader = array_combine($sheetColumns, $reader);
-            /* Validate each row's column value */
-            $this->instance->rowCnt = $this->currentStep;
-            $result = $this->instance->validateRow($this->reader);
+        try {
+            /* Create parent if it does not exist */
+            $this->createSIOPParentHier();
+            $activeSheet = $spreadsheet->getActiveSheet()->toArray();
 
-            // $this->monitoringItem->setCurrentStep($this->currentStep)->save();
-            if (!$result['status']) {
-                $success = false;
-                $flag = false;
-                $this->monitoringItem->getLogger()->error($result['message']);
-                $this->rowStatus[$this->currentStep] .= $result['message'];
-            } else {
-                $len = strlen($this->reader['code']);
-                $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
-                
-                if ($levelInfo['status']) {
-                    if (!$this->createCategory($levelInfo['levels'])) {
-                        $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
+            /* Number of rows in a sheet */
+            $totalRow = count($activeSheet);
+            $failedCnt = 0;
+            $success = true;
+            $this->totalSteps = $totalRow;
+
+            $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
+            $this->monitoringItem->setMessage('File Information')->save();
+            $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
+
+            /* Setting Parent Information in log */
+            $this->monitoringItem->setMessage('Object and Parent Stats')->save();
+
+            $sheetColumns = $this->common->getParameterItem($this->catConfigData, 'sheet', 'columnName');
+
+            foreach ($activeSheet as $rowCnt => $reader) {
+                if ($rowCnt == 0) {
+                    Import::setCell($this->fileLastCol . '1', 'Status');
+                    continue;
+                }
+
+                $this->currentStep = $rowCnt + 1;
+                $flag = true;
+                $this->reader = array_combine($sheetColumns, $reader);
+
+                /* Validate each row's column value */
+                $this->instance->rowCnt = $this->currentStep;
+                $result = $this->instance->validateRow($this->reader);
+
+                $this->monitoringItem->setCurrentStep($this->currentStep)->save();
+                if (!$result['status']) {
+                    $success = false;
+                    $flag = false;
+                    
+                    $this->monitoringItem->getLogger()->error($result['message']);
+                    $this->rowStatus[$this->currentStep] .= $result['message'];
+                } else {
+                    $len = strlen($this->reader['code']);
+                    $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
+
+                    if ($levelInfo['status']) {
+                        if (!$this->createCategory($levelInfo['levels'])) {
+                            $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
+                            $flag = false;
+                            $success = false;
+                        }
+                    } else {
+                        /* Validation Error */
+                        $this->monitoringItem->getLogger()->error($levelInfo['message']);
                         $flag = false;
                         $success = false;
                     }
+                }
+
+                if (!$flag) {
+                    $failedCnt++;
+                    $this->rowStatus[$this->currentStep] .= 'Status: Failed';
+                    Import::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
                 } else {
-                    /* Validation Error */
-                    $this->monitoringItem->getLogger()->error($levelInfo['message']);
-                    $flag = false;
-                    $success = false;
+                    $this->rowStatus[$this->currentStep] .= 'Status Success';
+                    Import::setCell($this->fileLastCol . $this->currentStep, $this->rowStatus[$this->currentStep]);
                 }
             }
 
-            if (!$flag) {
-                $failedCnt++;
-                $this->rowStatus[$this->currentStep] .= 'Status: Failed';
-                Import::setCell(self::FILE_LAST_COL . $this->currentStep, $this->rowStatus[$this->currentStep]);
-            } else {
-                $this->rowStatus[$this->currentStep] .= 'Status Success';
-                Import::setCell(self::FILE_LAST_COL . $this->currentStep, $this->rowStatus[$this->currentStep]);
-            }
-            /* if ($rowCnt > 5) {
-                break;
-            } */
-        }
+            $this->monitoringItem->setWorkloadCompleted()->save();
+            \Pimcore::collectGarbage();
+            $this->monitoringItem->setMessage('Job finished')->setCompleted();
+            Import::save();
 
-        $this->monitoringItem->setWorkloadCompleted()->save();
-        \Pimcore::collectGarbage();
-        $this->monitoringItem->setMessage('Job finished')->setCompleted();
-        Import::save();
-        /* Move imported file from inbox to archive or failed as per status */
-        $moveParam = array(
-            'filePath' => $this->inboxFilePath,
-            'archivePath'   =>  $this->archiveDir,
-            'failedPath'    =>  $this->failedDir,
-            'status'        =>  $success,
-            'fileName'      =>  $this->name . '-' . date('Y-m-d-his')
-        );
-        $movedAssetObj = $this->common->moveFile($moveParam);
-        /* Set Application Logger Message */
-        if ($success) {
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
-        } else {
-            $fileObject = new FileObject($movedAssetObj->getData());
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
+
+            /* Move imported file from inbox to archive or failed as per status */
+            $moveParam = array(
+                'filePath'      => $this->inboxFilePath,
+                'archivePath'   =>  $this->archiveDir,
+                'failedPath'    =>  $this->failedDir,
+                'status'        =>  $success,
+                'fileName'      =>  $this->name . '-' . date('Y-m-d-his')
+            );
+            $movedAssetObj = $this->common->moveFile($moveParam);
+
+
+            /* Set Application Logger Message */
+            if ($success) {
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Category Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
+            } else {
+                $fileObject = new FileObject($movedAssetObj->getData());
+                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Category Import command failed to import $failedCnt out of $totalRow. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 
@@ -252,7 +290,7 @@ class CategoryModel
     public function getObjectByFullCode($code, $bu)
     {
         if (!empty($code)) {
-            // $obj = $this->common->getInstance($this->listingService);
+            // $obj = \Pimcore::getContainer()->get($this->listingService);
             $obj = new DataObject\ProductCategory\Listing;
             $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
             $obj->setLimit(1);

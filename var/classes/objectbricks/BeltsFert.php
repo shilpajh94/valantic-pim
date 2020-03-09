@@ -1,23 +1,25 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T13:46:36+01:00
-* IP: 192.168.9.188
+* Generated at: 2020-03-03T07:42:33+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
-- profile [input]
-- color [select]
-- material [select]
-- customerProductFamily [input]
-- heightIn [quantityValue]
-- heightmm [quantityValue]
-- widthmm [quantityValue]
-- widthIn [quantityValue]
-- CADFile [checkbox]
-- CADLink [input]
-- PDFDrawing [checkbox]
-- PDFLink [input]
+- reinforcement [input]
+- effectiveLengthUOM [select]
+- numberOfBands [numeric]
+- beltAngle [numeric]
+- staticConductive [input]
+- heatOilResistant [input]
+- insideLengthIN [quantityValue]
+- insideLengthMM [quantityValue]
+- datumLengthIn [quantityValue]
+- datumLengtMM [quantityValue]
+- outsideLengthIN [quantityValue]
+- outsideLengtMM [quantityValue]
+- productEffectiveLengthIn [quantityValue]
+- productEffectiveLengthMM [quantityValue]
 */ 
 
 
@@ -32,7 +34,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   ),
    'title' => '',
    'group' => 'PTG',
-   'key' => 'PTG',
+   'key' => 'BeltsFert',
    'parentClass' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -81,7 +83,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'SAP Imported Data',
+             'title' => 'SAP',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
@@ -102,8 +104,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'regex' => '',
                  'unique' => false,
                  'showCharCount' => false,
-                 'name' => 'profile',
-                 'title' => 'Profile',
+                 'name' => 'reinforcement',
+                 'title' => 'Reinforcement',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -132,38 +134,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'columnLength' => 190,
                  'phpdocType' => 'string',
                  'dynamicOptions' => false,
-                 'name' => 'color',
-                 'title' => 'Color',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                 'fieldtype' => 'select',
-                 'options' => 
-                array (
-                ),
-                 'width' => 300,
-                 'defaultValue' => '',
-                 'optionsProviderClass' => '',
-                 'optionsProviderData' => '',
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'dynamicOptions' => false,
-                 'name' => 'material',
-                 'title' => 'Material',
+                 'name' => 'effectiveLengthUOM',
+                 'title' => 'Effective Length UOM',
                  'tooltip' => '
 ',
                  'mandatory' => false,
@@ -178,19 +150,53 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
                  'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'customerProductFamily',
-                 'title' => 'Customer & Product Family',
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'name' => 'numberOfBands',
+                 'title' => 'Number of Bands',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'name' => 'beltAngle',
+                 'title' => 'Belt Angle',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -205,30 +211,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
                  'width' => 300,
-                 'unitWidth' => NULL,
-                 'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                ),
-                 'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                 'name' => 'heightIn',
-                 'title' => 'Height (in)',
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'staticConductive',
+                 'title' => 'Static Conductive',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -243,30 +237,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
                  'width' => 300,
-                 'unitWidth' => NULL,
-                 'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                ),
-                 'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                 'name' => 'heightmm',
-                 'title' => 'Height (mm)',
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'heatOilResistant',
+                 'title' => 'Heat & Oil Resistant',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -303,8 +285,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   'unit' => 'bigint(20)',
                 ),
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                 'name' => 'widthmm',
-                 'title' => 'Width (mm)',
+                 'name' => 'insideLengthIN',
+                 'title' => 'Inside Length (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -341,8 +323,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   'unit' => 'bigint(20)',
                 ),
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                 'name' => 'widthIn',
-                 'title' => 'Width (in)',
+                 'name' => 'insideLengthMM',
+                 'title' => 'Inside Length (MM)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -356,84 +338,31 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-            ),
-             'locked' => false,
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
-             'fieldtype' => 'fieldset',
-             'labelWidth' => 100,
-             'name' => 'Layout',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Updated In PIM',
-             'width' => NULL,
-             'height' => NULL,
-             'collapsible' => true,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'permissions' => NULL,
-             'childs' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'fieldtype' => 'checkbox',
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'tinyint(1)',
-                 'columnType' => 'tinyint(1)',
-                 'phpdocType' => 'boolean',
-                 'name' => 'CADFile',
-                 'title' => 'CAD File',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
+              8 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'fieldtype' => 'quantityValue',
                  'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'CADLink',
-                 'title' => 'CAD LINK',
-                 'tooltip' => '
-',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'fieldtype' => 'checkbox',
+                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'queryColumnType' => 'tinyint(1)',
-                 'columnType' => 'tinyint(1)',
-                 'phpdocType' => 'boolean',
-                 'name' => 'PDFDrawing',
-                 'title' => 'PDF Drawing ',
+                 'defaultUnit' => NULL,
+                 'validUnits' => 
+                array (
+                ),
+                 'decimalPrecision' => NULL,
+                 'autoConvert' => false,
+                 'queryColumnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'columnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                 'name' => 'datumLengthIn',
+                 'title' => 'Datum Length (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -447,21 +376,184 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
+              9 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'fieldtype' => 'quantityValue',
                  'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'PDFLink',
-                 'title' => 'PDF LINK',
-                 'tooltip' => '
-',
+                 'unitWidth' => NULL,
+                 'defaultValue' => NULL,
+                 'defaultUnit' => NULL,
+                 'validUnits' => 
+                array (
+                ),
+                 'decimalPrecision' => NULL,
+                 'autoConvert' => false,
+                 'queryColumnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'columnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                 'name' => 'datumLengtMM',
+                 'title' => 'Datum Length (MM)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              10 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'fieldtype' => 'quantityValue',
+                 'width' => 300,
+                 'unitWidth' => NULL,
+                 'defaultValue' => NULL,
+                 'defaultUnit' => NULL,
+                 'validUnits' => 
+                array (
+                ),
+                 'decimalPrecision' => NULL,
+                 'autoConvert' => false,
+                 'queryColumnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'columnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                 'name' => 'outsideLengthIN',
+                 'title' => 'Outside Length (in)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              11 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'fieldtype' => 'quantityValue',
+                 'width' => 300,
+                 'unitWidth' => NULL,
+                 'defaultValue' => NULL,
+                 'defaultUnit' => NULL,
+                 'validUnits' => 
+                array (
+                ),
+                 'decimalPrecision' => NULL,
+                 'autoConvert' => false,
+                 'queryColumnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'columnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                 'name' => 'outsideLengtMM',
+                 'title' => 'Outside Length (MM)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              12 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'fieldtype' => 'quantityValue',
+                 'width' => 300,
+                 'unitWidth' => NULL,
+                 'defaultValue' => NULL,
+                 'defaultUnit' => NULL,
+                 'validUnits' => 
+                array (
+                ),
+                 'decimalPrecision' => NULL,
+                 'autoConvert' => false,
+                 'queryColumnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'columnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                 'name' => 'productEffectiveLengthIn',
+                 'title' => 'Product Effective Length (In)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              13 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                 'fieldtype' => 'quantityValue',
+                 'width' => 300,
+                 'unitWidth' => NULL,
+                 'defaultValue' => NULL,
+                 'defaultUnit' => NULL,
+                 'validUnits' => 
+                array (
+                ),
+                 'decimalPrecision' => NULL,
+                 'autoConvert' => false,
+                 'queryColumnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'columnType' => 
+                array (
+                  'value' => 'double',
+                  'unit' => 'bigint(20)',
+                ),
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                 'name' => 'productEffectiveLengthMM',
+                 'title' => 'Product Effective Length (MM)',
+                 'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,

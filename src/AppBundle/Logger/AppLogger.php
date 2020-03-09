@@ -40,7 +40,11 @@ class AppLogger {
                 $message = $th;
             }
             // p_r($message);
-            self::$monitoringItem->getLogger()->error($message);
+            if(self::$monitoringItem->id){
+                self::$monitoringItem->setMessage($message)->save();
+                self::$monitoringItem->getLogger()->error($message);
+                self::$monitoringItem->setStatus(self::$monitoringItem::STATUS_FAILED)->save();
+            }
             Simple::log($name, $message);
         }
     }
