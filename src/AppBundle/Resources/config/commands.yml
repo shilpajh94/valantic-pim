@@ -10,8 +10,7 @@
   #   archiveDir: '/Logs/Master List/SIOP Master List/Archive' // File path where imported file will be moved after successfully import (Mandatory)
   #   failedDir: '/Logs/Master List/SIOP Master List/Failed' // File path where imported file will be moved after failed to import (Mandatory)
   #   objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products' // It will be used to know the system about parent of first object/folder (Optional)
-  #   approvedSalesOrg: 0109-US, 0310: 0310-Canada 0252: 0252-Export and 0644: 0644-Mexico are approved sales organizations
-  #   privateMaterialGroup: sales material master - Material Group2 having 004 is private brand
+
 parameters:
   siop:
     name: 'siop'
@@ -45,32 +44,6 @@ parameters:
     filePath: '/Logs/MaterialMaster/SalesMaterialMaster/Inbox/MaterialSales_MVKE.csv'
     archiveDir: '/Logs/MaterialMaster/SalesMaterialMaster/Archive'
     failedDir: '/Logs/MaterialMaster/SalesMaterialMaster/Failed'
-    approvedSalesOrg: 
-      '0109': '0109-US'
-      '0310': '0310-Canada'
-      '0252': '0252-Export'
-      '0644': '0644-Mexico'
-    privateMaterialGroup: 
-      004: 004
-    salesMaterialCsvColumn: 
-      'salesOrg': 'Sales Org'
-      'salesOrgDesc': 'Sales Org Desc'
-      'distributionChannel': 'Distribution Channel'
-      'distributionChannelDesc': 'Distribution Channel Desc'
-      'material': 'Material'
-      'materialDescription': 'Material Description'
-      'plant': 'Plant'
-      'materialGroup1': 'Material Group 1'
-      'materialGroup2': 'Material Group 2'
-      'materialGroup3': 'Material Group 3'
-      'materialGroup4': 'Material Group 4'
-      'materialGroup5': 'Material Group 5'
-      'salesUnit': 'Sales Unit'
-      'baseProductHier': 'Base Product Hier'
-    table:
-      tempTable: 'material_sales_import_temp'
-      masterTable:  'material_sales_import_master'
-      logTable: 'material_sales_import_log'
   plantMaterial:
     name: 'plantMaterial'
     fileType: ['csv', 'xlsx']
@@ -80,29 +53,3 @@ parameters:
     filePath: '/Logs/MaterialMaster/PlantMaterialMaster/Inbox/MaterialPlant_MARC.csv'
     archiveDir: '/Logs/MaterialMaster/PlantMaterialMaster/Archive'
     failedDir: '/Logs/MaterialMaster/PlantMaterialMaster/Failed'
-    plantMaterialCsvColumn: 
-      'plant': 'Plant'
-      'material': 'Material'
-      'salesOrg': 'Sales Organization'
-      'distributionChannel': 'Distribution Channel'
-      'profitCenter': 'Profit Center'
-      'mrpController': 'MRP Controller'
-      'totalReplLeadTime': 'Total Repl Lead Time'
-      'planDeliveryTime': 'Plan Delivery Time'
-      'commodityCode': 'Commodity Code'
-      'countryOfOrigin': 'Country of Origin'
-      'safetyStock': 'Safety Stock'
-      'productHier': 'Product Hier'
-      'minOrderQty': 'Min. Order Quantity'
-      'stdPackQty': 'Std Pack Qty'
-      'stdPackQtyUOM': 'Std Pack Qty - UOM'
-      'orderQtyInc': 'Order Qty Inc'
-      'unitOfMeasure': 'Unit of measure'
-      'stockIndicator': 'Stock Indicator'
-      'deleteFlag': 'Delete Flag'
-      'procurementType': 'Procurement Type'
-      'outsidePurchaseIdentifier': ''
-    table:
-      tempTable: 'material_plant_import_temp'
-      masterTable:  'material_plant_import_master'
-      logTable: 'material_plant_import_log'

@@ -32,6 +32,14 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CATEGORY_CONFIG_FILE_PATH);
     }
+    public function getPlantMaterialConfig()
+    {
+        return $this->getConfigFromYmlFile(PLANT_MATERIAL_CONFIG_FILE_PATH);
+    }
+    public function getSalesMaterialConfig()
+    {
+        return $this->getConfigFromYmlFile(SALES_MATERIAL_CONFIG_FILE_PATH);
+    }
 
     /**
      * get yml config for the given file

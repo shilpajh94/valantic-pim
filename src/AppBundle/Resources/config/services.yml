@@ -43,6 +43,11 @@ services:
         class: AppBundle\Helper\Common
         public: true
 
+    # this service will be common throughout the project
+    app.table_import_helper:
+        class: AppBundle\Helper\TableImport
+        public: true        
+
     # Global category helper
     app.category_helper:
         class: AppBundle\Helper\Category

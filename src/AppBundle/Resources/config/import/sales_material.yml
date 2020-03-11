@@ -1,0 +1,30 @@
+  #   approvedSalesOrg: 0109-US, 0310: 0310-Canada 0252: 0252-Export and 0644: 0644-Mexico are approved sales organizations
+  #   privateMaterialGroup: sales material master - Material Group2 having 004 is private brand
+parameters:
+  approvedSalesOrg: 
+    '0109': '0109-US'
+    '0310': '0310-Canada'
+    '0252': '0252-Export'
+    '0644': '0644-Mexico'
+  privateMaterialGroup: 
+    '004': '004'
+  salesMaterialCsvColumn: 
+    'salesOrg': 'Sales Org'
+    'salesOrgDesc': 'Sales Org Desc'
+    'distributionChannel': 'Distribution Channel'
+    'distributionChannelDesc': 'Distribution Channel Desc'
+    'material': 'Material'
+    'materialDescription': 'Material Description'
+    'plant': 'Plant'
+    'materialGroup1': 'Material Group 1'
+    'materialGroup2': 'Material Group 2'
+    'materialGroup3': 'Material Group 3'
+    'materialGroup4': 'Material Group 4'
+    'materialGroup5': 'Material Group 5'
+    'salesUnit': 'Sales Unit'
+    'baseProductHier': 'Base Product Hier'
+  tables:
+    tempTable: 'material_sales_import_temp'
+    masterTable:  'material_sales_import_master'
+    logTable: 'material_sales_import_log'
+  keyColumns: ['material','salesOrg','distributionChannel']

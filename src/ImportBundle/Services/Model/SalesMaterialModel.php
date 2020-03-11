@@ -8,7 +8,6 @@ use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
-use Pimcore\Db;
 
 class SalesMaterialModel
 {
@@ -37,19 +36,16 @@ class SalesMaterialModel
     private $createdCount = 0;
     private $updatedCount = 0;
     private $fileColumns = array();
+    private $keyColumns = array();
     private $approvedSalesOrg = array();
     private $privateMaterialGroup = array();
     private $common;
     private $salesMaterialCsvColumn = array();
-    private $db;
-    private $commandConfig;
-    private $material_sales_import_master = 'material_sales_import_master';
-    private $material_sales_import_temp = 'material_sales_import_temp';
-    private $material_sales_import_log = 'material_sales_import_log';
+    private $tableImportConfig;
+    private $tableImportHelper;
 
     public function __construct()
     {
-        $this->db = Db::get();
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
     }
@@ -59,23 +55,17 @@ class SalesMaterialModel
             $this->updateDefaults($param);
             $spreadsheet = Import::load($this->filePath);
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
-            $this->commandConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCommandConfig();
-            // $this->common->loadConfig();
+            $this->tableImportHelper = \Pimcore::getContainer()->get('app.table_import_helper');
+            $salesMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getSalesMaterialConfig();
 
-            /**
-             * getting list of the approved sales organizations from config for which sale material need to create
-             */
-            $this->approvedSalesOrg = $this->common->getParameterItem($this->commandConfig, 'salesMaterial', 'approvedSalesOrg');
-
-            /**
-             * getting list of the approved private material group
-             */
-            $this->privateMaterialGroup = $this->common->getParameterItem($this->commandConfig, 'salesMaterial', 'privateMaterialGroup');
-
-            /**
-             * getting list of the sales material csv file columns mapping
-             */
-            $this->salesMaterialCsvColumn = $this->common->getParameterItem($this->commandConfig, 'salesMaterial', 'salesMaterialCsvColumn');
+            $this->approvedSalesOrg = $this->common->getParameter($salesMaterialConfig, 'approvedSalesOrg');
+            $this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup');
+            $this->salesMaterialCsvColumn = $this->common->getParameter($salesMaterialConfig, 'salesMaterialCsvColumn');
+            $this->tableImportConfig['tempTable'] = $this->common->getParameterItem($salesMaterialConfig, 'tables','tempTable');
+            $this->tableImportConfig['masterTable'] = $this->common->getParameterItem($salesMaterialConfig, 'tables','masterTable');
+            $this->tableImportConfig['logTable'] = $this->common->getParameterItem($salesMaterialConfig, 'tables','logTable');
+            $this->keyColumns = $this->common->getParameter($salesMaterialConfig, 'keyColumns');
+            
             $this->import($spreadsheet);
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th);
@@ -124,15 +114,20 @@ class SalesMaterialModel
              * getting csv or excel file column name
              */
             $this->fileColumns = $excelDataNewArray[0];
-
+            $this->tableImportConfig['fileColumns'] = $this->fileColumns;
+            $this->tableImportConfig['mappingCsvColumn'] = $this->salesMaterialCsvColumn;
+            $this->tableImportConfig['keyColumns'] = $this->keyColumns;
+            
+            $this->tableImportHelper->init($this->tableImportConfig);
+            
             /**
              * remove column header from array excelDataNewArray. Only data remains.
              */
             array_shift($excelDataNewArray); 
 
-            $this->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
-            $excelDataNewArray = $this->getDelta();         // Get delta data
-            $this->updateMaster();                          // update master table
+            $this->tableImportHelper->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
+            $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
+
 
             /**
              * total number of rows without header row
@@ -154,10 +149,10 @@ class SalesMaterialModel
             foreach ($excelDataNewArray as $rowCount => $rowvalueRecord) {
                 $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
                 
-                $salesOrg = $this->getFieldValue($rowvalue,$columnSalesOrg, '');
-                $distributionChannel = $this->getFieldValue($rowvalue,$columnDistributionChannel, '');
-                $material = $this->getFieldValue($rowvalue,$columnMaterial, '');
-                $plantName = $this->getFieldValue($rowvalue,$columnPlant, '');
+                $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
+                $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
+                $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
+                $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
                 
                 $this->currentStep = $rowCount + 1;
                 $this->monitoringItem->setCurrentWorkload($this->currentStep)
@@ -223,8 +218,10 @@ class SalesMaterialModel
                  */
                 // Import::setCell($nextColumn.($rowCount+2),$errorsString);
             }
-            $this->insertDataToLogTable($excelDataNewArray);
-            $this->truncateTempTable();
+            
+            $this->tableImportHelper->insertDataToLogTable($excelDataNewArray);
+            $this->tableImportHelper->updateMaster();
+            $this->tableImportHelper->truncateTempTable();
         }
         
         $this->monitoringItem->setMessage('Importing stop from: ' . $this->filePath)->save();
@@ -288,10 +285,13 @@ class SalesMaterialModel
         $columnMaterialGroup1 = $this->salesMaterialCsvColumn['materialGroup1'];
         $columnMaterialGroup2 = $this->salesMaterialCsvColumn['materialGroup2'];
 
-        $salesOrg = $this->getFieldValue($rowvalue,$columnSalesOrg, '');
-        $distributionChannel = $this->getFieldValue($rowvalue,$columnDistributionChannel, '');
-        $material = $this->getFieldValue($rowvalue,$columnMaterial, '');
-        $salesMaterialKey = $material."-".$salesOrg."-".$distributionChannel;  
+        $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
+        $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
+        $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
+        // $salesMaterialKey = $material."-".$salesOrg."-".$distributionChannel;  
+        
+        $salesMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->salesMaterialCsvColumn);
+        $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
         
         $errorData = array();
 
@@ -303,11 +303,11 @@ class SalesMaterialModel
                 /**
                  * Create or update sales material object
                  */
-                $objectSalesMaster = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$salesMaterialKey);
+                $objectSalesMaster = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$salesMaterialKey);
             
-                $plantName = $this->getFieldValue($rowvalue,$columnPlant, '');
-                $salesOrgDesc = $this->getFieldValue($rowvalue,$columnSalesOrgDesc, '');
-                $distributionChannelDesc = $this->getFieldValue($rowvalue,$columnDistributionChannelDesc, '');
+                $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
+                $salesOrgDesc = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrgDesc);
+                $distributionChannelDesc = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannelDesc);
                 $plantObj = $this->getPlantObject($plantName, $plantFolderId);
                 $salesOrgObj = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
                 $distributionChannelObj = $this->getDistributionChannelObject($distributionChannel, $distributionChannelDesc, $distributionChannelFolderId);
@@ -317,21 +317,21 @@ class SalesMaterialModel
                     $createdOrUpdated = 'Created'; 
                     $objectSalesMaster = new DataObject\SalesMaterialMaster();
                     $objectSalesMaster->setKey($salesMaterialKey);
-                    $objectSalesMaster->setParentId($salesMaterialMasterFolderId);
+                    $objectSalesMaster->setParentId($materialFolderId);
                     $this->createdCount++;
                 }
                 else{
                     $this->updatedCount++;
                 }
                
-                $objectSalesMaster->setMaterial($materialObj);
+                $objectSalesMaster->setMaterial(array($materialObj));
                 $objectSalesMaster->setSalesOrganization($salesOrgObj);
                 $objectSalesMaster->setDistributionChannel($distributionChannelObj);
-                $objectSalesMaster->setSalesUOM($this->getFieldValue($rowvalue,$columnSalesUnit,''));
+                $objectSalesMaster->setSalesUOM($this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesUnit));
                 $objectSalesMaster->setDeliveringPlant($plantObj);
-                $objectSalesMaster->setEpixFlag($this->getFieldValue($rowvalue,$columnMaterialGroup1,''));
+                $objectSalesMaster->setEpixFlag($this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterialGroup1));
 
-                $pricePageFlag = $this->getFieldValue($rowvalue,$columnMaterialGroup1,'');
+                $pricePageFlag = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterialGroup1);
                 $privateOrGenericBrand = $this->getPrivateOrGenericMaterial($pricePageFlag);
 
                 $objectSalesMaster->setPricePageFlag($pricePageFlag);
@@ -462,27 +462,6 @@ class SalesMaterialModel
 
     }
 
-    /**
-     *  return corresponding value of a key from an array
-     */
-    public function getFieldValue($rowvalue, $string, $checkNumber){
-        $value = ($checkNumber == 'NUMBER') ? 0 : '';
-        if(!empty($string))
-        {
-            if(in_array($string, $this->fileColumns))
-            {
-                $index = array_search($string, $this->fileColumns);
-                $value = ($checkNumber == 'NUMBER' && ( strtoupper($rowvalue[$index]) == 'NULL' || is_null($rowvalue[$index]) || empty($rowvalue[$index]))) ? 0 :  $rowvalue[$index];
-                if($checkNumber == 'UNIT')
-                {
-                    $unit = DataObject\QuantityValue\Unit::getByAbbreviation($rowvalue[$index]);
-                    $value = (!is_null($unit)) ? $unit->getId() : '';
-                }
-            }
-        }
-        return $value;
-    }
-
     /* This function will override the default configuration */
     private function updateDefaults($params)
     {
@@ -492,94 +471,6 @@ class SalesMaterialModel
                     $this->$k = $v;
                 }
             }
-        }
-    }
-
-    public function insertDataInTemp($arrData)
-    {
-        $columnMaterial = $this->salesMaterialCsvColumn['material'];
-        $columnSalesOrg = $this->salesMaterialCsvColumn['salesOrg'];
-        $columnDistributionChannel = $this->salesMaterialCsvColumn['distributionChannel'];
-        
-        $sql      = "INSERT INTO {$this->material_sales_import_temp} (id, record, hash) VALUES";
-        $values   = '';
-        $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
-        foreach ($arrData as $data) {
-            $salesOrg = $this->getFieldValue($data,$columnSalesOrg, '');
-            $distributionChannel = $this->getFieldValue($data,$columnDistributionChannel, '');
-            $material = $this->getFieldValue($data,$columnMaterial, '');
-            $id     = $material.ImportConstants::IMPORT_TABLE_ID_SEPARATOR.$salesOrg.ImportConstants::IMPORT_TABLE_ID_SEPARATOR.$distributionChannel;
-            $record = addslashes(json_encode($data, true));
-            $hash   = md5($record);
-            $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
-        }
-
-        if ($values) {
-            $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
-        }
-    }
-
-    /**
-     * Function to find the Delta record(s)
-     *
-     * @return array
-     */
-    public function getDelta()
-    {
-        try {
-            $sql   = "SELECT t.id, t.record FROM {$this->material_sales_import_temp} t LEFT JOIN {$this->material_sales_import_master} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL";
-            $delta = $this->db->fetchAll($sql);
-
-            return $delta;
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
-        }
-    }
-
-    /**
-     * Function to update master table
-     */
-    public function updateMaster()
-    {        
-        try {
-            $sql = "REPLACE INTO {$this->material_sales_import_master} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->material_sales_import_temp} t LEFT JOIN {$this->material_sales_import_master} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
-            $this->db->query($sql);
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
-        }
-    }
-
-    /**
-     * Function to truncate article temp table
-     */
-    public function truncateTempTable()
-    {
-        try {
-            $sql = "TRUNCATE TABLE {$this->material_sales_import_temp}";
-            $this->db->query($sql);
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
-        }
-    }
-
-    /**
-     * Function to insert processed data to log table
-     */
-    public function insertDataToLogTable($data)
-    {
-        try {
-            $sql = "INSERT INTO {$this->material_sales_import_log} (id, record, statusCode, failedReason, createdAt) VALUES";
-            foreach ($data as $dataKey => $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'",now()),';
-            }
-            if($values)
-            {
-                $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
-            }
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
         }
     }
 
