@@ -10,9 +10,9 @@ services:
         public: false
         
     # Add listener to manipulate data object while saving it
-    AppBundle\EventListener\ObjectListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
+#    AppBundle\EventListener\ObjectListener:
+#        tags:
+#            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
             
     AppBundle\EventListener\AdminAssetsListener:
         tags:
@@ -37,6 +37,41 @@ services:
         resource: '../../Command/*'
         tags: ['console.command']
         
-    app.config_provider_service:
-        class: AppBundle\Services\ConfigProviderService
+    # Services
+    # this service will be common throughout the project
+    app.common_helper:
+        class: AppBundle\Helper\Common
         public: true
+
+    # Global category helper
+    app.category_helper:
+        class: AppBundle\Helper\Category
+        public: true
+      
+
+    # Pim catgory(SIOP) class
+    pim.category_service:
+        class: Pimcore\Model\DataObject\ProductCategory
+        public: true
+
+    # Pim category listing class
+    pim.category_listing_service:
+        class: Pimcore\Model\DataObject\ProductCategory\Listing
+        public: true
+
+    AppBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+
+
+    AppBundle\Services\ConfigProviderService:
+      public: true
+
+    AppBundle\Services\CategoryBrickMappingService:
+      public: true
+
+
+
+
+
+
