@@ -43,11 +43,18 @@ services:
         class: AppBundle\Helper\Common
         public: true
 
-    # Global category helper
+    # Global helper
     app.category_helper:
         class: AppBundle\Helper\Category
         public: true
-      
+
+    app.product_helper:
+        class: AppBundle\Helper\Product
+        public: true
+        
+    app.table_import_helper:
+        class: AppBundle\Helper\TableImport
+        public: true
 
     # Pim catgory(SIOP) class
     pim.category_service:

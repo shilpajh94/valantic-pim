@@ -8,6 +8,8 @@ define("LEVEL_ATTRIBUTE_MAPPING_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/import/l
 define('COMMAND_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/commands.yml");
 // Global Category Configuraction File Path
 define('CATEGORY_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/category.yml");
+// Global Product Configuration File Path
+define('PRODUCT_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/import/product.yml");
 
 /* Errors Message */
 define('INVALID_COMMAND', 'Invalid command: %s command not found');

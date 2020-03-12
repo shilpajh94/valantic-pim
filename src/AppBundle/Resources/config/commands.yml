@@ -29,10 +29,11 @@ parameters:
     name: 'product'
     fileType: ['csv', 'xlsx']
     description: 'This command will import "SAP BW"'
-    feederClass: 'ImportBundle\\Services\\Category\\Category'
-    validatorClass: 'ImportBundle\\Services\\Category\\Validator\\Category'
-    mappedClass: 'Pimcore\\Model\\DataObject\\ProductCategory'
-    filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv'
-    archiveDir: '/Logs/Master List/SIOP Master List/Archive'
-    failedDir: '/Logs/Master List/SIOP Master List/Failed'
+    feederService: 'import.product_service'
+    validatorService: 'import.product_validator_service'
+    mappedService: 'pim.product_service'
+    listingService: 'pim.product_listing_service'
+    filePath: '/Logs/Products Master/Inbox/mm.csv'
+    archiveDir: '/Logs/Products Master/Archive'
+    failedDir: '/Logs/Products Master/Failed'
   

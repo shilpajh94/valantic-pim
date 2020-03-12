@@ -12,6 +12,8 @@ class ImportConstants
     const MATERIAL_MASTER_FOLDER = 'MaterialMaster';
     const MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER = 'MaterialMaster/PlantMaterialMaster';
     const MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER = 'MaterialMaster/SalesMaterialMaster';
+    const IMPORT_TABLE_ID_SEPARATOR = '$';
+    const OBJECT_KEY_SEPARATOR = '-';
     /* Added by Amit Sinha */
     /* Category Object Master */
     const MASTER_LIST_SIOP_MASTER_LIST_FOLDER = 'Master List/SIOP Master List';

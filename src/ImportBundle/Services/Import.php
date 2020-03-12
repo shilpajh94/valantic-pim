@@ -11,13 +11,19 @@ class Import
     private static $fileType;
     private static $spreadsheet;
     private static $filePath;
-    public static function load($filePath)
+    private static $startRow;
+    public static function load($config)
     {
-        self::$filePath = $filePath;
-        self::$fileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($filePath);
+        if(!is_array($config)) {
+            self::$filePath = $config;
+        } else {
+            self::$filePath = $config['filePath'];
+            self::$startRow = $config['startRow'];
+        }
+        self::$fileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify(self::$filePath);
         // $reader = new Xlsx;
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader(self::$fileType);
-        $workSheetInfo = $reader->listWorksheetInfo($filePath);
+        $workSheetInfo = $reader->listWorksheetInfo(self::$filePath);
         /* See Helper Function to explore worksheet
         https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-files/#helper-methods
         */
@@ -55,6 +61,7 @@ class Import
 
         */  
         $reader->setLoadSheetsOnly($workSheet['workSheetName']);
+        $workSheet['startRow'] = self::$startRow ? : 0;
         $flag = $reader->setReadFilter(new MyReadFilter($workSheet));
 
         /* For Understanding, Exploring features of PHPOffice Spreadsheet */
@@ -79,7 +86,7 @@ class Import
         $writer->save($filePath);
          */
         if ($flag) {
-            self::$spreadsheet = $reader->load($filePath);
+            self::$spreadsheet = $reader->load(self::$filePath);
             return self::$spreadsheet;
         }
             

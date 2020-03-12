@@ -38,3 +38,16 @@ services:
     import.category_validator_service:
         class: ImportBundle\Services\Validator\Category
         public: true
+
+    # this service contain the logic to import siop record
+    import.product_service:
+        class: ImportBundle\Services\Model\ProductModel
+        public: true
+
+    # this service will validate each single row which has to be import and have some 
+    # logical code. eg: get list of level
+    import.product_validator_service:
+        class: ImportBundle\Services\Validator\Product
+        public: true
+
+    

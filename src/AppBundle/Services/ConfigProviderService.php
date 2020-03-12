@@ -32,6 +32,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CATEGORY_CONFIG_FILE_PATH);
     }
+    public function getProductConfig()
+    {
+        return $this->getConfigFromYmlFile(PRODUCT_CONFIG_FILE_PATH);
+    }
 
     /**
      * get yml config for the given file
