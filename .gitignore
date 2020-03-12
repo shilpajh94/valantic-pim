@@ -70,3 +70,4 @@ siop-import-error-log
 /src/SapBwBundle/*
 
 # cache.sh command
+cache.sh
