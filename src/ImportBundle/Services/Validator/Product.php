@@ -27,8 +27,12 @@ class Product
 
     public function validateRow($reader)
     {
+        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
+
         $flag = true;
         $exception = '';
+        $len = strlen($reader['code']);
+        $level = $this->catHelper->getLevelByLength($len);
         if (array_key_exists('material', $reader)) {
             if (!$this->isEmpty($reader['material'])) {
                 $flag = false;
@@ -47,6 +51,45 @@ class Product
                 $exception = 'Column for code is not valid at row number ' . $this->rowCnt . '. Please check the code position or it\'s content length';
             }
         }
+        if ($flag && array_key_exists('prodHier1Desc', $reader)) {
+            if (!$this->isEmpty($reader['prodHier1Desc'])) {
+                $flag = false;
+                $exception = 'Column for prodHier1Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+            }
+        }
+        if ($flag && array_key_exists('prodHier2Desc', $reader)) {
+            if (!$this->isEmpty($reader['prodHier2Desc'])) {
+                $flag = false;
+                $exception = 'Column for prodHier2Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+            }
+        }
+        if ($flag && array_key_exists('prodHier3Desc', $reader)) {
+            if (!$this->isEmpty($reader['prodHier3Desc'])) {
+                $flag = false;
+                $exception = 'Column for prodHier3Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+            }
+        }
+        if ($flag && array_key_exists('prodHier4Desc', $reader)) {
+            if (!$this->isEmpty($reader['prodHier4Desc'])) {
+                $flag = false;
+                $exception = 'Column for prodHier4Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+            }
+        }
+        if($level > 4) {
+            if ($flag && array_key_exists('prodHier5Desc', $reader)) {
+                if (!$this->isEmpty($reader['prodHier5Desc'])) {
+                    $flag = false;
+                    $exception = 'Column for prodHier5Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+                }
+            }
+            if ($flag && array_key_exists('prodHier6Desc', $reader)) {
+                if (!$this->isEmpty($reader['prodHier6Desc'])) {
+                    $flag = false;
+                    $exception = 'Column for prodHier6Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
+                }
+            }
+        }
+        
 
 
         return array(

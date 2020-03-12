@@ -10,6 +10,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Elements\Bundle\ProcessManagerBundle;
 use ImportBundle\Services\Category\Category as CategoryService;
 use ImportBundle\Services\Import;
+use ImportBundle\Services\ImportConstants;
 
 class ProductModel
 {
@@ -105,8 +106,19 @@ class ProductModel
         }
     }
 
+    private function createRootFolder()
+    {
+        try {
+            DataObject\Service::createFolderByPath(ImportConstants::PRODUCTS_MASTER_FOLDER);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function import($spreadsheet)
     {
+        $this->createRootFolder();
+        
         $workSheet = $spreadsheet->getActiveSheet();
         $workSheetInfo = Import::getActiveSheetInfo($workSheet);
         $readFrom = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'readFrom');

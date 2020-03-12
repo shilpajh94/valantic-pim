@@ -19,5 +19,8 @@ class ImportConstants
     const MASTER_LIST_SIOP_MASTER_LIST_FOLDER = 'Master List/SIOP Master List';
     // const MASTER_LIST_SIOP_MASTER_LIST_SIOP_ENGINEERED_PRODUCTS_OBJECT = 'Master List/SIOP Master List/SIOP Engineered Products';
     const SIOP_ENGINEERED_PRODUCTS_NAME = 'SIOP Engineered Products';
+
+    /* Product Master */
+    const PRODUCTS_MASTER_FOLDER = 'Products Master';
     /* End */
 }
