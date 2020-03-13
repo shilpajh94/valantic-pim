@@ -45,6 +45,9 @@ class CategoryModel
             $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
 
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
+
+            /* Create parent if it does not exist */
+            $this->createSIOPParentHier();
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -104,8 +107,6 @@ class CategoryModel
     public function import($spreadsheet)
     {
         try {
-            /* Create parent if it does not exist */
-            $this->createSIOPParentHier();
             $activeSheet = $spreadsheet->getActiveSheet()->toArray();
 
             /* Number of rows in a sheet */
