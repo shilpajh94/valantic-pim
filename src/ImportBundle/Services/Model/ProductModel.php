@@ -136,7 +136,8 @@ class ProductModel
         $this->totalSteps = $totalRow;
         $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
-
+        // Cleaning the temp table
+        $this->tblImpHelper->truncateTempTable();
         foreach ($this->data as $rowCnt => $row) {
             $levelInfo = array();
             $this->reader = json_decode($row['record']);
@@ -264,7 +265,6 @@ class ProductModel
         */
         $this->tblImpHelper->insertDataToLogTable($this->data);
         $this->tblImpHelper->updateMaster();
-        $this->tblImpHelper->truncateTempTable();
         /**
          * Here setting process as completed
          */
