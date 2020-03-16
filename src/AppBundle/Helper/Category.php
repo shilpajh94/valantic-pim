@@ -131,6 +131,15 @@ class Category
         } */
     }
 
+    public function getLevel1ParentId() {
+        $path = $this->root['fullPath'];
+        $obj = DataObject::getByPath($path);
+        if(!empty($obj)) {
+            return $obj->getId();
+        }
+        return false;
+    }
+
     public function isValidCategoryFormat($code)
     {
         $levelLen = $this->levelLength;
