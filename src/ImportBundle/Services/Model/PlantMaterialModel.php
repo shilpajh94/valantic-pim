@@ -121,7 +121,7 @@ class PlantMaterialModel
              * remove column header from array excelDataNewArray. Only data remains.
              */
             array_shift($excelDataNewArray); 
-            
+            $this->tableImportHelper->truncateTempTable();
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
             
@@ -214,7 +214,7 @@ class PlantMaterialModel
             }
             $this->tableImportHelper->insertDataToLogTable($excelDataNewArray);
             $this->tableImportHelper->updateMaster();
-            $this->tableImportHelper->truncateTempTable();
+            
         }
 
         $this->monitoringItem->setMessage('Importing stop from: ' . $this->filePath)->save();
@@ -232,7 +232,7 @@ class PlantMaterialModel
             'status'        =>  $allSuccess,
             'fileName'      =>  date('Ymd')."_".time()
         );
-        // $movedAssetObj = $this->common->moveFile($moveParam);
+        $movedAssetObj = $this->common->moveFile($moveParam);
 
         $countMsg = "\nTotal Records:".$totalRow.", ";
         $countMsg .= "\nSuccess Records:".$this->successCount.", ";
@@ -288,8 +288,6 @@ class PlantMaterialModel
         $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
         
         $plantMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->plantMaterialCsvColumn);
-        $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-
         $errorData = array();
 
         try{        
@@ -300,6 +298,7 @@ class PlantMaterialModel
 		        /**
                  * Create or update plant material object
                  */
+                $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                 $objectPlantMaster = DataObject\PlantMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/".$plantMaterialKey);
             
 		        $countryName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnCountryOfOrigin);

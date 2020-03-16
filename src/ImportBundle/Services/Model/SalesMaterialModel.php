@@ -124,7 +124,7 @@ class SalesMaterialModel
              * remove column header from array excelDataNewArray. Only data remains.
              */
             array_shift($excelDataNewArray); 
-
+            $this->tableImportHelper->truncateTempTable();
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
 
@@ -221,7 +221,7 @@ class SalesMaterialModel
             
             $this->tableImportHelper->insertDataToLogTable($excelDataNewArray);
             $this->tableImportHelper->updateMaster();
-            $this->tableImportHelper->truncateTempTable();
+            
         }
         
         $this->monitoringItem->setMessage('Importing stop from: ' . $this->filePath)->save();
@@ -239,7 +239,7 @@ class SalesMaterialModel
             'status'        =>  $allSuccess,
             'fileName'      =>  date('Ymd')."_".time()
         );
-        // $movedAssetObj = $this->common->moveFile($moveParam);
+        $movedAssetObj = $this->common->moveFile($moveParam);
 
         $countMsg = "\nTotal Records:".$totalRow.", ";
         $countMsg .= "\nSuccess Records:".$this->successCount.", ";
@@ -288,11 +288,8 @@ class SalesMaterialModel
         $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
         $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
         $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
-        // $salesMaterialKey = $material."-".$salesOrg."-".$distributionChannel;  
         
         $salesMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->salesMaterialCsvColumn);
-        $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
-        
         $errorData = array();
 
         try{        
@@ -303,6 +300,7 @@ class SalesMaterialModel
                 /**
                  * Create or update sales material object
                  */
+                $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                 $objectSalesMaster = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$salesMaterialKey);
             
                 $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
