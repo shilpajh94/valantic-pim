@@ -284,8 +284,10 @@ class CategoryModel
             $catObj->setDescription($this->reader['description'], 'en');
 
         /* Set related object brick here */
-        if(in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {         
-            $catObj->setRelatedObjectBrick([$this->reader['attributeList']]);
+        if(in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {     
+            if(!empty($this->reader['attributeList'])) {
+                $catObj->setRelatedObjectBrick([$this->reader['attributeList']]);
+            }   
         }
         $catObj->setPublished(1);
         $catObj->save();
