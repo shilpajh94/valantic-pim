@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T07:44:01+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-03-05T10:42:11+01:00
+* IP: 192.168.9.138
 
 
 Fields Summary: 
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     ),
   ),
    'title' => '',
-   'group' => 'PTG',
+   'group' => 'Synchronous',
    'key' => 'SynchronousFert',
    'parentClass' => '',
    'layoutDefinitions' => 
