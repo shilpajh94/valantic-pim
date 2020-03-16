@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T07:40:35+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-03-06T09:27:47+01:00
+* IP: 192.168.9.188
 
 
 Fields Summary: 
@@ -122,6 +122,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => 
                 array (
+                  0 => 
+                  array (
+                    'key' => 'Black',
+                    'value' => 'Black',
+                  ),
                 ),
                  'width' => 300,
                  'defaultValue' => '',
@@ -152,6 +157,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => 
                 array (
+                  0 => 
+                  array (
+                    'key' => 'POLYBUTADIENE',
+                    'value' => 'POLYBUTADIENE',
+                  ),
                 ),
                  'width' => 300,
                  'defaultValue' => '',
