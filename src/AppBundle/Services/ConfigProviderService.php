@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User: pradeep
  * Date: 2/3/20
@@ -19,8 +20,21 @@ class ConfigProviderService
      *
      * @return mixed
      */
-    public function getLevelAttributeMappingConfig(){
+    public function getLevelAttributeMappingConfig()
+    {
         return $this->getConfigFromYmlFile(LEVEL_ATTRIBUTE_MAPPING_FILE_PATH);
+    }
+    public function getCommandConfig()
+    {
+        return $this->getConfigFromYmlFile(COMMAND_CONFIG_FILE_PATH);
+    }
+    public function getCategoryConfig()
+    {
+        return $this->getConfigFromYmlFile(CATEGORY_CONFIG_FILE_PATH);
+    }
+    public function getProductConfig()
+    {
+        return $this->getConfigFromYmlFile(PRODUCT_CONFIG_FILE_PATH);
     }
 
     /**
@@ -30,25 +44,22 @@ class ConfigProviderService
      * @param $filePath
      * @return mixed
      */
-    public function getConfigFromYmlFile($filePath){
+    public function getConfigFromYmlFile($filePath)
+    {
         $env = \Pimcore\Config::getEnvironment();
         $cacheKey = Utils::getCacheKeyForFilePath($filePath);
 
-        if($env != "dev"){
-            if($config = Cache::load($cacheKey)){
-
-            }else{
+        if ($env != "dev") {
+            if ($config = Cache::load($cacheKey)) {
+            } else {
                 $config = Utils::getYmlConfig($filePath);
-                Cache::save($config,$cacheKey);
+                Cache::save($config, $cacheKey);
             }
-        }else{
+        } else {
             $config = Utils::getYmlConfig($filePath);
-            Cache::save($config,$cacheKey);
+            Cache::save($config, $cacheKey);
         }
-        $returnValue = $config;
-
-        return $returnValue;
+        $returnConfig = $config;
+        return $returnConfig;
     }
-
-
 }
