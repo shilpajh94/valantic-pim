@@ -49,14 +49,14 @@ class Product
             foreach ($siops as $l => $siop) {
                 $sioLvlName = "setSIOPLevel" . $l;
                 if (!empty($siop) && $siop->getId()) {
-                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);                    
+                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);
                 }
             }
             /**
              * Level 1 will be common and the above array will not have info about level 1, So setting it here.
-            */
+             */
             $level1Id = $this->catHelper->getLevel1ParentId();
-            if(!empty($level1Id)) {
+            if (!empty($level1Id)) {
                 $catObj = DataObject::getById($level1Id);
                 $targetObject->setSIOPLevel1($catObj);
             }
@@ -176,5 +176,94 @@ class Product
     {
         $length = $this->level = $this->common->getParameterItem($this->prdConfigData, 'skeleton', 'length');
         return !empty($oldMaterialCode) ? substr($oldMaterialCode, 0, $length) : false;
+    }
+
+    public function getBrickObject($targetObject, $brick, $settingFor)
+    {
+        switch ($brick) {
+            case 'AccessoriesFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\AccessoriesFert($targetObject);
+                    $targetObject->getDigit14()->setAccessoriesFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'BeltsFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\BeltsFert($targetObject);
+                    $targetObject->getDigit14()->setBeltsFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'HoseFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\HoseFert($targetObject);
+                    $targetObject->getDigit14()->setHoseFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'HydFittingsFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\HydFittingsFert($targetObject);
+                    $targetObject->getDigit14()->setHydFittingsFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'INHFittingsFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\INHFittingsFert($targetObject);
+                    $targetObject->getDigit14()->setINHFittingsFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'MetalFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\MetalFert($targetObject);
+                    $targetObject->getDigit14()->setMetalFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'PTGFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\PTGFert($targetObject);
+                    $targetObject->getDigit14()->setPTGFert($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'SynchronousFert':
+                if (empty($settingFor)) {
+                    $brick = new DataObject\Objectbrick\Data\SynchronousFert($targetObject);
+                $targetObject->getDigit14()->setSynchronousFert($brick);
+                return $brick;
+                }
+                return false;
+                break;
+            case 'HoseBase':
+                if($settingFor=='base') {
+                    $brick = new DataObject\Objectbrick\Data\HoseBase($targetObject);
+                    $targetObject->getSpecification()->setHoseBase($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            case 'HoseSkeleton':
+                if($settingFor=='skeleton') {
+                    $brick = new DataObject\Objectbrick\Data\HoseSkeleton($targetObject);
+                    $targetObject->getBrandData()->setHoseSkeleton($brick);
+                    return $brick;
+                }
+                return false;
+                break;
+            default:
+                return false;
+                break;
+        }
     }
 }

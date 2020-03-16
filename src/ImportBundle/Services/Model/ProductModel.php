@@ -45,6 +45,7 @@ class ProductModel
     private $columnName;
     private $csvHeader;
     private $data;
+    private $bricks;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -61,6 +62,7 @@ class ProductModel
         $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
         $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
+        $this->bricks = $this->common->getParameter($this->prdConfigData, 'bricks');
     }
 
     /**
@@ -337,7 +339,7 @@ class ProductModel
                     $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                     $prdSpecObj->setSiopFullCode($this->getData('code'));
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                    $this->setHoseBase($prdSpecObj);
+                    $this->setBricks($prdSpecObj, 'base');
                     $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
                     if (!empty($prdSpecObj)) {
@@ -401,7 +403,7 @@ class ProductModel
                     $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                     $prdSpecObj->setSiopFullCode($this->getData('code'));                    
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                    $this->setHoseSkeleton($prdSpecObj);
+                    $this->setBricks($prdSpecObj, 'skeleton');
                     $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
 
@@ -456,7 +458,7 @@ class ProductModel
                 $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                 $prdSpecObj->setSiopFullCode($this->getData('code')); 
                 $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                $this->setHoseFert($prdSpecObj);
+                $this->setBricks($prdSpecObj);
                 $prdSpecObj->setPublished(1);
                 $prdSpecObj->save();
 
@@ -477,27 +479,27 @@ class ProductModel
         return $flag;
     }
 
-    private function setHoseBase($targetObject)
-    {
-        // $targetObject->set
-        $this->monitoringItem->getLogger()->info('Setting Hose Base');
-        $brick = new DataObject\Objectbrick\Data\HoseBase($targetObject);
-        $brick->setStaticWire('test');
-        $targetObject->getSpecification()->setHoseBase($brick);
-    }
-
-    private function setHoseSkeleton($targetObject)
-    {
-        $this->monitoringItem->getLogger()->info('Setting Hose Skeleton');
-        $brick = new DataObject\Objectbrick\Data\HoseSkeleton($targetObject);
-        $targetObject->getBrandData()->setHoseSkeleton($brick);
-    }
-
-    private function setHoseFert($targetObject)
-    {
-        $this->monitoringItem->getLogger()->info('Setting Hose Fert');
-        $brick = new DataObject\Objectbrick\Data\HoseFert($targetObject);
-        $targetObject->getDigit14()->setHoseFert($brick);
+    private function setBricks($targetObject, $settingFor="") {
+        $topLvl = max(array_keys($this->siop));
+        // p_r($this->getData('code').' - '.$topLvl);
+        $o = $this->siop[$topLvl];
+        if(!empty($o)) {
+            // Getting the associated brick group
+            $relatedBricks = $o->getRelatedObjectBrick();
+            if(!empty($relatedBricks)) {
+                foreach($relatedBricks as $grp) {
+                    if(key_exists($grp, $this->bricks)) {
+                        $brickList = $this->bricks[$grp];
+                        if(!empty($brickList)) {
+                            foreach($brickList as $brick) {
+                                // Setting brick
+                                $brick = $this->prdHelper->getBrickObject($targetObject, $brick, $settingFor);                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private function exitProcess()

@@ -99,5 +99,15 @@ parameters:
       tempTable: 'material_import_temp'
       masterTable:  'material_import_master'
       logTable: 'material_import_log'
+  # Bricks
+  bricks:
+    HYD_ACCESSORIES: ['AccessoriesFert']
+    Belts:  ['BeltsFert']
+    INH-HYD-HOSE: ['HoseBase', 'HoseFert', 'HoseSkeleton'] 
+    HYD_FITTINGS: ['HydFittingsFert']
+    INH_FITTINGS: ['INHFittingsFert']
+    Metal: ['MetalFert']
+    PTG: ['PTGFert']
+    Synchronous: ['SynchronousFert']
 
     
