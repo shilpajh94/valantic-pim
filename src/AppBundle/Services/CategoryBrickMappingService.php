@@ -96,6 +96,27 @@ class CategoryBrickMappingService
     }
 
     /**
+     * check if SIOP full code was edited by the user
+     *
+     * @param Request $request
+     * @return bool
+     */
+    public function isSIOPFullCodeChangedInSaveRequest(Request $request){
+        $siopFullCodeChanged = false;
+        $changedData = null;
+        $fieldName = "siopFullCode";
+
+        // getting edited data from http request
+        if ($request->get('data')) {
+            $changedData = json_decode($request->get('data'), true);
+                if (array_key_exists($fieldName, $changedData)) {
+                    $siopFullCodeChanged = true;
+                }
+        }
+        return $siopFullCodeChanged;
+    }
+
+    /**
      * get the level of the SIOP relational field for the given full code length
      *
      * @param string $fullCode
@@ -143,7 +164,6 @@ class CategoryBrickMappingService
      */
     private function manageBrickForProductAtLevel(Product $product, array $selectedClassificationNames, string $level): Product
     {
-
         $shouldBeAttachedBrickKeys = $this->getMappedBrickKeys($selectedClassificationNames, $level);
 
         $brickFieldName = $this->getBrickFieldNameInProductByLevel($level);

@@ -120,6 +120,7 @@ class ObjectListener
          */
         if (php_sapi_name() != "cli") {
             $object = $event->getObject();
+            // to also get the inherited values
             $object->setGetInheritedValues(true);
 
             if ($object instanceof DataObject\Product) {
@@ -129,6 +130,7 @@ class ObjectListener
 
                 $currRequest = $requestStack->getCurrentRequest();
                 $siopRelationChanged = false;
+                $siopFullCodeChanged = false;
 
                 /**
                  * check if any of the SIOP relational field data is changed in the product
@@ -136,13 +138,14 @@ class ObjectListener
                  */
                 if ($currRequest instanceof Request) {
                     $siopRelationChanged = $categoryBrickMappingService->isSIOPRelationChangedInSaveRequest($currRequest);
+                    $siopFullCodeChanged = $categoryBrickMappingService->isSIOPFullCodeChangedInSaveRequest($currRequest);
                 }
 
                 /**
                  * run the logic for brick change management for the product
-                 * if any of the siop relation data in product is changed
+                 * if any of the SIOP relation data or SIOP full code in product is changed
                  */
-                if ($siopRelationChanged) {
+                if ($siopRelationChanged || $siopFullCodeChanged) {
                     $categoryBrickMappingService->manageBricksForSIOPRelationChange($object);
                 }
             }
