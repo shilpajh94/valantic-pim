@@ -136,10 +136,8 @@ class ProductModel
 
 
         foreach ($this->data as $rowCnt => $row) {
+            $levelInfo = array();
             $this->reader = json_decode($row['record']);
-            // p_r($this->getData('code'));die;
-            $flag = true;
-            // $this->reader = array_combine($this->columnName, $reader);
             $this->currentStep = $rowCnt + 1;
 
             $this->monitoringItem->setMessage('Processing record ' . $this->currentStep);
@@ -162,7 +160,6 @@ class ProductModel
             $result = $this->instance->validateRow($record);
             if (!$result['status']) {
                 $success = false;
-                $flag = false;
                 $this->monitoringItem->getLogger()->error($result['message']);
 
                 /**
@@ -170,7 +167,6 @@ class ProductModel
                  */
                 $this->updateRowStatus('FAILED', $result['message']);
             } else {
-                $len = strlen($this->getData('code'));
                 $levelInfo = $this->prdHelper->getLevels($this->getData('code'), $record);
                 // p_r($levelInfo);die;
                 if ($levelInfo['status']) {
@@ -241,7 +237,6 @@ class ProductModel
                     } else {
                         $message = "Code '" . $this->getData('code') . "' failed to process due to SIOP hierarchy creation/updation";
                         $this->monitoringItem->getLogger()->error($message);
-                        $flag = false;
                         $success = false;
 
                         /**
@@ -252,7 +247,6 @@ class ProductModel
                 } else {
                     /* Validation Error */
                     $this->monitoringItem->getLogger()->error($levelInfo['message']);
-                    $flag = false;
                     $success = false;
 
                     /**
@@ -405,10 +399,10 @@ class ProductModel
                     $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
                     $prdSpecObj->setManufacter($this->getData('manufacture'));
                     $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
-                    $prdSpecObj->setSiopFullCode($this->getData('code'));
-                    $prdSpecObj->setPublished(1);
+                    $prdSpecObj->setSiopFullCode($this->getData('code'));                    
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
                     $this->setHoseSkeleton($prdSpecObj);
+                    $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
 
                     if (!empty($prdSpecObj)) {
@@ -460,6 +454,7 @@ class ProductModel
                 $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
                 $prdSpecObj->setManufacter($this->getData('manufacture'));
                 $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
+                $prdSpecObj->setSiopFullCode($this->getData('code')); 
                 $this->prdHelper->setSiop($this->siop, $prdSpecObj);
                 $this->setHoseFert($prdSpecObj);
                 $prdSpecObj->setPublished(1);

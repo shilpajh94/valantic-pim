@@ -33,6 +33,7 @@ class CategoryModel
     private $common;
     private $catHelper;
     private $catConfigData;
+    private $relatedClsfcnLvl;
     public function __construct()
     {
         try {
@@ -44,7 +45,12 @@ class CategoryModel
             /* Initiating global category helper */
             $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
 
+            $this->relatedClsfcnLvl = $this->common->getParameter($this->catConfigData, 'relatedClsfcnLvl');
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
+
+            /* Create parent if it does not exist */
+            $this->createSIOPParentHier();
+            
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -104,8 +110,7 @@ class CategoryModel
     public function import($spreadsheet)
     {
         try {
-            /* Create parent if it does not exist */
-            $this->createSIOPParentHier();
+            
             $activeSheet = $spreadsheet->getActiveSheet()->toArray();
 
             /* Number of rows in a sheet */
@@ -278,6 +283,10 @@ class CategoryModel
         if (isset($this->reader) && isset($this->reader['description']))
             $catObj->setDescription($this->reader['description'], 'en');
 
+        /* Set related object brick here */
+        if(in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {         
+            $catObj->setRelatedObjectBrick([$this->reader['attributeList']]);
+        }
         $catObj->setPublished(1);
         $catObj->save();
         if (empty($catObj)) {
