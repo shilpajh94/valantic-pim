@@ -37,6 +37,36 @@ services:
         resource: '../../Command/*'
         tags: ['console.command']
         
+    # Services
+    # this service will be common throughout the project
+    app.common_helper:
+        class: AppBundle\Helper\Common
+        public: true
+
+    # Global helper
+    app.category_helper:
+        class: AppBundle\Helper\Category
+        public: true
+
+    app.product_helper:
+        class: AppBundle\Helper\Product
+        public: true
+        
+    app.table_import_helper:
+        class: AppBundle\Helper\TableImport
+        public: true
+
+    # Pim catgory(SIOP) class
+    pim.category_service:
+        class: Pimcore\Model\DataObject\ProductCategory
+        public: true
+
+    # Pim category listing class
+    pim.category_listing_service:
+        class: Pimcore\Model\DataObject\ProductCategory\Listing
+        public: true
+
+    
     app.config_provider_service:
         class: AppBundle\Services\ConfigProviderService
         public: true
