@@ -45,6 +45,8 @@ class ProductModel
     private $columnName;
     private $csvHeader;
     private $data;
+    private $bricks;
+    private $brickMappingService;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -59,8 +61,9 @@ class ProductModel
         $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
         $this->catInstance = \Pimcore::getContainer()->get('import.category_service');
         $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
+        $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
         $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
-        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
+        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');               
     }
 
     /**
@@ -134,12 +137,11 @@ class ProductModel
         $this->totalSteps = $totalRow;
         $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
-
+        // Cleaning the temp table
+        $this->tblImpHelper->truncateTempTable();
         foreach ($this->data as $rowCnt => $row) {
+            $levelInfo = array();
             $this->reader = json_decode($row['record']);
-            // p_r($this->getData('code'));die;
-            $flag = true;
-            // $this->reader = array_combine($this->columnName, $reader);
             $this->currentStep = $rowCnt + 1;
 
             $this->monitoringItem->setMessage('Processing record ' . $this->currentStep);
@@ -162,7 +164,6 @@ class ProductModel
             $result = $this->instance->validateRow($record);
             if (!$result['status']) {
                 $success = false;
-                $flag = false;
                 $this->monitoringItem->getLogger()->error($result['message']);
 
                 /**
@@ -170,7 +171,6 @@ class ProductModel
                  */
                 $this->updateRowStatus('FAILED', $result['message']);
             } else {
-                $len = strlen($this->getData('code'));
                 $levelInfo = $this->prdHelper->getLevels($this->getData('code'), $record);
                 // p_r($levelInfo);die;
                 if ($levelInfo['status']) {
@@ -241,7 +241,6 @@ class ProductModel
                     } else {
                         $message = "Code '" . $this->getData('code') . "' failed to process due to SIOP hierarchy creation/updation";
                         $this->monitoringItem->getLogger()->error($message);
-                        $flag = false;
                         $success = false;
 
                         /**
@@ -252,7 +251,6 @@ class ProductModel
                 } else {
                     /* Validation Error */
                     $this->monitoringItem->getLogger()->error($levelInfo['message']);
-                    $flag = false;
                     $success = false;
 
                     /**
@@ -268,7 +266,6 @@ class ProductModel
         */
         $this->tblImpHelper->insertDataToLogTable($this->data);
         $this->tblImpHelper->updateMaster();
-        $this->tblImpHelper->truncateTempTable();
         /**
          * Here setting process as completed
          */
@@ -335,15 +332,10 @@ class ProductModel
                     /* Update Object */
                     /* Base Data */
                     $prdSpecObj->setProductType($productType);
-                    $prdSpecObj->setArticleNumber($this->getData('material'));
-                    $prdSpecObj->setSapDescription($this->getData('description'), 'en');
                     $prdSpecObj->setMaterialGroup($this->getData('group'));
-                    $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
-                    $prdSpecObj->setManufacter($this->getData('manufacture'));
-                    $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                     $prdSpecObj->setSiopFullCode($this->getData('code'));
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                    $this->setHoseBase($prdSpecObj);
+                    $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                     $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
                     if (!empty($prdSpecObj)) {
@@ -399,16 +391,11 @@ class ProductModel
 
                     /* Update Object */
                     $prdSpecObj->setProductType($productType);
-                    $prdSpecObj->setArticleNumber($this->getData('material'));
-                    $prdSpecObj->setSapDescription($this->getData('description'), 'en');
                     $prdSpecObj->setMaterialGroup($this->getData('group'));
-                    $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
-                    $prdSpecObj->setManufacter($this->getData('manufacture'));
-                    $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
-                    $prdSpecObj->setSiopFullCode($this->getData('code'));
-                    $prdSpecObj->setPublished(1);
+                    $prdSpecObj->setSiopFullCode($this->getData('code'));                    
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                    $this->setHoseSkeleton($prdSpecObj);
+                    $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
+                    $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
 
                     if (!empty($prdSpecObj)) {
@@ -460,8 +447,12 @@ class ProductModel
                 $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
                 $prdSpecObj->setManufacter($this->getData('manufacture'));
                 $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
+                $prdSpecObj->setStccCode($this->getData('stccCode'));
+                $prdSpecObj->setEanUpc($this->getData('eanUPC'));
+                $prdSpecObj->setBaseUOM($this->getData('baseUOM'));
+                $prdSpecObj->setSiopFullCode($this->getData('code'));
                 $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                $this->setHoseFert($prdSpecObj);
+                $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                 $prdSpecObj->setPublished(1);
                 $prdSpecObj->save();
 
@@ -480,29 +471,6 @@ class ProductModel
             }
         }
         return $flag;
-    }
-
-    private function setHoseBase($targetObject)
-    {
-        // $targetObject->set
-        $this->monitoringItem->getLogger()->info('Setting Hose Base');
-        $brick = new DataObject\Objectbrick\Data\HoseBase($targetObject);
-        $brick->setStaticWire('test');
-        $targetObject->getSpecification()->setHoseBase($brick);
-    }
-
-    private function setHoseSkeleton($targetObject)
-    {
-        $this->monitoringItem->getLogger()->info('Setting Hose Skeleton');
-        $brick = new DataObject\Objectbrick\Data\HoseSkeleton($targetObject);
-        $targetObject->getBrandData()->setHoseSkeleton($brick);
-    }
-
-    private function setHoseFert($targetObject)
-    {
-        $this->monitoringItem->getLogger()->info('Setting Hose Fert');
-        $brick = new DataObject\Objectbrick\Data\HoseFert($targetObject);
-        $targetObject->getDigit14()->setHoseFert($brick);
     }
 
     private function exitProcess()

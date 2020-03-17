@@ -49,10 +49,16 @@ class Product
             foreach ($siops as $l => $siop) {
                 $sioLvlName = "setSIOPLevel" . $l;
                 if (!empty($siop) && $siop->getId()) {
-                    // p_r($siop->getId() . ' - ' . $siop->getFullCode());
-                    // p_r($sioLvlName);
-                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);                    
+                    $targetObject->$sioLvlName([\Pimcore::getContainer()->get('pim.category_service')::getById($siop->getId())]);
                 }
+            }
+            /**
+             * Level 1 will be common and the above array will not have info about level 1, So setting it here.
+             */
+            $level1Id = $this->catHelper->getLevel1ParentId();
+            if (!empty($level1Id)) {
+                $catObj = DataObject::getById($level1Id);
+                $targetObject->setSIOPLevel1($catObj);
             }
         }
     }
@@ -170,5 +176,5 @@ class Product
     {
         $length = $this->level = $this->common->getParameterItem($this->prdConfigData, 'skeleton', 'length');
         return !empty($oldMaterialCode) ? substr($oldMaterialCode, 0, $length) : false;
-    }
+    }    
 }

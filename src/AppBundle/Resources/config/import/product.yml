@@ -63,9 +63,9 @@ parameters:
     
   # Product Type
   productType:
-    6:  '6Digit'
-    9:  '9Digit'
-    14: 'Base (14 Digit)'
+    6:  'base'
+    9:  'skeleton'
+    14: 'fert'
 
   # SIOP Code Level Info
   level:

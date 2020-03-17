@@ -37,6 +37,11 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(PRODUCT_CONFIG_FILE_PATH);
     }
 
+    public function getBrickMappingConfig(){
+        return $this->getConfigFromYmlFile(BRICK_MAPPING_CONFIG_FILE_PATH);
+    }
+
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
