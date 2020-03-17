@@ -36,7 +36,7 @@ services:
     AppBundle\Command\:
         resource: '../../Command/*'
         tags: ['console.command']
-        
-    app.config_provider_service:
-        class: AppBundle\Services\ConfigProviderService
+
+
+    AppBundle\Services\ConfigProviderService:
         public: true
