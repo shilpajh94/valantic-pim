@@ -37,10 +37,6 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(PRODUCT_CONFIG_FILE_PATH);
     }
 
-    public function getCategoryConfig(){
-        return $this->getConfigFromYmlFile(CATEGORY_CONFIG_FILE_PATH);
-    }
-
     public function getBrickMappingConfig(){
         return $this->getConfigFromYmlFile(BRICK_MAPPING_CONFIG_FILE_PATH);
     }

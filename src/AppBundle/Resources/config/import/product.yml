@@ -63,9 +63,9 @@ parameters:
     
   # Product Type
   productType:
-    6:  '6Digit'
-    9:  '9Digit'
-    14: 'Base (14 Digit)'
+    6:  'base'
+    9:  'skeleton'
+    14: 'fert'
 
   # SIOP Code Level Info
   level:
@@ -99,15 +99,5 @@ parameters:
       tempTable: 'material_import_temp'
       masterTable:  'material_import_master'
       logTable: 'material_import_log'
-  # Bricks
-  bricks:
-    HYD_ACCESSORIES: ['AccessoriesFert']
-    Belts:  ['BeltsFert']
-    INH-HYD-HOSE: ['HoseBase', 'HoseFert', 'HoseSkeleton'] 
-    HYD_FITTINGS: ['HydFittingsFert']
-    INH_FITTINGS: ['INHFittingsFert']
-    Metal: ['MetalFert']
-    PTG: ['PTGFert']
-    Synchronous: ['SynchronousFert']
 
     

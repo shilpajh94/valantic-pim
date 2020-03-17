@@ -46,6 +46,7 @@ class ProductModel
     private $csvHeader;
     private $data;
     private $bricks;
+    private $brickMappingService;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -60,9 +61,9 @@ class ProductModel
         $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
         $this->catInstance = \Pimcore::getContainer()->get('import.category_service');
         $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
+        $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
         $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
-        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
-        $this->bricks = $this->common->getParameter($this->prdConfigData, 'bricks');
+        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');               
     }
 
     /**
@@ -331,15 +332,10 @@ class ProductModel
                     /* Update Object */
                     /* Base Data */
                     $prdSpecObj->setProductType($productType);
-                    $prdSpecObj->setArticleNumber($this->getData('material'));
-                    $prdSpecObj->setSapDescription($this->getData('description'), 'en');
                     $prdSpecObj->setMaterialGroup($this->getData('group'));
-                    $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
-                    $prdSpecObj->setManufacter($this->getData('manufacture'));
-                    $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                     $prdSpecObj->setSiopFullCode($this->getData('code'));
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                    $this->setBricks($prdSpecObj, 'base');
+                    $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                     $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
                     if (!empty($prdSpecObj)) {
@@ -395,15 +391,10 @@ class ProductModel
 
                     /* Update Object */
                     $prdSpecObj->setProductType($productType);
-                    $prdSpecObj->setArticleNumber($this->getData('material'));
-                    $prdSpecObj->setSapDescription($this->getData('description'), 'en');
                     $prdSpecObj->setMaterialGroup($this->getData('group'));
-                    $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
-                    $prdSpecObj->setManufacter($this->getData('manufacture'));
-                    $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
                     $prdSpecObj->setSiopFullCode($this->getData('code'));                    
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                    $this->setBricks($prdSpecObj, 'skeleton');
+                    $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                     $prdSpecObj->setPublished(1);
                     $prdSpecObj->save();
 
@@ -456,9 +447,12 @@ class ProductModel
                 $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
                 $prdSpecObj->setManufacter($this->getData('manufacture'));
                 $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
-                $prdSpecObj->setSiopFullCode($this->getData('code')); 
+                $prdSpecObj->setStccCode($this->getData('stccCode'));
+                $prdSpecObj->setEanUpc($this->getData('eanUPC'));
+                $prdSpecObj->setBaseUOM($this->getData('baseUOM'));
+                $prdSpecObj->setSiopFullCode($this->getData('code'));
                 $this->prdHelper->setSiop($this->siop, $prdSpecObj);
-                $this->setBricks($prdSpecObj);
+                $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                 $prdSpecObj->setPublished(1);
                 $prdSpecObj->save();
 
@@ -477,29 +471,6 @@ class ProductModel
             }
         }
         return $flag;
-    }
-
-    private function setBricks($targetObject, $settingFor="") {
-        $topLvl = max(array_keys($this->siop));
-        // p_r($this->getData('code').' - '.$topLvl);
-        $o = $this->siop[$topLvl];
-        if(!empty($o)) {
-            // Getting the associated brick group
-            $relatedBricks = $o->getRelatedObjectBrick();
-            if(!empty($relatedBricks)) {
-                foreach($relatedBricks as $grp) {
-                    if(key_exists($grp, $this->bricks)) {
-                        $brickList = $this->bricks[$grp];
-                        if(!empty($brickList)) {
-                            foreach($brickList as $brick) {
-                                // Setting brick
-                                $brick = $this->prdHelper->getBrickObject($targetObject, $brick, $settingFor);                                
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private function exitProcess()

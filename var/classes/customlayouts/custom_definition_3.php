@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-28T13:08:27+01:00
+* Generated at: 2020-03-17T11:26:51+01:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'digit14',
    'description' => '',
    'creationDate' => 1581513126,
-   'modificationDate' => 1582891707,
+   'modificationDate' => 1584440811,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -178,62 +178,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'datatype' => 'data',
                              'relationType' => false,
                              'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
-                             'fieldtype' => 'language',
-                             'onlySystemLanguages' => true,
-                             'options' => 
-                            array (
-                              0 => 
-                              array (
-                                'key' => 'English',
-                                'value' => 'en',
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'French (Canada)',
-                                'value' => 'fr_CA',
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'German',
-                                'value' => 'de',
-                              ),
-                              3 => 
-                              array (
-                                'key' => 'Portuguese',
-                                'value' => 'pt',
-                              ),
-                              4 => 
-                              array (
-                                'key' => 'Spanish (Mexico)',
-                                'value' => 'es_MX',
-                              ),
-                            ),
-                             'width' => '',
-                             'defaultValue' => NULL,
-                             'optionsProviderClass' => NULL,
-                             'optionsProviderData' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'dynamicOptions' => false,
-                             'name' => 'sapDescriptionLanguage',
-                             'title' => 'SAP Description Language',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => true,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
@@ -3039,7 +2983,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'Hose',
+                  0 => 'HoseBase',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3087,7 +3031,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'Hose9',
+                  0 => 'HoseSkeleton',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3135,14 +3079,14 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
                  'allowedTypes' => 
                 array (
-                  0 => 'Belts',
-                  1 => 'Metal',
-                  2 => 'PTG',
-                  3 => 'Synchronous',
-                  4 => 'Hose14',
-                  5 => 'Accessories',
-                  6 => 'INHFittingsVariant',
-                  7 => 'HydFittingsVariant',
+                  0 => 'AccessoriesFert',
+                  1 => 'PTGFert',
+                  2 => 'MetalFert',
+                  3 => 'BeltsFert',
+                  4 => 'SynchronousFert',
+                  5 => 'HoseFert',
+                  6 => 'HydFittingsFert',
+                  7 => 'INHFittingsFert',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3396,6 +3340,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
     ),
      'locked' => false,
   )),
-   'default' => 0,
+   'default' => 1,
    'dao' => NULL,
 ));
