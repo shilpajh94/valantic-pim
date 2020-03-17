@@ -68,7 +68,9 @@ class ObjectListener
                 $layoutName = 'digit6';
             } else if($productType == "9Digit") {
                 $layoutName = 'digit9';
-            }
+            } else if($productType == "PTG") {
+                $layoutName = 'PTG';
+            } 
             if (!empty($layoutName)) {
                 $customLayout = DataObject\ClassDefinition\CustomLayout::getByName($layoutName); //Id($data['currentLayoutId']);
                 $customLayoutDefinition = $customLayout->getLayoutDefinitions();

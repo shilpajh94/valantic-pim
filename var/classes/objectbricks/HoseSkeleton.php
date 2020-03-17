@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T07:59:02+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-03-17T07:17:09+01:00
+* IP: 192.168.9.195
 
 
 Fields Summary: 
@@ -42,7 +42,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     ),
   ),
    'title' => 'Hose 9 Digit',
-   'group' => 'IFS-INH-HYD',
+   'group' => 'INH-HYD-HOSE',
    'key' => 'HoseSkeleton',
    'parentClass' => '',
    'layoutDefinitions' => 

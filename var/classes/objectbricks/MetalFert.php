@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-05T10:41:57+01:00
-* IP: 192.168.9.138
+* Generated at: 2020-03-16T12:34:59+01:00
+* IP: 192.168.9.195
 
 
 Fields Summary: 
@@ -510,6 +510,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
