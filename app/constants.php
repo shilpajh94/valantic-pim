@@ -16,3 +16,5 @@ define('INVALID_COMMAND', 'Invalid command: %s command not found');
 define('FILE_FORMAT_DOESNOT_SUPPORT', 'This command does not support the given file format.');
 define('IMPORT_FILE_NOT_FOUND', 'No files to proceed. Please check the directory, File path is %s');
 define('ALLOWED_FILE_TYPES', 'Only %s files are allowed to uplod');
+
+define("BRICK_MAPPING_CONFIG_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/brick_mapping_config.yml");
