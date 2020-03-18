@@ -70,4 +70,10 @@ siop-import-error-log
 /src/SapBwBundle/*
 
 # cache.sh command
-cache.sh
+*.sh
+
+# Ignore gitignore
+*.gitignore
+
+# Ignore to update sample files
+*.csv

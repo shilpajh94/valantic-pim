@@ -2,7 +2,7 @@ parameters:
   # Csv header information
   sheet:
     columnName: ['code', 'level', 'description','attributeList']
-    lastColName: 'D'
+    lastColName: 'E'
   # Root information
   root:
     type: 'dataObject'
@@ -37,3 +37,6 @@ parameters:
     3000: 'PTG'
   # Related classification mapping on list of levels
   relatedClsfcnLvl: [4, 6]
+  # SIOP relation field names in productClass
+  # these fields are managed in config to keep the system from performance issue
+  siopRelationFieldsInProductClass: ['SIOPLevel1', 'SIOPLevel2', 'SIOPLevel3', 'SIOPLevel4', 'SIOPLevel5', 'SIOPLevel6']

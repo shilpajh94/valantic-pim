@@ -1,0 +1,13 @@
+product_type_to_product_brick_field_mapping:
+  base: 'Specification'
+  skeleton: 'BrandData'
+  fert: 'Digit14'
+group_name_to_brick_suffix_mapping:
+  HYD_ACCESSORIES: "Accessories"
+  Belts: "Belts"
+  IFS-INH-HYD: "Hose"
+  HYD_FITTINGS: "HydFittings"
+  INH_FITTINGS: "INHFittings"
+  Metal: "Metal"
+  PTG: "PTG"
+  Synchronous: "Synchronous"

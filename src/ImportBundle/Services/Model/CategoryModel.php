@@ -50,7 +50,6 @@ class CategoryModel
 
             /* Create parent if it does not exist */
             $this->createSIOPParentHier();
-            
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -137,7 +136,6 @@ class CategoryModel
                 $this->currentStep = $rowCnt + 1;
                 $flag = true;
                 $this->reader = array_combine($sheetColumns, $reader);
-
                 /* Validate each row's column value */
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
@@ -146,7 +144,7 @@ class CategoryModel
                 if (!$result['status']) {
                     $success = false;
                     $flag = false;
-                    
+
                     $this->monitoringItem->getLogger()->error($result['message']);
                     $this->rowStatus[$this->currentStep] .= $result['message'];
                 } else {
@@ -208,8 +206,8 @@ class CategoryModel
 
     public function createCategory($levelInfo)
     {
-        foreach ($levelInfo as $info) {            
-            $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);            
+        foreach ($levelInfo as $info) {
+            $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
             if (!empty($obj) && $obj->getId()) {
                 $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
                 if ($this->updateCategory($info)) {
@@ -246,7 +244,6 @@ class CategoryModel
             $this->monitoringItem->setMessage('Updating ' . $levelInfo['fullCode'] . ' ' . $catObj->getId())->save();
             $catObj = DataObject::getById($catObj->getId());
         }
-
         /* Setting current processing workload outof total workload */
         $this->monitoringItem->setCurrentWorkload($this->currentStep)
             ->setTotalWorkload($this->totalSteps)
@@ -284,10 +281,10 @@ class CategoryModel
             $catObj->setDescription($this->reader['description'], 'en');
 
         /* Set related object brick here */
-        if(in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {     
-            if(!empty($this->reader['attributeList'])) {
+        if (in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {
+            if (!empty($this->reader['attributeList'])) {
                 $catObj->setRelatedObjectBrick([$this->reader['attributeList']]);
-            }   
+            }
         }
         $catObj->setPublished(1);
         $catObj->save();

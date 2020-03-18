@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-13T08:33:22+01:00
+* Generated at: 2020-03-17T11:26:36+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.9.138
+* IP: 192.168.9.195
 
 
 Fields Summary: 
@@ -106,7 +106,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1584084801,
+   'modificationDate' => 1584440796,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2900,18 +2900,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             array (
                               0 => 
                               array (
-                                'key' => '9Digit',
-                                'value' => '9Digit',
+                                'key' => 'Base',
+                                'value' => 'base',
                               ),
                               1 => 
                               array (
-                                'key' => '6Digit',
-                                'value' => '6Digit',
+                                'key' => 'Skeleton',
+                                'value' => 'skeleton',
                               ),
                               2 => 
                               array (
-                                'key' => 'Base (14 Digit)',
-                                'value' => 'Base',
+                                'key' => 'Fert',
+                                'value' => 'fert',
                               ),
                               3 => 
                               array (

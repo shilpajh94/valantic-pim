@@ -10,9 +10,9 @@ services:
         public: false
         
     # Add listener to manipulate data object while saving it
-    AppBundle\EventListener\ObjectListener:
-        tags:
-            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
+#    AppBundle\EventListener\ObjectListener:
+#        tags:
+#            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: beforeOpenObject }
             
     AppBundle\EventListener\AdminAssetsListener:
         tags:
@@ -70,3 +70,19 @@ services:
     app.config_provider_service:
         class: AppBundle\Services\ConfigProviderService
         public: true
+    AppBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+
+
+    AppBundle\Services\ConfigProviderService:
+      public: true
+
+    AppBundle\Services\CategoryBrickMappingService:
+      public: true
+
+
+
+
+
+
