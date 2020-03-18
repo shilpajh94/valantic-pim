@@ -34,6 +34,7 @@ class CategoryModel
     private $catHelper;
     private $catConfigData;
     private $relatedClsfcnLvl;
+    private $processingCode;
     public function __construct()
     {
         try {
@@ -132,7 +133,7 @@ class CategoryModel
                     Import::setCell($this->fileLastCol . '1', 'Status');
                     continue;
                 }
-
+                $this->processingCode = '';
                 $this->currentStep = $rowCnt + 1;
                 $flag = true;
                 $this->reader = array_combine($sheetColumns, $reader);
@@ -150,8 +151,10 @@ class CategoryModel
                 } else {
                     $len = strlen($this->reader['code']);
                     $levelInfo = $this->catHelper->getLevels($this->reader['code'], $this->reader['description']);
-
+                    
                     if ($levelInfo['status']) {
+                        $lvl = max(array_keys($levelInfo['levels']));
+                        $this->processingCode = $levelInfo['levels'][$lvl]['levelFullCode'];
                         if (!$this->createCategory($levelInfo['levels'])) {
                             $this->monitoringItem->getLogger()->error("Code '" . $this->reader['code'] . "' failed to process");
                             $flag = false;
@@ -277,8 +280,11 @@ class CategoryModel
         }
 
 
-        if (isset($this->reader) && isset($this->reader['description']))
-            $catObj->setDescription($this->reader['description'], 'en');
+        if (isset($this->reader) && isset($this->reader['description'])) {
+            if($this->processingCode==$levelInfo['levelFullCode']) {
+                $catObj->setDescription($this->reader['description'], 'en');
+            }
+        }
 
         /* Set related object brick here */
         if (in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {
