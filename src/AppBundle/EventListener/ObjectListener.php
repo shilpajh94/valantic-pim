@@ -36,32 +36,7 @@ class ObjectListener
         $this->categoryBrickMappingService = $categoryBrickMappingService;
     }
 
-    /**
-     * --
-     *
-     * Listen to following events
-     * - pimcore.admin.object.list.beforeListLoad
-     *
-     * @param GenericEvent $event
-     */
-    public function beforeListLoad(GenericEvent $event)
-    {
-        try {
-            $list = $event->getArgument('list');
-            $context = $event->getArgument('context');
-            print_r($list);
-            die;
-            if (isset($context['class'])) {
-                if (method_exists($list, 'getClassId') && $list->getClassId() == 3) {
-                    $cond = $list->getCondition();
-                    $cond .= " AND (plArchive =0 || plArchive IS NULL)";
-                    $list->setCondition($cond);
-                }
-            }
-        } catch (\Exception  $ex) {
-
-        }
-    }
+    
 
     /**
      * --
@@ -79,15 +54,9 @@ class ObjectListener
             $validLayouts = $data['validLayouts'];
             $productType = $currentObject->getProductType();
             $layoutName = '';
-            if ($productType == "Base") {
-                $layoutName = 'digit14';
-            } else if ($productType == "6Digit") {
-                $layoutName = 'digit6';
-            } else if ($productType == "9Digit") {
-                $layoutName = 'digit9';
-            } else if($productType == "PTG") {
-                $layoutName = 'PTG';
-            } 
+            if(!empty($productType)) {
+                $layoutName = $layoutName;
+            }
             if (!empty($layoutName)) {
                 $customLayout = DataObject\ClassDefinition\CustomLayout::getByName($layoutName); //Id($data['currentLayoutId']);
                 $customLayoutDefinition = $customLayout->getLayoutDefinitions();
