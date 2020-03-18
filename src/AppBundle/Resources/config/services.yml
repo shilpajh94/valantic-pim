@@ -81,8 +81,6 @@ services:
     AppBundle\Services\CategoryBrickMappingService:
       public: true
 
-
-
-
-
-
+    ImportBundle\OneTimeImportCommand\ImportFittingDbCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:fitting-data' }
