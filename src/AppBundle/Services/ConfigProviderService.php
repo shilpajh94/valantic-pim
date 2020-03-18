@@ -40,6 +40,15 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(SALES_MATERIAL_CONFIG_FILE_PATH);
     }
+    public function getProductConfig()
+    {
+        return $this->getConfigFromYmlFile(PRODUCT_CONFIG_FILE_PATH);
+    }
+
+    public function getBrickMappingConfig(){
+        return $this->getConfigFromYmlFile(BRICK_MAPPING_CONFIG_FILE_PATH);
+    }
+
 
     /**
      * get yml config for the given file

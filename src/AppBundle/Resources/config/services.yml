@@ -43,16 +43,18 @@ services:
         class: AppBundle\Helper\Common
         public: true
 
-    # this service will be common throughout the project
-    app.table_import_helper:
-        class: AppBundle\Helper\TableImport
-        public: true        
-
-    # Global category helper
+    # Global helper
     app.category_helper:
         class: AppBundle\Helper\Category
         public: true
-      
+
+    app.product_helper:
+        class: AppBundle\Helper\Product
+        public: true
+        
+    app.table_import_helper:
+        class: AppBundle\Helper\TableImport
+        public: true
 
     # Pim catgory(SIOP) class
     pim.category_service:
@@ -68,3 +70,19 @@ services:
     app.config_provider_service:
         class: AppBundle\Services\ConfigProviderService
         public: true
+    AppBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+
+
+    AppBundle\Services\ConfigProviderService:
+      public: true
+
+    AppBundle\Services\CategoryBrickMappingService:
+      public: true
+
+
+
+
+
+

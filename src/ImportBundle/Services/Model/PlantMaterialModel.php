@@ -38,7 +38,7 @@ class PlantMaterialModel
     private $fileColumns = array();
     private $keyColumns = array();
     private $common;
-    private $plantMaterialCsvColumn = array();
+    private $mappingCsvColumn = array();
     private $tableImportConfig;
     private $tableImportHelper;
 
@@ -57,7 +57,7 @@ class PlantMaterialModel
             $this->tableImportHelper = \Pimcore::getContainer()->get('app.table_import_helper');
             $plantMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPlantMaterialConfig();
             
-            $this->plantMaterialCsvColumn = $this->common->getParameter($plantMaterialConfig, 'plantMaterialCsvColumn');
+            $this->mappingCsvColumn = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
             $this->tableImportConfig['tempTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','tempTable');
             $this->tableImportConfig['masterTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','masterTable');
             $this->tableImportConfig['logTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','logTable');
@@ -112,7 +112,7 @@ class PlantMaterialModel
              */
             $this->fileColumns = $excelDataNewArray[0];
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
-            $this->tableImportConfig['mappingCsvColumn'] = $this->plantMaterialCsvColumn;
+            $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             
             $this->tableImportHelper->init($this->tableImportConfig);
@@ -133,11 +133,11 @@ class PlantMaterialModel
             $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
             
-            $columnPlant = $this->plantMaterialCsvColumn['plant'];
-            $columnMaterial = $this->plantMaterialCsvColumn['material'];
-            $columnSalesOrg = $this->plantMaterialCsvColumn['salesOrg'];
-            $columnDistributionChannel = $this->plantMaterialCsvColumn['distributionChannel'];
-            $columncountryOfOrigin = $this->plantMaterialCsvColumn['countryOfOrigin'];
+            $columnPlant = $this->mappingCsvColumn['plant'];
+            $columnMaterial = $this->mappingCsvColumn['material'];
+            $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
+            $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
+            $columncountryOfOrigin = $this->mappingCsvColumn['countryOfOrigin'];
 
             /**
              * adding a new column 'status' to csv/excel file
@@ -267,27 +267,27 @@ class PlantMaterialModel
         $plantFolderId = $data['plantFolderId'];
         $countryFolderId = $data['countryFolderId'];
 
-        $columnPlant = $this->plantMaterialCsvColumn['plant'];
-        $columnMaterial = $this->plantMaterialCsvColumn['material'];
-        $columnCountryOfOrigin = $this->plantMaterialCsvColumn['countryOfOrigin'];
-        $columnPlanDeliveryTime = $this->plantMaterialCsvColumn['planDeliveryTime'];
-        $columnCommodityCode = $this->plantMaterialCsvColumn['commodityCode'];
-        $columnMinOrderQty = $this->plantMaterialCsvColumn['minOrderQty'];
-        $columnOrderQtyInc = $this->plantMaterialCsvColumn['orderQtyInc'];
-        $columnStdPackQtyUOM = $this->plantMaterialCsvColumn['stdPackQtyUOM'];
-        $columnStdPackQty = $this->plantMaterialCsvColumn['stdPackQty'];
-        $columnOutsidePurchaseIdentifier = $this->plantMaterialCsvColumn['outsidePurchaseIdentifier'];
-        $columnProfitCenter = $this->plantMaterialCsvColumn['profitCenter'];
+        $columnPlant = $this->mappingCsvColumn['plant'];
+        $columnMaterial = $this->mappingCsvColumn['material'];
+        $columnCountryOfOrigin = $this->mappingCsvColumn['countryOfOrigin'];
+        $columnPlanDeliveryTime = $this->mappingCsvColumn['planDeliveryTime'];
+        $columnCommodityCode = $this->mappingCsvColumn['commodityCode'];
+        $columnMinOrderQty = $this->mappingCsvColumn['minOrderQty'];
+        $columnOrderQtyInc = $this->mappingCsvColumn['orderQtyInc'];
+        $columnStdPackQtyUOM = $this->mappingCsvColumn['stdPackQtyUOM'];
+        $columnStdPackQty = $this->mappingCsvColumn['stdPackQty'];
+        $columnOutsidePurchaseIdentifier = $this->mappingCsvColumn['outsidePurchaseIdentifier'];
+        $columnProfitCenter = $this->mappingCsvColumn['profitCenter'];
 
-        $columnMrpController = $this->plantMaterialCsvColumn['mrpController'];
-        $columnTotalReplLeadTime = $this->plantMaterialCsvColumn['totalReplLeadTime'];
-        $columnSafetyStock = $this->plantMaterialCsvColumn['safetyStock'];
-        $columnStockIndicator = $this->plantMaterialCsvColumn['stockIndicator'];
+        $columnMrpController = $this->mappingCsvColumn['mrpController'];
+        $columnTotalReplLeadTime = $this->mappingCsvColumn['totalReplLeadTime'];
+        $columnSafetyStock = $this->mappingCsvColumn['safetyStock'];
+        $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
         
         $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
         $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
         
-        $plantMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->plantMaterialCsvColumn);
+        $plantMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->mappingCsvColumn);
         $errorData = array();
 
         try{        

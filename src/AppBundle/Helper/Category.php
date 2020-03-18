@@ -62,10 +62,6 @@ class Category
             } else {
                 $levels[$i]['objectKey'] = $kn . $levelFullCode;
             }
-            /* If level is 2 then get it's parent id */
-            if (2 == $i) {
-                $levels[$i]['parentId'] = $this->getLevel2ParentId($bu);
-            }
         }
 
         return array(
@@ -120,7 +116,8 @@ class Category
     public function getLevel2ParentId($bu)
     {
         $path = $this->root['fullPath'] . '/' . $bu;
-        $o = DataObject::getByPath($path);
+        return DataObject\Service::createFolderByPath($path)->getId();
+        /* $o = DataObject::getByPath($path);
         if (!empty($o)) {
             return $o->getId();
         } else {
@@ -131,7 +128,16 @@ class Category
                 $buFol->setParentId($pobj->getId());
                 $buFol->save();
             }
+        } */
+    }
+
+    public function getLevel1ParentId() {
+        $path = $this->root['fullPath'];
+        $obj = DataObject::getByPath($path);
+        if(!empty($obj)) {
+            return $obj->getId();
         }
+        return false;
     }
 
     public function isValidCategoryFormat($code)
@@ -141,6 +147,23 @@ class Category
         $startLvlcode = $this->extractCodeLevelWise($startLevel, $code);
         if (in_array($startLvlcode, $this->validCategories)) {
             return $startLvlcode;
+        }
+        return false;
+    }
+
+    public function getObjectByFullCode($code, $bu)
+    {
+        if (!empty($code)) {
+            // $obj = \Pimcore::getContainer()->get($this->listingService);
+            $obj = new DataObject\ProductCategory\Listing;
+            $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
+            $obj->setLimit(1);
+            $obj->load();
+
+            foreach ($obj as $o) {
+                if ($o->getId())
+                    return $o;
+            }
         }
         return false;
     }

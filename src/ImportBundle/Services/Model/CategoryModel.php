@@ -33,6 +33,7 @@ class CategoryModel
     private $common;
     private $catHelper;
     private $catConfigData;
+    private $relatedClsfcnLvl;
     public function __construct()
     {
         try {
@@ -44,7 +45,11 @@ class CategoryModel
             /* Initiating global category helper */
             $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
 
+            $this->relatedClsfcnLvl = $this->common->getParameter($this->catConfigData, 'relatedClsfcnLvl');
             $this->fileLastCol = $this->common->getParameterItem($this->catConfigData, 'sheet', 'lastColName');
+
+            /* Create parent if it does not exist */
+            $this->createSIOPParentHier();
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -104,8 +109,7 @@ class CategoryModel
     public function import($spreadsheet)
     {
         try {
-            /* Create parent if it does not exist */
-            $this->createSIOPParentHier();
+
             $activeSheet = $spreadsheet->getActiveSheet()->toArray();
 
             /* Number of rows in a sheet */
@@ -132,7 +136,6 @@ class CategoryModel
                 $this->currentStep = $rowCnt + 1;
                 $flag = true;
                 $this->reader = array_combine($sheetColumns, $reader);
-
                 /* Validate each row's column value */
                 $this->instance->rowCnt = $this->currentStep;
                 $result = $this->instance->validateRow($this->reader);
@@ -141,7 +144,7 @@ class CategoryModel
                 if (!$result['status']) {
                     $success = false;
                     $flag = false;
-                    
+
                     $this->monitoringItem->getLogger()->error($result['message']);
                     $this->rowStatus[$this->currentStep] .= $result['message'];
                 } else {
@@ -204,14 +207,14 @@ class CategoryModel
     public function createCategory($levelInfo)
     {
         foreach ($levelInfo as $info) {
-            $obj = $this->getObjectByFullCode($info['levelFullCode'], $info['bu']);
+            $obj = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
             if (!empty($obj) && $obj->getId()) {
                 $this->rowStatus[$this->currentStep] .= 'SIOP code already exists at level ' . $info['level'] . '. Updating Code: ' . $info['code'] . '. ';
                 if ($this->updateCategory($info)) {
                     return true;
                 }
             } else {
-                $parentObj = $this->getObjectByFullCode($info['parentFullCode'], $info['bu']);
+                $parentObj = $this->catHelper->getObjectByFullCode($info['parentFullCode'], $info['bu']);
                 if (!empty($parentObj)) {
                     /* Create or Update Object */
                     $this->rowStatus[$this->currentStep] .= 'Creating SIOP at level ' . $info['level'] . '. Code: ' . $info['code'] . '. ';
@@ -232,7 +235,7 @@ class CategoryModel
 
     public function updateCategory($levelInfo, $parentObj = "")
     {
-        $catObj = $this->getObjectByFullCode($levelInfo['levelFullCode'], $levelInfo['bu']);
+        $catObj = $this->catHelper->getObjectByFullCode($levelInfo['levelFullCode'], $levelInfo['bu']);
 
         if (empty($catObj)) {
             $this->monitoringItem->setMessage('New Category Insertion ')->save();
@@ -241,7 +244,6 @@ class CategoryModel
             $this->monitoringItem->setMessage('Updating ' . $levelInfo['fullCode'] . ' ' . $catObj->getId())->save();
             $catObj = DataObject::getById($catObj->getId());
         }
-
         /* Setting current processing workload outof total workload */
         $this->monitoringItem->setCurrentWorkload($this->currentStep)
             ->setTotalWorkload($this->totalSteps)
@@ -251,7 +253,6 @@ class CategoryModel
         $objKey = $levelInfo['objectKey']; //'description';
 
         $catObj->setKey(\Pimcore\Model\Element\Service::getValidKey($objKey, 'object'));
-
         /* Updating Object Here */
         $catObj->setBusinessUnit($levelInfo['bu']);
         $catObj->setIndustry('');
@@ -261,10 +262,11 @@ class CategoryModel
 
 
         if ($levelInfo['level'] == 2) {
-            $catObj->setParentId($levelInfo['parentId']);
+            $parentId = $this->catHelper->getLevel2ParentId($levelInfo['bu']);
+            $catObj->setParentId($parentId);
         } else {
             if (empty($parentObj)) {
-                $parentObj = $this->getObjectByFullCode($levelInfo['parentFullCode'], $levelInfo['bu']);
+                $parentObj = $this->catHelper->getObjectByFullCode($levelInfo['parentFullCode'], $levelInfo['bu']);
             }
 
             if ($parentObj) {
@@ -278,6 +280,12 @@ class CategoryModel
         if (isset($this->reader) && isset($this->reader['description']))
             $catObj->setDescription($this->reader['description'], 'en');
 
+        /* Set related object brick here */
+        if (in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {
+            if (!empty($this->reader['attributeList'])) {
+                $catObj->setRelatedObjectBrick([$this->reader['attributeList']]);
+            }
+        }
         $catObj->setPublished(1);
         $catObj->save();
         if (empty($catObj)) {
@@ -286,25 +294,6 @@ class CategoryModel
         }
         return $catObj->getId();
     }
-
-    public function getObjectByFullCode($code, $bu)
-    {
-        if (!empty($code)) {
-            // $obj = \Pimcore::getContainer()->get($this->listingService);
-            $obj = new DataObject\ProductCategory\Listing;
-            $obj->setCondition("FullCode='$code' AND BusinessUnit='$bu'");
-            $obj->setLimit(1);
-            $obj->load();
-
-            foreach ($obj as $o) {
-                if ($o->getId())
-                    return $o;
-            }
-        }
-        return false;
-    }
-
-
 
     /* This function will override the default configuration */
     private function updateDefaults($params)

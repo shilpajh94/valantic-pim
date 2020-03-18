@@ -40,7 +40,7 @@ class SalesMaterialModel
     private $approvedSalesOrg = array();
     private $privateMaterialGroup = array();
     private $common;
-    private $salesMaterialCsvColumn = array();
+    private $mappingCsvColumn = array();
     private $tableImportConfig;
     private $tableImportHelper;
 
@@ -60,7 +60,7 @@ class SalesMaterialModel
 
             $this->approvedSalesOrg = $this->common->getParameter($salesMaterialConfig, 'approvedSalesOrg');
             $this->privateMaterialGroup = $this->common->getParameter($salesMaterialConfig, 'privateMaterialGroup');
-            $this->salesMaterialCsvColumn = $this->common->getParameter($salesMaterialConfig, 'salesMaterialCsvColumn');
+            $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
             $this->tableImportConfig['tempTable'] = $this->common->getParameterItem($salesMaterialConfig, 'tables','tempTable');
             $this->tableImportConfig['masterTable'] = $this->common->getParameterItem($salesMaterialConfig, 'tables','masterTable');
             $this->tableImportConfig['logTable'] = $this->common->getParameterItem($salesMaterialConfig, 'tables','logTable');
@@ -115,7 +115,7 @@ class SalesMaterialModel
              */
             $this->fileColumns = $excelDataNewArray[0];
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
-            $this->tableImportConfig['mappingCsvColumn'] = $this->salesMaterialCsvColumn;
+            $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             
             $this->tableImportHelper->init($this->tableImportConfig);
@@ -137,10 +137,10 @@ class SalesMaterialModel
             $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
 
-            $columnPlant = $this->salesMaterialCsvColumn['plant'];
-            $columnMaterial = $this->salesMaterialCsvColumn['material'];
-            $columnSalesOrg = $this->salesMaterialCsvColumn['salesOrg'];
-	        $columnDistributionChannel = $this->salesMaterialCsvColumn['distributionChannel'];
+            $columnPlant = $this->mappingCsvColumn['plant'];
+            $columnMaterial = $this->mappingCsvColumn['material'];
+            $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
+	        $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
             
             /**
              * adding a new column 'status' to csv/excel file
@@ -275,21 +275,21 @@ class SalesMaterialModel
         $salesOrganizationsFolderId = $data['salesOrganizationsFolderId'];
         $distributionChannelFolderId = $data['distributionChannelFolderId'];
 
-        $columnPlant = $this->salesMaterialCsvColumn['plant'];
-        $columnMaterial = $this->salesMaterialCsvColumn['material'];
-        $columnSalesOrg = $this->salesMaterialCsvColumn['salesOrg'];
-        $columnSalesOrgDesc = $this->salesMaterialCsvColumn['salesOrgDesc'];
-        $columnDistributionChannel = $this->salesMaterialCsvColumn['distributionChannel'];
-        $columnDistributionChannelDesc = $this->salesMaterialCsvColumn['distributionChannelDesc'];
-        $columnSalesUnit = $this->salesMaterialCsvColumn['salesUnit'];
-        $columnMaterialGroup1 = $this->salesMaterialCsvColumn['materialGroup1'];
-        $columnMaterialGroup2 = $this->salesMaterialCsvColumn['materialGroup2'];
+        $columnPlant = $this->mappingCsvColumn['plant'];
+        $columnMaterial = $this->mappingCsvColumn['material'];
+        $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
+        $columnSalesOrgDesc = $this->mappingCsvColumn['salesOrgDesc'];
+        $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
+        $columnDistributionChannelDesc = $this->mappingCsvColumn['distributionChannelDesc'];
+        $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
+        $columnMaterialGroup1 = $this->mappingCsvColumn['materialGroup1'];
+        $columnMaterialGroup2 = $this->mappingCsvColumn['materialGroup2'];
 
         $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
         $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
         $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
         
-        $salesMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->salesMaterialCsvColumn);
+        $salesMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->mappingCsvColumn);
         $errorData = array();
 
         try{        

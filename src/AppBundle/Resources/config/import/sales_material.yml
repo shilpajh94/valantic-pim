@@ -8,7 +8,7 @@ parameters:
     '0644': '0644-Mexico'
   privateMaterialGroup: 
     '004': '004'
-  salesMaterialCsvColumn: 
+  mappingCsvColumn: 
     'salesOrg': 'Sales Org'
     'salesOrgDesc': 'Sales Org Desc'
     'distributionChannel': 'Distribution Channel'

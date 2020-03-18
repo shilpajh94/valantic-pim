@@ -1,5 +1,5 @@
 parameters:
-  plantMaterialCsvColumn: 
+  mappingCsvColumn: 
     'plant': 'Plant'
     'material': 'Material'
     'salesOrg': 'Sales Organization'

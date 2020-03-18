@@ -37,7 +37,7 @@ class TableImport
 
         $this->fileColumns = $table['fileColumns'];
         $this->keyColumns = $table['keyColumns'];
-        $this->$mappingCsvColumn = $table['mappingCsvColumn'];
+        $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
 
 
@@ -46,7 +46,7 @@ class TableImport
         $keyColumnValues = array();
         foreach($this->keyColumns as $key =>$keyColumn)
         {
-            $column = $this->$mappingCsvColumn[$keyColumn];
+            $column = $this->mappingCsvColumn[$keyColumn];
             $columnValue = $this->common->getFieldValue($this->fileColumns,$data,$column);
             $keyColumnValues[] = $columnValue;
         }
