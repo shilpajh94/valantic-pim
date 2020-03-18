@@ -121,7 +121,6 @@ class ProductModel
     public function import($spreadsheet)
     {
         $this->createRootFolder();
-        
         $this->data = array();
         $workSheet = $spreadsheet->getActiveSheet();
         $workSheetInfo = Import::getActiveSheetInfo($workSheet);
