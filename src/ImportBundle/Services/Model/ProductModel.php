@@ -121,7 +121,8 @@ class ProductModel
     public function import($spreadsheet)
     {
         $this->createRootFolder();
-
+        
+        $this->data = array();
         $workSheet = $spreadsheet->getActiveSheet();
         $workSheetInfo = Import::getActiveSheetInfo($workSheet);
         $readFrom = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'readFrom');
@@ -278,6 +279,7 @@ class ProductModel
     /* Get the category object level wise */
     public function setSiop($levelInfo)
     {
+        $this->siop = array();
         foreach ($levelInfo as $info) {
             $l = $info['level'];
             $o = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
