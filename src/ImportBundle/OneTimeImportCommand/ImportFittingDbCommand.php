@@ -128,8 +128,11 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setInsertionDepth($insertionDepth);
                     $brickData->setFittingWeight($fittingWeight);
                     
-                    $ReleasedToProductionDate = new \DateTime(date("d-m-Y", strtotime($data['Released To Production Date'])));
-                    $brickData->setReleasedToProductionDate($ReleasedToProductionDate);
+                    if(empty(trim($record['Released To Production Date'])))
+                    {
+                        $ReleasedToProductionDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Released To Production Date']))));
+                        $brickData->setReleasedToProductionDate($ReleasedToProductionDate);
+                    }
                     $brickData->setReleasedToProduction($data['Released To Production']);
                     // $brickData->setFlangeIDInFract();
                     // $brickData->setFlangeIDInDec();
@@ -182,8 +185,12 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setStemHexMM($data['Stem Hex mm']);
                     $brickData->setStemMaterial($data['Stem Material']);
                     
-                    $StemRevDate = new \DateTime(date("d-m-Y", strtotime($data['Stem Rev Date'])));
-                    $brickData->setStemRevDate($StemRevDate);
+                    if(empty(trim($record['Stem Rev Date'])))
+                    {
+                        $StemRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Stem Rev Date']))));
+                        $brickData->setStemRevDate($StemRevDate);
+                    }
+
                     // $brickData->setStemRevisionNumber($data['Stem Revision Number']);
                     $brickData->setFerruleComponentNumber($data['Ferrule Component Number']);
                     $brickData->setFerruleComponentSAPNumber($data['Ferrule Component SAP Number']);
@@ -191,8 +198,12 @@ class ImportFittingDbCommand extends AbstractCommand
                     // $brickData->setFerruleID();
                     $brickData->setFerruleMaterial($data['Ferrule Material']);
                     // $brickData->setFerruleOD();
-                    $FerruleRevDate = new \DateTime(date("d-m-Y", strtotime($data['Ferrule Rev Date'])));
-                    $brickData->setFerruleRevDate($FerruleRevDate);
+
+                    if(empty(trim($record['Ferrule Rev Date'])))
+                    {
+                        $FerruleRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Ferrule Rev Date']))));
+                        $brickData->setFerruleRevDate($FerruleRevDate);
+                    }
 
                     // $brickData->setFerruleRevisionNumber($data['Ferrule Revision Number']);
                     // $brickData->setFerruleIDInDec();
@@ -209,8 +220,12 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setSwivelNutinchDecimal($data['Swviel Nut inch Decimal']);
                     $brickData->setSwivelNutMaterial($data['Swivel Nut Material']);
 
-                    $NutRevDate = new \DateTime(date("d-m-Y", strtotime($data['Nut Rev Date'])));
-                    $brickData->setSwivelNutRevDate($NutRevDate);
+                    if(empty(trim($record['Nut Rev Date'])))
+                    {
+                        $NutRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Nut Rev Date']))));
+                        $brickData->setSwivelNutRevDate($NutRevDate);
+                    }
+
                     // $brickData->setSwivelNutRevisionNumber($data['Swivel Nut Revision Number']);
                     $brickData->setThrustWireComponentNumber($data['Thrust Wire Component Number']);
                     $brickData->setThrustWireMaterial($data['Thrust Wire Material']);
