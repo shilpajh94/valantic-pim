@@ -5,7 +5,7 @@ csv_columns_index_language_mapping:
     3: 'pt'
     4: 'de'
 
-parentFolderPath: '/Master/Multiselect'
+multiselectMasterRootFolderPath: '/Master/Multiselect'
 
 multiselect_type_to_pimcore_folder_mapping:
     tubeMaterial: "Tube Material"
@@ -22,6 +22,7 @@ multiselect_type_to_pimcore_folder_mapping:
     acceptableHoseMedia: "Acceptable Hose Media"
     reinforcement: "Reinforcement"
     fittingFamily: "fittingFamily"
+    StemComponentVendor: "Stem Component Vendor"
 
 import_directory_system_path: "/var/www/projects/contitech/multiselect_import_folder"
 
