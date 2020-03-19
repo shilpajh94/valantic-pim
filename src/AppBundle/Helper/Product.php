@@ -58,7 +58,7 @@ class Product
             $level1Id = $this->catHelper->getLevel1ParentId();
             if (!empty($level1Id)) {
                 $catObj = DataObject::getById($level1Id);
-                $targetObject->setSIOPLevel1($catObj);
+                $targetObject->setSIOPLevel1([$catObj]);
             }
         }
     }

@@ -63,7 +63,7 @@ class ProductModel
         $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
         $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
         $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
-        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');               
+        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
     }
 
     /**
@@ -121,7 +121,7 @@ class ProductModel
     public function import($spreadsheet)
     {
         $this->createRootFolder();
-        
+        $this->data = array();
         $workSheet = $spreadsheet->getActiveSheet();
         $workSheetInfo = Import::getActiveSheetInfo($workSheet);
         $readFrom = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'readFrom');
@@ -160,7 +160,18 @@ class ProductModel
                 'prodHier5Desc' =>  $this->getData('prodHier5Desc'),
                 'prodHier6Desc' =>  $this->getData('prodHier6Desc'),
             );
-            // p_r($record);die;
+            /**
+             * Will skipped the process if SIOP code does not exist
+             * */
+            if (!$this->prdHelper->isCategoryExist($this->getData('code'))) {
+                $message = 'Skipping... SIOP code ' . $this->getData('code') . ' does not exist';
+                $this->monitoringItem->setMessage($message)->save();
+                $this->monitoringItem->getLogger()->error($message);
+                $this->updateRowStatus('FAILED', $message);
+                continue;
+            }
+            /* End */
+
             $result = $this->instance->validateRow($record);
             if (!$result['status']) {
                 $success = false;
@@ -188,23 +199,6 @@ class ProductModel
                      * */
                     unset($levelInfo['levels'][1]);
 
-                    /**
-                     * Category Enrichment
-                     * */
-                    if (!$this->prdHelper->isCategoryExist($this->getData('code'))) {
-                        $this->monitoringItem->setMessage('Enriching Category for SIOP Code: ' . $this->getData('code'))->save();
-                        $this->monitoringItem->getLogger()->info('Enriching Category for SIOP Code: ' . $this->getData('code'));
-
-                        $this->catInstance->createCategory($levelInfo['levels']);
-                        if (isset($this->catInstance->rowStatus[$this->currentStep]) && !empty($this->catInstance->rowStatus[$this->currentStep])) {
-                            $this->rowStatus[$this->currentStep] = 'Category enriched in master. ';
-                            $this->rowStatus[$this->currentStep] .= $this->catInstance->rowStatus[$this->currentStep];
-                        }
-                    }
-
-
-                    /* End */
-
                     /* Set SIOP array to map SIOP tab */
                     $this->setSiop($levelInfo['levels']);
                     /* End */
@@ -216,7 +210,7 @@ class ProductModel
                     $variantParentObj = false;
                     $variantObj = false;
                     if ($catObj) {
-                        $oldMatStts = $this->instance->validateBaseOrSkeleton($this->getData('oldMaterial'));                        
+                        $oldMatStts = $this->instance->validateBaseOrSkeleton($this->getData('oldMaterial'));
                         if ($oldMatStts['code'] == 1) {
                             /* Brand / Base Product */
                             $cmnSpcParentObj = $this->createBase($catObj);
@@ -235,7 +229,7 @@ class ProductModel
                             $this->updateRowStatus('FAILED', $oldMatStts['message']);
                         }
 
-                        if($variantObj) {
+                        if ($variantObj) {
                             $this->updateRowStatus('SUCCESS');
                         }
                     } else {
@@ -263,7 +257,7 @@ class ProductModel
 
         /**
          * Update log, master table and clean the temp table
-        */
+         */
         $this->tblImpHelper->insertDataToLogTable($this->data);
         $this->tblImpHelper->updateMaster();
         /**
@@ -284,6 +278,7 @@ class ProductModel
     /* Get the category object level wise */
     public function setSiop($levelInfo)
     {
+        $this->siop = array();
         foreach ($levelInfo as $info) {
             $l = $info['level'];
             $o = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
@@ -392,7 +387,7 @@ class ProductModel
                     /* Update Object */
                     $prdSpecObj->setProductType($productType);
                     $prdSpecObj->setMaterialGroup($this->getData('group'));
-                    $prdSpecObj->setSiopFullCode($this->getData('code'));                    
+                    $prdSpecObj->setSiopFullCode($this->getData('code'));
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
                     $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                     $prdSpecObj->setPublished(1);
