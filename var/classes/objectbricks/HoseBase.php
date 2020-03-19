@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-17T07:16:53+01:00
-* IP: 192.168.9.195
+* Generated at: 2020-03-19T08:56:03+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -39,7 +39,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'Product',
-      'fieldname' => 'Specification',
+      'fieldname' => 'Base',
     ),
   ),
    'title' => 'Hose (6 Digit)',

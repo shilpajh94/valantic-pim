@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T07:52:59+01:00
+* Generated at: 2020-03-19T08:54:59+01:00
 * IP: 127.0.0.1
 
 
@@ -30,7 +30,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'Product',
-      'fieldname' => 'Digit14',
+      'fieldname' => 'Fert',
     ),
   ),
    'title' => '',

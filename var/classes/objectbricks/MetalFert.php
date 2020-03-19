@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-16T12:34:59+01:00
-* IP: 192.168.9.195
+* Generated at: 2020-03-19T08:56:41+01:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -34,7 +34,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'Product',
-      'fieldname' => 'Digit14',
+      'fieldname' => 'Fert',
     ),
   ),
    'title' => '',
@@ -298,6 +298,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -336,6 +338,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -396,6 +400,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -434,6 +440,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -472,6 +480,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -550,6 +560,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -588,6 +600,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -626,6 +640,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -664,6 +680,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -702,6 +720,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -740,6 +760,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -778,6 +800,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,

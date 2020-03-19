@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-17T11:26:36+01:00
+* Generated at: 2020-03-19T08:57:00+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.9.195
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -90,9 +90,9 @@ Fields Summary:
 - SIOPLevel6 [manyToManyObjectRelation]
 - SalesOrgData [reverseManyToManyObjectRelation]
 - Plants [reverseManyToManyObjectRelation]
-- Specification [objectbricks]
-- BrandData [objectbricks]
-- Digit14 [objectbricks]
+- Base [objectbricks]
+- Skeleton [objectbricks]
+- Fert [objectbricks]
 - mainImage [image]
 - frontView [image]
 - sideView [image]
@@ -106,7 +106,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1584440796,
+   'modificationDate' => 1584604619,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3378,10 +3378,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
-             'name' => '6 Digit',
+             'name' => 'Base',
              'type' => NULL,
              'region' => NULL,
-             'title' => '6 Digit Data',
+             'title' => 'Base Data (Category Specific)',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -3401,8 +3401,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'maxItems' => '',
                  'border' => false,
-                 'name' => 'Specification',
-                 'title' => 'Specification',
+                 'name' => 'Base',
+                 'title' => 'Base',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -3426,10 +3426,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/icon/tag_blue.png',
-             'name' => '9 Digit',
+             'name' => 'Skeleton',
              'type' => NULL,
              'region' => NULL,
-             'title' => '9 Digit Data',
+             'title' => 'Skeleton Data',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -3449,8 +3449,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 ),
                  'maxItems' => '',
                  'border' => false,
-                 'name' => 'BrandData',
-                 'title' => 'BrandData',
+                 'name' => 'Skeleton',
+                 'title' => 'Skeleton Data',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -3474,10 +3474,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'layout' => NULL,
              'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
-             'name' => '14 Digit',
+             'name' => 'Fert',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Classification Data',
+             'title' => 'Fert Data',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -3494,18 +3494,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'allowedTypes' => 
                 array (
                   0 => 'AccessoriesFert',
-                  1 => 'PTGFert',
-                  2 => 'MetalFert',
-                  3 => 'BeltsFert',
-                  4 => 'SynchronousFert',
-                  5 => 'HoseFert',
-                  6 => 'HydFittingsFert',
-                  7 => 'INHFittingsFert',
+                  1 => 'BeltsFert',
+                  2 => 'HoseFert',
+                  3 => 'HydFittingsFert',
+                  4 => 'INHFittingsFert',
+                  5 => 'MetalFert',
+                  6 => 'PTGFert',
+                  7 => 'SynchronousFert',
                 ),
                  'maxItems' => '',
                  'border' => false,
-                 'name' => 'Digit14',
-                 'title' => 'Classification Data',
+                 'name' => 'Fert',
+                 'title' => 'Fert Data',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
