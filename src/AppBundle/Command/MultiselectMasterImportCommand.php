@@ -35,7 +35,7 @@ class MultiselectMasterImportCommand extends Command
         $this->multiselectMasterRootFolderObject = DataObject\Folder::getByPath($multiselectMasterRootFolderPath);
 
         $this->csvIndexToLangMap = $this->getRequiredMultiselectMasterConfig('csv_columns_index_language_mapping');
-        $this->importDirectory = $this->getRequiredMultiselectMasterConfig('import_directory_system_path');
+        $this->importDirectory = PIMCORE_PROJECT_ROOT.$this->getRequiredMultiselectMasterConfig('import_directory_system_path_from_pimcore_root');
         $this->typeToFolderNameMapping = $this->getRequiredMultiselectMasterConfig("multiselect_type_to_pimcore_folder_mapping");
 
         parent::__construct();
@@ -59,25 +59,33 @@ class MultiselectMasterImportCommand extends Command
 
         $dirStructure = $this->dirToArray($this->importDirectory);
 
-        foreach($dirStructure as $folderName => $files){
+        foreach ($dirStructure as $folderName => $files) {
             // TODO: we can check for valid brick group names here
             $brickGroupName = $folderName;
 
 
             foreach ($files as $fileName) {
 
-                $filePath = $this->importDirectory . "/".$brickGroupName."/" . $fileName;
+                $filePath = $this->importDirectory . "/" . $brickGroupName . "/" . $fileName;
                 $masterType = explode(".", $fileName)[0];
 
-                $this->log("Starting  [".$brickGroupName."] -> [" . $fileName . "] file import ");
+                $this->consoleLog("Starting  [" . $brickGroupName . "] -> [" . $fileName . "] file import ");
 
                 if (!array_key_exists($masterType, $this->typeToFolderNameMapping)) {
-                    $this->log("Master type " . $masterType . " does not exist in pimcore, so skipping  [".$brickGroupName."] -> [" . $fileName . "] file.You might need to update multiselect master import config file to import this.", "ERROR");
+                    $this->consoleLog("Master type " . $masterType . " does not exist in pimcore, so skipping  [" . $brickGroupName . "] -> [" . $fileName . "] file.You might need to update multiselect master import config file to import this.", "ERROR");
                     continue;
                 }
 
                 $handle = fopen($filePath, "r");
+                $csvLogFilePath = explode(".",$filePath)[0]."_log.csv";
+                $csvLogFileHandle = fopen($csvLogFilePath,"w");
+
                 $headers = fgetcsv($handle, 0, $csvDelimiter);
+                var_dump($headers);
+                if(is_array($headers)){
+                    $this->csvLog($csvLogFileHandle,array_merge($headers,array("Status","Message")));
+                }
+
 
                 $rowCount = 1;
                 while (($data = fgetcsv($handle, 0, $csvDelimiter)) !== FALSE) {
@@ -85,18 +93,28 @@ class MultiselectMasterImportCommand extends Command
                     if (count($data) > 0) {
                         if ($data[0]) {
 
-                            $masterObject = $this->getMasterObject($masterType,$brickGroupName,  $data[0]);
+                            $masterObject = $this->getMasterObject($masterType, $brickGroupName, $data[0]);
                             foreach ($this->csvIndexToLangMap as $csvIndex => $languageCode) {
                                 $masterObject->setName($data[(int)$csvIndex], $languageCode);
                             }
-                            $masterObject->save();
-                            $this->log("[" . $data[0] . "] record imported.");
+                            try {
+                                $masterObject->save();
+                                $this->consoleLog("[" . $data[0] . "] record imported.");
+                                $this->csvLog($csvLogFileHandle,array_merge($data,array("Success","")));
+
+                            } catch (\Exception $exception) {
+                                $this->consoleLog("[" . $data[0] . "] record could not be imported.\nException:" . $exception->getMessage(), "ERROR");
+                                $this->csvLog($csvLogFileHandle,array_merge($data,array("FAILED",$exception->getMessage())));
+                            }
 
                         } else {
-                            $this->log("File  [".$brickGroupName."] -> [" . $fileName . "] row [" . $rowCount . "] does not contain english data, so skipping this row.");
+                            $this->consoleLog("File  [" . $brickGroupName . "] -> [" . $fileName . "] row [" . $rowCount . "] does not contain english languague data, so skipping this row.");
+                            $this->csvLog($csvLogFileHandle,array_merge($data,array("FAILED","Record does not contain english language data.")));
                         }
                     }
                 }
+                fclose($handle);
+                fclose($csvLogFileHandle);
             }
 
         }
@@ -111,7 +129,7 @@ class MultiselectMasterImportCommand extends Command
      * @return DataObject\MultiselectMaster
      * @throws \Exception
      */
-    private function getMasterObject(string $type,string $brickGroupName, string $key): DataObject\MultiselectMaster
+    private function getMasterObject(string $type, string $brickGroupName, string $key): DataObject\MultiselectMaster
     {
         $key = \Pimcore\Model\Element\Service::getValidKey($key, 'object');
         $masterType = $this->getMasterType($type, $brickGroupName);
@@ -126,7 +144,7 @@ class MultiselectMasterImportCommand extends Command
         if (count($objects) > 0) {
             $object = $objects[0];
         } else {
-            $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type],$brickGroupName);
+            $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type], $brickGroupName);
             $object = new DataObject\MultiselectMaster();
             $object->setKey($key);
             $object->setParent($masterObjectParentFolderObject);
@@ -154,21 +172,22 @@ class MultiselectMasterImportCommand extends Command
         $brickGroupFolderPath = $this->getRequiredMultiselectMasterConfig('multiselectMasterRootFolderPath') . "/" . $brickGroupName;
         $brickGroupFolderObject = DataObject\Folder::getByPath($brickGroupFolderPath, true);
         // create brick group folder if does not exist
-        if(!$brickGroupFolderObject){
-            $brickGroupFolderObject = $this->createFolder($brickGroupName,$this->multiselectMasterRootFolderObject);
+        if (!$brickGroupFolderObject) {
+            $brickGroupFolderObject = $this->createFolder($brickGroupName, $this->multiselectMasterRootFolderObject);
         }
 
-        $typeFolderPath = $brickGroupFolderPath."/".$typeFolderName;
-        $typeFolderObject =  DataObject\Folder::getByPath($typeFolderPath, true);
+        $typeFolderPath = $brickGroupFolderPath . "/" . $typeFolderName;
+        $typeFolderObject = DataObject\Folder::getByPath($typeFolderPath, true);
         // create type folder if does not exist
-        if(!$typeFolderObject){
-            $typeFolderObject = $this->createFolder($typeFolderName,$brickGroupFolderObject);
+        if (!$typeFolderObject) {
+            $typeFolderObject = $this->createFolder($typeFolderName, $brickGroupFolderObject);
         }
 
         return $typeFolderObject;
     }
 
-    private function createFolder($folderName, $folderParent){
+    private function createFolder($folderName, $folderParent)
+    {
 
         $folderObject = DataObject\Folder::create([
             'o_parentId' => $folderParent->getId(),
@@ -223,14 +242,22 @@ class MultiselectMasterImportCommand extends Command
      * @param $message
      * @param string $level
      */
-    private function log($message, $level = "INFO")
+    private function consoleLog($message, $level = "INFO")
     {
-        echo "[ " . $level . " ] " . $message.PHP_EOL;
+        echo "[ " . $level . " ] " . $message . PHP_EOL;
         // add the logic for csv file logging
     }
 
-    private function getMasterType(string $type, string $brickGroupName){
-        return $brickGroupName."~".$type;
+    private function csvLog($logHandler,array $dataRow)
+    {
+        $csvDelimiter = $this->getRequiredMultiselectMasterConfig("csv_delimiter");
+
+        fputcsv($logHandler,$dataRow,$csvDelimiter);
+    }
+
+    private function getMasterType(string $type, string $brickGroupName)
+    {
+        return $brickGroupName . "~" . $type;
     }
 
 }

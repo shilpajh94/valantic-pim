@@ -14,10 +14,13 @@ use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOption
 
 use Pimcore\Model\DataObject;
 
-class BrickMultiselectProvider implements SelectOptionsProviderInterface
+class MultiselectMasterTypeProvider implements SelectOptionsProviderInterface
 {
 
     /**
+     * return all the multiselect fields in the all the bricks
+     * this is being used in multiselect master to select the master type
+     *
      * @param array $context
      * @param Data $fieldDefinition
      *

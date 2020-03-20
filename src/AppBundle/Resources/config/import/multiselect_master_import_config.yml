@@ -24,6 +24,6 @@ multiselect_type_to_pimcore_folder_mapping:
     fittingFamily: "fittingFamily"
     StemComponentVendor: "Stem Component Vendor"
 
-import_directory_system_path: "/var/www/projects/contitech/multiselect_import_folder"
+import_directory_system_path_from_pimcore_root: "/multiselect_import_folder"
 
 csv_delimiter: ','
