@@ -18,7 +18,6 @@ use Pimcore\Model\DataObject;
 class MultiselectMasterImportCommand extends Command
 {
     private $configProviderService;
-    private $parentFolderObject;
     private $typeToFolderNameMapping;
     private $importDirectory;
     private $csvIndexToLangMap;
@@ -78,9 +77,11 @@ class MultiselectMasterImportCommand extends Command
                 }
 
                 $handle = fopen($filePath, "r");
-                $rowCount = 1;
+                $headers = fgetcsv($handle, 0, $csvDelimiter);
 
+                $rowCount = 1;
                 while (($data = fgetcsv($handle, 0, $csvDelimiter)) !== FALSE) {
+                    $rowCount++;
                     if (count($data) > 0) {
                         if ($data[0]) {
 
@@ -95,7 +96,6 @@ class MultiselectMasterImportCommand extends Command
                             $this->log("File  [".$brickGroupName."] -> [" . $fileName . "] row [" . $rowCount . "] does not contain english data, so skipping this row.");
                         }
                     }
-                    $rowCount++;
                 }
             }
 
@@ -113,11 +113,12 @@ class MultiselectMasterImportCommand extends Command
      */
     private function getMasterObject(string $type,string $brickGroupName, string $key): DataObject\MultiselectMaster
     {
+        $key = \Pimcore\Model\Element\Service::getValidKey($key, 'object');
         $masterType = $this->getMasterType($type, $brickGroupName);
 
         $listing = new DataObject\MultiselectMaster\Listing();
         // we should have a unique entry for a set of key and type
-        $listing->setCondition(" o_key = :key AND masterType = :masterType ", ["key" => $listing->quote($key), "masterType" => $listing->quote($masterType)]);
+        $listing->setCondition(" o_key   = :key AND masterType = :masterType ", ["key" => $key, "masterType" => $masterType]);
         $listing->load();
         $objects = $listing->getObjects();
 
@@ -127,7 +128,6 @@ class MultiselectMasterImportCommand extends Command
         } else {
             $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type],$brickGroupName);
             $object = new DataObject\MultiselectMaster();
-            $key = \Pimcore\Model\Element\Service::getValidKey($key, 'object');
             $object->setKey($key);
             $object->setParent($masterObjectParentFolderObject);
             $object->setPublished(true);
