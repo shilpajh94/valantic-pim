@@ -12,6 +12,7 @@ class Category
     private $validCategories;
     private $businessUnit;
     private $catConfigData;
+    private $businessUnitMaxLevel;
     public function __construct()
     {
         /* Initiate common helper */
@@ -23,6 +24,7 @@ class Category
         $this->levelLength = $this->common->getParameter($this->catConfigData, 'levelLength');
         $this->validCategories = $this->common->getParameter($this->catConfigData, 'validCategories');
         $this->businessUnit = $this->common->getParameter($this->catConfigData, 'businessUnit');
+        $this->businessUnitMaxLevel = $this->common->getParameter($this->catConfigData, 'businessUnitMaxLevel');
     }
 
     public function getLevels($code, $kn = "")
@@ -60,8 +62,7 @@ class Category
             if ($i == $level) {
                 $levels[$i]['objectKey'] = $kn;
             } else {
-                // $levels[$i]['objectKey'] = $kn . $levelFullCode;
-                $levels[$i]['objectKey'] = $levelFullCode;
+                $levels[$i]['objectKey'] = $kn . $levelFullCode;
             }
         }
 
@@ -141,6 +142,25 @@ class Category
         return false;
     }
 
+    /**
+     * Valid Categories
+     * array:3 [
+        "Industrial House" => 1000
+        "Hydraulics" => 1500
+        "PTP" => 3000
+        ]
+        Valid SIOP length level wise
+        array:6 [
+            1 => 2
+            2 => 6
+            3 => 10
+            4 => 13
+            5 => 16
+            6 => 18
+        ]
+    $param: string - full siop code
+    Will validate with above given category
+    */
     public function isValidCategoryFormat($code)
     {
         $levelLen = $this->levelLength;
@@ -165,6 +185,22 @@ class Category
                 if ($o->getId())
                     return $o;
             }
+        }
+        return false;
+    }
+
+    /**
+     * Param: string - full siop code
+     * will return true or false if full code belong to maximum siop level
+    */
+    public function codeHoldMaximumLevel($code) {
+        $buCode = $this->isValidCategoryFormat($code);
+        $bu = $this->businessUnit[$buCode];
+        $level = $this->getLevelByLength(strlen($code));
+        $buMaxLevel = $this->businessUnitMaxLevel[$bu];
+        /* Validating allowed max level for current business with current code level */
+        if($level==$buMaxLevel) {
+            return true;
         }
         return false;
     }
