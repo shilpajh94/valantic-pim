@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T08:00:01+01:00
+* Generated at: 2020-03-19T08:56:23+01:00
 * IP: 127.0.0.1
 
 
@@ -149,7 +149,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'Product',
-      'fieldname' => 'Digit14',
+      'fieldname' => 'Fert',
     ),
   ),
    'title' => '',
@@ -914,6 +914,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -952,6 +954,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -990,6 +994,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -1028,6 +1034,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
@@ -1066,6 +1074,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultUnit' => NULL,
                          'validUnits' => 
                         array (
+                          0 => '1',
+                          1 => '2',
                         ),
                          'decimalPrecision' => NULL,
                          'autoConvert' => false,
