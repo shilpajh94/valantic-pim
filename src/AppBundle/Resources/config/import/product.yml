@@ -37,7 +37,11 @@ parameters:
       manufacturePartNumber:  'Manufacter Part Number'
       eanUPC: 'EAN_UPC'
       stccCode: 'STCC Code'
-    lastColName: 'D'
+      delationFlag: 'Deletion Flag'
+      grossWeight:  'Gross Weight'
+      netWeight:  'Net Weight'
+      weightUnit: 'Weight Unit'
+    lastColName: 'AB'
     startRow: 1
     readFrom: 2
     keyColumns: ['material']
@@ -100,4 +104,21 @@ parameters:
       masterTable:  'material_import_master'
       logTable: 'material_import_log'
 
-    
+  # Number of level allowed to create into SAP hierarchy for SIOP
+  allowedLevel:
+    PTG: 4
+    IFS: 4
+  # Mapping product type on siop level 5 & 8. In PTG case only
+  # productTypeLevel 
+  #   5:  6 --- 5 is SIOP level and 6 is stand for 6 digit product type
+  #   6:  9 --- 6 is SIOP level and 9 is stand for 9 digit product type
+  productTypeLevel:
+    5:  6
+    6:  9
+  
+  # Product level allowed to business unit
+  # Business Unit code 1500 and 3000 are outside purchased product. So, ignore to create base and skeleton
+  levelAllowedForBUCode:
+    1000: ['base', 'skeleton', 'fert']
+    1500: ['fert']
+    3000: ['fert']
