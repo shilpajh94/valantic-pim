@@ -57,6 +57,7 @@ class TableImport
 
     public function insertDataInTemp($arrData)
     {
+        $rowCount = 1;
         $sql      = "INSERT INTO {$this->tempTable} (id, record, hash) VALUES";
         $values   = '';
         $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
@@ -66,6 +67,15 @@ class TableImport
             $record = addslashes(json_encode($data, true));
             $hash   = md5($record);
             $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
+
+            // inserting records in batch
+            if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                $query = $sql.rtrim($values, ',').$update;
+                $this->db->query($query);
+                $values = '';
+            }
+            $rowCount++;
+
         }
 
         if ($values) {

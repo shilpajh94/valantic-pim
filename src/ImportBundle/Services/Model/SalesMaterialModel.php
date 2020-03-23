@@ -237,7 +237,7 @@ class SalesMaterialModel
             'archivePath'   =>  $this->archiveDir,
             'failedPath'    =>  $this->failedDir,
             'status'        =>  $allSuccess,
-            'fileName'      =>  date('Ymd')."_".time()
+            'fileName'      =>  time()
         );
         $movedAssetObj = $this->common->moveFile($moveParam);
 

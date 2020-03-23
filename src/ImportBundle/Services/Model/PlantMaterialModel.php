@@ -37,6 +37,7 @@ class PlantMaterialModel
     private $updatedCount = 0;
     private $fileColumns = array();
     private $keyColumns = array();
+    private $approvedSalesOrg = array();
     private $common;
     private $mappingCsvColumn = array();
     private $tableImportConfig;
@@ -57,6 +58,7 @@ class PlantMaterialModel
             $this->tableImportHelper = \Pimcore::getContainer()->get('app.table_import_helper');
             $plantMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPlantMaterialConfig();
             
+            $this->approvedSalesOrg = $this->common->getParameter($plantMaterialConfig, 'approvedSalesOrg');
             $this->mappingCsvColumn = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
             $this->tableImportConfig['tempTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','tempTable');
             $this->tableImportConfig['masterTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','masterTable');
@@ -169,7 +171,12 @@ class PlantMaterialModel
                     $errorsData[] = 'Plant should not be blank.';
 
                 if(empty(trim($salesOrg)))
-                    $errorsData[] = 'Sales organization should not be blank.';    
+                    $errorsData[] = 'Sales organization should not be blank.';  
+                /**
+                 * skip row if sales org is not belong to approved sales organizations mentioned in config
+                 */
+                else if(!isset($this->approvedSalesOrg[$salesOrg]))            
+                    $errorsData[] = 'Sales Org-'.$salesOrg.' should belong to '. implode(', ',$this->approvedSalesOrg);  
                 
                 if(empty(trim($distributionChannel)))
                     $errorsData[] = 'Distribution channel should not be blank.';   
@@ -230,7 +237,7 @@ class PlantMaterialModel
             'archivePath'   =>  $this->archiveDir,
             'failedPath'    =>  $this->failedDir,
             'status'        =>  $allSuccess,
-            'fileName'      =>  date('Ymd')."_".time()
+            'fileName'      =>  time()
         );
         $movedAssetObj = $this->common->moveFile($moveParam);
 
