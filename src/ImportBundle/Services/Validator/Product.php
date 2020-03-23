@@ -19,15 +19,16 @@ class Product
     public $rowCnt;
     public $productType;
     private $prdHelper;
+    private $catHelper;
     public function __construct()
     {
         $this->rowCnt = 0;
         $this->prdHelper = \Pimcore::getContainer()->get('app.product_helper');
+        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
     }
 
     public function validateRow($reader)
     {
-        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
 
         $flag = true;
         $exception = '';
@@ -50,7 +51,12 @@ class Product
                 $flag = false;
                 $exception = 'Column for code is not valid at row number ' . $this->rowCnt . '. Please check the code position or it\'s content length';
             }
+            if ($flag && !$this->catHelper->codeHoldMaximumLevel($reader['code'])) {
+                $flag = false;
+                $exception = 'Column for code is not valid at row number ' . $this->rowCnt . '. Please check the code position or it\'s content length';
+            }
         }
+        /* 
         if ($flag && array_key_exists('prodHier1Desc', $reader)) {
             if (!$this->isEmpty($reader['prodHier1Desc'])) {
                 $flag = false;
@@ -88,7 +94,7 @@ class Product
                     $exception = 'Column for prodHier6Desc is not valid at row number ' . $this->rowCnt . '. Please check the column position or it\'s content length';
                 }
             }
-        }
+        } */
         
 
 
@@ -122,6 +128,21 @@ class Product
             'code'  =>  $code,
             'message'   =>  $message
         );
+    }
+
+    /**
+     * Return type boolean
+     * $code: it is siop full code
+     * $level: Which level of product object is being validated for creation
+    */
+    public function allowedToCreateObject($code, $level='fert'): bool {
+        $buCode = $this->catHelper->isValidCategoryFormat($code);
+        $levelAllowedForBUCode = $this->prdHelper->getConfigurationDataByKey('levelAllowedForBUCode');
+        $allowedLevel = $levelAllowedForBUCode[$buCode];
+        if(in_array($level, $allowedLevel)) {
+            return true;
+        }
+        return false;
     }
 
     private function isEmpty($str)

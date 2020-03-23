@@ -14,6 +14,7 @@ class Product
     private $catConfigData;
     private $prdConfigData;
     private $productType;
+    public $siop;
     public function __construct()
     {
         /* Initiate helper */
@@ -60,6 +61,18 @@ class Product
                 $catObj = DataObject::getById($level1Id);
                 $targetObject->setSIOPLevel1([$catObj]);
             }
+        }
+    }
+
+    public function updateSiop(\Pimcore\Model\DataObject\Product $targetObject) {
+        $fullCode = $targetObject->getSiopFullCode();
+        $levels = $this->getLevels($fullCode)['levels'];
+        unset($levels[1]);
+        $this->siop = array();
+        foreach ($levels as $info) {
+            $l = $info['level'];
+            $o = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
+            $this->siop[$l] = $o;
         }
     }
 
@@ -137,20 +150,75 @@ class Product
         return $path;
     }
 
+    /**
+     * return type is product or category object
+     * @param $fullCode is the SIOP full code
+     * Des: It will create maximum allowed hierarchy for business unit
+     * In case of PTG it will create base and skeleton level after creating maximum allowed siop level
+     * In case of PTG last 2 level of SIOP will be use as base and skeleton
+    */
     public function createCategoryHierarchy($fullCode)
     {
-        $buCode = $this->catHelper->isValidCategoryFormat($fullCode);
+        $code = $fullCode;
+        $len = strlen($code);
+        $topLvl = $this->catHelper->getLevelByLength($len);
+        $buCode = $this->catHelper->isValidCategoryFormat($code);
         $bu = $this->businessUnit[$buCode];
-        $catObj = $this->catHelper->getObjectByFullCode($fullCode, $bu);
+        $allowedLevel = $this->common->getParameterItem($this->prdConfigData, 'allowedLevel', $bu);
+        if (!empty($allowedLevel) && $allowedLevel < $topLvl) {
+            $code = $this->catHelper->extractFullCodeLevelWise($allowedLevel, $fullCode);
+        }
+        $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
         if (!empty($catObj)) {
             $fullPath = $catObj->getFullPath();
             $extractedPath = $this->extractCategoryPath($fullPath, $bu);
             $prdCatFullPath = $this->root['fullPath'] . '/' . $extractedPath;
-            return DataObject\Service::createFolderByPath($prdCatFullPath);
+            $parentObj = DataObject\Service::createFolderByPath($prdCatFullPath);
+            $obj = "";
+            if ($allowedLevel < $topLvl) {
+                for ($l = ($allowedLevel + 1); $l <= $topLvl; $l++) {
+                    $code = $this->catHelper->extractFullCodeLevelWise($l, $fullCode);
+                    $parentObj = $this->createCategoryObjectHierarchy($code, $parentObj, $l, $bu);
+                }                
+            }
+            return $parentObj;
         }
         return false;
     }
 
+    private function createCategoryObjectHierarchy($code, $parentObj, $siopLevel, $bu = "")
+    {
+        $catObj = $this->catHelper->getObjectByFullCode($code, $bu);
+        $brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
+        if (!empty($catObj)) {
+            $keyName = $catObj->getKey();
+            $prdFullPath = $parentObj->getFullPath() . '/' . $keyName;
+            $prdObj = DataObject::getByPath($prdFullPath);
+            if (empty($prdObj)) {
+                $prdObj = new DataObject\Product;
+                $prdObj->setKey($keyName);
+                $prdObj->setParentId($parentObj->getId());
+            }
+            $productTypeKey = $this->common->getParameterItem($this->prdConfigData, 'productTypeLevel', $siopLevel);
+            $productType = $this->getProductType($productTypeKey);            
+            $prdObj->setProductType($productType);
+            $prdObj->setSiopFullCode($code);
+            $this->updateSiop($prdObj);
+            $this->setSiop($this->siop, $prdObj);    
+            $brickMappingService->manageBricksForSIOPRelationChange($prdObj);      
+            $prdObj->setPublished(1);
+            $prdObj->save();
+            unset(
+                $keyName,
+                $prdFullPath,
+                $productTypeKey,
+                $productTyp,
+                $this->siop
+            );
+            return $prdObj;
+        }
+        return false;
+    }
     private function extractCategoryPath($path, $bu)
     {
         if (!empty($path) && !empty($bu)) {
@@ -176,5 +244,9 @@ class Product
     {
         $length = $this->level = $this->common->getParameterItem($this->prdConfigData, 'skeleton', 'length');
         return !empty($oldMaterialCode) ? substr($oldMaterialCode, 0, $length) : false;
-    }    
+    }
+
+    public function getConfigurationDataByKey($key) {
+        return $this->common->getParameter($this->prdConfigData, $key);
+    }
 }
