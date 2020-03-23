@@ -80,9 +80,3 @@ services:
 
     AppBundle\Services\CategoryBrickMappingService:
       public: true
-
-
-
-
-
-
