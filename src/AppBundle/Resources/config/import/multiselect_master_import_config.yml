@@ -8,21 +8,21 @@ csv_columns_index_language_mapping:
 multiselectMasterRootFolderPath: '/Master/Multiselect'
 
 multiselect_type_to_pimcore_folder_mapping:
-    tubeMaterial: "Tube Material"
-    tubeCharacteristic: "Tube Characteristic"
-    tubeColor: "Tube Color"
+    tubeMaterial: "Tube Materials"
+    tubeCharacteristic: "Tube Characteristics"
+    tubeColor: "Tube Colors"
     specifications: "Specifications"
-    StandardMetCover: "Standard Met Cover"
-    standardMetHose: "Standard Met Hose"
-    coverMaterial: "Cover Material"
-    coverCharacteristic: "Cover Characteristic"
-    coverColor: "Cover Color"
+    StandardMetCover: "Standard Met Covers"
+    standardMetHose: "Standard Met Hoses"
+    coverMaterial: "Cover Materials"
+    coverCharacteristic: "Cover Characteristics"
+    coverColor: "Cover Colors"
     agencyCompliance: "Agency Compliance"
-    safetyFactor: "Safety Factor"
+    safetyFactor: "Safety Factors"
     acceptableHoseMedia: "Acceptable Hose Media"
-    reinforcement: "Reinforcement"
-    fittingFamily: "fittingFamily"
-    StemComponentVendor: "Stem Component Vendor"
+    reinforcement: "Reinforcements"
+    fittingFamily: "Fitting Families"
+    StemComponentVendor: "Stem Component Vendors"
 
 import_directory_system_path_from_pimcore_root: "/multiselect_import_folder"
 
