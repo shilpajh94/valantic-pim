@@ -23,4 +23,5 @@ class ImportConstants
     /* Product Master */
     const PRODUCTS_MASTER_FOLDER = 'Products Master';
     /* End */
+    const IMPORT_BATCH_SIZE = 500;
 }

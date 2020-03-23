@@ -134,12 +134,13 @@ class ProductModel
         // Cleaning the temp table
         $this->tblImpHelper->truncateTempTable();
         $t = time();
-        p_r('Loading data into temp table at '.$t);
+        p_r('Loading data into temp table at '.date('Y-m-d h:i:s',$t));
         $this->monitoringItem->setMessage('Loading data into temp table')->save();
         $this->monitoringItem->getLogger()->info('Loading data into temp table');
         $this->tblImpHelper->insertDataInTemp($csvData);
         $this->data = $this->tblImpHelper->getDelta();
-        p_r('Data loaded at '.(time() - $t));
+        p_r('Data loaded completion into temp at '.(time() - $t));
+        p_r('Data loaded completion into temp at '.abs(time() - $t) / 60)." mnt";
         $totalRow = count($this->data);
         $failedCnt = 0;
         $success = true;
@@ -255,6 +256,9 @@ class ProductModel
                      */
                     $this->updateRowStatus('FAILED', $levelInfo['message']);
                 }
+            }
+            if($rowCnt%10==0) {
+                p_r($this->currentStep.' completed in '.abs(time() - $t) / 60)." mnt";
             }
         }
 
