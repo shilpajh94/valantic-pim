@@ -63,7 +63,7 @@ class Category
             if ($i == $level) {
                 $levels[$i]['objectKey'] = $kn;
             } else {
-                $levels[$i]['objectKey'] = $kn . $levelFullCode;
+                $levels[$i]['objectKey'] = $levelFullCode;
             }
         }
 
