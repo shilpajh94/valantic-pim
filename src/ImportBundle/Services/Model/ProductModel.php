@@ -169,8 +169,10 @@ class ProductModel
                 $this->updateRowStatus('FAILED', $message);
                 continue;
             } */
+            // p_r($this->getData('code'));
             if (!$this->catHelper->getCategoryIdByFullCode($this->getData('code'))) {
                 $message = 'Skipping... SIOP code ' . $this->getData('code') . ' does not exist';
+                p_r($message);
                 /* $this->monitoringItem->setMessage($message)->save();
                 $this->monitoringItem->getLogger()->error($message); */
                 $this->updateRowStatus('FAILED', $message);
@@ -276,7 +278,7 @@ class ProductModel
          * Here setting process as completed
          */
         // $this->exitProcess();
-        // $movedAssetObj = $this->moveFile($success);
+        $movedAssetObj = $this->moveFile($success);
         /* Set Application Logger Message */
         /* if ($success) {
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP BW Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
@@ -547,7 +549,7 @@ class ProductModel
         $buCode = $this->catHelper->isValidCategoryFormat($code);
         $bu = $this->catHelper->businessUnit[$buCode];
         $allowedLevel = $this->common->getParameterItem($this->prdConfigData, 'allowedLevel', $bu);
-        if (!empty($allowedLevel) && $allowedLevel < $topLvl) {p_r(6);
+        if (!empty($allowedLevel) && $allowedLevel < $topLvl) {
             $code = $this->catHelper->extractFullCodeLevelWise($allowedLevel, $fullCode);
         }
         $fullPath = $this->catHelper->getCategoryFullPathByFullCode($code);
