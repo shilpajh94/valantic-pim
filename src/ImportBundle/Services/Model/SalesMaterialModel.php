@@ -263,7 +263,7 @@ class SalesMaterialModel
             'status'        =>  $allSuccess,
             'fileName'      =>  time()
         );
-        // $movedAssetObj = $this->common->moveFile($moveParam);
+        $movedAssetObj = $this->common->moveFile($moveParam);
 
         /**
          * Massage log to application logger

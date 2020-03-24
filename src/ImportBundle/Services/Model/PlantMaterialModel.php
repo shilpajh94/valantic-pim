@@ -263,7 +263,7 @@ class PlantMaterialModel
             'status'        =>  $allSuccess,
             'fileName'      =>  time()
         );
-        // $movedAssetObj = $this->common->moveFile($moveParam);
+        $movedAssetObj = $this->common->moveFile($moveParam);
         
         if ($allSuccess)
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);  
