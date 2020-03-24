@@ -114,4 +114,54 @@ class Import
         $writer->save(self::$filePath);
     }
 
+    public static function getCSVData($fileName)
+    {
+        try {
+
+            $csvFilePath = $fileName;
+            $firstRowData = array();
+            if (empty($csvFilePath)) {
+                return $firstRowData;
+            }
+
+            // $csvFilePath = PIMCORE_ASSET_DIRECTORY . $filePath;
+
+            $csvFilePath = str_replace("%20", " ", $csvFilePath);
+
+            $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
+            $data = [];
+            $count = 0;
+
+            if (($handle = fopen($csvFilePath, 'r')) !== false) {
+                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                    if ($count == 0) {
+                        foreach ($rowData as $key => $value) {
+                            unset($rowData[$key]);
+                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
+                        }
+                        $firstRowData = $rowData;
+                    } else {
+                        $tmpData = [];
+                        foreach ($firstRowData as $key => $value) {
+                            $tmpData[$value] = utf8_encode($rowData[$key]);
+                            $tmpData[$value] = $rowData[$key];
+                        }
+                        $data[] = $rowData;
+                        $cols = count($rowData);
+                    }
+                    $count++;
+                }
+                fclose($handle);
+            }
+            return array(
+                'header'    =>  $firstRowData,
+                'data'      =>  $data
+            );
+        } catch (\Exception $e) {
+            return array(
+                'error' => $e->getMessage()
+            );
+        }
+    }
+
 }

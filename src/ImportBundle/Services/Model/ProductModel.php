@@ -47,10 +47,12 @@ class ProductModel
     private $data;
     private $bricks;
     private $brickMappingService;
+    private $fileHandle;
     use ProcessManagerBundle\ExecutionTraitClass;
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
-
+    const MAX_TOP_CAT_LVL = 6;
+    const MIN_TOP_CAT_LVL = 4;
     public function __construct()
     {
         /* Initilize monitoring item and set the number of steps will take to complete the task */
@@ -63,7 +65,7 @@ class ProductModel
         $this->prdConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getProductConfig();
         $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
         $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
-        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');               
+        $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');        
     }
 
     /**
@@ -92,15 +94,15 @@ class ProductModel
                 'filePath' => $this->filePath,
                 'startRow'  =>  $this->startRow
             );
-            $spreadsheet = Import::load($sheetConfig);
-            $this->getCSVHeader($spreadsheet);
-
+            $csvInfo = Import::getCSVData($this->filePath);
+            // p_r($csvInfo);die;
+            $this->csvHeader = $csvInfo['header'];
             /**
              * Setting up import table
              */
             $this->initImportTable();
 
-            $this->import($spreadsheet);
+            $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
             //throw $th;
             Logger::error($this->logFileName, $th);
@@ -118,32 +120,37 @@ class ProductModel
         }
     }
 
-    public function import($spreadsheet)
+    public function import($csvData)
     {
         $this->createRootFolder();
-        
-        $workSheet = $spreadsheet->getActiveSheet();
+        $this->data = array();
+        /* $workSheet = $spreadsheet->getActiveSheet();
         $workSheetInfo = Import::getActiveSheetInfo($workSheet);
         $readFrom = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'readFrom');
         $readFrom = 'A' . $readFrom;
         $readTo = $workSheetInfo['highestDataColumn'] . $workSheetInfo['highestDataRow'];
-        $activeSheet = $spreadsheet->getActiveSheet()->rangeToArray($readFrom . ':' . $readTo, NULL, TRUE, TRUE, FALSE);
-        $this->tblImpHelper->insertDataInTemp($activeSheet);
+        $activeSheet = $spreadsheet->getActiveSheet()->rangeToArray($readFrom . ':' . $readTo, NULL, TRUE, TRUE, FALSE); */
+        
+        // Cleaning the temp table
+        $this->tblImpHelper->truncateTempTable();
+        $t = time();
+        p_r('Loading data into temp table at '.date('Y-m-d h:i:s',$t));
+        $this->monitoringItem->setMessage('Loading data into temp table')->save();
+        $this->monitoringItem->getLogger()->info('Loading data into temp table');
+        $this->tblImpHelper->insertDataInTemp($csvData);
         $this->data = $this->tblImpHelper->getDelta();
-
+        p_r('Data loaded completion into temp at '.(time() - $t));
+        p_r('Data loaded completion into temp at '.abs(time() - $t) / 60)." mnt";
         $totalRow = count($this->data);
         $failedCnt = 0;
         $success = true;
         $this->totalSteps = $totalRow;
         $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
 
-        // Cleaning the temp table
-        $this->tblImpHelper->truncateTempTable();
-        foreach ($this->data as $rowCnt => $row) {
+        foreach ($this->data as $rowCnt => $row) {            
             $levelInfo = array();
-            $this->reader = json_decode($row['record']);
+            $this->reader = (array)json_decode($row['record']);
             $this->currentStep = $rowCnt + 1;
-
             $this->monitoringItem->setMessage('Processing record ' . $this->currentStep);
             $this->monitoringItem->setCurrentStep($this->currentStep)->save();
             /* Validate each row's column value */
@@ -152,15 +159,20 @@ class ProductModel
             $record = array(
                 'code'  =>  $this->getData('code'),
                 'description'   =>  $this->getData('description'),
-                'material'  =>  $this->getData('material'),
-                'prodHier1Desc' =>  $this->getData('prodHier1Desc'),
-                'prodHier2Desc' =>  $this->getData('prodHier2Desc'),
-                'prodHier3Desc' =>  $this->getData('prodHier3Desc'),
-                'prodHier4Desc' =>  $this->getData('prodHier4Desc'),
-                'prodHier5Desc' =>  $this->getData('prodHier5Desc'),
-                'prodHier6Desc' =>  $this->getData('prodHier6Desc'),
+                'material'  =>  $this->getData('material')
             );
-            // p_r($record);die;
+            /**
+             * Will skipped the process if SIOP code does not exist
+             * */
+            if (!$this->prdHelper->isCategoryExist($this->getData('code'))) {
+                $message = 'Skipping... SIOP code ' . $this->getData('code') . ' does not exist';
+                $this->monitoringItem->setMessage($message)->save();
+                $this->monitoringItem->getLogger()->error($message);
+                $this->updateRowStatus('FAILED', $message);
+                continue;
+            }
+            /* End */
+
             $result = $this->instance->validateRow($record);
             if (!$result['status']) {
                 $success = false;
@@ -188,54 +200,40 @@ class ProductModel
                      * */
                     unset($levelInfo['levels'][1]);
 
-                    /**
-                     * Category Enrichment
-                     * */
-                    if (!$this->prdHelper->isCategoryExist($this->getData('code'))) {
-                        $this->monitoringItem->setMessage('Enriching Category for SIOP Code: ' . $this->getData('code'))->save();
-                        $this->monitoringItem->getLogger()->info('Enriching Category for SIOP Code: ' . $this->getData('code'));
-
-                        $this->catInstance->createCategory($levelInfo['levels']);
-                        if (isset($this->catInstance->rowStatus[$this->currentStep]) && !empty($this->catInstance->rowStatus[$this->currentStep])) {
-                            $this->rowStatus[$this->currentStep] = 'Category enriched in master. ';
-                            $this->rowStatus[$this->currentStep] .= $this->catInstance->rowStatus[$this->currentStep];
-                        }
-                    }
-
-
-                    /* End */
-
-                    /* Set SIOP array to map SIOP tab */
-                    $this->setSiop($levelInfo['levels']);
-                    /* End */
-
 
                     /* Creating category folder in product master    */
                     $this->monitoringItem->getLogger()->info('Creating SIOP Hierarchy');
                     $catObj = $this->prdHelper->createCategoryHierarchy($this->getData('code'));
+
                     $variantParentObj = false;
                     $variantObj = false;
                     if ($catObj) {
-                        $oldMatStts = $this->instance->validateBaseOrSkeleton($this->getData('oldMaterial'));                        
-                        if ($oldMatStts['code'] == 1) {
-                            /* Brand / Base Product */
-                            $cmnSpcParentObj = $this->createBase($catObj);
-                            // p_r($cmnSpcParentObj);
-                            /* Skeleton */
+                        /* Set SIOP array to map SIOP tab */
+                        $this->setSiop($levelInfo['levels']);
+                        /* End */
+                        
+                        if ($this->instance->allowedToCreateObject($this->getData('code'), 'base')) {
+                            $oldMatStts = $this->instance->validateBaseOrSkeleton($this->getData('oldMaterial'));                            
+                            if ($oldMatStts['code'] == 1) {
+                                /* Brand / Base Product */
+                                $cmnSpcParentObj = $this->createBase($catObj);
+                                // p_r($cmnSpcParentObj);
+                                /* Skeleton */
 
-                            if ($cmnSpcParentObj) {
-                                $variantParentObj = $this->createSkeleton($cmnSpcParentObj);
-                                $variantObj = $this->createVariant($variantParentObj);
+                                if ($cmnSpcParentObj) {
+                                    $variantParentObj = $this->createSkeleton($cmnSpcParentObj);                                 
+                                }
+                            } elseif ($oldMatStts['code'] == 2) {
+                                $this->updateRowStatus('FAILED', $oldMatStts['message']);
                             }
-                        } elseif ($oldMatStts['code'] == 3) {
-                            /* Final product / Variant */
-                            $variantParentObj = $catObj;
-                            $variantObj = $this->createVariant($variantParentObj);
-                        } else {
-                            $this->updateRowStatus('FAILED', $oldMatStts['message']);
                         }
 
-                        if($variantObj) {
+                        /* Final product / Variant */
+                        $pObj = $variantParentObj?$variantParentObj:$catObj;
+                        $variantObj = $this->createVariant($pObj);
+                        unset($pObj);
+
+                        if ($variantObj) {
                             $this->updateRowStatus('SUCCESS');
                         }
                     } else {
@@ -259,11 +257,14 @@ class ProductModel
                     $this->updateRowStatus('FAILED', $levelInfo['message']);
                 }
             }
+            if($rowCnt%10==0) {
+                p_r($this->currentStep.' completed in '.abs(time() - $t) / 60)." mnt";
+            }
         }
 
         /**
          * Update log, master table and clean the temp table
-        */
+         */
         $this->tblImpHelper->insertDataToLogTable($this->data);
         $this->tblImpHelper->updateMaster();
         /**
@@ -284,6 +285,7 @@ class ProductModel
     /* Get the category object level wise */
     public function setSiop($levelInfo)
     {
+        $this->siop = array();
         foreach ($levelInfo as $info) {
             $l = $info['level'];
             $o = $this->catHelper->getObjectByFullCode($info['levelFullCode'], $info['bu']);
@@ -332,7 +334,6 @@ class ProductModel
                     /* Update Object */
                     /* Base Data */
                     $prdSpecObj->setProductType($productType);
-                    $prdSpecObj->setMaterialGroup($this->getData('group'));
                     $prdSpecObj->setSiopFullCode($this->getData('code'));
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
                     $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
@@ -391,8 +392,7 @@ class ProductModel
 
                     /* Update Object */
                     $prdSpecObj->setProductType($productType);
-                    $prdSpecObj->setMaterialGroup($this->getData('group'));
-                    $prdSpecObj->setSiopFullCode($this->getData('code'));                    
+                    $prdSpecObj->setSiopFullCode($this->getData('code'));
                     $this->prdHelper->setSiop($this->siop, $prdSpecObj);
                     $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                     $prdSpecObj->setPublished(1);
@@ -418,7 +418,6 @@ class ProductModel
     /* Variant */
     private function createVariant($parentObj)
     {
-        $oldMaterial = $this->getData('oldMaterial');
         $variantPrdTpLength = $this->common->getParameterItem($this->prdConfigData, 'variant', 'length');
         $parentId = 0;
         $parentFullPath = '';
@@ -450,6 +449,10 @@ class ProductModel
                 $prdSpecObj->setStccCode($this->getData('stccCode'));
                 $prdSpecObj->setEanUpc($this->getData('eanUPC'));
                 $prdSpecObj->setBaseUOM($this->getData('baseUOM'));
+                $prdSpecObj->setIndustryStandard($this->getData('industryStandard'));
+                $prdSpecObj->setGrossWeight($this->getData('grossWeight'));
+                $prdSpecObj->setNetWeight($this->getData('netWeight'));
+                $prdSpecObj->setWeightUnit($this->getData('weightUnit'));                
                 $prdSpecObj->setSiopFullCode($this->getData('code'));
                 $this->prdHelper->setSiop($this->siop, $prdSpecObj);
                 $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
@@ -506,11 +509,12 @@ class ProductModel
         $this->data[$cr]['failedReason']  =  $message;
     }
 
-    private function getData($index)
+    private function getData($key)
     {
-        $csvHeaderVal = $this->columnName[$index];
+        $csvHeaderVal = $this->columnName[$key];
         $index = array_search($csvHeaderVal, $this->csvHeader);
-        return $this->reader[$index];
+        unset($key);
+        return is_numeric($index) && isset($this->reader[$index])? $this->reader[$index] : '';
     }
     /* This function will override the default configuration */
     private function updateDefaults($params)
