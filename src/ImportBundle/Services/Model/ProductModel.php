@@ -170,7 +170,7 @@ class ProductModel
                 continue;
             } */
             if (!$this->catHelper->getCategoryIdByFullCode($this->getData('code'))) {
-                echo $message = 'Skipping... SIOP code ' . $this->getData('code') . ' does not exist';
+                $message = 'Skipping... SIOP code ' . $this->getData('code') . ' does not exist';
                 /* $this->monitoringItem->setMessage($message)->save();
                 $this->monitoringItem->getLogger()->error($message); */
                 $this->updateRowStatus('FAILED', $message);
@@ -552,7 +552,7 @@ class ProductModel
         }
         $fullPath = $this->catHelper->getCategoryFullPathByFullCode($code);
         $extractedPath = $this->prdHelper->extractCategoryPath($fullPath, $bu);
-        $prdCatFullPath = $this->root['fullPath'] . '/' . $extractedPath;
+        $prdCatFullPath = $this->prdHelper->root['fullPath'] . '/' . $extractedPath;
         $parentObj = DataObject\Service::createFolderByPath($prdCatFullPath);
         $obj = "";
         if ($allowedLevel < $topLvl) {

@@ -7,7 +7,7 @@ use Pimcore\Model\DataObject;
 class Product
 {
     private $common;
-    private $root;
+    public $root;
     private $codeLength;
     private $validCategories;
     private $businessUnit;
