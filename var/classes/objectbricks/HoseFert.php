@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-03T07:48:27+01:00
+* Generated at: 2020-03-19T08:56:08+01:00
 * IP: 127.0.0.1
 
 
@@ -29,11 +29,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
     0 => 
     array (
       'classname' => 'Product',
-      'fieldname' => 'Digit14',
+      'fieldname' => 'Fert',
     ),
   ),
    'title' => 'Hose (14 Digit)',
-   'group' => 'IFS-INH-HYD',
+   'group' => 'INH-HYD-HOSE',
    'key' => 'HoseFert',
    'parentClass' => '',
    'layoutDefinitions' => 

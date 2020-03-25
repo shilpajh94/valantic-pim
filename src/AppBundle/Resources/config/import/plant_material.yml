@@ -1,4 +1,9 @@
 parameters:
+  approvedSalesOrg: 
+    '0109': '0109-US'
+    '0310': '0310-Canada'
+    '0252': '0252-Export'
+    '0644': '0644-Mexico'
   mappingCsvColumn: 
     'plant': 'Plant'
     'material': 'Material'

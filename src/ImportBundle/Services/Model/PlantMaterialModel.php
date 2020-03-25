@@ -11,36 +11,30 @@ use ImportBundle\Services\ImportConstants;
 
 class PlantMaterialModel
 {
-    public $name; // Command Name
-    public $filePath;
-    public $inboxFilePath;
-    public $archiveDir;
-    public $failedDir;
-    public $configuredData; // We will pull the data from configured class for this variable
-    private $mappedClass;
-    private $validatorClass;
+    use ProcessManagerBundle\ExecutionTraitClass;
+    
+    private $name;
+    private $filePath;
+    private $inboxFilePath;
+    private $archiveDir;
+    private $failedDir;
     private $logFileName;
     private $monitoringItem;
-    private $totalSteps;
-    public $currentStep;
-    private $currentLevel;
-    private $errors;
     private $reader;
-    private $level;
-    private $cek; // Current Error Key
-    public $rowStatus;
-    use ProcessManagerBundle\ExecutionTraitClass;
-    const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
     private $failedCount = 0;
     private $successCount = 0;
     private $createdCount = 0;
     private $updatedCount = 0;
-    private $fileColumns = array();
-    private $keyColumns = array();
     private $common;
-    private $mappingCsvColumn = array();
     private $tableImportConfig;
     private $tableImportHelper;
+
+    private $fileColumns = array();
+    private $keyColumns = array();
+    private $approvedSalesOrg = array();
+    private $mappingCsvColumn = array();
+
+    const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
 
     public function __construct()
     {
@@ -57,6 +51,7 @@ class PlantMaterialModel
             $this->tableImportHelper = \Pimcore::getContainer()->get('app.table_import_helper');
             $plantMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPlantMaterialConfig();
             
+            $this->approvedSalesOrg = $this->common->getParameter($plantMaterialConfig, 'approvedSalesOrg');
             $this->mappingCsvColumn = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
             $this->tableImportConfig['tempTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','tempTable');
             $this->tableImportConfig['masterTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','masterTable');
@@ -72,7 +67,7 @@ class PlantMaterialModel
 
     public function import($spreadsheet)
     {
-    
+        $excelDataNewArray = array();
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
         
@@ -85,13 +80,13 @@ class PlantMaterialModel
 
         $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
 
+        $this->monitoringItem->getLogger()->info('File Information');
+        $this->monitoringItem->getLogger()->info('File path is being imported: ' . $this->filePath);
+
         /**
          * get all the data from the spreadsheet
          */
         $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
-        
-        $this->monitoringItem->setMessage('File Information')->save();
-        $this->monitoringItem->setMessage('File path is being imported: ' . $this->filePath)->save();
         
         /**
          * get folder ids of Master List, MaterialMaster, Master List/Plants, 
@@ -105,7 +100,8 @@ class PlantMaterialModel
         $plantMaterialMasterFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER)->getId();
 
         $allSuccess = true;
-        if(count($excelDataNewArray))
+        $applicationLogMessage = '';
+        if(count($excelDataNewArray) > 1)
         {
             /**
              * getting csv or excel file column name
@@ -114,112 +110,147 @@ class PlantMaterialModel
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
             $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
-            
             $this->tableImportHelper->init($this->tableImportConfig);
            
             /**
              * remove column header from array excelDataNewArray. Only data remains.
              */
             array_shift($excelDataNewArray); 
+            $csvRowCount = count($excelDataNewArray);
+            $time = new \DateTime();
             $this->tableImportHelper->truncateTempTable();
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
+            $timediff = $time->diff(new \DateTime());
+            echo $timediff->format('Data Insertion Temp table: %h hour %i minute %s second')."\n";
+
+            $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
             
             /**
              * total number of rows without header row
              */
+            
             $totalRow = count($excelDataNewArray);
-            $this->totalSteps = $totalRow;
-            $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
-
-            
-            $columnPlant = $this->mappingCsvColumn['plant'];
-            $columnMaterial = $this->mappingCsvColumn['material'];
-            $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
-            $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
-            $columncountryOfOrigin = $this->mappingCsvColumn['countryOfOrigin'];
-
-            /**
-             * adding a new column 'status' to csv/excel file
-             */
-            // Import::setCell($nextColumn . '1', 'Status');
-            foreach ($excelDataNewArray as $rowCount => $rowvalueRecord) {
-                $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
+            if($totalRow > 0)
+            {
+                $this->monitoringItem->getLogger()->info("Total {$totalRow} delta records need to be processed...");
+                $this->monitoringItem->setTotalSteps($totalRow)->save();
                 
-                $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
-                $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
-                $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
-                $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
-                $countryName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columncountryOfOrigin);
-               
-                $this->currentStep = $rowCount + 1;
-                $this->monitoringItem->setCurrentWorkload($this->currentStep)
-                ->setTotalWorkload($this->totalSteps)
-                ->setDefaultProcessMessage("Row: '".$this->currentStep."', Plant: '".$plantName."', Material: '".$material."'")
-                ->save();
+                $columnPlant = $this->mappingCsvColumn['plant'];
+                $columnMaterial = $this->mappingCsvColumn['material'];
+                $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
+                $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
+                $columncountryOfOrigin = $this->mappingCsvColumn['countryOfOrigin'];
                 
-		        /**
-                 * skip row if meterial or plant fields are empty
-                 */
-                $errorsData = array();
-                if(empty(trim($material)))
-                    $errorsData[] = 'Material should not be blank.';
-
-                if(empty(trim($plantName)))
-                    $errorsData[] = 'Plant should not be blank.';
-
-                if(empty(trim($salesOrg)))
-                    $errorsData[] = 'Sales organization should not be blank.';    
-                
-                if(empty(trim($distributionChannel)))
-                    $errorsData[] = 'Distribution channel should not be blank.';   
-
-                if(empty(trim($countryName)))
-                    $errorsData[] = 'Country Name should not be blank.';
-
-                if(!count($errorsData))
-                {
-                    $data['plantMaterialMasterFolderId'] = $plantMaterialMasterFolderId;
-                    $data['plantFolderId'] = $plantFolderId;
-                    $data['countryFolderId'] = $countryFolderId;
-                    $errorsData = $this->importPlantMaterial($rowvalue, $data);
-                }
-                $statusCode = '';
-                if(isset($errorsData['SUCCESS']))
-                {
-                    $this->successCount++;
-                    $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
-                    $this->monitoringItem->setMessage($errorsString)->save();
-                    $statusCode = 'SUCCESS';
-                    $excelDataNewArray[$rowCount]['failedReason'] = '';
-                }
-                else if(count($errorsData))
-                {
-                    $allSuccess = false;
-                    $errorsString = "FAILED: ";
-                    $allErrorsInString = implode(' ', $errorsData);
-                    $errorsString .= $allErrorsInString;
-                    $this->failedCount++;
-                    $this->monitoringItem->setMessage($errorsString)->save();
-                    $statusCode = 'FAILED';
-                    $excelDataNewArray[$rowCount]['failedReason'] = $allErrorsInString;
-                }
-
-                $excelDataNewArray[$rowCount]['statusCode'] = $statusCode;
-
                 /**
-                 * add above error/success message in newly created status column
+                 * adding a new column 'status' to csv/excel file
                  */
-                // Import::setCell($nextColumn.($rowCount+2),$errorsString);
-            }
-            $this->tableImportHelper->insertDataToLogTable($excelDataNewArray);
-            $this->tableImportHelper->updateMaster();
-            
-        }
+                // Import::setCell($nextColumn . '1', 'Status');
+                $time = new \DateTime();
+                foreach ($excelDataNewArray as $rowCount => $rowvalueRecord) {
+                    $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
+                    
+                    $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
+                    $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
+                    $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
+                    $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
+                    $countryName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columncountryOfOrigin);
+                
+                    $currentStep = $rowCount + 1;
+                    $this->monitoringItem->setCurrentWorkload($currentStep)
+                    ->setTotalWorkload($totalRow)
+                    ->setDefaultProcessMessage("Row {$currentStep}: processing..")
+                    ->save();
+                    
+                    /**
+                     * skip row if meterial or plant fields are empty
+                     */
+                    $errorsData = array();
+                    if(empty(trim($material)))
+                        $errorsData[] = 'Material should not be blank.';
 
-        $this->monitoringItem->setMessage('Importing stop from: ' . $this->filePath)->save();
-        $this->monitoringItem->setWorkloadCompleted()->save();
-        
+                    if(empty(trim($plantName)))
+                        $errorsData[] = 'Plant should not be blank.';
+
+                    if(empty(trim($salesOrg)))
+                        $errorsData[] = 'Sales organization should not be blank.';  
+                    /**
+                     * skip row if sales org is not belong to approved sales organizations mentioned in config
+                     */
+                    else if(!isset($this->approvedSalesOrg[$salesOrg]))            
+                        $errorsData[] = 'Sales Org-'.$salesOrg.' should belong to '. implode(', ',$this->approvedSalesOrg);  
+                    
+                    if(empty(trim($distributionChannel)))
+                        $errorsData[] = 'Distribution channel should not be blank.';   
+
+                    if(empty(trim($countryName)))
+                        $errorsData[] = 'Country Name should not be blank.';
+
+                    if(!count($errorsData))
+                    {
+                        $data['plantMaterialMasterFolderId'] = $plantMaterialMasterFolderId;
+                        $data['plantFolderId'] = $plantFolderId;
+                        $data['countryFolderId'] = $countryFolderId;
+                        $errorsData = $this->importPlantMaterial($rowvalue, $data);
+                    }
+                    $statusCode = '';
+                    if(isset($errorsData['SUCCESS']))
+                    {
+                        $this->successCount++;
+                        $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
+                        $this->monitoringItem->getLogger()->info($errorsString);
+                        $statusCode = 'SUCCESS';
+                        $excelDataNewArray[$rowCount]['failedReason'] = '';
+                    }
+                    else if(count($errorsData))
+                    {
+                        $allSuccess = false;
+                        $errorsString = "FAILED: ";
+                        $allErrorsInString = implode(' ', $errorsData);
+                        $errorsString .= $allErrorsInString;
+                        $this->failedCount++;
+                        $this->monitoringItem->getLogger()->info($errorsString);
+                        $statusCode = 'FAILED';
+                        $excelDataNewArray[$rowCount]['failedReason'] = $allErrorsInString;
+                    }
+
+                    $excelDataNewArray[$rowCount]['statusCode'] = $statusCode;
+
+                    /**
+                     * add above error/success message in newly created status column
+                     */
+                    // Import::setCell($nextColumn.($rowCount+2),$errorsString);
+                }
+
+                $timediff = $time->diff(new \DateTime());
+                echo $timediff->format('Ojbect creation: %h hour %i minute %s second')."\n";
+
+                $time = new \DateTime();
+                $this->tableImportHelper->insertDataToLogTable($excelDataNewArray);
+                $timediff = $time->diff(new \DateTime());
+                echo $timediff->format('Data insertion log table: %h hour %i minute %s second')."\n";
+                $countMsg = "\nTotal Records:".$totalRow.", ";
+                $countMsg .= "\nSuccess Records:".$this->successCount.", ";
+                $countMsg .= "\nFailed Records:".$this->failedCount.", ";
+                $countMsg .= "\nCreated Records:".$this->createdCount.", ";
+                $countMsg .= "\nUpdated Records:".$this->updatedCount.", ";
+
+                if ($allSuccess) 
+                    $applicationLogMessage = "Plant Material Master Imported successfully.";
+                else
+                    $applicationLogMessage = "Plant material command failed to import ".$this->failedCount." Record(s) out of $totalRow Record(s)";
+
+                $applicationLogMessage .= $countMsg;
+            }
+            else{
+                $applicationLogMessage = "No delta records found.";
+            }
+            $this->tableImportHelper->updateMaster();
+        }
+        else
+        {
+            $applicationLogMessage = "No record found in file.";
+        }
         // Import::save();
         
         /**
@@ -230,34 +261,17 @@ class PlantMaterialModel
             'archivePath'   =>  $this->archiveDir,
             'failedPath'    =>  $this->failedDir,
             'status'        =>  $allSuccess,
-            'fileName'      =>  date('Ymd')."_".time()
+            'fileName'      =>  time()
         );
         $movedAssetObj = $this->common->moveFile($moveParam);
-
-        $countMsg = "\nTotal Records:".$totalRow.", ";
-        $countMsg .= "\nSuccess Records:".$this->successCount.", ";
-        $countMsg .= "\nFailed Records:".$this->failedCount.", ";
-        $countMsg .= "\nCreated Records:".$this->createdCount.", ";
-        $countMsg .= "\nUpdated Records:".$this->updatedCount.", ";
-
-        /**
-         * Massage log to application logger
-         */
-        if ($allSuccess) {
-            $applicationLogMessage = "Plant Material Master Imported successfully.";
-            $applicationLogMessage .= $countMsg;
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);
-
-        } else {
-
-            $applicationLogMessage = "Plant material command failed to import ".$this->failedCount." Record(s) out of $totalRow Record(s)";
-            $applicationLogMessage .= $countMsg;
+        
+        if ($allSuccess)
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);  
+        else
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($applicationLogMessage);
 
-        }
-
-        $this->monitoringItem->setMessage($applicationLogMessage)->save();
-        $this->monitoringItem->setMessage('Job finished')->setCompleted();
+        $this->monitoringItem->getLogger()->info($applicationLogMessage);
+        $this->monitoringItem->setMessage('Finished')->setCompleted();
         \Pimcore::collectGarbage();
         
     }
@@ -332,7 +346,9 @@ class PlantMaterialModel
                 $standardPackQuantity = $this->common->getDataQuantityValue($quantityValue, $quantityValueUnitId);
 
                 $objectPlantMaster->setStandardPackQuantity($standardPackQuantity);
-                $objectPlantMaster->setOutsidePurchaseIdentifier($this->common->getFieldValue($this->fileColumns,$rowvalue,$columnOutsidePurchaseIdentifier));
+                $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnOutsidePurchaseIdentifier);
+                
+                $objectPlantMaster->setOutsidePurchaseIdentifier('');
                 $objectPlantMaster->setPlantProfitCenter($this->common->getFieldValue($this->fileColumns,$rowvalue,$columnProfitCenter));
                 $objectPlantMaster->setMRPController($this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMrpController));
                 $objectPlantMaster->setTotalReplenismentLeadTime($this->common->getFieldValue($this->fileColumns,$rowvalue,$columnTotalReplLeadTime));
@@ -373,7 +389,7 @@ class PlantMaterialModel
         $objectMaterial->load();
         
         foreach ($objectMaterial as $material) {
-            $this->monitoringItem->setMessage("Material: ".$MaterialKey." found")->save();
+            $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");
             return $material;
         }
 
@@ -394,10 +410,10 @@ class PlantMaterialModel
             $objectPlant->setParentId($plantFolderId);
             $objectPlant->setPublished(TRUE);   
             $objectPlant->save();  
-            $this->monitoringItem->setMessage("Plant: ".$plantKey." not found in master list, plant created")->save();
+            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
         }
         else{
-            $this->monitoringItem->setMessage("Plant: ".$plantKey." found in master list")->save();
+            $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list");
         }
         return $objectPlant;
 
@@ -418,10 +434,10 @@ class PlantMaterialModel
             $objectCountry->setParentId($countryFolderId);
             $objectCountry->setPublished(TRUE);   
             $objectCountry->save();   
-            $this->monitoringItem->setMessage("Country: ".$countryKey." not found in master list, country created")->save(); 
+            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created"); 
         }
         else{
-            $this->monitoringItem->setMessage("Country: ".$countryKey." found in master list")->save();
+            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
         }
         return $objectCountry;
 
