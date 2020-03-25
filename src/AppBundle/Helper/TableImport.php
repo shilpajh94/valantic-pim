@@ -57,29 +57,34 @@ class TableImport
 
     public function insertDataInTemp($arrData)
     {
-        $rowCount = 1;
-        $sql      = "INSERT INTO {$this->tempTable} (id, record, hash) VALUES";
-        $values   = '';
-        $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
-        foreach ($arrData as $data) {
+        try {
+            $rowCount = 1;
+            $sql      = "INSERT INTO {$this->tempTable} (id, record, hash) VALUES";
+            $values   = '';
+            $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
+            foreach ($arrData as $data) {
 
-            $id = $this->createId($data);
-            $record = addslashes(json_encode($data, true));
-            $hash   = md5($record);
-            $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
+                $id = $this->createId($data);
+                $record = addslashes(json_encode($data, true));
+                $hash   = md5($record);
+                $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
 
-            // inserting records in batch
-            if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
-                $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
-                $values = '';
+                // inserting records in batch
+                if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                    $query = $sql.rtrim($values, ',').$update;
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+
             }
-            $rowCount++;
-        }
 
-        if ($values) {
-            $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            if ($values) {
+                $query = $sql.rtrim($values, ',').$update ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
         }
     }
 
@@ -132,9 +137,18 @@ class TableImport
     public function insertDataToLogTable($data)
     {
         try {
+            $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
             foreach ($data as $dataKey => $dataValue) {
                 $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'",now()),';
+                // inserting records in batch
+                if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                    $query = $sql.rtrim($values, ',');
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+
             }
             if($values)
             {

@@ -10,9 +10,10 @@ class Category
     private $root;
     private $codeLength;
     private $validCategories;
-    private $businessUnit;
+    public $businessUnit;
     private $catConfigData;
     private $businessUnitMaxLevel;
+    public $siopCodes;
     public function __construct()
     {
         /* Initiate common helper */
@@ -28,7 +29,7 @@ class Category
     }
 
     public function getLevels($code, $kn = "")
-    {        
+    {
         $buCode = $this->isValidCategoryFormat($code);
         $bu = $this->businessUnit[$buCode];
         if (!$this->isValideCodeLength($code)) {
@@ -62,7 +63,7 @@ class Category
             if ($i == $level) {
                 $levels[$i]['objectKey'] = $kn;
             } else {
-                $levels[$i]['objectKey'] = $kn . $levelFullCode;
+                $levels[$i]['objectKey'] = $levelFullCode;
             }
         }
 
@@ -133,10 +134,11 @@ class Category
         } */
     }
 
-    public function getLevel1ParentId() {
+    public function getLevel1ParentId()
+    {
         $path = $this->root['fullPath'];
         $obj = DataObject::getByPath($path);
-        if(!empty($obj)) {
+        if (!empty($obj)) {
             return $obj->getId();
         }
         return false;
@@ -160,7 +162,7 @@ class Category
         ]
     $param: string - full siop code
     Will validate with above given category
-    */
+     */
     public function isValidCategoryFormat($code)
     {
         $levelLen = $this->levelLength;
@@ -192,15 +194,67 @@ class Category
     /**
      * Param: string - full siop code
      * will return true or false if full code belong to maximum siop level
-    */
-    public function codeHoldMaximumLevel($code) {
+     */
+    public function codeHoldMaximumLevel($code)
+    {
         $buCode = $this->isValidCategoryFormat($code);
         $bu = $this->businessUnit[$buCode];
         $level = $this->getLevelByLength(strlen($code));
         $buMaxLevel = $this->businessUnitMaxLevel[$bu];
         /* Validating allowed max level for current business with current code level */
-        if($level==$buMaxLevel) {
+        if ($level == $buMaxLevel) {
             return true;
+        }
+        return false;
+    }
+
+    public function getCategories()
+    {
+        $catListing = new DataObject\ProductCategory\Listing;
+        foreach($catListing as $cat) {
+            $fullCode = $cat->getFullCode();
+            $this->siopCodes[$fullCode] = array(
+                'object' =>  $cat,
+                'id'    =>  $cat->getId(),
+                'fullPath'  =>  $cat->getFullPath()
+            );
+            unset($fullCode);
+        }
+        /* $stmt = \Pimcore\Db::get()->prepare("call getCategories()");
+        $stmt->execute();
+        $this->siopCodes = $stmt->fetchAll(); */
+        if ($this->siopCodes)
+            return $this->siopCodes;
+        return false;
+    }
+
+    public function getCategoryIdByFullCode($fullCode)
+    {
+        $fcIndex = false;
+        if ($this->siopCodes) {
+            if(array_key_exists($fullCode, $this->siopCodes)) {
+                return $this->siopCodes[$fullCode]['id'];
+            }
+        }
+        return false;
+    }
+
+    public function getCategoryFullPathByFullCode($fullCode)
+    {
+        $fcIndex = false;        
+        if ($this->siopCodes) {
+            if(array_key_exists($fullCode, $this->siopCodes)) {
+                return $this->siopCodes[$fullCode]['fullPath'];
+            }
+        }
+        return false;
+    }
+
+    public function getObjectByCode($fullCode) {
+        if ($this->siopCodes) {
+            if(array_key_exists($fullCode, $this->siopCodes)) {
+                return $this->siopCodes[$fullCode]['object'];
+            }
         }
         return false;
     }
