@@ -57,34 +57,28 @@ class TableImport
 
     public function insertDataInTemp($arrData)
     {
-        try {
-            $rowCount = 1;
-            $sql      = "INSERT INTO {$this->tempTable} (id, record, hash) VALUES";
-            $values   = '';
-            $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
-            foreach ($arrData as $data) {
+        $rowCount = 1;
+        $sql      = "INSERT INTO {$this->tempTable} (id, record, siopfullcode, hash) VALUES";
+        $values   = '';
+        $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `siopfullcode` = `siopfullcode`, `hash` = `hash` ";
+        foreach ($arrData as $data) {
 
-                $id = $this->createId($data);
-                $record = addslashes(json_encode($data, true));
-                $hash   = md5($record);
-                $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
-
-                // inserting records in batch
-                if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
-                    $query = $sql.rtrim($values, ',').$update;
-                    $this->db->query($query);
-                    $values = '';
-                }
-                $rowCount++;
-
-            }
-
-            if ($values) {
-                $query = $sql.rtrim($values, ',').$update ;
+            $id = $this->createId($data);
+            $record = addslashes(json_encode($data, true));
+            $siopfullcode = $data['4'];
+            $hash   = md5($record);
+            $values .= '("'.$id.'", "'.$record.'", "'.$siopfullcode.'", "'.$hash.'"),';
+            // inserting records in batch
+            if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                $query = $sql.rtrim($values, ',').$update;
                 $this->db->query($query);
+                $values = '';
             }
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
+            $rowCount++;
+        }
+        if ($values) {
+            $query = $sql.rtrim($values, ',').$update ;
+            $this->db->query($query);
         }
     }
 
@@ -96,7 +90,7 @@ class TableImport
     public function getDelta()
     {
         try {
-            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL";
+            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = 18 AND (t.hash != m.hash OR m.id is null)";
             $delta = $this->db->fetchAll($sql);
 
             return $delta;
