@@ -20,9 +20,9 @@ parameters:
     validatorService: 'import.category_validator_service'
     mappedService: 'pim.category_service'
     listingService: 'pim.category_listing_service'
-    filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv'
-    archiveDir: '/Logs/Master List/SIOP Master List/Archive'
-    failedDir: '/Logs/Master List/SIOP Master List/Failed'
+    filePath: '/Data Import Files/Master Lists/SIOP Master Lists/siop.csv'
+    archiveDir: '/Data Import Files/Master Lists/SIOP Master Lists/Archive'
+    failedDir: '/Data Import Files/Master Lists/SIOP Master Lists/Failed'
     objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products'
     columnName: ['code', 'level', 'description']
   product:
@@ -33,7 +33,8 @@ parameters:
     validatorService: 'import.product_validator_service'
     mappedService: 'pim.product_service'
     listingService: 'pim.product_listing_service'
-    filePath: '/Logs/Products Master/Inbox/mm.csv'
-    archiveDir: '/Logs/Products Master/Archive'
-    failedDir: '/Logs/Products Master/Failed'
+    filePath: '/Data Import Files/Products Master/material_mara.csv'
+    archiveDir: '/Data Import Files/Products Master/Archive'
+    failedDir: '/Data Import Files/Products Master/Failed'
+    objectRootPath: '/Products Master'
   
