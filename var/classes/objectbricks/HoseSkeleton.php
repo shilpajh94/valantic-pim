@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-19T08:56:14+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-03-23T08:44:46+01:00
+* IP: 192.168.30.66
 
 
 Fields Summary: 
@@ -132,7 +132,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Hose ID (in) (Dec.) Actual ID',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -173,7 +173,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Hose ID (mm) Actual ID',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -214,7 +214,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Hose OD (in)',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -255,7 +255,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Hose OD (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -296,7 +296,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Weight_ g/m',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -337,7 +337,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Gross Weight / Weight_Lbs per ft',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -367,7 +367,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'title' => 'Weight_Lbs per ft - UOM',
                  'tooltip' => '',
                  'mandatory' => false,
-                 'noteditable' => false,
+                 'noteditable' => true,
                  'index' => false,
                  'locked' => false,
                  'style' => '',
@@ -945,8 +945,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
-                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                         'optionsProviderData' => 'INH-HYD-HOSE',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',
@@ -971,38 +971,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => 'B2',
-                            'value' => 'B2',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'FG',
-                            'value' => 'FG',
-                          ),
-                          2 => 
-                          array (
-                            'key' => 'SE',
-                            'value' => 'SE',
-                          ),
-                          3 => 
-                          array (
-                            'key' => 'SG',
-                            'value' => 'SG',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'Fuelgrip',
-                            'value' => 'Fuelgrip',
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
                          'renderType' => 'tags',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                         'optionsProviderData' => 'INH-HYD-HOSE',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',

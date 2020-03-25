@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-19T08:56:41+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-03-23T14:13:50+01:00
+* IP: 192.168.30.66
 
 
 Fields Summary: 
@@ -139,7 +139,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 280,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -165,7 +165,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 280,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -192,7 +192,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 300,
+                         'width' => 280,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
