@@ -84,3 +84,6 @@ services:
     ImportBundle\OneTimeImportCommand\ImportFittingDbCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:fitting-data' }
+    ImportBundle\OneTimeImportCommand\ImportCompetitorDataCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:competitor-data' }

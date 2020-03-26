@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-05T11:08:24+01:00
+* Generated at: 2020-03-20T08:37:13+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: 192.168.30.66
 
 
 Fields Summary: 
@@ -17,12 +17,12 @@ Fields Summary:
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'id' => '8',
    'name' => 'DistributionChannel',
-   'description' => NULL,
-   'creationDate' => NULL,
-   'modificationDate' => 1580897304,
-   'userOwner' => NULL,
+   'description' => '',
+   'creationDate' => 0,
+   'modificationDate' => 1584689833,
+   'userOwner' => 0,
    'userModification' => 2,
-   'parentClass' => NULL,
+   'parentClass' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -60,7 +60,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => 'Sales Organisation',
+         'title' => 'Distribution Channel',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -73,10 +73,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
-             'labelWidth' => 100,
+             'labelWidth' => 200,
              'layout' => NULL,
              'border' => false,
-             'icon' => NULL,
+             'icon' => '',
              'name' => 'Layout',
              'type' => NULL,
              'region' => 'center',
@@ -102,7 +102,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'unique' => false,
                  'showCharCount' => false,
                  'name' => 'code',
-                 'title' => 'DChl',
+                 'title' => 'Distribution Channel Code (DChl)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -152,15 +152,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'locked' => false,
   )),
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/factory.svg',
-   'previewUrl' => NULL,
+   'previewUrl' => '',
    'group' => 'Product',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => NULL,
+   'linkGeneratorReference' => '',
    'propertyVisibility' => 
   array (
     'grid' => 
     array (
       'id' => true,
+      'key' => false,
       'path' => true,
       'published' => true,
       'modificationDate' => true,
@@ -169,6 +170,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     'search' => 
     array (
       'id' => true,
+      'key' => false,
       'path' => true,
       'published' => true,
       'modificationDate' => true,
