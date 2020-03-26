@@ -1,5 +1,6 @@
 <?php
 
+namespace RequiredAttributesBundle\Lib\PimcoreDataTypeValueGetter;
 
 
 interface IPimcoreDataTypeValueGetter

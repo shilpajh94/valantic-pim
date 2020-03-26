@@ -13,25 +13,27 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
 
-class DefaultValueGetter implements \IPimcoreDataTypeValueGetter
+class DefaultValueGetter implements IPimcoreDataTypeValueGetter
 {
     private $object;
 
     private $language;
 
-    public function __construct($object, $language = null)
-    {
-        $this->object = $object;
-        $this->language = $language;
-    }
-
-//    public function setObject($object)
+//    public function __construct($object)
 //    {
 //        $this->object = $object;
+//
 //    }
 
-    public function getValueForConfig(array $attributeConfig, string $attributeName)
+    public function setObject($object)
     {
+        $this->object = $object;
+    }
+
+    public function getValueForConfig(array $attributeConfig, string $attributeName, $language = null)
+    {
+        $this->language = $language;
+
         $attributeType = $attributeConfig['type'];
         $value = null;
 
@@ -91,7 +93,11 @@ class DefaultValueGetter implements \IPimcoreDataTypeValueGetter
      */
     public function getValueForMultiselect(string $attributeName): ?array
     {
-        return $this->getValue($attributeName);
+        $value =  $this->getValue($attributeName);
+        if(is_array($value) && count($value) == 0 ){
+            $value = null;
+        }
+        return $value;
     }
 
     public function getValueForImage(string $attributeName): ?string

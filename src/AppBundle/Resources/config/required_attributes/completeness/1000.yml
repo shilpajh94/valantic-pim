@@ -33,38 +33,37 @@ localized:
         label: 'Features Ben'
 
 object_relations:
-    SIOPLevel1:
-        type: 'manyToManyObjectRelation'
-        label: 'SIOP Level 1'
-        mappedClass: 'ProductCategory'
-        mappedClassAttributes:
-            non_localized:
-                code:
-                    type: 'input'
-                    label: 'Code'
-                Industry:
-                    type: 'select'
-                    label: 'Industry'
-                image:
-                    type: 'image'
-                    label: 'Image'
-            localized:
-                description:
-                    type: 'textarea'
-                    label: 'Desc'
-    SIOPLevel2:
-        type: 'manyToManyObjectRelation'
-        label: 'SIOP Level 2'
-        mappedClass: 'ProductCategory'
-        mappedClassAttributes:
-            non_localized:
-                code:
-                    type: 'input'
-                    label: 'Code'
-            localized:
-                description:
-                    type: 'textarea'
-                    label: 'Desc'
+    manyToManyObjectRelation:
+        SIOPLevel1:
+            label: 'SIOP Level 1'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                non_localized:
+                    code:
+                        type: 'input'
+                        label: 'Code'
+                    Industry:
+                        type: 'select'
+                        label: 'Industry'
+                    image:
+                        type: 'image'
+                        label: 'Image'
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+        SIOPLevel2:
+            label: 'SIOP Level 2'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                non_localized:
+                    code:
+                        type: 'input'
+                        label: 'Code'
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
 
 object_bricks:
     Base:
