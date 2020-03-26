@@ -2,6 +2,13 @@
 
 define("APPBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/AppBundle/Resources/config");
 
+/**
+ * to include the constants of the required attributes module
+ * this is being used for calculating completeness,calculating some validations for export etc.
+ */
+require_once('required_attribute_constants.php');
+
+
 //contitech configuration file paths
 define("LEVEL_ATTRIBUTE_MAPPING_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/import/level_attribute_mapping.yml");
 //Command file path
@@ -20,3 +27,5 @@ define('ALLOWED_FILE_TYPES', 'Only %s files are allowed to uplod');
 define("BRICK_MAPPING_CONFIG_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/brick_mapping_config.yml");
 
 define("MULTISELECT_MASTER_IMPORT_CONFIG",APPBUNDLE_CONFIG_DIRECTORY."/import/multiselect_master_import_config.yml");
+
+

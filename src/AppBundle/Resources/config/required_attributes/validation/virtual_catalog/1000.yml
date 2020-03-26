@@ -1,0 +1,97 @@
+non_localized:
+    articleNumber:
+        fieldType: 'input'
+    eanUpc:
+        fieldType: 'input'
+    grossWeight:
+        fieldType: 'numeric'
+    packageLength:
+        fieldType: 'quantityValue'
+    longDescription:
+        fieldType: 'textarea'
+    ind:
+        fieldType: 'checkbox'
+    ProductType:
+        fieldType: 'select'
+    mainImage:
+        fieldType: 'image'
+
+localized:
+    sapDescription:
+        fieldType: 'textarea'
+    FeaturesBenefitsBulletPoint1:
+        fieldType: 'input'
+
+object_relations:
+    SIOPLevel1:
+        fieldType: 'manyToManyObjectRelation'
+        mappedClass: 'ProductCategory'
+        mappedClassAttributes:
+            non_localized:
+                code:
+                    fieldType: 'input'
+                Industry:
+                    fieldType: 'select'
+                image:
+                    fieldType: 'image'
+            localized:
+                description:
+                    fieldType: 'textarea'
+    SIOPLevel2:
+        fieldType: 'manyToManyObjectRelation'
+        mappedClass: 'ProductCategory'
+        mappedClassAttributes:
+            non_localized:
+                code:
+                    fieldType: 'input'
+            localized:
+                description:
+                    fieldType: 'textarea'
+
+object_bricks:
+    Base:
+        HoseBase:
+            non_localized:
+                staticWire:
+                    fieldType: 'input'
+                numberOfHelixWires:
+                    fieldType: 'numeric'
+                tubeMaterial:
+                    fieldType: 'multiselect'
+    Skeleton:
+        HoseSkeleton:
+            non_localized:
+                hoseIdDec:
+                    fieldType: 'quantityValue'
+                grossWeightUOM:
+                    fieldType: 'select'
+                reinforcement:
+                    fieldType: 'multiselect'
+    fert:
+        HoseFert:
+            non_localized:
+                totalWeightPerPackage:
+                    fieldType: 'numeric'
+                bendRestrictor:
+                    fieldType: 'checkbox'
+                fitting1Type:
+                    fieldType: 'input'
+                CompleteFittingText:
+                    fieldType: 'textarea'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
