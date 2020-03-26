@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-12T12:19:40+01:00
+* Generated at: 2020-03-20T11:47:17+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: 192.168.30.66
 
 
 Fields Summary: 
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SalesOrganisation',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1581506380,
+   'modificationDate' => 1584701237,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -108,7 +108,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'padding:10px 10px 10px 10px;',
+                 'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -134,7 +134,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => 'padding:10px 10px 10px 10px;',
+                 'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,

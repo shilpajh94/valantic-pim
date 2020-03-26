@@ -1,16 +1,17 @@
 <?php 
 
 /** 
-* Generated at: 2020-02-05T11:08:02+01:00
+* Generated at: 2020-03-24T13:02:42+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: 192.168.30.66
 
 
 Fields Summary: 
 - BrandType [select]
 - name [input]
+- brandApplication [input]
 - description [wysiwyg]
 - image [image]
 */ 
@@ -19,12 +20,12 @@ Fields Summary:
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'id' => '3',
    'name' => 'Brand',
-   'description' => NULL,
-   'creationDate' => NULL,
-   'modificationDate' => 1580897282,
-   'userOwner' => NULL,
+   'description' => '',
+   'creationDate' => 0,
+   'modificationDate' => 1585051362,
+   'userOwner' => 0,
    'userModification' => 2,
-   'parentClass' => NULL,
+   'parentClass' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -128,7 +129,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
@@ -159,6 +160,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleSearch' => true,
               )),
               2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'brandApplication',
+                 'title' => 'Brand Application',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => 'padding:10px 10px 10px 10px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
+              )),
+              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                  'fieldtype' => 'wysiwyg',
                  'width' => '',
@@ -240,15 +267,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'locked' => false,
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f516.svg',
-   'previewUrl' => NULL,
+   'previewUrl' => '',
    'group' => 'Product',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => NULL,
+   'linkGeneratorReference' => '',
    'propertyVisibility' => 
   array (
     'grid' => 
     array (
       'id' => true,
+      'key' => false,
       'path' => true,
       'published' => true,
       'modificationDate' => true,
@@ -257,6 +285,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
     'search' => 
     array (
       'id' => true,
+      'key' => false,
       'path' => true,
       'published' => true,
       'modificationDate' => true,
