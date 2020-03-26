@@ -1,0 +1,33 @@
+parameters:
+  approvedSalesOrg: 
+    '0109': '0109-US'
+    '0310': '0310-Canada'
+    '0252': '0252-Export'
+    '0644': '0644-Mexico'
+  mappingCsvColumn: 
+    'plant': 'Plant'
+    'material': 'Material'
+    'salesOrg': 'Sales Organization'
+    'distributionChannel': 'Distribution Channel'
+    'profitCenter': 'Profit Center'
+    'mrpController': 'MRP Controller'
+    'totalReplLeadTime': 'Total Repl Lead Time'
+    'planDeliveryTime': 'Plan Delivery Time'
+    'commodityCode': 'Commodity Code'
+    'countryOfOrigin': 'Country of Origin'
+    'safetyStock': 'Safety Stock'
+    'productHier': 'Product Hier'
+    'minOrderQty': 'Min. Order Quantity'
+    'stdPackQty': 'Std Pack Qty'
+    'stdPackQtyUOM': 'Std Pack Qty - UOM'
+    'orderQtyInc': 'Order Qty Inc'
+    'unitOfMeasure': 'Unit of measure'
+    'stockIndicator': 'Stock Indicator'
+    'deleteFlag': 'Delete Flag'
+    'procurementType': 'Procurement Type'
+    'outsidePurchaseIdentifier': ''
+  tables:
+    tempTable: 'material_plant_import_temp'
+    masterTable:  'material_plant_import_master'
+    logTable: 'material_plant_import_log'
+  keyColumns: ['material','plant','salesOrg','distributionChannel']

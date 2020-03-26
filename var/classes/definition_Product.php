@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-24T08:49:44+01:00
+* Generated at: 2020-03-25T09:19:45+01:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.30.66
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -26,7 +26,7 @@ Fields Summary:
 -- legalText [input]
 -- longDescription [textarea]
 - oldMaterialCode [input]
-- manufacter [input]
+- manufacturer [input]
 - manufacturerPartNumber [input]
 - stccCode [input]
 - industryStandard [input]
@@ -106,7 +106,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585036184,
+   'modificationDate' => 1585124383,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -832,8 +832,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'regex' => '',
                                      'unique' => false,
                                      'showCharCount' => false,
-                                     'name' => 'manufacter',
-                                     'title' => 'Manufacter',
+                                     'name' => 'manufacturer',
+                                     'title' => 'Manufacturer',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,

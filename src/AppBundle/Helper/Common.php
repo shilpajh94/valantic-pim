@@ -6,6 +6,8 @@ use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Pimcore\Model\DataObject;
+use ImportBundle\Services\ImportConstants;
 
 class Common
 {
@@ -75,6 +77,27 @@ class Common
         return false;
     }
 
+    /**
+     *  return quantity value unit id by quantity name
+     */
+    public function getQuantityValueUnitId($qtyName)
+    {
+        $unit = DataObject\QuantityValue\Unit::getByAbbreviation($qtyName);
+        $unitId = (!is_null($unit)) ? $unit->getId() : '';
+        return $unitId;
+    }
+
+    /**
+     *  return quantity value with quantity unit
+     */
+    public function getDataQuantityValue($columnStdPackQty, $quantityValueUnitId){
+        $quantityValue = new DataObject\Data\QuantityValue($columnStdPackQty, $quantityValueUnitId);
+        return $quantityValue;
+    }
+
+    /**
+     *  return corresponding value of a key from an array
+     */
     public function getFieldValue($fileColumns, $rowvalue, $string){
         // $value = ($checkNumber == 'NUMBER') ? 0 : '';
         if(!empty($string))
@@ -87,5 +110,18 @@ class Common
             }
         }
         return $value;
+    }
+
+    public function createKeyForObject($fileColumns, $data, $keyColumns, $mappingCsvColumn){
+        $keyColumnValues = array();
+        foreach($keyColumns as $key =>$keyColumn)
+        {
+            $column = $mappingCsvColumn[$keyColumn];
+            $columnValue = $this->getFieldValue($fileColumns,$data,$column);
+            $keyColumnValues[] = $columnValue;
+        }
+
+        $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
+        return $id;
     }
 }
