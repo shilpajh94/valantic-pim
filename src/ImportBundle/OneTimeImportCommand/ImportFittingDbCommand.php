@@ -85,26 +85,26 @@ class ImportFittingDbCommand extends AbstractCommand
                 
                 if($brickData && ($brickData->getType() == 'HydFittingsFert'))
                 {
-                    // $brickData->setFittingFamily(); 
+                    $brickData->setFittingFamily(''); 
                     $brickData->setActivantNumber($data['Activant Number']);
                     $brickData->setAssemblyRevisionNumber($data['Assembly Revision Number']);
                     $brickData->setAssemblyVendor([$data['Assembly Vendor']]);
                     $brickData->setComments($data['Comments']);
                     $brickData->setDescriptivePartNumber($data['Descriptive Part Number']);
-                    // $brickData->setFittingEndFamilyType();
+                    $brickData->setFittingEndFamilyType('');
                     $brickData->setSAPMaterialNumber($data['SAP Material Number']);
                     $brickData->setSAPNumber($data['SAP Number']);
-                    // $brickData->setCatalogDescription();
-                    // $brickData->setTubeLengthMM();
-                    // $brickData->setTubeLengthInDec();
-                    // $brickData->setHex1WrenchSizeIn();
-                    // $brickData->setHex1WrenchSizeMM();
-                    // $brickData->setHex2WrenchSizeIn();
-                    // $brickData->setHex2WrenchSizeMM();
-                    // $brickData->setSocketWrenchSizeInFract();
-                    // $brickData->setSocketWrenchSizeMM();
-                    // $brickData->setSocketWrenchSizeInDec();
-                    // $brickData->setElbowAngleDegrees();
+                    $brickData->setCatalogDescription('');
+                    $brickData->setTubeLengthMM(0);
+                    $brickData->setTubeLengthInDec(0);
+                    $brickData->setHex1WrenchSizeIn(0);
+                    $brickData->setHex1WrenchSizeMM(0);
+                    $brickData->setHex2WrenchSizeIn(0);
+                    $brickData->setHex2WrenchSizeMM(0);
+                    $brickData->setSocketWrenchSizeInFract(0);
+                    $brickData->setSocketWrenchSizeMM(0);
+                    $brickData->setSocketWrenchSizeInDec(0);
+                    $brickData->setElbowAngleDegrees(0);
                     $brickData->setDropLength($data['Drop Length']);
 
                     $overallLengthUnitId = $this->common->getQuantityValueUnitId('');
@@ -134,48 +134,48 @@ class ImportFittingDbCommand extends AbstractCommand
                         $brickData->setReleasedToProductionDate($ReleasedToProductionDate);
                     }
                     $brickData->setReleasedToProduction($data['Released To Production']);
-                    // $brickData->setFlangeIDInFract();
-                    // $brickData->setFlangeIDInDec();
-                    // $brickData->setFlangeIDMM();
-                    // $brickData->setFlangeODInFract();
-                    // $brickData->setFlangeODInDec();
-                    // $brickData->setFlangeODMM();
-                    // $brickData->setTubeIDInFract();
-                    // $brickData->setTubeIDInDec();
-                    // $brickData->setTubeIDMM();
-                    // $brickData->setTubeODInFract();
-                    // $brickData->setTubeODInDec();
-                    // $brickData->setTubeODMM();
-                    // $brickData->setValveStyle();
-                    // $brickData->setValveSizeInDec();
-                    // $brickData->setValveSizeMM();
-                    // $brickData->setThreadDashSize1();
-                    // $brickData->setThreadDashSize2();
-                    // $brickData->setThreadDashSize3();
-                    // $brickData->setThreadDashSize4();
-                    // $brickData->setHoseID1InFract();
-                    // $brickData->setHoseID1InDec();
-                    // $brickData->setHoseID1MM();
-                    // $brickData->setHoseID2MM();
-                    // $brickData->setHoseID2InFract();
-                    // $brickData->setHoseID2InDec();
-                    // $brickData->setHoseID3InDec();
-                    // $brickData->setHoseID3MM();
-                    // $brickData->setHoseID3InFract();
-                    // $brickData->setHoseDashSize();
-                    // $brickData->setSwivel();
-                    // $brickData->setUniCrimpStyle();
-                    // $brickData->setElbowType();
-                    // $brickData->setAssemblyMaterial();
-                    // $brickData->setDualGripStyle();
-                    // $brickData->setFittingSizeInFract();
-                    // $brickData->setSAEStandard();
-                    // $brickData->setGender();
-                    // $brickData->setSkiveType();
-                    // $brickData->setThreadDescription1();
-                    // $brickData->setThreadDescription2();
-                    // $brickData->setThreadDescription3();
-                    // $brickData->setThreadDescription4();
+                    $brickData->setFlangeIDInFract(0);
+                    $brickData->setFlangeIDInDec(0);
+                    $brickData->setFlangeIDMM(0);
+                    $brickData->setFlangeODInFract(0);
+                    $brickData->setFlangeODInDec(0);
+                    $brickData->setFlangeODMM(0);
+                    $brickData->setTubeIDInFract(0);
+                    $brickData->setTubeIDInDec(0);
+                    $brickData->setTubeIDMM(0);
+                    $brickData->setTubeODInFract(0);
+                    $brickData->setTubeODInDec(0);
+                    $brickData->setTubeODMM(0);
+                    $brickData->setValveStyle(0);
+                    $brickData->setValveSizeInDec(0);
+                    $brickData->setValveSizeMM(0);
+                    $brickData->setThreadDashSize1(0);
+                    $brickData->setThreadDashSize2(0);
+                    $brickData->setThreadDashSize3(0);
+                    $brickData->setThreadDashSize4(0);
+                    $brickData->setHoseID1InFract(0);
+                    $brickData->setHoseID1InDec(0);
+                    $brickData->setHoseID1MM(0);
+                    $brickData->setHoseID2MM(0);
+                    $brickData->setHoseID2InFract(0);
+                    $brickData->setHoseID2InDec(0);
+                    $brickData->setHoseID3InDec(0);
+                    $brickData->setHoseID3MM(0);
+                    $brickData->setHoseID3InFract(0);
+                    $brickData->setHoseDashSize(0);
+                    $brickData->setSwivel('');
+                    $brickData->setUniCrimpStyle('');
+                    $brickData->setElbowType('');
+                    $brickData->setAssemblyMaterial('');
+                    $brickData->setDualGripStyle('');
+                    $brickData->setFittingSizeInFract('');
+                    $brickData->setSAEStandard('');
+                    $brickData->setGender('');
+                    $brickData->setSkiveType('');
+                    $brickData->setThreadDescription1('');
+                    $brickData->setThreadDescription2('');
+                    $brickData->setThreadDescription3('');
+                    $brickData->setThreadDescription4('');
                     $brickData->setStemComponentNumber($data['Stem Component Number']);
                     $brickData->setStemComponentSAPNumber($data['Stem Component SAP Number']);
                     $brickData->setStemComponentThreadType($data['Stem Component Thread Type']);
@@ -195,9 +195,9 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setFerruleComponentNumber($data['Ferrule Component Number']);
                     $brickData->setFerruleComponentSAPNumber($data['Ferrule Component SAP Number']);
                     // $brickData->setFerruleComponentVendor($data['Ferrule Component Vendor']); // need to set componet vendor
-                    // $brickData->setFerruleID();
+                    $brickData->setFerruleID(0);
                     $brickData->setFerruleMaterial($data['Ferrule Material']);
-                    // $brickData->setFerruleOD();
+                    $brickData->setFerruleOD(0);
 
                     if(empty(trim($record['Ferrule Rev Date'])))
                     {
@@ -206,12 +206,12 @@ class ImportFittingDbCommand extends AbstractCommand
                     }
 
                     // $brickData->setFerruleRevisionNumber($data['Ferrule Revision Number']);
-                    // $brickData->setFerruleIDInDec();
-                    // $brickData->setFerruleIDMM();
-                    // $brickData->setFerruleODInDec();
-                    // $brickData->setFerruleODMM();
-                    // $brickData->setFerruleLengthInDec();
-                    // $brickData->setFerruleLengthMM();
+                    $brickData->setFerruleIDInDec(0);
+                    $brickData->setFerruleIDMM(0);
+                    $brickData->setFerruleODInDec(0);
+                    $brickData->setFerruleODMM(0);
+                    $brickData->setFerruleLengthInDec(0);
+                    $brickData->setFerruleLengthMM(0);
                     $brickData->setSwivelNutComponentNumber($data['Swivel Nut Component Number']);
                     $brickData->setSwivelNutComponentSAPNumber($data['Swivel Nut Component SAP Number']);
                     $brickData->setSwivelNutComponentThreadType($data['Swivel Nut Component Thread Type']);
@@ -230,8 +230,8 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setThrustWireComponentNumber($data['Thrust Wire Component Number']);
                     $brickData->setThrustWireMaterial($data['Thrust Wire Material']);
                     $brickData->setThrustWireRevisionNumber($data['Thrust Wire Revision Number']);
-                    // $brickData->setThrustWireNut();
-                    // $brickData->setORingBOMSAPNumber();
+                    $brickData->setThrustWireNut('');
+                    $brickData->setORingBOMSAPNumber(0);
                     $brickData->setORingComponentNumber($data['O-Ring Component Number']);
                     $brickData->setORingComponentSAPNumber($data['O-Ring Component SAP Number']);
                     // $brickData->setORingComponentVendor($data['O-Ring Component Vendor']); // need to set componet vendor
