@@ -67,44 +67,53 @@ object_relations:
 
 object_bricks:
     Base:
-        HoseBase:
-            non_localized:
-                staticWire:
-                    type: 'input'
-                    label: 'Static Wire'
-                numberOfHelixWires:
-                    type: 'numeric'
-                    label: 'Number Of Helix Wires'
-                tubeMaterial:
-                    type: 'multiselect'
-                    label: 'Tube Material'
+        label: 'Base Data'
+        brick_items:
+            HoseBase:
+                label: 'Hose (6 Digit)'
+                non_localized:
+                    staticWire:
+                        type: 'input'
+                        label: 'Static Wire'
+                    numberOfHelixWires:
+                        type: 'numeric'
+                        label: 'Number Of Helix Wires'
+                    tubeMaterial:
+                        type: 'multiselect'
+                        label: 'Tube Material'
     Skeleton:
-        HoseSkeleton:
-            non_localized:
-                hoseIdDec:
-                    type: 'quantityValue'
-                    label: 'Hose Id Dec'
-                grossWeightUOM:
-                    type: 'select'
-                    label: 'Gross Weight UOM'
-                reinforcement:
-                    type: 'multiselect'
-                    label: 'Reinforcement'
-    fert:
-        HoseFert:
-            non_localized:
-                totalWeightPerPackage:
-                    type: 'numeric'
-                    label: 'Total Wight Per Package'
-                bendRestrictor:
-                    type: 'checkbox'
-                    label: 'Bend Restrictor'
-                fitting1Type:
-                    type: 'input'
-                    label: 'Fitting Type'
-                CompleteFittingText:
-                    type: 'textarea'
-                    label: 'Complete FItting Text'
+        label: 'Skeleton Data'
+        brick_items:
+            HoseSkeleton:
+                label: 'Hose (9 Digit)'
+                non_localized:
+                    hoseIdDec:
+                        type: 'quantityValue'
+                        label: 'Hose Id Dec'
+                    grossWeightUOM:
+                        type: 'select'
+                        label: 'Gross Weight UOM'
+                    reinforcement:
+                        type: 'multiselect'
+                        label: 'Reinforcement'
+    Fert:
+        label: 'Fert Data'
+        brick_items:
+            HoseFert:
+                label: 'Hose (14 Digit)'
+                non_localized:
+                    totalWeightPerPackage:
+                        type: 'numeric'
+                        label: 'Total Wight Per Package'
+                    bendRestrictor:
+                        type: 'checkbox'
+                        label: 'Bend Restrictor'
+                    fitting1Type:
+                        type: 'input'
+                        label: 'Fitting Type'
+                    CompleteFittingText:
+                        type: 'textarea'
+                        label: 'Complete FItting Text'
 
 
 

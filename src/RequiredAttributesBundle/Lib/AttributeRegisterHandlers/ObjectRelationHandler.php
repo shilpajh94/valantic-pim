@@ -24,42 +24,60 @@ class ObjectRelationHandler
         $this->locNonLocGroupHandler = $locNonLocGroupHandler;
     }
 
-    public function addEntriesForManyToManyRelation($config,$object){
+    public function addEntriesForRelationalAttributes(array $config, $object)
+    {
+        $manyToManyObjectRelationConfig = $config['manyToManyObjectRelation'];
 
-        foreach($config as $relationAttributeName => $attributeConfig){
-            $relationAttributeLabel = $attributeConfig['label'];
+        if($manyToManyObjectRelationConfig){
+            $this->addEntriesForManyToManyRelation($manyToManyObjectRelationConfig, $object);
+        }
+    }
+
+    private function addEntriesForManyToManyRelation(array $config,$object){
+
+        foreach($config as $relationAttributeName => $relationalAttributeConfig){
+            $relationAttributeLabel = $relationalAttributeConfig['label'];
             $mappedObject = $this->getMappedObjectForManyToManyRelation($object, $relationAttributeName);
 
-            $attributeGroupInRelationClass = $attributeConfig['mappedClassAttributes'];
+            $attributeGroupInRelationClass = $relationalAttributeConfig['mappedClassAttributes'];
             $nonLocConfig = $attributeGroupInRelationClass['non_localized'];
             $locConfig = $attributeGroupInRelationClass['localized'];
 
-            if($mappedObject){
-                $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$mappedObject,$relationAttributeLabel);
+            $titles = array($relationAttributeLabel);
 
-                $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$mappedObject, $relationAttributeLabel);
+            if($mappedObject){
+                if($nonLocConfig){
+                    $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$mappedObject,$titles);
+                }
+                if($locConfig){
+                    $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$mappedObject, $titles);
+                }
+
             }else{
                 /**
                  * if no object is mapped than all attributes which were to be fetched from mapped object
                  * will be treated as null
                  */
-                foreach($nonLocConfig as $attributeName => $attributeConfig ){
-                    $this->register->addEntryInRegister($attributeConfig,null,AttributeRegister::NON_LOC_IDENTIFIER,$relationAttributeLabel);
-                }
 
-                $systemLanguages = \Pimcore\Tool::getValidLanguages();
-                foreach($systemLanguages as $language){
-                    foreach($locConfig as $attributeName => $attributeConfig ){
-                        $this->register->addEntryInRegister($attributeConfig,null,$language,$relationAttributeLabel);
-                    }
-                }
+                $this->locNonLocGroupHandler->addEntryForEmptyLocNonLocGroup($attributeGroupInRelationClass,$titles);
+
+//                foreach($nonLocConfig as $attributeName => $attributeConfig ){
+//                    $this->register->addEntryInRegister($attributeConfig,null,AttributeRegister::NON_LOC_IDENTIFIER,$relationAttributeLabel);
+//                }
+//
+//                $systemLanguages = \Pimcore\Tool::getValidLanguages();
+//                foreach($systemLanguages as $language){
+//                    foreach($locConfig as $attributeName => $attributeConfig ){
+//                        $this->register->addEntryInRegister($attributeConfig,null,$language,$relationAttributeLabel);
+//                    }
+//                }
 
             }
 
         }
     }
 
-    public function getMappedObjectForManyToManyRelation($product, $relationAttributeName){
+    private function getMappedObjectForManyToManyRelation($product, $relationAttributeName){
         $returnValue = null;
 
         $getter = 'get'.ucfirst($relationAttributeName);

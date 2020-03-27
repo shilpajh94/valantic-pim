@@ -46,21 +46,27 @@ class AttributeRegister
 
 
 
-    public function addEntryInRegister($attributeConfig, $value, $localizationIdentifier = self::NON_LOC_IDENTIFIER, $labelPrefix = null)
+    public function addEntryInRegister($attributeConfig, $value, $localizationIdentifier = self::NON_LOC_IDENTIFIER, ?array $titles)
     {
         $this->localizationIdentifier = $localizationIdentifier;
+        $attributelabel = $attributeConfig['label'];
+
+        if(!is_array($titles)){
+            $titles = array();
+        }
+        $titles[] = $attributelabel;
 
         if($value){
-            $this->addPopulatedAttribute($attributeConfig['label'], $labelPrefix);
+            $this->addPopulatedAttribute($titles);
         }else{
-            $this->addEmptyAttribute($attributeConfig['label'], $labelPrefix);
+            $this->addEmptyAttribute($titles);
         }
-        $this->addAllAttribute($attributeConfig['label'], $labelPrefix);
+        $this->addAllAttribute($titles);
     }
 
-    private function addEmptyAttribute(string $attributeLabel, ?string $labelPrefix)
+    private function addEmptyAttribute(array $titles)
     {
-        $entry = $this->createEntryForRegister($attributeLabel,$labelPrefix);
+        $entry = $this->createEntryForRegister($titles);
 
         if( !(array_key_exists($this->localizationIdentifier,$this->emptyAttributes) && in_array($entry,$this->emptyAttributes[$this->localizationIdentifier]) ) )
         {
@@ -68,9 +74,9 @@ class AttributeRegister
         }
     }
 
-    private function addPopulatedAttribute(string $attributeLabel, ?string $labelPrefix)
+    private function addPopulatedAttribute(array $titles)
     {
-        $entry = $this->createEntryForRegister($attributeLabel,$labelPrefix);
+        $entry = $this->createEntryForRegister($titles);
 
         if( !(array_key_exists($this->localizationIdentifier,$this->populatedAttributes) && in_array($entry,$this->populatedAttributes[$this->localizationIdentifier]) ) )
         {
@@ -78,9 +84,9 @@ class AttributeRegister
         }
     }
 
-    private function addAllAttribute(string $attributeLabel, ?string $labelPrefix)
+    private function addAllAttribute(array $titles)
     {
-        $entry = $this->createEntryForRegister($attributeLabel,$labelPrefix);
+        $entry = $this->createEntryForRegister($titles);
 
         if( !in_array($entry, $this->allAttributes) )
         {
@@ -88,11 +94,10 @@ class AttributeRegister
         }
     }
 
-    public function createEntryForRegister(string $attributeLabel, ?string $labelPrefix)
+    public function createEntryForRegister(array $titles)
     {
-        return $labelPrefix ? $labelPrefix . ' -> '.$attributeLabel : $attributeLabel;
+        $returnValue = implode(' -> ',$titles);
+        return $returnValue;
     }
-
-
 
 }

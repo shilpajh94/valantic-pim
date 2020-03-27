@@ -11,6 +11,7 @@ namespace RequiredAttributesBundle\Lib;
 
 use Pimcore\Model\DataObject\Product;
 use RequiredAttributesBundle\Lib\AttributeRegisterHandlers\LocNonLocAttributeGroupHandler;
+use RequiredAttributesBundle\Lib\AttributeRegisterHandlers\ObjectBrickHandler;
 use RequiredAttributesBundle\Lib\AttributeRegisterHandlers\ObjectRelationHandler;
 use RequiredAttributesBundle\Lib\PimcoreDataTypeValueGetter\DefaultValueGetter;
 
@@ -23,6 +24,8 @@ class RequiredAttributeManager
     private $locNonLocGroupHandler;
 
     private $objectRelationHandler;
+
+    private $objectBrickHandler;
 
     private $attributeRegister;
 
@@ -40,23 +43,38 @@ class RequiredAttributeManager
 
         $this->objectRelationHandler = new ObjectRelationHandler($this->attributeRegister,$this->locNonLocGroupHandler);
 
+        $this->objectBrickHandler = new ObjectBrickHandler($this->attributeRegister,$this->locNonLocGroupHandler);
+
         $this->writeRegister();
     }
 
-    private function writeRegister(){
+    private function writeRegister()
+    {
 
+        // non_localized handling
 //        $nonLocConfig = $this->config['non_localized'];
+//        if($nonLocConfig){
+//            $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product,null);
+//        }
 //
-//        $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product);
-//
+//        // localized handling
 //        $locConfig = $this->config['localized'];
+//        if($locConfig){
+//            $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product,null);
+//        }
 //
-//        $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product);
+//
+//        // object_relations handling
+//        $objectRelationConfig = $this->config['object_relations'];
+//        if($objectRelationConfig){
+//            $this->objectRelationHandler->addEntriesForRelationalAttributes($objectRelationConfig,$this->product);
+//        }
 
-        $objectRelationConfig = $this->config['object_relations'];
-        $manyToManyObjectRelationConfig = $objectRelationConfig['manyToManyObjectRelation'];
-
-        $this->objectRelationHandler->addEntriesForManyToManyRelation($manyToManyObjectRelationConfig, $this->product);
+        // object brick handling
+        $objectBrickConfig = $this->config['object_bricks'];
+        if($objectBrickConfig){
+            $this->objectBrickHandler->addEntriesForObjectBricks($objectBrickConfig,$this->product);
+        }
 
     }
 
