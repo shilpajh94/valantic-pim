@@ -56,7 +56,8 @@ class AttributeRegister
         }
         $titles[] = $attributelabel;
 
-        if($value){
+
+        if($value !== null){
             $this->addPopulatedAttribute($titles);
         }else{
             $this->addEmptyAttribute($titles);

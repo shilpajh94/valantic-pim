@@ -47,6 +47,9 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
             case 'numeric':
                 $value = $this->getValueForNumeric($attributeName);
                 break;
+            case 'checkbox':
+                $value = $this->getValueForCheckbox($attributeName);
+                break;
             case 'select':
                 $value = $this->getValueForSelect($attributeName);
                 break;
@@ -66,15 +69,30 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
 
     public function getValueForInput(string $attributeName): ?string
     {
-        return $this->getValue($attributeName);
+        $value = $this->getValue($attributeName);
+
+        if( $value!==null && strlen( trim($value) ) == 0 ){
+            $value = null;
+        }
+        return $value;
     }
 
     public function getValueForTextarea(string $attributeName): ?string
     {
-        return $this->getValue($attributeName);
+        $value = $this->getValue($attributeName);
+
+        if( $value!==null && strlen( trim($value) ) == 0 ){
+            $value = null;
+        }
+        return $value;
     }
 
     public function getValueForNumeric(string $attributeName): ?string
+    {
+        return $this->getValue($attributeName);
+    }
+
+    public function getValueForCheckbox(string $attributeName): ?bool
     {
         return $this->getValue($attributeName);
     }

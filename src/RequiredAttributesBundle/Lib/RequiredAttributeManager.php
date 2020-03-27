@@ -52,23 +52,22 @@ class RequiredAttributeManager
     {
 
         // non_localized handling
-//        $nonLocConfig = $this->config['non_localized'];
-//        if($nonLocConfig){
-//            $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product,null);
-//        }
-//
-//        // localized handling
-//        $locConfig = $this->config['localized'];
-//        if($locConfig){
-//            $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product,null);
-//        }
-//
-//
-//        // object_relations handling
-//        $objectRelationConfig = $this->config['object_relations'];
-//        if($objectRelationConfig){
-//            $this->objectRelationHandler->addEntriesForRelationalAttributes($objectRelationConfig,$this->product);
-//        }
+        $nonLocConfig = $this->config['non_localized'];
+        if($nonLocConfig){
+            $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product,null);
+        }
+
+        // localized handling
+        $locConfig = $this->config['localized'];
+        if($locConfig){
+            $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product,null);
+        }
+
+        // object_relations handling
+        $objectRelationConfig = $this->config['object_relations'];
+        if($objectRelationConfig){
+            $this->objectRelationHandler->addEntriesForRelationalAttributes($objectRelationConfig,$this->product);
+        }
 
         // object brick handling
         $objectBrickConfig = $this->config['object_bricks'];
@@ -78,18 +77,46 @@ class RequiredAttributeManager
 
     }
 
-    public function getEmptyAttributes()
+    public function getEmptyAttributes(): array
     {
         return $this->attributeRegister->getEmptyAttributes();
     }
 
-    public function getPopulatedAttributes()
+    public function getPopulatedAttributes(): array
     {
         return $this->attributeRegister->getPopulatedAttributes();
     }
 
-    public function getAllAttributes(){
+    public function getAllAttributes(): array
+    {
         return $this->attributeRegister->getAllAttributes();
     }
+
+    public function getPopulatedAttributeCountForLanguage($language): int
+    {
+        $populatedAttributes = $this->getPopulatedAttributes();
+
+        $nonLocPopulatedAttributeCount = 0;
+        if(array_key_exists(AttributeRegister::NON_LOC_IDENTIFIER,$populatedAttributes)){
+            $nonLocPopulatedAttributeCount = count($populatedAttributes[AttributeRegister::NON_LOC_IDENTIFIER]);
+        }
+
+        $locPopulatedAttributeCount = 0;
+        if(array_key_exists($language,$populatedAttributes)){
+            $locPopulatedAttributeCount = count($populatedAttributes[$language]);
+        }
+
+        return ($nonLocPopulatedAttributeCount + $locPopulatedAttributeCount);
+    }
+
+    public function getPopulatedPercentageForLanguage(string $language): float
+    {
+        $countOfAllAttributes = count($this->getAllAttributes());
+
+        $countOfPopulatedAttributes = $this->getPopulatedAttributeCountForLanguage($language);
+
+        return round(( $countOfPopulatedAttributes / $countOfAllAttributes ) * 100,2);
+    }
+
 
 }

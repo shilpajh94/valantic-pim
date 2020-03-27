@@ -16,6 +16,8 @@ interface IPimcoreDataTypeValueGetter
 
     public function getValueForNumeric(string $attributeName);
 
+    public function getValueForCheckbox(string $attributeName);
+
     public function getValueForSelect(string $attributeName);
 
     public function getValueForMultiselect(string $attributeName);
