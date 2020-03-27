@@ -1,18 +1,18 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-17T09:26:56+01:00
+* Generated at: 2020-03-27T09:38:42+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.9.195
+* IP: 127.0.0.1
 
 
 Fields Summary: 
 - CompetitorName [select]
 - CompetitorProductName [select]
 - PartNumber [input]
-- CompetitorIdFraction [numeric]
+- CompetitorIdFraction [input]
 - CompetitorIdDec [numeric]
 - CompetitorLength [numeric]
 - CompetitiveDescription [textarea]
@@ -20,11 +20,11 @@ Fields Summary:
 - ContinentalBenefitOverHose1 [input]
 - ContinentalBenefitOverHose2 [input]
 - ContinentalBenefitOverHose3 [input]
-- CompetitorListPrice [numeric]
+- CompetitorListPrice [input]
 - CompetitivePriceDate [date]
 - DocumentCurrency [input]
 - CompetitiveMultiplier [numeric]
-- CompetitorNetPrice [numeric]
+- CompetitorNetPrice [input]
 - CompetitorPriceUOM [input]
 - CompetitorPrimaryAlternate [input]
 - Comments [textarea]
@@ -36,7 +36,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CompetitorParts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1584433616,
+   'modificationDate' => 1585298318,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -96,11 +96,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
             array (
+              0 => 
+              array (
+                'key' => 'carlisle',
+                'value' => 'carlisle',
+              ),
+              1 => 
+              array (
+                'key' => 'gates',
+                'value' => 'gates',
+              ),
+              2 => 
+              array (
+                'key' => 'greenline',
+                'value' => 'greenline',
+              ),
+              3 => 
+              array (
+                'key' => 'kanaflex',
+                'value' => 'kanaflex',
+              ),
             ),
              'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
+             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+             'optionsProviderData' => 'Competitor|Name',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -112,7 +132,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -126,11 +146,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
             array (
+              0 => 
+              array (
+                'key' => '1000MP / Mine Spray',
+                'value' => '1000MP / Mine Spray',
+              ),
+              1 => 
+              array (
+                'key' => '119-Blackstorm',
+                'value' => '119-Blackstorm',
+              ),
+              2 => 
+              array (
+                'key' => '300EPDM',
+                'value' => '300EPDM',
+              ),
+              3 => 
+              array (
+                'key' => 'Variable Speed',
+                'value' => 'Variable Speed',
+              ),
             ),
              'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
+             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+             'optionsProviderData' => 'Competitor|ProductName',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -142,7 +182,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -168,7 +208,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -178,20 +218,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'fieldtype' => 'numeric',
-             'width' => '',
-             'defaultValue' => NULL,
-             'queryColumnType' => 'double',
-             'columnType' => 'double',
-             'phpdocType' => 'float',
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
              'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'showCharCount' => false,
              'name' => 'CompetitorIdFraction',
              'title' => 'Competitor ID (in) Fraction',
              'tooltip' => '',
@@ -215,7 +251,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'queryColumnType' => 'double',
              'columnType' => 'double',
              'phpdocType' => 'float',
-             'integer' => true,
+             'integer' => false,
              'unsigned' => false,
              'minValue' => NULL,
              'maxValue' => NULL,
@@ -228,7 +264,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -258,7 +294,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -284,7 +320,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -310,7 +346,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -336,7 +372,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -362,7 +398,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -388,7 +424,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -398,27 +434,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           11 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'fieldtype' => 'numeric',
-             'width' => '',
-             'defaultValue' => NULL,
-             'queryColumnType' => 'double',
-             'columnType' => 'double',
-             'phpdocType' => 'float',
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
              'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'showCharCount' => false,
              'name' => 'CompetitorListPrice',
              'title' => 'Competitor List Price',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -441,7 +473,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -467,7 +499,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -497,7 +529,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -507,27 +539,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           15 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-             'fieldtype' => 'numeric',
-             'width' => '',
-             'defaultValue' => NULL,
-             'queryColumnType' => 'double',
-             'columnType' => 'double',
-             'phpdocType' => 'float',
-             'integer' => false,
-             'unsigned' => false,
-             'minValue' => NULL,
-             'maxValue' => NULL,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
              'unique' => false,
-             'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'showCharCount' => false,
              'name' => 'CompetitorNetPrice',
              'title' => 'Competitor Net Price',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -553,7 +581,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -579,7 +607,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -605,7 +633,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
