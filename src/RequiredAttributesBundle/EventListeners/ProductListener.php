@@ -41,16 +41,17 @@ class ProductListener
     {
         $object = $event->getObject();
         if ($object instanceof DataObject\Product) {
-            $object->setGetInheritedValues(true);
+            if($object->getProductType() == 'fert'){
+                $object->setGetInheritedValues(true);
 
-//            $category = $this->getMappedObjectForManyToManyRelation($object,'SIOPLevel2');
-            $category = $this->attributeIndicatorFieldPopulator->getLevel2CategoryForProduct($object);
+                $category = $this->attributeIndicatorFieldPopulator->getLevel2CategoryForProduct($object);
 
-            if($category instanceof DataObject\ProductCategory){
-                $categorySiopCode = $category->getCode();
-                if($categorySiopCode){
-                    $this->attributeIndicatorFieldPopulator->populateEmptyFieldAndPercentage($object,$categorySiopCode);
+                if($category instanceof DataObject\ProductCategory){
+                    $categorySiopCode = $category->getCode();
+                    if($categorySiopCode){
+                        $this->attributeIndicatorFieldPopulator->populateEmptyFieldAndPercentage($object,$categorySiopCode);
 
+                    }
                 }
             }
 
