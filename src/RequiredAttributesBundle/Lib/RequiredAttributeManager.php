@@ -146,6 +146,43 @@ class RequiredAttributeManager
 
     /**
      * @param $language
+     * @return array
+     */
+    public function getEmptyAttributesForLanguage(string $language): array
+    {
+        $nonLocEmptyAttributes = $this->getNonLocalizedEmptyAttributes();
+
+        $locEmptyAttributes = $this->getLocalizedEmptyAttributes($language);
+
+        return array_merge($nonLocEmptyAttributes,$locEmptyAttributes);
+    }
+
+    public function getNonLocalizedEmptyAttributes(): array
+    {
+        $allEmptyAttributes = $this->getEmptyAttributes();
+
+        // non_localized emtpy attributes
+        $nonLocEmptyAttributes = array();
+        if(array_key_exists(AttributeRegister::NON_LOC_IDENTIFIER,$allEmptyAttributes)){
+            $nonLocEmptyAttributes = $allEmptyAttributes[AttributeRegister::NON_LOC_IDENTIFIER];
+        }
+        return $nonLocEmptyAttributes;
+    }
+
+    public function getLocalizedEmptyAttributes(string $language):array
+    {
+        $allEmptyAttributes = $this->getEmptyAttributes();
+
+        // localized empty attributes
+        $locEmptyAttributes = array();
+        if(array_key_exists($language,$allEmptyAttributes)){
+            $locEmptyAttributes = $allEmptyAttributes[$language];
+        }
+        return $locEmptyAttributes;
+    }
+
+    /**
+     * @param $language
      * @return int
      */
     public function getPopulatedAttributeCountForLanguage($language): int

@@ -2,9 +2,6 @@ non_localized:
     deletedFlagAtClientLevel:
         type: 'booleanSelect'
         label: 'Deleted / Obsoleted Flag Client Level'
-    testDate:
-        type: 'date'
-        label: 'test date'
     articleNumber:
         type: 'input'
         label: 'Article Number'
@@ -42,7 +39,7 @@ localized:
         label: 'SAP Desc'
     FeaturesBenefitsBulletPoint1:
         type: 'input'
-        label: 'Features Ben'
+        label: 'BenefitsBulletPoint1'
 
 object_relations:
     manyToManyObjectRelation:
@@ -129,9 +126,9 @@ object_bricks:
             BeltsFert:
                 label: 'Belts Fert'
                 non_localized:
-                    reinforcement:
-                        type: 'input'
-                        label: 'Reinforcement'
+#                    reinforcement:
+#                        type: 'input'
+#                        label: 'Reinforcement'
                     numberOfBands:
                         type: 'numeric'
                         label: 'Number Of Bands'

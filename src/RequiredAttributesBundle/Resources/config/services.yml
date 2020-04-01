@@ -26,3 +26,10 @@ services:
 
     RequiredAttributesBundle\Services\ConfigResolver:
         public: true
+
+    RequiredAttributesBundle\Services\RequiredAttributeIndicatorFieldPopulator:
+        public: true
+
+    RequiredAttributesBundle\EventListeners\ProductListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }

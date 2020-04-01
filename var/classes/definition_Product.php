@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-30T09:46:06+02:00
+* Generated at: 2020-04-01T09:13:49+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -25,6 +25,8 @@ Fields Summary:
 -- FeaturesBenefitsBulletPoint5 [input]
 -- legalText [input]
 -- longDescription [textarea]
+-- CompletenessPercentage [input]
+-- EmptyFields [textarea]
 - oldMaterialCode [input]
 - manufacturer [input]
 - manufacturerPartNumber [input]
@@ -45,7 +47,7 @@ Fields Summary:
 - rohs [input]
 - reach [input]
 - prop65Message [textarea]
-- mumeratorForConversionToBaseUnitsOfMeasure [textarea]
+- numeratorForConversionToBaseUnitsOfMeasure [textarea]
 - alternativeUnitOfMeasureForStockkeepingUnit [input]
 - denominatorForConversionToBaseUnitsOfMeasure [input]
 - californiaProposition65ChemicalName1 [input]
@@ -54,7 +56,8 @@ Fields Summary:
 - searchKeywords [input]
 - webDiscription [input]
 - proposition65WarningAttributesRequired [checkbox]
-- BrandingLayline [input]
+- BrandingLayline [textarea]
+- VirtualCatalogBrandingLayline [input]
 - packageLength [quantityValue]
 - packageWidth [quantityValue]
 - packageWeight [quantityValue]
@@ -67,7 +70,7 @@ Fields Summary:
 - palletHeight [quantityValue]
 - palletWidth [quantityValue]
 - palletWeight [quantityValue]
-- mumberOfItems [numeric]
+- numberOfItems [numeric]
 - casePackQuantity [numeric]
 - orderIncrement [numeric]
 - miniumOrderQuantity [numeric]
@@ -99,6 +102,7 @@ Fields Summary:
 - sideView [image]
 - cutView [image]
 - Document [manyToOneRelation]
+- priceData [table]
 */ 
 
 
@@ -107,7 +111,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585554366,
+   'modificationDate' => 1585725226,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -826,6 +830,94 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleGridView' => true,
                                          'visibleSearch' => true,
                                       )),
+                                      1 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                                         'fieldtype' => 'localizedfields',
+                                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                                         'childs' => 
+                                        array (
+                                          0 => 
+                                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                             'fieldtype' => 'input',
+                                             'width' => 300,
+                                             'queryColumnType' => 'varchar',
+                                             'columnType' => 'varchar',
+                                             'columnLength' => 190,
+                                             'phpdocType' => 'string',
+                                             'regex' => '',
+                                             'unique' => false,
+                                             'showCharCount' => false,
+                                             'name' => 'CompletenessPercentage',
+                                             'title' => 'Completeness Percentage',
+                                             'tooltip' => '',
+                                             'mandatory' => false,
+                                             'noteditable' => false,
+                                             'index' => false,
+                                             'locked' => NULL,
+                                             'style' => '',
+                                             'permissions' => NULL,
+                                             'datatype' => 'data',
+                                             'relationType' => false,
+                                             'invisible' => false,
+                                             'visibleGridView' => false,
+                                             'visibleSearch' => false,
+                                          )),
+                                          1 => 
+                                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                             'fieldtype' => 'textarea',
+                                             'width' => 300,
+                                             'height' => 200,
+                                             'maxLength' => NULL,
+                                             'showCharCount' => false,
+                                             'excludeFromSearchIndex' => false,
+                                             'queryColumnType' => 'longtext',
+                                             'columnType' => 'longtext',
+                                             'phpdocType' => 'string',
+                                             'name' => 'EmptyFields',
+                                             'title' => 'Empty Fields',
+                                             'tooltip' => '',
+                                             'mandatory' => false,
+                                             'noteditable' => false,
+                                             'index' => false,
+                                             'locked' => NULL,
+                                             'style' => '',
+                                             'permissions' => NULL,
+                                             'datatype' => 'data',
+                                             'relationType' => false,
+                                             'invisible' => false,
+                                             'visibleGridView' => false,
+                                             'visibleSearch' => false,
+                                          )),
+                                        ),
+                                         'name' => 'localizedfields',
+                                         'region' => NULL,
+                                         'layout' => NULL,
+                                         'title' => '',
+                                         'width' => '',
+                                         'height' => '',
+                                         'maxTabs' => NULL,
+                                         'labelWidth' => 200,
+                                         'border' => false,
+                                         'provideSplitView' => false,
+                                         'tabPosition' => NULL,
+                                         'hideLabelsWhenTabsReached' => -1,
+                                         'referencedFields' => 
+                                        array (
+                                        ),
+                                         'fieldDefinitionsCache' => NULL,
+                                         'tooltip' => NULL,
+                                         'mandatory' => NULL,
+                                         'noteditable' => NULL,
+                                         'index' => NULL,
+                                         'locked' => NULL,
+                                         'style' => NULL,
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => true,
+                                         'visibleSearch' => true,
+                                      )),
                                     ),
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -1208,7 +1300,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => true,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1251,7 +1343,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => true,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1294,7 +1386,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => true,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1337,7 +1429,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => true,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1613,7 +1705,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'queryColumnType' => 'longtext',
                                      'columnType' => 'longtext',
                                      'phpdocType' => 'string',
-                                     'name' => 'mumeratorForConversionToBaseUnitsOfMeasure',
+                                     'name' => 'numeratorForConversionToBaseUnitsOfMeasure',
                                      'title' => 'Numerator for Conversion to Base Units of Measure',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2143,6 +2235,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'childs' => 
                         array (
                           0 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'fieldtype' => 'textarea',
+                             'width' => 300,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
+                             'phpdocType' => 'string',
+                             'name' => 'BrandingLayline',
+                             'title' => 'Branding / Layline',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2153,13 +2271,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'regex' => '',
                              'unique' => false,
                              'showCharCount' => false,
-                             'name' => 'BrandingLayline',
-                             'title' => 'Branding / Layline',
+                             'name' => 'VirtualCatalogBrandingLayline',
+                             'title' => 'Virtual Catalog Branding / Layline',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2755,7 +2873,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'mumberOfItems',
+                                     'name' => 'numberOfItems',
                                      'title' => 'Number of Items',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -4188,6 +4306,212 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+              )),
+            ),
+             'locked' => false,
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'name' => 'Pricing Data',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Pricing Data',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                 'fieldtype' => 'table',
+                 'width' => '',
+                 'height' => '',
+                 'cols' => 8,
+                 'colsFixed' => true,
+                 'rows' => '',
+                 'rowsFixed' => false,
+                 'data' => '',
+                 'columnConfigActivated' => true,
+                 'columnConfig' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 0,
+                    'label' => 'Sales Organization',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 1,
+                    'label' => 'Distribution Channel',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 2,
+                    'label' => 'Validity End Date',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 3,
+                    'label' => 'Validity Start Date',
+                  ),
+                  4 => 
+                  array (
+                    'key' => '4',
+                    'label' => 'Condition Record Num',
+                  ),
+                  5 => 
+                  array (
+                    'key' => 5,
+                    'label' => 'Sequential',
+                  ),
+                  6 => 
+                  array (
+                    'key' => 6,
+                    'label' => 'Rate',
+                  ),
+                  7 => 
+                  array (
+                    'key' => 7,
+                    'label' => 'Rate Unit',
+                  ),
+                ),
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'array',
+                 'name' => 'priceData',
+                 'title' => 'Price Data',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'locked' => false,
+          )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'name' => 'Completeness',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Completeness',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'fieldtype' => 'localizedfields',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'CompletenessPercentage',
+                     'title' => 'Completeness Percentage',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'fieldtype' => 'textarea',
+                     'width' => 300,
+                     'height' => 200,
+                     'maxLength' => NULL,
+                     'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'string',
+                     'name' => 'EmptyFields',
+                     'title' => 'Empty Fields',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                ),
+                 'name' => 'localizedfields',
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'maxTabs' => NULL,
+                 'labelWidth' => 200,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => NULL,
+                 'hideLabelsWhenTabsReached' => -1,
+                 'referencedFields' => 
+                array (
+                ),
+                 'fieldDefinitionsCache' => NULL,
+                 'tooltip' => NULL,
+                 'mandatory' => NULL,
+                 'noteditable' => NULL,
+                 'index' => NULL,
+                 'locked' => NULL,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
               )),
             ),
              'locked' => false,

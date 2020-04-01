@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * to include the constants used to name the log file
+ */
+require_once('log_file_name_constants.php');
+
+
 define("APPBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/AppBundle/Resources/config");
 
 /**
