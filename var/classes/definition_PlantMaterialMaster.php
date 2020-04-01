@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-25T06:28:37+01:00
+* Generated at: 2020-04-01T11:19:19+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -33,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585114116,
+   'modificationDate' => 1585732759,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
