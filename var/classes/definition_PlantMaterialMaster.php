@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-31T11:38:30+02:00
+* Generated at: 2020-03-25T06:28:37+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -10,6 +10,14 @@
 
 Fields Summary: 
 - Material [manyToManyObjectRelation]
+- Plant [manyToOneRelation]
+- CountryOfOrigin [manyToOneRelation]
+- PlannedDeliveryTime [numeric]
+- CommodityCode [input]
+- MinOrderQuantity [numeric]
+- OrderingQuantityIncrements [numeric]
+- StandardPackQuantity [quantityValue]
+- OutsidePurchaseIdentifier [booleanSelect]
 - SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
 - PlantProfitCenter [input]
@@ -33,7 +41,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585647509,
+   'modificationDate' => 1585114116,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -392,9 +400,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
-                     'name' => 'SafetyStock',
-                     'title' => 'Safety Stock',
+                     'decimalPrecision' => NULL,
+                     'name' => 'OrderingQuantityIncrements',
+                     'title' => 'Ordering Quantity Increments',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,

@@ -72,6 +72,7 @@ class PlantMaterialModel
 
     public function import($spreadsheet)
     {
+        $time = new \DateTime();
         $excelDataNewArray = array();
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
@@ -215,11 +216,13 @@ class PlantMaterialModel
 
         $this->monitoringItem->getLogger()->info($applicationLogMessage);
         $this->monitoringItem->setMessage('Finished')->setCompleted();
+        $timediff = $time->diff(new \DateTime());
+        echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
         \Pimcore::collectGarbage();
-        
     }
 
     public function processSlicedData($data, $plantFolderId, $countryFolderId) {
+        
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
         $storeTableDataArray = array();
@@ -280,7 +283,7 @@ class PlantMaterialModel
                 try
                 {      
                     $materialObj = $this->getMaterialObject($material);
-                    if(!$materialObj)
+                    if($materialObj)
                     {
                         $salesOrgCode = $this->salesOrganizations[$salesOrg];
                         $distributionChannelCode = $this->distributionChannels[$distributionChannel];
@@ -292,7 +295,7 @@ class PlantMaterialModel
         
                         $countryName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnCountryOfOrigin);
                         $plantObj = $this->getPlantObject($plantName, $plantFolderId);
-                        $countryObj = $this->getPlantObject($countryName, $countryFolderId);
+                        $countryObj = $this->getCountryObject($countryName, $countryFolderId);
                             
                         $createdOrUpdated = 'Updated';
                         if(!$objectMaterial){      
@@ -320,7 +323,6 @@ class PlantMaterialModel
         
                         $quantityValue = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStdPackQty);
                         $standardPackQuantity = $this->common->getDataQuantityValue($quantityValue, $quantityValueUnitId);
-                            
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
                             'oo_classId' => 12,
@@ -339,7 +341,6 @@ class PlantMaterialModel
                             'PlantProfitCenter' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnProfitCenter),
                             'MRPController' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMrpController),
                             'TotalReplenismentLeadTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnTotalReplLeadTime),
-                            'SafetyStock' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSafetyStock),
                             'StockIndicator' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStockIndicator),
                             'SalesOrganization__id' => $salesOrgCode,
                             'SalesOrganization__type' => 'object',
@@ -347,7 +348,7 @@ class PlantMaterialModel
                             'DistributionChannel__type' => 'object',
                             'OrderingQuantityIncrements' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnOrderQtyInc)
                         ];
-                            
+                        
                         $storeTableDataArray[] = [
                             'oo_id' => $objId,
                             'PlannedDeliveryTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlanDeliveryTime),
@@ -359,7 +360,6 @@ class PlantMaterialModel
                             'PlantProfitCenter'	=> $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnProfitCenter),
                             'MRPController' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMrpController),
                             'TotalReplenismentLeadTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnTotalReplLeadTime),
-                            'SafetyStock' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSafetyStock),
                             'StockIndicator' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStockIndicator),	
                             'OrderingQuantityIncrements' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnOrderQtyInc),
                         ];
@@ -387,7 +387,6 @@ class PlantMaterialModel
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
             }
-
             $statusCode = '';
             if(isset($errorsData['SUCCESS']))
             {
@@ -411,7 +410,7 @@ class PlantMaterialModel
 
             $data[$rowCount]['statusCode'] = $statusCode;
         }
-        
+
         if(count($queryTableDataArray))
             $this->tableImportHelper->insertIntoProductTable($queryTableDataArray, 'object_query_12');
         
@@ -425,6 +424,7 @@ class PlantMaterialModel
             $this->tableImportHelper->insertIntoProductTable($dependencyTableDataArray, 'dependencies');
 
         $this->tableImportHelper->insertDataToLogTable($data);
+        
         unset($queryTableDataArray);
         unset($storeTableDataArray);
         unset($relationTableDataArray);
@@ -475,7 +475,6 @@ class PlantMaterialModel
      * return country object
      */
     public function getCountryObject($countryKey, $countryFolderId){
-        
         $objectCountry = DataObject\Country::getByPath("/".ImportConstants::MASTER_LIST_COUNTRY_FOLDER."/".$countryKey);
         if(!$objectCountry)
         {

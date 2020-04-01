@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-24T10:38:25+01:00
+* Generated at: 2020-03-30T09:49:08+02:00
 * Changed by: system (0)
 * IP: 192.168.30.66
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Skeleton',
    'description' => '',
    'creationDate' => 1581513091,
-   'modificationDate' => 1585042705,
+   'modificationDate' => 1585554548,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -510,8 +510,8 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'regex' => '',
                                      'unique' => false,
                                      'showCharCount' => false,
-                                     'name' => 'manufacter',
-                                     'title' => 'Manufacter',
+                                     'name' => 'manufacturer',
+                                     'title' => 'Manufacturer',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
@@ -771,7 +771,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                          'fieldtype' => 'fieldset',
-                         'labelWidth' => 100,
+                         'labelWidth' => 200,
                          'name' => 'Configurations',
                          'type' => NULL,
                          'region' => NULL,
@@ -786,11 +786,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'childs' => 
                         array (
                           0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                             'fieldtype' => 'checkbox',
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'tinyint(1)',
-                             'columnType' => 'tinyint(1)',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
                              'phpdocType' => 'boolean',
                              'name' => 'deletedFlagAtClientLevel',
                              'title' => 'Deleted / Obsoleted Flag Client Level',
@@ -808,11 +829,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                             'fieldtype' => 'checkbox',
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'tinyint(1)',
-                             'columnType' => 'tinyint(1)',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
                              'phpdocType' => 'boolean',
                              'name' => 'deletedFlagAtPlantLevel',
                              'title' => 'Deleted / Obsoleted Flag Plant Level',
@@ -830,11 +872,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                             'fieldtype' => 'checkbox',
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'tinyint(1)',
-                             'columnType' => 'tinyint(1)',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
                              'phpdocType' => 'boolean',
                              'name' => 'deletedFlagAtDistributionChainLevel',
                              'title' => 'Deleted / Obsoleted Flag Distribution Chain Level',
@@ -852,11 +915,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                             'fieldtype' => 'checkbox',
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'tinyint(1)',
-                             'columnType' => 'tinyint(1)',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
                              'phpdocType' => 'boolean',
                              'name' => 'deletedFlagAtSalesLevel',
                              'title' => 'Delete Flag - Sales Level',
@@ -1372,186 +1456,252 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'childs' => 
                             array (
                               0 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 300,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'FeaturesBenefitsBulletPoint1',
-                                 'title' => 'Features & Benefits Bullet Point 1',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                 'fieldtype' => 'fieldcontainer',
+                                 'labelWidth' => 100,
+                                 'layout' => 'hbox',
+                                 'fieldLabel' => '',
+                                 'name' => 'Field Container',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => '',
+                                 'width' => NULL,
+                                 'height' => NULL,
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
                                  'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              1 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 300,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'FeaturesBenefitsBulletPoint2',
-                                 'title' => 'Features & Benefits Bullet Point 2',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
+                                 'childs' => 
+                                array (
+                                  0 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                     'fieldtype' => 'fieldcontainer',
+                                     'labelWidth' => 220,
+                                     'layout' => 'vbox',
+                                     'fieldLabel' => '',
+                                     'name' => 'Field Container',
+                                     'type' => NULL,
+                                     'region' => NULL,
+                                     'title' => '',
+                                     'width' => NULL,
+                                     'height' => NULL,
+                                     'collapsible' => false,
+                                     'collapsed' => false,
+                                     'bodyStyle' => '',
+                                     'datatype' => 'layout',
+                                     'permissions' => NULL,
+                                     'childs' => 
+                                    array (
+                                      0 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'FeaturesBenefitsBulletPoint1',
+                                         'title' => 'Features & Benefits Bullet Point 1',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      1 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'FeaturesBenefitsBulletPoint2',
+                                         'title' => 'Features & Benefits Bullet Point 2',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      2 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'FeaturesBenefitsBulletPoint3',
+                                         'title' => 'Features & Benefits Bullet Point 3',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      3 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'FeaturesBenefitsBulletPoint4',
+                                         'title' => 'Features & Benefits Bullet Point 4',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      4 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'FeaturesBenefitsBulletPoint5',
+                                         'title' => 'Features & Benefits Bullet Point 5',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                      5 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                         'fieldtype' => 'input',
+                                         'width' => 300,
+                                         'queryColumnType' => 'varchar',
+                                         'columnType' => 'varchar',
+                                         'columnLength' => 190,
+                                         'phpdocType' => 'string',
+                                         'regex' => '',
+                                         'unique' => false,
+                                         'showCharCount' => false,
+                                         'name' => 'legalText',
+                                         'title' => 'Legal Text',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => '',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                    ),
+                                     'locked' => false,
+                                  )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                     'fieldtype' => 'fieldcontainer',
+                                     'labelWidth' => 220,
+                                     'layout' => 'vbox',
+                                     'fieldLabel' => '',
+                                     'name' => 'Field Container',
+                                     'type' => NULL,
+                                     'region' => NULL,
+                                     'title' => '',
+                                     'width' => NULL,
+                                     'height' => NULL,
+                                     'collapsible' => false,
+                                     'collapsed' => false,
+                                     'bodyStyle' => '',
+                                     'datatype' => 'layout',
+                                     'permissions' => NULL,
+                                     'childs' => 
+                                    array (
+                                      0 => 
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                         'fieldtype' => 'textarea',
+                                         'width' => 300,
+                                         'height' => '',
+                                         'maxLength' => NULL,
+                                         'showCharCount' => false,
+                                         'excludeFromSearchIndex' => false,
+                                         'queryColumnType' => 'longtext',
+                                         'columnType' => 'longtext',
+                                         'phpdocType' => 'string',
+                                         'name' => 'longDescription',
+                                         'title' => 'Marketing / Long Description',
+                                         'tooltip' => '',
+                                         'mandatory' => false,
+                                         'noteditable' => false,
+                                         'index' => false,
+                                         'locked' => false,
+                                         'style' => 'margin-left:20px;',
+                                         'permissions' => NULL,
+                                         'datatype' => 'data',
+                                         'relationType' => false,
+                                         'invisible' => false,
+                                         'visibleGridView' => false,
+                                         'visibleSearch' => false,
+                                      )),
+                                    ),
+                                     'locked' => false,
+                                  )),
+                                ),
                                  'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              2 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 300,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'FeaturesBenefitsBulletPoint3',
-                                 'title' => 'Features & Benefits Bullet Point 3',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 300,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'FeaturesBenefitsBulletPoint4',
-                                 'title' => 'Features & Benefits Bullet Point 4',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              4 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 300,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'FeaturesBenefitsBulletPoint5',
-                                 'title' => 'Features & Benefits Bullet Point 5',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              5 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                 'fieldtype' => 'input',
-                                 'width' => 300,
-                                 'queryColumnType' => 'varchar',
-                                 'columnType' => 'varchar',
-                                 'columnLength' => 190,
-                                 'phpdocType' => 'string',
-                                 'regex' => '',
-                                 'unique' => false,
-                                 'showCharCount' => false,
-                                 'name' => 'legalText',
-                                 'title' => 'Legal Text',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
-                              )),
-                              6 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                 'fieldtype' => 'textarea',
-                                 'width' => 300,
-                                 'height' => '',
-                                 'maxLength' => NULL,
-                                 'showCharCount' => false,
-                                 'excludeFromSearchIndex' => false,
-                                 'queryColumnType' => 'longtext',
-                                 'columnType' => 'longtext',
-                                 'phpdocType' => 'string',
-                                 'name' => 'longDescription',
-                                 'title' => 'Marketing / Long Description',
-                                 'tooltip' => '',
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => '',
-                                 'permissions' => NULL,
-                                 'datatype' => 'data',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => false,
-                                 'visibleSearch' => false,
                               )),
                             ),
                              'name' => 'localizedfields',
@@ -1561,7 +1711,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'width' => '',
                              'height' => '',
                              'maxTabs' => NULL,
-                             'labelWidth' => 220,
+                             'labelWidth' => 100,
                              'border' => false,
                              'provideSplitView' => false,
                              'tabPosition' => NULL,
@@ -2476,11 +2626,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                                     'fieldtype' => 'checkbox',
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'tinyint(1)',
-                                     'columnType' => 'tinyint(1)',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
                                      'name' => 'succesorFlag',
                                      'title' => 'Succesor / Supercession Flag',
@@ -2498,11 +2669,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                                     'fieldtype' => 'checkbox',
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'tinyint(1)',
-                                     'columnType' => 'tinyint(1)',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
                                      'name' => 'B2CStoreFlag',
                                      'title' => 'B2C Store Flag',
@@ -2520,11 +2712,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                                     'fieldtype' => 'checkbox',
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'tinyint(1)',
-                                     'columnType' => 'tinyint(1)',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
                                      'name' => 'printedCatalogFlag',
                                      'title' => 'Printed Catalog Flag',
@@ -2564,11 +2777,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                                     'fieldtype' => 'checkbox',
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'tinyint(1)',
-                                     'columnType' => 'tinyint(1)',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
                                      'name' => 'returnFlag',
                                      'title' => 'Return Flag',
@@ -2586,11 +2820,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                                     'fieldtype' => 'checkbox',
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'tinyint(1)',
-                                     'columnType' => 'tinyint(1)',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
                                      'name' => 'rebateFlag',
                                      'title' => 'Rebate Flag',
@@ -2608,11 +2863,32 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                                     'fieldtype' => 'checkbox',
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'tinyint(1)',
-                                     'columnType' => 'tinyint(1)',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
                                      'phpdocType' => 'boolean',
                                      'name' => 'newItemFlagForCatalog',
                                      'title' => 'New Item Flag for Catalog',
@@ -2649,11 +2925,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                         'key' => 'Fert',
                                         'value' => 'fert',
                                       ),
-                                      3 => 
-                                      array (
-                                        'key' => 'PTG',
-                                        'value' => 'PTG',
-                                      ),
                                     ),
                                      'width' => 300,
                                      'defaultValue' => '',
@@ -2666,6 +2937,46 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'dynamicOptions' => false,
                                      'name' => 'ProductType',
                                      'title' => 'ProductType',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => true,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                  )),
+                                  4 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'fieldtype' => 'select',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'IFS',
+                                        'value' => 'IFS',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'PTG',
+                                        'value' => 'PTG',
+                                      ),
+                                    ),
+                                     'width' => '',
+                                     'defaultValue' => 'IFS',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'dynamicOptions' => false,
+                                     'name' => 'BuisnessUnit',
+                                     'title' => 'BuisnessUnit',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
@@ -3140,6 +3451,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'allowedTypes' => 
                 array (
                   0 => 'HoseBase',
+                  1 => 'PTGBase',
                 ),
                  'maxItems' => '',
                  'border' => false,
@@ -3188,6 +3500,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'allowedTypes' => 
                 array (
                   0 => 'HoseSkeleton',
+                  1 => 'PTGSkeleton',
                 ),
                  'maxItems' => '',
                  'border' => false,
