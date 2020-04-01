@@ -1,125 +1,137 @@
 non_localized:
+    deletedFlagAtClientLevel:
+        type: 'booleanSelect'
+        label: 'Deleted / Obsoleted Flag Client Level'
+    testDate:
+        type: 'date'
+        label: 'test date'
     articleNumber:
         type: 'input'
         label: 'Article Number'
     eanUpc:
         type: 'input'
         label: 'EAN UPC'
+    oldMaterialCode:
+        type: 'input'
+        label: 'Old Material Code'
     grossWeight:
         type: 'numeric'
         label: 'Gross Weight'
     packageLength:
         type: 'quantityValue'
         label: 'Package Length'
-#    longDescription:
-#        type: 'textarea'
-#        label: 'Long Description'
+    longDescription:
+        type: 'textarea'
+        label: 'Long Description'
 #    ind:
 #        type: 'checkbox'
 #        label: 'IND'
-#    ProductType:
-#        type: 'select'
-#        label: 'Product Type'
-#    mainImage:
-#        type: 'image'
-#        label: 'Mian Image'
-#
-#localized:
-#    sapDescription:
-#        type: 'textarea'
-#        label: 'SAP Desc'
-#    FeaturesBenefitsBulletPoint1:
-#        type: 'input'
-#        label: 'Features Ben'
+    ProductType:
+        type: 'select'
+        label: 'Product Type'
+    weightUnit:
+        type: 'select'
+        label: 'wright Unit'
+    mainImage:
+        type: 'image'
+        label: 'Mian Image'
 
-#object_relations:
-#    manyToManyObjectRelation:
-#        SIOPLevel1:
-#            label: 'SIOP Level 1'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                    Industry:
-#                        type: 'select'
-#                        label: 'Industry'
-#                    image:
-#                        type: 'image'
-#                        label: 'Image'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#        SIOPLevel2:
-#            label: 'SIOP Level 2'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#
-#object_bricks:
-#    Base:
-#        label: 'Base Data'
-#        brick_items:
-#            HoseBase:
-#                label: 'Hose (6 Digit)'
-#                non_localized:
-#                    staticWire:
-#                        type: 'input'
-#                        label: 'Static Wire'
-#                    numberOfHelixWires:
-#                        type: 'numeric'
-#                        label: 'Number Of Helix Wires'
-#                    tubeMaterial:
-#                        type: 'multiselect'
-#                        label: 'Tube Material'
-#    Skeleton:
-#        label: 'Skeleton Data'
-#        brick_items:
-#            HoseSkeleton:
-#                label: 'Hose (9 Digit)'
-#                non_localized:
-#                    hoseIdDec:
-#                        type: 'quantityValue'
-#                        label: 'Hose Id Dec'
-#                    grossWeightUOM:
-#                        type: 'select'
-#                        label: 'Gross Weight UOM'
-#                    reinforcement:
-#                        type: 'multiselect'
-#                        label: 'Reinforcement'
-#    Fert:
-#        label: 'Fert Data'
-#        brick_items:
-#            HoseFert:
-#                label: 'Hose (14 Digit)'
-#                non_localized:
-#                    totalWeightPerPackage:
-#                        type: 'numeric'
-#                        label: 'Total Wight Per Package'
+localized:
+    sapDescription:
+        type: 'textarea'
+        label: 'SAP Desc'
+    FeaturesBenefitsBulletPoint1:
+        type: 'input'
+        label: 'Features Ben'
+
+object_relations:
+    manyToManyObjectRelation:
+        SIOPLevel1:
+            label: 'SIOP Level 1'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                non_localized:
+                    code:
+                        type: 'input'
+                        label: 'Code'
+                    Industry:
+                        type: 'select'
+                        label: 'Industry'
+                    image:
+                        type: 'image'
+                        label: 'Image'
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+        SIOPLevel2:
+            label: 'SIOP Level 2'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                non_localized:
+                    code:
+                        type: 'input'
+                        label: 'Code'
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+
+object_bricks:
+    Base:
+        label: 'Base Data'
+        brick_items:
+            HoseBase:
+                label: 'Hose (6 Digit)'
+                non_localized:
+                    staticWire:
+                        type: 'input'
+                        label: 'Static Wire'
+                    numberOfHelixWires:
+                        type: 'numeric'
+                        label: 'Number Of Helix Wires'
+                    tubeMaterial:
+                        type: 'multiselect'
+                        label: 'Tube Material'
+    Skeleton:
+        label: 'Skeleton Data'
+        brick_items:
+            HoseSkeleton:
+                label: 'Hose (9 Digit)'
+                non_localized:
+                    hoseIdDec:
+                        type: 'quantityValue'
+                        label: 'Hose Id Dec'
+                    grossWeightUOM:
+                        type: 'select'
+                        label: 'Gross Weight UOM'
+                    reinforcement:
+                        type: 'multiselect'
+                        label: 'Reinforcement'
+    Fert:
+        label: 'Fert Data'
+        brick_items:
+            HoseFert:
+                label: 'Hose (14 Digit)'
+                non_localized:
+                    totalWeightPerPackage:
+                        type: 'numeric'
+                        label: 'Total Wight Per Package'
 #                    bendRestrictor:
 #                        type: 'checkbox'
 #                        label: 'Bend Restrictor'
-#                    fitting1Type:
-#                        type: 'input'
-#                        label: 'Fitting Type'
-#                    CompleteFittingText:
-#                        type: 'textarea'
-#                        label: 'Complete FItting Text'
-#            BeltsFert:
-#                label: 'Belts Fert'
-#                non_localized:
-#                    reinforcement:
-#                        type: 'input'
-#                        label: 'Reinforcement'
-#                    numberOfBands:
-#                        type: 'numeric'
-#                        label: 'Number Of Bands'
+                    fitting1Type:
+                        type: 'input'
+                        label: 'Fitting Type'
+                    CompleteFittingText:
+                        type: 'textarea'
+                        label: 'Complete FItting Text'
+            BeltsFert:
+                label: 'Belts Fert'
+                non_localized:
+                    reinforcement:
+                        type: 'input'
+                        label: 'Reinforcement'
+                    numberOfBands:
+                        type: 'numeric'
+                        label: 'Number Of Bands'

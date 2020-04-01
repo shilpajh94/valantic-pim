@@ -8,18 +8,35 @@
 
 namespace RequiredAttributesBundle\Lib;
 
-
+/**
+ * class responsible for maintaining the collection of empty and populated attributes
+ *
+ * Class AttributeRegister
+ * @package RequiredAttributesBundle\Lib
+ */
 class AttributeRegister
 {
+    /**
+     * @var array : register for empty attributes
+     */
     private $emptyAttributes = array();
-
+    /**
+     * @var array : register for populated attributes
+     */
     private $populatedAttributes = array();
-
+    /**
+     * @var array : register for all the attributes
+     */
     private $allAttributes = array();
-
+    /**
+     * @var : to indicate the language in each of the attribute register
+     */
     private $localizationIdentifier;
-
+    /**
+     * @var : to be treated as the index in registers for non localized attributes
+     */
     const NON_LOC_IDENTIFIER = 'non_loc';
+
     /**
      * @return array
      */
@@ -45,15 +62,22 @@ class AttributeRegister
     }
 
 
-
-    public function addEntryInRegister($attributeConfig, $value, $localizationIdentifier = self::NON_LOC_IDENTIFIER, ?array $titles)
+    /**
+     * root function to add entry in the attribute register
+     *
+     * @param $attributeConfig
+     * @param $value
+     * @param string $localizationIdentifier
+     * @param array|null $titles
+     */
+    public function addEntryInRegister($attributeConfig, $value, $localizationIdentifier = self::NON_LOC_IDENTIFIER, array $titles)
     {
         $this->localizationIdentifier = $localizationIdentifier;
         $attributelabel = $attributeConfig['label'];
 
-        if(!is_array($titles)){
-            $titles = array();
-        }
+//        if(!is_array($titles)){
+//            $titles = array();
+//        }
         $titles[] = $attributelabel;
 
 
@@ -65,6 +89,11 @@ class AttributeRegister
         $this->addAllAttribute($titles);
     }
 
+    /**
+     * add entry in the empty attribute register
+     *
+     * @param array $titles
+     */
     private function addEmptyAttribute(array $titles)
     {
         $entry = $this->createEntryForRegister($titles);
@@ -75,6 +104,11 @@ class AttributeRegister
         }
     }
 
+    /**
+     * add entry in the populated attribute register
+     *
+     * @param array $titles
+     */
     private function addPopulatedAttribute(array $titles)
     {
         $entry = $this->createEntryForRegister($titles);
@@ -85,6 +119,11 @@ class AttributeRegister
         }
     }
 
+    /**
+     * add entry in the all attribute register
+     *
+     * @param array $titles
+     */
     private function addAllAttribute(array $titles)
     {
         $entry = $this->createEntryForRegister($titles);
@@ -95,6 +134,12 @@ class AttributeRegister
         }
     }
 
+    /**
+     * create entry string from the $titles array by merging elements in the array
+     *
+     * @param array $titles
+     * @return string
+     */
     public function createEntryForRegister(array $titles)
     {
         $returnValue = implode(' -> ',$titles);

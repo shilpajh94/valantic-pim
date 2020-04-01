@@ -1,97 +1,113 @@
 non_localized:
-    articleNumber:
-        fieldType: 'input'
-    eanUpc:
-        fieldType: 'input'
-    grossWeight:
-        fieldType: 'numeric'
-    packageLength:
-        fieldType: 'quantityValue'
-    longDescription:
-        fieldType: 'textarea'
-    ind:
-        fieldType: 'checkbox'
-    ProductType:
-        fieldType: 'select'
-    mainImage:
-        fieldType: 'image'
+    BrandingLayline:
+        type: 'input'
+        label: 'Branding/Layline'
+    prop65Message:
+        type: 'textarea'
+        label: 'Prop 65 Message'
 
 localized:
-    sapDescription:
-        fieldType: 'textarea'
+    longDescription:
+        type: 'textarea'
+        label: 'Marketing / Long Description'
     FeaturesBenefitsBulletPoint1:
-        fieldType: 'input'
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 1'
+    FeaturesBenefitsBulletPoint2:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 2'
+    FeaturesBenefitsBulletPoint3:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 3'
+    FeaturesBenefitsBulletPoint4:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 4'
+    FeaturesBenefitsBulletPoint5:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 5'
 
 object_relations:
-    SIOPLevel1:
-        fieldType: 'manyToManyObjectRelation'
-        mappedClass: 'ProductCategory'
-        mappedClassAttributes:
-            non_localized:
-                code:
-                    fieldType: 'input'
-                Industry:
-                    fieldType: 'select'
-                image:
-                    fieldType: 'image'
-            localized:
-                description:
-                    fieldType: 'textarea'
-    SIOPLevel2:
-        fieldType: 'manyToManyObjectRelation'
-        mappedClass: 'ProductCategory'
-        mappedClassAttributes:
-            non_localized:
-                code:
-                    fieldType: 'input'
-            localized:
-                description:
-                    fieldType: 'textarea'
+    manyToManyObjectRelation:
+        SIOPLevel2:
+            label: 'SIOP Level 2'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+        SIOPLevel3:
+            label: 'SIOP Level 3'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+        SIOPLevel4:
+            label: 'SIOP Level 4'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
 
 object_bricks:
     Base:
-        HoseBase:
-            non_localized:
-                staticWire:
-                    fieldType: 'input'
-                numberOfHelixWires:
-                    fieldType: 'numeric'
-                tubeMaterial:
-                    fieldType: 'multiselect'
+        label: 'Base Data'
+        brick_items:
+            HoseBase:
+                label: 'Hose (6 Digit)'
+                non_localized:
+                    staticWire:
+                        type: 'input'
+                        label: 'Static Wire'
+                    numberOfHelixWires:
+                        type: 'numeric'
+                        label: 'Number Of Helix Wires'
+                    tubeMaterial:
+                        type: 'multiselect'
+                        label: 'Tube Material'
     Skeleton:
-        HoseSkeleton:
-            non_localized:
-                hoseIdDec:
-                    fieldType: 'quantityValue'
-                grossWeightUOM:
-                    fieldType: 'select'
-                reinforcement:
-                    fieldType: 'multiselect'
-    fert:
-        HoseFert:
-            non_localized:
-                totalWeightPerPackage:
-                    fieldType: 'numeric'
-                bendRestrictor:
-                    fieldType: 'checkbox'
-                fitting1Type:
-                    fieldType: 'input'
-                CompleteFittingText:
-                    fieldType: 'textarea'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        label: 'Skeleton Data'
+        brick_items:
+            HoseSkeleton:
+                label: 'Hose (9 Digit)'
+                non_localized:
+                    hoseIdDec:
+                        type: 'quantityValue'
+                        label: 'Hose Id Dec'
+                    grossWeightUOM:
+                        type: 'select'
+                        label: 'Gross Weight UOM'
+                    reinforcement:
+                        type: 'multiselect'
+                        label: 'Reinforcement'
+    Fert:
+        label: 'Fert Data'
+        brick_items:
+            HoseFert:
+                label: 'Hose (14 Digit)'
+                non_localized:
+                    totalWeightPerPackage:
+                        type: 'numeric'
+                        label: 'Total Wight Per Package'
+                    bendRestrictor:
+                        type: 'checkbox'
+                        label: 'Bend Restrictor'
+                    fitting1Type:
+                        type: 'input'
+                        label: 'Fitting Type'
+                    CompleteFittingText:
+                        type: 'textarea'
+                        label: 'Complete FItting Text'
+            BeltsFert:
+                label: 'Belts Fert'
+                non_localized:
+                    reinforcement:
+                        type: 'input'
+                        label: 'Reinforcement'
+                    numberOfBands:
+                        type: 'numeric'
+                        label: 'Number Of Bands'

@@ -1,29 +1,46 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pradeep
- * Date: 26/3/20
- * Time: 9:07 AM
- */
 
 namespace RequiredAttributesBundle\Lib\AttributeRegisterHandlers;
 
-
 use RequiredAttributesBundle\Lib\AttributeRegister;
 
+/**
+ * class to add entries in the attribute register for 'object_relations' config segment
+ *
+ * Class ObjectRelationHandler
+ * @package RequiredAttributesBundle\Lib\AttributeRegisterHandlers
+ */
 class ObjectRelationHandler
 {
-
+    /**
+     * @var AttributeRegister
+     */
     private $register;
 
+    /**
+     * @var LocNonLocAttributeGroupHandler
+     */
     private $locNonLocGroupHandler;
 
+    /**
+     * ObjectRelationHandler constructor.
+     *
+     * @param AttributeRegister $register
+     * @param LocNonLocAttributeGroupHandler $locNonLocGroupHandler
+     */
     public function __construct(AttributeRegister $register,LocNonLocAttributeGroupHandler $locNonLocGroupHandler)
     {
         $this->register = $register;
         $this->locNonLocGroupHandler = $locNonLocGroupHandler;
     }
 
+    /**
+     * root function to add entries for 'object_relations' config segment
+     * @Important: this function currently handles 'manyToManyObjectRelation' only
+     *
+     * @param array $config
+     * @param $object
+     */
     public function addEntriesForRelationalAttributes(array $config, $object)
     {
         $manyToManyObjectRelationConfig = $config['manyToManyObjectRelation'];
@@ -33,6 +50,12 @@ class ObjectRelationHandler
         }
     }
 
+    /**
+     * add entries in the attribute register for the 'manyToManyObjectRelation' config segment
+     *
+     * @param array $config
+     * @param $object
+     */
     private function addEntriesForManyToManyRelation(array $config,$object){
 
         foreach($config as $relationAttributeName => $relationalAttributeConfig){
@@ -58,25 +81,18 @@ class ObjectRelationHandler
                  * if no object is mapped than all attributes which were to be fetched from mapped object
                  * will be treated as null
                  */
-
                 $this->locNonLocGroupHandler->addEntryForEmptyLocNonLocGroup($attributeGroupInRelationClass,$titles);
-
-//                foreach($nonLocConfig as $attributeName => $attributeConfig ){
-//                    $this->register->addEntryInRegister($attributeConfig,null,AttributeRegister::NON_LOC_IDENTIFIER,$relationAttributeLabel);
-//                }
-//
-//                $systemLanguages = \Pimcore\Tool::getValidLanguages();
-//                foreach($systemLanguages as $language){
-//                    foreach($locConfig as $attributeName => $attributeConfig ){
-//                        $this->register->addEntryInRegister($attributeConfig,null,$language,$relationAttributeLabel);
-//                    }
-//                }
-
             }
 
         }
     }
 
+    /**
+     *
+     * @param $product
+     * @param $relationAttributeName
+     * @return mixed|null
+     */
     private function getMappedObjectForManyToManyRelation($product, $relationAttributeName){
         $returnValue = null;
 

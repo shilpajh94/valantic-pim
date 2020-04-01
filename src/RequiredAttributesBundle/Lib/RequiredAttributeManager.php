@@ -15,22 +15,55 @@ use RequiredAttributesBundle\Lib\AttributeRegisterHandlers\ObjectBrickHandler;
 use RequiredAttributesBundle\Lib\AttributeRegisterHandlers\ObjectRelationHandler;
 use RequiredAttributesBundle\Lib\PimcoreDataTypeValueGetter\DefaultValueGetter;
 
+/**
+ * class responsible for tracking empty, populated and all attributes list
+ *
+ * Class RequiredAttributeManager
+ * @package RequiredAttributesBundle\Lib
+ */
 class RequiredAttributeManager
 {
+    /**
+     * @var array : the required attribute config
+     */
     private $config;
 
+    /**
+     * @var Product : Product class object to track attributes for
+     */
     private $product;
 
+    /**
+     * @var LocNonLocAttributeGroupHandler
+     */
     private $locNonLocGroupHandler;
 
+    /**
+     * @var ObjectRelationHandler
+     */
     private $objectRelationHandler;
 
+    /**
+     * @var ObjectBrickHandler
+     */
     private $objectBrickHandler;
 
+    /**
+     * @var AttributeRegister
+     */
     private $attributeRegister;
 
+    /**
+     * @var DefaultValueGetter
+     */
     private $valueGetter;
 
+    /**
+     * RequiredAttributeManager constructor.
+     *
+     * @param array $config
+     * @param Product $product
+     */
     public function __construct(array $config, Product $product)
     {
         $this->config = $config;
@@ -39,6 +72,13 @@ class RequiredAttributeManager
         $this->attributeRegister = new AttributeRegister();
         $this->valueGetter = new DefaultValueGetter();
 
+        /**
+         * assuming the responsibility of LocNonLocAttributeGroupHandler to only handle the 'localized' and
+         * 'non_localized' attributes, not to return the attribute register for other handlers
+         *
+         * that is why passing attribute register in each hanlder from here along with the LocNonLocAttributeGroupHandler
+         * rather than other handlers getting the register from LocNonLocAttributeGroupHandler in their implementation.
+         */
         $this->locNonLocGroupHandler = new LocNonLocAttributeGroupHandler($this->attributeRegister,$this->valueGetter);
 
         $this->objectRelationHandler = new ObjectRelationHandler($this->attributeRegister,$this->locNonLocGroupHandler);
@@ -48,19 +88,22 @@ class RequiredAttributeManager
         $this->writeRegister();
     }
 
+    /**
+     * add entries in the register for each kind of config segment to track the empty, populated and all attibutes list
+     */
     private function writeRegister()
     {
 
         // non_localized handling
         $nonLocConfig = $this->config['non_localized'];
         if($nonLocConfig){
-            $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product,null);
+            $this->locNonLocGroupHandler->addEntriesForNonLocAttributeGroup($nonLocConfig,$this->product,array());
         }
 
         // localized handling
         $locConfig = $this->config['localized'];
         if($locConfig){
-            $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product,null);
+            $this->locNonLocGroupHandler->addEntriesForLocAttributeGroup($locConfig,$this->product,array());
         }
 
         // object_relations handling
@@ -77,30 +120,45 @@ class RequiredAttributeManager
 
     }
 
+    /**
+     * @return array
+     */
     public function getEmptyAttributes(): array
     {
         return $this->attributeRegister->getEmptyAttributes();
     }
 
+    /**
+     * @return array
+     */
     public function getPopulatedAttributes(): array
     {
         return $this->attributeRegister->getPopulatedAttributes();
     }
 
+    /**
+     * @return array
+     */
     public function getAllAttributes(): array
     {
         return $this->attributeRegister->getAllAttributes();
     }
 
+    /**
+     * @param $language
+     * @return int
+     */
     public function getPopulatedAttributeCountForLanguage($language): int
     {
         $populatedAttributes = $this->getPopulatedAttributes();
 
+        // count of non_localized populated attributes
         $nonLocPopulatedAttributeCount = 0;
         if(array_key_exists(AttributeRegister::NON_LOC_IDENTIFIER,$populatedAttributes)){
             $nonLocPopulatedAttributeCount = count($populatedAttributes[AttributeRegister::NON_LOC_IDENTIFIER]);
         }
 
+        // count of localized populated attributes
         $locPopulatedAttributeCount = 0;
         if(array_key_exists($language,$populatedAttributes)){
             $locPopulatedAttributeCount = count($populatedAttributes[$language]);
@@ -109,6 +167,10 @@ class RequiredAttributeManager
         return ($nonLocPopulatedAttributeCount + $locPopulatedAttributeCount);
     }
 
+    /**
+     * @param string $language
+     * @return float
+     */
     public function getPopulatedPercentageForLanguage(string $language): float
     {
         $countOfAllAttributes = count($this->getAllAttributes());

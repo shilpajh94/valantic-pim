@@ -1,35 +1,44 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pradeep
- * Date: 26/3/20
- * Time: 9:23 AM
- */
 
 namespace RequiredAttributesBundle\Lib\PimcoreDataTypeValueGetter;
-
 
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
 
+/**
+ * class responsible to fetch values from pimcore object for each individual type
+ *
+ * Class DefaultValueGetter
+ * @package RequiredAttributesBundle\Lib\PimcoreDataTypeValueGetter
+ */
 class DefaultValueGetter implements IPimcoreDataTypeValueGetter
 {
+    /**
+     * @var : pimcore object to fetch value from
+     */
     private $object;
-
+    /**
+     * @var : language to fetch value for
+     */
     private $language;
 
-//    public function __construct($object)
-//    {
-//        $this->object = $object;
-//
-//    }
-
+    /**
+     * @param $object
+     */
     public function setObject($object)
     {
         $this->object = $object;
     }
 
+    /**
+     * get value for the specified type of attributes
+     *
+     * @param array $attributeConfig
+     * @param string $attributeName
+     * @param null $language
+     * @return bool|null|string
+     */
     public function getValueForConfig(array $attributeConfig, string $attributeName, $language = null)
     {
         $this->language = $language;
@@ -50,6 +59,9 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
             case 'checkbox':
                 $value = $this->getValueForCheckbox($attributeName);
                 break;
+            case 'booleanSelect':
+                $value = $this->getValueForBooleanSelect($attributeName);
+                break;
             case 'select':
                 $value = $this->getValueForSelect($attributeName);
                 break;
@@ -62,11 +74,18 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
             case 'quantityValue':
                 $value = $this->getValueForQuantityValue($attributeName);
                 break;
+            case 'date':
+                $value = $this->getValueForDate($attributeName);
+                break;
         }
 
         return $value;
     }
 
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
     public function getValueForInput(string $attributeName): ?string
     {
         $value = $this->getValue($attributeName);
@@ -77,6 +96,10 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
         return $value;
     }
 
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
     public function getValueForTextarea(string $attributeName): ?string
     {
         $value = $this->getValue($attributeName);
@@ -87,25 +110,57 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
         return $value;
     }
 
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
     public function getValueForNumeric(string $attributeName): ?string
     {
         return $this->getValue($attributeName);
     }
 
+    /**
+     * @param string $attributeName
+     * @return bool|null
+     */
     public function getValueForCheckbox(string $attributeName): ?bool
     {
         return $this->getValue($attributeName);
     }
 
+    /**
+     * @param string $attributeName
+     * @return bool|null
+     */
+    public function getValueForBooleanSelect(string $attributeName): ?bool
+    {
+        return $this->getValue($attributeName);
+    }
+
+    /**
+     * @param string $attributeName
+     * @return int|null
+     */
+    public function getValueForDate(string $attributeName): ?int
+    {
+        $value = $this->getValue($attributeName);
+        if($value instanceof \Carbon\Carbon){
+            $value = $value->getTimestamp();
+        }
+        return $value;
+    }
+
+
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
     public function getValueForSelect(string $attributeName): ?string
     {
         return $this->getValue($attributeName);
     }
 
     /**
-     * TODO: multiselect might return empty array if no value is selected
-     * so if condition will return true with this
-     *
      * @param string $attributeName
      * @return mixed
      */
@@ -118,6 +173,10 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
         return $value;
     }
 
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
     public function getValueForImage(string $attributeName): ?string
     {
         $value = null;
@@ -129,6 +188,10 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
 
     }
 
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
     public function getValueForQuantityValue(string $attributeName): ?string
     {
         $value = null;
@@ -144,6 +207,10 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
         return $value;
     }
 
+    /**
+     * @param string $attributeName
+     * @return mixed
+     */
     private function getValue(string $attributeName)
     {
         $getter = 'get'.ucfirst($attributeName);

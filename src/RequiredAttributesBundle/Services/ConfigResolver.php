@@ -5,6 +5,12 @@ namespace RequiredAttributesBundle\Services;
 
 use AppBundle\Services\ConfigProviderService;
 
+/**
+ * resolve and return the config for given type and category code
+ *
+ * Class ConfigResolver
+ * @package RequiredAttributesBundle\Services
+ */
 class ConfigResolver
 {
     private $configProviderService;
@@ -41,7 +47,12 @@ class ConfigResolver
         return $this->getFileConfig($configFilePath);
     }
 
-
+    /**
+     * get config for file
+     *
+     * @param $filePath
+     * @return mixed
+     */
     private function getFileConfig($filePath){
         return $this->configProviderService->getConfigFromYmlFile($filePath);
     }
