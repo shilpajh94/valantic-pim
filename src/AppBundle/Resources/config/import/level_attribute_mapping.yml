@@ -1,0 +1,8 @@
+# TODO: just a skeleton for now, structure may change
+
+
+base: [eanUpc, articleNumber]
+
+skelton: [materialGroup, baseUOM]
+
+fert: [oldMaterialCode, manufacter]

@@ -1,0 +1,29 @@
+csv_columns_index_language_mapping:
+    0: 'en'
+    1: 'fr_CA'
+    2: 'es_MX'
+    3: 'pt'
+    4: 'de'
+
+multiselectMasterRootFolderPath: '/Master List/Multiselect'
+
+multiselect_type_to_pimcore_folder_mapping:
+    tubeMaterial: "Tube Material"
+    tubeCharacteristic: "Tube Characteristic"
+    tubeColor: "Tube Color"
+    specifications: "Specifications"
+    StandardMetCover: "Standard Met Cover"
+    standardMetHose: "Standard Met Hose"
+    coverMaterial: "Cover Material"
+    coverCharacteristic: "Cover Characteristic"
+    coverColor: "Cover Color"
+    agencyCompliance: "Agency Compliance"
+    safetyFactor: "Safety Factor"
+    acceptableHoseMedia: "Acceptable Hose Media"
+    reinforcement: "Reinforcement"
+    fittingFamily: "fittingFamily"
+    StemComponentVendor: "Stem Component Vendor"
+
+import_directory_system_path_from_pimcore_root: "/multiselect_import_folder"
+
+csv_delimiter: ','

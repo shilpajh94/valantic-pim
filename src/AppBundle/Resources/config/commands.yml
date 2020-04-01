@@ -1,0 +1,39 @@
+  # siop: identifier to pick the correct command. (Mandatory)
+  #   name: 'siop' // Name of the command, it should be the same as it's parent key name (Mandatory)
+  #   fileType: ['csv', 'xlsx'] // List of allowed file to import (Mandatory)
+  #   description: 'This command will import "Master Category"' // Description about the command (optional)
+  #   feederService: 'import.category_service' // Path of the service where whole the business logic written. (Mandatory)
+  #   validatorService: 'import.category_validator_service' //Path of the service which will validate the import (Mandatory)
+  #   mappedService: 'pim.category_service' // This will be the PIM class which will be used to save the data into concern tables (Mandatory)
+  #   listingService: 'pim.category_listing_service' // This service contain the object listing class. (Optional)
+  #   filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv' // File path which can be used to import (Mandatory)
+  #   archiveDir: '/Logs/Master List/SIOP Master List/Archive' // File path where imported file will be moved after successfully import (Mandatory)
+  #   failedDir: '/Logs/Master List/SIOP Master List/Failed' // File path where imported file will be moved after failed to import (Mandatory)
+  #   objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products' // It will be used to know the system about parent of first object/folder (Optional)
+
+parameters:
+  siop:
+    name: 'siop'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Master Category"'
+    feederService: 'import.category_service'
+    validatorService: 'import.category_validator_service'
+    mappedService: 'pim.category_service'
+    listingService: 'pim.category_listing_service'
+    filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv'
+    archiveDir: '/Logs/Master List/SIOP Master List/Archive'
+    failedDir: '/Logs/Master List/SIOP Master List/Failed'
+    objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products'
+    columnName: ['code', 'level', 'description']
+  product:
+    name: 'product'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "SAP BW"'
+    feederService: 'import.product_service'
+    validatorService: 'import.product_validator_service'
+    mappedService: 'pim.product_service'
+    listingService: 'pim.product_listing_service'
+    filePath: '/Data Import Files/Products Master/material_mara.csv'
+    archiveDir: '/Data Import Files/Products Master/Archive'
+    failedDir: '/Data Import Files/Products Master/Failed'
+  
