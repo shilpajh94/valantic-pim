@@ -20,7 +20,7 @@ parameters:
     validatorService: 'import.category_validator_service'
     mappedService: 'pim.category_service'
     listingService: 'pim.category_listing_service'
-    filePath: '/Data Import Files/Master Lists/SIOP Master Lists/siop.csv'
+    filePath: '/Data Import Files/Master Lists/SIOP Master Lists/SIOP.csv'
     archiveDir: '/Data Import Files/Master Lists/SIOP Master Lists/Archive'
     failedDir: '/Data Import Files/Master Lists/SIOP Master Lists/Failed'
     objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products'
