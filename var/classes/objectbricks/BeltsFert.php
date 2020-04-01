@@ -1,17 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-19T08:55:06+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-03-30T13:33:21+02:00
+* IP: 192.168.30.66
 
 
 Fields Summary: 
-- reinforcement [input]
 - effectiveLengthUOM [select]
 - numberOfBands [numeric]
-- beltAngle [numeric]
-- staticConductive [input]
-- heatOilResistant [input]
 - insideLengthIN [quantityValue]
 - insideLengthMM [quantityValue]
 - datumLengthIn [quantityValue]
@@ -94,32 +90,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'reinforcement',
-                 'title' => 'Reinforcement',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => 
@@ -150,7 +120,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              2 => 
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
                  'width' => 300,
@@ -180,89 +150,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => false,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'beltAngle',
-                 'title' => 'Belt Angle',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'staticConductive',
-                 'title' => 'Static Conductive',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'heatOilResistant',
-                 'title' => 'Heat & Oil Resistant',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              6 => 
+              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -302,7 +190,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              7 => 
+              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -342,7 +230,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              8 => 
+              4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -382,7 +270,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              9 => 
+              5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -422,7 +310,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              10 => 
+              6 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -462,7 +350,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              11 => 
+              7 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -502,7 +390,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              12 => 
+              8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -542,7 +430,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              13 => 
+              9 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,

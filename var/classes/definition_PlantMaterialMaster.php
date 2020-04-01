@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-24T08:48:54+01:00
+* Generated at: 2020-03-25T06:28:37+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -15,7 +15,7 @@ Fields Summary:
 - PlannedDeliveryTime [numeric]
 - CommodityCode [input]
 - MinOrderQuantity [numeric]
-- OrderingQuantityIcrements [numeric]
+- OrderingQuantityIncrements [numeric]
 - StandardPackQuantity [quantityValue]
 - OutsidePurchaseIdentifier [booleanSelect]
 - SalesOrganization [manyToOneRelation]
@@ -33,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585036134,
+   'modificationDate' => 1585114116,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -374,8 +374,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'OrderingQuantityIcrements',
-                     'title' => 'Ordering Quantity Icrements',
+                     'name' => 'OrderingQuantityIncrements',
+                     'title' => 'Ordering Quantity Increments',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
