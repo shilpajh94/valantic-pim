@@ -26,8 +26,4 @@ parameters:
     'deleteFlag': 'Delete Flag'
     'procurementType': 'Procurement Type'
     'outsidePurchaseIdentifier': ''
-  tables:
-    tempTable: 'material_plant_import_temp'
-    masterTable:  'material_plant_import_master'
-    logTable: 'material_plant_import_log'
   keyColumns: ['material','plant','salesOrg','distributionChannel']
