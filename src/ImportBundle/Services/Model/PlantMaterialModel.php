@@ -30,7 +30,6 @@ class PlantMaterialModel
     private $common;
     private $tableImportConfig;
     private $tableImportHelper;
-    private $countries;
     private $salesOrganizations;
     private $distributionChannels;
 
@@ -38,6 +37,10 @@ class PlantMaterialModel
     private $keyColumns = array();
     private $approvedSalesOrg = array();
     private $mappingCsvColumn = array();
+    private $materialArray = array();
+    private $plantArray = array();
+    private $countryArray = array();
+
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
 
@@ -117,7 +120,7 @@ class PlantMaterialModel
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             $this->tableImportHelper->init($this->tableImportConfig);
 
-            $this->countries = $this->tableImportHelper->getCountries();
+            // $this->countries = $this->tableImportHelper->getCountries();
             $this->salesOrganizations = $this->tableImportHelper->getSalessOrganization();
             $this->distributionChannels = $this->tableImportHelper->getDistributionChannel();
             
@@ -128,49 +131,37 @@ class PlantMaterialModel
             $csvRowCount = count($excelDataNewArray);
             $time1 = new \DateTime();
             $this->tableImportHelper->truncateTempTable();
-            $this->tableImportHelper->insertDataInTemp($excelDataNewArray);    // Insert csv file data in temp table
+            $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
             $timediff1 = $time1->diff(new \DateTime());
-            echo $timediff1->format('Data insertion in temp table takes %h hour %i minute %s second').PHP_EOL;
+            echo $timediff1->format(" Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
             
             $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
 
             $deltaCount = count($excelDataNewArray);
 
-
             if($deltaCount > 0)
             {
-
-                // $chunksArr = array_chunk($excelDataNewArray, 5000);
                 $j = 1;
 
                 $i = 0;
                 $length = ImportConstants::IMPORT_BATCH_SIZE;
                 while ($i<$deltaCount) {
-                $offset = $i;
-                $diff = $deltaCount-$i;
-                if ($diff < $length) {
-                    $length = $diff;
-                }
-                $time2 = new \DateTime();
-                $partialData = array_slice($excelDataNewArray, $i, $length);
-                $this->processSlicedData($partialData, $plantFolderId, $countryFolderId);
-                $partialData = null;
-                $i = $i+$length;
-                // echo "i-".$i;
-                // echo "diff-".$diff;
-                // echo "length-".$length;
-                // echo "deltaCount-".$deltaCount;
-
-                // echo "Record Processed: ".$i;
-                // $b = time();
-                //     echo "Part ".$j." completed in time: ".$a."====".$b.PHP_EOL;
+                    $offset = $i;
+                    $diff = $deltaCount-$i;
+                    if ($diff < $length) {
+                        $length = $diff;
+                    }
+                    $time2 = new \DateTime();
+                    $partialData = array_slice($excelDataNewArray, $i, $length);
+                    $this->processSlicedData($partialData, $plantFolderId, $countryFolderId);
+                    $partialData = null;
+                    $i = $i+$length;
+                    
                     $timediff2 = $time2->diff(new \DateTime());
                     echo $timediff2->format("Part {$j}: Record {$length} Object creation takes %h hour %i minute %s second").PHP_EOL;
-
-                    // \Pimcore::collectGarbage();
-                    // gc_collect_cycles();
-                    // $a = time();
+                    \Pimcore::collectGarbage();
+                    gc_collect_cycles();
                     $j++;
                 }
                 $countMsg = "\nTotal Processed Records:".$deltaCount.", ";
@@ -179,18 +170,20 @@ class PlantMaterialModel
                 $countMsg .= "\nCreated Records:".$this->createdCount.", ";
                 $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
 
-                if ($allSuccess) 
+                if ($this->failedCount > 0) 
+                {
+                    $allSuccess = false;
+                    $applicationLogMessage = "Plant material command failed to import ".$this->failedCount." Record(s) out of $deltaCount Record(s)";
+                }else
                     $applicationLogMessage = "Plant Material Master Imported successfully.";
-                else
-                    $applicationLogMessage = "Plant material command failed to import ".$this->failedCount." Record(s) out of $totalRow Record(s)";
-
+                    
                 $applicationLogMessage .= $countMsg;
             }
             else{
                 $applicationLogMessage = "No delta records found.";
             }
             
-            // $this->tableImportHelper->updateMaster();
+            $this->tableImportHelper->updateMaster();
         }
         else
         {
@@ -207,12 +200,13 @@ class PlantMaterialModel
             'status'        =>  $allSuccess,
             'fileName'      =>  time()
         );
-        // $movedAssetObj = $this->common->moveFile($moveParam);
+        $movedAssetObj = $this->common->moveFile($moveParam);
         echo $applicationLogMessage;
-        if ($allSuccess)
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);  
-        else
+
+        if ($this->failedCount > 0) 
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($applicationLogMessage);
+        else
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage); 
 
         $this->monitoringItem->getLogger()->info($applicationLogMessage);
         $this->monitoringItem->setMessage('Finished')->setCompleted();
@@ -228,6 +222,7 @@ class PlantMaterialModel
         $storeTableDataArray = array();
         $relationTableDataArray = array();
         $dependencyTableDataArray = array();
+        
          
         $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
         $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
@@ -250,12 +245,14 @@ class PlantMaterialModel
         foreach ($data as $rowCount => $rowvalueRecord) 
         {
             $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
-            $plantName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlant);
-            $material = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMaterial);
-            $salesOrg = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnSalesOrg);
-            $distributionChannel = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnDistributionChannel);
-            $countryName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnCountryOfOrigin);
-        
+            $rowvalue = array_combine($this->fileColumns, $rowvalue);
+            
+            $plantName = $rowvalue[$columnPlant];
+            $material = $rowvalue[$columnMaterial];
+            $salesOrg = $rowvalue[$columnSalesOrg]; 
+            $distributionChannel = $rowvalue[$columnDistributionChannel];  
+            $countryName =  $rowvalue[$columnCountryOfOrigin];
+
             $errorsData = array();
             if(empty(trim($material)))
                 $errorsData[] = 'Material should not be blank.';
@@ -282,20 +279,40 @@ class PlantMaterialModel
             {
                 try
                 {      
-                    $materialObj = $this->getMaterialObject($material);
-                    if($materialObj)
+                    if(!isset($this->materialArray[$material]))
                     {
+                        $materialId = $this->getMaterialObject($material);
+                        if($materialId)
+                            $this->materialArray[$material] = $materialId;
+                    }
+
+                    if(isset($this->materialArray[$material]))
+                    {
+                        $materialObjId = $this->materialArray[$material];
                         $salesOrgCode = $this->salesOrganizations[$salesOrg];
                         $distributionChannelCode = $this->distributionChannels[$distributionChannel];
 
-                        $plantMaterialKey = $this->common->createKeyForObject($this->fileColumns, $rowvalue, $this->keyColumns, $this->mappingCsvColumn);
+                        $plantMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
+
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_12` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchRow($query);
         
-                        $countryName = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnCountryOfOrigin);
-                        $plantObj = $this->getPlantObject($plantName, $plantFolderId);
-                        $countryObj = $this->getCountryObject($countryName, $countryFolderId);
+                        if(!isset($this->plantArray[$plantName]))
+                        {
+                            $plantId = $this->getPlantObject($plantName, $plantFolderId);
+                            if($plantId)
+                                $this->plantArray[$plantName] = $plantId;
+                        }
+                        $plantObjId = $this->plantArray[$plantName];
+
+                        if(!isset($this->countryArray[$countryName]))
+                        {
+                            $countryId = $this->getCountryObject($countryName, $countryFolderId);
+                            if($countryId)
+                            $this->countryArray[$countryName] = $countryId;
+                        }
+                        $countryObjId = $this->countryArray[$plantName];
                             
                         $createdOrUpdated = 'Updated';
                         if(!$objectMaterial){      
@@ -318,63 +335,77 @@ class PlantMaterialModel
             
                         $objId = $this->tableImportHelper->insertInObjects($objectArr);
                         
-                        $quantityUnit = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStdPackQtyUOM);
+                        $quantityUnit =  $rowvalue[$columnStdPackQtyUOM];
                         $quantityValueUnitId = $this->common->getQuantityValueUnitId($quantityUnit);
         
-                        $quantityValue = $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStdPackQty);
+                        $quantityValue =  $rowvalue[$columnStdPackQty];
                         $standardPackQuantity = $this->common->getDataQuantityValue($quantityValue, $quantityValueUnitId);
+
+                        $planDeliveryTime = $rowvalue[$columnPlanDeliveryTime];
+                        $commodityCode = $rowvalue[$columnCommodityCode];
+                        $minOrderQty = $rowvalue[$columnMinOrderQty];
+                        $profitCenter = $rowvalue[$columnProfitCenter];
+                        $mrpController = $rowvalue[$columnMrpController];
+                        $totalReplLeadTime = $rowvalue[$columnTotalReplLeadTime];
+                        $stockIndicator = $rowvalue[$columnStockIndicator];
+                        $safetyStock = $rowvalue[$columnSafetyStock];
+                        $orderQtyInc = $rowvalue[$columnOrderQtyInc];
+
+                        
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
                             'oo_classId' => 12,
                             'oo_className' => 'PlantMaterialMaster',
-                            'Material' => $materialObj['oo_id'],
-                            'Plant__id' => $plantObj->getId(),
+                            'Material' => $materialObjId,
+                            'Plant__id' => $plantObjId,
                             'Plant__type' => 'object',
-                            'CountryOfOrigin__id' => $countryObj->getId(),
+                            'CountryOfOrigin__id' => $countryObjId,
                             'CountryOfOrigin__type' => 'object',
-                            'PlannedDeliveryTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlanDeliveryTime),
-                            'CommodityCode' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnCommodityCode),
-                            'MinOrderQuantity' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMinOrderQty),
+                            'PlannedDeliveryTime' => $planDeliveryTime,
+                            'CommodityCode' => $commodityCode,
+                            'MinOrderQuantity' => $minOrderQty,
                             'StandardPackQuantity__value' => $quantityValue,
                             'StandardPackQuantity__unit' => $quantityValueUnitId,
-                            'OutsidePurchaseIdentifier' => '',
-                            'PlantProfitCenter' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnProfitCenter),
-                            'MRPController' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMrpController),
-                            'TotalReplenismentLeadTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnTotalReplLeadTime),
-                            'StockIndicator' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStockIndicator),
+                            'OutsidePurchaseIdentifier' => 0,
+                            'PlantProfitCenter' => $profitCenter,
+                            'MRPController' => $mrpController,
+                            'TotalReplenismentLeadTime' => $totalReplLeadTime,
+                            'StockIndicator' => $stockIndicator,
+                            'SafetyStock' => $safetyStock,
                             'SalesOrganization__id' => $salesOrgCode,
                             'SalesOrganization__type' => 'object',
                             'DistributionChannel__id' => $distributionChannelCode,
                             'DistributionChannel__type' => 'object',
-                            'OrderingQuantityIncrements' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnOrderQtyInc)
+                            'OrderingQuantityIncrements' => $orderQtyInc
                         ];
                         
                         $storeTableDataArray[] = [
                             'oo_id' => $objId,
-                            'PlannedDeliveryTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnPlanDeliveryTime),
-                            'CommodityCode'	=> $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnCommodityCode),
-                            'MinOrderQuantity' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMinOrderQty),
+                            'PlannedDeliveryTime' => $planDeliveryTime,
+                            'CommodityCode'	=> $commodityCode,
+                            'MinOrderQuantity' => $minOrderQty,
                             'StandardPackQuantity__value' => $quantityValue,
                             'StandardPackQuantity__unit' => $quantityValueUnitId,
-                            'OutsidePurchaseIdentifier' => '',
-                            'PlantProfitCenter'	=> $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnProfitCenter),
-                            'MRPController' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnMrpController),
-                            'TotalReplenismentLeadTime' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnTotalReplLeadTime),
-                            'StockIndicator' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnStockIndicator),	
-                            'OrderingQuantityIncrements' => $this->common->getFieldValue($this->fileColumns,$rowvalue,$columnOrderQtyInc),
+                            'OutsidePurchaseIdentifier' => 0,
+                            'PlantProfitCenter'	=> $profitCenter,
+                            'MRPController' => $mrpController,
+                            'TotalReplenismentLeadTime' => $totalReplLeadTime,
+                            'StockIndicator' => $stockIndicator,	
+                            'SafetyStock' => $safetyStock,
+                            'OrderingQuantityIncrements' => $orderQtyInc
                         ];
         
-                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryObj->getId(), 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
-                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObj->getId(), 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
+                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
+                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $salesOrgCode, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $distributionChannelCode, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
-                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObj['oo_id'], 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
+                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
                         
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $countryObj->getId(), 'sourcetype' => 'object', 'targettype' => 'object'];
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObj->getId(), 'sourcetype' => 'object', 'targettype' => 'object'];
+                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $countryObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
+                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $salesOrgCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $distributionChannelCode, 'sourcetype' => 'object', 'targettype' => 'object'];
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObj['oo_id'], 'sourcetype' => 'object', 'targettype' => 'object'];
+                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
                         
                         $errorsData['SUCCESS'] = "Plant Material Code: ".$plantMaterialKey." has been ".$createdOrUpdated.".";
                     }
@@ -424,13 +455,19 @@ class PlantMaterialModel
             $this->tableImportHelper->insertIntoProductTable($dependencyTableDataArray, 'dependencies');
 
         $this->tableImportHelper->insertDataToLogTable($data);
-        
-        unset($queryTableDataArray);
-        unset($storeTableDataArray);
-        unset($relationTableDataArray);
-        unset($dependencyTableDataArray);
-        unset($data);
-                
+               
+    }
+
+    public function createKeyForObject($data, $keyColumns, $mappingCsvColumn){
+        $keyColumnValues = array();
+        foreach($keyColumns as $key =>$keyColumn)
+        {
+            $column = $mappingCsvColumn[$keyColumn];
+            $keyColumnValues[] = $data[$column];
+        }
+
+        $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
+        return $id;
     }
 
     /**
@@ -442,7 +479,7 @@ class PlantMaterialModel
         
         foreach ($objectMaterial as $material) {
             $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");
-            return $material;
+            return $material['oo_id'];
         }
 
         return false;
@@ -452,7 +489,6 @@ class PlantMaterialModel
      * return plant object
      */
     public function getPlantObject($plantKey, $plantFolderId){
-        
         $objectPlant = DataObject\Plant::getByPath("/".ImportConstants::MASTER_LIST_PLANTS_FOLDER."/".$plantKey);
         if(!$objectPlant)
         {
@@ -467,7 +503,7 @@ class PlantMaterialModel
         else{
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." found in master list");
         }
-        return $objectPlant;
+        return $objectPlant->getId();
 
     }
 
@@ -490,7 +526,7 @@ class PlantMaterialModel
         else{
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
         }
-        return $objectCountry;
+        return $objectCountry->getId();
 
     }
 

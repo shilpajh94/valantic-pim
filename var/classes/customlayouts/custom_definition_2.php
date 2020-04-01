@@ -1,9 +1,9 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-30T09:49:08+02:00
+* Generated at: 2020-04-01T11:08:39+02:00
 * Changed by: system (0)
-* IP: 192.168.30.66
+* IP: 127.0.0.1
 */ 
 
 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Skeleton',
    'description' => '',
    'creationDate' => 1581513091,
-   'modificationDate' => 1585554548,
+   'modificationDate' => 1585732119,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -1213,32 +1213,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'permissions' => NULL,
                                  'childs' => 
                                 array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                     'fieldtype' => 'textarea',
-                                     'width' => 300,
-                                     'height' => 100,
-                                     'maxLength' => NULL,
-                                     'showCharCount' => false,
-                                     'excludeFromSearchIndex' => false,
-                                     'queryColumnType' => 'longtext',
-                                     'columnType' => 'longtext',
-                                     'phpdocType' => 'string',
-                                     'name' => 'mumeratorForConversionToBaseUnitsOfMeasure',
-                                     'title' => 'Numerator for Conversion to Base Units of Measure',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
@@ -1755,14 +1729,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         array (
                           0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                             'fieldtype' => 'textarea',
                              'width' => 300,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
                              'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
                              'showCharCount' => false,
                              'name' => 'BrandingLayline',
                              'title' => 'Branding / Layline',
@@ -1778,6 +1749,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'excludeFromSearchIndex' => false,
                           )),
                         ),
                          'locked' => false,
@@ -2351,36 +2325,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'permissions' => NULL,
                                  'childs' => 
                                 array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                     'fieldtype' => 'numeric',
-                                     'width' => 300,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'double',
-                                     'columnType' => 'double',
-                                     'phpdocType' => 'float',
-                                     'integer' => false,
-                                     'unsigned' => false,
-                                     'minValue' => NULL,
-                                     'maxValue' => NULL,
-                                     'unique' => false,
-                                     'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'name' => 'mumberOfItems',
-                                     'title' => 'Number of Items',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
@@ -3578,61 +3522,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'locked' => false,
           )),
           4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'fieldtype' => 'panel',
-             'labelWidth' => 100,
-             'layout' => NULL,
-             'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
-             'name' => '14 Digit',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Classification Data',
-             'width' => NULL,
-             'height' => NULL,
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'permissions' => NULL,
-             'childs' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
-                 'fieldtype' => 'objectbricks',
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
-                 'allowedTypes' => 
-                array (
-                  0 => 'AccessoriesFert',
-                  1 => 'PTGFert',
-                  2 => 'MetalFert',
-                  3 => 'BeltsFert',
-                  4 => 'SynchronousFert',
-                  5 => 'HoseFert',
-                  6 => 'HydFittingsFert',
-                  7 => 'INHFittingsFert',
-                ),
-                 'maxItems' => '',
-                 'border' => false,
-                 'name' => 'Digit14',
-                 'title' => 'Classification Data',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-            ),
-             'locked' => false,
-          )),
-          7 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,

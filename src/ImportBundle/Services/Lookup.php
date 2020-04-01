@@ -73,7 +73,7 @@ class Lookup
                     $fileName = array_pop($filePathInfo);
                     $filePath = implode('/',$filePathInfo);
 
-                    $message = sprintf(IMPORT_FILE_NOT_FOUND, $filePath,$fileName);
+                    echo $message = sprintf(IMPORT_FILE_NOT_FOUND, $filePath,$fileName);
                     if($this->monitoringItem->id){
                         throw new Exception($message);
                     }

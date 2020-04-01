@@ -116,15 +116,14 @@ class PlantMaterialImport
         foreach($this->keyColumns as $key =>$keyColumn)
         {
             $column = $this->mappingCsvColumn[$keyColumn];
-            $columnValue = $this->common->getFieldValue($this->fileColumns,$data,$column);
-            $keyColumnValues[] = $columnValue;
+            $keyColumnValues[] = $data[$column];
         }
 
         $id = implode(ImportConstants::IMPORT_TABLE_ID_SEPARATOR, $keyColumnValues);
         return $id;
     }
 
-    public function insertDataInTemp($arrData)
+    public function insertDataInTemp($arrData, $fileColumns)
     {
         try {
             $rowCount = 1;
@@ -132,8 +131,9 @@ class PlantMaterialImport
             $values   = '';
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
-
-                $id = $this->createId($data);
+                $tempData = array_combine($fileColumns, $data);
+                $id = $this->createId($tempData);
+                unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
                 $values .= '("'.$id.'", "'.$record.'", "'.$hash.'"),';
@@ -165,7 +165,7 @@ class PlantMaterialImport
     public function getDelta()
     {
         try {
-            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL";
+            $sql   = "SELECT t.id, t.record FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id  WHERE t.hash != m.hash OR m.id IS NULL ORDER BY t.id ASC ";
             $delta = $this->db->fetchAll($sql);
 
             return $delta;
