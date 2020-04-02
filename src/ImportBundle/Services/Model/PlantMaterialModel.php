@@ -312,7 +312,7 @@ class PlantMaterialModel
                             if($countryId)
                             $this->countryArray[$countryName] = $countryId;
                         }
-                        $countryObjId = $this->countryArray[$plantName];
+                        $countryObjId = $this->countryArray[$countryName];
                             
                         $createdOrUpdated = 'Updated';
                         if(!$objectMaterial){      
