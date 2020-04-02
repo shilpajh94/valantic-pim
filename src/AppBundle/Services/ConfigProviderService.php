@@ -42,6 +42,10 @@ class ConfigProviderService
     }
 
 
+    public function getMultiselectMasterConfig(){
+        return $this->getConfigFromYmlFile(MULTISELECT_MASTER_IMPORT_CONFIG);
+    }
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
