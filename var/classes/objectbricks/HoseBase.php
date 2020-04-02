@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-23T08:44:43+01:00
+* Generated at: 2020-04-01T09:42:01+02:00
 * IP: 192.168.30.66
 
 
@@ -30,6 +30,10 @@ Fields Summary:
 - agencyCompliance [multiselect]
 - safetyFactor [multiselect]
 - acceptableHoseMedia [multiselect]
+- VirtualCatalogTubeMaterial [textarea]
+- VirtualCatalogCoverMaterial [textarea]
+- Coupling [textarea]
+- Packaging [textarea]
 */ 
 
 
@@ -294,7 +298,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Imported From SAP',
+                     'title' => '',
                      'width' => NULL,
                      'height' => NULL,
                      'collapsible' => false,
@@ -3217,6 +3221,130 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+              )),
+            ),
+             'locked' => false,
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+             'fieldtype' => 'fieldset',
+             'labelWidth' => 200,
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Virtual Catalog Fields',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => 300,
+                 'height' => 100,
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'VirtualCatalogTubeMaterial',
+                 'title' => 'Virtual Catalog Tube Material',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => 300,
+                 'height' => 100,
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'VirtualCatalogCoverMaterial',
+                 'title' => 'Virtual Catalog Cover Material',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => 'margin-left: 20px;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => 300,
+                 'height' => 100,
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'Coupling',
+                 'title' => 'Coupling',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => 300,
+                 'height' => 100,
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'Packaging',
+                 'title' => 'Packaging',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
               )),
             ),
              'locked' => false,

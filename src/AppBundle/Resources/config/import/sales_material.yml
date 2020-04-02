@@ -25,8 +25,4 @@ parameters:
     'salesUnit': 'Sales Unit'
     'baseProductHier': 'Base Product Hier'
     'distChainStatus': 'Dist Chain Status'
-  tables:
-    tempTable: 'material_sales_import_temp'
-    masterTable:  'material_sales_import_master'
-    logTable: 'material_sales_import_log'
   keyColumns: ['material','salesOrg','distributionChannel']

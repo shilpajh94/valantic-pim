@@ -13,9 +13,7 @@ class PlantMaterialImport
     private $fileColumns;
     private $keyColumns;
     private $mappingCsvColumn;
-
     private $db;
-    private $common;
 
     /**
      * Getting DB connection object
@@ -23,7 +21,6 @@ class PlantMaterialImport
     public function __construct()
     {
         $this->db = Db::get();
-        $this->common = \Pimcore::getContainer()->get('app.common_helper');
         $this->tempTable = 'material_plant_import_temp';
         $this->masterTable = 'material_plant_import_master';
         $this->logTable = 'material_plant_import_log';

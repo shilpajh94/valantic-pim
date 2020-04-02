@@ -60,6 +60,10 @@ services:
         class: AppBundle\Helper\PlantMaterialImport
         public: true
 
+    app.sales_material_import_helper:
+        class: AppBundle\Helper\SalesMaterialImport
+        public: true
+
     # Pim catgory(SIOP) class
     pim.category_service:
         class: Pimcore\Model\DataObject\ProductCategory

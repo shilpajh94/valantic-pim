@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T11:08:39+02:00
+* Generated at: 2020-03-30T09:49:35+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'PTG',
    'description' => '',
    'creationDate' => 1581513163,
-   'modificationDate' => 1585732119,
+   'modificationDate' => 1585554575,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',

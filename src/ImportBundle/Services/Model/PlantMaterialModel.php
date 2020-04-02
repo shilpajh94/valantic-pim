@@ -13,7 +13,7 @@ use ImportBundle\Services\ImportConstants;
 class PlantMaterialModel
 {
     use ProcessManagerBundle\ExecutionTraitClass;
-    
+
     private $db;
     private $name;
     private $filePath;
@@ -27,11 +27,11 @@ class PlantMaterialModel
     private $successCount = 0;
     private $createdCount = 0;
     private $updatedCount = 0;
-    private $common;
     private $tableImportConfig;
     private $tableImportHelper;
     private $salesOrganizations;
     private $distributionChannels;
+    private $common;
 
     private $fileColumns = array();
     private $keyColumns = array();
@@ -61,9 +61,6 @@ class PlantMaterialModel
             
             $this->approvedSalesOrg = $this->common->getParameter($plantMaterialConfig, 'approvedSalesOrg');
             $this->mappingCsvColumn = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
-            // $this->tableImportConfig['tempTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','tempTable');
-            // $this->tableImportConfig['masterTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','masterTable');
-            // $this->tableImportConfig['logTable'] = $this->common->getParameterItem($plantMaterialConfig, 'tables','logTable');
             $this->keyColumns = $this->common->getParameter($plantMaterialConfig, 'keyColumns');
             
             $this->import($spreadsheet);
@@ -79,7 +76,7 @@ class PlantMaterialModel
         $excelDataNewArray = array();
         $worksheet = $spreadsheet->getActiveSheet();
         $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
-        
+
         /**
          * Optaining next column from last column for "status" field
          */
@@ -102,10 +99,11 @@ class PlantMaterialModel
          * Master List/Sales Organizations, Master List/Distribution Channel 
          * and MaterialMaster/SalesMaterialMaster
          */
+        DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_FOLDER);
         DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_FOLDER);
         $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
         $countryFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_COUNTRY_FOLDER)->getId();
-        DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER)->getId();
+        DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER);
 
         $allSuccess = true;
         $applicationLogMessage = '';
@@ -120,10 +118,9 @@ class PlantMaterialModel
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             $this->tableImportHelper->init($this->tableImportConfig);
 
-            // $this->countries = $this->tableImportHelper->getCountries();
             $this->salesOrganizations = $this->tableImportHelper->getSalessOrganization();
             $this->distributionChannels = $this->tableImportHelper->getDistributionChannel();
-            
+           
             /**
              * remove column header from array excelDataNewArray. Only data remains.
              */
@@ -134,7 +131,7 @@ class PlantMaterialModel
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
             $timediff1 = $time1->diff(new \DateTime());
-            echo $timediff1->format(" Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
+            echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
             
             $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
 
@@ -152,14 +149,12 @@ class PlantMaterialModel
                     if ($diff < $length) {
                         $length = $diff;
                     }
-                    $time2 = new \DateTime();
+                    
                     $partialData = array_slice($excelDataNewArray, $i, $length);
+                    $i = $i+$length;
+                    echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
                     $this->processSlicedData($partialData, $plantFolderId, $countryFolderId);
                     $partialData = null;
-                    $i = $i+$length;
-                    
-                    $timediff2 = $time2->diff(new \DateTime());
-                    echo $timediff2->format("Part {$j}: Record {$length} Object creation takes %h hour %i minute %s second").PHP_EOL;
                     \Pimcore::collectGarbage();
                     gc_collect_cycles();
                     $j++;
@@ -173,7 +168,7 @@ class PlantMaterialModel
                 if ($this->failedCount > 0) 
                 {
                     $allSuccess = false;
-                    $applicationLogMessage = "Plant material command failed to import ".$this->failedCount." Record(s) out of $deltaCount Record(s)";
+                    $applicationLogMessage = "Plant material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
                 }else
                     $applicationLogMessage = "Plant Material Master Imported successfully.";
                     
@@ -183,7 +178,11 @@ class PlantMaterialModel
                 $applicationLogMessage = "No delta records found.";
             }
             
+            $time4 = new \DateTime();
             $this->tableImportHelper->updateMaster();
+            $timediff4 = $time4->diff(new \DateTime());
+            echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
+            
         }
         else
         {
@@ -213,17 +212,18 @@ class PlantMaterialModel
         $timediff = $time->diff(new \DateTime());
         echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
         \Pimcore::collectGarbage();
+        
     }
 
     public function processSlicedData($data, $plantFolderId, $countryFolderId) {
-        
+	$time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
         $storeTableDataArray = array();
         $relationTableDataArray = array();
         $dependencyTableDataArray = array();
+        $createdUpdatedCount = 0;
         
-         
         $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
         $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
         $columnPlant = $this->mappingCsvColumn['plant'];
@@ -242,6 +242,7 @@ class PlantMaterialModel
         $columnSafetyStock = $this->mappingCsvColumn['safetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
 
+	$dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) 
         {
             $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
@@ -254,9 +255,10 @@ class PlantMaterialModel
             $countryName =  $rowvalue[$columnCountryOfOrigin];
 
             $errorsData = array();
+
             if(empty(trim($material)))
-                $errorsData[] = 'Material should not be blank.';
-            
+                $errorsData[] = 'Material should not be blank.';        
+
             if(empty(trim($plantName)))
                 $errorsData[] = 'Plant should not be blank.';
 
@@ -278,7 +280,7 @@ class PlantMaterialModel
             if(!count($errorsData))
             {
                 try
-                {      
+                { 
                     if(!isset($this->materialArray[$material]))
                     {
                         $materialId = $this->getMaterialObject($material);
@@ -414,6 +416,7 @@ class PlantMaterialModel
                     }
                 } 
                 catch (\Exception $e) {
+
                     /* return error massage if any exception found */
                     $errorsData[] = "Plant Material Code: ".$plantMaterialKey. " - ".$e->getMessage();
                 }
@@ -421,6 +424,7 @@ class PlantMaterialModel
             $statusCode = '';
             if(isset($errorsData['SUCCESS']))
             {
+                $createdUpdatedCount++;
                 $this->successCount++;
                 $errorsString = "SUCCESS: ".$errorsData['SUCCESS'];
                 $this->monitoringItem->getLogger()->info($errorsString);
@@ -453,9 +457,15 @@ class PlantMaterialModel
         
         if(count($dependencyTableDataArray))
             $this->tableImportHelper->insertIntoProductTable($dependencyTableDataArray, 'dependencies');
-
+        
+        $timediff2 = $time2->diff(new \DateTime());
+        echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
+                    
+        $time3 = new \DateTime();
         $this->tableImportHelper->insertDataToLogTable($data);
-               
+        $timediff3 = $time3->diff(new \DateTime());
+        echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour %i minute %s second").PHP_EOL;
+            
     }
 
     public function createKeyForObject($data, $keyColumns, $mappingCsvColumn){
@@ -527,26 +537,6 @@ class PlantMaterialModel
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
         }
         return $objectCountry->getId();
-
-    }
-
-     /**
-     * return sales organization object
-     */
-    public function getSalesOrgObject($salesOrgKey){
-        
-        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
-        return $object;
-
-    }
-
-    /**
-     * return distribution channel object
-     */
-    public function getDistributionChannelObject($distributionChannelKey){
-        
-        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
-        return $object;
 
     }
 
