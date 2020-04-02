@@ -26,3 +26,7 @@ define('ALLOWED_FILE_TYPES', 'Only %s files are allowed to uplod');
 define("BRICK_MAPPING_CONFIG_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/brick_mapping_config.yml");
 
 define("MULTISELECT_MASTER_IMPORT_CONFIG",APPBUNDLE_CONFIG_DIRECTORY."/import/multiselect_master_import_config.yml");
+
+define("PRODUCT_CLASS_NAME", "Product");
+
+define("PRODUCT_CLASS_ID", "1");

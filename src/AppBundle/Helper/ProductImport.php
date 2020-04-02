@@ -25,10 +25,20 @@ class ProductImport
     {
         $this->db = Db::get();
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->tempTable = "material_import_temp";
-        $this->masterTable = "material_import_master";
-        $this->logTable = "material_import_log";
+    }
+    
+    /**
+     * Initilize table name
+     */
+    public function init($table)
+    {
+        $this->tempTable = $table['tempTable'];
+        $this->masterTable = $table['masterTable'];
+        $this->logTable = $table['logTable'];
 
+        $this->fileColumns = $table['fileColumns'];
+        $this->keyColumns = $table['keyColumns'];
+        $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
 
     public function insertInObjects($data) {
@@ -151,7 +161,7 @@ class ProductImport
             if ($bu == 'ptg') {
                 $catLength = 18;
             }
-            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) AND t.id = '20017159'";
+            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
             $delta = $this->db->fetchAll($sql);
 
             return $delta;
@@ -190,15 +200,27 @@ class ProductImport
     }
 
     /**
+     * Function to update master table
+     */
+    public function updateMaster()
+    {        
+        try {
+            $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    /**
      * Function to insert processed data to log table
      */
     public function insertDataToLogTable($data)
     {
         try {
             $rowCount = 1;
-            $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
+            $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
             foreach ($data as $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'",now()),';
+                $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');

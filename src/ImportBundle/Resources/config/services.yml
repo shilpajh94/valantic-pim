@@ -52,7 +52,10 @@ services:
     import.product_service:
         class: ImportBundle\Services\Model\ProductModel
         public: true
-
+        
+    import.product_sql_service:
+        class: ImportBundle\Services\Model\ProductSQLModel
+        public: true
     # this service will validate each single row which has to be import and have some 
     # logical code. eg: get list of level
     import.product_validator_service:
