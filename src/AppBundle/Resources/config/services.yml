@@ -55,6 +55,10 @@ services:
     app.table_import_helper:
         class: AppBundle\Helper\TableImport
         public: true
+        
+    app.product_import_helper:
+        class: AppBundle\Helper\ProductImport
+        public: true
 
     app.plant_material_import_helper:
         class: AppBundle\Helper\PlantMaterialImport

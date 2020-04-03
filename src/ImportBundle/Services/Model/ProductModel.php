@@ -129,12 +129,12 @@ class ProductModel
         $activeSheet = $spreadsheet->getActiveSheet()->rangeToArray($readFrom . ':' . $readTo, NULL, TRUE, TRUE, FALSE); */
 
         // Cleaning the temp table
-        $this->tblImpHelper->truncateTempTable();
+        //$this->tblImpHelper->truncateTempTable();
         $t = time();
         p_r('Loading data into temp table at ' . date('Y-m-d h:i:s', $t));
         /* $this->monitoringItem->setMessage('Loading data into temp table')->save();
         $this->monitoringItem->getLogger()->info('Loading data into temp table'); */
-        $this->tblImpHelper->insertDataInTemp($csvData);
+        //$this->tblImpHelper->insertDataInTemp($csvData);
         $this->data = $this->tblImpHelper->getDelta();
         p_r('Data loaded completion into temp at ' . (time() - $t));
         p_r('Data loaded completion into temp at ' . abs(time() - $t) / 60) . " mnt";
@@ -145,6 +145,21 @@ class ProductModel
         $this->totalSteps = $totalRow;
         // $this->monitoringItem->setTotalSteps($this->totalSteps)->save();
         foreach ($this->data as $rowCnt => $row) {
+            $siopFullCode = $row['siopfullcode'];
+            if (!$this->catHelper->getCategoryIdByFullCode($siopFullCode)) {
+                $message = 'Skipping... SIOP code ' . $siopFullCode . ' does not exist';
+                p_r($message);
+                /* $this->monitoringItem->setMessage($message)->save();
+                $this->monitoringItem->getLogger()->error($message); */
+                $this->updateRowStatus('FAILED', $message);
+                continue;
+            }
+            
+            
+//            if (strlen($siopFullCode) == 18) {
+//                
+//            }
+            
             $levelInfo = array();
             $this->reader = (array) json_decode($row['record']);
             $this->currentStep = $rowCnt + 1;
@@ -158,6 +173,7 @@ class ProductModel
                 'description'   =>  $this->getData('description'),
                 'material'  =>  $this->getData('material')
             );
+            
             /**
              * Will skipped the process if SIOP code does not exist
              * */
@@ -170,14 +186,7 @@ class ProductModel
                 continue;
             } */
             // p_r($this->getData('code'));
-            if (!$this->catHelper->getCategoryIdByFullCode($this->getData('code'))) {
-                $message = 'Skipping... SIOP code ' . $this->getData('code') . ' does not exist';
-                p_r($message);
-                /* $this->monitoringItem->setMessage($message)->save();
-                $this->monitoringItem->getLogger()->error($message); */
-                $this->updateRowStatus('FAILED', $message);
-                continue;
-            }
+            
             /* End */
             
             $result = $this->instance->validateRow($record);
@@ -190,7 +199,7 @@ class ProductModel
                  */
                 $this->updateRowStatus('FAILED', $result['message']);
             } else {
-                $levelInfo = $this->prdHelper->getLevels($this->getData('code'), $record);
+                $levelInfo = $this->prdHelper->getLevels($record['code'], $record);
                 if ($levelInfo['status']) {
                     /* Setting current processing workload outof total workload */
                     /* $this->monitoringItem->setCurrentWorkload($this->currentStep)
@@ -204,13 +213,12 @@ class ProductModel
                      * Intentionally preventing level 1 to proceed
                      * SIOP Level 1 will be common for all type of BU(Business Unit)
                      * */
-                    unset($levelInfo['levels'][1]);
+                    //unset($levelInfo['levels'][1]);
 
 
                     /* Creating category folder in product master    */
                     // $this->monitoringItem->getLogger()->info('Creating SIOP Hierarchy');
-                    
-                    $catObj = $this->createCategoryHierarchy($this->getData('code'));
+                    $catObj = $this->createCategoryHierarchy($record['code'], $levelInfo);
                     
                     $variantParentObj = false;
                     $variantObj = false;
@@ -219,7 +227,7 @@ class ProductModel
                         // $this->setSiop($levelInfo['levels']);
                         /* End */
 
-                        if ($this->instance->allowedToCreateObject($this->getData('code'), 'base')) {
+                        if ($this->instance->allowedToCreateObject($record['code'], 'base')) {
                             $oldMatStts = $this->instance->validateBaseOrSkeleton($this->getData('oldMaterial'));
                             if ($oldMatStts['code'] == 1) {
                                 /* Brand / Base Product */
@@ -272,13 +280,13 @@ class ProductModel
         /**
          * Update log, master table and clean the temp table
          */
-        $this->tblImpHelper->insertDataToLogTable($this->data);
-        $this->tblImpHelper->updateMaster();
+//        $this->tblImpHelper->insertDataToLogTable($this->data);
+//        $this->tblImpHelper->updateMaster();
         /**
          * Here setting process as completed
          */
         // $this->exitProcess();
-        $movedAssetObj = $this->moveFile($success);
+//        $movedAssetObj = $this->moveFile($success);
         /* Set Application Logger Message */
         /* if ($success) {
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP BW Imported successfully. <a href='" . $movedAssetObj->getFileSystemPath() . "'>Download Log</a>");
@@ -468,8 +476,8 @@ class ProductModel
                 $prdSpecObj->setSapDescription($this->getData('description'), 'en');
                 $prdSpecObj->setMaterialGroup($this->getData('group'));
                 $prdSpecObj->setOldMaterialCode($this->getData('oldMaterial'));
-                $prdSpecObj->setManufacter($this->getData('manufacture'));
-                $prdSpecObj->setManufacterPartNumber($this->getData('manufacturePartNumber'));
+                $prdSpecObj->setManufacturer($this->getData('manufacture'));
+                $prdSpecObj->setManufacturerPartNumber($this->getData('manufacturePartNumber'));
                 $prdSpecObj->setStccCode($this->getData('stccCode'));
                 $prdSpecObj->setEanUpc($this->getData('eanUPC'));
                 $prdSpecObj->setBaseUOM($this->getData('baseUOM'));
@@ -479,7 +487,7 @@ class ProductModel
                 $prdSpecObj->setWeightUnit($this->getData('weightUnit'));
                 $prdSpecObj->setSiopFullCode($this->getData('code'));
                 $this->mapSiopToProduct($prdSpecObj);
-                $this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
+                //$this->brickMappingService->manageBricksForSIOPRelationChange($prdSpecObj);
                 $prdSpecObj->setPublished(1);
                 $prdSpecObj->save();
 
@@ -541,13 +549,13 @@ class ProductModel
         return is_numeric($index) && isset($this->reader[$index]) ? $this->reader[$index] : '';
     }
 
-    public function createCategoryHierarchy($fullCode)
+    public function createCategoryHierarchy($fullCode, $levelInfo)
     {
         $code = $fullCode;
         $len = strlen($code);
-        $topLvl = $this->catHelper->getLevelByLength($len);
-        $buCode = $this->catHelper->isValidCategoryFormat($code);
-        $bu = $this->catHelper->businessUnit[$buCode];
+        $topLvl = count($levelInfo['levels']); //$this->catHelper->getLevelByLength($len);
+        //$buCode = $this->catHelper->isValidCategoryFormat($code);
+        $bu = $levelInfo['levels'][2]['bu'];//$this->catHelper->businessUnit[$buCode];
         $allowedLevel = $this->common->getParameterItem($this->prdConfigData, 'allowedLevel', $bu);
         if (!empty($allowedLevel) && $allowedLevel < $topLvl) {
             $code = $this->catHelper->extractFullCodeLevelWise($allowedLevel, $fullCode);
@@ -584,7 +592,7 @@ class ProductModel
             $productType = $this->prdHelper->getProductType($productTypeKey);
             $prdObj->setProductType($productType);
             $prdObj->setSiopFullCode($code);
-            $this->mapSiopToProduct($prdObj);
+            //$this->mapSiopToProduct($prdObj);
             $this->brickMappingService->manageBricksForSIOPRelationChange($prdObj);
             $prdObj->setPublished(1);
             $prdObj->save();

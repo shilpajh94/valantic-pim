@@ -40,4 +40,6 @@ define("BRICK_MAPPING_CONFIG_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/brick_mappi
 
 define("MULTISELECT_MASTER_IMPORT_CONFIG",APPBUNDLE_CONFIG_DIRECTORY."/import/multiselect_master_import_config.yml");
 
+define("PRODUCT_CLASS_NAME", "Product");
 
+define("PRODUCT_CLASS_ID", "1");

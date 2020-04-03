@@ -15,7 +15,7 @@ parameters:
     'distributionChannelDesc': 'Dist'
     'material': 'Material'
     'materialDescription': 'Material Description'
-    'plant': 'Plant'
+    'plant': 'PLANT'
     'deletionFlag': 'Deletion Flag'
     'materialGroup1': 'Material Group 1'
     'materialGroup2': 'Material Group 2'

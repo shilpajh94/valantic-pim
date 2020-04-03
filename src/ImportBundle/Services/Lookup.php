@@ -60,7 +60,7 @@ class Lookup
     */
     public function execute()
     {
-        $this->filePath = $this->filePath."_".date('mdY').".csv";
+//        $this->filePath = $this->filePath."_".date('mdY').".csv";
         
         try {
             if ($this->validateAllowedFileType()) {
