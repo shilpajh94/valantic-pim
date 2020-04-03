@@ -141,11 +141,6 @@ class Import
                         }
                         $firstRowData = $rowData;
                     } else {
-                        $tmpData = [];
-                        foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
-                            $tmpData[$value] = $rowData[$key];
-                        }
                         $data[] = $rowData;
                         $cols = count($rowData);
                     }
