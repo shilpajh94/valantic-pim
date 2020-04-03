@@ -144,7 +144,7 @@ class ProductSQLModel
         $this->initiatePTGProductsProcess();
         
         $this->initiateIFSProductsProcess();
-//        
+        
         $this->tblImpHelper->updateMaster();
     }
     
@@ -201,7 +201,7 @@ class ProductSQLModel
         $j = 1;
         
         $this->logArray = [];
-        $i = 160000;
+        $i = 0;
         $length = 5000;
         while ($i<$deltaCount) {
             $offset = $i;
