@@ -1,78 +1,254 @@
 non_localized:
-    deletedFlagAtClientLevel:
+     shelfLife:
+        type: 'input'
+        label: 'Shelf Life'
+     nitrosamines:
+        type: 'input'
+        label: 'Nitrosamines'
+     rohs:
+        type: 'input'
+        label: 'Rohs'
+     reach:
+        type: 'input'
+        label: 'Reach'
+     prop65Message:
+        type: 'textarea'
+        label: 'Prop 65 Message'
+# panel break here
+     numeratorForConversionToBaseUnitsOfMeasure:
+        type: 'textarea'
+        label: 'Numerator for Conversion to Base Units of Measure'
+     alternativeUnitOfMeasureForStockkeepingUnit:
+        type: 'input'
+        label: 'Alternative Unit of Measure for Stockkeeping Unit'
+     denominatorForConversionToBaseUnitsOfMeasure:
+        type: 'input'
+        label: 'Denominator for conversion to base units of measure'
+     californiaProposition65ChemicalName1:
+        type: 'input'
+        label: 'California Proposition65 Chemical Name1'
+     californiaProposition65ChemicalName2:
+        type: 'input'
+        label: 'California Proposition 65 Chemical Name2'
+     californiaProposition65ChemicalName3:
+        type: 'input'
+        label: 'California Proposition 65 Chemical Name3'
+     searchKeywords:
+        type: 'input'
+        label: 'Search Keywords'
+     webDiscription:
+        type: 'input'
+        label: 'Web Description'
+     proposition65WarningAttributesRequired:
         type: 'booleanSelect'
-        label: 'Deleted / Obsoleted Flag Client Level'
-    articleNumber:
+        label: 'Proposition 65 warning attributes required'
+# panel break here
+     BrandingLayline:
+        type: 'textarea'
+        label: 'Branding / Layline'
+     VirtualCatalogBrandingLayline:
         type: 'input'
-        label: 'Article Number'
-    eanUpc:
-        type: 'input'
-        label: 'EAN UPC'
-    oldMaterialCode:
-        type: 'input'
-        label: 'Old Material Code'
-    grossWeight:
-        type: 'numeric'
-        label: 'Gross Weight'
-    packageLength:
+        label: 'Virtual Catalog Branding / Layline'
+# panel break here
+     packageLength:
         type: 'quantityValue'
         label: 'Package Length'
-    longDescription:
-        type: 'textarea'
-        label: 'Long Description'
-#    ind:
-#        type: 'checkbox'
-#        label: 'IND'
-    ProductType:
+     packageWidth:
+        type: 'quantityValue'
+        label: 'Package Width (in)'
+     packageWeight:
+        type: 'quantityValue'
+        label: 'Package Weight'
+     packageHeight:
+        type: 'quantityValue'
+        label: 'Package Height (in)'
+     caseLength:
+        type: 'quantityValue'
+        label: 'Case Length'
+     caseHeight:
+        type: 'quantityValue'
+        label: 'Case Height'
+     caseWidth:
+        type: 'quantityValue'
+        label: 'Case Width'
+     caseWeight:
+        type: 'quantityValue'
+        label: 'Case Weight'
+     palletLength:
+        type: 'quantityValue'
+        label: 'Pallet Length'
+     palletHeight:
+        type: 'quantityValue'
+        label: 'Pallet Height'
+     palletWidth:
+        type: 'quantityValue'
+        label: 'Pallet Width'
+     palletWeight:
+        type: 'quantityValue'
+        label: 'Pallet Weight'
+# panel break here
+     numberOfItems:
+        type: 'numeric'
+        label: 'Number of Items'
+     casePackQuantity:
+        type: 'numeric'
+        label: 'Case Pack Quantity'
+     orderIncrement:
+        type: 'numeric'
+        label: 'Order Increment'
+     miniumOrderQuantity:
+        type: 'numeric'
+        label: 'Minium Order Quantity'
+     numberOfCoils:
+        type: 'numeric'
+        label: 'Number of Coils'
+     tieBundles:
+        type: 'numeric'
+        label: 'Tie Bundles '
+     bundlesOfQuantity:
+        type: 'numeric'
+        label: 'Bundles of Quantity'
+# panel break here
+     succesorFlag:
+        type: 'booleanSelect'
+        label: 'Succesor / Supercession Flag'
+     B2CStoreFlag:
+        type: 'booleanSelect'
+        label: 'B2C Store Flag'
+     printedCatalogFlag:
+        type: 'booleanSelect'
+        label: 'Printed Catalog Flag'
+# panel break here
+     returnFlag:
+        type: 'booleanSelect'
+        label: 'Return Flag'
+     rebateFlag:
+        type: 'booleanSelect'
+        label: 'Rebate Flag'
+     newItemFlagForCatalog:
+        type: 'booleanSelect'
+        label: 'New Item Flag for Catalog'
+     ProductType:
         type: 'select'
-        label: 'Product Type'
-    weightUnit:
+        label: 'ProductType'
+     BuisnessUnit:
         type: 'select'
-        label: 'wright Unit'
-    mainImage:
+        label: 'BuisnessUnit'
+# panel break here
+     mainImage:
         type: 'image'
-        label: 'Mian Image'
+        label: 'MainImage'
+     frontView:
+        type: 'image'
+        label: 'Front view'
+     sideView:
+        type: 'image'
+        label: 'Side view'
+     cutView:
+        type: 'image'
+        label: 'Cut view'
+
+
 
 localized:
-    sapDescription:
-        type: 'textarea'
-        label: 'SAP Desc'
     FeaturesBenefitsBulletPoint1:
         type: 'input'
-        label: 'BenefitsBulletPoint1'
+        label: 'Features & Benefits Bullet Point 1'
+    FeaturesBenefitsBulletPoint2:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 2'
+    FeaturesBenefitsBulletPoint3:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 3'
+    FeaturesBenefitsBulletPoint4:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 4'
+    FeaturesBenefitsBulletPoint5:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 5'
+    legalText:
+        type: 'input'
+        label: 'Legal Text'
+# panel break here
+    longDescription:
+        type: 'textarea'
+        label: 'Marketing / Long Description'
 
-object_relations:
-    manyToManyObjectRelation:
-        SIOPLevel1:
-            label: 'SIOP Level 1'
-            mappedClass: 'ProductCategory'
-            mappedClassAttributes:
-                non_localized:
-                    code:
-                        type: 'input'
-                        label: 'Code'
-                    Industry:
-                        type: 'select'
-                        label: 'Industry'
-                    image:
-                        type: 'image'
-                        label: 'Image'
-                localized:
-                    description:
-                        type: 'textarea'
-                        label: 'Desc'
-        SIOPLevel2:
-            label: 'SIOP Level 2'
-            mappedClass: 'ProductCategory'
-            mappedClassAttributes:
-                non_localized:
-                    code:
-                        type: 'input'
-                        label: 'Code'
-                localized:
-                    description:
-                        type: 'textarea'
-                        label: 'Desc'
+
+#object_relations:
+#    manyToManyObjectRelation:
+#        SIOPLevel1:
+#            label: 'SIOP Level 1'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel2:
+#            label: 'SIOP Level 2'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel3:
+#            label: 'SIOP Level 3'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel4:
+#            label: 'SIOP Level 4'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel5:
+#            label: 'SIOP Level 5'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel6:
+#            label: 'SIOP Level 6'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
 
 object_bricks:
     Base:
@@ -82,53 +258,111 @@ object_bricks:
                 label: 'Hose (6 Digit)'
                 non_localized:
                     staticWire:
-                        type: 'input'
-                        label: 'Static Wire'
+                       type: 'input'
+                       label: 'Static Wire'
                     numberOfHelixWires:
-                        type: 'numeric'
-                        label: 'Number Of Helix Wires'
+                       type: 'numeric'
+                       label: 'Number of Helix Wires'
+                    numberOfPlies:
+                       type: 'numeric'
+                       label: 'Number of Plies'
                     tubeMaterial:
-                        type: 'multiselect'
-                        label: 'Tube Material'
+                       type: 'multiselect'
+                       label: 'Tube Material'
+                    tubeCharacteristic:
+                       type: 'multiselect'
+                       label: 'Tube Characteristic'
+                    tubeColor:
+                       type: 'multiselect'
+                       label: 'Tube Color'
+                    minimumTemperatureF:
+                       type: 'numeric'
+                       label: 'Min Temp °F'
+                    maximumTemperatureF:
+                       type: 'numeric'
+                       label: 'Max temp °F'
+                    StandardMetTube:
+                       type: 'multiselect'
+                       label: 'Standard Met- Tube'
+                    coverMaterial:
+                       type: 'multiselect'
+                       label: 'Cover Material'
+                    coverCharacteristic:
+                       type: 'multiselect'
+                       label: 'Cover Characteristic'
+                    coverColor:
+                       type: 'multiselect'
+                       label: 'Cover Color'
+                    agencyCompliance:
+                       type: 'multiselect'
+                       label: 'Agency Compliance'
+                    safetyFactor:
+                       type: 'multiselect'
+                       label: 'Safety Factor (ARPM Standard)'
     Skeleton:
         label: 'Skeleton Data'
         brick_items:
             HoseSkeleton:
                 label: 'Hose (9 Digit)'
                 non_localized:
-                    hoseIdDec:
-                        type: 'quantityValue'
-                        label: 'Hose Id Dec'
-                    grossWeightUOM:
-                        type: 'select'
-                        label: 'Gross Weight UOM'
+                    hoseIdMM:
+                       type: 'numeric'
+                       label: 'Hose ID (mm) Actual ID'
+                    hoseOdmm:
+                       type: 'numeric'
+                       label: 'Hose OD (mm)'
+                    workingPressurepsi:
+                       type: 'numeric'
+                       label: 'Working Pressure (psi)'
+                    minBurstPressurepsi:
+                       type: 'numeric'
+                       label: 'Min. Burst Pressure (psi)'
+                    BendRadius_in:
+                       type: 'numeric'
+                       label: 'BendRadius_in'
+                    Vacumm_in:
+                       type: 'numeric'
+                       label: 'Vacumm_in'
+                    hoseIdNominalId:
+                       type: 'input'
+                       label: 'Hose ID (in Fract) Nominal ID'
+                    tubeGauge:
+                       type: 'numeric'
+                       label: 'Tube Gauge (in)'
                     reinforcement:
-                        type: 'multiselect'
-                        label: 'Reinforcement'
+                       type: 'multiselect'
+                       label: 'Reinforcement'
+
+
     Fert:
         label: 'Fert Data'
         brick_items:
             HoseFert:
                 label: 'Hose (14 Digit)'
                 non_localized:
-                    totalWeightPerPackage:
-                        type: 'numeric'
-                        label: 'Total Wight Per Package'
-#                    bendRestrictor:
-#                        type: 'checkbox'
-#                        label: 'Bend Restrictor'
+                    hoseLengthFt:
+                       type: 'numeric'
+                       label: 'Hose Length (ft)'
+                    assembly:
+                       type: 'booleanSelect'
+                       label: 'Assembly / Not Assembly'
                     fitting1Type:
-                        type: 'input'
-                        label: 'Fitting Type'
-                    CompleteFittingText:
-                        type: 'textarea'
-                        label: 'Complete FItting Text'
-            BeltsFert:
-                label: 'Belts Fert'
-                non_localized:
-#                    reinforcement:
-#                        type: 'input'
-#                        label: 'Reinforcement'
-                    numberOfBands:
-                        type: 'numeric'
-                        label: 'Number Of Bands'
+                       type: 'input'
+                       label: 'Fitting 1 Type'
+                    fitting1Size:
+                       type: 'input'
+                       label: 'Fitting 1 Size (in)'
+                    fitting1Material:
+                       type: 'input'
+                       label: 'Fitting 1 Material'
+                    fitting2Type:
+                       type: 'input'
+                       label: 'Fitting 2 Type'
+                    fitting2Size:
+                       type: 'input'
+                       label: 'Fitting 2 Size (in)'
+                    fitting2Material:
+                       type: 'input'
+                       label: 'fitting2Material'
+
+

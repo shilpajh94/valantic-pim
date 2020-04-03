@@ -2,6 +2,8 @@
 
 namespace RequiredAttributesBundle\Lib\PimcoreDataTypeValueGetter;
 
+use AppBundle\Logger\LogLevel;
+use AppBundle\Tool\Utils;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\QuantityValue\Unit;
@@ -77,6 +79,8 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
             case 'date':
                 $value = $this->getValueForDate($attributeName);
                 break;
+            default:
+                Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE,"The attribute type ".$attributeType." is not handled for completeness/required. ",LogLevel::CRITICAL());
         }
 
         return $value;
