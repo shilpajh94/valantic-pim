@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T09:42:01+02:00
+* Generated at: 2020-04-03T07:42:11+02:00
 * IP: 192.168.30.66
 
 
@@ -18,7 +18,7 @@ Fields Summary:
 - minimumTemperatureF [numeric]
 - maximumTemperatureF [numeric]
 - rangeTemperatureF [numeric]
-- specifications [multiselect]
+- StandardMetTube [multiselect]
 - StandardMetCover [multiselect]
 - standardMetHose [multiselect]
 - coverMaterial [multiselect]
@@ -2620,8 +2620,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'columnType' => 'text',
                          'phpdocType' => 'array',
                          'dynamicOptions' => false,
-                         'name' => 'specifications',
-                         'title' => 'Specifications / Standard Met Tube',
+                         'name' => 'StandardMetTube',
+                         'title' => 'Standard Met- Tube',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2652,7 +2652,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'phpdocType' => 'array',
                          'dynamicOptions' => false,
                          'name' => 'StandardMetCover',
-                         'title' => 'Specifications / Standard Met Cover',
+                         'title' => 'Standard Met- Cover',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2683,7 +2683,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'phpdocType' => 'array',
                          'dynamicOptions' => false,
                          'name' => 'standardMetHose',
-                         'title' => 'Specifications / Standard Met Hose',
+                         'title' => 'Standard Met- Hose',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -3259,7 +3259,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -3285,7 +3285,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'margin-left: 20px;',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -3311,7 +3311,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -3337,7 +3337,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
