@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-20T11:48:25+01:00
+* Generated at: 2020-04-03T09:34:32+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -25,7 +25,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Plant',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1584701305,
+   'modificationDate' => 1585899272,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -400,7 +400,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f505.svg',
    'previewUrl' => '',
-   'group' => 'Product',
+   'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 

@@ -1,21 +1,21 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-30T13:33:21+02:00
+* Generated at: 2020-04-03T09:58:09+02:00
 * IP: 192.168.30.66
 
 
 Fields Summary: 
 - effectiveLengthUOM [select]
 - numberOfBands [numeric]
-- insideLengthIN [quantityValue]
-- insideLengthMM [quantityValue]
-- datumLengthIn [quantityValue]
-- datumLengtMM [quantityValue]
-- outsideLengthIN [quantityValue]
-- outsideLengtMM [quantityValue]
-- productEffectiveLengthIn [quantityValue]
-- productEffectiveLengthMM [quantityValue]
+- insideLengthIN [numeric]
+- insideLengthMM [numeric]
+- datumLengthIn [numeric]
+- datumLengtMM [numeric]
+- outsideLengthIN [numeric]
+- outsideLengtMM [numeric]
+- productEffectiveLengthIn [numeric]
+- productEffectiveLengthMM [numeric]
 */ 
 
 
@@ -151,37 +151,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'insideLengthIN',
                  'title' => 'Inside Length (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -191,37 +181,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'insideLengthMM',
                  'title' => 'Inside Length (MM)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -231,37 +211,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'datumLengthIn',
                  'title' => 'Datum Length (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -271,37 +241,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'datumLengtMM',
                  'title' => 'Datum Length (MM)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -311,37 +271,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'outsideLengthIN',
                  'title' => 'Outside Length (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -351,37 +301,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'outsideLengtMM',
                  'title' => 'Outside Length (MM)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -391,37 +331,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               8 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'productEffectiveLengthIn',
                  'title' => 'Product Effective Length (In)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -431,37 +361,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               9 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'productEffectiveLengthMM',
                  'title' => 'Product Effective Length (MM)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
