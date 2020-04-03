@@ -60,13 +60,20 @@ class Lookup
     */
     public function execute()
     {
+        $this->filePath = $this->filePath."_".date('mdY').".csv";
+        
         try {
             if ($this->validateAllowedFileType()) {
                 /* Get actual file path from PIM */
+                
                 $obj = \Pimcore\Model\Asset::getByPath($this->filePath);
                 if(is_null($obj))
                 {
-                    $message = sprintf(IMPORT_FILE_NOT_FOUND, $this->filePath);
+                    $filePathInfo = explode('/',$this->filePath);
+                    $fileName = array_pop($filePathInfo);
+                    $filePath = implode('/',$filePathInfo);
+
+                    echo $message = sprintf(IMPORT_FILE_NOT_FOUND, $filePath,$fileName);
                     if($this->monitoringItem->id){
                         throw new Exception($message);
                     }
@@ -77,6 +84,7 @@ class Lookup
                 $feederObj = \Pimcore::getContainer()->get($this->feederService);
                 
                 $params = array(
+                    'approvedSalesOrg'  =>  $this->approvedSalesOrg,
                     'filePath'          =>  $this->sysFilePath,
                     'inboxFilePath'     =>  $this->filePath,
                     'archiveDir'        =>  $this->archiveDir,

@@ -39,6 +39,15 @@ services:
         class: ImportBundle\Services\Validator\Category
         public: true
 
+    # this service contain the logic to import sales material master
+    import.sales_material_master_import_service:
+        class: ImportBundle\Services\Model\SalesMaterialModel
+        public: true
+
+    # this service contain the logic to import plant material master
+    import.plant_material_master_import_service:
+        class: ImportBundle\Services\Model\PlantMaterialModel
+        public: true
     # this service contain the logic to import siop record
     import.product_service:
         class: ImportBundle\Services\Model\ProductModel

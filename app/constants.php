@@ -24,10 +24,16 @@ define('CATEGORY_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/category.yml");
 // Global Product Configuration File Path
 define('PRODUCT_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/import/product.yml");
 
+// Global Category Configuraction File Path
+define('PLANT_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/import/plant_material.yml");
+
+// Global Category Configuraction File Path
+define('SALES_MATERIAL_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/import/sales_material.yml");
+
 /* Errors Message */
 define('INVALID_COMMAND', 'Invalid command: %s command not found');
 define('FILE_FORMAT_DOESNOT_SUPPORT', 'This command does not support the given file format.');
-define('IMPORT_FILE_NOT_FOUND', 'No files to proceed. Please check the directory, File path is %s');
+define('IMPORT_FILE_NOT_FOUND', 'Please check the directory %s, File %s not found');
 define('ALLOWED_FILE_TYPES', 'Only %s files are allowed to uplod');
 
 define("BRICK_MAPPING_CONFIG_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/brick_mapping_config.yml");

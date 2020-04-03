@@ -20,7 +20,7 @@ parameters:
     validatorService: 'import.category_validator_service'
     mappedService: 'pim.category_service'
     listingService: 'pim.category_listing_service'
-    filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv'
+    filePath: '/Logs/Master List/SIOP Master List/Inbox/SIOP'
     archiveDir: '/Logs/Master List/SIOP Master List/Archive'
     failedDir: '/Logs/Master List/SIOP Master List/Failed'
     objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products'
@@ -33,7 +33,24 @@ parameters:
     validatorService: 'import.product_validator_service'
     mappedService: 'pim.product_service'
     listingService: 'pim.product_listing_service'
-    filePath: '/Data Import Files/Products Master/material_mara.csv'
-    archiveDir: '/Data Import Files/Products Master/Archive'
-    failedDir: '/Data Import Files/Products Master/Failed'
-  
+    filePath: '/Logs/Products Master/Inbox/PIM_Material'
+    archiveDir: '/Logs/Products Master/Archive'
+    failedDir: '/Logs/Products Master/Failed'
+  salesMaterial:
+    name: 'salesMaterial'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Sales Material Master"'
+    feederService: 'import.sales_material_master_import_service'
+    mappedService: 'pim.sales_material_master_import_service'
+    filePath: '/Logs/MaterialMaster/SalesMaterialMaster/Inbox/PIM_MaterialSales'
+    archiveDir: '/Logs/MaterialMaster/SalesMaterialMaster/Archive'
+    failedDir: '/Logs/MaterialMaster/SalesMaterialMaster/Failed'
+  plantMaterial:
+    name: 'plantMaterial'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Plant Material Master"'
+    feederService: 'import.plant_material_master_import_service'
+    mappedService: 'pim.plant_material_master_import_service'
+    filePath: '/Logs/MaterialMaster/PlantMaterialMaster/Inbox/PIM_MaterialPlant'
+    archiveDir: '/Logs/MaterialMaster/PlantMaterialMaster/Archive'
+    failedDir: '/Logs/MaterialMaster/PlantMaterialMaster/Failed'
