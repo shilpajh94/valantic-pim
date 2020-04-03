@@ -1,14 +1,15 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T09:22:26+02:00
+* Generated at: 2020-04-03T10:20:20+02:00
 * IP: 192.168.30.66
 
 
 Fields Summary: 
 - profile [input]
 - beltAngle [numeric]
-- height [quantityValue]
+- heightIn [numeric]
+- heightMm [numeric]
 - staticConductive [input]
 - heatOilResistant [input]
 */ 
@@ -124,37 +125,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleSearch' => false,
           )),
           2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-             'fieldtype' => 'quantityValue',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'fieldtype' => 'numeric',
              'width' => 300,
-             'unitWidth' => NULL,
              'defaultValue' => NULL,
-             'defaultUnit' => NULL,
-             'validUnits' => 
-            array (
-              0 => '1',
-              1 => '2',
-            ),
+             'queryColumnType' => 'double',
+             'columnType' => 'double',
+             'phpdocType' => 'float',
+             'integer' => false,
+             'unsigned' => false,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'unique' => false,
+             'decimalSize' => NULL,
              'decimalPrecision' => NULL,
-             'autoConvert' => false,
-             'queryColumnType' => 
-            array (
-              'value' => 'double',
-              'unit' => 'bigint(20)',
-            ),
-             'columnType' => 
-            array (
-              'value' => 'double',
-              'unit' => 'bigint(20)',
-            ),
-             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-             'name' => 'height',
-             'title' => 'Height',
+             'name' => 'heightIn',
+             'title' => 'Height (in)',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => NULL,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -164,6 +155,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleSearch' => false,
           )),
           3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+             'fieldtype' => 'numeric',
+             'width' => 300,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'double',
+             'columnType' => 'double',
+             'phpdocType' => 'float',
+             'integer' => false,
+             'unsigned' => false,
+             'minValue' => NULL,
+             'maxValue' => NULL,
+             'unique' => false,
+             'decimalSize' => NULL,
+             'decimalPrecision' => NULL,
+             'name' => 'heightMm',
+             'title' => 'Height (mm)',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          4 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 300,
@@ -189,7 +210,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          4 => 
+          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 300,

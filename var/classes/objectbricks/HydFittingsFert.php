@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-20T10:21:16+01:00
+* Generated at: 2020-04-03T10:07:52+02:00
 * IP: 192.168.30.66
 
 
@@ -27,11 +27,15 @@ Fields Summary:
 - SocketWrenchSizeInDec [numeric]
 - ElbowAngleDegrees [numeric]
 - DropLength [numeric]
-- OverallLength [quantityValue]
-- RunLength [quantityValue]
-- CutOffLength [quantityValue]
-- InsertionDepth [quantityValue]
-- FittingWeight [quantityValue]
+- OverallLengthIn [numeric]
+- OverallLengthMm [numeric]
+- RunLengthIn [numeric]
+- RunLengthMm [numeric]
+- CutOffLengthIn [numeric]
+- CutOffLengthMm [numeric]
+- InsertionDepthIn [numeric]
+- InsertionDepthMm [numeric]
+- FittingWeight [numeric]
 - ReleasedToProductionDate [date]
 - ReleasedToProduction [booleanSelect]
 - FlangeIDInFract [numeric]
@@ -927,37 +931,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           20 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'fieldtype' => 'quantityValue',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 200,
-                             'unitWidth' => 100,
                              'defaultValue' => NULL,
-                             'defaultUnit' => NULL,
-                             'validUnits' => 
-                            array (
-                              0 => '1',
-                              1 => '2',
-                            ),
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'autoConvert' => false,
-                             'queryColumnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'columnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                             'name' => 'OverallLength',
-                             'title' => 'Overall Length',
+                             'name' => 'OverallLengthIn',
+                             'title' => 'Overall Length (In)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -967,37 +961,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           21 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'fieldtype' => 'quantityValue',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 200,
-                             'unitWidth' => 100,
                              'defaultValue' => NULL,
-                             'defaultUnit' => NULL,
-                             'validUnits' => 
-                            array (
-                              0 => '1',
-                              1 => '2',
-                            ),
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'autoConvert' => false,
-                             'queryColumnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'columnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                             'name' => 'RunLength',
-                             'title' => 'Run Length',
+                             'name' => 'OverallLengthMm',
+                             'title' => 'Overall Length (mm)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1007,37 +991,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           22 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'fieldtype' => 'quantityValue',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 200,
-                             'unitWidth' => 100,
                              'defaultValue' => NULL,
-                             'defaultUnit' => NULL,
-                             'validUnits' => 
-                            array (
-                              0 => '1',
-                              1 => '2',
-                            ),
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'autoConvert' => false,
-                             'queryColumnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'columnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                             'name' => 'CutOffLength',
-                             'title' => 'Cut Off Length',
+                             'name' => 'RunLengthIn',
+                             'title' => 'Run Length (in)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1047,37 +1021,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           23 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'fieldtype' => 'quantityValue',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 200,
-                             'unitWidth' => 100,
                              'defaultValue' => NULL,
-                             'defaultUnit' => NULL,
-                             'validUnits' => 
-                            array (
-                              0 => '1',
-                              1 => '2',
-                            ),
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'autoConvert' => false,
-                             'queryColumnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'columnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                             'name' => 'InsertionDepth',
-                             'title' => 'Insertion Depth',
+                             'name' => 'RunLengthMm',
+                             'title' => 'Run Length (mm)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1087,37 +1051,147 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           24 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                             'fieldtype' => 'quantityValue',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 200,
-                             'unitWidth' => 100,
                              'defaultValue' => NULL,
-                             'defaultUnit' => NULL,
-                             'validUnits' => 
-                            array (
-                              0 => '1',
-                              1 => '2',
-                            ),
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'autoConvert' => false,
-                             'queryColumnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'columnType' => 
-                            array (
-                              'value' => 'double',
-                              'unit' => 'bigint(20)',
-                            ),
-                             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
+                             'name' => 'CutOffLengthIn',
+                             'title' => 'Cut Off Length (in)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          25 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 200,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'CutOffLengthMm',
+                             'title' => 'Cut Off Length (mm)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          26 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 200,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'InsertionDepthIn',
+                             'title' => 'Insertion Depth (in)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          27 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 200,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'InsertionDepthMm',
+                             'title' => 'Insertion Depth (mm)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          28 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 200,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
                              'name' => 'FittingWeight',
                              'title' => 'Fitting Weight',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',

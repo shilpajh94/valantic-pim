@@ -1,17 +1,17 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-19T08:56:56+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-04-03T10:21:23+02:00
+* IP: 192.168.30.66
 
 
 Fields Summary: 
 - pitchUOM [select]
-- pitchIN [quantityValue]
-- pitchMM [quantityValue]
+- pitchIN [numeric]
+- pitchMM [numeric]
 - pitchLengthUOM [select]
-- pitchLengthIN [quantityValue]
-- pitchLengthMM [quantityValue]
+- pitchLengthIN [numeric]
+- pitchLengthMM [numeric]
 - numberOfTeeth [calculatedValue]
 */ 
 
@@ -156,37 +156,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'pitchIN',
                          'title' => 'Pitch (in)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -196,37 +186,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'pitchMM',
                          'title' => 'Pitch (MM)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -289,37 +269,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'pitchLengthIN',
                          'title' => 'Pitch Length (in)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -329,37 +299,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'pitchLengthMM',
                          'title' => 'Pitch Length (MM)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',

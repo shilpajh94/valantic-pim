@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-24T13:02:42+01:00
+* Generated at: 2020-04-03T09:33:09+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585051362,
+   'modificationDate' => 1585899189,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -176,7 +176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'padding:10px 10px 10px 10px;',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -268,7 +268,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f516.svg',
    'previewUrl' => '',
-   'group' => 'Product',
+   'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T11:19:46+02:00
+* Generated at: 2020-04-03T09:49:00+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -26,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585732786,
+   'modificationDate' => 1585900140,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -536,7 +536,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f4a0.svg',
    'previewUrl' => '',
-   'group' => '',
+   'group' => 'Products Data',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 
