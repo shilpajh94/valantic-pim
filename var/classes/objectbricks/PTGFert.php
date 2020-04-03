@@ -1,17 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-19T08:56:48+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-04-01T09:22:22+02:00
+* IP: 192.168.30.66
 
 
 Fields Summary: 
-- profile [input]
 - color [select]
-- material [select]
 - customerProductFamily [input]
-- heightIn [quantityValue]
-- heightmm [quantityValue]
 - widthmm [quantityValue]
 - widthIn [quantityValue]
 - CADFile [checkbox]
@@ -92,32 +88,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'profile',
-                 'title' => 'Profile',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => 
@@ -152,43 +122,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                 'fieldtype' => 'select',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 'POLYBUTADIENE',
-                    'value' => 'POLYBUTADIENE',
-                  ),
-                ),
-                 'width' => 300,
-                 'defaultValue' => '',
-                 'optionsProviderClass' => '',
-                 'optionsProviderData' => '',
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'dynamicOptions' => false,
-                 'name' => 'material',
-                 'title' => 'Material',
-                 'tooltip' => '
-',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              3 => 
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => 300,
@@ -214,87 +148,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
-                 'width' => 300,
-                 'unitWidth' => NULL,
-                 'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
-                 'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                 'name' => 'heightIn',
-                 'title' => 'Height (in)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
-                 'width' => 300,
-                 'unitWidth' => NULL,
-                 'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
-                 'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                 'name' => 'heightmm',
-                 'title' => 'Height (mm)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              6 => 
+              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,
@@ -334,7 +188,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
-              7 => 
+              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                  'fieldtype' => 'quantityValue',
                  'width' => 300,

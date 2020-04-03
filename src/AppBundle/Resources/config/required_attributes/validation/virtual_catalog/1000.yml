@@ -1,0 +1,113 @@
+non_localized:
+    BrandingLayline:
+        type: 'input'
+        label: 'Branding/Layline'
+    prop65Message:
+        type: 'textarea'
+        label: 'Prop 65 Message'
+
+localized:
+    longDescription:
+        type: 'textarea'
+        label: 'Marketing / Long Description'
+    FeaturesBenefitsBulletPoint1:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 1'
+    FeaturesBenefitsBulletPoint2:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 2'
+    FeaturesBenefitsBulletPoint3:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 3'
+    FeaturesBenefitsBulletPoint4:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 4'
+    FeaturesBenefitsBulletPoint5:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 5'
+
+object_relations:
+    manyToManyObjectRelation:
+        SIOPLevel2:
+            label: 'SIOP Level 2'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+        SIOPLevel3:
+            label: 'SIOP Level 3'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+        SIOPLevel4:
+            label: 'SIOP Level 4'
+            mappedClass: 'ProductCategory'
+            mappedClassAttributes:
+                localized:
+                    description:
+                        type: 'textarea'
+                        label: 'Desc'
+
+object_bricks:
+    Base:
+        label: 'Base Data'
+        brick_items:
+            HoseBase:
+                label: 'Hose (6 Digit)'
+                non_localized:
+                    staticWire:
+                        type: 'input'
+                        label: 'Static Wire'
+                    numberOfHelixWires:
+                        type: 'numeric'
+                        label: 'Number Of Helix Wires'
+                    tubeMaterial:
+                        type: 'multiselect'
+                        label: 'Tube Material'
+    Skeleton:
+        label: 'Skeleton Data'
+        brick_items:
+            HoseSkeleton:
+                label: 'Hose (9 Digit)'
+                non_localized:
+                    hoseIdDec:
+                        type: 'quantityValue'
+                        label: 'Hose Id Dec'
+                    grossWeightUOM:
+                        type: 'select'
+                        label: 'Gross Weight UOM'
+                    reinforcement:
+                        type: 'multiselect'
+                        label: 'Reinforcement'
+    Fert:
+        label: 'Fert Data'
+        brick_items:
+            HoseFert:
+                label: 'Hose (14 Digit)'
+                non_localized:
+                    totalWeightPerPackage:
+                        type: 'numeric'
+                        label: 'Total Wight Per Package'
+                    bendRestrictor:
+                        type: 'checkbox'
+                        label: 'Bend Restrictor'
+                    fitting1Type:
+                        type: 'input'
+                        label: 'Fitting Type'
+                    CompleteFittingText:
+                        type: 'textarea'
+                        label: 'Complete FItting Text'
+            BeltsFert:
+                label: 'Belts Fert'
+                non_localized:
+                    reinforcement:
+                        type: 'input'
+                        label: 'Reinforcement'
+                    numberOfBands:
+                        type: 'numeric'
+                        label: 'Number Of Bands'
