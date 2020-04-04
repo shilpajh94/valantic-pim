@@ -129,7 +129,8 @@ class SalesMaterialImport
             $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `hash` = `hash` ";
             foreach ($arrData as $data) {
                 $tempData = array_combine($fileColumns, $data);
-                $id = $this->createId($tempData);
+                // $id = $this->createId($tempData);
+                $id = $tempData['Material'].'$'.$tempData['Sales Org'].'$'.$tempData['Distribution Channel'];
                 unset($tempData);
                 $record = addslashes(json_encode($data, true));
                 $hash   = md5($record);
@@ -206,7 +207,7 @@ class SalesMaterialImport
             $rowCount = 1;
             $sql = "INSERT INTO {$this->logTable} (id, record, statusCode, failedReason, createdAt) VALUES";
             foreach ($data as $dataKey => $dataValue) {
-                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'",now()),';
+                $values .= '("'.$dataValue['id'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
                 // inserting records in batch
                 if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
                     $query = $sql.rtrim($values, ',');

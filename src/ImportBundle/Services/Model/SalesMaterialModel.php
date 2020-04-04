@@ -53,7 +53,11 @@ class SalesMaterialModel
     {
         try {
             $this->updateDefaults($param);
-            $spreadsheet = Import::load($this->filePath);
+            // $spreadsheet = Import::load($this->filePath);
+            $csvImportedData = Import::getCSVData($this->filePath);
+            $this->fileColumns = $csvImportedData['header'];
+            $csvData = $csvImportedData['data'];
+            unset($csvImportedData);
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
             $this->tableImportHelper = \Pimcore::getContainer()->get('app.sales_material_import_helper');
             $salesMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getSalesMaterialConfig();
@@ -63,19 +67,30 @@ class SalesMaterialModel
             $this->mappingCsvColumn = $this->common->getParameter($salesMaterialConfig, 'mappingCsvColumn');
             $this->keyColumns = $this->common->getParameter($salesMaterialConfig, 'keyColumns');
             
-            $this->import($spreadsheet);
+            $this->import($csvData);
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th);
             die;
         }
     }
 
-    public function import($spreadsheet)
+    public function import($excelDataNewArray)
     {
+        $this->monitoringItem->getLogger()->info('File Information');
+        $this->monitoringItem->getLogger()->info('File path is being imported: ' . $this->filePath);
+
+        echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
-        $excelDataNewArray = array();
-        $worksheet = $spreadsheet->getActiveSheet();
-        $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
+        // $excelDataNewArray = array();
+        // $excelData = array();
+        // $excelData = Import::getCSVData($this->filePath);
+        // $this->fileColumns = $excelData['header'];
+        // $excelDataNewArray = $excelData['data'];
+        // unset($excelData);
+        // print_r($excelDataNewArray['header']);
+        // echo count($excelDataNewArray['data']);
+        // $worksheet = $spreadsheet->getActiveSheet();
+        // $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
 
         /**
          * Optaining next column from last column for "status" field
@@ -84,15 +99,13 @@ class SalesMaterialModel
         // $nextColumnIndex = $highestDataColumnIndex + 1;
         // $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
 
-        $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
+        // $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
 
-        $this->monitoringItem->getLogger()->info('File Information');
-        $this->monitoringItem->getLogger()->info('File path is being imported: ' . $this->filePath);
-
+        
         /**
          * get all the data from the spreadsheet
          */
-        $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
+        // $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
         
         /**
          * get folder ids of Master List, MaterialMaster, Master List/Plants, 
@@ -113,31 +126,41 @@ class SalesMaterialModel
             /**
              * getting csv or excel file column name
              */
-            $this->fileColumns = $excelDataNewArray[0];
+            // $this->fileColumns = $excelDataNewArray[0];
             $this->tableImportConfig['fileColumns'] = $this->fileColumns;
             $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             $this->tableImportHelper->init($this->tableImportConfig);
-
             $this->salesOrganizations = $this->tableImportHelper->getSalessOrganization();
             $this->distributionChannels = $this->tableImportHelper->getDistributionChannel();
-           
             /**
              * remove column header from array excelDataNewArray. Only data remains.
              */
-            array_shift($excelDataNewArray); 
+            // array_shift($excelDataNewArray); 
             $csvRowCount = count($excelDataNewArray);
-            $time1 = new \DateTime();
+            echo "Truncating temp table...".PHP_EOL; 
+            $t = new \DateTime();
             $this->tableImportHelper->truncateTempTable();
+            $td = $t->diff(new \DateTime());
+            echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
+            
+            echo "Inserting temp table...".PHP_EOL;
+            $time1 = new \DateTime();
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
-            $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
             $timediff1 = $time1->diff(new \DateTime());
             echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
             
+            echo "Getting delta records...".PHP_EOL;
+            $t1 = new \DateTime();
+            unset($excelDataNewArray);
+            $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
+            $td1 = $t1->diff(new \DateTime());
+            echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
+            
             $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
-
+            echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
-
+            echo "Total {$deltaCount} Delta records found...".PHP_EOL;
             if($deltaCount > 0)
             {
                 $j = 1;
@@ -283,7 +306,8 @@ class SalesMaterialModel
                         $salesOrgCode = $this->salesOrganizations[$salesOrg];
                         $distributionChannelCode = $this->distributionChannels[$distributionChannel];
 
-                        $salesMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
+                        $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel;
+                        // $salesMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
 
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_10` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
@@ -393,7 +417,7 @@ class SalesMaterialModel
                 $statusCode = 'FAILED';
                 $data[$rowCount]['failedReason'] = $allErrorsInString;
             }
-
+            unset($errorsData);
             $data[$rowCount]['statusCode'] = $statusCode;
         }
 
@@ -417,6 +441,12 @@ class SalesMaterialModel
         $timediff3 = $time3->diff(new \DateTime());
         echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour %i minute %s second").PHP_EOL;
             
+        echo "Unset the temporary variable ...".PHP_EOL;
+        unset($queryTableDataArray);
+        unset($storeTableDataArray);
+        unset($relationTableDataArray);
+        unset($dependencyTableDataArray);
+        unset($data);
     }
     
     /**
