@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-19T08:56:08+01:00
-* IP: 127.0.0.1
+* Generated at: 2020-04-03T09:59:14+02:00
+* IP: 192.168.30.66
 
 
 Fields Summary: 
@@ -11,8 +11,8 @@ Fields Summary:
 - totalWeightPerPackage [numeric]
 - totalWeight [numeric]
 - bendRestrictorType [input]
-- bendRestrictor [checkbox]
-- assembly [checkbox]
+- bendRestrictor [booleanSelect]
+- assembly [booleanSelect]
 - fitting1Type [input]
 - fitting1Size [input]
 - fitting1Material [input]
@@ -301,11 +301,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'fieldtype' => 'checkbox',
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'tinyint(1)',
-                         'columnType' => 'tinyint(1)',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                         'fieldtype' => 'booleanSelect',
+                         'yesLabel' => 'Yes',
+                         'noLabel' => 'No',
+                         'emptyLabel' => 'Empty',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Empty',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'No',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => 100,
+                         'queryColumnType' => 'tinyint(1) null',
+                         'columnType' => 'tinyint(1) null',
                          'phpdocType' => 'boolean',
                          'name' => 'bendRestrictor',
                          'title' => 'Bend Restrictor',
@@ -313,7 +334,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -323,11 +344,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                         'fieldtype' => 'checkbox',
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'tinyint(1)',
-                         'columnType' => 'tinyint(1)',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                         'fieldtype' => 'booleanSelect',
+                         'yesLabel' => 'Yes',
+                         'noLabel' => 'No',
+                         'emptyLabel' => 'Empty',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Empty',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'No',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => 100,
+                         'queryColumnType' => 'tinyint(1) null',
+                         'columnType' => 'tinyint(1) null',
                          'phpdocType' => 'boolean',
                          'name' => 'assembly',
                          'title' => 'Assembly / Not Assembly',
@@ -335,7 +377,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',

@@ -1,27 +1,27 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T09:43:16+02:00
+* Generated at: 2020-04-03T10:00:10+02:00
 * IP: 192.168.30.66
 
 
 Fields Summary: 
-- hoseIdDec [quantityValue]
-- hoseIdMM [quantityValue]
-- hoseOdIn [quantityValue]
-- hoseOdmm [quantityValue]
-- weightg [quantityValue]
-- grossWeight [quantityValue]
+- hoseIdDec [numeric]
+- hoseIdMM [numeric]
+- hoseOdIn [numeric]
+- hoseOdmm [numeric]
+- weightg [numeric]
+- grossWeight [numeric]
 - grossWeightUOM [select]
-- workingPressurepsi [quantityValue]
-- workingPressurempa [quantityValue]
-- workingPressureBAR [quantityValue]
-- minBurstPressurepsi [quantityValue]
-- minBurstPressurempa [quantityValue]
-- BendRadius_in [quantityValue]
-- BendRadius_mm [quantityValue]
-- Vacumm_in [quantityValue]
-- Vacumm_mm [quantityValue]
+- workingPressurepsi [numeric]
+- workingPressurempa [numeric]
+- workingPressureBAR [numeric]
+- minBurstPressurepsi [numeric]
+- minBurstPressurempa [numeric]
+- BendRadius_in [numeric]
+- BendRadius_mm [numeric]
+- Vacumm_in [numeric]
+- Vacumm_mm [numeric]
 - descriptive [input]
 - hoseIdNominalId [input]
 - tubeGauge [numeric]
@@ -104,38 +104,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '3',
-                  2 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'hoseIdDec',
                  'title' => 'Hose ID (in) (Dec.) Actual ID',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -145,38 +134,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '3',
-                  2 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'hoseIdMM',
                  'title' => 'Hose ID (mm) Actual ID',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -186,38 +164,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '3',
-                  2 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'hoseOdIn',
                  'title' => 'Hose OD (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -227,38 +194,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '3',
-                  2 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'hoseOdmm',
                  'title' => 'Hose OD (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -268,38 +224,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '3',
-                  2 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'weightg',
                  'title' => 'Weight_ g/m',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -309,38 +254,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '3',
-                  2 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'grossWeight',
                  'title' => 'Gross Weight / Weight_Lbs per ft',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => true,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -438,38 +372,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'workingPressurepsi',
                          'title' => 'Working Pressure (psi)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -479,38 +402,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'workingPressurempa',
                          'title' => 'Working Pressure (mpa)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -520,38 +432,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'workingPressureBAR',
                          'title' => 'Working Pressure (BAR)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -561,36 +462,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '3',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'minBurstPressurepsi',
                          'title' => 'Min. Burst Pressure (psi)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -600,36 +492,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '3',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => true,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'minBurstPressurempa',
                          'title' => 'Min. Burst Pressure (mpa)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -639,38 +522,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'BendRadius_in',
                          'title' => 'BendRadius_in',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -680,38 +552,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'BendRadius_mm',
                          'title' => 'BendRadius_mm',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -721,38 +582,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'Vacumm_in',
                          'title' => 'Vacumm_in',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -762,38 +612,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       8 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'fieldtype' => 'quantityValue',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 300,
-                         'unitWidth' => NULL,
                          'defaultValue' => NULL,
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => '1',
-                          1 => '3',
-                          2 => '2',
-                        ),
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'autoConvert' => false,
-                         'queryColumnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'columnType' => 
-                        array (
-                          'value' => 'double',
-                          'unit' => 'bigint(20)',
-                        ),
-                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                          'name' => 'Vacumm_mm',
                          'title' => 'Vacum_mm',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -989,7 +828,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',

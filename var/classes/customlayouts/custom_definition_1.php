@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-30T09:48:02+02:00
+* Generated at: 2020-04-03T10:52:38+02:00
 * Changed by: system (0)
 * IP: 192.168.30.66
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Base',
    'description' => '',
    'creationDate' => 1581513063,
-   'modificationDate' => 1585554482,
+   'modificationDate' => 1585903958,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -1213,32 +1213,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'permissions' => NULL,
                                  'childs' => 
                                 array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                     'fieldtype' => 'textarea',
-                                     'width' => 300,
-                                     'height' => 100,
-                                     'maxLength' => NULL,
-                                     'showCharCount' => false,
-                                     'excludeFromSearchIndex' => false,
-                                     'queryColumnType' => 'longtext',
-                                     'columnType' => 'longtext',
-                                     'phpdocType' => 'string',
-                                     'name' => 'mumeratorForConversionToBaseUnitsOfMeasure',
-                                     'title' => 'Numerator for Conversion to Base Units of Measure',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
@@ -1755,14 +1729,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                         array (
                           0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                             'fieldtype' => 'textarea',
                              'width' => 300,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
                              'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
                              'showCharCount' => false,
                              'name' => 'BrandingLayline',
                              'title' => 'Branding / Layline',
@@ -1778,6 +1749,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'excludeFromSearchIndex' => false,
                           )),
                         ),
                          'locked' => false,
@@ -2351,36 +2325,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                  'permissions' => NULL,
                                  'childs' => 
                                 array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                                     'fieldtype' => 'numeric',
-                                     'width' => 300,
-                                     'defaultValue' => NULL,
-                                     'queryColumnType' => 'double',
-                                     'columnType' => 'double',
-                                     'phpdocType' => 'float',
-                                     'integer' => false,
-                                     'unsigned' => false,
-                                     'minValue' => NULL,
-                                     'maxValue' => NULL,
-                                     'unique' => false,
-                                     'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
-                                     'name' => 'mumberOfItems',
-                                     'title' => 'Number of Items',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left: 20px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                      'fieldtype' => 'numeric',
