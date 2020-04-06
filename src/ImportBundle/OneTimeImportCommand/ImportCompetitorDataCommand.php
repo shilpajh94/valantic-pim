@@ -13,6 +13,7 @@ use ImportBundle\Services\Import;
 class ImportCompetitorDataCommand extends AbstractCommand
 {
     private $common;
+    private $fileColumns;
     private $successCount = 0;
     private $failedCount = 0;
     const COMPETITOR_PARTS_LOG_DIR = 'var/logs/competitor-parts/';
@@ -29,12 +30,16 @@ class ImportCompetitorDataCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $time = new \DateTime();
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
         $input_file = $input->getArgument('input_file');
-        $excelDataNewArray = $this->getCSVData($input_file);
+        $csvImportedData = Import::getCSVData($input_file);
+        $this->fileColumns = $csvImportedData['header'];
+        $excelDataNewArray = $csvImportedData['data'];
+        unset($csvImportedData);
         
-        $competitorDataCompetitorFolderId= DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_FOLDER)->getId();
-        $competitorDataCompetitorPartsFolderId= DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER)->getId();
+        DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_FOLDER);
+        DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER);
         
         echo "Script started.\n";
         echo "Processing has been started for file: ".$input_file.".\n\n";
@@ -49,27 +54,33 @@ class ImportCompetitorDataCommand extends AbstractCommand
             $filePath = self::COMPETITOR_PARTS_LOG_DIR.'competitor-import-'.time().'.csv';
             $fileName = fopen($filePath,"w");
 
-            $csvHeaders = array_keys($excelDataNewArray[0]);
-            $csvHeaders[] = 'Status';
-
-            fputcsv($fileName, $csvHeaders);
+            $this->fileColumns[] = 'Status';
+            fputcsv($fileName, $this->fileColumns);
             
-            foreach ($excelDataNewArray as $key => $record) {
+            foreach ($excelDataNewArray as $key => $recordValue) {
+                $recordValue['Status'] = '';
+                $record = array_combine($this->fileColumns, $recordValue);
                 echo "Processing row: ". ($key + 1)."\n";
                 $errorsData = array();
                 
                 if(empty(trim($record['Competitor Name'])))
                     $errorsData[] = 'Competitor Name should not be blank.';
                 
-                if(empty(trim($record['Competitor Product Name'])))
+                if(isset($record['Competitor Product Name']) && empty(trim($record['Competitor Product Name'])))
                     $errorsData[] = 'Competitor Product Name should not be blank.';
 
-                if(empty(trim($record['Competitor Part Number'])))
+                if(isset($record['Competitive Brand']) && empty(trim($record['Competitive Brand'])))
+                    $errorsData[] = 'Competitive Brand should not be blank.';
+
+                if(isset($record['Competitor Part Number']) && empty(trim($record['Competitor Part Number'])))
                     $errorsData[] = 'Competitor Part Number should not be blank.';
+
+                if(isset($record['Competitve Part Number']) && empty(trim($record['Competitve Part Number'])))
+                    $errorsData[] = 'Competitve Part Number should not be blank.';
 
                 if(!count($errorsData))
                 {
-                    $errorsData = $this->createCompetitorPart($record, $competitorDataCompetitorFolderId, $competitorDataCompetitorPartsFolderId);
+                    $errorsData = $this->createCompetitorPart($record);
                 }
                 
                 if(isset($errorsData['SUCCESS']))
@@ -87,7 +98,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
                     $excelDataNewArray[$key]['Status'] = $allErrorsInString;
                     echo $errorsString .= $allErrorsInString."\n";
                 }
-
+                unset($errorsData);
                 fputcsv($fileName, $excelDataNewArray[$key]);
                 
             }
@@ -99,23 +110,44 @@ class ImportCompetitorDataCommand extends AbstractCommand
         {
             echo "No record found.\n";
         }
-        
+        unset($excelDataNewArray);
         echo "Script stopped. Finished!! \n";
+        $timediff = $time->diff(new \DateTime());
+        echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
+        \Pimcore::collectGarbage();
         die;
     }
 
-    public function createCompetitorPart($data, $competitorDataCompetitorFolderId, $competitorDataCompetitorPartsFolderId)
+    public function createCompetitorPart($data)
     {
         $errorData = array();
         try {
             $competitorName = $data['Competitor Name'];
-            $competitorProductName = $data['Competitor Product Name'];
-            $competitorPartNumber = $data['Competitor Part Number'];
+
+            if(isset($data['Competitor Product Name']))
+                $competitorProductName = $data['Competitor Product Name'];
+            else if(isset($data['Competitive Brand']))
+                $competitorProductName = $data['Competitive Brand'];
+
+            if(isset($data['Competitor Part Number']))
+                $competitorPartNumber = $data['Competitor Part Number'];
+            else if(isset($data['Competitve Part Number']))
+                $competitorPartNumber = $data['Competitve Part Number'];
+
+            if(isset($data['Competitive Industry Standard']))
+                $competitorIndustryStandard = $data['Competitive Industry Standard'];
+            else if(isset($data['Industry Std Desc.']))
+                $competitorIndustryStandard = $data['Industry Std Desc.'];
+
+            // $competitorProductName = $data['Competitor Product Name'];
+            // $competitorPartNumber = $data['Competitor Part Number'];
             $competitorIdInFraction = $data['Competitor ID (in) Fraction'];
             $competitorIdInDec = $data['Competitor ID (in) Dec'];
             $competitorLengthFt = $data['Competitor Length (ft)'];
             $competitorDescription = $data['Competitive Description'];
-            $competitorIndustryStandard = $data['Competitive Industry Standard'];
+            // $competitorIndustryStandard = $data['Competitive Industry Standard'];
+
+            
             $continentalBenefitOverThisHose1 = $data['Continental Benefit Over This Hose 1'];
             $continentalBenefitOverThisHose2 = $data['Continental Benefit Over This Hose 2'];
             $continentalBenefitOverThisHose3 = $data['Continental Benefit Over This Hose 3'];
@@ -127,16 +159,16 @@ class ImportCompetitorDataCommand extends AbstractCommand
             $competitorPriceUOM = $data['Competitor Price UOM'];
             $competitorPrimaryAlternate = $data['Competitor Primary/Alternate'];
             $comments = $data['Comments'];
-
             
             $competitorData['competitorKey'] = $competitorName;
             $competitorData['competitorName'] = $competitorName;
             $competitorData['competitorProductName'] = $competitorProductName;
-            $competitorData['competitorParentId'] = $competitorDataCompetitorFolderId;
             $this->getCompetitorObject($competitorData);
             
             $competitorPartsKey = $competitorName."-".$competitorProductName."-".$competitorPartNumber;
             $competitorPartsKey = \Pimcore\File::getValidFilename($competitorPartsKey);
+
+            $competitorFolderId= DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER."/".$competitorName)->getId();
             $object = DataObject\CompetitorParts::getByPath("/".self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER."/".$competitorPartsKey);
             
             $createdOrUpdated = 'Updated';
@@ -144,7 +176,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
                 $createdOrUpdated = 'Created'; 
                 $object = new DataObject\CompetitorParts();
                 $object->setKey($competitorPartsKey);
-                $object->setParentId($competitorDataCompetitorPartsFolderId);
+                $object->setParentId($competitorFolderId);
                 $this->createdCount++;
             }
             else{
@@ -165,9 +197,16 @@ class ImportCompetitorDataCommand extends AbstractCommand
             $object->setCompetitorListPrice($competitorListPrice);
             if(!empty(trim($competitorPriceDate)))
             {
-                
-                $competitorPriceDateArray = \explode('-',$competitorPriceDate);
-                $competitorPriceDate = $competitorPriceDateArray[1]."-".$competitorPriceDateArray[0]."-".$competitorPriceDateArray[2];
+                if(strpos($competitorPriceDate,'-') !== false){
+                    $competitorPriceDateArray = \explode('-',$competitorPriceDate);
+                    // m-d-Y to d-m-Y
+                    $competitorPriceDate = $competitorPriceDateArray[1]."-".$competitorPriceDateArray[0]."-".$competitorPriceDateArray[2];
+                }
+                else if(strpos($competitorPriceDate,'/') !== false){
+                    $competitorPriceDateArray = \explode('/',$competitorPriceDate);
+                    // d/m/Y to d-m-Y
+                    $competitorPriceDate = $competitorPriceDateArray[0]."-".$competitorPriceDateArray[1]."-".$competitorPriceDateArray[2];
+                }
                 $competitorPriceDate = new \DateTime($competitorPriceDate);
                 $object->setCompetitivePriceDate($competitorPriceDate);
             }
@@ -190,6 +229,8 @@ class ImportCompetitorDataCommand extends AbstractCommand
             $errorData[] = $e->getMessage();
         }
 
+        unset($data);
+        unset($object);
         
         return $errorData;
     }
@@ -199,18 +240,21 @@ class ImportCompetitorDataCommand extends AbstractCommand
      */
     public function getCompetitorObject($competitorData){
         
-        $competitorKey = $competitorData['competitorKey'];
+        // $competitorKey = $competitorData['competitorKey'];
+        $competitorName = $competitorData['competitorName'];
         $competitorProductName = $competitorData['competitorProductName'];
-        $competitorParentId = $competitorData['competitorParentId'];
-        $competitorKey = \Pimcore\File::getValidFilename($competitorKey);
-        $object = DataObject\Competitor::getByPath("/".self::COMPETITIVE_DATA_COMPETITOR_FOLDER."/".$competitorKey);
+        // $competitorParentId = $competitorData['competitorParentId'];
+        $competitorKey = \Pimcore\File::getValidFilename($competitorName.'-'.$competitorProductName);
+        $competitorFolderId= DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_FOLDER."/".$competitorName)->getId();
+                
+        $object = DataObject\Competitor::getByPath("/".self::COMPETITIVE_DATA_COMPETITOR_FOLDER."/".$competitorName."/".$competitorKey);
         if(!$object)
         {
             $object = new DataObject\Competitor();
             $object->setKey($competitorKey);
-            $object->setName($competitorKey);
+            $object->setName($competitorName);
             $object->setProductName($competitorProductName);
-            $object->setParentId($competitorParentId);
+            $object->setParentId($competitorFolderId);
             $object->setPublished(TRUE);   
             $object->save();  
             echo "Competitor: ".$competitorKey." not found, competitor created \n";
@@ -220,55 +264,4 @@ class ImportCompetitorDataCommand extends AbstractCommand
         }
         return $objectPlant;
     }
-
-    /**
-     * return array of given csv file
-     */
-    public function getCSVData($fileName) {
-        try {
-
-            $csvFilePath = $fileName;
-            $firstRowData = array();
-            if (empty($csvFilePath)) {
-                return $firstRowData;
-            }
-
-            // $csvFilePath = PIMCORE_ASSET_DIRECTORY . $filePath;
-
-            $csvFilePath = str_replace("%20", " ", $csvFilePath);
-
-            $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
-            $data = [];
-            $count = 0;
-
-            if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
-                    if ($count == 0) {
-                        foreach ($rowData as $key => $value) {
-                            unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
-                        }
-                        $firstRowData = $rowData;
-                    } else {
-                        $tmpData = [];
-                        foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
-                            $tmpData[$value] = $rowData[$key];
-                        }
-                        $data[] = $tmpData;
-                        $cols = count($rowData);
-                    }
-                    $count++;
-                }
-                fclose($handle);
-            }
-            return $data;
-        } catch (\Exception $e) {
-            return array(
-                'error' => $e->getMessage()
-            );
-        }
-    }
-
-    
 }
