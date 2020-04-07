@@ -148,8 +148,6 @@ non_localized:
         type: 'image'
         label: 'Cut view'
 
-
-
 localized:
     FeaturesBenefitsBulletPoint1:
         type: 'input'
@@ -169,6 +167,9 @@ localized:
     legalText:
         type: 'input'
         label: 'Legal Text'
+    Application:
+        type: 'input'
+        label: 'Application (What does the hose convey?)'
 # panel break here
     longDescription:
         type: 'textarea'
