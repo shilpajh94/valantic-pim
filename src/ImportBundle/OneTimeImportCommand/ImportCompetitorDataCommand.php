@@ -136,8 +136,8 @@ class ImportCompetitorDataCommand extends AbstractCommand
 
             if(isset($data['Competitive Industry Standard']))
                 $competitorIndustryStandard = $data['Competitive Industry Standard'];
-            else if(isset($data['Industry Std Desc.']))
-                $competitorIndustryStandard = $data['Industry Std Desc.'];
+            else if(isset($data['Competitive Ind Stnd']))
+                $competitorIndustryStandard = $data['Competitive Ind Stn'];
 
             // $competitorProductName = $data['Competitor Product Name'];
             // $competitorPartNumber = $data['Competitor Part Number'];
