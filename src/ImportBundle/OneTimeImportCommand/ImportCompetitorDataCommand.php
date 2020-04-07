@@ -127,8 +127,8 @@ class ImportCompetitorDataCommand extends AbstractCommand
         // print_r($data);
         $errorData = array();
         try {
-            $material = ucfirst(strtolower($data['Material']));
-            $Digit6 = ucfirst(strtolower($data['Digit6']));
+            $material = $data['Material'];
+            $Digit6 = $data['Digit6'];
             $competitorName = ucfirst(strtolower($data['Competitor Name']));
 
             if(isset($data['Competitor Product Name']))
