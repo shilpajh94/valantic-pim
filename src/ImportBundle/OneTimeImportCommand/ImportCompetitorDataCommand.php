@@ -18,6 +18,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
     private $fileColumns;
     private $successCount = 0;
     private $failedCount = 0;
+    private $materialArray = array();
     const COMPETITOR_PARTS_LOG_DIR = 'var/logs/competitor-parts/';
     const COMPETITIVE_DATA_FOLDER = 'Competitive Data';
     const COMPETITIVE_DATA_COMPETITOR_FOLDER = 'Competitive Data/Competitor';
@@ -123,6 +124,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
 
     public function createCompetitorPart($data)
     {
+        // print_r($data);
         $errorData = array();
         try {
             $material = ucfirst(strtolower($data['Material']));
@@ -188,6 +190,22 @@ class ImportCompetitorDataCommand extends AbstractCommand
                 $this->updatedCount++;
             }
 
+            if(!empty(trim($material)))
+            {
+                    $materialObj = $this->getMaterialObject($material);
+                    if($materialObj)
+                        $object->setMaterial([$materialObj]);
+            }
+
+            if(!empty(trim($Digit6)))
+            {
+                    $materialObj = $this->getMaterialBaseObject($Digit6);
+                    if($materialObj)
+                        $object->setMaterial([$materialObj]);
+            }
+
+            
+            // print_r($object);
             $object->setCompetitorName($competitorName);
             $object->setCompetitorProductName($competitorProductName);
             $object->setPartNumber($competitorPartNumber);
@@ -244,16 +262,35 @@ class ImportCompetitorDataCommand extends AbstractCommand
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        $query = "SELECT oo_id, o_key, o_path FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
-        $objectMaterial = $this->db->fetchAll($query);
+        $objectMaterial = new DataObject\Product\Listing();
+        $objectMaterial->setCondition("articleNumber LIKE ?", "%".$MaterialKey."%");
+        $objectMaterial->setLimit(1);
+        $objectMaterial->load();
         
         foreach ($objectMaterial as $material) {
-            return $material['oo_id'];
+            return $material;
         }
 
         return false;
     }
 
+    /**
+     * return material object or false
+     */
+    public function getMaterialBaseObject($digit6Key){
+        $objectMaterial = new DataObject\Product\Listing();
+        $objectMaterial->setCondition("o_key LIKE ?", "%".$digit6Key."%");
+        $objectMaterial->setLimit(1);
+        $objectMaterial->load();
+        
+        foreach ($objectMaterial as $material) {
+            return $material;
+        }
+
+        return false;
+    }
+
+    
     /**
      * return competitor object or false
      */
