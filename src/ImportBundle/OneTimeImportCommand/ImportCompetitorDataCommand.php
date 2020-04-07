@@ -122,7 +122,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
     {
         $errorData = array();
         try {
-            $competitorName = $data['Competitor Name'];
+            $competitorName = ucfirst($data['Competitor Name']);
 
             if(isset($data['Competitor Product Name']))
                 $competitorProductName = $data['Competitor Product Name'];
