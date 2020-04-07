@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-27T09:38:42+01:00
+* Generated at: 2020-04-07T13:33:04+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,6 +9,7 @@
 
 
 Fields Summary: 
+- Material [manyToManyObjectRelation]
 - CompetitorName [select]
 - CompetitorProductName [select]
 - PartNumber [input]
@@ -36,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CompetitorParts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585298318,
+   'modificationDate' => 1586259184,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -92,29 +93,234 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+             'fieldtype' => 'manyToManyObjectRelation',
+             'width' => '',
+             'height' => '',
+             'maxItems' => '',
+             'queryColumnType' => 'text',
+             'phpdocType' => 'array',
+             'relationType' => true,
+             'visibleFields' => 
+            array (
+            ),
+             'allowToCreateNewObject' => false,
+             'optimizedAdminLoading' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'lazyLoading' => true,
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Product',
+              ),
+            ),
+             'pathFormatterClass' => '',
+             'name' => 'Material',
+             'title' => 'Material',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
             array (
               0 => 
               array (
-                'key' => 'carlisle',
-                'value' => 'carlisle',
+                'key' => 'Carlisle',
+                'value' => 'Carlisle',
               ),
               1 => 
               array (
-                'key' => 'gates',
-                'value' => 'gates',
+                'key' => 'Carlisle',
+                'value' => 'Carlisle',
               ),
               2 => 
               array (
-                'key' => 'greenline',
-                'value' => 'greenline',
+                'key' => 'Carlisle',
+                'value' => 'Carlisle',
               ),
               3 => 
               array (
-                'key' => 'kanaflex',
-                'value' => 'kanaflex',
+                'key' => 'Dayco',
+                'value' => 'Dayco',
+              ),
+              4 => 
+              array (
+                'key' => 'Dayco',
+                'value' => 'Dayco',
+              ),
+              5 => 
+              array (
+                'key' => 'Dayco',
+                'value' => 'Dayco',
+              ),
+              6 => 
+              array (
+                'key' => 'Dayco',
+                'value' => 'Dayco',
+              ),
+              7 => 
+              array (
+                'key' => 'Dayco',
+                'value' => 'Dayco',
+              ),
+              8 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              9 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              10 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              11 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              12 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              13 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              14 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              15 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              16 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              17 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              18 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              19 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              20 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              21 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              22 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              23 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              24 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              25 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              26 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              27 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              28 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              29 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              30 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              31 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              32 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              33 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              34 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              35 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
+              ),
+              36 => 
+              array (
+                'key' => 'Gates',
+                'value' => 'Gates',
               ),
             ),
              'width' => '',
@@ -141,30 +347,195 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          1 => 
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
             array (
               0 => 
               array (
-                'key' => '1000MP / Mine Spray',
-                'value' => '1000MP / Mine Spray',
+                'key' => 'AIR/OIL HOSE',
+                'value' => 'AIR/OIL HOSE',
               ),
               1 => 
               array (
-                'key' => '119-Blackstorm',
-                'value' => '119-Blackstorm',
+                'key' => 'BARRICADE® FUEL INJECTION HOSE - CLAMSHELL PKG',
+                'value' => 'BARRICADE® FUEL INJECTION HOSE - CLAMSHELL PKG',
               ),
               2 => 
               array (
-                'key' => '300EPDM',
-                'value' => '300EPDM',
+                'key' => 'CHARTER AIR HOSE',
+                'value' => 'CHARTER AIR HOSE',
               ),
               3 => 
               array (
-                'key' => 'Variable Speed',
-                'value' => 'Variable Speed',
+                'key' => 'CHARTER AIR HOSE - BULK',
+                'value' => 'CHARTER AIR HOSE - BULK',
+              ),
+              4 => 
+              array (
+                'key' => 'COG V BANDS',
+                'value' => 'COG V BANDS',
+              ),
+              5 => 
+              array (
+                'key' => 'COOLANT HOSE - FLEETRUNNER®',
+                'value' => 'COOLANT HOSE - FLEETRUNNER®',
+              ),
+              6 => 
+              array (
+                'key' => 'COOLANT HOSE - GREEN STRIPE® 2-PLY STRAIGHT (3 FT. LENGTHS)',
+                'value' => 'COOLANT HOSE - GREEN STRIPE® 2-PLY STRAIGHT (3 FT. LENGTHS)',
+              ),
+              7 => 
+              array (
+                'key' => 'COOLANT HOSE - GREEN STRIPE® 4-PLY HEAVY DUTY (3 FT. LENGTHS)',
+                'value' => 'COOLANT HOSE - GREEN STRIPE® 4-PLY HEAVY DUTY (3 FT. LENGTHS)',
+              ),
+              8 => 
+              array (
+                'key' => 'COOLANT HOSE - GREEN STRIPE® WIRE INSERTED (10 FT. LENGTHS)',
+                'value' => 'COOLANT HOSE - GREEN STRIPE® WIRE INSERTED (10 FT. LENGTHS)',
+              ),
+              9 => 
+              array (
+                'key' => 'COOLANT HOSE - GREEN STRIPE® WIRE INSERTED (5 FT. LENGTHS)',
+                'value' => 'COOLANT HOSE - GREEN STRIPE® WIRE INSERTED (5 FT. LENGTHS)',
+              ),
+              10 => 
+              array (
+                'key' => 'COOLANT HOSE - MOLDED',
+                'value' => 'COOLANT HOSE - MOLDED',
+              ),
+              11 => 
+              array (
+                'key' => 'COOLANT HOSE - SILICONE (3 FT. LENGTHS)',
+                'value' => 'COOLANT HOSE - SILICONE (3 FT. LENGTHS)',
+              ),
+              12 => 
+              array (
+                'key' => 'COOLANT HOSE - SMALL I.D.',
+                'value' => 'COOLANT HOSE - SMALL I.D.',
+              ),
+              13 => 
+              array (
+                'key' => 'COOLANT HOSE - VULCO® STRAIGHT (3 FT. LENGTHS)',
+                'value' => 'COOLANT HOSE - VULCO® STRAIGHT (3 FT. LENGTHS)',
+              ),
+              14 => 
+              array (
+                'key' => 'FUEL FILL HOSE (3 FT. LENGTHS)',
+                'value' => 'FUEL FILL HOSE (3 FT. LENGTHS)',
+              ),
+              15 => 
+              array (
+                'key' => 'FUEL HOSE',
+                'value' => 'FUEL HOSE',
+              ),
+              16 => 
+              array (
+                'key' => 'FUEL LINE HOSE - PVC/EEC',
+                'value' => 'FUEL LINE HOSE - PVC/EEC',
+              ),
+              17 => 
+              array (
+                'key' => 'HEATER HOSE',
+                'value' => 'HEATER HOSE',
+              ),
+              18 => 
+              array (
+                'key' => 'HEATER HOSE - CHARTER',
+                'value' => 'HEATER HOSE - CHARTER',
+              ),
+              19 => 
+              array (
+                'key' => 'HEATER HOSE - FIREWALL',
+                'value' => 'HEATER HOSE - FIREWALL',
+              ),
+              20 => 
+              array (
+                'key' => 'HEATER HOSE - GREEN STRIPE',
+                'value' => 'HEATER HOSE - GREEN STRIPE',
+              ),
+              21 => 
+              array (
+                'key' => 'HEATER HOSE - POLYBAGGED',
+                'value' => 'HEATER HOSE - POLYBAGGED',
+              ),
+              22 => 
+              array (
+                'key' => 'HEATER HOSE - SAFETY STRIPE',
+                'value' => 'HEATER HOSE - SAFETY STRIPE',
+              ),
+              23 => 
+              array (
+                'key' => 'MICRO-V BELTS',
+                'value' => 'MICRO-V BELTS',
+              ),
+              24 => 
+              array (
+                'key' => 'MISC HOSE',
+                'value' => 'MISC HOSE',
+              ),
+              25 => 
+              array (
+                'key' => 'POWER BRAKE HOSE',
+                'value' => 'POWER BRAKE HOSE',
+              ),
+              26 => 
+              array (
+                'key' => 'RADIATOR HOSE',
+                'value' => 'RADIATOR HOSE',
+              ),
+              27 => 
+              array (
+                'key' => 'SAFETY STRIPE AIR HOSE',
+                'value' => 'SAFETY STRIPE AIR HOSE',
+              ),
+              28 => 
+              array (
+                'key' => 'THERMO GPX AIR HOSE',
+                'value' => 'THERMO GPX AIR HOSE',
+              ),
+              29 => 
+              array (
+                'key' => 'TRANSMISSION OIL COOLER HOSE - BULK',
+                'value' => 'TRANSMISSION OIL COOLER HOSE - BULK',
+              ),
+              30 => 
+              array (
+                'key' => 'TRANSMISSION OIL COOLER HOSE - CLAMSHELL PKG',
+                'value' => 'TRANSMISSION OIL COOLER HOSE - CLAMSHELL PKG',
+              ),
+              31 => 
+              array (
+                'key' => 'TRI-POWER POWERBAND BELTS',
+                'value' => 'TRI-POWER POWERBAND BELTS',
+              ),
+              32 => 
+              array (
+                'key' => 'V RIBBED',
+                'value' => 'V RIBBED',
+              ),
+              33 => 
+              array (
+                'key' => 'V RIBBED J BELT',
+                'value' => 'V RIBBED J BELT',
+              ),
+              34 => 
+              array (
+                'key' => 'VACUUM TUBING - NON-REINFORCED',
+                'value' => 'VACUUM TUBING - NON-REINFORCED',
+              ),
+              35 => 
+              array (
+                'key' => 'VACUUM TUBING - RADIATOR OVERFLOW',
+                'value' => 'VACUUM TUBING - RADIATOR OVERFLOW',
+              ),
+              36 => 
+              array (
+                'key' => 'VACUUM TUBING - REINFORCED WINDSHIELD',
+                'value' => 'VACUUM TUBING - REINFORCED WINDSHIELD',
               ),
             ),
              'width' => '',
@@ -191,7 +562,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          2 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -217,7 +588,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          3 => 
+          4 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -234,7 +605,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -243,7 +614,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          4 => 
+          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'fieldtype' => 'numeric',
              'width' => '',
@@ -273,7 +644,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          5 => 
+          6 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'fieldtype' => 'numeric',
              'width' => '',
@@ -303,7 +674,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          6 => 
+          7 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
              'fieldtype' => 'textarea',
              'width' => 400,
@@ -329,7 +700,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          7 => 
+          8 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -355,7 +726,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          8 => 
+          9 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -381,7 +752,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          9 => 
+          10 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -407,7 +778,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          10 => 
+          11 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -433,7 +804,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          11 => 
+          12 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -459,7 +830,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          12 => 
+          13 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
              'fieldtype' => 'date',
              'queryColumnType' => 'bigint(20)',
@@ -482,7 +853,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          13 => 
+          14 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -508,7 +879,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          14 => 
+          15 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'fieldtype' => 'numeric',
              'width' => '',
@@ -538,7 +909,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          15 => 
+          16 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -564,7 +935,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          16 => 
+          17 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -590,7 +961,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          17 => 
+          18 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
@@ -616,7 +987,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          18 => 
+          19 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
              'fieldtype' => 'textarea',
              'width' => 400,

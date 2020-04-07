@@ -2,6 +2,7 @@
 
 namespace ImportBundle\OneTimeImportCommand;
 
+use Pimcore\Db;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,6 +13,7 @@ use ImportBundle\Services\Import;
 
 class ImportCompetitorDataCommand extends AbstractCommand
 {
+    private $db;
     private $common;
     private $fileColumns;
     private $successCount = 0;
@@ -23,6 +25,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
 
     protected function configure()
     {
+        $this->db = Db::get();
         $this->setName('onetime-import:competitor-data')
             ->setDescription('Commamd to imports competitor data')
             ->addArgument('input_file', InputArgument::REQUIRED, 'Input file path');
@@ -122,7 +125,9 @@ class ImportCompetitorDataCommand extends AbstractCommand
     {
         $errorData = array();
         try {
-            $competitorName = ucfirst($data['Competitor Name']);
+            $material = ucfirst(strtolower($data['Material']));
+            $Digit6 = ucfirst(strtolower($data['Digit6']));
+            $competitorName = ucfirst(strtolower($data['Competitor Name']));
 
             if(isset($data['Competitor Product Name']))
                 $competitorProductName = $data['Competitor Product Name'];
@@ -233,6 +238,20 @@ class ImportCompetitorDataCommand extends AbstractCommand
         unset($object);
         
         return $errorData;
+    }
+
+    /**
+     * return material object or false
+     */
+    public function getMaterialObject($MaterialKey){
+        $query = "SELECT oo_id, o_key, o_path FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
+        $objectMaterial = $this->db->fetchAll($query);
+        
+        foreach ($objectMaterial as $material) {
+            return $material['oo_id'];
+        }
+
+        return false;
     }
 
     /**
