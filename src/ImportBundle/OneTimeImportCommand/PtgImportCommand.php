@@ -274,12 +274,12 @@ class PtgImportCommand extends AbstractCommand
             $ar = array(
                 'ooo_id'    =>  $r['o_id'],
                 'language'  =>  'en',
-                'FeaturesBenefitsBulletPoint1'  =>  $r['Bullet_Point_1'],
-                'FeaturesBenefitsBulletPoint2'  =>  $r['Bullet_Point_2'],
-                'FeaturesBenefitsBulletPoint3'  =>  $r['Bullet_Point_3'],
-                'FeaturesBenefitsBulletPoint4'  =>  $r['Bullet_Point_4'],
-                'FeaturesBenefitsBulletPoint5'  =>  $r['Bullet_Point_5'],
-                'longDescription'  =>  strip_tags($r['LongDescriptionHTML'])
+                'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:'',
+                'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:'',
+                'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:'',
+                'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:'',
+                'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:'',
+                'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:''
             );
             array_push($productLocalizedData, $ar);
             // array_push($productLocalizedQueryL, $ar);
@@ -293,10 +293,8 @@ class PtgImportCommand extends AbstractCommand
                     // 'customerProductFamily'   =>  $r[''],
                     // 'heightIn'   =>  $r[''],
                     // 'heightmm'   =>  $r[''],
-                    'widthmm__value'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ?: '',
-                    'widthmm__unit'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ? 'mm' : '',
-                    'widthIn__value'   =>  !$this->isSheetValueEmpty($r['Width_in']) ?: '',
-                    'widthIn__unit'   =>  !$this->isSheetValueEmpty($r['Width_in']) ? 'in' : '',
+                    'widthmm'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ?: '',
+                    'widthIn'   =>  !$this->isSheetValueEmpty($r['Width_in']) ?: '',
                     // 'CADFile'   =>  $r[''],
                     // 'CADLink'   =>  $r[''],
                     // 'PDFDrawing'   =>  $r[''],
@@ -318,14 +316,10 @@ class PtgImportCommand extends AbstractCommand
                     // 'insideLengthIN__unit' => '',
                     // 'insideLengthMM__value' => '',
                     // 'insideLengthMM__unit' => '',
-                    'datumLengthIn__value' => !empty($r['Datum_Length_in']) ?: '',
-                    'datumLengthIn__unit' => !empty($r['Datum_Length_in']) ? 'in' : '',
-                    'datumLengtMM__value' => !empty($r['Datum_Length_mm']) ?: '',
-                    'datumLengtMM__unit' => !empty($r['Datum_Length_mm']) ? 'mm' : '',
-                    'outsideLengthIN__value' => !empty($r['Outside_Length_in']) ?: '',
-                    'outsideLengthIN__unit' => !empty($r['Outside_Length_in']) ? 'in' : '',
-                    'outsideLengtMM__value' => !empty($r['Outside_Length_mm']) ?: '',
-                    'outsideLengtMM__unit' => !empty($r['Outside_Length_mm']) ? 'mm' : '',
+                    'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ?: '',
+                    'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_mm']) ?: '',
+                    'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ?: '',
+                    'outsideLengtMM' => !$this->isSheetValueEmpty($r['Outside_Length_mm']) ?: '',
                     // 'productEffectiveLengthIn__value' => '',
                     // 'productEffectiveLengthIn__unit ' => '',
                     // 'productEffectiveLengthMM__value' => '',
@@ -343,10 +337,8 @@ class PtgImportCommand extends AbstractCommand
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
                     // 'pitchUOM' =>  $r[''],
-                    'pitchIN__value' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ?: '',
-                    'pitchIN__unit' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ? 'in' : '',
-                    'pitchMM__value' => !$this->isSheetValueEmpty($r['Pitch_mm ']) ?: '',
-                    'pitchMM__unit' =>  !$this->isSheetValueEmpty($r['Pitch_mm ']) ? 'mm' : '',
+                    'pitchIN' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ?: '',
+                    'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_mm ']) ?: '',
                     // 'pitchLengthUOM' =>  $r[''],
                     // 'pitchLengthIN__value' =>  ,
                     // 'pitchLengthIN__unit' =>  ,
@@ -375,10 +367,8 @@ class PtgImportCommand extends AbstractCommand
                     // 'overallThickness__unit'  =>  $r[''],
                     // 'hubDiameter__value'  =>  $r[''],
                     // 'hubDiameter__unit'  =>  $r[''],
-                    'maxBoreSizeIN__value'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ?: '',
-                    'maxBoreSizeIN__unit'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? 'in' : '',
-                    'maxBoreSizeMM__value'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ?: '',
-                    'maxBoreSizeMM__unit'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ? 'mm' : '',
+                    'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ?: '',
+                    'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ?: '',
                     // 'beltWidth__value'  =>  $r[''],
                     // 'beltWidth__unit'  =>  $r[''],
                     // 'flangeDiameter__value'  =>  $r[''],
@@ -391,32 +381,24 @@ class PtgImportCommand extends AbstractCommand
                     // 'stockThickness__unit'  =>  $r[''],
                 );
                 if (!$this->isSheetValueEmpty($r['Outside_Diameter_in'])) {
-                    $ar['outsideDiameter__value'] = $r['Outside_Diameter_in'];
-                    $ar['outsideDiameter__unit'] = 'in';
+                    $ar['outsideDiameterIn'] = $r['Outside_Diameter_in'];
                 } else if (!$this->isSheetValueEmpty($r['Outside_Diameter_mm'])) {
-                    $ar['outsideDiameter__value'] = $r['Outside_Diameter_in'];
-                    $ar['outsideDiameter__unit'] = 'mm';
+                    $ar['outsideDiameterMm'] = $r['Outside_Diameter_mm'];
                 }
                 if (!$this->isSheetValueEmpty($r['Pitch_Diameter_in'])) {
-                    $ar['pitchDiameter__value'] = $r['Pitch_Diameter_in'];
-                    $ar['pitchDiameter__unit'] = 'in';
+                    $ar['pitchDiameterIn'] = $r['Pitch_Diameter_in'];
                 } else if (!$this->isSheetValueEmpty($r['Pitch_Diameter_mm'])) {
-                    $ar['pitchDiameter__value'] = $r['Face_Width_mm'];
-                    $ar['pitchDiameter__unit'] = 'mm';
+                    $ar['pitchDiameterMm'] = $r['Pitch_Diameter_mm'];
                 }
                 if (!$this->isSheetValueEmpty($r['Face_Width_in'])) {
-                    $ar['faceWidth__value'] = $r['Face_Width_in'];
-                    $ar['faceWidth__unit'] = 'in';
+                    $ar['faceWidthIn'] = $r['Face_Width_in'];
                 } else if (!$this->isSheetValueEmpty($r['Face_Width_mm'])) {
-                    $ar['faceWidth__value'] = $r['Face_Width_mm'];
-                    $ar['faceWidth__unit'] = 'mm';
+                    $ar['faceWidthMm'] = $r['Face_Width_mm'];
                 }
                 if (!$this->isSheetValueEmpty($r['Min_Bore_Size_in_Bushings'])) {
-                    $ar['minBore__value'] = $r['Min_Bore_Size_in_Bushings'];
-                    $ar['minBore__unit'] = 'in';
+                    $ar['minBoreIn'] = $r['Min_Bore_Size_in_Bushings'];
                 } else if (!$this->isSheetValueEmpty($r['Min_Bore_Size_mm'])) {
-                    $ar['minBore__value'] = $r['Min_Bore_Size_mm'];
-                    $ar['minBore__unit'] = 'mm';
+                    $ar['minBoreMm'] = $r['Min_Bore_Size_mm'];
                 }
                 array_push($metalFertQuery, $ar);
                 // array_push($metalFertStore, $ar);
@@ -478,12 +460,12 @@ class PtgImportCommand extends AbstractCommand
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'material'  =>  $r['material'],
-                'minimumTemperatureF'  =>  $r['minimumTemperatureF'],
-                'minimumTemperatureC'  =>  $r['minimumTemperatureC'],
-                'reinforcement'  =>  $r['reinforcement'],
-                'maximumTemperatureF'  =>  $r['maximumTemperatureF'],
-                'maximumTemperatureC'  =>  $r['maximumTemperatureC']
+                'material'  =>  !$this->isSheetValueEmpty($r['material'])?$r['material']:'',
+                'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:'',
+                'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:'',
+                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:'',
+                'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF'])?$r['maximumTemperatureF']:'',
+                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC'])?$r['maximumTemperatureC']:''
             );
         }
         return $d;
