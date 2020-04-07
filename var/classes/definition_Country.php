@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-20T08:35:22+01:00
+* Generated at: 2020-04-03T09:33:25+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Country',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1584689722,
+   'modificationDate' => 1585899205,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -134,7 +134,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => 'Product',
+   'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 

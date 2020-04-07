@@ -1,18 +1,18 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T09:22:22+02:00
+* Generated at: 2020-04-03T10:19:40+02:00
 * IP: 192.168.30.66
 
 
 Fields Summary: 
 - color [select]
 - customerProductFamily [input]
-- widthmm [quantityValue]
-- widthIn [quantityValue]
-- CADFile [checkbox]
+- widthmm [numeric]
+- widthIn [numeric]
+- CADFile [booleanSelect]
 - CADLink [input]
-- PDFDrawing [checkbox]
+- PDFDrawing [booleanSelect]
 - PDFLink [input]
 */ 
 
@@ -149,37 +149,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'widthmm',
                  'title' => 'Width (mm)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -189,37 +179,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                 'fieldtype' => 'quantityValue',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 300,
-                 'unitWidth' => NULL,
                  'defaultValue' => NULL,
-                 'defaultUnit' => NULL,
-                 'validUnits' => 
-                array (
-                  0 => '1',
-                  1 => '2',
-                ),
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
                  'decimalPrecision' => NULL,
-                 'autoConvert' => false,
-                 'queryColumnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'columnType' => 
-                array (
-                  'value' => 'double',
-                  'unit' => 'bigint(20)',
-                ),
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                  'name' => 'widthIn',
                  'title' => 'Width (in)',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -249,11 +229,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'fieldtype' => 'checkbox',
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'tinyint(1)',
-                 'columnType' => 'tinyint(1)',
+              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                 'fieldtype' => 'booleanSelect',
+                 'yesLabel' => 'Yes',
+                 'noLabel' => 'No',
+                 'emptyLabel' => 'Empty',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Empty',
+                    'value' => 0,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Yes',
+                    'value' => 1,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'No',
+                    'value' => -1,
+                  ),
+                ),
+                 'width' => 100,
+                 'queryColumnType' => 'tinyint(1) null',
+                 'columnType' => 'tinyint(1) null',
                  'phpdocType' => 'boolean',
                  'name' => 'CADFile',
                  'title' => 'CAD File',
@@ -261,7 +262,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -298,11 +299,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                 'fieldtype' => 'checkbox',
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'tinyint(1)',
-                 'columnType' => 'tinyint(1)',
+              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                 'fieldtype' => 'booleanSelect',
+                 'yesLabel' => 'Yes',
+                 'noLabel' => 'No',
+                 'emptyLabel' => 'Empty',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Empty',
+                    'value' => 0,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Yes',
+                    'value' => 1,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'No',
+                    'value' => -1,
+                  ),
+                ),
+                 'width' => 100,
+                 'queryColumnType' => 'tinyint(1) null',
+                 'columnType' => 'tinyint(1) null',
                  'phpdocType' => 'boolean',
                  'name' => 'PDFDrawing',
                  'title' => 'PDF Drawing ',
@@ -310,7 +332,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',

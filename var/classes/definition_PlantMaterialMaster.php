@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T11:19:19+02:00
+* Generated at: 2020-04-03T09:49:13+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -16,7 +16,8 @@ Fields Summary:
 - CommodityCode [input]
 - MinOrderQuantity [numeric]
 - OrderingQuantityIncrements [numeric]
-- StandardPackQuantity [quantityValue]
+- StandardPackQuantity [numeric]
+- StandardPackQuantityUOM [input]
 - OutsidePurchaseIdentifier [booleanSelect]
 - SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
@@ -33,7 +34,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585732759,
+   'modificationDate' => 1585900153,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -390,39 +391,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'fieldtype' => 'quantityValue',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
                      'width' => 245,
-                     'unitWidth' => NULL,
                      'defaultValue' => NULL,
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => '1',
-                      1 => '2',
-                      2 => '5',
-                      3 => '3',
-                    ),
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'autoConvert' => false,
-                     'queryColumnType' => 
-                    array (
-                      'value' => 'double',
-                      'unit' => 'bigint(20)',
-                    ),
-                     'columnType' => 
-                    array (
-                      'value' => 'double',
-                      'unit' => 'bigint(20)',
-                    ),
-                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                      'name' => 'StandardPackQuantity',
                      'title' => 'Standard Pack Quantity',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -432,6 +421,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 245,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'StandardPackQuantityUOM',
+                     'title' => 'Standard Pack Quantity - UOM',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'E',
@@ -755,7 +770,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f505.svg',
    'previewUrl' => '',
-   'group' => '',
+   'group' => 'Products Data',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 

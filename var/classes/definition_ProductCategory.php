@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-03-20T08:54:12+01:00
+* Generated at: 2020-04-03T09:35:10+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1584690852,
+   'modificationDate' => 1585899310,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -664,7 +664,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
    'previewUrl' => '',
-   'group' => 'Product',
+   'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '@AppBundle\\Website\\LinkGenerator\\CategoryLinkGenerator',
    'propertyVisibility' => 
