@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T10:23:41+02:00
+* Generated at: 2020-04-07T10:39:23+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -25,7 +25,7 @@ Fields Summary:
 -- FeaturesBenefitsBulletPoint5 [input]
 -- legalText [input]
 -- Application [input]
--- longDescription [textarea]
+-- longDescription [wysiwyg]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
 - oldMaterialCode [input]
@@ -112,7 +112,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585902221,
+   'modificationDate' => 1586248763,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -764,7 +764,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -796,23 +796,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                  'childs' => 
                                                 array (
                                                   0 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                                     'fieldtype' => 'textarea',
+                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                                     'fieldtype' => 'wysiwyg',
                                                      'width' => 300,
                                                      'height' => '',
-                                                     'maxLength' => NULL,
-                                                     'showCharCount' => false,
-                                                     'excludeFromSearchIndex' => false,
                                                      'queryColumnType' => 'longtext',
                                                      'columnType' => 'longtext',
                                                      'phpdocType' => 'string',
+                                                     'toolbarConfig' => '',
+                                                     'excludeFromSearchIndex' => false,
                                                      'name' => 'longDescription',
                                                      'title' => 'Marketing / Long Description',
                                                      'tooltip' => '',
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => false,
+                                                     'locked' => NULL,
                                                      'style' => 'margin-left:20px;',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -2195,7 +2194,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2227,23 +2226,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'childs' => 
                                     array (
                                       0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                         'fieldtype' => 'textarea',
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                         'fieldtype' => 'wysiwyg',
                                          'width' => 300,
                                          'height' => '',
-                                         'maxLength' => NULL,
-                                         'showCharCount' => false,
-                                         'excludeFromSearchIndex' => false,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
+                                         'toolbarConfig' => '',
+                                         'excludeFromSearchIndex' => false,
                                          'name' => 'longDescription',
                                          'title' => 'Marketing / Long Description',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => false,
+                                         'locked' => NULL,
                                          'style' => 'margin-left:20px;',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
