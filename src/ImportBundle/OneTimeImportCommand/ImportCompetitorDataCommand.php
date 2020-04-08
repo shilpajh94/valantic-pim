@@ -66,7 +66,17 @@ class ImportCompetitorDataCommand extends AbstractCommand
                 $record = array_combine($this->fileColumns, $recordValue);
                 echo "Processing row: ". ($key + 1)."\n";
                 $errorsData = array();
-                
+
+                if(isset($record['Material']) || isset($record['Digit6']))
+                {
+                    if(isset($record['Material']) && empty($record['Material']) && isset($record['Digit6']) && empty(trim($record['Digit6'])))
+                        $errorsData[] = 'Material and 6 digit both should not be empty, At least one should have a value.';
+                }
+                else
+                {
+                    $errorsData[] = 'Material or 6 digit field required.';
+                }
+
                 if(empty(trim($record['Competitor Name'])))
                     $errorsData[] = 'Competitor Name should not be blank.';
                 
@@ -128,128 +138,133 @@ class ImportCompetitorDataCommand extends AbstractCommand
         $errorData = array();
         try {
             $material = $data['Material'];
-            $Digit6 = $data['Digit6'];
-            $competitorName = ucfirst(strtolower($data['Competitor Name']));
+            $digit6 = $data['Digit6'];
 
-            if(isset($data['Competitor Product Name']))
-                $competitorProductName = $data['Competitor Product Name'];
-            else if(isset($data['Competitive Brand']))
-                $competitorProductName = $data['Competitive Brand'];
+            if($material)
+                $materialObj = $this->getMaterialObject($material);
 
-            if(isset($data['Competitor Part Number']))
-                $competitorPartNumber = $data['Competitor Part Number'];
-            else if(isset($data['Competitve Part Number']))
-                $competitorPartNumber = $data['Competitve Part Number'];
+            if($digit6)
+                $materialObj = $this->getMaterialBaseObject($digit6);
 
-            if(isset($data['Competitive Industry Standard']))
-                $competitorIndustryStandard = $data['Competitive Industry Standard'];
-            else if(isset($data['Competitive Ind Stnd']))
-                $competitorIndustryStandard = $data['Competitive Ind Stn'];
-
-            // $competitorProductName = $data['Competitor Product Name'];
-            // $competitorPartNumber = $data['Competitor Part Number'];
-            $competitorIdInFraction = $data['Competitor ID (in) Fraction'];
-            $competitorIdInDec = $data['Competitor ID (in) Dec'];
-            $competitorLengthFt = $data['Competitor Length (ft)'];
-            $competitorDescription = $data['Competitive Description'];
-            // $competitorIndustryStandard = $data['Competitive Industry Standard'];
-
-            
-            $continentalBenefitOverThisHose1 = $data['Continental Benefit Over This Hose 1'];
-            $continentalBenefitOverThisHose2 = $data['Continental Benefit Over This Hose 2'];
-            $continentalBenefitOverThisHose3 = $data['Continental Benefit Over This Hose 3'];
-            $competitorListPrice = $data['Competitor List Price'];
-            $competitorPriceDate = $data['Competitive Price Date'];
-            $documentCurrency = $data['Document Currency'];
-            $competitorMultiplier = $data['Competitive Multiplier'];
-            $competitorNetPrice = $data['Competitor Net Price'];
-            $competitorPriceUOM = $data['Competitor Price UOM'];
-            $competitorPrimaryAlternate = $data['Competitor Primary/Alternate'];
-
-            $commentsArr = array($data['Comment1'], $data['Comment2.'], $data['Comment3']);
-            $comments = implode(' ',$commentsArr);
-            
-            $competitorData['competitorKey'] = $competitorName;
-            $competitorData['competitorName'] = $competitorName;
-            $competitorData['competitorProductName'] = $competitorProductName;
-            $this->getCompetitorObject($competitorData);
-            
-            $competitorPartsKey = $competitorName."-".$competitorProductName."-".$competitorPartNumber;
-            $competitorPartsKey = \Pimcore\File::getValidFilename($competitorPartsKey);
-
-            $competitorFolderId= DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER."/".$competitorName)->getId();
-            $object = DataObject\CompetitorParts::getByPath("/".self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER."/".$competitorPartsKey);
-            
-            $createdOrUpdated = 'Updated';
-            if(!$object){      
-                $createdOrUpdated = 'Created'; 
-                $object = new DataObject\CompetitorParts();
-                $object->setKey($competitorPartsKey);
-                $object->setParentId($competitorFolderId);
-                $this->createdCount++;
-            }
-            else{
-                $this->updatedCount++;
-            }
-
-            if(!empty(trim($material)))
+            if($materialObj)
             {
-                    $materialObj = $this->getMaterialObject($material);
-                    if($materialObj)
-                        $object->setMaterial([$materialObj]);
-            }
+                $competitorName = ucfirst(strtolower($data['Competitor Name']));
 
-            if(!empty(trim($Digit6)))
-            {
-                    $materialObj = $this->getMaterialBaseObject($Digit6);
-                    if($materialObj)
-                        $object->setMaterial([$materialObj]);
-            }
+                if(isset($data['Competitor Product Name']))
+                    $competitorProductName = $data['Competitor Product Name'];
+                else if(isset($data['Competitive Brand']))
+                    $competitorProductName = $data['Competitive Brand'];
 
-            
-            // print_r($object);
-            $object->setCompetitorName($competitorName);
-            $object->setCompetitorProductName($competitorProductName);
-            $object->setPartNumber($competitorPartNumber);
-            $object->setCompetitorIdFraction($competitorIdInFraction);
-            $object->setCompetitorIdDec($competitorIdInDec);
-            $object->setCompetitorLength($competitorLengthFt);
-            $object->setCompetitiveDescription($competitorDescription);
-            $object->setCompetitiveIndustryStandard($competitorIndustryStandard);
-            $object->setContinentalBenefitOverHose1($continentalBenefitOverThisHose1);
-            $object->setContinentalBenefitOverHose2($continentalBenefitOverThisHose2);
-            $object->setContinentalBenefitOverHose3($continentalBenefitOverThisHose3);
-            $object->setCompetitorListPrice($competitorListPrice);
-            if(!empty(trim($competitorPriceDate)))
-            {
-                if(strpos($competitorPriceDate,'-') !== false){
-                    $competitorPriceDateArray = \explode('-',$competitorPriceDate);
-                    // m-d-Y to d-m-Y
-                    $competitorPriceDate = $competitorPriceDateArray[1]."-".$competitorPriceDateArray[0]."-".$competitorPriceDateArray[2];
+                if(isset($data['Competitor Part Number']))
+                    $competitorPartNumber = $data['Competitor Part Number'];
+                else if(isset($data['Competitve Part Number']))
+                    $competitorPartNumber = $data['Competitve Part Number'];
+
+                if(isset($data['Competitive Industry Standard']))
+                    $competitorIndustryStandard = $data['Competitive Industry Standard'];
+                else if(isset($data['Competitive Ind Stnd']))
+                    $competitorIndustryStandard = $data['Competitive Ind Stn'];
+
+                // $competitorProductName = $data['Competitor Product Name'];
+                // $competitorPartNumber = $data['Competitor Part Number'];
+                $competitorIdInFraction = $data['Competitor ID (in) Fraction'];
+                $competitorIdInDec = $data['Competitor ID (in) Dec'];
+                $competitorLengthFt = $data['Competitor Length (ft)'];
+                $competitorDescription = $data['Competitive Description'];
+                // $competitorIndustryStandard = $data['Competitive Industry Standard'];
+
+                
+                $continentalBenefitOverThisHose1 = $data['Continental Benefit Over This Hose 1'];
+                $continentalBenefitOverThisHose2 = $data['Continental Benefit Over This Hose 2'];
+                $continentalBenefitOverThisHose3 = $data['Continental Benefit Over This Hose 3'];
+                $competitorListPrice = $data['Competitor List Price'];
+                $competitorPriceDate = $data['Competitive Price Date'];
+                $documentCurrency = $data['Document Currency'];
+                $competitorMultiplier = $data['Competitive Multiplier'];
+                $competitorNetPrice = $data['Competitor Net Price'];
+                $competitorPriceUOM = $data['Competitor Price UOM'];
+                $competitorPrimaryAlternate = $data['Competitor Primary/Alternate'];
+
+                $commentsArr = array($data['Comment1'], $data['Comment2.'], $data['Comment3']);
+                $comments = implode(' ',$commentsArr);
+                
+                $competitorData['competitorKey'] = $competitorName;
+                $competitorData['competitorName'] = $competitorName;
+                $competitorData['competitorProductName'] = $competitorProductName;
+                $this->getCompetitorObject($competitorData);
+                
+                $competitorPartsKey = $competitorName."-".$competitorProductName."-".$competitorPartNumber;
+                $competitorPartsKey = \Pimcore\File::getValidFilename($competitorPartsKey);
+
+                $competitorFolderId= DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER."/".$competitorName)->getId();
+                $object = DataObject\CompetitorParts::getByPath("/".self::COMPETITIVE_DATA_COMPETITOR_PARTS_FOLDER."/".$competitorName."/".$competitorPartsKey);
+                
+                $createdOrUpdated = 'Updated';
+                if(!$object){      
+                    $createdOrUpdated = 'Created'; 
+                    $object = new DataObject\CompetitorParts();
+                    $object->setKey($competitorPartsKey);
+                    $object->setParentId($competitorFolderId);
+                    $this->createdCount++;
                 }
-                else if(strpos($competitorPriceDate,'/') !== false){
-                    $competitorPriceDateArray = \explode('/',$competitorPriceDate);
-                    // d/m/Y to d-m-Y
-                    $competitorPriceDate = $competitorPriceDateArray[0]."-".$competitorPriceDateArray[1]."-".$competitorPriceDateArray[2];
+                else{
+                    $this->updatedCount++;
                 }
-                $competitorPriceDate = new \DateTime($competitorPriceDate);
-                $object->setCompetitivePriceDate($competitorPriceDate);
-            }
             
-            $object->setDocumentCurrency($documentCurrency);
-            $object->setCompetitiveMultiplier($competitorMultiplier);
-            $object->setCompetitorNetPrice($competitorNetPrice);
-            $object->setCompetitorPriceUOM($competitorPriceUOM);
-            $object->setCompetitorPrimaryAlternate($competitorPrimaryAlternate);
-            $object->setComments($comments);
-            $object->setPublished(TRUE);                   
-            $object->save();    
-
-            if(empty($object)) 
-                $errorData[] = "Competitive Part Number: ".$competitorPartsKey." could not processed ";
+                $object->setMaterial([$materialObj]);
+                $object->setCompetitorName($competitorName);
+                $object->setCompetitorProductName($competitorProductName);
+                $object->setPartNumber($competitorPartNumber);
+                $object->setCompetitorIdFraction($competitorIdInFraction);
+                $object->setCompetitorIdDec($competitorIdInDec);
+                $object->setCompetitorLength($competitorLengthFt);
+                $object->setCompetitiveDescription($competitorDescription);
+                $object->setCompetitiveIndustryStandard($competitorIndustryStandard);
+                $object->setContinentalBenefitOverHose1($continentalBenefitOverThisHose1);
+                $object->setContinentalBenefitOverHose2($continentalBenefitOverThisHose2);
+                $object->setContinentalBenefitOverHose3($continentalBenefitOverThisHose3);
+                $object->setCompetitorListPrice($competitorListPrice);
+                if(!empty(trim($competitorPriceDate)))
+                {
+                    if(strpos($competitorPriceDate,'-') !== false){
+                        $competitorPriceDateArray = \explode('-',$competitorPriceDate);
+                        // m-d-Y to d-m-Y
+                        $competitorPriceDate = $competitorPriceDateArray[1]."-".$competitorPriceDateArray[0]."-".$competitorPriceDateArray[2];
+                    }
+                    else if(strpos($competitorPriceDate,'/') !== false){
+                        $competitorPriceDateArray = \explode('/',$competitorPriceDate);
+                        // d/m/Y to d-m-Y
+                        $competitorPriceDate = $competitorPriceDateArray[0]."-".$competitorPriceDateArray[1]."-".$competitorPriceDateArray[2];
+                    }
+                    $competitorPriceDate = new \DateTime($competitorPriceDate);
+                    $object->setCompetitivePriceDate($competitorPriceDate);
+                }
+                
+                $object->setDocumentCurrency($documentCurrency);
+                $object->setCompetitiveMultiplier($competitorMultiplier);
+                $object->setCompetitorNetPrice($competitorNetPrice);
+                $object->setCompetitorPriceUOM($competitorPriceUOM);
+                $object->setCompetitorPrimaryAlternate($competitorPrimaryAlternate);
+                $object->setComments($comments);
+                $object->setPublished(TRUE);                   
+                $object->save();
+                 
+                if(empty($object)) 
+                    $errorData[] = "Competitive Part Number: ".$competitorPartsKey." could not processed ";
+                else
+                    $errorData['SUCCESS'] = "Competitive Part Number: ".$competitorPartsKey." has been ".$createdOrUpdated.".";
+            
+            }
             else
-                $errorData['SUCCESS'] = "Competitive Part Number: ".$competitorPartsKey." has been ".$createdOrUpdated.".";
-        
+            {
+                if(!empty(trim($material)))
+                    $msg = "Fert level material {$material} not found in system.";
+                else if(!empty(trim($digit6)))
+                    $msg = "Base level Material of 6 digit {$digit6} not found in system.";
+
+                $errorData[] = $msg;
+            }
+            
         } catch (\Exception $e) {
             $errorData[] = $e->getMessage();
         }
