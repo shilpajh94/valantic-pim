@@ -165,7 +165,9 @@ class ImportCompetitorDataCommand extends AbstractCommand
             $competitorNetPrice = $data['Competitor Net Price'];
             $competitorPriceUOM = $data['Competitor Price UOM'];
             $competitorPrimaryAlternate = $data['Competitor Primary/Alternate'];
-            $comments = $data['Comments'];
+
+            $commentsArr = array($data['Comment1'], $data['Comment2.'], $data['Comment3']);
+            $comments = implode(' ',$commentsArr);
             
             $competitorData['competitorKey'] = $competitorName;
             $competitorData['competitorName'] = $competitorName;
