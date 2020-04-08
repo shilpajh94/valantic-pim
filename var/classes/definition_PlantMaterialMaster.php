@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T09:49:13+02:00
+* Generated at: 2020-04-08T08:46:25+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -26,6 +26,7 @@ Fields Summary:
 - TotalReplenismentLeadTime [numeric]
 - SafetyStock [numeric]
 - StockIndicator [select]
+- deletedFlagAtPlantLevel [booleanSelect]
 */ 
 
 
@@ -34,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585900153,
+   'modificationDate' => 1586328384,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -338,8 +339,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
                      'phpdocType' => 'float',
-                     'integer' => true,
-                     'unsigned' => true,
+                     'integer' => false,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -368,8 +369,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
                      'phpdocType' => 'float',
-                     'integer' => true,
-                     'unsigned' => true,
+                     'integer' => false,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -411,7 +412,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -437,7 +438,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -695,7 +696,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
+                     'decimalPrecision' => NULL,
                      'name' => 'SafetyStock',
                      'title' => 'Safety Stock',
                      'tooltip' => '',
@@ -749,6 +750,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'index' => false,
                      'locked' => false,
                      'style' => 'float:left; margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Empty',
+                        'value' => 0,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
+                      ),
+                    ),
+                     'width' => 100,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
+                     'name' => 'deletedFlagAtPlantLevel',
+                     'title' => 'Deleted / Obsoleted Flag Plant Level',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,

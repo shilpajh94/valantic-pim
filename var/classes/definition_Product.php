@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T10:23:41+02:00
+* Generated at: 2020-04-08T09:58:18+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -25,7 +25,7 @@ Fields Summary:
 -- FeaturesBenefitsBulletPoint5 [input]
 -- legalText [input]
 -- Application [input]
--- longDescription [textarea]
+-- longDescription [wysiwyg]
 -- CompletenessPercentage [input]
 -- EmptyFields [textarea]
 - oldMaterialCode [input]
@@ -40,9 +40,6 @@ Fields Summary:
 - currency [input]
 - UnitsInPackage [input]
 - deletedFlagAtClientLevel [booleanSelect]
-- deletedFlagAtPlantLevel [booleanSelect]
-- deletedFlagAtDistributionChainLevel [booleanSelect]
-- deletedFlagAtSalesLevel [booleanSelect]
 - shelfLife [input]
 - nitrosamines [input]
 - rohs [input]
@@ -112,7 +109,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585902221,
+   'modificationDate' => 1586332698,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -764,7 +761,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -796,16 +793,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                  'childs' => 
                                                 array (
                                                   0 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                                     'fieldtype' => 'textarea',
+                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                                     'fieldtype' => 'wysiwyg',
                                                      'width' => 300,
                                                      'height' => '',
-                                                     'maxLength' => NULL,
-                                                     'showCharCount' => false,
-                                                     'excludeFromSearchIndex' => false,
                                                      'queryColumnType' => 'longtext',
                                                      'columnType' => 'longtext',
                                                      'phpdocType' => 'string',
+                                                     'toolbarConfig' => '',
+                                                     'excludeFromSearchIndex' => false,
                                                      'name' => 'longDescription',
                                                      'title' => 'Marketing / Long Description',
                                                      'tooltip' => '',
@@ -1323,135 +1319,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'phpdocType' => 'boolean',
                              'name' => 'deletedFlagAtClientLevel',
                              'title' => 'Deleted / Obsoleted Flag Client Level',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => true,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                             'fieldtype' => 'booleanSelect',
-                             'yesLabel' => 'Yes',
-                             'noLabel' => 'No',
-                             'emptyLabel' => 'Empty',
-                             'options' => 
-                            array (
-                              0 => 
-                              array (
-                                'key' => 'Empty',
-                                'value' => 0,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Yes',
-                                'value' => 1,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'No',
-                                'value' => -1,
-                              ),
-                            ),
-                             'width' => 100,
-                             'queryColumnType' => 'tinyint(1) null',
-                             'columnType' => 'tinyint(1) null',
-                             'phpdocType' => 'boolean',
-                             'name' => 'deletedFlagAtPlantLevel',
-                             'title' => 'Deleted / Obsoleted Flag Plant Level',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => true,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                             'fieldtype' => 'booleanSelect',
-                             'yesLabel' => 'Yes',
-                             'noLabel' => 'No',
-                             'emptyLabel' => 'Empty',
-                             'options' => 
-                            array (
-                              0 => 
-                              array (
-                                'key' => 'Empty',
-                                'value' => 0,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Yes',
-                                'value' => 1,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'No',
-                                'value' => -1,
-                              ),
-                            ),
-                             'width' => 100,
-                             'queryColumnType' => 'tinyint(1) null',
-                             'columnType' => 'tinyint(1) null',
-                             'phpdocType' => 'boolean',
-                             'name' => 'deletedFlagAtDistributionChainLevel',
-                             'title' => 'Deleted / Obsoleted Flag Distribution Chain Level',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => true,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                             'fieldtype' => 'booleanSelect',
-                             'yesLabel' => 'Yes',
-                             'noLabel' => 'No',
-                             'emptyLabel' => 'Empty',
-                             'options' => 
-                            array (
-                              0 => 
-                              array (
-                                'key' => 'Empty',
-                                'value' => 0,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Yes',
-                                'value' => 1,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'No',
-                                'value' => -1,
-                              ),
-                            ),
-                             'width' => 100,
-                             'queryColumnType' => 'tinyint(1) null',
-                             'columnType' => 'tinyint(1) null',
-                             'phpdocType' => 'boolean',
-                             'name' => 'deletedFlagAtSalesLevel',
-                             'title' => 'Delete Flag - Sales Level',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => true,
@@ -2195,7 +2062,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2227,16 +2094,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'childs' => 
                                     array (
                                       0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                         'fieldtype' => 'textarea',
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                                         'fieldtype' => 'wysiwyg',
                                          'width' => 300,
                                          'height' => '',
-                                         'maxLength' => NULL,
-                                         'showCharCount' => false,
-                                         'excludeFromSearchIndex' => false,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
+                                         'toolbarConfig' => '',
+                                         'excludeFromSearchIndex' => false,
                                          'name' => 'longDescription',
                                          'title' => 'Marketing / Long Description',
                                          'tooltip' => '',
