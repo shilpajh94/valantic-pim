@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-01T11:19:19+02:00
+* Generated at: 2020-04-08T14:39:05+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.30.66
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -16,7 +16,8 @@ Fields Summary:
 - CommodityCode [input]
 - MinOrderQuantity [numeric]
 - OrderingQuantityIncrements [numeric]
-- StandardPackQuantity [quantityValue]
+- StandardPackQuantity [numeric]
+- StandardPackQuantityUOM [input]
 - OutsidePurchaseIdentifier [booleanSelect]
 - SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
@@ -25,6 +26,7 @@ Fields Summary:
 - TotalReplenismentLeadTime [numeric]
 - SafetyStock [numeric]
 - StockIndicator [select]
+- deletedFlagAtPlantLevel [booleanSelect]
 */ 
 
 
@@ -33,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585732759,
+   'modificationDate' => 1586349544,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -337,8 +339,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
                      'phpdocType' => 'float',
-                     'integer' => true,
-                     'unsigned' => true,
+                     'integer' => false,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -367,8 +369,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
                      'phpdocType' => 'float',
-                     'integer' => true,
-                     'unsigned' => true,
+                     'integer' => false,
+                     'unsigned' => false,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -390,32 +392,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'fieldtype' => 'quantityValue',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
                      'width' => 245,
-                     'unitWidth' => NULL,
                      'defaultValue' => NULL,
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => '1',
-                      1 => '2',
-                      2 => '5',
-                      3 => '3',
-                    ),
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'autoConvert' => false,
-                     'queryColumnType' => 
-                    array (
-                      'value' => 'double',
-                      'unit' => 'bigint(20)',
-                    ),
-                     'columnType' => 
-                    array (
-                      'value' => 'double',
-                      'unit' => 'bigint(20)',
-                    ),
-                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
                      'name' => 'StandardPackQuantity',
                      'title' => 'Standard Pack Quantity',
                      'tooltip' => '',
@@ -432,6 +422,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 245,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'StandardPackQuantityUOM',
+                     'title' => 'Standard Pack Quantity - UOM',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'E',
@@ -680,7 +696,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
+                     'decimalPrecision' => NULL,
                      'name' => 'SafetyStock',
                      'title' => 'Safety Stock',
                      'tooltip' => '',
@@ -741,6 +757,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Empty',
+                        'value' => 0,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
+                      ),
+                    ),
+                     'width' => 100,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
+                     'name' => 'deletedFlagAtPlantLevel',
+                     'title' => 'Deleted / Obsoleted Flag Plant Level',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -755,7 +814,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f505.svg',
    'previewUrl' => '',
-   'group' => '',
+   'group' => 'Products Data',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 

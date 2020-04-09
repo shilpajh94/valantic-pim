@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-02T13:32:46+02:00
+* Generated at: 2020-04-09T11:36:19+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,6 +18,8 @@ Fields Summary:
 - pricePageFlag [select]
 - SalesStatus [select]
 - privateBrand [select]
+- deletedFlagAtDistributionChainLevel [numeric]
+- deletedFlagAtSalesLevel [booleanSelect]
 */ 
 
 
@@ -26,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585827166,
+   'modificationDate' => 1586424974,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -522,6 +524,79 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 100,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'deletedFlagAtDistributionChainLevel',
+                     'title' => 'Deleted / Obsoleted Flag Distribution Chain Level',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                     'fieldtype' => 'booleanSelect',
+                     'yesLabel' => 'Yes',
+                     'noLabel' => 'No',
+                     'emptyLabel' => 'Empty',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'Empty',
+                        'value' => 0,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Yes',
+                        'value' => 1,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'No',
+                        'value' => -1,
+                      ),
+                    ),
+                     'width' => 100,
+                     'queryColumnType' => 'tinyint(1) null',
+                     'columnType' => 'tinyint(1) null',
+                     'phpdocType' => 'boolean',
+                     'name' => 'deletedFlagAtSalesLevel',
+                     'title' => 'Delete Flag - Sales Level',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -536,7 +611,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f4a0.svg',
    'previewUrl' => '',
-   'group' => '',
+   'group' => 'Products Data',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'propertyVisibility' => 

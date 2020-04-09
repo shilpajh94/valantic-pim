@@ -36,7 +36,7 @@ class SalesMaterialImport
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
 
-    public function insertIntoProductTable($dataArray, $tableName) {
+    public function insertIntoSalesTable($dataArray, $tableName) {
     	$rowCount = 1;
     	$firstRec = $dataArray[0];
     	$keys = array_keys($firstRec);
