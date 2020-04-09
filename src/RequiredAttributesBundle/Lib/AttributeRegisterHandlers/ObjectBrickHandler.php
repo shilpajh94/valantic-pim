@@ -125,7 +125,8 @@ class ObjectBrickHandler
                     $this->locNonLocGroupHandler->addEntriesForLocNonLocAttributeGroup($brickConfig,$brickItem,$titles);
                 }else{
                     // handle if the brick is not attached to this object
-                    $this->locNonLocGroupHandler->addEntryForEmptyLocNonLocGroup($brickConfig,$titles);
+                    // if the brick not attached then it is assumed that it will not be considered for completeness
+//                    $this->locNonLocGroupHandler->addEntryForEmptyLocNonLocGroup($brickConfig,$titles);
                 }
             }
 
