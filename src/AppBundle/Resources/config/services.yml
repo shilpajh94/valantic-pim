@@ -84,3 +84,6 @@ services:
     ImportBundle\OneTimeImportCommand\PtgImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:ptg' }
+    ImportBundle\OneTimeImportCommand\HoseDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:hose' }
