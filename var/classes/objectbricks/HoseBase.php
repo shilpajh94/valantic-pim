@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T07:42:11+02:00
-* IP: 192.168.30.66
+* Generated at: 2020-04-09T14:25:13+02:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -26,14 +26,14 @@ Fields Summary:
 - coverColor [multiselect]
 - minimumTemperatureC [numeric]
 - maximumTemperatureC [numeric]
-- rangeTemperatureC1 [numeric]
+- rangeTemperatureC [numeric]
 - agencyCompliance [multiselect]
 - safetyFactor [multiselect]
 - acceptableHoseMedia [multiselect]
 - VirtualCatalogTubeMaterial [textarea]
 - VirtualCatalogCoverMaterial [textarea]
-- Coupling [textarea]
-- Packaging [textarea]
+- VirtualCatalogCoupling [textarea]
+- VirtualCatalogPackaging [textarea]
 */ 
 
 
@@ -3043,7 +3043,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'rangeTemperatureC1',
+                         'name' => 'rangeTemperatureC',
                          'title' => 'Temperature Range (°C)',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -3305,8 +3305,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'queryColumnType' => 'longtext',
                  'columnType' => 'longtext',
                  'phpdocType' => 'string',
-                 'name' => 'Coupling',
-                 'title' => 'Coupling',
+                 'name' => 'VirtualCatalogCoupling',
+                 'title' => 'Virtual Catalog Coupling',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -3331,8 +3331,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'queryColumnType' => 'longtext',
                  'columnType' => 'longtext',
                  'phpdocType' => 'string',
-                 'name' => 'Packaging',
-                 'title' => 'Packaging',
+                 'name' => 'VirtualCatalogPackaging',
+                 'title' => 'Virtual Catalog Packaging',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
