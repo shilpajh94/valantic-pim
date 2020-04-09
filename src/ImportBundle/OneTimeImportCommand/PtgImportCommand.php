@@ -81,49 +81,7 @@ class PtgImportCommand extends AbstractCommand
         $this->filterSiopLvl6Data();
     }
 
-    private function truncateTemp($results){
-        $sql = "TRUNCATE siopLvl5_objects; TRUNCATE siopLvl6_objects; TRUNCATE ptg_import;";
-        $this->db->query($sql);
-    }
-
-    public function insertDataToLogTable($data, $flag = true)
-    {
-        try {
-            if($flag) {
-                p_r("Updating Log..");
-            }
-            $rowCount = 1;
-            $sql = "INSERT INTO ptg_import_log (id, record, statusCode, failedReason, createdAt) VALUES";
-            foreach ($data as $dataKey => $dataValue) {
-                if($flag) {
-                    $values .= '("'.$dataValue['SAPMaterialCode'].'", "'.addslashes(json_encode($dataValue)).'", "Success","",now()),';
-                } else {
-                    $values .= '("'.$dataValue['SAPMaterialCode'].'", "'.addslashes(json_encode($dataValue)).'", "Failed","Sap Code not found in material mara sheet",now()),';
-                }                
-                // inserting records in batch
-                if ($rowCount % self::BATCH_SIZE == 0) {
-                    $query = $sql.rtrim($values, ',');
-                    $this->db->query($query);
-                    $values = '';
-                }
-                $rowCount++;
-            }
-            if($values)
-            {
-                $query = $sql.rtrim($values, ',') ;
-                $this->db->query($query);
-            }
-            $data = null;
-            if($flag) {
-                $flag = false;
-                $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";                
-                $data = $this->db->fetchAll($sql);
-                $this->insertDataToLogTable($data, false);
-            }
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
-        }
-    }
+   
     /**
      * Updating siopLvl5 temp table with siop level 5 data
     */
@@ -293,8 +251,8 @@ class PtgImportCommand extends AbstractCommand
                     // 'customerProductFamily'   =>  $r[''],
                     // 'heightIn'   =>  $r[''],
                     // 'heightmm'   =>  $r[''],
-                    'widthmm'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ?: '',
-                    'widthIn'   =>  !$this->isSheetValueEmpty($r['Width_in']) ?: '',
+                    'widthmm'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ? $r['Width_mm'] : '',
+                    'widthIn'   =>  !$this->isSheetValueEmpty($r['Width_in']) ? $r['Width_in'] : '',
                     // 'CADFile'   =>  $r[''],
                     // 'CADLink'   =>  $r[''],
                     // 'PDFDrawing'   =>  $r[''],
@@ -312,14 +270,12 @@ class PtgImportCommand extends AbstractCommand
                     'fieldname' =>  $r['fieldname'],
                     // 'effectiveLengthUOM' => '',
                     // 'numberOfBands' =>  '',
-                    // 'insideLengthIN__value' => '',
-                    // 'insideLengthIN__unit' => '',
-                    // 'insideLengthMM__value' => '',
-                    // 'insideLengthMM__unit' => '',
-                    'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ?: '',
-                    'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_mm']) ?: '',
-                    'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ?: '',
-                    'outsideLengtMM' => !$this->isSheetValueEmpty($r['Outside_Length_mm']) ?: '',
+                    'insideLengthIN' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $r['Product_inside_Length_in']: '',
+                    'insideLengthMM' => !$this->isSheetValueEmpty($r['Product_inside_Length_mm']) ? $r['Product_inside_Length_mm']: '',
+                    'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ? $r['Datum_Length_in'] : '',
+                    'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_mm']) ? $r['Datum_Length_mm'] : '',
+                    'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ? $r['Outside_Length_in'] : '',
+                    'outsideLengtMM' => !$this->isSheetValueEmpty($r['Outside_Length_mm']) ? $r['Outside_Length_mm'] : '',
                     // 'productEffectiveLengthIn__value' => '',
                     // 'productEffectiveLengthIn__unit ' => '',
                     // 'productEffectiveLengthMM__value' => '',
@@ -336,14 +292,8 @@ class PtgImportCommand extends AbstractCommand
                 $ar = array(
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
-                    // 'pitchUOM' =>  $r[''],
                     'pitchIN' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ?: '',
                     'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_mm ']) ?: '',
-                    // 'pitchLengthUOM' =>  $r[''],
-                    // 'pitchLengthIN__value' =>  ,
-                    // 'pitchLengthIN__unit' =>  ,
-                    // 'pitchLengthMM__value' =>  ,
-                    // 'pitchLengthMM__unit' =>  ,
                     'numberOfTeeth' =>  $r['Number_of_teeth'],
                 );
 
@@ -357,47 +307,35 @@ class PtgImportCommand extends AbstractCommand
                 $ar = array(
                     'o_id'  =>  $r['o_id'],
                     'fieldname'  =>  $r['fieldname'],
-                    'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r[''] : '',
-                    // 'beltType'  =>  $r[''],
-                    // 'finish'  =>  $r[''],
+                    'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r['Bore_Type'] : '',
                     'flange'  =>  !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'y' ? 1 : '',
-                    // 'flangeMaterial'  =>  $r[''],
-                    // 'setScrew'  =>  $r[''],
-                    // 'overallThickness__value'  =>  $r[''],
-                    // 'overallThickness__unit'  =>  $r[''],
-                    // 'hubDiameter__value'  =>  $r[''],
-                    // 'hubDiameter__unit'  =>  $r[''],
-                    'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ?: '',
-                    'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ?: '',
-                    // 'beltWidth__value'  =>  $r[''],
-                    // 'beltWidth__unit'  =>  $r[''],
-                    // 'flangeDiameter__value'  =>  $r[''],
-                    // 'flangeDiameter__unit'  =>  $r[''],
-                    // 'overAllLength__value'  =>  $r[''],
-                    // 'overAllLength__unit'  =>  $r[''],
-                    // 'insideDiameter__value'  =>  $r[''],
-                    // 'insideDiameter__unit'  =>  $r[''],
-                    // 'stockThickness__value'  =>  $r[''],
-                    // 'stockThickness__unit'  =>  $r[''],
+                    'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $r['Max_Bore_Size_in'] : '',
+                    'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ? $r['Max_Bore_Size_mm'] : '',
+                    'flangeDiameterIn'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $r['Flange_Outer_Diameter_in'] : '',
+                    'flangeDiameterMm'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_mm']) ? $r['Flange_Outer_Diameter_mm'] : ''
                 );
                 if (!$this->isSheetValueEmpty($r['Outside_Diameter_in'])) {
                     $ar['outsideDiameterIn'] = $r['Outside_Diameter_in'];
-                } else if (!$this->isSheetValueEmpty($r['Outside_Diameter_mm'])) {
+                }
+                if (!$this->isSheetValueEmpty($r['Outside_Diameter_mm'])) {
                     $ar['outsideDiameterMm'] = $r['Outside_Diameter_mm'];
                 }
                 if (!$this->isSheetValueEmpty($r['Pitch_Diameter_in'])) {
                     $ar['pitchDiameterIn'] = $r['Pitch_Diameter_in'];
-                } else if (!$this->isSheetValueEmpty($r['Pitch_Diameter_mm'])) {
+                }
+                if (!$this->isSheetValueEmpty($r['Pitch_Diameter_mm'])) {
                     $ar['pitchDiameterMm'] = $r['Pitch_Diameter_mm'];
                 }
                 if (!$this->isSheetValueEmpty($r['Face_Width_in'])) {
                     $ar['faceWidthIn'] = $r['Face_Width_in'];
-                } else if (!$this->isSheetValueEmpty($r['Face_Width_mm'])) {
+                }
+                if (!$this->isSheetValueEmpty($r['Face_Width_mm'])) {
                     $ar['faceWidthMm'] = $r['Face_Width_mm'];
                 }
                 if (!$this->isSheetValueEmpty($r['Min_Bore_Size_in_Bushings'])) {
                     $ar['minBoreIn'] = $r['Min_Bore_Size_in_Bushings'];
-                } else if (!$this->isSheetValueEmpty($r['Min_Bore_Size_mm'])) {
+                }
+                if (!$this->isSheetValueEmpty($r['Min_Bore_Size_mm'])) {
                     $ar['minBoreMm'] = $r['Min_Bore_Size_mm'];
                 }
                 array_push($metalFertQuery, $ar);
@@ -425,33 +363,6 @@ class PtgImportCommand extends AbstractCommand
             return true;
         return false;
     }
-    /* private function getBaseBrickLocalizedData($results)
-    {
-        $d = array();
-        $dQuery = array();
-        foreach ($results as $r) {
-            $ar = array(
-                'ooo_id'  =>  $r['o_id'],
-                'index'  =>  $r['o_id'],
-                'fieldname'  =>  $r['fieldname'],
-                'language'  =>  isset($r['language']) ?: $this->langa[0],
-                'FeaturesBenefitsBulletPoint1'  =>  $r['FeaturesBenefitsBulletPoint1'],
-                'FeaturesBenefitsBulletPoint2'  =>  $r['FeaturesBenefitsBulletPoint2'],
-                'FeaturesBenefitsBulletPoint3'  =>  $r['FeaturesBenefitsBulletPoint3'],
-                'FeaturesBenefitsBulletPoint4'  =>  $r['FeaturesBenefitsBulletPoint4'],
-                'FeaturesBenefitsBulletPoint5'  =>  $r['FeaturesBenefitsBulletPoint5'],
-                'longDescription'  =>  $r['longDescription'],
-            );
-            array_push($d, $ar);
-            unset($ar['index'], $ar['fieldname']);
-            array_push($dQuery, $ar);
-        }
-        unset($ar);
-        return array(
-            'localizeData' => $d,
-            'localizedQueryDataEN' => $dQuery
-        );
-    } */
 
     private function getBaseBrickData($results)
     {
@@ -514,6 +425,51 @@ class PtgImportCommand extends AbstractCommand
             p_r($th->getMessage());
         }
         unset($results, $table);
+    }
+
+
+    private function truncateTemp($results){
+        $sql = "TRUNCATE siopLvl5_objects; TRUNCATE siopLvl6_objects; TRUNCATE ptg_import;";
+        $this->db->query($sql);
+    }
+
+    public function insertDataToLogTable($data, $flag = true)
+    {
+        try {
+            if($flag) {
+                p_r("Updating Log..");
+            }
+            $rowCount = 1;
+            $sql = "INSERT INTO ptg_import_log (id, record, statusCode, failedReason, createdAt) VALUES";
+            foreach ($data as $dataKey => $dataValue) {
+                if($flag) {
+                    $values .= '("'.$dataValue['SAPMaterialCode'].'", "'.addslashes(json_encode($dataValue)).'", "Success","",now()),';
+                } else {
+                    $values .= '("'.$dataValue['SAPMaterialCode'].'", "'.addslashes(json_encode($dataValue)).'", "Failed","Sap Code not found in material mara sheet",now()),';
+                }                
+                // inserting records in batch
+                if ($rowCount % self::BATCH_SIZE == 0) {
+                    $query = $sql.rtrim($values, ',');
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+            }
+            if($values)
+            {
+                $query = $sql.rtrim($values, ',') ;
+                $this->db->query($query);
+            }
+            $data = null;
+            if($flag) {
+                $flag = false;
+                $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";                
+                $data = $this->db->fetchAll($sql);
+                $this->insertDataToLogTable($data, false);
+            }
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 
     public function getCSVData($fileName)
