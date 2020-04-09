@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-08T09:58:18+02:00
+* Generated at: 2020-04-09T09:16:26+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -78,6 +78,7 @@ Fields Summary:
 - succesorFlag [booleanSelect]
 - B2CStoreFlag [booleanSelect]
 - printedCatalogFlag [booleanSelect]
+- virtualCatalogFlag [booleanSelect]
 - returnFlag [booleanSelect]
 - rebateFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
@@ -109,7 +110,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586332698,
+   'modificationDate' => 1586416586,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -3193,6 +3194,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                  )),
+                                  3 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                                     'fieldtype' => 'booleanSelect',
+                                     'yesLabel' => 'Y',
+                                     'noLabel' => 'N',
+                                     'emptyLabel' => 'Empty',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Empty',
+                                        'value' => 0,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Y',
+                                        'value' => 1,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'N',
+                                        'value' => -1,
+                                      ),
+                                    ),
+                                     'width' => 100,
+                                     'queryColumnType' => 'tinyint(1) null',
+                                     'columnType' => 'tinyint(1) null',
+                                     'phpdocType' => 'boolean',
+                                     'name' => 'virtualCatalogFlag',
+                                     'title' => 'Virtual Catalog Flag',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
