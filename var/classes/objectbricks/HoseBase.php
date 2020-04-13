@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T07:42:11+02:00
-* IP: 192.168.30.66
+* Generated at: 2020-04-13T07:43:52+02:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -21,19 +21,21 @@ Fields Summary:
 - StandardMetTube [multiselect]
 - StandardMetCover [multiselect]
 - standardMetHose [multiselect]
+- Coupling [input]
 - coverMaterial [multiselect]
 - coverCharacteristic [multiselect]
 - coverColor [multiselect]
 - minimumTemperatureC [numeric]
 - maximumTemperatureC [numeric]
-- rangeTemperatureC1 [numeric]
+- rangeTemperatureC [numeric]
 - agencyCompliance [multiselect]
 - safetyFactor [multiselect]
 - acceptableHoseMedia [multiselect]
+- Packaging [input]
 - VirtualCatalogTubeMaterial [textarea]
 - VirtualCatalogCoverMaterial [textarea]
-- Coupling [textarea]
-- Packaging [textarea]
+- VirtualCatalogCoupling [textarea]
+- VirtualCatalogPackaging [textarea]
 */ 
 
 
@@ -2697,6 +2699,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'Coupling',
+                         'title' => 'Coupling',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                     ),
                      'locked' => false,
                   )),
@@ -3043,7 +3071,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'rangeTemperatureC1',
+                         'name' => 'rangeTemperatureC',
                          'title' => 'Temperature Range (°C)',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -3216,6 +3244,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'Packaging',
+                         'title' => 'Packaging',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                     ),
                      'locked' => false,
                   )),
@@ -3305,8 +3359,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'queryColumnType' => 'longtext',
                  'columnType' => 'longtext',
                  'phpdocType' => 'string',
-                 'name' => 'Coupling',
-                 'title' => 'Coupling',
+                 'name' => 'VirtualCatalogCoupling',
+                 'title' => 'Virtual Catalog Coupling',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
@@ -3331,8 +3385,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'queryColumnType' => 'longtext',
                  'columnType' => 'longtext',
                  'phpdocType' => 'string',
-                 'name' => 'Packaging',
-                 'title' => 'Packaging',
+                 'name' => 'VirtualCatalogPackaging',
+                 'title' => 'Virtual Catalog Packaging',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
