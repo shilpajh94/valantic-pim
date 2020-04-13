@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T10:07:52+02:00
-* IP: 192.168.30.66
+* Generated at: 2020-04-13T10:18:32+02:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -18,23 +18,23 @@ Fields Summary:
 - CatalogDescription [textarea]
 - TubeLengthMM [numeric]
 - TubeLengthInDec [numeric]
-- Hex1WrenchSizeIn [numeric]
+- Hex1WrenchSizeIN [numeric]
 - Hex1WrenchSizeMM [numeric]
-- Hex2WrenchSizeIn [numeric]
+- Hex2WrenchSizeIN [numeric]
 - Hex2WrenchSizeMM [numeric]
 - SocketWrenchSizeInFract [numeric]
 - SocketWrenchSizeMM [numeric]
 - SocketWrenchSizeInDec [numeric]
 - ElbowAngleDegrees [numeric]
 - DropLength [numeric]
-- OverallLengthIn [numeric]
+- OverallLengthIN [numeric]
 - OverallLengthMm [numeric]
-- RunLengthIn [numeric]
-- RunLengthMm [numeric]
-- CutOffLengthIn [numeric]
-- CutOffLengthMm [numeric]
-- InsertionDepthIn [numeric]
-- InsertionDepthMm [numeric]
+- RunLengthIN [numeric]
+- RunLengthMM [numeric]
+- CutOffLengthIN [numeric]
+- CutOffLengthMM [numeric]
+- InsertionDepthIN [numeric]
+- InsertionDepthMM [numeric]
 - FittingWeight [numeric]
 - ReleasedToProductionDate [date]
 - ReleasedToProduction [booleanSelect]
@@ -675,7 +675,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => 3,
                              'decimalPrecision' => NULL,
-                             'name' => 'Hex1WrenchSizeIn',
+                             'name' => 'Hex1WrenchSizeIN',
                              'title' => 'Hex 1 Wrench Size (in)',
                              'tooltip' => '',
                              'mandatory' => false,
@@ -735,7 +735,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => 3,
                              'decimalPrecision' => NULL,
-                             'name' => 'Hex2WrenchSizeIn',
+                             'name' => 'Hex2WrenchSizeIN',
                              'title' => 'Hex 2 Wrench Size (in)',
                              'tooltip' => '',
                              'mandatory' => false,
@@ -945,13 +945,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'OverallLengthIn',
+                             'name' => 'OverallLengthIN',
                              'title' => 'Overall Length (In)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -981,7 +981,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1005,13 +1005,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'RunLengthIn',
+                             'name' => 'RunLengthIN',
                              'title' => 'Run Length (in)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1035,13 +1035,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'RunLengthMm',
+                             'name' => 'RunLengthMM',
                              'title' => 'Run Length (mm)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1065,13 +1065,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'CutOffLengthIn',
+                             'name' => 'CutOffLengthIN',
                              'title' => 'Cut Off Length (in)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1095,13 +1095,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'CutOffLengthMm',
+                             'name' => 'CutOffLengthMM',
                              'title' => 'Cut Off Length (mm)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1125,13 +1125,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'InsertionDepthIn',
+                             'name' => 'InsertionDepthIN',
                              'title' => 'Insertion Depth (in)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1155,13 +1155,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
-                             'name' => 'InsertionDepthMm',
+                             'name' => 'InsertionDepthMM',
                              'title' => 'Insertion Depth (mm)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1191,7 +1191,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
