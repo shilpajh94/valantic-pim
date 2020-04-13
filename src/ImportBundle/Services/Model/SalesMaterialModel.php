@@ -257,8 +257,10 @@ class SalesMaterialModel
         $columnSalesUnit = $this->mappingCsvColumn['salesUnit'];
         $columnMaterialGroup1 = $this->mappingCsvColumn['materialGroup1'];
         $columnMaterialGroup2 = $this->mappingCsvColumn['materialGroup2'];
+        $columnDeletionFlag = $this->mappingCsvColumn['deletionFlag'];
+        $columnDistChainStatus = $this->mappingCsvColumn['distChainStatus'];
         
-	$dataCount = count($data);
+	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) 
         {
             $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
@@ -345,6 +347,8 @@ class SalesMaterialModel
                         $salesUnit = $rowvalue[$columnSalesUnit];
                         $pricePageFlag = $rowvalue[$columnMaterialGroup2];
                         $epixFlag = $rowvalue[$columnMaterialGroup1];
+                        $deletionFlag = $rowvalue[$columnDeletionFlag];
+                        $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $privateOrGenericBrand = $this->getPrivateOrGenericMaterial($pricePageFlag);
 
                         $queryTableDataArray[] = [
@@ -362,7 +366,9 @@ class SalesMaterialModel
                             'epixFlag' => $epixFlag,
                             'pricePageFlag' => $pricePageFlag,
                             'privateBrand' => $privateOrGenericBrand,
-                            'Material' => $materialObjId
+                            'Material' => $materialObjId,
+                            'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
                         
                         $storeTableDataArray[] = [
@@ -371,7 +377,9 @@ class SalesMaterialModel
                             'SalesStatus'	=> '',
                             'epixFlag' => $epixFlag,
                             'pricePageFlag' => $pricePageFlag,
-                            'privateBrand' => $privateOrGenericBrand
+                            'privateBrand' => $privateOrGenericBrand,
+                            'deletedFlagAtDistributionChainLevel' => $distChainStatus,
+                            'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
         
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'DeliveringPlant', 'ownertype' => 'object' ];
@@ -422,16 +430,16 @@ class SalesMaterialModel
         }
 
         if(count($queryTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($queryTableDataArray, 'object_query_10');
+            $this->tableImportHelper->insertIntoSalesTable($queryTableDataArray, 'object_query_10');
         
         if(count($storeTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($storeTableDataArray, 'object_store_10');
+            $this->tableImportHelper->insertIntoSalesTable($storeTableDataArray, 'object_store_10');
 
         if(count($relationTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($relationTableDataArray, 'object_relations_10');
+            $this->tableImportHelper->insertIntoSalesTable($relationTableDataArray, 'object_relations_10');
         
         if(count($dependencyTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($dependencyTableDataArray, 'dependencies');
+            $this->tableImportHelper->insertIntoSalesTable($dependencyTableDataArray, 'dependencies');
         
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;

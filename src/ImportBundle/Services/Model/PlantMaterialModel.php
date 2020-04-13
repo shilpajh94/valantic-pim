@@ -264,6 +264,7 @@ class PlantMaterialModel
         $columnTotalReplLeadTime = $this->mappingCsvColumn['totalReplLeadTime'];
         $columnSafetyStock = $this->mappingCsvColumn['safetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
+        $columnDeleteFlag = $this->mappingCsvColumn['deleteFlag'];
 
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) 
@@ -313,6 +314,7 @@ class PlantMaterialModel
 
                     if(isset($this->materialArray[$material]))
                     {
+                        $deleteFlag = $rowvalue[$columnDeleteFlag];
                         $materialObjId = $this->materialArray[$material];
                         $salesOrgCode = $this->salesOrganizations[$salesOrg];
                         $distributionChannelCode = $this->distributionChannels[$distributionChannel];
@@ -360,7 +362,6 @@ class PlantMaterialModel
                         }
             
                         $objId = $this->tableImportHelper->insertInObjects($objectArr);
-                        
                         $quantityUnit =  $rowvalue[$columnStdPackQtyUOM];
                         $quantityValueUnitId = $this->common->getQuantityValueUnitId($quantityUnit);
         
@@ -376,7 +377,6 @@ class PlantMaterialModel
                         $stockIndicator = $rowvalue[$columnStockIndicator];
                         $safetyStock = $rowvalue[$columnSafetyStock];
                         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
-
                         
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
@@ -390,8 +390,8 @@ class PlantMaterialModel
                             'PlannedDeliveryTime' => $planDeliveryTime,
                             'CommodityCode' => $commodityCode,
                             'MinOrderQuantity' => $minOrderQty,
-                            'StandardPackQuantity__value' => $quantityValue,
-                            'StandardPackQuantity__unit' => $quantityValueUnitId,
+                            'StandardPackQuantity' => $quantityValue,
+                            'StandardPackQuantityUOM' => $quantityUnit,
                             'OutsidePurchaseIdentifier' => 0,
                             'PlantProfitCenter' => $profitCenter,
                             'MRPController' => $mrpController,
@@ -402,7 +402,8 @@ class PlantMaterialModel
                             'SalesOrganization__type' => 'object',
                             'DistributionChannel__id' => $distributionChannelCode,
                             'DistributionChannel__type' => 'object',
-                            'OrderingQuantityIncrements' => $orderQtyInc
+                            'OrderingQuantityIncrements' => $orderQtyInc,
+                            'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1 
                         ];
                         
                         $storeTableDataArray[] = [
@@ -410,15 +411,16 @@ class PlantMaterialModel
                             'PlannedDeliveryTime' => $planDeliveryTime,
                             'CommodityCode'	=> $commodityCode,
                             'MinOrderQuantity' => $minOrderQty,
-                            'StandardPackQuantity__value' => $quantityValue,
-                            'StandardPackQuantity__unit' => $quantityValueUnitId,
+                            'StandardPackQuantity' => $quantityValue,
+                            'StandardPackQuantityUOM' => $quantityUnit,
                             'OutsidePurchaseIdentifier' => 0,
                             'PlantProfitCenter'	=> $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
                             'StockIndicator' => $stockIndicator,	
                             'SafetyStock' => $safetyStock,
-                            'OrderingQuantityIncrements' => $orderQtyInc
+                            'OrderingQuantityIncrements' => $orderQtyInc,
+                            'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1 
                         ];
         
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
@@ -471,16 +473,16 @@ class PlantMaterialModel
         }
 
         if(count($queryTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($queryTableDataArray, 'object_query_12');
+            $this->tableImportHelper->insertIntoMaterialTable($queryTableDataArray, 'object_query_12');
         
         if(count($storeTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($storeTableDataArray, 'object_store_12');
+            $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_12');
 
         if(count($relationTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($relationTableDataArray, 'object_relations_12');
+            $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_12');
         
         if(count($dependencyTableDataArray))
-            $this->tableImportHelper->insertIntoProductTable($dependencyTableDataArray, 'dependencies');
+            $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');
         
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
