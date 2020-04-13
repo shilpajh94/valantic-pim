@@ -87,3 +87,7 @@ services:
     ImportBundle\OneTimeImportCommand\HoseDataImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:hose' }
+    
+    ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
+            tags:
+                - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }
