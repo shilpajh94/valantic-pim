@@ -36,9 +36,19 @@ class UnitConverterService
     {
         $returnValue = array();
         $attributeGroupName = $this->getAttributeGroupName($attributeName);
+
+        if(!$attributeGroupName){
+            throw new \Exception("No attribute group exist in attributes_groups configuration for attribute ".$attributeName.".");
+        }
+
         $groupConfig = $this->getGroupConfig($attributeGroupName);
 
         $unitStringOfGivenAttribute = $groupConfig[$attributeName];
+
+        if(!$unitStringOfGivenAttribute){
+            throw new \Exception(("No configuration exist for attribute group ".$attributeGroupName." or attribute ".$attributeName." does not exist in the  attribute group ".$attributeGroupName."."));
+        }
+
         $unitObjectOfGivenAttribute = new Unit($unitStringOfGivenAttribute);
 
         $converter = ConverterFactory::getConverterByUnit($value, $unitObjectOfGivenAttribute);
