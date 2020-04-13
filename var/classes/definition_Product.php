@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-09T15:17:31+02:00
+* Generated at: 2020-04-13T10:24:24+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -56,22 +56,22 @@ Fields Summary:
 - proposition65WarningAttributesRequired [booleanSelect]
 - BrandingLayline [textarea]
 - VirtualCatalogBrandingLayline [input]
-- packageLengthIn [numeric]
-- packageWidthIn [numeric]
-- packageWeightLbs [numeric]
-- packageHeightIn [numeric]
-- caseLengthIn [numeric]
-- caseHeightIn [numeric]
-- caseWidthIn [numeric]
-- caseWeightLbs [numeric]
-- palletLengthIn [numeric]
-- palletHeightIn [numeric]
-- palletWidthIn [numeric]
-- palletWeightLbs [numeric]
+- packageLengthIN [numeric]
+- packageWidthIN [numeric]
+- packageWeightLBS [numeric]
+- packageHeightIN [numeric]
+- caseLengthIN [numeric]
+- caseHeightIN [numeric]
+- caseWidthIN [numeric]
+- caseWeightLBS [numeric]
+- palletLengthIN [numeric]
+- palletHeightIN [numeric]
+- palletWidthIN [numeric]
+- palletWeightLBS [numeric]
 - numberOfItems [numeric]
 - casePackQuantity [numeric]
 - orderIncrement [numeric]
-- miniumOrderQuantity [numeric]
+- minimumOrderQuantity [numeric]
 - numberOfCoils [numeric]
 - tieBundles [numeric]
 - bundlesOfQuantity [numeric]
@@ -83,7 +83,7 @@ Fields Summary:
 - rebateFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
 - ProductType [select]
-- BuisnessUnit [select]
+- BusinessUnit [select]
 - siopFullCode [input]
 - SIOPLevel1 [manyToManyObjectRelation]
 - SIOPLevel2 [manyToManyObjectRelation]
@@ -110,7 +110,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586437969,
+   'modificationDate' => 1586766264,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2300,7 +2300,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'packageLengthIn',
+                                     'name' => 'packageLengthIN',
                                      'title' => 'Package Length (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2330,7 +2330,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'packageWidthIn',
+                                     'name' => 'packageWidthIN',
                                      'title' => 'Package Width (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2360,7 +2360,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'packageWeightLbs',
+                                     'name' => 'packageWeightLBS',
                                      'title' => 'Package Weight (lbs)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2390,7 +2390,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'packageHeightIn',
+                                     'name' => 'packageHeightIN',
                                      'title' => 'Package Height (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2420,7 +2420,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'caseLengthIn',
+                                     'name' => 'caseLengthIN',
                                      'title' => 'Case Length (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2450,7 +2450,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'caseHeightIn',
+                                     'name' => 'caseHeightIN',
                                      'title' => 'Case Height (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2480,7 +2480,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'caseWidthIn',
+                                     'name' => 'caseWidthIN',
                                      'title' => 'Case Width (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2510,13 +2510,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'caseWeightLbs',
+                                     'name' => 'caseWeightLBS',
                                      'title' => 'Case Weight (lbs)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2540,13 +2540,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'palletLengthIn',
+                                     'name' => 'palletLengthIN',
                                      'title' => 'Pallet Length (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2570,13 +2570,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'palletHeightIn',
+                                     'name' => 'palletHeightIN',
                                      'title' => 'Pallet Height (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2600,13 +2600,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'palletWidthIn',
+                                     'name' => 'palletWidthIN',
                                      'title' => 'Pallet Width (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2630,13 +2630,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'palletWeightLbs',
+                                     'name' => 'palletWeightLBS',
                                      'title' => 'Pallet Weight (lbs)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -2772,8 +2772,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'miniumOrderQuantity',
-                                     'title' => 'Minium Order Quantity',
+                                     'name' => 'minimumOrderQuantity',
+                                     'title' => 'Minimum Order Quantity',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
@@ -3334,8 +3334,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnLength' => 190,
                                      'phpdocType' => 'string',
                                      'dynamicOptions' => false,
-                                     'name' => 'BuisnessUnit',
-                                     'title' => 'BuisnessUnit',
+                                     'name' => 'BusinessUnit',
+                                     'title' => 'Business Unit',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
