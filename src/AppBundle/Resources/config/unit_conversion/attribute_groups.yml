@@ -1,0 +1,9 @@
+packageLength__group:
+    packageLengthMM: 'MM'
+    packageLengthM: 'M'
+    packageLengthFT: 'FT'
+    packageLengthIN: 'IN'
+packageWeight__group:
+    packageWeightKG: 'KG'
+    packageWeightG: 'G'
+    packageWeightLBS: 'LBS'
