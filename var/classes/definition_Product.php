@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-09T09:16:26+02:00
+* Generated at: 2020-04-13T10:24:24+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.30.66
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -56,22 +56,22 @@ Fields Summary:
 - proposition65WarningAttributesRequired [booleanSelect]
 - BrandingLayline [textarea]
 - VirtualCatalogBrandingLayline [input]
-- packageLength [quantityValue]
-- packageWidth [quantityValue]
-- packageWeight [quantityValue]
-- packageHeight [quantityValue]
-- caseLength [quantityValue]
-- caseHeight [quantityValue]
-- caseWidth [quantityValue]
-- caseWeight [quantityValue]
-- palletLength [quantityValue]
-- palletHeight [quantityValue]
-- palletWidth [quantityValue]
-- palletWeight [quantityValue]
+- packageLengthIN [numeric]
+- packageWidthIN [numeric]
+- packageWeightLBS [numeric]
+- packageHeightIN [numeric]
+- caseLengthIN [numeric]
+- caseHeightIN [numeric]
+- caseWidthIN [numeric]
+- caseWeightLBS [numeric]
+- palletLengthIN [numeric]
+- palletHeightIN [numeric]
+- palletWidthIN [numeric]
+- palletWeightLBS [numeric]
 - numberOfItems [numeric]
 - casePackQuantity [numeric]
 - orderIncrement [numeric]
-- miniumOrderQuantity [numeric]
+- minimumOrderQuantity [numeric]
 - numberOfCoils [numeric]
 - tieBundles [numeric]
 - bundlesOfQuantity [numeric]
@@ -83,7 +83,7 @@ Fields Summary:
 - rebateFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
 - ProductType [select]
-- BuisnessUnit [select]
+- BusinessUnit [select]
 - siopFullCode [input]
 - SIOPLevel1 [manyToManyObjectRelation]
 - SIOPLevel2 [manyToManyObjectRelation]
@@ -110,7 +110,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586416586,
+   'modificationDate' => 1586766264,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2286,33 +2286,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'childs' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'packageLength',
-                                     'title' => 'Package Length',
+                                     'name' => 'packageLengthIN',
+                                     'title' => 'Package Length (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2327,32 +2316,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'packageWidth',
+                                     'name' => 'packageWidthIN',
                                      'title' => 'Package Width (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2368,33 +2346,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'packageWeight',
-                                     'title' => 'Package Weight',
+                                     'name' => 'packageWeightLBS',
+                                     'title' => 'Package Weight (lbs)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2409,32 +2376,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'packageHeight',
+                                     'name' => 'packageHeightIN',
                                      'title' => 'Package Height (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
@@ -2450,33 +2406,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   4 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'caseLength',
-                                     'title' => 'Case Length',
+                                     'name' => 'caseLengthIN',
+                                     'title' => 'Case Length (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2491,33 +2436,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   5 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'caseHeight',
-                                     'title' => 'Case Height',
+                                     'name' => 'caseHeightIN',
+                                     'title' => 'Case Height (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2532,33 +2466,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   6 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'caseWidth',
-                                     'title' => 'Case Width',
+                                     'name' => 'caseWidthIN',
+                                     'title' => 'Case Width (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2573,33 +2496,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   7 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'caseWeight',
-                                     'title' => 'Case Weight',
+                                     'name' => 'caseWeightLBS',
+                                     'title' => 'Case Weight (lbs)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2614,33 +2526,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   8 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'palletLength',
-                                     'title' => 'Pallet Length',
+                                     'name' => 'palletLengthIN',
+                                     'title' => 'Pallet Length (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2655,33 +2556,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   9 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'palletHeight',
-                                     'title' => 'Pallet Height',
+                                     'name' => 'palletHeightIN',
+                                     'title' => 'Pallet Height (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2696,33 +2586,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   10 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'palletWidth',
-                                     'title' => 'Pallet Width',
+                                     'name' => 'palletWidthIN',
+                                     'title' => 'Pallet Width (in)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2737,33 +2616,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                   )),
                                   11 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                                     'fieldtype' => 'quantityValue',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
                                      'width' => 300,
-                                     'unitWidth' => NULL,
                                      'defaultValue' => NULL,
-                                     'defaultUnit' => NULL,
-                                     'validUnits' => 
-                                    array (
-                                      0 => '1',
-                                      1 => '3',
-                                      2 => '2',
-                                    ),
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => false,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'autoConvert' => false,
-                                     'queryColumnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'columnType' => 
-                                    array (
-                                      'value' => 'double',
-                                      'unit' => 'bigint(20)',
-                                    ),
-                                     'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\QuantityValue',
-                                     'name' => 'palletWeight',
-                                     'title' => 'Pallet Weight',
+                                     'name' => 'palletWeightLBS',
+                                     'title' => 'Pallet Weight (lbs)',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -2904,8 +2772,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'unique' => false,
                                      'decimalSize' => NULL,
                                      'decimalPrecision' => NULL,
-                                     'name' => 'miniumOrderQuantity',
-                                     'title' => 'Minium Order Quantity',
+                                     'name' => 'minimumOrderQuantity',
+                                     'title' => 'Minimum Order Quantity',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
@@ -3236,7 +3104,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -3466,8 +3334,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'columnLength' => 190,
                                      'phpdocType' => 'string',
                                      'dynamicOptions' => false,
-                                     'name' => 'BuisnessUnit',
-                                     'title' => 'BuisnessUnit',
+                                     'name' => 'BusinessUnit',
+                                     'title' => 'Business Unit',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => true,
