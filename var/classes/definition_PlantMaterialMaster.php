@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-08T14:39:05+02:00
+* Generated at: 2020-04-08T08:46:25+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
+* IP: 192.168.30.66
 
 
 Fields Summary: 
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586349544,
+   'modificationDate' => 1586328384,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -789,7 +789,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Deleted / Obsoleted Flag Plant Level',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',

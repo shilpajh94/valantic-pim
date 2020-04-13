@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-08T17:48:31+02:00
+* Generated at: 2020-04-03T10:52:38+02:00
 * Changed by: system (0)
 * IP: 192.168.30.66
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Fert',
    'description' => '',
    'creationDate' => 1581513126,
-   'modificationDate' => 1586360911,
+   'modificationDate' => 1585903958,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -828,6 +828,135 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'deletedFlagAtPlantLevel',
+                             'title' => 'Deleted / Obsoleted Flag Plant Level',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => true,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'deletedFlagAtDistributionChainLevel',
+                             'title' => 'Deleted / Obsoleted Flag Distribution Chain Level',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => true,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Yes',
+                             'noLabel' => 'No',
+                             'emptyLabel' => 'Empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'Empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'No',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 100,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'deletedFlagAtSalesLevel',
+                             'title' => 'Delete Flag - Sales Level',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => true,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -1518,9 +1647,11 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                     array (
                                       0 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                                         'fieldtype' => 'wysiwyg',
+                                         'fieldtype' => 'textarea',
                                          'width' => 300,
                                          'height' => '',
+                                         'maxLength' => NULL,
+                                         'showCharCount' => false,
                                          'excludeFromSearchIndex' => false,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
@@ -1539,7 +1670,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
-                                         'toolbarConfig' => '',
                                       )),
                                     ),
                                      'locked' => false,
