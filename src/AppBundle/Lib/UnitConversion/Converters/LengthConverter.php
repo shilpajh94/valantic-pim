@@ -15,7 +15,9 @@ class LengthConverter implements IConverter
 
     public function __construct(float $value, Unit $unit)
     {
-        parent::__construct($value, $unit);
+
+
+
     }
 
     public function getValue(Unit $unit): float

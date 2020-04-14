@@ -16,12 +16,10 @@ class Unit
 
     CONST UNIT_TYPE_WEIGHT = 'WEIGHT';
 
+    CONST UNIT_TYPE_TEMPERATURE  = 'TEMPERATURE';
 
-    CONST KG = 'KG';
+    CONST UNIT_TYPE_PRESSURE = 'PRESSURE';
 
-    CONST G = 'G';
-
-    CONST LBS = 'LBS';
 
     CONST MM = 'MM';
 
@@ -31,10 +29,33 @@ class Unit
 
     CONST IN = 'IN';
 
+    CONST DEC = 'DEC';
+
+
+    CONST KG = 'KG';
+
+    CONST G = 'G';
+
+    CONST LBS = 'LBS';
+
+
+    CONST F = 'F';
+
+    CONST C = 'C';
+
+
+    CONST PSI = 'PSI';
+
+    CONST MPA = 'MPA';
+
+    CONST BAR = 'BAR';
+
 
     CONST VALID_UNITS = array(
-        self::UNIT_TYPE_LENGTH => array(self::MM, self::M, self::FT, self::IN),
-        self::UNIT_TYPE_WEIGHT => array(self::KG, self::G, self::LBS)
+        self::UNIT_TYPE_LENGTH => array(self::MM, self::M, self::FT, self::IN, self::DEC),
+        self::UNIT_TYPE_WEIGHT => array(self::KG, self::G, self::LBS),
+        self::UNIT_TYPE_TEMPERATURE => array(self::F, self::C),
+        self::UNIT_TYPE_PRESSURE => array(self::PSI, self::MPA, self::BAR)
     );
 
     private $name;
