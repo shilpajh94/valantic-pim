@@ -21,20 +21,18 @@ class WeightConverter implements IConverter
 
     public function __construct(float $value, Unit $unit)
     {
-        if($unit == Unit::KG){
-            // calculate the gram value and set in $this->$gramValue
-            $this->gramValue = ($value * self::G_KG);
-
-        }elseif($unit == Unit::G){
-            // calculate the gram value and set in $this->$gramValue
-            $this->gramValue = $value;
-
-        }elseif ($unit == Unit::LBS){
-            // calculate the gram value and set in $this->$gramValue
-            $this->gramValue = ($value * self::G_LBS);
-
-        }else{
-            throw new \Exception("Unit ".$unit." is not handled in weight converter.");
+        switch ($unit->getName()){
+            case Unit::KG:
+                $this->gramValue = ($value * self::G_KG);
+                break;
+            case Unit::G:
+                $this->gramValue = $value;
+                break;
+            case Unit::LBS:
+                $this->gramValue = ($value * self::G_LBS);
+                break;
+            default:
+                throw new \Exception("Unit ".$unit." is not handled in weight converter.");
         }
 
     }
@@ -53,6 +51,8 @@ class WeightConverter implements IConverter
             case Unit::LBS:
                 $returnValue = $this->getValueInLBS();
                 break;
+            default:
+                throw new \Exception("Unit ".$unit." is not handled in weight converter.");
         }
 
         return $returnValue;
