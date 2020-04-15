@@ -50,42 +50,42 @@ non_localized:
         type: 'input'
         label: 'Virtual Catalog Branding / Layline'
 # panel break here
-     packageLength:
-        type: 'quantityValue'
-        label: 'Package Length'
-     packageWidth:
-        type: 'quantityValue'
+     packageLengthIN:
+        type: 'numeric'
+        label: 'Package Length (in)'
+     packageWidthIN:
+        type: 'numeric'
         label: 'Package Width (in)'
-     packageWeight:
-        type: 'quantityValue'
-        label: 'Package Weight'
-     packageHeight:
-        type: 'quantityValue'
+     packageWeightLBS:
+        type: 'numeric'
+        label: 'Package Weight (lbs)'
+     packageHeightIN:
+        type: 'numeric'
         label: 'Package Height (in)'
-     caseLength:
-        type: 'quantityValue'
-        label: 'Case Length'
-     caseHeight:
-        type: 'quantityValue'
-        label: 'Case Height'
-     caseWidth:
-        type: 'quantityValue'
-        label: 'Case Width'
-     caseWeight:
-        type: 'quantityValue'
-        label: 'Case Weight'
-     palletLength:
-        type: 'quantityValue'
-        label: 'Pallet Length'
-     palletHeight:
-        type: 'quantityValue'
-        label: 'Pallet Height'
-     palletWidth:
-        type: 'quantityValue'
-        label: 'Pallet Width'
-     palletWeight:
-        type: 'quantityValue'
-        label: 'Pallet Weight'
+     caseLengthIN:
+        type: 'numeric'
+        label: 'Case Length (in)'
+     caseHeightIN:
+        type: 'numeric'
+        label: 'Case Height (in)'
+     caseWidthIN:
+        type: 'numeric'
+        label: 'Case Width (in)'
+     caseWeightLBS:
+        type: 'numeric'
+        label: 'Case Weight (lbs)'
+     palletLengthIN:
+        type: 'numeric'
+        label: 'Pallet Length (in)'
+     palletHeightIN:
+        type: 'numeric'
+        label: 'Pallet Height (in)'
+     palletWidthIN:
+        type: 'numeric'
+        label: 'Pallet Width (in)'
+     palletWeightLBS:
+        type: 'numeric'
+        label: 'Pallet Weight (lbs)'
 # panel break here
      numberOfItems:
         type: 'numeric'
@@ -96,9 +96,9 @@ non_localized:
      orderIncrement:
         type: 'numeric'
         label: 'Order Increment'
-     miniumOrderQuantity:
+     minimumOrderQuantity:
         type: 'numeric'
-        label: 'Minium Order Quantity'
+        label: 'Minimum Order Quantity'
      numberOfCoils:
         type: 'numeric'
         label: 'Number of Coils'
@@ -128,12 +128,6 @@ non_localized:
      newItemFlagForCatalog:
         type: 'booleanSelect'
         label: 'New Item Flag for Catalog'
-     ProductType:
-        type: 'select'
-        label: 'ProductType'
-     BuisnessUnit:
-        type: 'select'
-        label: 'BuisnessUnit'
 # panel break here
      mainImage:
         type: 'image'
@@ -175,81 +169,6 @@ localized:
         type: 'textarea'
         label: 'Marketing / Long Description'
 
-
-#object_relations:
-#    manyToManyObjectRelation:
-#        SIOPLevel1:
-#            label: 'SIOP Level 1'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#        SIOPLevel2:
-#            label: 'SIOP Level 2'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#        SIOPLevel3:
-#            label: 'SIOP Level 3'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#        SIOPLevel4:
-#            label: 'SIOP Level 4'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#        SIOPLevel5:
-#            label: 'SIOP Level 5'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
-#        SIOPLevel6:
-#            label: 'SIOP Level 6'
-#            mappedClass: 'ProductCategory'
-#            mappedClassAttributes:
-#                non_localized:
-#                    code:
-#                        type: 'input'
-#                        label: 'Code'
-#                localized:
-#                    description:
-#                        type: 'textarea'
-#                        label: 'Desc'
 
 object_bricks:
     Base:
@@ -312,22 +231,22 @@ object_bricks:
                     hoseOdmm:
                        type: 'numeric'
                        label: 'Hose OD (mm)'
-                    workingPressurepsi:
+                    workingPressurePSI:
                        type: 'numeric'
                        label: 'Working Pressure (psi)'
-                    minBurstPressurepsi:
+                    minBurstPressurePSI:
                        type: 'numeric'
                        label: 'Min. Burst Pressure (psi)'
-                    BendRadius_in:
+                    BendRadiusIN:
                        type: 'numeric'
-                       label: 'BendRadius_in'
-                    Vacumm_in:
+                       label: 'BendRadius (in)'
+                    VacuumIN:
                        type: 'numeric'
-                       label: 'Vacumm_in'
+                       label: 'Vacuum (in)'
                     hoseIdNominalId:
                        type: 'input'
                        label: 'Hose ID (in Fract) Nominal ID'
-                    tubeGauge:
+                    tubeGaugeIN:
                        type: 'numeric'
                        label: 'Tube Gauge (in)'
                     reinforcement:
@@ -341,7 +260,7 @@ object_bricks:
             HoseFert:
                 label: 'Hose (14 Digit)'
                 non_localized:
-                    hoseLengthFt:
+                    hoseLengthFT:
                        type: 'numeric'
                        label: 'Hose Length (ft)'
                     assembly:
