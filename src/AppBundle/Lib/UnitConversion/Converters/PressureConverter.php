@@ -4,65 +4,111 @@ namespace AppBundle\Lib\UnitConversion\Converters;
 
 use AppBundle\Lib\UnitConversion\Unit;
 
+/**
+ * to handle the pressure conversions
+ *
+ * Class PressureConverter
+ * @package AppBundle\Lib\UnitConversion\Converters
+ */
+class PressureConverter implements IConverter
+{
+    /**
+     * @var float|int
+     */
+    private $psiValue;
 
-class PressureConverter implements IConverter {
-    
-    private $kpaValue;
+    /**
+     * on MPA has 145.038 PSI
+     */
+    CONST PSI_MPA = 145.038;
 
-    CONST KPA_PSI = 6.89476;
-    
-    CONST KPA_BAR = 100;
-    
-    public function __construct(float $value, Unit $unit) {
-    
-        switch($unit->getName()){
-            case Unit::KPA:
-                $this->kpaValue = $value;
+    /**
+     * one BAR has 14.5038 PSI
+     */
+    CONST PSI_BAR = 14.5038;
+
+    /**
+     * PressureConverter constructor.
+     * @param float $value
+     * @param Unit $unit
+     * @throws \Exception
+     */
+    public function __construct(float $value, Unit $unit)
+    {
+        switch ($unit->getName())
+        {
+            case Unit::PSI:
+                $this->psiValue = $value;
+                break;
+            case Unit::MPA:
+                $this->psiValue = ($value * self::PSI_MPA);
                 break;
             case Unit::BAR:
-                $this->kpaValue = $value * self::KPA_BAR;
+                $this->psiValue = ($value * self::PSI_BAR);
                 break;
-            case Unit::PSI:
-                $this->kpaValue = $value * self::KPA_PSI;
-                break;
+
             default:
-                throw new \Exception("Unit ".$unit." is not handled in pressure converter.");
+                throw new \Exception("Unit " . $unit . " is not handled in pressure converter.");
         }
     }
 
-    public function getValue(Unit $unit): float 
+    /**
+     * get the value in given unit
+     *
+     * @param Unit $unit
+     * @return float
+     * @throws \Exception
+     */
+    public function getValue(Unit $unit): float
     {
         $returnValue = null;
-        
-        switch($unit->getName()){
-            case Unit::KPA:
-                $returnValue = $this->getValueInKPA();
+
+        switch ($unit->getName())
+        {
+            case Unit::PSI:
+                $returnValue = $this->getValueInPSI();
+                break;
+            case Unit::MPA:
+                $returnValue = $this->getValueInMPA();
                 break;
             case Unit::BAR:
                 $returnValue = $this->getValueInBAR();
                 break;
-            case Unit::PSI:
-                $returnValue = $this->getValueInPSI();
-                break;
             default:
-                throw new \Exception("Unit ".$unit." is not handled in pressure converter.");
+                throw new \Exception("Unit " . $unit . " is not handled in pressure converter.");
         }
+
+        return $returnValue;
     }
 
-    
-    private function getValueInKPA(): float
+    /**
+     * get the value in MPA
+     *
+     * @return float
+     */
+    private function getValueInMPA(): float
     {
-        return $this->kpaValue;
+        return $this->psiValue / self::PSI_MPA;
     }
-    
+
+    /**
+     * get the value in BAR
+     *
+     * @return float
+     */
     private function getValueInBAR(): float
     {
-        return $this->kpaValue / self::KPA_BAR;
+        return $this->psiValue / self::PSI_BAR;
     }
-    
+
+    /**
+     * get the value in PSI
+     *
+     * @return float
+     */
     private function getValueInPSI(): float
     {
-        return $this->kpaValue / self::KPA_PSI;
+        return $this->psiValue;
     }
 
 

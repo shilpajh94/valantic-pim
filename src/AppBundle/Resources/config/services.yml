@@ -92,3 +92,6 @@ services:
 
     AppBundle\Services\CategoryBrickMappingService:
       public: true
+
+    AppBundle\Services\UnitConverterService:
+      public: true
