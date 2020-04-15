@@ -105,3 +105,7 @@ services:
     ImportBundle\OneTimeImportCommand\ImportCompetitorDataCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:competitor-data' }
+
+    ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }
