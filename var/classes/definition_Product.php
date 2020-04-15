@@ -1,11 +1,10 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-13T10:24:24+02:00
+* Generated at: 2020-04-14T12:19:46+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -110,10 +109,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586766264,
+   'modificationDate' => 1586859586,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
+   'implementsInterfaces' => NULL,
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -124,14 +124,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
-   'cacheRawRelationData' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -169,7 +167,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Base Data',
              'type' => NULL,
              'region' => NULL,
@@ -207,7 +204,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-download.svg',
                      'name' => 'SAP Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -1338,6 +1334,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-download.svg',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -1345,7 +1342,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-edit.svg',
                      'name' => 'PIM Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -3360,6 +3356,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-edit.svg',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3367,7 +3364,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
                      'name' => 'SIOP Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -3445,7 +3441,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3483,7 +3478,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3521,7 +3515,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3559,7 +3552,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3597,7 +3589,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3635,7 +3626,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3660,6 +3650,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3667,7 +3658,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/candle_sticks.svg',
                      'name' => 'PlantAndSalesData',
                      'type' => NULL,
                      'region' => NULL,
@@ -3723,7 +3713,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => NULL,
+                         'classes' => 
+                        array (
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'SalesOrgData',
                          'title' => 'Sales Data',
@@ -3758,7 +3750,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => NULL,
+                         'classes' => 
+                        array (
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'Plants',
                          'title' => 'Plants Data',
@@ -3776,12 +3770,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/candle_sticks.svg',
                   )),
                 ),
                  'locked' => false,
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3789,7 +3785,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
              'name' => 'Base',
              'type' => NULL,
              'region' => NULL,
@@ -3831,6 +3826,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3838,7 +3834,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_blue.png',
              'name' => 'Skeleton',
              'type' => NULL,
              'region' => NULL,
@@ -3880,6 +3875,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_blue.png',
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3887,7 +3883,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
              'name' => 'Fert',
              'type' => NULL,
              'region' => NULL,
@@ -3935,6 +3930,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
           )),
           4 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3942,7 +3938,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
              'name' => 'Digital Assets',
              'type' => NULL,
              'region' => NULL,
@@ -3980,7 +3975,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '',
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -4092,6 +4086,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4099,7 +4094,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '',
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -4134,7 +4128,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentTypes' => 
                         array (
                         ),
-                         'lazyLoading' => false,
                          'classes' => 
                         array (
                         ),
@@ -4155,12 +4148,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '',
                   )),
                 ),
                  'locked' => false,
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
           )),
           5 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4168,7 +4163,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Pricing Data',
              'type' => NULL,
              'region' => NULL,
@@ -4256,6 +4250,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
           6 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4263,7 +4258,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Completeness',
              'type' => NULL,
              'region' => NULL,
@@ -4367,18 +4361,23 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
         ),
          'locked' => false,
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
    'icon' => '',
    'previewUrl' => '',
    'group' => 'Products Data',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
+   'compositeIndices' => 
+  array (
+  ),
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -4400,5 +4399,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       'creationDate' => true,
     ),
   ),
+   'enableGridLocking' => false,
    'dao' => NULL,
 ));
