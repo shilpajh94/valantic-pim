@@ -1,0 +1,34 @@
+.plugin_dataconnector {
+    background: url("/bundles/pimcoreadmin/img/flat-color-icons/link.svg") no-repeat center center !important;
+}
+
+.plugin_data_mapping_list {
+    background: url("/bundles/pimcoreadmin/img/flat-color-icons/list.svg") no-repeat center center !important;
+}
+
+#pimcore_menu_disthub {
+    background-image: url(/bundles/pimcoreadmin/img/flat-color-icons/workflow.svg) !important;
+}
+
+.x-form-itemselector-btn{
+    font: 16px/30px FontAwesome;
+}
+
+.x-form-itemselector-top:before{
+    content: "\f102";
+}
+.x-form-itemselector-up:before{
+    content: "\f106";
+}
+.x-form-itemselector-add:before{
+    content: "\f105";
+}
+.x-form-itemselector-remove:before{
+    content: "\f104";
+}
+.x-form-itemselector-down:before{
+    content: "\f107";
+}
+.x-form-itemselector-bottom:before{
+    content: "\f103";
+}

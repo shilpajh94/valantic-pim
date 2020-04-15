@@ -493,12 +493,16 @@ class ProductSQLModel
             $catCode = $levelInfo[$k]['levelFullCode'];
             $siopData[$index] = $this->categories[$catCode]['id'];
         }
+        $siopFullCode = trim($record['4']);
+        if ($type == 'base') {
+            $siopFullCode = $levelInfo[$level]['levelFullCode'];
+        }
         $queryTableData = [
             'oo_id' => $objId,
             'oo_classId' => 1,
             'oo_className' => 'Product',
             'ProductType' => strtolower($productType),
-            'siopFullCode' => trim($record['4']),
+            'siopFullCode' => $siopFullCode,
             'articleNumber' => null,
             'materialGroup' => null,
             'baseUOM' => null,
@@ -530,10 +534,14 @@ class ProductSQLModel
     }
 
     public function getStoreTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
+        $siopFullCode = trim($record['4']);
+        if ($productType == 'base') {
+            $siopFullCode = $levelInfo[$level]['levelFullCode'];
+        }
         $storeTableDataArray = [
             'oo_id' => $objId,
             'ProductType' => strtolower($productType),
-            'siopFullCode' => trim($record['4']),
+            'siopFullCode' => $siopFullCode,
             'articleNumber' => null,
             'materialGroup' => null,
             'baseUOM' => null,

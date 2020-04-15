@@ -62,6 +62,7 @@ class RequiredAttributeIndicatorFieldPopulator
 
             }catch (\Exception $exception){
                 Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception->getMessage(), LogLevel::CRITICAL());
+                throw $exception;
             }
         }
 

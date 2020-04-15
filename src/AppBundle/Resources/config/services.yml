@@ -93,5 +93,22 @@ services:
     AppBundle\Services\CategoryBrickMappingService:
       public: true
 
+    ImportBundle\OneTimeImportCommand\PtgImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:ptg' }
+    ImportBundle\OneTimeImportCommand\HoseDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:hose' }
+    ImportBundle\OneTimeImportCommand\ImportFittingDbCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:fitting-data' }
+    ImportBundle\OneTimeImportCommand\ImportCompetitorDataCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:competitor-data' }
+
+    ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }
+
     AppBundle\Services\UnitConverterService:
       public: true

@@ -44,38 +44,81 @@ localized:
         type: 'input'
         label: 'Features Ben'
 
-object_relations:
-    manyToManyObjectRelation:
-        SIOPLevel1:
-            label: 'SIOP Level 1'
-            mappedClass: 'ProductCategory'
-            mappedClassAttributes:
-                non_localized:
-                    code:
-                        type: 'input'
-                        label: 'Code'
-                    Industry:
-                        type: 'select'
-                        label: 'Industry'
-                    image:
-                        type: 'image'
-                        label: 'Image'
-                localized:
-                    description:
-                        type: 'textarea'
-                        label: 'Desc'
-        SIOPLevel2:
-            label: 'SIOP Level 2'
-            mappedClass: 'ProductCategory'
-            mappedClassAttributes:
-                non_localized:
-                    code:
-                        type: 'input'
-                        label: 'Code'
-                localized:
-                    description:
-                        type: 'textarea'
-                        label: 'Desc'
+#object_relations:
+#    manyToManyObjectRelation:
+#        SIOPLevel1:
+#            label: 'SIOP Level 1'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel2:
+#            label: 'SIOP Level 2'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel3:
+#            label: 'SIOP Level 3'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel4:
+#            label: 'SIOP Level 4'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel5:
+#            label: 'SIOP Level 5'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+#        SIOPLevel6:
+#            label: 'SIOP Level 6'
+#            mappedClass: 'ProductCategory'
+#            mappedClassAttributes:
+#                non_localized:
+#                    code:
+#                        type: 'input'
+#                        label: 'Code'
+#                localized:
+#                    description:
+#                        type: 'textarea'
+#                        label: 'Desc'
+
 
 object_bricks:
     Base:

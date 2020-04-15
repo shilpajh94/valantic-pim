@@ -49,7 +49,7 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
      * @return mixed
      */
     public function getDefaultValue($context, $fieldDefinition) {
-        return $fieldDefinition->getDefaultValue();
+        return true; //return $fieldDefinition->getDefaultValue();
     }
 
     /**
