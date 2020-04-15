@@ -61,7 +61,7 @@ class MultiselectMasterTypeProvider implements SelectOptionsProviderInterface
      */
     public function hasStaticOptions($context, $fieldDefinition)
     {
-        return $fieldDefinition->getDefaultValue();
+        return true; //$fieldDefinition->getDefaultValue();
     }
 
     /**

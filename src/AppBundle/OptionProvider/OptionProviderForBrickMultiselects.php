@@ -62,7 +62,7 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
      */
     public function hasStaticOptions($context, $fieldDefinition)
     {
-        return $fieldDefinition->getDefaultValue();
+        return true; //return $fieldDefinition->getDefaultValue();
     }
 
     /**
