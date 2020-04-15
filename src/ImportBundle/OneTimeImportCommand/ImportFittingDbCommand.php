@@ -15,6 +15,8 @@ class ImportFittingDbCommand extends AbstractCommand
     private $common;
     private $successCount = 0;
     private $failedCount = 0;
+    private $fileColumns;
+    const FITTING_DB_LOG_DIR = 'var/logs/fittingDB/';
 
     protected function configure()
     {
@@ -25,19 +27,35 @@ class ImportFittingDbCommand extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $time = new \DateTime();
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
         $input_file = $input->getArgument('input_file');
-        $excelDataNewArray = $this->getCSVData($input_file);
+        $csvImportedData = Import::getCSVData($input_file);
+        $this->fileColumns = $csvImportedData['header'];
+        $excelData = $csvImportedData['data'];
+        unset($csvImportedData);
 
         echo "Script started.\n";
         echo "Processing has been started for file: ".$input_file.".\n\n";
-        $allSuccess = false;
-        if(count($excelDataNewArray)>0)
+
+        if (!file_exists(self::FITTING_DB_LOG_DIR)) 
+            mkdir(self::FITTING_DB_LOG_DIR);
+
+        $filePath = self::FITTING_DB_LOG_DIR.'fittingDb-import-'.time().'.csv';
+        $fileName = fopen($filePath,"w");
+
+        $this->fileColumns[] = 'Status';
+        fputcsv($fileName, $this->fileColumns);
+        $dataCount = count($excelData);
+        if($dataCount>0)
         {
             $allErrors = array();
-            foreach ($excelDataNewArray as $key => $record) {
+            foreach ($excelData as $key => $recordValue) {
+                $recordValue['Status'] = '';
+                $record = array_combine($this->fileColumns, $recordValue);
                 echo "Processing row: ". ($key + 1)."\n";
                 $errorsData = array();
+
                 if(empty(trim($record['SAP Number'])))
                     $errorsData[] = 'SAP Number should not be blank.';
 
@@ -49,42 +67,64 @@ class ImportFittingDbCommand extends AbstractCommand
                 if(isset($errorsData['SUCCESS']))
                 {
                     echo $errorsString = "SUCCESS: ".$errorsData['SUCCESS']."\n";
+                    $excelData[$key]['Status'] = 'SUCCESS';
                     $this->successCount++;
                 }
                 else if(count($errorsData) > 0)
                 {
-                    $allSuccess = false;
                     $this->failedCount++;
                     $errorsString = "FAILED: ";
                     $allErrorsInString = implode(' ', $errorsData);
+                    $excelData[$key]['Status'] = $allErrorsInString;
                     echo $errorsString .= $allErrorsInString."\n";
                 }
+
+                unset($errorsData);
+                fputcsv($fileName, $excelData[$key]);
+
             }
+            fclose($fileName);
+            echo "CSV log file created - ".$filePath.". \n";
+
+            $countMsg = "\nTotal Processed Records:".$dataCount.", ";
+            $countMsg .= "\nUpdated Records:".$this->successCount.", ";
+            $countMsg .= "\nFailed Records:".$this->failedCount."\n";
+
+            if ($this->failedCount > 0) 
+            {
+                echo "Fitting db import command failed to import {$this->failedCount} Record(s) out of {$dataCount} Record(s)".$countMsg;
+            }else
+                echo "Fitting db Imported successfully.";
         }
         else
         {
             echo "No record found.\n";
         }
+        unset($excelData);
         echo "Script stopped. Finished!! \n";
+        $timediff = $time->diff(new \DateTime());
+        echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
+        \Pimcore::collectGarbage();
         die;
     }
 
     public function updateBrickData($data)
     {
+        $errorsData = array();
         $materialKey = $data['SAP Number'];
-        // $product = DataObject\Product::getById(25170);
         $product = $this->getMaterialObject($materialKey);
+        
         if($product)
         {
-            // $rr = $product->getDigit14()->getHydFittingsFert();
-            $allBricks = $product->getDigit14();
+            $allBricks = $product->getFert();
             $allBricksGetters=$allBricks->getBrickGetters();
-
+            $isMaterialUpdated = false;
             foreach ($allBricksGetters as $key => $brick) {
-                $brickData = $product->getDigit14()->$brick();
+                $brickData = $product->getFert()->$brick();
                 
                 if($brickData && ($brickData->getType() == 'HydFittingsFert'))
                 {
+                    $isMaterialUpdated = true;
                     $brickData->setFittingFamily(''); 
                     $brickData->setActivantNumber($data['Activant Number']);
                     $brickData->setAssemblyRevisionNumber($data['Assembly Revision Number']);
@@ -95,38 +135,27 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setSAPMaterialNumber($data['SAP Material Number']);
                     $brickData->setSAPNumber($data['SAP Number']);
                     $brickData->setCatalogDescription('');
-                    $brickData->setTubeLengthMM(0);
-                    $brickData->setTubeLengthInDec(0);
-                    $brickData->setHex1WrenchSizeIn(0);
-                    $brickData->setHex1WrenchSizeMM(0);
-                    $brickData->setHex2WrenchSizeIn(0);
-                    $brickData->setHex2WrenchSizeMM(0);
-                    $brickData->setSocketWrenchSizeInFract(0);
-                    $brickData->setSocketWrenchSizeMM(0);
-                    $brickData->setSocketWrenchSizeInDec(0);
-                    $brickData->setElbowAngleDegrees(0);
+                    // $brickData->setTubeLengthMM(0);
+                    // $brickData->setTubeLengthInDec(0);
+                    // $brickData->setHex1WrenchSizeIn(0);
+                    // $brickData->setHex1WrenchSizeMM(0);
+                    // $brickData->setHex2WrenchSizeIn(0);
+                    // $brickData->setHex2WrenchSizeMM(0);
+                    // $brickData->setSocketWrenchSizeInFract(0);
+                    // $brickData->setSocketWrenchSizeMM(0);
+                    // $brickData->setSocketWrenchSizeInDec(0);
+                    // $brickData->setElbowAngleDegrees(0);
                     $brickData->setDropLength($data['Drop Length']);
-
-                    $overallLengthUnitId = $this->common->getQuantityValueUnitId('');
-                    $standardPackQuantity = $this->common->getDataQuantityValue($data['Overall Length'], $overallLengthUnitId);
                     
-                    $runLengthUnitId = $this->common->getQuantityValueUnitId('');
-                    $runLength = $this->common->getDataQuantityValue($data['Run Length'], $runLengthUnitId);
-                    
-                    $cutOffLengthUnitId = $this->common->getQuantityValueUnitId('');
-                    $cutOffLength = $this->common->getDataQuantityValue($data['Cut Off Length'], $cutOffLengthUnitId);
-                    
-                    $insertionDepthUnitId = $this->common->getQuantityValueUnitId('');
-                    $insertionDepth = $this->common->getDataQuantityValue($data['Insertion Depth'], $insertionDepthUnitId);
-                    
-                    $fittingWeightUnitId = $this->common->getQuantityValueUnitId('');
-                    $fittingWeight = $this->common->getDataQuantityValue($data['Fitting Weight'], $fittingWeightUnitId);
-
-                    $brickData->setOverallLength($overallLength);
-                    $brickData->setRunLength($runLength);
-                    $brickData->setCutOffLength($cutOffLength);
-                    $brickData->setInsertionDepth($insertionDepth);
-                    $brickData->setFittingWeight($fittingWeight);
+                    $brickData->setOverallLengthIn($data['Overall Length']);
+                    $brickData->setOverallLengthMm($data['Overall Length']);
+                    $brickData->setRunLengthIn($data['Run Length']);
+                    $brickData->setRunLengthMm($data['Run Length']);
+                    $brickData->setCutOffLengthIn($data['Cut Off Length']);
+                    $brickData->setCutOffLengthMm($data['Cut Off Length']);
+                    $brickData->setInsertionDepthIn($data['Insertion Depth']);
+                    $brickData->setInsertionDepthMm($data['Insertion Depth']);
+                    $brickData->setFittingWeight($data['Fitting Weight']);
                     
                     if(empty(trim($record['Released To Production Date'])))
                     {
@@ -134,48 +163,48 @@ class ImportFittingDbCommand extends AbstractCommand
                         $brickData->setReleasedToProductionDate($ReleasedToProductionDate);
                     }
                     $brickData->setReleasedToProduction($data['Released To Production']);
-                    $brickData->setFlangeIDInFract(0);
-                    $brickData->setFlangeIDInDec(0);
-                    $brickData->setFlangeIDMM(0);
-                    $brickData->setFlangeODInFract(0);
-                    $brickData->setFlangeODInDec(0);
-                    $brickData->setFlangeODMM(0);
-                    $brickData->setTubeIDInFract(0);
-                    $brickData->setTubeIDInDec(0);
-                    $brickData->setTubeIDMM(0);
-                    $brickData->setTubeODInFract(0);
-                    $brickData->setTubeODInDec(0);
-                    $brickData->setTubeODMM(0);
-                    $brickData->setValveStyle(0);
-                    $brickData->setValveSizeInDec(0);
-                    $brickData->setValveSizeMM(0);
-                    $brickData->setThreadDashSize1(0);
-                    $brickData->setThreadDashSize2(0);
-                    $brickData->setThreadDashSize3(0);
-                    $brickData->setThreadDashSize4(0);
-                    $brickData->setHoseID1InFract(0);
-                    $brickData->setHoseID1InDec(0);
-                    $brickData->setHoseID1MM(0);
-                    $brickData->setHoseID2MM(0);
-                    $brickData->setHoseID2InFract(0);
-                    $brickData->setHoseID2InDec(0);
-                    $brickData->setHoseID3InDec(0);
-                    $brickData->setHoseID3MM(0);
-                    $brickData->setHoseID3InFract(0);
-                    $brickData->setHoseDashSize(0);
-                    $brickData->setSwivel('');
-                    $brickData->setUniCrimpStyle('');
-                    $brickData->setElbowType('');
-                    $brickData->setAssemblyMaterial('');
-                    $brickData->setDualGripStyle('');
-                    $brickData->setFittingSizeInFract('');
-                    $brickData->setSAEStandard('');
-                    $brickData->setGender('');
-                    $brickData->setSkiveType('');
-                    $brickData->setThreadDescription1('');
-                    $brickData->setThreadDescription2('');
-                    $brickData->setThreadDescription3('');
-                    $brickData->setThreadDescription4('');
+                    // $brickData->setFlangeIDInFract(0);
+                    // $brickData->setFlangeIDInDec(0);
+                    // $brickData->setFlangeIDMM(0);
+                    // $brickData->setFlangeODInFract(0);
+                    // $brickData->setFlangeODInDec(0);
+                    // $brickData->setFlangeODMM(0);
+                    // $brickData->setTubeIDInFract(0);
+                    // $brickData->setTubeIDInDec(0);
+                    // $brickData->setTubeIDMM(0);
+                    // $brickData->setTubeODInFract(0);
+                    // $brickData->setTubeODInDec(0);
+                    // $brickData->setTubeODMM(0);
+                    // $brickData->setValveStyle(0);
+                    // $brickData->setValveSizeInDec(0);
+                    // $brickData->setValveSizeMM(0);
+                    // $brickData->setThreadDashSize1(0);
+                    // $brickData->setThreadDashSize2(0);
+                    // $brickData->setThreadDashSize3(0);
+                    // $brickData->setThreadDashSize4(0);
+                    // $brickData->setHoseID1InFract(0);
+                    // $brickData->setHoseID1InDec(0);
+                    // $brickData->setHoseID1MM(0);
+                    // $brickData->setHoseID2MM(0);
+                    // $brickData->setHoseID2InFract(0);
+                    // $brickData->setHoseID2InDec(0);
+                    // $brickData->setHoseID3InDec(0);
+                    // $brickData->setHoseID3MM(0);
+                    // $brickData->setHoseID3InFract(0);
+                    // $brickData->setHoseDashSize(0);
+                    // $brickData->setSwivel('');
+                    // $brickData->setUniCrimpStyle('');
+                    // $brickData->setElbowType('');
+                    // $brickData->setAssemblyMaterial('');
+                    // $brickData->setDualGripStyle('');
+                    // $brickData->setFittingSizeInFract('');
+                    // $brickData->setSAEStandard('');
+                    // $brickData->setGender('');
+                    // $brickData->setSkiveType('');
+                    // $brickData->setThreadDescription1('');
+                    // $brickData->setThreadDescription2('');
+                    // $brickData->setThreadDescription3('');
+                    // $brickData->setThreadDescription4('');
                     $brickData->setStemComponentNumber($data['Stem Component Number']);
                     $brickData->setStemComponentSAPNumber($data['Stem Component SAP Number']);
                     $brickData->setStemComponentThreadType($data['Stem Component Thread Type']);
@@ -206,12 +235,12 @@ class ImportFittingDbCommand extends AbstractCommand
                     }
 
                     // $brickData->setFerruleRevisionNumber($data['Ferrule Revision Number']);
-                    $brickData->setFerruleIDInDec(0);
-                    $brickData->setFerruleIDMM(0);
-                    $brickData->setFerruleODInDec(0);
-                    $brickData->setFerruleODMM(0);
-                    $brickData->setFerruleLengthInDec(0);
-                    $brickData->setFerruleLengthMM(0);
+                    // $brickData->setFerruleIDInDec(0);
+                    // $brickData->setFerruleIDMM(0);
+                    // $brickData->setFerruleODInDec(0);
+                    // $brickData->setFerruleODMM(0);
+                    // $brickData->setFerruleLengthInDec(0);
+                    // $brickData->setFerruleLengthMM(0);
                     $brickData->setSwivelNutComponentNumber($data['Swivel Nut Component Number']);
                     $brickData->setSwivelNutComponentSAPNumber($data['Swivel Nut Component SAP Number']);
                     $brickData->setSwivelNutComponentThreadType($data['Swivel Nut Component Thread Type']);
@@ -262,7 +291,13 @@ class ImportFittingDbCommand extends AbstractCommand
                     $product->save();
                     $errorsData['SUCCESS'] = "SAP Number ".$materialKey. " has been updated. \n";
                 }
+                
                 unset($brickData);
+            }
+
+            if(!$isMaterialUpdated)
+            {
+                $errorsData[] = "Updation failed. HydFittingsFert binding not found with SAP Number ".$materialKey. " \n";
             }
         }
         else{
@@ -270,52 +305,6 @@ class ImportFittingDbCommand extends AbstractCommand
         }
 
         return $errorsData;
-    }
-
-    public function getCSVData($fileName) {
-        try {
-
-            $csvFilePath = $fileName;
-            $firstRowData = array();
-            if (empty($csvFilePath)) {
-                return $firstRowData;
-            }
-
-            // $csvFilePath = PIMCORE_ASSET_DIRECTORY . $filePath;
-
-            $csvFilePath = str_replace("%20", " ", $csvFilePath);
-
-            $dialect = \Pimcore\Tool\Admin::determineCsvDialect($csvFilePath);
-            $data = [];
-            $count = 0;
-
-            if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
-                    if ($count == 0) {
-                        foreach ($rowData as $key => $value) {
-                            unset($rowData[$key]);
-                            $rowData[utf8_decode(trim($key))] = utf8_decode(trim($value));
-                        }
-                        $firstRowData = $rowData;
-                    } else {
-                        $tmpData = [];
-                        foreach ($firstRowData as $key => $value) {
-                            $tmpData[$value] = utf8_encode($rowData[$key]);
-                            $tmpData[$value] = $rowData[$key];
-                        }
-                        $data[] = $tmpData;
-                        $cols = count($rowData);
-                    }
-                    $count++;
-                }
-                fclose($handle);
-            }
-            return $data;
-        } catch (\Exception $e) {
-            return array(
-                'error' => $e->getMessage()
-            );
-        }
     }
 
     /**
