@@ -2,7 +2,6 @@
 
 namespace ImportBundle\OneTimeImportCommand;
 
-use Pimcore\Db;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +12,6 @@ use ImportBundle\Services\Import;
 
 class ImportCompetitorDataCommand extends AbstractCommand
 {
-    private $db;
     private $common;
     private $fileColumns;
     private $successCount = 0;
@@ -26,7 +24,6 @@ class ImportCompetitorDataCommand extends AbstractCommand
 
     protected function configure()
     {
-        $this->db = Db::get();
         $this->setName('onetime-import:competitor-data')
             ->setDescription('Commamd to imports competitor data')
             ->addArgument('input_file', InputArgument::REQUIRED, 'Input file path');
@@ -39,7 +36,7 @@ class ImportCompetitorDataCommand extends AbstractCommand
         $input_file = $input->getArgument('input_file');
         $csvImportedData = Import::getCSVData($input_file);
         $this->fileColumns = $csvImportedData['header'];
-        $excelDataNewArray = $csvImportedData['data'];
+        $excelData = $csvImportedData['data'];
         unset($csvImportedData);
         
         DataObject\Service::createFolderByPath(self::COMPETITIVE_DATA_COMPETITOR_FOLDER);
@@ -47,10 +44,6 @@ class ImportCompetitorDataCommand extends AbstractCommand
         
         echo "Script started.\n";
         echo "Processing has been started for file: ".$input_file.".\n\n";
-        $allSuccess = false;
-        if(count($excelDataNewArray)>0)
-        {
-            $allErrors = array();
 
             if (!file_exists(self::COMPETITOR_PARTS_LOG_DIR)) 
                 mkdir(self::COMPETITOR_PARTS_LOG_DIR);
@@ -58,10 +51,12 @@ class ImportCompetitorDataCommand extends AbstractCommand
             $filePath = self::COMPETITOR_PARTS_LOG_DIR.'competitor-import-'.time().'.csv';
             $fileName = fopen($filePath,"w");
 
-            $this->fileColumns[] = 'Status';
-            fputcsv($fileName, $this->fileColumns);
-            
-            foreach ($excelDataNewArray as $key => $recordValue) {
+        $this->fileColumns[] = 'Status';
+        fputcsv($fileName, $this->fileColumns);
+        $dataCount = count($excelData);
+        if($dataCount>0)
+        {
+            foreach ($excelData as $key => $recordValue) {
                 $recordValue['Status'] = '';
                 $record = array_combine($this->fileColumns, $recordValue);
                 echo "Processing row: ". ($key + 1)."\n";
@@ -100,31 +95,40 @@ class ImportCompetitorDataCommand extends AbstractCommand
                 if(isset($errorsData['SUCCESS']))
                 {
                     echo $errorsString = "SUCCESS: ".$errorsData['SUCCESS']."\n";
-                    $excelDataNewArray[$key]['Status'] = 'SUCCESS';
+                    $excelData[$key]['Status'] = 'SUCCESS';
                     $this->successCount++;
                 }
                 else if(count($errorsData) > 0)
                 {
-                    $allSuccess = false;
                     $this->failedCount++;
                     $errorsString = "FAILED: ";
                     $allErrorsInString = implode(' ', $errorsData);
-                    $excelDataNewArray[$key]['Status'] = $allErrorsInString;
+                    $excelData[$key]['Status'] = $allErrorsInString;
                     echo $errorsString .= $allErrorsInString."\n";
                 }
+
                 unset($errorsData);
-                fputcsv($fileName, $excelDataNewArray[$key]);
-                
+                fputcsv($fileName, $excelData[$key]);
+
             }
             fclose($fileName);
             echo "CSV log file created - ".$filePath.". \n";
-            
+
+            $countMsg = "\nTotal Processed Records:".$dataCount.", ";
+            $countMsg .= "\nUpdated Records:".$this->successCount.", ";
+            $countMsg .= "\nFailed Records:".$this->failedCount."\n";
+
+            if ($this->failedCount > 0) 
+            {
+                echo "Fitting db import command failed to import {$this->failedCount} Record(s) out of {$dataCount} Record(s)".$countMsg;
+            }else
+                echo "Fitting db Imported successfully.";
         }
         else
         {
             echo "No record found.\n";
         }
-        unset($excelDataNewArray);
+        unset($excelData);
         echo "Script stopped. Finished!! \n";
         $timediff = $time->diff(new \DateTime());
         echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
