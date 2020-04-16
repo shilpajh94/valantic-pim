@@ -181,6 +181,9 @@ object_bricks:
                     material:
                        type: 'select'
                        label: 'Material'
+                    reinforcement:
+                       type: 'input'
+                       label: 'Reinforcement'
 
     Skeleton:
         label: 'Skeleton Data'
@@ -191,6 +194,13 @@ object_bricks:
                     profile:
                        type: 'input'
                        label: 'Profile'
+                    staticConductive:
+                       type: 'input'
+                       label: 'Static Conductive'
+                    heatOilResistant:
+                       type: 'input'
+                       label: 'Heat & Oil Resistant'
+
 
 
     Fert:

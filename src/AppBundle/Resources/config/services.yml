@@ -109,3 +109,6 @@ services:
     ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }
+
+    AppBundle\Services\UnitConverterService:
+      public: true
