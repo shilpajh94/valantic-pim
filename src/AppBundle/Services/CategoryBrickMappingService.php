@@ -242,7 +242,7 @@ class CategoryBrickMappingService
      * @param string $level : base|skeleton|fert
      * @return array
      */
-    private function getMappedBrickKeys(array $selectedClassificationNames, string $level): array
+    public function getMappedBrickKeys(array $selectedClassificationNames, string $level): array
     {
         $returnValue = array();
         $groupToBrickMapping = $this->getBrickMappingConfigForKey('group_name_to_brick_suffix_mapping');

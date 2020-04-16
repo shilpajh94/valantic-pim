@@ -69,7 +69,7 @@ class ObjectBricks implements SelectOptionsProviderInterface
      */
     public function getDefaultValue($context, $fieldDefinition)
     {
-        return $fieldDefinition->getDefaultValue();
+        return true; //return $fieldDefinition->getDefaultValue();
     }
     
     /**

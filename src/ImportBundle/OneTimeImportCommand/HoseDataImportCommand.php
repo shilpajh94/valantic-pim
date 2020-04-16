@@ -1,8 +1,8 @@
 <?php
 
 /**
- * File Path: /home/praganosis/Working/CSV/ptg_import.csv (Your File path on system)
- * Command: bin/console conti:onetimeimport:ptg /home/praganosis/Working/CSV/ptg_import.csv
+ * File Path: /home/praganosis/Working/CSV/hosedata.csv (Your File path on system)
+ * Command: bin/console conti:onetimeimport:hose /home/praganosis/Working/CSV/hosedata.csv
  * Des: This command will import and enrich PTG data at class, base, skeleton, fert level including bricks too.
  * Just run the above command, it will create all required temp table if it does not exist into system
  * After creation of temp table, it will process the sheet to import and enrich data
@@ -292,8 +292,8 @@ class HoseDataImportCommand extends AbstractCommand
                 'weightg'       =>  $weightGM,
                 'BendRadius_in' =>  !empty($r['Bend_Radius_in']) ? $r['Bend_Radius_in'] : '',
                 'BendRadius_mm' =>  !empty($r['Bend_Radius_mm']) ? $r['Bend_Radius_mm'] : '',
-                'Vacumm_in' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : '',
-                'Vacumm_mm' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : '',
+                'VacuumIN' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : '',
+                'VacuumMM' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : '',
                 'workingPressurempa' =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : '',
                 'workingPressurepsi' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : '',
                 'workingPressureBAR' =>  !empty($r['Working_Pressure_BAR']) ? $r['Working_Pressure_BAR'] : '',
@@ -305,6 +305,11 @@ class HoseDataImportCommand extends AbstractCommand
                 'hoseOdIn' =>  !empty($r['Hose_OD_in']) ? $r['Hose_OD_in'] : '',
                 'hoseOdmm' =>  !empty($r['Hose_OD_mm']) ? $r['Hose_OD_mm'] : '',
                 'reinforcement' =>  !empty($reinfo) ? implode(',', $reinfo) : '',
+                'VirtualCatalogVacuumIn'    =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : '',
+                'VirtualCatalogWorkingPressureMPA'  =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : '',
+                'VirtualCatalogReinforcement'   =>  !empty($reinfo) ? implode(',', $reinfo) : '',
+                'VirtualCatalogVacuumMM'    => !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : '',
+                'VirtualCatalogWorkingPressurePSI'  => !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : ''
             );
         }
         $this->insertDataToLogTable($results);

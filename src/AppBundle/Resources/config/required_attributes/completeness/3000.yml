@@ -1,0 +1,262 @@
+non_localized:
+     shelfLife:
+        type: 'input'
+        label: 'Shelf Life'
+     nitrosamines:
+        type: 'input'
+        label: 'Nitrosamines'
+     rohs:
+        type: 'input'
+        label: 'Rohs'
+     reach:
+        type: 'input'
+        label: 'Reach'
+     prop65Message:
+        type: 'textarea'
+        label: 'Prop 65 Message'
+# panel break here
+     numeratorForConversionToBaseUnitsOfMeasure:
+        type: 'textarea'
+        label: 'Numerator for Conversion to Base Units of Measure'
+     alternativeUnitOfMeasureForStockkeepingUnit:
+        type: 'input'
+        label: 'Alternative Unit of Measure for Stockkeeping Unit'
+     denominatorForConversionToBaseUnitsOfMeasure:
+        type: 'input'
+        label: 'Denominator for conversion to base units of measure'
+     californiaProposition65ChemicalName1:
+        type: 'input'
+        label: 'California Proposition65 Chemical Name1'
+     californiaProposition65ChemicalName2:
+        type: 'input'
+        label: 'California Proposition 65 Chemical Name2'
+     californiaProposition65ChemicalName3:
+        type: 'input'
+        label: 'California Proposition 65 Chemical Name3'
+     searchKeywords:
+        type: 'input'
+        label: 'Search Keywords'
+     webDiscription:
+        type: 'input'
+        label: 'Web Description'
+     proposition65WarningAttributesRequired:
+        type: 'booleanSelect'
+        label: 'Proposition 65 warning attributes required'
+# panel break here
+     BrandingLayline:
+        type: 'textarea'
+        label: 'Branding / Layline'
+     VirtualCatalogBrandingLayline:
+        type: 'input'
+        label: 'Virtual Catalog Branding / Layline'
+# panel break here
+     packageLengthIN:
+        type: 'numeric'
+        label: 'Package Length (in)'
+     packageWidthIN:
+        type: 'numeric'
+        label: 'Package Width (in)'
+     packageWeightLBS:
+        type: 'numeric'
+        label: 'Package Weight (lbs)'
+     packageHeightIN:
+        type: 'numeric'
+        label: 'Package Height (in)'
+     caseLengthIN:
+        type: 'numeric'
+        label: 'Case Length (in)'
+     caseHeightIN:
+        type: 'numeric'
+        label: 'Case Height (in)'
+     caseWidthIN:
+        type: 'numeric'
+        label: 'Case Width (in)'
+     caseWeightLBS:
+        type: 'numeric'
+        label: 'Case Weight (lbs)'
+     palletLengthIN:
+        type: 'numeric'
+        label: 'Pallet Length (in)'
+     palletHeightIN:
+        type: 'numeric'
+        label: 'Pallet Height (in)'
+     palletWidthIN:
+        type: 'numeric'
+        label: 'Pallet Width (in)'
+     palletWeightLBS:
+        type: 'numeric'
+        label: 'Pallet Weight (lbs)'
+# panel break here
+     numberOfItems:
+        type: 'numeric'
+        label: 'Number of Items'
+     casePackQuantity:
+        type: 'numeric'
+        label: 'Case Pack Quantity'
+     orderIncrement:
+        type: 'numeric'
+        label: 'Order Increment'
+     minimumOrderQuantity:
+        type: 'numeric'
+        label: 'Minimum Order Quantity'
+     numberOfCoils:
+        type: 'numeric'
+        label: 'Number of Coils'
+     tieBundles:
+        type: 'numeric'
+        label: 'Tie Bundles '
+     bundlesOfQuantity:
+        type: 'numeric'
+        label: 'Bundles of Quantity'
+# panel break here
+     succesorFlag:
+        type: 'booleanSelect'
+        label: 'Succesor / Supercession Flag'
+     B2CStoreFlag:
+        type: 'booleanSelect'
+        label: 'B2C Store Flag'
+     printedCatalogFlag:
+        type: 'booleanSelect'
+        label: 'Printed Catalog Flag'
+# panel break here
+     returnFlag:
+        type: 'booleanSelect'
+        label: 'Return Flag'
+     rebateFlag:
+        type: 'booleanSelect'
+        label: 'Rebate Flag'
+     newItemFlagForCatalog:
+        type: 'booleanSelect'
+        label: 'New Item Flag for Catalog'
+# panel break here
+     mainImage:
+        type: 'image'
+        label: 'MainImage'
+     frontView:
+        type: 'image'
+        label: 'Front view'
+     sideView:
+        type: 'image'
+        label: 'Side view'
+     cutView:
+        type: 'image'
+        label: 'Cut view'
+
+
+localized:
+    FeaturesBenefitsBulletPoint1:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 1'
+    FeaturesBenefitsBulletPoint2:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 2'
+    FeaturesBenefitsBulletPoint3:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 3'
+    FeaturesBenefitsBulletPoint4:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 4'
+    FeaturesBenefitsBulletPoint5:
+        type: 'input'
+        label: 'Features & Benefits Bullet Point 5'
+    legalText:
+        type: 'input'
+        label: 'Legal Text'
+    Application:
+        type: 'input'
+        label: 'Application (What does the hose convey?)'
+# panel break here
+    longDescription:
+        type: 'textarea'
+        label: 'Marketing / Long Description'
+
+
+object_bricks:
+    Base:
+        label: 'Base Data'
+        brick_items:
+            PTGBase:
+                label: 'PTG Base'
+                non_localized:
+                    material:
+                       type: 'select'
+                       label: 'Material'
+                    reinforcement:
+                       type: 'input'
+                       label: 'Reinforcement'
+
+    Skeleton:
+        label: 'Skeleton Data'
+        brick_items:
+            PTGSkeleton:
+                label: 'PTG Skeleton'
+                non_localized:
+                    profile:
+                       type: 'input'
+                       label: 'Profile'
+                    staticConductive:
+                       type: 'input'
+                       label: 'Static Conductive'
+                    heatOilResistant:
+                       type: 'input'
+                       label: 'Heat & Oil Resistant'
+
+
+
+    Fert:
+        label: 'Fert Data'
+        brick_items:
+            PTGFert:
+                label: 'PTG Fert'
+                non_localized:
+                    widthmm:
+                       type: 'numeric'
+                       label: 'Width (mm)'
+                    widthIn:
+                       type: 'numeric'
+                       label: 'Width (in)'
+            BeltsFert:
+                label: 'Belts Fert'
+                non_localized:
+                    effectiveLengthUOM:
+                       type: 'select'
+                       label: 'Effective Length UOM'
+                    numberOfBands:
+                       type: 'numeric'
+                       label: 'Number of Bands'
+                    productEffectiveLengthIn:
+                       type: 'numeric'
+                       label: 'Product Effective Length (In)'
+                    productEffectiveLengthMM:
+                       type: 'numeric'
+                       label: 'Product Effective Length (MM)'
+            SynchronousFert:
+                  label: 'Synchronous Fert'
+                  non_localized:
+                      pitchUOM:
+                         type: 'select'
+                         label: 'Pitch UOM'
+                      pitchIN:
+                         type: 'numeric'
+                         label: 'Pitch (in)'
+                      pitchMM:
+                         type: 'numeric'
+                         label: 'Pitch (MM)'
+                      pitchLengthUOM:
+                         type: 'select'
+                         label: 'Pitch Length UOM'
+                      pitchLengthIN:
+                         type: 'numeric'
+                         label: 'Pitch Length (in)'
+                      pitchLengthMM:
+                         type: 'numeric'
+                         label: 'Pitch Length (MM)'
+
+
+
+
+
+
+
+
+
