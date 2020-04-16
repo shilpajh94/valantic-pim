@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-14T12:19:45+02:00
+* Generated at: 2020-04-16T10:25:38+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Country',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859585,
+   'modificationDate' => 1587025537,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -75,6 +75,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 400,
+             'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -96,11 +97,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 400,
+             'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -122,6 +125,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => true,
              'visibleSearch' => true,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
