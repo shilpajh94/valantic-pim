@@ -244,7 +244,7 @@ class PtgImportCommand extends AbstractCommand
             // array_push($productLocalizedQueryL, $ar);
             unset($ar);
             // PTG Fert
-            // if (!empty($r['ptg_fert_oid'])) {
+            if (!empty($r['ptg_fert_oid'])) {
                 $ar = array(
                     'o_id'      =>  $r['o_id'],
                     'fieldname'     =>  $r['fieldname'],
@@ -262,10 +262,10 @@ class PtgImportCommand extends AbstractCommand
                 array_push($ptgFertQuery, $ar);
                 // array_push($ptgFertStore, $ar);
                 unset($ar);
-            // }
+            }
 
             // Belt Fert
-            // if (!empty($r['ptg_belt_oid'])) {
+            if (!empty($r['ptg_belt_oid'])) {
                 $ar = array(
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
@@ -285,11 +285,11 @@ class PtgImportCommand extends AbstractCommand
                 array_push($beltsFertQuery, $ar);
                 // array_push($beltsFertStore, $ar);
                 unset($ar);
-            // }
+            }
 
 
             // Synchronouse Fert
-            // if (!empty($r['ptg_sync_oid'])) {
+            if (!empty($r['ptg_sync_oid'])) {
                 $ar = array(
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
@@ -302,9 +302,9 @@ class PtgImportCommand extends AbstractCommand
                 unset($ar['numberOfTeeth']);
                 array_push($syncFertStore, $ar);
                 unset($ar);
-            // }
+            }
 
-            // if (!empty($r['ptg_metal_oid'])) {
+            if (!empty($r['ptg_metal_oid'])) {
                 $ar = array(
                     'o_id'  =>  $r['o_id'],
                     'fieldname'  =>  $r['fieldname'],
@@ -351,7 +351,7 @@ class PtgImportCommand extends AbstractCommand
                 array_push($metalFertQuery, $ar);
                 // array_push($metalFertStore, $ar);
                 unset($ar);
-            // }
+            }
         }
         return array(
             'ptgFertQuery'      =>  $ptgFertQuery,
