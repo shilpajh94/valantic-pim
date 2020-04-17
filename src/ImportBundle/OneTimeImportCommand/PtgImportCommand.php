@@ -233,22 +233,22 @@ class PtgImportCommand extends AbstractCommand
             $ar = array(
                 'ooo_id'    =>  $r['o_id'],
                 'language'  =>  'en',
-                'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:'',
-                'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:'',
-                'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:'',
-                'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:'',
-                'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:'',
-                'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:''
+                'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:NULL,
+                'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:NULL,
+                'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:NULL,
+                'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:NULL,
+                'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:NULL,
+                'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:NULL
             );
             array_push($productLocalizedData, $ar);
             // array_push($productLocalizedQueryL, $ar);
             unset($ar);
             // PTG Fert
-            if (!empty($r['ptg_fert_oid'])) {
+            // if (!empty($r['ptg_fert_oid'])) {
                 $ar = array(
                     'o_id'      =>  $r['o_id'],
                     'fieldname'     =>  $r['fieldname'],
-                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? ucfirst(strtolower($r['Color'])): '',
+                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? ucfirst(strtolower($r['Color'])): NULL,
                     // 'customerProductFamily'   =>  $r[''],
                     // 'heightIn'   =>  $r[''],
                     // 'heightmm'   =>  $r[''],
@@ -262,10 +262,10 @@ class PtgImportCommand extends AbstractCommand
                 array_push($ptgFertQuery, $ar);
                 // array_push($ptgFertStore, $ar);
                 unset($ar);
-            }
+            // }
 
             // Belt Fert
-            if (!empty($r['ptg_belt_oid'])) {
+            // if (!empty($r['ptg_belt_oid'])) {
                 $ar = array(
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
@@ -285,31 +285,31 @@ class PtgImportCommand extends AbstractCommand
                 array_push($beltsFertQuery, $ar);
                 // array_push($beltsFertStore, $ar);
                 unset($ar);
-            }
+            // }
 
 
             // Synchronouse Fert
-            if (!empty($r['ptg_sync_oid'])) {
+            // if (!empty($r['ptg_sync_oid'])) {
                 $ar = array(
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
                     'pitchIN' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ? $r['Pitch_in'] : NULL,
-                    'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_mm ']) ? $r['Pitch_mm '] : NULL,
-                    'numberOfTeeth' =>  !$this->isSheetValueEmpty($r['Number_of_teeth ']) ? $r['Number_of_teeth '] : NULL,
+                    'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_mm']) ? $r['Pitch_mm'] : NULL,
+                    'numberOfTeeth' =>  !$this->isSheetValueEmpty($r['Number_of_teeth']) ? $r['Number_of_teeth'] : NULL,
                 );
 
                 array_push($syncFertQuery, $ar);
                 unset($ar['numberOfTeeth']);
                 array_push($syncFertStore, $ar);
                 unset($ar);
-            }
+            // }
 
-            if (!empty($r['ptg_metal_oid'])) {
+            // if (!empty($r['ptg_metal_oid'])) {
                 $ar = array(
                     'o_id'  =>  $r['o_id'],
                     'fieldname'  =>  $r['fieldname'],
-                    'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r['Bore_Type'] : '',
-                    'flange'  =>  !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'y' ? 1 : NULL,
+                    'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r['Bore_Type'] : NULL,
+                    'flange'  =>  !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'y' ? 1 : !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'n' ? 0 : NULL,
                     'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $r['Max_Bore_Size_in'] : NULL,
                     'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ? $r['Max_Bore_Size_mm'] : NULL,
                     'flangeDiameterIn'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $r['Flange_Outer_Diameter_in'] : NULL,
@@ -351,7 +351,7 @@ class PtgImportCommand extends AbstractCommand
                 array_push($metalFertQuery, $ar);
                 // array_push($metalFertStore, $ar);
                 unset($ar);
-            }
+            // }
         }
         return array(
             'ptgFertQuery'      =>  $ptgFertQuery,
@@ -381,10 +381,10 @@ class PtgImportCommand extends AbstractCommand
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'material'  =>  !$this->isSheetValueEmpty($r['material'])?$r['material']:'',
+                'material'  =>  !$this->isSheetValueEmpty($r['material'])?$r['material']:NULL,
                 'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:NULL,
                 'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:NULL,
-                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:'',
+                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:NULL,
                 'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF'])?$r['maximumTemperatureF']:NULL,
                 'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC'])?$r['maximumTemperatureC']:NULL
             );
@@ -398,7 +398,7 @@ class PtgImportCommand extends AbstractCommand
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'profile'  =>  !$this->isSheetValueEmpty($r['Profile'])?$r['Profile']:'',
+                'profile'  =>  !$this->isSheetValueEmpty($r['Profile'])?$r['Profile']:NULL,
                 // 'beltAngle'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:NULL,
                 // 'heightIn'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:NULL,
                 // 'heightMm'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:'',
@@ -431,10 +431,10 @@ class PtgImportCommand extends AbstractCommand
                 foreach ($results as $r) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
-                        if(!is_null($key)) {
+                        if(!is_null($r[$key])) {
                             $valueArray[] = $this->db->quote($r[$key]);
                         } else {
-                            $valueArray[] = $r[$key];
+                            $valueArray[] = "NULL";
                         }
                         
                     }
