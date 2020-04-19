@@ -228,15 +228,15 @@ class HoseDataImportCommand extends AbstractCommand
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'staticWire'  =>  !empty($r['Static_Wire_Y_N']) ? $r['Static_Wire_Y_N'] : '',
-                'tubeColor'  =>  !empty($tbCols) ? implode(',', $tbCols) : '',
-                'minimumTemperatureF'  =>  !empty($r['Min_Temperature_Rating_F']) ? $r['Min_Temperature_Rating_F'] : '',
-                'maximumTemperatureF'  => !empty($r['Max_Temperature_Rating_F']) ? $r['Max_Temperature_Rating_F'] : '',
-                'coverCharacteristic'  =>  !empty($cvChars) ? implode(',', $cvChars) : '',
-                'coverColor'  =>  !empty($cvCols) ? implode(',', $cvCols) : '',
-                'minimumTemperatureC'  =>  !empty($r['Min_Temperature_Rating_C']) ? $r['Min_Temperature_Rating_C'] : '',
-                'maximumTemperatureC'  =>  !empty($r['Max_Temperature_Rating_C']) ? $r['Max_Temperature_Rating_C'] : '',
-                'agencyCompliance'  =>  !empty($agComp) ? implode(',', $agComp) : ''
+                'staticWire'  =>  !empty($r['Static_Wire_Y_N']) ? $r['Static_Wire_Y_N'] : NULL,
+                'tubeColor'  =>  !empty($tbCols) ? implode(',', $tbCols) : NULL,
+                'minimumTemperatureF'  =>  !empty($r['Min_Temperature_Rating_F']) ? $r['Min_Temperature_Rating_F'] : NULL,
+                'maximumTemperatureF'  => !empty($r['Max_Temperature_Rating_F']) ? $r['Max_Temperature_Rating_F'] : NULL,
+                'coverCharacteristic'  =>  !empty($cvChars) ? implode(',', $cvChars) : NULL,
+                'coverColor'  =>  !empty($cvCols) ? implode(',', $cvCols) : NULL,
+                'minimumTemperatureC'  =>  !empty($r['Min_Temperature_Rating_C']) ? $r['Min_Temperature_Rating_C'] : NULL,
+                'maximumTemperatureC'  =>  !empty($r['Max_Temperature_Rating_C']) ? $r['Max_Temperature_Rating_C'] : NULL,
+                'agencyCompliance'  =>  !empty($agComp) ? implode(',', $agComp) : NULL
             );
         }
         $this->insertDataToLogTable($results);
@@ -290,26 +290,26 @@ class HoseDataImportCommand extends AbstractCommand
                 // 'descriptive'   =>  !empty($r['descriptive']) ? $r['descriptive'] : '',
                 'grossWeight'   =>  $weightLbFt,
                 'weightg'       =>  $weightGM,
-                'BendRadius_in' =>  !empty($r['Bend_Radius_in']) ? $r['Bend_Radius_in'] : '',
-                'BendRadius_mm' =>  !empty($r['Bend_Radius_mm']) ? $r['Bend_Radius_mm'] : '',
-                'VacuumIN' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : '',
-                'VacuumMM' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : '',
-                'workingPressurempa' =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : '',
-                'workingPressurepsi' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : '',
-                'workingPressureBAR' =>  !empty($r['Working_Pressure_BAR']) ? $r['Working_Pressure_BAR'] : '',
-                'minBurstPressurepsi' =>  !empty($r['Min_Burst_Pressure_PSI']) ? $r['Min_Burst_Pressure_PSI'] : '',
-                'minBurstPressurempa' =>  !empty($r['Min_Burst_Pressure_Mpa']) ? $r['Min_Burst_Pressure_Mpa'] : '',
-                'hoseIdNominalId' =>  !empty($r['Hose_ID_Fraction']) ? $r['Hose_ID_Fraction'] : '',
-                'hoseIdDec' =>  !empty($r['Hose_ID_in']) ? $r['Hose_ID_in'] : '',
-                'hoseIdMM' =>  !empty($r['Hose_ID_mm']) ? $r['Hose_ID_mm'] : '',
-                'hoseOdIn' =>  !empty($r['Hose_OD_in']) ? $r['Hose_OD_in'] : '',
-                'hoseOdmm' =>  !empty($r['Hose_OD_mm']) ? $r['Hose_OD_mm'] : '',
-                'reinforcement' =>  !empty($reinfo) ? implode(',', $reinfo) : '',
-                'VirtualCatalogVacuumIn'    =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : '',
-                'VirtualCatalogWorkingPressureMPA'  =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : '',
-                'VirtualCatalogReinforcement'   =>  !empty($reinfo) ? implode(',', $reinfo) : '',
-                'VirtualCatalogVacuumMM'    => !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : '',
-                'VirtualCatalogWorkingPressurePSI'  => !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : ''
+                'BendRadiusIN' =>  !empty($r['Bend_Radius_in']) ? $r['Bend_Radius_in'] : NULL,
+                'BendRadiusMM' =>  !empty($r['Bend_Radius_mm']) ? $r['Bend_Radius_mm'] : NULL,
+                'VacuumIN' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
+                'VacuumMM' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
+                'workingPressurempa' =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : NULL,
+                'workingPressurepsi' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL,
+                'workingPressureBAR' =>  !empty($r['Working_Pressure_BAR']) ? $r['Working_Pressure_BAR'] : NULL,
+                'minBurstPressurepsi' =>  !empty($r['Min_Burst_Pressure_PSI']) ? $r['Min_Burst_Pressure_PSI'] : NULL,
+                'minBurstPressurempa' =>  !empty($r['Min_Burst_Pressure_Mpa']) ? $r['Min_Burst_Pressure_Mpa'] : NULL,
+                'hoseIdNominalId' =>  !empty($r['Hose_ID_Fraction']) ? $r['Hose_ID_Fraction'] : NULL,
+                'hoseIdDec' =>  !empty($r['Hose_ID_in']) ? $r['Hose_ID_in'] : NULL,
+                'hoseIdMM' =>  !empty($r['Hose_ID_mm']) ? $r['Hose_ID_mm'] : NULL,
+                'hoseOdIn' =>  !empty($r['Hose_OD_in']) ? $r['Hose_OD_in'] : NULL,
+                'hoseOdmm' =>  !empty($r['Hose_OD_mm']) ? $r['Hose_OD_mm'] : NULL,
+                'reinforcement' =>  !empty($reinfo) ? implode(',', $reinfo) : NULL,
+                'VirtualCatalogVacuumIn'    =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
+                'VirtualCatalogWorkingPressureMPA'  =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : NULL,
+                'VirtualCatalogReinforcement'   =>  !empty($reinfo) ? implode(',', $reinfo) : NULL,
+                'VirtualCatalogVacuumMM'    => !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
+                'VirtualCatalogWorkingPressurePSI'  => !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL
             );
         }
         $this->insertDataToLogTable($results);
@@ -376,8 +376,6 @@ class HoseDataImportCommand extends AbstractCommand
         try {
             $rowCount = 1;
             $values = '';
-            /** Fields ignore for update */
-            $ignore = array('o_id', 'fieldname');
             if (!empty($results)) {
                 $sql = "INSERT INTO {$table}";
                 $firstRow = $results[0];
@@ -385,7 +383,7 @@ class HoseDataImportCommand extends AbstractCommand
                 $valColumns = [];
                 foreach ($keys as $key) {
                     $sqlColumns[] = "`" . $key . "`";
-                    if(!in_array($key, $ignore)) {
+                    if ($key != 'o_id') {
                         $updateColumns[] = "`" . $key . "`= VALUES(`" . $key . "`)";
                     }
                     $valColumns[] = $key;
@@ -394,17 +392,18 @@ class HoseDataImportCommand extends AbstractCommand
                 $update = " ON DUPLICATE KEY UPDATE " . implode(",", $updateColumns);
                 foreach ($results as $r) {
                     $valueArray = [];
-                    $updateColumns = [];
                     foreach ($valColumns as $key) {
-                        $valueArray[] = $this->db->quote($r[$key]);
+                        if(!is_null($r[$key])) {
+                            $valueArray[] = $this->db->quote($r[$key]);
+                        } else {
+                            $valueArray[] = "NULL";
+                        }
+                        
                     }
                     $values .= '(' . implode(",", $valueArray) . '),';
 
                     if ($rowCount % self::BATCH_SIZE == 0) {
                         $query = $sql . rtrim($values, ',') . $update;
-                        if($table=='object_brick_query_HoseSkeleton_1') {
-                            p_r($query);
-                        }
                         $this->db->query($query);
                         $values = '';
                     }
