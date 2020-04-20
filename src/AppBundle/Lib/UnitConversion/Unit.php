@@ -38,6 +38,9 @@ class Unit
 
     CONST DEC = 'DEC';
 
+    CONST M = 'M';
+
+
     /**
      * weight units
      */
@@ -67,7 +70,7 @@ class Unit
      * unit type to unit map
      */
     CONST VALID_UNITS = array(
-        self::UNIT_TYPE_LENGTH => array(self::MM, self::FT, self::IN, self::DEC),
+        self::UNIT_TYPE_LENGTH => array(self::MM, self::FT, self::IN, self::DEC, self::M),
         self::UNIT_TYPE_WEIGHT => array(self::KG, self::G, self::LBS),
         self::UNIT_TYPE_TEMPERATURE => array(self::F, self::C),
         self::UNIT_TYPE_PRESSURE => array(self::PSI, self::MPA, self::BAR)
@@ -103,7 +106,7 @@ class Unit
         }
 
         if(!$unitIsValid){
-            throw new \Exception("Unit ".$unit." is not a valid unit.You might want to add this unit in Unit::VALID_UNITS");
+            throw new \Exception("Unit '".$unit."' is not a valid unit.You might want to add this unit in Unit::VALID_UNITS");
         }
 
     }

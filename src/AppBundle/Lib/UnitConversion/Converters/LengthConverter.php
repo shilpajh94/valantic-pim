@@ -38,6 +38,10 @@ class LengthConverter implements IConverter
      * one DEC has 100 MM
      */
     CONST MM_DEC = 100;
+    /**
+     * one M has 1000 MM
+     */
+    CONST MM_M = 1000;
 
     /**
      * LengthConverter constructor.
@@ -60,6 +64,9 @@ class LengthConverter implements IConverter
                 break;
             case Unit::DEC:
                 $this->mmValue = $value * self::MM_DEC;
+                break;
+            case Unit::M:
+                $this->mmValue = $value * self::MM_M;
                 break;
             default:
                 throw new \Exception("Unit " . $unit . " is not handled in length converter.");
@@ -91,6 +98,9 @@ class LengthConverter implements IConverter
                 break;
             case Unit::DEC:
                 $returnValue = $this->getValueInDEC();
+                break;
+            case Unit::M:
+                $returnValue = $this->getValueInM();
                 break;
             default:
                 throw new \Exception("Unit " . $unit . " is not handled in length converter.");
@@ -136,6 +146,11 @@ class LengthConverter implements IConverter
     private function getValueInDEC(): float
     {
         return $this->mmValue / self::MM_DEC;
+    }
+
+    private function getValueinM(): float
+    {
+        return $this->mmValue / self::MM_M;
     }
 
 

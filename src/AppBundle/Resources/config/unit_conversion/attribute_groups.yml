@@ -92,6 +92,7 @@ tubeGauge__group:
 #     HoseFert
 hoseLength__group:
     hoseLengthFT: 'FT'
+    hoseLengthM: 'M'
 
 #     HydFittingsFert
 TubeLengthIn__group:
