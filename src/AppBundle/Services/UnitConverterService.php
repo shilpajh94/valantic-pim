@@ -47,7 +47,7 @@ class UnitConverterService
 
         foreach($attributeGroupWithValues as $attributeName => $value){
             $setter = 'set'.ucfirst($attributeName);
-            $object->$setter(round($value, 2));
+            $object->$setter(round($value, 5));
         }
     }
 

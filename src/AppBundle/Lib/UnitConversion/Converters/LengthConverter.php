@@ -148,6 +148,11 @@ class LengthConverter implements IConverter
         return $this->mmValue / self::MM_DEC;
     }
 
+    /**
+     * get value in M
+     *
+     * @return float
+     */
     private function getValueinM(): float
     {
         return $this->mmValue / self::MM_M;

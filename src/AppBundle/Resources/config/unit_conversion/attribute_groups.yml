@@ -1,3 +1,12 @@
+# for all valid units refer AppBundle\Lib\UnitConversion\Unit.php
+
+test__group:
+    testIN: 'IN'
+    testMM: 'MM'
+    testFT: 'FT'
+    testM: 'M'
+    testDec: 'DEC'
+
 #     Product Class
 packageLength__group:
     packageLengthIN: 'IN'
@@ -26,18 +35,18 @@ palletWeight__group:
 
 #    AccessoriesFert
 ORingThicknessIn__group:
-    ORingThicknessInDec: 'Dec'
+    ORingThicknessInDec: 'IN'
     ORingThicknessMM: 'MM'
 FlatWidth__group:
     FlatWidthIn: 'IN'
 BoltHoleSizeIn__group:
-    BoltHoleSizeInDec: 'Dec'
+    BoltHoleSizeInDec: 'IN'
     BoltHoleSizeMM: 'MM'
 ORingIdIn__group:
-    ORingIdInDec: 'Dec'
+    ORingIdInDec: 'IN'
     ORingIdMM: 'MM'
 ClampingDiameterIn__group:
-    ClampingDiameterInDec: 'Dec'
+    ClampingDiameterInDec: 'IN'
     ClampingDiameterMM: 'MM'
 
 #    BeltsFert
@@ -55,19 +64,19 @@ productEffectiveLength__group:
     productEffectiveLengthMM: 'MM'
 
 #     HoseBase
-minimumTemperature__group:
-    minimumTemperatureF: 'F'
-    minimumTemperatureC: 'C'
-maximumTemperature__group:
-    maximumTemperatureF: 'F'
-    maximumTemperatureC: 'C'
-rangeTemperature__group:
-    rangeTemperatureF: 'F'
-    rangeTemperatureC: 'C'
+hoseMinimumTemperature__group:
+    hoseMinimumTemperatureF: 'F'
+    hoseMinimumTemperatureC: 'C'
+hoseMaximumTemperature__group:
+    hoseMaximumTemperatureF: 'F'
+    hoseMaximumTemperatureC: 'C'
+#hoseRangeTemperature__group:
+#    hoseRangeTemperatureF: 'F'
+#    hoseRangeTemperatureC: 'C'
 
 #     HoseSkeleton
 hoseId__group:
-    hoseIdDec: 'Dec'
+    hoseIdDec: 'IN'
     hoseIdMM: 'MM'
 hoseOd__group:
     hoseOdIn: 'IN'
@@ -96,7 +105,7 @@ hoseLength__group:
 
 #     HydFittingsFert
 TubeLengthIn__group:
-    TubeLengthInDec: 'Dec'
+    TubeLengthInDec: 'IN'
     TubeLengthMM: 'MM'
 Hex1WrenchSize__group:
     Hex1WrenchSizeIN: 'IN'
@@ -105,7 +114,7 @@ Hex2WrenchSize__group:
     Hex2WrenchSizeIN: 'IN'
     Hex2WrenchSizeMM: 'MM'
 SocketWrenchSizeIn__group:
-    SocketWrenchSizeInDec: 'Dec'
+    SocketWrenchSizeInDec: 'IN'
     SocketWrenchSizeMM: 'MM'
 OverallLength__group:
     OverallLengthIN: 'IN'
@@ -120,37 +129,40 @@ InsertionDepth__group:
     InsertionDepthIN: 'IN'
     InsertionDepthMM: 'MM'
 FlangeIDIn__group:
-    FlangeIDInDec: 'Dec'
+    FlangeIDInDec: 'IN'
     FlangeIDMM: 'MM'
 FlangeODIn__group:
-    FlangeODInDec: 'Dec'
+    FlangeODInDec: 'IN'
     FlangeODMM: 'MM'
 TubeIDIn__group:
-    TubeIDInDec: 'Dec'
+    TubeIDInDec: 'IN'
     TubeIDMM: 'MM'
 TubeODIn__group:
-    TubeODInDec: 'Dec'
+    TubeODInDec: 'IN'
     TubeODMM: 'MM'
 ValveSizeIn__group:
-    ValveSizeInDec: 'Dec'
+    ValveSizeInDec: 'IN'
     ValveSizeMM: 'MM'
 HoseID1In__group:
-    HoseID1InDec: 'Dec'
+    HoseID1InDec: 'IN'
     HoseID1MM: 'MM'
 HoseID2In__group:
-    HoseID2InDec: 'Dec'
+    HoseID2InDec: 'IN'
     HoseID2MM: 'MM'
 HoseID3In__group:
-    HoseID3InDec: 'Dec'
+    HoseID3InDec: 'IN'
     HoseID3MM: 'MM'
+StemHexinchDecimal__group:
+    StemHexinchDecimal: 'IN'
+    StemHexMM: 'MM'
 FerruleIDIn__group:
-    FerruleIDInDec: 'Dec'
+    FerruleIDInDec: 'IN'
     FerruleIDMM: 'MM'
 FerruleODIn__group:
-    FerruleODInDec: 'Dec'
+    FerruleODInDec: 'IN'
     FerruleODMM: 'MM'
 FerruleLengthIn__group:
-    FerruleLengthInDec: 'Dec'
+    FerruleLengthInDec: 'IN'
     FerruleLengthMM: 'MM'
 
 #      MetalFert
@@ -189,12 +201,12 @@ stockThickness__group:
     stockThicknessMm: 'MM'
 
 #    PTGBase
-#minimumTemperature__group:
-#    minimumTemperatureF: 'F'
-#    minimumTemperatureC: 'C'
-#maximumTemperature__group:
-#    maximumTemperatureF: 'F'
-#    maximumTemperatureC: 'C'
+minimumTemperature__group:
+    minimumTemperatureF: 'F'
+    minimumTemperatureC: 'C'
+maximumTemperature__group:
+    maximumTemperatureF: 'F'
+    maximumTemperatureC: 'C'
 
 #    PTGSkeleton
 height__group:

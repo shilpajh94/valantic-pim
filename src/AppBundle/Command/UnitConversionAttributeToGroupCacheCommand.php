@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pradeep
- * Date: 20/4/20
- * Time: 12:14 PM
- */
 
 namespace AppBundle\Command;
 
@@ -15,17 +9,33 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * responsible for creation and deletion of attribute to group cache for unit conversion
+ *
+ * Class UnitConversionAttributeToGroupCacheCommand
+ * @package AppBundle\Command
+ */
 class UnitConversionAttributeToGroupCacheCommand extends AbstractCommand
 {
-
+    /**
+     * @var UnitConverterService
+     */
     private $unitConversionService;
 
+    /**
+     * UnitConversionAttributeToGroupCacheCommand constructor.
+     * @param null|string $name
+     * @param UnitConverterService $unitConverterService
+     */
     public function __construct(?string $name = null, UnitConverterService $unitConverterService)
     {
         parent::__construct($name);
         $this->unitConversionService = $unitConverterService;
     }
 
+    /**
+     * configuring the command
+     */
     protected function configure()
     {
         $this
@@ -42,11 +52,13 @@ class UnitConversionAttributeToGroupCacheCommand extends AbstractCommand
 
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//        var_dump(\Pimcore\Cache::load(UnitConverterService::CACHE_KEY));
-//        die();
-
 
         if ($input->getOption('create')) {
             try{
@@ -69,8 +81,10 @@ class UnitConversionAttributeToGroupCacheCommand extends AbstractCommand
         }
     }
 
-
-
+    /**
+     * @param string $msg
+     * @param LogLevel|null $level
+     */
     private function log(string $msg,?LogLevel $level = null)
     {
         if(!$level){

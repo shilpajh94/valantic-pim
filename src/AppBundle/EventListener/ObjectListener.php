@@ -102,29 +102,29 @@ class ObjectListener
 
             if ($object instanceof DataObject\Product) {
 
-                $categoryBrickMappingService = $this->categoryBrickMappingService;
-                $requestStack = $this->requestStack;
-
-                $currRequest = $requestStack->getCurrentRequest();
-                $siopRelationChanged = false;
-                $siopFullCodeChanged = false;
-
-                /**
-                 * check if any of the SIOP relational field data is changed in the product
-                 * this is being done using the http request so that the performance is not hampered
-                 */
-                if ($currRequest instanceof Request) {
-                    $siopRelationChanged = $categoryBrickMappingService->isSIOPRelationChangedInSaveRequest($currRequest);
-                    $siopFullCodeChanged = $categoryBrickMappingService->isSIOPFullCodeChangedInSaveRequest($currRequest);
-                }
-
-                /**
-                 * run the logic for brick change management for the product
-                 * if any of the SIOP relation data or SIOP full code in product is changed
-                 */
-                if ($siopRelationChanged || $siopFullCodeChanged) {
-                    $categoryBrickMappingService->manageBricksForSIOPRelationChange($object);
-                }
+//                $categoryBrickMappingService = $this->categoryBrickMappingService;
+//                $requestStack = $this->requestStack;
+//
+//                $currRequest = $requestStack->getCurrentRequest();
+//                $siopRelationChanged = false;
+//                $siopFullCodeChanged = false;
+//
+//                /**
+//                 * check if any of the SIOP relational field data is changed in the product
+//                 * this is being done using the http request so that the performance is not hampered
+//                 */
+//                if ($currRequest instanceof Request) {
+//                    $siopRelationChanged = $categoryBrickMappingService->isSIOPRelationChangedInSaveRequest($currRequest);
+//                    $siopFullCodeChanged = $categoryBrickMappingService->isSIOPFullCodeChangedInSaveRequest($currRequest);
+//                }
+//
+//                /**
+//                 * run the logic for brick change management for the product
+//                 * if any of the SIOP relation data or SIOP full code in product is changed
+//                 */
+//                if ($siopRelationChanged || $siopFullCodeChanged) {
+//                    $categoryBrickMappingService->manageBricksForSIOPRelationChange($object);
+//                }
 
                 /**
                  * update the unit conversion attributes
