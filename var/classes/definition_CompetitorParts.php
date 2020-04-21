@@ -1,10 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-14T12:19:45+02:00
+* Generated at: 2020-04-21T11:04:06+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -35,11 +36,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CompetitorParts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859585,
+   'modificationDate' => 1587459846,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => NULL,
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -209,7 +210,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'columnType' => 'double',
              'phpdocType' => 'float',
              'integer' => false,
-             'unsigned' => false,
+             'unsigned' => true,
              'minValue' => NULL,
              'maxValue' => NULL,
              'unique' => false,
@@ -239,7 +240,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'columnType' => 'double',
              'phpdocType' => 'float',
              'integer' => false,
-             'unsigned' => false,
+             'unsigned' => true,
              'minValue' => NULL,
              'maxValue' => NULL,
              'unique' => false,
@@ -474,7 +475,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'columnType' => 'double',
              'phpdocType' => 'float',
              'integer' => false,
-             'unsigned' => false,
+             'unsigned' => true,
              'minValue' => NULL,
              'maxValue' => NULL,
              'unique' => false,
