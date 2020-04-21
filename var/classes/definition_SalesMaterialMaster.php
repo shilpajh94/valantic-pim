@@ -1,10 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-14T12:19:48+02:00
+* Generated at: 2020-04-21T11:05:26+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -27,11 +28,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859588,
+   'modificationDate' => 1587459926,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => NULL,
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
