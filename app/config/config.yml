@@ -30,10 +30,17 @@ pimcore:
                 accepted:
                     label: 'Accepted product'
                     color: '#28a013'
+                rejected:
+                    label: 'Product Unpublished'
+                    color: '#f70a0a'
             transitions:
                 enrich_again:
-                    from: [enrich, review_content]
+                    from: [review_content]
                     to: enrich
+                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
+                    # notificationSettings:
+                    #     notifyRoles: ['ROLE_EDITOR']
+                    #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
                     options:
                         label: 'Send back to enrich again'
                         notes:
@@ -42,6 +49,11 @@ pimcore:
                 start_processing:
                     from: [enrich]
                     to: review_content
+                    guard: "is_fully_authenticated() and has_role('ROLE_EDITOR')"
+                    # iconClass: '/bundles/pimcoreadmin/img/flat-color-icons/email.svg'
+                    # notificationSettings:
+                    #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
+                    #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
                     options:
                         label: 'Start processing the product'
                         notes:
@@ -50,14 +62,37 @@ pimcore:
                 content_ready:
                     from: review_content
                     to: content_prepared
+                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
+                    # notificationSettings:
+                    #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
+                    #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
                     options:
                         label: 'Content is ready to publish'
                 publish:
                     from: content_prepared
                     to: accepted
-                    guard: "is_fully_authenticated() and has_role('ROLE_PIMCORE_SUPERUSER')"
+                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
+                    # notificationSettings:
+                    #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
+                    #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
                     options:
                         label: 'Publish the product'
+                        notes:
+                            commentEnabled:       true
+                            commentRequired:      true
+                unpublish:
+                    from: [enrich, review_content, content_prepared, accepted]
+                    to: rejected
+                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
+                    changePublishedState: "force_unpublished"
+                    # notificationSettings:
+                    #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
+                    #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
+                    options:
+                        label: 'Unpublish the product'
+                        notes:
+                            commentEnabled:       true
+                            commentRequired:      true
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
