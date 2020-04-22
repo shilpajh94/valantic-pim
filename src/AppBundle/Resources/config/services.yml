@@ -78,6 +78,9 @@ services:
         class: Pimcore\Model\DataObject\ProductCategory\Listing
         public: true
 
+    email.email_notification_service:
+        class: EmailNotificationBundle\Service\EmailNotificationService
+        public: true
     
     app.config_provider_service:
         class: AppBundle\Services\ConfigProviderService
