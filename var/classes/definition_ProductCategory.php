@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-16T10:25:48+02:00
+* Generated at: 2020-04-14T12:19:48+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -27,7 +27,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587025547,
+   'modificationDate' => 1586859588,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -190,7 +190,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -236,7 +235,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -267,7 +265,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -320,13 +317,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => true,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
-                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -348,7 +343,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -425,7 +419,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
-                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -447,13 +440,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
-                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -475,7 +466,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
