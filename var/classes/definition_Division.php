@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-14T12:19:45+02:00
+* Generated at: 2020-04-16T10:25:38+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -16,7 +16,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Division',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859585,
+   'modificationDate' => 1587025538,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
