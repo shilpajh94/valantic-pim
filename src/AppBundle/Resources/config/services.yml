@@ -88,6 +88,11 @@ services:
     app.config_provider_service:
         class: AppBundle\Services\ConfigProviderService
         public: true
+
+    app.workflow_helper:
+        class: AppBundle\Helper\Workflow
+        public: true
+
     AppBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
