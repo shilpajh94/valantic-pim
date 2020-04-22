@@ -1,0 +1,48 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    S3CustomizationBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+# add more services, or override services that need manual wiring
+#    S3CustomizationBundle\ExampleClass:
+#        arguments:
+#            - "@service_id"
+#            - "plain_value"
+#            - "%parameter%"
+
+    S3CustomizationBundle\Services\S3CustomizationService:
+        public: true
+        
+    S3CustomizationBundle\Model\PimcoreS3FolderMappingDao:
+        public: true
+        
+    S3CustomizationBundle\Model\AssetsDao:
+        public: true
+        
+#    app.s3.customization_service:
+#        class: S3CustomizationBundle\Services\S3CustomizationService
+#        public: true
+        
+    S3CustomizationBundle\EventListeners\AssetEventsListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.asset.preAdd, method: onPreAdd }
+            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: onPostAdd }
+            - { name: kernel.event_listener, event: pimcore.asset.preUpdate, method: onPreUpdate }
+            - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: onPostUpdate }
+            - { name: kernel.event_listener, event: pimcore.asset.postDelete, method: onPostDelete }
+            - { name: kernel.event_listener, event: pimcore.asset.postAddFailure, method: onPostAddFailure }
+            - { name: kernel.event_listener, event: pimcore.asset.postUpdateFailure, method: onPostUpdateFailure }
+
