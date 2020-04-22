@@ -17,7 +17,7 @@
           <aside class="flex justify-between">
                 <p>Varied pressures, abrasion levels and temperatures are no match for Continental Hydraulic Hose.</p>
                 <figure class="products">
-                    <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" />
+                   <span class="img-placeholder"> <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" /></span>
                     <figcaption>
                             <div class="topText">
                                     <span class="productName">XDFFFF</span>
@@ -38,7 +38,7 @@
        
           <aside class="flex">
                 <figure class="products">
-                        <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" />
+                <span class="img-placeholder"><img src="http://contitechdev.com.local/static/images/print_images/1.PNG" /></span>
                         <figcaption>
                                 <div class="topText">
                                         <span class="productName">XDFFFF</span>
@@ -57,7 +57,7 @@
                     </figure>
             
                     <figure class="products">
-                        <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" />
+                    <span class="img-placeholder"> <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" /></span>
                         <figcaption>
                                 <div class="topText">
                                         <span class="productName">XDFFFF</span>
@@ -80,7 +80,7 @@
                     </figure>
             
                     <figure class="products">
-                        <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" />
+                    <span class="img-placeholder">  <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" /></span>
                         <figcaption>
                                 <div class="topText">
                                         <span class="productName">XDFFFF</span>
@@ -101,7 +101,7 @@
                     </figure>
             
                     <figure class="products">
-                        <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" />
+                    <span class="img-placeholder"> <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" /></span>
                         <figcaption>
                                 <div class="topText">
                                         <span class="productName">XDFFFF</span>
@@ -125,7 +125,7 @@
                     </figure>
             
                     <figure class="products">
-                        <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" />
+                    <span class="img-placeholder"> <img src="http://contitechdev.com.local/static/images/print_images/1.PNG" /></span>
                         <figcaption>
                             <div class="topText">
                                     <span class="productName">XDFFFF</span>
