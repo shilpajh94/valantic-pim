@@ -178,6 +178,7 @@ class ProductSQLModel
             if ($diff < $length) {
                 $length = $diff;
             }
+            $this->setVariablesToEmpty();
             $partialData = array_slice($delta, $i, $length);
             $this->processIFSProducts($partialData);
             $partialData = null;
@@ -228,6 +229,7 @@ class ProductSQLModel
     
     public function setVariablesToEmpty() {
         unset($this->products, $this->logArray, $this->objectsTableData, $this->queryTableDataArray, $this->storeTableDataArray, $this->localisedQueryTableDataArray, $this->localisedDataTableDataArray, $this->dependencyTableDataArray);
+        unset($this->bricksDataArray);
         $this->products = [];
         $this->logArray = [];
         $this->objectsTableData = [];
@@ -261,6 +263,7 @@ class ProductSQLModel
         }
         $this->insertDataInDB();
         $this->tblImpHelper->insertDataToLogTable($this->logArray);
+        unset($data, $row);
         $this->setVariablesToEmpty();
     }
     
@@ -329,7 +332,6 @@ class ProductSQLModel
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
-
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getStoreTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
@@ -343,6 +345,7 @@ class ProductSQLModel
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
                 $this->setBricksData($objId, $bricksList, $type);
+                unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
             $objId = $this->products[$currentLevelPath];
