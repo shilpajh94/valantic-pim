@@ -6,7 +6,7 @@ imports:
 
 pimcore:
     workflows:
-        workflow:
+        product_publishing:
             label: 'Product Workflow'
             type: 'state_machine'
             supports:
@@ -84,7 +84,7 @@ pimcore:
                     from: [enrich, review_content, content_prepared, accepted]
                     to: rejected
                     guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
-                    changePublishedState: "force_unpublished"
+                    # changePublishedState: "force_unpublished"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
