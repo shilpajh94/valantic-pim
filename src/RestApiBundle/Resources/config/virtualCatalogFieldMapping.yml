@@ -45,8 +45,8 @@ VirtualCatalog:
               - hoseMaximumTemperatureF
               - hoseMinimumTemperatureC
               - hoseMaximumTemperatureC
-              - rangeTemperatureF
-              - rangeTemperatureC
+              - hoseRangeTemperatureF
+              - hoseRangeTemperatureC
               - agencyCompliance
               - StandardMetTube
               - StandardMetCover
