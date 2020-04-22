@@ -41,10 +41,10 @@ VirtualCatalog:
               - tubeColor
               - VirtualCatalogCoverMaterial
               - coverColor
-              - minimumTemperatureF
-              - maximumTemperatureF
-              - minimumTemperatureC
-              - maximumTemperatureC
+              - hoseMinimumTemperatureF
+              - hoseMaximumTemperatureF
+              - hoseMinimumTemperatureC
+              - hoseMaximumTemperatureC
               - rangeTemperatureF
               - rangeTemperatureC
               - agencyCompliance
