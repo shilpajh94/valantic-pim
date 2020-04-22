@@ -41,12 +41,12 @@ VirtualCatalog:
               - tubeColor
               - VirtualCatalogCoverMaterial
               - coverColor
-              - minimumTemperatureF
-              - maximumTemperatureF
-              - minimumTemperatureC
-              - maximumTemperatureC
-              - rangeTemperatureF
-              - rangeTemperatureC
+              - hoseMinimumTemperatureF
+              - hoseMaximumTemperatureF
+              - hoseMinimumTemperatureC
+              - hoseMaximumTemperatureC
+              - hoseRangeTemperatureF
+              - hoseRangeTemperatureC
               - agencyCompliance
               - StandardMetTube
               - StandardMetCover
