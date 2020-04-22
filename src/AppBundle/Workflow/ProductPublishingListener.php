@@ -11,16 +11,15 @@ class ProductPublishingListener implements EventSubscriberInterface
     public function completedEnrichProductEvent(CompletedEvent $event)
     {
         $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
-        $productManagers = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_MANAGER_NAME);
+        $productManagers = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_MANAGER_ROLE_NAME);
 
         $user = \Pimcore\Tool\Admin::getCurrentUser();
-        $proudct = $event->getSubject();
-        $productId = $proudct->getId();
+        $product = $event->getSubject();
+        $productId = $product->getId();
         $workflow = $event->getWorkflow();
-        $a = array($productManagers, WFConst::PB_PRODUCT_MANAGER_NAME);
         
         $transition = $event->getTransition();
-        $articleNumber = $proudct->getArticleNumber();
+        $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == 'start_processing') {
             $edEmail = $user->getEmail();
             $edFirstName = $user->getFirstname();
@@ -41,59 +40,116 @@ class ProductPublishingListener implements EventSubscriberInterface
                 }
             }
         }
-        /* if (empty($title)) {
-            // Block the transition "to_review" if the post has no title
-            $event->setBlocked(true);
-        } */
         return true;
     }
 
     public function completedEnrichAgainProductEvent(CompletedEvent $event)
     {
-        $proudct = $event->getSubject();
-        $productId = $proudct->getId();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $productEditors = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_EDITOR_ROLE_NAME);
 
+        $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $product = $event->getSubject();
+        $productId = $product->getId();
+        $workflow = $event->getWorkflow();
+        
         $transition = $event->getTransition();
-        $a = array($transition->getName(), $productId);
-        // file_put_contents('trans.txt', $a);
+        $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == 'enrich_again') {
+            $cuEmail = $user->getEmail();
+            $cuFirstName = $user->getFirstname();
+            $cuLastName = $user->getLastname();
+            $cuFullName = $cuFirstName . ' ' . $cuLastName;
+            if ($productEditors) {
+                foreach ($productEditors as $user) {
+                    $array = array(
+                        'subject'       =>  WFConst::PB_ENRICH_SUBJECT,
+                        'templateName'  =>  WFConst::PB_PRODUCT_ENRICH_EMAIL_TEMPLATE_PATH,
+                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'ccEmails'      =>  array($cuEmail => $cuFullName),
+                        'dataParams'    =>  array('pmFullName' => $cuFullName, 'edFullName' => $user['fullname'], 'articleNumber' => $articleNumber)
+                    );
+                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email->sendNotificationsEmail($array);
+                    unset($array);
+                }
+            }
         }
-        /* if (empty($title)) {
-            // Block the transition "to_review" if the post has no title
-            $event->setBlocked(true);
-        } */
+        return true;
     }
 
     public function completedPublishProductEvent(CompletedEvent $event)
     {
-        $proudct = $event->getSubject();
-        $productId = $proudct->getId();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $productEditors = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_EDITOR_ROLE_NAME);
 
+        $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $product = $event->getSubject();
+        $productId = $product->getId();
+        $workflow = $event->getWorkflow();
+        
         $transition = $event->getTransition();
-        $a = array($transition->getName(), $productId);
-        // file_put_contents('trans.txt', $a);
+        $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == 'publish') {
+            $product->setPublished(1);
+            $product->save();
+            $cuEmail = $user->getEmail();
+            $cuFirstName = $user->getFirstname();
+            $cuLastName = $user->getLastname();
+            $cuFullName = $cuFirstName . ' ' . $cuLastName;
+            if ($productEditors) {
+                foreach ($productEditors as $user) {
+                    $array = array(
+                        'subject'       =>  WFConst::PB_PUBLISH_SUBJECT,
+                        'templateName'  =>  WFConst::PB_PRODUCT_PUBLISH_EMAIL_TEMPLATE_PATH,
+                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'ccEmails'      =>  array($cuEmail => $cuFullName),
+                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user['fullname'], 'pmTimestamp'=> $user['system_time'], 'articleNumber' => $articleNumber)
+                    );
+                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email->sendNotificationsEmail($array);
+                    unset($array);
+                }
+            }
         }
-        /* if (empty($title)) {
-            // Block the transition "to_review" if the post has no title
-            $event->setBlocked(true);
-        } */
+        return true;
     }
 
     public function completedUnpublishProductEvent(CompletedEvent $event)
     {
-        $proudct = $event->getSubject();
-        $productId = $proudct->getId();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $productEditors = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_EDITOR_ROLE_NAME);
 
+        $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $product = $event->getSubject();
+        $productId = $product->getId();
+        $workflow = $event->getWorkflow();
+        
         $transition = $event->getTransition();
-        $a = array($transition->getName(), $productId);
-        // file_put_contents('trans.txt', $a);
+        $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == 'unpublish') {
+            $product->setPublished(0);
+            $product->save();
+            $cuEmail = $user->getEmail();
+            $cuFirstName = $user->getFirstname();
+            $cuLastName = $user->getLastname();
+            $cuFullName = $cuFirstName . ' ' . $cuLastName;
+            if ($productEditors) {
+                foreach ($productEditors as $user) {
+                    $array = array(
+                        'subject'       =>  WFConst::PB_UNPUBLISH_SUBJECT,
+                        'templateName'  =>  WFConst::PB_PRODUCT_UNPUBLISH_EMAIL_TEMPLATE_PATH,
+                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'ccEmails'      =>  array($cuEmail => $cuFullName),
+                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user['fullname'], 'pmTimestamp'=> $user['system_time'], 'articleNumber' => $articleNumber)
+                    );
+                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email->sendNotificationsEmail($array);
+                    unset($array);
+                }
+            }
         }
-        /* if (empty($title)) {
-            // Block the transition "to_review" if the post has no title
-            $event->setBlocked(true);
-        } */
+        return true;
     }
 
     public static function getSubscribedEvents()

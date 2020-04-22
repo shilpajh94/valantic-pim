@@ -11,7 +11,7 @@ class Workflow {
 
     public function getUserByRole($roleName) {
         $users = new \Pimcore\Model\User\Listing;
-        $sql = "SELECT u1.id, u1.type, u1.firstname, u1.lastname, concat(u1.firstname, u1.lastname) fullname, u1.email FROM `users` u1 JOIN `users` u2 ON(u1.roles REGEXP u2.id AND u2.type='role' AND u2.name=".$this->db->quote($roleName).") ";
+        $sql = "SELECT u1.id, u1.type, u1.firstname, u1.lastname, concat(u1.firstname, u1.lastname) fullname, u1.email, concat(now(), ' ',@@system_time_zone) as system_time FROM `users` u1 JOIN `users` u2 ON(u1.roles REGEXP u2.id AND u2.type='role' AND u2.name=".$this->db->quote($roleName).") ";
         return $this->db->fetchAll($sql);
     }
 
