@@ -143,10 +143,11 @@ class PtgImportCommand extends AbstractCommand
         $sql = "SELECT siopLvl6_object_id o_id, 'Skeleton' as fieldname, `Profile`, Static_Conductive staticConductive, 
         Heat_and_Oil_Resistant heatOilResistant FROM siopLvl6_objects";
         $results = $this->db->fetchAll($sql);
+        $records = $this->getSkeletonBricks($results);
         p_r('Processing '.count($results).' records at skeleton level');
         p_r('Updating skeleton');
-        $this->updateTable($results, self::PTG_SKELETON_OBJECT_BRICK_QUERY);
-        $this->updateTable($results, self::PTG_SKELETON_OBJECT_BRICK_STORE);
+        $this->updateTable($records, self::PTG_SKELETON_OBJECT_BRICK_QUERY);
+        $this->updateTable($records, self::PTG_SKELETON_OBJECT_BRICK_STORE);
         p_r('Skeleton Updation - Done');
     }
 
@@ -232,12 +233,12 @@ class PtgImportCommand extends AbstractCommand
             $ar = array(
                 'ooo_id'    =>  $r['o_id'],
                 'language'  =>  'en',
-                'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:'',
-                'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:'',
-                'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:'',
-                'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:'',
-                'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:'',
-                'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:''
+                'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:NULL,
+                'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:NULL,
+                'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:NULL,
+                'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:NULL,
+                'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:NULL,
+                'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:NULL
             );
             array_push($productLocalizedData, $ar);
             // array_push($productLocalizedQueryL, $ar);
@@ -247,12 +248,12 @@ class PtgImportCommand extends AbstractCommand
                 $ar = array(
                     'o_id'      =>  $r['o_id'],
                     'fieldname'     =>  $r['fieldname'],
-                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? $r['Color']: '',
+                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? ucfirst(strtolower($r['Color'])): NULL,
                     // 'customerProductFamily'   =>  $r[''],
                     // 'heightIn'   =>  $r[''],
                     // 'heightmm'   =>  $r[''],
-                    'widthmm'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ? $r['Width_mm'] : '',
-                    'widthIn'   =>  !$this->isSheetValueEmpty($r['Width_in']) ? $r['Width_in'] : '',
+                    'widthmm'   =>  !$this->isSheetValueEmpty($r['Width_mm']) ? $r['Width_mm'] : NULL,
+                    'widthIn'   =>  !$this->isSheetValueEmpty($r['Width_in']) ? $r['Width_in'] : NULL,
                     // 'CADFile'   =>  $r[''],
                     // 'CADLink'   =>  $r[''],
                     // 'PDFDrawing'   =>  $r[''],
@@ -270,12 +271,12 @@ class PtgImportCommand extends AbstractCommand
                     'fieldname' =>  $r['fieldname'],
                     // 'effectiveLengthUOM' => '',
                     // 'numberOfBands' =>  '',
-                    'insideLengthIN' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $r['Product_inside_Length_in']: '',
-                    'insideLengthMM' => !$this->isSheetValueEmpty($r['Product_inside_Length_mm']) ? $r['Product_inside_Length_mm']: '',
-                    'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ? $r['Datum_Length_in'] : '',
-                    'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_mm']) ? $r['Datum_Length_mm'] : '',
-                    'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ? $r['Outside_Length_in'] : '',
-                    'outsideLengtMM' => !$this->isSheetValueEmpty($r['Outside_Length_mm']) ? $r['Outside_Length_mm'] : '',
+                    'insideLengthIN' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $r['Product_inside_Length_in']: NULL,
+                    'insideLengthMM' => !$this->isSheetValueEmpty($r['Product_inside_Length_mm']) ? $r['Product_inside_Length_mm']: NULL,
+                    'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ? $r['Datum_Length_in'] : NULL,
+                    'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_mm']) ? $r['Datum_Length_mm'] : NULL,
+                    'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ? $r['Outside_Length_in'] : NULL,
+                    'outsideLengtMM' => !$this->isSheetValueEmpty($r['Outside_Length_mm']) ? $r['Outside_Length_mm'] : NULL,
                     // 'productEffectiveLengthIn__value' => '',
                     // 'productEffectiveLengthIn__unit ' => '',
                     // 'productEffectiveLengthMM__value' => '',
@@ -292,9 +293,9 @@ class PtgImportCommand extends AbstractCommand
                 $ar = array(
                     'o_id' =>  $r['o_id'],
                     'fieldname' =>  $r['fieldname'],
-                    'pitchIN' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ?: '',
-                    'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_mm ']) ?: '',
-                    'numberOfTeeth' =>  $r['Number_of_teeth'],
+                    'pitchIN' =>  !$this->isSheetValueEmpty($r['Pitch_in']) ? $r['Pitch_in'] : NULL,
+                    'pitchMM' => !$this->isSheetValueEmpty($r['Pitch_mm']) ? $r['Pitch_mm'] : NULL,
+                    'numberOfTeeth' =>  !$this->isSheetValueEmpty($r['Number_of_teeth']) ? $r['Number_of_teeth'] : NULL,
                 );
 
                 array_push($syncFertQuery, $ar);
@@ -307,13 +308,22 @@ class PtgImportCommand extends AbstractCommand
                 $ar = array(
                     'o_id'  =>  $r['o_id'],
                     'fieldname'  =>  $r['fieldname'],
-                    'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r['Bore_Type'] : '',
-                    'flange'  =>  !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'y' ? 1 : '',
-                    'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $r['Max_Bore_Size_in'] : '',
-                    'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ? $r['Max_Bore_Size_mm'] : '',
-                    'flangeDiameterIn'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $r['Flange_Outer_Diameter_in'] : '',
-                    'flangeDiameterMm'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_mm']) ? $r['Flange_Outer_Diameter_mm'] : ''
+                    'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r['Bore_Type'] : NULL,
+                    'flange'  =>  !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'y' ? 1 : !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'n' ? 0 : NULL,
+                    'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $r['Max_Bore_Size_in'] : NULL,
+                    'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ? $r['Max_Bore_Size_mm'] : NULL,
+                    'flangeDiameterIn'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $r['Flange_Outer_Diameter_in'] : NULL,
+                    'flangeDiameterMm'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_mm']) ? $r['Flange_Outer_Diameter_mm'] : NULL
                 );
+
+                $ar['outsideDiameterIn'] = NULL;
+                $ar['outsideDiameterMm'] = NULL;
+                $ar['pitchDiameterIn'] = NULL;
+                $ar['pitchDiameterMm'] = NULL;
+                $ar['faceWidthIn'] = NULL;
+                $ar['faceWidthMm'] = NULL;
+                $ar['minBoreIn'] = NULL;
+                $ar['minBoreMm'] = NULL;
                 if (!$this->isSheetValueEmpty($r['Outside_Diameter_in'])) {
                     $ar['outsideDiameterIn'] = $r['Outside_Diameter_in'];
                 }
@@ -359,7 +369,7 @@ class PtgImportCommand extends AbstractCommand
 
     private function isSheetValueEmpty($str)
     {
-        if (empty($str) || $str == '-')
+        if (empty(trim($str)) || trim($str) == '-')
             return true;
         return false;
     }
@@ -371,12 +381,29 @@ class PtgImportCommand extends AbstractCommand
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'material'  =>  !$this->isSheetValueEmpty($r['material'])?$r['material']:'',
-                'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:'',
-                'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:'',
-                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:'',
-                'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF'])?$r['maximumTemperatureF']:'',
-                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC'])?$r['maximumTemperatureC']:''
+                'material'  =>  !$this->isSheetValueEmpty($r['material'])?$r['material']:NULL,
+                'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:NULL,
+                'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:NULL,
+                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:NULL,
+                'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF'])?$r['maximumTemperatureF']:NULL,
+                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC'])?$r['maximumTemperatureC']:NULL
+            );
+        }
+        return $d;
+    }
+
+    private function getSkeletonBricks($results) {
+        $d = array();
+        foreach ($results as $r) {
+            $d[] = array(
+                'o_id'  =>  $r['o_id'],
+                'fieldname'  =>  $r['fieldname'],
+                'profile'  =>  !$this->isSheetValueEmpty($r['Profile'])?$r['Profile']:NULL,
+                // 'beltAngle'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:NULL,
+                // 'heightIn'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:NULL,
+                // 'heightMm'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:'',
+                'staticConductive'  =>  !$this->isSheetValueEmpty($r['staticConductive'])?$r['staticConductive']:NULL,
+                'heatOilResistant'  =>  !$this->isSheetValueEmpty($r['heatOilResistant'])?$r['heatOilResistant']:NULL
             );
         }
         return $d;
@@ -404,7 +431,12 @@ class PtgImportCommand extends AbstractCommand
                 foreach ($results as $r) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
-                        $valueArray[] = $this->db->quote($r[$key]);
+                        if(!is_null($r[$key])) {
+                            $valueArray[] = $this->db->quote($r[$key]);
+                        } else {
+                            $valueArray[] = "NULL";
+                        }
+                        
                     }
                     $values .= '(' . implode(",", $valueArray) . '),';
 

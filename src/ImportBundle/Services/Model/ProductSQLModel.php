@@ -166,7 +166,7 @@ class ProductSQLModel
         $delta = $this->tblImpHelper->getDelta('ifs');
         
         $this->setVariablesToEmpty();
-        $deltaCount = count($delta);
+        echo "Delta count: ".$deltaCount = count($delta);
         $j = 1;
         
         $this->logArray = [];
@@ -198,6 +198,7 @@ class ProductSQLModel
         $delta = $this->tblImpHelper->getDelta('ptg');
         $this->setVariablesToEmpty();
         $deltaCount = count($delta);
+        echo "PTG DELTA Count is: ".$deltaCount;
         $j = 1;
         
         $this->logArray = [];
@@ -330,8 +331,8 @@ class ProductSQLModel
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
 
             $this->products[$currentLevelPath] = $objId;
-            $this->getQueryTableData($objId, $record, $levelInfo, 4, $type);
-            $this->getStoreTableData($objId, $record, $levelInfo, 4, $type);
+            $this->getQueryTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
+            $this->getStoreTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getRelationTableData($objId, $record, $levelInfo, 4);
             $this->getLocalizedQueryData($objId, $record);
             $this->getDependencyTableData($objId, $record, $levelInfo, 4);
@@ -377,8 +378,8 @@ class ProductSQLModel
         if (!array_key_exists($currentLevelPath, $this->products)) {
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
-            $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type);
-            $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type);
+            $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
+            $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
             $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex);
             $this->getLocalizedQueryData($objId, $record);
             $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex);
@@ -486,7 +487,7 @@ class ProductSQLModel
         }
     }
 
-    public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
+    public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFS') {
         $siopData = [];
         for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
@@ -494,7 +495,7 @@ class ProductSQLModel
             $siopData[$index] = $this->categories[$catCode]['id'];
         }
         $siopFullCode = trim($record['4']);
-        if ($type == 'base') {
+        if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
         }
         $queryTableData = [
@@ -502,6 +503,7 @@ class ProductSQLModel
             'oo_classId' => 1,
             'oo_className' => 'Product',
             'ProductType' => strtolower($productType),
+            'BusinessUnit' => strtoupper($businessUnit),
             'siopFullCode' => $siopFullCode,
             'articleNumber' => null,
             'materialGroup' => null,
@@ -533,7 +535,7 @@ class ProductSQLModel
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
 
-    public function getStoreTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
+    public function getStoreTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFS') {
         $siopFullCode = trim($record['4']);
         if ($productType == 'base') {
             $siopFullCode = $levelInfo[$level]['levelFullCode'];
@@ -541,6 +543,7 @@ class ProductSQLModel
         $storeTableDataArray = [
             'oo_id' => $objId,
             'ProductType' => strtolower($productType),
+            'BusinessUnit' => strtoupper($businessUnit),
             'siopFullCode' => $siopFullCode,
             'articleNumber' => null,
             'materialGroup' => null,
