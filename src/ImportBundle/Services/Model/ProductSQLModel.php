@@ -166,7 +166,7 @@ class ProductSQLModel
         $delta = $this->tblImpHelper->getDelta('ifs');
         
         $this->setVariablesToEmpty();
-        $deltaCount = count($delta);
+        echo "Delta count: ".$deltaCount = count($delta);
         $j = 1;
         
         $this->logArray = [];
@@ -198,6 +198,7 @@ class ProductSQLModel
         $delta = $this->tblImpHelper->getDelta('ptg');
         $this->setVariablesToEmpty();
         $deltaCount = count($delta);
+        echo "PTG DELTA Count is: ".$deltaCount;
         $j = 1;
         
         $this->logArray = [];
