@@ -103,7 +103,7 @@ class ProductModelService
                     $baseObjectBrickData = $this->getProductObjectBrickData($nineDigitData['o_parentId'],'base');
                 }
                 if(!empty($baseObjectBrickData)){
-                    $resultArrBase = array_merge($baseObjectBrickData, $sixDigitData);    
+                    $resultArrBase = array_merge($sixDigitData,$baseObjectBrickData);    
                 }else{
                     $resultArrBase = $sixDigitData;
                 }
@@ -127,10 +127,11 @@ class ProductModelService
                 if(!empty($nineDigitData)){
                     $skeletonObjectBrickData = $this->getProductObjectBrickData($value['o_parentId'],'skeleton');
                 }
+                $resultArrSkeleton1['id'] = $nineDigit;
                 if(!empty($skeletonObjectBrickData)){
-                    $resultArrSkeleton = array_merge($skeletonObjectBrickData, $nineDigitData);    
+                    $resultArrSkeleton = array_merge($resultArrSkeleton1,$skeletonObjectBrickData, $nineDigitData);    
                 }else{
-                    $resultArrSkeleton = $nineDigitData;
+                    $resultArrSkeleton = array_merge($resultArrSkeleton1,$nineDigitData);
                 }
                 unset($resultArrSkeleton['oo_id']);
                 unset($resultArrSkeleton['o_parentId']);
@@ -138,6 +139,7 @@ class ProductModelService
                 unset($resultArrSkeleton['frontView']);
                 unset($resultArrSkeleton['sideView']);
                 unset($resultArrSkeleton['cutView']);
+                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['id']= $nineDigit; 
                 $finalProductArray[$sixDigit]['9digit'][$nineDigit]= $resultArrSkeleton;
             }
 
@@ -145,10 +147,11 @@ class ProductModelService
             if(isset($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
                 // Get Fert Object Bricks Data.
                 $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
+                $resultArrFert1['sap_id']    =   $value['articleNumber'];
                 if(!empty($fertObjectBrickData)){
-                    $resultArrFert = array_merge($fertObjectBrickData, $value);    
+                    $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);    
                 }else{
-                    $resultArrFert = $value;
+                    $resultArrFert = array_merge($resultArrFert1,$value);
                 }
                 unset($resultArrFert['oo_id']);
                 unset($resultArrFert['o_parentId']);
@@ -273,6 +276,7 @@ class ProductModelService
         
         $productObjectBricksData = [];
         $productBrickField = "get".ucfirst($productType);
+        
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
         
@@ -286,8 +290,23 @@ class ProductModelService
                     //receiving data of a Objectbrick
                     $product = DataObject\Product::getById($objId);
                     $bData  =   '';
-                    $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
-                    if(!empty($bData)){
+                    // Get Field Definition.
+                    $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
+
+                    if($fieldDef->getFieldtype()==="multiselect"){
+                         $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
+                         $bData = [];
+                         if(!empty($bDataTmp)){
+                            foreach($bDataTmp as $mkey=>$mvalue){
+                               $objectIndv = DataObject::getById($mvalue);
+                               $bData[] = $objectIndv->getName();
+                            }
+                         }
+                         
+                   }else{
+                        $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
+                   }
+                    if(!empty($bData) || $bData===0){
                         $productObjectBricksData[$fvalue] = $bData;
                     }
                 }
