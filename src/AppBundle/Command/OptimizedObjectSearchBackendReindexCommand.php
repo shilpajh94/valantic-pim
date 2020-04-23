@@ -114,7 +114,7 @@ class OptimizedObjectSearchBackendReindexCommand extends AbstractCommand
 
         $classNames = $input->getArgument('classNames');
 
-        $elementsPerLoop = 10;
+        $elementsPerLoop = 100;
 
         $this->log("Search backend re-index job initiated", "info");
 
