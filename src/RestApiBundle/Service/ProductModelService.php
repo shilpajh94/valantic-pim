@@ -58,10 +58,10 @@ class ProductModelService
     {
 
         $productDetail = array();
-        $productDetail['apikey'] = $parameterArray['apiKey'];
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
-        if ($products) {
+        if ($products) {            
+            $productDetail['apikey'] = $parameterArray['apiKey'];
             $productData =   $this->getProductDetail($products, $langCode);
             $productDetail['products'] = $this->formatProducts($productData);
         }
@@ -288,7 +288,7 @@ class ProductModelService
                     $bData  =   '';
                     $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
                     if(!empty($bData)){
-                        $productObjectBricksData[$fieldText] = $bData;
+                        $productObjectBricksData[$fvalue] = $bData;
                     }
                 }
             }
