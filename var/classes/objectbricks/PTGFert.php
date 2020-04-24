@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-21T11:23:03+02:00
+* Generated at: 2020-04-22T08:33:51+02:00
 * IP: 127.0.0.1
 
 
@@ -97,6 +97,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     'key' => 'Black',
                     'value' => 'Black',
                   ),
+                  1 => 
+                  array (
+                    'key' => 'Yellow',
+                    'value' => 'Yellow',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Yellow/Black',
+                    'value' => 'Yellow/Black',
+                  ),
                 ),
                  'width' => 300,
                  'defaultValue' => '',
@@ -121,11 +131,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => 300,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -147,6 +159,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -177,6 +190,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -207,6 +221,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
@@ -275,6 +290,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => 300,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -297,6 +313,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -345,6 +362,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => 300,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -367,6 +385,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
