@@ -168,7 +168,7 @@ class ProductModelService
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
             $imageDataArray['base'] = $sixDigitData;
-            $finalProductArray[$sixDigit]['images']= $this->getImagesData($imageDataArray,$value['oldMaterialCode']);                
+            $finalProductArray[$sixDigit]['images']= $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);                
         }
 
         return $finalProductArray;
@@ -245,8 +245,12 @@ class ProductModelService
      * @return array $imageDetail Image array.
      * @throws
      */    
-    private function getImagesData($imageDataArray,$oldMaterialValue){
+    private function getImagesData($existingImageArray,$imageDataArray,$oldMaterialValue){
+        
         $imageDetail = [];
+        if(!empty($existingImageArray)){
+            $imageDetail =   $existingImageArray;
+        }
         //p_r($imageDataArray);die;
         foreach($imageDataArray as $key=>$value){
             $imagesFields = $this->vCatalog['VirtualCatalog'][ucfirst($key)]['Images'];
@@ -258,6 +262,7 @@ class ProductModelService
                         $imageDetail[$value[$ivalue]] = $this->getPropertyAssetData($value[$ivalue]);
                     }                   
                     $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
+                    $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
                 }
             }
         }        
