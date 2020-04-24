@@ -51,7 +51,7 @@ pimcore:
                     #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
                     options:
-                        label: 'Start processing the product'
+                        label: 'Product Enriched'
                         notes:
                             commentEnabled: true
                             commentRequired: false

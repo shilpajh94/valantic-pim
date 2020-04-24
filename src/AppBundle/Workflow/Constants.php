@@ -19,5 +19,14 @@ class Constants
     const PB_PRODUCT_PUBLISH_EMAIL_TEMPLATE_PATH = '/Workflow/Email Template/productPublish';
 
     const PB_UNPUBLISH_SUBJECT = 'Product Unpublish';
-    const PB_PRODUCT_UNPUBLISH_EMAIL_TEMPLATE_PATH = '/Workflow/Email Template/productPublish';
+    const PB_PRODUCT_UNPUBLISH_EMAIL_TEMPLATE_PATH = '/Workflow/Email Template/productUnpublish';
+
+    const ADMIN_URL = 'http://contitech.dev.local/admin/';
+
+    /* Transition Name */
+    const PB_START_PROCESSING_ACTION_NAME = 'start_processing';
+    const PB_ENRICH_AGAIN_ACTION_NAME   =   'enrich_again';
+    const PB_PUBLISH_ACTION_NAME = 'publish';
+    const PB_UNPUBLISH_ACTION_NAME = 'unpublish';
+
 }
