@@ -230,12 +230,12 @@ class HoseDataImportCommand extends AbstractCommand
                 'fieldname'  =>  $r['fieldname'],
                 'staticWire'  =>  !empty($r['Static_Wire_Y_N']) ? $r['Static_Wire_Y_N'] : '',
                 'tubeColor'  =>  !empty($tbCols) ? implode(',', $tbCols) : '',
-                'minimumTemperatureF'  =>  !empty($r['Min_Temperature_Rating_F']) ? $r['Min_Temperature_Rating_F'] : '',
-                'maximumTemperatureF'  => !empty($r['Max_Temperature_Rating_F']) ? $r['Max_Temperature_Rating_F'] : '',
+                'hoseMinimumTemperatureF'  =>  !empty($r['Min_Temperature_Rating_F']) ? $r['Min_Temperature_Rating_F'] : '',
+                'hoseMaximumTemperatureF'  => !empty($r['Max_Temperature_Rating_F']) ? $r['Max_Temperature_Rating_F'] : '',
                 'coverCharacteristic'  =>  !empty($cvChars) ? implode(',', $cvChars) : '',
                 'coverColor'  =>  !empty($cvCols) ? implode(',', $cvCols) : '',
-                'minimumTemperatureC'  =>  !empty($r['Min_Temperature_Rating_C']) ? $r['Min_Temperature_Rating_C'] : '',
-                'maximumTemperatureC'  =>  !empty($r['Max_Temperature_Rating_C']) ? $r['Max_Temperature_Rating_C'] : '',
+                'hoseMinimumTemperatureC'  =>  !empty($r['Min_Temperature_Rating_C']) ? $r['Min_Temperature_Rating_C'] : '',
+                'hoseMaximumTemperatureC'  =>  !empty($r['Max_Temperature_Rating_C']) ? $r['Max_Temperature_Rating_C'] : '',
                 'agencyCompliance'  =>  !empty($agComp) ? implode(',', $agComp) : ''
             );
         }
