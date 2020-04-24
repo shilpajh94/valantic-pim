@@ -1,11 +1,5 @@
 # for all valid units refer AppBundle\Lib\UnitConversion\Unit.php
 
-test__group:
-    testIN: 'IN'
-    testMM: 'MM'
-    testFT: 'FT'
-    testM: 'M'
-    testDec: 'DEC'
 
 #     Product Class
 packageLength__group:
