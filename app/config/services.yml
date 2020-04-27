@@ -21,3 +21,8 @@ services:
     # AppBundle\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+
+    ADAuthBundle\EventListener\AuthenticateListener:
+        public: true
+        tags:
+            - { name: kernel.event_listener_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}
