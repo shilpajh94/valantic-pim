@@ -49,22 +49,25 @@ class ProductModel
         }else{
             // Get Offset and Limit.
             $offsetLimit    =   $this->getOffsetLimit($conditionArray,$totalCount);
-
-            try {
-                $rFlag = $this->createProductSql($lang,$conArray,$offsetLimit);
-                if($rFlag){
-                    $stmt = $this->db->prepare($this->getSql());
-                    $stmt->execute();
-                    $product = $stmt->fetchAll();
-                    if(empty($product)) {
+            if($offsetLimit){
+                try {
+                    $rFlag = $this->createProductSql($lang,$conArray,$offsetLimit);
+                    if($rFlag){
+                        $stmt = $this->db->prepare($this->getSql());
+                        $stmt->execute();
+                        $product = $stmt->fetchAll();
+                        if(empty($product)) {
+                            return false;
+                        }
+                    }else{
                         return false;
                     }
-                }else{
+                    return $product;
+                } catch(\Exception $ex) {
+                    Logger::error($ex->getTraceAsString());
                     return false;
                 }
-                return $product;
-            } catch(\Exception $ex) {
-                Logger::error($ex->getTraceAsString());
+            }else{
                 return false;
             }
         }
@@ -167,9 +170,9 @@ class ProductModel
             $page   =   $conditionArray['page'];
         }        
         // Get Total Page
-        $totalPage = $totalCount%$limit;
-        
-        if($page>$totalPage){$page=1;}
+        $totalPage = (int)($totalCount/$limit);
+        if($totalPage==0){$totalPage=1;}
+        if($page>$totalPage){return false;}
         $offset = (($page*$limit) - $limit);
         $returnArray = array('offset'=>$offset,'limit'=>$limit);
         

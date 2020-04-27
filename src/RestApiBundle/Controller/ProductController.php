@@ -123,6 +123,7 @@ class ProductController extends FrontendController
         $parameterArray['ids'] = $request->get('ids');
         $parameterArray['siop']= $request->get('siop');
         $parameterArray['page']= $request->get('page');
+        $parameterArray['limit']= $request->get('limit');
         $parameterArray['updatedFrom'] = $request->get('updatedFrom');
         return  $parameterArray;    
     }
