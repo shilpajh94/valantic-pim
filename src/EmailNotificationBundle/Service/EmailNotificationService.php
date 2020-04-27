@@ -60,15 +60,12 @@ class EmailNotificationService {
             $mailSent = $mail->send();
 
             if ($mailSent) {
-                echo "Mail Sent";
                 return TRUE;
             }
             else {
-                echo "Mail not Sent";
                 return FALSE;
             }
         } catch (\Exception $ex) {
-            echo "Mail not Sent: ". $ex->getMessage();
             return FALSE;
         }
     }
