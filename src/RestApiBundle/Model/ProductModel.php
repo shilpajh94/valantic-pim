@@ -170,7 +170,7 @@ class ProductModel
             $page   =   $conditionArray['page'];
         }        
         // Get Total Page
-        $totalPage = (int)($totalCount/$limit);
+        $totalPage = ceil($totalCount/$limit);
         if($totalPage==0){$totalPage=1;}
         if($page>$totalPage){return false;}
         $offset = (($page*$limit) - $limit);
