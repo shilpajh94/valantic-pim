@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T09:35:10+02:00
+* Generated at: 2020-04-21T16:04:55+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
-* IP: 192.168.30.66
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -28,10 +28,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1585899310,
+   'modificationDate' => 1587477895,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -42,14 +43,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
-   'cacheRawRelationData' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -85,7 +84,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Layout',
              'type' => NULL,
              'region' => 'center',
@@ -193,6 +191,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -238,6 +237,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -268,6 +268,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -320,11 +321,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => true,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -346,6 +349,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -407,14 +411,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'title' => 'Related Classification Name',
                              'tooltip' => '',
                              'mandatory' => false,
-                             'noteditable' => true,
+                             'noteditable' => false,
                              'index' => false,
                              'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
                              'relationType' => false,
-                             'invisible' => true,
+                             'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
@@ -422,6 +426,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -443,11 +448,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -469,6 +476,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -608,6 +616,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -615,7 +624,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Layout',
              'type' => NULL,
              'region' => 'east',
@@ -655,18 +663,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
         ),
          'locked' => false,
+         'icon' => NULL,
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
    'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
    'previewUrl' => '',
    'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '@AppBundle\\Website\\LinkGenerator\\CategoryLinkGenerator',
+   'compositeIndices' => 
+  array (
+  ),
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -688,5 +702,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       'creationDate' => true,
     ),
   ),
+   'enableGridLocking' => false,
    'dao' => NULL,
 ));

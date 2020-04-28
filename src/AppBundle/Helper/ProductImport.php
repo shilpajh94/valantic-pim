@@ -1,0 +1,257 @@
+<?php
+
+namespace AppBundle\Helper;
+
+use Pimcore\Db;
+use ImportBundle\Services\ImportConstants;
+
+class ProductImport
+{
+    private $tempTable;
+    private $masterTable;
+    private $logTable;
+    private $fileColumns;
+    private $keyColumns;
+    private $mappingCsvColumn;
+
+    private $db;
+    private $common;
+
+
+    /**
+     * Getting DB connection object
+     */
+    public function __construct()
+    {
+        $this->db = Db::get();
+        $this->common = \Pimcore::getContainer()->get('app.common_helper');
+    }
+    
+    /**
+     * Initilize table name
+     */
+    public function init($table)
+    {
+        $this->tempTable = $table['tempTable'];
+        $this->masterTable = $table['masterTable'];
+        $this->logTable = $table['logTable'];
+
+        $this->fileColumns = $table['fileColumns'];
+        $this->keyColumns = $table['keyColumns'];
+        $this->mappingCsvColumn = $table['mappingCsvColumn'];
+    }
+
+    public function insertInObjects($data) {
+    	try {
+            $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
+            $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
+            $update[] = " `o_type` = VALUES(`o_type`) ";
+            $update[] = " `o_key` = VALUES(`o_key`) ";
+            $update[] = " `o_path` = VALUES(`o_path`) ";
+            $update[] = " `o_published` = VALUES(`o_published`) ";
+            $update[] = " `o_classId` = VALUES(`o_classId`) ";
+            $update[] = " `o_className` = VALUES(`o_className`) ";
+            $update[] = " `o_modificationDate` = VALUES(`o_modificationDate`) ";
+            $update = " ON DUPLICATE KEY UPDATE ".implode(", ", $update);
+            $valuesArr[] = $this->db->quote($data['parentId']);
+            $valuesArr[] = $this->db->quote("object");
+            $valuesArr[] = $this->db->quote($data['o_key']);
+            $valuesArr[] = $this->db->quote($data['path']);
+            $valuesArr[] = $this->db->quote("1");
+            $valuesArr[] = $this->db->quote("1");
+            $valuesArr[] = $this->db->quote("Product");
+            $valuesArr[] = $this->db->quote(time());
+            $valuesArr[] = $this->db->quote(time());
+            $values = " (".implode(', ', $valuesArr).") ";
+            $query = $sql.$values.$update;
+            $this->db->query($query);
+            $lastId = $this->db->lastInsertId();
+            $data = $values = $query = $update = $valuesArr = null;
+    	} catch(\Exception $e) {
+            print_r($e->getMessage()); die;
+    	}
+        return $lastId;
+    }
+
+    public function insertIntoProductTable($dataArray, $tableName) {
+    	$rowCount = 1;
+    	$firstRec = $dataArray[0];
+    	$keys = array_keys($firstRec);
+    	$sql = "INSERT INTO `".$tableName."` ";
+    	$sqlColumns = [];
+    	$updateColumns = [];
+    	$valColumns = [];
+     	foreach ($keys as $key) {
+    		$sqlColumns[] = "`".$key."`";
+    		if ($key!='oo_id') {
+	    		$updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
+	    	}
+    		$valColumns[] = $key;
+    	}
+    	$sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
+    	$update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+    	$values = '';
+    	foreach ($dataArray as $data) {
+    		$valueArray = [];
+    		foreach ($valColumns as $key) {
+    			$valueArray[] = $this->db->quote($data[$key]);
+    		}
+            $values .= '('.implode(",", $valueArray).'),';
+            // inserting records in batch
+            if ($rowCount % 1000 == 0) {
+                $query = $sql.rtrim($values, ',').$update;
+                $this->db->query($query);
+                $values = '';
+            }
+            $rowCount++;
+        }
+        if (!empty($values)) {
+            $query = $sql.rtrim($values, ',').$update ;
+            $this->db->query($query);
+        }
+    }
+
+
+
+    public function insertDataInTemp($arrData)
+    {
+        $rowCount = 1;
+        $sql      = "INSERT INTO {$this->tempTable} (id, record, siopfullcode, hash) VALUES";
+        $values   = '';
+        $update = " ON DUPLICATE KEY UPDATE `id` = `id`, `record` = `record`, `siopfullcode` = `siopfullcode`, `hash` = `hash` ";
+        foreach ($arrData as $data) {
+            $newData = $data;
+            $id = $data[0];
+            $siopfullcode = $data['4'];
+            if (empty($siopfullcode)) {
+                if (!empty($data[17])) {
+                    $siopfullcode = $data[17];
+                } elseif (!empty($data[13])) {
+                    $siopfullcode = $data[13];
+                }
+            }
+            $newData[4] = $siopfullcode;
+            $record = addslashes(json_encode($newData, true));
+            $hash   = md5($record);
+            $values .= '("'.$id.'", "'.$record.'", "'.$siopfullcode.'", "'.$hash.'"),';
+            // inserting records in batch
+            if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                $query = $sql.rtrim($values, ',').$update;
+                $this->db->query($query);
+                $values = '';
+            }
+            $rowCount++;
+            unset($newData);
+        }
+        if ($values) {
+            $query = $sql.rtrim($values, ',').$update ;
+            $this->db->query($query);
+        }
+    }
+    
+    /**
+     * Function to find the Delta record(s)
+     *
+     * @return array
+     */
+    public function getDelta($bu)
+    {
+        try {
+            $catLength = 13;
+            if ($bu == 'ptg') {
+                $catLength = 18;
+            }
+            $sql   = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = '".$catLength."' AND (t.hash != m.hash OR m.id is null) ";
+            $delta = $this->db->fetchAll($sql);
+
+            return $delta;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    
+    /**
+     * Function to find the Delta record(s)
+     *
+     * @return array
+     */
+//    public function getPTGBaseDataDelta() {
+//        try {
+//            $sql   = "SELECT DISTINCT(t.siopfullcode) FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE LENGTH(t.siopfullcode) = 18 AND (t.hash != m.hash OR m.id is null) ";
+//            $delta = $this->db->fetchAll($sql);
+//
+//            return $delta;
+//        } catch (\Exception $ex) {
+//            echo $ex->getMessage();
+//        }
+//    }
+        
+    /**
+     * Function to truncate article temp table
+     */
+    public function truncateTempTable()
+    {
+        try {
+            $sql = "TRUNCATE TABLE {$this->tempTable}";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
+     * Function to update master table
+     */
+    public function updateMaster()
+    {        
+        try {
+            $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    /**
+     * Function to insert processed data to log table
+     */
+    public function insertDataToLogTable($data)
+    {
+        try {
+            $rowCount = 1;
+            $sql = "INSERT INTO {$this->logTable} (id, siopfullcode, record, statusCode, failedReason, createdAt) VALUES";
+            foreach ($data as $dataValue) {
+                $values .= '("'.$dataValue['id'].'", "'.$dataValue['siopfullcode'].'", "'.addslashes($dataValue['record']).'", "'.$dataValue['statusCode'].'","'.$dataValue['failedReason'].'","'.time().'"),';
+                // inserting records in batch
+                if ($rowCount % ImportConstants::IMPORT_BATCH_SIZE == 0) {
+                    $query = $sql.rtrim($values, ',');
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+
+            }
+            if($values)
+            {
+                $query = $sql.rtrim($values, ',') ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    public function getCategories() {
+        $query = "SELECT oo_id, code, o_key, fullCode, RelatedObjectBrick, o_path, BusinessUnit, Level FROM `object_2` ";
+        return $this->db->fetchAll($query);
+    }
+
+    public function getProducts() {
+        $query = "SELECT oo_id, o_key, o_path FROM `object_1` ";
+        return $this->db->fetchAll($query);
+    }
+    
+    public function getObjectsTableData() {
+        $query = "SELECT o_id, o_key, o_path FROM `objects` where o_type = 'object' AND o_classId = '1'";
+        return $this->db->fetchAll($query);
+    }
+}

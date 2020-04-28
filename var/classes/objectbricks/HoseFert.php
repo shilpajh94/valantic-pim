@@ -1,12 +1,12 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-03T09:59:14+02:00
-* IP: 192.168.30.66
+* Generated at: 2020-04-21T11:10:49+02:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
-- hoseLengthFt [numeric]
+- hoseLengthFT [numeric]
 - hoseLengthM [numeric]
 - totalWeightPerPackage [numeric]
 - totalWeight [numeric]
@@ -32,17 +32,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'fieldname' => 'Fert',
     ),
   ),
-   'title' => 'Hose (14 Digit)',
-   'group' => 'INH-HYD-HOSE',
+   'dao' => NULL,
    'key' => 'HoseFert',
    'parentClass' => '',
+   'implementsInterfaces' => '',
+   'title' => 'Hose (14 Digit)',
+   'group' => 'INH-HYD-HOSE',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -62,7 +63,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'labelWidth' => 100,
          'layout' => '',
          'border' => false,
-         'icon' => '',
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -140,13 +140,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'columnType' => 'double',
                          'phpdocType' => 'float',
                          'integer' => false,
-                         'unsigned' => false,
+                         'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'hoseLengthFt',
+                         'name' => 'hoseLengthFT',
                          'title' => 'Hose Length (ft)',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -170,7 +170,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'columnType' => 'double',
                          'phpdocType' => 'float',
                          'integer' => false,
-                         'unsigned' => false,
+                         'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
                          'unique' => false,
@@ -200,7 +200,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'columnType' => 'double',
                          'phpdocType' => 'float',
                          'integer' => false,
-                         'unsigned' => false,
+                         'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
                          'unique' => false,
@@ -231,7 +231,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'columnType' => 'double',
                          'phpdocType' => 'float',
                          'integer' => false,
-                         'unsigned' => false,
+                         'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
                          'unique' => false,
@@ -334,7 +334,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -377,7 +377,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -667,9 +667,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           )),
         ),
          'locked' => false,
+         'icon' => '',
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
-   'dao' => NULL,
 ));

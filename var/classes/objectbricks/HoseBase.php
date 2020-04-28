@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-09T14:25:13+02:00
+* Generated at: 2020-04-21T11:15:18+02:00
 * IP: 127.0.0.1
 
 
@@ -15,21 +15,23 @@ Fields Summary:
 - tubeMaterial [multiselect]
 - tubeCharacteristic [multiselect]
 - tubeColor [multiselect]
-- minimumTemperatureF [numeric]
-- maximumTemperatureF [numeric]
-- rangeTemperatureF [numeric]
+- hoseMinimumTemperatureF [numeric]
+- hoseMaximumTemperatureF [numeric]
+- hoseRangeTemperatureF [input]
 - StandardMetTube [multiselect]
 - StandardMetCover [multiselect]
 - standardMetHose [multiselect]
+- Coupling [input]
 - coverMaterial [multiselect]
 - coverCharacteristic [multiselect]
 - coverColor [multiselect]
-- minimumTemperatureC [numeric]
-- maximumTemperatureC [numeric]
-- rangeTemperatureC [numeric]
+- hoseMinimumTemperatureC [numeric]
+- hoseMaximumTemperatureC [numeric]
+- hoseRangeTemperatureC [input]
 - agencyCompliance [multiselect]
 - safetyFactor [multiselect]
 - acceptableHoseMedia [multiselect]
+- Packaging [input]
 - VirtualCatalogTubeMaterial [textarea]
 - VirtualCatalogCoverMaterial [textarea]
 - VirtualCatalogCoupling [textarea]
@@ -46,17 +48,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'fieldname' => 'Base',
     ),
   ),
-   'title' => 'Hose (6 Digit)',
-   'group' => 'INH-HYD-HOSE',
+   'dao' => NULL,
    'key' => 'HoseBase',
    'parentClass' => '',
+   'implementsInterfaces' => '',
+   'title' => 'Hose (6 Digit)',
+   'group' => 'INH-HYD-HOSE',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -76,7 +79,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'labelWidth' => 100,
          'layout' => '',
          'border' => false,
-         'icon' => '',
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -143,7 +145,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'columnType' => 'double',
                  'phpdocType' => 'float',
                  'integer' => false,
-                 'unsigned' => false,
+                 'unsigned' => true,
                  'minValue' => NULL,
                  'maxValue' => NULL,
                  'unique' => false,
@@ -199,7 +201,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'columnType' => 'double',
                  'phpdocType' => 'float',
                  'integer' => false,
-                 'unsigned' => false,
+                 'unsigned' => true,
                  'minValue' => NULL,
                  'maxValue' => NULL,
                  'unique' => false,
@@ -229,7 +231,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'columnType' => 'double',
                  'phpdocType' => 'float',
                  'integer' => false,
-                 'unsigned' => false,
+                 'unsigned' => true,
                  'minValue' => NULL,
                  'maxValue' => NULL,
                  'unique' => false,
@@ -2529,7 +2531,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'minimumTemperatureF',
+                         'name' => 'hoseMinimumTemperatureF',
                          'title' => 'Min Temp °F',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -2559,7 +2561,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'maximumTemperatureF',
+                         'name' => 'hoseMaximumTemperatureF',
                          'title' => 'Max temp °F',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -2575,27 +2577,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
                          'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
                          'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'rangeTemperatureF',
+                         'showCharCount' => false,
+                         'name' => 'hoseRangeTemperatureF',
                          'title' => 'Temperature Range (°F)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -2684,6 +2682,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'dynamicOptions' => false,
                          'name' => 'standardMetHose',
                          'title' => 'Standard Met- Hose',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'Coupling',
+                         'title' => 'Coupling',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2983,7 +3007,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'minimumTemperatureC',
+                         'name' => 'hoseMinimumTemperatureC',
                          'title' => 'Min Temp °C',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -3013,7 +3037,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'maximumTemperatureC',
+                         'name' => 'hoseMaximumTemperatureC',
                          'title' => 'Max temp °C',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -3029,27 +3053,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
                          'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
                          'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'rangeTemperatureC',
+                         'showCharCount' => false,
+                         'name' => 'hoseRangeTemperatureC',
                          'title' => 'Temperature Range (°C)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -3216,6 +3236,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'Packaging',
+                         'title' => 'Packaging',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                     ),
                      'locked' => false,
                   )),
@@ -3351,9 +3397,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           )),
         ),
          'locked' => false,
+         'icon' => '',
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
-   'dao' => NULL,
 ));

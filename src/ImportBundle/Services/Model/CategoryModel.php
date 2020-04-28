@@ -287,11 +287,13 @@ class CategoryModel
         }
 
         /* Set related object brick here */
-        if (in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {
+        //if (in_array($levelInfo['level'], $this->relatedClsfcnLvl)) {
             if (!empty($this->reader['attributeList'])) {
-                $catObj->setRelatedObjectBrick([$this->reader['attributeList']]);
+                $attributeList = $this->reader['attributeList'];
+                $attributeList = explode(',', $attributeList);
+                $catObj->setRelatedObjectBrick($attributeList);
             }
-        }
+        //}
         $catObj->setPublished(1);
         $catObj->save();
         if (empty($catObj)) {

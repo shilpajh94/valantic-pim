@@ -1,0 +1,221 @@
+# for all valid units refer AppBundle\Lib\UnitConversion\Unit.php
+
+
+#     Product Class
+packageLength__group:
+    packageLengthIN: 'IN'
+packageWidth__group:
+    packageWidthIN: 'IN'
+packageHeight__group:
+    packageHeightIN: 'IN'
+caseLength__group:
+    caseLengthIN: 'IN'
+caseWidth__group:
+    caseWidthIN: 'IN'
+caseHeight__group:
+    caseHeightIN: 'IN'
+palletLength__group:
+    palletLengthIN: 'IN'
+palletWidth__group:
+    palletWidthIN: 'IN'
+palletHeight__group:
+    palletHeightIN: 'IN'
+packageWeight__group:
+    packageWeightLBS: 'LBS'
+caseWeight__group:
+    caseWeightLBS: 'LBS'
+palletWeight__group:
+    palletWeightLBS: 'LBS'
+
+#    AccessoriesFert
+ORingThicknessIn__group:
+    ORingThicknessInDec: 'IN'
+    ORingThicknessMM: 'MM'
+FlatWidth__group:
+    FlatWidthIn: 'IN'
+BoltHoleSizeIn__group:
+    BoltHoleSizeInDec: 'IN'
+    BoltHoleSizeMM: 'MM'
+ORingIdIn__group:
+    ORingIdInDec: 'IN'
+    ORingIdMM: 'MM'
+ClampingDiameterIn__group:
+    ClampingDiameterInDec: 'IN'
+    ClampingDiameterMM: 'MM'
+
+#    BeltsFert
+insideLength__group:
+    insideLengthIN: 'IN'
+    insideLengthMM: 'MM'
+datumLength__group:
+    datumLengthIn: 'IN'
+    datumLengtMM: 'MM'
+outsideLength__group:
+    outsideLengthIN: 'IN'
+    outsideLengtMM: 'MM'
+productEffectiveLength__group:
+    productEffectiveLengthIN: 'IN'
+    productEffectiveLengthMM: 'MM'
+
+#     HoseBase
+hoseMinimumTemperature__group:
+    hoseMinimumTemperatureF: 'F'
+    hoseMinimumTemperatureC: 'C'
+hoseMaximumTemperature__group:
+    hoseMaximumTemperatureF: 'F'
+    hoseMaximumTemperatureC: 'C'
+#hoseRangeTemperature__group:
+#    hoseRangeTemperatureF: 'F'
+#    hoseRangeTemperatureC: 'C'
+
+#     HoseSkeleton
+hoseId__group:
+    hoseIdDec: 'IN'
+    hoseIdMM: 'MM'
+hoseOd__group:
+    hoseOdIn: 'IN'
+    hoseOdmm: 'MM'
+workingPressure__group:
+    workingPressurePSI: 'PSI'
+    workingPressureMPA: 'MPA'
+    workingPressureBAR: 'BAR'
+minBurstPressure__group:
+    minBurstPressurePSI: 'PSI'
+    minBurstPressurempa: 'MPA'
+BendRadius__group:
+    BendRadiusIN: 'IN'
+    BendRadiusMM: 'MM'
+Vacuum__group:
+    VacuumIN: 'IN'
+    VacuumMM: 'MM'
+tubeGauge__group:
+    tubeGaugeIN: 'IN'
+    tubeGaugeMM: 'MM'
+
+#     HoseFert
+hoseLength__group:
+    hoseLengthFT: 'FT'
+    hoseLengthM: 'M'
+
+#     HydFittingsFert
+TubeLengthIn__group:
+    TubeLengthInDec: 'IN'
+    TubeLengthMM: 'MM'
+Hex1WrenchSize__group:
+    Hex1WrenchSizeIN: 'IN'
+    Hex1WrenchSizeMM: 'MM'
+Hex2WrenchSize__group:
+    Hex2WrenchSizeIN: 'IN'
+    Hex2WrenchSizeMM: 'MM'
+SocketWrenchSizeIn__group:
+    SocketWrenchSizeInDec: 'IN'
+    SocketWrenchSizeMM: 'MM'
+OverallLength__group:
+    OverallLengthIN: 'IN'
+    OverallLengthMm: 'MM'
+RunLength__group:
+    RunLengthIN: 'IN'
+    RunLengthMM: 'MM'
+CutOffLength__group:
+    CutOffLengthIN: 'IN'
+    CutOffLengthMM: 'MM'
+InsertionDepth__group:
+    InsertionDepthIN: 'IN'
+    InsertionDepthMM: 'MM'
+FlangeIDIn__group:
+    FlangeIDInDec: 'IN'
+    FlangeIDMM: 'MM'
+FlangeODIn__group:
+    FlangeODInDec: 'IN'
+    FlangeODMM: 'MM'
+TubeIDIn__group:
+    TubeIDInDec: 'IN'
+    TubeIDMM: 'MM'
+TubeODIn__group:
+    TubeODInDec: 'IN'
+    TubeODMM: 'MM'
+ValveSizeIn__group:
+    ValveSizeInDec: 'IN'
+    ValveSizeMM: 'MM'
+HoseID1In__group:
+    HoseID1InDec: 'IN'
+    HoseID1MM: 'MM'
+HoseID2In__group:
+    HoseID2InDec: 'IN'
+    HoseID2MM: 'MM'
+HoseID3In__group:
+    HoseID3InDec: 'IN'
+    HoseID3MM: 'MM'
+StemHexinchDecimal__group:
+    StemHexinchDecimal: 'IN'
+    StemHexMM: 'MM'
+FerruleIDIn__group:
+    FerruleIDInDec: 'IN'
+    FerruleIDMM: 'MM'
+FerruleODIn__group:
+    FerruleODInDec: 'IN'
+    FerruleODMM: 'MM'
+FerruleLengthIn__group:
+    FerruleLengthInDec: 'IN'
+    FerruleLengthMM: 'MM'
+
+#      MetalFert
+overallThickness__group:
+    overallThicknessIn: 'IN'
+    overallThicknessMM: 'MM'
+hubDiameter__group:
+    hubDiameterIn: 'IN'
+    hubDiameterMm: 'MM'
+maxBoreSize__group:
+    maxBoreSizeIN: 'IN'
+    maxBoreSizeMM: 'MM'
+pitchDiameter__group:
+    pitchDiameterIn: 'IN'
+    pitchDiameterMm: 'MM'
+outsideDiameter__group:
+    outsideDiameterIn: 'IN'
+    outsideDiameterMm: 'MM'
+flangeDiameter__group:
+    flangeDiameterIn: 'IN'
+    flangeDiameterMm: 'MM'
+faceWidth__group:
+    faceWidthIn: 'IN'
+    faceWidthMm: 'MM'
+overAllLength__group:
+    overAllLengthIn: 'IN'
+    overAllLengthMm: 'MM'
+minBore__group:
+    minBoreIn: 'IN'
+    minBoreMm: 'MM'
+insideDiameter__group:
+    insideDiameterIn: 'IN'
+    insideDiameterMm: 'MM'
+stockThickness__group:
+    stockThicknessIn: 'IN'
+    stockThicknessMm: 'MM'
+
+#    PTGBase
+minimumTemperature__group:
+    minimumTemperatureF: 'F'
+    minimumTemperatureC: 'C'
+maximumTemperature__group:
+    maximumTemperatureF: 'F'
+    maximumTemperatureC: 'C'
+
+#    PTGSkeleton
+height__group:
+    heightIn: 'IN'
+    heightMm: 'MM'
+
+#    PTGFert
+width__group:
+    widthIn: 'IN'
+    widthmm: 'MM'
+
+#    SynchronousFert
+pitch__group:
+    pitchIN: 'IN'
+    pitchMM: 'MM'
+pitchLength__group:
+    pitchLengthIN: 'IN'
+    pitchLengthMM: 'MM'

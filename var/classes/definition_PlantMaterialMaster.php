@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-08T14:39:05+02:00
+* Generated at: 2020-04-21T11:04:54+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -35,10 +35,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586349544,
+   'modificationDate' => 1587459894,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -49,14 +50,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowInherit' => false,
    'allowVariants' => NULL,
    'showVariants' => false,
-   'cacheRawRelationData' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -76,7 +75,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'labelWidth' => 100,
          'layout' => NULL,
          'border' => false,
-         'icon' => '',
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -130,7 +128,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleFieldDefinitions' => 
             array (
             ),
-             'lazyLoading' => false,
              'classes' => 
             array (
             ),
@@ -208,7 +205,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'documentTypes' => 
                     array (
                     ),
-                     'lazyLoading' => true,
                      'classes' => 
                     array (
                       0 => 
@@ -252,7 +248,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'documentTypes' => 
                     array (
                     ),
-                     'lazyLoading' => true,
                      'classes' => 
                     array (
                       0 => 
@@ -340,7 +335,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => false,
+                     'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -370,7 +365,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => false,
+                     'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -400,7 +395,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => false,
+                     'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -533,7 +528,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'documentTypes' => 
                     array (
                     ),
-                     'lazyLoading' => true,
                      'classes' => 
                     array (
                       0 => 
@@ -577,7 +571,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'documentTypes' => 
                     array (
                     ),
-                     'lazyLoading' => true,
                      'classes' => 
                     array (
                       0 => 
@@ -661,7 +654,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => false,
+                     'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -691,7 +684,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'columnType' => 'double',
                      'phpdocType' => 'float',
                      'integer' => false,
-                     'unsigned' => false,
+                     'unsigned' => true,
                      'minValue' => NULL,
                      'maxValue' => NULL,
                      'unique' => false,
@@ -789,7 +782,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Deleted / Obsoleted Flag Plant Level',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -808,15 +801,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
           )),
         ),
          'locked' => false,
+         'icon' => '',
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
    'icon' => '/bundles/pimcoreadmin/img/twemoji/1f505.svg',
    'previewUrl' => '',
    'group' => 'Products Data',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
+   'compositeIndices' => 
+  array (
+  ),
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -838,5 +836,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       'creationDate' => true,
     ),
   ),
+   'enableGridLocking' => false,
    'dao' => NULL,
 ));

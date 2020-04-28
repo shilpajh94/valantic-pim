@@ -54,6 +54,11 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(MULTISELECT_MASTER_IMPORT_CONFIG);
     }
 
+    public function getUnitConversionConfig()
+    {
+        return $this->getConfigFromYmlFile(UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
+    }
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
