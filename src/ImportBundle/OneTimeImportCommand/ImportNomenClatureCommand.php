@@ -23,7 +23,7 @@ class ImportNomenClatureCommand extends AbstractCommand
         $this->setName('onetime-import:nomenclature-masterlist')
             ->setDescription('Commamd to imports nomenclature master list')
             ->addArgument('input_file', InputArgument::REQUIRED, 'Input file path')
-            ->addArgument('nomenclature_type', InputArgument::REQUIRED, 'Nomenclature type required. ie- HYD_ADAPTER_NOM, HYD_NOMENCLATURES, AC_GC_NOM_COMPLETE.');
+            ->addArgument('nomenclature_type', InputArgument::REQUIRED, 'Nomenclature type required. ie- Hydraulic Adapter, Hydraulic, AC-GC.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -63,16 +63,16 @@ class ImportNomenClatureCommand extends AbstractCommand
                 echo "Processing row: ". ($key + 1)."\n";
                 $errorsData = array();
 
-                if(($nomenclature_type == 'HYD_ADAPTER_NOM') && empty(trim($record['Thread Type'])))
+                if(($nomenclature_type == 'Hydraulic Adapter') && empty(trim($record['Thread Type'])))
                     $errorsData[] = 'Thread Type should not be blank.';
                     
-                if(($nomenclature_type == 'HYD_NOMENCLATURES') && empty(trim($record['Complete Part'])))
+                if(($nomenclature_type == 'Hydraulic') && empty(trim($record['Complete Part'])))
                     $errorsData[] = 'Complete Part should not be blank.';
 
-                if(($nomenclature_type == 'AC_GC_NOM_COMPLETE') && empty(trim($record['Adapter Type'])))
+                if(($nomenclature_type == 'AC-GC') && empty(trim($record['Adapter Type'])))
                     $errorsData[] = 'Adapter Type should not be blank.';
 
-                if(($nomenclature_type == 'AC_GC_NOM_COMPLETE') && empty(trim($record['Fitting Style'])))
+                if(($nomenclature_type == 'AC-GC') && empty(trim($record['Fitting Style'])))
                     $errorsData[] = 'Fitting Style should not be blank.';
 
 
@@ -130,11 +130,11 @@ class ImportNomenClatureCommand extends AbstractCommand
         $errorsData = array();
         $isMaterialUpdated = true;
         
-        if($nomenclature_type == 'HYD_ADAPTER_NOM') 
+        if($nomenclature_type == 'Hydraulic Adapter') 
             $key = trim($data['Thread Type']);
-        else if($nomenclature_type == 'HYD_NOMENCLATURES')
+        else if($nomenclature_type == 'Hydraulic')
             $key = trim($data['Complete Part']);
-        else if($nomenclature_type == 'AC_GC_NOM_COMPLETE')
+        else if($nomenclature_type == 'AC-GC')
             $key = trim($data['Adapter Type']).'-'.trim($data['Fitting Style']);
 
         $key = strtoupper(\Pimcore\File::getValidFilename($key));
@@ -150,18 +150,18 @@ class ImportNomenClatureCommand extends AbstractCommand
             $object->setGender($data['Gender']);
             $object->setSwivel($data['Swivel']);
 
-            if($nomenclature_type == 'HYD_ADAPTER_NOM')
+            if($nomenclature_type == 'Hydraulic Adapter')
             {
                 $object->setThreadType($data['Thread Type']);
                 $object->setFamily($data['Family']);
                 $object->setFamilyDescription($data['Thread Family Description']);
                 $object->setCatalogFieldName($data['Catalog Field Name']);
                 $object->setAttribute($data['Attribute']);
-                $object->setAttributDescription($data['Attribute Description']);
+                $object->setAttributeDescription($data['Attribute Description']);
             }
-            else if($nomenclature_type == 'HYD_NOMENCLATURES')
+            else if($nomenclature_type == 'Hydraulic')
             {
-                $object->setCompletePart($data['Complete Part']);
+                $object->setPartialPartNumber($data['Complete Part']);
                 $object->setFamily($data['Fitting Family']);
                 $object->setFamilyDescription($data['Fitting Family Description']);
                 $object->setThread($data['Thread']);
@@ -174,7 +174,7 @@ class ImportNomenClatureCommand extends AbstractCommand
                 $object->setMaterialIdentifer($data['Material Identifer']);
                 $object->setComments($data['Comments']);
             }
-            else if($nomenclature_type == 'AC_GC_NOM_COMPLETE')
+            else if($nomenclature_type == 'AC-GC')
             {
                 $object->setAdapterType($data['Adapter Type']);
                 $object->setDescription($data['Description']);
@@ -185,7 +185,7 @@ class ImportNomenClatureCommand extends AbstractCommand
                 $object->setElbowType($data['Elbow Type']);
                 $object->setValve($data['Valve']);
                 $object->setAttribute($data['Attribute']);
-                $object->setAttributDescription($data['Attribute Description']);
+                $object->setAttributeDescription($data['Attribute Description']);
                 $object->setFullDescription($data['Full Description']);
             }
 
