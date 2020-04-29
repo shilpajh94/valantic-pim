@@ -59,6 +59,11 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
     }
 
+    public function getWorkFlowConfig()
+    {
+        return $this->getConfigFromYmlFile(WORKFLOW_CONFIG_FILE_PATH);
+    }
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
