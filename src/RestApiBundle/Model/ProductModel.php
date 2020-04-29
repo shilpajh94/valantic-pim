@@ -85,11 +85,12 @@ class ProductModel
         
         $conditionString    =   " ProductType='".$productType."'  AND ";
         if(empty($conditionArray)){
+            $conditionString    =   trim($conditionString,'  AND ');
             return $conditionString;
         }
         
         if($productType=='fert'){
-            $conditionString = " virtualCatalogFlag=1  AND ";
+            $conditionString .= " virtualCatalogFlag=1  AND ";
         }
         
         switch($productType){
