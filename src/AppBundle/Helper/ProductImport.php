@@ -74,40 +74,44 @@ class ProductImport
     }
 
     public function insertIntoProductTable($dataArray, $tableName) {
-    	$rowCount = 1;
-    	$firstRec = $dataArray[0];
-    	$keys = array_keys($firstRec);
-    	$sql = "INSERT INTO `".$tableName."` ";
-    	$sqlColumns = [];
-    	$updateColumns = [];
-    	$valColumns = [];
-     	foreach ($keys as $key) {
-    		$sqlColumns[] = "`".$key."`";
-    		if ($key!='oo_id') {
-	    		$updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
-	    	}
-    		$valColumns[] = $key;
-    	}
-    	$sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
-    	$update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
-    	$values = '';
-    	foreach ($dataArray as $data) {
-    		$valueArray = [];
-    		foreach ($valColumns as $key) {
-    			$valueArray[] = $this->db->quote($data[$key]);
-    		}
-            $values .= '('.implode(",", $valueArray).'),';
-            // inserting records in batch
-            if ($rowCount % 1000 == 0) {
-                $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
-                $values = '';
+        try {
+            $rowCount = 1;
+            $firstRec = $dataArray[0];
+            $keys = array_keys($firstRec);
+            $sql = "INSERT INTO `".$tableName."` ";
+            $sqlColumns = [];
+            $updateColumns = [];
+            $valColumns = [];
+            foreach ($keys as $key) {
+                    $sqlColumns[] = "`".$key."`";
+                    if ($key!='oo_id') {
+                            $updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
+                    }
+                    $valColumns[] = $key;
             }
-            $rowCount++;
-        }
-        if (!empty($values)) {
-            $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
+            $update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+            $values = '';
+            foreach ($dataArray as $data) {
+                    $valueArray = [];
+                    foreach ($valColumns as $key) {
+                            $valueArray[] = $this->db->quote($data[$key]);
+                    }
+                $values .= '('.implode(",", $valueArray).'),';
+                // inserting records in batch
+                if ($rowCount % 1000 == 0) {
+                    $query = $sql.rtrim($values, ',').$update;
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+            }
+            if (!empty($values)) {
+                $query = $sql.rtrim($values, ',').$update ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage(); die;
         }
     }
 
@@ -245,6 +249,11 @@ class ProductImport
         return $this->db->fetchAll($query);
     }
 
+    public function getMaterialGroupData() {
+        $query = "SELECT oo_id, code FROM `object_21` ";
+        return $this->db->fetchAll($query);
+    }
+    
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_1` ";
         return $this->db->fetchAll($query);
