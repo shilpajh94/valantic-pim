@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-24T09:35:05+02:00
+* Generated at: 2020-04-29T06:27:13+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -44,7 +44,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'NomenClature',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587713705,
+   'modificationDate' => 1588134433,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -224,7 +224,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -269,12 +269,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   0 => 
                   array (
                     'key' => 'Male',
-                    'value' => 'Male',
+                    'value' => 'M',
                   ),
                   1 => 
                   array (
                     'key' => 'Female',
-                    'value' => 'Female',
+                    'value' => 'F',
                   ),
                 ),
                  'width' => '',
@@ -292,7 +292,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
