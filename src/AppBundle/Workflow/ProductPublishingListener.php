@@ -17,9 +17,10 @@ class ProductPublishingListener implements EventSubscriberInterface
         $user = \Pimcore\Tool\Admin::getCurrentUser();
         $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(),['limit' => 1]);        
-        file_put_contents('userinfo.txt', json_encode(array($userInfo->getId(), $userInfo->getUserType(), $userInfo->getMaterialGroupAccess())));
-        $productManagers = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());        
-        file_put_contents('users.txt', json_encode($productManagers));
+        if(empty($userInfo)) {
+            return true;
+        }
+        $productManagers = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());                
         $product = $event->getSubject();
         $productId = $product->getId();
         $workflow = $event->getWorkflow();
@@ -60,9 +61,10 @@ class ProductPublishingListener implements EventSubscriberInterface
         $user = \Pimcore\Tool\Admin::getCurrentUser();
         $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);        
-        file_put_contents('userinfo.txt', json_encode(array($userInfo->getId(), $userInfo->getUserType(), $userInfo->getMaterialGroupAccess())));
-        $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());        
-        file_put_contents('users.txt', json_encode($productEditors));
+        if(empty($userInfo)) {
+            return true;
+        }        
+        $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());                
         $product = $event->getSubject();
         $productId = $product->getId();
         $deepLink = $wfHelper->getDeepLink($productId);
@@ -76,7 +78,6 @@ class ProductPublishingListener implements EventSubscriberInterface
             $actionRemark = $wfHelper->getActionRemarksById($productId);
             if ($productEditors) {
                 foreach ($productEditors as $user) {
-                    // file_put_contents('users.txt', json_encode($user));
                     $array = array(
                         'subject'       =>  WFConst::PB_ENRICH_SUBJECT,
                         'templateName'  =>  WFConst::PB_PRODUCT_ENRICH_EMAIL_TEMPLATE_PATH,
@@ -103,6 +104,9 @@ class ProductPublishingListener implements EventSubscriberInterface
         $user = \Pimcore\Tool\Admin::getCurrentUser();
         $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
+        if(empty($userInfo)) {
+            return true;
+        }
         $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());
 
         $product = $event->getSubject();
@@ -145,7 +149,10 @@ class ProductPublishingListener implements EventSubscriberInterface
     {
         $user = \Pimcore\Tool\Admin::getCurrentUser();
         $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
-        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId());
+        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
+        if(empty($userInfo)) {
+            return true;
+        }
         $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());
 
         $product = $event->getSubject();
