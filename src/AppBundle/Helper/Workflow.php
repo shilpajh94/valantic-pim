@@ -15,13 +15,7 @@ class Workflow {
         JOIN `users` u2 ON(u1.roles REGEXP u2.id AND u2.type='role' AND u2.name=".$this->db->quote($roleName).") ";
         return $this->db->fetchAll($sql);
     }
-
-    public function getArrayColumn($data, $index) {
-        if(!empty($data) && isset($data[0]['email'])) {
-            return array_column($data, $index);
-        }
-        return false;
-    }
+    
 
     public function getActionRemarksById($id) {
         $sql = "SELECT n.description FROM notes n  
@@ -36,11 +30,46 @@ class Workflow {
     }
 
     public function getDeepLink($id, $type="object") {
-        $link = "login/deeplink?";
+        $link = \Pimcore\Tool::getHostUrl()."/login/deeplink?";
         if($type=='object') {
             $link .= 'object_'.$id.'_object';
         }
         return $link;
     }
 
+    /**
+     * Get user list belong to given group
+     * @param Int $roleId, $groupId
+    */
+    public function getUserByRoleAndGroup($roleId, $groupId) {
+        $users = new \Pimcore\Model\DataObject\Users\Listing;
+        $rId = $this->getOppositeUserRoleIdByRoleId($roleId);
+        if(!empty($rId)) {
+            $users->setCondition("userType LIKE '%$rId%'");
+        }
+        if(!empty($groupId)) {
+            $users->setCondition("MaterialGroupAccess LIKE '%$groupId%'");
+        }
+        $users->load();
+        unset($rId);
+        return $users;
+    }
+
+    /**
+     * It will return editor or product manager role id, If role id belong to editor, then it will return product manager role id else editor role id
+     * @param Int $roldId
+    */
+    public function getOppositeUserRoleIdByRoleId($roleId) {
+        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig();
+        if($roleId==$wfConfigData['roles']['editor']['id']) {
+            return $wfConfigData['roles']['productManager']['id'];
+        } else {
+            return $wfConfigData['roles']['editor']['id'];
+        }
+    }
+
+
+    public function getDateTime() {
+        return date('m/d/Y h:i:s A ').' '.date_default_timezone_get();
+    }
 }

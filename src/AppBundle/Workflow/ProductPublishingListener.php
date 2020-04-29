@@ -14,14 +14,16 @@ class ProductPublishingListener implements EventSubscriberInterface
     */
     public function completedEnrichProductEvent(CompletedEvent $event)
     {
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
-        $productManagers = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_MANAGER_ROLE_NAME);
-
         $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(),['limit' => 1]);        
+        file_put_contents('userinfo.txt', json_encode(array($userInfo->getId(), $userInfo->getUserType(), $userInfo->getMaterialGroupAccess())));
+        $productManagers = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());        
+        file_put_contents('users.txt', json_encode($productManagers));
         $product = $event->getSubject();
         $productId = $product->getId();
         $workflow = $event->getWorkflow();
-        $deepLink = WFConst::ADMIN_URL.$wfHelper->getDeepLink($productId);
+        $deepLink = $wfHelper->getDeepLink($productId);
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_START_PROCESSING_ACTION_NAME) {
@@ -35,9 +37,9 @@ class ProductPublishingListener implements EventSubscriberInterface
                     $array = array(
                         'subject'       =>  WFConst::PB_REVIEW_SUBJECT,
                         'templateName'  =>  WFConst::PB_PRODUCT_REVEIW_EMAIL_TEMPLATE_PATH,
-                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($edEmail => $edFullName),
-                        'dataParams'    =>  array('pmFullName' => $user['fullname'], 'edFullName' => $edFullName, 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
+                        'dataParams'    =>  array('pmFullName' => $user->getFirstname().' '.$user->getLastname(), 'edFullName' => $edFullName, 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
                     );
                     $email = \Pimcore::getContainer()->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
@@ -55,13 +57,15 @@ class ProductPublishingListener implements EventSubscriberInterface
 
     public function completedEnrichAgainProductEvent(CompletedEvent $event)
     {
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
-        $productEditors = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_EDITOR_ROLE_NAME);
-
         $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);        
+        file_put_contents('userinfo.txt', json_encode(array($userInfo->getId(), $userInfo->getUserType(), $userInfo->getMaterialGroupAccess())));
+        $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());        
+        file_put_contents('users.txt', json_encode($productEditors));
         $product = $event->getSubject();
         $productId = $product->getId();
-        $deepLink = WFConst::ADMIN_URL.$wfHelper->getDeepLink($productId);
+        $deepLink = $wfHelper->getDeepLink($productId);
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_ENRICH_AGAIN_ACTION_NAME) {
@@ -72,12 +76,13 @@ class ProductPublishingListener implements EventSubscriberInterface
             $actionRemark = $wfHelper->getActionRemarksById($productId);
             if ($productEditors) {
                 foreach ($productEditors as $user) {
+                    // file_put_contents('users.txt', json_encode($user));
                     $array = array(
                         'subject'       =>  WFConst::PB_ENRICH_SUBJECT,
                         'templateName'  =>  WFConst::PB_PRODUCT_ENRICH_EMAIL_TEMPLATE_PATH,
-                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
-                        'dataParams'    =>  array('pmFullName' => $cuFullName, 'edFullName' => $user['fullname'], 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
+                        'dataParams'    =>  array('pmFullName' => $cuFullName, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
                     );
                     $email = \Pimcore::getContainer()->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
@@ -95,13 +100,14 @@ class ProductPublishingListener implements EventSubscriberInterface
 
     public function completedPublishProductEvent(CompletedEvent $event)
     {
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
-        $productEditors = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_EDITOR_ROLE_NAME);
-
         $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
+        $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());
+
         $product = $event->getSubject();
         $productId = $product->getId();
-        $deepLink = WFConst::ADMIN_URL.$wfHelper->getDeepLink($productId);
+        $deepLink = $wfHelper->getDeepLink($productId);
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_PUBLISH_ACTION_NAME) {
@@ -117,9 +123,9 @@ class ProductPublishingListener implements EventSubscriberInterface
                     $array = array(
                         'subject'       =>  WFConst::PB_PUBLISH_SUBJECT,
                         'templateName'  =>  WFConst::PB_PRODUCT_PUBLISH_EMAIL_TEMPLATE_PATH,
-                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
-                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user['fullname'], 'pmTimestamp'=> $user['system_time'], 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
+                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'pmTimestamp'=> $wfHelper->getDateTime(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
                     );
                     $email = \Pimcore::getContainer()->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
@@ -137,13 +143,14 @@ class ProductPublishingListener implements EventSubscriberInterface
 
     public function completedUnpublishProductEvent(CompletedEvent $event)
     {
-        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
-        $productEditors = $wfHelper->getUserByRole(WFConst::PB_PRODUCT_EDITOR_ROLE_NAME);
-
         $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId());
+        $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());
+
         $product = $event->getSubject();
         $productId = $product->getId();
-        $deepLink = WFConst::ADMIN_URL.$wfHelper->getDeepLink($productId);
+        $deepLink = $wfHelper->getDeepLink($productId);
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_UNPUBLISH_ACTION_NAME) {
@@ -159,9 +166,9 @@ class ProductPublishingListener implements EventSubscriberInterface
                     $array = array(
                         'subject'       =>  WFConst::PB_UNPUBLISH_SUBJECT,
                         'templateName'  =>  WFConst::PB_PRODUCT_UNPUBLISH_EMAIL_TEMPLATE_PATH,
-                        'toEmails'      =>  array($user['email'] => $user['fullname']),
+                        'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
-                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user['fullname'], 'pmTimestamp'=> $user['system_time'], 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
+                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'pmTimestamp'=> $wfHelper->getDateTime(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
                     );
                     $email = \Pimcore::getContainer()->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);

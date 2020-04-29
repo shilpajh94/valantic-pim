@@ -49,3 +49,4 @@ define("PRODUCT_CLASS_ID", "1");
 define("UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/unit_conversion/attribute_groups.yml");
 
 define('MEMBER', 'Users');
+define('WORKFLOW_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
