@@ -174,6 +174,11 @@ class ProductImport
         }
     }
     
+    public function getDeletedProducts() {
+        $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
+        return $this->db->fetchAll($sql);
+    }
+    
     /**
      * Function to find the Delta record(s)
      *

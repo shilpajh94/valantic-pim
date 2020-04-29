@@ -134,7 +134,6 @@ class ProductSQLModel
              * Setting up import table
              */
             $this->initImportTable();
-
             $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
             //throw $th;
@@ -146,14 +145,15 @@ class ProductSQLModel
     
     public function import($csvData)
     {
-        $this->tblImpHelper->truncateTempTable();
-        $this->tblImpHelper->insertDataInTemp($csvData);
-        
-        $this->initiatePTGProductsProcess();
-        
-        $this->initiateIFSProductsProcess();
-        
-        $this->tblImpHelper->updateMaster();
+//        $this->tblImpHelper->truncateTempTable();
+//        $this->tblImpHelper->insertDataInTemp($csvData);
+        $this->processDeletedProducts();
+//        
+//        $this->initiatePTGProductsProcess();
+//        
+//        $this->initiateIFSProductsProcess();
+//        
+//        $this->tblImpHelper->updateMaster();
     }
     
     /* This function will override the default configuration */
@@ -168,6 +168,23 @@ class ProductSQLModel
         }
     }
     
+    public function processDeletedProducts() {
+        $deletedProducts = $this->tblImpHelper->getDeletedProducts();
+        $keysArray = [];
+        foreach ($deletedProducts as $product) {
+            $keysArray[] = $product['id'];
+        }
+        $obj = new DataObject\Product\Listing();
+        $obj->setCondition("o_key IN (". implode(', ' , $keysArray).")");
+        $obj->load();
+        print_r($obj->getObjects()); die;
+        foreach($obj as $product) {
+            echo "=============";
+            echo $product->getId(); die;
+            $product->setPublished(false);
+            $product->save();
+        }
+    }
     
     public function initiateIFSProductsProcess() {
         $a = time();
