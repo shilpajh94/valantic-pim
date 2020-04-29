@@ -17,7 +17,8 @@ class UserRoleOptionProvider implements SelectOptionsProviderInterface
         $roleList = new \Pimcore\Model\User\Role\Listing;
         $roleList->load();
         $roles = array();
-        if(count($roleList)) {
+        $roleList = $roleList->getItems();
+        if(!empty($roleList) && count($roleList)>0) {
             foreach($roleList as $role) {
                 $roles[] = array(
                     'key'       =>  $role->name,
