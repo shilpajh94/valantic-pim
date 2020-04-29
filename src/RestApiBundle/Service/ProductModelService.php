@@ -296,21 +296,27 @@ class ProductModelService
                     $product = DataObject\Product::getById($objId);
                     $bData  =   '';
                     // Get Field Definition.
-                    $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
+                    if($product->$productBrickField()->$brickText()){
+                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
 
-                    if($fieldDef->getFieldtype()==="multiselect"){
-                         $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
-                         $bData = [];
-                         if(!empty($bDataTmp)){
-                            foreach($bDataTmp as $mkey=>$mvalue){
-                               $objectIndv = DataObject::getById($mvalue);
-                               $bData[] = $objectIndv->getName();
-                            }
-                         }
-                         
-                   }else{
-                        $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
-                   }
+                        if($fieldDef->getFieldtype()==="multiselect"){
+                             $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
+                             $bData = [];
+                             if(!empty($bDataTmp)){
+                                foreach($bDataTmp as $mkey=>$mvalue){
+                                   if($fvalue==='brandName'){
+                                    $bData[] =  $mvalue;     
+                                   }else{
+                                    $objectIndv = DataObject::getById($mvalue);
+                                    $bData[] = $objectIndv->getName();
+                                   }
+                                }
+                             }
+
+                       }else{
+                            $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
+                       }
+                    }
                     if(!empty($bData) || $bData===0){
                         $productObjectBricksData[$fvalue] = $bData;
                     }
