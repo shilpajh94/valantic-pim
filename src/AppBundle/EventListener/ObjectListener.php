@@ -129,6 +129,9 @@ class ObjectListener
                  */
                 $this->updateUnitConversionAttributes($object);
             }
+            if($object instanceof DataObject\Users) {
+                $this->updatePIMUser($object);
+            }
         }
     }
 
@@ -224,6 +227,25 @@ class ObjectListener
             $this->unitConversionService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
         return $object;
+    }
+
+    /**
+     * update PIM user when user object get updated
+     * @param \Pimcore\Model\DataObject\Users $object
+    */
+    private function updatePIMUser(\Pimcore\Model\DataObject\Users $object) {
+        $userObj = \Pimcore\Model\User::getByName($object->getUserName());
+        if(!empty($userObj)) {
+            $userData = array(
+                'firstname' =>  $object->getFirstname(),
+                'lastname'  =>  $object->getLastname(),
+                'email'     =>  $object->getEmail(),
+                'roles'     =>  $object->getUserType()
+            );
+            $userObj->setValues($userData);
+            $userObj->update();
+        }
+        
     }
 
 
