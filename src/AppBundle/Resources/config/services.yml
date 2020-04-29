@@ -20,6 +20,9 @@ services:
     AppBundle\Workflow\ProductPublishingListener:
         tags:
                 - { name: kernel.event_product_workflow}
+    ADAuthBundle\EventListener\AuthenticateListener:
+        tags:
+                - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}
     #
     # CONTROLLERS
     #

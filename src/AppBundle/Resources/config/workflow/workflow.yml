@@ -1,0 +1,8 @@
+parameters:
+  roles:
+    editor:
+      id: 3
+      name: 'Editor'
+    productManager:
+      id: 4
+      name: 'Product-Manager'
