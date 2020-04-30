@@ -134,7 +134,6 @@ class ProductSQLModel
              * Setting up import table
              */
             $this->initImportTable();
-
             $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
             //throw $th;
@@ -148,7 +147,8 @@ class ProductSQLModel
     {
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
-        
+        $this->processDeletedProducts();
+//        
         $this->initiatePTGProductsProcess();
         
         $this->initiateIFSProductsProcess();
@@ -168,6 +168,21 @@ class ProductSQLModel
         }
     }
     
+    public function processDeletedProducts() {
+        $deletedProducts = $this->tblImpHelper->getDeletedProducts();
+        $keysArray = [];
+        foreach ($deletedProducts as $product) {
+            $keysArray[] = $product['id'];
+        }
+        $obj = new DataObject\Product\Listing();
+        $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
+        $obj->load();
+        foreach($obj as $product) {
+            echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+            $product->setPublished(false);
+            $product->save();
+        }
+    }
     
     public function initiateIFSProductsProcess() {
         $a = time();
@@ -333,6 +348,10 @@ class ProductSQLModel
             $objectKey = substr($oldMaterialCode, 0,9);
         } else {
             $objectKey = $record[$this->getRecordIndexByKey('material')];
+            $description = \Pimcore\File::getValidFilename($record[2]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
         }
         $objectArr = [
             'parentId' => $parentId,
@@ -381,6 +400,10 @@ class ProductSQLModel
             $objectKey = $currentLevelArray[count($currentLevelArray)-1];
         } elseif ($type == 'fert') {
             $objectKey = $record[0];
+            $description = \Pimcore\File::getValidFilename($record[2]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
             $objectIndex = count($levelInfo);
         }
         $objectArr = [
