@@ -145,15 +145,15 @@ class ProductSQLModel
     
     public function import($csvData)
     {
-//        $this->tblImpHelper->truncateTempTable();
-//        $this->tblImpHelper->insertDataInTemp($csvData);
+        $this->tblImpHelper->truncateTempTable();
+        $this->tblImpHelper->insertDataInTemp($csvData);
         $this->processDeletedProducts();
 //        
-//        $this->initiatePTGProductsProcess();
-//        
-//        $this->initiateIFSProductsProcess();
-//        
-//        $this->tblImpHelper->updateMaster();
+        $this->initiatePTGProductsProcess();
+        
+        $this->initiateIFSProductsProcess();
+        
+        $this->tblImpHelper->updateMaster();
     }
     
     /* This function will override the default configuration */
@@ -175,12 +175,10 @@ class ProductSQLModel
             $keysArray[] = $product['id'];
         }
         $obj = new DataObject\Product\Listing();
-        $obj->setCondition("o_key IN (". implode(', ' , $keysArray).")");
+        $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
         $obj->load();
-        print_r($obj->getObjects()); die;
         foreach($obj as $product) {
-            echo "=============";
-            echo $product->getId(); die;
+            echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
             $product->setPublished(false);
             $product->save();
         }
@@ -350,6 +348,10 @@ class ProductSQLModel
             $objectKey = substr($oldMaterialCode, 0,9);
         } else {
             $objectKey = $record[$this->getRecordIndexByKey('material')];
+            $description = \Pimcore\File::getValidFilename($record[2]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
         }
         $objectArr = [
             'parentId' => $parentId,
@@ -398,6 +400,10 @@ class ProductSQLModel
             $objectKey = $currentLevelArray[count($currentLevelArray)-1];
         } elseif ($type == 'fert') {
             $objectKey = $record[0];
+            $description = \Pimcore\File::getValidFilename($record[2]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
             $objectIndex = count($levelInfo);
         }
         $objectArr = [
