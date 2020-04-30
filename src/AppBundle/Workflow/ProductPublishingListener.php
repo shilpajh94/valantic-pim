@@ -19,7 +19,8 @@ class ProductPublishingListener implements EventSubscriberInterface
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(),['limit' => 1]);        
         if(empty($userInfo)) {
             return true;
-        }
+        }        
+        
         $productManagers = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());                
         $product = $event->getSubject();
         $productId = $product->getId();
@@ -32,16 +33,20 @@ class ProductPublishingListener implements EventSubscriberInterface
             $edFirstName = $user->getFirstname();
             $edLastName = $user->getLastname();
             $edFullName = $edFirstName . ' ' . $edLastName;
-            $actionRemark = $wfHelper->getActionRemarksById($productId);
+            $actionRemarkInfo = $wfHelper->getActionRemarksById($productId);
+            $actionRemark = $actionRemarkInfo['description'];
+            
+            $wfHelper->getTemplatePath(WFConst::PB_START_PROCESSING_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']);
             if ($productManagers) {
-                foreach ($productManagers as $user) {
+                foreach ($productManagers as $k=>$user) {
                     $array = array(
                         'subject'       =>  WFConst::PB_REVIEW_SUBJECT,
-                        'templateName'  =>  WFConst::PB_PRODUCT_REVEIW_EMAIL_TEMPLATE_PATH,
+                        'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_START_PROCESSING_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($edEmail => $edFullName),
                         'dataParams'    =>  array('pmFullName' => $user->getFirstname().' '.$user->getLastname(), 'edFullName' => $edFullName, 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
                     );
+                    
                     $email = \Pimcore::getContainer()->get('email.email_notification_service');
                     $email->sendNotificationsEmail($array);
                     unset($array);
@@ -63,7 +68,9 @@ class ProductPublishingListener implements EventSubscriberInterface
         $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);        
         if(empty($userInfo)) {
             return true;
-        }        
+        }     
+        
+        
         $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());                
         $product = $event->getSubject();
         $productId = $product->getId();
@@ -75,12 +82,13 @@ class ProductPublishingListener implements EventSubscriberInterface
             $cuFirstName = $user->getFirstname();
             $cuLastName = $user->getLastname();
             $cuFullName = $cuFirstName . ' ' . $cuLastName;
-            $actionRemark = $wfHelper->getActionRemarksById($productId);
+            $actionRemarkInfo = $wfHelper->getActionRemarksById($productId);
+            $actionRemark = $actionRemarkInfo['description'];
             if ($productEditors) {
                 foreach ($productEditors as $user) {
                     $array = array(
                         'subject'       =>  WFConst::PB_ENRICH_SUBJECT,
-                        'templateName'  =>  WFConst::PB_PRODUCT_ENRICH_EMAIL_TEMPLATE_PATH,
+                        'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_ENRICH_AGAIN_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
@@ -115,18 +123,19 @@ class ProductPublishingListener implements EventSubscriberInterface
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_PUBLISH_ACTION_NAME) {
-            $product->setPublished(1);
-            $product->save();
+            /* $product->setPublished(1);
+            $product->save(); */
             $cuEmail = $user->getEmail();
             $cuFirstName = $user->getFirstname();
             $cuLastName = $user->getLastname();
             $cuFullName = $cuFirstName . ' ' . $cuLastName;
-            $actionRemark = $wfHelper->getActionRemarksById($productId);
+            $actionRemarkInfo = $wfHelper->getActionRemarksById($productId);
+            $actionRemark = $actionRemarkInfo['description'];
             if ($productEditors) {
                 foreach ($productEditors as $user) {
                     $array = array(
                         'subject'       =>  WFConst::PB_PUBLISH_SUBJECT,
-                        'templateName'  =>  WFConst::PB_PRODUCT_PUBLISH_EMAIL_TEMPLATE_PATH,
+                        'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_PUBLISH_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'pmTimestamp'=> $wfHelper->getDateTime(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
@@ -167,12 +176,55 @@ class ProductPublishingListener implements EventSubscriberInterface
             $cuFirstName = $user->getFirstname();
             $cuLastName = $user->getLastname();
             $cuFullName = $cuFirstName . ' ' . $cuLastName;
-            $actionRemark = $wfHelper->getActionRemarksById($productId);            
+            $actionRemarkInfo = $wfHelper->getActionRemarksById($productId);
+            $actionRemark = $actionRemarkInfo['description'];          
             if ($productEditors) {
                 foreach ($productEditors as $user) {
                     $array = array(
                         'subject'       =>  WFConst::PB_UNPUBLISH_SUBJECT,
-                        'templateName'  =>  WFConst::PB_PRODUCT_UNPUBLISH_EMAIL_TEMPLATE_PATH,
+                        'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_UNPUBLISH_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
+                        'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
+                        'ccEmails'      =>  array($cuEmail => $cuFullName),
+                        'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'pmTimestamp'=> $wfHelper->getDateTime(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
+                    );
+                    $email = \Pimcore::getContainer()->get('email.email_notification_service');
+                    $email->sendNotificationsEmail($array);
+                    unset($array);
+                }
+            }
+        }
+        return true;
+    }
+
+    public function completedReopenProductEvent(CompletedEvent $event)
+    {
+        $user = \Pimcore\Tool\Admin::getCurrentUser();
+        $wfHelper = \Pimcore::getContainer()->get('app.workflow_helper');
+        $userInfo = \Pimcore\Model\DataObject\Users::getByAdminReference($user->getId(), ['limit' => 1]);
+        if(empty($userInfo)) {
+            return true;
+        }
+        $productEditors = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());
+
+        $product = $event->getSubject();
+        $productId = $product->getId();
+        $deepLink = $wfHelper->getDeepLink($productId);
+        $transition = $event->getTransition();
+        $articleNumber = $product->getArticleNumber();
+        if ($transition->getName() == WFConst::PB_REOPEN_ACTION_NAME) {
+            $product->setPublished(0);
+            $product->save();
+            $cuEmail = $user->getEmail();
+            $cuFirstName = $user->getFirstname();
+            $cuLastName = $user->getLastname();
+            $cuFullName = $cuFirstName . ' ' . $cuLastName;
+            $actionRemarkInfo = $wfHelper->getActionRemarksById($productId);
+            $actionRemark = $actionRemarkInfo['description'];          
+            if ($productEditors) {
+                foreach ($productEditors as $user) {
+                    $array = array(
+                        'subject'       =>  WFConst::PB_UNPUBLISH_SUBJECT,
+                        'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_REOPEN_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname().' '.$user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
                         'dataParams'    =>  array('pmFullName' => $cuFullName,'pmEmail' => $cuEmail, 'edFullName' => $user->getFirstname().' '.$user->getLastname(), 'pmTimestamp'=> $wfHelper->getDateTime(), 'actionRemark'=>$actionRemark, 'deepLink'=>$deepLink, 'articleNumber' => $articleNumber)
@@ -193,6 +245,7 @@ class ProductPublishingListener implements EventSubscriberInterface
             'workflow.product_publishing.completed.enrich_again' => ['completedEnrichAgainProductEvent'],
             'workflow.product_publishing.completed.publish' => ['completedPublishProductEvent'],
             'workflow.product_publishing.completed.unpublish' => ['completedUnpublishProductEvent'],
+            'workflow.product_publishing.completed.reopen' => ['completedReopenProductEvent'],
         ];
     }
 }

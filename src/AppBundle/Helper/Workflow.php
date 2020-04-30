@@ -22,15 +22,30 @@ class Workflow {
      * @param object id
     */
     public function getActionRemarksById($id) {
-        $sql = "SELECT n.description FROM notes n  
+        $sql = "SELECT n.description, nd.name optionname, nd.data prioritytype FROM notes n LEFT JOIN notes_data nd ON(nd.id=n.id) 
         WHERE n.cid=$id ORDER BY n.`date` DESC LIMIT 1";
         $results = $this->db->fetchAll($sql);
         if(count($results)) {
             foreach ($results as $row) {
-                return $row['description'];
+                return array(
+                    'description'   =>  $row['description'],
+                    'optionName'    =>  !empty($row['optionname']) ? strtolower($row['optionname']) : NULL,
+                    'priorityType'  =>  !empty($row['prioritytype']) ? strtolower($row['prioritytype']) : NULL
+                );
             }
         }
         return '';
+    }
+
+    public function getTemplatePath($transitionName, $optionName="", $optionVal="") {
+        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        $transitions = isset($wfConfigData['transitions'])?$wfConfigData['transitions']:false;
+        
+        if(!empty($optionName) && !empty($optionVal)) {
+            return $transitions[$transitionName][$optionName][$optionVal]['templatePath'];
+        } else {
+            return $transitions[$transitionName]['defaultTemplatePath'];
+        }
     }
 
     /**
@@ -52,16 +67,21 @@ class Workflow {
     */
     public function getUserByRoleAndGroup($roleId, $groupIds) {
         $users = new \Pimcore\Model\DataObject\Users\Listing;
+        $roleId = is_array($roleId)?$roleId[0]:$roleId;
         $rId = $this->getOppositeUserRoleIdByRoleId($roleId);
+        
         if(!empty($rId)) {
             $users->setCondition("userType LIKE '%$rId%'");
         }
         if(!empty($groupIds)) {
             foreach($groupIds as $groupObj) {                
-                $users->setCondition("MaterialGroupAccess LIKE '%".$groupObj->getId()."%'");
+                $users->addConditionParam("MaterialGroupAccess = ?", $groupObj->getId(), "OR");
             }            
         }
         $users->load();
+        foreach($users as $user) {
+            $fn = $user->getFirstname().'.txt';            
+        }
         unset($rId);
         return $users;
     }
@@ -71,10 +91,10 @@ class Workflow {
      * @param Int $roldId
     */
     public function getOppositeUserRoleIdByRoleId($roleId) {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig();
-        if($roleId==$wfConfigData['roles']['editor']['id']) {
+        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
+        if($roleId==$wfConfigData['roles']['editor']['id']) {            
             return $wfConfigData['roles']['productManager']['id'];
-        } else {
+        } else {            
             return $wfConfigData['roles']['editor']['id'];
         }
     }

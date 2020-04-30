@@ -42,6 +42,19 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
+                            additionalFields:
+                                -
+                                    name: 'priority'
+                                    title: 'Set Priority'
+                                    fieldType: 'select'
+                                    fieldTypeSettings:
+                                        options:
+                                            -
+                                                key: 'Normal'
+                                                value: 'normal'
+                                            -
+                                                key: 'High'
+                                                value: 'high'
                 start_processing:
                     from: [enrich]
                     to: review_content
@@ -54,10 +67,23 @@ pimcore:
                         label: 'Product Enriched'
                         notes:
                             commentEnabled: true
-                            commentRequired: false
+                            commentRequired: true
+                            additionalFields:
+                                -
+                                    name: 'priority'
+                                    title: 'Set Priority'
+                                    fieldType: 'select'
+                                    fieldTypeSettings:
+                                        options:
+                                            -
+                                                key: 'Normal'
+                                                value: 'normal'
+                                            -
+                                                key: 'High'
+                                                value: 'high'
                 publish:
                     from: review_content
-                    to: accepted
+                    to: [accepted]
                     guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_PRODUCT-MANAGER']
@@ -80,6 +106,28 @@ pimcore:
                         notes:
                             commentEnabled:       true
                             commentRequired:      true
+                reopen:
+                    from: [accepted, rejected]
+                    to: enrich
+                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
+                    options:
+                        label: 'Product open to enrich'
+                        notes:
+                            commentEnabled:       true
+                            commentRequired:      true
+                            additionalFields:
+                                -
+                                    name: 'priority'
+                                    title: 'Set Priority'
+                                    fieldType: 'select'
+                                    fieldTypeSettings:
+                                        options:
+                                            -
+                                                key: 'Normal'
+                                                value: 'normal'
+                                            -
+                                                key: 'High'
+                                                value: 'high'
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:
