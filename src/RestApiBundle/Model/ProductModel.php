@@ -85,11 +85,12 @@ class ProductModel
         
         $conditionString    =   " ProductType='".$productType."'  AND ";
         if(empty($conditionArray)){
+            $conditionString    =   trim($conditionString,'  AND ');
             return $conditionString;
         }
         
         if($productType=='fert'){
-            $conditionString = " virtualCatalogFlag=1  AND ";
+            $conditionString .= " virtualCatalogFlag=1  AND ";
         }
         
         switch($productType){
@@ -163,6 +164,8 @@ class ProductModel
         if(isset($conditionArray['limit']) && !empty($conditionArray['limit'])){
             if($conditionArray['limit']>=$this->limit && $conditionArray['limit']<=$this->maxLimit){
                 $limit  =   $conditionArray['limit'];
+            }else if($conditionArray['limit']>$this->maxLimit){
+                $limit  =   $this->maxLimit;
             }
         }        
         // Get requested Page.
