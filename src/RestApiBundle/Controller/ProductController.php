@@ -138,15 +138,16 @@ class ProductController extends FrontendController
      * @throws \Exception
      */
     private function validateApiKey($request){
-        $apiKey = $request->headers->get('apiKey');
-        $return = false;
-        if (!empty($apiKey)) {
-            $userName = $this->security->getUsernameForApiKey($apiKey);
-            if(!empty($userName)){
-                $return = true;
-            }
+       $apiKey = $request->headers->get('apiKey');
+       if(!empty($apiKey)){
+        $userName = $this->security->getUsernameForApiKey($apiKey);
+        if(empty($userName)){
+            return false;
         }
-        return $return;
+       }else{
+        return false;
+       }
+        return true;
     } 
 
 }
