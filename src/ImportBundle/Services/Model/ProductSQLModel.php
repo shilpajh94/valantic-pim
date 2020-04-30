@@ -170,17 +170,19 @@ class ProductSQLModel
     
     public function processDeletedProducts() {
         $deletedProducts = $this->tblImpHelper->getDeletedProducts();
-        $keysArray = [];
-        foreach ($deletedProducts as $product) {
-            $keysArray[] = $product['id'];
-        }
-        $obj = new DataObject\Product\Listing();
-        $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
-        $obj->load();
-        foreach($obj as $product) {
-            echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
-            $product->setPublished(false);
-            $product->save();
+        if (!empty($deletedProducts) && count($deletedProducts)>0) {
+            $keysArray = [];
+            foreach ($deletedProducts as $product) {
+                $keysArray[] = $product['id'];
+            }
+            $obj = new DataObject\Product\Listing();
+            $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
+            $obj->load();
+            foreach($obj as $product) {
+                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+                $product->setPublished(false);
+                $product->save();
+            }
         }
     }
     
@@ -315,6 +317,7 @@ class ProductSQLModel
         if (!empty($this->relationTableDataArray)) {
             $this->tblImpHelper->insertIntoProductTable($this->relationTableDataArray, 'object_relations_1');
         }
+        
         foreach ($this->langArr as $lang) {
             if (!empty($this->localisedQueryTableDataArray[$lang])) {
                 $tbl = 'object_localized_query_1_'.($lang);
@@ -348,7 +351,7 @@ class ProductSQLModel
             $objectKey = substr($oldMaterialCode, 0,9);
         } else {
             $objectKey = $record[$this->getRecordIndexByKey('material')];
-            $description = \Pimcore\File::getValidFilename($record[2]);
+            $description = \Pimcore\File::getValidFilename($record[$this->getRecordIndexByKey('description')]);
             if (!empty($description)) {
                 $objectKey = $objectKey."-".$description;
             }
@@ -361,6 +364,14 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
+            if ($type == 'fert') {
+                $articleNumber = $record[$this->getRecordIndexByKey('material')];
+                $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+                if (!empty($data) && count($data)>0) {
+                    $objId = $data[0]['oo_id'];
+                    $objectArr['o_id'] = $objId;
+                }
+            }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
             
@@ -399,8 +410,8 @@ class ProductSQLModel
             $currentLevelArray = explode('/', $currentLevelPath);
             $objectKey = $currentLevelArray[count($currentLevelArray)-1];
         } elseif ($type == 'fert') {
-            $objectKey = $record[0];
-            $description = \Pimcore\File::getValidFilename($record[2]);
+            $objectKey = $record[$this->getRecordIndexByKey('material')];
+            $description = \Pimcore\File::getValidFilename($record[$this->getRecordIndexByKey('description')]);
             if (!empty($description)) {
                 $objectKey = $objectKey."-".$description;
             }
@@ -414,6 +425,14 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
+            if ($type == 'fert') {
+                $articleNumber = $record[$this->getRecordIndexByKey('material')];
+                $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+                if (!empty($data) && count($data)>0) {
+                    $objId = $data[0]['oo_id'];
+                    $objectArr['o_id'] = $objId;
+                }
+            }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
@@ -441,12 +460,12 @@ class ProductSQLModel
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
             if (($buCatCode == 3000 && strlen($siopCode) == 18) || (($buCatCode == 1000 || $buCatCode == 1500) && strlen($siopCode) == 13)) {
-                if (!empty(trim($recData['3']))) {
+                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                     echo $recData['0'].PHP_EOL;
                     $record = array(
                         'code'  =>  $siopCode,
-                        'description'   =>  $recData['2'],
-                        'material'  =>  $recData['0']
+                        'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                        'material'  =>  $recData[$this->getRecordIndexByKey('material')]
                     );
                     $levelInfo = $this->productHelper->getLevels($record['code'], $record);
                     if ($levelInfo['status']) {
@@ -500,7 +519,7 @@ class ProductSQLModel
             $msg = 'SIOP Category not exists.';
         }
         $logRow = [
-            'id' => $recData[0],
+            'id' => $recData[$this->getRecordIndexByKey('material')],
             'siopfullcode' => $siopCode,
             'record' => $row['record'],
             'statusCode' => $status,
@@ -567,14 +586,14 @@ class ProductSQLModel
             $queryTableData['articleNumber'] = trim($record['0']);
             $queryTableData['baseUOM'] = trim($record['5']);
             $queryTableData['oldMaterialCode'] = trim($record['6']);
-            $queryTableData['industryStandard'] = trim($record['19']);
-            $queryTableData['manufacturer'] = trim($record['20']);
-            $queryTableData['manufacturerPartNumber'] = trim($record['21']);
-            $queryTableData['eanUpc'] = trim($record['22']);
-            $queryTableData['stccCode'] = trim($record['23']);
-            $queryTableData['grossWeight'] = trim($record['25']);
-            $queryTableData['netWeight'] = trim($record['26']);
-            $queryTableData['weightUnit'] = trim($record['27']);
+            $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
+            $queryTableData['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
             $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
             if(!empty($materialGrpId)) {
                 $queryTableData['materialGroup__id'] = $materialGrpId;
@@ -610,14 +629,14 @@ class ProductSQLModel
             $storeTableDataArray['articleNumber'] = trim($record['0']);
             $storeTableDataArray['baseUOM'] = trim($record['5']);
             $storeTableDataArray['oldMaterialCode'] = trim($record['6']);
-            $storeTableDataArray['industryStandard'] = trim($record['19']);
-            $storeTableDataArray['manufacturer'] = trim($record['20']);
-            $storeTableDataArray['manufacturerPartNumber'] = trim($record['21']);
-            $storeTableDataArray['eanUpc'] = trim($record['22']);
-            $storeTableDataArray['stccCode'] = trim($record['23']);
-            $storeTableDataArray['grossWeight'] = trim($record['25']);
-            $storeTableDataArray['netWeight'] = trim($record['26']);
-            $storeTableDataArray['weightUnit'] = trim($record['27']);
+            $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
+            $storeTableDataArray['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
     }

@@ -40,10 +40,30 @@ class ProductImport
         $this->keyColumns = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
+    
+    public function checkIfArticleExists($articleNumber) {
+        $sql = " SELECT `oo_id`, `articleNumber` FROM `object_query_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        return $this->db->fetchAll($sql);
+    }
 
     public function insertInObjects($data) {
     	try {
-            $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
+            $valuesArr = [];
+            if (!empty($data['o_id'])) {
+                $insertColumns[] = "`o_id`";
+                $update[] = " `o_id` = VALUES(`o_id`) ";
+                $valuesArr[] = $this->db->quote($data['o_id']);
+            }
+            $insertColumns[] = "`o_parentId`";
+            $insertColumns[] = "`o_type`";
+            $insertColumns[] = "`o_key`";
+            $insertColumns[] = "`o_path`";
+            $insertColumns[] = "`o_published`"; 
+            $insertColumns[] = "`o_classId`"; 
+            $insertColumns[] = "`o_className`"; 
+            $insertColumns[] = "`o_creationDate`"; 
+            $insertColumns[] = "`o_modificationDate`";
+            $sql      = "INSERT INTO `objects` (".implode(", ", $insertColumns).") VALUES";
             $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
             $update[] = " `o_type` = VALUES(`o_type`) ";
             $update[] = " `o_key` = VALUES(`o_key`) ";
