@@ -161,7 +161,11 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
      */
     public function getValueForSelect(string $attributeName): ?string
     {
-        return $this->getValue($attributeName);
+        $value = $this->getValue($attributeName);
+        if( $value!==null && strlen( trim($value) ) == 0 ){
+            $value = null;
+        }
+        return $value;
     }
 
     /**
