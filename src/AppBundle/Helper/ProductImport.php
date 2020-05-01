@@ -40,10 +40,30 @@ class ProductImport
         $this->keyColumns = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
+    
+    public function checkIfArticleExists($articleNumber) {
+        $sql = " SELECT `oo_id`, `articleNumber` FROM `object_query_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        return $this->db->fetchAll($sql);
+    }
 
     public function insertInObjects($data) {
     	try {
-            $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
+            $valuesArr = [];
+            if (!empty($data['o_id'])) {
+                $insertColumns[] = "`o_id`";
+                $update[] = " `o_id` = VALUES(`o_id`) ";
+                $valuesArr[] = $this->db->quote($data['o_id']);
+            }
+            $insertColumns[] = "`o_parentId`";
+            $insertColumns[] = "`o_type`";
+            $insertColumns[] = "`o_key`";
+            $insertColumns[] = "`o_path`";
+            $insertColumns[] = "`o_published`"; 
+            $insertColumns[] = "`o_classId`"; 
+            $insertColumns[] = "`o_className`"; 
+            $insertColumns[] = "`o_creationDate`"; 
+            $insertColumns[] = "`o_modificationDate`";
+            $sql      = "INSERT INTO `objects` (".implode(", ", $insertColumns).") VALUES";
             $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
             $update[] = " `o_type` = VALUES(`o_type`) ";
             $update[] = " `o_key` = VALUES(`o_key`) ";
@@ -209,11 +229,25 @@ class ProductImport
     }
 
     /**
+     * Function to truncate article temp table
+     */
+    public function truncateMasterTable()
+    {
+        try {
+            $sql = "TRUNCATE TABLE {$this->masterTable}";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
      * Function to update master table
      */
     public function updateMaster()
     {        
         try {
+            $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
