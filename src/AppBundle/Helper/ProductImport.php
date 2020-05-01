@@ -229,11 +229,25 @@ class ProductImport
     }
 
     /**
+     * Function to truncate article temp table
+     */
+    public function truncateMasterTable()
+    {
+        try {
+            $sql = "TRUNCATE TABLE {$this->masterTable}";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
      * Function to update master table
      */
     public function updateMaster()
     {        
         try {
+            $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
