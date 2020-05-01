@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-13T10:26:18+02:00
+* Generated at: 2020-04-29T12:42:43+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Fert',
    'description' => '',
    'creationDate' => 1581513126,
-   'modificationDate' => 1586766378,
+   'modificationDate' => 1588156963,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -22,7 +22,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -60,7 +59,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Base Data',
              'type' => NULL,
              'region' => NULL,
@@ -98,7 +96,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-download.svg',
                      'name' => 'SAP Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -194,6 +191,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 255,
@@ -215,11 +213,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => true,
                                      'visibleSearch' => true,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -241,18 +241,37 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   2 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                     'fieldtype' => 'input',
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                                     'fieldtype' => 'manyToOneRelation',
                                      'width' => 300,
-                                     'queryColumnType' => 'varchar',
-                                     'columnType' => 'varchar',
-                                     'columnLength' => 190,
-                                     'phpdocType' => 'string',
-                                     'regex' => '',
-                                     'unique' => false,
-                                     'showCharCount' => false,
+                                     'assetUploadPath' => '',
+                                     'relationType' => true,
+                                     'queryColumnType' => 
+                                    array (
+                                      'id' => 'int(11)',
+                                      'type' => 'enum(\'document\',\'asset\',\'object\')',
+                                    ),
+                                     'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
+                                     'objectsAllowed' => true,
+                                     'assetsAllowed' => false,
+                                     'assetTypes' => 
+                                    array (
+                                    ),
+                                     'documentsAllowed' => false,
+                                     'documentTypes' => 
+                                    array (
+                                    ),
+                                     'classes' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'classes' => 'MaterialGroup',
+                                      ),
+                                    ),
+                                     'pathFormatterClass' => '',
                                      'name' => 'materialGroup',
                                      'title' => 'Material Group',
                                      'tooltip' => '',
@@ -263,7 +282,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
-                                     'relationType' => false,
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
@@ -272,6 +290,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -293,6 +312,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -303,7 +323,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -323,6 +343,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -333,7 +354,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -353,6 +374,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -388,6 +410,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
@@ -477,6 +500,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -498,11 +522,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -524,11 +550,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -550,11 +578,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -576,11 +606,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -602,11 +634,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -628,11 +662,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -654,11 +690,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -680,11 +718,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -706,11 +746,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -732,11 +774,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   10 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => NULL,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -758,6 +802,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -833,6 +878,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-download.svg',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -840,7 +886,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-edit.svg',
                      'name' => 'PIM Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -936,6 +981,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -957,11 +1003,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -983,11 +1031,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1009,11 +1059,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1035,6 +1087,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -1114,6 +1167,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1135,11 +1189,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1161,11 +1217,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1187,11 +1245,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1213,11 +1273,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1239,11 +1301,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1265,11 +1329,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
                                      'width' => 300,
+                                     'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
                                      'columnLength' => 190,
@@ -1291,6 +1357,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -1389,6 +1456,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1410,11 +1478,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                       1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1436,11 +1506,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                       2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1462,11 +1534,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                       3 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1488,11 +1562,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                       4 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1514,11 +1590,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                       5 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1540,11 +1618,13 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                       6 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
+                                         'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
                                          'columnLength' => 190,
@@ -1566,6 +1646,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
+                                         'defaultValueGenerator' => '',
                                       )),
                                     ),
                                      'locked' => false,
@@ -1700,6 +1781,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -1721,6 +1803,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -1789,7 +1872,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1809,6 +1892,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1819,7 +1903,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1839,6 +1923,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1849,7 +1934,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1869,6 +1954,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1879,7 +1965,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1899,6 +1985,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1909,7 +1996,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1929,6 +2016,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1939,7 +2027,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1959,6 +2047,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1969,7 +2058,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -1989,6 +2078,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   7 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -1999,7 +2089,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2019,6 +2109,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   8 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2029,7 +2120,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2049,6 +2140,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2059,7 +2151,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2079,6 +2171,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   10 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2089,7 +2182,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2109,6 +2202,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   11 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2119,7 +2213,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2139,6 +2233,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -2171,7 +2266,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2191,6 +2286,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2201,7 +2297,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2221,6 +2317,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2251,6 +2348,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   3 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2261,7 +2359,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2281,6 +2379,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2291,7 +2390,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2311,6 +2410,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   5 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2321,7 +2421,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2341,6 +2441,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   6 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2351,7 +2452,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
                                      'integer' => false,
-                                     'unsigned' => false,
+                                     'unsigned' => true,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
@@ -2371,6 +2472,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -2803,6 +2905,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                   4 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -2843,6 +2946,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                      'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -2855,6 +2959,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-edit.svg',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -2862,7 +2967,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
                      'name' => 'SIOP Data',
                      'type' => NULL,
                      'region' => NULL,
@@ -2903,6 +3007,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
+                         'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -2924,6 +3029,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
@@ -2940,7 +3046,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -2978,7 +3083,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3016,7 +3120,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3054,7 +3157,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3092,7 +3194,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3130,7 +3231,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'lazyLoading' => true,
                          'classes' => 
                         array (
                           0 => 
@@ -3155,6 +3255,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/genealogy.svg',
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3162,7 +3263,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/candle_sticks.svg',
                      'name' => 'PlantAndSalesData',
                      'type' => NULL,
                      'region' => NULL,
@@ -3218,7 +3318,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => NULL,
+                         'classes' => 
+                        array (
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'SalesOrgData',
                          'title' => 'Sales Data',
@@ -3253,7 +3355,9 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'visibleFieldDefinitions' => 
                         array (
                         ),
-                         'classes' => NULL,
+                         'classes' => 
+                        array (
+                        ),
                          'pathFormatterClass' => '',
                          'name' => 'Plants',
                          'title' => 'Plants Data',
@@ -3271,12 +3375,14 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/candle_sticks.svg',
                   )),
                 ),
                  'locked' => false,
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3284,7 +3390,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
              'name' => 'Base',
              'type' => NULL,
              'region' => NULL,
@@ -3326,6 +3431,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3333,7 +3439,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_blue.png',
              'name' => 'Skeleton',
              'type' => NULL,
              'region' => NULL,
@@ -3375,6 +3480,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_blue.png',
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3382,7 +3488,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
              'name' => 'Fert',
              'type' => NULL,
              'region' => NULL,
@@ -3430,6 +3535,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
           )),
           4 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3437,7 +3543,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
              'name' => 'Digital Assets',
              'type' => NULL,
              'region' => NULL,
@@ -3475,7 +3580,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '',
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -3587,6 +3691,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3594,7 +3699,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'labelWidth' => 100,
                      'layout' => NULL,
                      'border' => false,
-                     'icon' => '',
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
@@ -3629,7 +3733,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                          'documentTypes' => 
                         array (
                         ),
-                         'lazyLoading' => false,
                          'classes' => 
                         array (
                         ),
@@ -3650,12 +3753,14 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                       )),
                     ),
                      'locked' => false,
+                     'icon' => '',
                   )),
                 ),
                  'locked' => false,
               )),
             ),
              'locked' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
           )),
           5 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3663,7 +3768,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Pricing Data',
              'type' => NULL,
              'region' => NULL,
@@ -3751,6 +3855,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
           6 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3758,7 +3863,6 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'icon' => '',
              'name' => 'Completeness',
              'type' => NULL,
              'region' => NULL,
@@ -3782,6 +3886,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 600,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -3803,6 +3908,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
@@ -3862,12 +3968,14 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
               )),
             ),
              'locked' => false,
+             'icon' => '',
           )),
         ),
          'locked' => false,
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
    'default' => 1,
    'dao' => NULL,
