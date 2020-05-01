@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-24T09:19:12+02:00
+* Generated at: 2020-05-01T08:12:48+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Users',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587712752,
+   'modificationDate' => 1588313568,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -336,7 +336,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
-                 'invisible' => false,
+                 'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
@@ -351,6 +351,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   array (
                     'value' => 2,
                     'key' => 'admin',
+                  ),
+                  1 => 
+                  array (
+                    'value' => 5,
+                    'key' => 'editor',
+                  ),
+                  2 => 
+                  array (
+                    'value' => 6,
+                    'key' => 'productManager',
                   ),
                 ),
                  'width' => '',
