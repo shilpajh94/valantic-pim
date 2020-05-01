@@ -149,10 +149,20 @@ class SalesMaterialModel
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
             $timediff1 = $time1->diff(new \DateTime());
             echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
-            
+            unset($excelDataNewArray);
+
+            echo "Getting deleted records...".PHP_EOL;
+            $time5 = new \DateTime();
+            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+            $deleteRecordCount = count($deletedRecords);
+            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+            $this->processDeletedRecords($deletedRecords);
+            unset($deletedRecords);
+            $timediff5 = $time5->diff(new \DateTime());
+            echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
+
             echo "Getting delta records...".PHP_EOL;
             $t1 = new \DateTime();
-            unset($excelDataNewArray);
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
             $td1 = $t1->diff(new \DateTime());
             echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
@@ -456,6 +466,32 @@ class SalesMaterialModel
         unset($dependencyTableDataArray);
         unset($data);
     }
+
+    public function processDeletedRecords($deletedRecords)
+    {
+        $deleteCount = 0;
+        if(count($deletedRecords) > 0)
+        {
+            foreach ($deletedRecords as $key => $value) 
+            {
+                $keyArray = explode('$',$value['id']);
+                $material = $keyArray[0];
+                $key = str_replace('$','-',$value['id']);
+                $objDelete = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
+
+                if($objDelete)
+                {
+                    $deleteCount++;
+                    $objDelete->setDeletedFlagAtSalesLevel(1);
+                    $objDelete->setPublished(FALSE);
+                    $objDelete->save();
+                }
+            }
+
+            echo "Delete flag updated for {$deleteCount} objects in system.".PHP_EOL;
+        }
+    }
+
     
     /**
      * return private or generic brand on the basis of material group

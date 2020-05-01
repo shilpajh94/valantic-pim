@@ -156,6 +156,23 @@ class PlantMaterialImport
     }
 
     /**
+     * Function to find the Deleted record(s)
+     *
+     * @return array
+     */
+    public function getDeletedRecords()
+    {
+        try {
+            $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
+            $delta = $this->db->fetchAll($sql);
+
+            return $delta;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
      * Function to find the Delta record(s)
      *
      * @return array
@@ -178,6 +195,7 @@ class PlantMaterialImport
     public function updateMaster()
     {        
         try {
+            $this->db->query("TRUNCATE {$this->masterTable}");
             $sql = "REPLACE INTO {$this->masterTable} (id, record, hash) SELECT t.id, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
@@ -191,8 +209,7 @@ class PlantMaterialImport
     public function truncateTempTable()
     {
         try {
-            $sql = "TRUNCATE TABLE {$this->tempTable}";
-            $this->db->query($sql);
+            $this->db->query("TRUNCATE {$this->tempTable}");
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
