@@ -47,7 +47,7 @@ class UnitConverterService
 
         foreach($attributeGroupWithValues as $attributeName => $value){
             $setter = 'set'.ucfirst($attributeName);
-            $object->$setter($value);
+            $object->$setter(round($value, 5));
         }
     }
 
@@ -99,19 +99,6 @@ class UnitConverterService
 
         if(is_array($map) && array_key_exists($attributeName, $map) ){
             $returnValue = $map[$attributeName];
-        }else{
-            if(!is_array($map)){
-                $map = array();
-            }
-            $config = $this->configProvider->getUnitConversionConfig();
-            foreach($config as $groupName => $groupConfig){
-                if(array_key_exists($attributeName, $groupConfig)){
-                    $map[$attributeName] = $groupName;
-                    $returnValue = $groupName;
-                    break;
-                }
-            }
-            \Pimcore\Cache::save($map, self::CACHE_KEY, [], null, 0, true);
         }
 
         return $returnValue;
@@ -136,9 +123,41 @@ class UnitConverterService
     }
 
     /**
+     * @param string $attributeName
+     * @return bool
+     */
+    public function isAttributeExistInAttributeToGroupMapCache(string $attributeName): bool
+    {
+        return $this->getAttributeGroupName($attributeName)? true : false;
+    }
+
+    /**
+     * create attribute name to attribute group name mapping cache
+     *
+     * @throws \Exception
+     */
+    public function createAttributeToGroupMapCache()
+    {
+        $map = array();
+
+        $config = $this->configProvider->getUnitConversionConfig();
+        if(is_array($config)){
+            foreach($config as $groupName => $groupConfig){
+                foreach($groupConfig as $attributeName => $attributeUnit){
+                    $map[$attributeName] = $groupName;
+                }
+            }
+            \Pimcore\Cache::save($map, self::CACHE_KEY, [], null, 0, true);
+
+        }else{
+            throw new \Exception("Unit conversion config not found");
+        }
+    }
+
+    /**
      * to remove the cache created for attribute name to attribute group name mapping
      */
-    public function clearAttributeToAttributeGroupMapCache()
+    public function clearAttributeToGroupMapCache()
     {
         \Pimcore\Cache::remove(self::CACHE_KEY);
     }

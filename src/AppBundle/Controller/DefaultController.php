@@ -16,9 +16,6 @@ class DefaultController extends FrontendController
     public function defaultAction(Request $request)
     {
 
-        $service = $this->get('app.config_provider_service');
-        p_r($service->getLevelAttributeMappingConfig());
-        die("adsf");
     }
 
 

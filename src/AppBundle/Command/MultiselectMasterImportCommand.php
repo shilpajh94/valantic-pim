@@ -81,7 +81,6 @@ class MultiselectMasterImportCommand extends Command
                 $csvLogFileHandle = fopen($csvLogFilePath,"w");
 
                 $headers = fgetcsv($handle, 0, $csvDelimiter);
-                var_dump($headers);
                 if(is_array($headers)){
                     $this->csvLog($csvLogFileHandle,array_merge($headers,array("Status","Message")));
                 }
@@ -245,7 +244,6 @@ class MultiselectMasterImportCommand extends Command
     private function consoleLog($message, $level = "INFO")
     {
         echo "[ " . $level . " ] " . $message . PHP_EOL;
-        // add the logic for csv file logging
     }
 
     private function csvLog($logHandler,array $dataRow)

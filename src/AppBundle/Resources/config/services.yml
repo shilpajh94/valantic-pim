@@ -17,6 +17,12 @@ services:
     AppBundle\EventListener\AdminAssetsListener:
         tags:
                 - { name: kernel.event_subscriber }
+    AppBundle\Workflow\ProductPublishingListener:
+        tags:
+                - { name: kernel.event_product_workflow}
+    ADAuthBundle\EventListener\AuthenticateListener:
+        tags:
+                - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}
     #
     # CONTROLLERS
     #
@@ -78,10 +84,18 @@ services:
         class: Pimcore\Model\DataObject\ProductCategory\Listing
         public: true
 
+    email.email_notification_service:
+        class: EmailNotificationBundle\Service\EmailNotificationService
+        public: true
     
     app.config_provider_service:
         class: AppBundle\Services\ConfigProviderService
         public: true
+
+    app.workflow_helper:
+        class: AppBundle\Helper\Workflow
+        public: true
+
     AppBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
@@ -105,7 +119,9 @@ services:
     ImportBundle\OneTimeImportCommand\ImportCompetitorDataCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:competitor-data' }
-
+    ImportBundle\OneTimeImportCommand\ImportNomenClatureCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:nomenclature-masterlist' }
     ImportBundle\OneTimeImportCommand\HosesFlagSetCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:hosesflag' }

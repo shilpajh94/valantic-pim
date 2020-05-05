@@ -51,6 +51,7 @@ class ProductSQLModel
     private $brickTablePrefixArray;
     private $categories;
     private $products;
+    private $materialGroup;
     
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -104,6 +105,13 @@ class ProductSQLModel
             );
             unset($fullCode);
         }
+        $this->materialGroup = [];
+        $materialGrpList = $this->tblImpHelper->getMaterialGroupData();
+        foreach($materialGrpList as $materialGrp) {
+            $code = $materialGrp['code'];
+            $this->materialGroup[$code] = $materialGrp['oo_id'];
+            unset($code);
+        }
     }
     
     public function config($param = array())
@@ -126,7 +134,6 @@ class ProductSQLModel
              * Setting up import table
              */
             $this->initImportTable();
-
             $this->import($csvInfo['data']);
         } catch (\Throwable $th) {
             //throw $th;
@@ -140,7 +147,8 @@ class ProductSQLModel
     {
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
-        
+        $this->processDeletedProducts();
+//        
         $this->initiatePTGProductsProcess();
         
         $this->initiateIFSProductsProcess();
@@ -160,6 +168,23 @@ class ProductSQLModel
         }
     }
     
+    public function processDeletedProducts() {
+        $deletedProducts = $this->tblImpHelper->getDeletedProducts();
+        if (!empty($deletedProducts) && count($deletedProducts)>0) {
+            $keysArray = [];
+            foreach ($deletedProducts as $product) {
+                $keysArray[] = $product['id'];
+            }
+            $obj = new DataObject\Product\Listing();
+            $obj->setCondition("articleNumber IN (". implode(', ' , $keysArray).")");
+            $obj->load();
+            foreach($obj as $product) {
+                echo "Mark Product unpublished for id = ".$product->getId()." and article number = ".$product->getArticleNumber().PHP_EOL;
+                $product->setPublished(false);
+                $product->save();
+            }
+        }
+    }
     
     public function initiateIFSProductsProcess() {
         $a = time();
@@ -171,13 +196,14 @@ class ProductSQLModel
         
         $this->logArray = [];
         $i = 0;
-        $length = 5000;
+        $length = 2000;
         while ($i<$deltaCount) {
             $offset = $i;
             $diff = $deltaCount-$i;
             if ($diff < $length) {
                 $length = $diff;
             }
+            $this->setVariablesToEmpty();
             $partialData = array_slice($delta, $i, $length);
             $this->processIFSProducts($partialData);
             $partialData = null;
@@ -203,7 +229,7 @@ class ProductSQLModel
         
         $this->logArray = [];
         $i = 0;
-        $length = 5000;
+        $length = 2000;
         while ($i<$deltaCount) {
             $offset = $i;
             $diff = $deltaCount-$i;
@@ -228,6 +254,7 @@ class ProductSQLModel
     
     public function setVariablesToEmpty() {
         unset($this->products, $this->logArray, $this->objectsTableData, $this->queryTableDataArray, $this->storeTableDataArray, $this->localisedQueryTableDataArray, $this->localisedDataTableDataArray, $this->dependencyTableDataArray);
+        unset($this->bricksDataArray);
         $this->products = [];
         $this->logArray = [];
         $this->objectsTableData = [];
@@ -256,11 +283,15 @@ class ProductSQLModel
     }
     
     public function processIFSProducts($data) {
+        $i = 1;
         foreach ($data as $row) {
+            echo "Index: ".$i.PHP_EOL;
             $this->processSingleRecord($row['siopfullcode'], $row, 'IFS');
+            $i = $i + 1;
         }
         $this->insertDataInDB();
         $this->tblImpHelper->insertDataToLogTable($this->logArray);
+        unset($data, $row);
         $this->setVariablesToEmpty();
     }
     
@@ -286,6 +317,7 @@ class ProductSQLModel
         if (!empty($this->relationTableDataArray)) {
             $this->tblImpHelper->insertIntoProductTable($this->relationTableDataArray, 'object_relations_1');
         }
+        
         foreach ($this->langArr as $lang) {
             if (!empty($this->localisedQueryTableDataArray[$lang])) {
                 $tbl = 'object_localized_query_1_'.($lang);
@@ -319,6 +351,10 @@ class ProductSQLModel
             $objectKey = substr($oldMaterialCode, 0,9);
         } else {
             $objectKey = $record[$this->getRecordIndexByKey('material')];
+            $description = \Pimcore\File::getValidFilename($record[$this->getRecordIndexByKey('description')]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
         }
         $objectArr = [
             'parentId' => $parentId,
@@ -328,9 +364,17 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
+            if ($type == 'fert') {
+                $articleNumber = $record[$this->getRecordIndexByKey('material')];
+                $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+                if (!empty($data) && count($data)>0) {
+                    $objId = $data[0]['oo_id'];
+                    $objectArr['o_id'] = $objId;
+                }
+            }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
-
             $this->products[$currentLevelPath] = $objId;
+            
             $this->getQueryTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getStoreTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getRelationTableData($objId, $record, $levelInfo, 4);
@@ -343,6 +387,7 @@ class ProductSQLModel
                 $groupNamesArray = explode(',', $groupNames);
                 $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
                 $this->setBricksData($objId, $bricksList, $type);
+                unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
             $objId = $this->products[$currentLevelPath];
@@ -365,7 +410,11 @@ class ProductSQLModel
             $currentLevelArray = explode('/', $currentLevelPath);
             $objectKey = $currentLevelArray[count($currentLevelArray)-1];
         } elseif ($type == 'fert') {
-            $objectKey = $record[0];
+            $objectKey = $record[$this->getRecordIndexByKey('material')];
+            $description = \Pimcore\File::getValidFilename($record[$this->getRecordIndexByKey('description')]);
+            if (!empty($description)) {
+                $objectKey = $objectKey."-".$description;
+            }
             $objectIndex = count($levelInfo);
         }
         $objectArr = [
@@ -376,6 +425,14 @@ class ProductSQLModel
         ];
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
+            if ($type == 'fert') {
+                $articleNumber = $record[$this->getRecordIndexByKey('material')];
+                $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+                if (!empty($data) && count($data)>0) {
+                    $objId = $data[0]['oo_id'];
+                    $objectArr['o_id'] = $objId;
+                }
+            }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
@@ -403,52 +460,58 @@ class ProductSQLModel
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
             if (($buCatCode == 3000 && strlen($siopCode) == 18) || (($buCatCode == 1000 || $buCatCode == 1500) && strlen($siopCode) == 13)) {
-                $record = array(
-                    'code'  =>  $siopCode,
-                    'description'   =>  $recData['2'],
-                    'material'  =>  $recData['0']
-                );
-                $levelInfo = $this->productHelper->getLevels($record['code'], $record);
-                if ($levelInfo['status']) {
-                    if (strtolower($bu) == 'ifs') {
-                        $folderIndex = count($levelInfo['levels']);
-                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                        $folderPath = $this->categories[$folderCode]['fullPath'];
-                        $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                        $folderId = $this->getFolderByPath($folderPath);
-                        if (!array_key_exists($folderPath, $this->products)) {
+                if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
+                    echo $recData['0'].PHP_EOL;
+                    $record = array(
+                        'code'  =>  $siopCode,
+                        'description'   =>  $recData[$this->getRecordIndexByKey('description')],
+                        'material'  =>  $recData[$this->getRecordIndexByKey('material')]
+                    );
+                    $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+                    if ($levelInfo['status']) {
+                        if (strtolower($bu) == 'ifs') {
+                            $folderIndex = count($levelInfo['levels']);
+                            $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                            $folderPath = $this->categories[$folderCode]['fullPath'];
+                            $folderPath = $this->convertCategoryPathToProduct($folderPath);
                             $folderId = $this->getFolderByPath($folderPath);
-                            $this->products[$folderPath] = $folderId;
-                        } else {
-                            $folderId = $this->products[$folderPath];
+                            if (!array_key_exists($folderPath, $this->products)) {
+                                $folderId = $this->getFolderByPath($folderPath);
+                                $this->products[$folderPath] = $folderId;
+                            } else {
+                                $folderId = $this->products[$folderPath];
+                            }
+                            $oldMaterialCode = $recData[6];
+                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
+                                $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
+                            } else {
+                                $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                            }
+                        } else if(strtolower($bu) == 'ptg') {
+                            $folderIndex = count($levelInfo['levels'])-2;
+                            $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                            $folderPath = $this->categories[$folderCode]['fullPath'];
+                            $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                            if (!array_key_exists($folderPath, $this->products)) {
+                                $folderId = $this->getFolderByPath($folderPath);
+                                $this->products[$folderPath] = $folderId;
+                            } else {
+                                $folderId = $this->products[$folderPath];
+                            }
+                            
+                            $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                            $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
                         }
-                        $oldMaterialCode = $recData[6];
-                        if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
-                            $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
-                        } else {
-                            $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                            $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                            $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                        }
-                    } else if(strtolower($bu) == 'ptg') {
-                        $folderIndex = count($levelInfo['levels'])-2;
-                        $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                        $folderPath = $this->categories[$folderCode]['fullPath'];
-                        $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                        if (!array_key_exists($folderPath, $this->products)) {
-                            $folderId = $this->getFolderByPath($folderPath);
-                            $this->products[$folderPath] = $folderId;
-                        } else {
-                            $folderId = $this->products[$folderPath];
-                        }
-                        $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                        $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                        $status = 'Success';
+                        $msg = 'Object Id is: '.$levelArray[0];
                     }
-                    $status = 'Success';
-                    $msg = 'Object Id is: '.$levelArray[0];
+                    unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
+                } else {
+                    $msg = 'Material Group code can not be empty.';
                 }
-                unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
             } else {
                 $msg = 'Siop Category code and its length does not match.';
             }
@@ -456,7 +519,7 @@ class ProductSQLModel
             $msg = 'SIOP Category not exists.';
         }
         $logRow = [
-            'id' => $recData[0],
+            'id' => $recData[$this->getRecordIndexByKey('material')],
             'siopfullcode' => $siopCode,
             'record' => $row['record'],
             'statusCode' => $status,
@@ -506,7 +569,8 @@ class ProductSQLModel
             'BusinessUnit' => strtoupper($businessUnit),
             'siopFullCode' => $siopFullCode,
             'articleNumber' => null,
-            'materialGroup' => null,
+            'materialGroup__id' => null,
+            'materialGroup__type' => null,
             'baseUOM' => null,
             'oldMaterialCode' => null,
             'industryStandard' => null,
@@ -520,17 +584,21 @@ class ProductSQLModel
         ];
         if (strtolower($productType) == 'fert') {
             $queryTableData['articleNumber'] = trim($record['0']);
-            $queryTableData['materialGroup'] = trim($record['3']);
             $queryTableData['baseUOM'] = trim($record['5']);
             $queryTableData['oldMaterialCode'] = trim($record['6']);
-            $queryTableData['industryStandard'] = trim($record['19']);
-            $queryTableData['manufacturer'] = trim($record['20']);
-            $queryTableData['manufacturerPartNumber'] = trim($record['21']);
-            $queryTableData['eanUpc'] = trim($record['22']);
-            $queryTableData['stccCode'] = trim($record['23']);
-            $queryTableData['grossWeight'] = trim($record['25']);
-            $queryTableData['netWeight'] = trim($record['26']);
-            $queryTableData['weightUnit'] = trim($record['27']);
+            $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
+            $queryTableData['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
+            if(!empty($materialGrpId)) {
+                $queryTableData['materialGroup__id'] = $materialGrpId;
+                $queryTableData['materialGroup__type'] = 'object';
+            }
         }
         $this->queryTableDataArray[] = array_merge($queryTableData, $siopData);
     }
@@ -546,7 +614,6 @@ class ProductSQLModel
             'BusinessUnit' => strtoupper($businessUnit),
             'siopFullCode' => $siopFullCode,
             'articleNumber' => null,
-            'materialGroup' => null,
             'baseUOM' => null,
             'oldMaterialCode' => null,
             'industryStandard' => null,
@@ -560,17 +627,16 @@ class ProductSQLModel
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['articleNumber'] = trim($record['0']);
-            $storeTableDataArray['materialGroup'] = trim($record['3']);
             $storeTableDataArray['baseUOM'] = trim($record['5']);
             $storeTableDataArray['oldMaterialCode'] = trim($record['6']);
-            $storeTableDataArray['industryStandard'] = trim($record['19']);
-            $storeTableDataArray['manufacturer'] = trim($record['20']);
-            $storeTableDataArray['manufacturerPartNumber'] = trim($record['21']);
-            $storeTableDataArray['eanUpc'] = trim($record['22']);
-            $storeTableDataArray['stccCode'] = trim($record['23']);
-            $storeTableDataArray['grossWeight'] = trim($record['25']);
-            $storeTableDataArray['netWeight'] = trim($record['26']);
-            $storeTableDataArray['weightUnit'] = trim($record['27']);
+            $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
+            $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
+            $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
+            $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
+            $storeTableDataArray['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
+            $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
@@ -588,6 +654,17 @@ class ProductSQLModel
                 'ownertype' => 'object'
             ];
         }
+        $materialGroupCode = trim($record['3']);
+        $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
+        if (!empty($materialGroupId)) {
+            $this->relationTableDataArray[] = [
+                'src_id' => $objId,
+                'dest_id' => $materialGroupId,
+                'type' => 'object',
+                'fieldname' => "materialGroup",
+                'ownertype' => 'object'
+            ];
+        }
     }
     public function getDependencyTableData($objId, $record, $levelInfo, $level=4) {
         for ($k=1; $k<=$level; $k++) {
@@ -597,6 +674,16 @@ class ProductSQLModel
             $this->dependencyTableDataArray[] = [
                 'sourceid' => $objId,
                 'targetid' => $targetId,
+                'sourcetype' => 'object',
+                'targettype' => 'object'
+            ];
+        }
+        $materialGroupCode = trim($record['3']);
+        $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
+        if (!empty($materialGroupId)) {
+            $this->dependencyTableDataArray[] = [
+                'sourceid' => $objId,
+                'targetid' => $materialGroupId,
                 'sourcetype' => 'object',
                 'targettype' => 'object'
             ];
@@ -631,5 +718,26 @@ class ProductSQLModel
             $folder = \Pimcore\Model\DataObject\Service::getElementByPath('object', $folderPath);
         }
         return $folder->getId();
+    }
+    
+    public function getOrCreateMaterialGroupCodeId($materialGroupCode) {
+        if (!empty($materialGroupCode)) {
+            if (!empty($this->materialGroup[$materialGroupCode])) {
+                return $this->materialGroup[$materialGroupCode];
+            } else {
+                $obj = new \Pimcore\Model\DataObject\MaterialGroup();
+                $obj->setCode($materialGroupCode);
+                $obj->setKey(\Pimcore\File::getValidFilename($materialGroupCode));
+                $parentFolder = $this->getFolderByPath('/Master List/Material Group');
+                $obj->setPublished(true);
+                $obj->setParentId($parentFolder);
+                $obj->save();
+                $materialGroupId = $obj->getId();
+                $this->materialGroup[$materialGroupCode] = $materialGroupId;
+                return $materialGroupId;
+                
+            }
+        }
+        return null;
     }
 }

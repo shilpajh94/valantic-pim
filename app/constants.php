@@ -1,5 +1,7 @@
 <?php
 
+// require_once('s3_config_constants.php');
+
 /**
  * to include the constants used to name the log file
  */
@@ -45,3 +47,6 @@ define("PRODUCT_CLASS_NAME", "Product");
 define("PRODUCT_CLASS_ID", "1");
 
 define("UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/unit_conversion/attribute_groups.yml");
+
+define('MEMBER', 'Users');
+define('WORKFLOW_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");

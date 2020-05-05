@@ -124,14 +124,28 @@ class ImportFittingDbCommand extends AbstractCommand
                 
                 if($brickData && ($brickData->getType() == 'HydFittingsFert'))
                 {
+                    $partialPartNumberArray = explode('-',$data['Descriptive Part Number']);
+                    $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
+                    $NomenClatureObj = $this->getNomenClatureObject($partialPartNumber);
+
+                    if($NomenClatureObj)
+                    {
+                        $brickData->setFittingFamily($NomenClatureObj->getFamily()); 
+                        $brickData->setFittingEndFamilyType($NomenClatureObj->getFamily());
+                        $brickData->setSwivel($NomenClatureObj->getSwivel());
+                        $brickData->setGender($NomenClatureObj->getGender());
+                        $brickData->setElbowType($NomenClatureObj->getElbowType());
+                        $brickData->setThreadDescription1($NomenClatureObj->getThreadDescription());
+                    }
+
                     $isMaterialUpdated = true;
-                    $brickData->setFittingFamily(''); 
+                    
                     $brickData->setActivantNumber($data['Activant Number']);
                     $brickData->setAssemblyRevisionNumber($data['Assembly Revision Number']);
                     $brickData->setAssemblyVendor([$data['Assembly Vendor']]);
                     $brickData->setComments($data['Comments']);
                     $brickData->setDescriptivePartNumber($data['Descriptive Part Number']);
-                    $brickData->setFittingEndFamilyType('');
+                    
                     $brickData->setSAPMaterialNumber($data['SAP Material Number']);
                     $brickData->setSAPNumber($data['SAP Number']);
                     $brickData->setCatalogDescription('');
@@ -319,6 +333,23 @@ class ImportFittingDbCommand extends AbstractCommand
         
         foreach ($objectMaterial as $material) {
             return $material;
+        }
+
+        return false;
+    }
+
+    /**
+     * return material object or false
+     */
+    public function getNomenClatureObject($Key){
+        
+        $objectNomenClature = new DataObject\NomenClature\Listing();
+        $objectNomenClature->setCondition("o_key LIKE ?", "%".$Key."%");
+        $objectNomenClature->setLimit(1);
+        $objectNomenClature->load();
+        
+        foreach ($objectNomenClature as $nomenClature) {
+            return $nomenClature;
         }
 
         return false;

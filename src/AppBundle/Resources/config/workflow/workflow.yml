@@ -1,0 +1,40 @@
+parameters:
+  roles:
+    editor:
+      id: 3
+      name: 'Editor'
+    productManager:
+      id: 4
+      name: 'Product-Manager'
+  transitions:
+    start_processing:
+      defaultTemplatePath: '/Workflow/Email Template/productReview'
+      priority:
+        normal:
+          value: 'normal'
+          templatePath: '/Workflow/Email Template/productReview'
+        high:
+          value: 'high'
+          templatePath: '/Workflow/Email Template/productReviewPriorityHigh'
+    enrich_again:
+      defaultTemplatePath: '/Workflow/Email Template/productEnrich'
+      priority:
+        normal:
+          value: 'normal'
+          templatePath: '/Workflow/Email Template/productEnrich'
+        high:
+          value: 'high'
+          templatePath: '/Workflow/Email Template/productEnrichPriorityHigh'
+    publish:
+      defaultTemplatePath: '/Workflow/Email Template/productPublish'
+    unpublish:
+      defaultTemplatePath: '/Workflow/Email Template/productUnpublish'
+    reopen:
+      defaultTemplatePath: '/Workflow/Email Template/productReopen'
+      priority:
+        normal:
+          value: 'normal'
+          templatePath: '/Workflow/Email Template/productReopen'
+        high:
+          value: 'high'
+          templatePath: '/Workflow/Email Template/productReopenHighPriority'

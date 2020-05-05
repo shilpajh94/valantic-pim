@@ -1,0 +1,202 @@
+<?php
+
+namespace ADAuthBundle\EventListner;
+
+use Pimcore\Tool;
+use Pimcore\Model\User;
+use Pimcore\Event\Admin\Login\LoginCredentialsEvent;
+// use Pimcore\Event\Admin\Login\LoginFailedEvent;
+//use Pimcore\Log\ApplicationLogger as Logger;
+//use AppBundle\Logger\FBBLogger;
+
+/**
+ * Authenticate Listner for AD Implementation
+ * Authorize user from LDAP
+ *
+ * @author BhupinderBisht
+ */
+class AuthenticateListner
+{
+
+    const DEFAULT_ROLE = "ReadOnly";
+    const LOGGER_MODULE = 'AuthenticateListner';
+
+    private $username;
+    private $password;
+    private $logger;
+
+    /**
+     * default role id in string format.
+     * @var string
+     */
+    private $default_role_id;
+
+
+    public function __construct()
+    {
+        $logConfig = [
+            'rotate_file' => TRUE,
+            'max_files' => 10
+        ];
+        //$this->logger = FBBLogger::getMonoLogger('authenticate_listner.log', 'ERROR', $logConfig);
+    }
+
+    /**
+     * Callback function for the hook - pimcore.admin.login.credentials.
+     *
+     * @param LoginCredentialsEvent $event
+     */
+    public function onLoginCredentials(LoginCredentialsEvent $event)
+    {
+
+
+        $credentials = $event->getCredentials();
+        $this->username = $credentials['username'];
+        $this->password = 'conti$1#2!567_)';
+        
+        try {
+
+            $userObj = User::getByName($this->username);
+
+            if (!empty($userObj)) {
+                if ($userObj->isAdmin()) {
+                    return; // do default authentication for admin users
+                }
+            }
+            
+            /* $objLdapAuth = new LdapAuthenticate();
+            $retUser = $objLdapAuth->getLdapAuthenticate($this->username, $this->password); */
+            $retUser = array(
+                'success'   =>  1,
+                'data'      =>  array(
+                    'firstname'     =>  'Rohan',
+                    'lastname'      =>  'Kumar',
+                    'email'         =>  'rohan@gmail.com',
+                    // 'password'      =>  '0123456789'
+                )
+            );
+            
+            // if (isset($retUser['success']) && 1 == $retUser['success'] && isset($retUser['data'][0]) && is_object($retUser['data'][0])) {
+            if (isset($retUser['success']) && 1 == $retUser['success']) {
+                // $obj = $retUser['data'][0];                
+                $obj = $retUser['data'];
+                return $this->createUser($obj, $userObj);
+            } else {
+                $event->setCredentials(array());
+            }
+        } catch (\Exception $ex) {
+            //$this->logger->addError($ex->getMessage());
+        }
+    }
+
+    /**
+     * Create User and assign NewUser dummy role and also create a member object
+     *
+     * @param LdapAuthenticate $obj
+     * @param User $userObj
+     */
+    private function createUser($obj, $userObj)
+    {
+        $roleObj = User\Role::getByName(self::DEFAULT_ROLE);
+
+        $this->default_role_id = empty($roleObj) ? "" : (string) $roleObj->getId();
+
+        /**/
+        // $email = !empty($obj->getAttribute('mail')[0]) ? $obj->getAttribute('mail')[0] : "";
+        $email = !empty($obj['email']) ? $obj['email'] : '';
+        /* $createUserData = array(
+            "parentId" => 0,
+            "username" => $this->username,
+            "email" => $obj->getAttribute('mail')[0],
+            "active" => true,
+            "activePerspective" => "ReadOnly",
+            "roles" => $this->default_role_id
+        );
+
+        $updateUserData = array(
+            'firstname' => !empty($obj->getAttribute('givenName')[0]) ? $obj->getAttribute('givenName')[0] : "",
+            'lastname' => !empty($obj->getAttribute('sn')[0]) ? $obj->getAttribute('sn')[0] : "",
+            "password" => Tool\Authentication::getPasswordHash($this->username, $this->password)
+        ); */
+
+        $createUserData = array(
+            "parentId" => 0,
+            "username" => $this->username,
+            "email" => $email,
+            "active" => true,
+            "activePerspective" => "ReadOnly",
+            "roles" => $this->default_role_id
+        );
+
+        $updateUserData = array(
+            'firstname' => !empty($obj['firstname']) ? $obj['firstname'] : "",
+            'lastname' => !empty($obj['lastname']) ? $obj['lastname'] : "",
+            "password" => Tool\Authentication::getPasswordHash($this->username, $this->password)
+        );
+        /**/
+
+        // for testing purpose
+        /**
+        $createUserData = array(
+            "parentId" => 0,
+            "username" => $this->username,
+            "email" => "",
+            "active" => true,
+            "roles" => $this->default_role_id
+        );
+
+        $updateUserData = array(
+            'firstname' => "",
+            'lastname' => "",
+            "password" => Tool\Authentication::getPasswordHash($this->username, $this->password)
+        );
+        /**/
+
+        $createUserData = array_merge($createUserData, $updateUserData);
+        
+        if ($userObj) {
+            $userObj->setValues($updateUserData);
+            $userObj->update();
+        } else {
+            $userObj = User::create($createUserData);
+        }
+        
+        $this->createMember($userObj, $roleObj);
+        return $userObj;
+    }
+
+    /**
+     * Create a member object against login user
+     *
+     * @param User $userObj
+     * @param Role $roleObj
+     */
+    private function createMember($userObj, $roleObj)
+    {
+        if ($userObj) {
+            $folderName = '/' . MEMBER; //$roleObj->getWorkspacesObject()[0]->getCpath();
+            
+            $class = "\\Pimcore\\Model\\DataObject\\Users";
+            $memberObj = $class::getByAdminReference($userObj->getId(), ['limit' => 1, 'unpublished' => true]);
+            if (empty($memberObj)) {
+                $folderClass = "\\Pimcore\\Model\\DataObject";
+                $folder = $folderClass::getByPath($folderName);
+
+                $memberObj = new $class();
+                $memberObj->setParentId($folder->getId());
+                $memberObj->setKey($userObj->getName());
+                $memberObj->setFirstname($userObj->getFirstname());
+                $memberObj->setLastname($userObj->getLastname());
+                $memberObj->setEmail($userObj->getEmail());
+                $memberObj->setAdminReference($userObj->getId());
+                $memberObj->setUserType([$roleObj->getId()]);
+                $memberObj->setPublished(1);
+
+                try {
+                    $memberObj->save();
+                } catch (\Exception $e) {
+                }
+            }
+        }
+    }
+}

@@ -309,7 +309,6 @@ class PtgImportCommand extends AbstractCommand
                     'o_id'  =>  $r['o_id'],
                     'fieldname'  =>  $r['fieldname'],
                     'boreType'  =>  !$this->isSheetValueEmpty($r['Bore_Type']) ? $r['Bore_Type'] : NULL,
-                    'flange'  =>  !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'y' ? 1 : !$this->isSheetValueEmpty($r['Flanges_Yes_No']) && strtolower($r['Flanges_Yes_No']) == 'n' ? 0 : NULL,
                     'maxBoreSizeIN'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_in']) ? $r['Max_Bore_Size_in'] : NULL,
                     'maxBoreSizeMM'  =>  !$this->isSheetValueEmpty($r['Max_Bore_Size_mm']) ? $r['Max_Bore_Size_mm'] : NULL,
                     'flangeDiameterIn'  =>  !$this->isSheetValueEmpty($r['Flange_Outer_Diameter_in']) ? $r['Flange_Outer_Diameter_in'] : NULL,
@@ -324,6 +323,7 @@ class PtgImportCommand extends AbstractCommand
                 $ar['faceWidthMm'] = NULL;
                 $ar['minBoreIn'] = NULL;
                 $ar['minBoreMm'] = NULL;
+                $ar['flange'] = NULL;
                 if (!$this->isSheetValueEmpty($r['Outside_Diameter_in'])) {
                     $ar['outsideDiameterIn'] = $r['Outside_Diameter_in'];
                 }
@@ -347,6 +347,11 @@ class PtgImportCommand extends AbstractCommand
                 }
                 if (!$this->isSheetValueEmpty($r['Min_Bore_Size_mm'])) {
                     $ar['minBoreMm'] = $r['Min_Bore_Size_mm'];
+                }
+                if(!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'y' || strtolower($r['Flanges_Yes_No']) == 'yes')) {
+                    $ar['flange'] = 1;
+                } else if(!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'n' || strtolower($r['Flanges_Yes_No']) == 'no')) {
+                    $ar['flange'] = 0;
                 }
                 array_push($metalFertQuery, $ar);
                 // array_push($metalFertStore, $ar);

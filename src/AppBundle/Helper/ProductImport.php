@@ -40,10 +40,30 @@ class ProductImport
         $this->keyColumns = $table['keyColumns'];
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
+    
+    public function checkIfArticleExists($articleNumber) {
+        $sql = " SELECT `oo_id`, `articleNumber` FROM `object_query_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        return $this->db->fetchAll($sql);
+    }
 
     public function insertInObjects($data) {
     	try {
-            $sql      = "INSERT INTO `objects` (`o_parentId`, `o_type`, `o_key`, `o_path`, `o_published`, `o_classId`, `o_className`, `o_creationDate`, `o_modificationDate`) VALUES";
+            $valuesArr = [];
+            if (!empty($data['o_id'])) {
+                $insertColumns[] = "`o_id`";
+                $update[] = " `o_id` = VALUES(`o_id`) ";
+                $valuesArr[] = $this->db->quote($data['o_id']);
+            }
+            $insertColumns[] = "`o_parentId`";
+            $insertColumns[] = "`o_type`";
+            $insertColumns[] = "`o_key`";
+            $insertColumns[] = "`o_path`";
+            $insertColumns[] = "`o_published`"; 
+            $insertColumns[] = "`o_classId`"; 
+            $insertColumns[] = "`o_className`"; 
+            $insertColumns[] = "`o_creationDate`"; 
+            $insertColumns[] = "`o_modificationDate`";
+            $sql      = "INSERT INTO `objects` (".implode(", ", $insertColumns).") VALUES";
             $update[] = " `o_parentId` = VALUES(`o_parentId`) ";
             $update[] = " `o_type` = VALUES(`o_type`) ";
             $update[] = " `o_key` = VALUES(`o_key`) ";
@@ -74,40 +94,44 @@ class ProductImport
     }
 
     public function insertIntoProductTable($dataArray, $tableName) {
-    	$rowCount = 1;
-    	$firstRec = $dataArray[0];
-    	$keys = array_keys($firstRec);
-    	$sql = "INSERT INTO `".$tableName."` ";
-    	$sqlColumns = [];
-    	$updateColumns = [];
-    	$valColumns = [];
-     	foreach ($keys as $key) {
-    		$sqlColumns[] = "`".$key."`";
-    		if ($key!='oo_id') {
-	    		$updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
-	    	}
-    		$valColumns[] = $key;
-    	}
-    	$sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
-    	$update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
-    	$values = '';
-    	foreach ($dataArray as $data) {
-    		$valueArray = [];
-    		foreach ($valColumns as $key) {
-    			$valueArray[] = $this->db->quote($data[$key]);
-    		}
-            $values .= '('.implode(",", $valueArray).'),';
-            // inserting records in batch
-            if ($rowCount % 1000 == 0) {
-                $query = $sql.rtrim($values, ',').$update;
-                $this->db->query($query);
-                $values = '';
+        try {
+            $rowCount = 1;
+            $firstRec = $dataArray[0];
+            $keys = array_keys($firstRec);
+            $sql = "INSERT INTO `".$tableName."` ";
+            $sqlColumns = [];
+            $updateColumns = [];
+            $valColumns = [];
+            foreach ($keys as $key) {
+                    $sqlColumns[] = "`".$key."`";
+                    if ($key!='oo_id') {
+                            $updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
+                    }
+                    $valColumns[] = $key;
             }
-            $rowCount++;
-        }
-        if (!empty($values)) {
-            $query = $sql.rtrim($values, ',').$update ;
-            $this->db->query($query);
+            $sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
+            $update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+            $values = '';
+            foreach ($dataArray as $data) {
+                    $valueArray = [];
+                    foreach ($valColumns as $key) {
+                            $valueArray[] = $this->db->quote($data[$key]);
+                    }
+                $values .= '('.implode(",", $valueArray).'),';
+                // inserting records in batch
+                if ($rowCount % 1000 == 0) {
+                    $query = $sql.rtrim($values, ',').$update;
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+            }
+            if (!empty($values)) {
+                $query = $sql.rtrim($values, ',').$update ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage(); die;
         }
     }
 
@@ -170,6 +194,11 @@ class ProductImport
         }
     }
     
+    public function getDeletedProducts() {
+        $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
+        return $this->db->fetchAll($sql);
+    }
+    
     /**
      * Function to find the Delta record(s)
      *
@@ -200,11 +229,25 @@ class ProductImport
     }
 
     /**
+     * Function to truncate article temp table
+     */
+    public function truncateMasterTable()
+    {
+        try {
+            $sql = "TRUNCATE TABLE {$this->masterTable}";
+            $this->db->query($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
      * Function to update master table
      */
     public function updateMaster()
     {        
         try {
+            $this->truncateMasterTable();
             $sql = "REPLACE INTO {$this->masterTable} (id, siopfullcode, record, hash) SELECT t.id, t.siopfullcode, t.record, t.hash FROM {$this->tempTable} t LEFT JOIN {$this->masterTable} m ON t.id = m.id WHERE t.hash != m.hash OR m.id IS NULL";
             $this->db->query($sql);
         } catch (\Exception $ex) {
@@ -245,6 +288,11 @@ class ProductImport
         return $this->db->fetchAll($query);
     }
 
+    public function getMaterialGroupData() {
+        $query = "SELECT oo_id, code FROM `object_21` ";
+        return $this->db->fetchAll($query);
+    }
+    
     public function getProducts() {
         $query = "SELECT oo_id, o_key, o_path FROM `object_1` ";
         return $this->db->fetchAll($query);

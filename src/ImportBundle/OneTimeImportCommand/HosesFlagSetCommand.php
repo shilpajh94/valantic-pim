@@ -61,20 +61,20 @@ class HosesFlagSetCommand extends AbstractCommand
                     if (!empty($o)) {
                         
                         if (!empty($result['Printed Catalog Y/N']) && strtolower($result['Printed Catalog Y/N']) == 'y') {
-                            p_r($result['Printed Catalog Y/N']);
-                            $o->setPrintedCatalogFlag("1");
+                            //p_r($result['Printed Catalog Y/N']);
+                            $o->setPrintedCatalogFlag(true);
                         }
                         if (!empty($result['Printed Catalog Y/N']) && strtolower($result['Printed Catalog Y/N']) == 'n') {
-                            p_r($result['Printed Catalog Y/N']);
-                            $o->setPrintedCatalogFlag("-1");
+                            //p_r($result['Printed Catalog Y/N']);
+                            $o->setPrintedCatalogFlag(false);
                         }
                         if (!empty($result['Virtual Catalog']) && strtolower($result['Virtual Catalog']) == 'y') {
-                            p_r($result['Virtual Catalog']);
-                            $o->setVirtualCatalogFlag("1");
+                            //p_r($result['Virtual Catalog']);
+                            $o->setVirtualCatalogFlag(true);
                         }
                         if (!empty($result['Virtual Catalog']) && strtolower($result['Virtual Catalog']) == 'n') {
-                            p_r($result['Virtual Catalog']);
-                            $o->setVirtualCatalogFlag("-1");
+                            //p_r($result['Virtual Catalog']);
+                            $o->setVirtualCatalogFlag(false);
                         }
                         if ($o->save()) {
                             array_push($result, "Success");
