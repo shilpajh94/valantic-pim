@@ -45,10 +45,17 @@ article{
 article figure{
     display: flex;
     align-items: center;
+    margin-bottom: 1em;
+}
+
+article figure.reverse{
+    flex-direction: row-reverse;
 }
 
 article figure figcaption{
     margin-left:2em;
+    margin-right:2em;
+
 }
 
 header{
@@ -65,25 +72,32 @@ header  h1{
 article figure h3{
     color: #f79c0e;
     font-size:3em;
+    border-bottom: 1px solid #231f20;
+ padding-bottom: 0.25em;;
+ padding-left:0.5em;
+ padding-right:0.5em;
 }
 
 article figure p{
     font-size:1.8em;
     border-left: 1px solid #231f20;
-    border-top: 1px solid #231f20;
-    padding:0.5em;
-    margin-top:0.5em;
-    
+    padding:0.5em 1em; 
 }
 article figure p b{
     display: block;
+}
+
+article figure.reverse p{
+    border-right: 1px solid #231f20;
+    text-align: right;
+    border-left:0;
 }
 
 .grid{
     display: flex;
     align-items: stretch;
  flex-direction: column;
-    /* border-bottom: 1px solid black; */
+    border-bottom: 1px solid black;
     /* border-right: 1px solid black; */
 }
     
@@ -91,26 +105,46 @@ article figure p b{
     display: flex;
     align-items: stretch;
     text-align: center;
-    border-bottom: 1px solid black;
 }
 
 .grid p.head{
-    background-color: #444;
-    color:#fff;
+     background-color: #fff !important;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+.grid p.head em{
+    font-style: normal;
+    color: #f79c0e;
 }
 
-.grid > p:nth-child(even){
-    background-color: #f3f3f3;
+.grid p.head img{
+    display:block;
+}
+
+.grid p.sub-head{
+   font-size: 0.8em;
+    font-weight: bold;
+    background-color: #fff !important;
+    border-bottom: 0px solid black  !important;
+}
+
+.grid > p:nth-child(even),
+.grid > p.active{
+    background-color: #e9e8e8;
 }
 
 .grid > p span:first-child{
     text-align: left;
+    min-width: 150px;
 }
 
 .grid > p span{
-    padding:0.8em 0.5em;
+    padding:0.5em 0.5em;
     display:block;
     flex:1;
+    word-wrap: break-word;
+    font-size: 0.95em;
+
 }
 
 
@@ -208,6 +242,10 @@ aside p{
 }
 .flex > *{
     margin:1em 0.5em;
+}
+
+.grow-2{
+    flex-grow: 2 !important;
 }
 
 
