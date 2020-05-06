@@ -34,7 +34,7 @@ parameters:
       prodHier6Desc:  'Prod Hier 6 Desc'
       industryStandard: 'Industry Standard #'
       manufacture:  'Manufacter'
-      manufacturePartNumber:  'Manufacter Part Number'
+      manufacturePartNumber:  'Manufacter Part Numb'
       eanUPC: 'EAN_UPC'
       stccCode: 'STCC Code'
       delationFlag: 'Deletion Flag'
