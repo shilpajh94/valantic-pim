@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-24T09:20:41+02:00
+* Generated at: 2020-05-05T20:17:24+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -110,7 +110,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587712817,
+   'modificationDate' => 1588702644,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -387,7 +387,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => true,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -494,6 +494,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       array (
                                         'key' => 'LB',
                                         'value' => 'LB',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'G',
+                                        'value' => 'G',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'KG',
+                                        'value' => 'KG',
                                       ),
                                     ),
                                      'width' => 300,
@@ -4307,7 +4317,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'table',
                  'width' => '',
                  'height' => '',
-                 'cols' => 8,
+                 'cols' => 7,
                  'colsFixed' => true,
                  'rows' => '',
                  'rowsFixed' => false,
@@ -4317,42 +4327,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'key' => 0,
-                    'label' => 'Sales Organization',
+                    'key' => '0',
+                    'label' => 'Unique ID',
                   ),
                   1 => 
                   array (
-                    'key' => 1,
-                    'label' => 'Distribution Channel',
+                    'key' => '1',
+                    'label' => 'Sales Organization',
                   ),
                   2 => 
                   array (
-                    'key' => 2,
-                    'label' => 'Validity End Date',
+                    'key' => '2',
+                    'label' => 'Distribution Channel',
                   ),
                   3 => 
                   array (
-                    'key' => 3,
-                    'label' => 'Validity Start Date',
+                    'key' => '3',
+                    'label' => 'Validity End Date',
                   ),
                   4 => 
                   array (
                     'key' => '4',
-                    'label' => 'Condition Record Num',
+                    'label' => 'Validity Start Date',
                   ),
                   5 => 
                   array (
-                    'key' => 5,
-                    'label' => 'Sequential',
+                    'key' => '5',
+                    'label' => 'Rate',
                   ),
                   6 => 
                   array (
-                    'key' => 6,
-                    'label' => 'Rate',
-                  ),
-                  7 => 
-                  array (
-                    'key' => 7,
+                    'key' => '6',
                     'label' => 'Rate Unit',
                   ),
                 ),
