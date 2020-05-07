@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-29T12:40:29+02:00
+* Generated at: 2020-05-07T11:42:11+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Base',
    'description' => '',
    'creationDate' => 1581513063,
-   'modificationDate' => 1588156829,
+   'modificationDate' => 1588844531,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',
@@ -385,6 +385,16 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                                       array (
                                         'key' => 'LB',
                                         'value' => 'LB',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'G',
+                                        'value' => 'G',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'KG',
+                                        'value' => 'KG',
                                       ),
                                     ),
                                      'width' => 300,
@@ -3786,7 +3796,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                  'fieldtype' => 'table',
                  'width' => '',
                  'height' => '',
-                 'cols' => 8,
+                 'cols' => 7,
                  'colsFixed' => true,
                  'rows' => '',
                  'rowsFixed' => false,
@@ -3796,42 +3806,37 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'key' => 0,
-                    'label' => 'Sales Organization',
+                    'key' => '0',
+                    'label' => 'Unique ID',
                   ),
                   1 => 
                   array (
-                    'key' => 1,
-                    'label' => 'Distribution Channel',
+                    'key' => '1',
+                    'label' => 'Sales Organization',
                   ),
                   2 => 
                   array (
-                    'key' => 2,
-                    'label' => 'Validity End Date',
+                    'key' => '2',
+                    'label' => 'Distribution Channel',
                   ),
                   3 => 
                   array (
-                    'key' => 3,
-                    'label' => 'Validity Start Date',
+                    'key' => '3',
+                    'label' => 'Validity End Date',
                   ),
                   4 => 
                   array (
                     'key' => '4',
-                    'label' => 'Condition Record Num',
+                    'label' => 'Validity Start Date',
                   ),
                   5 => 
                   array (
-                    'key' => 5,
-                    'label' => 'Sequential',
+                    'key' => '5',
+                    'label' => 'Rate',
                   ),
                   6 => 
                   array (
-                    'key' => 6,
-                    'label' => 'Rate',
-                  ),
-                  7 => 
-                  array (
-                    'key' => 7,
+                    'key' => '6',
                     'label' => 'Rate Unit',
                   ),
                 ),
