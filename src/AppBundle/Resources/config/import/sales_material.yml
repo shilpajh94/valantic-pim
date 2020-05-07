@@ -12,7 +12,7 @@ parameters:
     'salesOrg': 'Sales Org'
     'salesOrgDesc': 'Sales Org Desc'
     'distributionChannel': 'Distribution Channel'
-    'distributionChannelDesc': 'Dist'
+    'distributionChannelDesc': 'Dist Channel Desc'
     'material': 'Material'
     'materialDescription': 'Material Description'
     'plant': 'PLANT'
