@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-04T12:12:42+02:00
+* Generated at: 2020-05-07T12:33:29+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -14,6 +14,7 @@ Fields Summary:
 - CatalogName [input]
 - Currency [select]
 - CatalogLanguage [select]
+- IsPriceCatalog [booleanSelect]
 */ 
 
 
@@ -22,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Catalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1588587162,
+   'modificationDate' => 1588847609,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -135,7 +136,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -163,7 +164,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -194,7 +195,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -225,7 +226,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -234,6 +235,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+             'fieldtype' => 'booleanSelect',
+             'yesLabel' => 'Yes',
+             'noLabel' => 'No',
+             'emptyLabel' => 'Empty',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'Empty',
+                'value' => 0,
+              ),
+              1 => 
+              array (
+                'key' => 'Yes',
+                'value' => 1,
+              ),
+              2 => 
+              array (
+                'key' => 'No',
+                'value' => -1,
+              ),
+            ),
+             'width' => '',
+             'queryColumnType' => 'tinyint(1) null',
+             'columnType' => 'tinyint(1) null',
+             'phpdocType' => 'boolean',
+             'name' => 'IsPriceCatalog',
+             'title' => 'Is Price Catalog',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
           )),
         ),
          'locked' => false,

@@ -61,5 +61,17 @@ services:
     import.product_validator_service:
         class: ImportBundle\Services\Validator\Product
         public: true
+        
+    ImportBundle\Command\SapPriceImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:sap:pice-import' }
+            
+    import.sap_price_import:
+        class: ImportBundle\Services\Model\PriceImportModel
+        public: true
+        
+    import.sap_price_import_table_helper:
+        class: ImportBundle\Model\Import\Price
+        public: true
 
     

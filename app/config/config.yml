@@ -9,6 +9,8 @@ pimcore:
         product_publishing:
             label: 'Product Workflow'
             type: 'state_machine'
+            audit_trail:
+                enabled: true
             supports:
             - 'Pimcore\Model\DataObject\Product'
             places:
@@ -55,6 +57,7 @@ pimcore:
                                             -
                                                 key: 'High'
                                                 value: 'high'
+                        changePublishedState: "no_change"
                 start_processing:
                     from: [enrich]
                     to: review_content
@@ -81,6 +84,7 @@ pimcore:
                                             -
                                                 key: 'High'
                                                 value: 'high'
+                        changePublishedState: "no_change"
                 publish:
                     from: review_content
                     to: [accepted]
@@ -93,6 +97,7 @@ pimcore:
                         notes:
                             commentEnabled:       true
                             commentRequired:      true
+                            changePublishedState: "force_published"
                 unpublish:
                     from: [enrich, review_content, accepted]
                     to: rejected
@@ -106,6 +111,7 @@ pimcore:
                         notes:
                             commentEnabled:       true
                             commentRequired:      true
+                        changePublishedState: "force_unpublished"
                 reopen:
                     from: [accepted, rejected]
                     to: enrich

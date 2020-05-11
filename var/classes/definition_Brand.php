@@ -1,10 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-14T12:19:45+02:00
+* Generated at: 2020-05-07T12:31:27+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -21,11 +22,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859585,
+   'modificationDate' => 1588847487,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => NULL,
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -129,11 +130,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => true,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => NULL,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -155,11 +158,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
+                 'defaultValueGenerator' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => NULL,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -170,7 +175,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'name' => 'brandApplication',
                  'title' => 'Brand Application',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
@@ -181,6 +186,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
+                 'defaultValueGenerator' => '',
               )),
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(

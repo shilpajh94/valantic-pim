@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-23T10:51:34+02:00
+* Generated at: 2020-05-07T12:31:53+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'MaterialGroup',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587631894,
+   'modificationDate' => 1588847513,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -87,7 +87,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'code',
              'title' => 'Code',
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
