@@ -1,0 +1,172 @@
+.red-row .x-grid-cell{
+    background-color: #9dcedd;
+}
+
+.x-form-itemselector-btn{
+    font: 16px/30px FontAwesome;
+}
+
+.x-form-itemselector-top:before{
+    content: "\f102";
+}
+.x-form-itemselector-up:before{
+    content: "\f106";
+}
+.x-form-itemselector-add:before{
+    content: "\f105";
+}
+.x-form-itemselector-remove:before{
+    content: "\f104";
+}
+.x-form-itemselector-down:before{
+    content: "\f107";
+}
+.x-form-itemselector-bottom:before{
+    content: "\f103";
+}
+
+/*to change the PriceListClass view with fieldsets*/
+.pimcore_class_PriceList .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}
+.pimcore_class_PriceList .x-panel-default-outer-border-trbl {border:none;}
+.pimcore_class_PriceList .x-fieldset {border:none; border-top:1px dotted #000 !important;}
+.pimcore_class_PriceList .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}
+
+.pimcore_class_PriceListTable .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}
+.pimcore_class_PriceListTable .x-panel-default-outer-border-trbl {border:none;}
+.pimcore_class_PriceListTable .x-fieldset {border:none; border-top:1px dotted #000 !important;}
+.pimcore_class_PriceListTable .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}
+
+/*to change the PriceListTableClass view with fieldsets*/
+
+.pimcore_class_PriceListTable .x-panel-header-default {background-color:#fff !important;}
+.pimcore_class_PriceListTable .x-panel-header-title-default {color:#ffa100 !important; font-size:17px !important; background-color:#fff !important;}
+
+/*to reduce the bottom margin for fieldcollections*/
+.pimcore_class_PriceListTable .x-fieldset .x-panel-default-outer-border-trbl > .x-autocontainer-outerCt .x-autocontainer-innerCt .x-panel-default{margin: 0 0 -15px 0 !important}
+/*.pimcore_class_PriceListTable .x-fieldset .x-fieldset-body-default .x-autocontainer-outerCt .x-autocontainer-innerCt .x-panel-default .x-panel-default-outer-border-rbl > .x-autocontainer-outerCt .x-autocontainer-innerCt .x-panel-default{margin: 0 0 -15px 0 !important}*/
+
+/*.pimcore_class_PriceListTable .x-panel-default-outer-border-trbl {border:none;}*/
+/*.pimcore_class_PriceListTable .x-fieldset {border:none; border-top:1px dotted #000 !important;}*/
+/*.pimcore_class_PriceListTable .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}*/
+/*.pimcore_class_PriceListTable .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}*/
+/*.pimcore_class_PriceListTable .x-panel-header-default {background-color:#fff !important;}*/
+/*.pimcore_class_PriceListTable .x-panel-header-title-default {color:#ffa100 !important; font-size:17px !important; background-color:#fff !important;}*/
+
+.pimcore_class_PriceListTableSorter .x-panel-default-outer-border-trbl {border:none;}
+/*.pimcore_class_PriceListTable .x-fieldset {border-top:1px dotted #000 !important;}*/
+.pimcore_class_PriceListTableSorter .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}
+.pimcore_class_PriceListTableSorter .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}
+.pimcore_class_PriceListTableSorter .x-panel-header-default {background-color:#fff !important;}
+.pimcore_class_PriceListTableSorter .x-panel-header-title-default {color:#ffa100 !important; font-size:17px !important; background-color:#fff !important;}
+
+/*to reduce the bottom margin for fieldcollections*/
+.pimcore_class_PriceListTableSorter .x-panel-default-outer-border-trbl > .x-autocontainer-outerCt .x-autocontainer-innerCt .x-panel-default{margin: 0 0 -10px 0 !important}
+
+
+.pimcore_class_PriceListCSVExport .x-panel-default-outer-border-trbl {border:none;}
+/*.pimcore_class_PriceListTable .x-fieldset {border-top:1px dotted #000 !important;}*/
+.pimcore_class_PriceListCSVExport .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}
+.pimcore_class_PriceListCSVExport .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}
+.pimcore_class_PriceListCSVExport .x-panel-header-default {background-color:#fff !important;}
+.pimcore_class_PriceListCSVExport .x-panel-header-title-default {color:#ffa100 !important; font-size:17px !important; background-color:#fff !important;}
+
+
+
+.plt_tree_element_print {
+    background: url(/pimcore/static6/img/flat-color-icons/print.svg) center center no-repeat !important;
+}
+
+.plt_icon_order{
+    /*background-position: center center;*/
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/generic_sorting_asc.svg) !important;
+}
+
+.plt_icon_panel{
+    /*background-position: center center;*/
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/panel.svg) !important;
+}
+
+.plt_icon_consolidated_export_button{
+    /*background-position: center center;*/
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/download.svg) !important;
+}
+
+.plt_icon_b2b_publish_button{
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/publish.svg) !important;
+}
+
+/*css for generate button*/
+.plt_icon_plt_generate_button_icon{
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/process.svg) !important;
+}
+
+/*css for update price button*/
+.plt_icon_plt_update_price_button_icon{
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/refresh.svg) !important;
+}
+
+/*css for update price button*/
+.plt_icon_plt_manage_width_button_icon{
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/neutral_trading.svg) !important;
+}
+
+/*css for update price button*/
+.plt_icon_plt_update_table_cancel_button_icon{
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/cancel.svg) !important;
+}
+
+
+/*common css for light grey button*/
+.plt_lightgrey_button{
+    background-color:#dddddd !important;
+    margin-right: 20px;
+    border:1px solid #8d8d8d;
+}
+.plt_lightgrey_button:hover{
+    background-color:#d8d8d8 !important;
+}
+.plt_lightgrey_button:active{
+    background-color:#c0c0c0 !important;
+}
+.plt_lightgrey_button:link{
+    background-color:#dddddd !important;
+}
+.plt_lightgrey_button:visited{
+    background-color:#dddddd !important;
+}
+.plt_lightgrey_button span span span{
+    color:black;
+}
+
+.tag_multiselect_icon_class{
+    background: url(/pimcore/static6/img/icon/tag_blue.png) center center no-repeat !important;
+    background-size: 22px 22px !important;
+}
+
+.pimcore_icon_tagmultiselect{
+    background: url(/pimcore/static6/img/icon/tag_blue.png) center center no-repeat !important;
+
+}
+
+.plt_icon_translation{
+    /*background-position: center center;*/
+    background-size: 25px 25px !important;
+    background-repeat: no-repeat;
+    background-image: url(/pimcore/static6/img/flat-color-icons/collaboration.svg) !important;
+}

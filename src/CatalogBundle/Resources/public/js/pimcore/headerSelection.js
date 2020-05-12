@@ -29,11 +29,15 @@ pimcore.plugin.headerSelection = Class.create({
 
 
         if (objectClassName == 'CatalogTables') {
-            var headerDataFieldName = 'headerData';
+            var headerDataFieldName = 'Columns';
             var dataFields = object.edit.dataFields;
             var headerDataComponent = dataFields[headerDataFieldName].component;
+            console.log(headerDataComponent);
+            
             var objectEditParentPanel = object.edit.layout.items.items[0];
+            
             var objectEditParentPanelItems = objectEditParentPanel.items;
+            console.log(objectEditParentPanelItems);
             var panelContainingConfiguration = objectEditParentPanelItems.items[tabIndexContainingConfiguration];
 
             var panelContainingConfigurationItems = panelContainingConfiguration.items.getRange();
@@ -41,7 +45,7 @@ pimcore.plugin.headerSelection = Class.create({
             var headerFieldSet = panelContainingConfigurationItems[1];
             var headerData = [];
             Ext.Ajax.request({
-                url: "/lpe_price_list/sales_org_header",
+                url: "/catalog/get-available-headers",
                 async: false,
                 params: {
                   
