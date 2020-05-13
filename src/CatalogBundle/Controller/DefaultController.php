@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends FrontendController
 {
+    private $tableColumns;
     /**
      * @Route("/catalog")
      */
@@ -21,14 +22,67 @@ class DefaultController extends FrontendController
      * @Route("/catalog/get-available-headers")
      */
     public function getAvailableHeaders(Request $request) {
-        $arr = array (
-            'storeData' => array (
-                0 => array ('StatisticalDimension', 'Statistical Dimension'),
-                1 => array ('ServiceDescription', 'Service Description'),
-                2 => array ('PR','PR'),
-                3 => array ('GSI','GSI')
-            )
-        );
+
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableColumnConfig();
+        $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
+
+        $columns = array();
+        if(!empty($this->tableColumns) && count($this->tableColumns)>0) {
+            foreach($this->tableColumns as $key => $column) {
+                $columns[] = array($key,$column);
+            }
+        }
+        $arr= array('storeData' => $columns, 'completeData'=>$this->tableColumns);
+        // $arr = array (
+        //     'storeData' => array (
+        //         0 => array ('StatisticalDimension', 'Statistical Dimension'),
+        //         1 => array ('ServiceDescription', 'Service Description'),
+        //         2 => array ('PR','PR'),
+        //         3 => array ('GSI','GSI')
+        //     )
+        // );
         echo json_encode($arr); die;
+    }
+
+    public function template1Action(Request $request)
+    {
+
+    }
+
+    public function template2Action(Request $request)
+    {
+
+    }
+
+    public function hydTemplate1Action(Request $request)
+    {
+
+    }
+
+    public function hydTemplate2Action(Request $request)
+    {
+
+    }
+
+    public function hydTemplate3Action(Request $request)
+    {
+
+    }
+
+    public function hydTemplate4Action(Request $request)
+    {
+
+    }
+
+    public function hydTemplate5Action(Request $request)
+    {
+
+    }
+
+    public function containerAction(Request $request)
+    {
+
     }
 }
