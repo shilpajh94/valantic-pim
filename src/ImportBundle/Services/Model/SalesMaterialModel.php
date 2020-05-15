@@ -29,8 +29,8 @@ class SalesMaterialModel
     private $updatedCount = 0;
     private $tableImportConfig;
     private $tableImportHelper;
-    private $salesOrganizations;
-    private $distributionChannels;
+    // private $salesOrganizations;
+    // private $distributionChannels;
     private $common;
 
     private $fileColumns = array();
@@ -39,6 +39,9 @@ class SalesMaterialModel
     private $mappingCsvColumn = array();
     private $materialArray = array();
     private $plantArray = array();
+    private $salesOrgArray = array();
+    private $distributionChannelArray = array();
+    
     private $privateMaterialGroup = array();
 
     const LOGGER_MODULE = 'SALES MATERIAL MASTER';
@@ -115,8 +118,8 @@ class SalesMaterialModel
         DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_FOLDER);
         DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_FOLDER);
         $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
-        DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER);
-        DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER);
+        $salesOrganizationsFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER)->getId();
+        $distributionChannelFolderId = DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER)->getId();
         DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER);
        
         $allSuccess = true;
@@ -131,8 +134,8 @@ class SalesMaterialModel
             $this->tableImportConfig['mappingCsvColumn'] = $this->mappingCsvColumn;
             $this->tableImportConfig['keyColumns'] = $this->keyColumns;
             $this->tableImportHelper->init($this->tableImportConfig);
-            $this->salesOrganizations = $this->tableImportHelper->getSalessOrganization();
-            $this->distributionChannels = $this->tableImportHelper->getDistributionChannel();
+            // $this->salesOrganizations = $this->tableImportHelper->getSalessOrganization();
+            // $this->distributionChannels = $this->tableImportHelper->getDistributionChannel();
             /**
              * remove column header from array excelDataNewArray. Only data remains.
              */
@@ -187,7 +190,7 @@ class SalesMaterialModel
                     $partialData = array_slice($excelDataNewArray, $i, $length);
                     $i = $i+$length;
                     echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
-                    $this->processSlicedData($partialData, $plantFolderId);
+                    $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId);
                     $partialData = null;
                     \Pimcore::collectGarbage();
                     gc_collect_cycles();
@@ -249,7 +252,7 @@ class SalesMaterialModel
         
     }
 
-    public function processSlicedData($data, $plantFolderId){
+    public function processSlicedData($data, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId){
         $time2 = new \DateTime();
         \Pimcore\Model\Version::disable();
         $queryTableDataArray = array();
@@ -286,20 +289,20 @@ class SalesMaterialModel
             if(empty(trim($material)))
                 $errorsData[] = 'Material should not be blank.';        
 
-            if(empty(trim($plantName)))
-                $errorsData[] = 'Plant should not be blank.';
+            // if(empty(trim($plantName)))
+            //     $errorsData[] = 'Plant should not be blank.';
 
             if(empty(trim($salesOrg)))
                 $errorsData[] = 'Sales organization should not be blank.';  
             else if(!isset($this->approvedSalesOrg[$salesOrg]))            
                 $errorsData[] = 'Sales Org '.$salesOrg.' should belong to '. implode(', ',$this->approvedSalesOrg);
-            else if(!isset($this->salesOrganizations[$salesOrg]))
-                $errorsData[] = "Sales organization ".$salesOrg. " not found  in system.";
+            // else if(!isset($this->salesOrganizations[$salesOrg]))
+            //     $errorsData[] = "Sales organization ".$salesOrg. " not found  in system.";
             
             if(empty(trim($distributionChannel)))
                 $errorsData[] = 'Distribution channel should not be blank.';  
-            else if(!isset($this->distributionChannels[$distributionChannel]))
-                $errorsData[] = "Distribution channel ".$distributionChannel. " not found  in system.";
+            // else if(!isset($this->distributionChannels[$distributionChannel]))
+            //     $errorsData[] = "Distribution channel ".$distributionChannel. " not found  in system.";
 
             if(!count($errorsData))
             {
@@ -315,8 +318,8 @@ class SalesMaterialModel
                     if(isset($this->materialArray[$material]))
                     {
                         $materialObjId = $this->materialArray[$material];
-                        $salesOrgCode = $this->salesOrganizations[$salesOrg];
-                        $distributionChannelCode = $this->distributionChannels[$distributionChannel];
+                        // $salesOrgCode = $this->salesOrganizations[$salesOrg];
+                        // $distributionChannelCode = $this->distributionChannels[$distributionChannel];
 
                         $salesMaterialKey = $material.'-'.$salesOrg.'-'.$distributionChannel;
                         // $salesMaterialKey = $this->createKeyForObject($rowvalue, $this->keyColumns, $this->mappingCsvColumn);
@@ -325,14 +328,36 @@ class SalesMaterialModel
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_10` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$salesMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchRow($query);
         
-                        if(!isset($this->plantArray[$plantName]))
+                        if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
                         {
                             $plantId = $this->getPlantObject($plantName, $plantFolderId);
                             if($plantId)
                                 $this->plantArray[$plantName] = $plantId;
                         }
-                        $plantObjId = $this->plantArray[$plantName];
-                            
+
+                        $plantObjId = '';
+                        if(isset($this->plantArray[$plantName]))
+                            $plantObjId = $this->plantArray[$plantName];
+
+                        if(!isset($this->salesOrgArray[$salesOrg]))
+                        {
+                            $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
+                             $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
+                            if($salesOrgId)
+                                $this->salesOrgArray[$salesOrg] = $salesOrgId;
+                        }
+                        $salesOrgCode = $this->salesOrgArray[$salesOrg];
+
+                        if(!isset($this->distributionChannelArray[$distributionChannel]))
+                        {
+                            $distributionChannelDesc = $rowvalue[$columnDistributionChannelDesc]; 
+                            $distributionChannelId = $this->getDistributionChannelObject($distributionChannel, $distributionChannelDesc, $distributionChannelFolderId);
+                            if($distributionChannelId)
+                                $this->distributionChannelArray[$distributionChannel] = $distributionChannelId;
+
+                        }
+                        $distributionChannelCode = $this->distributionChannelArray[$distributionChannel];
+
                         $createdOrUpdated = 'Updated';
                         if(!$objectMaterial){      
                             $createdOrUpdated = 'Created'; 
@@ -391,13 +416,17 @@ class SalesMaterialModel
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];
-        
-                        $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'DeliveringPlant', 'ownertype' => 'object' ];
+                        
+                        if($plantObjId)
+                            $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'DeliveringPlant', 'ownertype' => 'object' ];
+                        
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $salesOrgCode, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $distributionChannelCode, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
                         
-                        $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
+                        if($plantObjId)
+                            $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
+                        
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $salesOrgCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $distributionChannelCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
@@ -544,6 +573,8 @@ class SalesMaterialModel
 
     }
 
+    
+
     public function createKeyForObject($data, $keyColumns, $mappingCsvColumn){
         $keyColumnValues = array();
         foreach($keyColumns as $key =>$keyColumn)
@@ -554,6 +585,54 @@ class SalesMaterialModel
 
         $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
         return $id;
+    }
+
+    /**
+     * return distribution channel object
+     */
+    public function getDistributionChannelObject($distributionChannelKey, $distributionChannelDesc, $distributionChannelFolderId){
+        
+        $object = DataObject\DistributionChannel::getByPath("/".ImportConstants::MASTER_LIST_DISTRIBUTION_CHANNEL_FOLDER."/".$distributionChannelKey);
+        if(!$object)
+        {
+            $object = new DataObject\DistributionChannel();
+            $object->setKey($distributionChannelKey);
+            $object->setCode($distributionChannelKey);
+            $object->setName($distributionChannelDesc);
+            $object->setParentId($distributionChannelFolderId);
+            $object->setPublished(TRUE);   
+            $object->save(); 
+            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created");
+        }
+        else{
+            $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." found in master list");
+        }
+        return $object->getId();
+
+    }
+
+    /**
+     * return sales organization object
+     */
+    public function getSalesOrgObject($salesOrgKey, $salesOrgDesc, $salesOrganizationsFolderId){
+        
+        $object = DataObject\SalesOrganisation::getByPath("/".ImportConstants::MASTER_LIST_SALES_ORGANIZATIONS_FOLDER."/".$salesOrgKey);
+        if(!$object)
+        {
+            $object = new DataObject\SalesOrganisation();
+            $object->setKey($salesOrgKey);
+            $object->setCode($salesOrgKey);
+            $object->setName($salesOrgDesc);
+            $object->setParentId($salesOrganizationsFolderId);
+            $object->setPublished(TRUE); 
+            $object->save();   
+            $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
+        }
+        else{
+            $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." found in master list");
+        }
+        return $object->getId();
+
     }
 
     /* This function will override the default configuration */
