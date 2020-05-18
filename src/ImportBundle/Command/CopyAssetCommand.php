@@ -30,7 +30,7 @@ class CopyAssetCommand  extends AbstractCommand {
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $rootFolderPath = '/home/rohitsrivastava/Documents/Projects/ContiTech/Assets/HYH-Catalog_Links_Images/HYH-Catalog_Links_Images';
+        $rootFolderPath = '/home/rohitsrivastava/Documents/Projects/ContiTech/Assets/IFS Images - Local/Hydraulic';
         $this->destPath = PIMCORE_PROJECT_ROOT.'/OneTimeImport/Assets';
         $this->filesPathArray = [];
         $this->filesNameArray = [];
