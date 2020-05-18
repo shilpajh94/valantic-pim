@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-21T11:15:18+02:00
+* Generated at: 2020-05-18T08:55:30+02:00
 * IP: 127.0.0.1
 
 
@@ -21,7 +21,9 @@ Fields Summary:
 - StandardMetTube [multiselect]
 - StandardMetCover [multiselect]
 - standardMetHose [multiselect]
+- standardMetHoseComment [textarea]
 - Coupling [input]
+- TemperatureRangeApplication [input]
 - coverMaterial [multiselect]
 - coverCharacteristic [multiselect]
 - coverColor [multiselect]
@@ -32,10 +34,12 @@ Fields Summary:
 - safetyFactor [multiselect]
 - acceptableHoseMedia [multiselect]
 - Packaging [input]
+- hoseTemperatureRangeFAndC [input]
 - VirtualCatalogTubeMaterial [textarea]
 - VirtualCatalogCoverMaterial [textarea]
 - VirtualCatalogCoupling [textarea]
 - VirtualCatalogPackaging [textarea]
+- VirtualCatalogHoseTemperatureRangeFAndC [textarea]
 */ 
 
 
@@ -113,6 +117,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => 300,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -135,6 +140,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -165,11 +171,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => 300,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -191,6 +199,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -221,6 +230,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
               4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -251,6 +261,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
@@ -2545,6 +2556,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -2575,11 +2587,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
+                         'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -2593,7 +2607,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -2601,6 +2615,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       7 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -2696,9 +2711,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
+                         'width' => 300,
+                         'height' => 150,
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'name' => 'standardMetHoseComment',
+                         'title' => 'Standard Met- Hose "Comment"',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      11 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
+                         'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -2720,6 +2762,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      12 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'TemperatureRangeApplication',
+                         'title' => 'Temperature Range Application',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -3021,6 +3092,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -3051,11 +3123,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
+                         'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -3069,7 +3143,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -3077,6 +3151,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -3240,6 +3315,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
+                         'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -3261,6 +3337,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => NULL,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'hoseTemperatureRangeFAndC',
+                         'title' => 'Temperature Range (°F & C°)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -3384,6 +3489,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => '',
+                 'height' => '',
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'VirtualCatalogHoseTemperatureRangeFAndC',
+                 'title' => 'Virtual Catalog Temperature Range (°F & C°)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
