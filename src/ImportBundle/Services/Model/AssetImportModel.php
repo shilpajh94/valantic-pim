@@ -27,6 +27,8 @@ class AssetImportModel {
     private $csvArchivePath;
     private $csvHeader;
     private $dbModel;
+    private $processedFileArray = [];
+    
 
     //put your code here
     public function __construct() {
@@ -55,6 +57,30 @@ class AssetImportModel {
                 }
                 $this->archiveCsvFile($child);
             }
+            $this->processRemainingAssets($this->assetPath);
+        }
+        print_r($this->processedFileArray); die;
+    }
+    
+    private function processRemainingAssets($assetFolderPath) {
+        $dir = new \DirectoryIterator($assetFolderPath);
+        foreach ($dir as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                if ($fileinfo->isDir()) {
+                    $this->processRemainingAssets($fileinfo->getPathname());
+                } else {
+                    $sourceFilename = $fileinfo->getFileName();
+                    
+                    if (!in_array(strtolower($sourceFilename), $this->processedFileArray)) {
+                        echo $sourceFilename.PHP_EOL; 
+                        $assetFolderId = $this->getFolderByPath($this->defaultAssetPath);
+                        $assetFullPath = $this->defaultAssetPath."/".$sourceFilename;
+                        $content = file_get_contents($fileinfo->getPathname());
+                        $assetObj = $this->saveAsset($sourceFilename, $assetFolderId, $content, $assetFullPath);
+                        $this->processedFileArray[] = strtolower($sourceFilename);
+                    }
+                }
+            }
         }
     }
     
@@ -64,11 +90,11 @@ class AssetImportModel {
         foreach ($csvData as $row) {
             $articleCode = $row[0];
             $assetName = $row[1];
-            $assetInfo = $this->checkIfAssetFileExists($assetName);
+            $assetNameArray = explode('/', $assetName);
+            $assetFilename = $assetNameArray[count($assetNameArray)-1];
+            $assetInfo = $this->checkIfAssetFileExists($assetFilename);
             if ($assetInfo['success']) {
-                $assetNameArray = explode('/', $assetName);
-                $assetFilename = $assetNameArray[count($assetNameArray)-1];
-                
+                $this->processedFileArray[] = strtolower($assetFilename);
                 $articleDetails = $this->dbModel->getProductByOldMaterialCode($articleCode);
                 if (!empty($articleDetails) && count($articleDetails)>0) {
                     $siopPath = $articleDetails[0]['siopFullPath'];
