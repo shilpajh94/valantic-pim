@@ -88,7 +88,7 @@ class HoseDataImportCommand extends AbstractCommand
 
     private function updateFert()
     {
-        $sql = "SELECT o.o_id, SUBSTR(o.oldMaterialCode,1,6) baseLevel, SUBSTR(o.oldMaterialCode,1,9) skeleLevel, SUBSTR(o.siopFullCode,1,6) sfCode, oht.*, 'Fert' as fieldname FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.Object) WHERE o.siopFullCode LIKE '%041000%'";
+        $sql = "SELECT o.o_id, SUBSTR(o.oldMaterialCode,1,6) baseLevel, SUBSTR(o.oldMaterialCode,1,9) skeleLevel, SUBSTR(o.siopFullCode,1,6) sfCode, oht.*, 'Fert' as fieldname FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.Object)";
         $results = $this->db->fetchAll($sql);
         $records = $this->getFertData($results);
         p_r('Processing ' . count($records) . ' records at fert level');
@@ -380,15 +380,13 @@ class HoseDataImportCommand extends AbstractCommand
 
         foreach ($results as $k => $r) {
             /* Extracting Base */
-            if (!empty($r['sfCode']) && $r['sfCode'] == '041000') {
-                if (!empty($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
-                    array_push($this->baseLevel, $r['baseLevel']);
-                    array_push($this->baseLevelRecords, $r);
-                }
-                if (!empty($r['skeleLevel']) && !in_array($r['skeleLevel'], $this->skeleLevel)) {
-                    array_push($this->skeleLevel, $r['skeleLevel']);
-                    array_push($this->skeleLevelRecords, $r);
-                }
+            if (!empty($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
+                array_push($this->baseLevel, $r['baseLevel']);
+                array_push($this->baseLevelRecords, $r);
+            }
+            if (!empty($r['skeleLevel']) && !in_array($r['skeleLevel'], $this->skeleLevel)) {
+                array_push($this->skeleLevel, $r['skeleLevel']);
+                array_push($this->skeleLevelRecords, $r);
             }
             $reinfo = array();
             $error = array();
@@ -407,6 +405,8 @@ class HoseDataImportCommand extends AbstractCommand
                 'fitting2Size' =>  !empty($r['Fitting_2_Size_FRACT']) ? $r['Fitting_2_Size_FRACT'] : NULL,
                 'fitting2Material' =>  !empty($r['Fitting_2_Material']) ? $r['Fitting_2_Material'] : NULL
             );
+            $results[$k]['statusCode'] = 'Success - Fert Level';
+            $results[$k]['failedReason'] = '';
         }
         $this->insertDataToLogTable($results);
         return $d;
@@ -621,9 +621,9 @@ class HoseDataImportCommand extends AbstractCommand
         $data = $this->db->query($sql);
         $this->insertDataToLogTable($data, "Failed", "Object does not match in material mara");
 
-        $sql = "SELECT oht.* FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.siopFullCode LIKE '%041500%'";
+        /* $sql = "SELECT oht.* FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.siopFullCode LIKE '%041500%'";
         $data = $this->db->query($sql);
-        $this->insertDataToLogTable($data, "Failed", "Object belong to Hydraulic");
+        $this->insertDataToLogTable($data, "Failed", "Object belong to Hydraulic"); */
     }
 
     public function getCSVData($fileName)
@@ -688,6 +688,12 @@ class HoseDataImportCommand extends AbstractCommand
             foreach ($data as $dataKey => $dataValue) {
                 $success = isset($dataValue['statusCode']) ? $dataValue['statusCode'] : $success;
                 $failedReason = isset($dataValue['failedReason']) ? $dataValue['failedReason'] : $failedReason;
+                if(isset($dataValue['statusCode'])) {
+                    unset($dataValue['statusCode']);
+                }
+                if(isset($dataValue['failedReason'])) {
+                    unset($dataValue['failedReason']);
+                }
                 $values .= '("' . $dataValue['Object'] . '", "' . addslashes(json_encode($dataValue)) . '", "' . $success . '","' . $failedReason . '",now()),';
                 // inserting records in batch
                 if ($rowCount % self::BATCH_SIZE == 0) {
@@ -766,7 +772,7 @@ class HoseDataImportCommand extends AbstractCommand
             `logId` bigint(20) NOT NULL AUTO_INCREMENT,
             `id` varchar(30) NOT NULL,
             `record` longtext,
-            `statusCode` char(10) DEFAULT NULL,
+            `statusCode` char(25) DEFAULT NULL,
             `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             `failedReason` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`logId`)
