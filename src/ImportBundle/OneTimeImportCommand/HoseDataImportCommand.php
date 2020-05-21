@@ -88,7 +88,7 @@ class HoseDataImportCommand extends AbstractCommand
 
     private function updateFert()
     {
-        $sql = "SELECT o.o_id, SUBSTR(o.oldMaterialCode,1,6) baseLevel, SUBSTR(o.oldMaterialCode,1,9) skeleLevel, SUBSTR(o.siopFullCode,1,6) sfCode, oht.*, 'Fert' as fieldname FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.Object)";
+        $sql = "SELECT o.o_id, SUBSTR(o.oldMaterialCode,1,6) baseLevel, SUBSTR(o.oldMaterialCode,1,9) skeleLevel, SUBSTR(o.siopFullCode,1,6) sfCode, oht.*, 'Fert' as fieldname FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.Object) WHERE o.siopFullCode LIKE '%041000%'";
         $results = $this->db->fetchAll($sql);
         $records = $this->getFertData($results);
         p_r('Processing ' . count($records) . ' records at fert level');
@@ -347,7 +347,7 @@ class HoseDataImportCommand extends AbstractCommand
                 'VacuumIN' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
                 'VacuumMM' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
                 'workingPressureMPA' =>  !empty($r['Working_Pressure_Mpa']) ? $r['Working_Pressure_Mpa'] : NULL,
-                'minBurstPressurePSI' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL,
+                'workingPressurePSI' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL,
                 'workingPressureBAR' =>  !empty($r['Working_Pressure_BAR']) ? $r['Working_Pressure_BAR'] : NULL,
                 'minBurstPressurePSI' =>  !empty($r['Min_Burst_Pressure_PSI']) ? $r['Min_Burst_Pressure_PSI'] : NULL,
                 'minBurstPressurempa' =>  !empty($r['Min_Burst_Pressure_Mpa']) ? $r['Min_Burst_Pressure_Mpa'] : NULL,
@@ -619,7 +619,11 @@ class HoseDataImportCommand extends AbstractCommand
         unset($data); */
         $sql = "SELECT oht.* FROM oti_hosedata_temp oht LEFT JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.o_id is null";
         $data = $this->db->query($sql);
-        $this->insertDataToLogTable($data, "", "Object does not match in material mara");
+        $this->insertDataToLogTable($data, "Failed", "Object does not match in material mara");
+
+        $sql = "SELECT oht.* FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.siopFullCode LIKE '%041500%'";
+        $data = $this->db->query($sql);
+        $this->insertDataToLogTable($data, "Failed", "Object belong to Hydraulic");
     }
 
     public function getCSVData($fileName)
