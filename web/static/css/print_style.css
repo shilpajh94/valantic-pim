@@ -63,10 +63,51 @@ header{
     border-bottom:5px solid #aaa;
 }
 
+header.content{
+    background-color: #e6e7e8;
+}
+
+header.content.white{
+    background-color: #fff;
+    border-bottom: 0;
+}
+
+
+
 header  h1{
     color: #f79c0e;
     font-size:3em;
     padding:1.5em 0.5em 0.5em 0.5em ;
+}
+
+header  h2{
+    color: #000;
+    font-size:2.8em;
+    padding:1.5em 0.5em 0.5em 0.5em ;
+}
+
+header  h3{
+    color: #000;
+    font-size:2em;
+    padding:0.5em 0.5em 0.5em 0.5em ;
+    text-transform: uppercase;
+    margin-top:1em;
+}
+
+header aside{
+    background-color: #e5e9ec;
+    font-size: 1.3em;
+    line-height: 1.5;
+}
+
+header aside p{
+    padding:1.5em ;
+    width: 90%;
+}
+
+header aside img{
+    max-width: 100%;
+    height:auto;
 }
 
 article figure h3{
@@ -99,6 +140,7 @@ article figure.reverse p{
  flex-direction: column;
     border-bottom: 1px solid black;
     /* border-right: 1px solid black; */
+    width:100%;
 }
     
 .grid > p{
@@ -110,7 +152,7 @@ article figure.reverse p{
 .grid p.head{
      background-color: #fff !important;
     font-weight: bold;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #939597;
 }
 .grid p.head em{
     font-style: normal;
@@ -249,3 +291,222 @@ aside p{
 }
 
 
+section.content{
+    display: flex;
+    flex-wrap: wrap;
+    padding:2.5em 2.5em 1em 2.5em;
+    justify-content: space-between;
+
+}
+
+section.content h4{
+    flex:100%;
+    color: #f79c0e;
+    font-size:1.1em;
+    text-transform: uppercase;
+}
+
+section.content article{
+    padding : 1em 0;
+    flex:0 0 45%;
+
+}
+
+.paging{
+    display:flex;
+    position: relative;
+    font-size:0.95em;
+}
+
+section.content article h5{
+ text-transform: uppercase;
+ padding: 0.2em 0.2em 0.2em 0.2em;
+ font-size:0.98em;
+}
+
+.paging + h5{
+    margin-top:1.5em;
+}
+
+.pageTitle, .pageNo{
+    background-color: #fff;
+    padding:0.2em 0.2em;
+    z-index: 1;
+}
+
+.paging:before{
+    content: "";
+    width: 100%;
+    border-bottom: 1px dotted #ccc;
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    bottom: 0.5em;
+}
+
+
+.pageNo{
+    margin-left:auto;
+}
+
+
+.part_number_table{
+    width:100%;
+}
+
+.part_number_table .row{
+    display: flex;
+    align-items: stretch;
+    border-bottom:1px solid #f3f3f3;
+
+}
+
+.part_number_table .row > *{
+    flex:1;
+    padding:0.5em 0.5em;
+}
+
+.part_number_table .row > *:first-child{
+    text-transform: uppercase;
+}
+
+.part_number_table .row > *:nth-child(2){
+    flex-grow:2;
+}
+
+.part_number_table .row.top{
+    text-transform: uppercase;
+}
+
+.part_number_table .row.full
+{
+    font-weight: bold;;
+    background: rgb(253,160,31);
+    background: linear-gradient(90deg, rgba(253,160,31,1) 0%, rgba(253,160,31,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+menu{
+    margin:1em 0 2em 0;
+    text-transform: uppercase;
+    text-align: center;
+    width:100%;
+
+}
+menu h3{
+    font-size: 1.2em;;
+    text-align: left;
+    border-bottom: 2px solid #939597;;
+    padding-bottom: 0.5em;
+    padding-left:1em;
+}
+menu figure{
+    display:flex;
+    justify-content: space-around;
+}
+menu figure img {
+ margin:0.5em;
+}
+
+menu.flex > *{
+    flex:1;
+    margin:0;
+    text-align: left;
+    font-size: 1.1em;;
+    
+}
+
+menu .specs{
+    flex-grow:2;
+    margin-right:2em;
+}
+menu .specs  p{
+    padding-bottom:1em;
+    margin-right:1em;
+    text-transform: none;
+}
+menu .specs  p span{
+    display:block;
+    color: #f79c0e;
+    font-weight: bold;
+}
+
+menu .specs  p b{
+    display:block;
+}
+
+menu.flex > * > div{
+    border-left: 2px solid #939597;;
+    padding:1em;
+    text-transform: none;
+}
+
+menu .feature .flex{
+    align-items: center;
+    font-weight: bold;
+    padding-bottom:1em;
+}
+
+menu .feature > div{
+    display:flex;
+    flex-direction: column;
+}
+
+menu .feature .flex > *{
+    margin:0;
+}
+
+.spec-requirement{
+    display:flex;
+
+}
+
+.spec-requirement > *{
+    flex:1;
+}
+footer{
+    margin-top:2em;
+    background: #e5e9ec;
+}
+footer.flex > * {
+    margin: 0;
+}
+
+footer .logo{
+ background-color: #000;
+ padding:1em;
+ margin:0;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+footer h3{
+    font-size:2em;
+   
+}
+
+footer h3 span{
+    font-size:0.6em;
+    display:block;
+    font-weight: normal;
+    margin-top:0.2em;
+    
+}
+
+footer p b{
+    
+    display:block;
+    margin-bottom:0.2em;
+    
+}
+
+footer .aligned{
+    align-items: center;
+    justify-content: space-around;
+    width: 75%;
+    margin:0;
+}
+
+footer .flex > * {
+    margin: 0.5em;
+}

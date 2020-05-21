@@ -19,6 +19,9 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
         if(objectClassName == 'CatalogTables'){
             var headerSelection = new pimcore.plugin.headerSelection();
             headerSelection.attachHeader(object, type);
+
+            var formattedGridHandler = new pimcore.plugin.formattedGridHandler();
+            formattedGridHandler.attachHeader(object, type);
         }
     }
 });
