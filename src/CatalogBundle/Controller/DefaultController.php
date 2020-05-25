@@ -3,6 +3,7 @@
 namespace CatalogBundle\Controller;
 
 use Pimcore\Db;
+use Pimcore\Model\DataObject;
 use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,36 +61,39 @@ class DefaultController extends FrontendController
      */
     public function getTableData(Request $request) {
 
-        // $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+        // $entries = new DataObject\Product\Listing();
+        // $entries->setCondition("brandName LIKE ?", "%X-LIFE XR16SC%");
+        // $entries->load();
 
-        // $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableColumnConfig();
-        // $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
-
-        // $columns = array();
-        // if(!empty($this->tableColumns) && count($this->tableColumns)>0) {
-        //     foreach($this->tableColumns as $key => $column) {
-        //         $columns[] = array($key,$column);
-        //     }
-        // }
-        // $arr= array('storeData' => $columns, 'completeData'=>$this->tableColumns);
+        // $objectPlant = DataObject\Product::getBrandName('X-LIFE XR16SC');
+        // p_r($entries);
+        // die;
 
         $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS ``, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
         $objectMaterial = $this->db->fetchAll($query);
-        
-        // foreach ($objectMaterial as $material) {
-        //     $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");
-        //     return $material['oo_id'];
-        // }
 
-        // $arr = array (
-        //     'storeData' => array (
-        //         0 => array ('StatisticalDimension', 'Statistical Dimension'),
-        //         1 => array ('ServiceDescription', 'Service Description'),
-        //         2 => array ('PR','PR'),
-        //         3 => array ('GSI','GSI')
-        //     )
-        // );
-        $arr= array('brandData' => [], 'articlesData'=>$objectMaterial);
+        // $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`,`hb_1`.`brandName`, `hb_1`.`tubeMaterial`,`hb_1`.`Coupling`,`hb_1`.`Packaging`,`hb_1`.`coverMaterial`,`hb_1`.`hoseTemperatureRangeFAndC`,`hs_1`.`reinforcement`,`hb_1`.`safetyFactor`,`hs_1`.`hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
+        // $objectMaterial = $this->db->fetchAll($query);
+
+        // foreach ($objectMaterial as $key => $value) {
+        //     $entries = new DataObject\Product\Listing();
+        //     $entries->setCondition("articleNumber LIKE ?", "%".$value['SAPNumber']."%");
+        //     $entries->load();
+
+        //     p_r($entries);
+        //     die;
+        //     // p_r($value['SAPNumber']);
+        // }
+            // print_r($objectMaterial);
+            $fieldData = array_keys($objectMaterial[0]);
+            $columnData = array();
+
+            foreach ($fieldData as $key => $value) {
+                $columnData[] = array('header'=>$value, 'dataIndex'=> $value, 'flex' => 1);            
+            }
+        // die;
+        
+        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$fieldData,'articlesData'=>$objectMaterial);
         echo json_encode($arr); die;
     }
 

@@ -47,11 +47,16 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                 let formattedTableCompleteField = element.items.getRange()[indexOfFormattedTableOnTab];
                  console.log(formattedTableCompleteField);
                 let formattedTableGrid = formattedTableCompleteField.items.getRange()[0];
+
+
+                
+                // this.object.edit.layout.updateLayout();
+
                 // when the price list table is loaded: if some applied headers are saved in the hidden areablock field
                 // and the grid does not have any data then add the columns forcefully on the grid
 
                 // if applied header data component has some saved applied headers
-                if(initialHeaderData !== null && Object.keys(initialHeaderData).length > 0  ){
+                // if(initialHeaderData !== null && Object.keys(initialHeaderData).length > 0  ){
                     // if grid has only one row
 //                    if(formattedTableGrid.store.data.length === 1 ){
 //                        let data = formattedTableGrid.store.data;
@@ -90,7 +95,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
 //                            });
 //                        }
 //                    }
-                }
+                // }
 
 
                 // setting formattedTableGrid instance for transporter
@@ -112,45 +117,87 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                     iconCls: "plt_icon_plt_generate_button_icon",
                     cls: "plt_lightgrey_button",
                     handler: function () {
-                        this.disableUpdateButtons();
-                        let selectionTableFieldset = element.items.getRange()[2];
-                        let selectionTableGrid = selectionTableFieldset.items.getRange()[indexOfSelectionTableOnFieldset];
+                        console.log('Update Table Button Clicked');
+                        Ext.Ajax.request({
+                            url: "/catalog/get-table-data",
+                            async: false,
+                            success: function (response) {
+                                response = Ext.decode(response.responseText);
 
-                        this.updateFormattedGrid(formattedTableGrid, appliedHeaderDataComponent, selectionTableGrid, gridDataComponent, this.object);
-                        // this.copyHeaderData(headerDataComponent, appliedHeaderDataComponent);
-                        dataFlagComponent.setValue(true);
-                        generatetableFlagComponent.setValue(true);
+                                var store = Ext.create('Ext.data.Store', {
+                                    fields  : response.fieldData,
+                                    data    : {'items' : response.articlesData},
+                                    proxy   : {
+                                        type   : 'memory',
+                                        reader : {
+                                            type : 'json',
+                                            rootProperty : 'items'
+                                        }
+                                    },
+                                    header:true
+                                });
+                                var columns = response.columnData;
+                                // var columns = [
+                                //     { header : 'Name', dataIndex : 'name', flex : 1  },
+                                //     { header : 'Email', dataIndex : 'email', flex : 1 },
+                                //     { header : 'Change', dataIndex : 'change', flex : 1  }
+                                // ];
+                                
+                                // var columnsNew = [
+                                //     { header : 'Email', dataIndex : 'email', flex : 1 },
+                                //     { header : 'Name', dataIndex : 'name' }
+                                // ];
+                
+                            
+                                // grid.reconfigure(store,columns);
+                                formattedTableGrid.reconfigure(store,columns);
+                                // formattedTableGrid.getView().setHeader(true);
+                                formattedTableGrid.getView().refresh();
+                                // console.log(formattedTableGrid);
+
+                                // console.log(response);
+                            }.bind(this)
+                        });
+
+                        // this.disableUpdateButtons();
+                        // let selectionTableFieldset = element.items.getRange()[2];
+                        // let selectionTableGrid = selectionTableFieldset.items.getRange()[indexOfSelectionTableOnFieldset];
+
+                        // this.updateFormattedGrid(formattedTableGrid, appliedHeaderDataComponent, selectionTableGrid, gridDataComponent, this.object);
+                        // // this.copyHeaderData(headerDataComponent, appliedHeaderDataComponent);
+                        // dataFlagComponent.setValue(true);
+                        // generatetableFlagComponent.setValue(true);
                     }.bind(this)
                 });
 
                 // button to update prices only
-                this.updatePriceButton = Ext.create('Ext.Button', {
-                    text: 'Update Prices',
-                    tooltip: 'Update the prices in the table without changing other data',
-                    iconCls: "plt_icon_plt_update_price_button_icon",
-                    cls: 'plt_lightgrey_button',
-                    style: {
-                        'margin-bottom': '10px'
-                    },
-                    handler: function () {
-                        this.disableUpdateButtons();
-                        this.updatePricesInFormattedGrid(formattedTableGrid, this.object, appliedHeaderDataComponent);
-                    }.bind(this)
-                });
+                // this.updatePriceButton = Ext.create('Ext.Button', {
+                //     text: 'Update Prices',
+                //     tooltip: 'Update the prices in the table without changing other data',
+                //     iconCls: "plt_icon_plt_update_price_button_icon",
+                //     cls: 'plt_lightgrey_button',
+                //     style: {
+                //         'margin-bottom': '10px'
+                //     },
+                //     handler: function () {
+                //         this.disableUpdateButtons();
+                //         this.updatePricesInFormattedGrid(formattedTableGrid, this.object, appliedHeaderDataComponent);
+                //     }.bind(this)
+                // });
 
-                this.cancelUpdateButton = Ext.create('Ext.Button', {
-                    text: 'Cancel Update',
-                    tooltip: 'Cancel the update table request',
-                    iconCls: "plt_icon_plt_update_table_cancel_button_icon",
-                    cls: 'plt_lightgrey_button',
-                    hidden: true,
-                    style: {
-                        'margin-bottom': '10px'
-                    },
-                    handler: function () {
-                        this.cancelUpdateTable();
-                    }.bind(this)
-                });
+                // this.cancelUpdateButton = Ext.create('Ext.Button', {
+                //     text: 'Cancel Update',
+                //     tooltip: 'Cancel the update table request',
+                //     iconCls: "plt_icon_plt_update_table_cancel_button_icon",
+                //     cls: 'plt_lightgrey_button',
+                //     hidden: true,
+                //     style: {
+                //         'margin-bottom': '10px'
+                //     },
+                //     handler: function () {
+                //         this.cancelUpdateTable();
+                //     }.bind(this)
+                // });
 
 
 //                let buttonClassObj = new pimcore.plugin.formattedGridHeaderWidthManager(formattedTableGrid,appliedHeaderDataComponent,this.object);
@@ -167,9 +214,9 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                 // enable working of resize event
                 // had to disable because setWidth was getting called when setting width initially
                 // we do not want to capture new width on that initial change
-                setTimeout(function () {
-                    this.activateResizeEvent = true;
-                }.bind(this), 100);
+                // setTimeout(function () {
+                //     this.activateResizeEvent = true;
+                // }.bind(this), 100);
 
             }.bind(this));
         }
