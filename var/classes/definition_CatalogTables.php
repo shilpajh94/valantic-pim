@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-12T15:35:29+02:00
+* Generated at: 2020-05-22T09:16:47+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CatalogTables',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1589290529,
+   'modificationDate' => 1590131807,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -218,36 +218,56 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
-                 'fieldtype' => 'table',
-                 'width' => '',
-                 'height' => '',
-                 'cols' => '',
-                 'colsFixed' => false,
-                 'rows' => '',
-                 'rowsFixed' => false,
-                 'data' => '',
-                 'columnConfigActivated' => false,
-                 'columnConfig' => 
-                array (
-                ),
-                 'queryColumnType' => 'longtext',
-                 'columnType' => 'longtext',
-                 'phpdocType' => 'array',
-                 'name' => 'ProductsData',
-                 'title' => 'Products Data',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Articles Table',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
                  'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Table::__set_state(array(
+                     'fieldtype' => 'table',
+                     'width' => '',
+                     'height' => '',
+                     'cols' => '',
+                     'colsFixed' => false,
+                     'rows' => '',
+                     'rowsFixed' => false,
+                     'data' => '',
+                     'columnConfigActivated' => false,
+                     'columnConfig' => 
+                    array (
+                    ),
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'array',
+                     'name' => 'ProductsData',
+                     'title' => 'Products Data',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                ),
+                 'locked' => false,
               )),
             ),
              'locked' => false,
