@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Template</title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" />
-    <link href="http://contitechdev.com.local/static/css/print_style.css" rel="stylesheet" />
-    <?php //echo $this->headLink()->appendStylesheet('/static/css/print_style.css'); ?>
-</head>
-<body>
-    <article class="fullcontainer">
+<?php
+$this->extend('CatalogBundle:Layouts:layout.html.php');
+?>
+<article class="fullcontainer">
       <header class="content white">
         <h1>Extended Life<sup>TM</sup> X600R </h1>
         <aside>
@@ -18,7 +9,6 @@
                         Extended Life<sup>TM</sup> X600R  effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
                         While effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
                 </p>  
-                <!-- <img src="http://contitechdev.com.local/static/images/print_images/5.JPG" /> -->
                 <img src="/CatalogImages/5.JPG" />
                 
         </aside>
@@ -29,22 +19,6 @@
                        <div class="specs">
                                 <h3>performance + specs</h3>
                                 <div class="spec-requirement">
-                                   <!-- <div>
-                                           <p>
-                                                        Meets or exceeds the performance requirements of:
-
-                                                        <span>SAE 100R16</span>
-                                                        <span>EN 586 1FG</span>
-                                           </p>
-                                           <p>           
-                                                        Meets flame resistance
-                                                        <span>USMSHA Designation</span>
-                                        </p>
-                                        <p>           
-                                                        Meets higher
-                                                        <span>EN/DIN Pressures </span>
-                                           </p>
-                                   </div> -->
                                    <div>
 
                                         <p>
@@ -72,24 +46,24 @@
                                 <h3>features</h3>
                                 <div>
                                         <p class="flex">
-                                                <img src="http://contitechdev.com.local/static/images/print_images/life.PNG" />
+                                                <img src="/CatalogImages/life.PNG" />
                                                 <span>
                                                                 Extended Life<sup>&trade;</sup> Cover
                                                 </span>
                                         </p>
 
                                         <p  class="flex">
-                                                <img src="http://contitechdev.com.local/static/images/print_images/7a.jpg" />
+                                                <img src="/CatalogImages/7a.jpg" />
                                                 Made for tight bends
                                         </p>
 
                                         <p  class="flex">
-                                                <img src="http://contitechdev.com.local/static/images/print_images/7a1.jpg" />
+                                                <img src="/CatalogImages/7a1.jpg" />
                                                 SAe J19892 <br/> U.S. Coast guard
                                         </p>
 
                                         <p  class="flex">
-                                                <img src="http://contitechdev.com.local/static/images/print_images/7a2.jpg" />
+                                                <img src="/CatalogImages/7a2.jpg" />
                                                 4:1 Safety Factor
                                         </p>
 
@@ -100,26 +74,26 @@
                 <menu>
                         <h3>branding</h3>
                         <figure>
-                                <img src="http://contitechdev.com.local/static/images/print_images/6a.jpg" /> 
-                                <img src="http://contitechdev.com.local/static/images/print_images/6a1.jpg" />   
-                                <img src="http://contitechdev.com.local/static/images/print_images/6a2.jpg" />   
-                                <img src="http://contitechdev.com.local/static/images/print_images/6a3.jpg" />   
-                                <img src="http://contitechdev.com.local/static/images/print_images/6a4.jpg" />   
-                                <img src="http://contitechdev.com.local/static/images/print_images/6a5.jpg" />   
+                                <img src="/CatalogImages/6a.jpg" /> 
+                                <img src="/CatalogImages/6a1.jpg" />   
+                                <img src="/CatalogImages/6a2.jpg" />   
+                                <img src="/CatalogImages/6a3.jpg" />   
+                                <img src="/CatalogImages/6a4.jpg" />   
+                                <img src="/CatalogImages/6a5.jpg" />   
 
                         </figure>
                 </menu>
          
                 <div class="grid">
                                 <p class="sub-head">
-                                     <span><img src="http://contitechdev.com.local/static/images/print_images/5a.jpg" /></span>
-                                     <span><img src="http://contitechdev.com.local/static/images/print_images/5a1.jpg" /></span>
-                                     <span><img src="http://contitechdev.com.local/static/images/print_images/5a2.jpg" /></span>
-                                    <span class="grow-2"><img src="http://contitechdev.com.local/static/images/print_images/5a3.jpg" /></span>
-                                     <span class="grow-2"><img src="http://contitechdev.com.local/static/images/print_images/5a4.jpg" /></span>
-                                     <span class="grow-2"><img src="http://contitechdev.com.local/static/images/print_images/5a5.jpg" /></span>
-                                     <span><img src="http://contitechdev.com.local/static/images/print_images/5a6.jpg" /></span>
-                                     <span><img src="http://contitechdev.com.local/static/images/print_images/5a7.jpg" /></span>
+                                     <span><img src="/CatalogImages/5a.jpg" /></span>
+                                     <span><img src="/CatalogImages/5a1.jpg" /></span>
+                                     <span><img src="/CatalogImages/5a2.jpg" /></span>
+                                    <span class="grow-2"><img src="/CatalogImages/5a3.jpg" /></span>
+                                     <span class="grow-2"><img src="/CatalogImages/5a4.jpg" /></span>
+                                     <span class="grow-2"><img src="/CatalogImages/5a5.jpg" /></span>
+                                     <span><img src="/CatalogImages/5a6.jpg" /></span>
+                                     <span><img src="/CatalogImages/5a7.jpg" /></span>
                                 </p>
                                 <p class="head">
                                      <span>Part Number</span>
@@ -213,7 +187,7 @@
       </section>
       <footer class="flex">
               <span class="logo">
-                      <img src="http://contitechdev.com.local/static/images/print_images/logo.JPG" />
+                      <img src="/CatalogImages/logo.JPG" />
               </span>
               <div class="flex aligned">
                         <h3>
@@ -228,5 +202,3 @@
               </div>
       </footer>
     </article>
-</body>
-</html>
