@@ -20,8 +20,8 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
             var headerSelection = new pimcore.plugin.headerSelection();
             headerSelection.attachHeader(object, type);
 
-            var formattedGridHandler = new pimcore.plugin.formattedGridHandler();
-            formattedGridHandler.attachHeader(object, type);
+            let formatterGridHandler = new pimcore.plugin.formattedGridHandler(object);
+            formatterGridHandler.setUpFormattedGrid();
         }
     }
 });
