@@ -45,9 +45,9 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                 let formattedDataFieldSet = element.items.getRange()[0];
 //                console.log(formattedDataFieldSet);
                 let formattedTableCompleteField = element.items.getRange()[indexOfFormattedTableOnTab];
-                 console.log(formattedTableCompleteField);
+                 
                 let formattedTableGrid = formattedTableCompleteField.items.getRange()[0];
-
+                console.log(formattedTableGrid);
 
                 
                 // this.object.edit.layout.updateLayout();
@@ -137,86 +137,41 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                                     header:true
                                 });
                                 var columns = response.columnData;
-                                // var columns = [
-                                //     { header : 'Name', dataIndex : 'name', flex : 1  },
-                                //     { header : 'Email', dataIndex : 'email', flex : 1 },
-                                //     { header : 'Change', dataIndex : 'change', flex : 1  }
-                                // ];
-                                
-                                // var columnsNew = [
-                                //     { header : 'Email', dataIndex : 'email', flex : 1 },
-                                //     { header : 'Name', dataIndex : 'name' }
-                                // ];
-                
-                            
-                                // grid.reconfigure(store,columns);
+
+
+                                let headerJson = [];
+
+                                // for(var i = 0;i < headerArray.length; i++){
+                                //     headerJson.push({'name' : headerArray[i] });
+                                // }
+
+                                // headerJson.push({'name' : 'PartNumber' });
+                                // headerJson.push({'name' : 'SAPNumber' });
+                                // store.initialConfig.fields = headerJson;
+                                // formattedTableGrid.getStore();
+
                                 formattedTableGrid.reconfigure(store,columns);
-                                // formattedTableGrid.getView().setHeader(true);
-                                formattedTableGrid.getView().refresh();
+                                
+
+                                
+                                // formattedTableGrid.getView().refresh();
+                                // formattedTableGrid.setHideHeaders(false);
+                                // formattedTableGrid.hideHeaders = false;
+                                // formattedTableGrid.hide
                                 // console.log(formattedTableGrid);
 
                                 // console.log(response);
                             }.bind(this)
                         });
-
-                        // this.disableUpdateButtons();
-                        // let selectionTableFieldset = element.items.getRange()[2];
-                        // let selectionTableGrid = selectionTableFieldset.items.getRange()[indexOfSelectionTableOnFieldset];
-
-                        // this.updateFormattedGrid(formattedTableGrid, appliedHeaderDataComponent, selectionTableGrid, gridDataComponent, this.object);
-                        // // this.copyHeaderData(headerDataComponent, appliedHeaderDataComponent);
-                        // dataFlagComponent.setValue(true);
-                        // generatetableFlagComponent.setValue(true);
+                        
                     }.bind(this)
                 });
 
-                // button to update prices only
-                // this.updatePriceButton = Ext.create('Ext.Button', {
-                //     text: 'Update Prices',
-                //     tooltip: 'Update the prices in the table without changing other data',
-                //     iconCls: "plt_icon_plt_update_price_button_icon",
-                //     cls: 'plt_lightgrey_button',
-                //     style: {
-                //         'margin-bottom': '10px'
-                //     },
-                //     handler: function () {
-                //         this.disableUpdateButtons();
-                //         this.updatePricesInFormattedGrid(formattedTableGrid, this.object, appliedHeaderDataComponent);
-                //     }.bind(this)
-                // });
-
-                // this.cancelUpdateButton = Ext.create('Ext.Button', {
-                //     text: 'Cancel Update',
-                //     tooltip: 'Cancel the update table request',
-                //     iconCls: "plt_icon_plt_update_table_cancel_button_icon",
-                //     cls: 'plt_lightgrey_button',
-                //     hidden: true,
-                //     style: {
-                //         'margin-bottom': '10px'
-                //     },
-                //     handler: function () {
-                //         this.cancelUpdateTable();
-                //     }.bind(this)
-                // });
-
-
-//                let buttonClassObj = new pimcore.plugin.formattedGridHeaderWidthManager(formattedTableGrid,appliedHeaderDataComponent,this.object);
-//                let button = buttonClassObj.getButton();
-
 //                formattedDataFieldSet.insert(0,button);
-                formattedDataFieldSet.insert(0, this.updateTableButton);
+                panelContainingFormattedTable.insert(0, this.updateTableButton);
 //                formattedDataFieldSet.insert(2, this.updatePriceButton);
 //                formattedDataFieldSet.insert(3, this.cancelUpdateButton);
 
-
-                //this.hideControls(formattedTableGrid);
-                // this.setGridNonEditable(formattedTableGrid);
-                // enable working of resize event
-                // had to disable because setWidth was getting called when setting width initially
-                // we do not want to capture new width on that initial change
-                // setTimeout(function () {
-                //     this.activateResizeEvent = true;
-                // }.bind(this), 100);
 
             }.bind(this));
         }
