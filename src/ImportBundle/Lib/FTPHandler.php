@@ -7,6 +7,7 @@
  */
 namespace ImportBundle\Lib;
 use phpseclib\Net\SFTP;
+use ImportBundle\Lib\Constants;
 /**
  * Description of FTPHandler
  *
@@ -27,15 +28,16 @@ class FTPHandler {
     public $files = '';
 
 
-    public function __construct($params) {
-        $this->host = $params['FTP_HOST'];
-        $this->username = $params['FTP_USERNAME'];
-        $this->password = $params['FTP_PASSWORD'];
-        $this->folderPath = $params['FTP_FOLDER'];
-        $this->archivePath = $params['FTP_ARCHIVE_FOLDER'];
-        $this->fileStartWith = $params['FTP_FILE_START_WITH'];
-        $this->fileExt = $params['FTP_FILE_EXT'];
-        $this->importPath = PIMCORE_PRIVATE_VAR.$params['IMPORT_FOLDER'];
+    public function __construct() {
+        $this->host = Constants::FTP_HOST;
+        $this->username = Constants::FTP_USERNAME;
+        $this->password = Constants::FTP_PASSWORD;
+        $this->folderPath = Constants::FTP_FOLDER;
+        $this->port = 21;
+        $this->archivePath = '';//$params['FTP_ARCHIVE_FOLDER'];
+        $this->fileStartWith = ''; //$params['FTP_FILE_START_WITH'];
+        $this->fileExt = '' ; //$params['FTP_FILE_EXT'];
+        $this->importPath = ''; //PIMCORE_PRIVATE_VAR.$params['IMPORT_FOLDER'];
         
     }
 
@@ -43,8 +45,14 @@ class FTPHandler {
      * Connect to S3
      */
     public function connect() {
-        $sftp = new SFTP($this->host);
-        if (!$sftp->login($this->username, $this->password)) {
+//        $sftp = new SFTP($this->host, $this->port);
+//        if (!$sftp->login($this->username, $this->password)) {
+//            //print_r($sftp); die;
+//            throw new \Exception('Cannot login into your server !');
+//        }
+//        $this->sftp = $sftp;
+        $sftp = ftp_connect($this->host, $this->port);
+        if (!ftp_login($sftp, $this->username, $this->password)) {
             throw new \Exception('Cannot login into your server !');
         }
         $this->sftp = $sftp;
@@ -124,12 +132,18 @@ class FTPHandler {
     }
     
     
-    public function getFtpFileContent($ftpPath) {
-        $tmpFile = PIMCORE_TEMPORARY_DIRECTORY."tmp-".date("Ymdhis");
-        $this->sftp->get($ftpPath, $tmpFile);
-        $content = file_get_contents($tmpFile);
-        unlink($tmpFile);
-        return $content;
+    public function getFtpFileContent($ftpPath, $filename) {
+        try {
+            $tmpFile = PIMCORE_TEMPORARY_DIRECTORY."/tmp-".date("Ymdhis")."-".$filename;
+            ftp_get($this->sftp, $tmpFile, $this->folderPath."/".$ftpPath, FTP_BINARY);
+            //$this->sftp->get($this->folderPath."/".$ftpPath, $tmpFile);
+            $content = file_get_contents($tmpFile);
+            unlink($tmpFile);
+            return $content;
+        } catch (\Exception $e) {
+            return false;
+        }
         
     }
+    
 }

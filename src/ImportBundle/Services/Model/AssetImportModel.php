@@ -28,12 +28,13 @@ class AssetImportModel {
     private $csvHeader;
     private $dbModel;
     private $processedFileArray = [];
+    private $ftpHandler;
     
 
     //put your code here
     public function __construct() {
         
-        $this->datasource = 'LOCAL'; // "LOCAL" OR "FTP"
+        $this->datasource = "FTP"; //'LOCAL'; // "LOCAL" OR "FTP"
         $this->csvFilePath = '/Data Import Files/Assets Import/Inbox';
         $this->csvArchivePath = '/Data Import Files/Assets Import/Archive';
         $this->assetPath = PIMCORE_PROJECT_ROOT."/OneTimeImport/Assets";
@@ -42,6 +43,10 @@ class AssetImportModel {
     }
     
     public function import() {
+        if (strtolower($this->datasource) == 'ftp') {
+            $this->ftpHandler = new \ImportBundle\Lib\FTPHandler();
+            $this->ftpHandler->connect();
+        }
         $csvFolder = Asset::getByPath($this->csvFilePath);
         if ($csvFolder->hasChildren()) {
             $childrens = $csvFolder->getChildren();
@@ -57,9 +62,9 @@ class AssetImportModel {
                 }
                 $this->archiveCsvFile($child);
             }
-            $this->processRemainingAssets($this->assetPath);
+            //$this->processRemainingAssets($this->assetPath);
         }
-        print_r($this->processedFileArray); die;
+        //print_r($this->processedFileArray); die;
     }
     
     private function processRemainingAssets($assetFolderPath) {
@@ -89,10 +94,10 @@ class AssetImportModel {
         
         foreach ($csvData as $row) {
             $articleCode = $row[0];
-            $assetName = $row[1];
-            $assetNameArray = explode('/', $assetName);
+            $assetFilePath = $row[1];
+            $assetNameArray = explode('/', $assetFilePath);
             $assetFilename = $assetNameArray[count($assetNameArray)-1];
-            $assetInfo = $this->checkIfAssetFileExists($assetFilename);
+            $assetInfo = $this->checkIfAssetFileExists($assetFilename, $assetFilePath);
             if ($assetInfo['success']) {
                 $this->processedFileArray[] = strtolower($assetFilename);
                 $articleDetails = $this->dbModel->getProductByOldMaterialCode($articleCode);
@@ -141,7 +146,7 @@ class AssetImportModel {
 //        if (!empty
 //    }
     
-    private function checkIfAssetFileExists($assetFilename) {
+    private function checkIfAssetFileExists($assetFilename, $assetPath) {
         switch ($this->datasource) {
             case 'LOCAL':
                 $assetFilePath = $this->assetPath.'/'.$assetFilename;
@@ -156,6 +161,18 @@ class AssetImportModel {
                     ];
                 }
                 break;
+            case 'FTP':
+                $response = $this->ftpHandler->getFtpFileContent($assetPath, $assetFilename);
+                if ($response) {
+                    return [
+                        'success' => true,
+                        'content' => $response
+                    ];
+                } else {
+                    return [
+                        'success' => false
+                    ];
+                }
             default:
                 echo "Error case : Invalid Datasource";
                 exit;
