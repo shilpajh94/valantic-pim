@@ -97,12 +97,12 @@ class DefaultController extends FrontendController
         echo json_encode($arr); die;
     }
 
-    public function template1Action(Request $request)
+    public function templateFittingPageStandardAction(Request $request)
     {
 
     }
 
-    public function template2Action(Request $request)
+    public function templateHoseLineTileTemplateAction(Request $request)
     {
 
     }
@@ -131,7 +131,7 @@ class DefaultController extends FrontendController
     {
 
     }
-    public function inhHydHoseTemplateAction(Request $request)
+    public function inhTemplateHoseProductPageAction(Request $request)
     {
 
     }
@@ -140,4 +140,19 @@ class DefaultController extends FrontendController
     {
 
     }
+
+    public function headerAction(Request $request)
+    {
+        return $this->render("CatalogBundle:Include:header.html.php", ["name1" => $request->get('name1')]);
+        // $this->set('name1', 'sda');
+        // $this->viewParameters->add([
+        //     'name1' => $request->get('name1')
+        // ]);
+    }
+
+    public function footerAction(Request $request)
+    {
+
+    }
+
 }

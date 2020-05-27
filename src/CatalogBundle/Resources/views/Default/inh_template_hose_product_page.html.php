@@ -1,8 +1,11 @@
+
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+
 ?>
 <article class="fullcontainer">
-      <header class="content white">
+<?php //echo  $this->template("CatalogBundle:Include:header.html.php", ["param1" => "value1"]) ?>
+      <!-- <header class="content white">
         <h1>Extended Life<sup>TM</sup> X600R </h1>
         <aside>
                 <p>
@@ -12,7 +15,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <img src="/CatalogImages/5.JPG" />
                 
         </aside>
-      </header>
+      </header> -->
       <section class="content">
 
                 <menu class="flex">
@@ -185,7 +188,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 </p>
                             </div>
       </section>
-      <footer class="flex">
+      <!-- <footer class="flex">
               <span class="logo">
                       <img src="/CatalogImages/logo.JPG" />
               </span>
@@ -200,5 +203,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 Meets or exceeds the performance requirements of
                         </p>
               </div>
-      </footer>
+      </footer> -->
+
+      <?php //echo $this->template("CatalogBundle:Include:footer.html.php", ["param2" => "value2"]) ?>
     </article>
