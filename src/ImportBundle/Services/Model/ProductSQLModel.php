@@ -481,8 +481,8 @@ class ProductSQLModel
                             } else {
                                 $folderId = $this->products[$folderPath];
                             }
-                            $oldMaterialCode = $recData[6];
-                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
+                            $oldMaterialCode = trim($recData[6]);
+                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                 $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
                             } else {
                                 $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
