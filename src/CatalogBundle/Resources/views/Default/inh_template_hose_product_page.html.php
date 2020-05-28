@@ -5,7 +5,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 ?>
 <article class="fullcontainer">
 <?php //echo  $this->template("CatalogBundle:Include:header.html.php", ["param1" => "value1"]) ?>
-      <!-- <header class="content white">
+      <header class="content white">
         <h1>Extended Life<sup>TM</sup> X600R </h1>
         <aside>
                 <p>
@@ -15,7 +15,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 <img src="/CatalogImages/5.JPG" />
                 
         </aside>
-      </header> -->
+      </header>
       <section class="content">
 
                 <menu class="flex">
