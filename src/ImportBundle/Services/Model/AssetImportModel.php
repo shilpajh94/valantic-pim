@@ -34,7 +34,7 @@ class AssetImportModel {
     //put your code here
     public function __construct() {
         
-        $this->datasource = "FTP"; //'LOCAL'; // "LOCAL" OR "FTP"
+        $this->datasource = 'LOCAL'; // "LOCAL" OR "FTP"
         $this->csvFilePath = '/Data Import Files/Assets Import/Inbox';
         $this->csvArchivePath = '/Data Import Files/Assets Import/Archive';
         $this->assetPath = PIMCORE_PROJECT_ROOT."/OneTimeImport/Assets";
@@ -62,7 +62,9 @@ class AssetImportModel {
                 }
                 $this->archiveCsvFile($child);
             }
-            //$this->processRemainingAssets($this->assetPath);
+            if (strtolower($this->datasource) == 'local') {
+                $this->processRemainingAssets($this->assetPath);
+            }
         }
         //print_r($this->processedFileArray); die;
     }
