@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-04T11:46:19+02:00
+* Generated at: 2020-05-19T11:04:39+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CatalogCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1588585579,
+   'modificationDate' => 1589879079,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

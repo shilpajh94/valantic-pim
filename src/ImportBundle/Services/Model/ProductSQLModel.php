@@ -459,7 +459,7 @@ class ProductSQLModel
         $status = 'Failed';
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
-            if (($buCatCode == 3000 && strlen($siopCode) == 18) || (($buCatCode == 1000 || $buCatCode == 1500) && strlen($siopCode) == 13)) {
+            if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
                 if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
                     echo $recData['0'].PHP_EOL;
                     $record = array(
@@ -481,8 +481,8 @@ class ProductSQLModel
                             } else {
                                 $folderId = $this->products[$folderPath];
                             }
-                            $oldMaterialCode = $recData[6];
-                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
+                            $oldMaterialCode = trim($recData[6]);
+                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                 $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
                             } else {
                                 $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
@@ -530,6 +530,18 @@ class ProductSQLModel
         unset($logRow);
     }
     
+    public function isValidCategoryCode($buCatCode, $siopCode) {
+        if ($buCatCode == 3000) {
+            if (strlen($siopCode) == 18) {
+                return true;
+            }
+        } else {
+            if (strlen($siopCode) == 13) {
+                return true;
+            }
+        }
+        return false;
+    }
     public function getLocalizedQueryData($objId, $record) {
         
         foreach ($this->langArr as $lang) {
