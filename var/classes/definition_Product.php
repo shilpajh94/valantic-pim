@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-18T08:36:57+02:00
+* Generated at: 2020-05-28T12:09:28+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -18,11 +18,7 @@ Fields Summary:
 - weightUnit [select]
 - localizedfields [localizedfields]
 -- sapDescription [textarea]
--- FeaturesBenefitsBulletPoint1 [input]
--- FeaturesBenefitsBulletPoint2 [input]
--- FeaturesBenefitsBulletPoint3 [input]
--- FeaturesBenefitsBulletPoint4 [input]
--- FeaturesBenefitsBulletPoint5 [input]
+-- FeaturesBenefitsBulletPoint [multiselect]
 -- legalText [input]
 -- Application [input]
 -- BrandShortText1 [input]
@@ -116,7 +112,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1589783816,
+   'modificationDate' => 1590660567,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -629,24 +625,28 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                  'childs' => 
                                                 array (
                                                   0 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                                     'fieldtype' => 'input',
-                                                     'width' => 300,
-                                                     'defaultValue' => NULL,
-                                                     'queryColumnType' => 'varchar',
-                                                     'columnType' => 'varchar',
-                                                     'columnLength' => 190,
-                                                     'phpdocType' => 'string',
-                                                     'regex' => '',
-                                                     'unique' => false,
-                                                     'showCharCount' => false,
-                                                     'name' => 'FeaturesBenefitsBulletPoint1',
-                                                     'title' => 'Features & Benefits Bullet Point 1',
+                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                                     'fieldtype' => 'multiselect',
+                                                     'options' => 
+                                                    array (
+                                                    ),
+                                                     'width' => '',
+                                                     'height' => '',
+                                                     'maxItems' => 5,
+                                                     'renderType' => 'list',
+                                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                                     'optionsProviderData' => 'Features|Name',
+                                                     'queryColumnType' => 'text',
+                                                     'columnType' => 'text',
+                                                     'phpdocType' => 'array',
+                                                     'dynamicOptions' => false,
+                                                     'name' => 'FeaturesBenefitsBulletPoint',
+                                                     'title' => 'Features & Benefits Bullet Points',
                                                      'tooltip' => '',
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => false,
+                                                     'locked' => NULL,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -654,121 +654,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'invisible' => false,
                                                      'visibleGridView' => false,
                                                      'visibleSearch' => false,
-                                                     'defaultValueGenerator' => '',
                                                   )),
                                                   1 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                                     'fieldtype' => 'input',
-                                                     'width' => 300,
-                                                     'defaultValue' => NULL,
-                                                     'queryColumnType' => 'varchar',
-                                                     'columnType' => 'varchar',
-                                                     'columnLength' => 190,
-                                                     'phpdocType' => 'string',
-                                                     'regex' => '',
-                                                     'unique' => false,
-                                                     'showCharCount' => false,
-                                                     'name' => 'FeaturesBenefitsBulletPoint2',
-                                                     'title' => 'Features & Benefits Bullet Point 2',
-                                                     'tooltip' => '',
-                                                     'mandatory' => false,
-                                                     'noteditable' => false,
-                                                     'index' => false,
-                                                     'locked' => false,
-                                                     'style' => '',
-                                                     'permissions' => NULL,
-                                                     'datatype' => 'data',
-                                                     'relationType' => false,
-                                                     'invisible' => false,
-                                                     'visibleGridView' => false,
-                                                     'visibleSearch' => false,
-                                                     'defaultValueGenerator' => '',
-                                                  )),
-                                                  2 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                                     'fieldtype' => 'input',
-                                                     'width' => 300,
-                                                     'defaultValue' => NULL,
-                                                     'queryColumnType' => 'varchar',
-                                                     'columnType' => 'varchar',
-                                                     'columnLength' => 190,
-                                                     'phpdocType' => 'string',
-                                                     'regex' => '',
-                                                     'unique' => false,
-                                                     'showCharCount' => false,
-                                                     'name' => 'FeaturesBenefitsBulletPoint3',
-                                                     'title' => 'Features & Benefits Bullet Point 3',
-                                                     'tooltip' => '',
-                                                     'mandatory' => false,
-                                                     'noteditable' => false,
-                                                     'index' => false,
-                                                     'locked' => false,
-                                                     'style' => '',
-                                                     'permissions' => NULL,
-                                                     'datatype' => 'data',
-                                                     'relationType' => false,
-                                                     'invisible' => false,
-                                                     'visibleGridView' => false,
-                                                     'visibleSearch' => false,
-                                                     'defaultValueGenerator' => '',
-                                                  )),
-                                                  3 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                                     'fieldtype' => 'input',
-                                                     'width' => 300,
-                                                     'defaultValue' => NULL,
-                                                     'queryColumnType' => 'varchar',
-                                                     'columnType' => 'varchar',
-                                                     'columnLength' => 190,
-                                                     'phpdocType' => 'string',
-                                                     'regex' => '',
-                                                     'unique' => false,
-                                                     'showCharCount' => false,
-                                                     'name' => 'FeaturesBenefitsBulletPoint4',
-                                                     'title' => 'Features & Benefits Bullet Point 4',
-                                                     'tooltip' => '',
-                                                     'mandatory' => false,
-                                                     'noteditable' => false,
-                                                     'index' => false,
-                                                     'locked' => false,
-                                                     'style' => '',
-                                                     'permissions' => NULL,
-                                                     'datatype' => 'data',
-                                                     'relationType' => false,
-                                                     'invisible' => false,
-                                                     'visibleGridView' => false,
-                                                     'visibleSearch' => false,
-                                                     'defaultValueGenerator' => '',
-                                                  )),
-                                                  4 => 
-                                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                                     'fieldtype' => 'input',
-                                                     'width' => 300,
-                                                     'defaultValue' => NULL,
-                                                     'queryColumnType' => 'varchar',
-                                                     'columnType' => 'varchar',
-                                                     'columnLength' => 190,
-                                                     'phpdocType' => 'string',
-                                                     'regex' => '',
-                                                     'unique' => false,
-                                                     'showCharCount' => false,
-                                                     'name' => 'FeaturesBenefitsBulletPoint5',
-                                                     'title' => 'Features & Benefits Bullet Point 5',
-                                                     'tooltip' => '',
-                                                     'mandatory' => false,
-                                                     'noteditable' => false,
-                                                     'index' => false,
-                                                     'locked' => false,
-                                                     'style' => '',
-                                                     'permissions' => NULL,
-                                                     'datatype' => 'data',
-                                                     'relationType' => false,
-                                                     'invisible' => false,
-                                                     'visibleGridView' => false,
-                                                     'visibleSearch' => false,
-                                                     'defaultValueGenerator' => '',
-                                                  )),
-                                                  5 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -796,7 +683,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'visibleSearch' => false,
                                                      'defaultValueGenerator' => '',
                                                   )),
-                                                  6 => 
+                                                  2 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -824,7 +711,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'visibleSearch' => false,
                                                      'defaultValueGenerator' => '',
                                                   )),
-                                                  7 => 
+                                                  3 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -842,7 +729,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -852,7 +739,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'visibleSearch' => false,
                                                      'defaultValueGenerator' => '',
                                                   )),
-                                                  8 => 
+                                                  4 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -870,7 +757,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -880,7 +767,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'visibleSearch' => false,
                                                      'defaultValueGenerator' => '',
                                                   )),
-                                                  9 => 
+                                                  5 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -898,7 +785,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -908,7 +795,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'visibleSearch' => false,
                                                      'defaultValueGenerator' => '',
                                                   )),
-                                                  10 => 
+                                                  6 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -926,7 +813,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -936,7 +823,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'visibleSearch' => false,
                                                      'defaultValueGenerator' => '',
                                                   )),
-                                                  11 => 
+                                                  7 => 
                                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                                      'fieldtype' => 'input',
                                                      'width' => 300,
@@ -954,7 +841,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => '',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -1002,7 +889,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'mandatory' => false,
                                                      'noteditable' => false,
                                                      'index' => false,
-                                                     'locked' => NULL,
+                                                     'locked' => false,
                                                      'style' => 'margin-left:20px;',
                                                      'permissions' => NULL,
                                                      'datatype' => 'data',
@@ -2155,24 +2042,28 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'childs' => 
                                     array (
                                       0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'FeaturesBenefitsBulletPoint1',
-                                         'title' => 'Features & Benefits Bullet Point 1',
+                                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                         'fieldtype' => 'multiselect',
+                                         'options' => 
+                                        array (
+                                        ),
+                                         'width' => '',
+                                         'height' => '',
+                                         'maxItems' => 5,
+                                         'renderType' => 'list',
+                                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                         'optionsProviderData' => 'Features|Name',
+                                         'queryColumnType' => 'text',
+                                         'columnType' => 'text',
+                                         'phpdocType' => 'array',
+                                         'dynamicOptions' => false,
+                                         'name' => 'FeaturesBenefitsBulletPoint',
+                                         'title' => 'Features & Benefits Bullet Points',
                                          'tooltip' => '',
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => false,
+                                         'locked' => NULL,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2180,121 +2071,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'invisible' => false,
                                          'visibleGridView' => false,
                                          'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
                                       )),
                                       1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'FeaturesBenefitsBulletPoint2',
-                                         'title' => 'Features & Benefits Bullet Point 2',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      2 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'FeaturesBenefitsBulletPoint3',
-                                         'title' => 'Features & Benefits Bullet Point 3',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      3 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'FeaturesBenefitsBulletPoint4',
-                                         'title' => 'Features & Benefits Bullet Point 4',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      4 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                                         'fieldtype' => 'input',
-                                         'width' => 300,
-                                         'defaultValue' => NULL,
-                                         'queryColumnType' => 'varchar',
-                                         'columnType' => 'varchar',
-                                         'columnLength' => 190,
-                                         'phpdocType' => 'string',
-                                         'regex' => '',
-                                         'unique' => false,
-                                         'showCharCount' => false,
-                                         'name' => 'FeaturesBenefitsBulletPoint5',
-                                         'title' => 'Features & Benefits Bullet Point 5',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'datatype' => 'data',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'defaultValueGenerator' => '',
-                                      )),
-                                      5 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2322,7 +2100,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      6 => 
+                                      2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2350,7 +2128,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      7 => 
+                                      3 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2368,7 +2146,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2378,7 +2156,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      8 => 
+                                      4 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2396,7 +2174,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2406,7 +2184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      9 => 
+                                      5 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2424,7 +2202,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2434,7 +2212,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      10 => 
+                                      6 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2452,7 +2230,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2462,7 +2240,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'visibleSearch' => false,
                                          'defaultValueGenerator' => '',
                                       )),
-                                      11 => 
+                                      7 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
                                          'width' => 300,
@@ -2480,7 +2258,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => '',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
@@ -2528,7 +2306,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'mandatory' => false,
                                          'noteditable' => false,
                                          'index' => false,
-                                         'locked' => NULL,
+                                         'locked' => false,
                                          'style' => 'margin-left:20px;',
                                          'permissions' => NULL,
                                          'datatype' => 'data',
