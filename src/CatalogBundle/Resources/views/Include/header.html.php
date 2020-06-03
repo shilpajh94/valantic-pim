@@ -1,2 +1,3 @@
-<h1>Hydraulic Hose</h1>
-    
+<nav class="header">
+  <span>Hydraulic Hose</span>
+</nav>

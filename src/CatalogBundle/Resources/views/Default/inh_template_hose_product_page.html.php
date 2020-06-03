@@ -1,18 +1,41 @@
 
 <?php
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+?>
+
+<?php if($this->editmode): ?>
+        <?= $this->relation("inh_template_hose_product_page", [
+                "types" => ["object"],
+                "subtypes" => [
+                "object" => ["object"]
+                ],
+                "classes" => ["CatalogTables"],
+        ]); 
+        ?>
+<?php endif; ?>
+
+<?php
+foreach($data as $key => $brand):
+
+extract($brand);
 
 ?>
+
+<?php  echo $this->inc($this->document->getProperty('header'),['title'=>'']) ?>
+<?php  echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName]) ?>
+<!-- <div class="break-after"></div> -->
 <article class="fullcontainer">
 <?php //echo  $this->template("CatalogBundle:Include:header.html.php", ["param1" => "value1"]) ?>
       <header class="content white">
-        <h1>Extended Life<sup>TM</sup> X600R </h1>
+        <h1><?= $brandName ?></h1>
         <aside>
                 <p>
-                        Extended Life<sup>TM</sup> X600R  effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
+                        <?= $brandDescription ?>
+                        <!-- Extended Life<sup>TM</sup> X600R  effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
                         While effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
-                </p>  
-                <img src="/CatalogImages/5.JPG" />
+                   -->
+                   </p>
+                <img src="<?= $brandImageSrc ?>" />
                 
         </aside>
       </header>
@@ -26,19 +49,19 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
                                         <p>
                                                         <b>Inner Tube</b>
-                                                        NBR (Nitrile)
+                                                        <?= $tubeMaterialAtrributeString ?>
                                                 </p>
                                                 <p>                
                                                         <b>Reinforcement</b>
-                                                        Two braids of high-tensile steel wire
+                                                        <?= $reinforcement ?>
                                                 </p>
                                                 <p>              
                                                         <b>Cover</b>
-                                                        Black synthetic rubber with extra abrasion-, oil- and weather-resistance
+                                                        <?= $coverMaterialattributeString ?>
                                                 </p>
                                                 <p>              
                                                         <b>Temperature Range</b>
-                                                        -40&#8457; to  -220&#8457;
+                                                        <?=$tempFmin ?>&#8457; to  <?=$tempFmax ?>&#8457; (<?=$tempCmin ?>&#8451; to  <?=$tempCmax ?>&#8451;)
                                         </p>
                                    </div>
 
@@ -48,27 +71,12 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                        <div class="feature">
                                 <h3>features</h3>
                                 <div>
-                                        <p class="flex">
-                                                <img src="/CatalogImages/life.PNG" />
-                                                <span>
-                                                                Extended Life<sup>&trade;</sup> Cover
-                                                </span>
-                                        </p>
-
-                                        <p  class="flex">
-                                                <img src="/CatalogImages/7a.jpg" />
-                                                Made for tight bends
-                                        </p>
-
-                                        <p  class="flex">
-                                                <img src="/CatalogImages/7a1.jpg" />
-                                                SAe J19892 <br/> U.S. Coast guard
-                                        </p>
-
-                                        <p  class="flex">
-                                                <img src="/CatalogImages/7a2.jpg" />
-                                                4:1 Safety Factor
-                                        </p>
+                                        <?php foreach($safetyFeatures as $key => $feature): ?>
+                                                <p  class="flex">
+                                                        <img src="<?= $feature['iconSrc'] ?>" />
+                                                        <font> <?= $feature['name'] ?></font>
+                                                </p>
+                                        <?php endforeach; ?>
 
                                 </div>
                        </div>
@@ -77,32 +85,39 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 <menu>
                         <h3>branding</h3>
                         <figure>
-                                <img src="/CatalogImages/6a.jpg" /> 
-                                <img src="/CatalogImages/6a1.jpg" />   
-                                <img src="/CatalogImages/6a2.jpg" />   
-                                <img src="/CatalogImages/6a3.jpg" />   
-                                <img src="/CatalogImages/6a4.jpg" />   
-                                <img src="/CatalogImages/6a5.jpg" />   
+                                <img src="/CatalogImages/6a.jpg"/> 
+                                <figcaption>
+                                   <b>X-Life<sup>&trade;</sup> XQE45SD</b>
+                                </figcaption>
+                                <figcaption>SAE 100R16 / ENT 1020 <br/>1/2 (DEE)</figcaption>
+                                 
+                          <figcaption>500 PSI <br/> 34.5 MPa</figcaption>
 
+ <figcaption>
+                                   <b>MSHA 2G-1C-5F-20B/37</b>
+                                </figcaption>  
+<figcaption>MADE <br/> IN USA </figcaption>
+
+ <figcaption>     
                         </figure>
                 </menu>
          
                 <div class="grid">
                                 <p class="sub-head">
-                                     <span><img src="/CatalogImages/5a.jpg" /></span>
-                                     <span><img src="/CatalogImages/5a1.jpg" /></span>
-                                     <span><img src="/CatalogImages/5a2.jpg" /></span>
-                                    <span class="grow-2"><img src="/CatalogImages/5a3.jpg" /></span>
-                                     <span class="grow-2"><img src="/CatalogImages/5a4.jpg" /></span>
-                                     <span class="grow-2"><img src="/CatalogImages/5a5.jpg" /></span>
-                                     <span><img src="/CatalogImages/5a6.jpg" /></span>
-                                     <span><img src="/CatalogImages/5a7.jpg" /></span>
+                                     <span><img src="/CatalogImages/5a.jpg" width="45" height="45" /></span>
+                                     <span><img src="/CatalogImages/5a1.jpg" width="45" height="45" /></span>
+                                     <span><img src="/CatalogImages/5a2.jpg" width="45" height="45"/></span>
+                                    <span class="grow-2"><img src="/CatalogImages/5a3.jpg" width="45" height="45"/></span>
+                                     <span class="grow-2"><img src="/CatalogImages/5a4.jpg" width="45" height="45" /></span>
+                                     <span class="grow-2"><img src="/CatalogImages/5a5.jpg" width="45" height="45"/></span>
+                                     <span><img src="/CatalogImages/5a6.jpg" width="45" height="45"/></span>
+                                     <span><img src="/CatalogImages/5a7.jpg" width="45" height="45"/></span>
                                 </p>
                                 <p class="head">
                                      <span>Part Number</span>
                                      <span>SAP Number</span>
                                      <span>Hose size ID</span>
-                                     <span class="grow-2">Hose Od</span>
+                                     <span class="grow-2">Hose OD</span>
                                       <span class="grow-2">Max. Work Pressure</span>
                                      <span class="grow-2">Min. Bend Radius</span>
                                      <span>Weight</span>
@@ -121,48 +136,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                      <span>lbs/ft</span>
                                      <span></span>
                                  </p>
-                                <p>
-                                     <span>AEDKSJFKDSJFKS</span>
-                                     <span>454545-5455</span>
-                                     <span>1544545</span>
-                                     <span>32/12</span>
-                                     <span>32/12</span>
-                                     <span>1-14</span>
-                                     <span>0.91</span>
-                                     <span>23</span>
-                                     <span>0.91</span>
-                                     <span>23</span>
-                                     <span>0.91</span>
-                                </p>
-                                <p>
-                                                <span>AEDKSJFKDSJFKS</span>
-                                                <span>454545-5455</span>
-                                                <span>1544545</span>
-                                                <span>32/12</span>
-                                                <span>32/12</span>
-                                                <span>1-14</span>
-                                                <span>0.91</span>
-                                                <span>23</span>
-                                                <span>0.91</span>
-                                                <span>23</span>
-                                                <span>0.91</span>
-                                           </p>
-                                           <p>
-                                                        <span>AEDKSJFKDSJFKS</span>
-                                                        <span>454545-5455</span>
-                                                        <span>1544545</span>
-                                                        <span>32/12</span>
-                                                        <span>32/12</span>
-                                                        <span>1-14</span>
-                                                        <span>0.91</span>
-                                                        <span>23</span>
-                                                        <span>0.91</span>
-                                                        <span>23</span>
-                                                        <span>0.91</span>
-                                                   </p>
-                                                   <p>
+
+                                
+
+                                        <?php foreach($productsData as $key => $element): ?>
+                                                <?php //if($key <= 5): ?>
+                                                <p>
+                                                        
+                                                        <span><?= $element['partNumber']; ?></span>
+                                                        <span><?= $element['sapNumber']; ?></span>
+                                                        <span><?= $element['hoseSizeId']; ?></span>
+                                                        <span><?= $element['hoseODIn']; ?></span>
+                                                        <span><?= $element['hoseODMm']; ?></span>
+                                                        <span><?= $element['maxWorkingPressurePSI']; ?></span>
+                                                        <span><?= $element['maxWorkingMPA']; ?></span>
+                                                        <span><?= $element['minBendRadiusIn']; ?></span>
+                                                        <span><?= $element['minBendRadiusMm']; ?></span>
+                                                        <span><?= $element['weight']; ?></span>
+                                                        <span><?= $element['fitting']; ?></span>
+                                                        
+                                                </p>
+                                                <?php //endif; ?>
+                                        <?php endforeach; ?>
+
+
+                                <!-- <p>
                                                                 <span>AEDKSJFKDSJFKS</span>
-                                                                <span>454545-5455</span>
+                                                                <span>454545</span>
                                                                 <span>1544545</span>
                                                                 <span>32/12</span>
                                                                 <span>32/12</span>
@@ -175,7 +175,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                                            </p>
                                 <p>
                                         <span>AEDKSJFKDSJFKS</span>
-                                        <span>454545-5455</span>
+                                        <span>454545</span>
                                         <span>1544545</span>
                                         <span>32/12</span>
                                         <span>32/12</span>
@@ -186,8 +186,49 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                         <span>23</span>
                                         <span>0.91</span>
                                 </p>
+                                <p>
+                                        <span>AEDKSJFKDSJFKS</span>
+                                        <span>454545</span>
+                                        <span>1544545</span>
+                                        <span>32/12</span>
+                                        <span>32/12</span>
+                                        <span>1-14</span>
+                                        <span>0.91</span>
+                                        <span>23</span>
+                                        <span>0.91</span>
+                                        <span>23</span>
+                                        <span>0.91</span>
+                                </p>
+                                <p>
+                                        <span>AEDKSJFKDSJFKS</span>
+                                        <span>454545</span>
+                                        <span>1544545</span>
+                                        <span>32/12</span>
+                                        <span>32/12</span>
+                                        <span>1-14</span>
+                                        <span>0.91</span>
+                                        <span>23</span>
+                                        <span>0.91</span>
+                                        <span>23</span>
+                                        <span>0.91</span>
+                                </p>
+                                <p>
+                                        <span>AEDKSJFKDSJFKS</span>
+                                        <span>454545</span>
+                                        <span>1544545</span>
+                                        <span>32/12</span>
+                                        <span>32/12</span>
+                                        <span>1-14</span>
+                                        <span>0.91</span>
+                                        <span>23</span>
+                                        <span>0.91</span>
+                                        <span>23</span>
+                                        <span>0.91</span>
+                                </p> -->
+                                
                             </div>
       </section>
+      
       <!-- <footer class="flex">
               <span class="logo">
                       <img src="/CatalogImages/logo.JPG" />
@@ -207,3 +248,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
       <?php //echo $this->template("CatalogBundle:Include:footer.html.php", ["param2" => "value2"]) ?>
     </article>
+    <?php if(current($data) != end($data)): ?>
+    <div class="break-before"></div>
+    <?php endif; ?>
+    <?php  //echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName]) ?>
+<?php endforeach; ?>
