@@ -1,0 +1,13 @@
+parameters:
+  attributeImages: 
+    'ActivantNumber': '/AttributeImages/part_number.jpg'
+    'articleNumber': '/AttributeImages/sap_number.jpg'
+    'hoseIdNominalId':	'/AttributeImages/hose_id.jpg'
+    'hoseOdIn': '/AttributeImages/hose_od.jpg'
+    'hoseOdmm': '/AttributeImages/hose_od.jpg'
+    'workingPressurePSI': '/AttributeImages/working_pressure.jpg'
+    'workingPressureMPA': '/AttributeImages/working_pressure.jpg'
+    'BendRadiusIN': '/AttributeImages/bend_radius.jpg'
+    'BendRadiusMM': '/AttributeImages/bend_radius.jpg'
+    'grossWeight': '/AttributeImages/weight.jpg'
+    'fittingFamily': '/AttributeImages/fitting_family.jpg'

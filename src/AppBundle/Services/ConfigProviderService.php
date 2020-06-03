@@ -64,6 +64,12 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(CATALOG_TABLE_COLUMN_CONFIG_FILE_PATH);
     }
 
+    public function getAttributeImagesConfig()
+    {
+        return $this->getConfigFromYmlFile(ATTRIBUTE_IMAGES_FILE_PATH);
+    }
+
+    
     public function getWorkFlowConfig()
     {
         return $this->getConfigFromYmlFile(WORKFLOW_CONFIG_FILE_PATH);

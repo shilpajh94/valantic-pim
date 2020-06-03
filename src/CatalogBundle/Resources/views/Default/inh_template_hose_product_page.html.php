@@ -15,6 +15,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 <?php endif; ?>
 
 <?php
+
+if($data):
+
 foreach($data as $key => $brand):
 
 extract($brand);
@@ -30,7 +33,7 @@ extract($brand);
         <h1><?= $brandName ?></h1>
         <aside>
                 <p>
-                        <?= $brandDescription ?>
+                        <?= $longDescription ?>
                         <!-- Extended Life<sup>TM</sup> X600R  effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
                         While effectively a CSS-in-JS library, styled components deserves a position of its own. Take a look at some of these UI libraries using styled-components.
                    -->
@@ -86,77 +89,53 @@ extract($brand);
                         <h3>branding</h3>
                         <figure>
                                 <img src="/CatalogImages/6a.jpg"/> 
-                                <figcaption>
-                                   <b><?= $brandName ?></b>
-                                </figcaption>
-                                <figcaption>SAE 100R16 / ENT 1020 <br/>1/2 (DEE)</figcaption>
-                                 
-                          <figcaption><?= $maxWorkingPressurePSI ?> PSI <br/> <?= $maxWorkingMPA ?> MPa</figcaption>
-
- <figcaption>
-                                   <b>MSHA 2G-1C-5F-20B/37</b>
-                                </figcaption>  
-<figcaption>MADE <br/> IN USA </figcaption>
-
- <figcaption>     
+                                <figcaption><b><?= $brandName ?></b></figcaption> 
+                                <figcaption> <?= $brandingLayline ?> </figcaption>
                         </figure>
+                        <?php if(trim($digit6code)): ?>
+                        <figure>
+                                <figcaption> Order Code: <?= $digit6code ?> </figcaption>
+                        </figure>
+                        <?php endif; ?>
                 </menu>
          
                 <div class="grid">
+                                <?php if($iconRequired == 'YES'): ?>
                                 <p class="sub-head">
-                                     <span><img src="/CatalogImages/5a.jpg" width="45" height="45" /></span>
+                                <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
+                                        <span><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></span>
+                                <?php endforeach; ?>
+                                     <!-- <span><img src="/CatalogImages/5a.jpg" width="45" height="45" /></span>
                                      <span><img src="/CatalogImages/5a1.jpg" width="45" height="45" /></span>
                                      <span><img src="/CatalogImages/5a2.jpg" width="45" height="45"/></span>
                                     <span class="grow-2"><img src="/CatalogImages/5a3.jpg" width="45" height="45"/></span>
                                      <span class="grow-2"><img src="/CatalogImages/5a4.jpg" width="45" height="45" /></span>
                                      <span class="grow-2"><img src="/CatalogImages/5a5.jpg" width="45" height="45"/></span>
                                      <span><img src="/CatalogImages/5a6.jpg" width="45" height="45"/></span>
-                                     <span><img src="/CatalogImages/5a7.jpg" width="45" height="45"/></span>
+                                     <span><img src="/CatalogImages/5a7.jpg" width="45" height="45"/></span> -->
                                 </p>
+                                <?php endif; ?>
                                 <p class="head">
-                                     <span>Part Number</span>
+                                        <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
+                                                <span><?= $columnsData['columnLabel']?></span>
+                                        <?php endforeach; ?>
+
+                                     <!-- <span>Part Number</span>
                                      <span>SAP Number</span>
                                      <span>Hose size ID</span>
                                      <span class="grow-2">Hose OD</span>
                                       <span class="grow-2">Max. Work Pressure</span>
                                      <span class="grow-2">Min. Bend Radius</span>
                                      <span>Weight</span>
-                                     <span>Fitting</span>
+                                     <span>Fitting</span> -->
                                 </p>
-                                <p class="sub-head">
-                                     <span></span>
-                                     <span></span>
-                                     <span>in.</span>
-                                     <span>in.</span>
-                                     <span>mm.</span>
-                                     <span>psi</span>
-                                     <span>mpa</span>
-                                     <span>in.</span>
-                                     <span>mm.</span>
-                                     <span>lbs/ft</span>
-                                     <span></span>
-                                 </p>
-
                                 
-
-                                        <?php foreach($productsData as $key => $element): ?>
-                                                <?php //if($key <= 5): ?>
+                                        <?php foreach($articlesData as $key => $element): ?>
                                                 <p>
-                                                        
-                                                        <span><?= $element['partNumber']; ?></span>
-                                                        <span><?= $element['sapNumber']; ?></span>
-                                                        <span><?= $element['hoseSizeId']; ?></span>
-                                                        <span><?= $element['hoseODIn']; ?></span>
-                                                        <span><?= $element['hoseODMm']; ?></span>
-                                                        <span><?= $element['maxWorkingPressurePSI']; ?></span>
-                                                        <span><?= $element['maxWorkingMPA']; ?></span>
-                                                        <span><?= $element['minBendRadiusIn']; ?></span>
-                                                        <span><?= $element['minBendRadiusMm']; ?></span>
-                                                        <span><?= $element['weight']; ?></span>
-                                                        <span><?= $element['fitting']; ?></span>
-                                                        
+                                                <?php foreach($element as $ekey => $value): ?>
+                                                <span><?= $value; ?></span>
+                                                <?php endforeach; ?>
                                                 </p>
-                                                <?php //endif; ?>
                                         <?php endforeach; ?>
 
 
@@ -252,4 +231,10 @@ extract($brand);
     <div class="break-before"></div>
     <?php endif; ?>
     <?php  //echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName]) ?>
-<?php endforeach; ?>
+<?php 
+
+endforeach; 
+
+endif;
+
+?>

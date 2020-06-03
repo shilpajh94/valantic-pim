@@ -38,6 +38,14 @@ class DefaultController extends FrontendController
 
         $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableColumnConfig();
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
+        $language = $request->getLocale();
+        $this->get('translator')->setLocale('en');
+        if($this->tableColumns)
+        {
+            foreach ($this->tableColumns as $key => $value) {
+                $this->tableColumns[$key] = $this->get('translator')->trans($value);
+            }
+        }
 
         $columns = array();
         if (!empty($this->tableColumns) && count($this->tableColumns) > 0) {
@@ -259,122 +267,152 @@ class DefaultController extends FrontendController
     }
     public function inhTemplateHoseProductPageAction(Request $request)
     {
-        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page');
-        $productsData = $INHTemplate->getElement()->getProductsData();
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-        $headerData = $productsData[0];
-        array_shift($productsData);
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $brandsData = array();
+        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        
+        if($INHTemplate)
+        {
+            $productsData = $INHTemplate->getProductsData();
+            $columnsData = $INHTemplate->getColumns();
+            $iconRequired = 'YES';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
 
-        foreach ($productsData as $key => $item) {
-            $productsDataWithHeaders = array_combine($headerData, $item);
-            $brandsData[$productsDataWithHeaders['brandName']][] = $productsDataWithHeaders;
-        }
+            $language = $request->getLocale();
+            $this->get('translator')->setLocale($language);
 
-        foreach ($brandsData as $brandKey => $brandArray) {
+            foreach ($columnsData as $key => $value) {
+                $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
+                $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            }
+            
+            $headerData = $productsData[0];
+            array_shift($productsData);
 
-            $brandName = $brandArray[0]['brandName'];
-            $brandDescription = $brandArray[0]['brandDescription'];
-            $tempFmin = $brandArray[0]['temFmin'];
-            $tempFmax = $brandArray[0]['temFmax'];
-            $tempCmin = $brandArray[0]['temCmin'];
-            $tempCmax = $brandArray[0]['temCmax'];
-            $maxWorkingPressurePSI = $brandArray[0]['maxWorkingPressurePSI'];
-            $maxWorkingMPA = $brandArray[0]['maxWorkingMPA'];
+            $featuresList = $this->getFeaturesList('IFS');
 
-            $tubeMaterial = array();
-            $tubeAttribute = array();
-            $reinforcement = array();
-            $coverMaterial = array();
-            $coverAttribute = array();
-            $safetyFeatures = array();
+            $brandsData = array();
 
-            foreach($brandArray as $key => $element): 
-                    foreach($element as $bkey => $value): 
+            foreach ($productsData as $key => $item) {
+                $productsDataWithHeaders = array_combine($headerData, $item);
+                $brandsData[$productsDataWithHeaders['brandName']][] = $productsDataWithHeaders;
+            }
 
-                            if($bkey == 'tubeMaterial')
-                                    $tubeMaterial[] = $value; 
-                            if($bkey == 'tubeAttribute')
-                                    $tubeAttribute[] = $value; 
-                            if($bkey == 'reinforcement')
-                                    $reinforcement[] = $value; 
-                            if($bkey == 'coverMaterial')
-                                    $coverMaterial[] = $value; 
-                            if($bkey == 'coverAttribute')
-                                    $coverAttribute[] = $value; 
-                            if($bkey == 'features')
-                            {
+            foreach ($brandsData as $brandKey => $brandArray) {
+
+                $brandName = $brandArray[0]['brandName'];
+                $longDescription = $brandArray[0]['longDescription'];
+                $brandingLayline = $brandArray[0]['brandingLayline'];
+                $tempFmin = $brandArray[0]['temFmin'];
+                $tempFmax = $brandArray[0]['temFmax'];
+                $tempCmin = $brandArray[0]['temCmin'];
+                $tempCmax = $brandArray[0]['temCmax'];
+                $maxWorkingPressurePSI = $brandArray[0]['maxWorkingPressurePSI'];
+                $maxWorkingMPA = $brandArray[0]['maxWorkingMPA'];
+
+                $digit6code = array();
+                $tubeMaterial = array();
+                $tubeAttribute = array();
+                $reinforcement = array();
+                $coverMaterial = array();
+                $coverAttribute = array();
+                $safetyFeatures = array();
+                $articlesData = array();
+
+                foreach($brandArray as $key => $element): 
+                        foreach($element as $bkey => $value): 
+                                if($bkey == 'digit6code')
+                                    $digit6code[] = $value; 
+                                if($bkey == 'tubeMaterial')
+                                        $tubeMaterial[] = $value; 
+                                if($bkey == 'tubeAttribute')
+                                        $tubeAttribute[] = $value; 
+                                if($bkey == 'reinforcement')
+                                        $reinforcement[] = $value; 
+                                if($bkey == 'coverMaterial')
+                                        $coverMaterial[] = $value; 
+                                if($bkey == 'coverAttribute')
+                                        $coverAttribute[] = $value; 
+                                if($bkey == 'features')
+                                {
                                     $features = explode(',', $value);
                                     if(count($features)>0)
                                     {
-                                            foreach ($features as $fkey => $fvalue) {
-                                                    array_push($safetyFeatures,$fvalue);
-                                            }
+                                        foreach ($features as $fkey => $fvalue) {
+                                            array_push($safetyFeatures,$fvalue);
+                                        }
                                     }
-                                    
-                            }
-                            
+                                }
 
-                    endforeach; 
-            endforeach; 
+                        endforeach; 
 
-            $tubeMaterial = array_unique($tubeMaterial);
-            $tubeAttribute = array_unique($tubeAttribute);
-            $reinforcement = array_unique($reinforcement);
-            $coverMaterial = array_unique($coverMaterial);
-            $coverAttribute = array_unique($coverAttribute);
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$ckey];
+                        }
 
-            $safetyFeatures = array_unique($safetyFeatures);
+                endforeach; 
 
-            $safetyFeatures = array();
-            if($brandName == 'SCP3')
-            {
-                $safetyFeatures[] = array('name'=>'Handles constant pressure', 'iconSrc' => '/CatalogImages/meter.PNG');
-                $safetyFeatures[] = array('name'=>'SAE J1942/ U.S. Coast Guard', 'iconSrc' => '/CatalogImages/7a1.jpg');
-                $safetyFeatures[] = array('name'=>'4:1 Safety Factor', 'iconSrc' => '/CatalogImages/7a2.jpg');
+                $digit6code = array_unique($digit6code);
+                $tubeMaterial = array_unique($tubeMaterial);
+                $tubeAttribute = array_unique($tubeAttribute);
+                $reinforcement = array_unique($reinforcement);
+                $coverMaterial = array_unique($coverMaterial);
+                $coverAttribute = array_unique($coverAttribute);
+
+                $safetyFeatures = array_unique($safetyFeatures);
+
+                $safetyFeaturesList = array();
+
+                
+                if($safetyFeatures)
+                {
+                    foreach ($safetyFeatures as $fkey => $fvalue) {
+                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                    }
+                }
+
+                $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
+                $coverMaterialattributeArr = array_merge($coverMaterial, $coverAttribute);
+
+                $tubeMaterialAtrributeString = implode(', ', $tubeMaterialAtrributeArr);
+                $coverMaterialattributeString = implode(', ', $coverMaterialattributeArr);
+                $digit6code = implode(', ', $digit6code);
+
+                $reinforcement = implode(', ', $reinforcement);
+                $data[$brandKey]['brandName'] = $brandName;
+                $data[$brandKey]['digit6code'] = $digit6code;
+                
+                if($brandName == 'SCP3')
+                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/scp3.png';
+                else 
+                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/5.JPG';
+
+                $data[$brandKey]['longDescription'] = $longDescription;
+                $data[$brandKey]['brandingLayline'] = $brandingLayline;
+                $data[$brandKey]['tempFmin'] = $tempFmin;
+                $data[$brandKey]['tempFmax'] = $tempFmax;
+                $data[$brandKey]['tempCmin'] = $tempCmin;
+                $data[$brandKey]['tempCmax'] = $tempCmax;
+                $data[$brandKey]['maxWorkingPressurePSI'] = $maxWorkingPressurePSI;
+                $data[$brandKey]['maxWorkingMPA'] = $maxWorkingMPA;
+
+                $data[$brandKey]['reinforcement'] = $reinforcement;
+                $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
+                $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
+                $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
+                $data[$brandKey]['iconRequired'] = $iconRequired;
+                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                $data[$brandKey]['articlesData'] = $articlesData;
+
             }
-            else
-            {
-                $safetyFeatures[] = array('name'=>'Extended Life<sup>&trade;</sup> Cover', 'iconSrc' => '/CatalogImages/life.PNG');
-                $safetyFeatures[] = array('name'=>'Made for tight bends', 'iconSrc' => '/CatalogImages/7a.jpg');
-                $safetyFeatures[] = array('name'=>'SAE J1942/ U.S. Coast Guard', 'iconSrc' => '/CatalogImages/7a1.jpg');
-                $safetyFeatures[] = array('name'=>'4:1 Safety Factor', 'iconSrc' => '/CatalogImages/7a2.jpg');
-            }
-
-            // p_r($safetyFeatures);
-
-            $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
-            $coverMaterialattributeArr = array_merge($coverMaterial, $coverAttribute);
-
-            $tubeMaterialAtrributeString = implode(', ', $tubeMaterialAtrributeArr);
-            $coverMaterialattributeString = implode(', ', $coverMaterialattributeArr);
-
-            $reinforcement = implode(', ', $reinforcement);
-            $data[$brandKey]['brandName'] = $brandName;
             
-            if($brandName == 'SCP3')
-                $data[$brandKey]['brandImageSrc'] = '/CatalogImages/scp3.png';
-            else 
-                $data[$brandKey]['brandImageSrc'] = '/CatalogImages/5.JPG';
-
-            $data[$brandKey]['brandDescription'] = $brandDescription;
-            $data[$brandKey]['tempFmin'] = $tempFmin;
-            $data[$brandKey]['tempFmax'] = $tempFmax;
-            $data[$brandKey]['tempCmin'] = $tempCmin;
-            $data[$brandKey]['tempCmax'] = $tempCmax;
-            $data[$brandKey]['maxWorkingPressurePSI'] = $maxWorkingPressurePSI;
-            $data[$brandKey]['maxWorkingMPA'] = $maxWorkingMPA;
-
-            $data[$brandKey]['reinforcement'] = $reinforcement;
-            $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
-            $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
-            $data[$brandKey]['safetyFeatures'] = $safetyFeatures;
-            $data[$brandKey]['productsData'] = $brandArray;
-
+            $this->view['data'] = $data;
         }
-        
-        $this->view['data'] = $data;
     }
 
     public function containerAction(Request $request)
@@ -393,5 +431,22 @@ class DefaultController extends FrontendController
     public function footerAction(Request $request)
     {
         $this->view['title'] = $request->get('title');
+    }
+
+    /**
+     * return material object or false
+     */
+    public function getFeaturesList($catalog_type){
+        $entries = new DataObject\Features\Listing();
+        $entries->setCondition("FeatureType = ?", "{$catalog_type}");
+        $entries->load();
+        $featureData = array();
+        foreach($entries as $entry) {
+            $featureData[$entry->getKey()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+            $featureData[$entry->getKey()]['name'] = $entry->getName();
+            $featureData[$entry->getKey()]['key'] = $entry->getKey();
+            $featureData[$entry->getKey()]['key'] = $entry->getId();
+        }
+        return $featureData;
     }
 }
