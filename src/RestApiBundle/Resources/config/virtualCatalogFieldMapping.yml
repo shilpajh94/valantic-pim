@@ -66,11 +66,6 @@ VirtualCatalog:
         - prop65Message
         - VirtualCatalogBrandingLayline
         - longDescription
-        - FeaturesBenefitsBulletPoint1
-        - FeaturesBenefitsBulletPoint2
-        - FeaturesBenefitsBulletPoint3
-        - FeaturesBenefitsBulletPoint4
-        - FeaturesBenefitsBulletPoint5
       Images:
         - mainImage
         - frontView
