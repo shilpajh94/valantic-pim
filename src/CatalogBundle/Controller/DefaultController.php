@@ -27,11 +27,12 @@ class DefaultController extends FrontendController
     {
         return new Response('Hello world from catalog');
     }
-    
+
     /**
      * @Route("/catalog/get-available-headers")
      */
-    public function getAvailableHeaders(Request $request) {
+    public function getAvailableHeaders(Request $request)
+    {
 
         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
@@ -39,12 +40,12 @@ class DefaultController extends FrontendController
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
 
         $columns = array();
-        if(!empty($this->tableColumns) && count($this->tableColumns)>0) {
-            foreach($this->tableColumns as $key => $column) {
-                $columns[] = array($key,$column);
+        if (!empty($this->tableColumns) && count($this->tableColumns) > 0) {
+            foreach ($this->tableColumns as $key => $column) {
+                $columns[] = array($key, $column);
             }
         }
-        $arr= array('storeData' => $columns, 'completeData'=>$this->tableColumns);
+        $arr = array('storeData' => $columns, 'completeData' => $this->tableColumns);
         // $arr = array (
         //     'storeData' => array (
         //         0 => array ('StatisticalDimension', 'Statistical Dimension'),
@@ -53,13 +54,15 @@ class DefaultController extends FrontendController
         //         3 => array ('GSI','GSI')
         //     )
         // );
-        echo json_encode($arr); die;
+        echo json_encode($arr);
+        die;
     }
 
     /**
      * @Route("/catalog/get-table-data")
      */
-    public function getTableData(Request $request) {
+    public function getTableData(Request $request)
+    {
 
         // $entries = new DataObject\Product\Listing();
         // $entries->setCondition("brandName LIKE ?", "%X-LIFE XR16SC%");
@@ -84,61 +87,202 @@ class DefaultController extends FrontendController
         //     die;
         //     // p_r($value['SAPNumber']);
         // }
-            // print_r($objectMaterial);
-            $fieldData = array_keys($objectMaterial[0]);
-            $columnData = array();
+        // print_r($objectMaterial);
+        $fieldData = array_keys($objectMaterial[0]);
+        $columnData = array();
 
-            foreach ($fieldData as $key => $value) {
-                $columnData[] = array('xtype'=>'gridcolumn','Text'=>$value,'header'=>$value, 'dataIndex'=> $value, 'flex' => 1);            
-            }
+        foreach ($fieldData as $key => $value) {
+            $columnData[] = array('xtype' => 'gridcolumn', 'Text' => $value, 'header' => $value, 'dataIndex' => $value, 'flex' => 1);
+        }
         // die;
-        
-        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$fieldData,'articlesData'=>$objectMaterial);
-        echo json_encode($arr); die;
+
+        $arr = array('brandData' => [], 'columnData' => $columnData, 'fieldData' => $fieldData, 'articlesData' => $objectMaterial);
+        echo json_encode($arr);
+        die;
     }
 
     public function templateFittingPageStandardAction(Request $request)
     {
-
     }
 
     public function templateHoseLineTileTemplateAction(Request $request)
     {
+        if ($this->getDocumentTag('href', 'template2')->getElement() instanceof  \Pimcore\Model\DataObject) {
+            $id = $this->getDocumentTag('href', 'template2')->getId();
+            $obj = \Pimcore\Model\DataObject::getById($id);
+            /* if(!is_null($obj->getParentId())) {
+                $catlogCatObj = \Pimcore\Model\DataObject::getById($obj->getParentId());
+                $catId = $catlogCatObj->getCategory();
+                $this->get6DigitDataByCategoryId($catId);
+            } */
+            $data = array();
+            $blockDes = "";
+            if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
+                foreach ($obj->getProductsData() as $k => $row) {
+                    $blockDes = !empty($blockDes) ? $blockDes : $row[9];
+                    $baseId = $row[0];
+                    if (!isset($data[$baseId])) {
+                        $data[$baseId] = array();
+                    }
+                    if (isset($data[$baseId])) {
+                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row[1];
+                        $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row[2];
+                        $data[$baseId]['bst'][0] = isset($data[$baseId]['bst'][0]) && !empty($data[$baseId]['bst'][0]) ? $data[$baseId]['bst'][0] : $row[3];
+                        $data[$baseId]['bst'][1] = isset($data[$baseId]['bst'][1]) && !empty($data[$baseId]['bst'][1]) ? $data[$baseId]['bst'][1] : $row[4];
+                        $data[$baseId]['bst'][2] = isset($data[$baseId]['bst'][2]) && !empty($data[$baseId]['bst'][2]) ? $data[$baseId]['bst'][2] : $row[5];
+                        $data[$baseId]['bst'][3] = isset($data[$baseId]['bst'][3]) && !empty($data[$baseId]['bst'][3]) ? $data[$baseId]['bst'][3] : $row[6];
+                        $data[$baseId]['bst'][4] = isset($data[$baseId]['bst'][4]) && !empty($data[$baseId]['bst'][4]) ? $data[$baseId]['bst'][4] : $row[7];
+                        $data[$baseId]['hoseId'][] = isset($data[$baseId]['hoseId'][$k]) && !empty($data[$baseId]['hoseId'][$k]) ? $data[$baseId]['hoseId'][$k] : $this->fractionToDecimal($row[8]);
 
+                        if(!isset($data[$baseId]['featureIcon'])) {
+                            $baseObj = \Pimcore\Model\DataObject\Product::getById($row[0]);
+                            $features = $baseObj->getFeaturesBenefitsBulletPoint();
+                            $featureObj = null;
+                            
+                            if(is_array($features) && !empty($features)) {
+                                foreach($features as $featureId) {
+                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);                                
+                                    $data[$baseId]['featureIcon'][] = $featureObj->getIcon();
+                                }
+                            }
+                            unset(
+                                $baseObj,
+                                $features,
+                                $featureObj
+                            );
+                        }
+                        
+                        
+                    }
+                }
+                /**
+                 * $baseId is Base Level Object (Brand information)
+                 */
+                foreach ($data as $baseId => $row) {
+                    if (isset($row['hoseId']) && is_array($row['hoseId']) && !empty($row['hoseId'])) {
+                        $min = '';
+                        $max = '';
+                        $range = '';
+                        $min = min($row['hoseId']);
+                        $max = max($row['hoseId']);
+                        $this->decimalToFraction($min);
+                        $min = !empty($min) ? $this->decimalToFraction($min) . '"' : '';
+                        $max = !empty($max) ? $this->decimalToFraction($max) . '"' : '';
+                        if (!empty($min) && !empty($max)) {
+                            $range = $min . '-' . $max;
+                        }
+
+                        $data[$baseId]['range'] = $range;
+                    }
+                }
+                $this->view['info'] = array(
+                    'brandsInfo' => $data,
+                    'blockDes' => $blockDes
+                );
+            }
+        }
+    }
+
+    private function fractionToDecimal($fraction)
+    {
+        // Split fraction into whole number and fraction components
+        preg_match('/^(?P<whole>\d+)?\s?((?P<numerator>\d+)\/(?P<denominator>\d+))?$/', $fraction, $components);
+
+        // Extract whole number, numerator, and denominator components
+        $whole = $components['whole'] ?: 0;
+        $numerator = $components['numerator'] ?: 0;
+        $denominator = $components['denominator'] ?: 0;
+
+        // Create decimal value
+        $decimal = $whole;
+        $numerator && $denominator && $decimal += ($numerator / $denominator);
+
+        return $decimal;
+    }
+
+    /**
+     * Convert decimal value to fractional
+     * Install GMP extention on server and enable it in php.in
+     * Command:
+     *  sudo apt-get install libgmp-dev php7.2-gmp curl php7.2-curl
+     *  extension=gmp.so
+     *  sudo service apache2 reload
+    */
+    private function decimalToFraction($decimal)
+    {
+        // Determine decimal precision and extrapolate multiplier required to convert to integer
+        $precision = strpos(strrev($decimal), '.') ?: 0;
+        $multiplier = pow(10, $precision);
+
+        // Calculate initial numerator and denominator
+        $numerator = $decimal * $multiplier;
+        $denominator = 1 * $multiplier;
+
+        // Extract whole number from numerator
+        $whole = floor($numerator / $denominator);
+        $numerator = $numerator % $denominator;
+
+        // Find greatest common divisor between numerator and denominator and reduce accordingly
+        $factor = gmp_intval(gmp_gcd($numerator, $denominator));
+        $numerator /= $factor;
+        $denominator /= $factor;
+
+        // Create fraction value
+        $fraction = [];
+        $whole && $fraction[] = $whole;
+        $numerator && $fraction[] = "{$numerator}/{$denominator}";
+
+        return implode(' ', $fraction);
+    }
+
+    private function getProductByCategoryId($catId)
+    {
+        $sql = "SELECT f.o_id fertId, s.o_id skeletonId, b.o_id brandDataId, SUBSTR(f.oldMaterialCode, 1, 6) brandLvl, f.siopFullCode, brand.name, skeleBrick.hoseIdNominalId hoseId 
+        FROM object_1 f 
+        JOIN object_1 s ON (s.o_id = f.o_parentId) 
+        JOIN object_1 b ON (b.o_id = s.o_parentId) 
+        JOIN object_brick_query_HoseBase_1 baseBrick ON(baseBrick.o_id=b.o_id)
+        JOIN object_brick_query_HoseSkeleton_1 skeleBrick ON(skeleBrick.o_id=s.o_id)
+        JOIN object_query_3 brand ON(brand.oo_id=baseBrick.brandName)
+        WHERE f.siopFullCode='$catId';";
+        $results = $this->db->fetchAll($sql);
+        return is_array($results) && !empty($results) ? $results : null;
+    }
+
+    private function get6DigitDataByCategoryId($catId)
+    {
+        $productsInfo = $this->getProductByCategoryId($catId);
+        if (!empty($productsInfo)) {
+            foreach ($productsInfo as $product) {
+            }
+        }
     }
 
     public function hydTemplate1Action(Request $request)
     {
-
     }
 
     public function hydTemplate2Action(Request $request)
     {
-
     }
 
     public function hydTemplate3Action(Request $request)
     {
-
     }
 
     public function hydTemplate4Action(Request $request)
     {
-
     }
 
     public function hydTemplate5Action(Request $request)
     {
-
     }
     public function inhTemplateHoseProductPageAction(Request $request)
     {
-
     }
 
     public function containerAction(Request $request)
     {
-
     }
 
     public function headerAction(Request $request)
@@ -152,7 +296,5 @@ class DefaultController extends FrontendController
 
     public function footerAction(Request $request)
     {
-
     }
-
 }
