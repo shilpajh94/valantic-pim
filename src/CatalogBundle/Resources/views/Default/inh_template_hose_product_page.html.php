@@ -87,11 +87,11 @@ extract($brand);
                         <figure>
                                 <img src="/CatalogImages/6a.jpg"/> 
                                 <figcaption>
-                                   <b>X-Life<sup>&trade;</sup> XQE45SD</b>
+                                   <b><?= $brandName ?></b>
                                 </figcaption>
                                 <figcaption>SAE 100R16 / ENT 1020 <br/>1/2 (DEE)</figcaption>
                                  
-                          <figcaption>500 PSI <br/> 34.5 MPa</figcaption>
+                          <figcaption><?= $maxWorkingPressurePSI ?> PSI <br/> <?= $maxWorkingMPA ?> MPa</figcaption>
 
  <figcaption>
                                    <b>MSHA 2G-1C-5F-20B/37</b>

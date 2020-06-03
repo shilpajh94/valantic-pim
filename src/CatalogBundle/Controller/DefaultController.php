@@ -280,6 +280,8 @@ class DefaultController extends FrontendController
             $tempFmax = $brandArray[0]['temFmax'];
             $tempCmin = $brandArray[0]['temCmin'];
             $tempCmax = $brandArray[0]['temCmax'];
+            $maxWorkingPressurePSI = $brandArray[0]['maxWorkingPressurePSI'];
+            $maxWorkingMPA = $brandArray[0]['maxWorkingMPA'];
 
             $tubeMaterial = array();
             $tubeAttribute = array();
@@ -361,6 +363,9 @@ class DefaultController extends FrontendController
             $data[$brandKey]['tempFmax'] = $tempFmax;
             $data[$brandKey]['tempCmin'] = $tempCmin;
             $data[$brandKey]['tempCmax'] = $tempCmax;
+            $data[$brandKey]['maxWorkingPressurePSI'] = $maxWorkingPressurePSI;
+            $data[$brandKey]['maxWorkingMPA'] = $maxWorkingMPA;
+
             $data[$brandKey]['reinforcement'] = $reinforcement;
             $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
             $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
