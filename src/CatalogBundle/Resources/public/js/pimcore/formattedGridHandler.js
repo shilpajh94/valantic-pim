@@ -43,11 +43,11 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
             
             panelContainingFormattedTable.addListener('afterrender', function (element) {
                 let formattedDataFieldSet = element.items.getRange()[0];
-//                console.log(formattedDataFieldSet);
+               // console.log(formattedDataFieldSet);
                 let formattedTableCompleteField = element.items.getRange()[indexOfFormattedTableOnTab];
                  
                 let formattedTableGrid = formattedTableCompleteField.items.getRange()[0];
-                console.log(formattedTableGrid);
+               // console.log(formattedTableGrid);
 
                 
                 // this.object.edit.layout.updateLayout();
@@ -121,26 +121,40 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                         Ext.Ajax.request({
                             url: "/catalog/get-table-data",
                             async: false,
+                            params:{'objId' : this.object.id},
                             success: function (response) {
                                 response = Ext.decode(response.responseText);
 
                                 var store = Ext.create('Ext.data.Store', {
                                     fields  : response.fieldData,
-                                    data    : {'items' : response.articlesData},
+                                    data    : {'items':response.data},
+                                 //   data    : {'items':[["1","1"],['2','2']]},
+                                   
                                     proxy   : {
                                         type   : 'memory',
                                         reader : {
+                                          //  xtype: 'grid',
                                             type : 'json',
                                             rootProperty : 'items'
                                         }
                                     },
                                     header:true
                                 });
-                                var columns = response.columnData;
 
-
+                                 var columns = response.columnData;
+                                // columns.data = response.columnData;
+                                 //   console.log(this.object.data);
                                 let headerJson = [];
-
+                                
+                                var table = new Conti.pimcore.object.tags.table([["1","1"],['2','2']],this.object.edit.dataFields.ProductsData.fieldConfig);
+                              //  table.getLayoutEdit();
+                               // console.log(this.object.edit.dataFields.ProductsData.component.id);
+                                var comp = Ext.getCmp(this.object.edit.dataFields.ProductsData.component.id);
+                               // console.log(comp);
+                                table.initStore(response.data,comp,this.object.edit.dataFields.ProductsData,columns);
+                               // table.getValue(store);
+                               // comp.updateLayout();
+                              //  table.initStore([["1","1"],['2','2']]);
                                 // for(var i = 0;i < headerArray.length; i++){
                                 //     headerJson.push({'name' : headerArray[i] });
                                 // }
@@ -149,17 +163,29 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                                 // headerJson.push({'name' : 'SAPNumber' });
                                 // store.initialConfig.fields = headerJson;
                                 // formattedTableGrid.getStore();
-
-                                formattedTableGrid.reconfigure(store,columns);
-                                
-
-                                
+                               // store.load();
+                               // console.log(store);
+                               // columns.data = store.data;
+                              //  formattedTableGrid.reconfigure(store,columns);
+                               // formattedTableGrid.columns[0].data ="Sunday";
+                               // formattedTableGrid.columns[0].value ="Sunday";
+                             //   formattedTableGrid.columns[1].data ="Monday";
+                               
+                              //  formattedTableGrid.reconfigure(store,columns);
+                           //     formattedTableGrid.updateLayout();
                                 // formattedTableGrid.getView().refresh();
                                 // formattedTableGrid.setHideHeaders(false);
                                 // formattedTableGrid.hideHeaders = false;
                                 // formattedTableGrid.hide
                                 // console.log(formattedTableGrid);
-
+                               // console.log(formattedTableCompleteField);
+                                //this.object.edit.dataFields.ProductsData.data = [['1','2'],['3','4']];
+                               //comp.markDirty();
+                               //this.object.edit.dataFields.ProductsData.component.checkChangeTask = {};
+                               // comp.setData([['1','2'],['3','4']]);
+                              // this.object.edit.dataFields.ProductsData.dirty = true;
+                                console.log(this.object.edit.dataFields);
+                                
                                 // console.log(response);
                             }.bind(this)
                         });
@@ -169,6 +195,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
 
 //                formattedDataFieldSet.insert(0,button);
                 panelContainingFormattedTable.insert(0, this.updateTableButton);
+                
 //                formattedDataFieldSet.insert(2, this.updatePriceButton);
 //                formattedDataFieldSet.insert(3, this.cancelUpdateButton);
 
@@ -182,3 +209,4 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
 });
 
 var formattedGridHandler = new pimcore.plugin.formattedGridHandler();
+

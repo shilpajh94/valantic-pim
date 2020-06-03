@@ -68,7 +68,11 @@ class DefaultController extends FrontendController
         // $objectPlant = DataObject\Product::getBrandName('X-LIFE XR16SC');
         // p_r($entries);
         // die;
-
+        $objId = $request->get('objId');
+        $data = DataObject\CatalogTables::getById($objId);
+        $tableData = $data->getColumns();
+        $tableColumns = json_decode($tableData);
+        
         $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS `hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
         $objectMaterial = $this->db->fetchAll($query);
 
@@ -89,12 +93,51 @@ class DefaultController extends FrontendController
             $columnData = array();
 
             foreach ($fieldData as $key => $value) {
-                $columnData[] = array('xtype'=>'gridcolumn','Text'=>$value,'header'=>$value, 'dataIndex'=> $value, 'flex' => 1);            
+                $columnData[] = array('xtype'=>'gridcolumn','name'=>$value, 'Text'=>$value,'header'=>$value, 'dataIndex'=> $value, 'flex' => 1);            
             }
         // die;
-        
-        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$fieldData,'articlesData'=>$objectMaterial);
+            $articleData = [];
+            $i = 0;
+            for($i=1; $i< count($objectMaterial); $i++)
+            {
+                $array = [];
+            foreach($objectMaterial[$i] as $key=> $data)
+            {
+                $array[] = $data;
+            }
+            array_push($articleData,$array);
+            }
+        array_push($articleData,$articleData[0]);
+        array_push($articleData,$articleData[1]);
+        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$fieldData,'articlesData'=>$objectMaterial,'data'=>$articleData);
         echo json_encode($arr); die;
+    }
+    
+    /**
+     * @Route("/catalog/get-initial-data")
+     */
+    
+    public function getInitialData(Request $request)
+    {
+        
+        $objId = $request->get('objId');
+        $data = DataObject\CatalogTables::getById($objId);
+        $tableData = $data->getProductsData();
+        
+        $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS `hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
+        $objectMaterial = $this->db->fetchAll($query);
+        
+         $fieldData = array_keys($objectMaterial[0]);
+            $columnData = array();
+
+            foreach ($fieldData as $key => $value) {
+                $columnData[] = array('xtype'=>'gridcolumn','name'=>$value, 'Text'=>$value,'header'=>$value, 'dataIndex'=> $value, 'flex' => 1);            
+            }
+      
+        
+        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$fieldData,'data'=>$tableData);
+        echo json_encode($arr); die;
+        
     }
 
     public function templateFittingPageStandardAction(Request $request)
