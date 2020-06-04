@@ -265,7 +265,7 @@ class DefaultController extends FrontendController
     public function hydTemplate5Action(Request $request)
     {
     }
-    public function inhTemplateHoseProductPageAction(Request $request)
+    public function templateHoseProductPageAction(Request $request)
     {
         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
@@ -419,16 +419,12 @@ class DefaultController extends FrontendController
     {
     }
 
-    public function headerAction(Request $request)
+    public function headerTemplateHoseProductPageAction(Request $request)
     {
-        return $this->render("CatalogBundle:Include:header.html.php", ["title" => $request->get('title')]);
-        // $this->set('name1', 'sda');
-        // $this->viewParameters->add([
-        //     'name1' => $request->get('name1')
-        // ]);
+        $this->view['title'] = $request->get('title');
     }
 
-    public function footerAction(Request $request)
+    public function footerTemplateHoseProductPageAction(Request $request)
     {
         $this->view['title'] = $request->get('title');
     }

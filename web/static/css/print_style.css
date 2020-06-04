@@ -238,6 +238,15 @@ header{
     border-bottom:5px solid #aaa;
 }
 
+header.reverse{
+ text-align: right;
+}
+header.reverse aside{
+ padding-left:5em;
+padding-right:0;
+}
+
+
 header.content{
     background-color: #e6e7e8;
 }
@@ -789,3 +798,38 @@ footer .flex > * {
             content: element(footer);
       }
   }
+
+.seggregate{
+display:flex;
+flex-direction:column;
+}
+
+.footer{ order:3;}
+
+#pageHeader:after {
+    content: counter(page);
+}
+ .header{
+    text-align: left;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+   }
+   
+   
+   .seggregate:nth-child(even) header{
+    text-align: right;
+   }
+   
+   .seggregate:nth-child(even) header aside{
+     padding-left:5em;
+     padding-right:0;
+   }
+   
+   .seggregate:nth-child(even) .header{
+       flex-direction: row-reverse;
+   }
+
+   .seggregate:nth-child(even) footer{
+    flex-direction:row-reverse;
+   }
