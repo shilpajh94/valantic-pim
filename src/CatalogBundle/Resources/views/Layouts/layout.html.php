@@ -10,6 +10,7 @@
     <!-- <link href="/static/css/editmode.css" rel="stylesheet"  type="text/css"/> -->
 </head>
 <body>
+<section class="seggregate">
         <!-- include header  -->
         <?php // echo $this->inc($this->document->getProperty('header'),['title'=>'']) ?>
         
@@ -21,5 +22,6 @@
         <?php // echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName]) ?>
         <?php // echo $this->inc($this->document->getProperty('footer')) ?>
         <?php //  echo $this->template("CatalogBundle:Include:footer.html.php", ["param2" => "value2"]) ?>
+</section>
 </body>
 </html>
