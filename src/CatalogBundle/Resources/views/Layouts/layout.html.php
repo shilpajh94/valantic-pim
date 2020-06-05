@@ -7,7 +7,6 @@
     <title>Template</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" />
     <link href="/static/css/print_style.css" rel="stylesheet"  type="text/css"/>
-    <!-- <link href="/static/css/editmode.css" rel="stylesheet"  type="text/css"/> -->
 </head>
 <body>
 <section class="seggregate">

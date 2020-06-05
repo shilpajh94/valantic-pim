@@ -6,7 +6,6 @@
         <div class="flex aligned">
                 <h3>
                         <?php  echo $title ?>
-                    <!-- Extended Life<sup>&trade;</sup> X600R -->
                     <span>High Pressure</span>
                 </h3>
 

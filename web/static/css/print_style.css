@@ -239,6 +239,13 @@ header{
     border-bottom:5px solid #aaa;
 }
 
+header.reverse{
+ text-align: right;
+}
+header.reverse aside{
+ padding-left:5em;
+padding-right:0;
+}
 
 
 header.content{
@@ -754,7 +761,9 @@ footer .flex > * {
     margin: 0.5em;
 }
  
-
+.reverse{
+ flex-direction:row-reverse;
+}
 
 .break-after {
     break-after: page;
@@ -829,3 +838,4 @@ flex-direction:column;
 .seggregate:nth-child(odd) footer{
  flex-direction:row-reverse;
 }
+

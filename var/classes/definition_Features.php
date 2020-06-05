@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-28T12:07:10+02:00
+* Generated at: 2020-06-02T11:04:14+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Features',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1590660429,
+   'modificationDate' => 1591088654,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -60,7 +60,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => '',
+         'title' => 'Feature Data',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -76,7 +76,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
-             'name' => 'Layout',
+             'name' => 'Basic',
              'type' => NULL,
              'region' => NULL,
              'title' => '',
@@ -107,7 +107,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -148,7 +148,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -170,7 +170,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'border' => false,
              'name' => 'Layout',
              'type' => NULL,
-             'region' => NULL,
+             'region' => 'east',
              'title' => '',
              'width' => NULL,
              'height' => NULL,
@@ -196,7 +196,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
