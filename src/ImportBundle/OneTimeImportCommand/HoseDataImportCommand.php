@@ -347,7 +347,7 @@ class HoseDataImportCommand extends AbstractCommand
                 'VacuumIN' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
                 'VacuumMM' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
                 'workingPressureMPA' =>  !empty($r['Working_Pressure_Mpa']) ? $r['Working_Pressure_Mpa'] : NULL,
-                'minBurstPressurePSI' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL,
+                'workingPressurePSI' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL,
                 'workingPressureBAR' =>  !empty($r['Working_Pressure_BAR']) ? $r['Working_Pressure_BAR'] : NULL,
                 'minBurstPressurePSI' =>  !empty($r['Min_Burst_Pressure_PSI']) ? $r['Min_Burst_Pressure_PSI'] : NULL,
                 'minBurstPressurempa' =>  !empty($r['Min_Burst_Pressure_Mpa']) ? $r['Min_Burst_Pressure_Mpa'] : NULL,
@@ -380,15 +380,13 @@ class HoseDataImportCommand extends AbstractCommand
 
         foreach ($results as $k => $r) {
             /* Extracting Base */
-            if (!empty($r['sfCode']) && $r['sfCode'] == '041000') {
-                if (!empty($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
-                    array_push($this->baseLevel, $r['baseLevel']);
-                    array_push($this->baseLevelRecords, $r);
-                }
-                if (!empty($r['skeleLevel']) && !in_array($r['skeleLevel'], $this->skeleLevel)) {
-                    array_push($this->skeleLevel, $r['skeleLevel']);
-                    array_push($this->skeleLevelRecords, $r);
-                }
+            if (!empty($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
+                array_push($this->baseLevel, $r['baseLevel']);
+                array_push($this->baseLevelRecords, $r);
+            }
+            if (!empty($r['skeleLevel']) && !in_array($r['skeleLevel'], $this->skeleLevel)) {
+                array_push($this->skeleLevel, $r['skeleLevel']);
+                array_push($this->skeleLevelRecords, $r);
             }
             $reinfo = array();
             $error = array();
@@ -407,6 +405,8 @@ class HoseDataImportCommand extends AbstractCommand
                 'fitting2Size' =>  !empty($r['Fitting_2_Size_FRACT']) ? $r['Fitting_2_Size_FRACT'] : NULL,
                 'fitting2Material' =>  !empty($r['Fitting_2_Material']) ? $r['Fitting_2_Material'] : NULL
             );
+            $results[$k]['statusCode'] = 'Success - Fert Level';
+            $results[$k]['failedReason'] = '';
         }
         $this->insertDataToLogTable($results);
         return $d;
@@ -619,7 +619,11 @@ class HoseDataImportCommand extends AbstractCommand
         unset($data); */
         $sql = "SELECT oht.* FROM oti_hosedata_temp oht LEFT JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.o_id is null";
         $data = $this->db->query($sql);
-        $this->insertDataToLogTable($data, "", "Object does not match in material mara");
+        $this->insertDataToLogTable($data, "Failed", "Object does not match in material mara");
+
+        /* $sql = "SELECT oht.* FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.siopFullCode LIKE '%041500%'";
+        $data = $this->db->query($sql);
+        $this->insertDataToLogTable($data, "Failed", "Object belong to Hydraulic"); */
     }
 
     public function getCSVData($fileName)
@@ -684,6 +688,12 @@ class HoseDataImportCommand extends AbstractCommand
             foreach ($data as $dataKey => $dataValue) {
                 $success = isset($dataValue['statusCode']) ? $dataValue['statusCode'] : $success;
                 $failedReason = isset($dataValue['failedReason']) ? $dataValue['failedReason'] : $failedReason;
+                if(isset($dataValue['statusCode'])) {
+                    unset($dataValue['statusCode']);
+                }
+                if(isset($dataValue['failedReason'])) {
+                    unset($dataValue['failedReason']);
+                }
                 $values .= '("' . $dataValue['Object'] . '", "' . addslashes(json_encode($dataValue)) . '", "' . $success . '","' . $failedReason . '",now()),';
                 // inserting records in batch
                 if ($rowCount % self::BATCH_SIZE == 0) {
@@ -762,7 +772,7 @@ class HoseDataImportCommand extends AbstractCommand
             `logId` bigint(20) NOT NULL AUTO_INCREMENT,
             `id` varchar(30) NOT NULL,
             `record` longtext,
-            `statusCode` char(10) DEFAULT NULL,
+            `statusCode` char(25) DEFAULT NULL,
             `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             `failedReason` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`logId`)
