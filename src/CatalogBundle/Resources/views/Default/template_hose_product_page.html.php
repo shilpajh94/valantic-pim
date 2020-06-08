@@ -140,7 +140,7 @@ extract($brand);
                                 <p class="head">
 
                                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                <span><?= $this->translate($columnsData['columnLabel'])?></span>
+                                                <span><?= $this->translate($columnsData['columnName'])?></span>
                                         <?php endforeach; ?>
                                         
                                 </p>

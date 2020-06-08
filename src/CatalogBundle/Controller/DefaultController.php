@@ -419,7 +419,6 @@ class DefaultController extends FrontendController
     public function containerAction(Request $request)
     {
         $allChildren = $this->document->getAllChildren();
-
         $this->view->allChildren = $allChildren;
     }
 
