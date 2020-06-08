@@ -45,7 +45,9 @@ class EmailNotificationService {
                 $mail->addCc($key, $value);
             }
             
-            // $mail->setSubject($emailParams['subject']);
+            if(isset($emailParams['subject']) && !empty($emailParams['subject'])) {
+                $mail->setSubject($emailParams['subject']);
+            }     
             $mail->setDocument($emailDocument);
             $mail->setParams($emailParams['dataParams']);
             
