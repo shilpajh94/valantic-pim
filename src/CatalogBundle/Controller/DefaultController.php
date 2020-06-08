@@ -246,25 +246,6 @@ class DefaultController extends FrontendController
         }
     }
 
-    public function hydTemplate1Action(Request $request)
-    {
-    }
-
-    public function hydTemplate2Action(Request $request)
-    {
-    }
-
-    public function hydTemplate3Action(Request $request)
-    {
-    }
-
-    public function hydTemplate4Action(Request $request)
-    {
-    }
-
-    public function hydTemplate5Action(Request $request)
-    {
-    }
     public function templateHoseProductPageAction(Request $request)
     {
         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
@@ -287,7 +268,7 @@ class DefaultController extends FrontendController
 
             foreach ($columnsData as $key => $value) {
                 $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
+                // $columnsDataWithImages[$key]['columnLabel'] = $value->columnName;
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
             
@@ -417,6 +398,9 @@ class DefaultController extends FrontendController
 
     public function containerAction(Request $request)
     {
+        $allChildren = $this->document->getAllChildren();
+
+        $this->view->allChildren = $allChildren;
     }
 
     public function headerTemplateHoseProductPageAction(Request $request)
