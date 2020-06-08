@@ -28,4 +28,8 @@ class Constants
     const PB_UNPUBLISH_ACTION_NAME = 'unpublish';
     const PB_REOPEN_ACTION_NAME = 'reopen';
 
+    /* Reminder Actions */
+    const PB_ACTION_ENRICH = 'enrich';
+    const PB_ACTION_REVIEW_CONTENT = 'review_content';
+
 }
