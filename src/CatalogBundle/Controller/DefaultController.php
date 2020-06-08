@@ -141,6 +141,26 @@ class DefaultController extends FrontendController
                         $data[$baseId]['bst'][3] = isset($data[$baseId]['bst'][3]) && !empty($data[$baseId]['bst'][3]) ? $data[$baseId]['bst'][3] : $row[6];
                         $data[$baseId]['bst'][4] = isset($data[$baseId]['bst'][4]) && !empty($data[$baseId]['bst'][4]) ? $data[$baseId]['bst'][4] : $row[7];
                         $data[$baseId]['hoseId'][] = isset($data[$baseId]['hoseId'][$k]) && !empty($data[$baseId]['hoseId'][$k]) ? $data[$baseId]['hoseId'][$k] : $this->fractionToDecimal($row[8]);
+
+                        if(!isset($data[$baseId]['featureIcon'])) {
+                            $baseObj = \Pimcore\Model\DataObject\Product::getById($row[0]);
+                            $features = $baseObj->getFeaturesBenefitsBulletPoint();
+                            $featureObj = null;
+                            
+                            if(is_array($features) && !empty($features)) {
+                                foreach($features as $featureId) {
+                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);                                
+                                    $data[$baseId]['featureIcon'][] = $featureObj->getIcon();
+                                }
+                            }
+                            unset(
+                                $baseObj,
+                                $features,
+                                $featureObj
+                            );
+                        }
+                        
+                        
                     }
                 }
                 /**
