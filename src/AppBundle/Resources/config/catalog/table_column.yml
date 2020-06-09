@@ -11,3 +11,7 @@ parameters:
     'BendRadiusMM': 'BendRadiusMM'
     'grossWeight': 'grossWeight'
     'fittingFamily': 'fittingFamily'
+    'productNumber': 'productNumber'
+    'FlatWidthIn': 'FlatWidthIn'
+    'ClampingDiameterInFract': 'ClampingDiameterInFract'
+    'BoltHoleSizeInFract': 'BoltHoleSizeInFract'

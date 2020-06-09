@@ -6,13 +6,14 @@
         <div class="flex aligned">
                 <h3>
                         <?php  echo $title ?>
-                    <span>High Pressure</span>
+                    <span><?php  echo $subTitle ?></span>
                 </h3>
-
+                <?php if($thirdSection): ?>
                 <p>
                         <b>Compatible fittings</b>
                         Meets or exceeds the performance requirements of
                 </p>
+                <?php endif; ?>
         </div>
 </footer>
 </div>

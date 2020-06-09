@@ -416,6 +416,212 @@ class DefaultController extends FrontendController
         }
     }
 
+    public function templateHoseAccessoriesSleevingAction(Request $request)
+    {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        
+        if($INHTemplate)
+        {
+            $productsData = $INHTemplate->getProductsData();
+            $columnsData = $INHTemplate->getColumns();
+            $iconRequired = 'NO';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            $language = $request->getLocale();
+            $this->get('translator')->setLocale($language);
+
+            if($columnsData)
+            {
+                foreach ($columnsData as $key => $value) {
+                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                    // $columnsDataWithImages[$key]['columnLabel'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+            }
+            
+            $headerData = $productsData[0];
+            array_shift($productsData);
+
+            $featuresList = $this->getFeaturesList('IFS');
+
+            $brandsData = array();
+
+            foreach ($productsData as $key => $item) {
+                $productsDataWithHeaders = array_combine($headerData, $item);
+                $brandsData[$productsDataWithHeaders['brandName']][] = $productsDataWithHeaders;
+            }
+
+            foreach ($brandsData as $brandKey => $brandArray) {
+
+                $brandName = $brandArray[0]['brandName'];
+                $longDescription = $brandArray[0]['longDescription'];
+                $tempFmin = $brandArray[0]['AssessoriesMinimumTemperatureF'];
+                $tempFmax = $brandArray[0]['AssessoriesMaximumTemperatureF'];
+                $tempCmin = $brandArray[0]['AssessoriesMinimumTemperatureC'];
+                $tempCmax = $brandArray[0]['AssessoriesMaximumTemperatureC'];
+
+                $color = array();
+                $material = array();
+                $availableLength = array();
+                $safetyFeatures = array();
+                $articlesData = array();
+
+                foreach($brandArray as $key => $element): 
+                        foreach($element as $bkey => $value): 
+                                if($bkey == 'color')
+                                        $color[] = $value; 
+                                if($bkey == 'MaterialType')
+                                        $material[] = $value; 
+                                if($bkey == 'availableLength')
+                                        $availableLength[] = $value; 
+                                        
+                                if($bkey == 'features')
+                                {
+                                    $features = explode(',', $value);
+                                    if(count($features)>0)
+                                    {
+                                        foreach ($features as $fkey => $fvalue) {
+                                            array_push($safetyFeatures,$fvalue);
+                                        }
+                                    }
+                                }
+
+                        endforeach; 
+
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$ckey];
+                        }
+
+                endforeach; 
+
+                $color = array_unique($color);
+                $material = array_unique($material);
+                $availableLength = array_unique($availableLength);
+
+                $safetyFeatures = array_unique($safetyFeatures);
+                $safetyFeaturesList = array();
+
+                
+                if($safetyFeatures)
+                {
+                    foreach ($safetyFeatures as $fkey => $fvalue) {
+                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                    }
+                }
+
+                $colorString = implode(', ', $color);
+                $materialString = implode(', ', $material);
+                $availableLengthString = implode(', ', $availableLength);
+
+                $data[$brandKey]['brandName'] = $brandName;
+                
+                if($brandName == 'Protective Sleeving')
+                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/122.JPG';
+                else 
+                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/122-1.JPG';
+
+                $data[$brandKey]['longDescription'] = $longDescription;
+                $data[$brandKey]['tempFmin'] = $tempFmin;
+                $data[$brandKey]['tempFmax'] = $tempFmax;
+                $data[$brandKey]['tempCmin'] = $tempCmin;
+                $data[$brandKey]['tempCmax'] = $tempCmax;
+
+                $data[$brandKey]['materialString'] = $materialString;
+                $data[$brandKey]['availableLengthString'] = $availableLengthString;
+                $data[$brandKey]['colorString'] = $colorString;
+                $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
+                $data[$brandKey]['iconRequired'] = $iconRequired;
+                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                $data[$brandKey]['articlesData'] = $articlesData;
+
+            }
+            $this->view['data'] = $data;
+        }
+    }
+
+    public function templateHoseAccessoriesClampsAction(Request $request)
+    {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        
+        if($INHTemplate)
+        {
+            $productsData = $INHTemplate->getProductsData();
+            $columnsData = $INHTemplate->getColumns();
+            $iconRequired = 'NO';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            $language = $request->getLocale();
+            $this->get('translator')->setLocale($language);
+
+            if($columnsData)
+            {
+                foreach ($columnsData as $key => $value) {
+                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                    // $columnsDataWithImages[$key]['columnLabel'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+            }
+            
+            $headerData = $productsData[0];
+            array_shift($productsData);
+
+            $brandsData = array();
+
+            foreach ($productsData as $key => $item) {
+                $productsDataWithHeaders = array_combine($headerData, $item);
+                $brandsData[$productsDataWithHeaders['brandName']][] = $productsDataWithHeaders;
+            }
+
+            foreach ($brandsData as $brandKey => $brandArray) {
+
+                $brandName = $brandArray[0]['brandName'];
+                $longDescription = $brandArray[0]['longDescription'];
+                
+                $material = array();
+                $articlesData = array();
+
+                foreach($brandArray as $key => $element): 
+                        foreach($element as $bkey => $value): 
+                                
+                                if($bkey == 'MaterialType')
+                                        $material[] = $value; 
+
+                        endforeach; 
+
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$ckey];
+                        }
+
+                endforeach; 
+
+                $material = array_unique($material);
+
+                $materialString = implode(', ', $material);
+                $data[$brandKey]['brandName'] = $brandName;
+                $data[$brandKey]['brandImageSrc'] = '/CatalogImages/123.png';
+                $data[$brandKey]['longDescription'] = $longDescription;
+                $data[$brandKey]['materialString'] = $materialString;
+                $data[$brandKey]['iconRequired'] = $iconRequired;
+                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                $data[$brandKey]['articlesData'] = $articlesData;
+
+            }
+            $this->view['data'] = $data;
+        }
+    }
+
     public function containerAction(Request $request)
     {
         $allChildren = $this->document->getAllChildren();
@@ -430,6 +636,8 @@ class DefaultController extends FrontendController
     public function footerTemplateHoseProductPageAction(Request $request)
     {
         $this->view['title'] = $request->get('title');
+        $this->view['subTitle'] = $request->get('subTitle');
+        $this->view['thirdSection'] = $request->get('thirdSection');
     }
 
     /**
@@ -441,7 +649,10 @@ class DefaultController extends FrontendController
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
-            $featureData[$entry->getKey()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+            
+            if($entry->getIcon())
+                $featureData[$entry->getKey()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+            
             $featureData[$entry->getKey()]['name'] = $entry->getName();
             $featureData[$entry->getKey()]['key'] = $entry->getKey();
             $featureData[$entry->getKey()]['key'] = $entry->getId();

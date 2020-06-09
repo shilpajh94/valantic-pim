@@ -26,7 +26,7 @@ extract($brand);
 <section class="seggregate">
 
         <?php  echo $this->inc($this->document->getProperty('header'),['title'=>'Hydraulic Hose']) ?>
-        <?php  echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName]) ?>
+        <?php  echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName, 'subTitle'=>'High Pressure', 'thirdSection'=>true]) ?>
         <header class="content white">
                         <h1><?= $brandName ?></h1>
                         <aside>
