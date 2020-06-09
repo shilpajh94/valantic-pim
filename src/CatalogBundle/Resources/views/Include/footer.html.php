@@ -1,10 +1,12 @@
+<div class="footer">
 <footer class="flex">
         <span class="logo">
                 <img src="/CatalogImages/logo.JPG" />
         </span>
         <div class="flex aligned">
                 <h3>
-                    Extended Life<sup>&trade;</sup> X600R
+                        <?php  echo $title ?>
+                    <!-- Extended Life<sup>&trade;</sup> X600R -->
                     <span>High Pressure</span>
                 </h3>
 
@@ -14,3 +16,4 @@
                 </p>
         </div>
 </footer>
+</div>
