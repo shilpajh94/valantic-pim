@@ -37,8 +37,13 @@ class RequiredAttributeIndicatorFieldPopulator
     public function populateEmptyFieldAndPercentage(Product $product,string $categorySiopCode)
     {
         foreach(REQUIRED_ATTRIBUTE_CONFIG_TYPES_TO_PRODUCT_FIELDS_MAPPING as $configType => $productFields){
-            try{
-                $config = $this->configResolver->getConfig($categorySiopCode,$configType);
+	   try{
+		try {
+                    $config = $this->configResolver->getConfig($categorySiopCode, $configType);
+                } catch (\Exception $exception) {
+                    Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception->getMessage(), LogLevel::CRITICAL());
+                    return;
+                }
                 $manager = new RequiredAttributeManager($config,$product);
 
                 $langs = \Pimcore\Tool::getValidLanguages();

@@ -74,4 +74,14 @@ services:
         class: ImportBundle\Model\Import\Price
         public: true
 
-    
+    ImportBundle\Command\CopyAssetCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:copy-asset' }
+            
+    ImportBundle\Command\AssetImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:asset-import' }
+            
+    import.asset_import_service:
+        class: ImportBundle\Services\Model\AssetImportModel
+        public: true
