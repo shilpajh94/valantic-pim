@@ -65,11 +65,13 @@ class DefaultController extends FrontendController
     {
 
         $this->getTableColumns();
+        $dynamicColumnsData = $this->getDynamicColumns();
         $objId = $request->get('objId');
         $data = DataObject\CatalogTables::getById($objId);
         $tableData = $data->getColumns();
+        $template = $data->getTemplate();
         $tableColumns = json_decode($tableData,1);
-        
+       
         $columns = array_keys($tableColumns);
        
       $parentObj = $data->getParentId();
@@ -77,7 +79,7 @@ class DefaultController extends FrontendController
       $siopCategory = $catalogCategory->getCategory();
       
       $productList = new DataObject\Product\Listing();
-      $productList->addConditionParam('SIOPLevel4 = ?','27133', 'AND');
+      $productList->addConditionParam('SIOPLevel4 LIKE ?','%,27165,%', 'AND');
       $productList->addConditionParam('ProductType = "fert"', 'AND');
       $productList->setCondition('printedCatalogFlag = ?', '1');
      
@@ -85,7 +87,7 @@ class DefaultController extends FrontendController
       
      // $classFields = array_keys($productData[0]->getClass()->getFieldDefinitions());
       
-      $siopData = DataObject\ProductCategory::getById('27133');
+      $siopData = DataObject\ProductCategory::getById('27165');
       $allowedBricks = $siopData->getRelatedObjectBrick();
        
       $brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
@@ -99,23 +101,41 @@ class DefaultController extends FrontendController
       $brickFields[$brick] = array_keys($brickDefinition);
       }*/
      
-      $pData = [];
+     /* $pData = [];
      
       foreach($productData as $item)
       {
       foreach($columns as $fieldName)
       {
+        if(in_array($fieldName,array_keys($this->tableColumns)))
+        {
           if($this->tableColumns[$fieldName]['fieldLevel'] == 'class')
           {
               $getter = 'get'.ucfirst($fieldName);
-              $pData[$item->getId()][] = $item->$getter();
+              $pData[$item->getId()][$fieldName] = $item->$getter();
           }
           else if($this->tableColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($this->tableColumns[$fieldName]['parent']['name'], $bricksList))
           {
-              $brickGetter = 'get'.ucfirst($this->tableColumns[$fieldName]['parent']['name']);
-              $getter = 'get'.ucfirst($fieldName);
-              $pData[$item->getId()][] = $item->getBrick()->$brickGetter()->$getter();
+               $brickGetter = 'get'.ucfirst($this->tableColumns[$fieldName]['parent']['name']);
+               $getter = 'get'.ucfirst($fieldName);
+              $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
           }
+        }
+        else if(in_array($fieldName,array_keys($dynamicColumnsData)))
+        {
+             if($dynamicColumnsData[$fieldName]['fieldLevel'] == 'class' && $dynamicColumnsData[$fieldName]['fieldType'] != 'relation')
+          {
+              $getter = 'get'.ucfirst($fieldName);
+              $pData[$item->getId()][$fieldName] = $item->$getter();
+          }
+           
+          else if($dynamicColumnsData[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($dynamicColumnsData[$fieldName]['parent']['name'], $bricksList))
+          {
+               $brickGetter = 'get'.ucfirst($dynamicColumnsData[$fieldName]['parent']['name']);
+               $getter = 'get'.ucfirst($fieldName);
+              $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
+          }
+        }*/
           /*if(in_array($fieldName, $classFields))
           {
           $getter = 'get'.ucfirst($fieldName);
@@ -128,20 +148,20 @@ class DefaultController extends FrontendController
               $pData[$item->getId()][] = $item->getBrick()->$brickGetter()->$getter();
           }*/
               
-      }
-      }
-     
+     // }
+      //}
+    
         
-       // $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS `hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
-       // $objectMaterial = $this->db->fetchAll($query);
+        $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS `hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
+        $objectMaterial = $this->db->fetchAll($query);
 
-        // $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`,`hb_1`.`brandName`, `hb_1`.`tubeMaterial`,`hb_1`.`Coupling`,`hb_1`.`Packaging`,`hb_1`.`coverMaterial`,`hb_1`.`hoseTemperatureRangeFAndC`,`hs_1`.`reinforcement`,`hb_1`.`safetyFactor`,`hs_1`.`hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
-        // $objectMaterial = $this->db->fetchAll($query);
+         $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`,`hb_1`.`brandName`, `hb_1`.`tubeMaterial`,`hb_1`.`Coupling`,`hb_1`.`Packaging`,`hb_1`.`coverMaterial`,`hb_1`.`hoseTemperatureRangeFAndC`,`hs_1`.`reinforcement`,`hb_1`.`safetyFactor`,`hs_1`.`hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
+         $objectMaterial = $this->db->fetchAll($query);
 
-        // foreach ($objectMaterial as $key => $value) {
-        //     $entries = new DataObject\Product\Listing();
-        //     $entries->setCondition("articleNumber LIKE ?", "%".$value['SAPNumber']."%");
-        //     $entries->load();
+         //foreach ($objectMaterial as $key => $value) {
+           //  $entries = new DataObject\Product\Listing();
+             //$entries->setCondition("articleNumber LIKE ?", "%".$value['SAPNumber']."%");
+             //$entries->load();
 
         //     p_r($entries);
         //     die;
@@ -206,6 +226,14 @@ class DefaultController extends FrontendController
 
         $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableColumnConfig();
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
+    }
+    
+     public function getDynamicColumns()
+    {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableDynamicColumnConfig();
+        return $commonHelper->getParameter($tableColumnsConfig, 'headers');
     }
 
     public function templateFittingPageStandardAction(Request $request)

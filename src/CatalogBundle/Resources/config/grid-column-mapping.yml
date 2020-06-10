@@ -1,0 +1,31 @@
+parameters:
+    headers:
+        hydraulic_catalog_template_1:    
+            brand: 
+                fieldLevel: class
+                fieldType: relation
+                fieldLabel: Brand
+                parent: 
+                    class:
+                        name: Brand
+                        fieldname: name
+            hoseIdDec:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: HoseID Dec(In)
+                parent:
+                    name: HoseFert
+            MaterialType:
+                fieldLevel: objectBrick
+                fieldType: relation
+                fieldLabel: Material Type
+                parent:
+                    name: AccessoriesFert
+                    class:
+                        name: MaterialGroup
+                        fieldname: code
+        
+        
+       
+    
+    

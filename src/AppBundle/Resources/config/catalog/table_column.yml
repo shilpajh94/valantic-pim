@@ -2,49 +2,45 @@
   #   privateMaterialGroup: sales material master - Material Group2 having 004 is private brand
 parameters:
   tableColumns: 
-    'PartNumber': 'Part'
-    'Activent':	'Activent'
-    'SAP': 'SAP Number'
-    'HoseId': 'Hose ID'
-    'HoseId1_2': 'Hose ID 1 & 2'
-    'HoseId3': 'Hose ID 3'
-    'HoseOd': 'Hose OD'
-    'Id':	'ID'
-    'ClampingDiameter':	'Clamping Diameter'
-    'BoltHole':	'Bolt Hole'
-    'PortHoleID': 'Port Hole ID'
-    'AFlangePatternDimension':	'A (flange pattern dimension)'
-    'BFlangePatternDimension':	'B (flange pattern dimension)'
-    'MWP':	'MWP'
-    'MBR':	'MBR'
-    'RecommendedGrade8Bolts': 'Recommended Grade 8 Bolts'
-    'ThreadSizeA': 'Thread Size (A)'
-    'TubeOdA': 'Tube OD (A)'
-    'FittingSize': 'Fitting Size'
-    'ThreadSizeOTCF': 'Thread Size OTCF'
-    'ThreadSizeOIM': 'Thread Size OIM'
-    'FlangeSize': 'Flange Size'
-    'FlangeDiameterA': 'Flange Diameter (A)'
-    'Hex1': 'Hex 1'
-    'Hex2': 'Hex 2'
-    'SocketWrenchS': 'Socket Wrench (S)'
-    'ElbowType': 'Elbow Type'
-    'DropD': 'Drop (D)'
-    'CutOff': 'Cut-off (C or R for AC)'
-    'LengthL': 'Length (L)'
-    'SkiveType': 'Skive Type'
-    'ORingID': 'O-Ring ID'
-    'ORingThickness': 'O-Ring Thickness'
-    'OrificeTubeOD': 'Orifice Tube OD'
-    'OrificeTubeLength': 'Orifice Tube Length'
-    'Valve': 'Valve'
-    'R12ThreadSize': 'R12 Thread Size'
-    'R134a': 'R134a'
-    'FerruleID': 'Ferrule ID'
-    'FerruleOD': 'Ferrule OD'
-    'FerruleLength': 'Ferrule Length'
-    'Width': 'Width'
-    'Weight': 'Weight'
-    'ThreadDashSize': 'Thread Dash Size'
-    'FittingSeries': 'Fitting Series'
-    'ProductDescription': 'Product Description'
+    DescriptivePartNumber: 
+        fieldLevel: objectBrick
+        fieldLabel: 'Part Number'
+        fieldType: Input
+        parent:
+            name: HydFittingsFert
+    ActivantNumber:
+        fieldLevel: objectBrick
+        fieldLabel: 'Activant Number'
+        fieldType: Input
+        parent:
+            name: HydFittingsFert       
+    articleNumber:
+        fieldLevel: class
+        fieldLabel: 'SAP Number'
+        fieldType: Input
+        parent:
+            name: Product   
+    HoseID1InFract:
+        fieldLevel: objectBrick
+        fieldLabel: 'Hose ID'
+        fieldType: Input
+        parent:
+            name: HydFittingsFert
+    HoseID2InFract:
+        fieldLevel: objectBrick
+        fieldLabel: 'Hose ID 2'
+        fieldType: Input
+        parent:
+            name: HydFittingsFert
+    ThreadSize1InDecimal:
+        fieldLevel: objectBrick
+        fieldLabel: 'Thread Size 1'
+        fieldType: Input
+        parent:
+            name: HydFittingsFert
+    ThreadSize2InDecimal:
+        fieldLevel: objectBrick
+        fieldLabel: 'Thread Size 2'
+        fieldType: Input
+        parent:
+            name: HydFittingsFert
