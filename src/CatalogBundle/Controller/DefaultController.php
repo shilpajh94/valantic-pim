@@ -40,8 +40,7 @@ class DefaultController extends FrontendController
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
         $language = $request->getLocale();
         $this->get('translator')->setLocale('en');
-        if($this->tableColumns)
-        {
+        if ($this->tableColumns) {
             foreach ($this->tableColumns as $key => $value) {
                 $this->tableColumns[$key] = $this->get('translator')->trans($value);
             }
@@ -115,20 +114,18 @@ class DefaultController extends FrontendController
 
     public function templateHoseLineTileTemplateAction(Request $request)
     {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
         if ($this->getDocumentTag('href', 'template2')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->getDocumentTag('href', 'template2')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
-            /* if(!is_null($obj->getParentId())) {
-                $catlogCatObj = \Pimcore\Model\DataObject::getById($obj->getParentId());
-                $catId = $catlogCatObj->getCategory();
-                $this->get6DigitDataByCategoryId($catId);
-            } */
             $data = array();
             $blockDes = "";
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {
                     $blockDes = !empty($blockDes) ? $blockDes : $row[9];
                     $baseId = $row[0];
+                    $baseObject = \Pimcore\Model\DataObject::getById($baseId);
+                    $baseObject->getMainImage();
                     if (!isset($data[$baseId])) {
                         $data[$baseId] = array();
                     }
@@ -140,27 +137,24 @@ class DefaultController extends FrontendController
                         $data[$baseId]['bst'][2] = isset($data[$baseId]['bst'][2]) && !empty($data[$baseId]['bst'][2]) ? $data[$baseId]['bst'][2] : $row[5];
                         $data[$baseId]['bst'][3] = isset($data[$baseId]['bst'][3]) && !empty($data[$baseId]['bst'][3]) ? $data[$baseId]['bst'][3] : $row[6];
                         $data[$baseId]['bst'][4] = isset($data[$baseId]['bst'][4]) && !empty($data[$baseId]['bst'][4]) ? $data[$baseId]['bst'][4] : $row[7];
-                        $data[$baseId]['hoseId'][] = isset($data[$baseId]['hoseId'][$k]) && !empty($data[$baseId]['hoseId'][$k]) ? $data[$baseId]['hoseId'][$k] : $this->fractionToDecimal($row[8]);
-
-                        if(!isset($data[$baseId]['featureIcon'])) {
+                        $data[$baseId]['hoseIdFract'][] = isset($data[$baseId]['hoseIdFract'][$k]) && !empty($data[$baseId]['hoseIdFract'][$k]) ? $data[$baseId]['hoseIdFract'][$k] : $row[8];
+                        $data[$baseId]['hoseId'][] = isset($data[$baseId]['hoseId'][$k]) && !empty($data[$baseId]['hoseId'][$k]) ? $data[$baseId]['hoseId'][$k] : $row[9];
+                        $data[$baseId]['mainImage'] = !is_null($baseObject->getMainImage()) ? $baseObject->getMainImage() : NULL;
+                        if (!isset($data[$baseId]['featureIcon'])) {
                             $baseObj = \Pimcore\Model\DataObject\Product::getById($row[0]);
                             $features = $baseObj->getFeaturesBenefitsBulletPoint();
                             $featureObj = null;
-                            
-                            if(is_array($features) && !empty($features)) {
-                                foreach($features as $featureId) {
-                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);                                
+
+                            if (is_array($features) && !empty($features)) {
+                                foreach ($features as $featureId) {
+                                    $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);
                                     $data[$baseId]['featureIcon'][] = $featureObj->getIcon();
                                 }
                             }
-                            unset(
-                                $baseObj,
-                                $features,
-                                $featureObj
-                            );
+                            unset($baseObj,
+                            $features,
+                            $featureObj);
                         }
-                        
-                        
                     }
                 }
                 /**
@@ -173,11 +167,14 @@ class DefaultController extends FrontendController
                         $range = '';
                         $min = min($row['hoseId']);
                         $max = max($row['hoseId']);
-                        $this->decimalToFraction($min);
-                        $min = !empty($min) ? $this->decimalToFraction($min) . '"' : '';
-                        $max = !empty($max) ? $this->decimalToFraction($max) . '"' : '';
+                        // $commonHelper->decimalToFraction($min);
+                        $minKey = array_search($min, $row['hoseId']);
+                        $maxKey = array_search($max, $row['hoseId']);
+                        // $min = !empty($min) ? $commonHelper->decimalToFraction($min) . '"' : '';
+                        // $max = !empty($max) ? $commonHelper->decimalToFraction($max) . '"' : '';
                         if (!empty($min) && !empty($max)) {
-                            $range = $min . '-' . $max;
+                            // $range = $min . '-' . $max;
+                            $range = "ID " . $row['hoseIdFract'][$minKey] . '"' . '-' . $row['hoseIdFract'][$maxKey] . '"';
                         }
 
                         $data[$baseId]['range'] = $range;
@@ -191,80 +188,7 @@ class DefaultController extends FrontendController
         }
     }
 
-    private function fractionToDecimal($fraction)
-    {
-        // Split fraction into whole number and fraction components
-        preg_match('/^(?P<whole>\d+)?\s?((?P<numerator>\d+)\/(?P<denominator>\d+))?$/', $fraction, $components);
 
-        // Extract whole number, numerator, and denominator components
-        $whole = $components['whole'] ?: 0;
-        $numerator = $components['numerator'] ?: 0;
-        $denominator = $components['denominator'] ?: 0;
-
-        // Create decimal value
-        $decimal = $whole;
-        $numerator && $denominator && $decimal += ($numerator / $denominator);
-
-        return $decimal;
-    }
-
-    /**
-     * Convert decimal value to fractional
-     * Install GMP extention on server and enable it in php.in
-     * Command:
-     *  sudo apt-get install libgmp-dev php7.2-gmp curl php7.2-curl
-     *  extension=gmp.so
-     *  sudo service apache2 reload
-    */
-    private function decimalToFraction($decimal)
-    {
-        // Determine decimal precision and extrapolate multiplier required to convert to integer
-        $precision = strpos(strrev($decimal), '.') ?: 0;
-        $multiplier = pow(10, $precision);
-
-        // Calculate initial numerator and denominator
-        $numerator = $decimal * $multiplier;
-        $denominator = 1 * $multiplier;
-
-        // Extract whole number from numerator
-        $whole = floor($numerator / $denominator);
-        $numerator = $numerator % $denominator;
-
-        // Find greatest common divisor between numerator and denominator and reduce accordingly
-        $factor = gmp_intval(gmp_gcd($numerator, $denominator));
-        $numerator /= $factor;
-        $denominator /= $factor;
-
-        // Create fraction value
-        $fraction = [];
-        $whole && $fraction[] = $whole;
-        $numerator && $fraction[] = "{$numerator}/{$denominator}";
-
-        return implode(' ', $fraction);
-    }
-
-    private function getProductByCategoryId($catId)
-    {
-        $sql = "SELECT f.o_id fertId, s.o_id skeletonId, b.o_id brandDataId, SUBSTR(f.oldMaterialCode, 1, 6) brandLvl, f.siopFullCode, brand.name, skeleBrick.hoseIdNominalId hoseId 
-        FROM object_1 f 
-        JOIN object_1 s ON (s.o_id = f.o_parentId) 
-        JOIN object_1 b ON (b.o_id = s.o_parentId) 
-        JOIN object_brick_query_HoseBase_1 baseBrick ON(baseBrick.o_id=b.o_id)
-        JOIN object_brick_query_HoseSkeleton_1 skeleBrick ON(skeleBrick.o_id=s.o_id)
-        JOIN object_query_3 brand ON(brand.oo_id=baseBrick.brandName)
-        WHERE f.siopFullCode='$catId';";
-        $results = $this->db->fetchAll($sql);
-        return is_array($results) && !empty($results) ? $results : null;
-    }
-
-    private function get6DigitDataByCategoryId($catId)
-    {
-        $productsInfo = $this->getProductByCategoryId($catId);
-        if (!empty($productsInfo)) {
-            foreach ($productsInfo as $product) {
-            }
-        }
-    }
 
     public function templateHoseProductPageAction(Request $request)
     {
@@ -274,9 +198,8 @@ class DefaultController extends FrontendController
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
         $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
-        
-        if($INHTemplate)
-        {
+
+        if ($INHTemplate) {
             $productsData = $INHTemplate->getProductsData();
             $columnsData = $INHTemplate->getColumns();
             $iconRequired = 'YES';
@@ -291,7 +214,7 @@ class DefaultController extends FrontendController
                 // $columnsDataWithImages[$key]['columnLabel'] = $value->columnName;
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
-            
+
             $headerData = $productsData[0];
             array_shift($productsData);
 
@@ -325,38 +248,36 @@ class DefaultController extends FrontendController
                 $safetyFeatures = array();
                 $articlesData = array();
 
-                foreach($brandArray as $key => $element): 
-                        foreach($element as $bkey => $value): 
-                                if($bkey == 'digit6code')
-                                    $digit6code[] = $value; 
-                                if($bkey == 'tubeMaterial')
-                                        $tubeMaterial[] = $value; 
-                                if($bkey == 'tubeAttribute')
-                                        $tubeAttribute[] = $value; 
-                                if($bkey == 'reinforcement')
-                                        $reinforcement[] = $value; 
-                                if($bkey == 'coverMaterial')
-                                        $coverMaterial[] = $value; 
-                                if($bkey == 'coverAttribute')
-                                        $coverAttribute[] = $value; 
-                                if($bkey == 'features')
-                                {
-                                    $features = explode(',', $value);
-                                    if(count($features)>0)
-                                    {
-                                        foreach ($features as $fkey => $fvalue) {
-                                            array_push($safetyFeatures,$fvalue);
-                                        }
-                                    }
+                foreach ($brandArray as $key => $element) :
+                    foreach ($element as $bkey => $value) :
+                        if ($bkey == 'digit6code')
+                            $digit6code[] = $value;
+                        if ($bkey == 'tubeMaterial')
+                            $tubeMaterial[] = $value;
+                        if ($bkey == 'tubeAttribute')
+                            $tubeAttribute[] = $value;
+                        if ($bkey == 'reinforcement')
+                            $reinforcement[] = $value;
+                        if ($bkey == 'coverMaterial')
+                            $coverMaterial[] = $value;
+                        if ($bkey == 'coverAttribute')
+                            $coverAttribute[] = $value;
+                        if ($bkey == 'features') {
+                            $features = explode(',', $value);
+                            if (count($features) > 0) {
+                                foreach ($features as $fkey => $fvalue) {
+                                    array_push($safetyFeatures, $fvalue);
                                 }
-
-                        endforeach; 
-
-                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
-                            $articlesData[$key][$ckey] = $element[$ckey];
+                            }
                         }
 
-                endforeach; 
+                    endforeach;
+
+                    foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                        $articlesData[$key][$ckey] = $element[$ckey];
+                    }
+
+                endforeach;
 
                 $digit6code = array_unique($digit6code);
                 $tubeMaterial = array_unique($tubeMaterial);
@@ -369,11 +290,10 @@ class DefaultController extends FrontendController
 
                 $safetyFeaturesList = array();
 
-                
-                if($safetyFeatures)
-                {
+
+                if ($safetyFeatures) {
                     foreach ($safetyFeatures as $fkey => $fvalue) {
-                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        $safetyFeaturesList[] = array('name' => $featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
                     }
                 }
 
@@ -387,10 +307,10 @@ class DefaultController extends FrontendController
                 $reinforcement = implode(', ', $reinforcement);
                 $data[$brandKey]['brandName'] = $brandName;
                 $data[$brandKey]['digit6code'] = $digit6code;
-                
-                if($brandName == 'SCP3')
+
+                if ($brandName == 'SCP3')
                     $data[$brandKey]['brandImageSrc'] = '/CatalogImages/scp3.png';
-                else 
+                else
                     $data[$brandKey]['brandImageSrc'] = '/CatalogImages/5.JPG';
 
                 $data[$brandKey]['longDescription'] = $longDescription;
@@ -409,9 +329,8 @@ class DefaultController extends FrontendController
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
                 $data[$brandKey]['articlesData'] = $articlesData;
-
             }
-            
+
             $this->view['data'] = $data;
         }
     }
@@ -435,17 +354,55 @@ class DefaultController extends FrontendController
     /**
      * return material object or false
      */
-    public function getFeaturesList($catalog_type){
+    public function getFeaturesList($catalog_type)
+    {
         $entries = new DataObject\Features\Listing();
         $entries->setCondition("FeatureType = ?", "{$catalog_type}");
         $entries->load();
         $featureData = array();
-        foreach($entries as $entry) {
-            $featureData[$entry->getKey()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+        foreach ($entries as $entry) {
+            $featureData[$entry->getKey()]['icon'] = $entry->getIcon()->getPath() . $entry->getIcon()->getFilename();
             $featureData[$entry->getKey()]['name'] = $entry->getName();
             $featureData[$entry->getKey()]['key'] = $entry->getKey();
             $featureData[$entry->getKey()]['key'] = $entry->getId();
         }
         return $featureData;
+    }
+
+    public function templateFittingStraightAction(Request $request)
+    {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+        if ($this->getDocumentTag('relation', 'fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
+            $id = $this->getDocumentTag('relation', 'fitting-straight')->getId();
+            $obj = \Pimcore\Model\DataObject::getById($id);
+            $data = array();
+
+            if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
+                foreach ($obj->getProductsData() as $k => $row) {
+                    if ($k == 0)
+                        continue;
+                    $data[$row[13]][] = array(
+                        'partNumber'    =>  $row[0],
+                        'activantNumber'    =>  $row[1],
+                        'sapNumber'    =>  $row[2],
+                        'hoseID'    =>  $row[3],
+                        'threadSize_1'    =>  $row[4],
+                        'hex_1_wrenchSize_IN'    =>  $row[5],
+                        'hex_1_wrenchSize_MM' =>  $row[6],
+                        'hex_2_wrenchSize_IN' =>  $row[7],
+                        'hex_2_wrenchSize_MM' =>  $row[8],
+                        'CutOff_C_IN' =>  $row[9],
+                        'CutOff_C_MM' =>  $row[10],
+                        'Length_L_IN' => $row[11],
+                        'Length_L_MM' => $row[12],
+                        'hoseId_D' => $row[13]
+                    );
+                }
+            }
+            ksort($data, SORT_NUMERIC); 
+            $this->view['data'] = array(
+                'fittingStraightData' =>  $data
+            );
+        }
     }
 }

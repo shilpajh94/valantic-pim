@@ -7,7 +7,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php }
 ?>
 <article class="fullcontainer">
-    <header>
+    <header class="dark">
         <h1>
             <?php
             if ($this->input("header")->isEmpty()) {
@@ -18,8 +18,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             ?>
         </h1>
     </header>
-    <section>
-
+    <section class="spacing">
         <?php
         $brandsInfo = $info['brandsInfo'];
         $blockDes = $info['blockDes'];
@@ -27,26 +26,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             $brandIds = array_keys($brandsInfo);
 
             if (is_array($brandIds) && !empty($brandIds)) {
-                /* $productData = $obj->getProductsData();
-                    $columns = (array) json_decode($obj->getColumns());
-                    $keys = array_keys($columns); */
-                // p_r($keys);die;
-                // $totalProduct = is_array($obj->getProductsData()) ? count($obj->getProductsData()) : 0;
-                // foreach ($obj->getProductsData() as $k => $row) {
 
                 $k = 0;
-                $productImage = \Pimcore\Model\Asset::getById(32);
-                $productLogo = \Pimcore\Model\Asset::getById(33);
-                $productLogo2 = \Pimcore\Model\Asset::getById(38);
-                $productLogo3 = \Pimcore\Model\Asset::getById(63);
-                $productLogo4 = \Pimcore\Model\Asset::getById(63);
                 while ($this->block("contentblock", ['default' => count($brandIds)])->loop()) {
                     $key = $brandIds[$k];
                     $row = $brandsInfo[$key];
-                    // p_r($row);
-                    /* if (count($keys) == count($row)) {
-                            $row = array_combine($keys, $row);
-                        } */
 
 
         ?>
@@ -57,25 +41,21 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <aside class="flex justify-between">
                             <p>
                                 <?php
-                                if ($this->input('prodDesc')->isEmpty() && !empty($blockDes)) {
-                                    echo $this->input("prodDesc")->setDataFromResource($blockDes);
-                                } else {
-                                    echo $this->input("prodDesc");
-                                }
+                                echo $this->input("prodDesc", ["width" => 540]);
                                 ?>
                             </p>
                             <figure class="products">
                                 <span class="img-placeholder">
                                     <?php
-                                    if ($this->image('productImage')->isEmpty() && !is_null($productImage)) {
+                                    if ($this->image('productImage')->isEmpty() && !is_null($row['mainImage'])) {
                                         echo $this->image('productImage', [
-                                            "width" => $productImage->getWidth(),
-                                            "height" => $productImage->getHeight(),
+                                            "width" => $row['mainImage']->getWidth(),
+                                            "height" => $row['mainImage']->getHeight(),
                                             "aspectratio" => true,
                                             "interlace" => true,
                                             "quality" => 95,
                                             "format" => "PNG"
-                                        ])->setImage($productImage);
+                                        ])->setImage($row['mainImage']);
                                     } else {
                                         echo $this->image('productImage', [
                                             "width" => 92,
@@ -110,6 +90,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         </span>
                                         <ul>
                                             <?php
+                                            $bstCnt = 1;
                                             if (isset($row['bst']) && is_array($row['bst'])) {
                                                 foreach ($row['bst'] as $i => $bst) {
                                                     if (!empty($bst)) {
@@ -120,8 +101,25 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                             echo $this->input("brandShortText" . $key . $i);
                                                         }
                                                         echo "</li>";
+                                                        $bstCnt++;
                                                     }
                                                 }
+                                            }
+                                            
+                                            while($bstCnt <= 5) {
+                                                if($this->editmode) {
+                                                    echo "<li>";
+                                                    echo $this->input("brandShortText" . $key . $bstCnt);
+                                                    echo "</li>";
+                                                } else {
+                                                    if(!$this->input("brandShortText" . $key . $bstCnt)->isEmpty()) {
+                                                        echo "<li>";
+                                                        echo $this->input("brandShortText" . $key . $bstCnt);
+                                                        echo "</li>";
+                                                    }
+                                                }
+                                                
+                                                $bstCnt++;
                                             }
 
                                             ?>
@@ -131,8 +129,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                                         <span class="productImage">
                                             <?php
-                                            if(isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
-                                                foreach($row['featureIcon'] as $icnum => $featureIcon) {
+                                            $icnum = 0;
+                                            if (isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
+                                                foreach ($row['featureIcon'] as $icnum => $featureIcon) {
                                                     if ($this->image('productLogo' . $key . $icnum)->isEmpty() && !is_null($featureIcon)) {
                                                         echo $this->image('productLogo' . $key . $icnum, [
                                                             "width" => $featureIcon->getWidth(),
@@ -153,8 +152,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                         ]);
                                                     }
                                                 }
-                                            } else {
-                                                echo $this->image('productLogo' . $key, [
+                                            }
+                                            
+                                            while($icnum < 2) {
+                                                $icnum++;
+                                                echo $this->image('productLogo' . $key . $icnum, [
                                                     "width" => 91,
                                                     "height" => 53,
                                                     "aspectratio" => true,
@@ -163,7 +165,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                     "format" => "PNG"
                                                 ]);
                                             }
-                                            
+
 
                                             ?>
                                         </span>
@@ -184,7 +186,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         // }
                     }
                     if ($k == 1) {
-                        echo "<aside class='flex'>";
+                        echo "<aside class='flex justify-between'>";
                     }
                     if ($k >= 1) {
                     ?>
@@ -192,15 +194,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <figure class="products">
                             <span class="img-placeholder">
                                 <?php
-                                if ($this->image('productImage')->isEmpty() && !is_null($productImage)) {
+                                if ($this->image('productImage')->isEmpty() && !is_null($row['mainImage'])) {
                                     echo $this->image('productImage', [
-                                        "width" => $productImage->getWidth(),
-                                        "height" => $productImage->getHeight(),
+                                        "width" => $row['mainImage']->getWidth(),
+                                        "height" => $row['mainImage']->getHeight(),
                                         "aspectratio" => true,
                                         "interlace" => true,
                                         "quality" => 95,
                                         "format" => "PNG"
-                                    ])->setImage($productImage);
+                                    ])->setImage($row['mainImage']);
                                 } else {
                                     echo $this->image('productImage', [
                                         "width" => 92,
@@ -235,6 +237,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     </span>
                                     <ul>
                                         <?php
+                                        $bstCnt = 1;
                                         if (isset($row['bst']) && is_array($row['bst'])) {
                                             foreach ($row['bst'] as $i => $bst) {
                                                 if (!empty($bst)) {
@@ -245,19 +248,34 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                         echo $this->input("brandShortText" . $key . $i);
                                                     }
                                                     echo "</li>";
+                                                    $bstCnt++;
                                                 }
                                             }
+                                        }
+                                        while($bstCnt <= 5) {
+                                            if($this->editmode) {
+                                                echo "<li>";
+                                                echo $this->input("brandShortText" . $key . $bstCnt);
+                                                echo "</li>";
+                                            } else {
+                                                if(!$this->input("brandShortText" . $key . $bstCnt)->isEmpty()) {
+                                                    echo "<li>";
+                                                    echo $this->input("brandShortText" . $key . $bstCnt);
+                                                    echo "</li>";
+                                                }
+                                            }
+                                            $bstCnt++;
                                         }
 
                                         ?>
                                     </ul>
                                 </div>
                                 <div class="bottomText">
-
                                     <span class="productImage">
                                         <?php
-                                        if(isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
-                                            foreach($row['featureIcon'] as $icnum => $featureIcon) {
+                                        $icnum = 0;
+                                        if (isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
+                                            foreach ($row['featureIcon'] as $icnum => $featureIcon) {
                                                 if ($this->image('productLogo' . $key . $icnum)->isEmpty() && !is_null($featureIcon)) {
                                                     echo $this->image('productLogo' . $key . $icnum, [
                                                         "width" => $featureIcon->getWidth(),
@@ -278,8 +296,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                     ]);
                                                 }
                                             }
-                                        } else {
-                                            echo $this->image('productLogo' . $key, [
+                                        }
+                                        while($icnum < 2) {
+                                            $icnum++;
+                                            echo $this->image('productLogo' . $key . $icnum, [
                                                 "width" => 91,
                                                 "height" => 53,
                                                 "aspectratio" => true,
@@ -288,7 +308,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                 "format" => "PNG"
                                             ]);
                                         }
-
                                         ?>
 
                                     </span>
@@ -310,7 +329,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     $k++;
                     unset($key);
                 } // Block End
-                // }
                 if ($k > 1) {
                     echo "</aside>";
                 }
@@ -319,4 +337,24 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <?php } ?>
 
     </section>
+    <div class="footer">
+    <footer class="flex">
+        <span class="logo">
+            <b>Hose</b>
+            <?php
+            echo $this->image('logo', [
+                "width" => 172,
+                "height" => 'auto',
+                "aspectratio" => true,
+                "interlace" => true,
+                "quality" => 95,
+                "format" => "PNG"
+            ]);
+            ?>
+        </span>
+        <div class="flex aligned small">
+            <h4><?php echo $this->input('footerText', ['width' => 826, 'height' => 34]); ?></h4>
+        </div>
+    </footer>
+    </div>
 </article>
