@@ -152,6 +152,11 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                                 var comp = Ext.getCmp(this.object.edit.dataFields.ProductsData.component.id);
                                // console.log(comp);
                                 table.initStore(response.data,comp,this.object.edit.dataFields.ProductsData,columns);
+                                
+                                var headerComp = Ext.getCmp(this.object.edit.dataFields.headerData.component.id);
+                               
+                                headerComp.setValue(response.headerData);
+                               
                                // table.getValue(store);
                                // comp.updateLayout();
                               //  table.initStore([["1","1"],['2','2']]);
@@ -184,8 +189,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                                //this.object.edit.dataFields.ProductsData.component.checkChangeTask = {};
                                // comp.setData([['1','2'],['3','4']]);
                               // this.object.edit.dataFields.ProductsData.dirty = true;
-                                console.log(this.object.edit.dataFields);
-                                
+                             
                                 // console.log(response);
                             }.bind(this)
                         });

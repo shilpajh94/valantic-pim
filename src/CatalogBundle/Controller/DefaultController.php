@@ -67,33 +67,43 @@ class DefaultController extends FrontendController
         $this->getTableColumns();
         $dynamicColumnsData = $this->getDynamicColumns();
         $objId = $request->get('objId');
-        $data = DataObject\CatalogTables::getById($objId);
-        $tableData = $data->getColumns();
-        $template = $data->getTemplate();
+        $tableObj = DataObject\CatalogTables::getById($objId);
+        $tableData = $tableObj->getColumns();
+        $template = $tableObj->getTemplate();
         $tableColumns = json_decode($tableData,1);
        
         $columns = array_keys($tableColumns);
        
-      $parentObj = $data->getParentId();
+      $parentObj = $tableObj->getParentId();
       $catalogCategory = DataObject\CatalogCategory::getById($parentObj);
       $siopCategory = $catalogCategory->getCategory();
-      
+         
       $productList = new DataObject\Product\Listing();
-      $productList->addConditionParam('SIOPLevel4 LIKE ?','%,27165,%', 'AND');
+      $x = array();
+      for($i = 0; $i< count($siopCategory); $i++)
+      {
+          $y = ','.$siopCategory[$i].','; 
+          array_push($x,$y);
+      }
+      $productList->addConditionParam('SIOPLevel4 IN (?)',[$x], 'AND');
       $productList->addConditionParam('ProductType = "fert"', 'AND');
-      $productList->setCondition('printedCatalogFlag = ?', '1');
-     
-      $productData = $productList->load();
+      $productList->setCondition('printedCatalogFlag = 1');
+      
+      
+      //$productData = $productList->load();
       
      // $classFields = array_keys($productData[0]->getClass()->getFieldDefinitions());
-      
-      $siopData = DataObject\ProductCategory::getById('27165');
+      foreach($siopCategory as $cat)
+      {
+      $siopData = DataObject\ProductCategory::getById($cat);
       $allowedBricks = $siopData->getRelatedObjectBrick();
-       
+      
       $brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
       
-      $bricksList = $brickMappingService->getMappedBrickKeys($allowedBricks, 'fert');
-      
+      $bricksList['fert'] = $brickMappingService->getMappedBrickKeys($allowedBricks, 'fert');
+      $bricksList['skeleton'] = $brickMappingService->getMappedBrickKeys($allowedBricks, 'skeleton');
+      $bricksList['base'] = $brickMappingService->getMappedBrickKeys($allowedBricks, 'base');
+      }
       $brickFields = [];
      /* foreach($bricksList as $brick)
       {
@@ -101,94 +111,124 @@ class DefaultController extends FrontendController
       $brickFields[$brick] = array_keys($brickDefinition);
       }*/
      
-     /* $pData = [];
-     
-      foreach($productData as $item)
+      $pData = [];
+     $headers = [];
+    
+      foreach($productList as $item)
       {
+         
       foreach($columns as $fieldName)
       {
         if(in_array($fieldName,array_keys($this->tableColumns)))
         {
+           $headers[$fieldName] = $this->tableColumns[$fieldName]['fieldLabel'];
           if($this->tableColumns[$fieldName]['fieldLevel'] == 'class')
           {
               $getter = 'get'.ucfirst($fieldName);
               $pData[$item->getId()][$fieldName] = $item->$getter();
           }
-          else if($this->tableColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($this->tableColumns[$fieldName]['parent']['name'], $bricksList))
+          else if($this->tableColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($this->tableColumns[$fieldName]['parent']['name'], $bricksList['fert']))
           {
                $brickGetter = 'get'.ucfirst($this->tableColumns[$fieldName]['parent']['name']);
                $getter = 'get'.ucfirst($fieldName);
+              
               $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
+          }
+           else if($this->tableColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($this->tableColumns[$fieldName]['parent']['name'], $bricksList['skeleton']))
+          {
+               $brickGetter = 'get'.ucfirst($this->tableColumns[$fieldName]['parent']['name']);
+               $getter = 'get'.ucfirst($fieldName);
+              
+              $pData[$item->getId()][$fieldName] = $item->getSkeleton()->$brickGetter()->$getter();
+          }
+         else if($this->tableColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($this->tableColumns[$fieldName]['parent']['name'], $bricksList['base']))
+          {
+               $brickGetter = 'get'.ucfirst($this->tableColumns[$fieldName]['parent']['name']);
+               $getter = 'get'.ucfirst($fieldName);
+              
+              $pData[$item->getId()][$fieldName] = $item->getBase()->$brickGetter()->$getter();
+          }
+          
+          }
+      }
+     
+       foreach($dynamicColumnsData[$template] as $dFieldKey => $dFieldName)
+        {
+         
+           $headers[$dFieldKey] = $dFieldName['fieldLabel'];
+           if($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] != 'relation' && $dFieldName['fieldType'] != 'Media')
+          {
+              
+              $getter = 'get'.ucfirst($dFieldKey);
+              $pData[$item->getId()][$dFieldKey] = $item->$getter();
+          }
+          else if($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media')
+          {
+             
+              $getter = 'get'.ucfirst($dFieldKey);
+              $pData[$item->getId()][$dFieldKey] = $item->$getter()->getPath().$item->$getter()->getFileName();
+          }
+          /*else if($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'relation')
+          {
+              $dataValues = [];
+              $getter = 'get'.ucfirst($dFieldKey);
+              $value = $item->$getter();
+              $class = 'DataObject\\'.$dFieldName['parent']['class']['name'].'\\Listing()';
+              $classObj = new $class();
+              $classObj->setCondition('o_id IN ?',[$value]);
+              $fieldGetter = 'get'.$dFieldName['parent']['class']['fieldname'];
+              foreach($classObj as $obj)
+              {
+                  array_push($dataValues,$obj->$fieldGetter());
+              }
+              $pData[$item->getId()][$dFieldKey] = $dataValues;
+          }*/
+           
+          else if($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && $dFieldName['fieldType'] != 'relation')
+          {
+               $brickGetter = 'get'.ucfirst($dFieldName['parent']['name']);
+               $getter = 'get'.ucfirst($dFieldKey);
+              $pData[$item->getId()][$dFieldKey] = $item->getFert()->$brickGetter()->$getter();
+          }
+           else if($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && $dFieldName['fieldType'] != 'relation')
+          {
+               $brickGetter = 'get'.ucfirst($dFieldName['parent']['name']);
+               $getter = 'get'.ucfirst($dFieldKey);
+              $pData[$item->getId()][$dFieldKey] = $item->getSkeleton()->$brickGetter()->$getter();
+          }
+           else if($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && $dFieldName['fieldType'] != 'relation')
+          {
+               $brickGetter = 'get'.ucfirst($dFieldName['parent']['name']);
+               $getter = 'get'.ucfirst($dFieldKey);
+              $pData[$item->getId()][$dFieldKey] = $item->getBase()->$brickGetter()->$getter();
           }
         }
-        else if(in_array($fieldName,array_keys($dynamicColumnsData)))
-        {
-             if($dynamicColumnsData[$fieldName]['fieldLevel'] == 'class' && $dynamicColumnsData[$fieldName]['fieldType'] != 'relation')
-          {
-              $getter = 'get'.ucfirst($fieldName);
-              $pData[$item->getId()][$fieldName] = $item->$getter();
-          }
-           
-          else if($dynamicColumnsData[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($dynamicColumnsData[$fieldName]['parent']['name'], $bricksList))
-          {
-               $brickGetter = 'get'.ucfirst($dynamicColumnsData[$fieldName]['parent']['name']);
-               $getter = 'get'.ucfirst($fieldName);
-              $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
-          }
-        }*/
-          /*if(in_array($fieldName, $classFields))
-          {
-          $getter = 'get'.ucfirst($fieldName);
-          $pData[$item->getId()][] = $item->$getter();
-          }
-          else if(in_array($fieldName, $brickFields[$bricksList[0]])){ 
-              
-              $brickGetter = 'get'.ucfirst($bricksList[0]);
-              $getter = 'get'.ucfirst($fieldName);
-              $pData[$item->getId()][] = $item->getBrick()->$brickGetter()->$getter();
-          }*/
-              
-     // }
-      //}
-    
         
-        $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS `hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
-        $objectMaterial = $this->db->fetchAll($query);
-
-         $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`,`hb_1`.`brandName`, `hb_1`.`tubeMaterial`,`hb_1`.`Coupling`,`hb_1`.`Packaging`,`hb_1`.`coverMaterial`,`hb_1`.`hoseTemperatureRangeFAndC`,`hs_1`.`reinforcement`,`hb_1`.`safetyFactor`,`hs_1`.`hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
-         $objectMaterial = $this->db->fetchAll($query);
-
-         //foreach ($objectMaterial as $key => $value) {
-           //  $entries = new DataObject\Product\Listing();
-             //$entries->setCondition("articleNumber LIKE ?", "%".$value['SAPNumber']."%");
-             //$entries->load();
-
-        //     p_r($entries);
-        //     die;
-        //     // p_r($value['SAPNumber']);
-        // }
-        // print_r($objectMaterial);
-        $fieldData = array_keys($objectMaterial[0]);
+       
+      }
+    
         $columnData = array();
 
-            foreach ($fieldData as $key => $value) {
+            foreach ($headers as $key => $value) {
                 $columnData[] = array('xtype'=>'gridcolumn','name'=>$value, 'Text'=>$value,'header'=>$value, 'dataIndex'=> $value, 'flex' => 1);            
             }
-        // die;
+        
+            
             $articleData = [];
             $i = 0;
-            for($i=1; $i< count($objectMaterial); $i++)
+           
+            foreach($pData as $id=> $value)
             {
                 $array = [];
-            foreach($objectMaterial[$i] as $key=> $data)
-            {
-                $array[] = $data;
+                foreach($value as $key=>$data)
+                {
+               array_push($array,$data);
+                
             }
             array_push($articleData,$array);
             }
-        array_push($articleData,$articleData[0]);
-        array_push($articleData,$articleData[1]);
-        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$fieldData,'articlesData'=>$objectMaterial,'data'=>$articleData);
+      
+        $arr= array('brandData' => [], 'columnData'=>$columnData,'fieldData'=>$headers,'articlesData'=>$pData,'data'=>$articleData, 'headerData'=>json_encode($headers));
         echo json_encode($arr); die;
     }
     
@@ -202,11 +242,9 @@ class DefaultController extends FrontendController
         $objId = $request->get('objId');
         $data = DataObject\CatalogTables::getById($objId);
         $tableData = $data->getProductsData();
+        $fieldData = json_decode($data->getHeaderData(),1);
         
-        $query = "SELECT `o_1`.`industryStandard` AS `PartNumber`, `o_1`.`articleNumber` AS `SAPNumber`, `hs_1`.`hoseIdNominalId` AS `hoseIdNominalId`, `hs_1`.`hoseIdMM`, `hs_1`.`hoseOdmm`, `hs_1`.`workingPressurePSI`, `hs_1`.`workingPressureMPA`, `hs_1`.`minBurstPressurePSI`, `hs_1`.`minBurstPressurempa`, `hs_1`.`BendRadiusIN`, `hs_1`.`BendRadiusMM`, `hs_1`.`grossWeight`, `hs_1`.`fittingFamily` FROM `object_brick_query_HoseBase_1` AS `hb_1` INNER JOIN `object_1` AS `o_1` ON `hb_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseFert_1` AS `hf_1` ON `hf_1`.`o_id`  = `o_1`.`oo_id` INNER JOIN `object_brick_query_HoseSkeleton_1` AS `hs_1` ON `hs_1`.`o_id`  = `o_1`.`oo_id` WHERE `hb_1`.`brandName` LIKE '%X-LIFE XR16SC%'";
-        $objectMaterial = $this->db->fetchAll($query);
         
-         $fieldData = array_keys($objectMaterial[0]);
             $columnData = array();
 
             foreach ($fieldData as $key => $value) {

@@ -1,29 +1,82 @@
 parameters:
     headers:
-        hydraulic_catalog_template_1:    
-            brand: 
-                fieldLevel: class
+        hydraulic_catalog_template_1:   
+            fittingFamily:
+                fieldLevel: objectBrick
                 fieldType: relation
-                fieldLabel: Brand
+                fieldLabel: Fiiting Family
                 parent: 
-                    class:
-                        name: Brand
-                        fieldname: name
-            hoseIdDec:
+                    name: HoseSkeleton
+            
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Application Long Text
+                parent: 
+                    name: Product
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            tubeMaterial:
+                fieldLevel: objectBrick
+                fieldType: relation
+                fieldLabel: Tube Material
+                parent: 
+                    name: HoseBase
+            tubeColor:
+                fieldLevel: objectBrick
+                fieldType: relation
+                fieldLabel: Tube Attributes
+                parent: 
+                    name: HoseBase
+            coverMaterial:
+                fieldLevel: objectBrick
+                fieldType: relation
+                fieldLabel: Cover Material
+                parent: 
+                    name: HoseBase
+            coverColor:
+                fieldLevel: objectBrick
+                fieldType: relation
+                fieldLabel: Cover Attributes
+                parent: 
+                    name: HoseBase
+            reinforcement:
+                fieldLevel: objectBrick
+                fieldType: relation
+                fieldLabel: Reinforcement
+                parent:
+                    name: HoseSkeleton
+            hoseTemperatureRangeFAndC:
                 fieldLevel: objectBrick
                 fieldType: Input
-                fieldLabel: HoseID Dec(In)
+                fieldLabel: Hose Temperature Range
                 parent:
-                    name: HoseFert
-            MaterialType:
-                fieldLevel: objectBrick
+                    name: HoseBase
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
                 fieldType: relation
-                fieldLabel: Material Type
+                fieldLabel: Key Features
                 parent:
-                    name: AccessoriesFert
                     class:
-                        name: MaterialGroup
-                        fieldname: code
+                        name: Features
+                        field: name
+            BrandingLayline:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Branding
+                parent:
+                   name: Product
+                    
         
         
        

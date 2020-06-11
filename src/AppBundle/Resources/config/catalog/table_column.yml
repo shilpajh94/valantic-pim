@@ -2,12 +2,12 @@
   #   privateMaterialGroup: sales material master - Material Group2 having 004 is private brand
 parameters:
   tableColumns: 
-    DescriptivePartNumber: 
+    descriptive: 
         fieldLevel: objectBrick
         fieldLabel: 'Part Number'
         fieldType: Input
         parent:
-            name: HydFittingsFert
+            name: HoseSkeleton
     ActivantNumber:
         fieldLevel: objectBrick
         fieldLabel: 'Activant Number'
@@ -19,13 +19,67 @@ parameters:
         fieldLabel: 'SAP Number'
         fieldType: Input
         parent:
-            name: Product   
+            name: Product
+    hoseIdNominalId:
+        fieldLevel: objectBrick
+        fieldLabel: 'Hose ID Fractional'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
     HoseID1InFract:
         fieldLevel: objectBrick
         fieldLabel: 'Hose ID'
         fieldType: Input
         parent:
             name: HydFittingsFert
+    hoseOdIn:
+        fieldLevel: objectBrick
+        fieldLabel: 'Hose OD(In)'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    hoseOdmm:
+        fieldLevel: objectBrick
+        fieldLabel: 'Hose OD(mm)'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    workingPressurePSI:
+        fieldLevel: objectBrick
+        fieldLabel: 'Working Pressure (PSI)'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    workingPressureMPA:
+        fieldLevel: objectBrick
+        fieldLabel: 'Working Pressure (MPA)'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    BendRadiusIN:
+        fieldLevel: objectBrick
+        fieldLabel: 'BendRadius(In)'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    BendRadiusMM:
+        fieldLevel: objectBrick
+        fieldLabel: 'BendRadius(mm)'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    grossWeight:
+        fieldLevel: objectBrick
+        fieldLabel: 'Weight Lbs per ft'
+        fieldType: Input
+        parent:
+            name: HoseSkeleton
+    fittingFamily:
+        fieldLevel: objectBrick
+        fieldLabel: 'Fitting Family'
+        fieldType: Relation
+        parent:
+            name: HoseSkeleton
     HoseID2InFract:
         fieldLevel: objectBrick
         fieldLabel: 'Hose ID 2'
