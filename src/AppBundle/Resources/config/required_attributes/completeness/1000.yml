@@ -86,15 +86,6 @@ non_localized:
      palletWeightLBS:
         type: 'numeric'
         label: 'Pallet Weight (lbs)'
-
-# panel break here        
-     minimumTemperatureF:
-        type: 'numeric'
-        label: 'Min Temp °F'
-     maximumTemperatureF:
-        type: 'numeric'
-        label: 'Max temp °F'
-                        
 # panel break here
      numberOfItems:
         type: 'numeric'
@@ -189,6 +180,12 @@ object_bricks:
                     tubeColor:
                        type: 'multiselect'
                        label: 'Tube Color'
+                    hoseMinimumTemperatureF:
+                       type: 'numeric'
+                       label: 'Min Temp °F'
+                    hoseMaximumTemperatureF:
+                       type: 'numeric'
+                       label: 'Max temp °F'
                     StandardMetTube:
                        type: 'multiselect'
                        label: 'Standard Met- Tube'
