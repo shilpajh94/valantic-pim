@@ -41,7 +41,7 @@ pimcore.plugin.headerSelection = Class.create({
 
             var panelContainingConfigurationItems = panelContainingConfiguration.items.getRange();
             var filterFieldSet = panelContainingConfigurationItems[0];
-            var headerFieldSet = panelContainingConfigurationItems[1];
+            var headerFieldSet = panelContainingConfigurationItems[2];
             var headerData = [];
             Ext.Ajax.request({
                 url: "/catalog/get-available-headers",
@@ -116,7 +116,7 @@ pimcore.plugin.headerSelection = Class.create({
                     },
                 }
             });
-            headerFieldSet.insert(0, my_item_selector_instance);
+            headerFieldSet.insert(1, my_item_selector_instance);
         }
 
     }, getHeaderData: function (headerDataComponent) {
@@ -153,7 +153,7 @@ pimcore.plugin.headerSelection = Class.create({
             // console.log(completeHeaderData)
             header = {
                 "columnName": data[i],
-                "columnLabel": completeHeaderData
+                "columnLabel": completeHeaderData.fieldLabel
                 // "columnName": data[i],
                 // "columnWidth": completeHeaderData[1],
                 // "columnLabel": completeHeaderData[2]
