@@ -121,7 +121,11 @@ class Attribute
     {
         try {
             // Querying B2B attributes from Database
-            $attributes =  DataObject::getById('1414821')->getB2BAttributeMapping();
+			$b2bObjectPath = Db::get()->fetchOne('SELECT
+                CONCAT(`o_path`, `o_key`) AS `path`
+                FROM object_28'
+            );
+            $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
             return $attributes;
         } catch (Exception $ex) {
             throw new Exception( 'Attribute  Model Exception :: ' . $ex );
@@ -140,7 +144,12 @@ class Attribute
     {
       try {
         // Querying B2B attributes from Database
-        $attributes =  DataObject::getById('1414821')->getB2BAttributeMapping();
+
+			$b2bObjectPath = Db::get()->fetchOne('SELECT
+                CONCAT(`o_path`, `o_key`) AS `path`
+                FROM object_28'
+            );
+            $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
         return $attributes;
       } catch (Exception $ex) {
           throw new Exception( 'Attribute  Model Exception :: ' . $ex );
@@ -166,7 +175,11 @@ class Attribute
                 INNER JOIN object_10 o10 ON o1.oo_id = o10.Material AND o10.epixFlag = "001"
             ');
             // Querying B2B attributes from Database
-            $attributes =  DataObject::getById('1414821')->getB2BAttributeMapping();
+			$b2bObjectPath = Db::get()->fetchOne('SELECT
+                CONCAT(`o_path`, `o_key`) AS `path`
+                FROM object_28'
+            );
+            $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
             // Returning products master & attributes @Array
             return ['productsMaster' => $productsMaster, 'attributes' => $attributes];
         } catch (Exception $ex) {
