@@ -343,7 +343,7 @@ class ProductSQLModel
         return $this->csvHeader[$this->columnName[$key]];
     }
     
-    public function createIFSObject($record, $parentId, $parentPath, $levelInfo, $type) {
+    public function createIFSObject($record, $parentId, $parentPath, $levelInfo, $type, $outsideProductFlag = false) {
         $oldMaterialCode = $record[$this->getRecordIndexByKey('oldMaterial')];
         if ($type=='base') {
             $objectKey = substr($oldMaterialCode, 0,6);
@@ -385,8 +385,16 @@ class ProductSQLModel
             $groupNames = trim($groupNames, ',');
             if (!empty($groupNames)) {
                 $groupNamesArray = explode(',', $groupNames);
-                $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
-                $this->setBricksData($objId, $bricksList, $type);
+                if (!empty($outsideProductFlag)) {
+                    $typeArray = ['base', 'skeleton', 'fert'];
+                    foreach ($typeArray as $typeS) {
+                        $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $typeS);
+                        $this->setBricksData($objId, $bricksList, $typeS);
+                    }
+                } else {
+                    $bricksList = $this->brickMappingService->getMappedBrickKeys($groupNamesArray, $type);
+                    $this->setBricksData($objId, $bricksList, $type);
+                }
                 unset($groupNames, $groupNamesArray, $bricksList);
             }
         } else {
@@ -481,9 +489,12 @@ class ProductSQLModel
                             } else {
                                 $folderId = $this->products[$folderPath];
                             }
-                            $oldMaterialCode = $recData[6];
-                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
-                                $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert');
+                            $oldMaterialCode = trim($recData[6]);
+                            if ($oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
+                                $recData[6] = '';
+                            }
+                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
                             } else {
                                 $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
                                 $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
