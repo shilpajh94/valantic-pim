@@ -16,7 +16,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 <?php
 
 if($data):
-
+$incr = 1;
 foreach($data as $key => $brand):
 
 extract($brand);
@@ -28,27 +28,43 @@ extract($brand);
         <?php  echo $this->inc($this->document->getProperty('header'),['title'=>'Hydraulic Hose']) ?>
         <?php  echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName, 'subTitle'=>'High Pressure', 'thirdSection'=>true]) ?>
         <header class="content white">
-                        <h1><?= $brandName ?></h1>
-                        <aside>
-                                <p>
-                                        <?= $longDescription ?>
-                                </p>
-                                <img src="<?= $brandImageSrc ?>" />
-                                
-                        </aside>
-                </header>
-        <article class="fullcontainer">
+                <h1>
+                <?php
+                if ($this->input("HHPP_Heading_{$incr}")->isEmpty()) {
+                        echo $this->input("HHPP_Heading_{$incr}")->setDataFromResource($brandName);
+                } else {
+                        echo $this->input("HHPP_Heading_{$incr}");
+                }
+                ?>
+                </h1>
 
-                <!-- <header class="content white">
-                        <h1><?= $brandName ?></h1>
-                        <aside>
-                                <p>
-                                        <?= $longDescription ?>
-                                </p>
-                                <img src="<?= $brandImageSrc ?>" />
-                                
-                        </aside>
-                </header> -->
+                <aside>
+                        <p>
+                        <?php
+                        if ($this->input("HHPP_LongDescription_{$incr}")->isEmpty()) {
+                                echo $this->input("HHPP_LongDescription_{$incr}")->setDataFromResource($longDescription);
+                        } else {
+                                echo $this->input("HHPP_LongDescription_{$incr}");
+                        }
+                        ?>
+                        </p>
+
+                        <?php if($this->editmode): ?>
+                                <?php if(!$this->image("HHPP_Image_{$incr}")->isEmpty()): ?>
+                                        <?= $this->image("HHPP_Image_{$incr}", ["width" => 600, "height" => 200]); ?>
+                                <?php else: ?>
+                                        <?= $this->image("HHPP_Image_{$incr}", ["width" => 600, "height" => 200])->setImage($imageObj); ?>
+                                <?php endif; ?>
+                                <?php else: ?>
+                                <?php if(!$this->image("HHPP_Image_{$incr}")->isEmpty()): ?>
+                                        <img src="<?= $this->image("HHPP_Image_{$incr}")->getSrc() ?>" />
+                                <?php elseif($imageObj): ?>
+                                        <img src="<?= $imageObj ?>" />
+                                <?php endif; ?>
+                        <?php endif; ?>
+                </aside>
+        </header>
+        <article class="fullcontainer">
 
                 <section class="content">
                         <?php if($safetyFeatures || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
@@ -56,7 +72,7 @@ extract($brand);
                         <menu class="flex">
                                 <?php if(!empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
                                 <div class="specs">
-                                                <h3><?= $this->translate('performance + specs') ?></h3>
+                                                <h6><?= $this->translate('performance + specs') ?></h6>
                                                 <div class="spec-requirement">
                                                 <div>
                                                         <?php if(!empty(trim($tubeMaterialAtrributeString))): ?>
@@ -94,7 +110,7 @@ extract($brand);
 
                                 <?php if($safetyFeatures): ?>
                                 <div class="feature">
-                                                <h3><?= $this->translate('features') ?></h3>
+                                                <h6><?= $this->translate('features') ?></h6>
                                                 <div>
                                                         <?php foreach($safetyFeatures as $key => $feature): ?>
                                                                 <p  class="flex">
@@ -112,7 +128,7 @@ extract($brand);
 
                         <?php if(!empty(trim($brandingLayline))): ?>
                         <menu>
-                                <h3><?= $this->translate('branding') ?></h3>
+                                <h6><?= $this->translate('branding') ?></h6>
                                 <figure>
                                         <img src="/CatalogImages/6a.jpg"/> 
                                         <figcaption><b><?= $brandName ?></b></figcaption> 
@@ -144,13 +160,18 @@ extract($brand);
                                         <?php endforeach; ?>
                                         
                                 </p>
-                                        
+                                <?php $incrRow = 1; ?>        
                                 <?php foreach($articlesData as $key => $element): ?>
+                                        <?php if($incrRow%2==0): ?>
                                         <p>
+                                        <?php else: ?>
+                                        <p class="active">
+                                        <?php endif; ?>
                                                 <?php foreach($element as $ekey => $value): ?>
                                                         <span><?= $value; ?></span>
                                                 <?php endforeach; ?>
                                         </p>
+                                        <?php $incrRow++ ?>
                                 <?php endforeach; ?>
 
                         </div>
@@ -167,7 +188,7 @@ extract($brand);
 </section>
 
 <?php 
-
+$incr++;
 endforeach; 
 
 endif;

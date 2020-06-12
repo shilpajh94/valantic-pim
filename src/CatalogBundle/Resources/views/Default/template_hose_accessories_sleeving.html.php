@@ -21,6 +21,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
         if($data):
         $onlyOneTitle = false;
+        $incr = 1;
         foreach($data as $key => $brand):
 
         extract($brand);
@@ -31,17 +32,44 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
            
            <figcaption>
                 <?php if(!$onlyOneTitle): ?>
-                <h2>Hose Accessories</h2>
+                <h2>
+                <?php
+                if ($this->input("HHAS_Heading_{$incr}")->isEmpty()) {
+                        echo $this->input("HHAS_Heading_{$incr}")->setDataFromResource("Hose Accessories");
+                } else {
+                        echo $this->input("HHAS_Heading_{$incr}");
+                }
+                ?>
+                </h2>
                 <?php 
                 $onlyOneTitle = true;
                 endif;
                 ?>
-                <h4 class="contitech-yellow"><?= $brandName ?></h4>
-                <span><?= $longDescription ?></span>
+
+                <h4 class="contitech-yellow">
+                <?php
+                if ($this->input("HHAS_BrandName_{$incr}")->isEmpty()) {
+                        echo $this->input("HHAS_BrandName_{$incr}")->setDataFromResource($brandName);
+                } else {
+                        echo $this->input("HHAS_BrandName_{$incr}");
+                }
+                ?>
+                </h4>
+
+                <span>
+                <?php
+                if ($this->input("HHAS_LongDescription_{$incr}")->isEmpty()) {
+                        echo $this->input("HHAS_LongDescription_{$incr}")->setDataFromResource($longDescription);
+                } else {
+                        echo $this->input("HHAS_LongDescription_{$incr}");
+                }
+                ?>
+                </span>
+
                 <?php if(!empty(trim($materialString)) || !empty(trim($colorString)) || !empty(trim($availableLengthString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
-                                
+                   <menu>             
                    <div class="specs">
-                        <h3 class="small contitech-black"><?= $this->translate('features + specs') ?></h3>
+                        <h6><?= $this->translate('features + specs') ?></h6>
                         <div class="spec-requirement">
                         <?php if($safetyFeatures): ?>
                            <div>
@@ -53,7 +81,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                 <?php endforeach; ?>
                            </div>   
                            <?php endif; ?>
-                           
+
+                           <?php if(!empty(trim($materialString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
                             <div>
                                 <?php if(!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))): ?>
                                 <p class="small">     
@@ -68,7 +97,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                         </p>
                                 <?php endif; ?>
                             </div>
+                            <?php endif; ?>
                                 
+                            <?php if(!empty(trim($colorString)) || !empty(trim($availableLengthString))): ?>
                             <div>
                                 <?php if(!empty(trim($colorString))): ?>
                                         <p class="small">            
@@ -83,19 +114,32 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                 </p>
                                 <?php endif; ?>
                                     
-                            </div>      
-
+                            </div>   
+                            <?php endif; ?>   
 
                         </div>
                    </div>
+</menu>
                    <?php endif; ?>
            </figcaption>
-
-           <?php if($brandImageSrc): ?>
-           <span>
-                <img src="<?= $brandImageSrc ?>" />
-            </span>
-           <?php endif; ?>
+        
+        <?php if($this->editmode): ?>
+                <span>
+                <?php if(!$this->image("HHAS_Image_{$incr}")->isEmpty()): ?>
+                        <?= $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200]); ?>
+                <?php else: ?>
+                        <?= $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
+                <?php endif; ?>
+                </span>
+                <?php else: ?>
+                <?php if(!$this->image("HHAS_Image_{$incr}")->isEmpty()): ?>
+                        <span><img src="<?= $this->image("HHAS_Image_{$incr}")->getSrc() ?>" /></span>
+                <?php elseif($imageObj): ?>
+                        <span><img src="<?= $imageObj ?>" /></span>
+                <?php endif; ?>
+        <?php endif; ?>
+        
+           
        </figure>
        <div class="grid">
 
@@ -116,17 +160,25 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                         
                 </p>
                         
+                <?php $incrRow = 1; ?>        
                 <?php foreach($articlesData as $key => $element): ?>
+                        <?php if($incrRow%2==0): ?>
                         <p>
+                        <?php else: ?>
+                        <p class="active">
+                        <?php endif; ?>
                                 <?php foreach($element as $ekey => $value): ?>
                                         <span><?= $value; ?></span>
                                 <?php endforeach; ?>
                         </p>
+                        <?php $incrRow++ ?>
                 <?php endforeach; ?>
 
         </div>
 
         <?php 
+
+        $incr++;
 
         endforeach; 
 

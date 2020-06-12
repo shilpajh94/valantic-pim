@@ -307,6 +307,15 @@ class DefaultController extends FrontendController
             foreach ($brandsData as $brandKey => $brandArray) {
 
                 $brandName = $brandArray[0]['brandName'];
+
+                $baseLevelID = $brandArray[0]['baseLevelID'];
+
+                if($baseLevelID)
+                {
+                    $obj = \Pimcore\Model\DataObject\Product::getById($baseLevelID);
+                    $imageObj = ($obj) ? $obj->getMainImage() : '';
+                }
+
                 $longDescription = $brandArray[0]['longDescription'];
                 $brandingLayline = $brandArray[0]['brandingLayline'];
                 $tempFmin = $brandArray[0]['temFmin'];
@@ -387,12 +396,8 @@ class DefaultController extends FrontendController
                 $reinforcement = implode(', ', $reinforcement);
                 $data[$brandKey]['brandName'] = $brandName;
                 $data[$brandKey]['digit6code'] = $digit6code;
+                $data[$brandKey]['imageObj'] = $imageObj;
                 
-                if($brandName == 'SCP3')
-                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/scp3.png';
-                else 
-                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/5.JPG';
-
                 $data[$brandKey]['longDescription'] = $longDescription;
                 $data[$brandKey]['brandingLayline'] = $brandingLayline;
                 $data[$brandKey]['tempFmin'] = $tempFmin;
@@ -411,7 +416,7 @@ class DefaultController extends FrontendController
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
-            
+
             $this->view['data'] = $data;
         }
     }
@@ -460,6 +465,15 @@ class DefaultController extends FrontendController
             foreach ($brandsData as $brandKey => $brandArray) {
 
                 $brandName = $brandArray[0]['brandName'];
+
+                $baseLevelID = $brandArray[0]['baseLevelID'];
+                
+                if($baseLevelID)
+                {
+                    $obj = \Pimcore\Model\DataObject\Product::getById($baseLevelID);
+                    $imageObj = ($obj) ? $obj->getMainImage() : '';
+                }
+                
                 $longDescription = $brandArray[0]['longDescription'];
                 $tempFmin = $brandArray[0]['AssessoriesMinimumTemperatureF'];
                 $tempFmax = $brandArray[0]['AssessoriesMaximumTemperatureF'];
@@ -520,12 +534,8 @@ class DefaultController extends FrontendController
                 $availableLengthString = implode(', ', $availableLength);
 
                 $data[$brandKey]['brandName'] = $brandName;
+                $data[$brandKey]['imageObj'] = $imageObj;
                 
-                if($brandName == 'Protective Sleeving')
-                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/122.JPG';
-                else 
-                    $data[$brandKey]['brandImageSrc'] = '/CatalogImages/122-1.JPG';
-
                 $data[$brandKey]['longDescription'] = $longDescription;
                 $data[$brandKey]['tempFmin'] = $tempFmin;
                 $data[$brandKey]['tempFmax'] = $tempFmax;
@@ -588,7 +598,14 @@ class DefaultController extends FrontendController
 
                 $brandName = $brandArray[0]['brandName'];
                 $longDescription = $brandArray[0]['longDescription'];
-                
+                $baseLevelID = $brandArray[0]['baseLevelID'];
+
+                if($baseLevelID)
+                {
+                    $obj = \Pimcore\Model\DataObject\Product::getById($baseLevelID);
+                    $imageObj = ($obj) ? $obj->getMainImage() : '';
+                }
+
                 $material = array();
                 $articlesData = array();
 
@@ -610,7 +627,7 @@ class DefaultController extends FrontendController
 
                 $materialString = implode(', ', $material);
                 $data[$brandKey]['brandName'] = $brandName;
-                $data[$brandKey]['brandImageSrc'] = '/CatalogImages/123.png';
+                $data[$brandKey]['imageObj'] = $imageObj;
                 $data[$brandKey]['longDescription'] = $longDescription;
                 $data[$brandKey]['materialString'] = $materialString;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
@@ -618,6 +635,7 @@ class DefaultController extends FrontendController
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
+            
             $this->view['data'] = $data;
         }
     }

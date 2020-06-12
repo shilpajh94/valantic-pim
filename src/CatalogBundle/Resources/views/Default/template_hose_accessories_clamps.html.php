@@ -30,19 +30,44 @@ extract($brand);
            
            <figcaption>
            <?php if(!$onlyOneTitle): ?>
-                <h2>Hose Accessories</h2>
+                <h2>
+                <?php
+                if ($this->input("HHAC_Heading")->isEmpty()) {
+                        echo $this->input("HHAC_Heading")->setDataFromResource("Hose Accessories");
+                } else {
+                        echo $this->input("HHAC_Heading");
+                }
+                ?>
+                </h2>
+
                 <?php 
                 $onlyOneTitle = true;
                 endif;
                 ?>
 
-                <h4 class="contitech-yellow"><?= $brandName ?></h4>
+                <h4 class="contitech-yellow">
+                <?php
+                if ($this->input("HHAC_BrandName")->isEmpty()) {
+                        echo $this->input("HHAC_BrandName")->setDataFromResource($brandName);
+                } else {
+                        echo $this->input("HHAC_BrandName");
+                }
+                ?>
+                </h4>
 
-                <span><?= $longDescription ?></span>
+                <span>
+                <?php
+                if ($this->input("HHAC_LongDescription")->isEmpty()) {
+                        echo $this->input("HHAC_LongDescription")->setDataFromResource($longDescription);
+                } else {
+                        echo $this->input("HHAC_LongDescription");
+                }
+                ?>
+                </span>
                 <?php if(!empty(trim($materialString))): ?>
-                 
+                 <menu>
                    <div class="specs ">
-                        <h3 class="small contitech-black"><?= $this->translate('features + specs') ?></h3>
+                        <h6 class="small contitech-black"><?= $this->translate('features + specs') ?></h6>
                         <div class="spec-requirement">
                            <div>
                                 <?php if(!empty(trim($materialString))): ?>
@@ -55,13 +80,28 @@ extract($brand);
 
                         </div>
                    </div>
+</menu>
                    <?php endif; ?>
            </figcaption>
-           <?php if($brandImageSrc): ?>
-           <span>
-                <img src="<?= $brandImageSrc ?>" />
-            </span>
-           <?php endif; ?>
+           
+           
+                <?php if($this->editmode): ?>
+                        <span>
+                        <?php if(!$this->image("HHAC_Image")->isEmpty()): ?>
+                                <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200]); ?>
+                        <?php else: ?>
+                                <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
+                        <?php endif; ?>
+                        </span>
+                 <?php else: ?>
+                        <?php if(!$this->image("HHAC_Image")->isEmpty()): ?>
+                                <span><img src="<?= $this->image("HHAC_Image")->getSrc() ?>" /></span>
+                        <?php elseif($imageObj): ?>
+                                <span><img src="<?= $imageObj ?>" /></span>
+                        <?php endif; ?>
+                <?php endif; ?>
+            
+           
        </figure>
        <div class="grid">
 
@@ -82,12 +122,18 @@ extract($brand);
                         
                 </p>
                         
+                <?php $incrRow = 1; ?>        
                 <?php foreach($articlesData as $key => $element): ?>
+                        <?php if($incrRow%2==0): ?>
                         <p>
+                        <?php else: ?>
+                        <p class="active">
+                        <?php endif; ?>
                                 <?php foreach($element as $ekey => $value): ?>
                                         <span><?= $value; ?></span>
                                 <?php endforeach; ?>
                         </p>
+                        <?php $incrRow++ ?>
                 <?php endforeach; ?>
 
         </div>
