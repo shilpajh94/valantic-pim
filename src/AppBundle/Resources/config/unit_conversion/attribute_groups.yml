@@ -26,6 +26,13 @@ caseWeight__group:
     caseWeightLBS: 'LBS'
 palletWeight__group:
     palletWeightLBS: 'LBS'
+    
+minimumTemperature__group:
+    minimumTemperatureF: 'F'
+    minimumTemperatureC: 'C'
+maximumTemperature__group:
+    maximumTemperatureF: 'F'
+    maximumTemperatureC: 'C'
 
 #    AccessoriesFert
 ORingThicknessIn__group:
@@ -58,12 +65,6 @@ productEffectiveLength__group:
     productEffectiveLengthMM: 'MM'
 
 #     HoseBase
-hoseMinimumTemperature__group:
-    hoseMinimumTemperatureF: 'F'
-    hoseMinimumTemperatureC: 'C'
-hoseMaximumTemperature__group:
-    hoseMaximumTemperatureF: 'F'
-    hoseMaximumTemperatureC: 'C'
 #hoseRangeTemperature__group:
 #    hoseRangeTemperatureF: 'F'
 #    hoseRangeTemperatureC: 'C'
@@ -195,12 +196,7 @@ stockThickness__group:
     stockThicknessMm: 'MM'
 
 #    PTGBase
-minimumTemperature__group:
-    minimumTemperatureF: 'F'
-    minimumTemperatureC: 'C'
-maximumTemperature__group:
-    maximumTemperatureF: 'F'
-    maximumTemperatureC: 'C'
+
 
 #    PTGSkeleton
 height__group:
