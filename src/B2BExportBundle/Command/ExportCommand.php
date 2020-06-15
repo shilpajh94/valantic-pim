@@ -34,7 +34,7 @@ class ExportCommand extends AbstractCommand {
      */
     protected function configure() {
         $this
-        ->setName('b2b:export')
+        ->setName('conti:b2b-export')
         ->setDescription('This command is responsible for Export Contitech B2B Data.');
     }
 
