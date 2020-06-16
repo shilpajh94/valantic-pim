@@ -10,8 +10,8 @@ namespace B2BExportBundle\Services;
  */
 class Config {
 	// Required Constants for B2B Export
-	const PIMCORE_B2B_EXPORT_ROOT = '/var/www/';
-	const PIMCORE_B2B_EXPORT_DIRNAME = 'B2BExport/';
+	const PIMCORE_B2B_EXPORT_ROOT = PIMCORE_WEB_ROOT;
+	const PIMCORE_B2B_EXPORT_DIRNAME = '/B2BExport/';
 	const PIMCORE_B2B_EXPORT_DIRPATH =  self::PIMCORE_B2B_EXPORT_ROOT . self::PIMCORE_B2B_EXPORT_DIRNAME;
 	const PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUP = 'CatalogGroups';
 	const PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUPDESC = 'CatalogGroupDescription';
