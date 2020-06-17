@@ -144,21 +144,6 @@ non_localized:
 
 
 localized:
-    FeaturesBenefitsBulletPoint1:
-        type: 'input'
-        label: 'Features & Benefits Bullet Point 1'
-    FeaturesBenefitsBulletPoint2:
-        type: 'input'
-        label: 'Features & Benefits Bullet Point 2'
-    FeaturesBenefitsBulletPoint3:
-        type: 'input'
-        label: 'Features & Benefits Bullet Point 3'
-    FeaturesBenefitsBulletPoint4:
-        type: 'input'
-        label: 'Features & Benefits Bullet Point 4'
-    FeaturesBenefitsBulletPoint5:
-        type: 'input'
-        label: 'Features & Benefits Bullet Point 5'
     legalText:
         type: 'input'
         label: 'Legal Text'

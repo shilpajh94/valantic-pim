@@ -23,6 +23,9 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
     
+    B2BExportBundle\Command\ExportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:b2b-export' }
 
     export.catalog-group:
         class: B2BExportBundle\Services\Export
