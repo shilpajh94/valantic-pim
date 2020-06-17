@@ -29,24 +29,24 @@ class Export {
 	 */
 	public function generate() {
 		try {
-			// // Generating CSV for Catalog Group
-			// $fileName = Config::catalogGroupFileName();
-			// $this->saveCatalogGroupsCSV($fileName);
-			// // Generating CSV for Catalog Group
-			// $fileName = Config::catalogGroupDescFileName();
-			// $this->saveCatalogGroupsDescCSV($fileName);
-			// // Generating CSV for Catalog Entries
-			// $fileName = Config::catalogEntriesFileName();
-			// $this->saveCatalogEntriesCSV($fileName);
-			// // Generating CSV for Catalog Entries Description
-			// $fileName = Config::catalogEntriesDescFileName();
-			// $this->saveCatalogEntriesDescCSV($fileName);
-			// // Generating CSV for Attribute Values
-			// $fileName = Config::attrValsFileName();
-			// $this->saveAttrValsCSV($fileName);
-			// // Generating CSV for Attribute Value Category Entry
-			// $fileName = Config::attrValCatEntryFileName();
-			// $this->saveAttrValCatEntryCSV($fileName);
+			// Generating CSV for Catalog Group
+			$fileName = Config::catalogGroupFileName();
+			$this->saveCatalogGroupsCSV($fileName);
+			// Generating CSV for Catalog Group
+			$fileName = Config::catalogGroupDescFileName();
+			$this->saveCatalogGroupsDescCSV($fileName);
+			// Generating CSV for Catalog Entries
+			$fileName = Config::catalogEntriesFileName();
+			$this->saveCatalogEntriesCSV($fileName);
+			// Generating CSV for Catalog Entries Description
+			$fileName = Config::catalogEntriesDescFileName();
+			$this->saveCatalogEntriesDescCSV($fileName);
+			// Generating CSV for Attribute Values
+			$fileName = Config::attrValsFileName();
+			$this->saveAttrValsCSV($fileName);
+			// Generating CSV for Attribute Value Category Entry
+			$fileName = Config::attrValCatEntryFileName();
+			$this->saveAttrValCatEntryCSV($fileName);
 			// Generating CSV for Attribute Facets
 			$fileName = Config::attributeFacetsFileName();
 			$this->saveAttributeFacetsCSV($fileName);
