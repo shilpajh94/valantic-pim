@@ -414,9 +414,9 @@ class Export {
 			fputcsv($fileResource, $columns, ',');
 			foreach ($data as $item) {
 				// Filling CSV Data Rows
-				if ($item['PIM Attribute Label'] != '') {
+				if ($item['PIM Attribute Name'] != '') {
 					$row[] = $item['B2B Attribute ID'] ?: "#NA";
-					$row[] = $item['PIM Attribute Label'] ?: "#NA";
+					$row[] = $item['PIM Attribute Name'] ?: "#NA";
 					$row[] = -1;
 					fputcsv($fileResource, $row, ',');
 					unset($row);
@@ -599,7 +599,7 @@ class Export {
 						// Filling CSV Data Rows
 						$row[] = $allProductDetails['articleNumber'];
 						$row[] = $attribute['B2B Attribute ID'];
-						$row[] = $attribute['PIM Attribute Label'];
+						$row[] = $attribute['PIM Attribute Name'];
 						fputcsv($fileResource, $row, ',');
 						unset($row);
 					}
