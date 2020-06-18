@@ -426,10 +426,10 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \no1.articleNumber AS `ARTICLE NUMBER`,\no1.siopFullCode AS `SIOP FULL CODE`,\nold1.sapDescription AS `SAP DESCRIPTION`,\n(\nIF(o1.SIOPLevel2 != '', 0, 1)\n+ IF(o1.SIOPLevel3 != '', 0, 1)\n+ IF(o1.SIOPLevel4 != '', 0, 1)\n+ IF(o1.eanUpc != '', 0, 1)\n+ IF(olen1.longDescription != '', 0, 1)\n+ IF(olen1.webDiscription != '', 0, 1)\n+ IF(o1.searchKeywords != '', 0, 1)\n+ IF(olen1.FeaturesBenefitsBulletPoint != '', 0, 1)\n+ IF(olen1.Application != '', 0, 1)\n+ IF(o1.proposition65WarningAttributesRequired != '', 0, 1)\n+ IF(o1.packageLengthIN != '', 0, 1)\n+ IF(o1.packageWidthIN != '', 0, 1)\n+ IF(o1.packageHeightIN != '', 0, 1)\n+ IF(o1.packageWeightLBS != '', 0, 1)\n+ IF(o1.caseLengthIN != '', 0, 1)\n+ IF(o1.caseHeightIN != '', 0, 1)\n+ IF(o1.caseWidthIN != '', 0, 1)\n+ IF(o1.caseWeightLBS != '', 0, 1)\n) AS `ATTRIBUTE COUNTS`,\no1.oo_id",
-                "from" => "object_1 o1\nJOIN object_localized_data_1 old1\nON o1.oo_id = old1.ooo_id\nJOIN object_localized_1_en olen1\nON o1.oo_id = olen1.oo_id",
-                "where" => "WHERE o1.ProductType = \"fert\"\nAND (\no1.SIOPLevel2 != ''\nOR o1.SIOPLevel3 != ''\nOR o1.SIOPLevel4 != ''\nOR o1.eanUpc != ''\nOR olen1.longDescription != ''\nOR olen1.webDiscription != ''\nOR o1.searchKeywords != ''\nOR olen1.FeaturesBenefitsBulletPoint != ''\nOR olen1.Application != ''\nOR o1.proposition65WarningAttributesRequired != ''\nOR o1.packageLengthIN != ''\nOR o1.packageWidthIN != ''\nOR o1.packageHeightIN != ''\nOR o1.packageWeightLBS != ''\nOR o1.caseLengthIN != ''\nOR o1.caseHeightIN != ''\nOR o1.caseWidthIN != ''\nOR o1.caseWeightLBS != ''\n)",
-                "groupby" => "",
+                "sql" => "SELECT\no1.articleNumber AS `ARTICLE NUMBER`, \no1.siopFullCode AS `SIOP FULL CODE`, \nold1.sapDescription AS `SAP DESCRIPTION`,\no1.oo_id ",
+                "from" => "FROM object_1 o1 \nJOIN object_localized_data_1 old1 \nON o1.oo_id = old1.ooo_id \n",
+                "where" => "WHERE (o1.ProductType = \"fert\" \nAND ( \no1.SIOPLevel2 != '' \nOR o1.SIOPLevel3 != '' \nOR o1.SIOPLevel4 != '' \nOR o1.eanUpc != '' \nOR o1.webDiscription != '' \nOR o1.searchKeywords != '' \nOR old1.longDescription != '' \nOR old1.FeaturesBenefitsBulletPoint != '' \nOR old1.Application != '' \nOR o1.proposition65WarningAttributesRequired != '' \nOR o1.packageLengthIN != '' \nOR o1.packageWidthIN != '' \nOR o1.packageHeightIN != '' \nOR o1.packageWeightLBS != '' \nOR o1.caseLengthIN != '' \nOR o1.caseHeightIN != '' \nOR o1.caseWidthIN != '' \nOR o1.caseWeightLBS != '' \n)\n)",
+                "groupby" => "`ARTICLE NUMBER`",
                 "type" => "sql"
             ]
         ],
@@ -439,9 +439,9 @@ return [
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => 110,
+                "width" => 150,
                 "label" => "",
-                "id" => "extModel379-1"
+                "id" => "extModel915-1"
             ],
             [
                 "name" => "SIOP FULL CODE",
@@ -450,7 +450,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel379-2"
+                "id" => "extModel915-2"
             ],
             [
                 "name" => "SAP DESCRIPTION",
@@ -459,16 +459,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel379-3"
-            ],
-            [
-                "name" => "ATTRIBUTE COUNTS",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => 120,
-                "label" => "",
-                "id" => "extModel379-4"
+                "id" => "extModel915-3"
             ],
             [
                 "name" => "oo_id",
@@ -478,7 +469,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel379-5"
+                "id" => "extModel915-5"
             ]
         ],
         "niceName" => "PRODUCT ATTRIBUTE INCOMPLETENESS",
@@ -494,7 +485,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1592368120,
+        "modificationDate" => 1592458036,
         "creationDate" => 1592364945,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
