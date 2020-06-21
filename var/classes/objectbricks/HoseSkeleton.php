@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-20T10:36:29+02:00
+* Generated at: 2020-06-16T16:13:22+02:00
 * IP: 127.0.0.1
 
 
@@ -21,6 +21,8 @@ Fields Summary:
 - BendRadiusIN [numeric]
 - BendRadiusMM [numeric]
 - VacuumIN [numeric]
+- InnerHoseIDIn [numeric]
+- InnerHoseODIn [numeric]
 - descriptive [input]
 - hoseIdNominalId [input]
 - tubeGaugeIN [numeric]
@@ -29,13 +31,19 @@ Fields Summary:
 - fittingFamily [multiselect]
 - hoseDashSize [numeric]
 - VacuumMM [numeric]
+- InnerHoseIDMM [numeric]
+- InnerHoseODMM [numeric]
 - VirtualCatalogTubeGaugeIn [textarea]
 - VirtualCatalogVacuumIn [textarea]
 - VirtualCatalogWorkingPressureMPA [textarea]
 - VirtualCatalogReinforcement [textarea]
+- VirtualCatalogInnerHoseODIn [textarea]
+- VirtualCatalogInnerHoseODMm [textarea]
 - VirtualCatalogTubeGaugeMM [textarea]
 - VirtualCatalogVacuumMM [textarea]
 - VirtualCatalogWorkingPressurePSI [textarea]
+- VirtualCatalogInnerHoseIDIn [textarea]
+- VirtualCatalogInnerHoseIDMm [textarea]
 */ 
 
 
@@ -673,6 +681,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'InnerHoseIDIn',
+                             'title' => 'Inner Hose ID  (in; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          9 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'InnerHoseODIn',
+                             'title' => 'Inner Hose OD  (in; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -937,6 +1007,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'InnerHoseIDMM',
+                             'title' => 'Inner Hose ID  (mm; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          9 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'InnerHoseODMM',
+                             'title' => 'Inner Hose OD  (mm; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -1105,6 +1237,58 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
+                          4 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'fieldtype' => 'textarea',
+                             'width' => 300,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
+                             'phpdocType' => 'string',
+                             'name' => 'VirtualCatalogInnerHoseODIn',
+                             'title' => 'Virtual Catalog Inner Hose OD  (in; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          5 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'fieldtype' => 'textarea',
+                             'width' => 300,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
+                             'phpdocType' => 'string',
+                             'name' => 'VirtualCatalogInnerHoseODMm',
+                             'title' => 'Virtual Catalog Inner Hose OD  (mm; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -1197,6 +1381,58 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'fieldtype' => 'textarea',
+                             'width' => 300,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
+                             'phpdocType' => 'string',
+                             'name' => 'VirtualCatalogInnerHoseIDIn',
+                             'title' => 'Virtual Catalog Inner Hose ID  (in; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          4 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                             'fieldtype' => 'textarea',
+                             'width' => 300,
+                             'height' => 100,
+                             'maxLength' => NULL,
+                             'showCharCount' => false,
+                             'excludeFromSearchIndex' => false,
+                             'queryColumnType' => 'longtext',
+                             'columnType' => 'longtext',
+                             'phpdocType' => 'string',
+                             'name' => 'VirtualCatalogInnerHoseIDMm',
+                             'title' => 'Virtual Catalog Inner Hose ID  (mm; Decimal)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
