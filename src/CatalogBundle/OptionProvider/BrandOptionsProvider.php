@@ -11,7 +11,7 @@ namespace CatalogBundle\OptionProvider;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 
-class CategoryOptionsProvider implements SelectOptionsProviderInterface {
+class BrandOptionsProvider implements SelectOptionsProviderInterface {
 
     /**
      * @param $context array
@@ -21,17 +21,17 @@ class CategoryOptionsProvider implements SelectOptionsProviderInterface {
     public function getOptions($context, $fieldDefinition) {
          $optionsData = [];
    
-        $categoryList = new DataObject\ProductCategory\Listing(); 
-        $categoryList->setCondition("Level = ?",[4]);
+        $brandList = new DataObject\Brand\Listing(); 
+      
        
-        $categoryList->setOrderKey('description');
-        $categoryList->setOrder("ASC");
+        $brandList->setOrderKey('name');
+        $brandList->setOrder("ASC");
        
-        foreach($categoryList as $listItem)
+        foreach($brandList as $listItem)
         {
-            if($listItem instanceof DataObject\ProductCategory)
+            if($listItem instanceof DataObject\Brand)
             {
-            $optionsData[] = array ('key' => $listItem->getDescription('en'),'value' => $listItem->getId());
+            $optionsData[] = array ('key' => $listItem->getName(),'value' => $listItem->getId());
             }
         }
 
