@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-17T07:07:27+02:00
+* Generated at: 2020-06-22T08:23:12+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -48,6 +48,7 @@ Fields Summary:
 - rohs [input]
 - reach [input]
 - prop65Message [textarea]
+- fittingFamily [multiselect]
 - numeratorForConversionToBaseUnitsOfMeasure [textarea]
 - alternativeUnitOfMeasureForStockkeepingUnit [input]
 - denominatorForConversionToBaseUnitsOfMeasure [input]
@@ -121,7 +122,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1592370446,
+   'modificationDate' => 1592806989,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -638,11 +639,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                                      'fieldtype' => 'multiselect',
                                                      'options' => 
                                                     array (
-                                                      0 => 
-                                                      array (
-                                                        'key' => NULL,
-                                                        'value' => NULL,
-                                                      ),
                                                     ),
                                                      'width' => '',
                                                      'height' => '',
@@ -6435,6 +6431,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                   )),
+                                  6 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                                     'fieldtype' => 'multiselect',
+                                     'options' => 
+                                    array (
+                                    ),
+                                     'width' => 300,
+                                     'height' => '',
+                                     'maxItems' => '',
+                                     'renderType' => 'tags',
+                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                                     'optionsProviderData' => 'INH-HYD-HOSE',
+                                     'queryColumnType' => 'text',
+                                     'columnType' => 'text',
+                                     'phpdocType' => 'array',
+                                     'dynamicOptions' => false,
+                                     'name' => 'fittingFamily',
+                                     'title' => 'Fitting Family',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -6777,11 +6804,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'fieldtype' => 'multiselect',
                                          'options' => 
                                         array (
-                                          0 => 
-                                          array (
-                                            'key' => NULL,
-                                            'value' => NULL,
-                                          ),
                                         ),
                                          'width' => '',
                                          'height' => '',
@@ -9445,17 +9467,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'Document',
@@ -9464,7 +9478,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'float:left;',
                          'permissions' => NULL,
                          'datatype' => 'data',
