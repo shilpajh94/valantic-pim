@@ -51,7 +51,7 @@ $featuresFooter = false;
         </section>
     </article>
     <!-- Forcefully break page -->
-    <!-- <div class="break-before"></div> -->
+    <div class="break-before"></div>
 </section>
 
 <!-- Opening wrapper class again to start new page -->
