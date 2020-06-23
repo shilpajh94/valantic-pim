@@ -1,10 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-14T12:19:45+02:00
+* Generated at: 2020-06-16T16:02:40+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -19,11 +20,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'MultiselectMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1586859585,
+   'modificationDate' => 1592316154,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => NULL,
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -84,120 +85,125 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               ),
               1 => 
               array (
+                'key' => 'HYD_ACCESSORIES >> Color',
+                'value' => 'HYD_ACCESSORIES~Color',
+              ),
+              2 => 
+              array (
                 'key' => 'INH-HYD-HOSE >> Brand Name',
                 'value' => 'INH-HYD-HOSE~brandName',
               ),
-              2 => 
+              3 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Tube Material',
                 'value' => 'INH-HYD-HOSE~tubeMaterial',
               ),
-              3 => 
+              4 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Tube Characteristic',
                 'value' => 'INH-HYD-HOSE~tubeCharacteristic',
               ),
-              4 => 
+              5 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Tube Color',
                 'value' => 'INH-HYD-HOSE~tubeColor',
               ),
-              5 => 
-              array (
-                'key' => 'INH-HYD-HOSE >> Specifications / Standard Met Tube',
-                'value' => 'INH-HYD-HOSE~specifications',
-              ),
               6 => 
               array (
-                'key' => 'INH-HYD-HOSE >> Specifications / Standard Met Cover',
-                'value' => 'INH-HYD-HOSE~StandardMetCover',
+                'key' => 'INH-HYD-HOSE >> Standard Met- Tube',
+                'value' => 'INH-HYD-HOSE~StandardMetTube',
               ),
               7 => 
               array (
-                'key' => 'INH-HYD-HOSE >> Specifications / Standard Met Hose',
-                'value' => 'INH-HYD-HOSE~standardMetHose',
+                'key' => 'INH-HYD-HOSE >> Standard Met- Cover',
+                'value' => 'INH-HYD-HOSE~StandardMetCover',
               ),
               8 => 
+              array (
+                'key' => 'INH-HYD-HOSE >> Standard Met- Hose',
+                'value' => 'INH-HYD-HOSE~standardMetHose',
+              ),
+              9 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Cover Material',
                 'value' => 'INH-HYD-HOSE~coverMaterial',
               ),
-              9 => 
+              10 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Cover Characteristic',
                 'value' => 'INH-HYD-HOSE~coverCharacteristic',
               ),
-              10 => 
+              11 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Cover Color',
                 'value' => 'INH-HYD-HOSE~coverColor',
               ),
-              11 => 
+              12 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Agency Compliance',
                 'value' => 'INH-HYD-HOSE~agencyCompliance',
               ),
-              12 => 
+              13 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Safety Factor (ARPM Standard)',
                 'value' => 'INH-HYD-HOSE~safetyFactor',
               ),
-              13 => 
+              14 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Acceptable Hose Media',
                 'value' => 'INH-HYD-HOSE~acceptableHoseMedia',
               ),
-              14 => 
+              15 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Reinforcement',
                 'value' => 'INH-HYD-HOSE~reinforcement',
               ),
-              15 => 
+              16 => 
               array (
                 'key' => 'INH-HYD-HOSE >> Fitting Family',
                 'value' => 'INH-HYD-HOSE~fittingFamily',
               ),
-              16 => 
+              17 => 
               array (
                 'key' => 'HYD_FITTINGS >> Assembly Vendor',
                 'value' => 'HYD_FITTINGS~AssemblyVendor',
               ),
-              17 => 
+              18 => 
               array (
                 'key' => 'HYD_FITTINGS >> Stem Component Vendor',
                 'value' => 'HYD_FITTINGS~StemComponentVendor',
               ),
-              18 => 
+              19 => 
               array (
                 'key' => 'HYD_FITTINGS >> Ferrule Component Vendor',
                 'value' => 'HYD_FITTINGS~FerruleComponentVendor',
               ),
-              19 => 
+              20 => 
               array (
                 'key' => 'HYD_FITTINGS >> Swivel Nut Component Vendor',
                 'value' => 'HYD_FITTINGS~SwivelNutComponentVendor',
               ),
-              20 => 
+              21 => 
               array (
                 'key' => 'HYD_FITTINGS >> O-Ring Component Vendor',
                 'value' => 'HYD_FITTINGS~ORingComponentVendor',
               ),
-              21 => 
+              22 => 
               array (
                 'key' => 'HYD_FITTINGS >> Internal O-Ring Vendor',
                 'value' => 'HYD_FITTINGS~InternalORingVendor',
               ),
-              22 => 
+              23 => 
               array (
                 'key' => 'HYD_FITTINGS >> Back Up O-Ring Component Vendor',
                 'value' => 'HYD_FITTINGS~BackUpORingComponentVendor',
               ),
-              23 => 
+              24 => 
               array (
                 'key' => 'HYD_FITTINGS >> Slip Nut Retaining Ring Component Vendor',
                 'value' => 'HYD_FITTINGS~SlipNutRetainingRingComponentVendor',
               ),
-              24 => 
+              25 => 
               array (
                 'key' => 'HYD_FITTINGS >> Thread Protector Component Vendor',
                 'value' => 'HYD_FITTINGS~ThreadProtectorComponentVendor',
@@ -226,6 +232,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
@@ -237,6 +244,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
                  'width' => NULL,
+                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
@@ -258,6 +266,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'name' => 'localizedfields',

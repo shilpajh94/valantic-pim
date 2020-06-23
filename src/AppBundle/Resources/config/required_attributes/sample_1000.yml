@@ -40,9 +40,7 @@ localized:
     sapDescription:
         type: 'textarea'
         label: 'SAP Desc'
-    FeaturesBenefitsBulletPoint1:
-        type: 'input'
-        label: 'Features Ben'
+    
 
 #object_relations:
 #    manyToManyObjectRelation:
