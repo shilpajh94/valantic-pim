@@ -22,16 +22,17 @@ class DocumentOptionsProvider implements SelectOptionsProviderInterface {
     public function getOptions($context, $fieldDefinition) {
         $optionsData = [];
      
-        $documentList = new \Pimcore\Model\Document\Listing();
-        $documentList->setCondition('type = ?',['printpage']);
-        $documentList->setOrderKey('key');
-        $documentList->setOrder("ASC");
-        
-        foreach($documentList as $doc)
+             
+        $documentTypeList = new Document\DocType\Listing(); 
+        //$documentTypeList->setCondition('type = "printpage"');
+        $docList = $documentTypeList->load();
+       
+        foreach($docList as $doc)
         {
-            if($doc instanceof Document)
+           
+            if($doc instanceof Document\DocType && $doc->getType() == 'printpage')
             {
-            $optionsData[] = array ('key' => $doc->getKey(),'value' => $doc->getKey());
+            $optionsData[] = array ('key' => $doc->getName(),'value' => $doc->getName());
             }
         }
         

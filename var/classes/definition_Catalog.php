@@ -1,11 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-19T11:04:24+02:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -23,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Catalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1589879064,
+   'modificationDate' => 1592309710,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -84,17 +81,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               array (
                 'key' => 'Industrial Hose',
-                'value' => 'Industrial Hose',
+                'value' => '041000',
               ),
               1 => 
               array (
                 'key' => 'Hydraulic Hose',
-                'value' => 'Hydraulic Hose',
+                'value' => '041500',
               ),
               2 => 
               array (
                 'key' => 'PTG',
-                'value' => 'PTG',
+                'value' => '043000',
               ),
             ),
              'width' => '',
