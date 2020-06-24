@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-22T08:23:12+02:00
+* Generated at: 2020-06-24T19:57:49+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -16,6 +16,8 @@ Fields Summary:
 - grossWeight [numeric]
 - netWeight [numeric]
 - weightUnit [select]
+- weightg [numeric]
+- weightKg [numeric]
 - localizedfields [localizedfields]
 -- sapDescription [textarea]
 -- FeaturesBenefitsBulletPoint [multiselect]
@@ -83,6 +85,7 @@ Fields Summary:
 - maximumTemperatureF [numeric]
 - rangeTemperatureF [input]
 - temperatureRangeFAndC [input]
+- VirtualCatalogHoseTemperatureRangeFAndC [textarea]
 - minimumTemperatureC [numeric]
 - maximumTemperatureC [numeric]
 - rangeTemperatureC [input]
@@ -122,7 +125,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1592806989,
+   'modificationDate' => 1593021413,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -544,6 +547,68 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'defaultValueGenerator' => '',
                                   )),
                                   7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => true,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => NULL,
+                                     'name' => 'weightg',
+                                     'title' => 'Weight_ g/m',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  8 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => false,
+                                     'unsigned' => true,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => NULL,
+                                     'name' => 'weightKg',
+                                     'title' => 'Weight (kg/m)',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => true,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => true,
+                                     'visibleSearch' => true,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  9 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                                      'fieldtype' => 'localizedfields',
                                      'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
@@ -8058,6 +8123,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
+                                  )),
+                                  4 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                     'fieldtype' => 'textarea',
+                                     'width' => 300,
+                                     'height' => 100,
+                                     'maxLength' => NULL,
+                                     'showCharCount' => false,
+                                     'excludeFromSearchIndex' => false,
+                                     'queryColumnType' => 'longtext',
+                                     'columnType' => 'longtext',
+                                     'phpdocType' => 'string',
+                                     'name' => 'VirtualCatalogHoseTemperatureRangeFAndC',
+                                     'title' => 'Virtual Catalog Temperature Range (°F & C°)',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
                                   )),
                                 ),
                                  'locked' => false,

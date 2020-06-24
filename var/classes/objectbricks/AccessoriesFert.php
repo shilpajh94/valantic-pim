@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-16T16:27:49+02:00
+* Generated at: 2020-06-23T12:21:23+02:00
 * IP: 127.0.0.1
 
 
@@ -30,7 +30,7 @@ Fields Summary:
 - ORingThicknessInDec [numeric]
 - ORingThicknessMM [numeric]
 - FlangePatternDimensionAInAndMMDecimal [input]
-- FlangePatternDimensionBInAndMMDecimal1 [input]
+- FlangePatternDimensionBInAndMMDecimal [input]
 - RecommendedGrade8Bolt [input]
 - Hardness [input]
 - ColorDescription [textarea]
@@ -585,7 +585,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -615,7 +615,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -646,7 +646,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -963,7 +963,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'FlangePatternDimensionBInAndMMDecimal1',
+                         'name' => 'FlangePatternDimensionBInAndMMDecimal',
                          'title' => 'Flange Pattern Dimension B (in & mm) Decimal',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -1052,7 +1052,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1078,7 +1078,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1104,7 +1104,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
