@@ -32,6 +32,8 @@ class VirtualCatalogImportCommand extends AbstractCommand
     const BASE_QUERY_TABLE_NAME = 'object_query_1';
     const BASE_STORE_TABLE_NAME = 'object_store_1';
 
+    const LOCALIZED_TABLE_1 = 'object_localized_data_1';
+
     const SUCCESS = "Success";
     const FAILED = "Failed";
 
@@ -94,6 +96,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     if (is_array($hoseLevels) && !empty($hoseLevels)) {
                         foreach ($hoseLevels as $hoseLevel) {
                             p_r('Process record number ' . ($i + 1));
+                            $digitFound = true;
                             $records = array();
                             $bd = array();
                             $bdL = array();
@@ -107,8 +110,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                                 // Update Store Table
                                 $this->updateBrickTable($records, self::HOSE_BASE_OBJECT_BRICK_STORE);
                                 $success[] = "Code $hoseLevel processed";
-                            }                            
-                            else if (strlen($hoseLevel) == 9) {
+                            } else if (strlen($hoseLevel) == 9) {
                                 $records = array();
                                 $d = array();
                                 $records = $this->getHoseSkeletonData($result, $hoseLevel);
@@ -116,33 +118,38 @@ class VirtualCatalogImportCommand extends AbstractCommand
                                 $this->updateBrickTable($records, self::HOSE_SKELE_OBJECT_BRICK_STORE);
                                 $success[] = "Code $hoseLevel processed";
                             } else {
+                                $digitFound = false;
                                 $error[] = "Code $hoseLevel could not processed due to wrong length";
                             }
-                            $this->updateBaseTable($bd, self::BASE_QUERY_TABLE_NAME, 'oo_id');
-                            $this->updateBaseTable($bd, self::BASE_STORE_TABLE_NAME, 'oo_id');
-                            foreach ($this->langArr as $lk => $lang) {
-                                $tblName = "object_localized_query_1_" . $lang;
-                                $this->updateBaseTable($bdL, $tblName, 'ooo_id');
+                            if ($digitFound) {
+                                $this->updateBaseTable($bd, self::BASE_QUERY_TABLE_NAME, 'oo_id');
+                                $this->updateBaseTable($bd, self::BASE_STORE_TABLE_NAME, 'oo_id');
+                                $this->updateLocalizedData($bdL, self::LOCALIZED_TABLE_1, 'ooo_id');
+                                foreach ($this->langArr as $lk => $lang) {
+                                    $tblName = "object_localized_query_1_" . $lang;
+                                    $this->updateBaseTable($bdL, $tblName, 'ooo_id');
+                                }
                             }
-                            if(!empty($error)) {
+
+                            if (!empty($error)) {
                                 $logs[$i]['statusCode'] = self::FAILED;
-                                $logs[$i]['failedReason'] =  implode(", ",$error);
+                                $logs[$i]['failedReason'] =  implode(", ", $error);
                             } else {
                                 $logs[$i]['statusCode'] = self::SUCCESS;
                                 $logs[$i]['failedReason'] = '';
                             }
-                            
+                            unset($digitFound);
                         }
                     } else {
                         $error[] = "Not valid 6_9 digit code";
                         $logs[$i]['statusCode'] = self::FAILED;
-                        $logs[$i]['failedReason'] = implode(", ",$error);
+                        $logs[$i]['failedReason'] = implode(", ", $error);
                     }
                 }
             }
             /**
              * Update Log
-            */
+             */
             p_r('Updateing Log');
             $this->insertDataToLogTable($logs);
             p_r('Updateing Log Done');
@@ -218,10 +225,44 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 $wh = " WHERE $pk IN (SELECT o_id FROM objects WHERE o_key='" . $result['o_key'] . "')";
                 // echo $sql . $cond . $wh;die;
                 $this->db->query($sql . $cond . $wh);
-                
+
                 p_r('Processed Key: ' . $result['o_key']);
             }
         }
+    }
+
+    private function updateLocalizedData($results, $table, $pk)
+    {
+        $data = array();
+        $oid = null;
+        foreach($this->langArr as $lang) {
+            foreach($results as $result) {
+                if(empty($oid)) {
+                    $oid = $this->getObjectIdByKey($result['o_key']);
+                }                
+                $d = array(
+                    'ooo_id' => $oid,
+                    'longDescription' => $result['longDescription'],
+                    'language' => $lang
+                );
+                array_push($data, $d);
+            }
+        }
+        p_r($data);
+        if(!empty($data)) {
+            $this->updateTable($data, $table);
+        }
+    }
+
+    private function getObjectIdByKey($key) {
+        $sql = "SELECT o_id FROM objects WHERE o_key='" . $key . "'";
+        $results = $this->db->fetchAll($sql);
+        if(is_array($results)) {
+            foreach($results as $result) {
+                return $result['o_id'];
+            }
+        }
+        return null;
     }
 
     private function updateLog()
@@ -231,7 +272,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
         $data = $this->db->query($sql);
         $this->insertDataToLogTable($data, "", "Object does not match in material mara");
     }
-    
+
 
     private function getBaseData($r, $key)
     {
