@@ -9,6 +9,7 @@ require_once('log_file_name_constants.php');
 
 
 define("APPBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/AppBundle/Resources/config");
+define("CATALOGBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/CatalogBundle/Resources/config");
 
 /**
  * to include the constants of the required attributes module
@@ -50,3 +51,8 @@ define("UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH",APPBUNDLE_CONFIG_DIRECTORY."/
 
 define('MEMBER', 'Users');
 define('WORKFLOW_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
+define('CATALOG_TABLE_COLUMN_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/catalog/table_column.yml");
+define('ATTRIBUTE_IMAGES_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/catalog/attribute_images.yml");
+define('CATALOG_TABLE_DYNAMIC_COLUMN_CONFIG_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY."/grid-column-mapping.yml");
+define('CATALOG_TABLE_CONFIG_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY."/catalog-table-mapping.yml");
+
