@@ -34,7 +34,7 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
                     $displayFieldGetter = "get" . ucfirst($displayFieldName);
                     $name = $object->$displayFieldGetter();
                     $allAvailablelArray[] = array(
-                        "key" => $name, "value" => $name
+                        "key" => $name, "value" => $object->getId()
                     );
                 }
             }

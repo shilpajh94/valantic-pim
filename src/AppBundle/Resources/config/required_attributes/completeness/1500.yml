@@ -172,12 +172,12 @@ object_bricks:
                     tubeColor:
                        type: 'multiselect'
                        label: 'Tube Color'
-                    hoseMinimumTemperatureF:
-                       type: 'numeric'
-                       label: 'Min Temp °F'
-                    hoseMaximumTemperatureF:
-                       type: 'numeric'
-                       label: 'Max temp °F'
+               #     hoseMinimumTemperatureF:
+               #        type: 'numeric'
+               #        label: 'Min Temp °F'
+               #     hoseMaximumTemperatureF:
+               #        type: 'numeric'
+               #        label: 'Max temp °F'
                     coverMaterial:
                        type: 'multiselect'
                        label: 'Cover Material'

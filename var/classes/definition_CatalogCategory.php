@@ -1,15 +1,12 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-19T11:04:39+02:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
-- Category [select]
+- Category [multiselect]
 - Logo [image]
 */ 
 
@@ -19,7 +16,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CatalogCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1589879079,
+   'modificationDate' => 1592329908,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -73,24 +70,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'fieldtype' => 'select',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+             'fieldtype' => 'multiselect',
              'options' => 
             array (
-              0 => 
-              array (
-                'key' => 'Fittings',
-                'value' => 'Fittings',
-              ),
             ),
              'width' => '',
-             'defaultValue' => '',
+             'height' => '',
+             'maxItems' => '',
+             'renderType' => 'tags',
              'optionsProviderClass' => '',
              'optionsProviderData' => '',
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
+             'queryColumnType' => 'text',
+             'columnType' => 'text',
+             'phpdocType' => 'array',
              'dynamicOptions' => false,
              'name' => 'Category',
              'title' => 'Category',
@@ -106,7 +99,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
-             'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(

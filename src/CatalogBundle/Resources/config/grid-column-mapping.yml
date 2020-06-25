@@ -1,0 +1,118 @@
+parameters:
+    headers:
+        Hose Product Page:   
+            fittingFamily:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Fitting Family
+                parent: 
+                    name: Product
+                    class: 
+                        name : FittingFamily
+                        fieldName: Name
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Application Long Text
+                parent: 
+                    name: Product
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            tubeMaterial:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Tube Material
+                parent: 
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            tubeColor:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Tube Attributes
+                parent: 
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            coverMaterial:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Cover Material
+                parent: 
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            coverColor:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Cover Attributes
+                parent: 
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            reinforcement:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Reinforcement
+                parent:
+                    name: HoseSkeleton
+                    class: 
+                        name : MultiselectMaster
+                        fieldName: Name
+            temperatureRangeFAndC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Hose Temperature Range
+                parent:
+                    name: Product
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Key Features
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: name
+            brandName:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Brand
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            BrandingLayline:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Branding
+                parent:
+                   name: Product
+            id:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: ID
+                parent:
+                    name: Product
+            
+                    
+        
+        
+       
+    
+    
