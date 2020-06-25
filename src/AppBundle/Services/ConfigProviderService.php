@@ -32,6 +32,14 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CATEGORY_CONFIG_FILE_PATH);
     }
+    public function getPlantMaterialConfig()
+    {
+        return $this->getConfigFromYmlFile(PLANT_MATERIAL_CONFIG_FILE_PATH);
+    }
+    public function getSalesMaterialConfig()
+    {
+        return $this->getConfigFromYmlFile(SALES_MATERIAL_CONFIG_FILE_PATH);
+    }
     public function getProductConfig()
     {
         return $this->getConfigFromYmlFile(PRODUCT_CONFIG_FILE_PATH);
@@ -44,6 +52,16 @@ class ConfigProviderService
 
     public function getMultiselectMasterConfig(){
         return $this->getConfigFromYmlFile(MULTISELECT_MASTER_IMPORT_CONFIG);
+    }
+
+    public function getUnitConversionConfig()
+    {
+        return $this->getConfigFromYmlFile(UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
+    }
+
+    public function getWorkFlowConfig()
+    {
+        return $this->getConfigFromYmlFile(WORKFLOW_CONFIG_FILE_PATH);
     }
 
     /**

@@ -6,9 +6,9 @@
   #   validatorService: 'import.category_validator_service' //Path of the service which will validate the import (Mandatory)
   #   mappedService: 'pim.category_service' // This will be the PIM class which will be used to save the data into concern tables (Mandatory)
   #   listingService: 'pim.category_listing_service' // This service contain the object listing class. (Optional)
-  #   filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv' // File path which can be used to import (Mandatory)
-  #   archiveDir: '/Logs/Master List/SIOP Master List/Archive' // File path where imported file will be moved after successfully import (Mandatory)
-  #   failedDir: '/Logs/Master List/SIOP Master List/Failed' // File path where imported file will be moved after failed to import (Mandatory)
+  #   filePath: '/Data Import Files/Master List/SIOP Master List/Inbox/siop.csv' // File path which can be used to import (Mandatory)
+  #   archiveDir: '/Data Import Files/Master List/SIOP Master List/Archive' // File path where imported file will be moved after successfully import (Mandatory)
+  #   failedDir: '/Data Import Files/Master List/SIOP Master List/Failed' // File path where imported file will be moved after failed to import (Mandatory)
   #   objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products' // It will be used to know the system about parent of first object/folder (Optional)
 
 parameters:
@@ -20,20 +20,39 @@ parameters:
     validatorService: 'import.category_validator_service'
     mappedService: 'pim.category_service'
     listingService: 'pim.category_listing_service'
-    filePath: '/Logs/Master List/SIOP Master List/Inbox/siop.csv'
-    archiveDir: '/Logs/Master List/SIOP Master List/Archive'
-    failedDir: '/Logs/Master List/SIOP Master List/Failed'
+    filePath: '/Data Import Files/Master Lists/SIOP Master Lists/siop.csv'
+    archiveDir: '/Data Import Files/Master Lists/SIOP Master Lists/Archive'
+    failedDir: '/Data Import Files/Master Lists/SIOP Master Lists/Failed'
     objectRootPath: '/Master List/SIOP Master List/SIOP Engineered Products'
     columnName: ['code', 'level', 'description']
   product:
     name: 'product'
     fileType: ['csv', 'xlsx']
     description: 'This command will import "SAP BW"'
-    feederService: 'import.product_service'
+    feederService: 'import.product_sql_service'
     validatorService: 'import.product_validator_service'
     mappedService: 'pim.product_service'
     listingService: 'pim.product_listing_service'
-    filePath: '/Data Import Files/Products Master/material_mara.csv'
+    filePath: '/Data Import Files/Products Master/Material_master.csv'
     archiveDir: '/Data Import Files/Products Master/Archive'
     failedDir: '/Data Import Files/Products Master/Failed'
-  
+    objectRootPath: '/Products Master'
+  salesMaterial:
+    name: 'salesMaterial'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Sales Material Master"'
+    feederService: 'import.sales_material_master_import_service'
+    mappedService: 'pim.sales_material_master_import_service'
+    filePath: '/Data Import Files/MaterialMaster/SalesMaterialMaster/PIM_MaterialSales_03252020.csv'
+    archiveDir: '/Data Import Files/MaterialMaster/SalesMaterialMaster/Archive'
+    failedDir: '/Data Import Files/MaterialMaster/SalesMaterialMaster/Failed'
+  plantMaterial:
+    name: 'plantMaterial'
+    fileType: ['csv', 'xlsx']
+    description: 'This command will import "Plant Material Master"'
+    feederService: 'import.plant_material_master_import_service'
+    mappedService: 'pim.plant_material_master_import_service'
+    filePath: '/Data Import Files/MaterialMaster/PlantMaterialMaster/PIM_MaterialPlant_03022020.csv'
+    archiveDir: '/Data Import Files/MaterialMaster/PlantMaterialMaster/Archive'
+    failedDir: '/Data Import Files/MaterialMaster/PlantMaterialMaster/Failed'
+

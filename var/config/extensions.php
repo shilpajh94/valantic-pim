@@ -5,6 +5,7 @@ return [
         "ADAuthBundle\\ADAuthBundle" => TRUE,
         "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
-        "SiopBundle\\SiopBundle" => FALSE
+        "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
+        "S3CustomizationBundle\\S3CustomizationBundle" => TRUE
     ]
 ];

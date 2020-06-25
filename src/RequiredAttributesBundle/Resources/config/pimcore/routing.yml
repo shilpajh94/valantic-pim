@@ -1,0 +1,3 @@
+required_attributes_homepage:
+    path:     /required_attributes
+    defaults: { _controller: RequiredAttributesBundle:Default:index }

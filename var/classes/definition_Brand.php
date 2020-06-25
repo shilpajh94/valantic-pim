@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-07T12:31:27+02:00
+* Generated at: 2020-05-28T12:20:44+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1588847487,
+   'modificationDate' => 1590661244,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -127,7 +127,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
-                 'invisible' => true,
+                 'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',

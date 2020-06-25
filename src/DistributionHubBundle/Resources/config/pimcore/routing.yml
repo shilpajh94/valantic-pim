@@ -1,0 +1,5 @@
+distribution_hub:
+    resource: "@DistributionHubBundle/Controller/"
+    type:     annotation
+    prefix:   /admin/DistributionHub
+
