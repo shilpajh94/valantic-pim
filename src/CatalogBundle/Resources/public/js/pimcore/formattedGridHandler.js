@@ -152,7 +152,7 @@ pimcore.plugin.formattedGridHandler = Class.create(pimcore.plugin.admin, {
                                 var comp = Ext.getCmp(this.object.edit.dataFields.ProductsData.component.id);
                                // console.log(comp);
                                 table.initStore(response.data,comp,this.object.edit.dataFields.ProductsData,columns);
-                                
+                                console.log(this.object);
                                 var headerComp = Ext.getCmp(this.object.edit.dataFields.headerData.component.id);
                                
                                 headerComp.setValue(response.headerData);

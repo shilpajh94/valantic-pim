@@ -25,7 +25,7 @@ services:
     
     B2BExportBundle\Command\ExportCommand:
         tags:
-            - { name: 'console.command', command: 'conti:b2b-export' }
+            - { name: 'b2b:export', command: 'b2b:export' }
 
     export.catalog-group:
         class: B2BExportBundle\Services\Export

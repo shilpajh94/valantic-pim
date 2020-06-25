@@ -91,23 +91,43 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				$sequence = $Level - 1;
-				// dd($item);
-				if ($sequence > 0 && $sequence <= 3) {
-					if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
-						$groupIdentifier = ltrim($fullCode, '04');
-						$row[] = $groupIdentifier;
-						$topGroup = 'FALSE';
-						$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
-						if ($sequence == 1) {
-							$topGroup = 'TRUE';
-							$parentGroupIdentifier = 0;
+				if ($BusinessUnit == 'PTG') {
+					if ($sequence > 0 && $sequence < 6) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							$groupIdentifier = ltrim($fullCode, '04');
+							$row[] = $groupIdentifier;
+							$topGroup = 'FALSE';
+							$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
+							if ($sequence == 1) {
+								$topGroup = 'TRUE';
+								$parentGroupIdentifier = 0;
+							}
+							$row[] = $topGroup;
+							$row[] = $parentGroupIdentifier;
+							$row[] = $description;
+							$row[] = $sequence;
+							fputcsv($fileResource, $row, ',');
+							unset($row);
 						}
-						$row[] = $topGroup;
-						$row[] = $parentGroupIdentifier;
-						$row[] = $description;
-						$row[] = $sequence;
-						fputcsv($fileResource, $row, ',');
-						unset($row);
+					}
+				} else if($BusinessUnit == 'IFS'){
+					if ($sequence > 0 && $sequence < 4) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							$groupIdentifier = ltrim($fullCode, '04');
+							$row[] = $groupIdentifier;
+							$topGroup = 'FALSE';
+							$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
+							if ($sequence == 1) {
+								$topGroup = 'TRUE';
+								$parentGroupIdentifier = 0;
+							}
+							$row[] = $topGroup;
+							$row[] = $parentGroupIdentifier;
+							$row[] = $description;
+							$row[] = $sequence;
+							fputcsv($fileResource, $row, ',');
+							unset($row);
+						}
 					}
 				}
 			}
@@ -144,15 +164,31 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				$sequence = $Level - 1;
-				if ($sequence > 0 && $sequence <= 3) {
-					if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
-						foreach ($language as $key => $languageIterator) {
-							if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
-								$row[] = ltrim($fullCode, '04');
-								$row[] = $languageIterator['description'];
-								$row[] = $languageMaster[$key];
-								fputcsv($fileResource, $row, ',');
-								unset($row);
+				if($BusinessUnit == 'IFS'){
+					if ($sequence > 0 && $sequence < 4) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							foreach ($language as $key => $languageIterator) {
+								if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
+									$row[] = ltrim($fullCode, '04');
+									$row[] = $languageIterator['description'];
+									$row[] = $languageMaster[$key];
+									fputcsv($fileResource, $row, ',');
+									unset($row);
+								}
+							}
+						}
+					}
+				} else if($BusinessUnit == 'PTG'){
+					if ($sequence > 0 && $sequence < 6) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							foreach ($language as $key => $languageIterator) {
+								if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
+									$row[] = ltrim($fullCode, '04');
+									$row[] = $languageIterator['description'];
+									$row[] = $languageMaster[$key];
+									fputcsv($fileResource, $row, ',');
+									unset($row);
+								}
 							}
 						}
 					}
@@ -378,9 +414,9 @@ class Export {
 			fputcsv($fileResource, $columns, ',');
 			foreach ($data as $item) {
 				// Filling CSV Data Rows
-				if ($item['PIM Attribute Label'] != '') {
+				if ($item['PIM Attribute Name'] != '') {
 					$row[] = $item['B2B Attribute ID'] ?: "#NA";
-					$row[] = $item['PIM Attribute Label'] ?: "#NA";
+					$row[] = $item['PIM Attribute Name'] ?: "#NA";
 					$row[] = -1;
 					fputcsv($fileResource, $row, ',');
 					unset($row);
@@ -435,7 +471,7 @@ class Export {
 			foreach ($attributes as &$attribute) {
 				// Filling CSV Data Rows
 				if ($attribute['isSelect'] == '1') {
-					if (!empty($attribute['B2B Attribute ID'])) {
+					if (!empty($attribute['B2B Attribute ID']) && $pimHierarchyAttributes[$attribute['PIM Attribute Name']]) {
 						// Querying available options from respective field definition
 						$options = $pimHierarchyAttributes[$attribute['PIM Attribute Name']]->getOptions();
 						foreach ($options as $pimAttribute) {
@@ -563,7 +599,7 @@ class Export {
 						// Filling CSV Data Rows
 						$row[] = $allProductDetails['articleNumber'];
 						$row[] = $attribute['B2B Attribute ID'];
-						$row[] = $attribute['PIM Attribute Label'];
+						$row[] = $attribute['PIM Attribute Name'];
 						fputcsv($fileResource, $row, ',');
 						unset($row);
 					}

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-12T14:21:58+02:00
+* Generated at: 2020-06-17T10:43:08+02:00
 * Changed by: system (0)
 * IP: 127.0.0.1
 */ 
@@ -12,7 +12,7 @@ return Pimcore\Model\DataObject\ClassDefinition\CustomLayout::__set_state(array(
    'name' => 'Skeleton',
    'description' => '',
    'creationDate' => 1581513091,
-   'modificationDate' => 1591964518,
+   'modificationDate' => 1592383388,
    'userOwner' => 2,
    'userModification' => 0,
    'classId' => '1',

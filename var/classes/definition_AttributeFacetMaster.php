@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-21T08:16:46+02:00
+* Generated at: 2020-06-15T05:03:49+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'AttributeFacetMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1590041805,
+   'modificationDate' => 1592190229,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -76,7 +76,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'table',
              'width' => '',
              'height' => '',
-             'cols' => 4,
+             'cols' => 5,
              'colsFixed' => true,
              'rows' => '',
              'rowsFixed' => false,
@@ -104,6 +104,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 'key' => 'B2B Attribute ID',
                 'label' => 'B2B Attribute ID',
               ),
+              4 => 
+              array (
+                'key' => 'isSelect',
+                'label' => 'IS SELECT ATTRIBUTE',
+              ),
             ),
              'queryColumnType' => 'longtext',
              'columnType' => 'longtext',
@@ -114,7 +119,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',

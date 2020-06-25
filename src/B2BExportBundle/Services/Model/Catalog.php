@@ -24,8 +24,8 @@ class Catalog {
 	public static function getGroups(){
 		try {
 			// Querying product category from database
-			$productCategories = Db::get()->fetchAll('
-				SELECT * from object_localized_2_en
+			$productCategories = Db::get()->fetchAll('SELECT 
+				*	from object_localized_2_en
 			');
 			return $productCategories;
 		} catch (Exception $e) {
@@ -43,13 +43,14 @@ class Catalog {
 	public static function getGroupsDescription(){
 		try {
             // Querying data from Sales Material Master Database
-	    	$siopMasterList = Db::get()->fetchAll('
-				SELECT object_2.o_id as id, 
+	    	$siopMasterList = Db::get()->fetchAll('SELECT object_2.o_id as id, 
 				Level, 
 				code, 
 				fullCode, 
-				ParentCategoryCode 
+				ParentCategoryCode ,
+				BusinessUnit
 				FROM object_2
+				WHERE BusinessUnit != ""
 			');
 			$data = [];
 			$count = 0;
@@ -75,18 +76,25 @@ class Catalog {
 	public static function getEntries(){
 		try {
             // Querying data from product Master data from Database
-	    	$productMaster = Db::get()->fetchAll('SELECT
-					oo_id,
-					articleNumber as partNo,
-					manufacturerPartNumber as MFPartNo,
-					industryStandard,
-					siopFullCode,
-					objld1.sapDescription
-				FROM object_1
-				LEFT JOIN object_localized_data_1 objld1
-				ON object_1.oo_id = objld1.ooo_id AND objld1.`language` = "en" && objld1.sapDescription != ""
-				WHERE oo_id IN (SELECT `Material` FROM object_10 WHERE object_1.oo_id = object_10.Material AND object_10.epixFlag = "001")
-	    	');
+	    	$productMaster = Db::get()->fetchAll("SELECT
+			articleNumber as partNo,
+			manufacturerPartNumber as MFPartNo,
+			industryStandard,
+			siopFullCode,
+			objld1.sapDescription
+			FROM object_1
+			LEFT JOIN object_localized_data_1 objld1
+			ON object_1.oo_id = objld1.ooo_id 
+			AND objld1.`language` = 'en' 
+			AND objld1.sapDescription != ''
+			WHERE object_1.oo_id IN (SELECT DISTINCT o1.oo_id
+            FROM object_10 o10
+            INNER JOIN object_1 o1 ON 
+            (replace(substring(substring_index(o10.Material, ',', 1), 
+            length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
+			WHERE o10.epixFlag = '001'
+			)
+			");
 	    	return $productMaster;
 		} catch (Exception $e) {
             Logger::log('b2bexport',"Catalog Entries Model Exception :: " .$ex->getMessage());
@@ -103,8 +111,7 @@ class Catalog {
 	public function getEntriesDescription(){
 		try {
             // Querying data from product Master data from Database
-	    	$productMaster = Db::get()->fetchAll('
-				SELECT
+	    	$productMaster = Db::get()->fetchAll("SELECT
 					oo_id,
 					articleNumber as partNo,
 					manufacturerPartNumber as MFPartNo,
@@ -115,11 +122,18 @@ class Catalog {
 					netWeight,
 					weightUnit,
 					objld1.language
-				FROM object_1
-				LEFT JOIN object_localized_data_1 objld1
-				ON object_1.oo_id = objld1.ooo_id
-				WHERE oo_id IN (SELECT `Material` FROM object_10 WHERE object_1.oo_id = object_10.Material AND object_10.epixFlag = "001")
-	    	');
+			FROM object_1
+			LEFT JOIN object_localized_data_1 objld1
+			ON object_1.oo_id = objld1.ooo_id 
+			WHERE object_1.oo_id IN (SELECT DISTINCT o1.oo_id
+            FROM object_10 o10
+            INNER JOIN object_1 o1 ON 
+            (replace(substring(substring_index(o10.Material, ',', 1), 
+            length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
+			WHERE o10.epixFlag = '001'
+			)
+			AND objld1.sapDescription != ''
+	    	");
 	    	// returning product master and language master data
 	    	return ['productMaster' => $productMaster, 'languageMaster' => self::languageMaster()];
 		} catch (Exception $e) {

@@ -1,98 +1,73 @@
 parameters:
-  tableColumns: 
-    descriptive: 
-        fieldLevel: objectBrick
-        fieldLabel: 'Part Number'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    ActivantNumber:
-        fieldLevel: objectBrick
-        fieldLabel: 'Activant Number'
-        fieldType: Input
-        parent:
-            name: HydFittingsFert       
-    articleNumber:
-        fieldLevel: class
-        fieldLabel: 'SAP Number'
-        fieldType: Input
-        parent:
-            name: Product
-    hoseIdNominalId:
-        fieldLevel: objectBrick
-        fieldLabel: 'Hose ID Fractional'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    HoseID1InFract:
-        fieldLevel: objectBrick
-        fieldLabel: 'Hose ID'
-        fieldType: Input
-        parent:
-            name: HydFittingsFert
-    hoseOdIn:
-        fieldLevel: objectBrick
-        fieldLabel: 'Hose OD(In)'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    hoseOdmm:
-        fieldLevel: objectBrick
-        fieldLabel: 'Hose OD(mm)'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    workingPressurePSI:
-        fieldLevel: objectBrick
-        fieldLabel: 'Working Pressure (PSI)'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    workingPressureMPA:
-        fieldLevel: objectBrick
-        fieldLabel: 'Working Pressure (MPA)'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    BendRadiusIN:
-        fieldLevel: objectBrick
-        fieldLabel: 'BendRadius(In)'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    BendRadiusMM:
-        fieldLevel: objectBrick
-        fieldLabel: 'BendRadius(mm)'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    grossWeight:
-        fieldLevel: objectBrick
-        fieldLabel: 'Weight Lbs per ft'
-        fieldType: Input
-        parent:
-            name: HoseSkeleton
-    fittingFamily:
-        fieldLevel: objectBrick
-        fieldLabel: 'Fitting Family'
-        fieldType: Relation
-        parent:
-            name: HoseSkeleton
-    HoseID2InFract:
-        fieldLevel: objectBrick
-        fieldLabel: 'Hose ID 2'
-        fieldType: Input
-        parent:
-            name: HydFittingsFert
-    ThreadSize1InDecimal:
-        fieldLevel: objectBrick
-        fieldLabel: 'Thread Size 1'
-        fieldType: Input
-        parent:
-            name: HydFittingsFert
-    ThreadSize2InDecimal:
-        fieldLevel: objectBrick
-        fieldLabel: 'Thread Size 2'
-        fieldType: Input
-        parent:
-            name: HydFittingsFert
+  tableColumns:
+    Hose Product Page:
+        Hose:
+            descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton   
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose ID Fractional'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdIn:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose OD(In)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdmm:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose OD(mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: 'Working Pressure (PSI)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressureMPA:
+                fieldLevel: objectBrick
+                fieldLabel: 'Working Pressure (MPA)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusIN:
+                fieldLevel: objectBrick
+                fieldLabel: 'BendRadius(In)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusMM:
+                fieldLevel: objectBrick
+                fieldLabel: 'BendRadius(mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            grossWeight:
+                fieldLevel: objectBrick
+                fieldLabel: 'Weight Lbs per ft'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            fittingFamily:
+                fieldLevel: class
+                fieldLabel: 'Fitting Family'
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                       name: FittingFamily
+                       fieldName: Name
