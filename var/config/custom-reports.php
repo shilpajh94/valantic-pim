@@ -7,7 +7,7 @@ return [
         "dataSourceConfig" => [
             [
                 "sql" => "SELECT \nname AS BRAND, \nobject_1.oo_id,\nobject_1.articleNumber AS `ARTICLE NUMBER`,\nobject_localized_data_1.sapDescription AS `SAP DESCRIPTION`,\nobject_21.description AS `MATERIAL GROUP`,\nsiopFullCode AS `SIOP FULL CODE`",
-                "from" => "\nFROM object_brick_store_HoseBase_1 \n\nJOIN object_1 ON object_brick_store_HoseBase_1.o_id = object_1.oo_id \nJOIN object_3 ON FIND_IN_SET(name, object_1.brandName) \nJOIN object_21 ON object_21.oo_id = materialGroup__id \nJOIN object_localized_data_1 \n\nON object_1.oo_id = object_localized_data_1.ooo_id AND object_localized_data_1.`language` = \"en\"",
+                "from" => "\nFROM object_brick_store_HoseBase_1\nJOIN object_1 ON object_brick_store_HoseBase_1.o_id = object_1.oo_id \nJOIN object_3 ON FIND_IN_SET(name, brandName) \nJOIN object_21 ON object_21.oo_id = materialGroup__id \nJOIN object_localized_data_1 \nON object_1.oo_id = object_localized_data_1.ooo_id AND object_localized_data_1.`language` = \"en\"",
                 "where" => "WHERE brandName != '' AND ProductType = 'fert'",
                 "groupby" => "",
                 "type" => "sql"
@@ -29,7 +29,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1592280566,
+        "modificationDate" => 1592840123,
         "creationDate" => 1591342387,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -495,5 +495,116 @@ return [
 
         ],
         "id" => "productIncompleteAttributes"
+    ],
+    "pendingSKUs" => [
+        "name" => "pendingSKUs",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\nn.cid, \no1.articleNumber AS `ARTICLE NUMBER`,\nold1.sapDescription AS `SAP DESCRIPTION`,\no21.description AS `MATERIAL GROUP`,\nsiopFullCode AS `SIOP FULL CODE`,\nn.title AS `LAST ACTION NAME`, \nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'PENDING SINCE',\nFROM_UNIXTIME(n.`date`) AS `LAST UPDATE`\n",
+                "from" => "FROM notes n \nJOIN element_workflow_state e\nON e.cid = n.cid\nLEFT JOIN object_1 o1\nON o1.oo_id = n.cid\nJOIN object_21 o21\nON o21.oo_id = o1.materialGroup__id \nJOIN object_localized_data_1 old1\nON o1.oo_id = old1.ooo_id AND old1.`language` = \"en\"\n",
+                "where" => "WHERE e.place = 'review_content' \nAND DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) < 10\nAND DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) > 5\n",
+                "groupby" => "cid",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "ARTICLE NUMBER",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 150,
+                "label" => "",
+                "id" => "extModel395-1"
+            ],
+            [
+                "name" => "SAP DESCRIPTION",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 150,
+                "label" => "",
+                "id" => "extModel395-2"
+            ],
+            [
+                "name" => "MATERIAL GROUP",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 150,
+                "label" => "",
+                "id" => "extModel395-3"
+            ],
+            [
+                "name" => "SIOP FULL CODE",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 120,
+                "label" => "",
+                "id" => "extModel395-4"
+            ],
+            [
+                "name" => "PENDING SINCE",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 120,
+                "label" => "",
+                "id" => "extModel395-7"
+            ],
+            [
+                "name" => "LAST UPDATE",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "id" => "extModel395-8"
+            ],
+            [
+                "name" => "cid",
+                "display" => FALSE,
+                "export" => FALSE,
+                "order" => FALSE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel395-9"
+            ],
+            [
+                "name" => "LAST ACTION NAME",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel395-11"
+            ]
+        ],
+        "niceName" => "PENDING SKUs",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1593059411,
+        "creationDate" => 1592972098,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "pendingSKUs"
     ]
 ];

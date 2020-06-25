@@ -2,15 +2,17 @@
 
 namespace B2BExportBundle\Services;
 
-use B2BExportBundle\Services\Config;
-use B2BExportBundle\Services\Model\Attribute;
-use B2BExportBundle\Services\Model\Catalog;
-use B2BExportBundle\Services\Model\Material;
 use Exception;
 use Pimcore\Db;
 use Pimcore\File;
-use Pimcore\Log\Simple as Logger;
+use AppBundle\Tool\Utils;
 use Pimcore\Model\DataObject;
+use Pimcore\Log\Simple as Logger;
+use Pimcore\Tests\Helper\Pimcore;
+use B2BExportBundle\Services\Config;
+use B2BExportBundle\Services\Model\Catalog;
+use B2BExportBundle\Services\Model\Material;
+use B2BExportBundle\Services\Model\Attribute;
 
 /**
  * Service Class Export
@@ -19,7 +21,7 @@ use Pimcore\Model\DataObject;
  *
  */
 class Export {
-
+	
 	/**
 	 * Execute generate Function
 	 *
@@ -416,7 +418,7 @@ class Export {
 				// Filling CSV Data Rows
 				if ($item['PIM Attribute Name'] != '') {
 					$row[] = $item['B2B Attribute ID'] ?: "#NA";
-					$row[] = $item['PIM Attribute Name'] ?: "#NA";
+					$row[] = lcfirst( str_replace('VirtualCatalog', '', $item['PIM Attribute Name'])) ?: "#NA";
 					$row[] = -1;
 					fputcsv($fileResource, $row, ',');
 					unset($row);
@@ -471,9 +473,9 @@ class Export {
 			foreach ($attributes as &$attribute) {
 				// Filling CSV Data Rows
 				if ($attribute['isSelect'] == '1') {
-					if (!empty($attribute['B2B Attribute ID']) && $pimHierarchyAttributes[$attribute['PIM Attribute Name']]) {
+					if (!empty($attribute['B2B Attribute ID']) && $pimHierarchyAttributes[lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']))]) {
 						// Querying available options from respective field definition
-						$options = $pimHierarchyAttributes[$attribute['PIM Attribute Name']]->getOptions();
+						$options = $pimHierarchyAttributes[lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']))]->getOptions();
 						foreach ($options as $pimAttribute) {
 							$row[] = $attribute['B2B Attribute ID'];
 							$row[] = $pimAttribute['key'];
@@ -516,55 +518,56 @@ class Export {
 			// Filling CSV columns
 			$columns = array('PartNumber', 'AttributeIdentifier', 'ValueId');
 			fputcsv($fileResource, $columns, ',');
+			
 			foreach ($productsMaster as $product) {
 				// Attaching Additional Product Brick Data
 				$objectLD1 = Db::get()->fetchAll('
-                    SELECT * FROM object_localized_data_1 WHERE ooo_id = ' . $product["oo_id"] . '
-                ');
-
+					SELECT * FROM object_localized_data_1 WHERE ooo_id = ' . $product["oo_id"] . '
+				');
+	
 				// BRAND DATA
 				$productBaseParentID = Db::get()->fetchOne('SELECT o_parentId FROM object_1 WHERE oo_id = ' . $product["o_parentId"] . '');
 				$objectPTGBase_1 = $productBaseParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_PTGBase_1 WHERE o_id = ' . $productBaseParentID . '
-                ') : [];
+					SELECT * FROM object_brick_store_PTGBase_1 WHERE o_id = ' . $productBaseParentID . '
+				') : [];
 				$objectHoseBase_1 = $productBaseParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HoseBase_1 WHERE o_id = ' . $productBaseParentID . '
-                ') : [];
-
+					SELECT * FROM object_brick_store_HoseBase_1 WHERE o_id = ' . $productBaseParentID . '
+				') : [];
+	
 				// SKELETON DATA
 				$productParentID = $product['o_parentId'];
 				$objectPTGSkeleton_1 = $productParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_PTGSkeleton_1 WHERE o_id = ' . $productParentID . '
-                ') : [];
+					SELECT * FROM object_brick_store_PTGSkeleton_1 WHERE o_id = ' . $productParentID . '
+				') : [];
 				$objectHoseSkeleton_1 = $productParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HoseSkeleton_1 WHERE o_id = ' . $productParentID . '
-                ') : [];
-
+					SELECT * FROM object_brick_store_HoseSkeleton_1 WHERE o_id = ' . $productParentID . '
+				') : [];
+	
 				// FERT DATA
 				$objectBeltsFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_BeltsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_BeltsFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectPTGFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_PTGFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_PTGFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectMetalFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_MetalFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_MetalFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectSynchronousFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_SynchronousFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_SynchronousFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectHydFittingsFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HydFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_HydFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectINHFittingsFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_INHFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_INHFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectHoseFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HoseFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_HoseFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				$objectAccessoriesFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_AccessoriesFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
+					SELECT * FROM object_brick_store_AccessoriesFert_1 WHERE o_id = ' . $product["oo_id"] . '
+				');
 				// Merging Product @Array with additional Product Bricks Data
 				$product = count($product) ? $product : [];
 				$objectLD1Arr = count($objectLD1) > 0 ? $objectLD1[0] : [];
@@ -597,14 +600,15 @@ class Export {
 						) != 'na'
 					) {
 						// Filling CSV Data Rows
-						$row[] = $allProductDetails['articleNumber'];
-						$row[] = $attribute['B2B Attribute ID'];
-						$row[] = $attribute['PIM Attribute Name'];
+						$row[] =	$allProductDetails['articleNumber'];
+						$row[] =	$attribute['B2B Attribute ID'];
+						$row[] =	lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']));
 						fputcsv($fileResource, $row, ',');
 						unset($row);
 					}
 				}
 			}
+
 			fclose($fileResource);
 		} else {
 			throw new Exception("Export Service Exception ::  Error, Processing Attribute Value Category Entry Facets CSV, No records Found..");
