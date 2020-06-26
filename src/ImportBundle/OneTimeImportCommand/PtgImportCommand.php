@@ -42,10 +42,14 @@ class PtgImportCommand extends AbstractCommand
     const PRODUCT_LOCALIZED_DATA = 'object_localized_data_1';
     const PRODUCT_LOCALIZED_QUERY_L = 'object_localized_query_1_en';
 
+    const PRODUCT_QUERY = 'object_query_1';
+    const PRODUCT_STORE = 'object_store_1';
+
     const BATCH_SIZE = 1000;
     private $langArr;
     private $db;
     private $t;
+    private $featureList;
     protected function configure()
     {
         $this->setName('conti:onetimeimport:ptg')
@@ -60,19 +64,21 @@ class PtgImportCommand extends AbstractCommand
         $this->t = time();
         $this->langArr = \Pimcore\Tool::getValidLanguages();
         if (is_file($filePath)) {
-            p_r('Script started at: '.date('h:i:s', $this->t));
+            p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->createTempTable();
-            $this->import($filePath);
+            // $this->createTempTable();
+            // $this->import($filePath);
+            $this->loadFeatures();
             $this->updateBase();
             $this->updateSkeleton();
             $this->updateFert();
             p_r('--------------Total Execution Time---------------');
-            p_r('Script completed after: '.(abs(time() - $this->t) / 60).' mnt');
+            p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
-    private function import($filePath) {
+    private function import($filePath)
+    {
         p_r('Importing data into temp table');
         $results = $this->getCSVData($filePath);
         $this->truncateTemp($results);
@@ -81,11 +87,12 @@ class PtgImportCommand extends AbstractCommand
         $this->filterSiopLvl6Data();
     }
 
-   
+
     /**
      * Updating siopLvl5 temp table with siop level 5 data
-    */
-    private function filterSiopLvl5Data() {
+     */
+    private function filterSiopLvl5Data()
+    {
         p_r('Filtering Siop Level 5(Base Level) Data');
         $sql = "INSERT INTO siopLvl5_objects SELECT o1_2.o_id as siopLvl5_object_id, o1_2.siopFullCode, pi.* FROM ptg_import pi JOIN object_1 o1_1 ON(o1_1.articleNumber=pi.SAPMaterialCode)
         JOIN object_1 o1_2 ON(o1_2.siopFullCode=SUBSTR(o1_1.siopFullCode, 1, 16)) ON DUPLICATE KEY UPDATE siopLvl5_objects.Width_in=siopLvl5_objects.Width_in;";
@@ -94,8 +101,9 @@ class PtgImportCommand extends AbstractCommand
 
     /**
      * Updating siopLvl6 temp table with siop level 5 data
-    */
-    private function filterSiopLvl6Data() {
+     */
+    private function filterSiopLvl6Data()
+    {
         p_r('Filtering Siop Level 6(Skeleton Level) Data');
         $sql = "INSERT INTO siopLvl6_objects SELECT o1_2.o_id as siopLvl6_object_id, o1_2.siopFullCode, pi.* FROM ptg_import pi JOIN object_1 o1_1 ON(o1_1.articleNumber=pi.SAPMaterialCode)
         JOIN object_1 o1_2 ON(o1_2.siopFullCode=o1_1.siopFullCode) JOIN object_2 ctgry ON(ctgry.fullCode=o1_2.siopFullCode)
@@ -114,8 +122,24 @@ class PtgImportCommand extends AbstractCommand
         $results = $this->db->fetchAll($sql);
         // Update Query Table
 
+        $records = $this->getMainClassData($results);
+        p_r('Processing ' . count($results) . ' records of main class data');
+        p_r('Updating Main Level');
+        $this->updateTable($records, self::PRODUCT_QUERY);
+        // Update Store Table
+        $this->updateTable($records, self::PRODUCT_STORE);
+        unset($records);
+
+        // Update Bullet Points
+        $records = $this->getBaseLocalizedData($results);
+        p_r('Updating Product Localized Data');
+        $this->updateTable($records['productLocalizedData'], self::PRODUCT_LOCALIZED_DATA);
+        $this->updateTable($records['productLocalizedData'], self::PRODUCT_LOCALIZED_QUERY_L);
+        p_r('Product Localized Data Updation Done');
+        unset($records);
+
         $records = $this->getBaseBrickData($results);
-        p_r('Processing '.count($results).' records at base level');
+        p_r('Processing ' . count($results) . ' records at base level');
         p_r('Updating Base Level');
         $this->updateTable($records, self::PTG_BASE_OBJECT_BRICK_QUERY);
         // Update Store Table
@@ -144,7 +168,7 @@ class PtgImportCommand extends AbstractCommand
         Heat_and_Oil_Resistant heatOilResistant FROM siopLvl6_objects";
         $results = $this->db->fetchAll($sql);
         $records = $this->getSkeletonBricks($results);
-        p_r('Processing '.count($results).' records at skeleton level');
+        p_r('Processing ' . count($results) . ' records at skeleton level');
         p_r('Updating skeleton');
         $this->updateTable($records, self::PTG_SKELETON_OBJECT_BRICK_QUERY);
         $this->updateTable($records, self::PTG_SKELETON_OBJECT_BRICK_STORE);
@@ -171,16 +195,14 @@ class PtgImportCommand extends AbstractCommand
         LEFT JOIN object_brick_query_MetalFert_1 ptgmtl ON(ptgmtl.o_id=o.o_id)";
         $results = $this->db->fetchAll($sql);
 
-        p_r('Processing '.count($results).' records at fert level');
+
+        p_r('Main Class Updation - Done');
+
+        p_r('Processing ' . count($results) . ' records at fert level');
         $records = $this->getFertData($results);
         // p_r($records['ptgFertQuery']);die;
-        
-        if (isset($records['productLocalizedData']) && !empty($records['productLocalizedData'])) {
-            p_r('Updating Product Localized Data');
-            $this->updateTable($records['productLocalizedData'], self::PRODUCT_LOCALIZED_DATA);
-            $this->updateTable($records['productLocalizedData'], self::PRODUCT_LOCALIZED_QUERY_L);
-            p_r('Product Localized Data Updation Done');
-        }
+
+
 
         if (isset($records['ptgFertQuery']) && !empty($records['ptgFertQuery'])) {
             p_r('Updating PTG Fert');
@@ -209,9 +231,43 @@ class PtgImportCommand extends AbstractCommand
         $this->insertDataToLogTable($results);
     }
 
+    private function getBaseLocalizedData($results)
+    {
+        $productLocalizedData = array();
+        foreach ($results as $r) {
+            $ar = array();
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_1'])) {
+                array_push($ar, $r['Bullet_Point_1']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_2'])) {
+                array_push($ar, $r['Bullet_Point_2']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_3'])) {
+                array_push($ar, $r['Bullet_Point_3']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_4'])) {
+                array_push($ar, $r['Bullet_Point_4']);
+            }
+            if (!$this->isSheetValueEmpty($r['Bullet_Point_5'])) {
+                array_push($ar, $r['Bullet_Point_5']);
+            }
+            if (!empty($ar)) {
+                $featureIds = $this->getFeatureIds($ar);
+                if (!empty($featureIds)) {
+                    $ar = array(
+                        'ooo_id' => $r['o_id'],
+                        'language' => 'en',
+                        'FeaturesBenefitsBulletPoint' => implode(",", $featureIds)
+                    );
+                    array_push($productLocalizedData, $ar);
+                }
+            }
+            unset($ar);
+        }
+    }
     /**
      * Get all bricks and product class localized mapped data
-    */
+     */
     private function getFertData($results)
     {
         $d = array();
@@ -233,22 +289,24 @@ class PtgImportCommand extends AbstractCommand
             $ar = array(
                 'ooo_id'    =>  $r['o_id'],
                 'language'  =>  'en',
-                'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:NULL,
-                'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:NULL,
-                'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:NULL,
-                'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:NULL,
-                'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:NULL,
-                'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:NULL
+                #'FeaturesBenefitsBulletPoint1'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_1'])?$r['Bullet_Point_1']:NULL,
+                #'FeaturesBenefitsBulletPoint2'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_2'])?$r['Bullet_Point_2']:NULL,
+                #'FeaturesBenefitsBulletPoint3'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_3'])?$r['Bullet_Point_3']:NULL,
+                #'FeaturesBenefitsBulletPoint4'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_4'])?$r['Bullet_Point_4']:NULL,
+                #'FeaturesBenefitsBulletPoint5'  =>  !$this->isSheetValueEmpty($r['Bullet_Point_5'])?$r['Bullet_Point_5']:NULL,
+                #'longDescription'  =>  !$this->isSheetValueEmpty($r['LongDescriptionHTML'])?$r['LongDescriptionHTML']:NULL
             );
-            array_push($productLocalizedData, $ar);
+            // array_push($productLocalizedData, $ar);
             // array_push($productLocalizedQueryL, $ar);
             unset($ar);
+
+
             // PTG Fert
             if (!empty($r['ptg_fert_oid'])) {
                 $ar = array(
                     'o_id'      =>  $r['o_id'],
                     'fieldname'     =>  $r['fieldname'],
-                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? ucfirst(strtolower($r['Color'])): NULL,
+                    'color'   =>  !$this->isSheetValueEmpty($r['Color']) ? ucfirst(strtolower($r['Color'])) : NULL,
                     // 'customerProductFamily'   =>  $r[''],
                     // 'heightIn'   =>  $r[''],
                     // 'heightmm'   =>  $r[''],
@@ -271,8 +329,8 @@ class PtgImportCommand extends AbstractCommand
                     'fieldname' =>  $r['fieldname'],
                     // 'effectiveLengthUOM' => '',
                     // 'numberOfBands' =>  '',
-                    'insideLengthIN' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $r['Product_inside_Length_in']: NULL,
-                    'insideLengthMM' => !$this->isSheetValueEmpty($r['Product_inside_Length_mm']) ? $r['Product_inside_Length_mm']: NULL,
+                    'insideLengthIN' => !$this->isSheetValueEmpty($r['Product_inside_Length_in']) ? $r['Product_inside_Length_in'] : NULL,
+                    'insideLengthMM' => !$this->isSheetValueEmpty($r['Product_inside_Length_mm']) ? $r['Product_inside_Length_mm'] : NULL,
                     'datumLengthIn' => !$this->isSheetValueEmpty($r['Datum_Length_in']) ? $r['Datum_Length_in'] : NULL,
                     'datumLengtMM' => !$this->isSheetValueEmpty($r['Datum_Length_mm']) ? $r['Datum_Length_mm'] : NULL,
                     'outsideLengthIN' => !$this->isSheetValueEmpty($r['Outside_Length_in']) ? $r['Outside_Length_in'] : NULL,
@@ -348,9 +406,9 @@ class PtgImportCommand extends AbstractCommand
                 if (!$this->isSheetValueEmpty($r['Min_Bore_Size_mm'])) {
                     $ar['minBoreMm'] = $r['Min_Bore_Size_mm'];
                 }
-                if(!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'y' || strtolower($r['Flanges_Yes_No']) == 'yes')) {
+                if (!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'y' || strtolower($r['Flanges_Yes_No']) == 'yes')) {
                     $ar['flange'] = 1;
-                } else if(!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'n' || strtolower($r['Flanges_Yes_No']) == 'no')) {
+                } else if (!$this->isSheetValueEmpty($r['Flanges_Yes_No']) && (strtolower($r['Flanges_Yes_No']) == 'n' || strtolower($r['Flanges_Yes_No']) == 'no')) {
                     $ar['flange'] = 0;
                 }
                 array_push($metalFertQuery, $ar);
@@ -379,6 +437,21 @@ class PtgImportCommand extends AbstractCommand
         return false;
     }
 
+    private function getMainClassData($results)
+    {
+        $d = array();
+        foreach ($results as $r) {
+            $d[] = array(
+                'oo_id'  =>  $r['o_id'],
+                'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF']) ? $r['minimumTemperatureF'] : NULL,
+                'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC']) ? $r['minimumTemperatureC'] : NULL,
+                'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF']) ? $r['maximumTemperatureF'] : NULL,
+                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC']) ? $r['maximumTemperatureC'] : NULL
+            );
+        }        
+        return $d;
+    }
+
     private function getBaseBrickData($results)
     {
         $d = array();
@@ -386,29 +459,26 @@ class PtgImportCommand extends AbstractCommand
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'material'  =>  !$this->isSheetValueEmpty($r['material'])?$r['material']:NULL,
-                'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:NULL,
-                'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:NULL,
-                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:NULL,
-                'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF'])?$r['maximumTemperatureF']:NULL,
-                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC'])?$r['maximumTemperatureC']:NULL
+                'material'  =>  !$this->isSheetValueEmpty($r['material']) ? $r['material'] : NULL,
+                'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement']) ? $r['reinforcement'] : NULL
             );
         }
         return $d;
     }
 
-    private function getSkeletonBricks($results) {
+    private function getSkeletonBricks($results)
+    {
         $d = array();
         foreach ($results as $r) {
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'profile'  =>  !$this->isSheetValueEmpty($r['Profile'])?$r['Profile']:NULL,
+                'profile'  =>  !$this->isSheetValueEmpty($r['Profile']) ? $r['Profile'] : NULL,
                 // 'beltAngle'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF'])?$r['minimumTemperatureF']:NULL,
                 // 'heightIn'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC'])?$r['minimumTemperatureC']:NULL,
                 // 'heightMm'  =>  !$this->isSheetValueEmpty($r['reinforcement'])?$r['reinforcement']:'',
-                'staticConductive'  =>  !$this->isSheetValueEmpty($r['staticConductive'])?$r['staticConductive']:NULL,
-                'heatOilResistant'  =>  !$this->isSheetValueEmpty($r['heatOilResistant'])?$r['heatOilResistant']:NULL
+                'staticConductive'  =>  !$this->isSheetValueEmpty($r['staticConductive']) ? $r['staticConductive'] : NULL,
+                'heatOilResistant'  =>  !$this->isSheetValueEmpty($r['heatOilResistant']) ? $r['heatOilResistant'] : NULL
             );
         }
         return $d;
@@ -436,12 +506,11 @@ class PtgImportCommand extends AbstractCommand
                 foreach ($results as $r) {
                     $valueArray = [];
                     foreach ($valColumns as $key) {
-                        if(!is_null($r[$key])) {
+                        if (!is_null($r[$key])) {
                             $valueArray[] = $this->db->quote($r[$key]);
                         } else {
                             $valueArray[] = "NULL";
                         }
-                        
                     }
                     $values .= '(' . implode(",", $valueArray) . '),';
 
@@ -465,7 +534,8 @@ class PtgImportCommand extends AbstractCommand
     }
 
 
-    private function truncateTemp($results){
+    private function truncateTemp($results)
+    {
         $sql = "TRUNCATE siopLvl5_objects; TRUNCATE siopLvl6_objects; TRUNCATE ptg_import;";
         $this->db->query($sql);
     }
@@ -473,34 +543,33 @@ class PtgImportCommand extends AbstractCommand
     public function insertDataToLogTable($data, $flag = true)
     {
         try {
-            if($flag) {
+            if ($flag) {
                 p_r("Updating Log..");
             }
             $rowCount = 1;
             $sql = "INSERT INTO ptg_import_log (id, record, statusCode, failedReason, createdAt) VALUES";
             foreach ($data as $dataKey => $dataValue) {
-                if($flag) {
-                    $values .= '("'.$dataValue['SAPMaterialCode'].'", "'.addslashes(json_encode($dataValue)).'", "Success","",now()),';
+                if ($flag) {
+                    $values .= '("' . $dataValue['SAPMaterialCode'] . '", "' . addslashes(json_encode($dataValue)) . '", "Success","",now()),';
                 } else {
-                    $values .= '("'.$dataValue['SAPMaterialCode'].'", "'.addslashes(json_encode($dataValue)).'", "Failed","Sap Code not found in material mara sheet",now()),';
-                }                
+                    $values .= '("' . $dataValue['SAPMaterialCode'] . '", "' . addslashes(json_encode($dataValue)) . '", "Failed","Sap Code not found in material mara sheet",now()),';
+                }
                 // inserting records in batch
                 if ($rowCount % self::BATCH_SIZE == 0) {
-                    $query = $sql.rtrim($values, ',');
+                    $query = $sql . rtrim($values, ',');
                     $this->db->query($query);
                     $values = '';
                 }
                 $rowCount++;
             }
-            if($values)
-            {
-                $query = $sql.rtrim($values, ',') ;
+            if ($values) {
+                $query = $sql . rtrim($values, ',');
                 $this->db->query($query);
             }
             $data = null;
-            if($flag) {
+            if ($flag) {
                 $flag = false;
-                $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";                
+                $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";
                 $data = $this->db->fetchAll($sql);
                 $this->insertDataToLogTable($data, false);
             }
@@ -509,6 +578,25 @@ class PtgImportCommand extends AbstractCommand
         }
     }
 
+    private function loadFeatures()
+    {
+        $sql = "SELECT o_id, `Name` feature FROM object_29 WHERE FeatureType='PTG'";
+        $this->featureList = $this->db->fetchAll($sql);
+    }
+
+    private function getFeatureIds($features)
+    {
+        $results = $this->loadFeatures();
+        $featureIds = array();
+        if (is_array($this->featureList) && !empty($features)) {
+            foreach ($this->featureList as $result) {
+                if (in_array($result['feature'], $features)) {
+                    array_push($featureIds, $result['feature']);
+                }
+            }
+        }
+        return $featureIds;
+    }
     public function getCSVData($fileName)
     {
         try {
@@ -558,8 +646,9 @@ class PtgImportCommand extends AbstractCommand
 
     /**
      * Will create all required temp table
-    */
-    private function createTempTable() {
+     */
+    private function createTempTable()
+    {
         $sql1 = " CREATE TABLE IF NOT EXISTS `ptg_import` (
             `SAPMaterialCode` varchar(20) NOT NULL,
             `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
@@ -635,7 +724,7 @@ class PtgImportCommand extends AbstractCommand
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         //   $this->db->query($sql);
 
-          $sql2 = "CREATE TABLE IF NOT EXISTS `siopLvl5_objects` (
+        $sql2 = "CREATE TABLE IF NOT EXISTS `siopLvl5_objects` (
             `siopLvl5_object_id` varchar(10) NOT NULL,
             `siopFullCode` varchar(20) NOT NULL,
             `SAPMaterialCode` varchar(20) NOT NULL,
@@ -712,7 +801,7 @@ class PtgImportCommand extends AbstractCommand
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         //   $this->db->query($sql);
 
-          $sql3 = "CREATE TABLE IF NOT EXISTS `siopLvl6_objects` (
+        $sql3 = "CREATE TABLE IF NOT EXISTS `siopLvl6_objects` (
             `siopLvl6_object_id` varchar(10) NOT NULL,
             `siopFullCode` varchar(20) NOT NULL,
             `SAPMaterialCode` varchar(20) NOT NULL,
@@ -788,7 +877,7 @@ class PtgImportCommand extends AbstractCommand
             PRIMARY KEY (`siopLvl6_object_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
-          $sql4 = "CREATE TABLE IF NOT EXISTS `ptg_import_log` (
+        $sql4 = "CREATE TABLE IF NOT EXISTS `ptg_import_log` (
             `logId` bigint(20) NOT NULL AUTO_INCREMENT,
             `id` varchar(30) NOT NULL,
             `record` longtext,
@@ -797,7 +886,7 @@ class PtgImportCommand extends AbstractCommand
             `failedReason` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`logId`)
           ) ENGINE=InnoDB AUTO_INCREMENT=15440 DEFAULT CHARSET=utf8mb4;";
-          $sql = $sql1.$sql2.$sql3.$sql4;
-          $this->db->query($sql);
+        $sql = $sql1 . $sql2 . $sql3 . $sql4;
+        $this->db->query($sql);
     }
 }
