@@ -444,7 +444,8 @@ class Export {
 		$time = time();
 		p_r('<<<<<<<===================================>>>>>>>');
 		p_r('Attribute Value Facets Script execution started: ' . date('h:i:s', $time));
-		$attributes = Attribute::getValuesFacets();
+		$data = Attribute::getValuesFacets();
+		extract($data);
 		if (count($attributes) > 0) {
 			// Generating Empty csv file with string ($fileName)
 			File::put($fileName, ' ');
@@ -470,22 +471,40 @@ class Export {
 				$pimHierarchyAttributes = array_merge($pimHierarchyAttributes, $objectBrickInstance->getDefinition()->getFieldDefinitions());
 				unset($objectBrickInstance, $objectBrickGetter);
 			}
+			//  Get Multiselect Attribute Multilingual Mapping 
+			$multiSelectMultiLingualMapping = $this->getMultiselectMapping();
 			foreach ($attributes as &$attribute) {
 				// Filling CSV Data Rows
 				if ($attribute['isSelect'] == '1') {
-					if (!empty($attribute['B2B Attribute ID']) && $pimHierarchyAttributes[lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']))]) {
-						// Querying available options from respective field definition
-						$options = $pimHierarchyAttributes[lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']))]->getOptions();
-						foreach ($options as $pimAttribute) {
-							$row[] = $attribute['B2B Attribute ID'];
-							$row[] = $pimAttribute['key'];
-							$row[] = $pimAttribute['key'];
-							$row[] = -1;
-							fputcsv($fileResource, $row, ',');
-							unset($row);
+					$attributeName = lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']));
+					if (!empty($attribute['B2B Attribute ID']) &&  $pimHierarchyAttributes[$attributeName]) {
+						if($multiSelectMultiLingualMapping[$attributeName]){
+							// Querying available options from respective field definition
+							$options = $this->getOptions($pimHierarchyAttributes[$attributeName], $languageMaster);
+							foreach ($options as $pimAttribute) {
+								$row[] = $attribute['B2B Attribute ID'];
+								$row[] = $pimAttribute['key'];
+								$row[] = $pimAttribute['key'];
+								$row[] = $pimAttribute['lang'];
+								fputcsv($fileResource, $row, ',');
+								unset($row);
+							}
+							unset($options);
+						} else {
+							// Querying available options from respective field definition
+							$options = $pimHierarchyAttributes[$attributeName]->getOptions();
+							foreach ($options as $pimAttribute) {
+								$row[] = $attribute['B2B Attribute ID'];
+								$row[] = $pimAttribute['key'];
+								$row[] = $pimAttribute['key'];
+								$row[] = -1;
+								fputcsv($fileResource, $row, ',');
+								unset($row);
+							}
+							unset($options);
 						}
-						unset($options);
 					}
+					unset($attributeMultiselectObject);
 				}
 			}
 			fclose($fileResource);
@@ -662,4 +681,61 @@ class Export {
 		p_r('--------------Total Execution Time---------------');
 		p_r('Script completed after: ' . (abs(time() - $time) / 60) . ' minutes');
 	}
+
+/**
+	* Method to get Virtual Catalog Field Mapping.
+	*
+	* @return array $vcFieldMapping virtual catalog mapping configuration.
+	*/
+   protected function getMultiselectMapping()
+   {
+	   $vcFieldMapping = array();
+	   $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/B2BExportBundle/Resources/config/multiselect_mapping.yml";
+	   $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
+	   return $vcFieldMapping['multiselect_list']['attrubutes_with_multilingual_mapping'];
+   }
+   /**
+     *
+     * return the multiselect master of a type
+     *
+     * @param array $context
+     * @param \Pimcore\Model\DataObject\ClassDefinition\Data $fieldDefinition
+     */
+   protected function getOptions($fieldDefinition, $languageMaster) {
+		$returnValue = array();
+		$optionsProviderData = $fieldDefinition->getOptionsProviderData();
+		$optionsProviderClass = $fieldDefinition->getOptionsProviderClass();
+		// field provider data must have entry for brick group name
+		if($optionsProviderData){
+			$fieldName = $fieldDefinition->getName();
+			$masterType = $this->getMasterType($optionsProviderClass, $optionsProviderData,$fieldName);
+			$list = Db::get()->fetchAll('SELECT
+				old22.name AS NAME,
+				old22.language AS LANG,
+				old22.ooo_id AS ID
+				FROM object_22 o22
+				JOIN  `object_localized_data_22`  old22
+				ON o22.oo_id = old22.ooo_id
+				WHERE `masterType` = "'.$masterType.'"
+				AND old22.name != ""
+			');
+			foreach($list as $object){
+				$key = $object['NAME'];
+				$value = $object['ID'];
+				$objectLanguage = $languageMaster[$object['LANG']];
+				if(!empty($key) && !empty($objectLanguage)){
+					$returnValue[] = array('key' => $key, 'value' => $value, 'lang' => $objectLanguage);
+				}
+			}
+		}
+        return $returnValue;
+   }
+   
+   protected function getMasterType($optionsProviderClass, $optionsProviderData, $fieldName){
+	   //TODO: place this separator in a config file
+	   if($optionsProviderClass == "AppBundle\OptionProvider\OptionProviderForBrickMultiselects"){
+			return $optionsProviderData."~".$fieldName;
+	   }
+	   return $fieldName;
+   }
 }

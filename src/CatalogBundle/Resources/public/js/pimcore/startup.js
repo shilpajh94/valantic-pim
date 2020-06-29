@@ -258,7 +258,8 @@ var CatalogBundlePlugin = new pimcore.plugin.CatalogBundle();
 Ext.define('Conti.pimcore.object.tags.table', {
     extend: 'pimcore.object.tags.table',
     initStore: function (data, comp, field, columnArr) {
-
+        if(data !== null)
+        {
         this.component = comp;
         var storeFields = [];
         if (data[0]) {
@@ -279,6 +280,7 @@ Ext.define('Conti.pimcore.object.tags.table', {
         field.dirty = true;
         field.store = this.store;
         this.initGrid(comp, columnArr);
+    }
     },
 
     initGrid: function (comp, columnArr) {

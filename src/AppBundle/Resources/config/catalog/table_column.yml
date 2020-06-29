@@ -71,3 +71,12 @@ parameters:
                     class:
                        name: FittingFamily
                        fieldName: Name
+    PTG Product Page:
+        Product Table:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            
