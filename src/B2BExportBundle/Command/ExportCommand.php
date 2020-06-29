@@ -24,8 +24,16 @@ use Exception;
  * @package B2BExportBundle\Command
  */
 class ExportCommand extends AbstractCommand {
+    
+    /**
+     * Service variable for service class
+     * @var $service
+     */
+	public $service;
+	
     public function __construct() {
         parent::__construct();
+        $this->service = \Pimcore::getContainer()->get('b2b.export-service');
     }
 
 	/**
@@ -50,7 +58,7 @@ class ExportCommand extends AbstractCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
     	try{
             // Generate B2B Export CSVs
-            (new Export)->generate();
+            $this->service->generate();
             // Returning Void
             return;
 
