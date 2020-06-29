@@ -244,6 +244,7 @@ class DefaultController extends FrontendController {
         for ($i = 0; $i < count($siopCategory); $i++) {
             $y = "," . $siopCategory[$i] . ",";
             array_push($x, $y);
+            array_push($x, $siopCategory[$i]);
         }
         $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
         $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
