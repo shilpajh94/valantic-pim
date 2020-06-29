@@ -150,7 +150,7 @@ class Attribute
                 FROM object_28'
             );
             $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
-        return $attributes;
+        return ['attributes' => $attributes, 'languageMaster' => self::languageMaster()];
       } catch (Exception $ex) {
           throw new Exception( 'Attribute  Model Exception :: ' . $ex );
       }
@@ -210,4 +210,28 @@ class Attribute
         }
         return $temp_array;
     }
+
+	/**
+	 * Querying languages with languageId from Database
+	 * @return array $languageMaster
+	 */
+	protected function languageMaster() {
+		$languageMasterKeys = array_map(function($e){
+				return $e['SystemCode'];
+			}, Db::get()->fetchAll('
+				SELECT SystemCode
+				FROM object_27
+			')
+		);
+		$languageMasterValues = array_map(function($e){
+				return $e['Code'];
+			}, Db::get()->fetchAll('
+				SELECT Code
+				FROM object_27
+			')
+		);
+		// Language master from object_27 , ex : ['en' => -1, 'fr_CA' => -2]
+		$languageMaster = array_combine($languageMasterKeys,$languageMasterValues);
+		return 	$languageMaster;
+	}
 }
