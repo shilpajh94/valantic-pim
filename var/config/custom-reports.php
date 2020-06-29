@@ -6,15 +6,69 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \nname AS BRAND, \nobject_1.oo_id,\nobject_1.articleNumber AS `ARTICLE NUMBER`,\nobject_localized_data_1.sapDescription AS `SAP DESCRIPTION`,\nobject_21.description AS `MATERIAL GROUP`,\nsiopFullCode AS `SIOP FULL CODE`",
-                "from" => "\nFROM object_brick_store_HoseBase_1\nJOIN object_1 ON object_brick_store_HoseBase_1.o_id = object_1.oo_id \nJOIN object_3 ON FIND_IN_SET(name, brandName) \nJOIN object_21 ON object_21.oo_id = materialGroup__id \nJOIN object_localized_data_1 \nON object_1.oo_id = object_localized_data_1.ooo_id AND object_localized_data_1.`language` = \"en\"",
-                "where" => "WHERE brandName != '' AND ProductType = 'fert'",
+                "sql" => "\nSELECT \nname AS `BRAND`, \nobject_1.articleNumber AS `ARTICLE NUMBER`, \nobject_localized_data_1.sapDescription AS `SAP DESCRIPTION`, \nobject_21.description AS `MATERIAL GROUP`, \nsiopFullCode AS `SIOP FULL CODE` ,\nobject_1.oo_id\n",
+                "from" => "\nFROM object_1\nJOIN object_3 ON object_3.oo_id = brandName \nJOIN object_21 ON object_21.oo_id = materialGroup__id \nJOIN object_localized_data_1 ON object_1.oo_id = object_localized_data_1.ooo_id AND object_localized_data_1.`language` = \"en\" \n",
+                "where" => "\nWHERE brandName != '' AND ProductType = 'fert'",
                 "groupby" => "",
                 "type" => "sql"
             ]
         ],
         "columnConfiguration" => [
-
+            [
+                "name" => "BRAND",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "id" => "extModel315-1"
+            ],
+            [
+                "name" => "ARTICLE NUMBER",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 120,
+                "label" => "",
+                "id" => "extModel315-3"
+            ],
+            [
+                "name" => "SAP DESCRIPTION",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 150,
+                "label" => "",
+                "id" => "extModel315-4"
+            ],
+            [
+                "name" => "MATERIAL GROUP",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 120,
+                "label" => "",
+                "id" => "extModel315-5"
+            ],
+            [
+                "name" => "SIOP FULL CODE",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 170,
+                "label" => "",
+                "id" => "extModel315-6"
+            ],
+            [
+                "name" => "oo_id",
+                "display" => FALSE,
+                "export" => FALSE,
+                "order" => FALSE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel315-2",
+                "columnAction" => "openObject"
+            ]
         ],
         "niceName" => "BRAND SKUs",
         "group" => "",
@@ -29,7 +83,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1592840123,
+        "modificationDate" => 1593165369,
         "creationDate" => 1591342387,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -324,9 +378,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \no.articleNumber AS `ARTICLE NUMBER`,\no.siopFullCode AS `SIOP FULL CODE`,\nIF(\nold.mainImage,\n'TRUE',\n'FALSE'\n) AS `MAIN IMAGE`,\nIF(\nold.frontView,\n'TRUE',\n'FALSE'\n) AS `FRONT VIEW IMAGE`,\nIF(\nold.sideView,\n'TRUE',\n'FALSE'\n) AS `SIDE VIEW IMAGE`,\nIF(\nold.cutView,\n'TRUE',\n'FALSE'\n) AS `CUT VIEW IMAGE`,\no.oo_id",
-                "from" => "object_1 o\nJOIN object_localized_1_en old\nON o.oo_id = old.oo_id",
-                "where" => "WHERE o.ProductType = 'fert' AND (old.mainImage != ''\nOR old.frontView != ''\nOR  old.sideView != ''\nOR old.cutView != '')",
+                "sql" => "SELECT \narticleNumber AS `ARTICLE NUMBER`, \nsiopFullCode AS `SIOP FULL CODE`, \nIF( mainImage IS NULL, 'FALSE', 'TRUE' ) AS `MAIN IMAGE`, IF( frontView IS NULL, 'FALSE', 'TRUE' ) AS `FRONT VIEW IMAGE`, \nIF( sideView IS NULL, 'FALSE', 'TRUE' ) AS `SIDE VIEW IMAGE`, \nIF( cutView IS NULL, 'FALSE', 'TRUE' ) AS `CUT VIEW IMAGE`, \noo_id",
+                "from" => "object_1\n",
+                "where" => " WHERE (mainImage IS NULL)\nAND ProductType = 'fert'",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -339,7 +393,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel385-1"
+                "id" => "extModel1697-1"
             ],
             [
                 "name" => "SIOP FULL CODE",
@@ -348,7 +402,7 @@ return [
                 "order" => TRUE,
                 "width" => 150,
                 "label" => "",
-                "id" => "extModel385-2"
+                "id" => "extModel1697-2"
             ],
             [
                 "name" => "MAIN IMAGE",
@@ -357,7 +411,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel385-3"
+                "filter" => "numeric",
+                "id" => "extModel1697-3"
             ],
             [
                 "name" => "FRONT VIEW IMAGE",
@@ -366,7 +421,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel385-4"
+                "filter" => "",
+                "id" => "extModel1697-4"
             ],
             [
                 "name" => "SIDE VIEW IMAGE",
@@ -375,7 +431,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel385-5"
+                "filter" => "",
+                "id" => "extModel1697-5"
             ],
             [
                 "name" => "CUT VIEW IMAGE",
@@ -384,7 +441,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel385-6"
+                "filter" => "",
+                "id" => "extModel1697-6"
             ],
             [
                 "name" => "oo_id",
@@ -394,7 +452,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel385-7"
+                "id" => "extModel1697-7"
             ]
         ],
         "niceName" => "PRODUCTS WITH NO IMAGE",
@@ -410,7 +468,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1592280812,
+        "modificationDate" => 1593157500,
         "creationDate" => 1592191325,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
