@@ -78,7 +78,7 @@ class Catalog {
             // Querying data from product Master data from Database
 	    	$productMaster = Db::get()->fetchAll("SELECT
 			articleNumber as partNo,
-			manufacturerPartNumber as MFPartNo,
+			manufacturerPartNumber as MFPartNumber,
 			industryStandard,
 			siopFullCode,
 			objld1.sapDescription
@@ -113,6 +113,7 @@ class Catalog {
             // Querying data from product Master data from Database
 	    	$productMaster = Db::get()->fetchAll("SELECT
 					oo_id,
+					mainImage,
 					articleNumber as partNo,
 					manufacturerPartNumber as MFPartNo,
 					industryStandard,

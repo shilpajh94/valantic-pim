@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-23T12:35:26+02:00
+* Generated at: 2020-06-29T10:15:38+02:00
 * IP: 127.0.0.1
 
 
@@ -22,7 +22,6 @@ Fields Summary:
 - hoseIdNominalId [input]
 - tubeGaugeIN [numeric]
 - tubeGaugeMM [numeric]
-- reinforcement [multiselect]
 - hoseDashSize [numeric]
 - VacuumMM [numeric]
 - VirtualCatalogTubeGaugeIn [textarea]
@@ -717,37 +716,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                             'fieldtype' => 'multiselect',
-                             'options' => 
-                            array (
-                            ),
-                             'width' => 300,
-                             'height' => '',
-                             'maxItems' => '',
-                             'renderType' => 'tags',
-                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                             'optionsProviderData' => 'INH-HYD-HOSE',
-                             'queryColumnType' => 'text',
-                             'columnType' => 'text',
-                             'phpdocType' => 'array',
-                             'dynamicOptions' => false,
-                             'name' => 'reinforcement',
-                             'title' => 'Reinforcement',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -778,7 +746,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          6 => 
+                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,

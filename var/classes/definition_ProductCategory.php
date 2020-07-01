@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-21T16:04:55+02:00
+* Generated at: 2020-06-30T07:14:43+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -19,6 +19,7 @@ Fields Summary:
 - fullCode [input]
 - localizedfields [localizedfields]
 -- description [textarea]
+-- PrintedCatalogDescription [textarea]
 - image [image]
 */ 
 
@@ -28,7 +29,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587477895,
+   'modificationDate' => 1593494083,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -553,6 +554,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'invisible' => false,
                                  'visibleGridView' => true,
                                  'visibleSearch' => true,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'fieldtype' => 'textarea',
+                                 'width' => '',
+                                 'height' => '',
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'queryColumnType' => 'longtext',
+                                 'columnType' => 'longtext',
+                                 'phpdocType' => 'string',
+                                 'name' => 'PrintedCatalogDescription',
+                                 'title' => 'Printed Catalog Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => NULL,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
                               )),
                             ),
                              'name' => 'localizedfields',

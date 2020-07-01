@@ -139,7 +139,14 @@ parameters:
                 fieldLabel: ID
                 parent:
                     name: Product
-            
+        PTG Product Page:
+            id:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: ID
+                parent:
+                    name: Product
+             
                     
         
         

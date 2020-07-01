@@ -43,7 +43,7 @@ class DefaultController extends FrontendController {
             $categoryList->setCondition("Level = ?", [3]);
         }
         if ($category == '043000') {
-            $categoryList->setCondition("Level = ?", [5]);
+            $categoryList->setCondition("Level = ?", [4]);
         }
 
         $categoryList->setOrderKey('description');
@@ -106,6 +106,7 @@ class DefaultController extends FrontendController {
         for ($i = 0; $i < count($category); $i++) {
             $y = ',' . $category[$i] . ',';
             array_push($x, $y);
+            array_push($x, $category[$i]);
         }
         $productList->addConditionParam('SIOPLevel4 IN (?)', [$x], 'AND');
         $productList->setCondition('ProductType = "base"');
@@ -243,6 +244,7 @@ class DefaultController extends FrontendController {
         for ($i = 0; $i < count($siopCategory); $i++) {
             $y = "," . $siopCategory[$i] . ",";
             array_push($x, $y);
+            array_push($x, $siopCategory[$i]);
         }
         $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
         $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
@@ -263,7 +265,7 @@ class DefaultController extends FrontendController {
               } */
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
-        if ($fitting != null && !empty($fitting)) {
+        if ($fitting != null && !empty($fitting) && $fitting != '1') {
             $productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
         if ($baseProduct !== null && count($baseProduct) > 0) {
@@ -271,20 +273,20 @@ class DefaultController extends FrontendController {
             $query = "select o_id from object_1 where o_parentId IN (" . $baseIds . ")";
 
             $skeletonIds = $this->db->fetchAll($query);
+            
         }
         if ($skeletonProduct !== null && count($skeletonProduct) > 0) {
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProduct], 'AND');
-        } else if (count($skeletonIds) > 0) {
+        } else if (count($skeletonIds) > 0 && count($baseProduct) > 0) {
             $skeletonProductId = [];
             for ($i = 0; $i < count($skeletonIds); $i++) {
-                $skeletonProductId = $skeletonIds[$i]['o_id'];
+                $skeletonProductId[] = $skeletonIds[$i]['o_id'];
             }
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
 
         $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
-
-
+      
         //$productData = $productList->load();
         // $classFields = array_keys($productData[0]->getClass()->getFieldDefinitions());
         $bricksList['fert'] = [];
@@ -610,6 +612,7 @@ class DefaultController extends FrontendController {
         $fieldData = json_decode($data->getHeaderData(), 1);
 
         $columnData = array();
+<<<<<<< HEAD
 
         if($fieldData)
         {
@@ -618,6 +621,15 @@ class DefaultController extends FrontendController {
             }
         }
 
+=======
+        if($fieldData !== null)
+        {
+        foreach ($fieldData as $key => $value) {
+            $columnData[] = array('xtype' => 'gridcolumn', 'name' => $value, 'Text' => $value, 'header' => $value, 'dataIndex' => $value, 'flex' => 1);
+        }
+
+        }
+>>>>>>> origin/dev
         $arr = array('brandData' => [], 'columnData' => $columnData, 'fieldData' => $fieldData, 'data' => $tableData);
         echo json_encode($arr);
         die;
