@@ -47,21 +47,13 @@ extract($brand);
 
                 <h4 class="contitech-yellow">
                 <?php
-                if ($this->input("HHAC_BrandName")->isEmpty()) {
                         echo $this->input("HHAC_BrandName")->setDataFromResource($brandName);
-                } else {
-                        echo $this->input("HHAC_BrandName");
-                }
                 ?>
                 </h4>
 
                 <span>
                 <?php
-                if ($this->input("HHAC_LongDescription")->isEmpty()) {
-                        echo $this->input("HHAC_LongDescription")->setDataFromResource($longDescription);
-                } else {
-                        echo $this->input("HHAC_LongDescription");
-                }
+                        echo $this->wysiwyg("HHAS_LongDescription")->setDataFromResource($longDescription);
                 ?>
                 </span>
                 <?php if(!empty(trim($materialString))): ?>
@@ -84,23 +76,7 @@ extract($brand);
                    <?php endif; ?>
            </figcaption>
            
-           
-                <?php if($this->editmode): ?>
-                        <span>
-                        <?php if(!$this->image("HHAC_Image")->isEmpty()): ?>
-                                <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200]); ?>
-                        <?php else: ?>
-                                <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
-                        <?php endif; ?>
-                        </span>
-                 <?php else: ?>
-                        <?php if(!$this->image("HHAC_Image")->isEmpty()): ?>
-                                <span><img src="<?= $this->image("HHAC_Image")->getSrc() ?>" /></span>
-                        <?php elseif($imageObj): ?>
-                                <span><img src="<?= $imageObj ?>" /></span>
-                        <?php endif; ?>
-                <?php endif; ?>
-            
+           <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
            
        </figure>
        <div class="grid">

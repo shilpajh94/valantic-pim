@@ -21,47 +21,118 @@ foreach($data as $key => $brand):
 
 extract($brand);
 
+$imageObj = '';
+if($incr % 2 == 0)
+        $imageObj = $RightPrintCatalogImageObj;
+else 
+        $imageObj = $LeftPrintCatalogImageObj;
+
 ?>
 
 <section class="seggregate">
+        <nav class="header">
+                <div id="pageHeader"></div>
+                <span>
+                <?php 
+                if($this->editmode){
+                        echo $this->input("HHPP_Header_{$incr}")->setDataFromResource('Hydraulic Hose'); 
+                }else{
+                        echo $this->input("HHPP_Header_{$incr}");
+                }                
+                ?>
+                </span>
+        </nav>
+        <div class="footer">
+                <footer class="flex">
+                        <span class="logo">
+                                <img src="/CatalogImages/logo.JPG" />
+                        </span>
+                        <div class="flex aligned">
+                                <h5>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("HHPP_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
+                                }else{
+                                        echo $this->input("HHPP_Footer_BrandName_{$incr}");
+                                }                
+                                ?>
 
-        <?php  echo $this->inc($this->document->getProperty('header'),['title'=>'Hydraulic Hose']) ?>
-        <?php  echo $this->inc($this->document->getProperty('footer'),['title'=>$brandName, 'subTitle'=>'High Pressure', 'thirdSection'=>true]) ?>
+                                <span>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("HHPP_Footer_HoseType_{$incr}")->setDataFromResource('High Pressure'); 
+                                }else{
+                                        echo $this->input("HHPP_Footer_HoseType_{$incr}");
+                                }                
+                                ?>
+
+                                </span>
+
+                                </h5>
+
+
+                                <p>
+                                        <b>
+                                        <?php 
+                                        if($this->editmode){
+                                                echo $this->input("HHPP_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                        }else{
+                                                echo $this->input("HHPP_Footer_Compatibility_{$incr}");
+                                        }                
+                                        ?>
+                                        </b>
+                                        
+                                        
+                                        <br>
+
+                                        <?php 
+                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        if($this->editmode){
+                                                echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
+                                        }else{
+                                                echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}");
+                                        }                
+                                        ?>
+                                </p>
+                        </div>
+                </footer>
+        </div>
         <header class="content white">
                 <h1>
                 <?php
-                if ($this->input("HHPP_Heading_{$incr}")->isEmpty()) {
-                        echo $this->input("HHPP_Heading_{$incr}")->setDataFromResource($brandName);
-                } else {
-                        echo $this->input("HHPP_Heading_{$incr}");
-                }
+                        if($this->editmode){
+                                echo $this->input("HHPP_Heading_{$incr}")->setDataFromResource($brandName); 
+                        }else{
+                                echo $this->input("HHPP_Heading_{$incr}");
+                        }                
                 ?>
                 </h1>
-
                 <aside>
                         <p>
                         <?php
-                        if ($this->input("HHPP_LongDescription_{$incr}")->isEmpty()) {
-                                echo $this->input("HHPP_LongDescription_{$incr}")->setDataFromResource($longDescription);
-                        } else {
-                                echo $this->input("HHPP_LongDescription_{$incr}");
-                        }
+                        if($this->editmode){
+                                echo $this->wysiwyg("HHPP_LongDescription_{$incr}")->setDataFromResource($longDescription); 
+                        }else{
+                                echo $this->wysiwyg("HHPP_LongDescription_{$incr}");
+                        }                
                         ?>
                         </p>
-
-                        <?php if($this->editmode): ?>
-                                <?php if(!$this->image("HHPP_Image_{$incr}")->isEmpty()): ?>
-                                        <?= $this->image("HHPP_Image_{$incr}", ["width" => 600, "height" => 200]); ?>
-                                <?php else: ?>
-                                        <?= $this->image("HHPP_Image_{$incr}", ["width" => 600, "height" => 200])->setImage($imageObj); ?>
-                                <?php endif; ?>
-                                <?php else: ?>
-                                <?php if(!$this->image("HHPP_Image_{$incr}")->isEmpty()): ?>
-                                        <img src="<?= $this->image("HHPP_Image_{$incr}")->getSrc() ?>" />
-                                <?php elseif($imageObj): ?>
-                                        <img src="<?= $imageObj ?>" />
-                                <?php endif; ?>
-                        <?php endif; ?>
+                        <?php
+                        if($this->editmode){
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg","width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj); 
+                        }else{
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg", "width" => 600, "height" => 200]);
+                        }                
+                        ?>
+                        <?php
+                        if($this->editmode){
+                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj); 
+                        }else{
+                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 600, "height" => 200]);
+                        }                
+                        ?>
                 </aside>
         </header>
         <article class="fullcontainer">
@@ -126,19 +197,14 @@ extract($brand);
                         </menu>
                         <?php endif; ?>
 
-                        <?php if(!empty(trim($brandingLayline))): ?>
+                        <?php if(!empty(trim($BrandingLayline))): ?>
                         <menu>
                                 <h6><?= $this->translate('branding') ?></h6>
                                 <figure>
                                         <img src="/CatalogImages/6a.jpg"/> 
                                         <figcaption><b><?= $brandName ?></b></figcaption> 
-                                        <figcaption> <?= $brandingLayline ?> </figcaption>
+                                        <figcaption> <?= $BrandingLayline ?> </figcaption>
                                 </figure>
-                                <?php if(trim($digit6code)): ?>
-                                <figure>
-                                        <figcaption><?= $this->translate('Order Code:') ?> <?= $digit6code ?> </figcaption>
-                                </figure>
-                                <?php endif; ?>
                         </menu>
                         <?php endif; ?>
                 
@@ -156,7 +222,7 @@ extract($brand);
                                 <p class="head">
 
                                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                <span><?= $this->translate($columnsData['columnName'])?></span>
+                                                <span><?= $columnsData['columnLabel'] ?></span>
                                         <?php endforeach; ?>
                                         
                                 </p>
@@ -179,11 +245,10 @@ extract($brand);
         
         </article>
 
-        <?php if(current($data) != end($data)): ?>
+        <?php if($incr != count($data)): ?>
+<div class="break-before"></div>
 
-        <div class="break-before"></div>
-
-        <?php endif; ?>
+<?php endif; ?>
 
 </section>
 

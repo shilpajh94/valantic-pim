@@ -22,6 +22,18 @@ parameters:
                 fieldLabel: Hose Rendering
                 parent: 
                     name: Product
+            LeftPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Left Print Catalog Image
+                parent: 
+                    name: Product
+            RightPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Right Print Catalog Image
+                parent: 
+                    name: Product
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
@@ -73,21 +85,39 @@ parameters:
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
-            temperatureRangeFAndC:
+            minimumTemperatureF:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Hose Temperature Range
+                fieldLabel: Min temp °F
+                parent:
+                    name: Product
+            maximumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °F
+                parent:
+                    name: Product
+            minimumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °C
+                parent:
+                    name: Product
+            maximumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °C
                 parent:
                     name: Product
             FeaturesBenefitsBulletPoint:
                 fieldLevel: class
                 fieldType: Relation
-                fieldLabel: Key Features
+                fieldLabel: Features ID
                 parent:
                     name: Product
                     class:
                         name: Features
-                        fieldName: name
+                        fieldName: id
             brandName:
                 fieldLevel: class
                 fieldType: Relation

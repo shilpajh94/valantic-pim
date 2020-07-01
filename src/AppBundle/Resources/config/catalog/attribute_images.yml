@@ -1,6 +1,6 @@
 parameters:
   attributeImages: 
-    'ActivantNumber': '/AttributeImages/HYH-Icons-PartNumber.jpg'
+    'descriptive': '/AttributeImages/HYH-Icons-PartNumber.jpg'
     'articleNumber': '/AttributeImages/sap_number.jpg'
     'hoseIdNominalId':	'/AttributeImages/HYH-Icons-HoseID.png'
     'hoseOdIn': '/AttributeImages/HYH-Icons-HoseOD.png'
