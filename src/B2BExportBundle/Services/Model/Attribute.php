@@ -87,18 +87,19 @@ class Attribute
                 ON o8.o_id = o10.DistributionChannel__id
                 JOIN object_5  o5
                 ON o5.o_id = o10.DeliveringPlant__id
-                JOIN object_1  o1
-                ON o1.o_id = o10.Material
-                AND o10.epixFlag = 001
+                JOIN object_1 o1 ON 
+                (replace(substring(substring_index(o10.Material, ',', 1), 
+                length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
+                WHERE o10.epixFlag = '001'
             ");
             // Querying Product Line Master data from Database
             $productLineMaster = Db::get()->fetchAll("SELECT DISTINCT
                 o1.articleNumber as partNo,
                 o2.code as value
                 FROM object_10 o10
-                JOIN object_1  o1
-                ON o1.o_id = o10.Material
-                AND o10.epixFlag = 001
+                JOIN object_1 o1 ON 
+                (replace(substring(substring_index(o10.Material, ',', 1), 
+                length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
                 JOIN object_2  o2
                 ON o2.oo_id = o1.SIOPLevel2
             ");
@@ -168,12 +169,18 @@ class Attribute
     {
         try {
             // Querying product master data from Database
-            $productsMaster = Db::get()->fetchAll('SELECT DISTINCT
-                o1.oo_id,
-                o1.*
-                FROM object_1 o1
-                INNER JOIN object_10 o10 ON o1.oo_id = o10.Material AND o10.epixFlag = "001"
-            ');
+            $productsMaster = Db::get()->fetchAll("SELECT
+            DISTINCT
+            object_1.*
+            FROM object_1
+            WHERE object_1.oo_id IN (SELECT DISTINCT o1.oo_id
+                FROM object_10 o10
+                INNER JOIN object_1 o1 ON 
+                (replace(substring(substring_index(o10.Material, ',', 1), 
+                length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
+                WHERE o10.epixFlag = '001'
+            )
+            ");
             // Querying B2B attributes from Database
 			$b2bObjectPath = Db::get()->fetchOne('SELECT
                 CONCAT(`o_path`, `o_key`) AS `path`

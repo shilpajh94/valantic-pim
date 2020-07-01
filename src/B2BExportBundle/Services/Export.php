@@ -7,6 +7,7 @@ use Pimcore\Db;
 use Pimcore\File;
 use AppBundle\Tool\Utils;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\Asset;
 use Pimcore\Log\Simple as Logger;
 use Pimcore\Tests\Helper\Pimcore;
 use B2BExportBundle\Services\Config;
@@ -273,12 +274,12 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				if ($siopFullCode != 04) {
+					$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "NULL");
 					$row[] = $partNo;
-					// $row[] = $sapDescription != '' ? $sapDescription .'%'.$netWeight . $weightUnit : $netWeight . $weightUnit;
 					$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
 					$row[] = $languageMaster[$language];
 					$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
-					$row[] = "NULL";
+					$row[] = $object;
 					fputcsv($fileResource, $row, ',');
 					unset($row);
 				}
@@ -682,24 +683,25 @@ class Export {
 		p_r('Script completed after: ' . (abs(time() - $time) / 60) . ' minutes');
 	}
 
-/**
-	* Method to get Virtual Catalog Field Mapping.
-	*
-	* @return array $vcFieldMapping virtual catalog mapping configuration.
-	*/
-   protected function getMultiselectMapping()
-   {
+	/**
+		* Method to get Multiselects Multilingual Field Mapping.
+		*
+		* @return array $vcFieldMapping virtual catalog mapping configuration.
+		*/
+   protected function getMultiselectMapping() {
 	   $vcFieldMapping = array();
 	   $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/B2BExportBundle/Resources/config/multiselect_mapping.yml";
 	   $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
 	   return $vcFieldMapping['multiselect_list']['attrubutes_with_multilingual_mapping'];
    }
+
    /**
      *
-     * return the multiselect master of a type
+     * GET Multiselect options for multilingual fields
      *
-     * @param array $context
+     * @param array $languageMaster
      * @param \Pimcore\Model\DataObject\ClassDefinition\Data $fieldDefinition
+	* @return array $returnValue key value pairs with language codes
      */
    protected function getOptions($fieldDefinition, $languageMaster) {
 		$returnValue = array();
@@ -731,7 +733,16 @@ class Export {
         return $returnValue;
    }
    
-   protected function getMasterType($optionsProviderClass, $optionsProviderData, $fieldName){
+   /**
+     *
+     * GET Multiselect options for multilingual fields
+     *
+     * @param string $optionsProviderClass
+     * @param string $optionsProviderData
+     * @param string $fieldName
+	* @return array $fieldName | $optionsProviderData."~".$fieldName (Brick Name~fieldName)
+     */
+   protected function getMasterType($optionsProviderClass, $optionsProviderData, $fieldName) {
 	   //TODO: place this separator in a config file
 	   if($optionsProviderClass == "AppBundle\OptionProvider\OptionProviderForBrickMultiselects"){
 			return $optionsProviderData."~".$fieldName;
