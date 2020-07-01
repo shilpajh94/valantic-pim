@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-30T07:52:57+02:00
+* Generated at: 2020-07-01T13:47:18+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -130,7 +130,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1593496370,
+   'modificationDate' => 1593604037,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6979,8 +6979,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'height' => '',
                                      'maxItems' => '',
                                      'renderType' => 'tags',
-                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                                     'optionsProviderData' => 'INH-HYD-HOSE',
+                                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                                     'optionsProviderData' => 'FittingFamily|Name',
                                      'queryColumnType' => 'text',
                                      'columnType' => 'text',
                                      'phpdocType' => 'array',
@@ -7005,13 +7005,48 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'fieldtype' => 'multiselect',
                                      'options' => 
                                     array (
+                                      0 => 
+                                      array (
+                                        'key' => 'Aramid',
+                                        'value' => 2781,
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'Polyester',
+                                        'value' => 2782,
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'Fiberglass',
+                                        'value' => 2783,
+                                      ),
+                                      3 => 
+                                      array (
+                                        'key' => 'Nylon',
+                                        'value' => 2784,
+                                      ),
+                                      4 => 
+                                      array (
+                                        'key' => 'Carbon',
+                                        'value' => 2785,
+                                      ),
+                                      5 => 
+                                      array (
+                                        'key' => 'Steel',
+                                        'value' => 2786,
+                                      ),
+                                      6 => 
+                                      array (
+                                        'key' => 'Stainless Steel',
+                                        'value' => 2787,
+                                      ),
                                     ),
                                      'width' => 300,
                                      'height' => '',
                                      'maxItems' => '',
                                      'renderType' => 'tags',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                                     'optionsProviderData' => '',
+                                     'optionsProviderData' => 'ProductClass',
                                      'queryColumnType' => 'text',
                                      'columnType' => 'text',
                                      'phpdocType' => 'array',
@@ -10290,7 +10325,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
