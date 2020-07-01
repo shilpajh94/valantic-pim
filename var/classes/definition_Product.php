@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-29T09:43:29+02:00
+* Generated at: 2020-06-30T07:52:57+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -121,6 +121,7 @@ Fields Summary:
 - LeftPrintCatalogImage [image]
 - RightPrintCatalogImage [image]
 - priceData [table]
+- CatalogGrouping [input]
 */ 
 
 
@@ -129,7 +130,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1593416605,
+   'modificationDate' => 1593496370,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -10253,6 +10254,57 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'icon' => '',
           )),
           6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'fieldtype' => 'panel',
+             'labelWidth' => 100,
+             'layout' => NULL,
+             'border' => false,
+             'name' => 'Catalog Attributes',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Catalog Attributes',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => NULL,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'CatalogGrouping',
+                 'title' => 'Catalog Grouping',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+            ),
+             'locked' => false,
+             'icon' => '',
+          )),
+          7 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,
