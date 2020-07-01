@@ -8,18 +8,82 @@ $this->extend('CatalogBundle:Layouts:layout.html.php', ['name1' => 'Name from Ex
 $featuresFooter = false;
 ?>
 <section class="seggregate tile">
+<nav class="header dark">
+  <div id="pageHeader"></div>
+<span>Hydraulic Hose</span>
+</nav>
+
+<header class="dark">
+        <h1>
+            <?php
+            if ($this->editmode) {
+                echo $this->input("header");
+            } else {
+                echo $this->input("header");
+            }
+            ?>
+        </h1>
+    </header>
+    <div class="footer">
+    <footer class="flex">
+            <span class="logo">
+                <b>
+                    <?php
+                    if ($this->editmode) {
+                        echo $this->input("footerTitle");
+                    } else {
+                        echo $this->input("footerTitle");
+                    }
+                    ?>
+                </b>
+                <?php
+                if ($this->editmode) {
+                    echo $this->image('footerLogo', [
+                        "width" => 172,
+                        "height" => 'auto',
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ]);
+                } else {
+                    echo $this->image('footerLogo', [
+                        "width" => 172,
+                        "height" => 'auto',
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ]);
+                }
+                ?>
+            </span>
+            <div class="flex aligned small">
+                <h4>
+                    <?php
+                    if ($this->editmode) {
+                        echo $this->input('footerContent', ['width' => 826, 'height' => 34]);
+                    } else {
+                        echo $this->input('footerContent', ['width' => 826, 'height' => 34]);
+                    }
+
+                    ?>
+                </h4>
+            </div>
+    </footer>
+</div>
     <?php
-    echo $this->inc($this->document->getProperty('header'), [
+    /* echo $this->inc($this->document->getProperty('header'), [
         'title' => $info['headerTitle']
-    ]);
+    ]); */
     ?>
     <?php
-    echo $this->inc($this->document->getProperty('footer'), [
+    /* echo $this->inc($this->document->getProperty('footer'), [
         'footerTitle' => $info['footer']['footerTitle'],
         'footerContent' => $info['footer']['footerContent'],
         'footerLogo' => $info['footer']['footerLogo'],
         'featuresFooter' => $featuresFooter
-    ]);
+    ]); */
     ?>
     <article class="fullcontainer">
         <section class="spacing">
@@ -31,7 +95,7 @@ $featuresFooter = false;
                 
                 if (isset($brandsInfo) && is_array($brandsInfo)) {
                     $brandIds = array_keys($brandsInfo);
-
+                    // p_r($brandIds);die;
                     if (is_array($brandIds) && !empty($brandIds)) {
 
                         $k = 0;
@@ -41,7 +105,7 @@ $featuresFooter = false;
                         while ($this->block("contentblock", ['default' => count($brandIds)])->loop()) {
                             $key = $brandIds[$k];
                             $row = $brandsInfo[$key];
-                            
+                            // p_r($row);die;
                             if (!$this->editmode) {
                                 if ($block % $pageBrkPoint == 0) {
                                     $featuresFooter = !$featuresFooter?true:false;
@@ -57,9 +121,9 @@ $featuresFooter = false;
 <!-- Opening wrapper class again to start new page -->
 <section class="seggregate tile">
     <?php
-                                    echo $this->inc($this->document->getProperty('header'), [
+                                    /* echo $this->inc($this->document->getProperty('header'), [
                                         'title' => $info['headerTitle']
-                                    ]);
+                                    ]); */
                                     /**
                                      * featuresFooter: If true, it will show footer with feature icon list
                                      * brandsInfo: List of brand which will be used to get feature icon detail
@@ -68,14 +132,14 @@ $featuresFooter = false;
                                      * 
                                      * ### If you want remove feature icon footer, then keep the featuresFooter is false
                                     */
-                                    echo $this->inc($this->document->getProperty('footer'), [
+                                    /* echo $this->inc($this->document->getProperty('footer'), [
                                         'footerTitle' => $info['footer']['footerTitle'],
                                         'footerContent' => $info['footer']['footerContent'],
                                         'footerLogo' => $info['footer']['footerLogo'],
                                         'featuresFooter' => false,//$featuresFooter,
                                         'brandsInfo' => $brandsInfo,
                                         'brandPickupIndex' => $k
-                                    ]);
+                                    ]); */
     ?>
     <article class="fullcontainer">
         <section class="spacing">
@@ -102,7 +166,7 @@ $featuresFooter = false;
         <figure class="products">
             <span class="img-placeholder">
                 <?php
-                            if ($this->image('productImage' . $k)->isEmpty() && !is_null($row['mainImage'])) {
+                            if ($this->image('productImage' . $k)->isEmpty() && !empty($row['mainImage'])) {
                                 echo $this->image('productImage' . $k, [
                                     "width" => $row['mainImage']->getWidth(),
                                     "height" => $row['mainImage']->getHeight(),
@@ -146,8 +210,8 @@ $featuresFooter = false;
                     <ul>
                         <?php
                             $bstCnt = 1;
-                            if (isset($row['bst']) && is_array($row['bst'])) {
-                                foreach ($row['bst'] as $i => $bst) {
+                            if (isset($row['BrandShortText']) && is_array($row['BrandShortText'])) {
+                                foreach ($row['BrandShortText'] as $i => $bst) {
                                     if (!empty($bst)) {
                                         echo "<li>";
                                         if ($this->input("brandShortText" . $key . $i)->isEmpty()) {

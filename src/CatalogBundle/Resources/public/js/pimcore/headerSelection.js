@@ -21,8 +21,8 @@ pimcore.plugin.headerSelection = Class.create({
 
     // idColumnConfig: {columnLabel: 'Pimcore Id', columnName: 'id', columnWidth: 100},
 
-    attachHeader: function (object, type) {
-
+    attachHeader: function (object, type, e= null, template = null) {
+       
         var tabIndexContainingConfiguration = 0;
         var objectClassName = object.data.general.o_className;
 
@@ -41,15 +41,19 @@ pimcore.plugin.headerSelection = Class.create({
 
             var panelContainingConfigurationItems = panelContainingConfiguration.items.getRange();
             var filterFieldSet = panelContainingConfigurationItems[0];
-            var headerFieldSet = panelContainingConfigurationItems[1];
+            var headerFieldSet = panelContainingConfigurationItems[2];
             var headerData = [];
+          
+
             Ext.Ajax.request({
                 url: "/catalog/get-available-headers",
                 async: false,
                 params: {
                   
                     o_id: object.data.general.o_id,
-                    o_parentId: object.data.general.o_parentId
+                    o_parentId: object.data.general.o_parentId,
+                    table: e.value,
+                    template : template
                 },
                 success: function (response) {
 
@@ -75,7 +79,9 @@ pimcore.plugin.headerSelection = Class.create({
 
 
             let itemSelectorValues = this.getValuesForItemSelector(headerDataComponent);
-
+            var head = headerFieldSet.items.find(k=> (k.name == 'header-selector'));
+            if(head == undefined)
+            {
             var my_item_selector_instance = Ext.create("Ext.ux.form.ItemSelector", {
                 // anchor: '100%',
                 // fieldLabel: 'Headers',
@@ -84,6 +90,7 @@ pimcore.plugin.headerSelection = Class.create({
                 store: my_array_store,
                 displayField: 'some_text',
                 width: 700,
+                name:'header-selector',
                 valueField: 'some_value',
                 allowBlank: false,
                 value: itemSelectorValues,
@@ -116,7 +123,17 @@ pimcore.plugin.headerSelection = Class.create({
                     },
                 }
             });
+          
+               
             headerFieldSet.insert(0, my_item_selector_instance);
+            }
+        else
+        {
+         //var head = headerFieldSet.items.find(k=> (k.name == 'header-selector'));   
+         head.setStore(my_array_store);
+         head.setValue(this.getValuesForItemSelector(headerDataComponent));
+       
+        }
         }
 
     }, getHeaderData: function (headerDataComponent) {
@@ -146,14 +163,15 @@ pimcore.plugin.headerSelection = Class.create({
         // if (data.length > 0) {
         //     returnData['id'] = this.idColumnConfig;
         // }
-
+ 
         for (let i = 0; i < data.length; i++) {
-            console.log(completeData)
+           // console.log(completeData);
+          
             var completeHeaderData = completeData[data[i]];
             // console.log(completeHeaderData)
             header = {
                 "columnName": data[i],
-                "columnLabel": completeHeaderData
+                "columnLabel": completeHeaderData.fieldLabel
                 // "columnName": data[i],
                 // "columnWidth": completeHeaderData[1],
                 // "columnLabel": completeHeaderData[2]
@@ -165,4 +183,4 @@ pimcore.plugin.headerSelection = Class.create({
 
 });
 
-var headerSelection = new pimcore.plugin.headerSelection();
+//var headerSelection = new pimcore.plugin.headerSelection();

@@ -63,6 +63,14 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CATALOG_TABLE_COLUMN_CONFIG_FILE_PATH);
     }
+     public function getCatalogTableConfig()
+    {
+        return $this->getConfigFromYmlFile(CATALOG_TABLE_CONFIG_FILE_PATH);
+    }
+     public function getCatalogTableDynamicColumnConfig()
+    {
+        return $this->getConfigFromYmlFile(CATALOG_TABLE_DYNAMIC_COLUMN_CONFIG_FILE_PATH);
+    }
 
     public function getAttributeImagesConfig()
     {

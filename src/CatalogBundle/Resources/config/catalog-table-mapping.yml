@@ -1,0 +1,14 @@
+parameters:
+    tablemapping:
+        "041500":
+            Fittings : Fittings
+            Hose : Hose
+            Hose Accessories-Flange Clamps : Hose Accessories-Flange Clamps
+            Hose Accessories-Hose Clamps : Hose Accessories-Hose Clamps
+            Hose Accessories-Orings : Hose Accessories-Orings
+            Hose Accessories-Sleeving : Hose Accessories-Sleeving
+        "041000":
+            Table 1: Table 1
+            Table 2: Table 2
+        "043000":
+            Product Table: Product Table

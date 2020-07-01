@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-18T09:06:49+02:00
+* Generated at: 2020-06-23T12:21:23+02:00
 * IP: 127.0.0.1
 
 
@@ -13,14 +13,14 @@ Fields Summary:
 - MaterialType [multiselect]
 - ORingIdInDec [numeric]
 - ORingIdMM [numeric]
-- PortHoleIDFract1 [input]
+- PortHoleIDFract [input]
 - PortHoleIDInAndMMDecimal [input]
 - ORingWidthInAndMMDecimal [input]
 - SleevingWidthInAndMMDecimal [input]
 - SleevingIDInDecimal [input]
-- AssessoriesMinimumTemperatureC [numeric]
-- AssessoriesMaximumTemperatureC [numeric]
-- AssessoriesRangeTemperatureC [input]
+- Color [multiselect]
+- LengthIN [numeric]
+- LengthMM [numeric]
 - BoltHoleSizeInFract [input]
 - BoltHoleSizeInDec [numeric]
 - BoltHoleSizeMM [numeric]
@@ -30,14 +30,12 @@ Fields Summary:
 - ORingThicknessInDec [numeric]
 - ORingThicknessMM [numeric]
 - FlangePatternDimensionAInAndMMDecimal [input]
-- FlangePatternDimensionBInAndMMDecimal1 [input]
+- FlangePatternDimensionBInAndMMDecimal [input]
 - RecommendedGrade8Bolt [input]
 - Hardness [input]
-- AssessoriesMinimumTemperatureF [numeric]
-- AssessoriesMaximumTemperatureF [numeric]
-- AssessoriesRangeTemperatureF [input]
-- AssessoriesTemperatureRangeApplication [input]
-- AssessoriesTemperatureRangeFAndC [input]
+- ColorDescription [textarea]
+- LengthINDescription [textarea]
+- LengthMMDescription [textarea]
 */ 
 
 
@@ -372,13 +370,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'PortHoleIDFract1',
+                         'name' => 'PortHoleIDFract',
                          'title' => 'Port Hole ID (Fract.)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -406,7 +404,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -434,7 +432,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -462,7 +460,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -490,7 +488,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -501,40 +499,105 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       12 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'AssessoriesMinimumTemperatureC',
-                         'title' => 'Min Temp °C',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Black',
+                            'value' => 1696537,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'White',
+                            'value' => 1696538,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'Gray',
+                            'value' => 1696539,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'Blue',
+                            'value' => 1696540,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'Red',
+                            'value' => 1696541,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'Brick Red',
+                            'value' => 1696542,
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'Green',
+                            'value' => 1696543,
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'Dark Green',
+                            'value' => 1696544,
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'Brown',
+                            'value' => 1696545,
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'Purple',
+                            'value' => 1696546,
+                          ),
+                          10 => 
+                          array (
+                            'key' => 'Orange',
+                            'value' => 1696547,
+                          ),
+                          11 => 
+                          array (
+                            'key' => 'Yellow',
+                            'value' => 1696548,
+                          ),
+                          12 => 
+                          array (
+                            'key' => 'Clear',
+                            'value' => 1696549,
+                          ),
+                        ),
+                         'width' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                         'optionsProviderData' => 'HYD_ACCESSORIES',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'Color',
+                         'title' => 'Color',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left: 20px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       13 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => 300,
+                         'width' => '',
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -546,14 +609,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'AssessoriesMaximumTemperatureC',
-                         'title' => 'Max temp °C',
+                         'name' => 'LengthIN',
+                         'title' => 'Length (in; Decimal)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left: 20px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -563,25 +626,28 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       14 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => '',
                          'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'AssessoriesRangeTemperatureC',
-                         'title' => 'Temperature Range (°C)',
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'LengthMM',
+                         'title' => 'Length (mm; Decimal)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left: 20px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -875,7 +941,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -897,13 +963,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'FlangePatternDimensionBInAndMMDecimal1',
+                         'name' => 'FlangePatternDimensionBInAndMMDecimal',
                          'title' => 'Flange Pattern Dimension B (in & mm) Decimal',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -931,7 +997,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -959,7 +1025,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -970,22 +1036,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       12 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'AssessoriesMinimumTemperatureF',
-                         'title' => 'Min Temp °F',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
+                         'width' => 350,
+                         'height' => 100,
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'name' => 'ColorDescription',
+                         'title' => 'Color Description',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -998,25 +1060,20 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       13 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'AssessoriesMaximumTemperatureF',
-                         'title' => 'Max temp °F',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
+                         'width' => 350,
+                         'height' => 100,
+                         'maxLength' => NULL,
+                         'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'name' => 'LengthINDescription',
+                         'title' => 'Length (in; Decimal) Description',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1029,22 +1086,20 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       14 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
+                         'width' => 350,
+                         'height' => 100,
+                         'maxLength' => NULL,
                          'showCharCount' => false,
-                         'name' => 'AssessoriesRangeTemperatureF',
-                         'title' => 'Temperature Range (°F)',
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'name' => 'LengthMMDescription',
+                         'title' => 'Length (mm; Decimal) Description',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1057,63 +1112,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      15 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'AssessoriesTemperatureRangeApplication',
-                         'title' => 'Temperature Range Application',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => NULL,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      16 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'AssessoriesTemperatureRangeFAndC',
-                         'title' => 'Temperature Range (°F & C°)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => NULL,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
