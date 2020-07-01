@@ -612,16 +612,6 @@ class DefaultController extends FrontendController {
         $fieldData = json_decode($data->getHeaderData(), 1);
 
         $columnData = array();
-<<<<<<< HEAD
-
-        if($fieldData)
-        {
-            foreach ($fieldData as $key => $value) {
-                $columnData[] = array('xtype' => 'gridcolumn', 'name' => $value, 'Text' => $value, 'header' => $value, 'dataIndex' => $value, 'flex' => 1);
-            }
-        }
-
-=======
         if($fieldData !== null)
         {
         foreach ($fieldData as $key => $value) {
@@ -629,7 +619,6 @@ class DefaultController extends FrontendController {
         }
 
         }
->>>>>>> origin/dev
         $arr = array('brandData' => [], 'columnData' => $columnData, 'fieldData' => $fieldData, 'data' => $tableData);
         echo json_encode($arr);
         die;
