@@ -146,7 +146,63 @@ parameters:
                 fieldLabel: ID
                 parent:
                     name: Product
-             
+        Hose Line Page:
+            id:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Fert ID
+            oldMaterialCode:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Old Material Code
+            brandName:
+                fieldLevel: class
+                fieldType: Select
+                fieldLabel: Brand Name
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard(s)
+            BrandShortText1:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 1
+            BrandShortText2:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 2
+            BrandShortText3:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 3
+            BrandShortText4:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 4
+            BrandShortText5:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 5
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Hose ID - Fract
+                parent:
+                    name: HoseSkeleton
+            hoseIdDec:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Hose ID
+                parent:
+                    name: HoseSkeleton
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Multiselection
+                fieldLabel: Features Benefits & Bullet Points
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Product Image
                     
         
         
