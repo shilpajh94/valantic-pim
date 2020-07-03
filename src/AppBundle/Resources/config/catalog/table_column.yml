@@ -1,0 +1,82 @@
+parameters:
+  tableColumns:
+    Hose Product Page:
+        Hose:
+            descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton   
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose ID Fractional'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdIn:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose OD(In)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdmm:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose OD(mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: 'Working Pressure (PSI)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressureMPA:
+                fieldLevel: objectBrick
+                fieldLabel: 'Working Pressure (MPA)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusIN:
+                fieldLevel: objectBrick
+                fieldLabel: 'BendRadius(In)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusMM:
+                fieldLevel: objectBrick
+                fieldLabel: 'BendRadius(mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            grossWeight:
+                fieldLevel: class
+                fieldLabel: 'Weight Lbs per ft'
+                fieldType: Input
+                parent:
+                    name: Product
+            fittingFamily:
+                fieldLevel: class
+                fieldLabel: 'Fitting Family'
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                       name: FittingFamily
+                       fieldName: Name
+    PTG Product Page:
+        Product Table:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            

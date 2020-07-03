@@ -1,15 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-16T16:24:02+02:00
+* Generated at: 2020-06-24T20:00:54+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - staticWire [input]
 - numberOfHelixWires [numeric]
-- unitOfWeight [input]
-- netWeight [numeric]
 - numberOfPlies [numeric]
 - LayFlatHoseYN [booleanSelect]
 - tubeMaterial [multiselect]
@@ -29,9 +27,8 @@ Fields Summary:
 - Coupling [input]
 - VirtualCatalogTubeMaterial [textarea]
 - VirtualCatalogCoupling [textarea]
-- VirtualCatalogPackaging [textarea]
 - VirtualCatalogCoverMaterial [textarea]
-- VirtualCatalogHoseTemperatureRangeFAndC [textarea]
+- VirtualCatalogPackaging [textarea]
 */ 
 
 
@@ -167,65 +164,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'unitOfWeight',
-                 'title' => 'Unit Of Weight',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'netWeight',
-                 'title' => 'Net Weight (kg)',
-                 'tooltip' => 'Kg',
-                 'mandatory' => false,
-                 'noteditable' => true,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
                  'width' => 300,
@@ -256,7 +194,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
               )),
-              5 => 
+              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                  'fieldtype' => 'booleanSelect',
                  'yesLabel' => 'Yes',
@@ -290,7 +228,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -1361,32 +1299,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
-                          2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 100,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'VirtualCatalogPackaging',
-                             'title' => 'Virtual Catalog Packaging',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
                         ),
                          'locked' => false,
                       )),
@@ -1446,8 +1358,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'queryColumnType' => 'longtext',
                              'columnType' => 'longtext',
                              'phpdocType' => 'string',
-                             'name' => 'VirtualCatalogHoseTemperatureRangeFAndC',
-                             'title' => 'Virtual Catalog Temperature Range (°F & C°)',
+                             'name' => 'VirtualCatalogPackaging',
+                             'title' => 'Virtual Catalog Packaging',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,

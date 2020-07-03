@@ -180,12 +180,12 @@ object_bricks:
                     tubeColor:
                        type: 'multiselect'
                        label: 'Tube Color'
-                    hoseMinimumTemperatureF:
-                       type: 'numeric'
-                       label: 'Min Temp °F'
-                    hoseMaximumTemperatureF:
-                       type: 'numeric'
-                       label: 'Max temp °F'
+                 ##   hoseMinimumTemperatureF:
+                 ##      type: 'numeric'
+                 ##      label: 'Min Temp °F'
+                 ##   hoseMaximumTemperatureF:
+                 ##      type: 'numeric'
+                 ##      label: 'Max temp °F'
                     StandardMetTube:
                        type: 'multiselect'
                        label: 'Standard Met- Tube'
@@ -234,9 +234,6 @@ object_bricks:
                     tubeGaugeIN:
                        type: 'numeric'
                        label: 'Tube Gauge (in)'
-                    reinforcement:
-                       type: 'multiselect'
-                       label: 'Reinforcement'
 
 
     Fert:

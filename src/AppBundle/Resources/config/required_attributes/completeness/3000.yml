@@ -166,9 +166,6 @@ object_bricks:
                     material:
                        type: 'select'
                        label: 'Material'
-                    reinforcement:
-                       type: 'input'
-                       label: 'Reinforcement'
 
     Skeleton:
         label: 'Skeleton Data'

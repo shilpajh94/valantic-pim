@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-22T08:23:34+02:00
+* Generated at: 2020-06-29T10:15:38+02:00
 * IP: 127.0.0.1
 
 
@@ -10,9 +10,6 @@ Fields Summary:
 - hoseIdMM [numeric]
 - hoseOdIn [numeric]
 - hoseOdmm [numeric]
-- weightg [numeric]
-- grossWeight [numeric]
-- grossWeightUOM [select]
 - workingPressurePSI [numeric]
 - workingPressureMPA [numeric]
 - workingPressureBAR [numeric]
@@ -25,7 +22,6 @@ Fields Summary:
 - hoseIdNominalId [input]
 - tubeGaugeIN [numeric]
 - tubeGaugeMM [numeric]
-- reinforcement [multiselect]
 - hoseDashSize [numeric]
 - VacuumMM [numeric]
 - VirtualCatalogTubeGaugeIn [textarea]
@@ -236,99 +232,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'hoseOdmm',
                      'title' => 'Hose OD (mm)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'weightg',
-                     'title' => 'Weight_ g/m',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'grossWeight',
-                     'title' => 'Gross Weight / Weight_Lbs per ft',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'dynamicOptions' => false,
-                     'name' => 'grossWeightUOM',
-                     'title' => 'Weight_Lbs per ft - UOM',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -813,37 +716,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                             'fieldtype' => 'multiselect',
-                             'options' => 
-                            array (
-                            ),
-                             'width' => 300,
-                             'height' => '',
-                             'maxItems' => '',
-                             'renderType' => 'tags',
-                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                             'optionsProviderData' => 'INH-HYD-HOSE',
-                             'queryColumnType' => 'text',
-                             'columnType' => 'text',
-                             'phpdocType' => 'array',
-                             'dynamicOptions' => false,
-                             'name' => 'reinforcement',
-                             'title' => 'Reinforcement',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -874,7 +746,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          6 => 
+                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
