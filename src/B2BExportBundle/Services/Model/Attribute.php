@@ -99,7 +99,10 @@ class Attribute
                 ON o8.o_id = o10.DistributionChannel__id
                 JOIN object_5  o5
                 ON o5.o_id = o10.DeliveringPlant__id
-                JOIN object_1 o1 ON 
+                JOIN object_1 o1
+                ON FIND_IN_SET(o1.oo_id, o10.Material)
+                WHERE o10.epixFlag = '001'
+                AND o10.Material REGEXP ','
             ");
             // Querying Product Line Master data from Database
             $productLineMaster = Db::get()->fetchAll("SELECT DISTINCT
@@ -179,17 +182,17 @@ class Attribute
                     o1.oo_id
                 FROM object_10 o10
                 JOIN object_1 o1
-                ON FIND_IN_SET(o1.oo_id, o10.Material)
-                WHERE 
-                o10.epixFlag = '001' 
-                AND o10.Material REGEXP ','
+                ON o1.oo_id = o10.Material
+                WHERE o10.epixFlag = '001' 
                 UNION DISTINCT
                 SELECT
                     o1.oo_id
                 FROM object_10 o10
                 JOIN object_1 o1
-                ON o1.oo_id = o10.Material
-                WHERE o10.epixFlag = '001' 
+                ON FIND_IN_SET(o1.oo_id, o10.Material)
+                WHERE 
+                o10.epixFlag = '001' 
+                AND o10.Material REGEXP ','
             ");
             // Querying B2B attributes from Database
 			$b2bObjectPath = Db::get()->fetchOne('SELECT
