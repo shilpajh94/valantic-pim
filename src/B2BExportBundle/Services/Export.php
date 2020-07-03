@@ -32,31 +32,31 @@ class Export {
 	 */
 	public function generate() {
 		try {
-			// Generating CSV for Catalog Group
-			$fileName = Config::catalogGroupFileName();
-			$this->saveCatalogGroupsCSV($fileName);
-			// Generating CSV for Catalog Group
-			$fileName = Config::catalogGroupDescFileName();
-			$this->saveCatalogGroupsDescCSV($fileName);
-			// Generating CSV for Catalog Entries
-			$fileName = Config::catalogEntriesFileName();
-			$this->saveCatalogEntriesCSV($fileName);
-			// Generating CSV for Catalog Entries Description
-			$fileName = Config::catalogEntriesDescFileName();
-			$this->saveCatalogEntriesDescCSV($fileName);
-			// Generating CSV for Attribute Values
-			$fileName = Config::attrValsFileName();
-			$this->saveAttrValsCSV($fileName);
-			// Generating CSV for Attribute Value Category Entry
-			$fileName = Config::attrValCatEntryFileName();
-			$this->saveAttrValCatEntryCSV($fileName);
-			// Generating CSV for Attribute Facets
-			$fileName = Config::attributeFacetsFileName();
-			$this->saveAttributeFacetsCSV($fileName);
-			// Generating CSV for Catalog Entries
-			$fileName = Config::attrValsFacetsFileName();
-			$this->saveAttrValsFacetsCSV($fileName);
-			// Generating CSV for Catalog Entries
+			// // Generating CSV for Catalog Group
+			// $fileName = Config::catalogGroupFileName();
+			// $this->saveCatalogGroupsCSV($fileName);
+			// // Generating CSV for Catalog Group
+			// $fileName = Config::catalogGroupDescFileName();
+			// $this->saveCatalogGroupsDescCSV($fileName);
+			// // Generating CSV for Catalog Entries
+			// $fileName = Config::catalogEntriesFileName();
+			// $this->saveCatalogEntriesCSV($fileName);
+			// // Generating CSV for Catalog Entries Description
+			// $fileName = Config::catalogEntriesDescFileName();
+			// $this->saveCatalogEntriesDescCSV($fileName);
+			// // Generating CSV for Attribute Values
+			// $fileName = Config::attrValsFileName();
+			// $this->saveAttrValsCSV($fileName);
+			// // Generating CSV for Attribute Value Category Entry
+			// $fileName = Config::attrValCatEntryFileName();
+			// $this->saveAttrValCatEntryCSV($fileName);
+			// // Generating CSV for Attribute Facets
+			// $fileName = Config::attributeFacetsFileName();
+			// $this->saveAttributeFacetsCSV($fileName);
+			// // Generating CSV for Catalog Entries
+			// $fileName = Config::attrValsFacetsFileName();
+			// $this->saveAttrValsFacetsCSV($fileName);
+			// // Generating CSV for Catalog Entries
 			$fileName = Config::attrValCatEntryFacetsFileName();
 			$this->saveAttrValCatEntryFacetsCSV($fileName);
 			// Generating CSV for Catalog Entries
@@ -274,14 +274,18 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				if ($siopFullCode != 04) {
-					$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "NULL");
-					$row[] = $partNo;
-					$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
-					$row[] = $languageMaster[$language];
-					$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
-					$row[] = $object;
-					fputcsv($fileResource, $row, ',');
-					unset($row);
+						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "NULL");
+						$row[] = $partNo;
+						$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
+						$row[] = $languageMaster[$language];
+						$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
+						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
+							$row[] = \Pimcore\Tool::getHostUrl(). $object;
+						} else {
+							$row[] = $object;
+						}
+						fputcsv($fileResource, $row, ',');
+						unset($row);
 				}
 			}
 			fclose($fileResource);
@@ -538,59 +542,61 @@ class Export {
 			// Filling CSV columns
 			$columns = array('PartNumber', 'AttributeIdentifier', 'ValueId');
 			fputcsv($fileResource, $columns, ',');
-			
-			foreach ($productsMaster as $product) {
-				// Attaching Additional Product Brick Data
-				$objectLD1 = Db::get()->fetchAll('
-					SELECT * FROM object_localized_data_1 WHERE ooo_id = ' . $product["oo_id"] . '
-				');
-	
+            foreach ($productsMaster as $productID) {
+				// Querying Product Data
+				$product = Db::get()->fetchAll('SELECT * 
+				FROM object_1 o1
+				 LEFT JOIN object_localized_data_1 old1
+				 ON old1.ooo_id = o1.oo_id
+				WHERE o1.oo_id = ' . $productID['oo_id'] . '
+				AND old1.language = "en"
+			');
+
 				// BRAND DATA
-				$productBaseParentID = Db::get()->fetchOne('SELECT o_parentId FROM object_1 WHERE oo_id = ' . $product["o_parentId"] . '');
+				$productBaseParentID = Db::get()->fetchOne('SELECT o_parentId FROM object_1 WHERE oo_id = (SELECT o_parentId FROM object_1 WHERE oo_id =' . $productID['oo_id'] . ')');
 				$objectPTGBase_1 = $productBaseParentID ? Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_PTGBase_1 WHERE o_id = ' . $productBaseParentID . '
-				') : [];
+				SELECT * FROM object_brick_store_PTGBase_1 WHERE o_id = ' . $productBaseParentID . '
+			') : [];
 				$objectHoseBase_1 = $productBaseParentID ? Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_HoseBase_1 WHERE o_id = ' . $productBaseParentID . '
-				') : [];
-	
+				SELECT * FROM object_brick_store_HoseBase_1 WHERE o_id = ' . $productBaseParentID . '
+			') : [];
+
 				// SKELETON DATA
 				$productParentID = $product['o_parentId'];
 				$objectPTGSkeleton_1 = $productParentID ? Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_PTGSkeleton_1 WHERE o_id = ' . $productParentID . '
-				') : [];
+				SELECT * FROM object_brick_store_PTGSkeleton_1 WHERE o_id = ' . $productParentID . '
+			') : [];
 				$objectHoseSkeleton_1 = $productParentID ? Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_HoseSkeleton_1 WHERE o_id = ' . $productParentID . '
-				') : [];
-	
+				SELECT * FROM object_brick_store_HoseSkeleton_1 WHERE o_id = ' . $productParentID . '
+			') : [];
+
 				// FERT DATA
 				$objectBeltsFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_BeltsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_BeltsFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectPTGFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_PTGFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_PTGFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectMetalFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_MetalFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_MetalFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectSynchronousFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_SynchronousFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_SynchronousFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectHydFittingsFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_HydFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_HydFittingsFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectINHFittingsFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_INHFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_INHFittingsFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectHoseFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_HoseFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_HoseFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				$objectAccessoriesFert_1 = Db::get()->fetchAll('
-					SELECT * FROM object_brick_store_AccessoriesFert_1 WHERE o_id = ' . $product["oo_id"] . '
-				');
+				SELECT * FROM object_brick_store_AccessoriesFert_1 WHERE o_id = ' . $productID['oo_id'] . '
+			');
 				// Merging Product @Array with additional Product Bricks Data
 				$product = count($product) ? $product : [];
-				$objectLD1Arr = count($objectLD1) > 0 ? $objectLD1[0] : [];
 				$objectAccessoriesFert_1Arr = count($objectAccessoriesFert_1) > 0 ? $objectAccessoriesFert_1[0] : [];
 				$objectBeltsFert_1Arr = count($objectBeltsFert_1) > 0 ? $objectBeltsFert_1[0] : [];
 				$objectHoseBase_1Arr = count($objectHoseBase_1) > 0 ? $objectHoseBase_1[0] : [];
@@ -603,32 +609,30 @@ class Export {
 				$objectPTGFert_1Arr = count($objectPTGFert_1) > 0 ? $objectPTGFert_1[0] : [];
 				$objectPTGSkeleton_1Arr = count($objectPTGSkeleton_1) > 0 ? $objectPTGSkeleton_1[0] : [];
 				$objectSynchronousFert_1Arr = count($objectSynchronousFert_1) > 0 ? $objectSynchronousFert_1[0] : [];
-				$allProductDetails = ($product + $objectLD1Arr + $objectAccessoriesFert_1Arr
-					 + $objectBeltsFert_1Arr + $objectHoseBase_1Arr + $objectHoseFert_1Arr + $objectHoseSkeleton_1Arr
-					 + $objectHydFittingsFert_1Arr + $objectINHFittingsFert_1Arr + $objectMetalFert_1Arr
-					 + $objectPTGBase_1Arr + $objectPTGFert_1Arr + $objectPTGSkeleton_1Arr
-					 + $objectSynchronousFert_1Arr);
+				$productDetails = ($product + $objectAccessoriesFert_1Arr
+					+ $objectBeltsFert_1Arr + $objectHoseBase_1Arr + $objectHoseFert_1Arr + $objectHoseSkeleton_1Arr
+					+ $objectHydFittingsFert_1Arr + $objectINHFittingsFert_1Arr + $objectMetalFert_1Arr
+					+ $objectPTGBase_1Arr + $objectPTGFert_1Arr + $objectPTGSkeleton_1Arr
+					+ $objectSynchronousFert_1Arr);
 				// Iterating available PIM attribute to append matching attribute for products
 				foreach ($attributes as &$attribute) {
 					// different If Checks for existing scenario
-					if (
-						isset($allProductDetails[$attribute['PIM Attribute Name']])
-						&& !empty($attribute['B2B Attribute ID'])
-						&& !empty($allProductDetails[$attribute['PIM Attribute Name']])
-						&& strtolower(
-							str_replace(['#', '/', ' '], '', $allProductDetails[$attribute['PIM Attribute Name']])
-						) != 'na'
-					) {
+					if (isset($productDetails[$attribute['PIM Attribute Name']])
+					&& !empty($attribute['B2B Attribute ID'])
+					&& !empty($productDetails[$attribute['PIM Attribute Name']])
+					&& strtolower(
+						str_replace(['#', '/', ' '], '', $productDetails[$attribute['PIM Attribute Name']])
+					) != 'na'
+				) {
 						// Filling CSV Data Rows
-						$row[] =	$allProductDetails['articleNumber'];
-						$row[] =	$attribute['B2B Attribute ID'];
-						$row[] =	lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']));
+						$row[] = $productDetails['articleNumber'];
+						$row[] = $attribute['B2B Attribute ID'];
+						$row[] = lcfirst(str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']));
 						fputcsv($fileResource, $row, ',');
 						unset($row);
 					}
 				}
-			}
-
+            }
 			fclose($fileResource);
 		} else {
 			throw new Exception("Export Service Exception ::  Error, Processing Attribute Value Category Entry Facets CSV, No records Found..");
