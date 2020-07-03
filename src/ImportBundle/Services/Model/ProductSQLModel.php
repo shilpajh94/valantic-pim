@@ -52,6 +52,7 @@ class ProductSQLModel
     private $categories;
     private $products;
     private $materialGroup;
+    private $baseSIOPMapping;
     
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -71,6 +72,7 @@ class ProductSQLModel
         $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
 //        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
+        $this->baseSIOPMapping = [];
     }
     
     /**
@@ -194,8 +196,10 @@ class ProductSQLModel
         echo "Delta count: ".$deltaCount = count($delta);
         $j = 1;
         
+        $this->baseSIOPMapping = $this->tblImpHelper->getBaseSiopMapping();
         $this->logArray = [];
         $i = 0;
+        
         $length = 2000;
         while ($i<$deltaCount) {
             $offset = $i;
@@ -478,27 +482,35 @@ class ProductSQLModel
                     $levelInfo = $this->productHelper->getLevels($record['code'], $record);
                     if ($levelInfo['status']) {
                         if (strtolower($bu) == 'ifs') {
-                            $folderIndex = count($levelInfo['levels']);
-                            $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
-                            $folderPath = $this->categories[$folderCode]['fullPath'];
-                            $folderPath = $this->convertCategoryPathToProduct($folderPath);
-                            $folderId = $this->getFolderByPath($folderPath);
-                            if (!array_key_exists($folderPath, $this->products)) {
-                                $folderId = $this->getFolderByPath($folderPath);
-                                $this->products[$folderPath] = $folderId;
-                            } else {
-                                $folderId = $this->products[$folderPath];
-                            }
                             $oldMaterialCode = trim($recData[6]);
                             if ($oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
                                 $recData[6] = '';
                             }
-                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                                $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                            $sixDigitCode = substr($oldMaterialCode, 0, 6);
+                            if (!empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
+                                $msg = 'SIOP Code does not match with previous records of same Six digit code.';
                             } else {
-                                $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                                $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                                $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
+                                $folderIndex = count($levelInfo['levels']);
+                                $folderCode = $levelInfo['levels'][$folderIndex]['levelFullCode'];
+                                $folderPath = $this->categories[$folderCode]['fullPath'];
+                                $folderPath = $this->convertCategoryPathToProduct($folderPath);
+                                $folderId = $this->getFolderByPath($folderPath);
+                                if (!array_key_exists($folderPath, $this->products)) {
+                                    $folderId = $this->getFolderByPath($folderPath);
+                                    $this->products[$folderPath] = $folderId;
+                                } else {
+                                    $folderId = $this->products[$folderPath];
+                                }
+                                if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                                    $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                                } else {
+                                    $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
+                                    $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                    $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                }
+                                $status = 'Success';
+                                $msg = 'Object Id is: '.$levelArray[0];
                             }
                         } else if(strtolower($bu) == 'ptg') {
                             $folderIndex = count($levelInfo['levels'])-2;
@@ -515,9 +527,9 @@ class ProductSQLModel
                             $levelArray = $this->createPTGObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
                             $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
                             $levelArray = $this->createPTGObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                            $status = 'Success';
+                            $msg = 'Object Id is: '.$levelArray[0];
                         }
-                        $status = 'Success';
-                        $msg = 'Object Id is: '.$levelArray[0];
                     }
                     unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
                 } else {
