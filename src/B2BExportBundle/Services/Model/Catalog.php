@@ -76,24 +76,49 @@ class Catalog {
 	public static function getEntries(){
 		try {
             // Querying data from product Master data from Database
-	    	$productMaster = Db::get()->fetchAll("SELECT
-			articleNumber as partNo,
-			manufacturerPartNumber as MFPartNumber,
-			industryStandard,
-			siopFullCode,
-			objld1.sapDescription
-			FROM object_1
-			LEFT JOIN object_localized_data_1 objld1
-			ON object_1.oo_id = objld1.ooo_id 
-			AND objld1.`language` = 'en' 
-			AND objld1.sapDescription != ''
-			WHERE object_1.oo_id IN (SELECT DISTINCT o1.oo_id
-            FROM object_10 o10
-            INNER JOIN object_1 o1 ON 
-            (replace(substring(substring_index(o10.Material, ',', 1), 
-            length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
-			WHERE o10.epixFlag = '001'
-			)
+	    	$productMaster = Db::get()->fetchAll("SELECT 
+				DISTINCT
+					oCommaSaperated.oo_id,
+					oCommaSaperated.mainImage,
+					oCommaSaperated.articleNumber as partNo,
+					oCommaSaperated.manufacturerPartNumber as MFPartNo,
+					oCommaSaperated.industryStandard,
+					oCommaSaperated.siopFullCode,
+					objld1.sapDescription,
+					objld1.longDescription,
+					oCommaSaperated.netWeight,
+					oCommaSaperated.weightUnit,
+					objld1.language
+				FROM object_10 o10
+				RIGHT JOIN object_1 oCommaSaperated
+				ON FIND_IN_SET(oCommaSaperated.oo_id, o10.Material)
+				JOIN object_localized_data_1 objld1
+				ON oCommaSaperated.oo_id = objld1.ooo_id 
+				AND objld1.sapDescription != ''
+				AND objld1.language = 'en'
+				WHERE o10.epixFlag = '001'
+				AND LOCATE(',', o10.Material)
+				UNION DISTINCT
+				SELECT 
+					o1.oo_id,
+					o1.mainImage,
+					o1.articleNumber as partNo,
+					o1.manufacturerPartNumber as MFPartNo,
+					o1.industryStandard,
+					o1.siopFullCode,
+					objld1.sapDescription,
+					objld1.longDescription,
+					o1.netWeight,
+					o1.weightUnit,
+					objld1.language
+				FROM object_10 o10
+				JOIN object_1 o1
+				ON o1.oo_id = o10.Material
+				JOIN object_localized_data_1 objld1
+				ON o1.oo_id = objld1.ooo_id 
+				AND objld1.language = 'en'
+				AND objld1.sapDescription != ''
+				WHERE o10.epixFlag = '001'
 			");
 	    	return $productMaster;
 		} catch (Exception $e) {
@@ -111,37 +136,54 @@ class Catalog {
 	public function getEntriesDescription(){
 		try {
             // Querying data from product Master data from Database
-	    	$productMaster = Db::get()->fetchAll("SELECT
-					oo_id,
-					mainImage,
-					articleNumber as partNo,
-					manufacturerPartNumber as MFPartNo,
-					industryStandard,
-					siopFullCode,
+	    	$productMaster = Db::get()->fetchAll("SELECT 
+				DISTINCT
+					oCommaSaperated.oo_id,
+					oCommaSaperated.mainImage,
+					oCommaSaperated.articleNumber as partNo,
+					oCommaSaperated.manufacturerPartNumber as MFPartNo,
+					oCommaSaperated.industryStandard,
+					oCommaSaperated.siopFullCode,
 					objld1.sapDescription,
 					objld1.longDescription,
-					netWeight,
-					weightUnit,
+					oCommaSaperated.netWeight,
+					oCommaSaperated.weightUnit,
 					objld1.language
-			FROM object_1
-			LEFT JOIN object_localized_data_1 objld1
-			ON object_1.oo_id = objld1.ooo_id 
-			WHERE object_1.oo_id IN (SELECT DISTINCT o1.oo_id
-            FROM object_10 o10
-            INNER JOIN object_1 o1 ON 
-            (replace(substring(substring_index(o10.Material, ',', 1), 
-            length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
-			WHERE o10.epixFlag = '001'
-			)
-			AND objld1.sapDescription != ''
-	    	");
+				FROM object_10 o10
+				RIGHT JOIN object_1 oCommaSaperated
+				ON FIND_IN_SET(oCommaSaperated.oo_id, o10.Material)
+				JOIN object_localized_data_1 objld1
+				ON oCommaSaperated.oo_id = objld1.ooo_id 
+				AND objld1.sapDescription != ''
+				WHERE o10.epixFlag = '001'
+				AND LOCATE(',', o10.Material)
+				UNION DISTINCT
+				SELECT 
+					o1.oo_id,
+					o1.mainImage,
+					o1.articleNumber as partNo,
+					o1.manufacturerPartNumber as MFPartNo,
+					o1.industryStandard,
+					o1.siopFullCode,
+					objld1.sapDescription,
+					objld1.longDescription,
+					o1.netWeight,
+					o1.weightUnit,
+					objld1.language
+				FROM object_10 o10
+				JOIN object_1 o1
+				ON o1.oo_id = o10.Material
+				JOIN object_localized_data_1 objld1
+				ON o1.oo_id = objld1.ooo_id 
+				AND objld1.sapDescription != ''
+				WHERE o10.epixFlag = '001'
+			");
 	    	// returning product master and language master data
 	    	return ['productMaster' => $productMaster, 'languageMaster' => self::languageMaster()];
 		} catch (Exception $e) {
             Logger::log('b2bexport',"Catalog Entries Description Model Exception :: " .$ex->getMessage());
 		}
 	}
-
 
 	/**
 	 * Querying languages with languageId from Database

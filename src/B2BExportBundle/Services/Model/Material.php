@@ -46,7 +46,7 @@ class Material
         ON o5.o_id = o10.DeliveringPlant__id
         JOIN object_1  o1
         ON o1.o_id = o10.Material
-        AND o10.epixFlag = 001
+        WHERE o10.epixFlag = 001
     ");
     return $salesMaterialMaster;
       } catch (Exception $ex) {
