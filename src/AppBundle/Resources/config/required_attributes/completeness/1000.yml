@@ -234,9 +234,6 @@ object_bricks:
                     tubeGaugeIN:
                        type: 'numeric'
                        label: 'Tube Gauge (in)'
-                    reinforcement:
-                       type: 'multiselect'
-                       label: 'Reinforcement'
 
 
     Fert:

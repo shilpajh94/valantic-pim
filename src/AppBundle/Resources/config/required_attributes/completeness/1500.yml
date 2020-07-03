@@ -209,9 +209,6 @@ object_bricks:
                     hoseIdNominalId:
                        type: 'input'
                        label: 'Hose ID (in Fract) Nominal ID'
-                    reinforcement:
-                       type: 'multiselect'
-                       label: 'Reinforcement'
                     hoseDashSize:
                        type: 'numeric'
                        label: 'Hose Dash Size'
