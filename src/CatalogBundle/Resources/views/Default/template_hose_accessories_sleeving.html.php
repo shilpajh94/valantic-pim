@@ -47,22 +47,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 ?>
 
                 <h4 class="contitech-yellow">
+                
                 <?php
-                if ($this->input("HHAS_BrandName_{$incr}")->isEmpty()) {
                         echo $this->input("HHAS_BrandName_{$incr}")->setDataFromResource($brandName);
-                } else {
-                        echo $this->input("HHAS_BrandName_{$incr}");
-                }
                 ?>
                 </h4>
 
                 <span>
                 <?php
-                if ($this->input("HHAS_LongDescription_{$incr}")->isEmpty()) {
-                        echo $this->input("HHAS_LongDescription_{$incr}")->setDataFromResource($longDescription);
-                } else {
-                        echo $this->input("HHAS_LongDescription_{$incr}");
-                }
+                        echo $this->wysiwyg("HHAS_LongDescription_{$incr}")->setDataFromResource($longDescription);
                 ?>
                 </span>
 
@@ -122,23 +115,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 </menu>
                    <?php endif; ?>
            </figcaption>
-        
-        <?php if($this->editmode): ?>
-                <span>
-                <?php if(!$this->image("HHAS_Image_{$incr}")->isEmpty()): ?>
-                        <?= $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200]); ?>
-                <?php else: ?>
-                        <?= $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
-                <?php endif; ?>
-                </span>
-                <?php else: ?>
-                <?php if(!$this->image("HHAS_Image_{$incr}")->isEmpty()): ?>
-                        <span><img src="<?= $this->image("HHAS_Image_{$incr}")->getSrc() ?>" /></span>
-                <?php elseif($imageObj): ?>
-                        <span><img src="<?= $imageObj ?>" /></span>
-                <?php endif; ?>
-        <?php endif; ?>
-        
+           <?= $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
            
        </figure>
        <div class="grid">

@@ -57,11 +57,11 @@ parameters:
                 parent:
                     name: HoseSkeleton
             grossWeight:
-                fieldLevel: objectBrick
+                fieldLevel: class
                 fieldLabel: 'Weight Lbs per ft'
                 fieldType: Input
                 parent:
-                    name: HoseSkeleton
+                    name: Product
             fittingFamily:
                 fieldLevel: class
                 fieldLabel: 'Fitting Family'

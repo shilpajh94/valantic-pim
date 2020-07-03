@@ -22,6 +22,18 @@ parameters:
                 fieldLabel: Hose Rendering
                 parent: 
                     name: Product
+            LeftPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Left Print Catalog Image
+                parent: 
+                    name: Product
+            RightPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Right Print Catalog Image
+                parent: 
+                    name: Product
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
@@ -73,21 +85,39 @@ parameters:
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
-            temperatureRangeFAndC:
+            minimumTemperatureF:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Hose Temperature Range
+                fieldLabel: Min temp °F
+                parent:
+                    name: Product
+            maximumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °F
+                parent:
+                    name: Product
+            minimumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °C
+                parent:
+                    name: Product
+            maximumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °C
                 parent:
                     name: Product
             FeaturesBenefitsBulletPoint:
                 fieldLevel: class
                 fieldType: Relation
-                fieldLabel: Key Features
+                fieldLabel: Features ID
                 parent:
                     name: Product
                     class:
                         name: Features
-                        fieldName: name
+                        fieldName: id
             brandName:
                 fieldLevel: class
                 fieldType: Relation
@@ -116,7 +146,63 @@ parameters:
                 fieldLabel: ID
                 parent:
                     name: Product
-             
+        Hose Line Page:
+            id:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Fert ID
+            oldMaterialCode:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Old Material Code
+            brandName:
+                fieldLevel: class
+                fieldType: Select
+                fieldLabel: Brand Name
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard(s)
+            BrandShortText1:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 1
+            BrandShortText2:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 2
+            BrandShortText3:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 3
+            BrandShortText4:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 4
+            BrandShortText5:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 5
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Hose ID - Fract
+                parent:
+                    name: HoseSkeleton
+            hoseIdDec:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Hose ID
+                parent:
+                    name: HoseSkeleton
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Multiselection
+                fieldLabel: Features Benefits & Bullet Points
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Product Image
                     
         
         
