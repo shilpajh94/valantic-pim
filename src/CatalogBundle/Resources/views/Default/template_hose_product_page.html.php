@@ -14,12 +14,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 <?php endif; ?>
 
 <?php
-
 if($data):
-$incr = 1;
-foreach($data as $key => $brand):
+foreach($data as $catalogGroupKey => $catalogGroupData):
 
-extract($brand);
+$incr = 1;
+foreach($catalogGroupData as $brandName => $brandData):
+extract($brandData);
+
+// foreach($data as $key => $brand):
+
+// extract($brand);
 
 $imageObj = '';
 if($incr % 2 == 0)
@@ -256,6 +260,6 @@ else
 $incr++;
 endforeach; 
 
+endforeach; 
 endif;
-
 ?>

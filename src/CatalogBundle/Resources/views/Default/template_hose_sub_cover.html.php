@@ -12,13 +12,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ]); 
         ?>
 <?php endif; ?>
+
+<?php
+if($data):
+foreach($data as $catalogGroupKey => $catalogGroupData):
+?>
 <div class="seggregate">
-    
     <article class="container noBorder">
     <header class="dark">
             <?= $this->image("HHSC_Image"); ?>
     </header>
-    
         <nav class="marginBottom30">
             <h4><?= $this->input("HHSC_Heading"); ?></h4>
         </nav>
@@ -35,7 +38,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                         </span>
                         <h3>
                         <?php
-                        echo $this->input("HHSC_Title");
+                        echo $this->input("HHSC_Title")->setDataFromResource($catalogGroupKey);
                         ?>
                         </h3>               
             </div>
@@ -54,11 +57,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                     </p>
 
                     <?php
-                    if($data):
-                    $incr = 1;
-                    foreach($data as $key => $brand):
-                    extract($brand);
-                    ?>
+                        if($data):
+                        $incr = 1;
+                        foreach($catalogGroupData as $brandName => $brandData):
+                        extract($brandData);
+                        ?>
 
                         <?php if($incr%2==0): ?>
                         <div>
@@ -77,11 +80,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                 <span></span>
                         </div>
 
-                    <?php 
-                    $incr++;
-                    endforeach; 
-                    endif;
-                    ?>
+                        <?php 
+                        $incr++;
+                        endforeach; 
+                        endif;
+                        ?>
                     
             </div>
               
@@ -102,7 +105,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                     </span>
                                     <h5>
                                     <?php
-                                    echo $this->input("HHSC_Footer");
+                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
                                     ?>
                                     </h5>               
                         </div>
@@ -111,3 +114,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 </footer>
         </div>
 </div>
+<?php 
+endforeach; 
+endif;
+?>
