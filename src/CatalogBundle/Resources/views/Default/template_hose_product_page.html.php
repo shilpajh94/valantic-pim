@@ -14,12 +14,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 <?php endif; ?>
 
 <?php
-
 if($data):
-$incr = 1;
-foreach($data as $key => $brand):
+foreach($data as $catalogGroupKey => $catalogGroupData):
 
-extract($brand);
+$incr = 1;
+foreach($catalogGroupData as $brandName => $brandData):
+extract($brandData);
+
+// foreach($data as $key => $brand):
+
+// extract($brand);
 
 $imageObj = '';
 if($incr % 2 == 0)
@@ -30,7 +34,7 @@ else
 ?>
 
 <section class="seggregate">
-        <nav class="header">
+        <nav class="header alternate">
                 <div id="pageHeader"></div>
                 <span>
                 <?php 
@@ -43,12 +47,13 @@ else
                 </span>
         </nav>
         <div class="footer">
-                <footer class="flex">
+        <footer class="flex-center ">
                         <span class="logo">
-                                <img src="/CatalogImages/logo.JPG" />
+                                <b>Hose</b>
+                                <img src="/CatalogImages/logo_new.png">
                         </span>
                         <div class="flex aligned">
-                                <h5>
+                                <h5 class="rowC">
                                 
                                 <?php 
                                 if($this->editmode){
@@ -73,7 +78,7 @@ else
                                 </h5>
 
 
-                                <p>
+                                <div class="rowC compatible">
                                         <b>
                                         <?php 
                                         if($this->editmode){
@@ -84,9 +89,6 @@ else
                                         ?>
                                         </b>
                                         
-                                        
-                                        <br>
-
                                         <?php 
                                         $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
                                         if($this->editmode){
@@ -95,7 +97,7 @@ else
                                                 echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}");
                                         }                
                                         ?>
-                                </p>
+                                </d>
                         </div>
                 </footer>
         </div>
@@ -245,10 +247,9 @@ else
         
         </article>
 
-        <?php if($incr != count($data)): ?>
-<div class="break-before"></div>
-
-<?php endif; ?>
+        <?php //if($incr != count($catalogGroupData)): ?>
+        <div class="break-before"></div>
+        <?php //endif; ?>    
 
 </section>
 
@@ -256,6 +257,6 @@ else
 $incr++;
 endforeach; 
 
+endforeach; 
 endif;
-
 ?>

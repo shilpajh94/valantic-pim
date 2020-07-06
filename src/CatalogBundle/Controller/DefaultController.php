@@ -782,137 +782,156 @@ class DefaultController extends FrontendController {
 
             $featuresList = $this->getFeaturesList('IFS');
 
-            $brandsData = array();
-
+            $catalogGrouping = array();
+            
             foreach ($productsData as $key => $item) {
                 $productsDataWithHeaders = array_combine($headerKeys, $item);
-                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
-                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+
+                if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
+                {
+                    $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+                }
             }
-            
-            foreach ($brandsData as $brandKey => $brandArray) {
-
-                $brandName = $brandArray[0]['brandName'][0];
-
-                $baseLevelID = $brandArray[0]['baseLevelID'];
-                // $mainImage = $brandArray[0]['mainImage'];
-
-                // $imageObj = '';
-                // if($mainImage)
-                // {
-                //     $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
-                // }
-                
-                $longDescription = $brandArray[0]['longDescription'];
-                $BrandingLayline = $brandArray[0]['BrandingLayline'];
-                $tempFmin = $brandArray[0]['minimumTemperatureF'];
-                $tempFmax = $brandArray[0]['maximumTemperatureF'];
-                $tempCmin = $brandArray[0]['minimumTemperatureC'];
-                $tempCmax = $brandArray[0]['maximumTemperatureC'];
-
-                $LeftPrintCatalogImage = $brandArray[0]['LeftPrintCatalogImage'];
-
-                if($LeftPrintCatalogImage)
-                {
-                    $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
-                }
 
 
-                $RightPrintCatalogImage = $brandArray[0]['RightPrintCatalogImage'];
+            // foreach ($productsData as $key => $item) {
+            //     $productsDataWithHeaders = array_combine($headerKeys, $item);
+            //     if(!empty(trim($productsDataWithHeaders['brandName'][0])))
+            //     {
+            //         // $ff= "Saflex® (NSFX)";
+            //         // $brandNamekey = \Pimcore\Model\Element\Service::getValidKey($productsDataWithHeaders['brandName'][0], 'string');
+            //         $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+            //     }
+            // }
+            foreach($catalogGrouping as $catalogKey => $brandsData)
+            {
 
-                if($RightPrintCatalogImage)
-                {
-                    $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
-                }
+                foreach ($brandsData as $brandKey => $brandArray) {
 
-                $tubeMaterial = array();
-                $tubeAttribute = array();
-                $reinforcement = array();
-                $coverMaterial = array();
-                $coverAttribute = array();
-                $safetyFeatures = array();
-                $articlesData = array();
+                    $brandName = $brandArray[0]['brandName'][0];
 
-                foreach($brandArray as $key => $element): 
+                    $baseLevelID = $brandArray[0]['baseLevelID'];
+                    // $mainImage = $brandArray[0]['mainImage'];
+
+                    // $imageObj = '';
+                    // if($mainImage)
+                    // {
+                    //     $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                    // }
                     
-                    foreach($element as $bkey => $value): 
+                    $longDescription = $brandArray[0]['longDescription'];
+                    $BrandingLayline = $brandArray[0]['BrandingLayline'];
+                    $tempFmin = $brandArray[0]['minimumTemperatureF'];
+                    $tempFmax = $brandArray[0]['maximumTemperatureF'];
+                    $tempCmin = $brandArray[0]['minimumTemperatureC'];
+                    $tempCmax = $brandArray[0]['maximumTemperatureC'];
 
-                            if($bkey == 'tubeMaterial')
-                                $tubeMaterial = array_merge($tubeMaterial, $value);
-                            if($bkey == 'tubeColor')
-                                $tubeAttribute = array_merge($tubeAttribute, $value);
-                            if($bkey == 'reinforcement')
-                                $reinforcement = array_merge($reinforcement, $value);
-                            if($bkey == 'coverColor')
-                                $coverAttribute = array_merge($coverAttribute, $value);
-                            if($bkey == 'coverMaterial')
-                                $coverMaterial = array_merge($coverMaterial, $value);
-                            if($bkey == 'FeaturesBenefitsBulletPoint')
-                            {
-                                if(count($value)>0)
+                    $LeftPrintCatalogImage = $brandArray[0]['LeftPrintCatalogImage'];
+
+                    if($LeftPrintCatalogImage)
+                    {
+                        $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
+                    }
+
+
+                    $RightPrintCatalogImage = $brandArray[0]['RightPrintCatalogImage'];
+
+                    if($RightPrintCatalogImage)
+                    {
+                        $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
+                    }
+
+                    $tubeMaterial = array();
+                    $tubeAttribute = array();
+                    $reinforcement = array();
+                    $coverMaterial = array();
+                    $coverAttribute = array();
+                    $safetyFeatures = array();
+                    $articlesData = array();
+
+                    foreach($brandArray as $key => $element): 
+                        
+                        foreach($element as $bkey => $value): 
+
+                                if($bkey == 'tubeMaterial')
+                                    $tubeMaterial = array_merge($tubeMaterial, $value);
+                                if($bkey == 'tubeColor')
+                                    $tubeAttribute = array_merge($tubeAttribute, $value);
+                                if($bkey == 'reinforcement')
+                                    $reinforcement = array_merge($reinforcement, $value);
+                                if($bkey == 'coverColor')
+                                    $coverAttribute = array_merge($coverAttribute, $value);
+                                if($bkey == 'coverMaterial')
+                                    $coverMaterial = array_merge($coverMaterial, $value);
+                                if($bkey == 'FeaturesBenefitsBulletPoint')
                                 {
-                                    foreach ($value as $fkey => $feature) {
-                                        array_push($safetyFeatures,$feature);
+                                    if(count($value)>0)
+                                    {
+                                        foreach ($value as $fkey => $feature) {
+                                            array_push($safetyFeatures,$feature);
+                                        }
                                     }
                                 }
-                            }
+
+                        endforeach; 
+
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            if($ckey == 'fittingFamily')
+                                $articlesData[$key][$ckey] = ($element[$ckey])? implode(',',($element[$ckey])): '';
+                            else
+                                $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
+                        }
 
                     endforeach; 
 
-                    foreach ($columnsDataWithImages as $ckey => $cvalue) {
-                        if($ckey == 'fittingFamily')
-                            $articlesData[$key][$ckey] = ($element[$ckey])? implode(',',($element[$ckey])): '';
-                        else
-                            $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
+                    $tubeMaterial = array_unique($tubeMaterial);
+                    $tubeAttribute = array_unique($tubeAttribute);
+                    $reinforcement = array_unique($reinforcement);
+                    $coverMaterial = array_unique($coverMaterial);
+                    $coverAttribute = array_unique($coverAttribute);
+
+                    $safetyFeatures = array_unique($safetyFeatures);
+                    $safetyFeaturesList = array();
+
+                    if($safetyFeatures)
+                    {
+                        foreach ($safetyFeatures as $fkey => $fvalue) {
+                            $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        }
                     }
 
-                endforeach; 
+                    $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
+                    $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
 
-                $tubeMaterial = array_unique($tubeMaterial);
-                $tubeAttribute = array_unique($tubeAttribute);
-                $reinforcement = array_unique($reinforcement);
-                $coverMaterial = array_unique($coverMaterial);
-                $coverAttribute = array_unique($coverAttribute);
+                    $tubeMaterialAtrributeString = implode(', ', $tubeMaterialAtrributeArr);
+                    $coverMaterialattributeString = implode(', ', $coverMaterialattributeArr);
 
-                $safetyFeatures = array_unique($safetyFeatures);
-                $safetyFeaturesList = array();
+                    $reinforcement = implode(', ', $reinforcement);
+                    $data[$brandKey]['brandName'] = $brandName;
+                    // $data[$brandKey]['imageObj'] = $imageObj;
+                    // $data[$brandKey]['mainImage'] = $mainImage;
+                    $data[$brandKey]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                    $data[$brandKey]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                    $data[$brandKey]['longDescription'] = $longDescription;
+                    $data[$brandKey]['BrandingLayline'] = $BrandingLayline;
+                    $data[$brandKey]['tempFmin'] = $tempFmin;
+                    $data[$brandKey]['tempFmax'] = $tempFmax;
+                    $data[$brandKey]['tempCmin'] = $tempCmin;
+                    $data[$brandKey]['tempCmax'] = $tempCmax;
+                    $data[$brandKey]['reinforcement'] = $reinforcement;
+                    $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
+                    $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
+                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
+                    $data[$brandKey]['iconRequired'] = $iconRequired;
+                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$brandKey]['articlesData'] = $articlesData;
 
-                if($safetyFeatures)
-                {
-                    foreach ($safetyFeatures as $fkey => $fvalue) {
-                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
-                    }
                 }
-
-                $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
-                $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
-
-                $tubeMaterialAtrributeString = implode(', ', $tubeMaterialAtrributeArr);
-                $coverMaterialattributeString = implode(', ', $coverMaterialattributeArr);
-
-                $reinforcement = implode(', ', $reinforcement);
-                $data[$brandKey]['brandName'] = $brandName;
-                // $data[$brandKey]['imageObj'] = $imageObj;
-                // $data[$brandKey]['mainImage'] = $mainImage;
-                $data[$brandKey]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                $data[$brandKey]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
-                $data[$brandKey]['longDescription'] = $longDescription;
-                $data[$brandKey]['BrandingLayline'] = $BrandingLayline;
-                $data[$brandKey]['tempFmin'] = $tempFmin;
-                $data[$brandKey]['tempFmax'] = $tempFmax;
-                $data[$brandKey]['tempCmin'] = $tempCmin;
-                $data[$brandKey]['tempCmax'] = $tempCmax;
-                $data[$brandKey]['reinforcement'] = $reinforcement;
-                $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
-                $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
-                $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
-                $data[$brandKey]['iconRequired'] = $iconRequired;
-                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-                $data[$brandKey]['articlesData'] = $articlesData;
-
+                $catalogGroupData[$catalogKey] = $data;
             }
-            
-            $this->view['data'] = $data;
+            // p_r($catalogGroupData);
+            // die;
+            $this->view['data'] = $catalogGroupData;
         }
     }
 
@@ -1205,68 +1224,87 @@ class DefaultController extends FrontendController {
 
             $featuresList = $this->getFeaturesList('IFS');
 
-            $brandsData = array();
-
+            $catalogGrouping = array();
+            
             foreach ($productsData as $key => $item) {
                 $productsDataWithHeaders = array_combine($headerKeys, $item);
-                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
-                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+
+                if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
+                {
+                    $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+                }
             }
-            
-            foreach ($brandsData as $brandKey => $brandArray) {
 
-                $brandName = $brandArray[0]['brandName'][0];
-                $tempFmin = $brandArray[0]['minimumTemperatureF'];
-                $tempFmax = $brandArray[0]['maximumTemperatureF'];
-                $industryStandard = $brandArray[0]['industryStandard'];
+            $catalogGroupData = array();
 
-                $tubeMaterial = array();
-                $reinforcement = array();
-                $workingPressurePSI = array();
-                $fittingFamily = array();
+            foreach($catalogGrouping as $catalogKey => $brandsData)
+            {
+                foreach ($brandsData as $brandKey => $brandArray) {
 
-                foreach($brandArray as $key => $element): 
-                    
-                    foreach($element as $bkey => $value): 
+                    $brandName = $brandArray[0]['brandName'][0];
+                    $tempFmin = $brandArray[0]['minimumTemperatureF'];
+                    $tempFmax = $brandArray[0]['maximumTemperatureF'];
+                    $industryStandard = $brandArray[0]['industryStandard'];
+                    $CatalogGrouping = $brandArray[0]['CatalogGrouping'];
 
-                            if($bkey == 'tubeMaterial')
-                                $tubeMaterial = array_merge($tubeMaterial, $value);
-                            if($bkey == 'reinforcement')
-                                $reinforcement = array_merge($reinforcement, $value);
-                            if($bkey == 'workingPressurePSI')
-                            {
-                                if($value)
-                                    $workingPressurePSI[] = $value;
-                            }
-                            if($bkey == 'fittingFamily')
-                                $fittingFamily = array_merge($fittingFamily, $value);
+                    $tubeMaterial = array();
+                    $reinforcement = array();
+                    $workingPressurePSI = array();
+                    $fittingFamily = array();
+
+                    foreach($brandArray as $key => $element): 
+                        
+                        foreach($element as $bkey => $value): 
+
+                                if($bkey == 'tubeMaterial')
+                                    $tubeMaterial = array_merge($tubeMaterial, $value);
+                                if($bkey == 'reinforcement')
+                                    $reinforcement = array_merge($reinforcement, $value);
+                                if($bkey == 'workingPressurePSI')
+                                {
+                                    if($value)
+                                        $workingPressurePSI[] = $value;
+                                }
+                                if($bkey == 'fittingFamily')
+                                    $fittingFamily = array_merge($fittingFamily, $value);
+
+                        endforeach; 
 
                     endforeach; 
 
-                endforeach; 
+                    $tubeMaterial = array_unique($tubeMaterial);
+                    $reinforcement = array_unique($reinforcement);
+                    $workingPressurePSI = array_unique($workingPressurePSI);
+                    $fittingFamily = array_unique($fittingFamily);
 
-                $tubeMaterial = array_unique($tubeMaterial);
-                $reinforcement = array_unique($reinforcement);
-                $workingPressurePSI = array_unique($workingPressurePSI);
-                $fittingFamily = array_unique($fittingFamily);
-                $minWorkingPressurePSI = min($workingPressurePSI);
-                $maxWorkingPressurePSI = max($workingPressurePSI);
+                    $workingPressurePSIString = "";
+                    if($workingPressurePSI && $workingPressurePSI)
+                    {
+                        $minWorkingPressurePSI = min($workingPressurePSI);
+                        $maxWorkingPressurePSI = max($workingPressurePSI);
+                        $workingPressurePSIString = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;
+                    }
 
-                $tubeMaterialAtrributeString = implode(', ', $tubeMaterial);
-                $reinforcement = implode(', ', $reinforcement);
-                $fittingFamily = implode(', ', $fittingFamily);
 
-                $data[$brandKey]['brandName'] = $brandName;
-                $data[$brandKey]['tempFmin'] = $tempFmin;
-                $data[$brandKey]['tempFmax'] = $tempFmax;
-                $data[$brandKey]['reinforcement'] = $reinforcement;
-                $data[$brandKey]['fittingFamily'] = $fittingFamily;
-                $data[$brandKey]['industryStandard'] = $industryStandard;
-                $data[$brandKey]['workingPressurePSIString'] = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;
-                $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
+                    $tubeMaterialAtrributeString = implode(', ', $tubeMaterial);
+                    $reinforcement = implode(', ', $reinforcement);
+                    $fittingFamily = implode(', ', $fittingFamily);
 
+                    $data[$brandKey]['brandName'] = $brandName;
+                    $data[$brandKey]['tempFmin'] = $tempFmin;
+                    $data[$brandKey]['tempFmax'] = $tempFmax;
+                    $data[$brandKey]['reinforcement'] = $reinforcement;
+                    $data[$brandKey]['fittingFamily'] = $fittingFamily;
+                    $data[$brandKey]['industryStandard'] = $industryStandard;
+                    $data[$brandKey]['CatalogGrouping'] = $CatalogGrouping;
+                    $data[$brandKey]['workingPressurePSIString'] = $workingPressurePSIString;
+                    $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
+
+                }
+                $catalogGroupData[$catalogKey] = $data;
             }
-            $this->view['data'] = $data;
+            // p_r($catalogGroupData);
+            $this->view['data'] = $catalogGroupData;
         }
     }
 
