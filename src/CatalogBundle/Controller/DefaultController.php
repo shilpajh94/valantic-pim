@@ -1276,8 +1276,15 @@ class DefaultController extends FrontendController {
                     $reinforcement = array_unique($reinforcement);
                     $workingPressurePSI = array_unique($workingPressurePSI);
                     $fittingFamily = array_unique($fittingFamily);
-                    $minWorkingPressurePSI = min($workingPressurePSI);
-                    $maxWorkingPressurePSI = max($workingPressurePSI);
+
+                    $workingPressurePSIString = "";
+                    if($workingPressurePSI && $workingPressurePSI)
+                    {
+                        $minWorkingPressurePSI = min($workingPressurePSI);
+                        $maxWorkingPressurePSI = max($workingPressurePSI);
+                        $workingPressurePSIString = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;
+                    }
+
 
                     $tubeMaterialAtrributeString = implode(', ', $tubeMaterial);
                     $reinforcement = implode(', ', $reinforcement);
@@ -1290,7 +1297,7 @@ class DefaultController extends FrontendController {
                     $data[$brandKey]['fittingFamily'] = $fittingFamily;
                     $data[$brandKey]['industryStandard'] = $industryStandard;
                     $data[$brandKey]['CatalogGrouping'] = $CatalogGrouping;
-                    $data[$brandKey]['workingPressurePSIString'] = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;
+                    $data[$brandKey]['workingPressurePSIString'] = $workingPressurePSIString;
                     $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
 
                 }

@@ -17,20 +17,25 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 if($data):
 foreach($data as $catalogGroupKey => $catalogGroupData):
 ?>
-<div class="seggregate">
-    <article class="container noBorder">
+<div class="seggregate coverPage">
+    <nav class="header alternate">
+       <div id="pageHeader"></div>
+    </nav>
+    
+    <article class="containerAll noBorder">
     <header class="dark">
             <?= $this->image("HHSC_Image"); ?>
     </header>
+    
         <nav class="marginBottom30">
             <h4><?= $this->input("HHSC_Heading"); ?></h4>
         </nav>
-        <div class="fullcontainer">
+        <div class="fullcontainer containerAll">
             <p class="marginBottom30">
             <?= $this->wysiwyg("HHSC_Description",["class"=>"marginBottom30"]); ?>
             </p>
            
-            <div class="bg">               
+            <div class="bg marginTop30">               
                         <span>
                         <?php
                         echo $this->image("HHSC_Title_Image", ["width" => 50]);
@@ -91,13 +96,14 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         </div>
            
     </article>
-    <div class="footer">
-                <footer class="flex">
+    <div class="footer containerAll">
+                <footer class="flex-center ">
                         <span class="logo">
-                                <img src="/CatalogImages/logo.JPG" />
+                                <b>Hose</b>
+                                <img src="/CatalogImages/logo_new.png">
                         </span>
                         <div class="flex aligned">
-                        <div>               
+                        <div class="rowD">               
                                     <span>
                                     <?php
                                     echo $this->image("HHSC_Footer_Image", ["width" => 40]);
@@ -114,6 +120,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                 </footer>
         </div>
 </div>
+<div class="break-before"></div>
 <?php 
 endforeach; 
 endif;
