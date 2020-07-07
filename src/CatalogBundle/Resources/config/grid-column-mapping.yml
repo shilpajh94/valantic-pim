@@ -77,14 +77,20 @@ parameters:
                         name: MultiselectMaster
                         fieldName: Name
             reinforcement:
-                fieldLevel: objectBrick
+                fieldLevel: class
                 fieldType: Relation
                 fieldLabel: Reinforcement
-                parent:
-                    name: HoseSkeleton
+                parent: 
+                    name: Product
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
+            CatalogGrouping:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Catalog Grouping
+                parent:
+                    name: Product
             minimumTemperatureF:
                 fieldLevel: class
                 fieldType: Input

@@ -8,93 +8,43 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         <h2>Table of Contents</h2>
     </header>
     </nav>
-
-      <section class="content">
-          <h4>Hydraulic Hose Line</h4>
-        <article>
-            <p class="paging">
-                <span class="pageTitle">Hyadraulic hose</span>
-                <span class="pageNo">1</span>
-            </p>
-            <p class="paging">
-                    <span class="pageTitle">Hyadraulic</span>
-                    <span class="pageNo">28</span>
-            </p>
-            <p class="paging">
-                    <span class="pageTitle">Hyadraulic hose and fitting</span>
-                    <span class="pageNo">32-33</span>
-            </p>
-
-            <h5>Extended life series</h5>
-
-            <p class="paging">
-                    <span class="pageTitle">Hyadraulic hose</span>
-                    <span class="pageNo">1</span>
-                </p>
+    <div class="content">
+    <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
+        
+          <h4><?= $this->input("TOC_SectionName"); ?></h4>
+          <article>
+          <?php while($this->block("TOC_HeadingBlock")->loop()) { ?>
             
-                <h5>Extended life series</h5>
-
+                <h5><?= $this->input("TOC_HeadingName"); ?></h5>
+                <?php if($this->editmode): ?>
+                <span class="pageTitle"><?= $this->input("TOC_Desc"); ?></span>
+                <?php else: ?>
+                    <?php if(!$this->input("TOC_Desc")->isEmpty()): ?>
+                    <span class="pageTitle"><?= $this->input("TOC_Desc"); ?></span>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php while($this->block("TOC_ContentBlock")->loop()) { ?>
                 <p class="paging">
-                    <span class="pageTitle">X5005</span>
-                    <span class="pageNo">32</span>
+                    <span class="pageTitle"><?= $this->input("TOC_Title"); ?></span>
+                    <span class="pageNo"><?= $this->input("TOC_Page"); ?></span>
                 </p>
-                <p class="paging">
-                        <span class="pageTitle">X5005</span>
-                        <span class="pageNo">32</span>
-                    </p>
-                    <p class="paging">
-                            <span class="pageTitle">X5005</span>
-                            <span class="pageNo">32</span>
-                        </p>
-                        <p class="paging">
-                                <span class="pageTitle">X5005</span>
-                                <span class="pageNo">32</span>
-                            </p>
-
-                            <p class="paging">
-                                    <span class="pageTitle">X5005</span>
-                                    <span class="pageNo">32</span>
-                                </p><p class="paging">
-                                        <span class="pageTitle">X5005</span>
-                                        <span class="pageNo">32</span>
-                                    </p>
-
+                <?php } ?>
+            
+            
+        <?php } ?>
         </article>
-        <article>
-                <h5>Extended life series</h5>
-
-                <p class="paging">
-                        <span class="pageTitle">Hyadraulic hose</span>
-                        <span class="pageNo">1</span>
-                    </p>
-                
-                    <h5>Extended life series</h5>
-    
-                    <p class="paging">
-                        <span class="pageTitle">X5005</span>
-                        <span class="pageNo">32</span>
-                    </p>
-                    <p class="paging">
-                            <span class="pageTitle">X5005</span>
-                            <span class="pageNo">32</span>
-                        </p>
-                        <p class="paging">
-                                <span class="pageTitle">X5005</span>
-                                <span class="pageNo">32</span>
-                            </p>
-                            <p class="paging">
-                                    <span class="pageTitle">X5005</span>
-                                    <span class="pageNo">32</span>
-                                </p>
-    
-                                <p class="paging">
-                                        <span class="pageTitle">X5005</span>
-                                        <span class="pageNo">32</span>
-                                    </p><p class="paging">
-                                            <span class="pageTitle">X5005</span>
-                                            <span class="pageNo">32</span>
-                                        </p>
-    
-        </article>
-      </section>
+        
+    <?php } ?>
+    </div>
+      
     </article>
+    <style>
+    div.content {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-fill: auto;
+    -moz-column-fill: auto;
+    column-fill: auto;
+}
+</style>
