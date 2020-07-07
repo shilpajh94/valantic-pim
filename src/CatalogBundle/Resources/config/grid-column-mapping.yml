@@ -209,9 +209,107 @@ parameters:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Product Image
-                    
-        
-        
+        Hose Accessories Sleeving: 
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Application Long Text
+                parent: 
+                    name: Product
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            brandName:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Brand
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            minimumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °F
+                parent:
+                    name: Product
+            maximumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °F
+                parent:
+                    name: Product
+            minimumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °C
+                parent:
+                    name: Product
+            maximumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °C
+                parent:
+                    name: Product
+            MaterialType:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: MaterialType
+                parent: 
+                    name: AccessoriesFert
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            Color:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Color
+                parent: 
+                    name: AccessoriesFert
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            LengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: 'Length'
+                parent:
+                    name: AccessoriesFert
+        Hose Accessories Clamps: 
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Application Long Text
+                parent: 
+                    name: Product
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            brandName:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Brand
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            MaterialType:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: MaterialType
+                parent: 
+                    name: AccessoriesFert
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
        
     
     
