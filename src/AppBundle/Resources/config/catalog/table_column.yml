@@ -79,4 +79,73 @@ parameters:
                 fieldLabel: Industry Standard
                 parent: 
                     name: Product
-            
+    Hose Accessories Sleeving:
+        Hose Accessories-Sleeving: 
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            SleevingIDInDecimal: 
+                fieldLevel: objectBrick
+                fieldLabel: 'ID'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            FlatWidthIn: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Flat Width (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            grossWeight:
+                fieldLevel: class
+                fieldLabel: 'Weight Lbs per ft'
+                fieldType: Input
+                parent:
+                    name: Product
+    Hose Accessories Clamps:
+        Hose Accessories-Hose Clamps: 
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            ClampingDiameterInFract: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Clamping Diameter (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            BoltHoleSizeInFract: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Bolt Hole (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 

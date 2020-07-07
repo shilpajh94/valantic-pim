@@ -942,16 +942,15 @@ class DefaultController extends FrontendController {
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        $template = $this->getDocumentTag('relation', 'template_hose_accessories_sleeving')->getElement();
         
-        if($INHTemplate)
+        if($template)
         {
-            $productsData = $INHTemplate->getProductsData();
-            $headerData = \json_decode($INHTemplate->getHeaderData());
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
-            // p_r($headerDataArr);
             $headerKeys = array_keys((array)$headerData);
-            $columnsData = $INHTemplate->getColumns();
+            $columnsData = $template->getColumns();
             $iconRequired = 'NO';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
@@ -963,80 +962,52 @@ class DefaultController extends FrontendController {
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    // $columnsDataWithImages[$key]['columnLabel'] = $headerDataArr[$value->columnName];
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
             
-            // $headerData = $productsData[0];
-            // array_shift($productsData);
-
-            $featuresList = $this->getFeaturesList('IFS');
-
             $brandsData = array();
-            // p_r($productsData);
-            // p_r($headerKeys);
 
-            // die;
             foreach ($productsData as $key => $item) {
                 $productsDataWithHeaders = array_combine($headerKeys, $item);
 
-                if(!empty(trim($productsDataWithHeaders['brandName'])))
-                    $brandsData[$productsDataWithHeaders['brandName']][] = $productsDataWithHeaders;
+                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
+                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
             }
-            // p_r($productsDataWithHeaders);
-            // p_r($brandsData);
-
-            // die;
 
             foreach ($brandsData as $brandKey => $brandArray) {
 
-                $brandName = $brandArray[0]['brandName'];
+                $brandName = $brandArray[0]['brandName'][0];
 
-                $baseLevelID = $brandArray[0]['baseLevelID'];
                 $mainImage = $brandArray[0]['mainImage'];
 
                 $imageObj = '';
                 if($mainImage)
                 {
                     $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
-                    // $obj = \Pimcore\Model\DataObject\Product::getByPath($mainImage);
-                    // $imageObj = ($obj) ? $obj->getMainImage() : '';
                 }
                 
-                
                 $longDescription = $brandArray[0]['longDescription'];
-                $tempFmin = $brandArray[0]['AssessoriesMinimumTemperatureF'];
-                $tempFmax = $brandArray[0]['AssessoriesMaximumTemperatureF'];
-                $tempCmin = $brandArray[0]['AssessoriesMinimumTemperatureC'];
-                $tempCmax = $brandArray[0]['AssessoriesMaximumTemperatureC'];
+                $tempFmin = $brandArray[0]['minimumTemperatureF'];
+                $tempFmax = $brandArray[0]['maximumTemperatureF'];
+                $tempCmin = $brandArray[0]['minimumTemperatureC'];
+                $tempCmax = $brandArray[0]['maximumTemperatureC'];
 
                 $color = array();
                 $material = array();
                 $availableLength = array();
-                $safetyFeatures = array();
                 $articlesData = array();
 
                 foreach($brandArray as $key => $element): 
                         foreach($element as $bkey => $value): 
-                                if($bkey == 'color')
-                                        $color[] = $value; 
+                                if($bkey == 'Color')
+                                    $color = array_merge($color, $value);
                                 if($bkey == 'MaterialType')
-                                        $material[] = $value; 
-                                if($bkey == 'availableLength')
-                                        $availableLength[] = $value; 
+                                    $material = array_merge($material, $value);
+                                if($bkey == 'LengthIN')
+                                    $availableLength[] = $value;
                                         
-                                if($bkey == 'features')
-                                {
-                                    $features = explode(',', $value);
-                                    if(count($features)>0)
-                                    {
-                                        foreach ($features as $fkey => $fvalue) {
-                                            array_push($safetyFeatures,$fvalue);
-                                        }
-                                    }
-                                }
-
                         endforeach; 
 
                         foreach ($columnsDataWithImages as $ckey => $cvalue) {
@@ -1049,17 +1020,6 @@ class DefaultController extends FrontendController {
                 $material = array_unique($material);
                 $availableLength = array_unique($availableLength);
 
-                $safetyFeatures = array_unique($safetyFeatures);
-                $safetyFeaturesList = array();
-
-                
-                if($safetyFeatures)
-                {
-                    foreach ($safetyFeatures as $fkey => $fvalue) {
-                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
-                    }
-                }
-
                 $colorString = implode(', ', $color);
                 $materialString = implode(', ', $material);
                 $availableLengthString = implode(', ', $availableLength);
@@ -1067,7 +1027,6 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['brandName'] = $brandName;
                 $data[$brandKey]['imageObj'] = $imageObj;
                 $data[$brandKey]['mainImage'] = $mainImage;
-                
                 
                 $data[$brandKey]['longDescription'] = $longDescription;
                 $data[$brandKey]['tempFmin'] = $tempFmin;
@@ -1078,13 +1037,11 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['materialString'] = $materialString;
                 $data[$brandKey]['availableLengthString'] = $availableLengthString;
                 $data[$brandKey]['colorString'] = $colorString;
-                $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
-            
             $this->view['data'] = $data;
         }
     }
@@ -1096,16 +1053,15 @@ class DefaultController extends FrontendController {
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        $template = $this->getDocumentTag('relation', 'template_hose_accessories_clamps')->getElement();
         
-        if($INHTemplate)
+        if($template)
         {
-            $productsData = $INHTemplate->getProductsData();
-            $headerData = \json_decode($INHTemplate->getHeaderData());
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
-            // p_r($headerDataArr);
             $headerKeys = array_keys((array)$headerData);
-            $columnsData = $INHTemplate->getColumns();
+            $columnsData = $template->getColumns();
             $iconRequired = 'NO';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
@@ -1117,47 +1073,42 @@ class DefaultController extends FrontendController {
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    // $columnsDataWithImages[$key]['columnLabel'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
             
-            //$headerData = $productsData[0];
-            //array_shift($productsData);
-
             $brandsData = array();
 
             foreach ($productsData as $key => $item) {
                 $productsDataWithHeaders = array_combine($headerKeys, $item);
 
-                if(!empty(trim($productsDataWithHeaders['brandName'])))
-                    $brandsData[$productsDataWithHeaders['brandName']][] = $productsDataWithHeaders;
+                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
+                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
             }
 
             foreach ($brandsData as $brandKey => $brandArray) {
 
-                $brandName = $brandArray[0]['brandName'];
-                $longDescription = $brandArray[0]['longDescription'];
-                $baseLevelID = $brandArray[0]['baseLevelID'];
+                $brandName = $brandArray[0]['brandName'][0];
+
                 $mainImage = $brandArray[0]['mainImage'];
 
                 $imageObj = '';
                 if($mainImage)
                 {
                     $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
-                    // $obj = \Pimcore\Model\DataObject\Product::getByPath($mainImage);
-                    // $imageObj = ($obj) ? $obj->getMainImage() : '';
                 }
+                
+                $longDescription = $brandArray[0]['longDescription'];
 
                 $material = array();
                 $articlesData = array();
 
                 foreach($brandArray as $key => $element): 
                         foreach($element as $bkey => $value): 
-                                
                                 if($bkey == 'MaterialType')
-                                        $material[] = $value; 
-
+                                    $material = array_merge($material, $value);
+                                        
                         endforeach; 
 
                         foreach ($columnsDataWithImages as $ckey => $cvalue) {
@@ -1167,7 +1118,6 @@ class DefaultController extends FrontendController {
                 endforeach; 
 
                 $material = array_unique($material);
-
                 $materialString = implode(', ', $material);
                 $data[$brandKey]['brandName'] = $brandName;
                 $data[$brandKey]['imageObj'] = $imageObj;
@@ -1178,7 +1128,6 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
-            
             $this->view['data'] = $data;
         }
     }
@@ -1190,7 +1139,39 @@ class DefaultController extends FrontendController {
 
     public function templatePartNumberDesignationsAction(Request $request)
     {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $templates = $this->getDocumentTag('relations', 'page_number_designations')->getElements();
+
+        if ($templates) {
+
+            $headerData = \json_decode($templates[0]->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            $headerKeys = array_keys((array)$headerData);
+
+            $catalogGrouping = array();
+            foreach ($templates as $key => $template) 
+            {
+                $productsData = $template->getProductsData();
+                
+                foreach ($productsData as $key => $item) {
+                    $productsDataWithHeaders = array_combine($headerKeys, $item);
+
+                    if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
+                    {
+                        $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders['industryStandard'];
+                    }
+                }
+
+                
+            }
+        }
+        // p_r($catalogGrouping);
+        // die;
+        $this->view['data'] = $catalogGrouping;
     }
 
     public function templateHoseSubCoverAction(Request $request)
