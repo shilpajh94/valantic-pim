@@ -70,7 +70,7 @@ parameters:
                     name: Product
                     class:
                        name: FittingFamily
-                       fieldName: Name
+                       fieldName: Name    
     PTG Product Page:
         Product Table:
             industryStandard:
@@ -149,3 +149,177 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert 
+    Hydraulic Fitting:
+        Fittings:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            RightPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Product Right Image
+            LeftPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Product Left Image
+            FittingTableName:
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+            shortDescription:
+                fieldLevel: class
+                fieldLabel: Marketing Short Description
+                fieldType: Wysiwyg
+            BrandShortText1:
+                fieldLevel: class
+                fieldLabel: Brand Short Text 1
+                fieldType: Input
+            ElbowType:
+                fieldLevel: objectBrick
+                fieldLabel: Elbow Type
+                fieldType: Select
+                parent:
+                    name: HydFittingsFert
+            DescriptivePartNumber:
+                fieldLevel: objectBrick
+                fieldLabel: Part Number
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ActivantNumber:
+                fieldLevel: objectBrick
+                fieldLabel: Product Number
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: SAP Number
+                fieldType: Input
+            HoseID1InFract:
+                fieldLevel: objectBrick
+                fieldLabel: Hose ID
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex1WrenchSizeIN:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 1 Wrench Size IN
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex1WrenchSizeMM:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 1 Wrench Size MM
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex2WrenchSizeIN:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 2 Wrench Size
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex2WrenchSizeMM:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 2 Wrench Size MM
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            CutOffLengthIN:
+                fieldLevel: objectBrick
+                fieldLabel: Cut-Off (C) IN
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            CutOffLengthMM:
+                fieldLevel: objectBrick
+                fieldLabel: Cut-Off (C) MM
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ThreadSize1InDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Thread Size 1 (IN)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ThreadSize2InDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Thread Size 2 (MM)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ThreadDashSize1:
+                fieldLevel: objectBrick
+                fieldLabel: Thread Dash Size
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            TubeODInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Tube OD (IN)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            TubeODMM:
+                fieldLevel: objectBrick
+                fieldLabel: Tube OD (MM)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeODInDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube OD (IN)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeODMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube OD (IN)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeLengthInDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube Length (IN)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeLengthMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube Length (MM)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ValveSizeInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Valve Size (IN)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ValveSize2InDec:
+                fieldLevel: objectBrick
+                fieldLabel: Valve Size (MM)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ValveStyle:
+                fieldLevel: objectBrick
+                fieldLabel: Valve Style
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            LengthIN:
+                fieldLevel: objectBrick
+                fieldLabel: Length IN
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            LengthMM:
+                fieldLevel: objectBrick
+                fieldLabel: Length MM
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert

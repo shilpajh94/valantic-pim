@@ -83,6 +83,10 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(WORKFLOW_CONFIG_FILE_PATH);
     }
 
+    public function getFittingTableConfig() {
+        return $this->getConfigFromYmlFile(FITTING_TABLE_IMPORT_FILE_PATH);
+    }
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
