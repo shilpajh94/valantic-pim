@@ -87,9 +87,6 @@ object_bricks:
             BeltsFert:
                 label: 'Belts Fert'
                 non_localized:
-                    reinforcement:
-                        type: 'input'
-                        label: 'Reinforcement'
                     numberOfBands:
                         type: 'numeric'
                         label: 'Number Of Bands'

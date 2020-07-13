@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-01T15:38:18+02:00
+* Generated at: 2020-07-06T07:28:24+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -122,6 +122,7 @@ Fields Summary:
 - RightPrintCatalogImage [image]
 - priceData [table]
 - CatalogGrouping [input]
+- FittingTableName [input]
 */ 
 
 
@@ -130,7 +131,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1593610698,
+   'modificationDate' => 1594013292,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -10310,7 +10311,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
-                 'width' => NULL,
+                 'width' => 350,
                  'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
@@ -10326,6 +10327,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => 350,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'FittingTableName',
+                 'title' => 'Fitting Table Name',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',

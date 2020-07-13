@@ -1,0 +1,11 @@
+parameters:
+  Fitting-Straight 2:
+    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM']
+  Fitting Accessories-AC Adapter:
+    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'ThreadSize1InDecimal', 'ThreadSize2InDecimal']
+  Fitting Accessories-AC Clip:
+   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseID1InFract']
+  Fitting-Elbow 2:
+   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'ElbowType']
+  Fitting-Elbow 3:
+   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'ElbowType', 'LengthIN', 'LengthMM']
