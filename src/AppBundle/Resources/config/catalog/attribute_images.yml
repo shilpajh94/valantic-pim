@@ -2,7 +2,7 @@ parameters:
   attributeImages: 
     'descriptive': '/AttributeImages/HYH-Icons-PartNumber.jpg'
     'articleNumber': '/AttributeImages/sap_number.jpg'
-    'hoseIdNominalId':	'/AttributeImages/HYH-Icons-HoseID.png'
+    'hoseIdNominalId': '/AttributeImages/HYH-Icons-HoseID.png'
     'hoseOdIn': '/AttributeImages/HYH-Icons-HoseOD.png'
     'hoseOdmm': '/AttributeImages/HYH-Icons-HoseOD.png'
     'workingPressurePSI': '/AttributeImages/HYH-Icons-MaxWP.png'
@@ -11,3 +11,7 @@ parameters:
     'BendRadiusMM': '/AttributeImages/bend_radius.jpg'
     'grossWeight': '/AttributeImages/HYH-Icons-Weight.png'
     'fittingFamily': '/AttributeImages/fitting_family.jpg'
+    'HoseID1InFract': '/AttributeImages/hose_id.jpg'
+    'Hex1WrenchSizeIN': '/AttributeImages/weight.jpg'
+    'Hex2WrenchSizeIN': '/AttributeImages/weight.jpg'
+    'CutOffLengthIN': '/AttributeImages/part_number.jpg'
