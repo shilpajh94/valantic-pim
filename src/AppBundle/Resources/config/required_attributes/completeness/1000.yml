@@ -1,157 +1,226 @@
 non_localized:
-     shelfLife:
+    brandName:
+        type: 'select'
+        label: 'Brand Name'
+    shelfLife:
         type: 'input'
         label: 'Shelf Life'
-     nitrosamines:
+    nitrosamines:
         type: 'input'
         label: 'Nitrosamines'
-     rohs:
+    rohs:
         type: 'input'
         label: 'Rohs'
-     reach:
+    reach:
         type: 'input'
         label: 'Reach'
-     prop65Message:
+    prop65Message:
         type: 'textarea'
         label: 'Prop 65 Message'
+    fittingFamily:
+        type: 'multiselect'
+        label: 'Fitting Family'
+    reinforcement:
+        type: 'multiselect'
+        label: 'Reinforcement'
 # panel break here
-     numeratorForConversionToBaseUnitsOfMeasure:
+    numeratorForConversionToBaseUnitsOfMeasure:
         type: 'textarea'
         label: 'Numerator for Conversion to Base Units of Measure'
-     alternativeUnitOfMeasureForStockkeepingUnit:
+    alternativeUnitOfMeasureForStockkeepingUnit:
         type: 'input'
         label: 'Alternative Unit of Measure for Stockkeeping Unit'
-     denominatorForConversionToBaseUnitsOfMeasure:
+    denominatorForConversionToBaseUnitsOfMeasure:
         type: 'input'
         label: 'Denominator for conversion to base units of measure'
-     californiaProposition65ChemicalName1:
+    californiaProposition65ChemicalName1:
         type: 'input'
         label: 'California Proposition65 Chemical Name1'
-     californiaProposition65ChemicalName2:
+    californiaProposition65ChemicalName2:
         type: 'input'
         label: 'California Proposition 65 Chemical Name2'
-     californiaProposition65ChemicalName3:
+    californiaProposition65ChemicalName3:
         type: 'input'
         label: 'California Proposition 65 Chemical Name3'
-     searchKeywords:
+    searchKeywords:
         type: 'input'
         label: 'Search Keywords'
-     webDiscription:
+    webDiscription:
         type: 'input'
         label: 'Web Description'
-     proposition65WarningAttributesRequired:
+    proposition65WarningAttributesRequired:
         type: 'booleanSelect'
         label: 'Proposition 65 warning attributes required'
 # panel break here
-     BrandingLayline:
+    BrandingLayline:
         type: 'textarea'
         label: 'Branding / Layline'
-     VirtualCatalogBrandingLayline:
+    VirtualCatalogBrandingLayline:
         type: 'input'
         label: 'Virtual Catalog Branding / Layline'
 # panel break here
-     packageLengthIN:
+    packageLengthIN:
         type: 'numeric'
         label: 'Package Length (in)'
-     packageWidthIN:
+    packageWidthIN:
         type: 'numeric'
         label: 'Package Width (in)'
-     packageWeightLBS:
+    packageWeightLBS:
         type: 'numeric'
         label: 'Package Weight (lbs)'
-     packageHeightIN:
+    packageHeightIN:
         type: 'numeric'
         label: 'Package Height (in)'
-     caseLengthIN:
+    caseLengthIN:
         type: 'numeric'
         label: 'Case Length (in)'
-     caseHeightIN:
+    caseHeightIN:
         type: 'numeric'
         label: 'Case Height (in)'
-     caseWidthIN:
+    caseWidthIN:
         type: 'numeric'
         label: 'Case Width (in)'
-     caseWeightLBS:
+    caseWeightLBS:
         type: 'numeric'
         label: 'Case Weight (lbs)'
-     palletLengthIN:
+    palletLengthIN:
         type: 'numeric'
         label: 'Pallet Length (in)'
-     palletHeightIN:
+    palletHeightIN:
         type: 'numeric'
         label: 'Pallet Height (in)'
-     palletWidthIN:
+    palletWidthIN:
         type: 'numeric'
         label: 'Pallet Width (in)'
-     palletWeightLBS:
+    palletWeightLBS:
         type: 'numeric'
         label: 'Pallet Weight (lbs)'
 # panel break here
-     numberOfItems:
+    numberOfItems:
         type: 'numeric'
         label: 'Number of Items'
-     casePackQuantity:
+    casePackQuantity:
         type: 'numeric'
         label: 'Case Pack Quantity'
-     orderIncrement:
+    orderIncrement:
         type: 'numeric'
         label: 'Order Increment'
-     minimumOrderQuantity:
+    minimumOrderQuantity:
         type: 'numeric'
         label: 'Minimum Order Quantity'
-     numberOfCoils:
+    numberOfCoils:
         type: 'numeric'
         label: 'Number of Coils'
-     tieBundles:
+    tieBundles:
         type: 'numeric'
         label: 'Tie Bundles '
-     bundlesOfQuantity:
+    bundlesOfQuantity:
         type: 'numeric'
         label: 'Bundles of Quantity'
 # panel break here
-     succesorFlag:
+    minimumTemperatureF:
+        type: 'numeric'
+        label: 'Min Temp °F'
+    maximumTemperatureF:
+        type: 'numeric'
+        label: 'Max temp °F'
+    rangeTemperatureF:
+        type: 'input'
+        label: 'Temperature Range (°F)'
+    temperatureRangeFAndC:
+        type: 'input'
+        label: 'Temperature Range (°F & C°)'
+    VirtualCatalogHoseTemperatureRangeFAndC:
+        type: 'textarea'
+        label: 'Virtual Catalog Temperature Range (°F & C°)'
+# panel break here
+    minimumTemperatureC:
+        type: 'numeric'
+        label: 'Min Temp °C'
+    maximumTemperatureC:
+        type: 'numeric'
+        label: 'Max temp °C'
+    rangeTemperatureC:
+        type: 'input'
+        label: 'Temperature Range (°C)'
+    temperatureRangeApplication:
+        type: 'input'
+        label: 'Temperature Range Application'
+# panel break here
+    succesorFlag:
         type: 'booleanSelect'
         label: 'Succesor / Supercession Flag'
-     B2CStoreFlag:
+    B2CStoreFlag:
         type: 'booleanSelect'
         label: 'B2C Store Flag'
-     printedCatalogFlag:
+    printedCatalogFlag:
         type: 'booleanSelect'
         label: 'Printed Catalog Flag'
+    virtualCatalogFlag:
+        type: 'booleanSelect'
+        label: 'Virtual Catalog Flag'
 # panel break here
-     returnFlag:
+    returnFlag:
         type: 'booleanSelect'
         label: 'Return Flag'
-     rebateFlag:
+    rebateFlag:
         type: 'booleanSelect'
         label: 'Rebate Flag'
-     newItemFlagForCatalog:
+    newItemFlagForCatalog:
         type: 'booleanSelect'
         label: 'New Item Flag for Catalog'
 # panel break here
-     mainImage:
+    mainImage:
         type: 'image'
         label: 'MainImage'
-     frontView:
+    frontView:
         type: 'image'
         label: 'Front view'
-     sideView:
+    sideView:
         type: 'image'
         label: 'Side view'
-     cutView:
+    cutView:
         type: 'image'
         label: 'Cut view'
+# panel break here
+    LeftPrintCatalogImage:
+        type: 'image'
+        label: 'Left Print Catalog Image'
+    RightPrintCatalogImage:
+        type: 'image'
+        label: 'Right Print Catalog Image'
 
 localized:
+    FeaturesBenefitsBulletPoint:
+        type: 'multiselect'
+        label: 'Features & Benefits Bullet Points'
     legalText:
         type: 'input'
         label: 'Legal Text'
     Application:
         type: 'input'
         label: 'Application (What does the hose convey?)'
+    BrandShortText1:
+        type: 'input'
+        label: 'Brand Short Text 1'
+    BrandShortText2:
+        type: 'input'
+        label: 'Brand Short Text 2'
+    BrandShortText3:
+        type: 'input'
+        label: 'Brand Short Text 3'
+    BrandShortText4:
+        type: 'input'
+        label: 'Brand Short Text 4'
+    BrandShortText5:
+        type: 'input'
+        label: 'Brand Short Text 5'
 # panel break here
+    shortDescription:
+        type: 'wysiwyg'
+        label: 'Marketing / Short Description'
     longDescription:
-        type: 'textarea'
+        type: 'wysiwyg'
         label: 'Marketing / Long Description'
 
 
@@ -180,12 +249,6 @@ object_bricks:
                     tubeColor:
                        type: 'multiselect'
                        label: 'Tube Color'
-                 ##   hoseMinimumTemperatureF:
-                 ##      type: 'numeric'
-                 ##      label: 'Min Temp °F'
-                 ##   hoseMaximumTemperatureF:
-                 ##      type: 'numeric'
-                 ##      label: 'Max temp °F'
                     StandardMetTube:
                        type: 'multiselect'
                        label: 'Standard Met- Tube'
@@ -204,6 +267,9 @@ object_bricks:
                     safetyFactor:
                        type: 'multiselect'
                        label: 'Safety Factor (ARPM Standard)'
+                    Packaging:
+                        type: 'input'
+                        label: 'Packaging'
     Skeleton:
         label: 'Skeleton Data'
         brick_items:
@@ -231,9 +297,9 @@ object_bricks:
                     hoseIdNominalId:
                        type: 'input'
                        label: 'Hose ID (in Fract) Nominal ID'
-                    tubeGaugeIN:
+                    tubeGaugeMM:
                        type: 'numeric'
-                       label: 'Tube Gauge (in)'
+                       label: 'Tube Gauge (mm)'
 
 
     Fert:
