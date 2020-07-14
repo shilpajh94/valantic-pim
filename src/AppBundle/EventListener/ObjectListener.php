@@ -14,6 +14,7 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Services\AppService;
 use AppBundle\Services\CategoryBrickMappingService;
 use AppBundle\Services\ConfigProviderService;
 use AppBundle\Services\UnitConverterService;
@@ -34,11 +35,14 @@ class ObjectListener
 
     private $unitConversionService;
 
-    public function __construct(RequestStack $requestStack, CategoryBrickMappingService $categoryBrickMappingService, UnitConverterService $unitConverterService)
+    private $appService;
+
+    public function __construct(RequestStack $requestStack, CategoryBrickMappingService $categoryBrickMappingService, UnitConverterService $unitConverterService,AppService $appService)
     {
         $this->requestStack = $requestStack;
         $this->categoryBrickMappingService = $categoryBrickMappingService;
         $this->unitConversionService = $unitConverterService;
+        $this->appService = $appService;
     }
 
 
@@ -89,12 +93,14 @@ class ObjectListener
      */
     public function preUpdate(DataObjectEvent $event)
     {
+        $object = $event->getObject();
+
         /**
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
+
         if (php_sapi_name() != "cli") {
-            $object = $event->getObject();
             // to also get the inherited values
             $object->setGetInheritedValues(true);
 
@@ -128,10 +134,18 @@ class ObjectListener
                  * update the unit conversion attributes
                  */
                 $this->updateUnitConversionAttributes($object);
+
             }
             if($object instanceof DataObject\Users) {
                 $this->updatePIMUser($object);
             }
+        }
+
+        if ($object instanceof DataObject\Product) {
+            /**
+             * update the calculative logic value fields
+             */
+            $this->appService->updateCalcFields($object);
         }
     }
 
@@ -143,51 +157,10 @@ class ObjectListener
      */
     private function updateUnitConversionAttributes(DataObject\Product $product)
     {
-        $brickMappingConfig = \Pimcore::getKernel()->getContainer()->get(ConfigProviderService::class)->getBrickMappingConfig()['product_type_to_product_brick_field_mapping'];
         $updatedData = $this->getEditedDataFromRequest();
-
         if(is_array($updatedData)){
-
-            // creating brick data in required format and removing it from the update data
-            $brickData = array();
-            foreach ($brickMappingConfig as $level => $brickFieldNameInProduct) {
-                if (array_key_exists($brickFieldNameInProduct, $updatedData)) {
-                    $brickData[$brickFieldNameInProduct] = $updatedData[$brickFieldNameInProduct];
-                    // unset the brick data from updated data
-                    unset($updatedData[$brickFieldNameInProduct]);
-                }
-            }
-
-            // updated product attributes
-            foreach ($updatedData as $attributeName => $attributeValue) {
-                $this->updateAttributeGroup($product, $attributeName, floatval($attributeValue));
-            }
-
-            // update brick attributes
-            // iterating every brick container in product
-            foreach ($brickData as $brickFieldNameInProductClass => $brickItems) {
-                $getter = 'get' . ucfirst($brickFieldNameInProductClass);
-                $brickContainer = $product->$getter();
-
-                // iterating every brick item in the brick collection
-                foreach ($brickItems as $brickItem) {
-                    $brickItemType = $brickItem['type'];
-                    $brickUpdatedData = $brickItem['data'];
-                    if (is_array($brickUpdatedData) && count($brickUpdatedData) > 0) {
-                        $itemGetter = 'get' . ucfirst($brickItemType);
-                        $brickItem = $brickContainer->$itemGetter();
-
-                        // iterating every attribute in the brick item
-                        foreach ($brickUpdatedData as $brickAttributeName => $brickAttributeValue) {
-                            $this->updateAttributeGroup($brickItem, $brickAttributeName, $brickAttributeValue);
-                        }
-                    }
-
-                }
-
-            }
+            $this->appService->updateUnitConversionAttributes($product, $updatedData);
         }
-
     }
 
     /**
@@ -212,22 +185,7 @@ class ObjectListener
         return $updatedData;
     }
 
-    /**
-     * to update the attribute group for the given attribute
-     *
-     * @param $object
-     * @param string $attributeName
-     * @param $value
-     * @return mixed
-     * @throws \Exception
-     */
-    private function updateAttributeGroup($object, string $attributeName, $value)
-    {
-        if ($this->unitConversionService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
-            $this->unitConversionService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
-        }
-        return $object;
-    }
+
 
     /**
      * update PIM user when user object get updated
@@ -245,7 +203,26 @@ class ObjectListener
             $userObj->setValues($userData);
             $userObj->update();
         }
-        
+
+    }
+
+    /**
+     * Listening to dataobject postupdate event
+     *
+     * @param DataObjectEvent $event
+     */
+    public function postUpdate(DataObjectEvent $event)
+    {
+        $object = $event->getObject();
+
+        if($object instanceof  DataObject\PlantMaterialMaster){
+            $materials = $object->getMaterial();
+            $product = $materials[0];
+            if($product){
+                $this->appService->updateProductReturnFlag($product->getId());
+            }
+        }
+
     }
 
 
