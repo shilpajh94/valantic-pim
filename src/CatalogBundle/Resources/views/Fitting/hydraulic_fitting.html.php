@@ -4,16 +4,154 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php if ($this->editmode) { ?>
     <?= $this->relation("fitting-straight"); ?>
 <?php } ?>
-<div class="seggregate">
-<nav class="header">
-  <div id="pageHeader"></div>
-<span>Hydraulic Hose</span>
-</nav>
+<div class="seggregate ">
+   <nav class="header ">
+        <span>Hydraulic Hose</span>
+        <div id="pageHeader"></div>
+   </nav>
+
+    <nav class="header1 ">
+        <div id="pageHeader"></div>
+        <span>Hydraulic Hose</span>
+        
+    </nav>
+
+<div class="footer">
+ <footer class="flex-center ">
+<?php
+      //  if ($this->image('logo')->isEmpty() && !is_null($logo)) {
+        ?>
+            <span class="logo">
+                <b>Hose</b>
+<img src="/CatalogImages/logo_new.png">
+               
+            </span>
+        <?php // } ?>
+         <div class="flex aligned reverse">
+              
+            <p class="flex-center">
+                <?php
+                if ($this->image('myCrampApp_f1')->isEmpty() && !is_null($myCrampApp)) {
+                    echo $this->image('myCrampApp_f1', [
+                        "width" => 61,
+                        "height" => 60,
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ])->setImage($logo);
+                } else {
+                    echo $this->image('myCrampApp_f1', [
+                        "width" => 61,
+                        "height" => 60,
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ]);
+                }
+                ?>
+                <span>
+                    Download the <strong class="contitech-yellow">MyCrimp App</strong><br />
+                    for more information
+                </span>
+            </p>
+         <h5  class="rowC">
+                <?php
+                    if($this->editmode) {
+                        echo $this->input('section_1')->setDataFromResource('Section 1');
+                    } else {
+                        echo $this->input('section_1');
+                    }
+                    
+                ?>
+                <span>
+                <?php
+                    if($this->editmode) {
+                        echo $this->input('fittingFamily_1')->setDataFromResource('B2 Fittings');
+                    } else {
+                        echo $this->input('fittingFamily_1');
+                    }
+                    
+                ?>    
+                </span>
+            </h5>
+
+</div>
+</footer>
+</div>
+
+<div class="footer1">
+ <footer class="flex-center ">
+
+         <div class="flex aligned reverse">
+            <h5  class="rowC alignEnd">
+                <?php
+                    if($this->editmode) {
+                        echo $this->input('section_2')->setDataFromResource('Section 1');
+                    } else {
+                        echo $this->input('section_2');
+                    }
+                    
+                ?>
+                <span>
+                <?php
+                    if($this->editmode) {
+                        echo $this->input('fittingFamily_2')->setDataFromResource('B2 Fittings');
+                    } else {
+                        echo $this->input('fittingFamily_2');
+                    }
+                    
+                ?>    
+                </span>
+            </h5>
+
+            <p class="flex-center">
+                <?php
+                if ($this->image('myCrampApp_f2')->isEmpty() && !is_null($myCrampApp)) {
+                    echo $this->image('myCrampApp_f2', [
+                        "width" => 61,
+                        "height" => 60,
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ])->setImage($logo);
+                } else {
+                    echo $this->image('myCrampApp_f2', [
+                        "width" => 61,
+                        "height" => 60,
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ]);
+                }
+                ?>
+                <span>
+                    Download the <strong class="contitech-yellow">MyCrimp App</strong><br />
+                    for more information
+                </span>
+            </p>
+</div>
+ <?php
+       // if ($this->image('logo')->isEmpty() && !is_null($logo)) {
+        ?>
+            <span class="logo">
+                <b>Hose</b>
+<img src="/CatalogImages/logo_new.png">
+               
+            </span>
+        <?php // } ?>
+
+</footer>
+
+</div>
+
     <?php
     if (is_array($info['data']) && !empty($info['data'])) {
         foreach ($info['data'] as $uniqueId => $tableData) {
             foreach ($tableData as $tableName => $tableRows) {
-                // p_r($tableRows);die;
                 $tableColumns = $info['fittingTableColumn'][$tableName];
 
                 if (is_array($tableColumns) && !empty($tableColumns)) {
@@ -21,15 +159,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     // p_r($result);die;
                     /* New Family Info */
     ?>
-                    <article class="container noBorder">
-                        <figure class="reverse">
+                    <article class="container noBorder alternated">
+                        <figure class="">
                             <span>
                                 <?php
                                 if ($this->editmode) {
                                     echo $this->image('catLeftImage' . $uniqueId, [
                                         "class" => "leftImg",
-                                        "width" => $tableRows['leftImage']->getWidth(),
-                                        "height" => $tableRows['leftImage']->getHeight()
+                                        "width" => 226,
+                                        "height" => 150
                                     ])->setImage($tableRows['leftImage']);
                                 } else {
                                     echo $this->image('catLeftImage' . $uniqueId, [
@@ -40,13 +178,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 }
                                 if ($this->editmode) {
                                     echo $this->image('catRightImage' . $uniqueId, [
-                                        "class" => "leftImg",
-                                        "width" => $tableRows['rightImage']->getWidth(),
-                                        "height" => $tableRows['rightImage']->getHeight()
+                                        "class" => "rightImg",
+                                        "width" => 226,
+                                        "height" => 150
                                     ])->setImage($tableRows['rightImage']);
                                 } else {
                                     echo $this->image('catRightImage' . $uniqueId, [
-                                        "class" => "leftImg",
+                                        "class" => "rightImg",
                                         "width" => 226,
                                         "height" => 150
                                     ]);
@@ -75,46 +213,44 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             </figcaption>
                         </figure>
                         <!-- Starting grid here -->
-                        <div class="grid">
+                        <table class="grid" cellspacing="0" cellpadding="0">
                             <?php
-                            echo "<p class='sub-head'>";
-                            foreach ($result as $col) {p_r();
+                            echo "<thead> <tr class='sub-head'>";
+                            foreach ($result as $col) {
                                 if(array_key_exists($col, $info['attrImages'])) {
-                                    echo "<span><img src='{$info['attrImages'][$col]}' /></span>";
+                                    echo "<td><img src='{$info['attrImages'][$col]}' /></td>";
                                 } else {
-                                    echo "<span></span>";
+                                    echo "<td></td>";
                                 }
                                 
                             }
-                            echo "</p>";
-                            echo "<p class='head'>";
+                            echo "</tr>";
+                            echo "<tr class='head'>";
                             foreach ($result as $col) {
-                                echo "<span>{$info['dataTableColumn'][$col]->columnLabel}</span>";
+                                echo "<td>{$info['dataTableColumn'][$col]->columnLabel}</td>";
                             }
-                            echo "</p>";
+                            echo "</tr></thead>";
                             $activeClassColName = $info['activeClassColName'];
                             $activeClassColVal = "";
                             $active = "";
-                            foreach ($tableRows['data'] as $k => $row) {
-                                if(isset($row[$activeClassColName])) {
-                                    if($k==0) {
-                                        $activeClassColVal = $row[$activeClassColName];
-                                    }
-                                    if($activeClassColVal!=$row[$activeClassColName]) {
-                                        $active = $active==""?"active":"";
-                                        $activeClassColVal = $row[$activeClassColName];
-                                    }
-                                    
+                            $i = 1;
+                            foreach ($tableRows['data']['HoseID1InDec'] as $k => $rows) {
+                                $active = "";
+                                if($i%2==0) {
+                                    $active = "active";
                                 }
-                                echo "<p class='{$active}'>";
-                                foreach ($result as $col) {                                    
-                                    echo "<span>{$row[$col]}</span>";
+                                foreach($rows as $row) {
+                                    echo "<tr class='{$active}'>";
+                                    foreach ($result as $col) {                                    
+                                        echo "<td>{$row[$col]}</td>";
+                                    }
+                                    echo "</tr>";                                    
                                 }
-                                echo "</p>";
+                                $i++;
                             }
                             ?>
                             <!-- Closing grid div here -->
-                        </div>
+                        </table>
                     </article>
     <?php
                 }
@@ -127,59 +263,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
 
 
-    <footer class="flex reverseColor">
-        <?php
-        if ($this->image('logo')->isEmpty() && !is_null($logo)) {
-        ?>
-            <span class="logo">
-                <b>Fittings</b>
-                <?php
-                echo $this->image('logo', [
-                    "width" => $logo->getWidth(),
-                    "height" => $logo->getHeight(),
-                    "aspectratio" => true,
-                    "interlace" => true,
-                    "quality" => 95,
-                    "format" => "PNG"
-                ])->setImage($logo);
-                ?>
-            </span>
-        <?php } ?>
-        <div class="flex aligned reverse">
-            <h3>
-                Section 1
-                <span>B2 Fittings</span>
-            </h3>
-
-            <p class="flex-center">
-                <?php
-                if ($this->image('myCrampApp')->isEmpty() && !is_null($myCrampApp)) {
-                    echo $this->image('myCrampApp', [
-                        "width" => $myCrampApp->getWidth(),
-                        "height" => $myCrampApp->getHeight(),
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ])->setImage($logo);
-                } else {
-                    echo $this->image('myCrampApp', [
-                        "width" => 61,
-                        "height" => 60,
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ]);
-                }
-                ?>
-                <span>
-                    Download the <strong class="contitech-yellow">MyCrimp App</strong><br />
-                    for more information
-                </span>
-            </p>
-        </div>
-    </footer>
     <!-- Footer -->
     <!-- End Footer-->
 </div>
