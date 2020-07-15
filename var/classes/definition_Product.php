@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-14T14:04:23+02:00
+* Generated at: 2020-07-15T07:14:38+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -132,7 +132,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1594728232,
+   'modificationDate' => 1594790076,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -10151,8 +10151,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'LeftPrintCatalogImage',
-                         'title' => 'Left Print Catalog Image',
-                         'tooltip' => '',
+                         'title' => 'Left Image',
+                         'tooltip' => 'Left Print Catalog Image',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -10175,8 +10175,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'RightPrintCatalogImage',
-                         'title' => 'Right Print Catalog Image',
-                         'tooltip' => '',
+                         'title' => 'Right Image',
+                         'tooltip' => 'Right Print Catalog Image',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -10199,12 +10199,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'columnType' => 'int(11)',
                          'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                          'name' => 'DrawingPictureForCatalog',
-                         'title' => 'Drawing Picture For Catalog',
-                         'tooltip' => '',
+                         'title' => 'Drawing Picture',
+                         'tooltip' => 'Drawing Picture For Catalog',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
