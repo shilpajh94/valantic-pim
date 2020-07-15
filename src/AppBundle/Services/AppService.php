@@ -4,7 +4,9 @@ namespace AppBundle\Services;
 
 use Pimcore\Logger;
 use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Product;
+use Pimcore\Model\DataObject\Service;
 
 class AppService
 {
@@ -123,47 +125,50 @@ class AppService
             $product->setTemperatureRangeFAndC($tempRangeFAndC);
         }
 
-        /**
-         * setting 'Total Weight (lbs) / Packaged Weight' in hose fert
-         */
-        if($product->getFert() && ($hoseFert = $product->getFert()->getHoseFert()) ){
-            $netWeight = $product->getNetWeight();
-            $hoseLengthFT = $hoseFert->getHoseLengthFT();
+        if($product->getFert()){
+            /**
+             * setting 'Total Weight (lbs) / Packaged Weight' in hose fert
+             */
+            if( $hoseFert = $product->getFert()->getHoseFert() ){
+                $netWeight = $product->getNetWeight();
+                $hoseLengthFT = $hoseFert->getHoseLengthFT();
 
-            try{
-                $totalWeightPerPackage = $netWeight / $hoseLengthFT ;
-                $hoseFert->setTotalWeightPerPackage(round($totalWeightPerPackage, 5));
-            }catch (\Exception $exception){
-                $hoseFert->setTotalWeightPerPackage(null);
+                try{
+                    $totalWeightPerPackage = $netWeight / $hoseLengthFT ;
+                    $hoseFert->setTotalWeightPerPackage(round($totalWeightPerPackage, 5));
+                }catch (\Exception $exception){
+                    $hoseFert->setTotalWeightPerPackage(null);
+                }
+            }
+
+            /**
+             * setting 'Thrust Wire Nut (Y/N)' in hyd fittings fert
+             */
+            if( $hydFittingFert = $product->getFert()->getHydFittingsFert() ){
+                $thrustWireComponentNumber = $hydFittingFert->getThrustWireComponentNumber();
+                if( $thrustWireComponentNumber && trim($thrustWireComponentNumber) !== '' ){
+                    $hydFittingFert->setThrustWireNut(true);
+                }else{
+                    $hydFittingFert->setThrustWireNut(false);
+                }
+            }
+
+            /**
+             * setting 'Number of teeth' in synchronous fert
+             */
+            if( $syncFert = $product->getFert()->getSynchronousFert() ){
+                $pitchLenghIn = $syncFert->getPitchLengthIN();
+                $pitchIN = $syncFert->getPitchIN();
+
+                try{
+                    $numberOfTeeth = $pitchLenghIn / $pitchIN;
+                    $syncFert->setNumberOfTeeth(round($numberOfTeeth, 5));
+                }catch (\Exception $exception){
+                    $syncFert->setNumberOfTeeth(null);
+                }
             }
         }
 
-        /**
-         * setting 'Thrust Wire Nut (Y/N)' in hyd fittings fert
-         */
-        if($product->getFert() && ($hydFittingFert = $product->getFert()->getHydFittingsFert()) ){
-           $thrustWireComponentNumber = $hydFittingFert->getThrustWireComponentNumber();
-           if( $thrustWireComponentNumber && trim($thrustWireComponentNumber) !== '' ){
-               $hydFittingFert->setThrustWireNut(true);
-           }else{
-               $hydFittingFert->setThrustWireNut(false);
-           }
-        }
-
-        /**
-         * setting 'Number of teeth' in synchronous fert
-         */
-        if($product->getFert() && ($syncFert = $product->getFert()->getSynchronousFert()) ){
-            $pitchLenghIn = $syncFert->getPitchLengthIN();
-            $pitchIN = $syncFert->getPitchIN();
-
-            try{
-                $numberOfTeeth = $pitchLenghIn / $pitchIN;
-                $syncFert->setNumberOfTeeth(round($numberOfTeeth, 5));
-            }catch (\Exception $exception){
-                $syncFert->setNumberOfTeeth(null);
-            }
-        }
 
     }
 
@@ -232,6 +237,67 @@ class AppService
             return $classDef->getId();
         }
         return null;
+    }
+
+    /**
+     * if siop 4 category has true value for nomenclatureHierarchy, then create
+     * folder hierarchy using fitting family desc and thread desc and move the
+     * product to the inner folder
+     *
+     * @param Product $product
+     * @throws \Exception
+     */
+    public function updateProductHierarchyForNomenclature(Product $product): void
+    {
+        $siop4Cats = $product->getSIOPLevel4();
+
+        if($siop4Cats &&
+            $siop4Cats[0] &&
+            $siop4Cats[0]->getNomenclatureHierarchy() &&
+            $product->getFert() &&
+            ($hydfittingFert = $product->getFert()->getHydFittingsFert())
+        ){
+            $fittingFamilyDesc = $hydfittingFert->getFittingFamilyDescription();
+            $threadDesc = $hydfittingFert->getThreadDescription1();
+
+            if($fittingFamilyDesc && ( $validFittingFamilyDesc = $this->getValidNameForKey($fittingFamilyDesc)) ){
+                $productParentPath = $product->getPath();
+
+                $targetFolderPath = $productParentPath.$validFittingFamilyDesc;
+                $targetFolder = $this->getProductFolderByPath($targetFolderPath);
+
+                if($threadDesc && ( $validThreadDesc = $this->getValidNameForKey($threadDesc)) ){
+                    $targetFolderPath = $targetFolderPath."/".$validThreadDesc;
+                    $targetFolder = $this->getProductFolderByPath($targetFolderPath);
+                }
+                $product->setParent($targetFolder);
+            }
+        }
+    }
+
+    /**
+     * @param string $path
+     * @return Folder
+     * @throws \Exception
+     */
+    private function getProductFolderByPath(string $path): Folder
+    {
+        $folder = Folder::getByPath($path);
+        if(!$folder){
+            $folder = Service::createFolderByPath($path);
+        }
+        return $folder;
+    }
+
+    /**
+     * @param string $string
+     * @return string|null
+     */
+    private function getValidNameForKey(string $string): ?string
+    {
+        $string = explode("(",$string)[0];
+        $string = substr($string, 0, FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC);
+        return \Pimcore\Model\Element\Service::getValidKey($string,'object');
     }
 
 }

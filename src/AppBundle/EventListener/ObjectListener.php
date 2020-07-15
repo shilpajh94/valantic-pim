@@ -146,6 +146,11 @@ class ObjectListener
              * update the calculative logic value fields
              */
             $this->appService->updateCalcFields($object);
+            /**
+             * update product hierarchy for nomenclature (fitting family desc and thread desc)
+             */
+            $this->appService->updateProductHierarchyForNomenclature($object);
+
         }
     }
 

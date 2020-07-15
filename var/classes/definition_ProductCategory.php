@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-30T07:14:43+02:00
+* Generated at: 2020-07-15T09:38:43+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -12,6 +12,7 @@ Fields Summary:
 - BusinessUnit [select]
 - Industry [select]
 - Level [numeric]
+- nomenclatureHierarchy [booleanSelect]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
@@ -29,7 +30,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1593494083,
+   'modificationDate' => 1594798723,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -270,6 +271,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'yes',
+                             'noLabel' => 'no',
+                             'emptyLabel' => 'empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'no',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 300,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'nomenclatureHierarchy',
+                             'title' => 'Maintain Nomenclature Hierarchy',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,
@@ -572,7 +616,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',
