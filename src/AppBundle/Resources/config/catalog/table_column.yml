@@ -72,13 +72,185 @@ parameters:
                        name: FittingFamily
                        fieldName: Name    
     PTG Product Page:
-        Product Table:
+        Synchronous Belts:
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Industry Standard
                 parent: 
                     name: Product
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            listPrice:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: List Price
+                parent:
+                    name: Product
+            widthmm:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Width (mm)
+                parent:
+                    name: PTGFert
+            pitchMM:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch (mm)
+                parent:
+                    name: SynchronousFert
+            pitchLengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch Length (in)
+                parent:
+                    name: SynchronousFert
+            pitchLengthMM:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch Length (MM)
+                parent:
+                    name: SynchronousFert
+            numberOfTeeth:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Number of teeth
+                parent:
+                    name: SynchronousFert
+        Banded Belts:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            outsideLengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Outside Length (in)
+                parent:
+                    name: BeltsFert
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            listPrice:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: List Price
+                parent:
+                    name: Product
+        V-Belts:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            insideLengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Inside Length (in)
+                parent:
+                    name: BeltsFert
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            listPrice:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: List Price
+                parent:
+                    name: Product
+        Sheave:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            listPrice:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: List Price
+                parent:
+                    name: Product
+        Sprockets:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            listPrice:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: List Price
+                parent:
+                    name: Product
+            pitchMM:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch (mm)
+                parent:
+                    name: SynchronousFert
+            numberOfTeeth:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Number of teeth
+                parent:
+                    name: SynchronousFert
     Hose Accessories Sleeving:
         Hose Accessories-Sleeving: 
             Descriptive: 

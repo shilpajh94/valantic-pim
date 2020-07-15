@@ -232,9 +232,11 @@ class DefaultController extends FrontendController {
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
-
-        $columns = array_keys($tableColumns);
-
+        $columns  = [];
+        if (!empty($tableColumns) && is_array($tableColumns)) {
+            $columns = array_keys($tableColumns);
+        }
+        
         $parentObj = $tableObj->getParentId();
         $catalogCategory = DataObject\CatalogCategory::getById($parentObj);
         $siopCategory = $catalogCategory->getCategory();
@@ -450,6 +452,7 @@ class DefaultController extends FrontendController {
                 }
             }
 
+            if(isset($dynamicColumnsData[$template])) {
             foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
                 $headers[$dFieldKey] = $dFieldName['fieldLabel'];
@@ -575,6 +578,7 @@ class DefaultController extends FrontendController {
                     $pData[$item->getId()][$dFieldKey] = '';
                 }
             }
+}
         }
 
         $columnData = array();
@@ -924,6 +928,8 @@ class DefaultController extends FrontendController {
                     $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
                     $data[$brandKey]['iconRequired'] = $iconRequired;
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    array_multisort (array_column($articlesData, 'hoseOdIn'), SORT_ASC, $articlesData);
                     $data[$brandKey]['articlesData'] = $articlesData;
 
                 }
@@ -1039,6 +1045,8 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['colorString'] = $colorString;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
@@ -1125,6 +1133,10 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['materialString'] = $materialString;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+
+
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
@@ -1291,7 +1303,84 @@ class DefaultController extends FrontendController {
 
     public function templateFittingSplitFlangesAction(Request $request)
     {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $template = $this->getDocumentTag('relation', 'template_hose_accessories_flanges')->getElement();
+        
+        if($template)
+        {
+            
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            $headerKeys = array_keys((array)$headerData);
+            $columnsData = $template->getColumns();
+            $iconRequired = 'YES';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            $language = $request->getLocale();
+            $this->get('translator')->setLocale($language);
+
+            if($columnsData)
+            {
+                foreach ($columnsData as $key => $value) {
+                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+            }
+            
+            $brandsData = array();
+
+            foreach ($productsData as $key => $item) {
+                $productsDataWithHeaders = array_combine($headerKeys, $item);
+
+                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
+                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+            }
+
+            foreach ($brandsData as $brandKey => $brandArray) {
+
+                $brandName = $brandArray[0]['brandName'][0];
+
+                $mainImage = $brandArray[0]['mainImage'];
+
+                $imageObj = '';
+                if($mainImage)
+                {
+                    $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                }
+                
+                $longDescription = $brandArray[0]['longDescription'];
+
+                $articlesData = array();
+
+                foreach($brandArray as $key => $element): 
+                        
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$ckey];
+                        }
+
+                endforeach; 
+
+                $data[$brandKey]['brandName'] = $brandName;
+                $data[$brandKey]['imageObj'] = $imageObj;
+                $data[$brandKey]['longDescription'] = $longDescription;
+                $data[$brandKey]['iconRequired'] = $iconRequired;
+                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+
+                $data[$brandKey]['articlesData'] = $articlesData;
+
+            }
+            
+            $this->view['data'] = $data;
+        }
     }
 
     public function containerAction(Request $request)
@@ -1382,6 +1471,245 @@ class DefaultController extends FrontendController {
                     'defaultElbowType' => $obj->getProperty('defaultElbowType')
                 )
             );
+        }
+    }
+
+    public function templatePtgProductPageAction(Request $request)
+    {      
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $template = $this->getDocumentTag('relation', 'ptg_product_page')->getElement();
+
+        if ($template) {
+            
+            $SIOPBrand = $template->getBaseProduct()[0];
+            $template->getProductsData();
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            
+            $headerKeys = array_keys((array)$headerData);
+            $columnsData = $template->getColumns();
+            $iconRequired = 'NO';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            $language = $request->getLocale();
+            $this->get('translator')->setLocale($language);
+
+            foreach ($columnsData as $key => $value) {
+                $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            }
+
+            $featuresList = $this->getFeaturesList('IFS');
+
+            $catalogGrouping = array();
+            
+            // foreach ($productsData as $key => $item) {
+            //     $productsDataWithHeaders = array_combine($headerKeys, $item);
+
+            //     if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
+            //     {
+            //         $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+            //     }
+            // }
+
+
+            foreach ($productsData as $key => $item) {
+                
+                $productsDataWithHeaders = array_combine($headerKeys, $item);
+                if(isset($productsDataWithHeaders['pitchMM']) && !empty(trim($productsDataWithHeaders['pitchMM'])))
+                {
+                    $brandsData[$productsDataWithHeaders['pitchMM']][] = $productsDataWithHeaders;
+                }
+
+                if(isset($productsDataWithHeaders['outsideLengthIN']) && !empty(trim($productsDataWithHeaders['outsideLengthIN'])))
+                {
+                    $brandsData[$productsDataWithHeaders['outsideLengthIN']][] = $productsDataWithHeaders;
+                }
+
+                if(isset($productsDataWithHeaders['insideLengthIN']) && !empty(trim($productsDataWithHeaders['insideLengthIN'])))
+                {
+                    $brandsData[$productsDataWithHeaders['insideLengthIN']][] = $productsDataWithHeaders;
+                }
+            }
+            
+            if($brandsData)
+            {
+                // p_r($brandsData);
+                $firstKey = array_key_first($brandsData);
+
+                
+
+                $productId = $brandsData[$firstKey][0]['id'];
+                $product = DataObject\Product::getById($productId);
+
+                $siop3Categories = $product->getSIOPLevel3();
+                $language = $request->getLocale();
+                foreach($siop3Categories as $key => $category)
+                {
+                    $categoryDetails = DataObject\ProductCategory::getById($category->getId());
+                    $siop3Category = $categoryDetails->getDescription($language);
+                }
+
+                $siop5Categories = $product->getSIOPLevel5();
+                $language = $request->getLocale();
+
+                $siop5ImageObj = '';
+
+                foreach($siop5Categories as $key => $category)
+                {
+                    $categoryDetails = DataObject\ProductCategory::getById($category->getId());
+                    $siop5Category = $categoryDetails->getDescription($language);
+                    // $siop5Image = $categoryDetails->getImage($language);
+
+                    
+                    // if($siop5Image)
+                    // {
+                    //     $siop5ImageObj = \Pimcore\Model\Asset::getByPath($siop5Image);
+                    // }
+                }
+
+                $LeftPrintCatalogImage = $brandsData[$firstKey][0]['LeftPrintCatalogImage'];
+
+                if($LeftPrintCatalogImage)
+                {
+                    $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
+                }
+
+
+                $RightPrintCatalogImage = $brandsData[$firstKey][0]['RightPrintCatalogImage'];
+
+                if($RightPrintCatalogImage)
+                {
+                    $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
+                }
+
+                $material = array();
+                $reinforcement = array();
+                $longDescription = '';
+                $tempFmin = '';
+                $tempFmax = '';
+                $tempCmin = '';
+                $tempCmax = '';
+                $safetyFeatures = array();
+                $BrandShortText1 = $BrandShortText2 = $BrandShortText3 = $BrandShortText4 = $BrandShortText5 = '';
+                
+                foreach ($brandsData as $brandKey => $brandArray) 
+                {
+
+                    
+                    $articlesData = array();    
+
+                    foreach($brandArray as $key => $element): 
+                        
+                        foreach($element as $bkey => $value): 
+
+                                if($bkey == 'material')
+                                    $material = array_merge($material, $value);
+                                if($bkey == 'reinforcement')
+                                    $reinforcement = array_merge($reinforcement, $value);
+                                if($bkey == 'FeaturesBenefitsBulletPoint')
+                                {
+                                    if(count($value)>0)
+                                    {
+                                        foreach ($value as $fkey => $feature) {
+                                            array_push($safetyFeatures,$feature);
+                                        }
+                                    }
+                                }
+
+                                if($bkey == 'longDescription' && !empty(trim($value)))
+                                    $longDescription = $value;
+                                if($bkey == 'minimumTemperatureF' && !empty(trim($value)))
+                                    $tempFmin = $value;
+                                if($bkey == 'maximumTemperatureF' && !empty(trim($value)))
+                                    $tempFmax = $value;
+                                if($bkey == 'minimumTemperatureC' && !empty(trim($value)))
+                                    $tempCmin = $value;
+                                if($bkey == 'maximumTemperatureC' && !empty(trim($value)))
+                                    $tempCmax = $value;
+
+                                if($bkey == 'BrandShortText1' && !empty(trim($value)))
+                                    $BrandShortText1 = $value;
+                                if($bkey == 'BrandShortText2' && !empty(trim($value)))
+                                    $BrandShortText2 = $value;
+                                if($bkey == 'BrandShortText3' && !empty(trim($value)))
+                                    $BrandShortText3 = $value;
+                                if($bkey == 'BrandShortText4' && !empty(trim($value)))
+                                    $BrandShortText4 = $value;
+                                if($bkey == 'BrandShortText5' && !empty(trim($value)))
+                                    $BrandShortText5 = $value;
+                                
+
+                        endforeach; 
+
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            if($ckey == 'fittingFamily')
+                                $articlesData[$key][$ckey] = ($element[$ckey])? implode(',',($element[$ckey])): '';
+                            else
+                                $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
+                        }
+
+                    endforeach; 
+
+                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    // outsideLengthIN
+                    // if(isset())
+
+                    // array_multisort (array_column($articlesData, 'pitchLengthMM'), SORT_ASC, $articlesData);
+                    $data[$brandKey]['articlesData'] = $articlesData;
+
+                }
+
+                $safetyFeatures = array_unique($safetyFeatures);
+                $safetyFeaturesList = array();
+
+                if($safetyFeatures)
+                {
+                    foreach ($safetyFeatures as $fkey => $fvalue) {
+                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                    }
+                }
+
+                $reinforcement = array_unique($reinforcement);
+                $reinforcement = implode(', ', $reinforcement);
+
+                $material = array_unique($material);
+                $material = implode(', ', $material);
+
+                $groupData = array();
+                $groupData['BrandShortText1'] = $BrandShortText1;
+                $groupData['BrandShortText2'] = $BrandShortText2;
+                $groupData['BrandShortText3'] = $BrandShortText3;
+                $groupData['BrandShortText4'] = $BrandShortText4;
+                $groupData['BrandShortText5'] = $BrandShortText5;
+                $groupData['iconRequired'] = $iconRequired;
+                $groupData['material'] = $material;
+                $groupData['reinforcement'] = $reinforcement;
+                $groupData['safetyFeatures'] = $safetyFeaturesList;
+                $groupData['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                $groupData['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                $groupData['longDescription'] = $longDescription;
+                $groupData['tempFmin'] = $tempFmin;
+                $groupData['tempFmax'] = $tempFmax;
+                $groupData['tempCmin'] = $tempCmin;
+                $groupData['tempCmax'] = $tempCmax;
+                $groupData['groupData'] = $data;
+                $groupData['brandName'] = $siop5Category;
+                $groupData['siop3Category'] = $siop3Category;
+                
+
+                // p_r($groupData);
+                // die;
+                $this->view['groupData'] = $groupData;
+            }
         }
     }
 

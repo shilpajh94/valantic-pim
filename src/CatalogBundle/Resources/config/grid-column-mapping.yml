@@ -146,6 +146,95 @@ parameters:
                 parent:
                     name: Product
         PTG Product Page:
+            LeftPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Left Print Catalog Image
+                parent: 
+                    name: Product
+            RightPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Right Print Catalog Image
+                parent: 
+                    name: Product
+            BrandShortText1:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Bullet1
+            BrandShortText2:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Bullet2
+            BrandShortText3:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Bullet3
+            BrandShortText4:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Bullet4
+            BrandShortText5:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Bullet5
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Long Description
+                parent: 
+                    name: Product
+            material:
+                fieldLevel: objectBrick
+                fieldType: Relation
+                fieldLabel: Material
+                parent: 
+                    name: PTGBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            reinforcement:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Reinforcement
+                parent: 
+                    name: Product
+                    class: 
+                        name : MultiselectMaster
+                        fieldName: Name
+            minimumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °F
+                parent:
+                    name: Product
+            maximumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °F
+                parent:
+                    name: Product
+            minimumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °C
+                parent:
+                    name: Product
+            maximumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °C
+                parent:
+                    name: Product
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Features ID
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: id
             id:
                 fieldLevel: class
                 fieldType: Input
@@ -310,6 +399,22 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+        Hose Accessories Flanges: 
+            brandName:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Brand
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Application Long Text
+                parent: 
+                    name: Product
        
     
     
