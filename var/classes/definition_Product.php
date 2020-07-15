@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-06T07:28:24+02:00
+* Generated at: 2020-07-14T14:04:23+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -120,6 +120,7 @@ Fields Summary:
 - Document [manyToManyRelation]
 - LeftPrintCatalogImage [image]
 - RightPrintCatalogImage [image]
+- DrawingPictureForCatalog [image]
 - priceData [table]
 - CatalogGrouping [input]
 - FittingTableName [input]
@@ -131,7 +132,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1594013292,
+   'modificationDate' => 1594728232,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1554,14 +1555,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'title' => 'Outside Purchase Indicator / Procurement Type',
                              'tooltip' => '',
                              'mandatory' => false,
-                             'noteditable' => true,
+                             'noteditable' => false,
                              'index' => false,
                              'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
                              'relationType' => false,
-                             'invisible' => true,
+                             'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
@@ -10188,6 +10189,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'fieldtype' => 'image',
+                         'width' => '',
+                         'height' => '',
+                         'uploadPath' => '',
+                         'queryColumnType' => 'int(11)',
+                         'columnType' => 'int(11)',
+                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                         'name' => 'DrawingPictureForCatalog',
+                         'title' => 'Drawing Picture For Catalog',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
                     ),
                      'locked' => false,
                      'icon' => '',
@@ -10354,7 +10379,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
