@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-15T07:14:38+02:00
+* Generated at: 2020-07-16T13:28:26+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -96,6 +96,7 @@ Fields Summary:
 - B2CStoreFlag [booleanSelect]
 - printedCatalogFlag [booleanSelect]
 - virtualCatalogFlag [booleanSelect]
+- CatalogSortTable [numeric]
 - returnFlag [booleanSelect]
 - rebateFlag [booleanSelect]
 - newItemFlagForCatalog [booleanSelect]
@@ -132,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1594790076,
+   'modificationDate' => 1594898903,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -9066,6 +9067,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'invisible' => false,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                  )),
+                                  4 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                                     'fieldtype' => 'numeric',
+                                     'width' => '',
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'double',
+                                     'columnType' => 'double',
+                                     'phpdocType' => 'float',
+                                     'integer' => true,
+                                     'unsigned' => true,
+                                     'minValue' => NULL,
+                                     'maxValue' => NULL,
+                                     'unique' => false,
+                                     'decimalSize' => NULL,
+                                     'decimalPrecision' => NULL,
+                                     'name' => 'CatalogSortTable',
+                                     'title' => 'Catalog Sort Table',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => NULL,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
