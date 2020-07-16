@@ -55,6 +55,9 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
             case 'textarea':
                 $value = $this->getValueForTextarea($attributeName);
                 break;
+            case 'wysiwyg':
+                $value = $this->getValueForWysiwyg($attributeName);
+                break;
             case 'numeric':
                 $value = $this->getValueForNumeric($attributeName);
                 break;
@@ -106,12 +109,16 @@ class DefaultValueGetter implements IPimcoreDataTypeValueGetter
      */
     public function getValueForTextarea(string $attributeName): ?string
     {
-        $value = $this->getValue($attributeName);
+        return $this->getValueForInput($attributeName);
+    }
 
-        if( $value!==null && strlen( trim($value) ) == 0 ){
-            $value = null;
-        }
-        return $value;
+    /**
+     * @param string $attributeName
+     * @return null|string
+     */
+    public function getValueForWysiwyg(string $attributeName): ?string
+    {
+        return $this->getValueForInput($attributeName);
     }
 
     /**
