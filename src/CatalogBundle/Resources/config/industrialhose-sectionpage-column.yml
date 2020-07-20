@@ -1,0 +1,35 @@
+parameters:
+  AIR & MULTIPURPOSE:
+    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial']
+    dispColumns:
+      brandName:
+        title: Brand Name
+        type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+      superiorAbrasionResistantCover:
+        title: Superior Abrasion Resistant Cover
+        type: feature
+      StandardMetCover:
+        title: Oil Resistance Cover
+        type: attr
+      StandardMetTube:
+        title: Oil Resistance Tube
+        type: attr
+      mSHAFlameResistantCover:
+        title: MSHA Flame Resistant Cover
+        type: feature
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      nonConductiveTubeAndCover:
+        title: Non-Conductive Tube & Cover
+        type: feature
+      coupledAssembliesAvailable:
+        title: Coupled Assemblies Available
+        type: feature
+      lightweightConstruction:
+        title: Lightweight Construction
+        type: feature
+      

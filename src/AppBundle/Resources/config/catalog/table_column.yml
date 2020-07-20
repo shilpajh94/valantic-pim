@@ -424,3 +424,75 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
+    Industrial Hose:
+        INHPrintCatalog:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            brandName:
+                fieldLevel: class
+                fieldLabel: Brand ID
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            StandardMetCover:
+                fieldLevel: objectBrick
+                fieldLabel: Oil Resistance Cover
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            coverCharacteristic:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Characteristic
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            StandardMetTube:
+                fieldLevel: objectBrick
+                fieldLabel: Standard Met Tube
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            tubeMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Tube Material
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            staticWire:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire
+                fieldType: Input
+                parent:
+                    name: HoseBase
+            LayFlatHoseYN:
+                fieldLevel: objectBrick
+                fieldLabel: Lay Flat Construction
+                fieldType: Select
+                parent:
+                    name: HoseBase
+            standardMetHose:
+                fieldLevel: objectBrick
+                fieldLabel: Standard Met Hose
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
