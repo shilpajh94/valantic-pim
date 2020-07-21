@@ -12,6 +12,7 @@ Fields Summary:
 - BusinessUnit [select]
 - Industry [select]
 - Level [numeric]
+- nomenclatureHierarchy [booleanSelect]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
@@ -271,6 +272,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'yes',
+                             'noLabel' => 'no',
+                             'emptyLabel' => 'empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'no',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 300,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'nomenclatureHierarchy',
+                             'title' => 'Maintain Nomenclature Hierarchy',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,
