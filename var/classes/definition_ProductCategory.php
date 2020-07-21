@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-30T07:14:43+02:00
+* Generated at: 2020-07-16T12:14:37+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -17,6 +17,7 @@ Fields Summary:
 - RelatedObjectBrick [multiselect]
 - code [input]
 - fullCode [input]
+- CatalogFlag [checkbox]
 - localizedfields [localizedfields]
 -- description [textarea]
 -- PrintedCatalogDescription [textarea]
@@ -29,7 +30,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1593494083,
+   'modificationDate' => 1594894477,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -479,6 +480,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
+                          5 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                             'fieldtype' => 'checkbox',
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'tinyint(1)',
+                             'columnType' => 'tinyint(1)',
+                             'phpdocType' => 'boolean',
+                             'name' => 'CatalogFlag',
+                             'title' => 'Catalog Flag',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -572,7 +596,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
-                                 'locked' => NULL,
+                                 'locked' => false,
                                  'style' => '',
                                  'permissions' => NULL,
                                  'datatype' => 'data',

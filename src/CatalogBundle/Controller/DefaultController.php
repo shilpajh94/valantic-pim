@@ -118,6 +118,33 @@ class DefaultController extends FrontendController {
         echo json_encode(['data' => $options]);
         die;
     }
+    /**
+     * @Route("/catalog/get-siop-data")
+     */
+    public function getSiopDataAction(Request $request) {
+        $parentCat = $request->get('catId');
+        $categoryObj = DataObject\CatalogCategory::getById($parentCat);
+        $catalog = DataObject\Catalog::getById($categoryObj->getParentId());
+        $catalogType = $catalog->getCatalogType();
+        
+         $options = [];
+         
+        if($catalogType == '041000')
+        {
+            
+        $category = $categoryObj->getCategory();
+        $siopList = new DataObject\ProductCategory\Listing();
+        $siopList->addConditionParam('Level = ?',['4'],'AND');
+        $siopList->setCondition('o_parentId IN (?)',[$category]);
+        
+        foreach ($siopList as $cat) {
+            $options[] = array('text' =>  $cat->getDescription('en') . '-' . $cat->getFullcode(), 'id' => $cat->getId());
+        }
+        }
+       
+        echo json_encode(['data' => $options, 'length' => count($options)]);
+        die;
+    }
 
     /**
      * @Route("/catalog/get-skeleton-products")
@@ -227,17 +254,22 @@ class DefaultController extends FrontendController {
         $template = $tableObj->getTemplate();
         $table = $tableObj->getAttributeTable();
         $brand = $tableObj->getBrand();
+        $siop4 = $tableObj->getSIOPLevel4();
         $fitting = $tableObj->getFittingFamily();
         $baseProduct = $tableObj->getBaseProduct();
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
-        $columns  = [];
-        if (!empty($tableColumns) && is_array($tableColumns)) {
-            $columns = array_keys($tableColumns);
-        }
-        
-        $parentObj = $tableObj->getParentId();
+if($tableColumns!== null)
+{
+        $columns = array_keys($tableColumns);
+
+}
+else
+{
+    $columns = [];
+}
+$parentObj = $tableObj->getParentId();
         $catalogCategory = DataObject\CatalogCategory::getById($parentObj);
         $siopCategory = $catalogCategory->getCategory();
 
@@ -248,7 +280,21 @@ class DefaultController extends FrontendController {
             array_push($x, $y);
             array_push($x, $siopCategory[$i]);
         }
+        
+        $catalogObj = DataObject\Catalog::getById($catalogCategory->getParentId());
+        
+        if($catalogObj->getCatalogType() == '041000')
+        {
+          $productList->addConditionParam("SIOPLevel3 IN (:category)", ["category" => $x], 'AND');  
+          if($siop4 != null && count($siop) > 4)
+          {
+            $productList->addConditionParam("SIOPLevel4 IN (:siop4)", ["siop4" => $$siop4], 'AND');
+          }
+        }
+        else
+        {
         $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
+        }
         $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
 
         if ($brand != null && count($brand) > 0) {
