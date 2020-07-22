@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-21T11:23:32+02:00
+* Generated at: 2020-07-22T07:37:57+02:00
 * IP: 127.0.0.1
 
 
@@ -12,7 +12,7 @@ Fields Summary:
 - pitchLengthUOM [select]
 - pitchLengthIN [numeric]
 - pitchLengthMM [numeric]
-- numberOfTeeth [calculatedValue]
+- numberOfTeeth [numeric]
 */ 
 
 
@@ -153,6 +153,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -183,6 +184,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -213,6 +215,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -265,6 +268,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -295,6 +299,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -325,6 +330,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -333,14 +339,20 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'locked' => false,
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                 'fieldtype' => 'calculatedValue',
-                 'elementType' => 'input',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
                  'width' => 0,
-                 'calculatorClass' => '',
-                 'queryColumnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\CalculatedValue',
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
                  'name' => 'numberOfTeeth',
                  'title' => 'Number of teeth',
                  'tooltip' => '',
@@ -355,6 +367,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,
