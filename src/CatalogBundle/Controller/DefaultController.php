@@ -280,15 +280,21 @@ $parentObj = $tableObj->getParentId();
             array_push($x, $y);
             array_push($x, $siopCategory[$i]);
         }
-        
+       
         $catalogObj = DataObject\Catalog::getById($catalogCategory->getParentId());
         
         if($catalogObj->getCatalogType() == '041000')
         {
           $productList->addConditionParam("SIOPLevel3 IN (:category)", ["category" => $x], 'AND');  
-          if($siop4 != null && count($siop) > 4)
+          if($siop4 != null && count($siop4) > 0)
           {
-            $productList->addConditionParam("SIOPLevel4 IN (:siop4)", ["siop4" => $$siop4], 'AND');
+              $catx = array();
+            for ($i = 0; $i < count($siop4); $i++) {
+            $caty = "," . $siop4[$i] . ",";
+            array_push($catx, $caty);
+            array_push($catx, $siop4[$i]);
+             }
+            $productList->addConditionParam("SIOPLevel4 IN (:siop4)", ["siop4" => $catx], 'AND');
           }
         }
         else
@@ -497,7 +503,8 @@ $parentObj = $tableObj->getParentId();
                     }
                 }
             }
-
+            if($dynamicColumnsData && array_key_exists($template,$dynamicColumnsData))
+            {
             foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
                 $headers[$dFieldKey] = $dFieldName['fieldLabel'];
@@ -623,6 +630,7 @@ $parentObj = $tableObj->getParentId();
                     $pData[$item->getId()][$dFieldKey] = '';
                 }
             }
+        }
         }
 
         $columnData = array();
