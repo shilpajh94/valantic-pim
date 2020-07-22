@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-14T22:58:19+02:00
+* Generated at: 2020-07-22T07:37:57+02:00
 * IP: 127.0.0.1
 
 
@@ -359,7 +359,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => 'margin-left:18px; width:500px;',
                  'permissions' => NULL,
                  'datatype' => 'data',
