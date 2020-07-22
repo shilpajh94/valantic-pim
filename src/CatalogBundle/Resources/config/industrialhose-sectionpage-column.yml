@@ -1,16 +1,17 @@
 parameters:
   AIR & MULTIPURPOSE:
-    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial']
+    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      brandName:
-        title: Brand Name
-        type: attr
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
       superiorAbrasionResistantCover:
         title: Superior Abrasion Resistant Cover
         type: feature
+        fieldName: FeaturesBenefitsBulletPoint
       StandardMetCover:
         title: Oil Resistance Cover
         type: attr
@@ -20,16 +21,20 @@ parameters:
       mSHAFlameResistantCover:
         title: MSHA Flame Resistant Cover
         type: feature
+        fieldName: FeaturesBenefitsBulletPoint
       tubeMaterial:
         title: Tube Material
         type: attr
       nonConductiveTubeAndCover:
         title: Non-Conductive Tube & Cover
         type: feature
+        fieldName: FeaturesBenefitsBulletPoint
       coupledAssembliesAvailable:
         title: Coupled Assemblies Available
         type: feature
+        fieldName: FeaturesBenefitsBulletPoint
       lightweightConstruction:
         title: Lightweight Construction
         type: feature
+        fieldName: FeaturesBenefitsBulletPoint
       

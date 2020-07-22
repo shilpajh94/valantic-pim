@@ -9,5 +9,6 @@ parameters:
             Hose Accessories-Sleeving : Hose Accessories-Sleeving
         "041000":
             INHPrintCatalog: INHPrintCatalog
+            INHPrintCatalogProductPage: INHPrintCatalogProductPage
         "043000":
             Product Table: Product Table

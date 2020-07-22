@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-18T11:18:59+02:00
+* Generated at: 2020-07-14T12:56:08+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -35,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1589793537,
+   'modificationDate' => 1594724168,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -120,9 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'queryColumnType' => 'text',
              'phpdocType' => 'array',
              'relationType' => true,
-             'visibleFields' => 
-            array (
-            ),
+             'visibleFields' => 'id,key,articleNumber,sapDescription',
              'allowToCreateNewObject' => false,
              'optimizedAdminLoading' => false,
              'visibleFieldDefinitions' => 
@@ -130,6 +128,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'classes' => 
             array (
+              0 => 
+              array (
+                'classes' => 'Product',
+              ),
             ),
              'pathFormatterClass' => '',
              'name' => 'Material',
@@ -486,7 +488,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

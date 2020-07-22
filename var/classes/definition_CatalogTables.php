@@ -14,6 +14,7 @@ Fields Summary:
 - Brand [multiselect]
 - SkeletonProduct [multiselect]
 - FittingFamily [select]
+- SIOPLevel4 [multiselect]
 - Columns [textarea]
 - ProductsData [table]
 - headerData [textarea]
@@ -25,7 +26,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CatalogTables',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1592826473,
+   'modificationDate' => 1595230349,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -5080,6 +5081,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
+                  )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                    ),
+                     'width' => '',
+                     'height' => '',
+                     'maxItems' => '',
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'SIOPLevel4',
+                     'title' => 'SIOP Level 4',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
                   )),
                 ),
                  'locked' => false,

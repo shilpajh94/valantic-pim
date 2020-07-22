@@ -2,7 +2,7 @@
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
 ?>
 <?php if($this->editmode): ?>
-        <?= $this->relation("inh_template_hose_product_page", [
+        <?= $this->relation("template_hose_accessories_sleeving", [
                 "types" => ["object"],
                 "subtypes" => [
                 "object" => ["object"]
@@ -13,7 +13,27 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 <?php endif; ?>
 
 
-<?php  echo $this->inc($this->document->getProperty('header'),['title'=>'Hydraulic Hose']) ?>
+<section class="seggregate">
+<nav class="header alternate">
+  <div id="pageHeader"></div>
+  <span>Hydraulic Hose</span>
+</nav>
+<div class="footer">
+<footer class="flex-center ">
+<span class="logo">
+        <b>Hose</b>
+        <img src="/CatalogImages/logo_new.png">
+</span>
+<div class="flex reverse">
+                <h5 class="rowC">
+                Hose Accessories
+                <span>Protective Sleeving / Protective Wrap</span>
+                </h5>
+
+        
+</div>
+</footer>
+</div>
         
     <article class="container noBorder">
     
@@ -64,16 +84,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                    <div class="specs">
                         <h6><?= $this->translate('features + specs') ?></h6>
                         <div class="spec-requirement">
-                        <?php if($safetyFeatures): ?>
-                           <div>
-                           
-                                <?php foreach($safetyFeatures as $key => $feature): ?>
-                                        <p class="small">
-                                        <b class="contitech-yellow "><?= $feature['name'] ?></b>
-                                        </p>
-                                <?php endforeach; ?>
-                           </div>   
-                           <?php endif; ?>
 
                            <?php if(!empty(trim($materialString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
                             <div>
@@ -103,7 +113,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                 <?php if(!empty(trim($availableLengthString))): ?>
                                         <p class="small">            
                                         <b><?= $this->translate('Available Lengths') ?></b>
-                                        <?= $availableLengthString ?>
+                                        <?= "Continuous {$availableLengthString}' rolls" ?>
                                 </p>
                                 <?php endif; ?>
                                     
@@ -132,7 +142,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 <p class="head">
 
                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                <span><?= $this->translate($columnsData['columnName'])?></span>
+                                <span><?= $columnsData['columnLabel'] ?></span>
                         <?php endforeach; ?>
                         
                 </p>
@@ -163,7 +173,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
         ?>
     </article>
-    <?php  echo $this->inc($this->document->getProperty('footer'),['title'=>'Hose Accessories', 'subTitle'=>'Protective Sleeving / Protective Wrap']) ?>
-   
+</section>   
     
     
