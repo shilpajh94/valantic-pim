@@ -15,7 +15,7 @@ use Pimcore\Model\DataObject;
 
 class HydFittingCatalogDataImportCommand extends Command
 {
-    private $dataFilePath;
+    const DATA_FILE_PATH = PIMCORE_PROJECT_ROOT."/Hydraulics Fittings Catalog Data 05-06-2020 (5).xlsx";
 
     const IMPORT_SHEETS = array(
         "HYD_CATALOG_SHEET" => array(
@@ -148,7 +148,6 @@ class HydFittingCatalogDataImportCommand extends Command
     {
         $this->multiselectMasterService = $multiselectMasterService;
         $this->appService = $appService;
-        $this->dataFilePath = "/var/www/html/projects/contitech/Hydraulics Fittings Catalog Data 05-06-2020 (5).xlsx";
         parent::__construct();
     }
 
@@ -163,7 +162,7 @@ class HydFittingCatalogDataImportCommand extends Command
 
         $reader = IOFactory::createReader('Xlsx');
         $reader->setReadDataOnly(TRUE);
-        $spreadsheet = $reader->load($this->dataFilePath);
+        $spreadsheet = $reader->load(self::DATA_FILE_PATH);
 
         foreach(self::IMPORT_SHEETS as $importSheetConfig){
             $this->importSheet($spreadsheet, $importSheetConfig);
