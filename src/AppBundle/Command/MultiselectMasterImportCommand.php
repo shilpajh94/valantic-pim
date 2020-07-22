@@ -39,7 +39,7 @@ class MultiselectMasterImportCommand extends Command
 
         $this->csvIndexToLangMap = $this->multiselectMasterService->getRequiredMultiselectMasterConfig('csv_columns_index_language_mapping');
         $this->importDirectory = PIMCORE_PROJECT_ROOT.$this->multiselectMasterService->getRequiredMultiselectMasterConfig('import_directory_system_path_from_pimcore_root');
-//        $this->typeToFolderNameMapping = $this->getRequiredMultiselectMasterConfig("multiselect_type_to_pimcore_folder_mapping");
+        $this->typeToFolderNameMapping = $this->multiselectMasterService->getRequiredMultiselectMasterConfig("multiselect_type_to_pimcore_folder_mapping");
 
         parent::__construct();
     }
