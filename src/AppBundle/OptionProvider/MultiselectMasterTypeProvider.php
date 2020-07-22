@@ -41,7 +41,7 @@ class MultiselectMasterTypeProvider implements SelectOptionsProviderInterface
             $fieldDefs = $brickDef->getFieldDefinitions();
 
             foreach($fieldDefs as $fieldName => $field){
-                if ($field->getFieldtype() == "multiselect") {
+                if ($field->getFieldtype() == "multiselect" || $field->getFieldtype() == "select") {
                     $key = $brickGroup." >> ".$field->getTitle();
                     $value = $brickGroup."~".$field->getName();
                     $returnValue[] = array('key' => $key,'value' => $value);

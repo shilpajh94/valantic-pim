@@ -89,9 +89,9 @@ class AppService
      * @return mixed
      * @throws \Exception
      */
-    private function updateAttributeGroup($object, string $attributeName, $value)
+    public function updateAttributeGroup($object, string $attributeName, $value)
     {
-        if ($this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
+        if ( (is_numeric($value) || $value == null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
         return $object;

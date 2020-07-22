@@ -23,6 +23,8 @@ multiselect_type_to_pimcore_folder_mapping:
     reinforcement: "Reinforcements"
     fittingFamily: "Fitting Families"
     StemComponentVendor: "Stem Component Vendors"
+    ElbowType: "Elbow Type"
+    MaterialType: "Material Type"
 
 import_directory_system_path_from_pimcore_root: "/multiselect_import_folder"
 
