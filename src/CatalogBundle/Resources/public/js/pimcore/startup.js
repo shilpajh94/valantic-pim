@@ -138,6 +138,7 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
             headerSelection.attachHeader(object, type,event,template);
         }
              });
+             
 
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['id', 'text'],
@@ -199,6 +200,42 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
             }
             skeletonOptionsStore.load();
             });
+            
+            
+               var siopStore = Ext.create('Ext.data.Store', {
+                fields: ['id', 'text'],
+                
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-siop-data',
+                    //  method:'POST',
+                    extraParams: {
+                        catId: object.data.general.o_parentId,
+
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+
+            });
+
+            siopStore.load();
+            object.edit.dataFields.SIOPLevel4.component.setStore(siopStore);
+             
+           siopStore.on('load', function(store, records, successful){
+   if(store.getCount() == 0)
+            {
+                object.edit.dataFields.SIOPLevel4.component.setDisabled(true);
+            }
+});
+           
+            if (object.data.data.SIOPLevel4 !== null)
+            {
+               // console.log(object.data.data.BaseProduct);
+                object.edit.dataFields.SIOPLevel4.component.setValue(object.data.data.SIOPLevel4);
+            }
             
             var tabs = Ext.getCmp(object.edit.layout.items.items[0].id);
 

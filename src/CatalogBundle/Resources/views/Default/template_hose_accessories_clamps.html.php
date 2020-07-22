@@ -2,7 +2,7 @@
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
 ?>
 <?php if($this->editmode): ?>
-        <?= $this->relation("inh_template_hose_product_page", [
+        <?= $this->relation("template_hose_accessories_clamps", [
                 "types" => ["object"],
                 "subtypes" => [
                 "object" => ["object"]
@@ -12,10 +12,28 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ?>
 <?php endif; ?>
 
+<section class="seggregate">
+<nav class="header alternate">
+  <div id="pageHeader"></div>
+  <span>Hydraulic Hose</span>
+</nav>
+<div class="footer">
+<footer class="flex-center ">
+<span class="logo">
+        <b>Hose</b>
+        <img src="/CatalogImages/logo_new.png">
+</span>
+<div class="flex reverse">
+                <h5 class="rowC">
+                Hose Accessories
+                <span>Routing Clamps</span>
+                </h5>
 
-<?php  echo $this->inc($this->document->getProperty('header'),['title'=>'Hydraulic Hose']) ?>
+        
+</div>
+</footer>
+</div>
 
-<div class="seggregate">
     <article class="container noBorder">
     <?php
 
@@ -93,7 +111,7 @@ extract($brand);
                 <p class="head">
 
                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                <span><?= $this->translate($columnsData['columnName'])?></span>
+                                <span><?= $columnsData['columnLabel'] ?></span>
                         <?php endforeach; ?>
                         
                 </p>
@@ -121,20 +139,5 @@ extract($brand);
 
         ?>
     </article>
-    <!-- <footer class="flex ">
-        <span class="logo">
-                <b>Hose</b> 
-                <img src="/CatalogImages/6c.JPG" />
-        </span>
-        <div class="flex  reverse">
-                  <h3>
-                     Hose Accessories
-                      <span>Routing Clamps</span>
-                  </h3>
-
-                 
-        </div>
-    </footer> -->
-</div>
-<?php  echo $this->inc($this->document->getProperty('footer'),['title'=>'Hose Accessories', 'subTitle'=>'Routing Clamps']) ?>
+</section>
    

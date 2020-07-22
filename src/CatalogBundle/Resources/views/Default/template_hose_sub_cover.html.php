@@ -12,9 +12,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ]); 
         ?>
 <?php endif; ?>
-<div class="seggregate">
+
+<?php
+if($data):
+foreach($data as $catalogGroupKey => $catalogGroupData):
+?>
+<div class="seggregate coverPage">
+    <nav class="header alternate">
+       <div id="pageHeader"></div>
+    </nav>
     
-    <article class="container noBorder">
+    <article class="containerAll noBorder">
     <header class="dark">
             <?= $this->image("HHSC_Image"); ?>
     </header>
@@ -22,12 +30,12 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         <nav class="marginBottom30">
             <h4><?= $this->input("HHSC_Heading"); ?></h4>
         </nav>
-        <div class="fullcontainer">
+        <div class="fullcontainer containerAll">
             <p class="marginBottom30">
             <?= $this->wysiwyg("HHSC_Description",["class"=>"marginBottom30"]); ?>
             </p>
            
-            <div class="bg">               
+            <div class="bg marginTop30">               
                         <span>
                         <?php
                         echo $this->image("HHSC_Title_Image", ["width" => 50]);
@@ -35,7 +43,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                         </span>
                         <h3>
                         <?php
-                        echo $this->input("HHSC_Title");
+                        echo $this->input("HHSC_Title")->setDataFromResource($catalogGroupKey);
                         ?>
                         </h3>               
             </div>
@@ -54,11 +62,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                     </p>
 
                     <?php
-                    if($data):
-                    $incr = 1;
-                    foreach($data as $key => $brand):
-                    extract($brand);
-                    ?>
+                        if($data):
+                        $incr = 1;
+                        foreach($catalogGroupData as $brandName => $brandData):
+                        extract($brandData);
+                        ?>
 
                         <?php if($incr%2==0): ?>
                         <div>
@@ -77,24 +85,25 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                 <span></span>
                         </div>
 
-                    <?php 
-                    $incr++;
-                    endforeach; 
-                    endif;
-                    ?>
+                        <?php 
+                        $incr++;
+                        endforeach; 
+                        endif;
+                        ?>
                     
             </div>
               
         </div>
            
     </article>
-    <div class="footer">
-                <footer class="flex">
+    <div class="footer containerAll">
+                <footer class="flex-center ">
                         <span class="logo">
-                                <img src="/CatalogImages/logo.JPG" />
+                                <b>Hose</b>
+                                <img src="/CatalogImages/logo_new.png">
                         </span>
                         <div class="flex aligned">
-                        <div>               
+                        <div class="rowD">               
                                     <span>
                                     <?php
                                     echo $this->image("HHSC_Footer_Image", ["width" => 40]);
@@ -102,7 +111,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                                     </span>
                                     <h5>
                                     <?php
-                                    echo $this->input("HHSC_Footer");
+                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
                                     ?>
                                     </h5>               
                         </div>
@@ -111,3 +120,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 </footer>
         </div>
 </div>
+<div class="break-before"></div>
+<?php 
+endforeach; 
+endif;
+?>
