@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T11:12:48+02:00
+* Generated at: 2020-07-22T12:07:49+02:00
 * IP: 127.0.0.1
 
 
@@ -59,7 +59,8 @@ Fields Summary:
 - HoseID2MM [numeric]
 - HoseDashSize [numeric]
 - HoseID3MM [numeric]
-- DropLength [input]
+- DropLengthIN [numeric]
+- DropLengthMM [numeric]
 - SocketWrenchSizeMM [input]
 - OverallLengthMm [input]
 - RunLengthMM [input]
@@ -1944,24 +1945,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           21 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 150,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'DropLength',
-                             'title' => 'Drop Length',
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'DropLengthIN',
+                             'title' => 'Drop Length (in)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1972,6 +1976,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           22 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'DropLengthMM',
+                             'title' => 'Drop Length (mm)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          23 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -1999,7 +2034,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          23 => 
+                          24 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2027,7 +2062,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          24 => 
+                          25 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2055,7 +2090,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          25 => 
+                          26 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2083,7 +2118,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          26 => 
+                          27 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2111,7 +2146,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          27 => 
+                          28 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2139,7 +2174,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          28 => 
+                          29 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                              'fieldtype' => 'textarea',
                              'width' => 300,
