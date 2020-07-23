@@ -232,9 +232,11 @@ class DefaultController extends FrontendController {
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
-
-        $columns = array_keys($tableColumns);
-
+        $columns  = [];
+        if (!empty($tableColumns) && is_array($tableColumns)) {
+            $columns = array_keys($tableColumns);
+        }
+        
         $parentObj = $tableObj->getParentId();
         $catalogCategory = DataObject\CatalogCategory::getById($parentObj);
         $siopCategory = $catalogCategory->getCategory();
@@ -450,6 +452,7 @@ class DefaultController extends FrontendController {
                 }
             }
 
+            if(isset($dynamicColumnsData[$template])) {
             foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
                 $headers[$dFieldKey] = $dFieldName['fieldLabel'];
@@ -575,6 +578,7 @@ class DefaultController extends FrontendController {
                     $pData[$item->getId()][$dFieldKey] = '';
                 }
             }
+}
         }
 
         $columnData = array();
