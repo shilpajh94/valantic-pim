@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T10:30:13+02:00
+* Generated at: 2020-07-23T12:12:02+02:00
 * IP: 127.0.0.1
 
 
@@ -25,6 +25,7 @@ Fields Summary:
 - acceptableHoseMedia [multiselect]
 - Packaging [input]
 - Coupling [input]
+- NonStockSizes [input]
 - VirtualCatalogTubeMaterial [textarea]
 - VirtualCatalogCoupling [textarea]
 - VirtualCatalogCoverMaterial [textarea]
@@ -1178,6 +1179,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'index' => false,
                          'locked' => false,
                          'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'NonStockSizes',
+                         'title' => 'Non-Stock/Sizes',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T12:07:49+02:00
+* Generated at: 2020-07-23T13:11:34+02:00
 * IP: 127.0.0.1
 
 
@@ -23,8 +23,8 @@ Fields Summary:
 - ValveSizeInDec [numeric]
 - ValveSize2inFraction [input]
 - ValveSize2InDec [numeric]
-- Hex1WrenchSizeIN [numeric]
-- Hex2WrenchSizeIN [numeric]
+- Hex1WrenchSizeIN [input]
+- Hex2WrenchSizeIN [input]
 - HoseID1InFract [input]
 - HoseID1InDec [numeric]
 - HoseID1MM [numeric]
@@ -52,8 +52,8 @@ Fields Summary:
 - ValveSizeMM [numeric]
 - ValveStyle2 [numeric]
 - ValveSize2MM [numeric]
-- Hex1WrenchSizeMM [numeric]
-- Hex2WrenchSizeMM [numeric]
+- Hex1WrenchSizeMM [input]
+- Hex2WrenchSizeMM [input]
 - HoseID2InFract [input]
 - HoseID2InDec [numeric]
 - HoseID2MM [numeric]
@@ -68,46 +68,34 @@ Fields Summary:
 - InsertionDepthMM [input]
 - FittingSizeInFract [input]
 - CatalogDescription [textarea]
-- Swivel [booleanSelect]
 - ElbowYN [booleanSelect]
 - ElbowType [select]
+- CrimpNutYN [booleanSelect]
 - ElbowAngleDegrees [input]
 - DualGripStyle [booleanSelect]
 - SAEStandard [input]
 - SkiveType [input]
-- OrificeTubeODInDecimal [numeric]
-- OrificeTubeLengthInDecimal [numeric]
-- AdapterAttributeType [input]
-- AdapterAttributeCode [input]
+- OrificeTubeODInMMDecimal [input]
 - UniCrimpStyle [booleanSelect]
+- DualSeatYN [booleanSelect]
+- SingleHexYN [booleanSelect]
 - NumberofElbows [numeric]
 - ElbowType2 [select]
 - ElbowAngle2Degrees [input]
 - AssemblyMaterial [select]
-- Gender [input]
-- OrificeTubeODMMDecimal [numeric]
-- OrificeTubeLengthMMDecimal [numeric]
-- AdapterAttributeDescription [textarea]
+- OrificeTubeLengthInMMDecimal [input]
 - Thread1 [input]
 - Thread3 [input]
-- ThreadSize1InDecimal [numeric]
-- ThreadSize2InDecimal [numeric]
-- ThreadSize3InDecimal [numeric]
-- ThreadSize4InDecimal [numeric]
+- ThreadSize1InMMDecimal [input]
+- ThreadSize2InMMDecimal [input]
 - ThreadDashSize1 [numeric]
 - ThreadDashSize3 [numeric]
-- ThreadDescription1 [textarea]
-- ThreadDescription3 [textarea]
 - Thread2 [input]
 - Thread4 [input]
-- ThreadSize1MMDecimal [numeric]
-- ThreadSize2MMDecimal [numeric]
-- ThreadSize3MMDecimal [numeric]
-- ThreadSize4MMDecimal [numeric]
+- ThreadSize3InMMDecimal [input]
+- ThreadSize4InMMDecimal [input]
 - ThreadDashSize2 [numeric]
 - ThreadDashSize4 [numeric]
-- ThreadDescription2 [textarea]
-- ThreadDescription4 [textarea]
 - StemComponentNumber [input]
 - StemComponentThreadType [select]
 - StemHexinchDecimal [numeric]
@@ -126,8 +114,6 @@ Fields Summary:
 - FerruleLengthInDec [numeric]
 - FerruleRevDate [date]
 - FerruleComponentSAPNumber [input]
-- FerruleID [numeric]
-- FerruleOD [numeric]
 - FerruleRevisionNumber [input]
 - FerruleIDMM [numeric]
 - FerruleODMM [numeric]
@@ -866,20 +852,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           16 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
+                             'showCharCount' => false,
                              'name' => 'Hex1WrenchSizeIN',
                              'title' => 'Hex 1 Wrench Size (in)',
                              'tooltip' => '',
@@ -897,20 +880,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           17 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
+                             'showCharCount' => false,
                              'name' => 'Hex2WrenchSizeIN',
                              'title' => 'Hex 2 Wrench Size (in)',
                              'tooltip' => '',
@@ -1731,20 +1711,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           14 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
+                             'showCharCount' => false,
                              'name' => 'Hex1WrenchSizeMM',
                              'title' => 'Hex 1 Wrench Size (mm)',
                              'tooltip' => '',
@@ -1762,20 +1739,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           15 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
+                             'showCharCount' => false,
                              'name' => 'Hex2WrenchSizeMM',
                              'title' => 'Hex 2 Wrench Size (mm)',
                              'tooltip' => '',
@@ -1965,7 +1939,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -1996,7 +1970,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2249,49 +2223,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'booleanSelect',
                              'yesLabel' => 'Y',
                              'noLabel' => 'N',
-                             'emptyLabel' => '',
-                             'options' => 
-                            array (
-                              0 => 
-                              array (
-                                'key' => '',
-                                'value' => 0,
-                              ),
-                              1 => 
-                              array (
-                                'key' => 'Y',
-                                'value' => 1,
-                              ),
-                              2 => 
-                              array (
-                                'key' => 'N',
-                                'value' => -1,
-                              ),
-                            ),
-                             'width' => 300,
-                             'queryColumnType' => 'tinyint(1) null',
-                             'columnType' => 'tinyint(1) null',
-                             'phpdocType' => 'boolean',
-                             'name' => 'Swivel',
-                             'title' => 'Swivel (Y/N)',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                             'fieldtype' => 'booleanSelect',
-                             'yesLabel' => 'Y',
-                             'noLabel' => 'N',
                              'emptyLabel' => 'Empty',
                              'options' => 
                             array (
@@ -2330,7 +2261,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
-                          2 => 
+                          1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
@@ -2360,6 +2291,49 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Y',
+                             'noLabel' => 'N',
+                             'emptyLabel' => '',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => '',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Y',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'N',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 300,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'CrimpNutYN',
+                             'title' => 'Crimp Nut Y/N',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -2489,114 +2463,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           7 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'OrificeTubeODInDecimal',
-                             'title' => 'Orifice Tube OD (in) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          8 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'OrificeTubeLengthInDecimal',
-                             'title' => 'Orifice Tube Length (in) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          9 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
-                             'columnLength' => 150,
+                             'columnLength' => 190,
                              'phpdocType' => 'string',
                              'regex' => '',
                              'unique' => false,
                              'showCharCount' => false,
-                             'name' => 'AdapterAttributeType',
-                             'title' => 'Adapter Attribute Type',
+                             'name' => 'OrificeTubeODInMMDecimal',
+                             'title' => 'Orifice Tube OD (in & mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          10 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 150,
-                             'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'AdapterAttributeCode',
-                             'title' => 'Adapter Attribute (Code)',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2672,6 +2556,92 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                           )),
                           1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Y',
+                             'noLabel' => 'N',
+                             'emptyLabel' => '',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => '',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Y',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'N',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 300,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'DualSeatYN',
+                             'title' => 'Dual Seat Y/N',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'Y',
+                             'noLabel' => 'N',
+                             'emptyLabel' => '',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => '',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Y',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'N',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 300,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'SingleHexYN',
+                             'title' => 'Single Hex Y/N',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -2702,7 +2672,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          2 => 
+                          4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
@@ -2733,7 +2703,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          3 => 
+                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2761,7 +2731,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          4 => 
+                          6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
@@ -2792,25 +2762,25 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          5 => 
+                          7 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
-                             'columnLength' => 150,
+                             'columnLength' => 190,
                              'phpdocType' => 'string',
                              'regex' => '',
                              'unique' => false,
                              'showCharCount' => false,
-                             'name' => 'Gender',
-                             'title' => 'Gender',
+                             'name' => 'OrificeTubeLengthInMMDecimal',
+                             'title' => 'Orifice Tube Length (in & mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2819,94 +2789,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
-                          )),
-                          6 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'OrificeTubeODMMDecimal',
-                             'title' => 'Orifice Tube OD (mm) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          7 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'OrificeTubeLengthMMDecimal',
-                             'title' => 'Orifice Tube Length (mm) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          8 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 120,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'AdapterAttributeDescription',
-                             'title' => 'Adapter Attribute Description',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,
@@ -3032,22 +2914,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize1InDecimal',
-                             'title' => 'Thread Size 1 (in) Decimal',
+                             'showCharCount' => false,
+                             'name' => 'ThreadSize1InMMDecimal',
+                             'title' => 'Thread Size 1 (in & mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -3063,22 +2942,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize2InDecimal',
-                             'title' => 'Thread Size 2 (in) Decimal',
+                             'showCharCount' => false,
+                             'name' => 'ThreadSize2InMMDecimal',
+                             'title' => 'Thread Size 2 (in & mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -3094,68 +2970,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize3InDecimal',
-                             'title' => 'Thread Size 3 (in) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          5 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize4InDecimal',
-                             'title' => 'Thread Size 4 (in) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -3186,7 +3000,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          7 => 
+                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -3216,58 +3030,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
-                          )),
-                          8 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 150,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'ThreadDescription1',
-                             'title' => 'Thread Description 1',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          9 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 150,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'ThreadDescription3',
-                             'title' => 'Thread Description 3',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,
@@ -3348,22 +3110,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize1MMDecimal',
-                             'title' => 'Thread Size 1 (mm) Decimal',
+                             'showCharCount' => false,
+                             'name' => 'ThreadSize3InMMDecimal',
+                             'title' => 'Thread Size 3 (in & mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -3379,22 +3138,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
                              'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize2MMDecimal',
-                             'title' => 'Thread Size 2 (mm) Decimal',
+                             'showCharCount' => false,
+                             'name' => 'ThreadSize4InMMDecimal',
+                             'title' => 'Thread Size 4 (in & mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -3410,68 +3166,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           4 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize3MMDecimal',
-                             'title' => 'Thread Size 3 (mm) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          5 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'ThreadSize4MMDecimal',
-                             'title' => 'Thread Size 4 (mm) Decimal',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -3502,7 +3196,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          7 => 
+                          5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -3532,58 +3226,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
-                          )),
-                          8 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 150,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'ThreadDescription2',
-                             'title' => 'Thread Description 2',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          9 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 150,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'ThreadDescription4',
-                             'title' => 'Thread Description 4',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,
@@ -4287,68 +3929,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'FerruleID',
-                             'title' => 'Ferrule ID',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'double',
-                             'columnType' => 'double',
-                             'phpdocType' => 'float',
-                             'integer' => false,
-                             'unsigned' => false,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'name' => 'FerruleOD',
-                             'title' => 'Ferrule OD',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -4376,7 +3956,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          4 => 
+                          2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -4407,7 +3987,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          5 => 
+                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -4438,7 +4018,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          6 => 
+                          4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,

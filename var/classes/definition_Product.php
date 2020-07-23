@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T10:27:30+02:00
+* Generated at: 2020-07-23T13:45:13+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1595406449,
+   'modificationDate' => 1595504711,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -6919,7 +6919,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => '',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -10182,7 +10182,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
-                         'invisible' => false,
+                         'invisible' => true,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
@@ -10201,7 +10201,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',

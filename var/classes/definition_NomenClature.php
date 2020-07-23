@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T11:24:35+02:00
+* Generated at: 2020-07-23T12:50:38+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -35,6 +35,7 @@ Fields Summary:
 - valve [input]
 - adapterAttributeCode [input]
 - adapterAttributeDescription [input]
+- AdapterAttributeType [input]
 */ 
 
 
@@ -43,7 +44,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'NomenClature',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1595409870,
+   'modificationDate' => 1595501438,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -1034,6 +1035,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'showCharCount' => false,
                  'name' => 'adapterAttributeDescription',
                  'title' => 'Adapter Attribute Description',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 150,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'AdapterAttributeType',
+                 'title' => 'Adapter Attribute Type',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,
