@@ -156,7 +156,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                 if (is_array($tableColumns) && !empty($tableColumns)) {
                     $result = array_diff_assoc($tableColumns['columns'], $tableRows['data']);
-                    // p_r($result);die;
+                    
                     /* New Family Info */
     ?>
                     <article class="container noBorder alternated">

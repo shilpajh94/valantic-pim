@@ -87,6 +87,13 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(FITTING_TABLE_IMPORT_FILE_PATH);
     }
 
+    public function getINHSectionPageConfig() {
+        return $this->getConfigFromYmlFile(INH_SECTION_PAGE_FILE_PATH);
+    }
+
+    public function getINHProductPageConfig() {
+        return $this->getConfigFromYmlFile(INH_PRODUCT_PAGE_FILE_PATH);
+    }
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
