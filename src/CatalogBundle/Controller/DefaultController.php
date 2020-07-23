@@ -1407,11 +1407,12 @@ class DefaultController extends FrontendController {
                     $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
                 }
                 
-                $longDescription = $brandArray[0]['longDescription'];
-
                 $articlesData = array();
 
                 foreach($brandArray as $key => $element): 
+
+                        if($element['shortDescription'])
+                            $shortDescription = $element['shortDescription'];
                         
                         foreach ($columnsDataWithImages as $ckey => $cvalue) {
                             $articlesData[$key][$ckey] = $element[$ckey];
@@ -1421,7 +1422,7 @@ class DefaultController extends FrontendController {
 
                 $data[$brandKey]['brandName'] = $brandName;
                 $data[$brandKey]['imageObj'] = $imageObj;
-                $data[$brandKey]['longDescription'] = $longDescription;
+                $data[$brandKey]['shortDescription'] = $shortDescription;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
 
@@ -1430,7 +1431,6 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
-            
             $this->view['data'] = $data;
         }
     }
@@ -1546,8 +1546,12 @@ class DefaultController extends FrontendController {
             
             $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
-            // $Currency = $catalogObj->getCurrency();
-            $Currency = 'USD';
+            $distributionChannel = $catalogObj->getDistributionChannel();
+            $salesOrganisation = $catalogObj->getSalesOrganisation();
+            // $distributionChannel = '03';
+            // $salesOrganisation = '0109';
+            $Currency = $catalogObj->getCurrency();
+            // $Currency = 'USD';
             $ValidFromDate = $catalogObj->getValidFromDate();
 
             $productsData = $template->getProductsData();
@@ -1583,7 +1587,7 @@ class DefaultController extends FrontendController {
             $catagoryDescription = array();
             $LeftPrintCatalogImageObj = '';
             $RightPrintCatalogImageObj = '';
-            $DrawingPictureForCatalogObj = '';
+            $ProfileDimensionImageObj = '';
 
             foreach ($productsData as $key => $item) {
                 
@@ -1600,9 +1604,9 @@ class DefaultController extends FrontendController {
                     $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['RightPrintCatalogImage']);
                 }
 
-                if(!$DrawingPictureForCatalogObj && $productsDataWithHeaders['DrawingPictureForCatalog'])
+                if(!$ProfileDimensionImageObj && $productsDataWithHeaders['ProfileDimensionImage'])
                 {
-                    $DrawingPictureForCatalogObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['DrawingPictureForCatalog']);
+                    $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['ProfileDimensionImage']);
                 }
 
                 if(!isset($columnConfig['config']))
@@ -1651,18 +1655,18 @@ class DefaultController extends FrontendController {
                     {
                         foreach ($priceData as $pkey => $pvalue) {
                             $record = array_combine($columnConfig['config'], $pvalue);
-
                             if($record['Rate Unit'] == $Currency)
                             {
                                 $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$record['Validity Start Date']);
                                 $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$record['Validity End Date']);
 
                                 if ($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
-                                    $listPrice[] = $record['Rate'];
+                                    $listPrice[$record['Distribution Channel']][$record['Sales Organization']] = $record['Rate'];
                                 }
                             }
                         }
-                        $productsDataWithHeaders['listPrice'] = $listPrice[0];
+                        
+                        $productsDataWithHeaders['listPrice'] = $listPrice[$distributionChannel][$salesOrganisation];
                     }
                 }
 
@@ -1800,7 +1804,7 @@ class DefaultController extends FrontendController {
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
                 $groupData['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
                 $groupData['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
-                $groupData['DrawingPictureForCatalogObj'] = $DrawingPictureForCatalogObj;
+                $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['tempFmin'] = $tempFmin;
                 $groupData['tempFmax'] = $tempFmax;
@@ -1812,9 +1816,7 @@ class DefaultController extends FrontendController {
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 $groupData['IsPriceCatalog'] = $IsPriceCatalog;
                 
-
-                // p_r($groupData);
-                // die;
+                
                 $this->view['groupData'] = $groupData;
             }
         }

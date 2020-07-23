@@ -149,13 +149,19 @@ parameters:
             LeftPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Left Print Catalog Image
+                fieldLabel: Left Image
                 parent: 
                     name: Product
             RightPrintCatalogImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Right Print Catalog Image
+                fieldLabel: Right Image
+                parent: 
+                    name: Product
+            ProfileDimensionImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Profile Dimension Image
                 parent: 
                     name: Product
             BrandShortText1:
@@ -409,10 +415,10 @@ parameters:
                     class:
                         name: Brand
                         fieldName: Name
-            longDescription:
+            shortDescription:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Application Long Text
+                fieldLabel: Marketing Short Description
                 parent: 
                     name: Product
        

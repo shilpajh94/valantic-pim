@@ -49,7 +49,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
     <article class="container noBorder">
         <header>
             <h1><?php echo $this->input("HHAFC_Title"); ?></h1>
-            <p><?php echo $this->textarea("HHAFC_Description"); ?></p>
+            <p><?php echo $this->wysiwyg("HHAFC_Description"); ?></p>
         </header>
         <figure class="margin15 marginBottom30">
             <figcaption class="col-6"> 
@@ -81,7 +81,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ?>   
                <div class="marginBottom30 margin15" >
                     <h2 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brandName); ?></h2>
-                    <h3 class="light paddingNo borderBottom"><?php echo $this->input("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($longDescription); ?></h3>
+                    <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($shortDescription); ?></h3>
                     <div class="grid special">
             
                             <p class="head noBorder">

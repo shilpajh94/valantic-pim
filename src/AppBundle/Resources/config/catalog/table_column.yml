@@ -91,12 +91,12 @@ parameters:
                 fieldLabel: Weight Unit
                 parent:
                     name: Product
-            listPrice:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: List Price
-                parent:
-                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
             widthmm:
                 fieldLevel: objectBrick
                 fieldType: Input
@@ -152,12 +152,12 @@ parameters:
                 fieldLabel: Weight Unit
                 parent:
                     name: Product
-            listPrice:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: List Price
-                parent:
-                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
         V-Belts:
             industryStandard:
                 fieldLevel: class
@@ -183,12 +183,12 @@ parameters:
                 fieldLabel: Weight Unit
                 parent:
                     name: Product
-            listPrice:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: List Price
-                parent:
-                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
         Sheave:
             industryStandard:
                 fieldLevel: class
@@ -196,6 +196,18 @@ parameters:
                 fieldLabel: Industry Standard
                 parent: 
                     name: Product
+            pulleyDiameterIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pulley Diameter (in)
+                parent:
+                    name: MetalFert
+            GroovesPerTooth:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Grooves per tooth
+                parent:
+                    name: MetalFert
             netWeight:
                 fieldLevel: class
                 fieldType: Input
@@ -208,12 +220,12 @@ parameters:
                 fieldLabel: Weight Unit
                 parent:
                     name: Product
-            listPrice:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: List Price
-                parent:
-                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
         Sprockets:
             industryStandard:
                 fieldLevel: class
@@ -233,12 +245,12 @@ parameters:
                 fieldLabel: Weight Unit
                 parent:
                     name: Product
-            listPrice:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: List Price
-                parent:
-                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
             pitchMM:
                 fieldLevel: objectBrick
                 fieldType: Input
@@ -321,6 +333,56 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert 
+    Hose Accessories Flanges: 
+        Hose Accessories-Flange Clamps:
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            PortHoleIDFract: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Port Hole ID (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            FlangePatternDimensionAInAndMMDecimal: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Flange Pattern Dimension A (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            FlangePatternDimensionBInAndMMDecimal: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Flange Pattern Dimension B (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            WorkingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: 'Maximum Working Pressure'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            RecommendedGrade8Bolt: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Recommended Grade 8 Bolts'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
     Hydraulic Fitting:
         Fittings:
             id:
