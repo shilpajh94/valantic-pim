@@ -1,0 +1,5 @@
+parameters:
+  Air & Multipurpose - General Purpose:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight]
+  Air & Multipurpose - General Purpose 2:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN]

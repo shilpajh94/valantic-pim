@@ -28,7 +28,8 @@ class ImportFittingCommand extends AbstractCommand
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            // $this->import($filePath);
+            $this->masterSelectSampleData($filePath);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
@@ -91,6 +92,37 @@ class ImportFittingCommand extends AbstractCommand
                     unset($hydFert,
                     $accFert);
                     $obj->save();
+                }
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            p_r($th->getMessage());
+        }
+    }
+    
+    private function masterSelectSampleData($filePath) {
+        try {
+            $results = $this->getCSVData($filePath);
+            $header = $results['header'];
+            $data = $results['data'];
+            if (isset($data) && is_array($data)) {
+                foreach ($data as $k => $row) {
+                    $parentPath = \Pimcore\Model\DataObject\Folder::getById($row['Parent Id']);
+                    $objPath = $parentPath->getFullPath().'/'.$row['Name'];
+                    $obj = \Pimcore\Model\DataObject::getByPath($objPath);
+                    if(is_null($obj)) {
+                        $obj = new \Pimcore\Model\DataObject\MultiselectMaster;
+                        $obj->setParentId($row['Parent Id']);
+                        $obj->setKey($row['Name']);
+                        $obj->setMasterType($row['Type']);
+                        $obj->setName($row['Name']);
+                        $obj->save();                        
+                        p_r($obj->getId());
+                    } else {
+                        $obj->setPublished(1);
+                        $obj->save();
+                    }
+                    
                 }
             }
         } catch (\Throwable $th) {
