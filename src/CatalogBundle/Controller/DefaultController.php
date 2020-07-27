@@ -814,25 +814,33 @@ class DefaultController extends FrontendController {
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        $template = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
 
-        if ($INHTemplate) {
-            $productsData = $INHTemplate->getProductsData();
-            $headerData = \json_decode($INHTemplate->getHeaderData());
+        if ($template) {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
             
             $headerKeys = array_keys((array)$headerData);
-            $columnsData = $INHTemplate->getColumns();
+            $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             foreach ($columnsData as $key => $value) {
                 $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
 
@@ -897,6 +905,7 @@ class DefaultController extends FrontendController {
                         $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
                     }
 
+                    $standardsMetHose = array();
                     $tubeMaterial = array();
                     $tubeAttribute = array();
                     $reinforcement = array();
@@ -909,6 +918,8 @@ class DefaultController extends FrontendController {
                         
                         foreach($element as $bkey => $value): 
 
+                                if($bkey == 'standardMetHose')
+                                    $standardsMetHose = array_merge($standardsMetHose, $value);
                                 if($bkey == 'tubeMaterial')
                                     $tubeMaterial = array_merge($tubeMaterial, $value);
                                 if($bkey == 'tubeColor')
@@ -940,6 +951,8 @@ class DefaultController extends FrontendController {
 
                     endforeach; 
 
+
+                    $standardsMetHose = array_unique($standardsMetHose);
                     $tubeMaterial = array_unique($tubeMaterial);
                     $tubeAttribute = array_unique($tubeAttribute);
                     $reinforcement = array_unique($reinforcement);
@@ -947,15 +960,22 @@ class DefaultController extends FrontendController {
                     $coverAttribute = array_unique($coverAttribute);
 
                     $safetyFeatures = array_unique($safetyFeatures);
-                    $safetyFeaturesList = array();
+
+                    $safetyFeaturesListWithImage = array();
+                    $safetyFeaturesListWithOutImage = array();
 
                     if($safetyFeatures)
                     {
                         foreach ($safetyFeatures as $fkey => $fvalue) {
-                            $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            if($featuresList[$fvalue]['icon'])
+                                $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            else
+                                $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
                         }
                     }
 
+                    $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    
                     $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
                     $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
 
@@ -977,6 +997,7 @@ class DefaultController extends FrontendController {
                     $data[$brandKey]['reinforcement'] = $reinforcement;
                     $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
                     $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
+                    $data[$brandKey]['standardsMetHose'] = $standardsMetHose;
                     $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
                     $data[$brandKey]['iconRequired'] = $iconRequired;
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
@@ -1004,6 +1025,14 @@ class DefaultController extends FrontendController {
         
         if($template)
         {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1013,14 +1042,14 @@ class DefaultController extends FrontendController {
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             if($columnsData)
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
@@ -1117,6 +1146,14 @@ class DefaultController extends FrontendController {
         
         if($template)
         {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1126,14 +1163,14 @@ class DefaultController extends FrontendController {
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             if($columnsData)
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
@@ -1245,27 +1282,35 @@ class DefaultController extends FrontendController {
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $INHTemplate = $this->getDocumentTag('relation', 'template_hose_product_page')->getElement();
+        $template = $this->getDocumentTag('relation', 'template_hose_product_page')->getElement();
 
-        if ($INHTemplate) {
-            $productsData = $INHTemplate->getProductsData();
-            $headerData = \json_decode($INHTemplate->getHeaderData());
+        if ($template) {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
             
             $headerKeys = array_keys((array)$headerData);
-            $columnsData = $INHTemplate->getColumns();
+            $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
-            foreach ($columnsData as $key => $value) {
-                $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
-                $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
-            }
+            // foreach ($columnsData as $key => $value) {
+            //     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+            //     $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+            //     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            // }
 
             $featuresList = $this->getFeaturesList('IFS');
 
@@ -1364,6 +1409,13 @@ class DefaultController extends FrontendController {
         
         if($template)
         {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
             
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
@@ -1374,14 +1426,14 @@ class DefaultController extends FrontendController {
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             if($columnsData)
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName); 
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
@@ -1548,10 +1600,7 @@ class DefaultController extends FrontendController {
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
             $distributionChannel = $catalogObj->getDistributionChannel();
             $salesOrganisation = $catalogObj->getSalesOrganisation();
-            // $distributionChannel = '03';
-            // $salesOrganisation = '0109';
             $Currency = $catalogObj->getCurrency();
-            // $Currency = 'USD';
             $ValidFromDate = $catalogObj->getValidFromDate();
 
             $productsData = $template->getProductsData();
@@ -1560,16 +1609,17 @@ class DefaultController extends FrontendController {
             
             $headerKeys = array_keys((array)$headerData);
             $columnsData = $template->getColumns();
+
             $iconRequired = 'NO';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             foreach ($columnsData as $key => $value) {
                 $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
 
@@ -1577,7 +1627,7 @@ class DefaultController extends FrontendController {
             if($IsPriceCatalog)
             {
                 $columnsDataWithImages['listPrice']['columnName'] = 'listPrice';
-                $columnsDataWithImages['listPrice']['columnLabel'] = 'List Price';
+                $columnsDataWithImages['listPrice']['columnLabel'] = $this->get('translator')->trans('listPrice');
                 $columnsDataWithImages['listPrice']['columnIcon'] = '';
             }
 
@@ -1777,15 +1827,22 @@ class DefaultController extends FrontendController {
                 }
 
                 $safetyFeatures = array_unique($safetyFeatures);
-                $safetyFeaturesList = array();
+
+                $safetyFeaturesListWithImage = array();
+                $safetyFeaturesListWithOutImage = array();
 
                 if($safetyFeatures)
                 {
                     foreach ($safetyFeatures as $fkey => $fvalue) {
-                        $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        if($featuresList[$fvalue]['icon'])
+                            $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        else
+                            $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
                     }
                 }
 
+                $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    
                 $reinforcement = array_unique($reinforcement);
                 $reinforcement = implode(', ', $reinforcement);
 

@@ -1,14 +1,14 @@
 parameters:
     headers:
         Hose Product Page:   
-            fittingFamily:
-                fieldLevel: class
+            standardMetHose:
+                fieldLevel: objectBrick
                 fieldType: Relation
-                fieldLabel: Fitting Family
+                fieldLabel: Standard Met- Hose
                 parent: 
-                    name: Product
-                    class: 
-                        name : FittingFamily
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
                         fieldName: Name
             longDescription:
                 fieldLevel: class

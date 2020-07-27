@@ -46,61 +46,7 @@ extract($groupData);
                 ?>
                 </span>
         </nav>
-        <div class="footer">
-        <footer class="flex-center ">
-                        <span class="logo">
-                                <b>Hose</b>
-                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                        </span>
-                        <div class="flex aligned">
-                                <h5 class="rowC">
-                                
-                                <?php 
-                                if($this->editmode){
-                                        echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
-                                }else{
-                                        echo $this->input("PTG_Footer_BrandName_{$incr}");
-                                }                
-                                ?>
-
-                                <span>
-                                
-                                <?php 
-                                if($this->editmode){
-                                        echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource('High Pressure'); 
-                                }else{
-                                        echo $this->input("PTG_Footer_HoseType_{$incr}");
-                                }                
-                                ?>
-
-                                </span>
-
-                                </h5>
-
-
-                                <div class="rowC compatible">
-                                        <b>
-                                        <?php 
-                                        if($this->editmode){
-                                                echo $this->input("PTG_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
-                                        }else{
-                                                echo $this->input("PTG_Footer_Compatibility_{$incr}");
-                                        }                
-                                        ?>
-                                        </b>
-                                        
-                                        <?php 
-                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
-                                        if($this->editmode){
-                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
-                                        }else{
-                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}");
-                                        }                
-                                        ?>
-                                </d>
-                        </div>
-                </footer>
-        </div>
+        
         <header class="content white">
                 <h1>
                 <?php
@@ -123,18 +69,28 @@ extract($groupData);
                         </p>
                         <?php
                         if($this->editmode){
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg","width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj); 
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg","width" => 400, "height" => 200])->setImage($LeftPrintCatalogImageObj); 
                         }else{
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg", "width" => 600, "height" => 200]);
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg", "width" => 400, "height" => 200]);
                         }                
                         ?>
                         <?php
                         if($this->editmode){
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj); 
+                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 400, "height" => 200])->setImage($RightPrintCatalogImageObj); 
                         }else{
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 600, "height" => 200]);
+                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 400, "height" => 200]);
                         }                
                         ?>
+
+                        <?php
+                        if($this->editmode){
+                                echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($ProfileDimensionImageObj); 
+                        }else{
+                                echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
+                        }                
+                        ?>
+
+
                 </aside>
         </header>
         <article class="fullcontainer">
@@ -147,7 +103,6 @@ extract($groupData);
                                 <div class="specs">
                                                 <h6><?= $this->translate('performance + specs') ?></h6>
                                                 <div class="spec-requirement">
-                                                <div>
                                                         <?php if(!empty(trim($BrandShortText1))): ?>
                                                         <p>
                                                                 <?= $BrandShortText1 ?>
@@ -185,6 +140,8 @@ extract($groupData);
                                                         </p>
                                                         <?php endif; ?>
 
+</div>
+                                                        <div class="spec-requirement">
                                                         <?php if(!empty(trim($reinforcement))): ?>
                                                         <p>                
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
@@ -198,9 +155,8 @@ extract($groupData);
                                                                 <?=$tempFmin ?>&#8457; to  <?=$tempFmax ?>&#8457; (<?=$tempCmin ?>&#8451; to  <?=$tempCmax ?>&#8451;)
                                                         </p>
                                                         <?php endif; ?>
-                                                </div>
-
-                                                </div>
+                                                        </div>
+                                                
                                 </div> 
                                 <?php endif; ?>
 
@@ -239,7 +195,13 @@ extract($groupData);
                                 <p class="head">
 
                                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                <span><?= $columnsData['columnLabel'] ?></span>
+                                                <?php if($columnsData['columnName'] == 'listPrice'): ?>
+                                                        <?php if($IsPriceCatalog): ?>
+                                                        <span><?= $columnsData['columnLabel'] ?></span>
+                                                        <?php endif; ?>
+                                                <?php else: ?>
+                                                        <span><?= $columnsData['columnLabel'] ?></span>
+                                                <?php endif; ?>
                                         <?php endforeach; ?>
                                         
                                 </p>
@@ -251,7 +213,14 @@ extract($groupData);
                                         <p class="active">
                                         <?php endif; ?>
                                                 <?php foreach($element as $ekey => $value): ?>
-                                                        <span><?= $value; ?></span>
+
+                                                        <?php if($ekey == 'listPrice'): ?>
+                                                        <?php if($IsPriceCatalog): ?>
+                                                        <span><?= $value ?></span>
+                                                        <?php endif; ?>
+                                                        <?php else: ?>
+                                                                <span><?= $value ?></span>
+                                                        <?php endif; ?>
                                                 <?php endforeach; ?>
                                         </p>
                                         <?php $incrRow++ ?>
@@ -262,6 +231,62 @@ extract($groupData);
                 </section>
         
         </article>
+
+        <div class="footer">
+        <footer class="flex-center ">
+                        <span class="logo">
+                                <b>Hose</b>
+                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                        </span>
+                        <div class="flex aligned">
+                                <h5 class="rowC">
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
+                                }else{
+                                        echo $this->input("PTG_Footer_BrandName_{$incr}");
+                                }                
+                                ?>
+
+                                <span>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource($siop3Category)."/".$this->input("PTG_Footer_HoseType2_{$incr}")->setDataFromResource($siop4Category); 
+                                }else{
+                                        echo $this->input("PTG_Footer_HoseType_{$incr}");
+                                }                
+                                ?>
+
+                                </span>
+
+                                </h5>
+
+
+                                <div class="rowC compatible">
+                                        <b>
+                                        <?php 
+                                        if($this->editmode){
+                                                echo $this->input("PTG_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility_{$incr}");
+                                        }                
+                                        ?>
+                                        </b>
+                                        
+                                        <?php 
+                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        if($this->editmode){
+                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}");
+                                        }                
+                                        ?>
+                                </d>
+                        </div>
+                </footer>
+        </div>
 
         <?php //if($incr != count($catalogGroupData)): ?>
         <div class="break-before"></div>

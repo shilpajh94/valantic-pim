@@ -51,14 +51,14 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                     
                     <p class="head noBorder">
                            <span></span>
-                            <span>Page</span>
-                            <span>Construction</span>
-                            <span>Inner Tube</span>
-                            <span>Working Pressure (psi)</span>
-                            <span>Temperature Range</span>
-                            <span>Fitting Series</span>
-                            <span>Approvals</span>
-                            <span>Packaging</span>
+                            <span><?= $this->translate('Page') ?></span>
+                            <span><?= $this->translate('Construction') ?></span>
+                            <span><?= $this->translate('Inner Tube') ?></span>
+                            <span><?= $this->translate('Working Pressure (psi)') ?></span>
+                            <span><?= $this->translate('Temperature Range') ?></span>
+                            <span><?= $this->translate('Fitting Series') ?></span>
+                            <span><?= $this->translate('Approvals') ?></span>
+                            <span><?= $this->translate('Packaging') ?></span>
                     </p>
 
                     <?php
