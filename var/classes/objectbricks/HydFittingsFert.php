@@ -1,12 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-23T13:11:34+02:00
+* Generated at: 2020-07-27T10:10:43+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - FittingFamily [input]
+- nomenclatureDetails [advancedManyToManyObjectRelation]
 - ActivantNumber [input]
 - AssemblyRevisionNumber [input]
 - AssemblyVendor [multiselect]
@@ -247,6 +248,48 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
+             'allowedClassId' => 'NomenClature',
+             'visibleFields' => 'family1,familyDescription1,family2,familyDescription2',
+             'columns' => 
+            array (
+            ),
+             'columnKeys' => 
+            array (
+            ),
+             'fieldtype' => 'advancedManyToManyObjectRelation',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ObjectMetadata[]',
+             'enableBatchEdit' => false,
+             'allowMultipleAssignments' => false,
+             'visibleFieldDefinitions' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'maxItems' => '',
+             'queryColumnType' => 'text',
+             'relationType' => true,
+             'allowToCreateNewObject' => true,
+             'optimizedAdminLoading' => false,
+             'classes' => 
+            array (
+            ),
+             'pathFormatterClass' => '',
+             'name' => 'nomenclatureDetails',
+             'title' => 'Nomenclature Details',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
              'fieldtype' => 'tabpanel',
              'border' => false,
@@ -2326,7 +2369,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2480,7 +2523,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2589,7 +2632,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2632,7 +2675,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2780,7 +2823,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
