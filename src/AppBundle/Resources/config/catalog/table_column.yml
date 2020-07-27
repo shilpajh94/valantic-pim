@@ -494,3 +494,236 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
+    Industrial Hose Section Page:
+        INHPrintCatalog:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            brandName:
+                fieldLevel: class
+                fieldLabel: Brand ID
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldLabel: Features
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: Name
+            StandardMetCover:
+                fieldLevel: objectBrick
+                fieldLabel: Oil Resistance Cover
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            coverCharacteristic:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Characteristic
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            StandardMetTube:
+                fieldLevel: objectBrick
+                fieldLabel: Standard Met Tube
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            tubeMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Tube Material
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            staticWire:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire
+                fieldType: Input
+                parent:
+                    name: HoseBase
+            LayFlatHoseYN:
+                fieldLevel: objectBrick
+                fieldLabel: Lay Flat Construction
+                fieldType: Select
+                parent:
+                    name: HoseBase
+            standardMetHose:
+                fieldLevel: objectBrick
+                fieldLabel: Standard Met Hose
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            FittingTableName:
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+    Industrial Hose Product Page:
+        INHPrintCatalogProductPage:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            oldMaterialCode:
+                fieldLevel: class
+                fieldLabel: Old Material Code
+                fieldType: Input
+            brandName:
+                fieldLevel: class
+                fieldLabel: Brand ID
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP #'
+                fieldType: Input
+                parent:
+                    name: Product
+            VirtualCatalogHoseTemperatureRangeFAndC:
+                fieldLevel: class
+                fieldLabel: Temperature Range
+                fieldType: Textarea
+                parent:
+                    name: Product
+            VirtualCatalogBrandingLayline:
+                fieldLevel: class
+                fieldLabel: Branding
+                fieldType: Textarea
+                parent:
+                    name: Product
+            Application:
+                fieldLevel: class
+                fieldLabel: Application
+                fieldType: Input
+                parent:
+                    name: Product
+            FittingTableName:
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+            coverColor:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Color
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            VirtualCatalogPackaging:
+                fieldLevel: objectBrick
+                fieldLabel: Packaging
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogCoverMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Cover
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogTubeMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Tube
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogCoupling:
+                fieldLevel: objectBrick
+                fieldLabel: Coupling
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogReinforcement:
+                fieldLevel: objectBrick
+                fieldLabel: Reinforcement
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldLabel: 'ID (in)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseIdMM:
+                fieldLevel: objectBrick
+                fieldLabel: 'ID (mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdIn:
+                fieldLevel: objectBrick
+                fieldLabel: 'OD (in)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdmm:
+                fieldLevel: objectBrick
+                fieldLabel: OD (mm)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseLengthFT:
+                fieldLevel: objectBrick
+                fieldLabel: Hose Length (ft)
+                fieldType: Input
+                parent:
+                    name: HoseFert
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: WP (psi)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressureBAR:
+                fieldLevel: objectBrick
+                fieldLabel: WP (bar)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            grossWeight:
+                fieldLevel: class
+                fieldLabel: GW
+                fieldType: Number
+            weightKg:
+                fieldLevel: class
+                fieldLabel: W (kg)
+                fieldType: Number
+            BendRadiusIN:
+                fieldLevel: objectBrick
+                fieldLabel: BR (in)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            VacuumIN:
+                fieldLevel: objectBrick
+                fieldLabel: Vacuum (in)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
