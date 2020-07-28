@@ -27,11 +27,13 @@ class MultiselectMasterService
      * @param string $type : name of the multiselect/select field
      * @param string $brickGroupName
      * @param string $key : key of the master object
+     * @param bool $createIfNotExist : true to create not existing masters
      * @return DataObject\MultiselectMaster
      * @throws \Exception
      */
-    public function getMasterObject(string $type, string $brickGroupName, string $key): DataObject\MultiselectMaster
+    public function getMasterObject(string $type, string $brickGroupName, string $key, bool $createIfNotExist = true): ?DataObject\MultiselectMaster
     {
+        $object = null;
         $key = Service::getValidKey($key, 'object');
         $masterType = $this->getMasterType($type, $brickGroupName);
 
@@ -45,16 +47,17 @@ class MultiselectMasterService
         if (count($objects) > 0) {
             $object = $objects[0];
         } else {
-            $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type], $brickGroupName);
-            if($masterObjectParentFolderObject){
-                $object = new DataObject\MultiselectMaster();
-                $object->setKey($key);
-                $object->setParent($masterObjectParentFolderObject);
-                $object->setPublished(true);
-                // TODO: add validation for available types
-                $object->setMasterType($masterType);
+            if($createIfNotExist){
+                $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type], $brickGroupName);
+                if($masterObjectParentFolderObject){
+                    $object = new DataObject\MultiselectMaster();
+                    $object->setKey($key);
+                    $object->setParent($masterObjectParentFolderObject);
+                    $object->setPublished(true);
+                    // TODO: add validation for available types
+                    $object->setMasterType($masterType);
+                }
             }
-
         }
 
         return $object;
