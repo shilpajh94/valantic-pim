@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-23T13:45:13+02:00
+* Generated at: 2020-07-28T08:32:44+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1595504711,
+   'modificationDate' => 1595917827,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8534,7 +8534,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
+                                     'decimalPrecision' => 0,
                                      'name' => 'minimumTemperatureF',
                                      'title' => 'Min Temp °F',
                                      'tooltip' => '',
@@ -8565,7 +8565,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
+                                     'decimalPrecision' => 0,
                                      'name' => 'maximumTemperatureF',
                                      'title' => 'Max temp °F',
                                      'tooltip' => '',
@@ -8730,7 +8730,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
+                                     'decimalPrecision' => 0,
                                      'name' => 'minimumTemperatureC',
                                      'title' => 'Min Temp °C',
                                      'tooltip' => '',
@@ -8761,7 +8761,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => NULL,
+                                     'decimalPrecision' => 0,
                                      'name' => 'maximumTemperatureC',
                                      'title' => 'Max temp °C',
                                      'tooltip' => '',

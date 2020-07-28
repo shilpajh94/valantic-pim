@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T11:18:28+02:00
+* Generated at: 2020-07-28T09:27:11+02:00
 * IP: 127.0.0.1
 
 
@@ -170,7 +170,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'SizeEnd1Inches',
                      'title' => 'Size End 1 (inches)',
                      'tooltip' => '',
@@ -707,7 +707,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'SizeEnd2Inches',
                      'title' => 'Size End 2 (inches)',
                      'tooltip' => '',

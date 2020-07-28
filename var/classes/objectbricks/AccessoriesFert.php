@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T10:40:00+02:00
+* Generated at: 2020-07-28T11:51:56+02:00
 * IP: 127.0.0.1
 
 
@@ -40,9 +40,9 @@ Fields Summary:
 - FlangePatternDimensionBInAndMMDecimal [input]
 - RecommendedGrade8Bolt [input]
 - Hardness [input]
-- WorkingPressureMPA [numeric]
-- WorkingPressurePSI [numeric]
-- WorkingPressureBAR [numeric]
+- AccessoriesWorkingPressureMPA [numeric]
+- AccessoriesWorkingPressurePSI [numeric]
+- AccessoriesWorkingPressureBAR [numeric]
 - ColorDescription [textarea]
 - LengthINDescription [textarea]
 - LengthMMDescription [textarea]
@@ -210,7 +210,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'ClampingDiameterInDec',
                      'title' => 'Clamping Diameter (in) Dec.',
                      'tooltip' => '',
@@ -241,7 +241,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'ClampingDiameterMM',
                      'title' => 'Clamping Diameter (mm)',
                      'tooltip' => '',
@@ -598,7 +598,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'HoseIdDecIN',
                      'title' => 'Hose ID (in) (Dec.)',
                      'tooltip' => '',
@@ -629,7 +629,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'HoseIdDecMM',
                      'title' => 'Hose ID (mm)',
                      'tooltip' => '',
@@ -660,7 +660,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'HoseIdFractIN',
                      'title' => 'Hose ID 1 (in) Fract.',
                      'tooltip' => '',
@@ -865,7 +865,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 3,
                      'name' => 'BoltHoleSizeInDec',
                      'title' => 'Bolt Hole Size (in) Dec.',
                      'tooltip' => '',
@@ -896,7 +896,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'BoltHoleSizeMM',
                      'title' => 'Bolt Hole Size (mm)',
                      'tooltip' => '',
@@ -958,7 +958,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 0,
                      'name' => 'DashSize',
                      'title' => 'Dash Size',
                      'tooltip' => '',
@@ -989,7 +989,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'FlatWidthIn',
                      'title' => 'Flat Width (in)',
                      'tooltip' => '',
@@ -1194,8 +1194,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'WorkingPressureMPA',
+                     'decimalPrecision' => 2,
+                     'name' => 'AccessoriesWorkingPressureMPA',
                      'title' => 'Working Pressure (mpa)',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1225,8 +1225,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'WorkingPressurePSI',
+                     'decimalPrecision' => 2,
+                     'name' => 'AccessoriesWorkingPressurePSI',
                      'title' => 'Working Pressure (PSI)',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1256,8 +1256,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'WorkingPressureBAR',
+                     'decimalPrecision' => 2,
+                     'name' => 'AccessoriesWorkingPressureBAR',
                      'title' => 'Working Pressure (BAR)',
                      'tooltip' => '',
                      'mandatory' => false,

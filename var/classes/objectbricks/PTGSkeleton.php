@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-21T11:23:14+02:00
+* Generated at: 2020-07-28T09:52:17+02:00
 * IP: 127.0.0.1
 
 
@@ -72,6 +72,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 300,
+             'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -93,6 +94,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -108,7 +110,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'maxValue' => NULL,
              'unique' => false,
              'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'decimalPrecision' => 1,
              'name' => 'beltAngle',
              'title' => 'Belt Angle',
              'tooltip' => '',
@@ -123,6 +125,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -138,7 +141,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'maxValue' => NULL,
              'unique' => false,
              'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'decimalPrecision' => 3,
              'name' => 'heightIn',
              'title' => 'Height (in)',
              'tooltip' => '',
@@ -153,6 +156,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -168,7 +172,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'maxValue' => NULL,
              'unique' => false,
              'decimalSize' => NULL,
-             'decimalPrecision' => NULL,
+             'decimalPrecision' => 1,
              'name' => 'heightMm',
              'title' => 'Height (mm)',
              'tooltip' => '',
@@ -183,11 +187,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           4 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 300,
+             'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -209,11 +215,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           5 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => 300,
+             'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -235,6 +243,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,

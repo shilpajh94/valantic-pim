@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-29T09:59:19+02:00
+* Generated at: 2020-07-28T11:51:26+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'MultiselectMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1593417545,
+   'modificationDate' => 1595929886,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -216,7 +216,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'width' => 400,
              'defaultValue' => '',
-             'optionsProviderClass' => 'AppBundle\\OptionProvider\\MultiselectMasterTypeProvider',
+             'optionsProviderClass' => '',
              'optionsProviderData' => '',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',

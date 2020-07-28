@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T10:43:45+02:00
+* Generated at: 2020-07-28T08:54:03+02:00
 * IP: 127.0.0.1
 
 
@@ -175,7 +175,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxValue' => NULL,
                              'unique' => false,
                              'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
+                             'decimalPrecision' => 3,
                              'name' => 'hoseLengthFT',
                              'title' => 'Hose Length (ft)',
                              'tooltip' => '',
@@ -362,7 +362,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'maxValue' => NULL,
                              'unique' => false,
                              'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
+                             'decimalPrecision' => 1,
                              'name' => 'hoseLengthM',
                              'title' => 'Hose Length (M)',
                              'tooltip' => '',

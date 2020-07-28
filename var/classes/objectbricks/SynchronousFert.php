@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T07:37:57+02:00
+* Generated at: 2020-07-28T09:50:13+02:00
 * IP: 127.0.0.1
 
 
@@ -169,7 +169,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxValue' => NULL,
                          'unique' => false,
                          'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
+                         'decimalPrecision' => 3,
                          'name' => 'pitchIN',
                          'title' => 'Pitch (in)',
                          'tooltip' => '',
@@ -200,7 +200,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxValue' => NULL,
                          'unique' => false,
                          'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
+                         'decimalPrecision' => 1,
                          'name' => 'pitchMM',
                          'title' => 'Pitch (MM)',
                          'tooltip' => '',
@@ -284,7 +284,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxValue' => NULL,
                          'unique' => false,
                          'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
+                         'decimalPrecision' => 3,
                          'name' => 'pitchLengthIN',
                          'title' => 'Pitch Length (in)',
                          'tooltip' => '',
@@ -315,7 +315,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxValue' => NULL,
                          'unique' => false,
                          'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
+                         'decimalPrecision' => 1,
                          'name' => 'pitchLengthMM',
                          'title' => 'Pitch Length (MM)',
                          'tooltip' => '',
@@ -352,7 +352,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
+                 'decimalPrecision' => 0,
                  'name' => 'numberOfTeeth',
                  'title' => 'Number of teeth',
                  'tooltip' => '',
