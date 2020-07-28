@@ -12,3 +12,8 @@ parameters:
             INHPrintCatalogProductPage: INHPrintCatalogProductPage
         "043000":
             Product Table: Product Table
+            Synchronous Belts: Synchronous Belts
+            Banded Belts: Banded Belts
+            V-Belts: V-Belts
+            Sheave: Sheave
+            Sprockets: Sprockets

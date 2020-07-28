@@ -8,7 +8,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         <h2>Table of Contents</h2>
     </header>
     </nav>
-    <div class="content">
+    <?php if($this->editmode): ?>
+    <div class="content_single">
+    <?php else: ?>
+    <div class="content_double">
+    <?php endif; ?>
     <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
         
           <h4><?= $this->input("TOC_SectionName"); ?></h4>
@@ -39,7 +43,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
       
     </article>
     <style>
-    div.content {
+    div.content_single {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    -webkit-column-fill: auto;
+    -moz-column-fill: auto;
+    column-fill: auto;
+}
+div.content_double {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;

@@ -56,6 +56,44 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
     postOpenObject: function (object, type) {
        
         let objectClassName = object.data.general.o_className;
+
+        if (object.data.general.o_className == 'Catalog') {
+            var SalesOrganisationCompObj = object.edit.dataFields.SalesOrganisation.component;
+            var DistributionChannelCompObj = object.edit.dataFields.DistributionChannel.component;
+            var IsPriceCatalogCompObj = object.edit.dataFields.IsPriceCatalog.component;
+            if(IsPriceCatalogCompObj.value == '1')
+            {
+                SalesOrganisationCompObj.show();
+                SalesOrganisationCompObj.enable();
+                DistributionChannelCompObj.show();
+                DistributionChannelCompObj.enable();
+            }
+            else{
+                SalesOrganisationCompObj.hide();
+                SalesOrganisationCompObj.disable();
+                DistributionChannelCompObj.hide();
+                DistributionChannelCompObj.disable();
+            }
+
+            IsPriceCatalogCompObj.addListener('change', function (prVal, chVal) {
+                
+                if(chVal == '1')
+                {
+                    SalesOrganisationCompObj.show();
+                    SalesOrganisationCompObj.enable();
+                    DistributionChannelCompObj.show();
+                    DistributionChannelCompObj.enable();
+                }
+                else{
+                    SalesOrganisationCompObj.hide();
+                    SalesOrganisationCompObj.disable();
+                    DistributionChannelCompObj.hide();
+                    DistributionChannelCompObj.disable();
+                }
+
+            });
+        }
+
         if (objectClassName == 'CatalogCategory') {
 
             var categoryOptionsStore = Ext.create('Ext.data.Store', {

@@ -260,16 +260,16 @@ class DefaultController extends FrontendController {
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
-if($tableColumns!== null)
-{
-        $columns = array_keys($tableColumns);
+        if($tableColumns!== null)
+        {
+                $columns = array_keys($tableColumns);
 
-}
-else
-{
-    $columns = [];
-}
-$parentObj = $tableObj->getParentId();
+        }
+        else
+        {
+            $columns = [];
+        }
+        $parentObj = $tableObj->getParentId();
         $catalogCategory = DataObject\CatalogCategory::getById($parentObj);
         $siopCategory = $catalogCategory->getCategory();
 
@@ -504,77 +504,36 @@ $parentObj = $tableObj->getParentId();
                 }
             }
             if($dynamicColumnsData && array_key_exists($template,$dynamicColumnsData))
-            {
-            foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
+            {																				
+                foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
-                $headers[$dFieldKey] = $dFieldName['fieldLabel'];
-                if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
+                    $headers[$dFieldKey] = $dFieldName['fieldLabel'];
+                    if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
 
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if($item->$getter() !== null && !empty($item->$getter()))
-                    {
-                    $pData[$item->getId()][$dFieldKey] = $item->$getter();
-                    }
-                    else
-                    {
-                     $pData[$item->getId()][$dFieldKey] = '';   
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media') {
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if($item->$getter() !== null && !empty($item->$getter()))
+                        {
+                        $pData[$item->getId()][$dFieldKey] = $item->$getter();
+                        }
+                        else
+                        {
+                        $pData[$item->getId()][$dFieldKey] = '';   
+                        }
+                    } else if ($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media') {
 
-                    $getter = 'get' . ucfirst($dFieldKey);
-                   // p_r($item->$getter());
-                    if ($item->$getter() !== null) {
-                        $pData[$item->getId()][$dFieldKey] = $item->$getter()->getPath() . $item->$getter()->getFileName();
-                    } else {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) == 'relation') {
-                    $dataValues = [];
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if($item->$getter() !== null)
-                    {
-                    $value = $item->$getter();
-
-                    $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
-                    $classObj = new $class();
-                    $classObj->setCondition('o_id IN (?)', [$value]);
-                    $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
-
-                    foreach ($classObj as $obj) {
-                        array_push($dataValues, $obj->$fieldGetter());
-                    }
-                    }
-                    $pData[$item->getId()][$dFieldKey] = $dataValues;
-                } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
-                    $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if ($item->getFert()->$brickGetter() !== null) {
-                        $pData[$item->getId()][$dFieldKey] = $item->getFert()->$brickGetter()->$getter();
-                    } else {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) != 'relation') {
-                    $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if ($item->getSkeleton()->$brickGetter() !== null) {
-                        $pData[$item->getId()][$dFieldKey] = $item->getSkeleton()->$brickGetter()->$getter();
-                    } else {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) != 'relation') {
-                    $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if ($item->getBase()->$brickGetter()) {
-                        $pData[$item->getId()][$dFieldKey] = $item->getBase()->$brickGetter()->$getter();
-                    } else {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) == 'relation') {
-                    $dataValues = [];
-                    $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if ($item->getFert()->$brickGetter() !== null) {
-                        $value = $item->getFert()->$brickGetter()->$getter();
+                        $getter = 'get' . ucfirst($dFieldKey);
+                    // p_r($item->$getter());
+                        if ($item->$getter() !== null) {
+                            $pData[$item->getId()][$dFieldKey] = $item->$getter()->getPath() . $item->$getter()->getFileName();
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
+                        }
+                    } else if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) == 'relation') {
+                        $dataValues = [];
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if($item->$getter() !== null)
+                        {
+                        $value = $item->$getter();
 
                         $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
                         $classObj = new $class();
@@ -584,53 +543,94 @@ $parentObj = $tableObj->getParentId();
                         foreach ($classObj as $obj) {
                             array_push($dataValues, $obj->$fieldGetter());
                         }
-                        $pData[$item->getId()][$dFieldKey] = $dataValues;
-                    } else {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) == 'relation') {
-                    $dataValues = [];
-                    $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if ($item->getSkeleton()->$brickGetter() !== null) {
-                        $value = $item->getSkeleton()->$brickGetter()->$getter();
-
-                        $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
-                        $classObj = new $class();
-                        $classObj->setCondition('o_id IN (?)', [$value]);
-                        $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
-
-                        foreach ($classObj as $obj) {
-                            array_push($dataValues, $obj->$fieldGetter());
                         }
                         $pData[$item->getId()][$dFieldKey] = $dataValues;
-                    } else {
-                        $pData[$item->getId()][$dFieldKey] = '';
-                    }
-                } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) == 'relation') {
-                    $dataValues = [];
-                    $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
-                    $getter = 'get' . ucfirst($dFieldKey);
-                    if ($item->getBase()->$brickGetter() !== null) {
-                        $value = $item->getBase()->$brickGetter()->$getter();
-
-                        $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
-                        $classObj = new $class();
-                        $classObj->setCondition('o_id IN (?)', [$value]);
-                        $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
-
-                        foreach ($classObj as $obj) {
-                            array_push($dataValues, $obj->$fieldGetter());
+                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
+                        $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if ($item->getFert()->$brickGetter() !== null) {
+                            $pData[$item->getId()][$dFieldKey] = $item->getFert()->$brickGetter()->$getter();
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
                         }
-                        $pData[$item->getId()][$dFieldKey] = $dataValues;
+                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) != 'relation') {
+                        $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if ($item->getSkeleton()->$brickGetter() !== null) {
+                            $pData[$item->getId()][$dFieldKey] = $item->getSkeleton()->$brickGetter()->$getter();
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
+                        }
+                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) != 'relation') {
+                        $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if ($item->getBase()->$brickGetter()) {
+                            $pData[$item->getId()][$dFieldKey] = $item->getBase()->$brickGetter()->$getter();
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
+                        }
+                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) == 'relation') {
+                        $dataValues = [];
+                        $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if ($item->getFert()->$brickGetter() !== null) {
+                            $value = $item->getFert()->$brickGetter()->$getter();
+
+                            $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
+                            $classObj = new $class();
+                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
+
+                            foreach ($classObj as $obj) {
+                                array_push($dataValues, $obj->$fieldGetter());
+                            }
+                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
+                        }
+                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['skeleton']) && strtolower($dFieldName['fieldType']) == 'relation') {
+                        $dataValues = [];
+                        $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if ($item->getSkeleton()->$brickGetter() !== null) {
+                            $value = $item->getSkeleton()->$brickGetter()->$getter();
+
+                            $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
+                            $classObj = new $class();
+                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
+
+                            foreach ($classObj as $obj) {
+                                array_push($dataValues, $obj->$fieldGetter());
+                            }
+                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
+                        }
+                    } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['base']) && strtolower($dFieldName['fieldType']) == 'relation') {
+                        $dataValues = [];
+                        $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
+                        $getter = 'get' . ucfirst($dFieldKey);
+                        if ($item->getBase()->$brickGetter() !== null) {
+                            $value = $item->getBase()->$brickGetter()->$getter();
+
+                            $class = 'Pimcore\Model\DataObject\\' . $dFieldName['parent']['class']['name'] . '\\Listing';
+                            $classObj = new $class();
+                            $classObj->setCondition('o_id IN (?)', [$value]);
+                            $fieldGetter = 'get' . $dFieldName['parent']['class']['fieldName'];
+
+                            foreach ($classObj as $obj) {
+                                array_push($dataValues, $obj->$fieldGetter());
+                            }
+                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                        } else {
+                            $pData[$item->getId()][$dFieldKey] = '';
+                        }
                     } else {
                         $pData[$item->getId()][$dFieldKey] = '';
                     }
-                } else {
-                    $pData[$item->getId()][$dFieldKey] = '';
                 }
             }
-        }
         }
 
         $columnData = array();
@@ -814,25 +814,33 @@ $parentObj = $tableObj->getParentId();
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $INHTemplate = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
+        $template = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
 
-        if ($INHTemplate) {
-            $productsData = $INHTemplate->getProductsData();
-            $headerData = \json_decode($INHTemplate->getHeaderData());
+        if ($template) {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
             
             $headerKeys = array_keys((array)$headerData);
-            $columnsData = $INHTemplate->getColumns();
+            $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             foreach ($columnsData as $key => $value) {
                 $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
 
@@ -897,6 +905,7 @@ $parentObj = $tableObj->getParentId();
                         $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
                     }
 
+                    $standardsMetHose = array();
                     $tubeMaterial = array();
                     $tubeAttribute = array();
                     $reinforcement = array();
@@ -909,6 +918,8 @@ $parentObj = $tableObj->getParentId();
                         
                         foreach($element as $bkey => $value): 
 
+                                if($bkey == 'standardMetHose')
+                                    $standardsMetHose = array_merge($standardsMetHose, $value);
                                 if($bkey == 'tubeMaterial')
                                     $tubeMaterial = array_merge($tubeMaterial, $value);
                                 if($bkey == 'tubeColor')
@@ -940,6 +951,8 @@ $parentObj = $tableObj->getParentId();
 
                     endforeach; 
 
+
+                    $standardsMetHose = array_unique($standardsMetHose);
                     $tubeMaterial = array_unique($tubeMaterial);
                     $tubeAttribute = array_unique($tubeAttribute);
                     $reinforcement = array_unique($reinforcement);
@@ -947,15 +960,22 @@ $parentObj = $tableObj->getParentId();
                     $coverAttribute = array_unique($coverAttribute);
 
                     $safetyFeatures = array_unique($safetyFeatures);
-                    $safetyFeaturesList = array();
+
+                    $safetyFeaturesListWithImage = array();
+                    $safetyFeaturesListWithOutImage = array();
 
                     if($safetyFeatures)
                     {
                         foreach ($safetyFeatures as $fkey => $fvalue) {
-                            $safetyFeaturesList[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            if($featuresList[$fvalue]['icon'])
+                                $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            else
+                                $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
                         }
                     }
 
+                    $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    
                     $tubeMaterialAtrributeArr = array_merge($tubeMaterial, $tubeAttribute);
                     $coverMaterialattributeArr = array_merge($coverAttribute, $coverMaterial);
 
@@ -977,9 +997,12 @@ $parentObj = $tableObj->getParentId();
                     $data[$brandKey]['reinforcement'] = $reinforcement;
                     $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
                     $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
+                    $data[$brandKey]['standardsMetHose'] = $standardsMetHose;
                     $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
                     $data[$brandKey]['iconRequired'] = $iconRequired;
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    array_multisort (array_column($articlesData, 'hoseOdIn'), SORT_ASC, $articlesData);
                     $data[$brandKey]['articlesData'] = $articlesData;
 
                 }
@@ -1002,6 +1025,14 @@ $parentObj = $tableObj->getParentId();
         
         if($template)
         {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1011,14 +1042,14 @@ $parentObj = $tableObj->getParentId();
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             if($columnsData)
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
@@ -1095,6 +1126,8 @@ $parentObj = $tableObj->getParentId();
                 $data[$brandKey]['colorString'] = $colorString;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
@@ -1113,6 +1146,14 @@ $parentObj = $tableObj->getParentId();
         
         if($template)
         {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1122,14 +1163,14 @@ $parentObj = $tableObj->getParentId();
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
             if($columnsData)
             {
                 foreach ($columnsData as $key => $value) {
                     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
                     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
                 }
             }
@@ -1181,6 +1222,10 @@ $parentObj = $tableObj->getParentId();
                 $data[$brandKey]['materialString'] = $materialString;
                 $data[$brandKey]['iconRequired'] = $iconRequired;
                 $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                // array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+
+
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
@@ -1237,27 +1282,35 @@ $parentObj = $tableObj->getParentId();
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
 
-        $INHTemplate = $this->getDocumentTag('relation', 'template_hose_product_page')->getElement();
+        $template = $this->getDocumentTag('relation', 'template_hose_product_page')->getElement();
 
-        if ($INHTemplate) {
-            $productsData = $INHTemplate->getProductsData();
-            $headerData = \json_decode($INHTemplate->getHeaderData());
+        if ($template) {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
             
             $headerKeys = array_keys((array)$headerData);
-            $columnsData = $INHTemplate->getColumns();
+            $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
-            $language = $request->getLocale();
-            $this->get('translator')->setLocale($language);
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
 
-            foreach ($columnsData as $key => $value) {
-                $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
-                $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
-            }
+            // foreach ($columnsData as $key => $value) {
+            //     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+            //     $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
+            //     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            // }
 
             $featuresList = $this->getFeaturesList('IFS');
 
@@ -1347,7 +1400,91 @@ $parentObj = $tableObj->getParentId();
 
     public function templateFittingSplitFlangesAction(Request $request)
     {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $template = $this->getDocumentTag('relation', 'template_hose_accessories_flanges')->getElement();
+        
+        if($template)
+        {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            $headerKeys = array_keys((array)$headerData);
+            $columnsData = $template->getColumns();
+            $iconRequired = 'YES';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
+
+            if($columnsData)
+            {
+                foreach ($columnsData as $key => $value) {
+                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName); 
+                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+            }
+            
+            $brandsData = array();
+
+            foreach ($productsData as $key => $item) {
+                $productsDataWithHeaders = array_combine($headerKeys, $item);
+
+                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
+                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
+            }
+
+            foreach ($brandsData as $brandKey => $brandArray) {
+
+                $brandName = $brandArray[0]['brandName'][0];
+
+                $mainImage = $brandArray[0]['mainImage'];
+
+                $imageObj = '';
+                if($mainImage)
+                {
+                    $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                }
+                
+                $articlesData = array();
+
+                foreach($brandArray as $key => $element): 
+
+                        if($element['shortDescription'])
+                            $shortDescription = $element['shortDescription'];
+                        
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$ckey];
+                        }
+
+                endforeach; 
+
+                $data[$brandKey]['brandName'] = $brandName;
+                $data[$brandKey]['imageObj'] = $imageObj;
+                $data[$brandKey]['shortDescription'] = $shortDescription;
+                $data[$brandKey]['iconRequired'] = $iconRequired;
+                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+
+                $data[$brandKey]['articlesData'] = $articlesData;
+
+            }
+            $this->view['data'] = $data;
+        }
     }
 
     public function containerAction(Request $request)
@@ -1378,7 +1515,7 @@ $parentObj = $tableObj->getParentId();
      */
     public function getFeaturesList($catalog_type){
         $entries = new DataObject\Features\Listing();
-        $entries->setCondition("FeatureType = ?", "{$catalog_type}");
+        // $entries->setCondition("FeatureType = ?", "{$catalog_type}");
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
@@ -1438,6 +1575,307 @@ $parentObj = $tableObj->getParentId();
                     'defaultElbowType' => $obj->getProperty('defaultElbowType')
                 )
             );
+        }
+    }
+
+    public function templatePtgProductPageAction(Request $request)
+    {      
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $template = $this->getDocumentTag('relation', 'ptg_product_page')->getElement();
+
+        if ($template) {
+
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            
+            $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+            $distributionChannel = $catalogObj->getDistributionChannel();
+            $salesOrganisation = $catalogObj->getSalesOrganisation();
+            $Currency = $catalogObj->getCurrency();
+            $ValidFromDate = $catalogObj->getValidFromDate();
+
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            
+            $headerKeys = array_keys((array)$headerData);
+            $columnsData = $template->getColumns();
+
+            $iconRequired = 'NO';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
+
+            foreach ($columnsData as $key => $value) {
+                $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
+                $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            }
+
+            $countTableColumn = count($columnsDataWithImages);
+            if($IsPriceCatalog)
+            {
+                $columnsDataWithImages['listPrice']['columnName'] = 'listPrice';
+                $columnsDataWithImages['listPrice']['columnLabel'] = $this->get('translator')->trans('listPrice');
+                $columnsDataWithImages['listPrice']['columnIcon'] = '';
+            }
+
+            $featuresList = $this->getFeaturesList('IFS');
+
+            $columnConfig = array();
+            $catagoryDescription = array();
+            $LeftPrintCatalogImageObj = '';
+            $RightPrintCatalogImageObj = '';
+            $ProfileDimensionImageObj = '';
+
+            foreach ($productsData as $key => $item) {
+                
+                $productsDataWithHeaders = array_combine($headerKeys, $item);
+                $product = DataObject\Product::getById($productsDataWithHeaders['id']);
+
+                if(!$LeftPrintCatalogImageObj && $productsDataWithHeaders['LeftPrintCatalogImage'])
+                {
+                    $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['LeftPrintCatalogImage']);
+                }
+
+                if(!$RightPrintCatalogImageObj && $productsDataWithHeaders['RightPrintCatalogImage'])
+                {
+                    $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['RightPrintCatalogImage']);
+                }
+
+                if(!$ProfileDimensionImageObj && $productsDataWithHeaders['ProfileDimensionImage'])
+                {
+                    $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['ProfileDimensionImage']);
+                }
+
+                if(!isset($columnConfig['config']))
+                {
+                    $attributes = $product->getClass()->getFieldDefinition('priceData');
+                    $columnConfig['config'] = array_column($attributes->getColumnConfig(), 'label');
+                }
+
+                if(!isset($catagoryDescription['SIOP3Description']))
+                {
+                    $siop3Categories = $product->getSIOPLevel3();
+                    foreach($siop3Categories as $key => $category)
+                    {
+                        $categoryDetails = DataObject\ProductCategory::getById($category->getId());
+                        $catagoryDescription['SIOP3Description'] = $categoryDetails->getDescription($CatalogLanguage);
+                    }
+                }
+
+                if(!isset($catagoryDescription['SIOP4Description']))
+                {
+                    $siop4Categories = $product->getSIOPLevel4();
+                    foreach($siop4Categories as $key => $category)
+                    {
+                        $categoryDetails = DataObject\ProductCategory::getById($category->getId());
+                        $catagoryDescription['SIOP4Description'] = $categoryDetails->getDescription($CatalogLanguage);
+                    }
+                }
+
+                if(!isset($catagoryDescription['SIOP5Description']))
+                {
+                    $siop5Categories = $product->getSIOPLevel5();
+                    foreach($siop5Categories as $key => $category)
+                    {
+                        $categoryDetails = DataObject\ProductCategory::getById($category->getId());
+                        $catagoryDescription['SIOP5Description'] = $categoryDetails->getDescription($CatalogLanguage);
+                    }
+                }
+
+                $productsDataWithHeaders['listPrice'] = '';
+                if($IsPriceCatalog)
+                {
+                    $listPrice = array();
+                    $priceData = $product->getPriceData();
+
+                    if($priceData)
+                    {
+                        foreach ($priceData as $pkey => $pvalue) {
+                            $record = array_combine($columnConfig['config'], $pvalue);
+                            if($record['Rate Unit'] == $Currency)
+                            {
+                                $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$record['Validity Start Date']);
+                                $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$record['Validity End Date']);
+
+                                if ($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
+                                    $listPrice[$record['Distribution Channel']][$record['Sales Organization']] = $record['Rate'];
+                                }
+                            }
+                        }
+                        
+                        $productsDataWithHeaders['listPrice'] = $listPrice[$distributionChannel][$salesOrganisation];
+                    }
+                }
+
+                
+
+                $siop6Categories = $product->getSIOPLevel6();
+                foreach($siop6Categories as $key => $category)
+                {
+                    $categoryDetails = DataObject\ProductCategory::getById($category->getId());
+                    $siop6Category = trim($categoryDetails->getDescription($CatalogLanguage));
+                }
+
+                $brandsData[$siop6Category][] = $productsDataWithHeaders;
+                // if(isset($productsDataWithHeaders['pitchMM']) && !empty(trim($productsDataWithHeaders['pitchMM'])))
+                // {
+                //     $brandsData[$productsDataWithHeaders['pitchMM']][] = $productsDataWithHeaders;
+                // }
+
+                // if(isset($productsDataWithHeaders['outsideLengthIN']) && !empty(trim($productsDataWithHeaders['outsideLengthIN'])))
+                // {
+                //     $brandsData[$productsDataWithHeaders['outsideLengthIN']][] = $productsDataWithHeaders;
+                // }
+
+                // if(isset($productsDataWithHeaders['insideLengthIN']) && !empty(trim($productsDataWithHeaders['insideLengthIN'])))
+                // {
+                //     $brandsData[$productsDataWithHeaders['insideLengthIN']][] = $productsDataWithHeaders;
+                // }
+            }
+            
+            if($brandsData)
+            {
+                
+                $material = array();
+                $reinforcement = array();
+                $longDescription = '';
+                $tempFmin = '';
+                $tempFmax = '';
+                $tempCmin = '';
+                $tempCmax = '';
+                $safetyFeatures = array();
+                $BrandShortText1 = $BrandShortText2 = $BrandShortText3 = $BrandShortText4 = $BrandShortText5 = '';
+                
+                foreach ($brandsData as $brandKey => $brandArray) 
+                {
+                    
+                    $articlesData = array();    
+
+                    foreach($brandArray as $key => $element): 
+                        
+                        foreach($element as $bkey => $value): 
+
+                                if($bkey == 'material')
+                                    $material = array_merge($material, $value);
+                                if($bkey == 'reinforcement')
+                                    $reinforcement = array_merge($reinforcement, $value);
+                                if($bkey == 'FeaturesBenefitsBulletPoint')
+                                {
+                                    if(count($value)>0)
+                                    {
+                                        foreach ($value as $fkey => $feature) {
+                                            array_push($safetyFeatures,$feature);
+                                        }
+                                    }
+                                }
+
+                                if($bkey == 'longDescription' && !empty(trim($value)))
+                                    $longDescription = $value;
+                                if($bkey == 'minimumTemperatureF' && !empty(trim($value)))
+                                    $tempFmin = $value;
+                                if($bkey == 'maximumTemperatureF' && !empty(trim($value)))
+                                    $tempFmax = $value;
+                                if($bkey == 'minimumTemperatureC' && !empty(trim($value)))
+                                    $tempCmin = $value;
+                                if($bkey == 'maximumTemperatureC' && !empty(trim($value)))
+                                    $tempCmax = $value;
+
+                                if($bkey == 'BrandShortText1' && !empty(trim($value)))
+                                    $BrandShortText1 = $value;
+                                if($bkey == 'BrandShortText2' && !empty(trim($value)))
+                                    $BrandShortText2 = $value;
+                                if($bkey == 'BrandShortText3' && !empty(trim($value)))
+                                    $BrandShortText3 = $value;
+                                if($bkey == 'BrandShortText4' && !empty(trim($value)))
+                                    $BrandShortText4 = $value;
+                                if($bkey == 'BrandShortText5' && !empty(trim($value)))
+                                    $BrandShortText5 = $value;
+                                
+
+                        endforeach; 
+
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            if($ckey == 'fittingFamily')
+                                $articlesData[$key][$ckey] = ($element[$ckey])? implode(',',($element[$ckey])): '';
+                            else
+                                $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
+                        }
+
+                    endforeach; 
+
+                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    // outsideLengthIN
+                    // if(isset())
+
+                    // array_multisort (array_column($articlesData, 'pitchLengthMM'), SORT_ASC, $articlesData);
+                    $data[$brandKey]['articlesData'] = $articlesData;
+
+                }
+
+                $safetyFeatures = array_unique($safetyFeatures);
+
+                $safetyFeaturesListWithImage = array();
+                $safetyFeaturesListWithOutImage = array();
+
+                if($safetyFeatures)
+                {
+                    foreach ($safetyFeatures as $fkey => $fvalue) {
+                        if($featuresList[$fvalue]['icon'])
+                            $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        else
+                            $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                    }
+                }
+
+                $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    
+                $reinforcement = array_unique($reinforcement);
+                $reinforcement = implode(', ', $reinforcement);
+
+                $material = array_unique($material);
+                $material = implode(', ', $material);
+
+                $groupData = array();
+                $groupData['BrandShortText1'] = $BrandShortText1;
+                $groupData['BrandShortText2'] = $BrandShortText2;
+                $groupData['BrandShortText3'] = $BrandShortText3;
+                $groupData['BrandShortText4'] = $BrandShortText4;
+                $groupData['BrandShortText5'] = $BrandShortText5;
+                $groupData['iconRequired'] = $iconRequired;
+                $groupData['material'] = $material;
+                $groupData['reinforcement'] = $reinforcement;
+                $groupData['safetyFeatures'] = $safetyFeaturesList;
+                $groupData['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                $groupData['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
+                $groupData['longDescription'] = $longDescription;
+                $groupData['tempFmin'] = $tempFmin;
+                $groupData['tempFmax'] = $tempFmax;
+                $groupData['tempCmin'] = $tempCmin;
+                $groupData['tempCmax'] = $tempCmax;
+                $groupData['groupData'] = $data;
+                $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
+                $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
+                $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
+                $groupData['IsPriceCatalog'] = $IsPriceCatalog;
+                
+                
+                $this->view['groupData'] = $groupData;
+            }
         }
     }
 

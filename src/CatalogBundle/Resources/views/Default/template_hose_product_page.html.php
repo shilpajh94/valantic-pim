@@ -50,7 +50,7 @@ else
         <footer class="flex-center ">
                         <span class="logo">
                                 <b>Hose</b>
-                                <img src="/CatalogImages/logo_new.png">
+                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                         </span>
                         <div class="flex aligned">
                                 <h5 class="rowC">
@@ -140,12 +140,24 @@ else
         <article class="fullcontainer">
 
                 <section class="content">
-                        <?php if($safetyFeatures || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                        <?php if($safetyFeatures || $standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
                                 
                         <menu class="flex">
-                                <?php if(!empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                                <?php if($standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
                                 <div class="specs">
                                                 <h6><?= $this->translate('performance + specs') ?></h6>
+                                                <div class="spec-requirement">
+                                                <div>
+                                                        <?php if($standardsMetHose): ?>
+                                                        
+                                                                <?php foreach($standardsMetHose as $key => $standard): ?>
+                                                                        <?= $this->translate($standard) ?>
+                                                                        <p><?= $standard ?></p>
+                                                                <?php endforeach; ?>
+                                                        
+                                                        <?php endif; ?>
+                                                </div>
+                                                </div>
                                                 <div class="spec-requirement">
                                                 <div>
                                                         <?php if(!empty(trim($tubeMaterialAtrributeString))): ?>
@@ -203,7 +215,7 @@ else
                         <menu>
                                 <h6><?= $this->translate('branding') ?></h6>
                                 <figure>
-                                        <img src="/CatalogImages/6a.jpg"/> 
+                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png" width='80'/> 
                                         <figcaption><b><?= $brandName ?></b></figcaption> 
                                         <figcaption> <?= $BrandingLayline ?> </figcaption>
                                 </figure>

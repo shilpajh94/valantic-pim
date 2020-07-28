@@ -135,3 +135,6 @@ services:
 
     AppBundle\Services\AppService:
         public: true
+
+    AppBundle\Services\MultiselectMasterService:
+        public: true

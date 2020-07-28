@@ -41,13 +41,22 @@ class UnitConverterService
      * @param float $value
      * @throws \Exception
      */
-    public function setGroupValueInObjectByAttribute($object,string $attributeName, float $value)
+    public function setGroupValueInObjectByAttribute($object,string $attributeName,?float $value)
     {
-        $attributeGroupWithValues = $this->getGroupWithValues($attributeName, $value);
+        if($value == null){
+            $attributeGroupName = $this->getAttributeGroupName($attributeName);
+            $groupConfig = $this->getGroupConfig($attributeGroupName);
+            foreach($groupConfig as $attributeName => $attributeUnit){
+                $setter = 'set'.ucfirst($attributeName);
+                $object->$setter(null);
+            }
+        }else{
+            $attributeGroupWithValues = $this->getGroupWithValues($attributeName, $value);
 
-        foreach($attributeGroupWithValues as $attributeName => $value){
-            $setter = 'set'.ucfirst($attributeName);
-            $object->$setter(round($value, 5));
+            foreach($attributeGroupWithValues as $attributeName => $value){
+                $setter = 'set'.ucfirst($attributeName);
+                $object->$setter(round($value, 5));
+            }
         }
     }
 
