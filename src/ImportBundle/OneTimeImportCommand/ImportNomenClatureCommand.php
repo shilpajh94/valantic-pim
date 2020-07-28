@@ -63,18 +63,14 @@ class ImportNomenClatureCommand extends AbstractCommand
                 echo "Processing row: ". ($key + 1)."\n";
                 $errorsData = array();
 
-                if(($nomenclature_type == 'Hydraulic Adapter') && empty(trim($record['Thread Type'])))
+                if(($nomenclature_type == 'Hydraulic Adapter') && empty(trim($record['Thread'])))
                     $errorsData[] = 'Thread Type should not be blank.';
                     
                 if(($nomenclature_type == 'Hydraulic') && empty(trim($record['Complete Part'])))
                     $errorsData[] = 'Complete Part should not be blank.';
 
-                if(($nomenclature_type == 'AC-GC') && empty(trim($record['Adapter Type'])))
-                    $errorsData[] = 'Adapter Type should not be blank.';
-
-                if(($nomenclature_type == 'AC-GC') && empty(trim($record['Fitting Style'])))
-                    $errorsData[] = 'Fitting Style should not be blank.';
-
+                if(($nomenclature_type == 'AC-GC') && empty(trim($record['Combined'])))
+                    $errorsData[] = 'Combined should not be blank.';
 
                 if(!count($errorsData))
                 {
@@ -101,7 +97,7 @@ class ImportNomenClatureCommand extends AbstractCommand
 
             }
             // fclose($fileName);
-            echo "CSV log file created - ".$filePath.". \n";
+            // echo "CSV log file created - ".$filePath.". \n";
 
             $countMsg = "\nTotal Processed Records:".$dataCount.", ";
             $countMsg .= "\nUpdated Records:".$this->successCount.", ";
@@ -131,77 +127,127 @@ class ImportNomenClatureCommand extends AbstractCommand
         $isMaterialUpdated = true;
         
         if($nomenclature_type == 'Hydraulic Adapter') 
-            $key = trim($data['Thread Type']);
+            $key = trim($data['Thread']);
         else if($nomenclature_type == 'Hydraulic')
             $key = trim($data['Complete Part']);
         else if($nomenclature_type == 'AC-GC')
-            $key = trim($data['Adapter Type']).'-'.trim($data['Fitting Style']);
+            $key = trim($data['Combined']);
 
         $key = strtoupper(\Pimcore\File::getValidFilename($key));
 
         $object = DataObject\NomenClature::getByPath("/".self::NOMENCLATURE_FOLDER."/".$nomenclature_type."/".$key);
+        $createdOrUpdated = 'updated';
         if(!$object)
         {
+            $createdOrUpdated = 'created';
             $object = new DataObject\NomenClature();
             $object->setKey($key);
             $object->setParentId($nomenClatureFolderId);
+        }
+
+        $object->setNomenClatureType($nomenclature_type);
+        
+
+        if($nomenclature_type == 'Hydraulic Adapter')
+        {
+            $object->setGender1($data['Gender']);
+            $object->setThread($data['Thread']);
+            if($data['Swivel'] && (strtoupper($data['Swivel']) == 'X'))
+                $object->setSwivel('Swivel');
+
+            // $object->setThreadType($data['Thread Type']);
+            $object->setFamily1($data['Family']);
+            $object->setFamilyDescription1($data['Thread Family Description']);
+            $object->setMarketingShortDescription($data['Marketing / Short Description']);
+            // $object->setCatalogFieldName($data['Catalog Field Name']);
+            $object->setadapterAttributeCode($data['Adapter Attribute (Code)']);
+            $object->setAdapterAttributeDescription($data['Adapter Attribute Description']);
+        }
+        else if($nomenclature_type == 'Hydraulic')
+        {
+            $object->setGender1($data['Gender']);
+
+            if($data['Swivel (Y/N)'] && (strtoupper($data['Swivel (Y/N)']) == 'X'))
+                $object->setSwivel('Swivel');
+
+            $object->setPartialPartNumber($data['Complete Part']);
+            $object->setFamily1($data['Fitting Family']);
+            $object->setFamilyDescription1($data['Fitting Family Description']);
+            $object->setThread($data['Thread']);
+            $object->setThreadDescription($data['Thread Description']);
+
+            if($data['Elbow Y/N'] && (strtoupper($data['Elbow Y/N']) == 'Y'))
+                $object->setElbowYN('1');
             
-            $object->setNomenClatureType($nomenclature_type);
-            $object->setGender($data['Gender']);
-            $object->setSwivel($data['Swivel']);
+            if($data['Elbow Y/N'] && (strtoupper($data['Elbow Y/N']) == 'N'))
+                $object->setElbowYN('0');
 
-            if($nomenclature_type == 'Hydraulic Adapter')
-            {
-                $object->setThreadType($data['Thread Type']);
-                $object->setFamily($data['Family']);
-                $object->setFamilyDescription($data['Thread Family Description']);
-                $object->setCatalogFieldName($data['Catalog Field Name']);
-                $object->setAttribute($data['Attribute']);
-                $object->setAttributeDescription($data['Attribute Description']);
-            }
-            else if($nomenclature_type == 'Hydraulic')
-            {
-                $object->setPartialPartNumber($data['Complete Part']);
-                $object->setFamily($data['Fitting Family']);
-                $object->setFamilyDescription($data['Fitting Family Description']);
-                $object->setThread($data['Thread']);
-                $object->setThreadDescription($data['Thread Description']);
-                $object->setElbowYN($data['Elbow Y/N']);
-                $object->setElbowType($data['Elbow Type']);
-                $object->setElbowAngle1($data['Elbow Angle 1']);
-                $object->setElbowAngle2($data['Elbow Angle 2']);
-                $object->setMaterial($data['Material']);
-                $object->setMaterialIdentifer($data['Material Identifer']);
-                $object->setComments($data['Comments']);
-            }
-            else if($nomenclature_type == 'AC-GC')
-            {
-                $object->setAdapterType($data['Adapter Type']);
-                $object->setDescription($data['Description']);
-                $object->setFittingStyle($data['Fitting Style']);
-                $object->setFamily($data['Family']);
-                $object->setFamilyDescription($data['Family Description']);
-                $object->setElbowAngle($data['Elbow Angle']);
-                $object->setElbowType($data['Elbow Type']);
-                $object->setValve($data['Valve']);
-                $object->setAttribute($data['Attribute']);
-                $object->setAttributeDescription($data['Attribute Description']);
-                $object->setFullDescription($data['Full Description']);
-            }
-
-            $object->setPublished(TRUE);   
-            $object->save(); 
-
-            if($object)
-                $errorsData['SUCCESS'] = "object ".$key. " has been created. \n";
-            else
-                $errorsData[] = "object ".$key. " has not been created. \n";
-
-            unset($object);
+            
+            $object->setElbowType($data['Elbow Type']);
+            $object->setElbowAngle1($data['Elbow Angle 1 (Degrees)']);
+            $object->setElbowAngle2($data['Elbow Angle 2 (Degrees)']);
+            $object->setAssemblyMaterialCode($data['Assembly Material (Code)']);
+            $object->setAssemblyMaterialDescription($data['Assembly Material Description']);
+            $object->setComments($data['Comments']);
         }
-        else{
-            $errorsData['SUCCESS'] = "object ".$key. " has been already exist. \n";
+        else if($nomenclature_type == 'AC-GC')
+        {
+            $object->setPartialPartNumber($data['Combined']);
+            $object->setStyleCode($data['Style Code']);
+            $object->setStyleDescription($data['Style Desc.']);
+
+            if($data['Swivel'] && (strtoupper($data['Swivel']) == 'Y'))
+                $object->setSwivel('Swivel');
+
+            // $object->setAdapterType($data['Adapter Type']);
+            // $object->setDescription($data['Description']);
+            // $object->setFittingStyle($data['Fitting Style']);
+            $object->setFamily1($data['Family 1']);
+            $object->setFamilyDescription1($data['Family 1 Description']);
+            $object->setFamily2($data['Family 2']);
+            $object->setFamilyDescription2($data['Family Description 2']);
+
+            if(strtoupper($data['Gender']) == 'FEMALE')
+                $object->setGender1('F');
+            if(strtoupper($data['Gender']) == 'MALE')
+                $object->setGender1('M');
+
+            if(strtoupper($data['Gender2']) == 'FEMALE')
+                $object->setGender2('F');
+            if(strtoupper($data['Gender2']) == 'MALE')
+                $object->setGender2('M');
+
+            if($data['Elbow Y/N'] && (strtoupper($data['Elbow Y/N']) == 'Y'))
+                $object->setElbowYN('1');
+            
+            if($data['Elbow Y/N'] && (strtoupper($data['Elbow Y/N']) == 'N'))
+                $object->setElbowYN('0');
+
+            $object->setNumberOfElbows($data['Number of Elbows']);
+            
+            $object->setElbowType($data['Elbow Type 1']);
+            $object->setElbowAngle1($data['Elbow Angle 1 (Degrees)']);
+            $object->setElbowAngle2($data['Elbow Angle 2 (Degrees)']);
+            $object->setValve($data['Valve']);
+            $object->setMarketingShortDescription($data['Marketing / Short Description']);
+            // $object->setAttribute($data['Attribute']);
+            // $object->setAttributeDescription($data['Attribute Description']);
+            // $object->setFullDescription($data['Full Description']);
         }
+
+        $object->setPublished(TRUE);   
+        $object->save(); 
+
+        if($object)
+            $errorsData['SUCCESS'] = "object ".$key. " has been {$createdOrUpdated}. \n";
+        else
+            $errorsData[] = "object ".$key. " has not been {$createdOrUpdated}. \n";
+
+        unset($object);
+        // }
+        // else{
+        //     $errorsData['SUCCESS'] = "object ".$key. " has been already exist. \n";
+        // }
         
         return $errorsData;
     }
