@@ -189,7 +189,7 @@ class HydFittingCatalogDataImportCommand extends Command
 
             $sapNumberCord = $importSheetConfig["SAP_NUMBER_COLUMN"].(strval($i));
             $sapNumber = $worksheet->getCell($sapNumberCord)->getValue();
-            $this->consoleLog("Importing sap ".$sapNumber.", row number ".strval($i));
+//            $this->consoleLog("Importing sap ".$sapNumber.", row number ".strval($i));
             $product = Product::getByArticleNumber($sapNumber, 1);
             $parentSkeletonProduct = null;
             $importStatus = null;
@@ -244,10 +244,12 @@ class HydFittingCatalogDataImportCommand extends Command
                 }
             }else{
                 $importStatus = self::STATUS_PRODUCT_NOT_FOUND;
-                $this->consoleLog("Product not found for sap ".$sapNumber.", row number ".strval($i));
+//                $this->consoleLog("Product not found for sap ".$sapNumber.", row number ".strval($i));
                 $this->recordImportErrors[] = "Product not found in pimcore for the sap number ".$sapNumber;
             }
 
+            $msg = "SAP Number: " . $sapNumber . ", Row Number ".strval($i) . " [" .$importStatus."]";
+            $this->consoleLog($msg);
             $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->recordImportErrors)));
 
         }
@@ -333,6 +335,8 @@ class HydFittingCatalogDataImportCommand extends Command
             $object->$fieldSetter(false);
         }elseif (in_array($cellData,self::BOOLEAN_TRUE_VALUES)){
             $object->$fieldSetter(true);
+        }elseif ($cellData == null){
+            $object->$fieldSetter(null);
         }else{
             $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a boolean field in pimcore,";
             $msg .= " but non boolean data received. Skipping insert of this data (".$cellData.")" ;
@@ -360,27 +364,41 @@ class HydFittingCatalogDataImportCommand extends Command
         $brickDef = DataObject\Objectbrick\Definition::getByKey($brickKey);
         $brickGroupName = $brickDef->getGroup();
 
+        $valueToSet = null;
+        $fieldSetter = "set".ucfirst($mapConfig["field"]);
+
         if($brickGroupName && $cellData){
-            $fieldSetter = "set".ucfirst($mapConfig["field"]);
 
             if($mapConfig["type"] == "select"){
-                $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData);
-                $masterObject->setName($cellData);
-                $masterObject->save();
-                $object->$fieldSetter($masterObject->getId());
+                $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, false);
+                if($masterObject){
+                    $masterObject->setName($cellData);
+                    $masterObject->save();
+                    $valueToSet = $masterObject->getId();
+                }else{
+                    $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Skipping this data.";
+                    $this->recordImportErrors[] = $msg;
+                }
 
             }elseif($mapConfig["type"] == "multiselect"){
                 $values = explode(self::MULTISELECT_COLUMN_VALUE_SEPARATOR, $cellData);
                 $masterIds = array();
                 foreach($values as $value){
-                    $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $value);
-                    $masterObject->setName($value);
-                    $masterObject->save();
-                    $masterIds[] = $masterObject->getId();
+                    $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $value, false);
+                    if($masterObject){
+                        $masterObject->setName($value);
+                        $masterObject->save();
+                        $masterIds[] = $masterObject->getId();
+                    }else{
+                        $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Skipping this data.";
+                        $this->recordImportErrors[] = $msg;
+                    }
+
                 }
-                $object->$fieldSetter($masterIds);
+                $valueToSet = $masterIds;
             }
         }
+        $object->$fieldSetter($valueToSet);
     }
 
     /**
