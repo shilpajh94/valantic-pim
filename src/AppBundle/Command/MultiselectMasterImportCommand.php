@@ -9,6 +9,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Services\ConfigProviderService;
+use AppBundle\Services\MultiselectMasterService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,22 +22,24 @@ class MultiselectMasterImportCommand extends Command
     private $typeToFolderNameMapping;
     private $importDirectory;
     private $csvIndexToLangMap;
-    private $multiselectMasterRootFolderObject;
+//    private $multiselectMasterRootFolderObject;
+    private $multiselectMasterService;
 
     /**
      * MultiselectMasterImportCommand constructor.
      * @param ConfigProviderService $configProviderService
      */
-    public function __construct(ConfigProviderService $configProviderService)
+    public function __construct(ConfigProviderService $configProviderService, MultiselectMasterService $multiselectMasterService)
     {
         $this->configProviderService = $configProviderService;
+        $this->multiselectMasterService = $multiselectMasterService;
 
-        $multiselectMasterRootFolderPath = $this->getRequiredMultiselectMasterConfig('multiselectMasterRootFolderPath');
-        $this->multiselectMasterRootFolderObject = DataObject\Folder::getByPath($multiselectMasterRootFolderPath);
+//        $multiselectMasterRootFolderPath = $this->getRequiredMultiselectMasterConfig('multiselectMasterRootFolderPath');
+//        $this->multiselectMasterRootFolderObject = DataObject\Folder::getByPath($multiselectMasterRootFolderPath);
 
-        $this->csvIndexToLangMap = $this->getRequiredMultiselectMasterConfig('csv_columns_index_language_mapping');
-        $this->importDirectory = PIMCORE_PROJECT_ROOT.$this->getRequiredMultiselectMasterConfig('import_directory_system_path_from_pimcore_root');
-        $this->typeToFolderNameMapping = $this->getRequiredMultiselectMasterConfig("multiselect_type_to_pimcore_folder_mapping");
+        $this->csvIndexToLangMap = $this->multiselectMasterService->getRequiredMultiselectMasterConfig('csv_columns_index_language_mapping');
+        $this->importDirectory = PIMCORE_PROJECT_ROOT.$this->multiselectMasterService->getRequiredMultiselectMasterConfig('import_directory_system_path_from_pimcore_root');
+        $this->typeToFolderNameMapping = $this->multiselectMasterService->getRequiredMultiselectMasterConfig("multiselect_type_to_pimcore_folder_mapping");
 
         parent::__construct();
     }
@@ -55,7 +58,7 @@ class MultiselectMasterImportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 //        $scannedFiles = array_diff(scandir($this->importDirectory), array('..', '.'));
-        $csvDelimiter = $this->getRequiredMultiselectMasterConfig("csv_delimiter");
+        $csvDelimiter = $this->multiselectMasterService->getRequiredMultiselectMasterConfig("csv_delimiter");
 
         $dirStructure = $this->dirToArray($this->importDirectory);
 
@@ -92,7 +95,7 @@ class MultiselectMasterImportCommand extends Command
                     if (count($data) > 0) {
                         if ($data[0]) {
 
-                            $masterObject = $this->getMasterObject($masterType, $brickGroupName, $data[0]);
+                            $masterObject = $this->multiselectMasterService->getMasterObject($masterType, $brickGroupName, $data[0]);
                             foreach ($this->csvIndexToLangMap as $csvIndex => $languageCode) {
                                 $masterObject->setName($data[(int)$csvIndex], $languageCode);
                             }
@@ -119,96 +122,96 @@ class MultiselectMasterImportCommand extends Command
         }
     }
 
-    /**
-     * get the existing master object or create new one if it does not exist
-     *
-     * @param string $type
-     * @param string $brickGroupName
-     * @param string $key
-     * @return DataObject\MultiselectMaster
-     * @throws \Exception
-     */
-    private function getMasterObject(string $type, string $brickGroupName, string $key): DataObject\MultiselectMaster
-    {
-        $key = \Pimcore\Model\Element\Service::getValidKey($key, 'object');
-        $masterType = $this->getMasterType($type, $brickGroupName);
-
-        $listing = new DataObject\MultiselectMaster\Listing();
-        // we should have a unique entry for a set of key and type
-        $listing->setCondition(" o_key   = :key AND masterType = :masterType ", ["key" => $key, "masterType" => $masterType]);
-        $listing->load();
-        $objects = $listing->getObjects();
-
-        // if object already exits then return it otherwise create new object
-        if (count($objects) > 0) {
-            $object = $objects[0];
-        } else {
-            $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type], $brickGroupName);
-            $object = new DataObject\MultiselectMaster();
-            $object->setKey($key);
-            $object->setParent($masterObjectParentFolderObject);
-            $object->setPublished(true);
-            // TODO: add validation for available types
-            $object->setMasterType($masterType);
-        }
-
-        return $object;
-
-    }
-
-    /**
-     * get the parent folder for the master object
-     *
-     * @param $typeFolderName
-     * @param $brickGroupName
-     * @return DataObject\Folder
-     */
-    private function getParentFolderForMasterObject($typeFolderName, $brickGroupName): DataObject\Folder
-    {
-        $typeFolderName = \Pimcore\Model\Element\Service::getValidKey($typeFolderName, 'object');
-        $brickGroupName = \Pimcore\Model\Element\Service::getValidKey($brickGroupName, 'object');
-
-        $brickGroupFolderPath = $this->getRequiredMultiselectMasterConfig('multiselectMasterRootFolderPath') . "/" . $brickGroupName;
-        $brickGroupFolderObject = DataObject\Folder::getByPath($brickGroupFolderPath, true);
-        // create brick group folder if does not exist
-        if (!$brickGroupFolderObject) {
-            $brickGroupFolderObject = $this->createFolder($brickGroupName, $this->multiselectMasterRootFolderObject);
-        }
-
-        $typeFolderPath = $brickGroupFolderPath . "/" . $typeFolderName;
-        $typeFolderObject = DataObject\Folder::getByPath($typeFolderPath, true);
-        // create type folder if does not exist
-        if (!$typeFolderObject) {
-            $typeFolderObject = $this->createFolder($typeFolderName, $brickGroupFolderObject);
-        }
-
-        return $typeFolderObject;
-    }
-
-    private function createFolder($folderName, $folderParent)
-    {
-
-        $folderObject = DataObject\Folder::create([
-            'o_parentId' => $folderParent->getId(),
-            'o_creationDate' => time(),
-//                'o_userOwner' => $this->getAdminUser()->getId(),
-//                'o_userModification' => $this->getAdminUser()->getId(),
-            'o_key' => $folderName,
-            'o_published' => true
-        ]);
-        return $folderObject;
-    }
-
-    /**
-     * get required data from config file
-     *
-     * @param $key
-     * @return mixed
-     */
-    private function getRequiredMultiselectMasterConfig($key)
-    {
-        return $this->configProviderService->getMultiselectMasterConfig()[$key];
-    }
+//    /**
+//     * get the existing master object or create new one if it does not exist
+//     *
+//     * @param string $type
+//     * @param string $brickGroupName
+//     * @param string $key
+//     * @return DataObject\MultiselectMaster
+//     * @throws \Exception
+//     */
+//    private function getMasterObject(string $type, string $brickGroupName, string $key): DataObject\MultiselectMaster
+//    {
+//        $key = \Pimcore\Model\Element\Service::getValidKey($key, 'object');
+//        $masterType = $this->getMasterType($type, $brickGroupName);
+//
+//        $listing = new DataObject\MultiselectMaster\Listing();
+//        // we should have a unique entry for a set of key and type
+//        $listing->setCondition(" o_key   = :key AND masterType = :masterType ", ["key" => $key, "masterType" => $masterType]);
+//        $listing->load();
+//        $objects = $listing->getObjects();
+//
+//        // if object already exits then return it otherwise create new object
+//        if (count($objects) > 0) {
+//            $object = $objects[0];
+//        } else {
+//            $masterObjectParentFolderObject = $this->getParentFolderForMasterObject($this->typeToFolderNameMapping[$type], $brickGroupName);
+//            $object = new DataObject\MultiselectMaster();
+//            $object->setKey($key);
+//            $object->setParent($masterObjectParentFolderObject);
+//            $object->setPublished(true);
+//            // TODO: add validation for available types
+//            $object->setMasterType($masterType);
+//        }
+//
+//        return $object;
+//
+//    }
+//
+//    /**
+//     * get the parent folder for the master object
+//     *
+//     * @param $typeFolderName
+//     * @param $brickGroupName
+//     * @return DataObject\Folder
+//     */
+//    private function getParentFolderForMasterObject($typeFolderName, $brickGroupName): DataObject\Folder
+//    {
+//        $typeFolderName = \Pimcore\Model\Element\Service::getValidKey($typeFolderName, 'object');
+//        $brickGroupName = \Pimcore\Model\Element\Service::getValidKey($brickGroupName, 'object');
+//
+//        $brickGroupFolderPath = $this->getRequiredMultiselectMasterConfig('multiselectMasterRootFolderPath') . "/" . $brickGroupName;
+//        $brickGroupFolderObject = DataObject\Folder::getByPath($brickGroupFolderPath, true);
+//        // create brick group folder if does not exist
+//        if (!$brickGroupFolderObject) {
+//            $brickGroupFolderObject = $this->createFolder($brickGroupName, $this->multiselectMasterRootFolderObject);
+//        }
+//
+//        $typeFolderPath = $brickGroupFolderPath . "/" . $typeFolderName;
+//        $typeFolderObject = DataObject\Folder::getByPath($typeFolderPath, true);
+//        // create type folder if does not exist
+//        if (!$typeFolderObject) {
+//            $typeFolderObject = $this->createFolder($typeFolderName, $brickGroupFolderObject);
+//        }
+//
+//        return $typeFolderObject;
+//    }
+//
+//    private function createFolder($folderName, $folderParent)
+//    {
+//
+//        $folderObject = DataObject\Folder::create([
+//            'o_parentId' => $folderParent->getId(),
+//            'o_creationDate' => time(),
+////                'o_userOwner' => $this->getAdminUser()->getId(),
+////                'o_userModification' => $this->getAdminUser()->getId(),
+//            'o_key' => $folderName,
+//            'o_published' => true
+//        ]);
+//        return $folderObject;
+//    }
+//
+//    /**
+//     * get required data from config file
+//     *
+//     * @param $key
+//     * @return mixed
+//     */
+//    private function getRequiredMultiselectMasterConfig($key)
+//    {
+//        return $this->configProviderService->getMultiselectMasterConfig()[$key];
+//    }
 
 
     /**
@@ -248,14 +251,14 @@ class MultiselectMasterImportCommand extends Command
 
     private function csvLog($logHandler,array $dataRow)
     {
-        $csvDelimiter = $this->getRequiredMultiselectMasterConfig("csv_delimiter");
+        $csvDelimiter = $this->multiselectMasterService->getRequiredMultiselectMasterConfig("csv_delimiter");
 
         fputcsv($logHandler,$dataRow,$csvDelimiter);
     }
 
-    private function getMasterType(string $type, string $brickGroupName)
-    {
-        return $brickGroupName . "~" . $type;
-    }
+//    private function getMasterType(string $type, string $brickGroupName)
+//    {
+//        return $brickGroupName . "~" . $type;
+//    }
 
 }
