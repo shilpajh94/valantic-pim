@@ -124,4 +124,20 @@ class Common
         $id = implode(ImportConstants::OBJECT_KEY_SEPARATOR, $keyColumnValues);
         return $id;
     }
+
+    public function getCatalogLanguage($object) {
+        if ($object instanceof \Pimcore\Model\DataObject\CatalogTables) {
+            $lang = $object->getParent()->getParent()->getCatalogLanguage();
+        }
+        if ($object instanceof \Pimcore\Model\DataObject\CatalogCategory) {
+            $lang = $object->getParent()->getCatalogLanguage();
+        }
+        if ($object instanceof \Pimcore\Model\DataObject\Catalog) {
+            $lang = $object->getCatalogLanguage();
+        }
+        if(empty($lang)) {
+            $lang = \Pimcore\Tool::getDefaultLanguage();
+        }
+        return $lang;
+    }
 }

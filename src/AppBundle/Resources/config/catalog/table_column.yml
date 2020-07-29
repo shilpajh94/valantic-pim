@@ -809,6 +809,15 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            acceptableHoseMedia:
+                fieldLevel: objectBrick
+                fieldLabel: Acceptable Hose Media
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
             FittingTableName:
                 fieldLevel: class
                 fieldLabel: Table Name
@@ -850,10 +859,19 @@ parameters:
                 fieldType: Textarea
                 parent:
                     name: Product
-            Application:
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldLabel: Features
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: Id
+            longDescription:
                 fieldLevel: class
                 fieldLabel: Application
-                fieldType: Input
+                fieldType: Wysiwyg
                 parent:
                     name: Product
             FittingTableName:
