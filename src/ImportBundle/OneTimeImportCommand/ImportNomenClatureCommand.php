@@ -155,13 +155,11 @@ class ImportNomenClatureCommand extends AbstractCommand
             if($data['Swivel'] && (strtoupper($data['Swivel']) == 'X'))
                 $object->setSwivel('Swivel');
 
-            // $object->setThreadType($data['Thread Type']);
             $object->setFamily1($data['Family']);
             $object->setFamilyDescription1($data['Thread Family Description']);
             $object->setMarketingShortDescription($data['Marketing / Short Description']);
-            // $object->setCatalogFieldName($data['Catalog Field Name']);
-            $object->setadapterAttributeCode($data['Adapter Attribute (Code)']);
-            $object->setAdapterAttributeDescription($data['Adapter Attribute Description']);
+            $object->setAttributeCode($data['Adapter Attribute (Code)']);
+            $object->setAttributeDescription($data['Adapter Attribute Description']);
         }
         else if($nomenclature_type == 'Hydraulic')
         {
@@ -181,7 +179,6 @@ class ImportNomenClatureCommand extends AbstractCommand
             
             if($data['Elbow Y/N'] && (strtoupper($data['Elbow Y/N']) == 'N'))
                 $object->setElbowYN('0');
-
             
             $object->setElbowType($data['Elbow Type']);
             $object->setElbowAngle1($data['Elbow Angle 1 (Degrees)']);
@@ -199,9 +196,6 @@ class ImportNomenClatureCommand extends AbstractCommand
             if($data['Swivel'] && (strtoupper($data['Swivel']) == 'Y'))
                 $object->setSwivel('Swivel');
 
-            // $object->setAdapterType($data['Adapter Type']);
-            // $object->setDescription($data['Description']);
-            // $object->setFittingStyle($data['Fitting Style']);
             $object->setFamily1($data['Family 1']);
             $object->setFamilyDescription1($data['Family 1 Description']);
             $object->setFamily2($data['Family 2']);
@@ -230,9 +224,8 @@ class ImportNomenClatureCommand extends AbstractCommand
             $object->setElbowAngle2($data['Elbow Angle 2 (Degrees)']);
             $object->setValve($data['Valve']);
             $object->setMarketingShortDescription($data['Marketing / Short Description']);
-            // $object->setAttribute($data['Attribute']);
-            // $object->setAttributeDescription($data['Attribute Description']);
-            // $object->setFullDescription($data['Full Description']);
+            $object->setAttributeCode($data['Attribute']);
+            $object->setAttributeDescription($data['Attribute Description']);
         }
 
         $object->setPublished(TRUE);   
@@ -244,10 +237,6 @@ class ImportNomenClatureCommand extends AbstractCommand
             $errorsData[] = "object ".$key. " has not been {$createdOrUpdated}. \n";
 
         unset($object);
-        // }
-        // else{
-        //     $errorsData['SUCCESS'] = "object ".$key. " has been already exist. \n";
-        // }
         
         return $errorsData;
     }
