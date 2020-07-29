@@ -4,32 +4,79 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php if ($this->editmode) { ?>
     <?= $this->relation("fitting-straight"); ?>
 <?php } ?>
-<div class="seggregate ">
-   <nav class="header ">
-        <span>Hydraulic Hose</span>
-        <div id="pageHeader"></div>
-   </nav>
+<section class="segregate">
+ 
+ <div id="pageHeader"></div>
+ <span  class="pageName">Hydraulic Hose</span>
+       
 
-    <nav class="header1 ">
-        <div id="pageHeader"></div>
-        <span>Hydraulic Hose</span>
-        
-    </nav>
 
 <div class="footer">
  <footer class="flex-center ">
-<?php
-      //  if ($this->image('logo')->isEmpty() && !is_null($logo)) {
-        ?>
             <span class="logo">
                 <b>Hose</b>
-<img src="/CatalogImages/logo_new.png">
-               
+                <img src="/CatalogImages/logo_new.png">
             </span>
-        <?php // } ?>
-         <div class="flex aligned reverse">
+        
+         <div class="flex aligned ">
               
-            <p class="flex-center">
+           
+         <h5>
+                <?php
+                    if($this->editmode) {
+                        echo $this->input('section_11')->setDataFromResource('Section 1');
+                    } else {
+                        echo $this->input('section_11');
+                    }
+                    
+                ?>
+                <span>
+                <?php
+                    if($this->editmode) {
+                        echo $this->input('fittingFamily_11')->setDataFromResource('B2 Fittings');
+                    } else {
+                        echo $this->input('fittingFamily_11');
+                    }
+                    
+                ?>    
+                </span>
+            </h5>
+ <p class="flex-center">
+                <?php
+                if ($this->image('myCrampApp_f11')->isEmpty() && !is_null($myCrampApp)) {
+                    echo $this->image('myCrampApp_f11', [
+                        "width" => 61,
+                        "height" => 60,
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ])->setImage($logo);
+                } else {
+                    echo $this->image('myCrampApp_f11', [
+                        "width" => 61,
+                        "height" => 60,
+                        "aspectratio" => true,
+                        "interlace" => true,
+                        "quality" => 95,
+                        "format" => "PNG"
+                    ]);
+                }
+                ?>
+                <span>
+                    Download the <strong class="contitech-yellow">MyCrimp App</strong><br />
+                    for more information
+                </span>
+            </p>
+</div>
+</footer>
+</div>
+
+<div class="footer1">
+ <footer class="flex-center ">
+
+         <div class="flex aligned ">
+<p class="flex-center">
                 <?php
                 if ($this->image('myCrampApp_f1')->isEmpty() && !is_null($myCrampApp)) {
                     echo $this->image('myCrampApp_f1', [
@@ -56,7 +103,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     for more information
                 </span>
             </p>
-         <h5  class="rowC">
+             <h5>
                 <?php
                     if($this->editmode) {
                         echo $this->input('section_1')->setDataFromResource('Section 1');
@@ -75,78 +122,23 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     
                 ?>    
                 </span>
-            </h5>
+            </h5> 
+            
+         
 
 </div>
-</footer>
-</div>
 
-<div class="footer1">
- <footer class="flex-center ">
-
-         <div class="flex aligned reverse">
-            <h5  class="rowC alignEnd">
-                <?php
-                    if($this->editmode) {
-                        echo $this->input('section_2')->setDataFromResource('Section 1');
-                    } else {
-                        echo $this->input('section_2');
-                    }
-                    
-                ?>
-                <span>
-                <?php
-                    if($this->editmode) {
-                        echo $this->input('fittingFamily_2')->setDataFromResource('B2 Fittings');
-                    } else {
-                        echo $this->input('fittingFamily_2');
-                    }
-                    
-                ?>    
-                </span>
-            </h5>
-
-            <p class="flex-center">
-                <?php
-                if ($this->image('myCrampApp_f2')->isEmpty() && !is_null($myCrampApp)) {
-                    echo $this->image('myCrampApp_f2', [
-                        "width" => 61,
-                        "height" => 60,
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ])->setImage($logo);
-                } else {
-                    echo $this->image('myCrampApp_f2', [
-                        "width" => 61,
-                        "height" => 60,
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ]);
-                }
-                ?>
-                <span>
-                    Download the <strong class="contitech-yellow">MyCrimp App</strong><br />
-                    for more information
-                </span>
-            </p>
-</div>
- <?php
-       // if ($this->image('logo')->isEmpty() && !is_null($logo)) {
-        ?>
             <span class="logo">
                 <b>Hose</b>
 <img src="/CatalogImages/logo_new.png">
                
             </span>
-        <?php // } ?>
-
+        
 </footer>
-
 </div>
+
+
+<div class="wrapper padding">
 
     <?php
     if (is_array($info['data']) && !empty($info['data'])) {
@@ -159,8 +151,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     
                     /* New Family Info */
     ?>
-                    <article class="container noBorder alternated">
-                        <figure class="">
+                    <article class="container noBorder ">
+                        <figure class="headingSection">
                             <span>
                                 <?php
                                 if ($this->editmode) {
@@ -171,7 +163,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     ])->setImage($tableRows['leftImage']);
                                 } else {
                                     echo $this->image('catLeftImage' . $uniqueId, [
-                                        "class" => "leftImg",
+                                        "class" => "lImg",
                                         "width" => 226,
                                         "height" => 150
                                     ]);
@@ -184,7 +176,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     ])->setImage($tableRows['rightImage']);
                                 } else {
                                     echo $this->image('catRightImage' . $uniqueId, [
-                                        "class" => "rightImg",
+                                        "class" => "rImg",
                                         "width" => 226,
                                         "height" => 150
                                     ]);
@@ -212,6 +204,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 </p>
                             </figcaption>
                         </figure>
+
                         <!-- Starting grid here -->
                         <table class="grid" cellspacing="0" cellpadding="0">
                             <?php
@@ -251,6 +244,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             ?>
                             <!-- Closing grid div here -->
                         </table>
+
                     </article>
     <?php
                 }
@@ -259,10 +253,24 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     }
     ?>
 
+</div>
 
-
+  
 
 
     <!-- Footer -->
     <!-- End Footer-->
-</div>
+</section>
+
+<style>
+
+</style>
+<script>
+var rows = document.querySelectorAll(".headingSection");
+        rows.forEach(function (row) {
+            var rowDescriptions = ro.layout.getBoxDescriptions(row);
+            var rowDescription = rowDescriptions[0];
+            const onLeftPage = rowDescription.pageLeft;
+            row.className = onLeftPage ? "leftHeadingSection" : "rightHeadingSection";
+        });
+</script>
