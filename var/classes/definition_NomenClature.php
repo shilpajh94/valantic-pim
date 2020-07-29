@@ -17,7 +17,8 @@ Fields Summary:
 - familyDescription2 [textarea]
 - swivel [select]
 - comments [textarea]
-- markettingShortDescription [textarea]
+- attributeCode [input]
+- marketingShortDescription [textarea]
 - gender1 [select]
 - gender2 [select]
 - thread [input]
@@ -27,14 +28,13 @@ Fields Summary:
 - elbowType [input]
 - elbowAngle1 [input]
 - elbowAngle2 [input]
+- attributeDescription [input]
 - FinalLayout [table]
 - assemblyMaterialCode [input]
 - assemblyMaterialDescription [input]
 - styleCode [input]
 - styleDescription [input]
 - valve [input]
-- adapterAttributeCode [input]
-- adapterAttributeDescription [input]
 - AdapterAttributeType [input]
 */ 
 
@@ -59,12 +59,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowInherit' => false,
    'allowVariants' => NULL,
    'showVariants' => false,
+   'cacheRawRelationData' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
+     'icon' => NULL,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -102,6 +104,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
+             'icon' => '',
              'name' => 'Base Data',
              'type' => NULL,
              'region' => NULL,
@@ -177,8 +180,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                             array (
                               0 => 
                               array (
-                                'key' => 'HYD',
-                                'value' => 'HYD',
+                                'key' => 'AC-GC',
+                                'value' => 'AC-GC',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'Hydraulic',
+                                'value' => 'Hydraulic',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'Hydraulic Adapter',
+                                'value' => 'Hydraulic Adapter',
                               ),
                             ),
                              'width' => '',
@@ -301,7 +314,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'unique' => false,
                              'showCharCount' => false,
                              'name' => 'family2',
-                             'title' => 'Family1',
+                             'title' => 'Family2',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -391,6 +404,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'phpdocType' => 'string',
                              'name' => 'comments',
                              'title' => 'Comments',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'attributeCode',
+                             'title' => 'Attribute (Code)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -743,6 +782,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
+                          10 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'attributeDescription',
+                             'title' => 'Attribute Description',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -794,6 +859,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
+             'icon' => '',
              'name' => 'Hydraulic',
              'type' => NULL,
              'region' => NULL,
@@ -873,6 +939,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
+             'icon' => '',
              'name' => 'AC-GC',
              'type' => NULL,
              'region' => NULL,
@@ -980,6 +1047,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
+             'icon' => '',
              'name' => 'Adapter',
              'type' => NULL,
              'region' => NULL,
@@ -996,64 +1064,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'adapterAttributeCode',
-                 'title' => 'Adapter Attribute (Code)',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'adapterAttributeDescription',
-                 'title' => 'Adapter Attribute Description',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
                  'width' => 300,
-                 'defaultValue' => NULL,
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 150,
@@ -1086,16 +1097,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       )),
     ),
      'locked' => false,
-     'icon' => NULL,
   )),
    'icon' => '',
    'previewUrl' => '',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
-   'compositeIndices' => 
-  array (
-  ),
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -1117,6 +1124,5 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       'creationDate' => true,
     ),
   ),
-   'enableGridLocking' => false,
    'dao' => NULL,
 ));
