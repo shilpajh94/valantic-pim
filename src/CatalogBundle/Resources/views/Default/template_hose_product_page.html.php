@@ -33,19 +33,19 @@ else
 
 ?>
 
-<section class="seggregate">
-        <nav class="header alternate">
-                <div id="pageHeader"></div>
-                <span>
-                <?php 
+<section class="segregate">
+
+<div id="pageHeader"></div>
+ <span  class="pageName">
+<?php 
                 if($this->editmode){
                         echo $this->input("HHPP_Header_{$incr}")->setDataFromResource('Hydraulic Hose'); 
                 }else{
                         echo $this->input("HHPP_Header_{$incr}");
                 }                
                 ?>
-                </span>
-        </nav>
+</span>
+   
         <div class="footer">
         <footer class="flex-center ">
                         <span class="logo">
@@ -53,7 +53,7 @@ else
                                 <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                         </span>
                         <div class="flex aligned">
-                                <h5 class="rowC">
+                                <h5>
                                 
                                 <?php 
                                 if($this->editmode){
@@ -78,7 +78,7 @@ else
                                 </h5>
 
 
-                                <div class="rowC compatible">
+                                <div class="compatible">
                                         <b>
                                         <?php 
                                         if($this->editmode){
@@ -99,6 +99,63 @@ else
                                         ?>
                                 </d>
                         </div>
+                </footer>
+        </div>
+        <div class="footer1">
+        <footer class="flex-center ">
+                        
+                        <div class="flex aligned">
+                                
+
+
+                                <div class="compatible">
+                                        <b>
+                                        <?php 
+                                        if($this->editmode){
+                                                echo $this->input("HHPP_Footer_Compatibility1_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                        }else{
+                                                echo $this->input("HHPP_Footer_Compatibility1_{$incr}");
+                                        }                
+                                        ?>
+                                        </b>
+                                        
+                                        <?php 
+                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        if($this->editmode){
+                                                echo $this->input("HHPP_Footer_Compatibility_Description1_{$incr}")->setDataFromResource($compatibility_description); 
+                                        }else{
+                                                echo $this->input("HHPP_Footer_Compatibility_Description1_{$incr}");
+                                        }                
+                                        ?>
+                                </div>
+                                <h5>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("HHPP_Footer_BrandName1_{$incr}")->setDataFromResource($brandName); 
+                                }else{
+                                        echo $this->input("HHPP_Footer_BrandName1_{$incr}");
+                                }                
+                                ?>
+
+                                <span>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("HHPP_Footer_HoseType1_{$incr}")->setDataFromResource('High Pressure'); 
+                                }else{
+                                        echo $this->input("HHPP_Footer_HoseType1_{$incr}");
+                                }                
+                                ?>
+
+                                </span>
+
+                                </h5>
+                        </div>
+                        <span class="logo">
+                                <b>Hose</b>
+                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                        </span>
                 </footer>
         </div>
         <header class="content white">
@@ -137,9 +194,9 @@ else
                         ?>
                 </aside>
         </header>
-        <article class="fullcontainer">
+        <article class="fullcontainer ">
 
-                <section class="content">
+                <section class="content single">
                         <?php if($safetyFeatures || $standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
                                 
                         <menu class="flex">
@@ -222,45 +279,46 @@ else
                         </menu>
                         <?php endif; ?>
                 
-                        <div class="grid">
-
+                        <table cellpadding="0" cellspacing="0" class="grid">
+                                <thead>
                                 <?php if($iconRequired == 'YES'): ?>
-                                        <p class="sub-head">
+                                        <tr class="sub-head">
                                                 <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                        <span><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></span>
+                                                        <td><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></td>
                                                 <?php endforeach; ?>
-                                        </p>
+                                        </tr>
                                 <?php endif; ?>
 
 
-                                <p class="head">
+                                <tr class="head">
 
                                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                <span><?= $columnsData['columnLabel'] ?></span>
+                                                <td><?= $columnsData['columnLabel'] ?></td>
                                         <?php endforeach; ?>
                                         
-                                </p>
+                                </tr>
+                        </thead>
                                 <?php $incrRow = 1; ?>        
                                 <?php foreach($articlesData as $key => $element): ?>
                                         <?php if($incrRow%2==0): ?>
-                                        <p>
+                                        <tr>
                                         <?php else: ?>
-                                        <p class="active">
+                                        <tr class="active">
                                         <?php endif; ?>
                                                 <?php foreach($element as $ekey => $value): ?>
-                                                        <span><?= $value; ?></span>
+                                                        <td><?= $value; ?></td>
                                                 <?php endforeach; ?>
-                                        </p>
+                                        </tr>
                                         <?php $incrRow++ ?>
                                 <?php endforeach; ?>
 
-                        </div>
+                        </table>
                 </section>
         
         </article>
 
         <?php //if($incr != count($catalogGroupData)): ?>
-        <div class="break-before"></div>
+     
         <?php //endif; ?>    
 
 </section>

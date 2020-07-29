@@ -1,17 +1,19 @@
 <?php
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
 ?>
-    <article class="fullcontainer">
-    <nav class="header">
-    <header class="content">
-        <div id="pageHeader"></div>
+
+ <div id="pageHeader"></div>
+    <header class="content partNumber">
         <h2>Table of Contents</h2>
     </header>
-    </nav>
+    
+    
     <?php if($this->editmode): ?>
-    <div class="content_single">
+    
+<div class="content content_single table-content single">
     <?php else: ?>
-    <div class="content_double">
+   
+<div class="content content_double table-content single">
     <?php endif; ?>
     <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
         
@@ -41,7 +43,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
     <?php } ?>
     </div>
       
-    </article>
+    
     <style>
     div.content_single {
     -webkit-column-count: 1;
