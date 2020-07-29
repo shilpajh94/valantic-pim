@@ -59,11 +59,41 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH);
     }
 
+    public function getCatalogTableColumnConfig()
+    {
+        return $this->getConfigFromYmlFile(CATALOG_TABLE_COLUMN_CONFIG_FILE_PATH);
+    }
+     public function getCatalogTableConfig()
+    {
+        return $this->getConfigFromYmlFile(CATALOG_TABLE_CONFIG_FILE_PATH);
+    }
+     public function getCatalogTableDynamicColumnConfig()
+    {
+        return $this->getConfigFromYmlFile(CATALOG_TABLE_DYNAMIC_COLUMN_CONFIG_FILE_PATH);
+    }
+
+    public function getAttributeImagesConfig()
+    {
+        return $this->getConfigFromYmlFile(ATTRIBUTE_IMAGES_FILE_PATH);
+    }
+
+    
     public function getWorkFlowConfig()
     {
         return $this->getConfigFromYmlFile(WORKFLOW_CONFIG_FILE_PATH);
     }
 
+    public function getFittingTableConfig() {
+        return $this->getConfigFromYmlFile(FITTING_TABLE_IMPORT_FILE_PATH);
+    }
+
+    public function getINHSectionPageConfig() {
+        return $this->getConfigFromYmlFile(INH_SECTION_PAGE_FILE_PATH);
+    }
+
+    public function getINHProductPageConfig() {
+        return $this->getConfigFromYmlFile(INH_PRODUCT_PAGE_FILE_PATH);
+    }
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev

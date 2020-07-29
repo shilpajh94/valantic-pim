@@ -194,6 +194,19 @@ class ProductImport
         }
     }
     
+    public function getBaseSiopMapping() {
+        $sql = "SELECT Substring(`oldMaterialCode`,1,6) as materialCode, siopFullCode from object_query_1 where oldMaterialCode != '' AND oldMaterialCode != 'NA' AND oldMaterialCode != 'N/A' AND (siopFullCode like '041000%' OR siopFullCode like '041500%')";
+        $mappingData = $this->db->fetchAll($sql);
+        $mappingArray = [];
+        foreach ($mappingData as $data) {
+            $materialCode = $data['materialCode'];
+            if (empty($mappingArray[$materialCode])) {
+                $mappingArray[$materialCode] = $data['siopFullCode'];
+            }
+        }
+        return $mappingArray;
+    }
+    
     public function getDeletedProducts() {
         $sql   = "SELECT m.id FROM {$this->masterTable} m LEFT JOIN {$this->tempTable} t ON t.id = m.id WHERE t.id is null";
         return $this->db->fetchAll($sql);

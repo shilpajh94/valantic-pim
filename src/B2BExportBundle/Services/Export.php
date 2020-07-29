@@ -2,15 +2,18 @@
 
 namespace B2BExportBundle\Services;
 
-use B2BExportBundle\Services\Config;
-use B2BExportBundle\Services\Model\Attribute;
-use B2BExportBundle\Services\Model\Catalog;
-use B2BExportBundle\Services\Model\Material;
 use Exception;
 use Pimcore\Db;
 use Pimcore\File;
-use Pimcore\Log\Simple as Logger;
+use AppBundle\Tool\Utils;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\Asset;
+use Pimcore\Log\Simple as Logger;
+use Pimcore\Tests\Helper\Pimcore;
+use B2BExportBundle\Services\Config;
+use B2BExportBundle\Services\Model\Catalog;
+use B2BExportBundle\Services\Model\Material;
+use B2BExportBundle\Services\Model\Attribute;
 
 /**
  * Service Class Export
@@ -19,7 +22,7 @@ use Pimcore\Model\DataObject;
  *
  */
 class Export {
-
+	
 	/**
 	 * Execute generate Function
 	 *
@@ -91,23 +94,43 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				$sequence = $Level - 1;
-				// dd($item);
-				if ($sequence > 0 && $sequence <= 3) {
-					if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
-						$groupIdentifier = ltrim($fullCode, '04');
-						$row[] = $groupIdentifier;
-						$topGroup = 'FALSE';
-						$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
-						if ($sequence == 1) {
-							$topGroup = 'TRUE';
-							$parentGroupIdentifier = 0;
+				if ($BusinessUnit == 'PTG') {
+					if ($sequence > 0 && $sequence < 6) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							$groupIdentifier = ltrim($fullCode, '04');
+							$row[] = $groupIdentifier;
+							$topGroup = 'FALSE';
+							$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
+							if ($sequence == 1) {
+								$topGroup = 'TRUE';
+								$parentGroupIdentifier = 0;
+							}
+							$row[] = $topGroup;
+							$row[] = $parentGroupIdentifier;
+							$row[] = $description;
+							$row[] = $sequence;
+							fputcsv($fileResource, $row, ',');
+							unset($row);
 						}
-						$row[] = $topGroup;
-						$row[] = $parentGroupIdentifier;
-						$row[] = $description;
-						$row[] = $sequence;
-						fputcsv($fileResource, $row, ',');
-						unset($row);
+					}
+				} else if($BusinessUnit == 'IFS'){
+					if ($sequence > 0 && $sequence < 4) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							$groupIdentifier = ltrim($fullCode, '04');
+							$row[] = $groupIdentifier;
+							$topGroup = 'FALSE';
+							$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
+							if ($sequence == 1) {
+								$topGroup = 'TRUE';
+								$parentGroupIdentifier = 0;
+							}
+							$row[] = $topGroup;
+							$row[] = $parentGroupIdentifier;
+							$row[] = $description;
+							$row[] = $sequence;
+							fputcsv($fileResource, $row, ',');
+							unset($row);
+						}
 					}
 				}
 			}
@@ -144,15 +167,31 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				$sequence = $Level - 1;
-				if ($sequence > 0 && $sequence <= 3) {
-					if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
-						foreach ($language as $key => $languageIterator) {
-							if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
-								$row[] = ltrim($fullCode, '04');
-								$row[] = $languageIterator['description'];
-								$row[] = $languageMaster[$key];
-								fputcsv($fileResource, $row, ',');
-								unset($row);
+				if($BusinessUnit == 'IFS'){
+					if ($sequence > 0 && $sequence < 4) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							foreach ($language as $key => $languageIterator) {
+								if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
+									$row[] = ltrim($fullCode, '04');
+									$row[] = $languageIterator['description'];
+									$row[] = $languageMaster[$key];
+									fputcsv($fileResource, $row, ',');
+									unset($row);
+								}
+							}
+						}
+					}
+				} else if($BusinessUnit == 'PTG'){
+					if ($sequence > 0 && $sequence < 6) {
+						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+							foreach ($language as $key => $languageIterator) {
+								if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
+									$row[] = ltrim($fullCode, '04');
+									$row[] = $languageIterator['description'];
+									$row[] = $languageMaster[$key];
+									fputcsv($fileResource, $row, ',');
+									unset($row);
+								}
 							}
 						}
 					}
@@ -235,14 +274,18 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				if ($siopFullCode != 04) {
-					$row[] = $partNo;
-					// $row[] = $sapDescription != '' ? $sapDescription .'%'.$netWeight . $weightUnit : $netWeight . $weightUnit;
-					$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
-					$row[] = $languageMaster[$language];
-					$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
-					$row[] = "NULL";
-					fputcsv($fileResource, $row, ',');
-					unset($row);
+						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "NULL");
+						$row[] = $partNo;
+						$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
+						$row[] = $languageMaster[$language];
+						$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
+						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
+							$row[] = \Pimcore\Tool::getHostUrl(). $object;
+						} else {
+							$row[] = $object;
+						}
+						fputcsv($fileResource, $row, ',');
+						unset($row);
 				}
 			}
 			fclose($fileResource);
@@ -378,9 +421,9 @@ class Export {
 			fputcsv($fileResource, $columns, ',');
 			foreach ($data as $item) {
 				// Filling CSV Data Rows
-				if ($item['PIM Attribute Label'] != '') {
+				if ($item['PIM Attribute Name'] != '') {
 					$row[] = $item['B2B Attribute ID'] ?: "#NA";
-					$row[] = $item['PIM Attribute Label'] ?: "#NA";
+					$row[] = lcfirst( str_replace('VirtualCatalog', '', $item['PIM Attribute Name'])) ?: "#NA";
 					$row[] = -1;
 					fputcsv($fileResource, $row, ',');
 					unset($row);
@@ -406,7 +449,8 @@ class Export {
 		$time = time();
 		p_r('<<<<<<<===================================>>>>>>>');
 		p_r('Attribute Value Facets Script execution started: ' . date('h:i:s', $time));
-		$attributes = Attribute::getValuesFacets();
+		$data = Attribute::getValuesFacets();
+		extract($data);
 		if (count($attributes) > 0) {
 			// Generating Empty csv file with string ($fileName)
 			File::put($fileName, ' ');
@@ -432,22 +476,40 @@ class Export {
 				$pimHierarchyAttributes = array_merge($pimHierarchyAttributes, $objectBrickInstance->getDefinition()->getFieldDefinitions());
 				unset($objectBrickInstance, $objectBrickGetter);
 			}
+			//  Get Multiselect Attribute Multilingual Mapping 
+			$multiSelectMultiLingualMapping = $this->getMultiselectMapping();
 			foreach ($attributes as &$attribute) {
 				// Filling CSV Data Rows
 				if ($attribute['isSelect'] == '1') {
-					if (!empty($attribute['B2B Attribute ID'])) {
-						// Querying available options from respective field definition
-						$options = $pimHierarchyAttributes[$attribute['PIM Attribute Name']]->getOptions();
-						foreach ($options as $pimAttribute) {
-							$row[] = $attribute['B2B Attribute ID'];
-							$row[] = $pimAttribute['key'];
-							$row[] = $pimAttribute['key'];
-							$row[] = -1;
-							fputcsv($fileResource, $row, ',');
-							unset($row);
+					$attributeName = lcfirst( str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']));
+					if (!empty($attribute['B2B Attribute ID']) &&  $pimHierarchyAttributes[$attributeName]) {
+						if($multiSelectMultiLingualMapping[$attributeName]){
+							// Querying available options from respective field definition
+							$options = $this->getOptions($pimHierarchyAttributes[$attributeName], $languageMaster);
+							foreach ($options as $pimAttribute) {
+								$row[] = $attribute['B2B Attribute ID'];
+								$row[] = $pimAttribute['key'];
+								$row[] = $pimAttribute['key'];
+								$row[] = $pimAttribute['lang'];
+								fputcsv($fileResource, $row, ',');
+								unset($row);
+							}
+							unset($options);
+						} else {
+							// Querying available options from respective field definition
+							$options = $pimHierarchyAttributes[$attributeName]->getOptions();
+							foreach ($options as $pimAttribute) {
+								$row[] = $attribute['B2B Attribute ID'];
+								$row[] = $pimAttribute['key'];
+								$row[] = $pimAttribute['key'];
+								$row[] = -1;
+								fputcsv($fileResource, $row, ',');
+								unset($row);
+							}
+							unset($options);
 						}
-						unset($options);
 					}
+					unset($attributeMultiselectObject);
 				}
 			}
 			fclose($fileResource);
@@ -480,95 +542,59 @@ class Export {
 			// Filling CSV columns
 			$columns = array('PartNumber', 'AttributeIdentifier', 'ValueId');
 			fputcsv($fileResource, $columns, ',');
-			foreach ($productsMaster as $product) {
-				// Attaching Additional Product Brick Data
-				$objectLD1 = Db::get()->fetchAll('
-                    SELECT * FROM object_localized_data_1 WHERE ooo_id = ' . $product["oo_id"] . '
-                ');
-
-				// BRAND DATA
-				$productBaseParentID = Db::get()->fetchOne('SELECT o_parentId FROM object_1 WHERE oo_id = ' . $product["o_parentId"] . '');
-				$objectPTGBase_1 = $productBaseParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_PTGBase_1 WHERE o_id = ' . $productBaseParentID . '
-                ') : [];
-				$objectHoseBase_1 = $productBaseParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HoseBase_1 WHERE o_id = ' . $productBaseParentID . '
-                ') : [];
-
-				// SKELETON DATA
-				$productParentID = $product['o_parentId'];
-				$objectPTGSkeleton_1 = $productParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_PTGSkeleton_1 WHERE o_id = ' . $productParentID . '
-                ') : [];
-				$objectHoseSkeleton_1 = $productParentID ? Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HoseSkeleton_1 WHERE o_id = ' . $productParentID . '
-                ') : [];
-
-				// FERT DATA
-				$objectBeltsFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_BeltsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectPTGFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_PTGFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectMetalFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_MetalFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectSynchronousFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_SynchronousFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectHydFittingsFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HydFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectINHFittingsFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_INHFittingsFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectHoseFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_HoseFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				$objectAccessoriesFert_1 = Db::get()->fetchAll('
-                    SELECT * FROM object_brick_store_AccessoriesFert_1 WHERE o_id = ' . $product["oo_id"] . '
-                ');
-				// Merging Product @Array with additional Product Bricks Data
-				$product = count($product) ? $product : [];
-				$objectLD1Arr = count($objectLD1) > 0 ? $objectLD1[0] : [];
-				$objectAccessoriesFert_1Arr = count($objectAccessoriesFert_1) > 0 ? $objectAccessoriesFert_1[0] : [];
-				$objectBeltsFert_1Arr = count($objectBeltsFert_1) > 0 ? $objectBeltsFert_1[0] : [];
-				$objectHoseBase_1Arr = count($objectHoseBase_1) > 0 ? $objectHoseBase_1[0] : [];
-				$objectHoseFert_1Arr = count($objectHoseFert_1) > 0 ? $objectHoseFert_1[0] : [];
-				$objectHoseSkeleton_1Arr = count($objectHoseSkeleton_1) > 0 ? $objectHoseSkeleton_1[0] : [];
-				$objectHydFittingsFert_1Arr = count($objectHydFittingsFert_1) > 0 ? $objectHydFittingsFert_1[0] : [];
-				$objectINHFittingsFert_1Arr = count($objectINHFittingsFert_1) > 0 ? $objectINHFittingsFert_1[0] : [];
-				$objectMetalFert_1Arr = count($objectMetalFert_1) > 0 ? $objectMetalFert_1[0] : [];
-				$objectPTGBase_1Arr = count($objectPTGBase_1) > 0 ? $objectPTGBase_1[0] : [];
-				$objectPTGFert_1Arr = count($objectPTGFert_1) > 0 ? $objectPTGFert_1[0] : [];
-				$objectPTGSkeleton_1Arr = count($objectPTGSkeleton_1) > 0 ? $objectPTGSkeleton_1[0] : [];
-				$objectSynchronousFert_1Arr = count($objectSynchronousFert_1) > 0 ? $objectSynchronousFert_1[0] : [];
-				$allProductDetails = ($product + $objectLD1Arr + $objectAccessoriesFert_1Arr
-					 + $objectBeltsFert_1Arr + $objectHoseBase_1Arr + $objectHoseFert_1Arr + $objectHoseSkeleton_1Arr
-					 + $objectHydFittingsFert_1Arr + $objectINHFittingsFert_1Arr + $objectMetalFert_1Arr
-					 + $objectPTGBase_1Arr + $objectPTGFert_1Arr + $objectPTGSkeleton_1Arr
-					 + $objectSynchronousFert_1Arr);
+            foreach ($productsMaster as $productID) {
+				// Querying Product Data WITH Product Brick Data
+				$productData = Db::get()->fetchAll('SELECT 
+					* 
+					FROM object_1 o1
+					LEFT JOIN object_localized_data_1 old1
+					ON old1.ooo_id = o1.oo_id
+					AND old1.language = "en"
+					LEFT JOIN object_brick_store_PTGBase_1 OBSPTGBase_1
+					ON OBSPTGBase_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_HoseBase_1 OBSHoseBase_1
+					ON OBSHoseBase_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_PTGSkeleton_1 OBSPTGSkeleton_1
+					ON OBSPTGSkeleton_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_HoseSkeleton_1 OBSHoseSkeleton_1
+					ON OBSHoseSkeleton_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_BeltsFert_1 OBSBeltsFert_1
+					ON OBSBeltsFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_PTGFert_1 OBSPTGFert_1
+					ON OBSPTGFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_MetalFert_1 OBSMetalFert_1
+					ON OBSMetalFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_SynchronousFert_1 OBSSynchronousFert_1
+					ON OBSSynchronousFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_HydFittingsFert_1 OBSHydFittingsFert_1
+					ON OBSHydFittingsFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_INHFittingsFert_1 OBSINHFittingsFert_1
+					ON OBSINHFittingsFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_HoseFert_1 OBSHoseFert_1
+					ON OBSHoseFert_1.o_id = o1.oo_id
+					LEFT JOIN object_brick_store_AccessoriesFert_1 OBSAccessoriesFert_1
+					ON OBSAccessoriesFert_1.o_id = o1.oo_id
+					WHERE o1.oo_id = ' . $productID['oo_id'] . '
+				')[0];
 				// Iterating available PIM attribute to append matching attribute for products
 				foreach ($attributes as &$attribute) {
 					// different If Checks for existing scenario
-					if (
-						isset($allProductDetails[$attribute['PIM Attribute Name']])
-						&& !empty($attribute['B2B Attribute ID'])
-						&& !empty($allProductDetails[$attribute['PIM Attribute Name']])
-						&& strtolower(
-							str_replace(['#', '/', ' '], '', $allProductDetails[$attribute['PIM Attribute Name']])
-						) != 'na'
-					) {
+					if (isset($productData[$attribute['PIM Attribute Name']])
+					&& !empty($attribute['B2B Attribute ID'])
+					&& !empty($productData[$attribute['PIM Attribute Name']])
+					&& strtolower(
+						str_replace(['#', '/', ' '], '', $productData[$attribute['PIM Attribute Name']])
+					) != 'na'
+				) {
 						// Filling CSV Data Rows
-						$row[] = $allProductDetails['articleNumber'];
+						$row[] = $productData['articleNumber'];
 						$row[] = $attribute['B2B Attribute ID'];
-						$row[] = $attribute['PIM Attribute Label'];
+						$row[] = lcfirst(str_replace('VirtualCatalog', '', $attribute['PIM Attribute Name']));
 						fputcsv($fileResource, $row, ',');
 						unset($row);
 					}
 				}
-			}
+            }
 			fclose($fileResource);
 		} else {
 			throw new Exception("Export Service Exception ::  Error, Processing Attribute Value Category Entry Facets CSV, No records Found..");
@@ -622,4 +648,71 @@ class Export {
 		p_r('--------------Total Execution Time---------------');
 		p_r('Script completed after: ' . (abs(time() - $time) / 60) . ' minutes');
 	}
+
+	/**
+		* Method to get Multiselects Multilingual Field Mapping.
+		*
+		* @return array $vcFieldMapping virtual catalog mapping configuration.
+		*/
+   protected function getMultiselectMapping() {
+	   $vcFieldMapping = array();
+	   $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/B2BExportBundle/Resources/config/multiselect_mapping.yml";
+	   $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
+	   return $vcFieldMapping['multiselect_list']['attrubutes_with_multilingual_mapping'];
+   }
+
+   /**
+     *
+     * GET Multiselect options for multilingual fields
+     *
+     * @param array $languageMaster
+     * @param \Pimcore\Model\DataObject\ClassDefinition\Data $fieldDefinition
+	* @return array $returnValue key value pairs with language codes
+     */
+   protected function getOptions($fieldDefinition, $languageMaster) {
+		$returnValue = array();
+		$optionsProviderData = $fieldDefinition->getOptionsProviderData();
+		$optionsProviderClass = $fieldDefinition->getOptionsProviderClass();
+		// field provider data must have entry for brick group name
+		if($optionsProviderData){
+			$fieldName = $fieldDefinition->getName();
+			$masterType = $this->getMasterType($optionsProviderClass, $optionsProviderData,$fieldName);
+			$list = Db::get()->fetchAll('SELECT
+				old22.name AS NAME,
+				old22.language AS LANG,
+				old22.ooo_id AS ID
+				FROM object_22 o22
+				JOIN  `object_localized_data_22`  old22
+				ON o22.oo_id = old22.ooo_id
+				WHERE `masterType` = "'.$masterType.'"
+				AND old22.name != ""
+			');
+			foreach($list as $object){
+				$key = $object['NAME'];
+				$value = $object['ID'];
+				$objectLanguage = $languageMaster[$object['LANG']];
+				if(!empty($key) && !empty($objectLanguage)){
+					$returnValue[] = array('key' => $key, 'value' => $value, 'lang' => $objectLanguage);
+				}
+			}
+		}
+        return $returnValue;
+   }
+   
+   /**
+     *
+     * GET Multiselect options for multilingual fields
+     *
+     * @param string $optionsProviderClass
+     * @param string $optionsProviderData
+     * @param string $fieldName
+	* @return array $fieldName | $optionsProviderData."~".$fieldName (Brick Name~fieldName)
+     */
+   protected function getMasterType($optionsProviderClass, $optionsProviderData, $fieldName) {
+	   //TODO: place this separator in a config file
+	   if($optionsProviderClass == "AppBundle\OptionProvider\OptionProviderForBrickMultiselects"){
+			return $optionsProviderData."~".$fieldName;
+	   }
+	   return $fieldName;
+   }
 }

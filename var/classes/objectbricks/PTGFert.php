@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-22T08:33:51+02:00
+* Generated at: 2020-07-28T09:53:38+02:00
 * IP: 127.0.0.1
 
 
@@ -99,13 +99,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   ),
                   1 => 
                   array (
-                    'key' => 'Yellow',
-                    'value' => 'Yellow',
+                    'key' => 'Black/Yellow',
+                    'value' => 'Black/Yellow',
                   ),
                   2 => 
                   array (
-                    'key' => 'Yellow/Black',
-                    'value' => 'Yellow/Black',
+                    'key' => 'Clear',
+                    'value' => 'Clear',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'White',
+                    'value' => 'White',
+                  ),
+                  4 => 
+                  array (
+                    'key' => 'Gray',
+                    'value' => 'Gray',
+                  ),
+                  5 => 
+                  array (
+                    'key' => 'Red',
+                    'value' => 'Red',
+                  ),
+                  6 => 
+                  array (
+                    'key' => 'Green',
+                    'value' => 'Green',
+                  ),
+                  7 => 
+                  array (
+                    'key' => 'Blue',
+                    'value' => 'Blue',
                   ),
                 ),
                  'width' => 300,
@@ -175,7 +200,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
+                 'decimalPrecision' => 1,
                  'name' => 'widthmm',
                  'title' => 'Width (mm)',
                  'tooltip' => '',
@@ -206,7 +231,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'maxValue' => NULL,
                  'unique' => false,
                  'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
+                 'decimalPrecision' => 3,
                  'name' => 'widthIn',
                  'title' => 'Width (in)',
                  'tooltip' => '',

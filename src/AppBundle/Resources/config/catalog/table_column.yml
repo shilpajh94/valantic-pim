@@ -1,0 +1,963 @@
+parameters:
+  tableColumns:
+    Hose Product Page:
+        Hose:
+            descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton   
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose ID Fractional'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdIn:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose OD(In)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdmm:
+                fieldLevel: objectBrick
+                fieldLabel: 'Hose OD(mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: 'Working Pressure (PSI)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressureMPA:
+                fieldLevel: objectBrick
+                fieldLabel: 'Working Pressure (MPA)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusIN:
+                fieldLevel: objectBrick
+                fieldLabel: 'BendRadius(In)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusMM:
+                fieldLevel: objectBrick
+                fieldLabel: 'BendRadius(mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            grossWeight:
+                fieldLevel: class
+                fieldLabel: 'Weight Lbs per ft'
+                fieldType: Input
+                parent:
+                    name: Product
+            fittingFamily:
+                fieldLevel: class
+                fieldLabel: 'Fitting Family'
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                       name: FittingFamily
+                       fieldName: Name    
+    PTG Product Page:
+        Synchronous Belts:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
+            widthmm:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Width (mm)
+                parent:
+                    name: PTGFert
+            pitchMM:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch (mm)
+                parent:
+                    name: SynchronousFert
+            pitchLengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch Length (in)
+                parent:
+                    name: SynchronousFert
+            pitchLengthMM:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch Length (MM)
+                parent:
+                    name: SynchronousFert
+            numberOfTeeth:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Number of teeth
+                parent:
+                    name: SynchronousFert
+        Banded Belts:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            outsideLengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Outside Length (in)
+                parent:
+                    name: BeltsFert
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
+        V-Belts:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            insideLengthIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Inside Length (in)
+                parent:
+                    name: BeltsFert
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
+        Sheave:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            pulleyDiameterIN:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pulley Diameter (in)
+                parent:
+                    name: MetalFert
+            GroovesPerTooth:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Grooves per tooth
+                parent:
+                    name: MetalFert
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
+        Sprockets:
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Industry Standard
+                parent: 
+                    name: Product
+            netWeight:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Net Weight
+                parent:
+                    name: Product
+            weightUnit:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Weight Unit
+                parent:
+                    name: Product
+            # listPrice:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: List Price
+            #     parent:
+            #         name: Product
+            pitchMM:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Pitch (mm)
+                parent:
+                    name: SynchronousFert
+            numberOfTeeth:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Number of teeth
+                parent:
+                    name: SynchronousFert
+    Hose Accessories Sleeving:
+        Hose Accessories-Sleeving: 
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            SleevingIDInDecimal: 
+                fieldLevel: objectBrick
+                fieldLabel: 'ID'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            FlatWidthIn: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Flat Width (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            grossWeight:
+                fieldLevel: class
+                fieldLabel: 'Weight Lbs per ft'
+                fieldType: Input
+                parent:
+                    name: Product
+    Hose Accessories Clamps:
+        Hose Accessories-Hose Clamps: 
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            ClampingDiameterInFract: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Clamping Diameter (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            BoltHoleSizeInFract: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Bolt Hole (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+    Hose Accessories Flanges: 
+        Hose Accessories-Flange Clamps:
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            PortHoleIDFract: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Port Hole ID (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            FlangePatternDimensionAInAndMMDecimal: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Flange Pattern Dimension A (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            FlangePatternDimensionBInAndMMDecimal: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Flange Pattern Dimension B (in)'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            WorkingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: 'Maximum Working Pressure'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            RecommendedGrade8Bolt: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Recommended Grade 8 Bolts'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+    Hydraulic Fitting:
+        Fittings:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            RightPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Product Right Image
+            LeftPrintCatalogImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Product Left Image
+            FittingTableName:
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+            shortDescription:
+                fieldLevel: class
+                fieldLabel: Marketing Short Description
+                fieldType: Wysiwyg
+            BrandShortText1:
+                fieldLevel: class
+                fieldLabel: Brand Short Text 1
+                fieldType: Input
+            fittingFamily:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Fitting Family
+                parent: 
+                    name: Product
+                    class: 
+                        name : FittingFamily
+                        fieldName: Name
+            ElbowType:
+                fieldLevel: objectBrick
+                fieldLabel: Elbow Type
+                fieldType: Select
+                parent:
+                    name: HydFittingsFert
+            DescriptivePartNumber:
+                fieldLevel: objectBrick
+                fieldLabel: Part Number
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ActivantNumber:
+                fieldLevel: objectBrick
+                fieldLabel: Product Number
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: SAP Number
+                fieldType: Input
+            HoseID1InFract:
+                fieldLevel: objectBrick
+                fieldLabel: Hose ID
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            HoseID1InDec:
+                fieldLevel: objectBrick
+                fieldLabel: Hose ID (d)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex1WrenchSizeIN:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 1 Wrench Size (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex1WrenchSizeMM:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 1 Wrench Size (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex2WrenchSizeIN:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 2 Wrench Size
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            Hex2WrenchSizeMM:
+                fieldLevel: objectBrick
+                fieldLabel: Hex 2 Wrench Size (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            CutOffLengthIN:
+                fieldLevel: objectBrick
+                fieldLabel: Cut-Off (C) (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            CutOffLengthMM:
+                fieldLevel: objectBrick
+                fieldLabel: Cut-Off (C) (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ThreadSize1InDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Thread Size 1 (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ThreadSize2InDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Thread Size 2 (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ThreadDashSize1:
+                fieldLevel: objectBrick
+                fieldLabel: Thread Dash Size
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            TubeODInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Tube OD (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            TubeODMM:
+                fieldLevel: objectBrick
+                fieldLabel: Tube OD (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeODInDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube OD (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeODMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube OD (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeLengthInDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube Length (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OrificeTubeLengthMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Orifice Tube Length (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ValveSizeInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Valve Size (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ValveSize2InDec:
+                fieldLevel: objectBrick
+                fieldLabel: Valve Size (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            ValveStyle:
+                fieldLevel: objectBrick
+                fieldLabel: Valve Style
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            LengthIN:
+                fieldLevel: objectBrick
+                fieldLabel: Length (in)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            LengthMM:
+                fieldLevel: objectBrick
+                fieldLabel: Length (mm)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            OverallLengthIN:
+                fieldLevel: objectBrick
+                fieldLabel: Overall Length (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            OverallLengthMm:
+                fieldLevel: objectBrick
+                fieldLabel: Overall Length (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            SocketWrenchSizeInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Overall Length (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            SkiveType:
+                fieldLevel: objectBrick
+                fieldLabel: Overall Length (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FerruleIDInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Ferrule ID (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FerruleIDMM:
+                fieldLevel: objectBrick
+                fieldLabel: Ferrule ID (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FerruleODInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Ferrule OD (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FerruleODMM:
+                fieldLevel: objectBrick
+                fieldLabel: Ferrule OD (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FerruleLengthInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Ferrule Length (in)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FerruleLengthMM:
+                fieldLevel: objectBrick
+                fieldLabel: Ferrule Length (mm)
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            hoseOdIn:
+                fieldLevel: objectBrick
+                fieldLabel: Hose OD (in)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdmm:
+                fieldLevel: objectBrick
+                fieldLabel: Hose OD (mm)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: Working Pressure (psi)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressureMPA:
+                fieldLevel: objectBrick
+                fieldLabel: Working Pressure (Mpa)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusIN:
+                fieldLevel: objectBrick
+                fieldLabel: Bend Radius (in)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            BendRadiusMM:
+                fieldLevel: objectBrick
+                fieldLabel: Bend Radius (mm)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            PortHoleIDFract:
+                fieldLevel: objectBrick
+                fieldLabel: Flange Port Hole ID
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            FlangePatternDimensionAInAndMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: A Flange Pattern Dimension
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            FlangePatternDimensionBInAndMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: B Flange Pattern Dimension
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            RecommendedGrade8Bolt:
+                fieldLevel: objectBrick
+                fieldLabel: Recommended Grade 8 Bolts
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            ClampingDiameterInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Clamping Diameter (fract)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            ClampingDiameterInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Clamping Diameter (dec)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            BoltHoleSizeInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (fract)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            BoltHoleSizeInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (dec)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            SleevingIDInDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (dec)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+            SleevingWidthInAndMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: Bolt Hole Size (dec)
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert
+    Industrial Hose Section Page:
+        INHPrintCatalog:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            brandName:
+                fieldLevel: class
+                fieldLabel: Brand ID
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldLabel: Features
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: Name
+            StandardMetCover:
+                fieldLevel: objectBrick
+                fieldLabel: Oil Resistance Cover
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            coverCharacteristic:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Characteristic
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            StandardMetTube:
+                fieldLevel: objectBrick
+                fieldLabel: Standard Met Tube
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            tubeMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Tube Material
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            staticWire:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire
+                fieldType: Input
+                parent:
+                    name: HoseBase
+            LayFlatHoseYN:
+                fieldLevel: objectBrick
+                fieldLabel: Lay Flat Construction
+                fieldType: Select
+                parent:
+                    name: HoseBase
+            standardMetHose:
+                fieldLevel: objectBrick
+                fieldLabel: Standard Met Hose
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            FittingTableName:
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+    Industrial Hose Product Page:
+        INHPrintCatalogProductPage:
+            id:
+                fieldLevel: class
+                fieldLabel: ID
+                fieldType: Input
+            oldMaterialCode:
+                fieldLevel: class
+                fieldLabel: Old Material Code
+                fieldType: Input
+            brandName:
+                fieldLevel: class
+                fieldLabel: Brand ID
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP #'
+                fieldType: Input
+                parent:
+                    name: Product
+            VirtualCatalogHoseTemperatureRangeFAndC:
+                fieldLevel: class
+                fieldLabel: Temperature Range
+                fieldType: Textarea
+                parent:
+                    name: Product
+            VirtualCatalogBrandingLayline:
+                fieldLevel: class
+                fieldLabel: Branding
+                fieldType: Textarea
+                parent:
+                    name: Product
+            Application:
+                fieldLevel: class
+                fieldLabel: Application
+                fieldType: Input
+                parent:
+                    name: Product
+            FittingTableName:
+                fieldLevel: class
+                fieldLabel: Table Name
+                fieldType: Input
+            coverColor:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Color
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            VirtualCatalogPackaging:
+                fieldLevel: objectBrick
+                fieldLabel: Packaging
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogCoverMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Cover
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogTubeMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Tube
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogCoupling:
+                fieldLevel: objectBrick
+                fieldLabel: Coupling
+                fieldType: Textarea
+                parent:
+                    name: HoseBase
+            VirtualCatalogReinforcement:
+                fieldLevel: objectBrick
+                fieldLabel: Reinforcement
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseIdNominalId:
+                fieldLevel: objectBrick
+                fieldLabel: 'ID (in)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseIdMM:
+                fieldLevel: objectBrick
+                fieldLabel: 'ID (mm)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdIn:
+                fieldLevel: objectBrick
+                fieldLabel: 'OD (in)'
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseOdmm:
+                fieldLevel: objectBrick
+                fieldLabel: OD (mm)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            hoseLengthFT:
+                fieldLevel: objectBrick
+                fieldLabel: Hose Length (ft)
+                fieldType: Input
+                parent:
+                    name: HoseFert
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: WP (psi)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            workingPressureBAR:
+                fieldLevel: objectBrick
+                fieldLabel: WP (bar)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            grossWeight:
+                fieldLevel: class
+                fieldLabel: GW
+                fieldType: Number
+            weightKg:
+                fieldLevel: class
+                fieldLabel: W (kg)
+                fieldType: Number
+            BendRadiusIN:
+                fieldLevel: objectBrick
+                fieldLabel: BR (in)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            VacuumIN:
+                fieldLevel: objectBrick
+                fieldLabel: Vacuum (in)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-04-21T16:04:55+02:00
+* Generated at: 2020-07-23T11:54:38+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -12,13 +12,17 @@ Fields Summary:
 - BusinessUnit [select]
 - Industry [select]
 - Level [numeric]
+- nomenclatureHierarchy [booleanSelect]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
 - code [input]
 - fullCode [input]
+- CatalogFlag [checkbox]
 - localizedfields [localizedfields]
 -- description [textarea]
+-- PrintedCatalogDescription [textarea]
+-- ConstructionType [input]
 - image [image]
 */ 
 
@@ -28,7 +32,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1587477895,
+   'modificationDate' => 1595498077,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -270,6 +274,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                             'fieldtype' => 'booleanSelect',
+                             'yesLabel' => 'yes',
+                             'noLabel' => 'no',
+                             'emptyLabel' => 'empty',
+                             'options' => 
+                            array (
+                              0 => 
+                              array (
+                                'key' => 'empty',
+                                'value' => 0,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'yes',
+                                'value' => 1,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'no',
+                                'value' => -1,
+                              ),
+                            ),
+                             'width' => 300,
+                             'queryColumnType' => 'tinyint(1) null',
+                             'columnType' => 'tinyint(1) null',
+                             'phpdocType' => 'boolean',
+                             'name' => 'nomenclatureHierarchy',
+                             'title' => 'Maintain Nomenclature Hierarchy',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -478,6 +525,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
+                          5 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                             'fieldtype' => 'checkbox',
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'tinyint(1)',
+                             'columnType' => 'tinyint(1)',
+                             'phpdocType' => 'boolean',
+                             'name' => 'CatalogFlag',
+                             'title' => 'Catalog Flag',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -553,6 +623,60 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'invisible' => false,
                                  'visibleGridView' => true,
                                  'visibleSearch' => true,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                                 'fieldtype' => 'textarea',
+                                 'width' => '',
+                                 'height' => '',
+                                 'maxLength' => NULL,
+                                 'showCharCount' => false,
+                                 'excludeFromSearchIndex' => false,
+                                 'queryColumnType' => 'longtext',
+                                 'columnType' => 'longtext',
+                                 'phpdocType' => 'string',
+                                 'name' => 'PrintedCatalogDescription',
+                                 'title' => 'Printed Catalog Description',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              2 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                 'fieldtype' => 'input',
+                                 'width' => NULL,
+                                 'defaultValue' => NULL,
+                                 'queryColumnType' => 'varchar',
+                                 'columnType' => 'varchar',
+                                 'columnLength' => 190,
+                                 'phpdocType' => 'string',
+                                 'regex' => '',
+                                 'unique' => false,
+                                 'showCharCount' => false,
+                                 'name' => 'ConstructionType',
+                                 'title' => 'Construction Type',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => NULL,
+                                 'style' => '',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'name' => 'localizedfields',

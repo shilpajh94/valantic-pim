@@ -99,6 +99,7 @@ services:
     AppBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
 
 
     AppBundle\Services\ConfigProviderService:
@@ -131,3 +132,9 @@ services:
 
     AppBundle\Services\UnitConverterService:
       public: true
+
+    AppBundle\Services\AppService:
+        public: true
+
+    AppBundle\Services\MultiselectMasterService:
+        public: true

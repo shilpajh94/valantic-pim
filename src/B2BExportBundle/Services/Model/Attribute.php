@@ -23,8 +23,7 @@ class Attribute
      * @throws Exception
      *
      */
-    public static function getValues()
-    {
+    public static function getValues() {
         try {
             // Querying data from Sales Material Master Database
             $salesMaterialMaster = Db::get()->fetchAll("SELECT DISTINCT
@@ -73,8 +72,7 @@ class Attribute
      * @throws Exception
      *
      */
-    public static function getValuesCategoryEntry()
-    {
+    public static function getValuesCategoryEntry() {
         try {
             // Querying data from Sales Material Master Database
             $salesMaterialMaster = Db::get()->fetchAll("SELECT DISTINCT
@@ -87,18 +85,33 @@ class Attribute
                 ON o8.o_id = o10.DistributionChannel__id
                 JOIN object_5  o5
                 ON o5.o_id = o10.DeliveringPlant__id
-                JOIN object_1  o1
-                ON o1.o_id = o10.Material
-                AND o10.epixFlag = 001
+                JOIN object_1 o1 ON 
+                o10.Material = o1.oo_id
+                WHERE o10.epixFlag = '001'
+                UNION DISTINCT
+                SELECT DISTINCT
+                o1.articleNumber as partNo,
+                CONCAT(o6.code, '/', o8.code, '/', o5.Plant) as value
+                FROM object_10 o10
+                JOIN object_6  o6
+                ON o6.o_id = o10.SalesOrganization__id
+                JOIN object_8  o8
+                ON o8.o_id = o10.DistributionChannel__id
+                JOIN object_5  o5
+                ON o5.o_id = o10.DeliveringPlant__id
+                JOIN object_1 o1
+                ON FIND_IN_SET(o1.oo_id, o10.Material)
+                WHERE o10.epixFlag = '001'
+                AND o10.Material REGEXP ','
             ");
             // Querying Product Line Master data from Database
             $productLineMaster = Db::get()->fetchAll("SELECT DISTINCT
                 o1.articleNumber as partNo,
                 o2.code as value
                 FROM object_10 o10
-                JOIN object_1  o1
-                ON o1.o_id = o10.Material
-                AND o10.epixFlag = 001
+                JOIN object_1 o1 ON 
+                (REPLACE(SUBSTRING(substring_index(o10.Material, ',', 1), 
+                length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
                 JOIN object_2  o2
                 ON o2.oo_id = o1.SIOPLevel2
             ");
@@ -117,8 +130,7 @@ class Attribute
      * @throws Exception
      *
      */
-    public static function getFacets()
-    {
+    public static function getFacets() {
         try {
             // Querying B2B attributes from Database
 			$b2bObjectPath = Db::get()->fetchOne('SELECT
@@ -140,8 +152,7 @@ class Attribute
      * @throws Exception
      *
      */
-    public static function getValuesFacets()
-    {
+    public static function getValuesFacets() {
       try {
         // Querying B2B attributes from Database
 
@@ -150,7 +161,7 @@ class Attribute
                 FROM object_28'
             );
             $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
-        return $attributes;
+        return ['attributes' => $attributes, 'languageMaster' => self::languageMaster()];
       } catch (Exception $ex) {
           throw new Exception( 'Attribute  Model Exception :: ' . $ex );
       }
@@ -164,16 +175,25 @@ class Attribute
      * @throws Exception
      *
      */
-    public static function getAttrValCatEntryFacets()
-    {
+    public static function getAttrValCatEntryFacets() {
         try {
             // Querying product master data from Database
-            $productsMaster = Db::get()->fetchAll('SELECT DISTINCT
-                o1.oo_id,
-                o1.*
-                FROM object_1 o1
-                INNER JOIN object_10 o10 ON o1.oo_id = o10.Material AND o10.epixFlag = "001"
-            ');
+            $productsMaster = Db::get()->fetchAll("SELECT
+                    o1.oo_id
+                FROM object_10 o10
+                JOIN object_1 o1
+                ON o1.oo_id = o10.Material
+                WHERE o10.epixFlag = '001' 
+                UNION DISTINCT
+                SELECT
+                    o1.oo_id
+                FROM object_10 o10
+                JOIN object_1 o1
+                ON FIND_IN_SET(o1.oo_id, o10.Material)
+                WHERE 
+                o10.epixFlag = '001' 
+                AND o10.Material REGEXP ','
+            ");
             // Querying B2B attributes from Database
 			$b2bObjectPath = Db::get()->fetchOne('SELECT
                 CONCAT(`o_path`, `o_key`) AS `path`
@@ -181,7 +201,10 @@ class Attribute
             );
             $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
             // Returning products master & attributes @Array
-            return ['productsMaster' => $productsMaster, 'attributes' => $attributes];
+            return [
+                'productsMaster' => $productsMaster, 
+                'attributes' => $attributes
+            ];
         } catch (Exception $ex) {
             throw new Exception( 'Attribute  Model Exception :: ' . $ex );
         }
@@ -195,8 +218,7 @@ class Attribute
      * @return array
      *
      */
-    protected function uniqueMultiDArray($array, $key)
-    {
+    protected function uniqueMultiDArray($array, $key) {
         $temp_array = [];
         $i = 0;
         $key_array = [];
@@ -210,4 +232,28 @@ class Attribute
         }
         return $temp_array;
     }
+
+	/**
+	 * Querying languages with languageId from Database
+	 * @return array $languageMaster
+	 */
+	protected function languageMaster() {
+		$languageMasterKeys = array_map(function($e){
+				return $e['SystemCode'];
+			}, Db::get()->fetchAll('
+				SELECT SystemCode
+				FROM object_27
+			')
+		);
+		$languageMasterValues = array_map(function($e){
+				return $e['Code'];
+			}, Db::get()->fetchAll('
+				SELECT Code
+				FROM object_27
+			')
+		);
+		// Language master from object_27 , ex : ['en' => -1, 'fr_CA' => -2]
+		$languageMaster = array_combine($languageMasterKeys,$languageMasterValues);
+		return 	$languageMaster;
+	}
 }
