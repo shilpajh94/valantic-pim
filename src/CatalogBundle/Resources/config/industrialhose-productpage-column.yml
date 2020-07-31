@@ -1,5 +1,19 @@
 parameters:
-  Air & Multipurpose - General Purpose:
-    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight]
-  Air & Multipurpose - General Purpose 2:
+  ex:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN, InnerHoseIDFractional, InnerHoseOdInDec, InnerHoseWeightLbs]
+  Hose Attribute Table 1:    
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg]
+  Hose Attribute Table 2:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
+  Hose Attribute Table 3:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
+  Hose Attribute Table 4:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
+  Hose Attribute Table 5:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
+  Hose Attribute Table 6:
     columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN]
+  Hose Attribute Table 7:
+    columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
+  Hose Attribute Table 8:
+    columns: [articleNumber, hoseIdNominalId,  hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, InnerHoseIDFractional, InnerHoseOdInDec, InnerHoseWeightLbs]

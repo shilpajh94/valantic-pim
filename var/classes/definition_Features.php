@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-02T11:04:14+02:00
+* Generated at: 2020-07-30T13:45:41+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,8 +9,9 @@
 
 
 Fields Summary: 
-- Name [input]
 - FeatureType [select]
+- localizedfields [localizedfields]
+-- Name [input]
 - Icon [image]
 */ 
 
@@ -20,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Features',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1591088654,
+   'modificationDate' => 1596109541,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -90,34 +91,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'childs' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => NULL,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'Name',
-                 'title' => 'Name',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'fieldtype' => 'select',
                  'options' => 
@@ -157,6 +130,69 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                 'fieldtype' => 'localizedfields',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Localizedfield',
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => NULL,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Name',
+                     'title' => 'Name',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'name' => 'localizedfields',
+                 'region' => NULL,
+                 'layout' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'maxTabs' => NULL,
+                 'labelWidth' => NULL,
+                 'border' => false,
+                 'provideSplitView' => false,
+                 'tabPosition' => NULL,
+                 'hideLabelsWhenTabsReached' => NULL,
+                 'referencedFields' => 
+                array (
+                ),
+                 'tooltip' => NULL,
+                 'mandatory' => NULL,
+                 'noteditable' => NULL,
+                 'index' => NULL,
+                 'locked' => NULL,
+                 'style' => NULL,
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => true,
               )),
             ),
              'locked' => false,

@@ -31,14 +31,27 @@ class HydraulicFittingController extends FrontendController
     {
         $fittingTableColumn = \Pimcore::getContainer()->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
         $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
+        $common = \Pimcore::getContainer()->get('app.common_helper');
         if ($this->getDocumentTag('relation', 'fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->getDocumentTag('relation', 'fitting-straight')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
+
+            /**
+             * Get Catalog defined language
+            */
+            $lang = $common->getCatalogLanguage($obj);
+            // $lang = 'fr_CA';
+            $this->get('translator')->setLocale($lang);
+
+
             $data = array();
             $headers = (array) json_decode($obj->getHeaderData());
             $headerKeys = array_keys($headers);
             $columns = (array) json_decode($obj->getColumns());
-
+            foreach($columns as $key => $cols) {
+                $columns[$key]->columnLabel = $this->get('translator')->trans($key);
+            }
+            // p_r($columns); die;
             $productsData = array();
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {

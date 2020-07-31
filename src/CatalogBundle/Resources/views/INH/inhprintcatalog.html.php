@@ -16,7 +16,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <?php
             if (isset($info['data']) && !empty($info['data'])) {
                 foreach ($info['data'] as $tableName => $data) {
-                    // p_r($tableName);
+                    // p_r($data['dispColumns']);
                     // die;
             ?>
                     <div class="flex reverse">
@@ -33,9 +33,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php
                                 if (is_array($info['categories'])) {
                                     foreach ($info['categories'] as $category) {
-                                        echo "<li>";
+                                        $catNames = array_column($category, 'name');
+                                        $first = "";
+                                        foreach($catNames as $cn) {
+                                            if($tableName==$cn) {
+                                                $first = "first";
+                                            }
+                                        }
+                                        echo "<li class='$first'>";
                                         if (is_array($category) && !empty($category)) {
-                                            foreach ($category as $cat) {
+                                            foreach ($category as $k=> $cat) {
                                                 if ($cat['printable'] == 1 && $cat['level'] == 3) {
                                                     echo "<p><b>" . $cat['name'] . "</b></p>";
                                                 } else {
@@ -74,20 +81,23 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         <td></td>
                                         <?php
                                         foreach ($data['dispColumns'] as $key => $colInfo) {
-                                            echo "<td>{$colInfo['title']}</td>";
+                                            echo "<td>{$this->translate($colInfo['title'])}</td>";
                                         }
                                         ?>
                                     </tr>
                                 </thead>
                                 <?php
                                 /**
-                                 * 
+                                 * Printable columns is attribut which we get from table-column mapping
+                                 * In this template Display column is different. It is combination of printable column and feature attribute
+                                 * If Key of display column will be feature type, then it will get the value of feature and print as column value.
+                                 * Feature attribut will become seperate column here.
                                  */
                                 $i = 1;
                                 if (isset($data['data']) && !empty($data['data'])) {
                                     foreach ($data['data'] as $brandName => $row) {
                                         $active = "";
-                                        if ($i % 2 == 0) {
+                                        if ($i % 2 !== 0) {
                                             $active = "active";
                                         }
                                         $i++;
@@ -105,13 +115,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                     $td = true;
                                                 }
                                             } else if ($colInfo['type'] == 'feature' && isset($row[$colInfo['fieldName']])) {
-                                                if (in_array($colInfo['title'], $row[$colInfo['fieldName']])) {
+                                                if (in_array($colInfo['feature'], $row[$colInfo['fieldName']])) {
                                                     echo "<td>Yes</td>";
                                                     $td = true;
                                                 }
                                             }
                                             if (!$td) {
-                                                echo "<td></td>";
+                                                if(isset($colInfo['mode'])) {
+                                                    echo "<td>".$this->input('ING_PP_PageNumber_'.md5($tableName.$brandName.$key),["width"=>"40", "placeholder"=>"Page Number"])."</td>";
+                                                } else {
+                                                    echo "<td></td>";
+                                                }
                                             }
                                         }
                                         echo "</tr>";
@@ -122,7 +136,12 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 ?>
 
                             </table>
-                            <p class="small">*Lorem ipsum</p>
+                            <?php if($this->editmode) {?>
+                            <p class="small">*<?php echo $this->input('INH_PP_'.md5($tableName), ["placeholder"=>"Table Bottom Title"])?></p>
+                            <?php }?>
+                            <?php if(!$this->editmode && !$this->input('INH_PP_'.md5($tableName))->isEmpty()) { ?>
+                                <p class="small">*<?php echo $this->input('INH_PP_'.md5($tableName), ["placeholder"=>"Table Bottom Title"])?></p>
+                            <?php }?>
                         </div>
 
                     </div>
@@ -135,7 +154,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <footer class="flex reverseColor">
                 <span class="logo">
                     <b>Fittings</b>
-                    <img src="images/6b.JPG" />
+                    <?php echo $this->image("logo")->setImage($info['logo']);?>
                 </span>
                 <div class="flex aligned">
                     <h3>

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-27T10:10:43+02:00
+* Generated at: 2020-07-31T10:21:34+02:00
 * IP: 127.0.0.1
 
 
@@ -76,7 +76,8 @@ Fields Summary:
 - DualGripStyle [booleanSelect]
 - SAEStandard [input]
 - SkiveType [input]
-- OrificeTubeODInMMDecimal [input]
+- OrificeTubeODInDecimal [numeric]
+- OrificeTubeLengthInDecimal [numeric]
 - UniCrimpStyle [booleanSelect]
 - DualSeatYN [booleanSelect]
 - SingleHexYN [booleanSelect]
@@ -84,7 +85,8 @@ Fields Summary:
 - ElbowType2 [select]
 - ElbowAngle2Degrees [input]
 - AssemblyMaterial [select]
-- OrificeTubeLengthInMMDecimal [input]
+- OrificeTubeODMMDecimal [numeric]
+- OrificeTubeLengthMMDecimal [numeric]
 - Thread1 [input]
 - Thread3 [input]
 - ThreadSize1InMMDecimal [input]
@@ -281,7 +283,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -2506,24 +2508,58 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           7 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'OrificeTubeODInMMDecimal',
-                             'title' => 'Orifice Tube OD (in & mm) Decimal',
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeODInDecimal',
+                             'title' => 'Orifice Tube OD (in) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeLengthInDecimal',
+                             'title' => 'Orifice Tube Length (in) Decimal',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2806,24 +2842,58 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           7 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'OrificeTubeLengthInMMDecimal',
-                             'title' => 'Orifice Tube Length (in & mm) Decimal',
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeODMMDecimal',
+                             'title' => 'Orifice Tube OD (mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeLengthMMDecimal',
+                             'title' => 'Orifice Tube Length (mm) Decimal',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
