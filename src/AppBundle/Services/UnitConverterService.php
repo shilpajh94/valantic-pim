@@ -43,20 +43,12 @@ class UnitConverterService
      */
     public function setGroupValueInObjectByAttribute($object,string $attributeName,?float $value)
     {
-        if($value == null){
-            $attributeGroupName = $this->getAttributeGroupName($attributeName);
-            $groupConfig = $this->getGroupConfig($attributeGroupName);
-            foreach($groupConfig as $attributeName => $attributeUnit){
-                $setter = 'set'.ucfirst($attributeName);
-                $object->$setter(null);
-            }
-        }else{
-            $attributeGroupWithValues = $this->getGroupWithValues($attributeName, $value);
+        $attributeGroupWithValues = $this->getGroupWithValues($attributeName, $value);
 
-            foreach($attributeGroupWithValues as $attributeName => $value){
-                $setter = 'set'.ucfirst($attributeName);
-                $object->$setter(round($value, 5));
-            }
+        foreach($attributeGroupWithValues as $attributeName => $value){
+            $setter = 'set'.ucfirst($attributeName);
+            $value = $value == null ? null : round($value, 5);
+            $object->$setter($value);
         }
     }
 
@@ -68,7 +60,7 @@ class UnitConverterService
      * @return array
      * @throws \Exception
      */
-    public function getGroupWithValues(string $attributeName,float $value): array
+    public function getGroupWithValues(string $attributeName,?float $value): array
     {
         $returnValue = array();
         $attributeGroupName = $this->getAttributeGroupName($attributeName);
@@ -83,10 +75,17 @@ class UnitConverterService
             throw new \Exception(("No configuration exist for attribute group ".$attributeGroupName." or attribute ".$attributeName." does not exist in the  attribute group ".$attributeGroupName."."));
         }
         $unitObjectOfGivenAttribute = new Unit($unitStringOfGivenAttribute);
-        $converter = ConverterFactory::getConverterByUnit($value, $unitObjectOfGivenAttribute);
 
-        foreach($groupConfig as $attributeName => $attributeUnit){
-            $returnValue[$attributeName] = $converter->getValue(new Unit($attributeUnit));
+        if($value == null){
+            foreach($groupConfig as $attributeName => $attributeUnit){
+                $returnValue[$attributeName] = null;
+            }
+        }else{
+            $converter = ConverterFactory::getConverterByUnit($value, $unitObjectOfGivenAttribute);
+
+            foreach($groupConfig as $attributeName => $attributeUnit){
+                $returnValue[$attributeName] = $converter->getValue(new Unit($attributeUnit));
+            }
         }
 
         return $returnValue;
