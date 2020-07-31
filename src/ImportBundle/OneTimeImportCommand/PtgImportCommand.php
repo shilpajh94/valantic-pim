@@ -73,7 +73,7 @@ class PtgImportCommand extends AbstractCommand
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            // $this->createTempTable();
+            $this->createTempTable();
             $this->loadMaster();
             // $this->import($filePath);
             $this->loadFeatures();
@@ -89,7 +89,7 @@ class PtgImportCommand extends AbstractCommand
     {
         p_r('Importing data into temp table');
         $results = $this->getCSVData($filePath);
-        $this->truncateTemp($results);
+        $this->truncateTemp();
         $this->updateTable($results, 'ptg_import');
         $this->filterSiopLvl5Data();
         $this->filterSiopLvl6Data();
@@ -144,7 +144,7 @@ class PtgImportCommand extends AbstractCommand
         $this->updateTable($records, self::PRODUCT_LOCALIZED_DATA);
         $this->updateTable($records, self::PRODUCT_LOCALIZED_QUERY_L);
         unset($records);
-        
+
         $records = $this->getBaseBrickData($results);
         p_r('Processing ' . count($results) . ' records at base level');
         p_r('Updating Base Level');
@@ -199,8 +199,7 @@ class PtgImportCommand extends AbstractCommand
         LEFT JOIN object_brick_query_PTGFert_1 ptgf ON(ptgf.o_id=o.o_id) 
         LEFT JOIN object_brick_query_BeltsFert_1 ptgblts ON(ptgblts.o_id=o.o_id) 
         LEFT JOIN object_brick_query_SynchronousFert_1 ptgsync ON(ptgsync.o_id=o.o_id) 
-        LEFT JOIN object_brick_query_MetalFert_1 ptgmtl ON(ptgmtl.o_id=o.o_id) WHERE ptgmtl.o_id IS NOT NULL";
-        // /*  WHERE pi.Outside_Length_in <> ''  AND pi.Outside_Length_in <> '-' */
+        LEFT JOIN object_brick_query_MetalFert_1 ptgmtl ON(ptgmtl.o_id=o.o_id)";
         $results = $this->db->fetchAll($sql);
 
 
@@ -248,8 +247,6 @@ class PtgImportCommand extends AbstractCommand
             $path = '/Master List/Features';
             if (!$this->isSheetValueEmpty($r['Bullet_Point_1'])) {
                 array_push($bullet, $r['Bullet_Point_1']);
-                /* $npath = $path.'/'.\Pimcore\Model\Element\Service::getValidKey($r['Bullet_Point_1'], 'object');
-                $this->addBullet($npath, $r['Bullet_Point_1']); */
             }
             if (!$this->isSheetValueEmpty($r['Bullet_Point_2'])) {
                 array_push($bullet, $r['Bullet_Point_2']);
@@ -578,7 +575,7 @@ class PtgImportCommand extends AbstractCommand
     }
 
 
-    private function truncateTemp($results)
+    private function truncateTemp()
     {
         $sql = "TRUNCATE siopLvl5_objects; TRUNCATE siopLvl6_objects; TRUNCATE ptg_import;";
         $this->db->query($sql);
@@ -612,6 +609,7 @@ class PtgImportCommand extends AbstractCommand
             }
             $data = null;
             if ($flag) {
+                p_r('Updating rest log');
                 $flag = false;
                 $sql = "SELECT pi.* FROM ptg_import pi LEFT JOIN object_1 o ON(o.articleNumber=pi.SAPMaterialCode) WHERE o.o_id is null";
                 $data = $this->db->fetchAll($sql);
@@ -772,12 +770,10 @@ class PtgImportCommand extends AbstractCommand
             `Bullet_Point_5` varchar(100) NOT NULL,
             `CharacteristicDescription` varchar(255) NOT NULL,
             `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
-            `Bore_Type` varchar(255) NOT NULL,
             `Brand` varchar(100) NOT NULL,
             `Bushing_Number` varchar(20) NOT NULL,
             `Bushing_Style` varchar(100) NOT NULL,
             `Color` varchar(20) NOT NULL,
-            `Core_Material_Type` varchar(255) NOT NULL,
             `Datum_Diameter_in` varchar(50) NOT NULL,
             `Datum_Diameter_mm` varchar(50) NOT NULL,
             `Datum_Length_in` varchar(50) NOT NULL,
@@ -788,14 +784,6 @@ class PtgImportCommand extends AbstractCommand
             `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
             `Flanges_Yes_No` varchar(255) NOT NULL,
             `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
-            `Image_1_Catalog_House` varchar(255) NOT NULL,
-            `Image_2_Catalog_House` varchar(255) NOT NULL,
-            `Image_3_Catalog_House` varchar(255) NOT NULL,
-            `Image_Extension_Catalog_House` varchar(255) NOT NULL,
-            `Image_Root_URL_Catalog_House` varchar(255) NOT NULL,
-            `KeySeat_Bushing_Std_or_Special` varchar(255) NOT NULL,
-            `Keyway_Size_1` varchar(255) NOT NULL,
-            `Keyway_Size_2` varchar(255) NOT NULL,
             `Length_Trough_Bore_in` varchar(255) NOT NULL,
             `Length_Trough_Bore_mm` varchar(255) NOT NULL,
             `Material` varchar(255) NOT NULL,
@@ -836,155 +824,135 @@ class PtgImportCommand extends AbstractCommand
 
         $sql2 = "CREATE TABLE IF NOT EXISTS `siopLvl5_objects` (
             `siopLvl5_object_id` varchar(10) NOT NULL,
-            `siopFullCode` varchar(20) NOT NULL,
-            `SAPMaterialCode` varchar(20) NOT NULL,
-            `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
-            `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
-            `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
-            `LongDescriptionHTML` text NOT NULL,
-            `Bullet_Point_1` varchar(100) NOT NULL,
-            `Bullet_Point_2` varchar(100) NOT NULL,
-            `Bullet_Point_3` varchar(100) NOT NULL,
-            `Bullet_Point_4` varchar(100) NOT NULL,
-            `Bullet_Point_5` varchar(100) NOT NULL,
-            `CharacteristicDescription` varchar(255) NOT NULL,
-            `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
-            `Bore_Type` varchar(255) NOT NULL,
-            `Brand` varchar(100) NOT NULL,
-            `Bushing_Number` varchar(20) NOT NULL,
-            `Bushing_Style` varchar(100) NOT NULL,
-            `Color` varchar(20) NOT NULL,
-            `Core_Material_Type` varchar(255) NOT NULL,
-            `Datum_Diameter_in` varchar(50) NOT NULL,
-            `Datum_Diameter_mm` varchar(50) NOT NULL,
-            `Datum_Length_in` varchar(50) NOT NULL,
-            `Datum_Length_mm` varchar(20) NOT NULL,
-            `Face_Width_in` varchar(255) NOT NULL,
-            `Face_Width_mm` varchar(255) NOT NULL,
-            `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
-            `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
-            `Flanges_Yes_No` varchar(255) NOT NULL,
-            `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
-            `Image_1_Catalog_House` varchar(255) NOT NULL,
-            `Image_2_Catalog_House` varchar(255) NOT NULL,
-            `Image_3_Catalog_House` varchar(255) NOT NULL,
-            `Image_Extension_Catalog_House` varchar(255) NOT NULL,
-            `Image_Root_URL_Catalog_House` varchar(255) NOT NULL,
-            `KeySeat_Bushing_Std_or_Special` varchar(255) NOT NULL,
-            `Keyway_Size_1` varchar(255) NOT NULL,
-            `Keyway_Size_2` varchar(255) NOT NULL,
-            `Length_Trough_Bore_in` varchar(255) NOT NULL,
-            `Length_Trough_Bore_mm` varchar(255) NOT NULL,
-            `Material` varchar(255) NOT NULL,
-            `Max_Bore_Size_in` varchar(255) NOT NULL,
-            `Max_Bore_Size_mm` varchar(255) NOT NULL,
-            `Max_RPM` varchar(255) NOT NULL,
-            `Max_Temperature_C` varchar(255) NOT NULL,
-            `Max_Temperature_F` varchar(255) NOT NULL,
-            `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
-            `Min_Bore_Size_mm` varchar(255) NOT NULL,
-            `Min_Temperature_C` varchar(255) NOT NULL,
-            `Min_Temperature_F` varchar(255) NOT NULL,
-            `Number_of_Grooves` varchar(255) NOT NULL,
-            `Number_of_Ribs` varchar(255) NOT NULL,
-            `Number_of_teeth` varchar(100) NOT NULL,
-            `Outside_Diameter_in` varchar(50) NOT NULL,
-            `Outside_Diameter_mm` varchar(50) NOT NULL,
-            `Outside_Length_in` varchar(50) NOT NULL,
-            `Outside_Length_mm` varchar(50) NOT NULL,
-            `Pitch_in` varchar(50) NOT NULL,
-            `Pitch_mm` varchar(50) NOT NULL,
-            `Pitch_Diameter_in` varchar(50) NOT NULL,
-            `Pitch_Diameter_mm` varchar(50) NOT NULL,
-            `Product_inside_Length_in` varchar(50) NOT NULL,
-            `Product_inside_Length_mm` varchar(50) NOT NULL,
-            `Profile` varchar(50) NOT NULL,
-            `Reinforcement` varchar(40) NOT NULL,
-            `Static_Conductive` varchar(40) NOT NULL,
-            `Stock_Bore_in` varchar(50) NOT NULL,
-            `Stock_Bore_mm` varchar(50) NOT NULL,
-            `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
-            `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
-            `Width_in` varchar(50) NOT NULL,
-            `Width_mm` varchar(50) NOT NULL,
-            PRIMARY KEY (`siopLvl5_object_id`)
+  `siopFullCode` varchar(20) NOT NULL,
+  `SAPMaterialCode` varchar(20) NOT NULL,
+  `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
+  `LongDescriptionHTML` text NOT NULL,
+  `Bullet_Point_1` varchar(100) NOT NULL,
+  `Bullet_Point_2` varchar(100) NOT NULL,
+  `Bullet_Point_3` varchar(100) NOT NULL,
+  `Bullet_Point_4` varchar(100) NOT NULL,
+  `Bullet_Point_5` varchar(100) NOT NULL,
+  `CharacteristicDescription` varchar(255) NOT NULL,
+  `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
+  `Brand` varchar(100) NOT NULL,
+  `Bushing_Number` varchar(20) NOT NULL,
+  `Bushing_Style` varchar(100) NOT NULL,
+  `Color` varchar(20) NOT NULL,
+  `Datum_Diameter_in` varchar(50) NOT NULL,
+  `Datum_Diameter_mm` varchar(50) NOT NULL,
+  `Datum_Length_in` varchar(50) NOT NULL,
+  `Datum_Length_mm` varchar(20) NOT NULL,
+  `Face_Width_in` varchar(255) NOT NULL,
+  `Face_Width_mm` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
+  `Flanges_Yes_No` varchar(255) NOT NULL,
+  `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
+  `Length_Trough_Bore_in` varchar(255) NOT NULL,
+  `Length_Trough_Bore_mm` varchar(255) NOT NULL,
+  `Material` varchar(255) NOT NULL,
+  `Max_Bore_Size_in` varchar(255) NOT NULL,
+  `Max_Bore_Size_mm` varchar(255) NOT NULL,
+  `Max_RPM` varchar(255) NOT NULL,
+  `Max_Temperature_C` varchar(255) NOT NULL,
+  `Max_Temperature_F` varchar(255) NOT NULL,
+  `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
+  `Min_Bore_Size_mm` varchar(255) NOT NULL,
+  `Min_Temperature_C` varchar(255) NOT NULL,
+  `Min_Temperature_F` varchar(255) NOT NULL,
+  `Number_of_Grooves` varchar(255) NOT NULL,
+  `Number_of_Ribs` varchar(255) NOT NULL,
+  `Number_of_teeth` varchar(100) NOT NULL,
+  `Outside_Diameter_in` varchar(50) NOT NULL,
+  `Outside_Diameter_mm` varchar(50) NOT NULL,
+  `Outside_Length_in` varchar(50) NOT NULL,
+  `Outside_Length_mm` varchar(50) NOT NULL,
+  `Pitch_in` varchar(50) NOT NULL,
+  `Pitch_mm` varchar(50) NOT NULL,
+  `Pitch_Diameter_in` varchar(50) NOT NULL,
+  `Pitch_Diameter_mm` varchar(50) NOT NULL,
+  `Product_inside_Length_in` varchar(50) NOT NULL,
+  `Product_inside_Length_mm` varchar(50) NOT NULL,
+  `Profile` varchar(50) NOT NULL,
+  `Reinforcement` varchar(40) NOT NULL,
+  `Static_Conductive` varchar(40) NOT NULL,
+  `Stock_Bore_in` varchar(50) NOT NULL,
+  `Stock_Bore_mm` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
+  `Width_in` varchar(50) NOT NULL,
+  `Width_mm` varchar(50) NOT NULL,
+  PRIMARY KEY (`siopLvl5_object_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         //   $this->db->query($sql);
 
         $sql3 = "CREATE TABLE IF NOT EXISTS `siopLvl6_objects` (
             `siopLvl6_object_id` varchar(10) NOT NULL,
-            `siopFullCode` varchar(20) NOT NULL,
-            `SAPMaterialCode` varchar(20) NOT NULL,
-            `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
-            `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
-            `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
-            `LongDescriptionHTML` text NOT NULL,
-            `Bullet_Point_1` varchar(100) NOT NULL,
-            `Bullet_Point_2` varchar(100) NOT NULL,
-            `Bullet_Point_3` varchar(100) NOT NULL,
-            `Bullet_Point_4` varchar(100) NOT NULL,
-            `Bullet_Point_5` varchar(100) NOT NULL,
-            `CharacteristicDescription` varchar(255) NOT NULL,
-            `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
-            `Bore_Type` varchar(255) NOT NULL,
-            `Brand` varchar(100) NOT NULL,
-            `Bushing_Number` varchar(20) NOT NULL,
-            `Bushing_Style` varchar(100) NOT NULL,
-            `Color` varchar(20) NOT NULL,
-            `Core_Material_Type` varchar(255) NOT NULL,
-            `Datum_Diameter_in` varchar(50) NOT NULL,
-            `Datum_Diameter_mm` varchar(50) NOT NULL,
-            `Datum_Length_in` varchar(50) NOT NULL,
-            `Datum_Length_mm` varchar(20) NOT NULL,
-            `Face_Width_in` varchar(255) NOT NULL,
-            `Face_Width_mm` varchar(255) NOT NULL,
-            `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
-            `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
-            `Flanges_Yes_No` varchar(255) NOT NULL,
-            `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
-            `Image_1_Catalog_House` varchar(255) NOT NULL,
-            `Image_2_Catalog_House` varchar(255) NOT NULL,
-            `Image_3_Catalog_House` varchar(255) NOT NULL,
-            `Image_Extension_Catalog_House` varchar(255) NOT NULL,
-            `Image_Root_URL_Catalog_House` varchar(255) NOT NULL,
-            `KeySeat_Bushing_Std_or_Special` varchar(255) NOT NULL,
-            `Keyway_Size_1` varchar(255) NOT NULL,
-            `Keyway_Size_2` varchar(255) NOT NULL,
-            `Length_Trough_Bore_in` varchar(255) NOT NULL,
-            `Length_Trough_Bore_mm` varchar(255) NOT NULL,
-            `Material` varchar(255) NOT NULL,
-            `Max_Bore_Size_in` varchar(255) NOT NULL,
-            `Max_Bore_Size_mm` varchar(255) NOT NULL,
-            `Max_RPM` varchar(255) NOT NULL,
-            `Max_Temperature_C` varchar(255) NOT NULL,
-            `Max_Temperature_F` varchar(255) NOT NULL,
-            `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
-            `Min_Bore_Size_mm` varchar(255) NOT NULL,
-            `Min_Temperature_C` varchar(255) NOT NULL,
-            `Min_Temperature_F` varchar(255) NOT NULL,
-            `Number_of_Grooves` varchar(255) NOT NULL,
-            `Number_of_Ribs` varchar(255) NOT NULL,
-            `Number_of_teeth` varchar(100) NOT NULL,
-            `Outside_Diameter_in` varchar(50) NOT NULL,
-            `Outside_Diameter_mm` varchar(50) NOT NULL,
-            `Outside_Length_in` varchar(50) NOT NULL,
-            `Outside_Length_mm` varchar(50) NOT NULL,
-            `Pitch_in` varchar(50) NOT NULL,
-            `Pitch_mm` varchar(50) NOT NULL,
-            `Pitch_Diameter_in` varchar(50) NOT NULL,
-            `Pitch_Diameter_mm` varchar(50) NOT NULL,
-            `Product_inside_Length_in` varchar(50) NOT NULL,
-            `Product_inside_Length_mm` varchar(50) NOT NULL,
-            `Profile` varchar(50) NOT NULL,
-            `Reinforcement` varchar(40) NOT NULL,
-            `Static_Conductive` varchar(40) NOT NULL,
-            `Stock_Bore_in` varchar(50) NOT NULL,
-            `Stock_Bore_mm` varchar(50) NOT NULL,
-            `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
-            `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
-            `Width_in` varchar(50) NOT NULL,
-            `Width_mm` varchar(50) NOT NULL,
-            PRIMARY KEY (`siopLvl6_object_id`)
+  `siopFullCode` varchar(20) NOT NULL,
+  `SAPMaterialCode` varchar(20) NOT NULL,
+  `Product_Hrc_Lvl2_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl3_Name` varchar(100) NOT NULL,
+  `Product_Hrc_Lvl4_Name` varchar(100) NOT NULL,
+  `LongDescriptionHTML` text NOT NULL,
+  `Bullet_Point_1` varchar(100) NOT NULL,
+  `Bullet_Point_2` varchar(100) NOT NULL,
+  `Bullet_Point_3` varchar(100) NOT NULL,
+  `Bullet_Point_4` varchar(100) NOT NULL,
+  `Bullet_Point_5` varchar(100) NOT NULL,
+  `CharacteristicDescription` varchar(255) NOT NULL,
+  `Belt_Profile_Grv_Cross_Section` varchar(255) NOT NULL,
+  `Brand` varchar(100) NOT NULL,
+  `Bushing_Number` varchar(20) NOT NULL,
+  `Bushing_Style` varchar(100) NOT NULL,
+  `Color` varchar(20) NOT NULL,
+  `Datum_Diameter_in` varchar(50) NOT NULL,
+  `Datum_Diameter_mm` varchar(50) NOT NULL,
+  `Datum_Length_in` varchar(50) NOT NULL,
+  `Datum_Length_mm` varchar(20) NOT NULL,
+  `Face_Width_in` varchar(255) NOT NULL,
+  `Face_Width_mm` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_in` varchar(255) NOT NULL,
+  `Flange_Outer_Diameter_mm` varchar(255) NOT NULL,
+  `Flanges_Yes_No` varchar(255) NOT NULL,
+  `Heat_and_Oil_Resistant` varchar(255) NOT NULL,
+  `Length_Trough_Bore_in` varchar(255) NOT NULL,
+  `Length_Trough_Bore_mm` varchar(255) NOT NULL,
+  `Material` varchar(255) NOT NULL,
+  `Max_Bore_Size_in` varchar(255) NOT NULL,
+  `Max_Bore_Size_mm` varchar(255) NOT NULL,
+  `Max_RPM` varchar(255) NOT NULL,
+  `Max_Temperature_C` varchar(255) NOT NULL,
+  `Max_Temperature_F` varchar(255) NOT NULL,
+  `Min_Bore_Size_in_Bushings` varchar(255) NOT NULL,
+  `Min_Bore_Size_mm` varchar(255) NOT NULL,
+  `Min_Temperature_C` varchar(255) NOT NULL,
+  `Min_Temperature_F` varchar(255) NOT NULL,
+  `Number_of_Grooves` varchar(255) NOT NULL,
+  `Number_of_Ribs` varchar(255) NOT NULL,
+  `Number_of_teeth` varchar(100) NOT NULL,
+  `Outside_Diameter_in` varchar(50) NOT NULL,
+  `Outside_Diameter_mm` varchar(50) NOT NULL,
+  `Outside_Length_in` varchar(50) NOT NULL,
+  `Outside_Length_mm` varchar(50) NOT NULL,
+  `Pitch_in` varchar(50) NOT NULL,
+  `Pitch_mm` varchar(50) NOT NULL,
+  `Pitch_Diameter_in` varchar(50) NOT NULL,
+  `Pitch_Diameter_mm` varchar(50) NOT NULL,
+  `Product_inside_Length_in` varchar(50) NOT NULL,
+  `Product_inside_Length_mm` varchar(50) NOT NULL,
+  `Profile` varchar(50) NOT NULL,
+  `Reinforcement` varchar(40) NOT NULL,
+  `Static_Conductive` varchar(40) NOT NULL,
+  `Stock_Bore_in` varchar(50) NOT NULL,
+  `Stock_Bore_mm` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_in` varchar(50) NOT NULL,
+  `Top_Belt_Width_per_Strand_mm` varchar(50) NOT NULL,
+  `Width_in` varchar(50) NOT NULL,
+  `Width_mm` varchar(50) NOT NULL,
+  PRIMARY KEY (`siopLvl6_object_id`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
 
         $sql4 = "CREATE TABLE IF NOT EXISTS `ptg_import_log` (
@@ -998,20 +966,5 @@ class PtgImportCommand extends AbstractCommand
           ) ENGINE=InnoDB AUTO_INCREMENT=15440 DEFAULT CHARSET=utf8mb4;";
         $sql = $sql1 . $sql2 . $sql3 . $sql4;
         $this->db->query($sql);
-    }
-
-    private function addBullet($path, $name)
-    {
-        $obj = \Pimcore\Model\DataObject\Features::getByPath($path);
-        if ($obj == null) {
-            $obj = new \Pimcore\Model\DataObject\Features();
-            $obj->setKey(\Pimcore\Model\Element\Service::getValidKey($name, 'object'));
-            $obj->setParentId(1694260);
-            $obj->setFeatureType('PTG');
-            $obj->setName($name);
-        }
-        $obj->setPublished(1);
-        $obj->save();
-        p_r($obj->getId());
     }
 }
