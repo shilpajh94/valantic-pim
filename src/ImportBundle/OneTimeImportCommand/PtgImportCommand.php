@@ -75,7 +75,7 @@ class PtgImportCommand extends AbstractCommand
             p_r('------------------------------------------------');
             $this->createTempTable();
             $this->loadMaster();
-            // $this->import($filePath);
+            $this->import($filePath);
             $this->loadFeatures();
             $this->updateBase();
             $this->updateSkeleton();
@@ -622,7 +622,7 @@ class PtgImportCommand extends AbstractCommand
 
     private function loadFeatures()
     {
-        $sql = "SELECT o_id, `Name` feature FROM object_29 WHERE FeatureType='PTG'";
+        $sql = "SELECT f.o_id, fl.Name feature FROM object_29 f JOIN object_localized_data_29 fl ON(f.o_id=fl.ooo_id) WHERE f.FeatureType='PTG'";
         $this->featureList = $this->db->fetchAll($sql);
     }
 
