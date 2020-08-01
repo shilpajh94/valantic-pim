@@ -166,7 +166,9 @@ extract($groupData);
                                                 <div>
                                                         <?php foreach($safetyFeatures as $key => $feature): ?>
                                                                 <p  class="flex">
+                                                                        <?php if($feature['iconSrc']): ?>
                                                                         <img src="<?= $feature['iconSrc'] ?>" />
+                                                                        <?php endif; ?>
                                                                         <font> <?= $feature['name'] ?></font>
                                                                 </p>
                                                         <?php endforeach; ?>

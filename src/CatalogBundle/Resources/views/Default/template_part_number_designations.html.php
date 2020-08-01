@@ -66,7 +66,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 <article class="fullcontainer">
       <header class="content partNumber">
-          <h3>Part number designations</h3>
+          <h3><?= $this->input("PBD_Heading")->setDataFromResource('Part Number Designations') ?></h3>
       </header>
       <section class="">
          
@@ -79,491 +79,53 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                         </tr>
                 </thead>
                 <tbody>
-                        <tr class="row full">
-                          <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row borderLess">
-                           <td>extended life x10256 e</td>   
-                           <td>SAE (port description 1020)</td>     
-                           <td>12</td>     
-                        </tr>
 
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row borderLess">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
- <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
- <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
- <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
- <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
- <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>14</td>     
-                        </tr>
-<tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>14</td>     
-                        </tr>
-<tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>14</td>     
-                        </tr>
-<tr class="row full">
-                                <td colspan="3">Extended life</td>
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>12</td>     
-                        </tr>
-                        <tr class="row">
-                                <td>extended life x10256 e</td>   
-                                <td>SAE (port description 1020)</td>     
-                                <td>14</td>     
-                        </tr>
+                <?php 
+                                $incr = 1;
+                                foreach ($data as $key => $brandData) { 
+                                ?>
+                                
+                                        <tr class="row full">
+                                        <td colspan="3"><?= $key; ?></td>
+                                        </tr>
+                                        
+                                        
+                                        <?php 
+                                        $rowcount = 0;
+                                        foreach ($brandData as $bkey => $brand) { 
+                                                
+                                        ?>
+                                                <?php if((count($brandData)-1) == $rowcount): ?>
+                                                        <tr class="row borderLess">
+                                                <?php else: ?>
+                                                        <tr class="row">
+                                                <?php endif; ?>
+                                                        <td><?= $this->input("PND_FamilyName_{$incr}")->setDataFromResource($bkey); ?></td>   
+                                                        <td><?= $this->input("PND_IndustryStandard_{$incr}")->setDataFromResource($brand[0]); ?></td>     
+                                                        <td><?= $this->input("PND_PageNumber_{$incr}"); ?></td>     
+                                                </tr>
+                                                
+                                        <?php 
+                                        $rowcount++;
+                                        $incr++;
+
+                                        }
+
+                                        ?>
+
+                                <?php
+                                
+                                
+
+                                }
+                                 ?>
+
+
                 </tbody>
-
         </table>
       </section>
     </article>
 
 </div>
-
-
-   
-
-
-        <?php //if($this->block("PBD_Block")->getCount()-1 != $this->block("PBD_Block")->getCurrent()): ?>
-        <!-- <div class="break-before"></div> -->
-        <?php //endif; ?>
-
-
 
 

@@ -1902,4 +1902,14 @@ class DefaultController extends FrontendController {
             $this->view['footerLogo'] = \Pimcore\Model\Asset::getByPath($request->get('footerLogo'));
         }        
     }
+
+    public function templateIndexDescriptiveNumberAction(Request $request)
+    {
+        // $this->view['title'] = $request->get('title');
+    }
+
+    public function templateIndexProductNumberAction(Request $request)
+    {
+        // $this->view['title'] = $request->get('title');
+    }
 }
