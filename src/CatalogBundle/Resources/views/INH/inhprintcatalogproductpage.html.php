@@ -8,31 +8,38 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 if (isset($info['data'])) {
 ?>
     <?php
-    if (is_array($info['data'])) {
-        foreach ($info['data'] as $tableName => $tableData) {
-            foreach ($tableData['data'] as $brand => $rows) {
-                //p_r($rows);die;
-    ?>
-                <div class="seggregate">
-                    <nav class="header">
-                        <div id="pageHeader"></div>
-                        <span><?= $this->translate('Hydraulic Hose');?></span>
-                    </nav>
+                if (is_array($info['data'])) {
+                    foreach ($info['data'] as $tableName => $tableData) {
+                        foreach ($tableData['data'] as $brand => $rows) {
+                            //p_r($rows);die;
+                ?>
+<div class="seggregate">
+    <nav class="header">
+        <div id="pageHeader"></div>
+        <span>Hydraulic Hose</span>
+    </nav>
+    
+        <article class="fullcontainer ">
 
-                    <article class="fullcontainer ">
-
-                        <div class="flex noWrap">
-                            <div class="sidebar">
-                                <ul>
-                                    <?php
-                                    if (is_array($info['categories'])) {
-                                        foreach ($info['categories'] as $category) {
-                                            $catNames = array_column($category, 'name');
-                                            $first = "";
-                                            foreach ($catNames as $cn) {
-                                                if ($info['selectedCategory'] == $cn) {
-                                                    $first = "first";
-                                                }
+            <div class="flex noWrap">
+                <div class="sidebar">
+                    <ul>
+                        <!-- <li class="first">
+                            <p>
+                                Lorem ipsum
+                            </p>
+                            <p>
+                                <b>Lorem ipsum</b>
+                            </p>
+                        </li> -->
+                        <?php
+                                if (is_array($info['categories'])) {
+                                    foreach ($info['categories'] as $category) {
+                                        $catNames = array_column($category, 'name');
+                                        $first = "";
+                                        foreach($catNames as $cn) {
+                                            if($info['selectedCategory']==$cn) {
+                                                $first = "first";
                                             }
                                             echo "<li class='$first'>";
                                             if (is_array($category) && !empty($category)) {
@@ -48,43 +55,46 @@ if (isset($info['data'])) {
                                             }
                                             echo "</li>";
                                         }
+                                        echo "<li class='$first'>";
+                                        if (is_array($category) && !empty($category)) {
+                                            foreach ($category as $k=> $cat) {
+                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
+                                                    echo "<p><b>" . $cat['name'] . "</b></p>";
+                                                } else {
+                                                    if ($cat['printable'] == 1) {
+                                                        echo "<p>" . $cat['name'] . "</p>";
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        echo "</li>";
                                     }
-                                    ?>
-                                </ul>
-                            </div>
-
+                                }
+                                ?>
+                    </ul>
+                </div>
+                
                             <div class="grow-2 width80">
                                 <h2 class="borderBottom marginBottom5 flex-center"><?php echo $brand ?>&reg;
                                     <!-- <img src="images/12a.JPG" class="alignRight" /> -->
                                     <?php
-                                    // Feature Icons
-                                    if (is_array($rows['info']['featureIcon'])) {
-                                        foreach ($rows['info']['featureIcon'] as $fid => $feature) {
-                                            if ($this->editmode) {
-                                                echo $this->image('INH_PP_ICONS_' . md5($brand) . $fid, ['class' => 'alignRight'])->setImage($feature['icon']);
-                                            } else {
-                                                echo $this->image('INH_PP_ICONS_' . md5($brand) . $fid, ['class' => 'alignRight']);
+                                        // Feature Icons
+                                        if(is_array($rows['info']['featureIcon'])) {
+                                            foreach($rows['info']['featureIcon'] as $fid => $feature) {
+                                                if($this->editmode) {
+                                                    echo $this->image('INH_PP_ICONS_'.md5($brand).$fid,['class'=>'alignRight'])->setImage($feature['icon']);
+                                                } else {
+                                                    echo $this->image('INH_PP_ICONS_'.md5($brand).$fid,['class'=>'alignRight']);
+                                                }
+                                                
                                             }
                                         }
-                                    }
                                     ?>
                                 </h2>
-
-                                <?php
-                                if ($this->editmode) {
-                                ?>
-                                    <span class="img-placeholder marginBottom15">
-                                        <?php echo $this->image('INH_PP_BRAND_BOTTOM' . md5($brand), ['width' => 595, 'height' => 128]); ?>
-                                    </span>
-                                <?php
-                                }
-                                if (!$this->image('INH_PP_BRAND_BOTTOM' . md5($brand))->isEmpty()) {
-                                ?>
-                                    <span class="img-placeholder marginBottom15">
-                                        <?php echo $this->image('INH_PP_BRAND_BOTTOM' . md5($brand), ['width' => 595, 'height' => 128]); ?>
-                                    </span>
-                                <?php } ?>
-                                <h3 class="light"><?php echo $this->input("INH_PP_Product_specification" . md5($brand))->setDataFromResource($this->translate("Product Specification")); ?></h3>
+                                <span class="img-placeholder marginBottom15">
+                                    <?php echo $this->image('INH_PP_BRAND_BOTTOM'.md5($brand),['width'=>595, 'height'=>128])->setImage(\Pimcore\Model\Asset::getByPath("/CatalogImages/INH/gorilla.png"));?>
+                                </span>
+                                <h3 class="light"><?php echo $this->input("INH_PP_Product_specification".md5($brand))->setDataFromResource("Product specification");?></h3>
                                 <div class="flex  specs-details">
                                     <div class="col-6">
                                         <?php
@@ -189,69 +199,44 @@ if (isset($info['data'])) {
 
                                     </div>
                                     <div class="col-6">
-                                        <?php
-                                        if ($this->editmode) { ?>
-                                            <p>
-                                                <b><?= $this->translate('VirtualCatalogPackaging');?></b>
-                                                <?php
-                                                echo $this->wysiwyg('INH_PP_Packaging_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogPackaging']);
-                                                ?>
-                                            </p>
-                                        <?php } ?>
-                                        <?php
-                                        if (!$this->editmode && !$this->wysiwyg('INH_PP_Packaging_' . md5($brand))->isEmpty()) { ?>
-                                            <p>
-                                                <b><?= $this->translate('VirtualCatalogPackaging');?></b>
-                                                <?php
-                                                echo $this->wysiwyg('INH_PP_Packaging_' . md5($brand));
-                                                ?>
-                                            </p>
-                                        <?php } ?>
-                                        <?php
-                                        if ($this->editmode) { ?>
-                                            <p>
-                                                <b><?= $this->translate('VirtualCatalogBrandingLayline');?></b>
-                                                <?php
-                                                echo $this->input('INH_PP_Branding_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogBrandingLayline']);
-                                                ?>
-                                            </p>
-                                        <?php } ?>
-                                        <?php
-                                        if (!$this->editmode && !$this->input('INH_PP_Branding_' . md5($brand))->isEmpty()) { ?>
-                                            <p>
-                                                <b><?= $this->translate('VirtualCatalogBrandingLayline');?></b>
-                                                <?php
-                                                echo $this->input('INH_PP_Branding_' . md5($brand));
-                                                ?>
-                                            </p>
-                                        <?php } ?>
-                                        <?php
-                                        if ($this->editmode) { ?>
-                                            <p>
-                                                <b><?= $this->translate('VirtualCatalogCoupling');?></b>
-                                                <?php
-                                                echo $this->textarea('INH_PP_Coupling_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogCoupling']);
-                                                ?>
-                                            </p>
-                                        <?php } ?>
-                                        <?php
-                                        if (!$this->editmode && !$this->textarea('INH_PP_Coupling_' . md5($brand))->isEmpty()) { ?>
-                                            <p>
-                                                <b><?= $this->translate('VirtualCatalogCoupling');?></b>
-                                                <?php
-                                                echo $this->textarea('INH_PP_Coupling_' . md5($brand));
-                                                ?>
-                                            </p>
-                                        <?php } ?>
-
-                                        <?php
-                                        if ($this->editmode) { ?>
-                                            <p>
-                                                <b><?= $this->translate('Order Codes');?></b>
-                                                <?php
-                                                $orderCode = is_array($rows['info']['orderCode']) ? implode(", ", $rows['info']['orderCode']) : "";
-                                                if ($this->editmode) {
-                                                    echo $this->input('INH_PP_Input_OrderCode' . md5($brand))->setDataFromResource($orderCode);
+                                    <p>
+                                            <b>Packaging</b>
+                                            <?php
+                                                if($this->editmode) {
+                                                    echo $this->wysiwyg('INH_PP_Packaging_'.md5($brand))->setDataFromResource($rows['info']['VirtualCatalogPackaging']);
+                                                } else {
+                                                    echo $this->wysiwyg('INH_PP_Packaging_'.md5($brand));
+                                                }
+                                            ?>
+                                        </p>
+                                        <p>
+                                            <b>Branding</b>
+                                            <?php
+                                                if($this->editmode) {
+                                                    echo $this->input('INH_PP_Branding_'.md5($brand))->setDataFromResource($rows['info']['VirtualCatalogBrandingLayline']);
+                                                } else {
+                                                    echo $this->input('INH_PP_Branding_'.md5($brand));
+                                                }
+                                            ?>
+                                        </p>
+                                        <p>
+                                            <b>Couplings</b>
+                                            <?php
+                                                if($this->editmode) {
+                                                    echo $this->textarea('INH_PP_Coupling_'.md5($brand))->setDataFromResource($rows['info']['VirtualCatalogCoupling']);
+                                                } else {
+                                                    echo $this->textarea('INH_PP_Coupling_'.md5($brand));
+                                                }
+                                            ?>
+                                        </p>
+                                        <p>
+                                            <b>Order Codes</b>
+                                            <?php
+                                                $orderCode = is_array($rows['info']['orderCode']) ? implode(", ",$rows['info']['orderCode']) : "";
+                                                if($this->editmode) {
+                                                    echo $this->input('INH_PP_Input_OrderCode'.md5($brand))->setDataFromResource($orderCode);
+                                                } else {
+                                                    echo $this->input('INH_PP_Input_OrderCode'.md5($brand));
                                                 }
                                                 ?>
                                             </p>
@@ -344,4 +329,3 @@ if (isset($info['data'])) {
     <?php }
         }
     } ?>
-<?php } ?>

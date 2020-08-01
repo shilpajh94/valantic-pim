@@ -1,19 +1,22 @@
 <?php
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
 ?>
-
+<div id="toc" class="toc">
  <div id="pageHeader"></div>
-    <header class="content partNumber">
+
+<div class="tableHeader" >
+    <header class="content partNumber tableContent">
         <h2>Table of Contents</h2>
     </header>
+</div>
     
     
     <?php if($this->editmode): ?>
     
-<div class="content content_single table-content single">
+<div class="content content_single table-content ">
     <?php else: ?>
    
-<div class="content content_double table-content single">
+<div class="content content_double table-content ">
     <?php endif; ?>
     <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
         
@@ -42,23 +45,5 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         
     <?php } ?>
     </div>
-      
-    
-    <style>
-    div.content_single {
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
-    -webkit-column-fill: auto;
-    -moz-column-fill: auto;
-    column-fill: auto;
-}
-div.content_double {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-    -webkit-column-fill: auto;
-    -moz-column-fill: auto;
-    column-fill: auto;
-}
-</style>
+      </div>
+  
