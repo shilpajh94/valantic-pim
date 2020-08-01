@@ -35,33 +35,53 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             </p>
                         </li> -->
                         <?php
-                        if (is_array($info['categories'])) {
-                            foreach ($info['categories'] as $category) {
-                                echo "<li>";
-                                if (is_array($category) && !empty($category)) {
-                                    foreach ($category as $cat) {
-                                        if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                            echo "<p><b>" . $cat['name'] . "</b></p>";
-                                        } else {
-                                            if ($cat['printable'] == 1) {
-                                                echo "<p>" . $cat['name'] . "</p>";
+                                if (is_array($info['categories'])) {
+                                    foreach ($info['categories'] as $category) {
+                                        $catNames = array_column($category, 'name');
+                                        $first = "";
+                                        foreach($catNames as $cn) {
+                                            if($info['selectedCategory']==$cn) {
+                                                $first = "first";
                                             }
                                         }
+                                        echo "<li class='$first'>";
+                                        if (is_array($category) && !empty($category)) {
+                                            foreach ($category as $k=> $cat) {
+                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
+                                                    echo "<p><b>" . $cat['name'] . "</b></p>";
+                                                } else {
+                                                    if ($cat['printable'] == 1) {
+                                                        echo "<p>" . $cat['name'] . "</p>";
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        echo "</li>";
                                     }
                                 }
-                                echo "</li>";
-                            }
-                        }
-                        ?>
+                                ?>
                     </ul>
                 </div>
                 
                             <div class="grow-2 width80">
                                 <h2 class="borderBottom marginBottom5 flex-center"><?php echo $brand ?>&reg;
-                                    <img src="images/12a.JPG" class="alignRight" />
+                                    <!-- <img src="images/12a.JPG" class="alignRight" /> -->
+                                    <?php
+                                        // Feature Icons
+                                        if(is_array($rows['info']['featureIcon'])) {
+                                            foreach($rows['info']['featureIcon'] as $fid => $feature) {
+                                                if($this->editmode) {
+                                                    echo $this->image('INH_PP_ICONS_'.md5($brand).$fid,['class'=>'alignRight'])->setImage($feature['icon']);
+                                                } else {
+                                                    echo $this->image('INH_PP_ICONS_'.md5($brand).$fid,['class'=>'alignRight']);
+                                                }
+                                                
+                                            }
+                                        }
+                                    ?>
                                 </h2>
                                 <span class="img-placeholder marginBottom15">
-                                    <?php echo $this->image('INH_PP_BRAND_BOTTOM'.md5($brand),['width'=>595, 'height'=>128]);?>
+                                    <?php echo $this->image('INH_PP_BRAND_BOTTOM'.md5($brand),['width'=>595, 'height'=>128])->setImage(\Pimcore\Model\Asset::getByPath("/CatalogImages/INH/gorilla.png"));?>
                                 </span>
                                 <h3 class="light"><?php echo $this->input("INH_PP_Product_specification".md5($brand))->setDataFromResource("Product specification");?></h3>
                                 <div class="flex  specs-details">
@@ -150,11 +170,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         <p>
                                             <b>Order Codes</b>
                                             <?php
-                                                $orderCode = isset($brands['info']['VirtualCatalogCoupling']) && is_array($rows['info']['VirtualCatalogCoupling']) ? implode(", ",$rows['info']['VirtualCatalogCoupling']) : "";
+                                                $orderCode = is_array($rows['info']['orderCode']) ? implode(", ",$rows['info']['orderCode']) : "";
                                                 if($this->editmode) {
-                                                    echo $this->input('INH_PP_Input_'.md5($brand))->setDataFromResource($orderCode);
+                                                    echo $this->input('INH_PP_Input_OrderCode'.md5($brand))->setDataFromResource($orderCode);
                                                 } else {
-                                                    echo $this->input('INH_PP_Input_'.md5($brand));
+                                                    echo $this->input('INH_PP_Input_OrderCode'.md5($brand));
                                                 }
                                             ?>
                                         </p>

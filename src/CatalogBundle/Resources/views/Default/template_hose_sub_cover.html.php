@@ -17,8 +17,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 if($data):
 foreach($data as $catalogGroupKey => $catalogGroupData):
 ?>
-<div class="segregate ">
-    <div id="pageHeader alternate"></div>
+<div class="segregate " id="subCover">
+    <div id="pageHeader" class="alternate"></div>
  
       <div class="footer">
                 <footer class="flex-center ">

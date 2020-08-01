@@ -158,7 +158,7 @@ else
                         </span>
                 </footer>
         </div>
-        <header class="content white">
+        <header class="content white productHeadingProductPage">
                 <h1>
                 <?php
                         if($this->editmode){
@@ -330,3 +330,13 @@ endforeach;
 endforeach; 
 endif;
 ?>
+
+<script>
+var rows = document.querySelectorAll(".productHeadingProductPage");
+        rows.forEach(function (row) {
+            var rowDescriptions = ro.layout.getBoxDescriptions(row);
+            var rowDescription = rowDescriptions[0];
+            const onLeftPage = rowDescription.pageLeft;
+            row.className = onLeftPage ? "leftpHeadingSection" : "rightpHeadingSection";
+        });
+</script>
