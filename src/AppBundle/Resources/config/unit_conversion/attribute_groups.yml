@@ -199,6 +199,9 @@ insideDiameter__group:
 stockThickness__group:
     stockThicknessIn: 'IN'
     stockThicknessMm: 'MM'
+boreIN__group:
+    BoreIN: 'IN'
+    BoreMM: 'MM'
 
 #    PTGBase
 #minimumTemperature__group:
