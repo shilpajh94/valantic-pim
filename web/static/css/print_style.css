@@ -721,12 +721,12 @@ font-weight: normal;
 
 menu figure {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 
 }
 
 menu figure img {
-    margin: 0.2em;
+    margin: 4px 16px;
     max-width: 100%;
     height: auto;
 }
