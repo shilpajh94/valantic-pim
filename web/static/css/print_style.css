@@ -483,7 +483,7 @@ header.reverse aside {
 
 header.dark {
     background-color: #000000;
-    border-bottom: 5px solid #f0f0f0;
+    border-bottom: 5px solid #aaa;
 }
 
 header.content {
@@ -496,18 +496,7 @@ header.white {
     border-bottom: 0;
 }
 
-@media print {
-    header.dark {
-        background-color: cmyk(0%, 0%, 0%, 100%);
-        border-bottom: 5px solid cmyk(0%, 0%, 0%, 10%);
-    }
-    header.content {
-        background-color: cmyk(0%, 0%, 0%, 10%);
-    }
-    header.white {
-        background-color: cmyk(0%, 0%, 0%, 0%);
-    }
-}
+
 
 header h1 {
     color: #faa61d;
@@ -620,7 +609,7 @@ article figure p b {
  margin: 0 30px;
 }
 .segregate{
-    break-before: page;
+   /* break-before: page;*/
 }
 
 .alternated:nth-child(odd) figure {}
@@ -732,12 +721,12 @@ font-weight: normal;
 
 menu figure {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 
 }
 
 menu figure img {
-    margin: 0.2em;
+    margin: 4px 16px;
     max-width: 100%;
     height: auto;
 }
@@ -1065,9 +1054,9 @@ clear: both;
 section.content h4 {
     flex: 100%;
     color: #ffa500;
-    font-size: 1.1em;
+    font-size: 16px;
     text-transform: uppercase;
-    font-family: 'ContinentalStagSansLCG-Book';
+    font-family: 'ContinentalStagSansLCG-Medium';
     letter-spacing: 0.15em;
 }
 
@@ -1100,7 +1089,12 @@ section.content article h5 {
 .paging + h5 {
     margin-top: 1.5em;
 }
-
+h5 + .pageTitle {
+    padding-right: 5px;
+    /* padding-bottom: 20px; */
+    margin-bottom: 16px;
+    display: block;
+}
 .pageTitle,
 .pageNo {
     background-color: #ffffff;
@@ -1341,7 +1335,47 @@ footer .flex > * {
 
 /* --- */
 
+ /****************** sidebar ***************************/
+
+.sidebar {
+    width: 20%;
+    max-width: 150px;
+    margin-top: 50px;
+    margin-right: 30px;
+    text-align: right;
+}
+.reverse .sidebar {
+    text-align: left;
+    margin-left: 30px;
+    
+    margin-right: auto;
+}
+.sidebar li {
+    padding: 8px 15px;
+    border-bottom: 2px solid #cdcdcd;
+    line-height: 18px;
+    
+}
+.sidebar li.first {
+    background: #000000;
+    color: #ffffff;
+    border-top: 2px solid #cdcdcd;
+}
 @media print {
+    .sidebar li {
+        border-bottom: 2px solid cmyk(0%, 0%, 0%, 25%);
+    }
+    .sidebar li.first {
+        background: cmyk(0%, 0%, 0%, 100%);
+        color: cmyk(0%, 0%, 0%, 0%);
+        border-top: 2px solid cmyk(0%, 0%, 0%, 25%);
+    }
+}
+.sidebar li b {
+    font-family: 'ContinentalStagSansLCG-Book' !important;
+}
+
+
     .contentHeader1,
     .contentHeader {
         display: none;
@@ -1510,35 +1544,9 @@ margin-left: 30px;
     .bg img {
         margin-right: 5px;
     }
-    .sidebar {
-        width: 20%;
-        max-width: 150px;
-        margin-top: 50px;
-        margin-right: 30px;
-        
-        text-align: right;
-    }
-    .reverse .sidebar {
-        text-align: left;
-        margin-left: 30px;
-        
-        margin-right: auto;
-    }
-    .sidebar li {
-        padding: 8px 15px;
-        border-bottom: 2px solid #cdcdcd;
-        line-height: 18px;
-        
-    }
-    .sidebar li.first {
-        background: #000000;
-        color: #ffffff;
-        border-top: 2px solid #cdcdcd;
-    }
+
    
-    .sidebar li b {
-        font-family: 'ContinentalStagSansLCG-Book' !important;
-    }
+   
     .specs-details .col-6 {
         width: 45%;
         padding-right: 3%;
@@ -1604,7 +1612,7 @@ margin-left: 30px;
     }*/
 
     .leftPage,.rightPage {
-     break-after: page;
+    /* break-after: page;*/
      }
     .rightPage .header {
         flex-direction: row-reverse;    
@@ -1737,6 +1745,42 @@ height:50px;
         }
  
 }
+
+.products{ margin-bottom: 100px;;}
+
+.hoselineHeader h1{ margin-top:30px;}
+
+.hoselineHeader{ 
+ 
+   display: block;
+       position: running(hoselineHeader);
+}
+.tile{ padding-top: 100px; padding-bottom: 300px;}
+
+#hoseline{
+   page: title3;
+}
+@page title3{
+@top-center{
+   content: element(hoselineHeader);
+left: 0;
+top:0;
+width: 100%;
+background: #000;
+
+position: relative;
+
+}
+}
+
+@page title3:left {
+ @top-left-corner{ color: #fff;}
+}
+@page title3:right{
+ @top-right-corner{ color: #fff;}
+}
+
+
 
 #subCover{
   page: title2;
