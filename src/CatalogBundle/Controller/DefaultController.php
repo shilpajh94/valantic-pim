@@ -1154,6 +1154,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1229,6 +1230,123 @@ class DefaultController extends FrontendController {
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
+            $this->view['data'] = $data;
+            $this->view['footer_background_color'] = $footerBgColor;
+        }
+    }
+
+    public function templateHoseAccessoriesOringAction(Request $request)
+    {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $template = $this->getDocumentTag('relation', 'template_hose_accessories_oring')->getElement();
+        
+        if($template)
+        {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            $headerKeys = array_keys((array)$headerData);
+            $columnsData = $template->getColumns();
+            $iconRequired = 'NO';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
+
+            if($columnsData)
+            {
+                foreach ($columnsData as $key => $value) {
+                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
+                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+            }
+            
+            $brandsData = array();
+
+            foreach ($productsData as $key => $item) {
+                $productsDataWithHeaders = array_combine($headerKeys, $item);
+
+                if(!empty(trim($productsDataWithHeaders['BrandShortText1'])))
+                    $brandsData[$productsDataWithHeaders['BrandShortText1']][] = $productsDataWithHeaders;
+            }
+
+            $material = array();
+            $brandData = array();
+            $hardness = array();
+            $imageObj = '';
+            $tempFmin = $tempFmax = $tempCmin = $tempCmax = '';
+
+            foreach ($brandsData as $brandKey => $brandArray) {
+
+                $tempFmin = $brandArray[0]['minimumTemperatureF'];
+                $tempFmax = $brandArray[0]['maximumTemperatureF'];
+                $tempCmin = $brandArray[0]['minimumTemperatureC'];
+                $tempCmax = $brandArray[0]['maximumTemperatureC'];
+
+                $brandName = $brandArray[0]['BrandShortText1'];
+
+                if($brandArray[0]['mainImage'])
+                {
+                    $mainImage = $brandArray[0]['mainImage'];
+                    $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                }
+                
+                $articlesData = array();
+
+                foreach($brandArray as $key => $element): 
+                        foreach($element as $bkey => $value): 
+                                if($bkey == 'MaterialType')
+                                    $material = array_merge($material, $value);
+                                if($bkey == 'Hardness')
+                                    $hardness[] = $value;
+                                        
+                        endforeach; 
+
+                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                            $articlesData[$key][$ckey] = $element[$ckey];
+                        }
+
+                endforeach; 
+
+                
+                $brandData[$brandKey]['brandName'] = $brandName;
+                $brandData[$brandKey]['iconRequired'] = $iconRequired;
+                $brandData[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                // array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+
+
+                $brandData[$brandKey]['articlesData'] = $articlesData;
+
+            }
+
+            
+            $hardness = array_unique($hardness);
+            $hardness = implode(', ', $hardness);
+
+            $material = array_unique($material);
+            $materialString = implode(', ', $material);
+
+            $data['imageObj'] = $imageObj;
+            $data['materialString'] = $materialString;
+            $data['hardness'] = $hardness;
+            $data['tempratureRange'] = "{$tempCmin} &#8451; to  {$tempCmax} &#8451; ({$tempFmin} &#8457; to {$tempFmax} &#8457;)";
+            $data['brandData'] = $brandData;
+            
             $this->view['data'] = $data;
         }
     }

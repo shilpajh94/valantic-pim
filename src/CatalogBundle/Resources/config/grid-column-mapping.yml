@@ -421,6 +421,55 @@ parameters:
                 fieldLabel: Marketing Short Description
                 parent: 
                     name: Product
+        Hose Accessories Orings:
+            MaterialType:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: 'Material'
+                parent:
+                    name: AccessoriesFert
+            Hardness:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: 'Hardness'
+                parent:
+                    name: AccessoriesFert
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            minimumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °F
+                parent:
+                    name: Product
+            maximumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °F
+                parent:
+                    name: Product
+            minimumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °C
+                parent:
+                    name: Product
+            maximumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °C
+                parent:
+                    name: Product
+            BrandShortText1:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 1
+                parent:
+                    name: Product
        
     
     
