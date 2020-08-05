@@ -29,6 +29,9 @@ class HoseDataImportCommand extends AbstractCommand
     const HOSE_FERT_OBJECT_BRICK_STORE = 'object_brick_store_HoseFert_1';
 
 
+    const PRODUCT_QUERY = 'object_query_1';
+    const PRODUCT_STORE = 'object_store_1';
+
     const BATCH_SIZE = 100;
     private $langArr;
     private $db;
@@ -51,7 +54,7 @@ class HoseDataImportCommand extends AbstractCommand
         $this->masterTypes = [
             'tubeColor' => 'INH-HYD-HOSE~tubeColor', 'coverCharacteristic' => 'INH-HYD-HOSE~coverCharacteristic',
             'coverColor' => 'INH-HYD-HOSE~coverColor', 'agencyCompliance' => 'INH-HYD-HOSE~agencyCompliance',
-            'reinforcement' => 'INH-HYD-HOSE~reinforcement', 'coverMaterial' => 'INH-HYD-HOSE~coverMaterial',
+            'reinforcement' => 'ProductClass~reinforcement', 'coverMaterial' => 'INH-HYD-HOSE~coverMaterial',
             'tubeCharacteristic' => 'INH-HYD-HOSE~tubeCharacteristic', 'tubeMaterial' => 'INH-HYD-HOSE~tubeMaterial'
         ];
 
@@ -69,7 +72,7 @@ class HoseDataImportCommand extends AbstractCommand
             p_r('------------------------------------------------');
             $this->loadMaster();
             $this->createTempTable();
-            $this->import($filePath);
+            // $this->import($filePath);
             $this->updateFert();
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
@@ -85,40 +88,79 @@ class HoseDataImportCommand extends AbstractCommand
         $this->updateTable($results, 'oti_hosedata_temp');
     }
 
-
+    /**
+     * Getting list of available material code
+     * Filter Base Level, Class Level Data and update data into table directly
+     * Filter Skeleton Level data and update data into bricks table directly
+     * Filter Fert Level data and update data into bicks table directly
+     */
     private function updateFert()
     {
         $sql = "SELECT o.o_id, SUBSTR(o.oldMaterialCode,1,6) baseLevel, SUBSTR(o.oldMaterialCode,1,9) skeleLevel, SUBSTR(o.siopFullCode,1,6) sfCode, oht.*, 'Fert' as fieldname FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.Object)";
         $results = $this->db->fetchAll($sql);
         $records = $this->getFertData($results);
+        /**
+         * Updating Base
+         */
+        $this->updateBase();
+
+        /**
+         * Updating Skeleton
+         */
+        $this->updateSkeleton();
+
+        /**
+         * Updating Fert
+         */
         p_r('Processing ' . count($records) . ' records at fert level');
         p_r('Updating Fert');
+
         $this->updateTable($records, self::HOSE_FERT_OBJECT_BRICK_QUERY);
         $this->updateTable($records, self::HOSE_FERT_OBJECT_BRICK_STORE);
         p_r('Fert Updation - Done');
-        $this->updateBase();
-        $this->updateSkeleton();
+
         /* Final log update, If any object couldn't match in product table */
         $this->updateLog();
     }
 
     /**
-     * Updating siop level 5 data (base level)
+     * Updating Base Level Data
      * 
      */
     private function updateBase()
     {
         if (!empty($this->baseLevelRecords)) {
-            $records = $this->getBaseBrickData($this->baseLevelRecords);
-        }
+            $this->mapBaseLevelId($this->baseLevelRecords, $this->baseLevel);
+            
+            /**
+             * Getting base data
+             */
+            $records = $this->getMainClassData($this->baseLevelRecords);
 
-        p_r('Processing ' . count($records) . ' records at base level');
-        p_r('Updating Base Level');
-        $this->updateBrickTable($records, self::HOSE_BASE_OBJECT_BRICK_QUERY);
-        // Update Store Table
-        $this->updateBrickTable($records, self::HOSE_BASE_OBJECT_BRICK_STORE);
-        unset($records);
-        p_r('Base Level Updation - Done');
+            p_r('Processing ' . count($this->baseLevelRecords) . ' records of main class data');
+            p_r('Updating Main Level');
+
+            $this->updateTable($records, self::PRODUCT_QUERY);
+            // Update Store Table
+            $this->updateTable($records, self::PRODUCT_STORE);
+            unset($records);
+
+            /**
+             * Getting Base Brick Level Data
+             */
+            $records = $this->getBaseBrickData($this->baseLevelRecords);
+
+            p_r('Processing ' . count($records) . ' records at base level');
+            p_r('Updating Base Level');
+
+            $this->updateTable($records, self::HOSE_BASE_OBJECT_BRICK_QUERY);
+
+            // Update Store Table
+            $this->updateTable($records, self::HOSE_BASE_OBJECT_BRICK_STORE);
+
+            unset($records);
+            p_r('Base Level Updation - Done');
+        }
     }
 
     /**
@@ -128,18 +170,62 @@ class HoseDataImportCommand extends AbstractCommand
      */
     private function updateSkeleton()
     {
-        /* $sql = "SELECT *, 'Skeleton' as fieldname FROM oti_hoseskeleton_temp";
-        $results = $this->db->fetchAll($sql);
-        $records = $this->getHoseSkeletonData($results); */
-
         if (!empty($this->skeleLevelRecords)) {
+            $this->mapBaseLevelId($this->skeleLevelRecords, $this->skeleLevel);
             $records = $this->getHoseSkeletonData($this->skeleLevelRecords);
+
+            p_r('Processing ' . count($records) . ' records at skeleton level');
+            p_r('Updating skeleton');
+
+            $this->updateTable($records, self::HOSE_SKELE_OBJECT_BRICK_QUERY);
+            $this->updateTable($records, self::HOSE_SKELE_OBJECT_BRICK_STORE);
+
+            p_r('Skeleton Updation - Done');
         }
-        p_r('Processing ' . count($records) . ' records at skeleton level');
-        p_r('Updating skeleton');
-        $this->updateBrickTable($records, self::HOSE_SKELE_OBJECT_BRICK_QUERY);
-        $this->updateBrickTable($records, self::HOSE_SKELE_OBJECT_BRICK_STORE);
-        p_r('Skeleton Updation - Done');
+    }
+
+    private function getMainClassData($results)
+    {
+        $d = array();
+        $i = 0;
+        foreach ($results as $k => $r) {
+            $reinforcement = "";
+            $weightLbFt = NULL;
+            $weightGM = NULL;
+            if (!empty($r['Weight_lb_ft']) && !empty($r['Weight_G_M'])) {
+                $weightLbFt = $r['Weight_lb_ft'];
+                $weightGM = $r['Weight_G_M'];
+            }
+            if (!empty($r['Weight_lb_ft']) && empty($r['Weight_G_M'])) {
+                $weightLbFt = $r['Weight_lb_ft'];
+                $weightGM = $this->lbsTogram($weightLbFt);
+            }
+            if (empty($r['Weight_lb_ft']) && !empty($r['Weight_G_M'])) {
+                $weightGM = $r['Weight_G_M'];
+                $weightLbFt = $this->gramToLbs($weightGM);
+            }
+
+            if (!empty($r['Reinforcement'])) {
+                $reinforcement = $this->getMultiselectInfo('reinforcement', $r['Reinforcement']);
+            }
+
+            $d[$i] = array(
+                'oo_id'  =>  $r['level6n9digit_id'],
+                'grossWeight' => !empty($r['Weight_lb_ft']) ? $r['Weight_lb_ft'] : NULL,
+                'weightg' => !empty($r['Weight_G_M']) ? $r['Weight_G_M'] : NULL,
+                'minimumTemperatureF'  =>  !empty($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
+                'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
+                'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
+                'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL
+            );
+            $d[$i]['reinforcement'] = NULL;
+            if (!empty($reinforcement) && $reinforcement['itemNotFound'] == false) {
+                $d[$i]['reinforcement'] = implode(",", $reinforcement['items']);
+            }
+            
+            $i++;
+        }
+        return $d;
     }
 
     /**
@@ -148,6 +234,13 @@ class HoseDataImportCommand extends AbstractCommand
     private function getBaseBrickData($results)
     {
         $d = array();
+        $i = 0;
+        $clrArr = array(
+            'SYNTHETIC RUBBER' => 'SYNTHETIC RUBBER',
+            'Chemical Resistant' => 'Chemical Resistant'
+        );
+        
+        
         foreach ($results as $k => $r) {
             $tbCols = array();
             $cvMatrls = array();
@@ -173,7 +266,7 @@ class HoseDataImportCommand extends AbstractCommand
 
             if (!empty($r['Tube_Material'])) {
                 $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Tube_Material']));
+                $clrArr = $r['Tube_Material']; //explode("/", strtolower($r['Tube_Material']));
                 $clrInfo = $this->getMultiselectInfo('tubeMaterial', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Tube Materials(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -185,7 +278,7 @@ class HoseDataImportCommand extends AbstractCommand
 
             if (!empty($r['Tube_Characteristic'])) {
                 $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Tube_Characteristic']));
+                $clrArr = $r['Tube_Characteristic']; //explode("/", strtolower($r['Tube_Characteristic']));
                 $clrInfo = $this->getMultiselectInfo('tubeCharacteristic', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Tube Characteristic(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -197,7 +290,7 @@ class HoseDataImportCommand extends AbstractCommand
 
             if (!empty($r['Tube_Color'])) {
                 $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Tube_Color']));
+                $clrArr = $r['Tube_Color']; // explode("/", strtolower($r['Tube_Color']));
                 $clrInfo = $this->getMultiselectInfo('tubeColor', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Tube Color(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -209,7 +302,7 @@ class HoseDataImportCommand extends AbstractCommand
 
             if (!empty($r['Cover_Material'])) {
                 $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Cover_Material']));
+                $clrArr = $r['Cover_Material']; //explode("/", strtolower($r['Cover_Material']));
                 $clrInfo = $this->getMultiselectInfo('coverMaterial', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Cover Material(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -221,7 +314,7 @@ class HoseDataImportCommand extends AbstractCommand
 
             if (!empty($r['Cover_color'])) {
                 $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Cover_color']));
+                $clrArr = $r['Cover_color']; //explode("/", strtolower($r['Cover_color']));
                 $clrInfo = $this->getMultiselectInfo('coverColor', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Cover Color(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -233,7 +326,7 @@ class HoseDataImportCommand extends AbstractCommand
 
             if (!empty($r['Cover_Characteristic'])) {
                 $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Cover_Characteristic']));
+                $clrArr = $r['Cover_Characteristic']; // explode("/", strtolower($r['Cover_Characteristic']));
                 $clrInfo = $this->getMultiselectInfo('coverCharacteristic', $clrArr);
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Cover Characteristic(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
@@ -243,17 +336,6 @@ class HoseDataImportCommand extends AbstractCommand
                 unset($clrInfo);
             }
 
-            if (!empty($r['Agency_Compliance'])) {
-                $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Agency_Compliance']));
-                $clrInfo = $this->getMultiselectInfo('agencyCompliance', $clrArr);
-                if (!empty($clrInfo['itemNotFound'])) {
-                    $error[] = "Agency Compliance(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
-                } else {
-                    $agComp = $clrInfo['items'];
-                }
-                unset($clrInfo);
-            }
 
             if (!empty($error)) {
                 $results[$k]['statusCode'] = "Failed - Base Level";
@@ -262,57 +344,49 @@ class HoseDataImportCommand extends AbstractCommand
                 $results[$k]['statusCode'] = "Success - Base Level";
                 $results[$k]['failedReason'] = "";
             }
-            
+
             $d[] = array(
-                'o_key'  =>  $r['baseLevel'],
+                'o_id'  =>  $r['level6n9digit_id'],
                 'fieldname'  =>  'Base',
-                'brandName' =>  !empty($brands) ? implode(',', $brands) : NULL,
                 'tubeMaterial'  =>  !empty($tbMatrls) ? implode(',', $tbMatrls) : NULL,
                 'tubeCharacteristic'    =>  !empty($tbChrct) ? implode(',', $tbChrct) : NULL,
                 'tubeColor'  =>  !empty($tbCols) ? implode(',', $tbCols) : NULL,
                 'coverMaterial'     =>  !empty($cvMatrls) ? implode(',', $cvMatrls) : NULL,
-                'coverCharacteristic'   =>  !empty($cvChars) ? implode(',',$cvChars) : NULL,
+                'coverCharacteristic'   =>  !empty($cvChars) ? implode(',', $cvChars) : NULL,
                 'coverColor'    =>  !empty($cvCols) ? implode(',', $cvCols) : NULL,
-                'hoseMinimumTemperatureF'   =>  !empty($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
-                'hoseMinimumTemperatureC'   =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
-                'hoseMaximumTemperatureF'   =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
-                'hoseMaximumTemperatureC'   =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
 
                 'numberOfHelixWires'    =>  !empty($r['Number_of_Helix_Wires']) ? $r['Number_of_Helix_Wires'] : NULL,
                 'numberOfPlies'     =>  !empty($r['Number_of_Plies']) ? $r['Number_of_Plies'] : NULL,
-                'staticWire'  =>  !empty($r['Static_Wire']) ? $r['Static_Wire'] : NULL,
+                'staticWire'  =>  !empty($r['Static_Wire']) ? 1 : NULL,
 
-                'VirtualCatalogTubeMaterial' => $r['Tube_Material'],
-                'VirtualCatalogCoverMaterial' => $r['Cover_Material'],
-                // 'VirtualCatalogCoupling' => $r[''],
-                // 'VirtualCatalogPackaging' => $r['']
-
-                // 'agencyCompliance'  =>  !empty($agComp) ? implode(',', $agComp) : NULL
+                'VirtualCatalogTubeMaterial' => !empty($r['Tube_Material']) ? implode(", ", $r['Tube_Material']) : NULL,
+                'VirtualCatalogCoverMaterial' => !empty($r['Cover_Material']) ? implode(", ", $r['Cover_Material']) : NULL
             );
+
+            if (!empty($r['Static_Wire'])) {
+                $d[$i]['staticWire'] = strtolower($r['Static_Wire']) == "y" ? "Yes" : "No";
+            } else {
+                $d[$i]['staticWire'] = NULL;
+            }
+            
+
+            $i++;
         }
         $this->insertDataToLogTable($results);
         return $d;
     }
 
+    
+
     private function getHoseSkeletonData($results)
     {
         $d = array();
 
-
+        $i = 0;
         foreach ($results as $k => $r) {
-            $reinfo = array();
+            
             $error = array();
-            $clrInfo = array();
-            if (!empty($r['Reinforcement'])) {
-                $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Reinforcement']));
-                $clrInfo = $this->getMultiselectInfo('reinforcement', $clrArr);
-                if (!empty($clrInfo['itemNotFound'])) {
-                    $error[] = "Reinforcement(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
-                } else {
-                    $reinfo = $clrInfo['items'];
-                }
-            }
+
             if (!empty($error)) {
                 $results[$k]['statusCode'] = "Failed - Skeleton Level";
                 $results[$k]['failedReason']    =   implode(', ', $error);
@@ -320,38 +394,20 @@ class HoseDataImportCommand extends AbstractCommand
                 $results[$k]['statusCode'] = "Success - Skeleton Level";
                 $results[$k]['failedReason'] = "";
             }
-            $weightLbFt = NULL;
-            $weightGM = NULL;
-            if (!empty($r['Weight_lb_ft']) && !empty($r['Weight_G_M'])) {
-                $weightLbFt = $r['Weight_lb_ft'];
-                $weightGM = $r['Weight_G_M'];
-            }
-            if (!empty($r['Weight_lb_ft']) && empty($r['Weight_G_M'])) {
-                $weightLbFt = $r['Weight_lb_ft'];
-                $weightGM = $this->lbsTogram($weightLbFt);
-            }
-            if (empty($r['Weight_lb_ft']) && !empty($r['Weight_G_M'])) {
-                $weightGM = $r['Weight_G_M'];
-                $weightLbFt = $this->gramToLbs($weightGM);
-            }
+
             // p_r($weightLbFt.' - '.$weightGM);
-            $d[] = array(
-                'o_key'  =>  $r['skeleLevel'],
+            $d[$i] = array(
+                'o_id'  =>  $r['level6n9digit_id'],
                 'fieldname'  =>  'Skeleton',
-                // 'descriptive'   =>  !empty($r['descriptive']) ? $r['descriptive'] : '',
-                'grossWeight'   =>  $weightLbFt,
-                'weightg'       =>  $weightGM,
-                'reinforcement' =>  !empty($reinfo) ? implode(',', $reinfo) : NULL,
                 'BendRadiusIN' =>  !empty($r['Bend_Radius_in']) ? $r['Bend_Radius_in'] : NULL,
                 'BendRadiusMM' =>  !empty($r['Bend_Radius_mm']) ? $r['Bend_Radius_mm'] : NULL,
                 'VacuumIN' =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
                 'VacuumMM' =>  !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
                 'workingPressureMPA' =>  !empty($r['Working_Pressure_Mpa']) ? $r['Working_Pressure_Mpa'] : NULL,
                 'workingPressurePSI' =>  !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL,
-                'workingPressureBAR' =>  !empty($r['Working_Pressure_BAR']) ? $r['Working_Pressure_BAR'] : NULL,
                 'minBurstPressurePSI' =>  !empty($r['Min_Burst_Pressure_PSI']) ? $r['Min_Burst_Pressure_PSI'] : NULL,
                 'minBurstPressurempa' =>  !empty($r['Min_Burst_Pressure_Mpa']) ? $r['Min_Burst_Pressure_Mpa'] : NULL,
-                'hoseIdNominalId' =>  !empty($r['Hose_ID_in_Fract_Nominal_ID']) ? $r['Hose_ID_in_Fract_Nominal_ID'] : NULL,
+                'HoseIDNominalIDFrac' =>  !empty($r['Hose_ID_in_Fract_Nominal_ID']) ? $r['Hose_ID_in_Fract_Nominal_ID'] : NULL,
                 'hoseIdDec' =>  !empty($r['Hose_ID_in_Dec_Actual_ID']) ? $r['Hose_ID_in_Dec_Actual_ID'] : NULL,
                 'hoseIdMM' =>  !empty($r['Hose_ID_mm_Actual_ID']) ? $r['Hose_ID_mm_Actual_ID'] : NULL,
                 'hoseOdIn' =>  !empty($r['Hose_OD_in']) ? $r['Hose_OD_in'] : NULL,
@@ -359,10 +415,12 @@ class HoseDataImportCommand extends AbstractCommand
 
                 'VirtualCatalogVacuumIn'    =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
                 'VirtualCatalogWorkingPressureMPA'  =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : NULL,
-                'VirtualCatalogReinforcement'   =>  !empty($reinfo) ? implode(',', $reinfo) : NULL,
+                // 'VirtualCatalogReinforcement'   =>  !empty($reinfo) ? implode(',', $reinfo) : NULL,
                 'VirtualCatalogVacuumMM'    => !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
                 'VirtualCatalogWorkingPressurePSI'  => !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL
             );
+            
+            $i++;
         }
         $this->insertDataToLogTable($results);
         return $d;
@@ -372,21 +430,29 @@ class HoseDataImportCommand extends AbstractCommand
      * Creating Fert Level Data
      * $param array sheet result set
      * return array
-    */
+     */
     private function getFertData($results)
     {
         $d = array();
 
 
         foreach ($results as $k => $r) {
+            
             /* Extracting Base */
-            if (!empty($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
+            if (!empty($r['baseLevel']) && is_numeric($r['baseLevel']) && !in_array($r['baseLevel'], $this->baseLevel)) {
                 array_push($this->baseLevel, $r['baseLevel']);
-                array_push($this->baseLevelRecords, $r);
+                // $this->baseLevelRecords[$r['baseLevel']] = $r;
             }
-            if (!empty($r['skeleLevel']) && !in_array($r['skeleLevel'], $this->skeleLevel)) {
+            if (!empty($r['baseLevel']) && is_numeric($r['baseLevel'])) {
+                $this->baseLevelRecords[$r['baseLevel']][] = $r;
+            }
+
+            if (!empty($r['skeleLevel']) && is_numeric($r['skeleLevel'])  && !in_array($r['skeleLevel'], $this->skeleLevel)) {
                 array_push($this->skeleLevel, $r['skeleLevel']);
-                array_push($this->skeleLevelRecords, $r);
+            }
+
+            if (!empty($r['skeleLevel']) && is_numeric($r['skeleLevel'])) {
+                $this->skeleLevelRecords[$r['skeleLevel']][] = $r;
             }
             $reinfo = array();
             $error = array();
@@ -397,7 +463,7 @@ class HoseDataImportCommand extends AbstractCommand
                 'fieldname'  =>  'Fert',
                 'hoseLengthFT' =>  !empty($r['Hose_Length_ft']) ? $r['Hose_Length_ft'] : NULL,
                 'hoseLengthM' =>  !empty($r['Hose_Length_M']) ? $r['Hose_Length_M'] : NULL,
-                'assembly' =>  !empty($r['Assembly_Not_Assembly']) ? $r['Assembly_Not_Assembly'] : NULL,
+                'assembly' =>  !empty($r['Assembly_Not_Assembly']) ? 1 : NULL,
                 'fitting1Type' =>  !empty($r['Fitting_1_Type']) ? $r['Fitting_1_Type'] : NULL,
                 'fitting1Size' =>  !empty($r['Fitting_1_Size_FRACT']) ? $r['Fitting_1_Size_FRACT'] : NULL,
                 'fitting1Material' =>  !empty($r['Fitting_1_Material']) ? $r['Fitting_1_Material'] : NULL,
@@ -408,23 +474,292 @@ class HoseDataImportCommand extends AbstractCommand
             $results[$k]['statusCode'] = 'Success - Fert Level';
             $results[$k]['failedReason'] = '';
         }
-        $this->insertDataToLogTable($results);
+        $this->sanitizeBaseLevelData();
+        $this->sanitizeSkeleLevelData();
+
+        // $this->insertDataToLogTable($results);
         return $d;
+    }
+
+    private function sanitizeBaseLevelData()
+    {
+        $d = array();
+        $rows = array();
+        $i = 0;
+        foreach ($this->baseLevelRecords as $baseLevelCode => $results) {
+            if (!isset($d[$baseLevelCode])) {
+                $d[$baseLevelCode] = array();
+            }
+            foreach ($results as $K => $result) {
+                if (!isset($d[$baseLevelCode]['Weight_lb_ft'])) {
+                    $d[$baseLevelCode]['Weight_lb_ft'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Weight_G_M'])) {
+                    $d[$baseLevelCode]['Weight_G_M'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['MinTemperature_Rating_F'])) {
+                    $d[$baseLevelCode]['MinTemperature_Rating_F'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['MinTemperature_Rating_C'])) {
+                    $d[$baseLevelCode]['MinTemperature_Rating_C'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['MaxTemperature_Rating_F'])) {
+                    $d[$baseLevelCode]['MaxTemperature_Rating_F'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['MaxTemperature_Rating_C'])) {
+                    $d[$baseLevelCode]['MaxTemperature_Rating_C'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Reinforcement'])) {
+                    $d[$baseLevelCode]['Reinforcement'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Static_Wire'])) {
+                    $d[$baseLevelCode]['Static_Wire'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Tube_Material'])) {
+                    $d[$baseLevelCode]['Tube_Material'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Tube_Characteristic'])) {
+                    $d[$baseLevelCode]['Tube_Characteristic'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Tube_Color'])) {
+                    $d[$baseLevelCode]['Tube_Color'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Cover_Material'])) {
+                    $d[$baseLevelCode]['Cover_Material'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Cover_Characteristic'])) {
+                    $d[$baseLevelCode]['Cover_Characteristic'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Cover_color'])) {
+                    $d[$baseLevelCode]['Cover_color'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Number_of_Helix_Wires'])) {
+                    $d[$baseLevelCode]['Number_of_Helix_Wires'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Number_of_Plies'])) {
+                    $d[$baseLevelCode]['Number_of_Plies'] = '';
+                }
+
+                if (empty($d[$baseLevelCode]['Weight_lb_ft'])) {
+                    $d[$baseLevelCode]['Weight_lb_ft'] = $result['Weight_lb_ft'];
+                }
+                if (empty($d[$baseLevelCode]['Weight_G_M'])) {
+                    $d[$baseLevelCode]['Weight_G_M'] = $result['Weight_G_M'];
+                }
+                if (empty($d[$baseLevelCode]['MinTemperature_Rating_F'])) {
+                    $d[$baseLevelCode]['MinTemperature_Rating_F'] = $result['MinTemperature_Rating_F'];
+                }
+                if (empty($d[$baseLevelCode]['MinTemperature_Rating_C'])) {
+                    $d[$baseLevelCode]['MinTemperature_Rating_C'] = $result['MinTemperature_Rating_C'];
+                }
+                if (empty($d[$baseLevelCode]['MaxTemperature_Rating_F'])) {
+                    $d[$baseLevelCode]['MaxTemperature_Rating_F'] = $result['MaxTemperature_Rating_F'];
+                }
+                if (empty($d[$baseLevelCode]['MaxTemperature_Rating_C'])) {
+                    $d[$baseLevelCode]['MaxTemperature_Rating_C'] = $result['MaxTemperature_Rating_C'];
+                }
+                if (empty($d[$baseLevelCode]['Reinforcement'])) {
+                    $arr = explode("/", $result['Reinforcement']);
+                    foreach ($arr as $rf) {
+                        $d[$baseLevelCode]['Reinforcement'][$rf] = $rf;
+                    }
+                    unset($arr);
+                }
+
+
+                if(empty($d[$baseLevelCode]['Static_Wire'])) {
+                    $d[$baseLevelCode]['Static_Wire'] = $result['Static_Wire'];
+                }
+                if(empty($d[$baseLevelCode]['Number_of_Helix_Wires'])) {
+                    $d[$baseLevelCode]['Number_of_Helix_Wires'] = $result['Number_of_Helix_Wires'];
+                }
+                if(empty($d[$baseLevelCode]['Number_of_Plies'])) {
+                    $d[$baseLevelCode]['Number_of_Plies'] = $result['Number_of_Plies'];
+                }
+                
+                if (!empty($result['Tube_Material'])) {
+                    $arr = explode("/", $result['Tube_Material']);
+                    foreach ($arr as $tm) {
+                        $d[$baseLevelCode]['Tube_Material'][$tm] = $tm;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Tube_Characteristic'])) {
+                    $arr = explode("/", $result['Tube_Characteristic']);
+                    foreach ($arr as $tc) {
+                        $d[$baseLevelCode]['Tube_Material'][$tc] = $tc;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Tube_Color'])) {
+                    $arr = explode("/", $result['Tube_Color']);
+                    foreach ($arr as $tc) {
+                        $d[$baseLevelCode]['Tube_Color'][$tc] = $tc;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Cover_Material'])) {
+                    $arr = explode("/", $result['Cover_Material']);
+                    foreach ($arr as $cm) {
+                        $d[$baseLevelCode]['Cover_Material'][$cm] = $cm;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Cover_Characteristic'])) {
+                    $arr = explode("/", $result['Cover_Characteristic']);
+                    foreach ($arr as $cc) {
+                        $d[$baseLevelCode]['Cover_Characteristic'][$cc] = $cc;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Cover_color'])) {
+                    $arr = explode("/", $result['Cover_color']);
+                    foreach ($arr as $cc) {
+                        $d[$baseLevelCode]['Cover_color'][$cc] = $cc;
+                    }
+                    unset($arr);
+                }
+            }
+            $this->baseLevelRecords[$baseLevelCode] = $d[$baseLevelCode];
+
+
+
+            //    $tubeMat[$result['']] = $result['Tube_Material'];
+            $i++;
+        }
+    }
+    private function sanitizeSkeleLevelData()
+    {
+        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+        $d = array();
+        $rows = array();
+        $i = 0;
+        foreach ($this->skeleLevelRecords as $baseLevelCode => $results) {
+            if (!isset($d[$baseLevelCode])) {
+                $d[$baseLevelCode] = array();
+            }
+
+            foreach ($results as $K => $result) {
+                if (!isset($d[$baseLevelCode]['Bend_Radius_in'])) {
+                    $d[$baseLevelCode]['Bend_Radius_in'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Bend_Radius_mm'])) {
+                    $d[$baseLevelCode]['Bend_Radius_mm'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Vacuum_Rating_in'])) {
+                    $d[$baseLevelCode]['Vacuum_Rating_in'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Vacuum_Rating_mm'])) {
+                    $d[$baseLevelCode]['Vacuum_Rating_mm'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Working_Pressure_Mpa'])) {
+                    $d[$baseLevelCode]['Working_Pressure_Mpa'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Working_Pressure_PSI'])) {
+                    $d[$baseLevelCode]['Working_Pressure_PSI'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Min_Burst_Pressure_PSI'])) {
+                    $d[$baseLevelCode]['Min_Burst_Pressure_PSI'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Min_Burst_Pressure_Mpa'])) {
+                    $d[$baseLevelCode]['Min_Burst_Pressure_Mpa'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Hose_ID_in_Fract_Nominal_ID'])) {
+                    $d[$baseLevelCode]['Hose_ID_in_Fract_Nominal_ID'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Hose_ID_in_Dec_Actual_ID'])) {
+                    $d[$baseLevelCode]['Hose_ID_in_Dec_Actual_ID'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Hose_ID_mm_Actual_ID'])) {
+                    $d[$baseLevelCode]['Hose_ID_mm_Actual_ID'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Hose_OD_in'])) {
+                    $d[$baseLevelCode]['Hose_OD_in'] = '';
+                }
+                if (!isset($d[$baseLevelCode]['Hose_OD_mm'])) {
+                    $d[$baseLevelCode]['Hose_OD_mm'] = '';
+                }
+               
+                if(empty($d[$baseLevelCode]['Bend_Radius_in'])) {
+                    $d[$baseLevelCode]['Bend_Radius_in'] = $result['Bend_Radius_in'];
+                }
+                if(empty($d[$baseLevelCode]['Bend_Radius_mm'])) {
+                    $d[$baseLevelCode]['Bend_Radius_mm'] = $result['Bend_Radius_mm'];
+                }
+
+                if(empty($d[$baseLevelCode]['Vacuum_Rating_in'])) {
+                    $unit = $unitConverter->getGroupWithValues('VacuumIN', floatval($result['Vacuum_Rating_in']));
+                    
+                    $d[$baseLevelCode]['Vacuum_Rating_in'] = $unit['VacuumIN'];//$result['Vacuum_Rating_in'];
+                    $d[$baseLevelCode]['Vacuum_Rating_mm'] = $unit['VacuumMM'];
+                    unset($unit);
+                }
+
+                if(empty($d[$baseLevelCode]['Working_Pressure_Mpa'])) {
+                    $unit = $unitConverter->getGroupWithValues('workingPressureMPA', floatval($result['Working_Pressure_Mpa']));
+                    $d[$baseLevelCode]['Working_Pressure_Mpa'] = $unit['workingPressureMPA'];//$result['Working_Pressure_Mpa'];
+                    $d[$baseLevelCode]['Working_Pressure_PSI'] = $unit['workingPressurePSI'];
+                    unset($unit);
+                }
+
+                if(empty($d[$baseLevelCode]['Min_Burst_Pressure_PSI'])) {
+                    $unit = $unitConverter->getGroupWithValues('minBurstPressurePSI', floatval($result['Min_Burst_Pressure_PSI']));
+                    $d[$baseLevelCode]['Min_Burst_Pressure_PSI'] = $unit['minBurstPressurePSI'];
+                    $d[$baseLevelCode]['Min_Burst_Pressure_Mpa'] = $result['minBurstPressurempa'];
+                    unset($unit);
+                }
+
+                if(empty($d[$baseLevelCode]['Hose_ID_in_Fract_Nominal_ID'])) {
+                    $d[$baseLevelCode]['Hose_ID_in_Fract_Nominal_ID'] = $result['Hose_ID_in_Fract_Nominal_ID'];
+                }
+                if(empty($d[$baseLevelCode]['Hose_ID_in_Dec_Actual_ID'])) {
+                    $d[$baseLevelCode]['Hose_ID_in_Dec_Actual_ID'] = $result['Hose_ID_in_Dec_Actual_ID'];
+                }
+                
+                if(empty($d[$baseLevelCode]['Hose_ID_mm_Actual_ID'])) {
+                    $d[$baseLevelCode]['Hose_ID_mm_Actual_ID'] = $result['Hose_ID_mm_Actual_ID'];
+                }
+
+                if(empty($d[$baseLevelCode]['Hose_OD_in'])) {
+                    $d[$baseLevelCode]['Hose_OD_in'] = $result['Hose_OD_in'];
+                }
+
+                if(empty($d[$baseLevelCode]['Hose_OD_mm'])) {
+                    $d[$baseLevelCode]['Hose_OD_mm'] = $result['Hose_OD_mm'];
+                }
+                       
+            }
+            
+            $this->skeleLevelRecords[$baseLevelCode] = $d[$baseLevelCode];
+          
+            $i++;
+        }
+    }
+
+    private function mapBaseLevelId(&$arr, $keys)
+    {
+        $sql = "SELECT o_id, o_key FROM object_1 WHERE o_key IN (" . implode(",", $keys) . ")";
+        $results = $this->db->fetchAll($sql);
+        foreach ($results as $result) {
+            if (array_key_exists($result['o_key'], $arr)) {
+                $arr[$result['o_key']]['level6n9digit_id'] = $result['o_id'];
+            }
+        }
     }
 
     /**
      * It will update Industrial hoses bricks at base and skeleton level
      * @param array result set
      * @param string Table name
-    */
+     */
     private function updateBrickTable($results, $table)
     {
         $pf = 'o_key'; // Primary Fields
         if (!empty($results)) {
             $i = 1;
-            
-            foreach ($results as $result) {                
-                if($i%100==0) {
+
+            foreach ($results as $result) {
+                if ($i % 100 == 0) {
                     p_r("Processing record of ($table): $i");
                 }
                 $i++;
@@ -500,7 +835,7 @@ class HoseDataImportCommand extends AbstractCommand
         $itemNotFound = array();
         $hayStackArr = isset($this->masters[$masterKey]) && is_array($this->masters[$masterKey]) ? $this->masters[$masterKey] : array();
         foreach ($items as $val) {
-            $item = array_search(trim($val), $hayStackArr) ?: false;
+            $item = array_search(strtolower(trim($val)), $hayStackArr) ?: false;
             if ($item === false) {
                 $itemNotFound[] = ucfirst($val);
             } else {
@@ -518,7 +853,7 @@ class HoseDataImportCommand extends AbstractCommand
      * It will return brand ids
      * @param Brand information
      * return array (brand_ids)
-    */
+     */
     private function getBrands($items)
     {
         $res = array();
@@ -591,7 +926,7 @@ class HoseDataImportCommand extends AbstractCommand
 
     /**
      * LBS to Gram converter
-    */
+     */
     private function lbsTogram($lb)
     {
         if (false !== $lb) {
@@ -602,7 +937,7 @@ class HoseDataImportCommand extends AbstractCommand
 
     /**
      * Gram to LBS converter
-    */
+     */
     private function gramToLbs($g)
     {
         if (false !== $g) {
@@ -613,17 +948,9 @@ class HoseDataImportCommand extends AbstractCommand
     private function updateLog()
     {
         p_r('Updating Log..');
-        /* $sql = "SELECT oht.* FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.`Object`);";
-        $data = $this->db->query($sql);
-        $this->insertDataToLogTable($data, "Success");
-        unset($data); */
         $sql = "SELECT oht.* FROM oti_hosedata_temp oht LEFT JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.o_id is null";
         $data = $this->db->query($sql);
         $this->insertDataToLogTable($data, "Failed", "Object does not match in material mara");
-
-        /* $sql = "SELECT oht.* FROM oti_hosedata_temp oht JOIN object_1 o ON(o.articleNumber=oht.`Object`) WHERE o.siopFullCode LIKE '%041500%'";
-        $data = $this->db->query($sql);
-        $this->insertDataToLogTable($data, "Failed", "Object belong to Hydraulic"); */
     }
 
     public function getCSVData($fileName)
@@ -688,10 +1015,10 @@ class HoseDataImportCommand extends AbstractCommand
             foreach ($data as $dataKey => $dataValue) {
                 $success = isset($dataValue['statusCode']) ? $dataValue['statusCode'] : $success;
                 $failedReason = isset($dataValue['failedReason']) ? $dataValue['failedReason'] : $failedReason;
-                if(isset($dataValue['statusCode'])) {
+                if (isset($dataValue['statusCode'])) {
                     unset($dataValue['statusCode']);
                 }
-                if(isset($dataValue['failedReason'])) {
+                if (isset($dataValue['failedReason'])) {
                     unset($dataValue['failedReason']);
                 }
                 $values .= '("' . $dataValue['Object'] . '", "' . addslashes(json_encode($dataValue)) . '", "' . $success . '","' . $failedReason . '",now()),';
@@ -777,7 +1104,7 @@ class HoseDataImportCommand extends AbstractCommand
             `failedReason` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`logId`)
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-        $sql = $sql1 .$sql2;
+        $sql = $sql1 . $sql2;
         //   echo $sql1;
         $this->db->query($sql);
     }
