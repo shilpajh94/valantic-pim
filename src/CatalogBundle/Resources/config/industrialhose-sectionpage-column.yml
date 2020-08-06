@@ -1,5 +1,5 @@
 parameters:
-  AIR & MULTIPURPOSE:
+  Air & Multipurpose:
     columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -8,10 +8,12 @@ parameters:
       pageNumber:
         title: Page Number
         type: attr
+        mode: editable
       superiorAbrasionResistantCover:
-        title: Superior Abrasion Resistant Cover
+        title: SARC
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
+        feature: Superior Abrasion Resistant Cover
       StandardMetCover:
         title: Oil Resistance Cover
         type: attr
@@ -19,22 +21,395 @@ parameters:
         title: Oil Resistance Tube
         type: attr
       mSHAFlameResistantCover:
-        title: MSHA Flame Resistant Cover
+        title: MSHA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
+        feature: MSHA Flame Resistant Cover
       tubeMaterial:
         title: Tube Material
         type: attr
       nonConductiveTubeAndCover:
-        title: Non-Conductive Tube & Cover
+        title: NC T&C
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
+        feature: Non-Conductive Tube & Cover
       coupledAssembliesAvailable:
-        title: Coupled Assemblies Available
+        title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
       lightweightConstruction:
-        title: Lightweight Construction
+        title: LW Const.
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-      
+        feature: Lightweight Construction
+  Chemical:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      superiorAbrasionResistantCover:
+        title: SARC
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Superior Abrasion Resistant Cover
+      coverCharacteristic:
+        title: Superior Abrasion Resistant Cover
+        type: attr
+      staticDissipatingTube:
+        title: Static DT
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Static Dissipating Tube
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      staticWire:
+        title: Static Wire
+        type: attr
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
+      superiorFlexibility:
+        title: S Flex
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Superior Flexibility
+  Cleaning:
+    columns: ['brandName', 'StandardMetCover', 'coverCharacteristic', 'tubeMaterial', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      superiorAbrasionResistantCover:
+        title: SARC
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Superior Abrasion Resistant Cover
+      StandardMetCover:
+        title: Resistance Cover
+        type: attr
+      microbanCover:
+        title: MCBN CVR
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Microban Cover
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      nonMarkingCover:
+        title: Non Mrkng Cvr
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Non-Marking Cover
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      coupledAssembliesAvailable:
+        title: CAA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
+  Food:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      superiorAbrasionResistantCover: 
+        title: SARC
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Superior Abrasion Resistant Cover
+      microbanCover:
+        title: MCBN Cover
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Microban Cover
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      staticWire:
+        title: Static Wire
+        type: attr
+      3A1803CertifiedTube:
+        title: 3-A 18-03 Certified Tube
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: 3-A 18-03 Certified Tube
+      FDAUSDA3ACompliantTube:
+        title: FDA / USDA / 3-A Compliant Tube
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: FDA / USDA / 3-A Compliant Tube
+      NSF61ListedTube:
+        title: NSF-61 Listed Tube
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: NSF-61 Listed Tube
+      workingPressurePSI:
+        title: Standard MetHose Comment
+        type: attr
+  Marine:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'standardMetHoseComment', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      standardMetHoseComment:
+        title: Standard MetHose Comment
+        type: attr
+      USCG:
+        title: USCG
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: USCG
+      workingPressurePSI:
+        title: Standard MetHose Comment
+        type: attr
+  Material Handling:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      staticDissipatingTube:
+        title: Static DT
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Static Dissipating Tube
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      staticWire:
+        title: Static Wire
+        type: attr
+      visibilityofFlow:
+        title: Visibility of Flow
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Visibility of Flow
+      workingPressurePSI:
+        title: Standard MetHose Comment
+        type: attr
+  Mining:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      staticDissipatingTube:
+        title: Static DT
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Static Dissipating Tube
+      mSHAFlameResistantCover:
+        title: MSHA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: MSHA Flame Resistant Cover
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      staticWire:
+        title: Static Wire
+        type: attr
+      coupledAssembliesAvailable:
+        title: CAA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
+      workingPressurePSI:
+        title: Standard MetHose Comment
+        type: attr
+  Petroleum:
+    columns: ['brandName', 'coverCharacteristic', 'staticWire', 'standardMetHose', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      staticWire:
+        title: Static Wire
+        type: attr
+      coupledAssembliesAvailable:
+        title: CAA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
+      ulandOrCULCertified:
+        title: UL and/or CUL Certified
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: UL and/or CUL Certified
+      EI1529:
+        title: EI 1529
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: EI 1529
+      standardMetHose:
+        title: Standard MetHose Comment
+        type: attr
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
+      lightweightConstruction:
+        title: LW Const.
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Lightweight Construction
+  Steam:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      tubeMaterial:
+        title: Cover Characteristic
+        type: attr
+      coupledAssembliesAvailable:
+        title: CAA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
+  Water:
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'LayFlatHoseYN', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      coverCharacteristic:
+        title: Cover Characteristic
+        type: attr
+      mSHAFlameResistantCover:
+        title: MSHA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: MSHA Flame Resistant Cover
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      visibilityofFlow:
+        title: Visibility of Flow
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Visibility of Flow
+      LayFlatHoseYN:
+        title: LFH (YN)
+        type: attr
+      coupledAssembliesAvailable:
+        title: CAA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
+  Welding:
+    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'workingPressurePSI', 'acceptableHoseMedia', 'FeaturesBenefitsBulletPoint']
+    dispColumns:
+      # brandName:
+      #   title: Brand Name
+      #   type: attr
+      pageNumber:
+        title: Page Number
+        type: attr
+        mode: editable
+      superiorAbrasionResistantCover: 
+        title: SARC
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Superior Abrasion Resistant Cover
+      StandardMetCover:
+        title: Resistance Cover
+        type: attr
+      StandardMetTube:
+        title: Oil Resistance Tub
+        type: attr
+      flameAndOilResistantTube:
+        title: Flame & Oil Resistant Tube
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Flame & Oil Resistant Tube
+      flameAndOilResistantCover:
+        title: Flame & Oil Resistant Cover
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Flame & Oil Resistant Cover
+      tubeMaterial:
+        title: Tube Material
+        type: attr
+      coupledAssembliesAvailable:
+        title: CAA
+        type: feature
+        fieldName: FeaturesBenefitsBulletPoint
+        feature: Coupled Assemblies Available
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
+      acceptableHoseMedia:
+        title: Fuel Gases (Red)
+        type: attr

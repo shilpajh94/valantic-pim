@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-14T12:56:08+02:00
+* Generated at: 2020-07-31T09:10:05+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -26,6 +26,7 @@ Fields Summary:
 - TotalReplenismentLeadTime [numeric]
 - SafetyStock [numeric]
 - StockIndicator [select]
+- StockIndicatorDescription [input]
 - deletedFlagAtPlantLevel [booleanSelect]
 */ 
 
@@ -35,7 +36,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1594724168,
+   'modificationDate' => 1596179405,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -771,6 +772,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'StockIndicatorDescription',
+                     'title' => 'Stock Indicator Description',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'float:left; margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',

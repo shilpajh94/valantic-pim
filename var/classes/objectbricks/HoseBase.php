@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-28T08:47:41+02:00
+* Generated at: 2020-07-31T09:12:56+02:00
 * IP: 127.0.0.1
 
 
@@ -10,6 +10,7 @@ Fields Summary:
 - numberOfHelixWires [numeric]
 - numberOfPlies [numeric]
 - LayFlatHoseYN [booleanSelect]
+- HelicalWireYN [booleanSelect]
 - tubeMaterial [multiselect]
 - tubeCharacteristic [multiselect]
 - tubeColor [multiselect]
@@ -238,6 +239,49 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                 'fieldtype' => 'booleanSelect',
+                 'yesLabel' => 'Yes',
+                 'noLabel' => 'No',
+                 'emptyLabel' => 'Empty',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Empty',
+                    'value' => 0,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Yes',
+                    'value' => 1,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'No',
+                    'value' => -1,
+                  ),
+                ),
+                 'width' => 300,
+                 'queryColumnType' => 'tinyint(1) null',
+                 'columnType' => 'tinyint(1) null',
+                 'phpdocType' => 'boolean',
+                 'name' => 'HelicalWireYN',
+                 'title' => 'Helical Wire Y/N',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
             ),
              'locked' => false,
              'icon' => '',
@@ -374,36 +418,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'key' => 'PP',
                             'value' => 2671,
                           ),
-                          14 => 
-                          array (
-                            'key' => 'Black nitrile synthetic rubber',
-                            'value' => 1818455,
-                          ),
-                          15 => 
-                          array (
-                            'key' => 'NBR (Nitrile)',
-                            'value' => 1818461,
-                          ),
-                          16 => 
-                          array (
-                            'key' => 'CR (Polychloroprene)',
-                            'value' => 1818467,
-                          ),
-                          17 => 
-                          array (
-                            'key' => 'CPE (Chlorinated Polyethylene)',
-                            'value' => 1818473,
-                          ),
-                          18 => 
-                          array (
-                            'key' => 'Oil-resistant synthetic rubber',
-                            'value' => 1818489,
-                          ),
-                          19 => 
-                          array (
-                            'key' => '(NBR) Nitrile',
-                            'value' => 1818501,
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
@@ -510,11 +524,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'key' => 'Flame-Resistant',
                             'value' => 2646,
                           ),
-                          15 => 
-                          array (
-                            'key' => 'SMOOTH',
-                            'value' => 1818456,
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
@@ -591,41 +600,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'key' => 'Clear',
                             'value' => 2656,
                           ),
-                          9 => 
-                          array (
-                            'key' => 'Black nitrile synthetic rubber',
-                            'value' => 1818457,
-                          ),
-                          10 => 
-                          array (
-                            'key' => 'NBR (Nitrile)',
-                            'value' => 1818462,
-                          ),
-                          11 => 
-                          array (
-                            'key' => 'CR (Polychloroprene)',
-                            'value' => 1818468,
-                          ),
-                          12 => 
-                          array (
-                            'key' => 'CPE (Chlorinated Polyethylene)',
-                            'value' => 1818474,
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'Oil-resistant synthetic rubber',
-                            'value' => 1818490,
-                          ),
-                          14 => 
-                          array (
-                            'key' => '(NBR) Nitrile',
-                            'value' => 1818502,
-                          ),
-                          15 => 
-                          array (
-                            'key' => 'Synthetic Rubber',
-                            'value' => 1818503,
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
@@ -658,6 +632,506 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
                         array (
+                          0 => 
+                          array (
+                            'key' => 'ISO7840',
+                            'value' => 2952,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'ISO8031',
+                            'value' => 2953,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'MIL -AA59565',
+                            'value' => 2954,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'MIL-370',
+                            'value' => 2955,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'MIL-DTL-13444H Type I',
+                            'value' => 2956,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'MIL-DTL-13444H Type III',
+                            'value' => 2957,
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'MIL-DTL-13531 Type II Class A',
+                            'value' => 2958,
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'MIL-DTL-20176G',
+                            'value' => 2959,
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'MIL-DTL-29210E',
+                            'value' => 2960,
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'MIL-DTL-39921',
+                            'value' => 2961,
+                          ),
+                          10 => 
+                          array (
+                            'key' => 'MIL-DTL-8788',
+                            'value' => 2962,
+                          ),
+                          11 => 
+                          array (
+                            'key' => 'MPAPS F-30',
+                            'value' => 2963,
+                          ),
+                          12 => 
+                          array (
+                            'key' => 'MPAPS F-6032',
+                            'value' => 2964,
+                          ),
+                          13 => 
+                          array (
+                            'key' => 'MPAPS F-6042',
+                            'value' => 2965,
+                          ),
+                          14 => 
+                          array (
+                            'key' => 'MS-EA122',
+                            'value' => 2966,
+                          ),
+                          15 => 
+                          array (
+                            'key' => 'MSHA 2G',
+                            'value' => 2967,
+                          ),
+                          16 => 
+                          array (
+                            'key' => 'MSHA FLAME RESISTANT',
+                            'value' => 2968,
+                          ),
+                          17 => 
+                          array (
+                            'key' => 'NIOSH',
+                            'value' => 2969,
+                          ),
+                          18 => 
+                          array (
+                            'key' => 'NMMA',
+                            'value' => 2970,
+                          ),
+                          19 => 
+                          array (
+                            'key' => 'NSF-61',
+                            'value' => 2971,
+                          ),
+                          20 => 
+                          array (
+                            'key' => 'PLEWS RETAIL AIR HOSE',
+                            'value' => 2972,
+                          ),
+                          21 => 
+                          array (
+                            'key' => 'SAE 100R12',
+                            'value' => 2973,
+                          ),
+                          22 => 
+                          array (
+                            'key' => 'SAE 100R13',
+                            'value' => 2974,
+                          ),
+                          23 => 
+                          array (
+                            'key' => 'SAE 100R14A',
+                            'value' => 2975,
+                          ),
+                          24 => 
+                          array (
+                            'key' => 'SAE 100R15',
+                            'value' => 2976,
+                          ),
+                          25 => 
+                          array (
+                            'key' => 'SAE 100R16',
+                            'value' => 2977,
+                          ),
+                          26 => 
+                          array (
+                            'key' => 'SAE 100R17',
+                            'value' => 2978,
+                          ),
+                          27 => 
+                          array (
+                            'key' => 'SAE 100R18',
+                            'value' => 2979,
+                          ),
+                          28 => 
+                          array (
+                            'key' => 'SAE 100R19',
+                            'value' => 2980,
+                          ),
+                          29 => 
+                          array (
+                            'key' => 'SAE 100R1AT',
+                            'value' => 2981,
+                          ),
+                          30 => 
+                          array (
+                            'key' => 'SAE 100R2AT',
+                            'value' => 2982,
+                          ),
+                          31 => 
+                          array (
+                            'key' => 'SAE 100R3',
+                            'value' => 2983,
+                          ),
+                          32 => 
+                          array (
+                            'key' => 'SAE 100R4',
+                            'value' => 2984,
+                          ),
+                          33 => 
+                          array (
+                            'key' => 'SAE 100R4AT',
+                            'value' => 2985,
+                          ),
+                          34 => 
+                          array (
+                            'key' => 'SAE 100R5',
+                            'value' => 2986,
+                          ),
+                          35 => 
+                          array (
+                            'key' => 'SAE 100R6',
+                            'value' => 2987,
+                          ),
+                          36 => 
+                          array (
+                            'key' => 'SAE 100R7',
+                            'value' => 2988,
+                          ),
+                          37 => 
+                          array (
+                            'key' => 'SAE 100R8',
+                            'value' => 2989,
+                          ),
+                          38 => 
+                          array (
+                            'key' => 'SAE 1684',
+                            'value' => 2990,
+                          ),
+                          39 => 
+                          array (
+                            'key' => 'SAE J1037',
+                            'value' => 2991,
+                          ),
+                          40 => 
+                          array (
+                            'key' => 'SAE J1402',
+                            'value' => 2992,
+                          ),
+                          41 => 
+                          array (
+                            'key' => 'SAE J1402 Type (AII)',
+                            'value' => 2993,
+                          ),
+                          42 => 
+                          array (
+                            'key' => 'SAE J1403',
+                            'value' => 2994,
+                          ),
+                          43 => 
+                          array (
+                            'key' => 'SAE J1527',
+                            'value' => 2995,
+                          ),
+                          44 => 
+                          array (
+                            'key' => 'SAE J189',
+                            'value' => 2996,
+                          ),
+                          45 => 
+                          array (
+                            'key' => 'SAE J1942 / U.S. Coast Guard',
+                            'value' => 2997,
+                          ),
+                          46 => 
+                          array (
+                            'key' => 'SAE J20',
+                            'value' => 2998,
+                          ),
+                          47 => 
+                          array (
+                            'key' => 'SAE J2064 Type C, Class I',
+                            'value' => 2999,
+                          ),
+                          48 => 
+                          array (
+                            'key' => 'SAE J2064 Type C, Class II',
+                            'value' => 3000,
+                          ),
+                          49 => 
+                          array (
+                            'key' => 'SAE J2076',
+                            'value' => 3001,
+                          ),
+                          50 => 
+                          array (
+                            'key' => 'SAE J20R3 D1',
+                            'value' => 3002,
+                          ),
+                          51 => 
+                          array (
+                            'key' => 'SAE J20R3 D2',
+                            'value' => 3003,
+                          ),
+                          52 => 
+                          array (
+                            'key' => 'SAE J20R3 D3 HT EC',
+                            'value' => 3004,
+                          ),
+                          53 => 
+                          array (
+                            'key' => 'SAE J30',
+                            'value' => 3005,
+                          ),
+                          54 => 
+                          array (
+                            'key' => 'SAE J30 R6',
+                            'value' => 3006,
+                          ),
+                          55 => 
+                          array (
+                            'key' => 'SAE J30 R7',
+                            'value' => 3007,
+                          ),
+                          56 => 
+                          array (
+                            'key' => 'UL 21',
+                            'value' => 3008,
+                          ),
+                          57 => 
+                          array (
+                            'key' => 'UL 330',
+                            'value' => 3009,
+                          ),
+                          58 => 
+                          array (
+                            'key' => 'UL 92',
+                            'value' => 3010,
+                          ),
+                          59 => 
+                          array (
+                            'key' => 'UL 94 HB',
+                            'value' => 3011,
+                          ),
+                          60 => 
+                          array (
+                            'key' => 'UL330A',
+                            'value' => 3012,
+                          ),
+                          61 => 
+                          array (
+                            'key' => 'UL330B',
+                            'value' => 3013,
+                          ),
+                          62 => 
+                          array (
+                            'key' => 'WSE-M96D34',
+                            'value' => 3014,
+                          ),
+                          63 => 
+                          array (
+                            'key' => ' DIN 20023 4SH',
+                            'value' => 3015,
+                          ),
+                          64 => 
+                          array (
+                            'key' => ' DIN 20023 4SP',
+                            'value' => 3016,
+                          ),
+                          65 => 
+                          array (
+                            'key' => ' EN 853',
+                            'value' => 3017,
+                          ),
+                          66 => 
+                          array (
+                            'key' => ' EN 853 1SN',
+                            'value' => 3018,
+                          ),
+                          67 => 
+                          array (
+                            'key' => ' EN 853 2SN',
+                            'value' => 3019,
+                          ),
+                          68 => 
+                          array (
+                            'key' => ' EN 854 R3',
+                            'value' => 3020,
+                          ),
+                          69 => 
+                          array (
+                            'key' => ' EN 854 R6',
+                            'value' => 3021,
+                          ),
+                          70 => 
+                          array (
+                            'key' => ' EN 855 R8',
+                            'value' => 3022,
+                          ),
+                          71 => 
+                          array (
+                            'key' => 'EN 856 4SH',
+                            'value' => 3023,
+                          ),
+                          72 => 
+                          array (
+                            'key' => 'EN 856 4SP',
+                            'value' => 3024,
+                          ),
+                          73 => 
+                          array (
+                            'key' => 'EN 856 R12',
+                            'value' => 3025,
+                          ),
+                          74 => 
+                          array (
+                            'key' => 'EN 856 R13',
+                            'value' => 3026,
+                          ),
+                          75 => 
+                          array (
+                            'key' => 'EN 857 2SC',
+                            'value' => 3027,
+                          ),
+                          76 => 
+                          array (
+                            'key' => ' EN 857 R7',
+                            'value' => 3028,
+                          ),
+                          77 => 
+                          array (
+                            'key' => ' FDA 21 CFR 177',
+                            'value' => 3029,
+                          ),
+                          78 => 
+                          array (
+                            'key' => '100 microamps/ft. at 75 KV',
+                            'value' => 3030,
+                          ),
+                          79 => 
+                          array (
+                            'key' => '1500 Specifications',
+                            'value' => 3031,
+                          ),
+                          80 => 
+                          array (
+                            'key' => '3-A 18-03 CERTIFIED',
+                            'value' => 3032,
+                          ),
+                          81 => 
+                          array (
+                            'key' => '3-A COMPLIANT',
+                            'value' => 3033,
+                          ),
+                          82 => 
+                          array (
+                            'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
+                            'value' => 3034,
+                          ),
+                          83 => 
+                          array (
+                            'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
+                            'value' => 3035,
+                          ),
+                          84 => 
+                          array (
+                            'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
+                            'value' => 3036,
+                          ),
+                          85 => 
+                          array (
+                            'key' => 'ARPM GRADE R WELDING HOSE',
+                            'value' => 3037,
+                          ),
+                          86 => 
+                          array (
+                            'key' => 'ARPM GRADE RM WELDING HOSE',
+                            'value' => 3038,
+                          ),
+                          87 => 
+                          array (
+                            'key' => 'ARPM GRADE T WELDING HOSE',
+                            'value' => 3039,
+                          ),
+                          88 => 
+                          array (
+                            'key' => 'CARB',
+                            'value' => 3040,
+                          ),
+                          89 => 
+                          array (
+                            'key' => 'CGA E-1',
+                            'value' => 3041,
+                          ),
+                          90 => 
+                          array (
+                            'key' => 'CNH FZG20305',
+                            'value' => 3042,
+                          ),
+                          91 => 
+                          array (
+                            'key' => 'CSA 8.1-M86',
+                            'value' => 3043,
+                          ),
+                          92 => 
+                          array (
+                            'key' => 'DIN 74310',
+                            'value' => 3044,
+                          ),
+                          93 => 
+                          array (
+                            'key' => 'DOT FMVSS 106 Type (AII)',
+                            'value' => 3045,
+                          ),
+                          94 => 
+                          array (
+                            'key' => 'FDA/USDA CERTIFIED',
+                            'value' => 3046,
+                          ),
+                          95 => 
+                          array (
+                            'key' => 'FDA/USDA COMPLIANT',
+                            'value' => 3047,
+                          ),
+                          96 => 
+                          array (
+                            'key' => 'FMVSS106 49 CFR 571 106',
+                            'value' => 3048,
+                          ),
+                          97 => 
+                          array (
+                            'key' => 'GM 6278M',
+                            'value' => 3049,
+                          ),
+                          98 => 
+                          array (
+                            'key' => 'ISO 11237',
+                            'value' => 3050,
+                          ),
+                          99 => 
+                          array (
+                            'key' => 'ISO3821',
+                            'value' => 3051,
+                          ),
                         ),
                          'width' => 300,
                          'height' => '',
@@ -692,502 +1166,502 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => ' DIN 20023 4SH',
-                            'value' => 1818510,
+                            'value' => 2678,
                           ),
                           1 => 
                           array (
                             'key' => ' DIN 20023 4SP',
-                            'value' => 1818511,
+                            'value' => 2679,
                           ),
                           2 => 
                           array (
                             'key' => ' EN 853',
-                            'value' => 1818512,
+                            'value' => 2680,
                           ),
                           3 => 
                           array (
                             'key' => ' EN 853 1SN',
-                            'value' => 1818513,
+                            'value' => 2681,
                           ),
                           4 => 
                           array (
                             'key' => ' EN 853 2SN',
-                            'value' => 1818514,
+                            'value' => 2682,
                           ),
                           5 => 
                           array (
                             'key' => ' EN 854 R3',
-                            'value' => 1818515,
+                            'value' => 2683,
                           ),
                           6 => 
                           array (
                             'key' => ' EN 854 R6',
-                            'value' => 1818516,
+                            'value' => 2684,
                           ),
                           7 => 
                           array (
                             'key' => ' EN 855 R8',
-                            'value' => 1818517,
+                            'value' => 2685,
                           ),
                           8 => 
                           array (
                             'key' => 'EN 856 4SH',
-                            'value' => 1818518,
+                            'value' => 2686,
                           ),
                           9 => 
                           array (
                             'key' => 'EN 856 4SP',
-                            'value' => 1818519,
+                            'value' => 2687,
                           ),
                           10 => 
                           array (
                             'key' => 'EN 856 R12',
-                            'value' => 1818520,
+                            'value' => 2688,
                           ),
                           11 => 
                           array (
                             'key' => 'EN 856 R13',
-                            'value' => 1818521,
+                            'value' => 2689,
                           ),
                           12 => 
                           array (
                             'key' => 'EN 857 2SC',
-                            'value' => 1818522,
+                            'value' => 2690,
                           ),
                           13 => 
                           array (
                             'key' => ' EN 857 R7',
-                            'value' => 1818523,
+                            'value' => 2691,
                           ),
                           14 => 
                           array (
                             'key' => ' FDA 21 CFR 177',
-                            'value' => 1818524,
+                            'value' => 2692,
                           ),
                           15 => 
                           array (
                             'key' => '100 microamps/ft. at 75 KV',
-                            'value' => 1818525,
+                            'value' => 2693,
                           ),
                           16 => 
                           array (
                             'key' => '1500 Specifications',
-                            'value' => 1818526,
+                            'value' => 2694,
                           ),
                           17 => 
                           array (
                             'key' => '3-A 18-03 CERTIFIED',
-                            'value' => 1818527,
+                            'value' => 2695,
                           ),
                           18 => 
                           array (
                             'key' => '3-A COMPLIANT',
-                            'value' => 1818528,
+                            'value' => 2696,
                           ),
                           19 => 
                           array (
                             'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
-                            'value' => 1818529,
+                            'value' => 2697,
                           ),
                           20 => 
                           array (
                             'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
-                            'value' => 1818530,
+                            'value' => 2698,
                           ),
                           21 => 
                           array (
                             'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
-                            'value' => 1818531,
+                            'value' => 2699,
                           ),
                           22 => 
                           array (
                             'key' => 'ARPM GRADE R WELDING HOSE',
-                            'value' => 1818532,
+                            'value' => 2700,
                           ),
                           23 => 
                           array (
                             'key' => 'ARPM GRADE RM WELDING HOSE',
-                            'value' => 1818533,
+                            'value' => 2701,
                           ),
                           24 => 
                           array (
                             'key' => 'ARPM GRADE T WELDING HOSE',
-                            'value' => 1818534,
+                            'value' => 2702,
                           ),
                           25 => 
                           array (
                             'key' => 'CARB',
-                            'value' => 1818535,
+                            'value' => 2703,
                           ),
                           26 => 
                           array (
                             'key' => 'CGA E-1',
-                            'value' => 1818536,
+                            'value' => 2704,
                           ),
                           27 => 
                           array (
                             'key' => 'CNH FZG20305',
-                            'value' => 1818537,
+                            'value' => 2705,
                           ),
                           28 => 
                           array (
                             'key' => 'CSA 8.1-M86',
-                            'value' => 1818538,
+                            'value' => 2706,
                           ),
                           29 => 
                           array (
                             'key' => 'DIN 74310',
-                            'value' => 1818539,
+                            'value' => 2707,
                           ),
                           30 => 
                           array (
                             'key' => 'DOT FMVSS 106 Type (AII)',
-                            'value' => 1818540,
+                            'value' => 2708,
                           ),
                           31 => 
                           array (
                             'key' => 'FDA/USDA CERTIFIED',
-                            'value' => 1818541,
+                            'value' => 2709,
                           ),
                           32 => 
                           array (
                             'key' => 'FDA/USDA COMPLIANT',
-                            'value' => 1818542,
+                            'value' => 2710,
                           ),
                           33 => 
                           array (
                             'key' => 'FMVSS106 49 CFR 571 106',
-                            'value' => 1818543,
+                            'value' => 2711,
                           ),
                           34 => 
                           array (
                             'key' => 'GM 6278M',
-                            'value' => 1818544,
+                            'value' => 2712,
                           ),
                           35 => 
                           array (
                             'key' => 'ISO 11237',
-                            'value' => 1818545,
+                            'value' => 2713,
                           ),
                           36 => 
                           array (
                             'key' => 'ISO3821',
-                            'value' => 1818546,
+                            'value' => 2714,
                           ),
                           37 => 
                           array (
                             'key' => 'ISO7840',
-                            'value' => 1818547,
+                            'value' => 2715,
                           ),
                           38 => 
                           array (
                             'key' => 'ISO8031',
-                            'value' => 1818548,
+                            'value' => 2716,
                           ),
                           39 => 
                           array (
                             'key' => 'MIL -AA59565',
-                            'value' => 1818549,
+                            'value' => 2717,
                           ),
                           40 => 
                           array (
                             'key' => 'MIL-370',
-                            'value' => 1818550,
+                            'value' => 2718,
                           ),
                           41 => 
                           array (
                             'key' => 'MIL-DTL-13444H Type I',
-                            'value' => 1818551,
+                            'value' => 2719,
                           ),
                           42 => 
                           array (
                             'key' => 'MIL-DTL-13444H Type III',
-                            'value' => 1818552,
+                            'value' => 2720,
                           ),
                           43 => 
                           array (
                             'key' => 'MIL-DTL-13531 Type II Class A',
-                            'value' => 1818553,
+                            'value' => 2721,
                           ),
                           44 => 
                           array (
                             'key' => 'MIL-DTL-20176G',
-                            'value' => 1818554,
+                            'value' => 2722,
                           ),
                           45 => 
                           array (
                             'key' => 'MIL-DTL-29210E',
-                            'value' => 1818555,
+                            'value' => 2723,
                           ),
                           46 => 
                           array (
                             'key' => 'MIL-DTL-39921',
-                            'value' => 1818556,
+                            'value' => 2724,
                           ),
                           47 => 
                           array (
                             'key' => 'MIL-DTL-8788',
-                            'value' => 1818557,
+                            'value' => 2725,
                           ),
                           48 => 
                           array (
                             'key' => 'MPAPS F-30',
-                            'value' => 1818558,
+                            'value' => 2726,
                           ),
                           49 => 
                           array (
                             'key' => 'MPAPS F-6032',
-                            'value' => 1818559,
+                            'value' => 2727,
                           ),
                           50 => 
                           array (
                             'key' => 'MPAPS F-6042',
-                            'value' => 1818560,
+                            'value' => 2728,
                           ),
                           51 => 
                           array (
                             'key' => 'MS-EA122',
-                            'value' => 1818561,
+                            'value' => 2729,
                           ),
                           52 => 
                           array (
                             'key' => 'MSHA 2G',
-                            'value' => 1818562,
+                            'value' => 2730,
                           ),
                           53 => 
                           array (
                             'key' => 'MSHA FLAME RESISTANT',
-                            'value' => 1818563,
+                            'value' => 2731,
                           ),
                           54 => 
                           array (
                             'key' => 'NIOSH',
-                            'value' => 1818564,
+                            'value' => 2732,
                           ),
                           55 => 
                           array (
                             'key' => 'NMMA',
-                            'value' => 1818565,
+                            'value' => 2733,
                           ),
                           56 => 
                           array (
                             'key' => 'NSF-61',
-                            'value' => 1818566,
+                            'value' => 2734,
                           ),
                           57 => 
                           array (
                             'key' => 'PLEWS RETAIL AIR HOSE',
-                            'value' => 1818567,
+                            'value' => 2735,
                           ),
                           58 => 
                           array (
                             'key' => 'SAE 100R12',
-                            'value' => 1818568,
+                            'value' => 2736,
                           ),
                           59 => 
                           array (
                             'key' => 'SAE 100R13',
-                            'value' => 1818569,
+                            'value' => 2737,
                           ),
                           60 => 
                           array (
                             'key' => 'SAE 100R14A',
-                            'value' => 1818570,
+                            'value' => 2738,
                           ),
                           61 => 
                           array (
                             'key' => 'SAE 100R15',
-                            'value' => 1818571,
+                            'value' => 2739,
                           ),
                           62 => 
                           array (
                             'key' => 'SAE 100R16',
-                            'value' => 1818572,
+                            'value' => 2740,
                           ),
                           63 => 
                           array (
                             'key' => 'SAE 100R17',
-                            'value' => 1818573,
+                            'value' => 2741,
                           ),
                           64 => 
                           array (
                             'key' => 'SAE 100R18',
-                            'value' => 1818574,
+                            'value' => 2742,
                           ),
                           65 => 
                           array (
                             'key' => 'SAE 100R19',
-                            'value' => 1818575,
+                            'value' => 2743,
                           ),
                           66 => 
                           array (
                             'key' => 'SAE 100R1AT',
-                            'value' => 1818576,
+                            'value' => 2744,
                           ),
                           67 => 
                           array (
                             'key' => 'SAE 100R2AT',
-                            'value' => 1818577,
+                            'value' => 2745,
                           ),
                           68 => 
                           array (
                             'key' => 'SAE 100R3',
-                            'value' => 1818578,
+                            'value' => 2746,
                           ),
                           69 => 
                           array (
                             'key' => 'SAE 100R4',
-                            'value' => 1818579,
+                            'value' => 2747,
                           ),
                           70 => 
                           array (
                             'key' => 'SAE 100R4AT',
-                            'value' => 1818580,
+                            'value' => 2748,
                           ),
                           71 => 
                           array (
                             'key' => 'SAE 100R5',
-                            'value' => 1818581,
+                            'value' => 2749,
                           ),
                           72 => 
                           array (
                             'key' => 'SAE 100R6',
-                            'value' => 1818582,
+                            'value' => 2750,
                           ),
                           73 => 
                           array (
                             'key' => 'SAE 100R7',
-                            'value' => 1818583,
+                            'value' => 2751,
                           ),
                           74 => 
                           array (
                             'key' => 'SAE 100R8',
-                            'value' => 1818584,
+                            'value' => 2752,
                           ),
                           75 => 
                           array (
                             'key' => 'SAE 1684',
-                            'value' => 1818585,
+                            'value' => 2753,
                           ),
                           76 => 
                           array (
                             'key' => 'SAE J1037',
-                            'value' => 1818586,
+                            'value' => 2754,
                           ),
                           77 => 
                           array (
                             'key' => 'SAE J1402',
-                            'value' => 1818587,
+                            'value' => 2755,
                           ),
                           78 => 
                           array (
                             'key' => 'SAE J1402 Type (AII)',
-                            'value' => 1818588,
+                            'value' => 2756,
                           ),
                           79 => 
                           array (
                             'key' => 'SAE J1403',
-                            'value' => 1818589,
+                            'value' => 2757,
                           ),
                           80 => 
                           array (
                             'key' => 'SAE J1527',
-                            'value' => 1818590,
+                            'value' => 2758,
                           ),
                           81 => 
                           array (
                             'key' => 'SAE J189',
-                            'value' => 1818591,
+                            'value' => 2759,
                           ),
                           82 => 
                           array (
                             'key' => 'SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818592,
+                            'value' => 2760,
                           ),
                           83 => 
                           array (
                             'key' => 'SAE J20',
-                            'value' => 1818593,
+                            'value' => 2761,
                           ),
                           84 => 
                           array (
                             'key' => 'SAE J2064 Type C, Class I',
-                            'value' => 1818594,
+                            'value' => 2762,
                           ),
                           85 => 
                           array (
                             'key' => 'SAE J2064 Type C, Class II',
-                            'value' => 1818595,
+                            'value' => 2763,
                           ),
                           86 => 
                           array (
                             'key' => 'SAE J2076',
-                            'value' => 1818596,
+                            'value' => 2764,
                           ),
                           87 => 
                           array (
                             'key' => 'SAE J20R3 D1',
-                            'value' => 1818597,
+                            'value' => 2765,
                           ),
                           88 => 
                           array (
                             'key' => 'SAE J20R3 D2',
-                            'value' => 1818598,
+                            'value' => 2766,
                           ),
                           89 => 
                           array (
                             'key' => 'SAE J20R3 D3 HT EC',
-                            'value' => 1818599,
+                            'value' => 2767,
                           ),
                           90 => 
                           array (
                             'key' => 'SAE J30',
-                            'value' => 1818600,
+                            'value' => 2768,
                           ),
                           91 => 
                           array (
                             'key' => 'SAE J30 R6',
-                            'value' => 1818601,
+                            'value' => 2769,
                           ),
                           92 => 
                           array (
                             'key' => 'SAE J30 R7',
-                            'value' => 1818602,
+                            'value' => 2770,
                           ),
                           93 => 
                           array (
                             'key' => 'UL 21',
-                            'value' => 1818603,
+                            'value' => 2771,
                           ),
                           94 => 
                           array (
                             'key' => 'UL 330',
-                            'value' => 1818604,
+                            'value' => 2772,
                           ),
                           95 => 
                           array (
                             'key' => 'UL 92',
-                            'value' => 1818605,
+                            'value' => 2773,
                           ),
                           96 => 
                           array (
                             'key' => 'UL 94 HB',
-                            'value' => 1818606,
+                            'value' => 2774,
                           ),
                           97 => 
                           array (
                             'key' => 'UL330A',
-                            'value' => 1818607,
+                            'value' => 2775,
                           ),
                           98 => 
                           array (
                             'key' => 'UL330B',
-                            'value' => 1818608,
+                            'value' => 2776,
                           ),
                           99 => 
                           array (
                             'key' => 'WSE-M96D34',
-                            'value' => 1818609,
+                            'value' => 2777,
                           ),
                         ),
                          'width' => 300,
@@ -1358,31 +1832,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'key' => 'PP',
                             'value' => 2630,
                           ),
-                          18 => 
-                          array (
-                            'key' => 'Polychloroprene',
-                            'value' => 1818458,
-                          ),
-                          19 => 
-                          array (
-                            'key' => 'Chlorinated Polyethylene',
-                            'value' => 1818475,
-                          ),
-                          20 => 
-                          array (
-                            'key' => 'Impregnated Textile Braid',
-                            'value' => 1818478,
-                          ),
-                          21 => 
-                          array (
-                            'key' => 'Chlorosulfonated Polyethylene',
-                            'value' => 1818480,
-                          ),
-                          22 => 
-                          array (
-                            'key' => 'Nitrile / PVC',
-                            'value' => 1818494,
-                          ),
                         ),
                          'width' => 300,
                          'height' => '',
@@ -1416,8 +1865,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                           0 => 
                           array (
+                            'key' => 'CORRUGATED',
+                            'value' => 2673,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'RIBBED',
+                            'value' => 2674,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'SMOOTH',
+                            'value' => 2675,
+                          ),
+                          3 => 
+                          array (
                             'key' => 'WRAPPED',
-                            'value' => 1818460,
+                            'value' => 2676,
                           ),
                         ),
                          'width' => 300,
@@ -1453,72 +1917,67 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'Black',
-                            'value' => 1818442,
+                            'value' => 2599,
                           ),
                           1 => 
                           array (
                             'key' => 'White',
-                            'value' => 1818443,
+                            'value' => 2600,
                           ),
                           2 => 
                           array (
                             'key' => 'Gray',
-                            'value' => 1818444,
+                            'value' => 2601,
                           ),
                           3 => 
                           array (
                             'key' => 'Blue',
-                            'value' => 1818445,
+                            'value' => 2602,
                           ),
                           4 => 
                           array (
                             'key' => 'Red',
-                            'value' => 1818446,
+                            'value' => 2603,
                           ),
                           5 => 
                           array (
                             'key' => 'Brick Red',
-                            'value' => 1818447,
+                            'value' => 2604,
                           ),
                           6 => 
                           array (
                             'key' => 'Green',
-                            'value' => 1818448,
+                            'value' => 2605,
                           ),
                           7 => 
                           array (
                             'key' => 'Dark Green',
-                            'value' => 1818449,
+                            'value' => 2606,
                           ),
                           8 => 
                           array (
                             'key' => 'Brown',
-                            'value' => 1818450,
+                            'value' => 2607,
                           ),
                           9 => 
                           array (
                             'key' => 'Purple',
-                            'value' => 1818451,
+                            'value' => 2608,
                           ),
                           10 => 
                           array (
                             'key' => 'Orange',
-                            'value' => 1818452,
+                            'value' => 2609,
                           ),
                           11 => 
                           array (
                             'key' => 'Yellow',
-                            'value' => 1818453,
+                            'value' => 2610,
                           ),
                           12 => 
                           array (
                             'key' => 'Clear',
-                            'value' => 1818454,
-                          ),
-                          13 => 
-                          array (
-                            'key' => 'Pink',
-                            'value' => 1818488,
+                            'value' => 2611,
                           ),
                         ),
                          'width' => 300,
@@ -1555,67 +2014,67 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           array (
                             'key' => 'FDA',
-                            'value' => 1818428,
+                            'value' => 2585,
                           ),
                           1 => 
                           array (
                             'key' => 'USDA',
-                            'value' => 1818429,
+                            'value' => 2586,
                           ),
                           2 => 
                           array (
                             'key' => '3-A 18-03',
-                            'value' => 1818430,
+                            'value' => 2587,
                           ),
                           3 => 
                           array (
                             'key' => 'UL',
-                            'value' => 1818431,
+                            'value' => 2588,
                           ),
                           4 => 
                           array (
                             'key' => 'FMVSS',
-                            'value' => 1818432,
+                            'value' => 2589,
                           ),
                           5 => 
                           array (
                             'key' => 'MSHA',
-                            'value' => 1818433,
+                            'value' => 2590,
                           ),
                           6 => 
                           array (
                             'key' => 'NMMA (Marine Hose)',
-                            'value' => 1818434,
+                            'value' => 2591,
                           ),
                           7 => 
                           array (
                             'key' => 'NIOSH (Air Breathing)',
-                            'value' => 1818435,
+                            'value' => 2592,
                           ),
                           8 => 
                           array (
                             'key' => 'MIL -AA59565 (compressed air)',
-                            'value' => 1818436,
+                            'value' => 2593,
                           ),
                           9 => 
                           array (
                             'key' => 'CSA',
-                            'value' => 1818437,
+                            'value' => 2594,
                           ),
                           10 => 
                           array (
                             'key' => 'CARB',
-                            'value' => 1818438,
+                            'value' => 2595,
                           ),
                           11 => 
                           array (
                             'key' => 'CUL',
-                            'value' => 1818439,
+                            'value' => 2596,
                           ),
                           12 => 
                           array (
                             'key' => 'NSF',
-                            'value' => 1818440,
+                            'value' => 2597,
                           ),
                         ),
                          'width' => 300,
@@ -1681,603 +2140,503 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'key' => 'SAE 100R2AT; EN 853',
-                            'value' => 1818464,
+                            'key' => ' DIN 20023 4SH',
+                            'value' => 2779,
                           ),
                           1 => 
                           array (
-                            'key' => 'SAE 100R17',
-                            'value' => 1818465,
+                            'key' => ' DIN 20023 4SP',
+                            'value' => 2780,
                           ),
                           2 => 
                           array (
-                            'key' => 'SAE 100R19',
-                            'value' => 1818466,
+                            'key' => ' EN 853',
+                            'value' => 2781,
                           ),
                           3 => 
                           array (
-                            'key' => 'SAE 100R12;EN 856 R12',
-                            'value' => 1818469,
+                            'key' => ' EN 853 1SN',
+                            'value' => 2782,
                           ),
                           4 => 
                           array (
-                            'key' => 'SAE 100R13;EN 856 R13',
-                            'value' => 1818470,
+                            'key' => ' EN 853 2SN',
+                            'value' => 2783,
                           ),
                           5 => 
                           array (
-                            'key' => 'SAE 100R15',
-                            'value' => 1818471,
+                            'key' => ' EN 854 R3',
+                            'value' => 2784,
                           ),
                           6 => 
                           array (
-                            'key' => 'SAE 100R16;EN 857 2SC',
-                            'value' => 1818472,
+                            'key' => ' EN 854 R6',
+                            'value' => 2785,
                           ),
                           7 => 
                           array (
-                            'key' => 'SAE 100R1AT; EN 853 1SN;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818476,
+                            'key' => ' EN 855 R8',
+                            'value' => 2786,
                           ),
                           8 => 
                           array (
-                            'key' => 'SAE 100R2AT; EN 853 2SN;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818477,
+                            'key' => 'EN 856 4SH',
+                            'value' => 2787,
                           ),
                           9 => 
                           array (
-                            'key' => 'SAE 100R5;DOT FMVSS 106 Type (AII);SAE J1402 Type (AII);SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818479,
+                            'key' => 'EN 856 4SP',
+                            'value' => 2788,
                           ),
                           10 => 
                           array (
-                            'key' => 'SAE 100R6; EN 854 R6',
-                            'value' => 1818481,
+                            'key' => 'EN 856 R12',
+                            'value' => 2789,
                           ),
                           11 => 
                           array (
-                            'key' => 'SAE 100R16; EN 857 2SC;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818482,
+                            'key' => 'EN 856 R13',
+                            'value' => 2790,
                           ),
                           12 => 
                           array (
-                            'key' => 'SAE 100R4;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818483,
+                            'key' => 'EN 857 2SC',
+                            'value' => 2791,
                           ),
                           13 => 
                           array (
-                            'key' => 'MIL-DTL-13444H Type I',
-                            'value' => 1818484,
+                            'key' => ' EN 857 R7',
+                            'value' => 2792,
                           ),
                           14 => 
                           array (
-                            'key' => 'MIL-DTL-13444H Type III',
-                            'value' => 1818485,
+                            'key' => ' FDA 21 CFR 177',
+                            'value' => 2793,
                           ),
                           15 => 
                           array (
-                            'key' => 'MIL-DTL-13531 Type II Class A',
-                            'value' => 1818486,
+                            'key' => '100 microamps/ft. at 75 KV',
+                            'value' => 2794,
                           ),
                           16 => 
                           array (
-                            'key' => 'MIL-DTL-8788',
-                            'value' => 1818487,
+                            'key' => '1500 Specifications',
+                            'value' => 2795,
                           ),
                           17 => 
                           array (
-                            'key' => 'MSHA 2G',
-                            'value' => 1818491,
+                            'key' => '3-A 18-03 CERTIFIED',
+                            'value' => 2796,
                           ),
                           18 => 
                           array (
-                            'key' => 'EN 856 4SH; DIN 20023 4SH',
-                            'value' => 1818492,
+                            'key' => '3-A COMPLIANT',
+                            'value' => 2797,
                           ),
                           19 => 
                           array (
-                            'key' => 'EN 856 4SP; DIN 20023 4SP',
-                            'value' => 1818493,
+                            'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
+                            'value' => 2798,
                           ),
                           20 => 
                           array (
-                            'key' => '100 microamps/ft. at 75 KV',
-                            'value' => 1818495,
+                            'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
+                            'value' => 2799,
                           ),
                           21 => 
                           array (
-                            'key' => 'SAE 100R17;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818496,
+                            'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
+                            'value' => 2800,
                           ),
                           22 => 
                           array (
-                            'key' => 'SAE 100R12; EN 856 R12;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818497,
+                            'key' => 'ARPM GRADE R WELDING HOSE',
+                            'value' => 2801,
                           ),
                           23 => 
                           array (
-                            'key' => 'SAE 100R13; EN 856 R13;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818498,
+                            'key' => 'ARPM GRADE RM WELDING HOSE',
+                            'value' => 2802,
                           ),
                           24 => 
                           array (
-                            'key' => 'SAE 100R4AT; EN 853 1SN;SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818499,
+                            'key' => 'ARPM GRADE T WELDING HOSE',
+                            'value' => 2803,
                           ),
                           25 => 
                           array (
-                            'key' => 'SAE 100R3; EN 854 R3',
-                            'value' => 1818500,
+                            'key' => 'CARB',
+                            'value' => 2804,
                           ),
                           26 => 
                           array (
-                            'key' => 'SAE 100R12',
-                            'value' => 1818504,
+                            'key' => 'CGA E-1',
+                            'value' => 2805,
                           ),
                           27 => 
                           array (
-                            'key' => 'SAE 100R19;ISO 11237',
-                            'value' => 1818505,
+                            'key' => 'CNH FZG20305',
+                            'value' => 2806,
                           ),
                           28 => 
                           array (
-                            'key' => 'SAE 100R12; EN 856 4SH',
-                            'value' => 1818506,
+                            'key' => 'CSA 8.1-M86',
+                            'value' => 2807,
                           ),
                           29 => 
                           array (
-                            'key' => 'SAE 100R13',
-                            'value' => 1818507,
+                            'key' => 'DIN 74310',
+                            'value' => 2808,
                           ),
                           30 => 
                           array (
-                            'key' => 'SAE 100R15; EN 856 4SP',
-                            'value' => 1818508,
+                            'key' => 'DOT FMVSS 106 Type (AII)',
+                            'value' => 2809,
                           ),
                           31 => 
                           array (
-                            'key' => ' DIN 20023 4SH',
-                            'value' => 1818610,
+                            'key' => 'FDA/USDA CERTIFIED',
+                            'value' => 2810,
                           ),
                           32 => 
                           array (
-                            'key' => ' DIN 20023 4SP',
-                            'value' => 1818611,
+                            'key' => 'FDA/USDA COMPLIANT',
+                            'value' => 2811,
                           ),
                           33 => 
                           array (
-                            'key' => ' EN 853',
-                            'value' => 1818612,
+                            'key' => 'FMVSS106 49 CFR 571 106',
+                            'value' => 2812,
                           ),
                           34 => 
                           array (
-                            'key' => ' EN 853 1SN',
-                            'value' => 1818613,
+                            'key' => 'GM 6278M',
+                            'value' => 2813,
                           ),
                           35 => 
                           array (
-                            'key' => ' EN 853 2SN',
-                            'value' => 1818614,
+                            'key' => 'ISO 11237',
+                            'value' => 2814,
                           ),
                           36 => 
                           array (
-                            'key' => ' EN 854 R3',
-                            'value' => 1818615,
+                            'key' => 'ISO3821',
+                            'value' => 2815,
                           ),
                           37 => 
                           array (
-                            'key' => ' EN 854 R6',
-                            'value' => 1818616,
+                            'key' => 'ISO7840',
+                            'value' => 2816,
                           ),
                           38 => 
                           array (
-                            'key' => ' EN 855 R8',
-                            'value' => 1818617,
+                            'key' => 'ISO8031',
+                            'value' => 2817,
                           ),
                           39 => 
                           array (
-                            'key' => 'EN 856 4SH',
-                            'value' => 1818618,
+                            'key' => 'MIL -AA59565',
+                            'value' => 2818,
                           ),
                           40 => 
                           array (
-                            'key' => 'EN 856 4SP',
-                            'value' => 1818619,
+                            'key' => 'MIL-370',
+                            'value' => 2819,
                           ),
                           41 => 
                           array (
-                            'key' => 'EN 856 R12',
-                            'value' => 1818620,
+                            'key' => 'MIL-DTL-13444H Type I',
+                            'value' => 2820,
                           ),
                           42 => 
                           array (
-                            'key' => 'EN 856 R13',
-                            'value' => 1818621,
+                            'key' => 'MIL-DTL-13444H Type III',
+                            'value' => 2821,
                           ),
                           43 => 
                           array (
-                            'key' => 'EN 857 2SC',
-                            'value' => 1818622,
+                            'key' => 'MIL-DTL-13531 Type II Class A',
+                            'value' => 2822,
                           ),
                           44 => 
                           array (
-                            'key' => ' EN 857 R7',
-                            'value' => 1818623,
+                            'key' => 'MIL-DTL-20176G',
+                            'value' => 2823,
                           ),
                           45 => 
                           array (
-                            'key' => ' FDA 21 CFR 177',
-                            'value' => 1818624,
+                            'key' => 'MIL-DTL-29210E',
+                            'value' => 2824,
                           ),
                           46 => 
                           array (
-                            'key' => '1500 Specifications',
-                            'value' => 1818625,
+                            'key' => 'MIL-DTL-39921',
+                            'value' => 2825,
                           ),
                           47 => 
                           array (
-                            'key' => '3-A 18-03 CERTIFIED',
-                            'value' => 1818626,
+                            'key' => 'MIL-DTL-8788',
+                            'value' => 2826,
                           ),
                           48 => 
                           array (
-                            'key' => '3-A COMPLIANT',
-                            'value' => 1818627,
+                            'key' => 'MPAPS F-30',
+                            'value' => 2827,
                           ),
                           49 => 
                           array (
-                            'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
-                            'value' => 1818628,
+                            'key' => 'MPAPS F-6032',
+                            'value' => 2828,
                           ),
                           50 => 
                           array (
-                            'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
-                            'value' => 1818629,
+                            'key' => 'MPAPS F-6042',
+                            'value' => 2829,
                           ),
                           51 => 
                           array (
-                            'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
-                            'value' => 1818630,
+                            'key' => 'MS-EA122',
+                            'value' => 2830,
                           ),
                           52 => 
                           array (
-                            'key' => 'ARPM GRADE R WELDING HOSE',
-                            'value' => 1818631,
+                            'key' => 'MSHA 2G',
+                            'value' => 2831,
                           ),
                           53 => 
                           array (
-                            'key' => 'ARPM GRADE RM WELDING HOSE',
-                            'value' => 1818632,
+                            'key' => 'MSHA FLAME RESISTANT',
+                            'value' => 2832,
                           ),
                           54 => 
                           array (
-                            'key' => 'ARPM GRADE T WELDING HOSE',
-                            'value' => 1818633,
+                            'key' => 'NIOSH',
+                            'value' => 2833,
                           ),
                           55 => 
                           array (
-                            'key' => 'CARB',
-                            'value' => 1818634,
+                            'key' => 'NMMA',
+                            'value' => 2834,
                           ),
                           56 => 
                           array (
-                            'key' => 'CGA E-1',
-                            'value' => 1818635,
+                            'key' => 'NSF-61',
+                            'value' => 2835,
                           ),
                           57 => 
                           array (
-                            'key' => 'CNH FZG20305',
-                            'value' => 1818636,
+                            'key' => 'PLEWS RETAIL AIR HOSE',
+                            'value' => 2836,
                           ),
                           58 => 
                           array (
-                            'key' => 'CSA 8.1-M86',
-                            'value' => 1818637,
+                            'key' => 'SAE 100R12',
+                            'value' => 2837,
                           ),
                           59 => 
                           array (
-                            'key' => 'DIN 74310',
-                            'value' => 1818638,
+                            'key' => 'SAE 100R13',
+                            'value' => 2838,
                           ),
                           60 => 
                           array (
-                            'key' => 'DOT FMVSS 106 Type (AII)',
-                            'value' => 1818639,
+                            'key' => 'SAE 100R14A',
+                            'value' => 2839,
                           ),
                           61 => 
                           array (
-                            'key' => 'FDA/USDA CERTIFIED',
-                            'value' => 1818640,
+                            'key' => 'SAE 100R15',
+                            'value' => 2840,
                           ),
                           62 => 
                           array (
-                            'key' => 'FDA/USDA COMPLIANT',
-                            'value' => 1818641,
+                            'key' => 'SAE 100R16',
+                            'value' => 2841,
                           ),
                           63 => 
                           array (
-                            'key' => 'FMVSS106 49 CFR 571 106',
-                            'value' => 1818642,
+                            'key' => 'SAE 100R17',
+                            'value' => 2842,
                           ),
                           64 => 
                           array (
-                            'key' => 'GM 6278M',
-                            'value' => 1818643,
+                            'key' => 'SAE 100R18',
+                            'value' => 2843,
                           ),
                           65 => 
                           array (
-                            'key' => 'ISO 11237',
-                            'value' => 1818644,
+                            'key' => 'SAE 100R19',
+                            'value' => 2844,
                           ),
                           66 => 
                           array (
-                            'key' => 'ISO3821',
-                            'value' => 1818645,
+                            'key' => 'SAE 100R1AT',
+                            'value' => 2845,
                           ),
                           67 => 
                           array (
-                            'key' => 'ISO7840',
-                            'value' => 1818646,
+                            'key' => 'SAE 100R2AT',
+                            'value' => 2846,
                           ),
                           68 => 
                           array (
-                            'key' => 'ISO8031',
-                            'value' => 1818647,
+                            'key' => 'SAE 100R3',
+                            'value' => 2847,
                           ),
                           69 => 
                           array (
-                            'key' => 'MIL -AA59565',
-                            'value' => 1818648,
+                            'key' => 'SAE 100R4',
+                            'value' => 2848,
                           ),
                           70 => 
                           array (
-                            'key' => 'MIL-370',
-                            'value' => 1818649,
+                            'key' => 'SAE 100R4AT',
+                            'value' => 2849,
                           ),
                           71 => 
                           array (
-                            'key' => 'MIL-DTL-20176G',
-                            'value' => 1818650,
+                            'key' => 'SAE 100R5',
+                            'value' => 2850,
                           ),
                           72 => 
                           array (
-                            'key' => 'MIL-DTL-29210E',
-                            'value' => 1818651,
+                            'key' => 'SAE 100R6',
+                            'value' => 2851,
                           ),
                           73 => 
                           array (
-                            'key' => 'MIL-DTL-39921',
-                            'value' => 1818652,
+                            'key' => 'SAE 100R7',
+                            'value' => 2852,
                           ),
                           74 => 
                           array (
-                            'key' => 'MPAPS F-30',
-                            'value' => 1818653,
+                            'key' => 'SAE 100R8',
+                            'value' => 2853,
                           ),
                           75 => 
                           array (
-                            'key' => 'MPAPS F-6032',
-                            'value' => 1818654,
+                            'key' => 'SAE 1684',
+                            'value' => 2854,
                           ),
                           76 => 
                           array (
-                            'key' => 'MPAPS F-6042',
-                            'value' => 1818655,
+                            'key' => 'SAE J1037',
+                            'value' => 2855,
                           ),
                           77 => 
                           array (
-                            'key' => 'MS-EA122',
-                            'value' => 1818656,
+                            'key' => 'SAE J1402',
+                            'value' => 2856,
                           ),
                           78 => 
                           array (
-                            'key' => 'MSHA FLAME RESISTANT',
-                            'value' => 1818657,
+                            'key' => 'SAE J1402 Type (AII)',
+                            'value' => 2857,
                           ),
                           79 => 
                           array (
-                            'key' => 'NIOSH',
-                            'value' => 1818658,
+                            'key' => 'SAE J1403',
+                            'value' => 2858,
                           ),
                           80 => 
                           array (
-                            'key' => 'NMMA',
-                            'value' => 1818659,
+                            'key' => 'SAE J1527',
+                            'value' => 2859,
                           ),
                           81 => 
                           array (
-                            'key' => 'NSF-61',
-                            'value' => 1818660,
+                            'key' => 'SAE J189',
+                            'value' => 2860,
                           ),
                           82 => 
                           array (
-                            'key' => 'PLEWS RETAIL AIR HOSE',
-                            'value' => 1818661,
+                            'key' => 'SAE J1942 / U.S. Coast Guard',
+                            'value' => 2861,
                           ),
                           83 => 
                           array (
-                            'key' => 'SAE 100R14A',
-                            'value' => 1818662,
+                            'key' => 'SAE J20',
+                            'value' => 2862,
                           ),
                           84 => 
                           array (
-                            'key' => 'SAE 100R16',
-                            'value' => 1818663,
+                            'key' => 'SAE J2064 Type C, Class I',
+                            'value' => 2863,
                           ),
                           85 => 
                           array (
-                            'key' => 'SAE 100R18',
-                            'value' => 1818664,
+                            'key' => 'SAE J2064 Type C, Class II',
+                            'value' => 2864,
                           ),
                           86 => 
                           array (
-                            'key' => 'SAE 100R1AT',
-                            'value' => 1818665,
+                            'key' => 'SAE J2076',
+                            'value' => 2865,
                           ),
                           87 => 
                           array (
-                            'key' => 'SAE 100R2AT',
-                            'value' => 1818666,
+                            'key' => 'SAE J20R3 D1',
+                            'value' => 2866,
                           ),
                           88 => 
                           array (
-                            'key' => 'SAE 100R3',
-                            'value' => 1818667,
+                            'key' => 'SAE J20R3 D2',
+                            'value' => 2867,
                           ),
                           89 => 
                           array (
-                            'key' => 'SAE 100R4',
-                            'value' => 1818668,
+                            'key' => 'SAE J20R3 D3 HT EC',
+                            'value' => 2868,
                           ),
                           90 => 
                           array (
-                            'key' => 'SAE 100R4AT',
-                            'value' => 1818669,
+                            'key' => 'SAE J30',
+                            'value' => 2869,
                           ),
                           91 => 
                           array (
-                            'key' => 'SAE 100R5',
-                            'value' => 1818670,
+                            'key' => 'SAE J30 R6',
+                            'value' => 2870,
                           ),
                           92 => 
                           array (
-                            'key' => 'SAE 100R6',
-                            'value' => 1818671,
+                            'key' => 'SAE J30 R7',
+                            'value' => 2871,
                           ),
                           93 => 
                           array (
-                            'key' => 'SAE 100R7',
-                            'value' => 1818672,
+                            'key' => 'UL 21',
+                            'value' => 2872,
                           ),
                           94 => 
                           array (
-                            'key' => 'SAE 100R8',
-                            'value' => 1818673,
+                            'key' => 'UL 330',
+                            'value' => 2873,
                           ),
                           95 => 
                           array (
-                            'key' => 'SAE 1684',
-                            'value' => 1818674,
+                            'key' => 'UL 92',
+                            'value' => 2874,
                           ),
                           96 => 
                           array (
-                            'key' => 'SAE J1037',
-                            'value' => 1818675,
+                            'key' => 'UL 94 HB',
+                            'value' => 2875,
                           ),
                           97 => 
                           array (
-                            'key' => 'SAE J1402',
-                            'value' => 1818676,
+                            'key' => 'UL330A',
+                            'value' => 2876,
                           ),
                           98 => 
                           array (
-                            'key' => 'SAE J1402 Type (AII)',
-                            'value' => 1818677,
+                            'key' => 'UL330B',
+                            'value' => 2877,
                           ),
                           99 => 
                           array (
-                            'key' => 'SAE J1403',
-                            'value' => 1818678,
-                          ),
-                          100 => 
-                          array (
-                            'key' => 'SAE J1527',
-                            'value' => 1818679,
-                          ),
-                          101 => 
-                          array (
-                            'key' => 'SAE J189',
-                            'value' => 1818680,
-                          ),
-                          102 => 
-                          array (
-                            'key' => 'SAE J1942 / U.S. Coast Guard',
-                            'value' => 1818681,
-                          ),
-                          103 => 
-                          array (
-                            'key' => 'SAE J20',
-                            'value' => 1818682,
-                          ),
-                          104 => 
-                          array (
-                            'key' => 'SAE J2064 Type C, Class I',
-                            'value' => 1818683,
-                          ),
-                          105 => 
-                          array (
-                            'key' => 'SAE J2064 Type C, Class II',
-                            'value' => 1818684,
-                          ),
-                          106 => 
-                          array (
-                            'key' => 'SAE J2076',
-                            'value' => 1818685,
-                          ),
-                          107 => 
-                          array (
-                            'key' => 'SAE J20R3 D1',
-                            'value' => 1818686,
-                          ),
-                          108 => 
-                          array (
-                            'key' => 'SAE J20R3 D2',
-                            'value' => 1818687,
-                          ),
-                          109 => 
-                          array (
-                            'key' => 'SAE J20R3 D3 HT EC',
-                            'value' => 1818688,
-                          ),
-                          110 => 
-                          array (
-                            'key' => 'SAE J30',
-                            'value' => 1818689,
-                          ),
-                          111 => 
-                          array (
-                            'key' => 'SAE J30 R6',
-                            'value' => 1818690,
-                          ),
-                          112 => 
-                          array (
-                            'key' => 'SAE J30 R7',
-                            'value' => 1818691,
-                          ),
-                          113 => 
-                          array (
-                            'key' => 'UL 21',
-                            'value' => 1818692,
-                          ),
-                          114 => 
-                          array (
-                            'key' => 'UL 330',
-                            'value' => 1818693,
-                          ),
-                          115 => 
-                          array (
-                            'key' => 'UL 92',
-                            'value' => 1818694,
-                          ),
-                          116 => 
-                          array (
-                            'key' => 'UL 94 HB',
-                            'value' => 1818695,
-                          ),
-                          117 => 
-                          array (
-                            'key' => 'UL330A',
-                            'value' => 1818696,
-                          ),
-                          118 => 
-                          array (
-                            'key' => 'UL330B',
-                            'value' => 1818697,
-                          ),
-                          119 => 
-                          array (
                             'key' => 'WSE-M96D34',
-                            'value' => 1818698,
+                            'value' => 2878,
                           ),
                         ),
                          'width' => 300,

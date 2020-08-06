@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-28T10:04:04+02:00
+* Generated at: 2020-07-31T09:23:58+02:00
 * IP: 127.0.0.1
 
 
@@ -19,7 +19,7 @@ Fields Summary:
 - outsideDiameterIn [numeric]
 - flangeDiameterIn [numeric]
 - faceWidthIn [numeric]
-- minBoreIn [numeric]
+- minBoreSizeIn [numeric]
 - insideDiameterIn [numeric]
 - stockThicknessIn [numeric]
 - DatumDiameterIN [numeric]
@@ -39,7 +39,7 @@ Fields Summary:
 - outsideDiameterMm [numeric]
 - flangeDiameterMm [numeric]
 - faceWidthMm [numeric]
-- minBoreMm [numeric]
+- minBoreSizeMm [numeric]
 - insideDiameterMm [numeric]
 - stockThicknessMm [numeric]
 - DatumDiameterMM [numeric]
@@ -548,8 +548,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
-                     'name' => 'minBoreIn',
-                     'title' => 'Min bore (in)',
+                     'name' => 'minBoreSizeIn',
+                     'title' => 'Min Bore Size (in)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1167,9 +1167,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 1,
-                     'name' => 'minBoreMm',
-                     'title' => 'Min bore (mm)',
+                     'decimalPrecision' => 3,
+                     'name' => 'minBoreSizeMm',
+                     'title' => 'Min Bore Size (mm)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,

@@ -1,12 +1,12 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-27T10:10:43+02:00
+* Generated at: 2020-07-31T10:21:34+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- FittingFamily [input]
+- HydFittingFamily [input]
 - nomenclatureDetails [advancedManyToManyObjectRelation]
 - ActivantNumber [input]
 - AssemblyRevisionNumber [input]
@@ -39,6 +39,7 @@ Fields Summary:
 - InsertionDepthIN [input]
 - FittingWeight [input]
 - FittingFamilyDescription [textarea]
+- NumberOfHex [input]
 - ReleasedToProductionDate [date]
 - Comments [textarea]
 - FittingEndFamilyType [select]
@@ -69,6 +70,7 @@ Fields Summary:
 - InsertionDepthMM [input]
 - FittingSizeInFract [input]
 - CatalogDescription [textarea]
+- AssemblyMaterialDescription [input]
 - ElbowYN [booleanSelect]
 - ElbowType [select]
 - CrimpNutYN [booleanSelect]
@@ -76,7 +78,8 @@ Fields Summary:
 - DualGripStyle [booleanSelect]
 - SAEStandard [input]
 - SkiveType [input]
-- OrificeTubeODInMMDecimal [input]
+- OrificeTubeODInDecimal [numeric]
+- OrificeTubeLengthInDecimal [numeric]
 - UniCrimpStyle [booleanSelect]
 - DualSeatYN [booleanSelect]
 - SingleHexYN [booleanSelect]
@@ -84,7 +87,8 @@ Fields Summary:
 - ElbowType2 [select]
 - ElbowAngle2Degrees [input]
 - AssemblyMaterial [select]
-- OrificeTubeLengthInMMDecimal [input]
+- OrificeTubeODMMDecimal [numeric]
+- OrificeTubeLengthMMDecimal [numeric]
 - Thread1 [input]
 - Thread3 [input]
 - ThreadSize1InMMDecimal [input]
@@ -231,8 +235,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'regex' => '',
              'unique' => false,
              'showCharCount' => false,
-             'name' => 'FittingFamily',
-             'title' => 'Fitting Family',
+             'name' => 'HydFittingFamily',
+             'title' => 'Fitting Family (HYD)',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -281,7 +285,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -1321,6 +1325,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
+                          31 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => NULL,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'NumberOfHex',
+                             'title' => 'Number of Hex',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -1401,8 +1433,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             ),
                              'width' => 300,
                              'defaultValue' => '',
-                             'optionsProviderClass' => '',
-                             'optionsProviderData' => '',
+                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                             'optionsProviderData' => 'FittingEndFamilyType|Name',
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2217,6 +2249,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
+                          30 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => NULL,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'AssemblyMaterialDescription',
+                             'title' => 'Assembly Material Description',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -2309,6 +2369,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'BLOCK',
+                                'value' => 'BLOCK',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'LONG DROP TUBE',
+                                'value' => 'LONG DROP TUBE',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'SHORT DROP TUBE',
+                                'value' => 'SHORT DROP TUBE',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'EXTRA LONG',
+                                'value' => 'EXTRA LONG',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -2506,24 +2586,58 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           7 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'OrificeTubeODInMMDecimal',
-                             'title' => 'Orifice Tube OD (in & mm) Decimal',
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeODInDecimal',
+                             'title' => 'Orifice Tube OD (in) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeLengthInDecimal',
+                             'title' => 'Orifice Tube Length (in) Decimal',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2720,6 +2834,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'BLOCK',
+                                'value' => 'BLOCK',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'LONG DROP TUBE',
+                                'value' => 'LONG DROP TUBE',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'SHORT DROP TUBE',
+                                'value' => 'SHORT DROP TUBE',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'EXTRA LONG',
+                                'value' => 'EXTRA LONG',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -2806,24 +2940,58 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           7 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'OrificeTubeLengthInMMDecimal',
-                             'title' => 'Orifice Tube Length (in & mm) Decimal',
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeODMMDecimal',
+                             'title' => 'Orifice Tube OD (mm) Decimal',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => false,
+                             'locked' => NULL,
+                             'style' => 'margin-left: 20px;',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          8 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'OrificeTubeLengthMMDecimal',
+                             'title' => 'Orifice Tube Length (mm) Decimal',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',

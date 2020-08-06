@@ -20,19 +20,50 @@ class IndustrialHoseController extends FrontendController
         $this->db = Db::get();
     }
 
+    /**
+     * @Route("/catalog/inh/sectionpage");
+     * INH Section Page
+     * This template will pick the rendering columns from "industrialhose-sectionpage-column.yml"
+     * and data will be picked from data table
+     * 3rd level category will be used as attribute table name to get rendering column list from configuration file
+    */
     public function inhPrintCatalogAction(Request $request)
     {
         $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
-        $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
+        $common = \Pimcore::getContainer()->get('app.common_helper');
         $dispColumns = array();
         if ($this->getDocumentTag('relation', 'inh-printcatalog')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->getDocumentTag('relation', 'inh-printcatalog')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
+
+            /**
+             * Get Catalog defined language
+            */
+            $lang = $common->getCatalogLanguage($obj);
+            // $lang = 'fr_CA';
+            $this->get('translator')->setLocale($lang);
+
+            $siop = $obj->getSiopLevel4();
+            $siopObj = $this->getSiopObject($siop);
+            $configTableName = "AIR & MULTIPURPOSE";
+
+            if($siopObj != null) {
+                $configTableName = $siopObj->getParent()->getDescription();
+            }
+
+            $productPageColumns = $inhSectionPageConfig[$configTableName];
+            foreach ($productPageColumns['dispColumns'] as $key => $value) {
+                $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
+            }
+
+
             $data = array();
             $headers = (array) json_decode($obj->getHeaderData());
+
             $headerKeys = array_keys($headers);
-            $columns = (array) json_decode($obj->getColumns());
-            // p_r($columns);p_r($inhSectionPageConfig);die;
+
+
+            // p_r($columnsDataWithImages);die;
             $productsData = array();
             $brands = array(
                 0=>1645,
@@ -49,7 +80,7 @@ class IndustrialHoseController extends FrontendController
                 [1694372, 1694371]
                 [1694375],
                 [1694373, 1694374, 1694375],
-                [],
+                [1694384],
                 [1694373],
                 [1694374],
                 [1694372, 1694373],
@@ -62,44 +93,64 @@ class IndustrialHoseController extends FrontendController
                     $productsData[] = array_combine($headerKeys, $row);
                 }
                 $i = 0;
+                // p_r($productsData);die;
                 foreach ($productsData as $k => $row) {
-                    if(empty($row['FittingTableName'])) {
+                    /* if(empty($row['FittingTableName'])) {
                         continue;
-                    }
-                    $fittingTableName = $row['FittingTableName'];
-                    $productPageColumns = $inhSectionPageConfig[$fittingTableName];
+                    } */
+
                     // p_r($productPageColumns);die;
                     /* $obj = \Pimcore\Model\DataObject\Product::getById($row['id']);
-                    $obj->setBrandName($brands[$i]);
-                    $obj->setFittingTableName('AIR & MULTIPURPOSE');
-                    $obj->setFeaturesBenefitsBulletPoint($featuresArr[$i]);
+                    $obj->setBrandName($brands[array_rand($brands, 1)]);
+                    // $obj->setFittingTableName('AIR & MULTIPURPOSE');
+                    $obj->setFeaturesBenefitsBulletPoint([$featuresArr[array_rand($featuresArr, 1)]]);
                     $obj->save();
-                    $i++; */
+                    p_r($obj->getBrandName()); 
+                    $i++;
+                    if($i>100) {
+                        die;
+                    }
+                    $i++;
+                    if($i>10) {
+                        // die;
+                    }*/
                     if (isset($row['brandName']) && !empty($row['brandName'])) {
-                        $uniqueId = $fittingTableName;
+                        $uniqueId = $configTableName;
                         $brandName = $row['brandName'][0];
                         if (!isset($data[$uniqueId])) {
                             $data[$uniqueId][$brandName] = array();
                             $data[$uniqueId]['columns'] = $productPageColumns['columns'];
                             $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];                                                      
                         }
-                        $data[$uniqueId]['data'][$brandName] = array();
+                        if(!isset($data[$uniqueId]['data'][$brandName])) {
+                            $data[$uniqueId]['data'][$brandName] = array();
+                        }
+                        
                         /**
                          * Adding attribute and its value
                          * If current processing attribute is not an empty variable then it will will assign value to and array
                          * index name with same current processing attribut name
                          * $data[$uniqueId]['data'][$brandName][$col]
                          * $data: array
-                         * $uniqueId: Current processing Table Name
+                         * $uniqueId: Current processing Table Name(SIOP Level 3 Description)
                          * data: index of $data[$uniqueId]
                          * $brandName: index of $data[$uniqueId]['data'] for storing unique brand name
                          * $col: current processing attribut name
                          * see table_column.yml for attribut name
+                         * $productPageColumns['columns']: It has list of attributes name which is bening to use to
+                         * assign value of found attribute name
                         */
+
                         foreach($productPageColumns['columns'] as $col) {
+                            // p_r("Col: ".$col.": ".$row[$col][0]);
                             if(isset($row[$col])) {
-                                if(!isset($data[$uniqueId]['data'][$brandName][$col]) || empty($data[$uniqueId]['data'][$brandName][$col]))
-                                $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+                                if(!isset($data[$uniqueId]['data'][$brandName][$col])) {
+                                    $data[$uniqueId]['data'][$brandName][$col] = "";
+                                }
+                                if(empty($data[$uniqueId]['data'][$brandName][$col])) {
+                                    $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+                                }
+                                
                             }                            
                         }
                     }
@@ -111,22 +162,51 @@ class IndustrialHoseController extends FrontendController
             $this->view['info'] = array(
                 'data' => $data,
                 'categories' => $categories,
-                'defaultPageImage' => \Pimcore\Model\Asset::getByPath('/CatalogImages/INH/airandmultipurpose.png')
+                'defaultPageImage' => \Pimcore\Model\Asset::getByPath('/CatalogImages/INH/airandmultipurpose.png'),
+                'lang' => $lang,
+                'logo' => \Pimcore\Model\Asset::getByPath('/CatalogImages/logo.JPG')
             );
         }
     }
 
+    /**
+     * @Route ("/catalog/inh/productpage")
+     * 
+     */
     public function inhPrintCatalogProductPageAction(Request $request) {
         $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];        
+        $common = \Pimcore::getContainer()->get('app.common_helper');
         $dispColumns = array();
         if ($this->getDocumentTag('relation', 'inh-printcatalog')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->getDocumentTag('relation', 'inh-printcatalog')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
+
+            /**
+             * Get Catalog defined language
+            */
+            $lang = $common->getCatalogLanguage($obj);
+            // $lang = 'fr_CA';
+            $this->get('translator')->setLocale($lang);
+
             $data = array();
             $headers = (array) json_decode($obj->getHeaderData());
             $headerKeys = array_keys($headers);
+            $headerDataArr = (array)$headers;
+            // p_r($headerDataArr);
             $columns = (array) json_decode($obj->getColumns());
             // p_r($columns);die;
+            foreach($columns as $key=> $colsInfo) {
+                $columns[$key]->columnLabel = $this->get('translator')->trans($colsInfo->columnName);
+            }
+            // p_r($columns);
+            // Getting Selected 3rd Level Category at Catalog Category object
+            $siop = $obj->getSiopLevel4();
+            $siopObj = $this->getSiopObject($siop);
+            $selectedSiop = "AIR & MULTIPURPOSE";
+            if($siopObj != null) {
+                $selectedSiop = $siopObj->getDescription();
+            }
+
             // p_r($inhSectionPageConfig);die;
             $productsData = array();
             $brands = array(
@@ -144,7 +224,6 @@ class IndustrialHoseController extends FrontendController
                 [1694372, 1694371]
                 [1694375],
                 [1694373, 1694374, 1694375],
-                [],
                 [1694373],
                 [1694374],
                 [1694372, 1694373],
@@ -160,7 +239,6 @@ class IndustrialHoseController extends FrontendController
                 [1694372, 1694371]
                 [1694375],
                 [1694373, 1694374, 1694375],
-                [],
                 [1694373],
                 [1694374],
                 [1694372, 1694373],
@@ -176,22 +254,28 @@ class IndustrialHoseController extends FrontendController
                 foreach ($obj->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
                 }
+
                 $i = 0;
                 foreach ($productsData as $k => $row) {//p_r($row);die;
                     if(empty($row['FittingTableName'])) {
                         continue;
                     }
-                    $fittingTableName = "Air & Multipurpose - General Purpose";//$row['FittingTableName'];
+
+                    $fittingTableName = $row['FittingTableName'];
                     $productPageColumns = $inhSectionPageConfig[$fittingTableName];
                     $orderCode = "";
-                    if(isset($row['oldMaterialCode']) && !empty($row['oldMaterialCode'])) {
+
+                    if(isset($row['oldMaterialCode']) && !empty($row['oldMaterialCode']) && $row['oldMaterialCode']!=='N/A') {
                         $orderCode = substr($row['oldMaterialCode'],0,6);
                     }
+
                     // p_r($productPageColumns);die;
                     /* $obj = \Pimcore\Model\DataObject\Product::getById($row['id']);
                     // $obj->setBrandName($brands[$i]);
-                    // $obj->setFittingTableName('AIR & MULTIPURPOSE');
-                    // $obj->setFeaturesBenefitsBulletPoint($featuresArr[$i]);
+                    $obj->setFittingTableName('Hose Attribute Table 2');
+                    $ftr = $featuresArr[array_rand($featuresArr,1)];
+                    $ftr = is_null($ftr) ? [] : $ftr;
+                    $obj->setFeaturesBenefitsBulletPoint($ftr);
                     if(empty($obj->getSkeleton()->getHoseSkeleton()->getHoseIdNominalId())) {
                         $obj->getSkeleton()->getHoseSkeleton()->setHoseIdNominalId(strval(rand(1,9).'/'.rand(1,9)));
                     }
@@ -206,7 +290,7 @@ class IndustrialHoseController extends FrontendController
                     $obj->setVirtualCatalogHoseTemperatureRangeFAndC("20 ̊F to 210 ̊F (-29 ̊C to 99 ̊C)");
                     $obj->setVirtualCatalogBrandingLayline("Example: Gorilla® by Continental 1\" (25.4 mm)
                     500 psi Made in USA Flame Resistant USMSHA No. 2G-IC-14C/39");
-                    $obj->setApplication("A premium-quality, multipurpose industrial hose with
+                    $obj->setlongDescription("A premium-quality, multipurpose industrial hose with
                     a wide range of applications in factories, construction,
                     agriculture, quarries, mines, railroads, the oil and gas
                     industry and shipbuilding. All sizes are crush-resistant
@@ -232,10 +316,12 @@ class IndustrialHoseController extends FrontendController
                     if (isset($row['brandName']) && !empty($row['brandName'])) {
                         $uniqueId = $fittingTableName;
                         $brandName = $row['brandName'][0];
+
                         if (!isset($data[$uniqueId])) {
                             $data[$uniqueId]['columns'] = $productPageColumns['columns'];
                             $data[$uniqueId]['data'] = array();                                                   
                         }
+
                         if (!isset($data[$uniqueId]['data'][$brandName])) {
                             $data[$uniqueId]['data'][$brandName] = array();                                               
                         }
@@ -262,16 +348,9 @@ class IndustrialHoseController extends FrontendController
                             }                            
                         }
 
-//                         "VirtualCatalogHoseTemperatureRangeFAndC" => ""
-//   "VirtualCatalogBrandingLayline" => ""
-//   "Application" => ""
-//   "VirtualCatalogPackaging" => null
-//   "VirtualCatalogCoverMaterial" => ""
-//   "VirtualCatalogTubeMaterial" => ""
-//   "VirtualCatalogCoupling" => null
-//   "VirtualCatalogReinforcement" => null
+
                         if(!empty($orderCode)) {
-                            $data[$uniqueId]['data'][$brandName]['info']['orderCode'][] = $orderCode;
+                            $data[$uniqueId]['data'][$brandName]['info']['orderCode'][$orderCode] = $orderCode;
                         }
                         if(!isset($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogHoseTemperatureRangeFAndC']) && empty($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogHoseTemperatureRangeFAndC'])) {
                             $data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogHoseTemperatureRangeFAndC'] = $row['VirtualCatalogHoseTemperatureRangeFAndC'];
@@ -291,13 +370,25 @@ class IndustrialHoseController extends FrontendController
                         if(!isset($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogReinforcement']) && empty($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogReinforcement'])) {
                             $data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogReinforcement'] = $row['VirtualCatalogReinforcement'];
                         }
-                        if(!isset($data[$uniqueId]['data'][$brandName]['info']['Application']) && empty($data[$uniqueId]['data'][$brandName]['info']['Application'])) {
-                            $data[$uniqueId]['data'][$brandName]['info']['Application'] = $row['Application'];
+                        if(!isset($data[$uniqueId]['data'][$brandName]['info']['longDescription']) && empty($data[$uniqueId]['data'][$brandName]['info']['longDescription'])) {
+                            $data[$uniqueId]['data'][$brandName]['info']['Application'] = $row['longDescription'];
                         }
                         if(!isset($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogPackaging']) && empty($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogPackaging'])) {
                             $data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogPackaging'] = $row['VirtualCatalogPackaging'];
                         }
-                        
+
+                        $features = $row['FeaturesBenefitsBulletPoint'];
+                        $featureObj = null;
+
+                        if (is_array($features) && !empty($features)) {
+                            foreach ($features as $featureId) {
+                                $featureObj = \Pimcore\Model\DataObject\Features::getById($featureId);
+                                $data[$uniqueId]['data'][$brandName]['info']['featureIcon'][$featureId] = array(
+                                    'icon' => $featureObj->getIcon(),
+                                    'name' => $featureObj->getName()
+                                );
+                            }
+                        }
                         if(!empty($r)) {
                             $data[$uniqueId]['data'][$brandName]['products'][] = $r;
                         }
@@ -318,6 +409,7 @@ class IndustrialHoseController extends FrontendController
                 'dispColumns' => $productPageColumns['columns'],
                 'dataTableColumn' => $columns,
                 'categories' => $categories,
+                'selectedCategory' => $selectedSiop,
                 'defaultPageImage' => \Pimcore\Model\Asset::getByPath('/CatalogImages/INH/airandmultipurpose.png')
             );
         }
@@ -356,5 +448,15 @@ class IndustrialHoseController extends FrontendController
             
         }
         return $categories;
+    }
+
+    private function getSiopObject($siop) {
+        if(is_array($siop) && !empty($siop)) {
+            foreach ($siop as $siopId) {
+                $siopObj = \Pimcore\Model\DataObject\ProductCategory::getById($siopId);
+                return $siopObj;
+            }
+        }
+        return false;
     }
 }
