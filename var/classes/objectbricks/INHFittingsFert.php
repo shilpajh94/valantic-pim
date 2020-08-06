@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-28T09:27:11+02:00
+* Generated at: 2020-07-31T09:21:13+02:00
 * IP: 127.0.0.1
 
 
@@ -12,8 +12,10 @@ Fields Summary:
 - AdapterGenderEnd2 [select]
 - GasketMaterial [select]
 - GasketIDInches [numeric]
+- GasketODMM [numeric]
 - PressureRatingPSI [numeric]
 - OverallLengthInches [numeric]
+- OverallLengthMM [numeric]
 - MinimumIDInches [numeric]
 - ExposedLengthInches [numeric]
 - HoseID [numeric]
@@ -25,9 +27,12 @@ Fields Summary:
 - SizeEnd2Inches [numeric]
 - AdapterGenderEnd1 [select]
 - GasketColor [select]
+- GasketIDMM [numeric]
 - GasketODInches [numeric]
 - GasketThicknessInches [numeric]
-- DistanceChainLugExtendsfromBody [numeric]
+- GasketThicknessMM [numeric]
+- DistanceChainLugExtendsfromBodyIN [numeric]
+- DistanceChainLugExtendsfromBodyMM [numeric]
 - MaximumWidthAcrossAdapterInches [numeric]
 - MaximumWidthwithCamArmsClosedInches [numeric]
 - MaximumWidthwithCamArmsExtendedInches [numeric]
@@ -351,6 +356,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'name' => 'GasketODMM',
+                     'title' => 'Gasket OD (mm)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'name' => 'PressureRatingPSI',
                      'title' => 'Pressure Rating (PSI)',
                      'tooltip' => '',
@@ -367,7 +403,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -398,7 +434,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  9 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'OverallLengthMM',
+                     'title' => 'Overall Length (mm)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -429,7 +496,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -460,7 +527,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -491,7 +558,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
@@ -522,7 +589,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -553,7 +620,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  13 => 
+                  15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -584,7 +651,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  14 => 
+                  16 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -801,6 +868,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'name' => 'GasketIDMM',
+                     'title' => 'Gasket ID (mm)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  5 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'name' => 'GasketODInches',
                      'title' => 'Gasket OD (inches)',
                      'tooltip' => '',
@@ -817,7 +915,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  5 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -848,7 +946,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'GasketThicknessMM',
+                     'title' => 'Gasket Thickness (mm)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -863,8 +992,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
-                     'name' => 'DistanceChainLugExtendsfromBody',
-                     'title' => 'Distance Chain Lug Extends from Body',
+                     'name' => 'DistanceChainLugExtendsfromBodyIN',
+                     'title' => 'Distance Chain Lug Extends from Body (in)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -879,7 +1008,38 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  9 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
+                     'name' => 'DistanceChainLugExtendsfromBodyMM',
+                     'title' => 'Distance Chain Lug Extends from Body (mm)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => NULL,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -910,7 +1070,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -941,7 +1101,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -972,7 +1132,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  13 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -1000,7 +1160,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  14 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -1031,7 +1191,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  12 => 
+                  15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,

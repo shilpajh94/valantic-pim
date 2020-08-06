@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-28T08:52:22+02:00
+* Generated at: 2020-07-31T09:50:33+02:00
 * IP: 127.0.0.1
 
 
@@ -11,6 +11,7 @@ Fields Summary:
 - InnerHoseIdDec [numeric]
 - hoseOdIn [numeric]
 - InnerHoseOdInDec [numeric]
+- INHFittingFamily [multiselect]
 - hoseIdMM [numeric]
 - InnerHoseIDFractional [input]
 - InnerHoseIdMM [numeric]
@@ -317,6 +318,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
+                          )),
+                          5 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                             'fieldtype' => 'multiselect',
+                             'options' => 
+                            array (
+                            ),
+                             'width' => 300,
+                             'height' => '',
+                             'maxItems' => '',
+                             'renderType' => 'tags',
+                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                             'optionsProviderData' => 'FittingFamily|Name',
+                             'queryColumnType' => 'text',
+                             'columnType' => 'text',
+                             'phpdocType' => 'array',
+                             'dynamicOptions' => false,
+                             'name' => 'INHFittingFamily',
+                             'title' => 'Fitting Family (INH)',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
                           )),
                         ),
                          'locked' => false,

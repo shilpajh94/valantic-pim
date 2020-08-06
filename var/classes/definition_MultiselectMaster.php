@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-28T11:51:26+02:00
+* Generated at: 2020-07-31T10:06:38+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -12,6 +12,8 @@ Fields Summary:
 - masterType [select]
 - localizedfields [localizedfields]
 -- name [input]
+-- Description [textarea]
+-- CustomerFacingVersion [textarea]
 */ 
 
 
@@ -20,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'MultiselectMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1595929886,
+   'modificationDate' => 1596182798,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -272,6 +274,58 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleGridView' => false,
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => '',
+                 'height' => '',
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'Description',
+                 'title' => 'Description',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'fieldtype' => 'textarea',
+                 'width' => '',
+                 'height' => '',
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'queryColumnType' => 'longtext',
+                 'columnType' => 'longtext',
+                 'phpdocType' => 'string',
+                 'name' => 'CustomerFacingVersion',
+                 'title' => 'Customer Facing Version',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
               )),
             ),
              'name' => 'localizedfields',

@@ -6,7 +6,7 @@
 
 
 Fields Summary: 
-- FittingFamily [input]
+- HydFittingFamily [input]
 - nomenclatureDetails [advancedManyToManyObjectRelation]
 - ActivantNumber [input]
 - AssemblyRevisionNumber [input]
@@ -39,6 +39,7 @@ Fields Summary:
 - InsertionDepthIN [input]
 - FittingWeight [input]
 - FittingFamilyDescription [textarea]
+- NumberOfHex [input]
 - ReleasedToProductionDate [date]
 - Comments [textarea]
 - FittingEndFamilyType [select]
@@ -69,6 +70,7 @@ Fields Summary:
 - InsertionDepthMM [input]
 - FittingSizeInFract [input]
 - CatalogDescription [textarea]
+- AssemblyMaterialDescription [input]
 - ElbowYN [booleanSelect]
 - ElbowType [select]
 - CrimpNutYN [booleanSelect]
@@ -233,8 +235,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'regex' => '',
              'unique' => false,
              'showCharCount' => false,
-             'name' => 'FittingFamily',
-             'title' => 'Fitting Family',
+             'name' => 'HydFittingFamily',
+             'title' => 'Fitting Family (HYD)',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
@@ -1323,6 +1325,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
+                          31 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => NULL,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'NumberOfHex',
+                             'title' => 'Number of Hex',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -1403,8 +1433,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             ),
                              'width' => 300,
                              'defaultValue' => '',
-                             'optionsProviderClass' => '',
-                             'optionsProviderData' => '',
+                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+                             'optionsProviderData' => 'FittingEndFamilyType|Name',
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2219,6 +2249,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
+                          30 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => NULL,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'AssemblyMaterialDescription',
+                             'title' => 'Assembly Material Description',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
                         ),
                          'locked' => false,
                       )),
@@ -2311,6 +2369,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'BLOCK',
+                                'value' => 'BLOCK',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'LONG DROP TUBE',
+                                'value' => 'LONG DROP TUBE',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'SHORT DROP TUBE',
+                                'value' => 'SHORT DROP TUBE',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'EXTRA LONG',
+                                'value' => 'EXTRA LONG',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -2756,6 +2834,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'BLOCK',
+                                'value' => 'BLOCK',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'LONG DROP TUBE',
+                                'value' => 'LONG DROP TUBE',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'SHORT DROP TUBE',
+                                'value' => 'SHORT DROP TUBE',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'EXTRA LONG',
+                                'value' => 'EXTRA LONG',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
