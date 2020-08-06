@@ -51,7 +51,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "I" => array("field" => "ThrustWireNut", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
         "J" => array("field" => "DualSeatYN", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
 //        "K" => need to find the mapped column
-        "K" => array("field" => "NumberOfHex", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
+        "K" => array("field" => "NumberOfHex", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "L" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
 //        "M" => sap number
         "N" => array("field" => "HoseID1InFract", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
@@ -113,7 +113,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "BA" => array("field" => "ORingThicknessInDec", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         // will get value from unit conversion
 //        "BB" => array("field" => "ORingThicknessMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
-        "BC" => array("field" => "Id", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
+        "BC" => array("field" => "HydFittingId", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "BD" => array("field" => "ThreadSize1InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BE" => array("field" => "ThreadSize2InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BF" => array("field" => "ValveStyle", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
@@ -131,7 +131,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "C" => array("field" => "descriptive", "brickKey" => "HoseSkeleton", "type" => "input", "brickType" => "skeleton"),
         "D" => array("field" => "industryStandard", "brickKey" => null, "type" => "input", "brickType" => null),
 //        "E" => sapNumber
-        "F" => array("field" => "Id", "brickKey" => "AccessoriesFert", "type" => "input", "brickType" => "fert"),
+        "F" => array("field" => "AccessoryId", "brickKey" => "AccessoriesFert", "type" => "input", "brickType" => "fert"),
         "G" => array("field" => "FlatWidthIn", "brickKey" => "AccessoriesFert", "type" => "numeric", "brickType" => "fert"),
         "H" => array("field" => "DashSize", "brickKey" => "AccessoriesFert", "type" => "numeric", "brickType" => "fert"),
         // master
