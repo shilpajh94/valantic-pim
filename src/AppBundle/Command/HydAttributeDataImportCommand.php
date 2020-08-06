@@ -231,12 +231,18 @@ class HydAttributeDataImportCommand extends Command
         $csvLogFileHandle = fopen($csvLogFilePath,"w");
         $this->csvLog($csvLogFileHandle, array("Import Sheet Row Number",$importConfig["ID_ATTRIBUTE_TITLE"],"Status","Comment"));
 
+        $statusCountArray = [
+            self::STATUS_PRODUCT_NOT_FOUND => 0,
+            self::STATUS_COMPLETED => 0,
+            self::STATUS_PARTIALLY_COMPLETED => 0,
+            self::STATUS_FAILED => 0,
+        ];
+
         $highestRow = $worksheet->getHighestRow();
-
         $processedRecords = array();
-
+        $recordsCount = 0;
         for ($i = self::DATA_ROW_NUMBER; $i <= $highestRow; $i++) {
-
+            $recordsCount++;
             $idCellCord = $importConfig["ID_COLUMN"].strval($i);
             $idCellValue = $worksheet->getCell($idCellCord)->getValue();
 
@@ -298,12 +304,22 @@ class HydAttributeDataImportCommand extends Command
                 $this->recordImportErrors[] = "Product not found in pimcore for the ".$importConfig["ID_ATTRIBUTE"]." ".$idCellValue;
             }
 
+            $statusCountArray[$importStatus]++;
+
             $msg = $importConfig["ID_ATTRIBUTE_TITLE"].": " . $idCellValue . ", Row Number ".strval($i) . " [" .$importStatus."]";
             $this->consoleLog($msg);
 
             $this->csvLog($csvLogFileHandle, array($i, $idCellValue, $importStatus, implode("\n",$this->recordImportErrors)));
 
         }
+
+        $this->consoleLog("-------------------------------SUMMARY------------------------------------");
+        $this->consoleLog("Total records processed -> " . ($recordsCount));
+        foreach($statusCountArray as $status => $count){
+            $msg = "'" . $status . "' count -> " . $count;
+            $this->consoleLog($msg);
+        }
+        $this->consoleLog("-------------------------------SUMMARY------------------------------------");
         fclose($csvLogFileHandle);
     }
 

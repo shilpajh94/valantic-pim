@@ -41,7 +41,8 @@ class HydFittingCatalogDataImportCommand extends Command
      * mapping for hydraulics catalog sheet in file
      */
     const HYD_CATALOG_SHEET_COLUMN_MAP = [
-//        "C" => "product--",  => pending from megha
+        "C" => array("field" => "brandName", "brickKey" => null, "type" => "select", "brickType" => null,"masterType" => "Brand","isMaster" => true),
+
         "D" => array("field" => "CatalogDescription", "brickKey" => "HydFittingsFert", "type" => "textarea", "brickType" => "fert"),
         "E" => array("field" => "shortDescription", "brickKey" => null, "type" => "wysiwyg", "brickType" => null),
         "F" => array("customLogic" => true, "customLogicFn" => "dualGripUnitCrimpSetter"),
@@ -50,6 +51,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "I" => array("field" => "ThrustWireNut", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
         "J" => array("field" => "DualSeatYN", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
 //        "K" => need to find the mapped column
+        "K" => array("field" => "NumberOfHex", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "L" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
 //        "M" => sap number
         "N" => array("field" => "HoseID1InFract", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
@@ -111,8 +113,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "BA" => array("field" => "ORingThicknessInDec", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         // will get value from unit conversion
 //        "BB" => array("field" => "ORingThicknessMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
-//        "BC" => to be ignored
-        //   confusion in field name, mail and sheet contradicts
+        "BC" => array("field" => "Id", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "BD" => array("field" => "ThreadSize1InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BE" => array("field" => "ThreadSize2InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BF" => array("field" => "ValveStyle", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
@@ -130,7 +131,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "C" => array("field" => "descriptive", "brickKey" => "HoseSkeleton", "type" => "input", "brickType" => "skeleton"),
         "D" => array("field" => "industryStandard", "brickKey" => null, "type" => "input", "brickType" => null),
 //        "E" => sapNumber
-//        "F" => need to create this field
+        "F" => array("field" => "Id", "brickKey" => "AccessoriesFert", "type" => "input", "brickType" => "fert"),
         "G" => array("field" => "FlatWidthIn", "brickKey" => "AccessoriesFert", "type" => "numeric", "brickType" => "fert"),
         "H" => array("field" => "DashSize", "brickKey" => "AccessoriesFert", "type" => "numeric", "brickType" => "fert"),
         // master
@@ -230,10 +231,19 @@ class HydFittingCatalogDataImportCommand extends Command
         $csvLogFileHandle = fopen($csvLogFilePath,"w");
         $this->csvLog($csvLogFileHandle,array("Import Sheet Row Number","SAP Number","Status","Comment"));
 
+        $statusCountArray = [
+            self::STATUS_PRODUCT_NOT_FOUND => 0,
+            self::STATUS_COMPLETED => 0,
+            self::STATUS_PARTIALLY_COMPLETED => 0,
+            self::STATUS_FAILED => 0,
+            self::STATUS_NOT_INH_HYD_HOSE => 0
+        ];
+
         $worksheet = $spreadsheet->getSheet($importSheetConfig["SHEET_NUMBER"]);
         $highestRow = $worksheet->getHighestRow();
+        $recordsCount = 0;
         for($i = $importSheetConfig["DATA_ROW_NUMBER"]; $i <= $highestRow; $i++){
-
+            $recordsCount++;
             $sapNumberCord = $importSheetConfig["SAP_NUMBER_COLUMN"].(strval($i));
             $sapNumber = $worksheet->getCell($sapNumberCord)->getValue();
 //            $this->consoleLog("Importing sap ".$sapNumber.", row number ".strval($i));
@@ -255,6 +265,7 @@ class HydFittingCatalogDataImportCommand extends Command
                     $this->consoleLog($err);
                     $this->recordImportErrors[] = $err;
                     $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->recordImportErrors)));
+                    $statusCountArray[$importStatus]++;
                     continue;
                 }
 
@@ -315,12 +326,20 @@ class HydFittingCatalogDataImportCommand extends Command
                 $this->recordImportErrors[] = "Product not found in pimcore for the sap number ".$sapNumber;
             }
 
+            $statusCountArray[$importStatus]++;
+
             $msg = "SAP Number: " . $sapNumber . ", Row Number ".strval($i) . " [" .$importStatus."]";
             $this->consoleLog($msg);
             $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->recordImportErrors)));
 
         }
-
+        $this->consoleLog("-------------------------------SUMMARY------------------------------------");
+        $this->consoleLog("Total records processed -> " . ($recordsCount));
+        foreach($statusCountArray as $status => $count){
+            $msg = "'" . $status . "' count -> " . $count;
+            $this->consoleLog($msg);
+        }
+        $this->consoleLog("-------------------------------SUMMARY------------------------------------");
         fclose($csvLogFileHandle);
     }
 
@@ -467,6 +486,8 @@ class HydFittingCatalogDataImportCommand extends Command
     {
         if($mapConfig["masterType"] == "MultiselectMaster"){
             $this->setMultiselectMaster($object,$mapConfig, $cellData);
+        }elseif($mapConfig["masterType"] == "Brand"){
+            $this->setBrandMasterData($object, $mapConfig, $cellData);
         }
 
     }
@@ -518,6 +539,27 @@ class HydFittingCatalogDataImportCommand extends Command
             }
         }
         $object->$fieldSetter($valueToSet);
+    }
+
+    /**
+     * @param $object
+     * @param array $mapConfig
+     * @param $cellData
+     */
+    private function setBrandMasterData($object,array $mapConfig, $cellData)
+    {
+        $brandId = null;
+        if($cellData){
+            $brandObject = DataObject\Brand::getByName($cellData,1);
+            if($brandObject){
+                $brandId = $brandObject->getId();
+            }else{
+                $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Skipping this data.";
+                $this->recordImportErrors[] = $msg;
+            }
+        }
+        $fieldSetter = "set".ucfirst($mapConfig["field"]);
+        $object->$fieldSetter($brandId);
     }
 
     /**
