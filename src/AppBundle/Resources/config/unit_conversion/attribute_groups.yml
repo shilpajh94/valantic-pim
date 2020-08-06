@@ -164,6 +164,15 @@ FerruleODIn__group:
 FerruleLengthIn__group:
     FerruleLengthInDec: 'IN'
     FerruleLengthMM: 'MM'
+DropLength__group:
+    DropLengthIN: 'IN'
+    DropLengthMM: 'MM'
+OrificeTubeOD__group:
+    OrificeTubeODInDecimal: 'IN'
+    OrificeTubeODMMDecimal: 'MM'
+OrificeTubeLength__group:
+    OrificeTubeLengthInDecimal: 'IN'
+    OrificeTubeLengthMMDecimal: 'MM'
 
 #      MetalFert
 overallThickness__group:
@@ -193,6 +202,9 @@ overAllLength__group:
 minBore__group:
     minBoreIn: 'IN'
     minBoreMm: 'MM'
+boreIN__group:
+    BoreIN: 'IN'
+    BoreMM: 'MM'
 insideDiameter__group:
     insideDiameterIn: 'IN'
     insideDiameterMm: 'MM'

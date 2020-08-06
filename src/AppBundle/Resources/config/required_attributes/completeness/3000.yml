@@ -24,15 +24,15 @@ non_localized:
         type: 'multiselect'
         label: 'Reinforcement'
     # panel break here
-    numeratorForConversionToBaseUnitsOfMeasure:
-        type: 'textarea'
-        label: 'Numerator for Conversion to Base Units of Measure'
-    alternativeUnitOfMeasureForStockkeepingUnit:
-        type: 'input'
-        label: 'Alternative Unit of Measure for Stockkeeping Unit'
-    denominatorForConversionToBaseUnitsOfMeasure:
-        type: 'input'
-        label: 'Denominator for conversion to base units of measure'
+    #    numeratorForConversionToBaseUnitsOfMeasure:
+    #        type: 'textarea'
+    #        label: 'Numerator for Conversion to Base Units of Measure'
+    #    alternativeUnitOfMeasureForStockkeepingUnit:
+    #        type: 'input'
+    #        label: 'Alternative Unit of Measure for Stockkeeping Unit'
+    #    denominatorForConversionToBaseUnitsOfMeasure:
+    #        type: 'input'
+    #        label: 'Denominator for conversion to base units of measure'
     californiaProposition65ChemicalName1:
         type: 'input'
         label: 'California Proposition65 Chemical Name1'
@@ -231,8 +231,8 @@ object_bricks:
                 label: 'PTG Base'
                 non_localized:
                     material:
-                       type: 'multiselect'
-                       label: 'Material'
+                        type: 'multiselect'
+                        label: 'Material'
 
     Skeleton:
         label: 'Skeleton Data'
@@ -241,8 +241,8 @@ object_bricks:
                 label: 'PTG Skeleton'
                 non_localized:
                     profile:
-                       type: 'input'
-                       label: 'Profile'
+                        type: 'input'
+                        label: 'Profile'
                     staticConductive:
                         type: 'input'
                         label: 'Static Conductive'
@@ -258,53 +258,44 @@ object_bricks:
                 label: 'PTG Fert'
                 non_localized:
                     widthmm:
-                       type: 'numeric'
-                       label: 'Width (mm)'
+                        type: 'numeric'
+                        label: 'Width (mm)'
                     widthIn:
-                       type: 'numeric'
-                       label: 'Width (in)'
+                        type: 'numeric'
+                        label: 'Width (in)'
             BeltsFert:
                 label: 'Belts Fert'
                 non_localized:
                     effectiveLengthUOM:
-                       type: 'select'
-                       label: 'Effective Length UOM'
+                        type: 'select'
+                        label: 'Effective Length UOM'
                     numberOfBands:
-                       type: 'numeric'
-                       label: 'Number of Bands'
+                        type: 'numeric'
+                        label: 'Number of Bands'
                     productEffectiveLengthIn:
-                       type: 'numeric'
-                       label: 'Product Effective Length (In)'
+                        type: 'numeric'
+                        label: 'Product Effective Length (In)'
                     productEffectiveLengthMM:
-                       type: 'numeric'
-                       label: 'Product Effective Length (MM)'
+                        type: 'numeric'
+                        label: 'Product Effective Length (MM)'
             SynchronousFert:
-                  label: 'Synchronous Fert'
-                  non_localized:
-                      pitchUOM:
-                         type: 'select'
-                         label: 'Pitch UOM'
-                      pitchIN:
-                         type: 'numeric'
-                         label: 'Pitch (in)'
-                      pitchMM:
-                         type: 'numeric'
-                         label: 'Pitch (MM)'
-                      pitchLengthUOM:
-                         type: 'select'
-                         label: 'Pitch Length UOM'
-                      pitchLengthIN:
-                         type: 'numeric'
-                         label: 'Pitch Length (in)'
-                      pitchLengthMM:
-                         type: 'numeric'
-                         label: 'Pitch Length (MM)'
-
-
-
-
-
-
-
-
-
+                label: 'Synchronous Fert'
+                non_localized:
+                    pitchUOM:
+                        type: 'select'
+                        label: 'Pitch UOM'
+                    pitchIN:
+                        type: 'numeric'
+                        label: 'Pitch (in)'
+                    pitchMM:
+                        type: 'numeric'
+                        label: 'Pitch (MM)'
+                    pitchLengthUOM:
+                        type: 'select'
+                        label: 'Pitch Length UOM'
+                    pitchLengthIN:
+                        type: 'numeric'
+                        label: 'Pitch Length (in)'
+                    pitchLengthMM:
+                        type: 'numeric'
+                        label: 'Pitch Length (MM)'

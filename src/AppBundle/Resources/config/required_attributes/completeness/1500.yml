@@ -24,15 +24,15 @@ non_localized:
         type: 'multiselect'
         label: 'Reinforcement'
     # panel break here
-    numeratorForConversionToBaseUnitsOfMeasure:
-        type: 'textarea'
-        label: 'Numerator for Conversion to Base Units of Measure'
-    alternativeUnitOfMeasureForStockkeepingUnit:
-        type: 'input'
-        label: 'Alternative Unit of Measure for Stockkeeping Unit'
-    denominatorForConversionToBaseUnitsOfMeasure:
-        type: 'input'
-        label: 'Denominator for conversion to base units of measure'
+    #    numeratorForConversionToBaseUnitsOfMeasure:
+    #        type: 'textarea'
+    #        label: 'Numerator for Conversion to Base Units of Measure'
+    #    alternativeUnitOfMeasureForStockkeepingUnit:
+    #        type: 'input'
+    #        label: 'Alternative Unit of Measure for Stockkeeping Unit'
+    #    denominatorForConversionToBaseUnitsOfMeasure:
+    #        type: 'input'
+    #        label: 'Denominator for conversion to base units of measure'
     californiaProposition65ChemicalName1:
         type: 'input'
         label: 'California Proposition65 Chemical Name1'
@@ -232,23 +232,23 @@ object_bricks:
                 label: 'Hose (6 Digit)'
                 non_localized:
                     tubeMaterial:
-                       type: 'multiselect'
-                       label: 'Tube Material'
+                        type: 'multiselect'
+                        label: 'Tube Material'
                     tubeCharacteristic:
-                       type: 'multiselect'
-                       label: 'Tube Characteristic'
+                        type: 'multiselect'
+                        label: 'Tube Characteristic'
                     tubeColor:
-                       type: 'multiselect'
-                       label: 'Tube Color'
+                        type: 'multiselect'
+                        label: 'Tube Color'
                     coverMaterial:
-                       type: 'multiselect'
-                       label: 'Cover Material'
+                        type: 'multiselect'
+                        label: 'Cover Material'
                     coverCharacteristic:
-                       type: 'multiselect'
-                       label: 'Cover Characteristic'
+                        type: 'multiselect'
+                        label: 'Cover Characteristic'
                     coverColor:
-                       type: 'multiselect'
-                       label: 'Cover Color'
+                        type: 'multiselect'
+                        label: 'Cover Color'
                     Packaging:
                         type: 'input'
                         label: 'Packaging'
@@ -260,23 +260,23 @@ object_bricks:
                 label: 'Hose (9 Digit)'
                 non_localized:
                     hoseIdMM:
-                       type: 'numeric'
-                       label: 'Hose ID (mm) Actual ID'
+                        type: 'numeric'
+                        label: 'Hose ID (mm) Actual ID'
                     hoseOdmm:
-                       type: 'numeric'
-                       label: 'Hose OD (mm)'
+                        type: 'numeric'
+                        label: 'Hose OD (mm)'
                     BendRadiusIN:
-                       type: 'numeric'
-                       label: 'BendRadius (in)'
+                        type: 'numeric'
+                        label: 'BendRadius (in)'
                     descriptive:
-                       type: 'input'
-                       label: 'Descriptive #'
+                        type: 'input'
+                        label: 'Descriptive #'
                     hoseIdNominalId:
-                       type: 'input'
-                       label: 'Hose ID (in Fract) Nominal ID'
+                        type: 'input'
+                        label: 'Hose ID (in Fract) Nominal ID'
                     hoseDashSize:
-                       type: 'numeric'
-                       label: 'Hose Dash Size'
+                        type: 'numeric'
+                        label: 'Hose Dash Size'
 
     Fert:
         label: 'Fert Data'
@@ -285,7 +285,7 @@ object_bricks:
                 label: 'Hose (14 Digit)'
                 non_localized:
                     hoseLengthFT:
-                       type: 'numeric'
-                       label: 'Hose Length (ft)'
+                        type: 'numeric'
+                        label: 'Hose Length (ft)'
 
 
