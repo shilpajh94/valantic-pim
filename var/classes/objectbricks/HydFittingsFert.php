@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-31T10:21:34+02:00
+* Generated at: 2020-08-06T14:35:00+02:00
 * IP: 127.0.0.1
 
 
@@ -40,6 +40,7 @@ Fields Summary:
 - FittingWeight [input]
 - FittingFamilyDescription [textarea]
 - NumberOfHex [input]
+- HydFittingId [input]
 - ReleasedToProductionDate [date]
 - Comments [textarea]
 - FittingEndFamilyType [select]
@@ -1328,7 +1329,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           31 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
-                             'width' => NULL,
+                             'width' => 300,
                              'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
@@ -1344,6 +1345,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
+                          )),
+                          32 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
+                             'width' => 300,
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'varchar',
+                             'columnType' => 'varchar',
+                             'columnLength' => 190,
+                             'phpdocType' => 'string',
+                             'regex' => '',
+                             'unique' => false,
+                             'showCharCount' => false,
+                             'name' => 'HydFittingId',
+                             'title' => 'Id',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2606,7 +2635,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2637,7 +2666,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2960,7 +2989,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -2991,7 +3020,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left: 20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
