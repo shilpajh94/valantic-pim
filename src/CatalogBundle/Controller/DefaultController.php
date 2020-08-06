@@ -186,8 +186,6 @@ class DefaultController extends FrontendController {
         $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableColumnConfig();
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
 
-        $language = $request->getLocale();
-        $this->get('translator')->setLocale('en');
         /* if($this->tableColumns)
           {
           foreach ($this->tableColumns as $key => $value) {
@@ -208,7 +206,7 @@ class DefaultController extends FrontendController {
             if ($tableColumns !== null) {
                 if (!empty($tableColumns) && count($tableColumns) > 0) {
                     foreach ($tableColumns as $key => $column) {
-                        $fieldLabel = $this->get('translator')->trans($column['fieldLabel']);
+                        $fieldLabel = $column['fieldLabel'];
                         $columns[] = array($key, $fieldLabel);
                         //  $store[] = array($key=> $t);
                     }
@@ -825,6 +823,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -844,7 +843,7 @@ class DefaultController extends FrontendController {
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
 
-            $featuresList = $this->getFeaturesList('IFS');
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $catalogGrouping = array();
             
@@ -1011,6 +1010,7 @@ class DefaultController extends FrontendController {
             // p_r($catalogGroupData);
             // die;
             $this->view['data'] = $catalogGroupData;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
         }
     }
 
@@ -1033,6 +1033,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1132,6 +1133,7 @@ class DefaultController extends FrontendController {
 
             }
             $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
         }
     }
 
@@ -1231,7 +1233,7 @@ class DefaultController extends FrontendController {
 
             }
             $this->view['data'] = $data;
-            $this->view['footer_background_color'] = $footerBgColor;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
         }
     }
 
@@ -1254,6 +1256,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1348,6 +1351,7 @@ class DefaultController extends FrontendController {
             $data['brandData'] = $brandData;
             
             $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
         }
     }
 
@@ -1430,7 +1434,7 @@ class DefaultController extends FrontendController {
             //     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             // }
 
-            $featuresList = $this->getFeaturesList('IFS');
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $catalogGrouping = array();
             
@@ -1535,6 +1539,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
             
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1602,6 +1607,7 @@ class DefaultController extends FrontendController {
 
             }
             $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
         }
     }
 
@@ -1631,17 +1637,18 @@ class DefaultController extends FrontendController {
     /**
      * return material object or false
      */
-    public function getFeaturesList($catalog_type){
+    public function getFeaturesList($catalog_type, $language){
         $entries = new DataObject\Features\Listing();
         // $entries->setCondition("FeatureType = ?", "{$catalog_type}");
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
+            // p_r($entry);
             
             if($entry->getIcon())
                 $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
             
-            $featureData[$entry->getId()]['name'] = $entry->getName();
+            $featureData[$entry->getId()]['name'] = $entry->getName($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
             $featureData[$entry->getId()]['key'] = $entry->getId();
         }
@@ -1721,6 +1728,7 @@ class DefaultController extends FrontendController {
             $Currency = $catalogObj->getCurrency();
             $ValidFromDate = $catalogObj->getValidFromDate();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1749,7 +1757,7 @@ class DefaultController extends FrontendController {
                 $columnsDataWithImages['listPrice']['columnIcon'] = '';
             }
 
-            $featuresList = $this->getFeaturesList('IFS');
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $columnConfig = array();
             $catagoryDescription = array();
@@ -1991,8 +1999,8 @@ class DefaultController extends FrontendController {
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 $groupData['IsPriceCatalog'] = $IsPriceCatalog;
                 
-                
                 $this->view['groupData'] = $groupData;
+                $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
             }
         }
     }

@@ -93,6 +93,125 @@ extract($groupData);
 
                 </aside>
         </header>
+        <div class="footer">
+        <footer class="flex-center <?php echo $footer_class; ?>">
+                        <span class="logo">
+                                <b>Hose</b>
+                                <?php if($footer_class == 'reverseColor'): ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                                <?php else: ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php endif; ?>
+                        </span>
+                        <div class="flex aligned">
+                                <h5 class="rowC">
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
+                                }else{
+                                        echo $this->input("PTG_Footer_BrandName_{$incr}");
+                                }                
+                                ?>
+
+                                <span>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource($siop3Category)."/".$this->input("PTG_Footer_HoseType2_{$incr}")->setDataFromResource($siop4Category); 
+                                }else{
+                                        echo $this->input("PTG_Footer_HoseType_{$incr}");
+                                }                
+                                ?>
+
+                                </span>
+
+                                </h5>
+
+
+                                <div class="rowC compatible">
+                                        <b>
+                                        <?php 
+                                        if($this->editmode){
+                                                echo $this->input("PTG_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility_{$incr}");
+                                        }                
+                                        ?>
+                                        </b>
+                                        
+                                        <?php 
+                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        if($this->editmode){
+                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}");
+                                        }                
+                                        ?>
+                                </d>
+                        </div>
+                </footer>
+        </div>
+        <div class="footer1">
+        <footer class="flex-center <?php echo $footer_class; ?>">
+                        
+                        <div class="flex aligned">
+                                <h5 class="rowC">
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("PTG_Footer_BrandName1_{$incr}")->setDataFromResource($brandName); 
+                                }else{
+                                        echo $this->input("PTG_Footer_BrandName1_{$incr}");
+                                }                
+                                ?>
+
+                                <span>
+                                
+                                <?php 
+                                if($this->editmode){
+                                        echo $this->input("PTG_Footer_HoseType1_{$incr}")->setDataFromResource($siop3Category)."/".$this->input("PTG_Footer_HoseType3_{$incr}")->setDataFromResource($siop4Category); 
+                                }else{
+                                        echo $this->input("PTG_Footer_HoseType1_{$incr}");
+                                }                
+                                ?>
+
+                                </span>
+
+                                </h5>
+
+
+                                <div class="rowC compatible">
+                                        <b>
+                                        <?php 
+                                        if($this->editmode){
+                                                echo $this->input("PTG_Footer_Compatibility1_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility1_{$incr}");
+                                        }                
+                                        ?>
+                                        </b>
+                                        
+                                        <?php 
+                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        if($this->editmode){
+                                                echo $this->input("PTG_Footer_Compatibility1_Description_{$incr}")->setDataFromResource($compatibility_description); 
+                                        }else{
+                                                echo $this->input("PTG_Footer_Compatibility1_Description_{$incr}");
+                                        }                
+                                        ?>
+                                </d>
+                        </div>
+                        <span class="logo">
+                                <b>Hose</b>
+                                <?php if($footer_class == 'reverseColor'): ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                                <?php else: ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php endif; ?>
+                        </span>
+                </footer>
+        </div>
         <article class="fullcontainer">
 
                 <section class="content">
@@ -140,7 +259,6 @@ extract($groupData);
                                                         </p>
                                                         <?php endif; ?>
 
-</div>
                                                         <div class="spec-requirement">
                                                         <?php if(!empty(trim($reinforcement))): ?>
                                                         <p>                
@@ -234,65 +352,7 @@ extract($groupData);
         
         </article>
 
-        <div class="footer">
-        <footer class="flex-center ">
-                        <span class="logo">
-                                <b>Hose</b>
-                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                        </span>
-                        <div class="flex aligned">
-                                <h5 class="rowC">
-                                
-                                <?php 
-                                if($this->editmode){
-                                        echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
-                                }else{
-                                        echo $this->input("PTG_Footer_BrandName_{$incr}");
-                                }                
-                                ?>
-
-                                <span>
-                                
-                                <?php 
-                                if($this->editmode){
-                                        echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource($siop3Category)."/".$this->input("PTG_Footer_HoseType2_{$incr}")->setDataFromResource($siop4Category); 
-                                }else{
-                                        echo $this->input("PTG_Footer_HoseType_{$incr}");
-                                }                
-                                ?>
-
-                                </span>
-
-                                </h5>
-
-
-                                <div class="rowC compatible">
-                                        <b>
-                                        <?php 
-                                        if($this->editmode){
-                                                echo $this->input("PTG_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
-                                        }else{
-                                                echo $this->input("PTG_Footer_Compatibility_{$incr}");
-                                        }                
-                                        ?>
-                                        </b>
-                                        
-                                        <?php 
-                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
-                                        if($this->editmode){
-                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
-                                        }else{
-                                                echo $this->input("PTG_Footer_Compatibility_Description_{$incr}");
-                                        }                
-                                        ?>
-                                </d>
-                        </div>
-                </footer>
-        </div>
-
-        <?php //if($incr != count($catalogGroupData)): ?>
-        <div class="break-before"></div>
-        <?php //endif; ?>    
+       
 
 </section>
 

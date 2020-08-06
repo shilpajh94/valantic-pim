@@ -14,10 +14,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 <div class="seggregate">
 <div class="footer">
-<footer class="flex-center reverseColor">
+<footer class="flex-center <?php echo $footer_class; ?>">
 <span class="logo">
         <b>Fittings</b>
-        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+        <?php if($footer_class == 'reverseColor'): ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php else: ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <?php endif; ?>
 </span>
 <div class="flex reverse">
                 <h5 class="rowC">
@@ -31,10 +35,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 </div>
 
 <div class="footer1">
-<footer class="flex reverseColor">
+<footer class="flex <?php echo $footer_class; ?>">
         <span class="logo">
                 <b>Fittings</b> 
-                <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php if($footer_class == 'reverseColor'): ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php else: ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <?php endif; ?>
         </span>
         <div class="flex aligned">
                   <h5 class="rowC">

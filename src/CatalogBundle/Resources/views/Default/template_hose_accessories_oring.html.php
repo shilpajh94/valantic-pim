@@ -11,6 +11,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ]); 
         ?>
 <?php endif; ?>
+<?php
+extract($data);
+if($data):
+?>   
 <section class="segregate">
     <div id="pageHeader"></div>
         <span class="pageName">Hydraulic Fittings</span>
@@ -18,10 +22,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 
 <div class="footer">
-    <footer class="flex-center ">
+    <footer class="flex-center <?php echo $footer_class; ?>">
 <span class="logo">
-            <b>Fittings</b>
-            <img src="/CatalogImages/logo_new.png">
+                <b>Fittings</b>
+                <?php if($footer_class == 'reverseColor'): ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php else: ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <?php endif; ?>
+
     </span>
 
 
@@ -38,7 +47,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 </div>
 
 <div class="footer1">
-    <footer class="flex-center ">
+    <footer class="flex-center <?php echo $footer_class; ?>">
 
 
 
@@ -53,7 +62,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 <span class="logo">
             <b>Fittings</b>
-            <img src="/CatalogImages/logo_new.png">
+            <?php if($footer_class == 'reverseColor'): ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php else: ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <?php endif; ?>
     </span>
         </footer>
 
@@ -62,10 +75,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 <div class="wrapper">
     <article class="container noBorder">
 <section class="content single">
-    <?php
-extract($data);
-if($data):
-?>   
+    
 <h2 class="contitech-yellow">
 <?php
 if ($this->input("HHAO_Heading")->isEmpty()) {

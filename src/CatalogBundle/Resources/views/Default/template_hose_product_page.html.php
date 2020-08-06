@@ -47,10 +47,14 @@ else
 </span>
    
         <div class="footer">
-        <footer class="flex-center ">
+        <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
                                 <b>Hose</b>
-                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php if($footer_class == 'reverseColor'): ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                                <?php else: ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php endif; ?>
                         </span>
                         <div class="flex aligned">
                                 <h5>
@@ -102,7 +106,7 @@ else
                 </footer>
         </div>
         <div class="footer1">
-        <footer class="flex-center ">
+        <footer class="flex-center <?php echo $footer_class; ?>">
                         
                         <div class="flex aligned">
                                 
@@ -154,7 +158,11 @@ else
                         </div>
                         <span class="logo">
                                 <b>Hose</b>
-                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php if($footer_class == 'reverseColor'): ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                                <?php else: ?>
+                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php endif; ?>
                         </span>
                 </footer>
         </div>
