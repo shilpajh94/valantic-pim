@@ -866,6 +866,10 @@ parameters:
                 fieldLevel: class
                 fieldLabel: ID
                 fieldType: Input
+            mainImage:
+                fieldLevel: class
+                fieldLabel: Main Image
+                fieldType: Media
             oldMaterialCode:
                 fieldLevel: class
                 fieldLabel: Old Material Code
