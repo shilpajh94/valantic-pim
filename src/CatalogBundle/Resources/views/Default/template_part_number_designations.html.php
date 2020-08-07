@@ -68,6 +68,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
       <header class="content partNumber">
           <h3><?= $this->input("PBD_Heading")->setDataFromResource('Part Number Designations') ?></h3>
       </header>
+      <?php if($data): ?>
       <section class="">
          
         <table  class="part_number_table" cellspacing="0" cellpadding="0">
@@ -124,8 +125,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 </tbody>
         </table>
       </section>
+      <?php endif; ?>
     </article>
 
 </div>
+
 
 

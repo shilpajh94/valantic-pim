@@ -12,8 +12,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ?>
 <?php endif; ?>
 <?php
-extract($data);
+
 if($data):
+extract($data);
 ?>   
 <section class="segregate">
     <div id="pageHeader"></div>
@@ -110,6 +111,7 @@ if ($this->input("HHAO_Heading")->isEmpty()) {
        </figure>
        <?php
        $tableCount = 0;
+if($brandData):
        foreach($brandData as $key => $brand):
         extract($brand);
 
@@ -158,7 +160,7 @@ if ($this->input("HHAO_Heading")->isEmpty()) {
        <?php 
         $tableCount++;
         endforeach; 
-
+ endif;
         endif;
 
         ?>
