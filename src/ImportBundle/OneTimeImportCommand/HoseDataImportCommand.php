@@ -72,7 +72,7 @@ class HoseDataImportCommand extends AbstractCommand
             p_r('------------------------------------------------');
             $this->loadMaster();
             $this->createTempTable();
-            // $this->import($filePath);
+            $this->import($filePath);
             $this->updateFert();
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
