@@ -371,7 +371,7 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
-            WorkingPressurePSI:
+            AccessoriesWorkingPressurePSI:
                 fieldLevel: objectBrick
                 fieldLabel: 'Maximum Working Pressure'
                 fieldType: Input

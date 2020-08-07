@@ -202,9 +202,6 @@ overAllLength__group:
 minBore__group:
     minBoreIn: 'IN'
     minBoreMm: 'MM'
-boreIN__group:
-    BoreIN: 'IN'
-    BoreMM: 'MM'
 insideDiameter__group:
     insideDiameterIn: 'IN'
     insideDiameterMm: 'MM'
