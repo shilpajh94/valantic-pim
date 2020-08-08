@@ -1014,7 +1014,7 @@ if(isset($data[$baseId])) {
             // p_r($catalogGroupData);
             // die;
             $this->view['data'] = $catalogGroupData;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1137,7 +1137,7 @@ if(isset($data[$baseId])) {
 
             }
             $this->view['data'] = $data;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1237,7 +1237,7 @@ if(isset($data[$baseId])) {
 
             }
             $this->view['data'] = $data;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1292,6 +1292,7 @@ if(isset($data[$baseId])) {
                         $brandsData[$productsDataWithHeaders['BrandShortText1']][] = $productsDataWithHeaders;
                 }
             }
+
             $material = array();
             $brandData = array();
             $hardness = array();
@@ -1359,7 +1360,7 @@ if(isset($data[$baseId])) {
             $data['brandData'] = $brandData;
             
             $this->view['data'] = $data;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1615,7 +1616,7 @@ if(isset($data[$baseId])) {
 
             }
             $this->view['data'] = $data;
-            $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -2010,7 +2011,7 @@ if(isset($data[$baseId])) {
                 $groupData['tempFmax'] = $tempFmax;
                 $groupData['tempCmin'] = $tempCmin;
                 $groupData['tempCmax'] = $tempCmax;
-                $groupData['groupData'] = $data;
+                $groupData['data'] = $data;
                 $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
@@ -2019,7 +2020,7 @@ if(isset($data[$baseId])) {
                 // p_r($groupData);
                 // die;
                 $this->view['groupData'] = $groupData;
-                $this->view['footer_class'] = (strtolower($footerBgColor)== 'yellow') ? 'reverseColor':'';
+                $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             }
         }
     }

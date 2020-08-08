@@ -23,7 +23,7 @@ if($groupData):
 
 // foreach($data as $key => $brand):
 
-extract($groupData);
+// extract($groupData);
 
 // $imageObj = '';
 // if($incr % 2 == 0)
@@ -39,7 +39,7 @@ extract($groupData);
  <span  class="pageName">
                 <?php 
                 if($this->editmode){
-                        echo $this->input("PTG_Header_{$incr}")->setDataFromResource($siop3Category); 
+                        echo $this->input("PTG_Header_{$incr}")->setDataFromResource($groupData['siop3Category']); 
                 }else{
                         echo $this->input("PTG_Header_{$incr}");
                 }                
@@ -60,7 +60,7 @@ extract($groupData);
                             <h5>
                                 <?php 
                                 if($this->editmode){
-                                        echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
+                                        echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($groupData['brandName']); 
                                 }else{
                                         echo $this->input("PTG_Footer_BrandName_{$incr}");
                                 }                
@@ -70,7 +70,7 @@ extract($groupData);
                                 
                                 <?php 
                                 if($this->editmode){
-                                        echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource($siop3Category)."/".$this->input("PTG_Footer_HoseType2_{$incr}")->setDataFromResource($siop4Category); 
+                                        echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType2_{$incr}")->setDataFromResource($groupData['siop4Category']); 
                                 }else{
                                         echo $this->input("PTG_Footer_HoseType_{$incr}");
                                 }                
@@ -91,7 +91,7 @@ extract($groupData);
                                         </b>
                                         
                                         <?php 
-                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
                                         if($this->editmode){
                                                 echo $this->input("PTG_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
                                         }else{
@@ -121,7 +121,7 @@ extract($groupData);
                                         </b>
                                         
                                         <?php 
-                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                        $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
                                         if($this->editmode){
                                                 echo $this->input("PTG_Footer_Compatibility1_Description_{$incr}")->setDataFromResource($compatibility_description); 
                                         }else{
@@ -133,7 +133,7 @@ extract($groupData);
                                 
                                     <?php 
                                     if($this->editmode){
-                                            echo $this->input("PTG_Footer_BrandName1_{$incr}")->setDataFromResource($brandName); 
+                                            echo $this->input("PTG_Footer_BrandName1_{$incr}")->setDataFromResource($groupData['brandName']); 
                                     }else{
                                             echo $this->input("PTG_Footer_BrandName1_{$incr}");
                                     }                
@@ -143,7 +143,7 @@ extract($groupData);
                                     
                                     <?php 
                                     if($this->editmode){
-                                            echo $this->input("PTG_Footer_HoseType1_{$incr}")->setDataFromResource($siop3Category)."/".$this->input("PTG_Footer_HoseType3_{$incr}")->setDataFromResource($siop4Category); 
+                                            echo $this->input("PTG_Footer_HoseType1_{$incr}")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType3_{$incr}")->setDataFromResource($groupData['siop4Category']); 
                                     }else{
                                             echo $this->input("PTG_Footer_HoseType1_{$incr}");
                                     }                
@@ -169,7 +169,7 @@ extract($groupData);
                 <h1>
                 <?php
                         if($this->editmode){
-                                echo $this->input("PTG_Heading_{$incr}")->setDataFromResource($brandName); 
+                                echo $this->input("PTG_Heading_{$incr}")->setDataFromResource($groupData['brandName']); 
                         }else{
                                 echo $this->input("PTG_Heading_{$incr}");
                         }                
@@ -179,7 +179,7 @@ extract($groupData);
                         <div>
                         <?php
                         if($this->editmode){
-                                echo $this->wysiwyg("PTG_LongDescription_{$incr}")->setDataFromResource($longDescription); 
+                                echo $this->wysiwyg("PTG_LongDescription_{$incr}")->setDataFromResource($groupData['longDescription']); 
                         }else{
                                 echo $this->wysiwyg("PTG_LongDescription_{$incr}");
                         }                
@@ -188,7 +188,7 @@ extract($groupData);
  <span class="imageHolder">
                         <?php
                         if($this->editmode){
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($mainImageObj); 
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
                         }else{
                                 echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
                         }                
@@ -196,7 +196,7 @@ extract($groupData);
 
                         <?php
                         if($this->editmode){
-                                echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($ProfileDimensionImageObj); 
+                                echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
                         }else{
                                 echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
                         }                
@@ -209,44 +209,44 @@ extract($groupData);
         <article class="fullcontainer">
 
                 <section class="content single ptg">
-                        <?php if($safetyFeatures || !empty(trim($material)) || !empty(trim($reinforcement)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                        <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || (!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))) ): ?>
                                 
                         <menu class="flex">
-                                <?php if(!empty(trim($material)) || !empty(trim($reinforcement)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                                <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || (!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))) ): ?>
                                 <div class="specs">
                                                 <h6><?= $this->translate('performance + specs') ?></h6>
                                                 <div class="spec-requirement">
-                                                        <?php if(!empty(trim($BrandShortText1))): ?>
+                                                        <?php if(!empty(trim($groupData['BrandShortText1']))): ?>
                                                         <p>
-                                                                <?= $BrandShortText1 ?>
+                                                                <?= $groupData['BrandShortText1'] ?>
                                                         </p>
                                                         <?php endif; ?>
 
-                                                        <?php if(!empty(trim($BrandShortText2))): ?>
+                                                        <?php if(!empty(trim($groupData['BrandShortText2']))): ?>
                                                         <p>
-                                                                <?= $BrandShortText2 ?>
+                                                                <?= $groupData['BrandShortText2'] ?>
                                                         </p>
                                                         <?php endif; ?>
 
-                                                        <?php if(!empty(trim($BrandShortText3))): ?>
+                                                        <?php if(!empty(trim($groupData['BrandShortText3']))): ?>
                                                         <p>
-                                                                <?= $BrandShortText3 ?>
+                                                                <?= $groupData['BrandShortText3'] ?>
                                                         </p>
                                                         <?php endif; ?>
 
-                                                        <?php if(!empty(trim($BrandShortText4))): ?>
+                                                        <?php if(!empty(trim($groupData['BrandShortText4']))): ?>
                                                         <p>
-                                                                <?= $BrandShortText4 ?>
+                                                                <?= $groupData['BrandShortText4'] ?>
                                                         </p>
                                                         <?php endif; ?>
 
-                                                        <?php if(!empty(trim($BrandShortText5))): ?>
+                                                        <?php if(!empty(trim($groupData['BrandShortText5']))): ?>
                                                         <p>
-                                                                <?= $BrandShortText5 ?>
+                                                                <?= $groupData['BrandShortText5'] ?>
                                                         </p>
                                                         <?php endif; ?>
 
-                                                        <?php if(!empty(trim($material))): ?>
+                                                        <?php if(!empty(trim($groupData['material']))): ?>
                                                         <p>
                                                                 <b><?= $this->translate('Material') ?></b>
                                                                 <?= $material ?>
@@ -254,17 +254,17 @@ extract($groupData);
                                                         <?php endif; ?>
 
                                                         <div class="spec-requirement">
-                                                        <?php if(!empty(trim($reinforcement))): ?>
+                                                        <?php if(!empty(trim($groupData['reinforcement']))): ?>
                                                         <p>                
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
-                                                                <?= $reinforcement ?>
+                                                                <?= $groupData['reinforcement'] ?>
                                                         </p>
                                                         <?php endif; ?>
 
-                                                        <?php if(!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))): ?>
+                                                        <?php if(!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))): ?>
                                                         <p>              
                                                                 <b><?= $this->translate('Temperature Range') ?></b>
-                                                                <?=$tempFmin ?>&#8457; to  <?=$tempFmax ?>&#8457; (<?=$tempCmin ?>&#8451; to  <?=$tempCmax ?>&#8451;)
+                                                                <?= $groupData['tempFmin'] ?>&#8457; to  <?= $groupData['tempFmax'] ?>&#8457; (<?= $groupData['tempCmin'] ?>&#8451; to  <?= $groupData['tempCmax'] ?>&#8451;)
                                                         </p>
                                                         <?php endif; ?>
                                                         </div>
@@ -272,11 +272,11 @@ extract($groupData);
                                 </div> 
                                 <?php endif; ?>
 
-                                <?php if($safetyFeatures): ?>
+                                <?php if($groupData['safetyFeatures']): ?>
                                 <div class="feature">
                                                 <h6><?= $this->translate('features') ?></h6>
                                                 <div>
-                                                        <?php foreach($safetyFeatures as $key => $feature): ?>
+                                                        <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                 <p  class="flex">
                                                                         <?php if($feature['iconSrc']): ?>
                                                                         <img src="<?= $feature['iconSrc'] ?>" />
@@ -292,15 +292,15 @@ extract($groupData);
                         </menu>
                         <?php endif; ?>
 
-                        <?php foreach($groupData as $key => $columnsData): 
-                            extract($columnsData);    
+                        <?php foreach($groupData['data'] as $key => $columnsData): 
+                        //     extract($columnsData);    
                         ?>
                         <table class="grid" cellpadding="0" cellspacing="0">
                             <thead>
-                                <?php if($iconRequired == 'YES'): ?>
+                                <?php if($groupData['iconRequired'] == 'YES'): ?>
                                         <tr class="sub-head">
-                                                <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                        <td><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></td>
+                                                <?php foreach($columnsData['columnsDataWithImages'] as $key => $c1data): ?>
+                                                        <td><img src="<?= $c1data['columnIcon'] ?>" width="45" height="45" /></td>
                                                 <?php endforeach; ?>
                                         </tr>
                                 <?php endif; ?>
@@ -308,20 +308,20 @@ extract($groupData);
 
                                 <tr class="head">
 
-                                        <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
+                                        <?php foreach($columnsData['columnsDataWithImages'] as $key => $c2data): ?>
                                                 <?php if($columnsData['columnName'] == 'listPrice'): ?>
-                                                        <?php if($IsPriceCatalog): ?>
-                                                        <td><?= $columnsData['columnLabel'] ?></td>
+                                                        <?php if($groupData['IsPriceCatalog']): ?>
+                                                        <td><?= $c2data['columnLabel'] ?></td>
                                                         <?php endif; ?>
                                                 <?php else: ?>
-                                                        <td><?= $columnsData['columnLabel'] ?></td>
+                                                        <td><?= $c2data['columnLabel'] ?></td>
                                                 <?php endif; ?>
                                         <?php endforeach; ?>
                                         
                                 </tr>
                             </thead>
                                 <?php $incrRow = 1; ?>        
-                                <?php foreach($articlesData as $key => $element): ?>
+                                <?php foreach($columnsData['articlesData'] as $key => $element): ?>
                                         <?php if($incrRow%2==0): ?>
                                         <tr>
                                         <?php else: ?>
@@ -330,9 +330,9 @@ extract($groupData);
                                                 <?php foreach($element as $ekey => $value): ?>
 
                                                         <?php if($ekey == 'listPrice'): ?>
-                                                        <?php if($IsPriceCatalog): ?>
-                                                        <td><?= $value ?></td>
-                                                        <?php endif; ?>
+                                                                <?php if($groupData['IsPriceCatalog']): ?>
+                                                                <td><?= $value ?></td>
+                                                                <?php endif; ?>
                                                         <?php else: ?>
                                                                 <td><?= $value ?></td>
                                                         <?php endif; ?>
