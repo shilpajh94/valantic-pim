@@ -417,8 +417,8 @@ class DefaultController extends FrontendController {
                     } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
-                        if ($item->getFert() !== null) {
-                            $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
+                        if ($item->getFert()->$brickGetter() !== null) {
+                                $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
@@ -717,7 +717,7 @@ class DefaultController extends FrontendController {
                 }
                 foreach ($productsData as $k => $row) {
                     $oldMaterialCode = $row['oldMaterialCode'];
-                    if(empty($oldMaterialCode) || $oldMaterialCode=="N/A" || strlen($oldMaterialCode)<14 || empty($row['brandName'])) {
+                    if(empty($oldMaterialCode) || $oldMaterialCode=="N/A" || strlen($oldMaterialCode)<14 || (is_array($row['brandName']) && empty($row['brandName']))) {
                         continue;
                     }
                     
@@ -729,15 +729,14 @@ class DefaultController extends FrontendController {
                         $images[$baseId] = $row['mainImage'];
                     }
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
-                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
+                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'][0];
                         $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row['industryStandard'];
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['hoseIdNominalId'][] = isset($data[$baseId]['hoseIdNominalId'][$k]) && !empty($data[$baseId]['hoseIdNominalId'][$k]) ? $data[$baseId]['hoseIdNominalId'][$k] : $row['hoseIdNominalId'];
-                        $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
+                        
                         $data[$baseId]['mainImage'] = isset($row['mainImage'])&&!empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
                             $features = $row['FeaturesBenefitsBulletPoint'];
@@ -756,6 +755,11 @@ class DefaultController extends FrontendController {
                             $features,
                             $featureObj);
                         }
+                    }
+
+if(isset($data[$baseId])) {
+                        $data[$baseId]['hoseIdNominalId'][] = isset($data[$baseId]['hoseIdNominalId'][$k]) && !empty($data[$baseId]['hoseIdNominalId'][$k]) ? $data[$baseId]['hoseIdNominalId'][$k] : $row['hoseIdNominalId'];
+                        $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
                 }
                 
@@ -1279,14 +1283,14 @@ class DefaultController extends FrontendController {
             }
             
             $brandsData = array();
-
+if($productsData){
             foreach ($productsData as $key => $item) {
                 $productsDataWithHeaders = array_combine($headerKeys, $item);
 
                 if(!empty(trim($productsDataWithHeaders['BrandShortText1'])))
                     $brandsData[$productsDataWithHeaders['BrandShortText1']][] = $productsDataWithHeaders;
             }
-
+}
             $material = array();
             $brandData = array();
             $hardness = array();
@@ -2039,3 +2043,4 @@ class DefaultController extends FrontendController {
         // $this->view['title'] = $request->get('title');
     }
 }
+

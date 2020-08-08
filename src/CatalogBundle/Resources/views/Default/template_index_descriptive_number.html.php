@@ -1,58 +1,69 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
-<article>
+<div class="template">
+<div id="descriptive">
     <div id="pageHeader"></div>
     <span  class="pageName">Index</span>
 
-    <h3>Alphanumeric Index by Descriptive Number</h3>
+    <div class="numberTitle">
+        <h2>Alphanumeric Index by Descriptive Number</h2>
+    </div>
 
     <?php if($this->editmode): ?>
     
-        <div id="amortizationTable" class="content_single">
+        <div id="amortizationTable" class="content_single single">
         <?php else: ?>
        
-            <div id="amortizationTable" class="content_double">
+            <div id="amortizationTable" class="content_double single">
         <?php endif; ?>
 
     
         
         
             <?php $block = $this->block("gridblock", ["manual" => true])->start(); ?>
-<table>
-<thead>
-<tr>
-<td><strong>PRDOUCT #</strong></td>
-<td><strong>PAGE #</strong></td>
-</tr>
-</thead>
-<?php 
-$rowCount = 1;
-while ($block->loop()) { ?>
-                 
-    <tr>
-    <?php $block->blockConstruct(); ?>
-            <?php $block->blockStart(); ?> 
-                <td><?= $this->input("td1")->setDataFromResource("Text - {$rowCount}"); ?></td>
-                <td><?= $this->input("td2")->setDataFromResource("{$rowCount}"); ?></td>
-                 <?php $block->blockEnd(); ?>
-    <?php $block->blockDestruct(); ?>
-    
-            
-    </tr>
-   
-<?php 
-$rowCount++;
-} 
-?>
-</table>
-<?php $block->end(); ?>
+            <table cellpadding="0" cellspacing="0" class="grid">
+                        <thead>
+                            <tr>
+                            <td><strong>PRDOUCT #</strong></td>
+                            <td align="right"><strong>PAGE #</strong></td>
+                            </tr>
+                        </thead>
+                        <?php 
+                        $rowCount = 1;
+                        while ($block->loop()) { ?>
+                                         
+                            <tr>
+                            <?php $block->blockConstruct(); ?>
+                                    <?php $block->blockStart(); ?> 
+                                     <td colspan="2">
+                                       <p class="paging">
+                                        <span class="pageTitle"><?= $this->input("td1")->setDataFromResource("Text - {$rowCount}"); ?></span>
+                                        <span class="pageNo"><?= $this->input("td2")->setDataFromResource("{$rowCount}"); ?></span>
+                                       </p>
+                                     </td>
+
+                                      
+                                         <?php $block->blockEnd(); ?>
+                            <?php $block->blockDestruct(); ?>
+                            
+                                   
+                            </tr>
+                           
+                        <?php 
+                        $rowCount++;
+                        } 
+                        ?>
+            </table>
+            <?php $block->end(); ?>
             
            
            
     </div>
-
-</article>
+</div>
+</div>
 <style>
     div.content_single {
     -webkit-column-count: 1;
@@ -71,18 +82,5 @@ div.content_double {
     column-fill: auto;
 }
 
-#amortizationTable {
-    column-gap: 5mm;
-}
-#amortizationTable table {
-    width: 100%;
-    /* border-collapse: collapse; */
-}
 
-#amortizationTable td {
-    border: 1px solid silver;
-}
-#amortizationTable thead td {
-    background:yellow;
-}
 </style>

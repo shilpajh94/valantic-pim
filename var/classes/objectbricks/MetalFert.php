@@ -1,10 +1,6 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-31T09:23:58+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
 - boreType [input]
 - finish [input]
@@ -19,7 +15,7 @@ Fields Summary:
 - outsideDiameterIn [numeric]
 - flangeDiameterIn [numeric]
 - faceWidthIn [numeric]
-- minBoreSizeIn [numeric]
+- minBoreIn [numeric]
 - insideDiameterIn [numeric]
 - stockThicknessIn [numeric]
 - DatumDiameterIN [numeric]
@@ -39,7 +35,7 @@ Fields Summary:
 - outsideDiameterMm [numeric]
 - flangeDiameterMm [numeric]
 - faceWidthMm [numeric]
-- minBoreSizeMm [numeric]
+- minBoreMm [numeric]
 - insideDiameterMm [numeric]
 - stockThicknessMm [numeric]
 - DatumDiameterMM [numeric]
@@ -548,7 +544,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
-                     'name' => 'minBoreSizeIn',
+                     'name' => 'minBoreIn',
                      'title' => 'Min Bore Size (in)',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -1168,7 +1164,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
-                     'name' => 'minBoreSizeMm',
+                     'name' => 'minBoreMm',
                      'title' => 'Min Bore Size (mm)',
                      'tooltip' => '',
                      'mandatory' => false,

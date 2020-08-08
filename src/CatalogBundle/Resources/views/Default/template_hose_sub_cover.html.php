@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+}
 ?>
 
 <?php if($this->editmode): ?>
@@ -17,57 +19,54 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 if($data):
 foreach($data as $catalogGroupKey => $catalogGroupData):
 ?>
+<div class="template">
 <div class="segregate " id="subCover">
+    
     <div id="pageHeader" class="alternate"></div>
  
-      <div class="footer">
+        <div class="footer">
                 <footer class="flex-center ">
                         <span class="logo">
                                 <b>Hose</b>
                                 <img src="/CatalogImages/logo_new.png">
                         </span>
                         <div class="flex aligned">
-
-<h5>
+                                <h5>
                                     <?php
                                     echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
                                     ?>
-                                    </h5>
-                        <div>               
+                                </h5>
+                                <div>               
                                     <span>
                                     <?php
                                     echo $this->image("HHSC_Footer_Image", ["width" => 40]);
                                     ?>
                                     </span>
                                                    
-                        </div>
-                                
+                                </div>       
                         </div>
                 </footer>
         </div>
 
-   <div class="footer1">
-                <footer class="flex-center ">
-                       
+        <div class="footer1">
+                <footer class="flex-center ">   
                         <div class="flex aligned">
-
-
-                        <div>               
+                                 <div>               
                                     <span>
                                     <?php
                                     echo $this->image("HHSC_Footer_Image1", ["width" => 40]);
                                     ?>
                                     </span>
                                                    
-                        </div>
-                        <h5>
+                                 </div>
+                                <h5>
                                     <?php
                                     echo $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey);
                                     ?>
-                                    </h5>
+                                </h5>
                                 
                         </div>
- <span class="logo">
+                        <span class="logo">
                                 <b>Hose</b>
                                 <img src="/CatalogImages/logo_new.png">
                         </span>
@@ -75,9 +74,9 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         </div>
 
     <article class="containerAll noBorder coverPage">
-    <header class="dark ">
-            <?= $this->image("HHSC_Image"); ?>
-    </header>
+        <header class="dark ">
+                <?= $this->image("HHSC_Image"); ?>
+        </header>
     
         <nav class="marginBottom30">
             <h4><?= $this->input("HHSC_Heading"); ?></h4>
@@ -155,3 +154,4 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
 endforeach; 
 endif;
 ?>
+</div>

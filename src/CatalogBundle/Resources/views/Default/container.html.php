@@ -5,7 +5,9 @@
  * @var \Pimcore\Templating\GlobalVariables $app
  */
 ?>
-
+<?php
+$this->extend('CatalogBundle:Layouts:layout.html.php');
+?>
 <?php foreach($this->allChildren as $child) { ?>
 
     <?php
@@ -15,5 +17,5 @@
     ?>
 
     <?= $this->inc($child) ?>
-    
+   <!-- <div class="break-before"></div>-->
 <?php } ?>

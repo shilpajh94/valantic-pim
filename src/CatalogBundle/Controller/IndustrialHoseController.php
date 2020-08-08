@@ -174,7 +174,7 @@ class IndustrialHoseController extends FrontendController
      * 
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
-        $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];        
+        $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];     
         $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $common = \Pimcore::getContainer()->get('app.common_helper');
         $dispColumns = array();
@@ -343,10 +343,12 @@ class IndustrialHoseController extends FrontendController
                         // Product list brand wise
                         $r = array();
                         $b = array();
-                        foreach($productPageColumns['columns'] as $col) {
-                            if(array_key_exists($col, $row)) {
-                                $r[$col] = $row[$col];
-                            }                            
+                        if(isset($productPageColumns['columns'])) {
+                            foreach($productPageColumns['columns'] as $col) {
+                                if(array_key_exists($col, $row)) {
+                                    $r[$col] = $row[$col];
+                                }                            
+                            }
                         }
 
 
@@ -405,7 +407,7 @@ class IndustrialHoseController extends FrontendController
                     }
                 }
             }
-            // p_r($data);die;
+            //p_r($data);die;
             $categories = $this->getSIOP();
             // p_r($categories);die;
             $this->view['info'] = array(

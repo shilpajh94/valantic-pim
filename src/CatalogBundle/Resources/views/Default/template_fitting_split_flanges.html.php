@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+}
 ?>
 <?php if($this->editmode): ?>
         <?= $this->relation("template_hose_accessories_flanges", [
@@ -11,52 +13,57 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ]); 
         ?>
 <?php endif; ?>
+<div class="template">
+<div class="segregate">
 
-<div class="seggregate">
-<div class="footer">
-<footer class="flex-center <?php echo $footer_class; ?>">
-<span class="logo">
-        <b>Fittings</b>
+<div id="pageHeader"></div>
+        <span class="pageName">Hydraulic Hose</span>
+
+   <div class="footer">
+        <footer class="flex-center <?php echo $footer_class; ?>">
+                        <span class="logo">
+                                <b>Fittings</b>
         <?php if($footer_class == 'reverseColor'): ?>
                         <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                 <?php else: ?>
                         <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                 <?php endif; ?>
-</span>
-<div class="flex reverse">
-                <h5 class="rowC">
-                Split Flanges 
+                        </span>
+                        <div class="flex aligned">
+                                <h5>
+                                  Split Flanges 
                 <span>Code 61 / Code 62 Clamp Kits</span>
-                </h5>
+                                </h5>
 
-        
-</div>
-</footer>
-</div>
 
-<div class="footer1">
-<footer class="flex <?php echo $footer_class; ?>">
-        <span class="logo">
-                <b>Fittings</b> 
-                <?php if($footer_class == 'reverseColor'): ?>
+                               
+                        </div>
+                </footer>
+        </div>
+        <div class="footer1">
+        <footer class="flex-center <?php echo $footer_class; ?>">
+                        
+                        <div class="flex aligned">
+                                <h5>
+                                
+                                  Split Flanges 
+                <span>Code 61 / Code 62 Clamp Kits</span>
+                                </h5>
+                        </div>
+                        <span class="logo">
+                                <b>Fittings</b>
+        <?php if($footer_class == 'reverseColor'): ?>
                         <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                 <?php else: ?>
                         <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                 <?php endif; ?>
-        </span>
-        <div class="flex aligned">
-                  <h5 class="rowC">
-                     Split flanges
-                      <span>Code 61 / Code 62 clamps kit</span>
-                  </h5>
-
-                  
+                        </span>
+                </footer>
         </div>
-    </footer>
-</div>
-    <article class="container noBorder">
+
+    <article class="container single">
         <header>
-            <h1><?php echo $this->input("HHAFC_Title"); ?></h1>
+            <h2 class="contitech-yellow"><?php echo $this->input("HHAFC_Title"); ?></h2>
             <p><?php echo $this->wysiwyg("HHAFC_Description"); ?></p>
         </header>
         <figure class="margin15 marginBottom30">
@@ -90,29 +97,29 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                <div class="marginBottom30 margin15" >
                     <h2 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brandName); ?></h2>
                     <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($shortDescription); ?></h3>
-                    <div class="grid special">
-            
-                            <p class="head noBorder">
+                    <table class="grid special" cellspacing="0" cellpadding="0">
+            <thead>
+                            <tr class="head noBorder">
 
                             <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                    <span><?= $columnsData['columnLabel'] ?></span>
+                                    <td><?= $columnsData['columnLabel'] ?></td>
                             <?php endforeach; ?>
 
-                            </p>
+                            </tr>
                             
                             
-                            
+                        </thead>    
                             <?php foreach($articlesData as $key => $element): ?>
-                                    <p>
+                                    <tr>
                                             <?php foreach($element as $ekey => $value): ?>
-                                                    <span><?= $value; ?></span>
+                                                    <td><?= $value; ?></td>
                                             <?php endforeach; ?>
-                                    </p>
+                                    </tr>
                             <?php endforeach; ?>
                             
                            
                            
-                        </div>
+                        </table>
                </div>
                
                
@@ -126,6 +133,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
             ?>
       
     </article>
+</div>
 </div>
 <style>
 li .pimcore_tag_input.empty{

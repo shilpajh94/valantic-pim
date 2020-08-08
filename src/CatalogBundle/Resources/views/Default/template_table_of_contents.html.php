@@ -1,6 +1,9 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+}
 ?>
+<div class="template">
 <div id="toc" class="toc">
  <div id="pageHeader"></div>
 
@@ -46,4 +49,4 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
     <?php } ?>
     </div>
       </div>
-  
+  </div>

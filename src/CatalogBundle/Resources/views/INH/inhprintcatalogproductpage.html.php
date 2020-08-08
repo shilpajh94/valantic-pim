@@ -9,8 +9,10 @@ if (isset($info['data'])) {
 ?>
     <?php
     if (is_array($info['data'])) {
+        $pg = 0;
         foreach ($info['data'] as $tableName => $tableData) {
             foreach ($tableData['data'] as $brand => $rows) {
+                $brandenc = md5($brand.$pg);
                 //p_r($rows);die;
     ?>
                 <article class="fullcontainer">
@@ -53,17 +55,17 @@ if (isset($info['data'])) {
                                         <?php
                                         if ($this->editmode) { ?>
                                             <?php
-                                            echo $this->textarea('INH_LONG_DESCRIPTION_' . md5($brand))->setDataFromResource($rows['info']['longDescription']);
+                                            echo $this->textarea('INH_LONG_DESCRIPTION_' . $brandenc)->setDataFromResource($rows['info']['longDescription']);
                                             ?>
                                         <?php } ?>
                                         <?php
-                                        if (!$this->editmode && !$this->textarea('INH_LONG_DESCRIPTION_' . md5($brand))->isEmpty()) { ?>
+                                        if (!$this->editmode && !$this->textarea('INH_LONG_DESCRIPTION_' . $brandenc)->isEmpty()) { ?>
                                             <?php
-                                            echo $this->textarea('INH_LONG_DESCRIPTION_' . md5($brand));
+                                            echo $this->textarea('INH_LONG_DESCRIPTION_' . $brandenc);
                                             ?>
                                         <?php } ?>
                                     </p>
-                                    <?php echo $this->image('INH_MAIN_IMAGE_' . md5($brand), ['width' => 1067, 'height' => 128]); ?>
+                                    <?php echo $this->image('INH_MAIN_IMAGE_' . $brandenc, ['width' => 1067, 'height' => 128]); ?>
                                 </aside>
                             </header>
                             <section class="content">
@@ -78,21 +80,21 @@ if (isset($info['data'])) {
                                                 ?>
                                                     <p>
                                                         <b><?= $this->translate('VirtualCatalogTubeMaterial'); ?></b>
-                                                        <?= $this->wysiwyg('INH_PP_Tube_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogTubeMaterial']); ?>
+                                                        <?= $this->wysiwyg('INH_PP_Tube_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogTubeMaterial']); ?>
                                                     </p>
                                                     <p>
                                                         <b><?= $this->translate('VirtualCatalogReinforcement'); ?></b>
-                                                        <?= $this->wysiwyg('INH_PP_Reinforcement_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogReinforcement']); ?>
+                                                        <?= $this->wysiwyg('INH_PP_Reinforcement_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogReinforcement']); ?>
                                                     </p>
                                                     <p>
                                                         <b><?= $this->translate('VirtualCatalogCoverMaterial'); ?></b>
                                                         <?php
-                                                        echo $this->wysiwyg('INH_PP_Cover_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogCoverMaterial']);
+                                                        echo $this->wysiwyg('INH_PP_Cover_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogCoverMaterial']);
                                                         ?>
                                                     </p>
                                                     <p>
                                                         <b><?= $this->translate('VirtualCatalogHoseTemperatureRangeFAndC'); ?></b>
-                                                        <?= $this->textarea('INH_PP_Temprance_' . md5($brand))->setDataFromResource($rows['info']['VirtualCatalogHoseTemperatureRangeFAndC']); ?>
+                                                        <?= $this->textarea('INH_PP_Temprance_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogHoseTemperatureRangeFAndC']); ?>
                                                     </p>
                                                 <?php
                                                 }
@@ -102,44 +104,44 @@ if (isset($info['data'])) {
                                                     !$this->editmode
                                                 ) { ?>
                                                     <?php
-                                                    if (!$this->wysiwyg('INH_PP_Tube_' . md5($brand))->isEmpty()) { ?>
+                                                    if (!$this->wysiwyg('INH_PP_Tube_' . $brandenc)->isEmpty()) { ?>
                                                         <p>
                                                             <b><?= $this->translate('VirtualCatalogTubeMaterial'); ?></b>
                                                             <?php
-                                                            echo $this->wysiwyg('INH_PP_Tube_' . md5($brand));
+                                                            echo $this->wysiwyg('INH_PP_Tube_' . $brandenc);
                                                             ?>
                                                         </p>
                                                     <?php }
                                                     ?>
 
                                                     <?php
-                                                    if (!$this->wysiwyg('INH_PP_Reinforcement_' . md5($brand))->isEmpty()) { ?>
+                                                    if (!$this->wysiwyg('INH_PP_Reinforcement_' . $brandenc)->isEmpty()) { ?>
                                                         <p>
                                                             <b><?= $this->translate('VirtualCatalogReinforcement'); ?></b>
                                                             <?php
-                                                            echo $this->wysiwyg('INH_PP_Reinforcement_' . md5($brand));
+                                                            echo $this->wysiwyg('INH_PP_Reinforcement_' . $brandenc);
                                                             ?>
                                                         </p>
                                                     <?php }
                                                     ?>
 
                                                     <?php
-                                                    if (!$this->wysiwyg('INH_PP_Cover_' . md5($brand))->isEmpty()) { ?>
+                                                    if (!$this->wysiwyg('INH_PP_Cover_' . $brandenc)->isEmpty()) { ?>
                                                         <p>
                                                             <b><?= $this->translate('VirtualCatalogCoverMaterial'); ?></b>
                                                             <?php
-                                                            echo $this->wysiwyg('INH_PP_Cover_' . md5($brand));
+                                                            echo $this->wysiwyg('INH_PP_Cover_' . $brandenc);
                                                             ?>
                                                         </p>
                                                     <?php }
                                                     ?>
 
                                                     <?php
-                                                    if (!$this->wysiwyg('INH_PP_Temprance_' . md5($brand))->isEmpty()) { ?>
+                                                    if (!$this->wysiwyg('INH_PP_Temprance_' . $brandenc)->isEmpty()) { ?>
                                                         <p>
                                                             <b><?= $this->translate('VirtualCatalogHoseTemperatureRangeFAndC'); ?></b>
                                                             <?php
-                                                            echo $this->wysiwyg('INH_PP_Temprance_' . md5($brand));
+                                                            echo $this->wysiwyg('INH_PP_Temprance_' . $brandenc);
                                                             ?>
                                                         </p>
                                                     <?php }
@@ -161,16 +163,16 @@ if (isset($info['data'])) {
                                                 foreach ($rows['info']['featureIcon'] as $fid => $feature) {
                                                     echo "<p class='flex'>";
                                                     if ($this->editmode) {
-                                                        echo $this->image('INH_PP_ICONS_' . md5($brand) . $fid)->setImage($feature['icon']);
+                                                        echo $this->image('INH_PP_ICONS_' . $brandenc . $fid)->setImage($feature['icon']);
                                                     } else {
-                                                        echo $this->image('INH_PP_ICONS_' . md5($brand) . $fid);
+                                                        echo $this->image('INH_PP_ICONS_' . $brandenc . $fid);
                                                     }
                                                     if ($fn == 0) {
                                                         echo "<span>";
-                                                        echo $this->input("INH_PP_FNAME_" . md5($brand) . $fid)->setDataFromResource($feature['name']);
+                                                        echo $this->input("INH_PP_FNAME_" . $brandenc . $fid)->setDataFromResource($feature['name']);
                                                         echo "</span>";
                                                     } else {
-                                                        echo $this->input("INH_PP_FNAME_" . md5($brand) . $fid)->setDataFromResource($feature['name']);
+                                                        echo $this->input("INH_PP_FNAME_" . $brandenc . $fid)->setDataFromResource($feature['name']);
                                                     }
 
                                                     echo "</p>";
@@ -254,28 +256,29 @@ if (isset($info['data'])) {
                         <span class="logo">
                             <?php
                             if ($info['logo'] != null) {
-                                echo $this->image("FOOTER_LOGO_" . md5($brand), ["width" => 172, "height" => 53])->setImage($info['logo']);
+                                echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 172, "height" => 53])->setImage($info['logo']);
                             } else {
-                                echo $this->image("FOOTER_LOGO_" . md5($brand), ["width" => 172, "height" => 53]);
+                                echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 172, "height" => 53]);
                             }
 
                             ?>
                         </span>
                         <div class="flex aligned">
                             <h3>
-                                <?= $this->input("INH_PP_FOOTER_BRAND_" . md5($brand))->setDataFromResource($brand); ?>
-                                <span><?= $this->input("INH_PP_FOOTER_HP_" . md5($brand))->setDataFromResource("High Pressure"); ?></span>
+                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $brandenc)->setDataFromResource($brand); ?>
+                                <span><?= $this->input("INH_PP_FOOTER_HP_" . $brandenc)->setDataFromResource("High Pressure"); ?></span>
                             </h3>
 
                             <p>
-                                <b><?= $this->input("INH_PP_FOOTER_FITTING_TYPE_" . md5($brand))->setDataFromResource("Compatible fittings"); ?></b>
-                                <?php echo $this->input("INH_PP_FOOTER_FITTING_TYPE_DESC_" . md5($brand))->setDataFromResource("Meets or exceeds the performance requirements of"); ?>
+                                <b><?= $this->input("INH_PP_FOOTER_FITTING_TYPE_" . $brandenc)->setDataFromResource("Compatible fittings"); ?></b>
+                                <?php echo $this->input("INH_PP_FOOTER_FITTING_TYPE_DESC_" . $brandenc)->setDataFromResource("Meets or exceeds the performance requirements of"); ?>
                             </p>
                         </div>
                     </footer>
                 </article>
 
     <?php }
+        $pg++;
         }
     } ?>
 <?php } ?>

@@ -1,5 +1,5 @@
 parameters:
-  ex:
+  Hose Attribute Table:
     columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN, InnerHoseIDFractional, InnerHoseOdInDec, InnerHoseWeightLbs]
   Hose Attribute Table 1:    
     columns: [articleNumber, hoseIdNominalId, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg]

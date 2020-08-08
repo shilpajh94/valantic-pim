@@ -104,5 +104,44 @@ return [
         "priority" => 0,
         "creationDate" => 1595509090,
         "modificationDate" => 1595509143
+    ],
+    9 => [
+        "id" => 9,
+        "name" => "Hose Accessories Orings",
+        "group" => "Catalog",
+        "module" => "CatalogBundl",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateHoseAccessoriesOring",
+        "template" => "CatalogBundle:Default:template_hose_accessories_oring.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1596703306,
+        "modificationDate" => 1596703518
+    ],
+    10 => [
+        "id" => 10,
+        "name" => "PTG Product Page",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templatePtgProductPage",
+        "template" => "CatalogBundle:Default:template_ptg_product_page.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1596707232,
+        "modificationDate" => 1596707352
+    ],
+    11 => [
+        "id" => 11,
+        "name" => "Hose Accessories Flanges",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateFittingSplitFlanges",
+        "template" => "CatalogBundle:Default:template_fitting_split_flanges.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1596707873,
+        "modificationDate" => 1596708025
     ]
 ];

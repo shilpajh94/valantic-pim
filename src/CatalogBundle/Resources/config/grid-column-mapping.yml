@@ -258,8 +258,13 @@ parameters:
                 fieldLabel: Old Material Code
             brandName:
                 fieldLevel: class
-                fieldType: Select
                 fieldLabel: Brand Name
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
             industryStandard:
                 fieldLevel: class
                 fieldType: Input

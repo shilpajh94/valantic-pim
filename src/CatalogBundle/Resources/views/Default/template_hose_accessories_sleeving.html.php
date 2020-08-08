@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+}
 ?>
 <?php if($this->editmode): ?>
         <?= $this->relation("template_hose_accessories_sleeving", [
@@ -11,7 +13,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ]); 
         ?>
 <?php endif; ?>
-
+<div class="template">
 <section class="segregate">
 <div id="pageHeader"></div>
         <span class="pageName">Hydraulic Hose</span>
@@ -213,4 +215,4 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 </section>
    
-    
+    </div>
