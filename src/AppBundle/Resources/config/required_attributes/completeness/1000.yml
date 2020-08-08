@@ -17,9 +17,9 @@ non_localized:
     prop65Message:
         type: 'textarea'
         label: 'Prop 65 Message'
-    fittingFamily:
-        type: 'multiselect'
-        label: 'Fitting Family'
+#    fittingFamily:
+#        type: 'multiselect'
+#        label: 'Fitting Family'
     reinforcement:
         type: 'multiselect'
         label: 'Reinforcement'
