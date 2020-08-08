@@ -14,6 +14,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class HydAttributeDataImportCommand extends Command
 {
+    const CREATE_MASTER_IF_NOT_EXIST = true;
+
     /**
      * file path to import
      */
@@ -130,6 +132,8 @@ class HydAttributeDataImportCommand extends Command
         "BF" => array("field" => "weightUnit", "brickKey" => null, "type" => "select", "brickType" => null),
     );
 
+    const BRAND_FOLDER_PATH = "/Master List/Brands";
+
     /**
      * script statuses
      */
@@ -156,6 +160,8 @@ class HydAttributeDataImportCommand extends Command
      * @var array
      */
     private $recordImportErrors = array();
+    private $comments = array();
+
 
     /**
      * @var
@@ -309,7 +315,8 @@ class HydAttributeDataImportCommand extends Command
             $msg = $importConfig["ID_ATTRIBUTE_TITLE"].": " . $idCellValue . ", Row Number ".strval($i) . " [" .$importStatus."]";
             $this->consoleLog($msg);
 
-            $this->csvLog($csvLogFileHandle, array($i, $idCellValue, $importStatus, implode("\n",$this->recordImportErrors)));
+            $this->comments = array_merge($this->comments, $this->recordImportErrors);
+            $this->csvLog($csvLogFileHandle, array($i, $idCellValue, $importStatus, implode("\n",$this->comments)));
 
         }
 
@@ -370,7 +377,7 @@ class HydAttributeDataImportCommand extends Command
         if(is_numeric($cellData) || $cellData == null){
             $object->$fieldSetter($cellData);
         }else{
-            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a numeric field in pimcore,";
+            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a numeric field in pimcore (".$mapConfig["field"]."),";
             $msg .= " but non numeric data received. Skipping insert of this data (".$cellData.")" ;
             $this->recordImportErrors[] = $msg;
 
@@ -393,7 +400,7 @@ class HydAttributeDataImportCommand extends Command
         }elseif ($cellData == null){
             $object->$fieldSetter(null);
         }else{
-            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a boolean field in pimcore,";
+            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a boolean field in pimcore (".$mapConfig["field"].") ,";
             $msg .= " but non boolean data received. Skipping insert of this data (".$cellData.")" ;
             $this->recordImportErrors[] = $msg;
         }
@@ -450,6 +457,23 @@ class HydAttributeDataImportCommand extends Command
         $brandId = null;
         if($cellData){
             $brandObject = DataObject\Brand::getByName($cellData,1);
+
+            // create brand if not exist
+            if(!$brandObject && self::CREATE_MASTER_IF_NOT_EXIST){
+                $key = DataObject\Service::getValidKey($cellData,"obejct");
+                $parent = DataObject\Folder::getByPath(self::BRAND_FOLDER_PATH);
+
+                $brandObject = new DataObject\Brand();
+                $brandObject->setName($cellData);
+                $brandObject->setKey($key);
+                $brandObject->setParent($parent);
+                $brandObject->setPublished(true);
+                $brandObject->save();
+
+                $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Creating this master.";
+                $this->comments[] = $msg;
+            }
+
             if($brandObject){
                 $brandId = $brandObject->getId();
             }else{
@@ -475,7 +499,7 @@ class HydAttributeDataImportCommand extends Command
             $brickGroupName = $brickDef->getGroup();
         }else{
             // expecting only products here
-            $brickGroupName = "ProductClass"."~".$mapConfig["field"];
+            $brickGroupName = "ProductClass";
         }
 
         $valueToSet = null;
@@ -485,6 +509,13 @@ class HydAttributeDataImportCommand extends Command
 
             if($mapConfig["type"] == "select"){
                 $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, false);
+
+                if(!$masterObject && self::CREATE_MASTER_IF_NOT_EXIST){
+                    $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, true);
+                    $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Creating this master.";
+                    $this->comments[] = $msg;
+                }
+
                 if($masterObject){
                     $masterObject->setName($cellData);
                     $masterObject->save();
@@ -499,6 +530,13 @@ class HydAttributeDataImportCommand extends Command
                 $masterIds = array();
                 foreach($values as $value){
                     $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $value, false);
+
+                    if(!$masterObject && self::CREATE_MASTER_IF_NOT_EXIST){
+                        $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, true);
+                        $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Creating this master.";
+                        $this->comments[] = $msg;
+                    }
+
                     if($masterObject){
                         $masterObject->setName($value);
                         $masterObject->save();

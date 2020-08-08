@@ -15,6 +15,8 @@ use Pimcore\Model\DataObject;
 
 class HydFittingCatalogDataImportCommand extends Command
 {
+
+    const CREATE_MASTER_IF_NOT_EXIST = true;
     /**
      * file path to import
      */
@@ -149,6 +151,8 @@ class HydFittingCatalogDataImportCommand extends Command
         "S" => array("field" => "RecommendedGrade8Bolt", "brickKey" => "AccessoriesFert", "type" => "input", "brickType" => "fert"),
     ];
 
+    const BRAND_FOLDER_PATH = "/Master List/Brands";
+
     /**
      * boolean values to be considered
      */
@@ -183,6 +187,8 @@ class HydFittingCatalogDataImportCommand extends Command
      * @var array
      */
     private $recordImportErrors = array();
+
+    private $comments = array();
 
     /**
      * @var
@@ -251,23 +257,24 @@ class HydFittingCatalogDataImportCommand extends Command
             $parentSkeletonProduct = null;
             $importStatus = null;
             $this->recordImportErrors = array();
+            $this->comments = array();
 
             if($product){
                 $this->consoleLog("product id".$product->getId());
 
                 $brickCollection = $product->getFert();
-                if(!$brickCollection->getHoseFert() ){
-                    $importStatus = self::STATUS_NOT_INH_HYD_HOSE;
-                    $msg = "SAP Number: " . $sapNumber . ", Row Number ".strval($i) . " [" .$importStatus."]";
-                    $this->consoleLog($msg);
-
-                    $err = "product does not belong to 'INH_HYD_HOSE', not importing this product.";
-                    $this->consoleLog($err);
-                    $this->recordImportErrors[] = $err;
-                    $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->recordImportErrors)));
-                    $statusCountArray[$importStatus]++;
-                    continue;
-                }
+//                if(!$brickCollection->getHoseFert() ){
+//                    $importStatus = self::STATUS_NOT_INH_HYD_HOSE;
+//                    $msg = "SAP Number: " . $sapNumber . ", Row Number ".strval($i) . " [" .$importStatus."]";
+//                    $this->consoleLog($msg);
+//
+//                    $err = "product does not belong to 'INH_HYD_HOSE', not importing this product.";
+//                    $this->consoleLog($err);
+//                    $this->recordImportErrors[] = $err;
+//                    $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->recordImportErrors)));
+//                    $statusCountArray[$importStatus]++;
+//                    continue;
+//                }
 
                 $columnMapConstantName = "self::".$importSheetConfig["COLUMN_MAP"];
                 $map = constant($columnMapConstantName);
@@ -296,6 +303,7 @@ class HydFittingCatalogDataImportCommand extends Command
                                 $this->setObjectData($brick, $mapConfig, $cellData);
 
                             }else{
+                                $this->recordImportErrors[] = "( Column '".$sheetColumnCord."' ) Brick '". $mapConfig["brickKey"] . "' is not attached to the product, so can not insert data in " . $mapConfig["field"] . " field";
                                 // log that the brick is not attached to the product
                             }
                         }else{
@@ -330,7 +338,8 @@ class HydFittingCatalogDataImportCommand extends Command
 
             $msg = "SAP Number: " . $sapNumber . ", Row Number ".strval($i) . " [" .$importStatus."]";
             $this->consoleLog($msg);
-            $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->recordImportErrors)));
+            $this->comments = array_merge($this->comments, $this->recordImportErrors);
+            $this->csvLog($csvLogFileHandle, array($i, $sapNumber, $importStatus, implode("\n",$this->comments)));
 
         }
         $this->consoleLog("-------------------------------SUMMARY------------------------------------");
@@ -438,7 +447,7 @@ class HydFittingCatalogDataImportCommand extends Command
         if(is_numeric($cellData) || $cellData == null){
             $object->$fieldSetter($cellData);
         }else{
-            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a numeric field in pimcore,";
+            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a numeric field in pimcore (".$mapConfig["field"].") ,";
             $msg .= " but non numeric data received. Skipping insert of this data (".$cellData.")" ;
             $this->recordImportErrors[] = $msg;
         }
@@ -460,7 +469,7 @@ class HydFittingCatalogDataImportCommand extends Command
         }elseif ($cellData == null){
             $object->$fieldSetter(null);
         }else{
-            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a boolean field in pimcore,";
+            $msg = "Column "."'".$this->getCurrentImportColumn()."'" ." is mapped to a boolean field in pimcore (".$mapConfig["field"].") ,";
             $msg .= " but non boolean data received. Skipping insert of this data (".$cellData.")" ;
             $this->recordImportErrors[] = $msg;
         }
@@ -511,6 +520,12 @@ class HydFittingCatalogDataImportCommand extends Command
 
             if($mapConfig["type"] == "select"){
                 $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, false);
+
+                if(!$masterObject && self::CREATE_MASTER_IF_NOT_EXIST){
+                    $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, true);
+                    $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Creating this master.";
+                    $this->comments[] = $msg;
+                }
                 if($masterObject){
                     $masterObject->setName($cellData);
                     $masterObject->save();
@@ -525,6 +540,12 @@ class HydFittingCatalogDataImportCommand extends Command
                 $masterIds = array();
                 foreach($values as $value){
                     $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $value, false);
+
+                    if(!$masterObject && self::CREATE_MASTER_IF_NOT_EXIST){
+                        $masterObject = $this->multiselectMasterService->getMasterObject($mapConfig["field"], $brickGroupName, $cellData, true);
+                        $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Creating this master.";
+                        $this->comments[] = $msg;
+                    }
                     if($masterObject){
                         $masterObject->setName($value);
                         $masterObject->save();
@@ -551,6 +572,23 @@ class HydFittingCatalogDataImportCommand extends Command
         $brandId = null;
         if($cellData){
             $brandObject = DataObject\Brand::getByName($cellData,1);
+
+            // create brand if not exist
+            if(!$brandObject && self::CREATE_MASTER_IF_NOT_EXIST){
+                $key = DataObject\Service::getValidKey($cellData,"obejct");
+                $parent = DataObject\Folder::getByPath(self::BRAND_FOLDER_PATH);
+
+                $brandObject = new DataObject\Brand();
+                $brandObject->setName($cellData);
+                $brandObject->setKey($key);
+                $brandObject->setParent($parent);
+                $brandObject->setPublished(true);
+                $brandObject->save();
+
+                $msg = "( Column "."'".$this->getCurrentImportColumn()."'" ." ) Master '".$cellData."' for attribute '".$mapConfig["field"]."' does not exist in pimcore.Creating this master.";
+                $this->comments[] = $msg;
+            }
+
             if($brandObject){
                 $brandId = $brandObject->getId();
             }else{
