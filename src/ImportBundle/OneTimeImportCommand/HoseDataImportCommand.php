@@ -42,6 +42,7 @@ class HoseDataImportCommand extends AbstractCommand
     private $skeleLevel;
     private $baseLevelRecords;
     private $skeleLevelRecords;
+    private $brands;
     protected function configure()
     {
         $this->setName('conti:onetimeimport:hose')
@@ -72,7 +73,7 @@ class HoseDataImportCommand extends AbstractCommand
             p_r('------------------------------------------------');
             $this->loadMaster();
             $this->createTempTable();
-            // $this->import($filePath);
+            $this->import($filePath);
             $this->updateFert();
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
@@ -189,9 +190,12 @@ class HoseDataImportCommand extends AbstractCommand
         $d = array();
         $i = 0;
         foreach ($results as $k => $r) {
-            $reinforcement = "";
+            $reinforcement = array();
             $weightLbFt = NULL;
             $weightGM = NULL;
+            $brnds = array();
+            $error = array();
+
             if (!empty($r['Weight_lb_ft']) && !empty($r['Weight_G_M'])) {
                 $weightLbFt = $r['Weight_lb_ft'];
                 $weightGM = $r['Weight_G_M'];
@@ -206,7 +210,38 @@ class HoseDataImportCommand extends AbstractCommand
             }
 
             if (!empty($r['Reinforcement'])) {
-                $reinforcement = $this->getMultiselectInfo('reinforcement', $r['Reinforcement']);
+                $clrArr = array();
+                $clrArr = $r['Reinforcement']; //explode("/", strtolower($r['Tube_Characteristic']));
+                $clrInfo = $this->getMultiselectInfo('reinforcement', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Tube Characteristic(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $reinforcement = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+
+            
+
+            if (!empty($r['Brand_Name'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['Brand_Name']));
+                $clrInfo = $this->getBrands($clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $brnds = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+
+
+            if (!empty($error)) {
+                $results[$k]['statusCode'] = "Failed - Base Data Level";
+                $results[$k]['failedReason']    =   implode(', ', $error);
+            } else {
+                $results[$k]['statusCode'] = "Success - Base Data Level";
+                $results[$k]['failedReason'] = "";
             }
 
             $d[$i] = array(
@@ -216,15 +251,15 @@ class HoseDataImportCommand extends AbstractCommand
                 'minimumTemperatureF'  =>  !empty($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
                 'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
                 'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
-                'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL
+                'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
+                'brandName'    =>  !empty($brnds) ? implode(',', $brnds) : NULL,
             );
-            $d[$i]['reinforcement'] = NULL;
-            if (!empty($reinforcement) && $reinforcement['itemNotFound'] == false) {
-                $d[$i]['reinforcement'] = implode(",", $reinforcement['items']);
-            }
+            $d[$i]['reinforcement'] = !empty($reinforcement) ? implode(", ", $reinforcement) : NUll;
             
             $i++;
         }
+
+        $this->insertDataToLogTable($results);
         return $d;
     }
 
@@ -235,10 +270,7 @@ class HoseDataImportCommand extends AbstractCommand
     {
         $d = array();
         $i = 0;
-        $clrArr = array(
-            'SYNTHETIC RUBBER' => 'SYNTHETIC RUBBER',
-            'Chemical Resistant' => 'Chemical Resistant'
-        );
+        
         
         
         foreach ($results as $k => $r) {
@@ -249,20 +281,9 @@ class HoseDataImportCommand extends AbstractCommand
             $agComp = array();
             $tbMatrls = array();
             $tbChrct = array();
-            $brands = array();
             $error = array();
 
-            if (!empty($r['Brand_Name'])) {
-                $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Brand_Name']));
-                $clrInfo = $this->getBrands($clrArr);
-                if (!empty($clrInfo['itemNotFound'])) {
-                    $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
-                } else {
-                    $brands = $clrInfo['items'];
-                }
-                unset($clrInfo);
-            }
+            
 
             if (!empty($r['Tube_Material'])) {
                 $clrArr = array();
@@ -539,6 +560,9 @@ class HoseDataImportCommand extends AbstractCommand
                 if (!isset($d[$baseLevelCode]['Number_of_Plies'])) {
                     $d[$baseLevelCode]['Number_of_Plies'] = '';
                 }
+                if (!isset($d[$baseLevelCode]['Brand_Name'])) {
+                    $d[$baseLevelCode]['Brand_Name'] = '';
+                }
 
                 if (empty($d[$baseLevelCode]['Weight_lb_ft'])) {
                     $d[$baseLevelCode]['Weight_lb_ft'] = $result['Weight_lb_ft'];
@@ -618,6 +642,9 @@ class HoseDataImportCommand extends AbstractCommand
                         $d[$baseLevelCode]['Cover_color'][$cc] = $cc;
                     }
                     unset($arr);
+                }
+                if(empty($d[$baseLevelCode]['Brand_Name'])) {
+                    $d[$baseLevelCode]['Brand_Name'] = $result['Brand_Name'];
                 }
             }
             $this->baseLevelRecords[$baseLevelCode] = $d[$baseLevelCode];
