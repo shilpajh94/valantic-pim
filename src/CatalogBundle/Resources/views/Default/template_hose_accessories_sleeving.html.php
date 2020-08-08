@@ -31,8 +31,28 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
     </span>
     <div class="flex aligned">
                     <h5>
-    Hose Accessories
-                    <span>Protective Sleeving / Protective Wrap</span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAS_Footer_Title1")->isEmpty()): ?>
+                                <?= $this->input("HHAS_Footer_Title1")->setDataFromResource('Hose Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAS_Footer_Title1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAS_Footer_Title1") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAS_Footer_SubTitle1")->isEmpty()): ?>
+                                <?= $this->input("HHAS_Footer_SubTitle1")->setDataFromResource('Protective Sleeving / Protective Wrap') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAS_Footer_SubTitle1"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAS_Footer_SubTitle1") ?>
+                        <?php endif; ?>
+                    
+                    </span>
                 </h5>
 
             
@@ -47,12 +67,30 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
     <footer class="flex-center <?php echo $footer_class; ?>">
  
     <div class="flex aligned">
-                    <h5>
-    Hose Accessories
-                    <span>Protective Sleeving / Protective Wrap</span>
+    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAS_Footer_Title2")->isEmpty()): ?>
+                                <?= $this->input("HHAS_Footer_Title2")->setDataFromResource('Hose Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAS_Footer_Title2"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAS_Footer_Title2") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAS_Footer_SubTitle2")->isEmpty()): ?>
+                                <?= $this->input("HHAS_Footer_SubTitle2")->setDataFromResource('Protective Sleeving / Protective Wrap') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAS_Footer_SubTitle2"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAS_Footer_SubTitle2") ?>
+                        <?php endif; ?>
+                    
+                    </span>
                 </h5>
-
-            
     </div>
    <span class="logo">
             <b>Hose</b>

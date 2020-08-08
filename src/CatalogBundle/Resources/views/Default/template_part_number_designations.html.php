@@ -1,11 +1,12 @@
 <?php
 if (!isset($this->parentContainer)) {
-    $this->extend('CatalogBundle:Layouts:layout.html.php', ['name1' => 'Name from Extend']);
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
 }
 ?>
 
 <?php if ($this->editmode): ?>
-    <?=$this->relations("page_number_designations", [
+    <?=
+    $this->relations("page_number_designations", [
         "types" => ["object"],
         "subtypes" => [
             "object" => ["object"]
@@ -21,12 +22,30 @@ if (!isset($this->parentContainer)) {
         <footer class="flex-center ">
             <span class="logo">
                 <b>Hose</b>
-                <img src="/CatalogImages/logo_new.png">
+                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
             </span>
             <div class="flex aligned ">
-                <h5 class="">
-                    General Information
-                    <span>Part Number Designations</span>
+                <h5>
+                    <?php if ($this->editmode): ?>
+                        <?php if ($this->input("PBD_Title1")->isEmpty()): ?>
+                            <?= $this->input("PBD_Title1")->setDataFromResource('General Information') ?>
+                        <?php else: ?>
+                            <?= $this->input("PBD_Title1"); ?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?= $this->input("PBD_Title1") ?>
+                    <?php endif; ?>
+                    <span>
+                        <?php if ($this->editmode): ?>
+                            <?php if ($this->input("PBD_SubTitle1")->isEmpty()): ?>
+                                <?= $this->input("PBD_SubTitle1")->setDataFromResource('Part Number Designations') ?>
+                            <?php else: ?>
+                                <?= $this->input("PBD_SubTitle1"); ?>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?= $this->input("PBD_SubTitle1") ?>
+                        <?php endif; ?>
+                    </span>
                 </h5>
             </div>
         </footer>
@@ -35,21 +54,47 @@ if (!isset($this->parentContainer)) {
         <footer class="flex-center ">
             <div class="flex aligned ">
                 <h5>
-                    General Information
-                    <span>Part Number Designations</span>
+                    <?php if ($this->editmode): ?>
+                        <?php if ($this->input("PBD_Title2")->isEmpty()): ?>
+                            <?= $this->input("PBD_Title2")->setDataFromResource('General Information') ?>
+                        <?php else: ?>
+                            <?= $this->input("PBD_Title2"); ?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?= $this->input("PBD_Title2") ?>
+                    <?php endif; ?>
+                    <span>
+                        <?php if ($this->editmode): ?>
+                            <?php if ($this->input("PBD_SubTitle2")->isEmpty()): ?>
+                                <?= $this->input("PBD_SubTitle2")->setDataFromResource('Part Number Designations') ?>
+                            <?php else: ?>
+                                <?= $this->input("PBD_SubTitle2"); ?>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?= $this->input("PBD_SubTitle2") ?>
+                        <?php endif; ?>
+                    </span>
                 </h5>
             </div>
             <span class="logo">
                 <b>Hose</b>
-                <img src="/CatalogImages/logo_new.png">
+                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
             </span>
         </footer>
     </div>
-
     <div class="wrapper partDesignation">
         <article class="fullcontainer">
             <header class="content partNumber">
-                <h3><?= $this->input("PBD_Heading")->setDataFromResource('Part Number Designations') ?></h3>
+                <?php if ($this->editmode): ?>
+                    <?php if ($this->input("PBD_Heading")->isEmpty()): ?>
+                        <h3><?= $this->input("PBD_Heading")->setDataFromResource('Part Number Designations') ?></h3>
+                    <?php else: ?>
+                        <h3><?= $this->input("PBD_Heading"); ?></h3>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <h3><?= $this->input("PBD_Heading") ?></h3>
+                <?php endif; ?>
+
             </header>
             <?php if ($data): ?>
                 <section class="">
@@ -62,17 +107,13 @@ if (!isset($this->parentContainer)) {
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php
                             $incr = 1;
                             foreach ($data as $key => $brandData) {
                                 ?>
-
                                 <tr class="row full">
                                     <td colspan="3"><?= $key; ?></td>
                                 </tr>
-
-
                                 <?php
                                 $rowcount = 0;
                                 foreach ($brandData as $bkey => $brand) {
@@ -93,8 +134,6 @@ if (!isset($this->parentContainer)) {
                                 $incr++;
                             }
                             ?>
-
-
                         </tbody>
                     </table>
                 </section>

@@ -1,6 +1,6 @@
 <?php
 if (!isset($this->parentContainer)) {
-$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+$this->extend('CatalogBundle:Layouts:layout.html.php');
 }
 ?>
 <div class="template">
@@ -9,7 +9,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 <div class="tableHeader" >
     <header class="content partNumber tableContent">
-        <h2>Table of Contents</h2>
+    <?php if($this->editmode): ?>
+        <?php if($this->input("TOC_Heading")->isEmpty()): ?>
+            <h2><?= $this->input("TOC_Heading")->setDataFromResource('Table of Contents'); ?></h2>
+        <?php else: ?>
+            <h2><?= $this->input("TOC_Heading"); ?></h2>
+        <?php endif; ?>
+    <?php else: ?>
+        <h2><?= $this->input("TOC_Heading") ?></h2>
+    <?php endif; ?>
     </header>
 </div>
     

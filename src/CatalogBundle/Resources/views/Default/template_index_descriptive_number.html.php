@@ -9,7 +9,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     <span  class="pageName">Index</span>
 
     <div class="numberTitle">
-        <h2>Alphanumeric Index by Descriptive Number</h2>
+        <?php if($this->editmode): ?>
+            <?php if($this->input("HHIDN_Heading")->isEmpty()): ?>
+                <h2><?= $this->input("HHIDN_Heading")->setDataFromResource('Alphanumeric Index by Descriptive Number'); ?></h2>
+            <?php else: ?>
+                <h2><?= $this->input("HHIDN_Heading"); ?></h2>
+            <?php endif; ?>
+        <?php else: ?>
+            <h2><?= $this->input("HHIDN_Heading") ?></h2>
+        <?php endif; ?>
     </div>
 
     <?php if($this->editmode): ?>
@@ -27,7 +35,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <table cellpadding="0" cellspacing="0" class="grid">
                         <thead>
                             <tr>
-                            <td><strong>PRDOUCT #</strong></td>
+                            <td><strong>Descriptive #</strong></td>
                             <td align="right"><strong>PAGE #</strong></td>
                             </tr>
                         </thead>
@@ -40,8 +48,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     <?php $block->blockStart(); ?> 
                                      <td colspan="2">
                                        <p class="paging">
-                                        <span class="pageTitle"><?= $this->input("td1")->setDataFromResource("Text - {$rowCount}"); ?></span>
-                                        <span class="pageNo"><?= $this->input("td2")->setDataFromResource("{$rowCount}"); ?></span>
+                                       <span class="pageTitle"><?= $this->input("td1",['placeholder'=>"Descriptive Number- {$rowCount}"]); ?></span>
+                                        <span class="pageNo"><?= $this->input("td2",['placeholder'=>"Page - {$rowCount}"]); ?></span>
                                        </p>
                                      </td>
 

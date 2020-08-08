@@ -15,8 +15,77 @@ if (isset($info['data'])) {
                 $brandenc = md5($brand.$pg);
                 //p_r($rows);die;
     ?>
-                <article class="fullcontainer">
-                    <div class="flex noWrap">
+
+<div class="template">
+<div class="segregate">
+
+   <div id="pageHeader"></div>
+    <span  class="pageName">Index</span>
+
+
+
+ <div class="footer">
+                <footer class="flex-center ">
+                        <span class="logo">
+                           <?php
+                            if ($info['logo'] != null) {
+                                echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 120, "height" => 53])->setImage($info['logo']);
+                            } else {
+                                echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 120, "height" => 53]);
+                            }
+
+                            ?>
+                        </span>
+                        <div class="flex aligned">
+                                <h5>
+                                     <?= $this->input("INH_PP_FOOTER_BRAND_" . $brandenc)->setDataFromResource($brand); ?>
+                                <span><?= $this->input("INH_PP_FOOTER_HP_" . $brandenc)->setDataFromResource("High Pressure"); ?></span>
+                                </h5>
+
+  <div class="compatible">
+                                <b><?= $this->input("INH_PP_FOOTER_FITTING_TYPE_" . $brandenc)->setDataFromResource("Compatible fittings"); ?></b>
+                                <?php echo $this->input("INH_PP_FOOTER_FITTING_TYPE_DESC_" . $brandenc)->setDataFromResource("Meets or exceeds the performance requirements of"); ?>
+                            </div>
+                                     
+                        </div>
+                </footer>
+        </div>
+
+        <div class="footer1">
+                <footer class="flex-center ">   
+                        <div class="flex aligned">
+
+  <div class="compatible">
+                                    <b>
+                                      <?= $this->input("INH_PP_FOOTER_FITTING_TYPE1_" . $brandenc)->setDataFromResource("Compatible fittings"); ?>
+                                    </b>
+
+                                    <?php echo $this->input("INH_PP_FOOTER_FITTING_TYPE_DESC1_" . $brandenc)->setDataFromResource("Meets or exceeds the performance requirements of"); ?>                               </div>
+
+
+                               <h5>
+                                   <?= $this->input("INH_PP_FOOTER_BRAND1_" . $brandenc)->setDataFromResource($brand); ?>
+                                <span><?= $this->input("INH_PP_FOOTER_HP1_" . $brandenc)->setDataFromResource("High Pressure"); ?></span>
+                                </h5>
+                                
+                        </div>
+                        <span class="logo">
+                            <?php
+                            if ($info['logo'] != null) {
+                                echo $this->image("FOOTER_LOGO1_" . $brandenc, ["width" => 120, "height" => 53])->setImage($info['logo']);
+                            } else {
+                                echo $this->image("FOOTER_LOGO1_" . $brandenc, ["width" => 120, "height" => 53]);
+                            }
+
+                            ?>
+                        </span>
+                </footer>
+        </div>
+
+
+
+                <article class="fullcontainer single">
+                    <div class="flex">
                         <div class="sidebar">
                             <ul>
                                 <?php
@@ -47,7 +116,7 @@ if (isset($info['data'])) {
                                 ?>
                             </ul>
                         </div>
-                        <div class="grow-2 width80">
+                        <div class="grow-2">
                             <header class=" white">
                                 <h1><?php echo $brand; ?> </h1>
                                 <aside>
@@ -195,7 +264,7 @@ if (isset($info['data'])) {
                                         </figure>
                                     </menu>
 
-                                <div class="grid">
+                                
                                     <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
                                         <?php
                                         echo "<thead> <tr class='sub-head'>";
@@ -247,36 +316,14 @@ if (isset($info['data'])) {
                                         }
                                         ?>
                                     </table>
-                                </div>
+                                
                             </section>
 
                         </div>
                     </div>
-                    <footer class="flex">
-                        <span class="logo">
-                            <?php
-                            if ($info['logo'] != null) {
-                                echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 172, "height" => 53])->setImage($info['logo']);
-                            } else {
-                                echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 172, "height" => 53]);
-                            }
-
-                            ?>
-                        </span>
-                        <div class="flex aligned">
-                            <h3>
-                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $brandenc)->setDataFromResource($brand); ?>
-                                <span><?= $this->input("INH_PP_FOOTER_HP_" . $brandenc)->setDataFromResource("High Pressure"); ?></span>
-                            </h3>
-
-                            <p>
-                                <b><?= $this->input("INH_PP_FOOTER_FITTING_TYPE_" . $brandenc)->setDataFromResource("Compatible fittings"); ?></b>
-                                <?php echo $this->input("INH_PP_FOOTER_FITTING_TYPE_DESC_" . $brandenc)->setDataFromResource("Meets or exceeds the performance requirements of"); ?>
-                            </p>
-                        </div>
-                    </footer>
                 </article>
-
+ </div>
+</div>
     <?php }
         $pg++;
         }

@@ -33,20 +33,63 @@ if ($data):
                         <?php endif; ?>
                     </span>
                     <div class="flex aligned">
-                        <h5>
-                            Fitting Accessories
-                            <span>O-Rings</span>                               
-                        </h5>
+
+                    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAO_Footer_Title1")->isEmpty()): ?>
+                                <?= $this->input("HHAO_Footer_Title1")->setDataFromResource('Fitting Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAO_Footer_Title1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAO_Footer_Title1") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAO_Footer_SubTitle1")->isEmpty()): ?>
+                                <?= $this->input("HHAO_Footer_SubTitle1")->setDataFromResource('O-Rings') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAO_Footer_SubTitle1"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAO_Footer_SubTitle1") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
+                        
+                        
                     </div>
                 </footer>
             </div>
             <div class="footer1">
                 <footer class="flex-center <?php echo $footer_class; ?>">                   
                     <div class="flex aligned">
-                        <h5>
-                            Fitting Accessories
-                            <span>O-Rings</span>
-                        </h5>
+                    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAO_Footer_Title2")->isEmpty()): ?>
+                                <?= $this->input("HHAO_Footer_Title2")->setDataFromResource('Fitting Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAO_Footer_Title2"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAO_Footer_Title2") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAO_Footer_SubTitle2")->isEmpty()): ?>
+                                <?= $this->input("HHAO_Footer_SubTitle2")->setDataFromResource('O-Rings') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAO_Footer_SubTitle2"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAO_Footer_SubTitle2") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
                     </div>
                     <span class="logo">
                         <b>Fittings</b>

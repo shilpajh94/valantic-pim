@@ -1,6 +1,6 @@
 <?php
 if (!isset($this->parentContainer)) {
-$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+$this->extend('CatalogBundle:Layouts:layout.html.php');
 }
 ?>
 <?php if($this->editmode): ?>
@@ -30,12 +30,31 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
                 <?php endif; ?>
                         </span>
                         <div class="flex aligned">
-                                <h5>
-                                  Split Flanges 
-                <span>Code 61 / Code 62 Clamp Kits</span>
-                                </h5>
-
-
+                        <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAFC_Footer_Title1")->isEmpty()): ?>
+                                <?= $this->input("HHAFC_Footer_Title1")->setDataFromResource('Split Flanges') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAFC_Footer_Title1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAFC_Footer_Title1") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAFC_Footer_SubTitle1")->isEmpty()): ?>
+                                <?= $this->input("HHAFC_Footer_SubTitle1")->setDataFromResource('Code 61 / Code 62 Clamp Kits') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAFC_Footer_SubTitle1"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAFC_Footer_SubTitle1") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
+                
                                
                         </div>
                 </footer>
@@ -44,11 +63,32 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         <footer class="flex-center <?php echo $footer_class; ?>">
                         
                         <div class="flex aligned">
-                                <h5>
-                                
-                                  Split Flanges 
-                <span>Code 61 / Code 62 Clamp Kits</span>
-                                </h5>
+                        <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAFC_Footer_Title2")->isEmpty()): ?>
+                                <?= $this->input("HHAFC_Footer_Title2")->setDataFromResource('Split Flanges') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAFC_Footer_Title2"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAFC_Footer_Title2") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAFC_Footer_SubTitle2")->isEmpty()): ?>
+                                <?= $this->input("HHAFC_Footer_SubTitle2")->setDataFromResource('Code 61 / Code 62 Clamp Kits') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAFC_Footer_SubTitle2"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAFC_Footer_SubTitle2") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
+                               
+                               
                         </div>
                         <span class="logo">
                                 <b>Fittings</b>

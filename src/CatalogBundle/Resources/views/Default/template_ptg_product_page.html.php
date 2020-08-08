@@ -32,7 +32,7 @@ extract($groupData);
 //         $imageObj = $LeftPrintCatalogImageObj;
 
 ?>
-
+ <div class="template">
 <section class="segregate">
 
 <div id="pageHeader"></div>
@@ -209,14 +209,14 @@ extract($groupData);
         <article class="fullcontainer">
 
                 <section class="content single ptg">
-                        <?php if($safetyFeatures || !empty(trim($material)) || !empty(trim($reinforcement)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
-                                
-                        <menu class="flex">
-                                <?php if(!empty(trim($material)) || !empty(trim($reinforcement)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
-                                <div class="specs">
-                                                <h6><?= $this->translate('performance + specs') ?></h6>
-                                                <div class="spec-requirement">
-                                                        <?php if(!empty(trim($BrandShortText1))): ?>
+                    <?php if($safetyFeatures || !empty(trim($material)) || !empty(trim($reinforcement)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                                <menu class="flex">
+                                     <?php if(!empty(trim($material)) || !empty(trim($reinforcement)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                                        <div class="specs">
+                                            <h6><?= $this->translate('performance + specs') ?></h6>
+                                            <div class="spec-requirement">
+                                                <div>
+                                                                                                           <?php if(!empty(trim($BrandShortText1))): ?>
                                                         <p>
                                                                 <?= $BrandShortText1 ?>
                                                         </p>
@@ -251,10 +251,12 @@ extract($groupData);
                                                                 <b><?= $this->translate('Material') ?></b>
                                                                 <?= $material ?>
                                                         </p>
-                                                        <?php endif; ?>
-
-                                                        <div class="spec-requirement">
-                                                        <?php if(!empty(trim($reinforcement))): ?>
+                                                        <?php endif; ?> 
+                                                </div>
+                                            </div>
+                                            <div class="spec-requirement">
+                                                <div>
+                                                    <?php if(!empty(trim($reinforcement))): ?>
                                                         <p>                
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
                                                                 <?= $reinforcement ?>
@@ -267,30 +269,30 @@ extract($groupData);
                                                                 <?=$tempFmin ?>&#8457; to  <?=$tempFmax ?>&#8457; (<?=$tempCmin ?>&#8451; to  <?=$tempCmax ?>&#8451;)
                                                         </p>
                                                         <?php endif; ?>
-                                                        </div>
-                                                
-                                </div> 
-                                <?php endif; ?>
-
-                                <?php if($safetyFeatures): ?>
-                                <div class="feature">
-                                                <h6><?= $this->translate('features') ?></h6>
-                                                <div>
-                                                        <?php foreach($safetyFeatures as $key => $feature): ?>
-                                                                <p  class="flex">
-                                                                        <?php if($feature['iconSrc']): ?>
-                                                                        <img src="<?= $feature['iconSrc'] ?>" />
-                                                                        <?php endif; ?>
-                                                                        <font> <?= $feature['name'] ?></font>
-                                                                </p>
-                                                        <?php endforeach; ?>
-
                                                 </div>
-                                </div>
-                                <?php endif; ?>
 
-                        </menu>
-                        <?php endif; ?>
+                                            </div>
+                                        </div> 
+                                    <?php endif; ?>
+
+                                    <?php if ($safetyFeatures): ?>
+                                        <div class="feature">
+                                            <h6><?= $this->translate('features') ?></h6>
+                                            <div>
+                                                <?php foreach($safetyFeatures as $key => $feature): ?>
+                                                        <p  class="flex">
+                                                                <?php if($feature['iconSrc']): ?>
+                                                                <img src="<?= $feature['iconSrc'] ?>" />
+                                                                <?php endif; ?>
+                                                                <font> <?= $feature['name'] ?></font>
+                                                        </p>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+
+                                </menu>
+                            <?php endif; ?>
 
                         <?php foreach($groupData as $key => $columnsData): 
                             extract($columnsData);    
@@ -350,5 +352,5 @@ extract($groupData);
        
 
 </section>
-
+</div>
         <?php endif; ?>

@@ -33,10 +33,32 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 
     <div class="flex aligned">
-                    <h5>
-    Hose Accessories
-                    <span>Routing Clamps</span>
-                    </h5>
+    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_Title1")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_Title1")->setDataFromResource('Hose Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title1") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_SubTitle1")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_SubTitle1")->setDataFromResource('Routing Clamps') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_SubTitle1"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAC_Footer_SubTitle1") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
+                    
+                    
 
             
     </div>
@@ -50,10 +72,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 
     <div class="flex aligned">
-                    <h5>
-    Hose Accessories
-                    <span>Routing Clamps</span>
-                    </h5>
+
+    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_Title2")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_Title2")->setDataFromResource('Hose Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title2"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title2") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_SubTitle2")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_SubTitle2")->setDataFromResource('Routing Clamps') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_SubTitle2"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAC_Footer_SubTitle2") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
+                    
+                    
 
             
     </div>
@@ -109,7 +154,7 @@ extract($brand);
 
                 <span>
                 <?php
-                        echo $this->wysiwyg("HHAS_LongDescription")->setDataFromResource($longDescription);
+                        echo $this->wysiwyg("HHAC_LongDescription")->setDataFromResource($longDescription);
                 ?>
                 </span>
                 <?php if(!empty(trim($materialString))): ?>
