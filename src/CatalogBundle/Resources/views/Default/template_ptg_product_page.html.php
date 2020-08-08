@@ -50,7 +50,6 @@ extract($groupData);
     <div class="footer">
         <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
-                               <b>Hose</b>
                                 <?php if($footer_class == 'reverseColor'): ?>
                                         <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                                 <?php else: ?>
@@ -156,7 +155,6 @@ extract($groupData);
                                 </h5>
                         </div>
                         <span class="logo">
-                                 <b>Hose</b>
                                 <?php if($footer_class == 'reverseColor'): ?>
                                         <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                                 <?php else: ?>
@@ -190,16 +188,9 @@ extract($groupData);
  <span class="imageHolder">
                         <?php
                         if($this->editmode){
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg","width" => 400, "height" => 200])->setImage($LeftPrintCatalogImageObj); 
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($mainImageObj); 
                         }else{
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg", "width" => 400, "height" => 200]);
-                        }                
-                        ?>
-                        <?php
-                        if($this->editmode){
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 400, "height" => 200])->setImage($RightPrintCatalogImageObj); 
-                        }else{
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 400, "height" => 200]);
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
                         }                
                         ?>
 

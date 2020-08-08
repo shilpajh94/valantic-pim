@@ -146,18 +146,24 @@ parameters:
                 parent:
                     name: Product
         PTG Product Page:
-            LeftPrintCatalogImage:
+            mainImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Left Image
+                fieldLabel: Hose Rendering
                 parent: 
                     name: Product
-            RightPrintCatalogImage:
-                fieldLevel: class
-                fieldType: Media
-                fieldLabel: Right Image
-                parent: 
-                    name: Product
+            # LeftPrintCatalogImage:
+            #     fieldLevel: class
+            #     fieldType: Media
+            #     fieldLabel: Left Image
+            #     parent: 
+            #         name: Product
+            # RightPrintCatalogImage:
+            #     fieldLevel: class
+            #     fieldType: Media
+            #     fieldLabel: Right Image
+            #     parent: 
+            #         name: Product
             ProfileDimensionImage:
                 fieldLevel: class
                 fieldType: Media
