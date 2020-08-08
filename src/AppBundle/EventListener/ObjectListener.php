@@ -149,7 +149,7 @@ class ObjectListener
             /**
              * update product hierarchy for nomenclature (fitting family desc and thread desc)
              */
-            $this->appService->updateProductHierarchyForNomenclature($object);
+//            $this->appService->updateProductHierarchyForNomenclature($object);
 
         }
     }
