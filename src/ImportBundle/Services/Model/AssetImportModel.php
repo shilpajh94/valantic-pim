@@ -113,7 +113,7 @@ class AssetImportModel {
                     $this->consoleLog("STARTING '" . $child->getFilename() . "' file import.-----------------");
                     $this->processCsvData($dataArray, $child->getFilename());
                 }
-//                $this->archiveCsvFile($child);
+                $this->archiveCsvFile($child);
             }
             if (strtolower($this->datasource) == 'local') {
                 $this->processRemainingAssets($this->assetPath);
@@ -316,8 +316,38 @@ class AssetImportModel {
     }
     private function archiveCsvFile($csvFileObject) {
         $archiveFolderId = $this->getFolderByPath($this->csvArchivePath);
+        $parentFolder = \Pimcore\Model\Asset\Folder::getById($archiveFolderId);
+        $safeFileName = $this->getSafeFilename($parentFolder->getRealFullPath(),$csvFileObject->getFilename());
+        $csvFileObject->setFilename($safeFileName);
         $csvFileObject->setParentId($archiveFolderId);
         $csvFileObject->save();
+    }
+
+    /**
+     * @param string $targetPath
+     * @param string $filename
+     *
+     * @return string
+     */
+    private function getSafeFilename($targetPath, $filename)
+    {
+        $pathinfo = pathinfo($filename);
+        $originalFilename = $pathinfo['filename'];
+        $originalFileextension = empty($pathinfo['extension']) ? '' : '.' . $pathinfo['extension'];
+        $count = 1;
+
+        if ($targetPath == '/') {
+            $targetPath = '';
+        }
+
+        while (true) {
+            if (Asset\Service::pathExists($targetPath . '/' . $filename)) {
+                $filename = $originalFilename . '_' . $count . $originalFileextension;
+                $count++;
+            } else {
+                return $filename;
+            }
+        }
     }
 
     public function getFolderByPath($folderPath) {
