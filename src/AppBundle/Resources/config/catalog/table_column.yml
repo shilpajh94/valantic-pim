@@ -175,15 +175,12 @@ parameters:
                 fieldLevel: class
                 fieldLabel: Brand Short Text 1
                 fieldType: Input
-            fittingFamily:
-                fieldLevel: class
-                fieldType: Relation
+            FittingFamily:
+                fieldLevel: objectBrick
+                fieldType: Input
                 fieldLabel: Fitting Family
                 parent: 
-                    name: Product
-                    class: 
-                        name : FittingFamily
-                        fieldName: Name
+                    name: HydFittingsFert
             ElbowType:
                 fieldLevel: objectBrick
                 fieldLabel: Elbow Type

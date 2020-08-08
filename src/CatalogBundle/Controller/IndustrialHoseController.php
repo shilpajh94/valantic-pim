@@ -263,7 +263,7 @@ class IndustrialHoseController extends FrontendController
                     }
 
                     $fittingTableName = $row['FittingTableName'];
-                    $productPageColumns = $inhSectionPageConfig[$fittingTableName];
+                    $productPageColumns = is_array($inhSectionPageConfig) && isset($inhSectionPageConfig[$fittingTableName]) ? $inhSectionPageConfig[$fittingTableName] : null;                    
                     $orderCode = "";
 
                     if(isset($row['oldMaterialCode']) && !empty($row['oldMaterialCode']) && $row['oldMaterialCode']!=='N/A') {
@@ -343,11 +343,14 @@ class IndustrialHoseController extends FrontendController
                         // Product list brand wise
                         $r = array();
                         $b = array();
-                        foreach($productPageColumns['columns'] as $col) {
-                            if(array_key_exists($col, $row)) {
-                                $r[$col] = $row[$col];
-                            }                            
+                        if(isset($productPageColumns['columns'])) {
+                            foreach($productPageColumns['columns'] as $col) {
+                                if(array_key_exists($col, $row)) {
+                                    $r[$col] = $row[$col];
+                                }                            
+                            }
                         }
+                        
 
 
                         if(!empty($orderCode)) {

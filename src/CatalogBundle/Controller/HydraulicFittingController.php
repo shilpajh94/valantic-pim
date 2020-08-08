@@ -74,9 +74,11 @@ class HydraulicFittingController extends FrontendController
                             $data[$uniqueId][$row['FittingTableName']]['rightImage'] = !isset($data[$uniqueId][$row['FittingTableName']]['rightImage']) && !empty($data[$uniqueId][$row['FittingTableName']]['rightImage']) ? $data[$uniqueId][$row['FittingTableName']]['rightImage'] : $rightImage;
 
                             if (isset($row['HoseID1InDec'])) {
-                                $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($row['HoseID1InDec'])][] = $row;
-                                ksort($data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'],SORT_NUMERIC);
+                                $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($row['HoseID1InDec'])][] = $row;                                
+                            } else {
+                                $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][0][] = $row;
                             }
+                            ksort($data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'],SORT_NUMERIC);
                         }
                     }
                 }
