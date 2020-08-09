@@ -63,7 +63,8 @@ class PtgImportCommand extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->masterTypes = [
-            'reinforcement' => 'ProductClass~reinforcement'
+            'reinforcement' => 'ProductClass~reinforcement',
+            'material'  =>  'PTG~material'
         ];
 
         $filePath = $input->getArgument('filePath');
@@ -126,7 +127,7 @@ class PtgImportCommand extends AbstractCommand
      */
     private function updateBase()
     {
-        $sql = "SELECT siopLvl5_object_id o_id, 'Base' as fieldname, Material material, Min_Temperature_F minimumTemperatureF, Min_Temperature_C minimumTemperatureC, Reinforcement reinforcement, Max_Temperature_F maximumTemperatureF, Max_Temperature_C maximumTemperatureC, LongDescriptionHTML, CharacteristicDescription, Bullet_Point_1, Bullet_Point_2, Bullet_Point_3, Bullet_Point_4, Bullet_Point_5 FROM siopLvl5_objects";
+        $sql = "SELECT siopLvl5_object_id o_id, 'Base' as fieldname, Material material, Min_Temperature_F minimumTemperatureF, Min_Temperature_C minimumTemperatureC, Reinforcement reinforcement, Max_Temperature_F maximumTemperatureF, Max_Temperature_C maximumTemperatureC, LongDescriptionHTML, CharacteristicDescription, Bullet_Point_1, Bullet_Point_2, Bullet_Point_3, Bullet_Point_4, Bullet_Point_5, Brand FROM siopLvl5_objects";
         $results = $this->db->fetchAll($sql);
         // Update Query Table
 
@@ -137,7 +138,6 @@ class PtgImportCommand extends AbstractCommand
         // Update Store Table
         $this->updateTable($records, self::PRODUCT_STORE);
         unset($records);
-
         // Update Bullet Points
         $records = $this->getBaseLocalizedData($results);
         p_r('Updating Product Localized Data');
@@ -207,7 +207,7 @@ class PtgImportCommand extends AbstractCommand
 
         p_r('Processing ' . count($results) . ' records at fert level');
         $records = $this->getFertData($results);
-        // p_r($records['ptgFertQuery']);die;
+        
 
 
 
@@ -475,9 +475,31 @@ class PtgImportCommand extends AbstractCommand
     {
         $d = array();
         foreach ($results as $k => $r) {
-            $reinforcement = "";
-            if (!$this->isSheetValueEmpty($r['reinforcement'])) {
-                $reinforcement = $this->getMultiselectInfo('reinforcement', explode("/", strtolower($r['reinforcement'])));
+            $reinforcement = array();
+            $brnds = array();
+
+            if (!empty($r['Brand'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['Brand']));
+                $clrInfo = $this->getBrands($clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $brnds = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+
+            if (!empty($r['reinforcement'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['reinforcement']));
+                $clrInfo = $this->getMultiselectInfo('reinforcement', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Reinforcement(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $reinforcement = $clrInfo['items'];
+                }
+                unset($clrInfo);
             }
 
             $d[$k] = array(
@@ -485,12 +507,10 @@ class PtgImportCommand extends AbstractCommand
                 'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF']) ? $r['minimumTemperatureF'] : NULL,
                 'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC']) ? $r['minimumTemperatureC'] : NULL,
                 'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF']) ? $r['maximumTemperatureF'] : NULL,
-                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC']) ? $r['maximumTemperatureC'] : NULL
+                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC']) ? $r['maximumTemperatureC'] : NULL,
+                'brandName'    =>  !empty($brnds) ? implode(',', $brnds) : NULL
             );
-            $d[$k]['reinforcement'] = NULL;
-            if (!empty($reinforcement) && $reinforcement['itemNotFound'] == false) {
-                $d[$k]['reinforcement'] = implode(",", $reinforcement['items']);
-            }
+            $d[$k]['reinforcement'] = !empty($reinforcement) ? implode(",", $reinforcement) : NULL;
         }
         return $d;
     }
@@ -499,11 +519,23 @@ class PtgImportCommand extends AbstractCommand
     {
         $d = array();
         foreach ($results as $r) {
+            $matrls = array();
+            if (!$this->isSheetValueEmpty($r['material'])) {
+                $clrArr = array();
+                $clrArr = explode("/", strtolower($r['material']));
+                $clrInfo = $this->getMultiselectInfo('material', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Materials(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $matrls = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  $r['fieldname'],
-                'material'  =>  !$this->isSheetValueEmpty($r['material']) ? $r['material'] : NULL
-                // 'reinforcement'  =>  !$this->isSheetValueEmpty($r['reinforcement']) ? $r['reinforcement'] : NULL
+                'material'  =>  !empty($matrls) ? implode(",",$matrls) : NULL
             );
         }
         return $d;
@@ -628,7 +660,6 @@ class PtgImportCommand extends AbstractCommand
 
     private function getFeatureIds($features)
     {
-        $results = $this->loadFeatures();
         $featureIds = array();
         if (is_array($this->featureList) && !empty($features)) {
             foreach ($this->featureList as $result) {
@@ -713,7 +744,7 @@ class PtgImportCommand extends AbstractCommand
 
         unset($results);
         /* Loading Brands */
-        $sql = "SELECT o_id, `name` FROM object_3 WHERE o_published=1";
+        $sql = "SELECT o_id, `name` FROM object_3";
         $results = $this->db->query($sql);
         foreach ($results as $result) {
             $type = array_search($result['masterType'], $this->masterTypes);
@@ -737,6 +768,31 @@ class PtgImportCommand extends AbstractCommand
         $itemNotFound = array();
         $hayStackArr = isset($this->masters[$masterKey]) && is_array($this->masters[$masterKey]) ? $this->masters[$masterKey] : array();
 
+        foreach ($items as $val) {
+            $item = array_search(trim($val), $hayStackArr) ?: false;
+            if ($item === false) {
+                $itemNotFound[] = ucfirst($val);
+            } else {
+                array_push($res, $item);
+            }
+        }
+        unset($hayStackArr, $items);
+        return array(
+            'items' =>  $res,
+            'itemNotFound' => !empty($itemNotFound) ? implode(",", $itemNotFound) : false
+        );
+    }
+
+    /**
+     * It will return brand ids
+     * @param Brand information
+     * return array (brand_ids)
+     */
+    private function getBrands($items)
+    {
+        $res = array();
+        $itemNotFound = array();
+        $hayStackArr = is_array($this->brands) ? $this->brands : array();
         foreach ($items as $val) {
             $item = array_search(trim($val), $hayStackArr) ?: false;
             if ($item === false) {
