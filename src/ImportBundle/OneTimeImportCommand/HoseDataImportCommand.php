@@ -223,10 +223,10 @@ class HoseDataImportCommand extends AbstractCommand
 
             
 
-            if (!empty($r['Brand_Name'])) {
-                $clrArr = array();
-                $clrArr = explode("/", strtolower($r['Brand_Name']));
-                $clrInfo = $this->getBrands($clrArr);
+            if (!empty($r['Brand_Name'])) {                
+                $clrArr = "";
+                $clrArr = strtolower($r['Brand_Name']);
+                $clrInfo = $this->getBrands($clrArr);   
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
                 } else {
@@ -252,10 +252,9 @@ class HoseDataImportCommand extends AbstractCommand
                 'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
                 'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
                 'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
-                'brandName'    =>  !empty($brnds) ? implode(',', $brnds) : NULL,
+                'brandName'    =>  !empty($brnds) ? $brnds : NULL,
             );
             $d[$i]['reinforcement'] = !empty($reinforcement) ? implode(", ", $reinforcement) : NUll;
-            
             $i++;
         }
 
@@ -841,7 +840,6 @@ class HoseDataImportCommand extends AbstractCommand
         $sql = "SELECT o_id, `name` FROM object_3 WHERE o_published=1";
         $results = $this->db->query($sql);
         foreach ($results as $result) {
-            $type = array_search($result['masterType'], $this->masterTypes);
             $this->brands[$result['o_id']] = strtolower($result['name']);
             unset($type);
         }
@@ -883,21 +881,10 @@ class HoseDataImportCommand extends AbstractCommand
      */
     private function getBrands($items)
     {
-        $res = array();
-        $itemNotFound = array();
-        $hayStackArr = is_array($this->brands) ? $this->brands : array();
-        foreach ($items as $val) {
-            $item = array_search(trim($val), $hayStackArr) ?: false;
-            if ($item === false) {
-                $itemNotFound[] = ucfirst($val);
-            } else {
-                array_push($res, $item);
-            }
-        }
-        unset($hayStackArr, $items);
+        $item = array_search(trim($items), $this->brands) ?: false;
         return array(
-            'items' =>  $res,
-            'itemNotFound' => !empty($itemNotFound) ? implode(",", $itemNotFound) : false
+            'items' =>  $item,
+            'itemNotFound' => empty($item) ? $item : false
         );
     }
 
