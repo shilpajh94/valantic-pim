@@ -259,6 +259,7 @@ class HydAttributeDataImportCommand extends Command
 
             $importStatus = null;
             $this->recordImportErrors = array();
+            $this->comments = array();
 
             $product = $this->getProductByAttribute($importConfig["ID_ATTRIBUTE"], $idCellValue);
             if($product){
