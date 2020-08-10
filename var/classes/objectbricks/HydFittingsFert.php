@@ -1,8 +1,13 @@
 <?php 
 
 /** 
+* Generated at: 2020-08-10T14:30:10+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
-- HydFittingFamily [multiselect]
+- HydFittingFamily [input]
+- HydThreadDescription [input]
 - nomenclatureDetails [advancedManyToManyObjectRelation]
 - ActivantNumber [input]
 - AssemblyRevisionNumber [input]
@@ -221,98 +226,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-             'fieldtype' => 'multiselect',
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'AC',
-                'value' => 1694324,
-              ),
-              1 => 
-              array (
-                'key' => 'B2',
-                'value' => 1694295,
-              ),
-              2 => 
-              array (
-                'key' => 'BT',
-                'value' => 1694326,
-              ),
-              3 => 
-              array (
-                'key' => 'DG',
-                'value' => 1694318,
-              ),
-              4 => 
-              array (
-                'key' => 'FG',
-                'value' => 1694320,
-              ),
-              5 => 
-              array (
-                'key' => 'GG',
-                'value' => 1694322,
-              ),
-              6 => 
-              array (
-                'key' => 'S6',
-                'value' => 1694316,
-              ),
-              7 => 
-              array (
-                'key' => 'SE',
-                'value' => 1694317,
-              ),
-              8 => 
-              array (
-                'key' => 'SF',
-                'value' => 1694323,
-              ),
-              9 => 
-              array (
-                'key' => 'SG',
-                'value' => 1694296,
-              ),
-              10 => 
-              array (
-                'key' => 'T7',
-                'value' => 1694325,
-              ),
-              11 => 
-              array (
-                'key' => 'T8',
-                'value' => 1694297,
-              ),
-              12 => 
-              array (
-                'key' => 'UC',
-                'value' => 1694319,
-              ),
-              13 => 
-              array (
-                'key' => 'UT',
-                'value' => 1694321,
-              ),
-            ),
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
              'width' => 300,
-             'height' => '',
-             'maxItems' => '',
-             'renderType' => 'tags',
-             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-             'optionsProviderData' => 'FittingFamily|Name',
-             'queryColumnType' => 'text',
-             'columnType' => 'text',
-             'phpdocType' => 'array',
-             'dynamicOptions' => false,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'showCharCount' => false,
              'name' => 'HydFittingFamily',
              'title' => 'Fitting Family (Hyd)',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => NULL,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -320,8 +251,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'showCharCount' => false,
+             'name' => 'HydThreadDescription',
+             'title' => 'Thread Description (Hyd)',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
              'allowedClassId' => 'NomenClature',
              'visibleFields' => 'family1,familyDescription1,family2,familyDescription2',
@@ -363,7 +323,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          2 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
              'fieldtype' => 'tabpanel',
              'border' => false,
