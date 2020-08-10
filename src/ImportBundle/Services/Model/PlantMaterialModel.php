@@ -43,6 +43,7 @@ class PlantMaterialModel
     private $distributionChannelArray = array();
     private $countryArray = array();
     private $materialUpdateArray = array();
+    private $materialReturnFlagUpdateArray = array();
 
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
@@ -65,11 +66,11 @@ class PlantMaterialModel
             $this->common = \Pimcore::getContainer()->get('app.common_helper');
             $this->tableImportHelper = \Pimcore::getContainer()->get('app.plant_material_import_helper');
             $plantMaterialConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPlantMaterialConfig();
-            
+
             $this->approvedSalesOrg = $this->common->getParameter($plantMaterialConfig, 'approvedSalesOrg');
             $this->mappingCsvColumn = $this->common->getParameter($plantMaterialConfig, 'mappingCsvColumn');
             $this->keyColumns = $this->common->getParameter($plantMaterialConfig, 'keyColumns');
-            
+
             $this->import($csvData);
         } catch (\Throwable $th) {
             Logger::error($this->logFileName, $th);
@@ -104,15 +105,15 @@ class PlantMaterialModel
 
         // $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
 
-        
+
         /**
          * get all the data from the spreadsheet
          */
         // $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
-        
+
         /**
-         * get folder ids of Master List, MaterialMaster, Master List/Plants, 
-         * Master List/Sales Organizations, Master List/Distribution Channel 
+         * get folder ids of Master List, MaterialMaster, Master List/Plants,
+         * Master List/Sales Organizations, Master List/Distribution Channel
          * and MaterialMaster/SalesMaterialMaster
          */
         DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_FOLDER);
@@ -140,14 +141,14 @@ class PlantMaterialModel
             /**
              * remove column header from array excelDataNewArray. Only data remains.
              */
-            // array_shift($excelDataNewArray); 
+            // array_shift($excelDataNewArray);
             $csvRowCount = count($excelDataNewArray);
-            echo "Truncating temp table...".PHP_EOL; 
+            echo "Truncating temp table...".PHP_EOL;
             $t = new \DateTime();
             $this->tableImportHelper->truncateTempTable();
             $td = $t->diff(new \DateTime());
             echo $td->format("Truncating temp table takes %h hour %i minute %s second").PHP_EOL;
-            
+
             echo "Inserting temp table...".PHP_EOL;
             $time1 = new \DateTime();
             $this->tableImportHelper->insertDataInTemp($excelDataNewArray, $this->fileColumns);    // Insert csv file data in temp table
@@ -170,7 +171,7 @@ class PlantMaterialModel
             $excelDataNewArray = $this->tableImportHelper->getDelta();         // Get delta data
             $td1 = $t1->diff(new \DateTime());
             echo $td1->format("Getting delta takes %h hour %i minute %s second").PHP_EOL;
-            
+
             $this->monitoringItem->getLogger()->info("Total {$csvRowCount} records found in file.");
             echo "Total {$csvRowCount} records found in csv file.".PHP_EOL;
             $deltaCount = count($excelDataNewArray);
@@ -187,7 +188,7 @@ class PlantMaterialModel
                     if ($diff < $length) {
                         $length = $diff;
                     }
-                    
+
                     $partialData = array_slice($excelDataNewArray, $i, $length);
                     $i = $i+$length;
                     echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
@@ -203,30 +204,30 @@ class PlantMaterialModel
                 $countMsg .= "\nCreated Records:".$this->createdCount.", ";
                 $countMsg .= "\nUpdated Records:".$this->updatedCount."\n";
 
-                if ($this->failedCount > 0) 
+                if ($this->failedCount > 0)
                 {
                     $allSuccess = false;
                     $applicationLogMessage = "Plant material command failed to import {$this->failedCount} Record(s) out of {$deltaCount} Record(s)";
                 }else
                     $applicationLogMessage = "Plant Material Master Imported successfully.";
-                    
+
                 $applicationLogMessage .= $countMsg;
             }
             else{
                 $applicationLogMessage = "No delta records found.";
             }
-            
+
             $time4 = new \DateTime();
             $this->tableImportHelper->updateMaster();
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-            
+
         }
         else
         {
             $applicationLogMessage = "No record found in file.";
         }
-        
+
         /**
          * Move imported file from inbox to archive or failed as per status
          */
@@ -240,17 +241,17 @@ class PlantMaterialModel
         $movedAssetObj = $this->common->moveFile($moveParam);
         echo $applicationLogMessage;
 
-        if ($this->failedCount > 0) 
+        if ($this->failedCount > 0)
             \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($applicationLogMessage);
         else
-            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage); 
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info($applicationLogMessage);
 
         $this->monitoringItem->getLogger()->info($applicationLogMessage);
         $this->monitoringItem->setMessage('Finished')->setCompleted();
         $timediff = $time->diff(new \DateTime());
         echo $timediff->format('Total script time: %h hour %i minute %s second').PHP_EOL;
         \Pimcore::collectGarbage();
-        
+
     }
 
     public function processSlicedData($data, $plantFolderId, $countryFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId) {
@@ -261,7 +262,7 @@ class PlantMaterialModel
         $relationTableDataArray = array();
         $dependencyTableDataArray = array();
         $createdUpdatedCount = 0;
-        
+
         $columnSalesOrg = $this->mappingCsvColumn['salesOrg'];
         $columnDistributionChannel = $this->mappingCsvColumn['distributionChannel'];
         $columnPlant = $this->mappingCsvColumn['plant'];
@@ -283,44 +284,44 @@ class PlantMaterialModel
         $columnSiopCode =  $this->mappingCsvColumn['productHier'];
 
 	    $dataCount = count($data);
-        foreach ($data as $rowCount => $rowvalueRecord) 
+        foreach ($data as $rowCount => $rowvalueRecord)
         {
             $rowvalue = json_decode(utf8_encode($rowvalueRecord['record']));
             $rowvalue = array_combine($this->fileColumns, $rowvalue);
-            
+
             $plantName = $rowvalue[$columnPlant];
             $material = $rowvalue[$columnMaterial];
-            $salesOrg = $rowvalue[$columnSalesOrg]; 
-            $distributionChannel = $rowvalue[$columnDistributionChannel];  
+            $salesOrg = $rowvalue[$columnSalesOrg];
+            $distributionChannel = $rowvalue[$columnDistributionChannel];
             $countryName =  $rowvalue[$columnCountryOfOrigin];
 
             $errorsData = array();
 
             if(empty(trim($material)))
-                $errorsData[] = 'Material should not be blank.';        
+                $errorsData[] = 'Material should not be blank.';
 
             // if(empty(trim($plantName)))
             //     $errorsData[] = 'Plant should not be blank.';
 
             if(empty(trim($salesOrg)))
-                $errorsData[] = 'Sales organization should not be blank.';  
-            else if(!isset($this->approvedSalesOrg[$salesOrg]))            
+                $errorsData[] = 'Sales organization should not be blank.';
+            else if(!isset($this->approvedSalesOrg[$salesOrg]))
                 $errorsData[] = 'Sales Org '.$salesOrg.' should belong to '. implode(', ',$this->approvedSalesOrg);
             // else if(!isset($this->salesOrganizations[$salesOrg]))
             //     $errorsData[] = "Sales organization ".$salesOrg. " not found  in system.";
-            
+
             if(empty(trim($distributionChannel)))
-                $errorsData[] = 'Distribution channel should not be blank.';  
+                $errorsData[] = 'Distribution channel should not be blank.';
             // else if(!isset($this->distributionChannels[$distributionChannel]))
             //     $errorsData[] = "Distribution channel ".$distributionChannel. " not found  in system.";
 
             // if(empty(trim($countryName)))
             //     $errorsData[] = 'Country Name should not be blank.';
-            
+
             if(!count($errorsData))
             {
                 try
-                { 
+                {
                     if(!isset($this->materialArray[$material]))
                     {
                         $materialId = $this->getMaterialObject($material);
@@ -344,21 +345,21 @@ class PlantMaterialModel
                         $materialFolderId= DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material)->getId();
                         $query = "SELECT oo_id, o_parentId, o_key, o_path FROM `object_12` WHERE `o_parentId` = '{$materialFolderId}' AND `o_key` LIKE '%{$plantMaterialKey}%' limit 1";
                         $objectMaterial = $this->db->fetchRow($query);
-        
+
                         if(!empty(trim($plantName)) && !isset($this->plantArray[$plantName]))
                         {
                             $plantId = $this->getPlantObject($plantName, $plantFolderId);
                             if($plantId)
                                 $this->plantArray[$plantName] = $plantId;
                         }
-                        
+
                         $plantObjId = '';
                         if(isset($this->plantArray[$plantName]))
                             $plantObjId = $this->plantArray[$plantName];
 
                         if(!isset($this->salesOrgArray[$salesOrg]))
                         {
-                            // $salesOrgDesc = $rowvalue[$columnSalesOrgDesc]; 
+                            // $salesOrgDesc = $rowvalue[$columnSalesOrgDesc];
                              $salesOrgId = $this->getSalesOrgObject($salesOrg, $salesOrgDesc, $salesOrganizationsFolderId);
                             if($salesOrgId)
                                 $this->salesOrgArray[$salesOrg] = $salesOrgId;
@@ -366,7 +367,7 @@ class PlantMaterialModel
                         $salesOrgCode = $this->salesOrgArray[$salesOrg];
                         if(!isset($this->distributionChannelArray[$distributionChannel]))
                         {
-                            // $distributionChannelDesc = $rowvalue[$columnDistributionChannelDesc]; 
+                            // $distributionChannelDesc = $rowvalue[$columnDistributionChannelDesc];
                             $distributionChannelId = $this->getDistributionChannelObject($distributionChannel, $distributionChannelDesc, $distributionChannelFolderId);
                             if($distributionChannelId)
                                 $this->distributionChannelArray[$distributionChannel] = $distributionChannelId;
@@ -384,10 +385,10 @@ class PlantMaterialModel
                         $countryObjId = '';
                         if(isset($this->countryArray[$countryName]))
                             $countryObjId = $this->countryArray[$countryName];
-                            
+
                         $createdOrUpdated = 'Updated';
-                        if(!$objectMaterial){      
-                            $createdOrUpdated = 'Created'; 
+                        if(!$objectMaterial){
+                            $createdOrUpdated = 'Created';
                             $objectArr = [
                                 'o_parentId' => $materialFolderId,
                                 'o_key' => $plantMaterialKey,
@@ -403,11 +404,11 @@ class PlantMaterialModel
                             ];
                             $this->updatedCount++;
                         }
-            
+
                         $objId = $this->tableImportHelper->insertInObjects($objectArr);
                         $quantityUnit =  $rowvalue[$columnStdPackQtyUOM];
                         $quantityValueUnitId = $this->common->getQuantityValueUnitId($quantityUnit);
-        
+
                         $quantityValue =  $rowvalue[$columnStdPackQty];
                         $standardPackQuantity = $this->common->getDataQuantityValue($quantityValue, $quantityValueUnitId);
 
@@ -421,7 +422,7 @@ class PlantMaterialModel
                         $safetyStock = $rowvalue[$columnSafetyStock];
                         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
                         $siopCode = $rowvalue[$columnSiopCode];
-                        
+
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
                             'oo_classId' => 12,
@@ -447,9 +448,9 @@ class PlantMaterialModel
                             'DistributionChannel__id' => $distributionChannelCode,
                             'DistributionChannel__type' => 'object',
                             'OrderingQuantityIncrements' => $orderQtyInc,
-                            'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1 
+                            'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1
                         ];
-                        
+
                         $storeTableDataArray[] = [
                             'oo_id' => $objId,
                             'PlannedDeliveryTime' => $planDeliveryTime,
@@ -461,10 +462,10 @@ class PlantMaterialModel
                             'PlantProfitCenter'	=> $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
-                            'StockIndicator' => $stockIndicator,	
+                            'StockIndicator' => $stockIndicator,
                             'SafetyStock' => $safetyStock,
                             'OrderingQuantityIncrements' => $orderQtyInc,
-                            'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1 
+                            'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1
                         ];
                         if (substr($siopCode, 0, 6) == '041500' && (empty($columnOutsidePurchaseIdentifier) || strtolower($columnOutsidePurchaseIdentifier) == 'f')) {
                             if (!in_array($materialObjId, $this->materialUpdateArray)) {
@@ -474,33 +475,45 @@ class PlantMaterialModel
                                 $this->materialUpdateArray[] = $materialObjId;
                             }
                         }
-                        
+
+                        /**
+                         * "Return Flag (Y/N) =If stock indicator is S, flag is Yes else NO"
+                         */
+                        if ((!empty($stockIndicator) && strtolower($stockIndicator) == 's')) {
+                            if (!in_array($materialObjId, $this->materialReturnFlagUpdateArray)) {
+                                $materialObj = DataObject::getById($materialObjId);
+                                $materialObj->setReturnFlag(true);
+                                $materialObj->save();
+                                $this->materialReturnFlagUpdateArray[] = $materialObjId;
+                            }
+                        }
+
                         if($countryObjId)
                             $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
-                        
+
                         if($plantObjId)
                             $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $plantObjId, 'type' => 'object', 'fieldname' => 'Plant', 'ownertype' => 'object' ];
-                        
+
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $salesOrgCode, 'type' => 'object', 'fieldname' => 'SalesOrganization', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $distributionChannelCode, 'type' => 'object', 'fieldname' => 'DistributionChannel', 'ownertype' => 'object' ];
                         $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $materialObjId, 'type' => 'object', 'fieldname' => 'Material', 'ownertype' => 'object' ];
-                        
+
                         if($countryObjId)
                             $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $countryObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
-                        
+
                         if($plantObjId)
                             $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $plantObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
-                        
+
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $salesOrgCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $distributionChannelCode, 'sourcetype' => 'object', 'targettype' => 'object'];
                         $dependencyTableDataArray[] = ['sourceid' => $objId, 'targetid' => $materialObjId, 'sourcetype' => 'object', 'targettype' => 'object'];
-                        
+
                         $errorsData['SUCCESS'] = "Plant Material Code: ".$plantMaterialKey." has been ".$createdOrUpdated.".";
                     }
                     else{
                         $errorsData[] = "Material ".$material. " not found in system.";
                     }
-                } 
+                }
                 catch (\Exception $e) {
 
                     /* return error massage if any exception found */
@@ -534,24 +547,24 @@ class PlantMaterialModel
 
         if(count($queryTableDataArray))
             $this->tableImportHelper->insertIntoMaterialTable($queryTableDataArray, 'object_query_12');
-        
+
         if(count($storeTableDataArray))
             $this->tableImportHelper->insertIntoMaterialTable($storeTableDataArray, 'object_store_12');
 
         if(count($relationTableDataArray))
             $this->tableImportHelper->insertIntoMaterialTable($relationTableDataArray, 'object_relations_12');
-        
+
         if(count($dependencyTableDataArray))
             $this->tableImportHelper->insertIntoMaterialTable($dependencyTableDataArray, 'dependencies');
-        
+
         $timediff2 = $time2->diff(new \DateTime());
         echo $timediff2->format("{$createdUpdatedCount} Object created out of {$dataCount} records in %h hour %i minute %s second").PHP_EOL;
-                    
+
         $time3 = new \DateTime();
         $this->tableImportHelper->insertDataToLogTable($data);
         $timediff3 = $time3->diff(new \DateTime());
         echo $timediff3->format("Total {$dataCount} records inserted in log table takes %h hour %i minute %s second").PHP_EOL;
-            
+
         echo "Unset the temporary variable ...".PHP_EOL;
         unset($queryTableDataArray);
         unset($storeTableDataArray);
@@ -565,7 +578,7 @@ class PlantMaterialModel
         $deleteCount = 0;
         if(count($deletedRecords) > 0)
         {
-            foreach ($deletedRecords as $key => $value) 
+            foreach ($deletedRecords as $key => $value)
             {
                 $keyArray = explode('$',$value['id']);
                 $material = $keyArray[0];
@@ -603,7 +616,7 @@ class PlantMaterialModel
     public function getMaterialObject($MaterialKey){
         $query = "SELECT oo_id, o_key, o_path FROM `object_1` WHERE `articleNumber` LIKE '%{$MaterialKey}%' limit 1";
         $objectMaterial = $this->db->fetchAll($query);
-        
+
         foreach ($objectMaterial as $material) {
             $this->monitoringItem->getLogger()->info("Material: ".$MaterialKey." found");
             return $material['oo_id'];
@@ -623,8 +636,8 @@ class PlantMaterialModel
             $objectPlant->setKey($plantKey);
             $objectPlant->setPlant($plantKey);
             $objectPlant->setParentId($plantFolderId);
-            $objectPlant->setPublished(TRUE);   
-            $objectPlant->save();  
+            $objectPlant->setPublished(TRUE);
+            $objectPlant->save();
             $this->monitoringItem->getLogger()->info("Plant: ".$plantKey." not found in master list, plant created");
         }
         else{
@@ -646,8 +659,8 @@ class PlantMaterialModel
             $object->setCode($distributionChannelKey);
             $object->setName($distributionChannelDesc);
             $object->setParentId($distributionChannelFolderId);
-            $object->setPublished(TRUE);   
-            $object->save(); 
+            $object->setPublished(TRUE);
+            $object->save();
             $this->monitoringItem->getLogger()->info("Distribution Channel: ".$distributionChannelKey." not found in master list, distribution channel created");
         }
         else{
@@ -669,8 +682,8 @@ class PlantMaterialModel
             $object->setCode($salesOrgKey);
             $object->setName($salesOrgDesc);
             $object->setParentId($salesOrganizationsFolderId);
-            $object->setPublished(TRUE); 
-            $object->save();   
+            $object->setPublished(TRUE);
+            $object->save();
             $this->monitoringItem->getLogger()->info("Sales Org: ".$salesOrgKey." not found in master list, sales org created");
         }
         else{
@@ -691,9 +704,9 @@ class PlantMaterialModel
             $objectCountry->setCode($countryKey);
             $objectCountry->setName($countryKey);
             $objectCountry->setParentId($countryFolderId);
-            $objectCountry->setPublished(TRUE);   
-            $objectCountry->save();   
-            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created"); 
+            $objectCountry->setPublished(TRUE);
+            $objectCountry->save();
+            $this->monitoringItem->getLogger()->info("Country: ".$countryKey." not found in master list, country created");
         }
         else{
             $this->monitoringItem->getLogger()->info("Country: ".$countryKey." found in master list");
