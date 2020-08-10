@@ -1,8 +1,13 @@
 <?php 
 
 /** 
+* Generated at: 2020-08-10T14:50:22+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - HydFittingFamily [multiselect]
+- HydThreadDescription [input]
 - nomenclatureDetails [advancedManyToManyObjectRelation]
 - ActivantNumber [input]
 - AssemblyRevisionNumber [input]
@@ -227,79 +232,129 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             array (
               0 => 
               array (
-                'key' => 'AC',
-                'value' => 1694324,
+                'key' => 'AV',
+                'value' => 1819900,
               ),
               1 => 
               array (
-                'key' => 'B2',
-                'value' => 1694295,
+                'key' => 'CB',
+                'value' => 1819904,
               ),
               2 => 
               array (
-                'key' => 'BT',
-                'value' => 1694326,
+                'key' => 'CLIP',
+                'value' => 1819907,
               ),
               3 => 
               array (
-                'key' => 'DG',
-                'value' => 1694318,
+                'key' => 'CLIPHLDR',
+                'value' => 1819909,
               ),
               4 => 
               array (
-                'key' => 'FG',
-                'value' => 1694320,
+                'key' => 'COT',
+                'value' => 1819810,
               ),
               5 => 
               array (
-                'key' => 'GG',
-                'value' => 1694322,
+                'key' => 'FSL',
+                'value' => 1819915,
               ),
               6 => 
               array (
-                'key' => 'S6',
-                'value' => 1694316,
+                'key' => 'FT',
+                'value' => 1819815,
               ),
               7 => 
               array (
-                'key' => 'SE',
-                'value' => 1694317,
+                'key' => 'FTN',
+                'value' => 1819819,
               ),
               8 => 
               array (
-                'key' => 'SF',
-                'value' => 1694323,
+                'key' => 'FTS',
+                'value' => 1819821,
               ),
               9 => 
               array (
-                'key' => 'SG',
-                'value' => 1694296,
+                'key' => 'FTSM',
+                'value' => 1819823,
               ),
               10 => 
               array (
-                'key' => 'T7',
-                'value' => 1694325,
+                'key' => 'HM',
+                'value' => 1819825,
               ),
               11 => 
               array (
-                'key' => 'T8',
-                'value' => 1694297,
+                'key' => 'ILOT',
+                'value' => 1819833,
               ),
               12 => 
               array (
-                'key' => 'UC',
-                'value' => 1694319,
+                'key' => 'NP',
+                'value' => 1819976,
               ),
               13 => 
               array (
-                'key' => 'UT',
-                'value' => 1694321,
+                'key' => 'OF',
+                'value' => 1819936,
+              ),
+              14 => 
+              array (
+                'key' => 'OI',
+                'value' => 1819839,
+              ),
+              15 => 
+              array (
+                'key' => 'OIM',
+                'value' => 1819850,
+              ),
+              16 => 
+              array (
+                'key' => 'OSWCH',
+                'value' => 1819947,
+              ),
+              17 => 
+              array (
+                'key' => 'OT',
+                'value' => 1819847,
+              ),
+              18 => 
+              array (
+                'key' => 'OTC',
+                'value' => 1819849,
+              ),
+              19 => 
+              array (
+                'key' => 'PLIERS',
+                'value' => 1819966,
+              ),
+              20 => 
+              array (
+                'key' => 'SF',
+                'value' => 1819881,
+              ),
+              21 => 
+              array (
+                'key' => 'SWCN',
+                'value' => 1819891,
+              ),
+              22 => 
+              array (
+                'key' => 'VA',
+                'value' => 1819893,
+              ),
+              23 => 
+              array (
+                'key' => 'VCORE',
+                'value' => 1819902,
               ),
             ),
              'width' => 300,
              'height' => '',
              'maxItems' => '',
-             'renderType' => 'tags',
+             'renderType' => 'list',
              'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
              'optionsProviderData' => 'FittingFamily|Name',
              'queryColumnType' => 'text',
@@ -322,6 +377,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleSearch' => false,
           )),
           1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'showCharCount' => false,
+             'name' => 'HydThreadDescription',
+             'title' => 'Thread Description (Hyd)',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
              'allowedClassId' => 'NomenClature',
              'visibleFields' => 'family1,familyDescription1,family2,familyDescription2',
@@ -340,7 +423,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'width' => '',
              'height' => '',
-             'maxItems' => '',
+             'maxItems' => 1,
              'queryColumnType' => 'text',
              'relationType' => true,
              'allowToCreateNewObject' => true,
@@ -363,7 +446,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          2 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
              'fieldtype' => 'tabpanel',
              'border' => false,
