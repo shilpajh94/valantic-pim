@@ -42,6 +42,7 @@ class PlantMaterialModel
     private $salesOrgArray = array();
     private $distributionChannelArray = array();
     private $countryArray = array();
+    private $materialUpdateArray = array();
 
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
@@ -279,6 +280,7 @@ class PlantMaterialModel
         $columnSafetyStock = $this->mappingCsvColumn['safetyStock'];
         $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
         $columnDeleteFlag = $this->mappingCsvColumn['deleteFlag'];
+        $columnSiopCode =  $this->mappingCsvColumn['productHier'];
 
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord) 
@@ -418,12 +420,13 @@ class PlantMaterialModel
                         $stockIndicator = $rowvalue[$columnStockIndicator];
                         $safetyStock = $rowvalue[$columnSafetyStock];
                         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
+                        $siopCode = $rowvalue[$columnSiopCode];
                         
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
                             'oo_classId' => 12,
                             'oo_className' => 'PlantMaterialMaster',
-                            'Material' => $materialObjId,
+                            'Material' => ",".$materialObjId.",",
                             'Plant__id' => $plantObjId,
                             'Plant__type' => 'object',
                             'CountryOfOrigin__id' => $countryObjId,
@@ -433,7 +436,7 @@ class PlantMaterialModel
                             'MinOrderQuantity' => $minOrderQty,
                             'StandardPackQuantity' => $quantityValue,
                             'StandardPackQuantityUOM' => $quantityUnit,
-                            'OutsidePurchaseIdentifier' => 0,
+                            'OutsidePurchaseIdentifierOrProcurementType' => "$columnOutsidePurchaseIdentifier",
                             'PlantProfitCenter' => $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
@@ -454,7 +457,7 @@ class PlantMaterialModel
                             'MinOrderQuantity' => $minOrderQty,
                             'StandardPackQuantity' => $quantityValue,
                             'StandardPackQuantityUOM' => $quantityUnit,
-                            'OutsidePurchaseIdentifier' => 0,
+                            'OutsidePurchaseIdentifierOrProcurementType' => $columnOutsidePurchaseIdentifier,
                             'PlantProfitCenter'	=> $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
@@ -463,7 +466,14 @@ class PlantMaterialModel
                             'OrderingQuantityIncrements' => $orderQtyInc,
                             'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1 
                         ];
-                        
+                        if (substr($siopCode, 0, 6) == '041500' && (empty($columnOutsidePurchaseIdentifier) || strtolower($columnOutsidePurchaseIdentifier) == 'f')) {
+                            if (!in_array($materialObjId, $this->materialUpdateArray)) {
+                                $materialObj = DataObject::getById($materialObjId);
+                                $materialObj->setOutsidePurchaseFlag(true);
+                                $materialObj->save();
+                                $this->materialUpdateArray[] = $materialObjId;
+                            }
+                        }
                         
                         if($countryObjId)
                             $relationTableDataArray[] = ['src_id' => $objId, 'dest_id' => $countryObjId, 'type' => 'object', 'fieldname' => 'CountryOfOrigin', 'ownertype' => 'object' ];
