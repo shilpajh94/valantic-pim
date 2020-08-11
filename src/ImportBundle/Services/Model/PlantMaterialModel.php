@@ -422,6 +422,14 @@ class PlantMaterialModel
                         $safetyStock = $rowvalue[$columnSafetyStock];
                         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
                         $siopCode = $rowvalue[$columnSiopCode];
+                        $stockIndicatorDescription = '';
+                        if (strtolower($stockIndicator) == 's') {
+                            $stockIndicatorDescription = 'Stock';
+                        } else if (strtolower($stockIndicator) == 'ns') {
+                            $stockIndicatorDescription = 'Non-Stock';
+                        } else if(strtolower($stockIndicator) == 'sp') {
+                            $stockIndicatorDescription = 'Special Stock';
+                        }
 
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
@@ -441,7 +449,8 @@ class PlantMaterialModel
                             'PlantProfitCenter' => $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
-                            'StockIndicator' => $stockIndicator,
+                            'StockIndicator' => strtoupper($stockIndicator),
+                            'StockIndicatorDescription' => $stockIndicatorDescription,
                             'SafetyStock' => $safetyStock,
                             'SalesOrganization__id' => $salesOrgCode,
                             'SalesOrganization__type' => 'object',
@@ -462,7 +471,8 @@ class PlantMaterialModel
                             'PlantProfitCenter'	=> $profitCenter,
                             'MRPController' => $mrpController,
                             'TotalReplenismentLeadTime' => $totalReplLeadTime,
-                            'StockIndicator' => $stockIndicator,
+                            'StockIndicator' => strtoupper($stockIndicator),
+                            'StockIndicatorDescription' => $stockIndicatorDescription,
                             'SafetyStock' => $safetyStock,
                             'OrderingQuantityIncrements' => $orderQtyInc,
                             'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1
