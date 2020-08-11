@@ -1861,9 +1861,6 @@ if(isset($data[$baseId])) {
                         $productsDataWithHeaders['listPrice'] = $listPrice[$distributionChannel][$salesOrganisation];
                     }
                 }
-
-                
-
                 $siop6Categories = $product->getSIOPLevel6();
                 foreach($siop6Categories as $key => $category)
                 {
@@ -1950,9 +1947,6 @@ if(isset($data[$baseId])) {
                         endforeach; 
 
                         foreach ($columnsDataWithImages as $ckey => $cvalue) {
-                            if($ckey == 'fittingFamily')
-                                $articlesData[$key][$ckey] = ($element[$ckey])? implode(',',($element[$ckey])): '';
-                            else
                                 $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
                         }
 

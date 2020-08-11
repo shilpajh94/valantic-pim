@@ -20,7 +20,17 @@ if (!isset($this->parentContainer)) {
     <div class="footer">
         <footer class="flex-center ">
             <span class="logo">
-                <b>Hose</b>
+                <b>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("PBD_Logo_Text1")->isEmpty()): ?>
+                                <?= $this->input("PBD_Logo_Text1")->setDataFromResource('Hose') ?>
+                        <?php else: ?>
+                                <?= $this->input("PBD_Logo_Text1"); ?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?= $this->input("PBD_Logo_Text1") ?>
+                    <?php endif; ?>
+                </b>
                 <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
             </span>
             <div class="flex aligned ">
@@ -80,7 +90,17 @@ if (!isset($this->parentContainer)) {
                 </h5>
             </div>
             <span class="logo">
-                <b>Hose</b>
+                <b>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("PBD_Logo_Text2")->isEmpty()): ?>
+                                <?= $this->input("PBD_Logo_Text2")->setDataFromResource('Hose') ?>
+                        <?php else: ?>
+                                <?= $this->input("PBD_Logo_Text2"); ?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?= $this->input("PBD_Logo_Text2") ?>
+                    <?php endif; ?>
+                </b>
                 <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
             </span>
         </footer>
