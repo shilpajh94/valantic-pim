@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-10T14:50:22+02:00
+* Generated at: 2020-08-11T12:03:38+02:00
 * IP: 127.0.0.1
 
 
@@ -354,7 +354,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'width' => 300,
              'height' => '',
              'maxItems' => '',
-             'renderType' => 'list',
+             'renderType' => 'tags',
              'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
              'optionsProviderData' => 'FittingFamily|Name',
              'queryColumnType' => 'text',
@@ -379,7 +379,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
-             'width' => NULL,
+             'width' => 300,
              'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',

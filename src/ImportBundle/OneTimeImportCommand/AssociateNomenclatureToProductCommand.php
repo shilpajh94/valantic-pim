@@ -4,6 +4,7 @@
 namespace ImportBundle\OneTimeImportCommand;
 
 
+use AppBundle\Services\AppService;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject;
 
@@ -15,12 +16,15 @@ class AssociateNomenclatureToProductCommand extends AbstractCommand
 {
     private $db;
 
+    private $appService;
+
     const LOG_FILE_NAME = "nomenclature_product_assoc_log";
 
-    public function __construct(string $name = null)
+    public function __construct(AppService $appService)
     {
         $this->db = \Pimcore\Db::get();
-        parent::__construct($name);
+        $this->appService = $appService;
+        parent::__construct();
     }
 
     protected function configure()
@@ -70,12 +74,18 @@ class AssociateNomenclatureToProductCommand extends AbstractCommand
                         $nomenclatureFound = "YES, with reduced part number ";
                     }
                     $this->consoleLog("Nomenclature master found for '" . $searchString . "' Descriptive Part Number.");
+
+
                     $product = DataObject\Product::getById($productId);
 
                     $hydFittingFert = $product->getFert()->getHydFittingsFert();
 
                     $elementMetadata = new DataObject\Data\ObjectMetadata('nomenclatureDetails', [], $nomenclature);
                     $hydFittingFert->setNomenclatureDetails([$elementMetadata]);
+
+                    // this is not needed here, as it is already being handled at product pre-save
+//                    $this->appService->updateFittingFamilyAndThreadDescInHydFittingFert($product);
+
                     $product->save();
                     $assocProductSap = $product->getArticleNumber();
                     break;

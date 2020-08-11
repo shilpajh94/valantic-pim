@@ -146,10 +146,16 @@ class ObjectListener
              * update the calculative logic value fields
              */
             $this->appService->updateCalcFields($object);
+
+            /**
+             * update Fitting Family and Thread Desc in HydFittingFert
+             * by picking values from related nomenclature master object
+             */
+            $this->appService->updateFittingFamilyAndThreadDescInHydFittingFert($object);
             /**
              * update product hierarchy for nomenclature (fitting family desc and thread desc)
              */
-//            $this->appService->updateProductHierarchyForNomenclature($object);
+            $this->appService->updateProductHierarchyForNomenclature($object);
 
         }
     }
