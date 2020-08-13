@@ -52,7 +52,18 @@ if ($data):
                     <div class="footer">
                         <footer class="flex-center <?php echo $footer_class; ?>">
                             <span class="logo">
-                                <b>Hose</b>
+                                <b>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("HHPP_Logo_Text1")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text1")->setDataFromResource('Hose') ?>
+                                        <?php else: ?>
+                                                <?= $this->input("HHPP_Logo_Text1"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHPP_Logo_Text1") ?>
+                                <?php endif; ?>
+                                </b>
+                            
                                 <?php if ($footer_class == 'reverseColor'): ?>
                                     <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                                 <?php else: ?>
@@ -153,7 +164,19 @@ if ($data):
                                 </h5>
                             </div>
                             <span class="logo">
-                                <b>Hose</b>
+
+                                <b>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("HHPP_Logo_Text2")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text2")->setDataFromResource('Hose') ?>
+                                        <?php else: ?>
+                                                <?= $this->input("HHPP_Logo_Text2"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHPP_Logo_Text2") ?>
+                                <?php endif; ?>
+                                </b>
+
                                 <?php if ($footer_class == 'reverseColor'): ?>
                                     <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                                 <?php else: ?>

@@ -27,8 +27,19 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         <div class="footer">
                 <footer class="flex-center ">
                         <span class="logo">
-                                <b>Hose</b>
-                                <img src="/CatalogImages/logo_new.png">
+                        <b>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("HHSC_Logo_Text1")->isEmpty()): ?>
+                                        <?= $this->input("HHSC_Logo_Text1")->setDataFromResource('Hose') ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHSC_Logo_Text1"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("HHSC_Logo_Text1") ?>
+                        <?php endif; ?>
+                        </b>
+                        
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                         </span>
                         <div class="flex aligned">
                                 <h5>
@@ -67,8 +78,18 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 
                         </div>
                         <span class="logo">
-                                <b>Hose</b>
-                                <img src="/CatalogImages/logo_new.png">
+                                <b>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("HHSC_Logo_Text2")->isEmpty()): ?>
+                                                <?= $this->input("HHSC_Logo_Text2")->setDataFromResource('Hose') ?>
+                                        <?php else: ?>
+                                                <?= $this->input("HHSC_Logo_Text2"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHSC_Logo_Text2") ?>
+                                <?php endif; ?>
+                                </b>
+                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                         </span>
                 </footer>
         </div>
