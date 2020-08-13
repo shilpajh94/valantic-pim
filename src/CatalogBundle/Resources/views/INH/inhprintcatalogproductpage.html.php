@@ -265,7 +265,7 @@ if (isset($info['data'])) {
                                     </menu>
 
                                 
-                                    <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
+                                    <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
                                         <?php
                                         echo "<thead> <tr class='sub-head'>";
                                         foreach ($info['dispColumns'] as $key => $col) {
