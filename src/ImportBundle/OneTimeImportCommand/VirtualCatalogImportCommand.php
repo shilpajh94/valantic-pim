@@ -144,7 +144,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
             foreach ($this->baseLevelRecords as $result) {
                 $o = \Pimcore\Model\DataObject\Product::getById($result['level6n9digit_id']);
                 if (!is_null($o)) {
-                    p_r("Updating " . $result['level6n9digit_id']);
+                    p_r("Updating " . $result['level6n9digit_id']. ' '.$result['6_Digit'] );
                     if (!empty($result['Marketing_Long_Description'])) {
                         $o->setLongDescription($result['Marketing_Long_Description']);
                     }
@@ -159,6 +159,9 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     // Hose Base Brick
                     if (!empty($result['Tube_Material_Virtual_Catalog_Description'])) {
                         $o->getBase()->getHoseBase()->setVirtualCatalogTubeMaterial($result['Tube_Material_Virtual_Catalog_Description']);
+                    }
+                    if (!empty($result['Cover_Material_Virtual_Catalog_Description'])) {
+                        $o->getBase()->getHoseBase()->setVirtualCatalogCoverMaterial($result['Cover_Material_Virtual_Catalog_Description']);
                     }
                     if (!empty($result['Couplings_Virtual_Catalog_Description'])) {
                         $o->getBase()->getHoseBase()->setVirtualCatalogCoupling($result['Couplings_Virtual_Catalog_Description']);
