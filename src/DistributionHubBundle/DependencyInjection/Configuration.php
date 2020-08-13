@@ -24,6 +24,48 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        $rootNode
+            ->children()
+                ->arrayNode('field_definition_adapters')
+                    ->info("Add mapping between data object type and service implementation for field definition adapter")
+                    ->useAttributeAsKey('name')
+                        ->prototype('scalar')
+                    ->end()
+                ->end()
+                ->arrayNode('core_fields_configuration')
+                    ->useAttributeAsKey('field')
+                        ->prototype('scalar')
+                    ->end()
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('type')
+                                ->isRequired()
+                            ->end()
+                            ->scalarNode('title')
+                                ->isRequired()
+                            ->end()
+                            ->scalarNode('fieldDefinition')->end()
+                            ->arrayNode('values')
+                                ->children()
+                                    ->arrayNode('options')
+                                        ->arrayPrototype()
+                                            ->children()
+                                                ->scalarNode('key')
+                                                    ->isRequired()
+                                                ->end()
+                                                ->scalarNode('value')
+                                                    ->isRequired()
+                                                ->end()
+                                            ->end()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+
         return $treeBuilder;
-    }
+    } 
 }

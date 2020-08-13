@@ -1,5 +1,4 @@
-distribution_hub:
+distribution_hub_homepage:
     resource: "@DistributionHubBundle/Controller/"
-    type:     annotation
-    prefix:   /admin/DistributionHub
-
+    type:       annotation
+    prefix:     /
