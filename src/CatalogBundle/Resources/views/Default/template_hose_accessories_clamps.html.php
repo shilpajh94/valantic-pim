@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+}
 ?>
 <?php if($this->editmode): ?>
         <?= $this->relation("template_hose_accessories_clamps", [
@@ -11,30 +13,111 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         ]); 
         ?>
 <?php endif; ?>
+<div class="template">
+<section class="segregate">
+    <div id="pageHeader"></div>
+        <span class="pageName">Hydraulic Hose</span>
+   
 
-<section class="seggregate">
-<nav class="header alternate">
-  <div id="pageHeader"></div>
-  <span>Hydraulic Hose</span>
-</nav>
+
 <div class="footer">
-<footer class="flex-center ">
+    <footer class="flex-center <?php echo $footer_class; ?>">
 <span class="logo">
-        <b>Hose</b>
-        <img src="/CatalogImages/logo_new.png">
-</span>
-<div class="flex reverse">
-                <h5 class="rowC">
-                Hose Accessories
-                <span>Routing Clamps</span>
+            <b>Hose</b>
+            <?php if($footer_class == 'reverseColor'): ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php else: ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <?php endif; ?>
+    </span>
+
+
+    <div class="flex aligned">
+    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_Title1")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_Title1")->setDataFromResource('Hose Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title1") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_SubTitle1")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_SubTitle1")->setDataFromResource('Routing Clamps') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_SubTitle1"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAC_Footer_SubTitle1") ?>
+                        <?php endif; ?>
+                    
+                    </span>
                 </h5>
+                    
+                    
 
-        
-</div>
-</footer>
+            
+    </div>
+        </footer>
+
 </div>
 
+<div class="footer1">
+    <footer class="flex-center <?php echo $footer_class; ?>">
+
+
+
+    <div class="flex aligned">
+
+    <h5>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_Title2")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_Title2")->setDataFromResource('Hose Accessories') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title2"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                                <?= $this->input("HHAC_Footer_Title2") ?>
+                <?php endif; ?>
+    
+                    <span>
+                    <?php if($this->editmode): ?>
+                        <?php if($this->input("HHAC_Footer_SubTitle2")->isEmpty()): ?>
+                                <?= $this->input("HHAC_Footer_SubTitle2")->setDataFromResource('Routing Clamps') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAC_Footer_SubTitle2"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                                        <?= $this->input("HHAC_Footer_SubTitle2") ?>
+                        <?php endif; ?>
+                    
+                    </span>
+                </h5>
+                    
+                    
+
+            
+    </div>
+
+<span class="logo">
+            <b>Hose</b>
+            <?php if($footer_class == 'reverseColor'): ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                <?php else: ?>
+                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <?php endif; ?>
+    </span>
+        </footer>
+
+</div>
+
+<div class="wrapper">
     <article class="container noBorder">
+<section class="content single">
     <?php
 
 if($data):
@@ -71,7 +154,7 @@ extract($brand);
 
                 <span>
                 <?php
-                        echo $this->wysiwyg("HHAS_LongDescription")->setDataFromResource($longDescription);
+                        echo $this->wysiwyg("HHAC_LongDescription")->setDataFromResource($longDescription);
                 ?>
                 </span>
                 <?php if(!empty(trim($materialString))): ?>
@@ -97,40 +180,40 @@ extract($brand);
            <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
            
        </figure>
-       <div class="grid">
-
+       <table class="grid" cellspacing="0" cellpadding="0">
+<thead>
                 <?php if($iconRequired == 'YES'): ?>
-                        <p class="sub-head">
+                        <tr class="sub-head">
                                 <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                        <span><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></span>
+                                        <td><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></td>
                                 <?php endforeach; ?>
-                        </p>
+                        </tr>
                 <?php endif; ?>
 
 
-                <p class="head">
+                <tr class="head">
 
                         <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                <span><?= $columnsData['columnLabel'] ?></span>
+                                <td><?= $columnsData['columnLabel'] ?></td>
                         <?php endforeach; ?>
                         
-                </p>
-                        
+                </tr>
+                  </thead>      
                 <?php $incrRow = 1; ?>        
                 <?php foreach($articlesData as $key => $element): ?>
                         <?php if($incrRow%2==0): ?>
-                        <p>
+                        <tr>
                         <?php else: ?>
-                        <p class="active">
+                        <tr class="active">
                         <?php endif; ?>
                                 <?php foreach($element as $ekey => $value): ?>
-                                        <span><?= $value; ?></span>
+                                        <td><?= $value; ?></td>
                                 <?php endforeach; ?>
-                        </p>
+                        </tr>
                         <?php $incrRow++ ?>
                 <?php endforeach; ?>
 
-        </div>
+        </table>
        <?php 
 
         endforeach; 
@@ -138,6 +221,11 @@ extract($brand);
         endif;
 
         ?>
-    </article>
 </section>
-   
+    </article>
+</div>
+
+
+
+</section>
+</div>

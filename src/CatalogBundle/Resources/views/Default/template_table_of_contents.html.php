@@ -1,17 +1,33 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+if (!isset($this->parentContainer)) {
+$this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
-    <article class="fullcontainer">
-    <nav class="header">
-    <header class="content">
-        <div id="pageHeader"></div>
-        <h2>Table of Contents</h2>
-    </header>
-    </nav>
+<div class="template">
+<div id="toc" class="toc">
+ <div id="pageHeader"></div>
+
+<div class="tableHeader" >
+    <header class="content partNumber tableContent">
     <?php if($this->editmode): ?>
-    <div class="content_single">
+        <?php if($this->input("TOC_Heading")->isEmpty()): ?>
+            <h2><?= $this->input("TOC_Heading")->setDataFromResource('Table of Contents'); ?></h2>
+        <?php else: ?>
+            <h2><?= $this->input("TOC_Heading"); ?></h2>
+        <?php endif; ?>
     <?php else: ?>
-    <div class="content_double">
+        <h2><?= $this->input("TOC_Heading") ?></h2>
+    <?php endif; ?>
+    </header>
+</div>
+    
+    
+    <?php if($this->editmode): ?>
+    
+<div class="content content_single table-content ">
+    <?php else: ?>
+   
+<div class="content content_double table-content ">
     <?php endif; ?>
     <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
         
@@ -40,23 +56,5 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
         
     <?php } ?>
     </div>
-      
-    </article>
-    <style>
-    div.content_single {
-    -webkit-column-count: 1;
-    -moz-column-count: 1;
-    column-count: 1;
-    -webkit-column-fill: auto;
-    -moz-column-fill: auto;
-    column-fill: auto;
-}
-div.content_double {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-    -webkit-column-fill: auto;
-    -moz-column-fill: auto;
-    column-fill: auto;
-}
-</style>
+      </div>
+  </div>

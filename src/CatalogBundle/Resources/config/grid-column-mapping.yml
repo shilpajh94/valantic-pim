@@ -146,18 +146,24 @@ parameters:
                 parent:
                     name: Product
         PTG Product Page:
-            LeftPrintCatalogImage:
+            mainImage:
                 fieldLevel: class
                 fieldType: Media
-                fieldLabel: Left Image
+                fieldLabel: Hose Rendering
                 parent: 
                     name: Product
-            RightPrintCatalogImage:
-                fieldLevel: class
-                fieldType: Media
-                fieldLabel: Right Image
-                parent: 
-                    name: Product
+            # LeftPrintCatalogImage:
+            #     fieldLevel: class
+            #     fieldType: Media
+            #     fieldLabel: Left Image
+            #     parent: 
+            #         name: Product
+            # RightPrintCatalogImage:
+            #     fieldLevel: class
+            #     fieldType: Media
+            #     fieldLabel: Right Image
+            #     parent: 
+            #         name: Product
             ProfileDimensionImage:
                 fieldLevel: class
                 fieldType: Media
@@ -258,8 +264,13 @@ parameters:
                 fieldLabel: Old Material Code
             brandName:
                 fieldLevel: class
-                fieldType: Select
                 fieldLabel: Brand Name
+                fieldType: Relation
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
             industryStandard:
                 fieldLevel: class
                 fieldType: Input
@@ -420,6 +431,55 @@ parameters:
                 fieldType: Input
                 fieldLabel: Marketing Short Description
                 parent: 
+                    name: Product
+        Hose Accessories Orings:
+            MaterialType:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: 'Material'
+                parent:
+                    name: AccessoriesFert
+            Hardness:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: 'Hardness'
+                parent:
+                    name: AccessoriesFert
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            minimumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °F
+                parent:
+                    name: Product
+            maximumTemperatureF:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °F
+                parent:
+                    name: Product
+            minimumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Min temp °C
+                parent:
+                    name: Product
+            maximumTemperatureC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Max temp °C
+                parent:
+                    name: Product
+            BrandShortText1:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Brand Short Text 1
+                parent:
                     name: Product
        
     

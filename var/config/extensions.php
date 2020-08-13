@@ -6,6 +6,7 @@ return [
         "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
         "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
-        "S3CustomizationBundle\\S3CustomizationBundle" => TRUE
+        "S3CustomizationBundle\\S3CustomizationBundle" => TRUE,
+        "CatalogBundle\\CatalogBundle" => TRUE
     ]
 ];

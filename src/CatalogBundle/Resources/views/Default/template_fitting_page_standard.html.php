@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <article class="container">
     <figure>

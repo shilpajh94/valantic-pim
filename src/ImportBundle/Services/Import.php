@@ -27,7 +27,7 @@ class Import
         /* See Helper Function to explore worksheet
         https://phpspreadsheet.readthedocs.io/en/latest/topics/reading-files/#helper-methods
         */
-        /* p_r($workSheetInfo); 
+        /* p_r($workSheetInfo);
         eg:
             array:2 [
             0 => array:5 [
@@ -47,8 +47,8 @@ class Import
             ]
         */
         $workSheet = array_shift($workSheetInfo);
-        
-        /* 
+
+        /*
         eg:
             p_r($workSheet);
             array:5 [
@@ -59,13 +59,13 @@ class Import
             "totalColumns" => 11
             ]
 
-        */  
+        */
         $reader->setLoadSheetsOnly($workSheet['workSheetName']);
         $workSheet['startRow'] = self::$startRow ? : 0;
         $flag = $reader->setReadFilter(new MyReadFilter($workSheet));
 
         /* For Understanding, Exploring features of PHPOffice Spreadsheet */
-        /* 
+        /*
         $spreadsheet = $reader->load($filePath);
         $worksheet = $spreadsheet->getActiveSheet();
         echo "Highest Total Rows: ".$worksheet->getHighestRow();
@@ -76,7 +76,7 @@ class Import
         // p_r($spreadsheet);
         /* Writing into sheet */
         /*
-        // Get an object of the current spreadsheet 
+        // Get an object of the current spreadsheet
         $spreadsheet = $reader->load($filePath);
         // Set the cell value in the current spreadsheet eg: A1, B1, A2, B2
         $spreadsheet->getActiveSheet()->setCellValue('L1','Status');
@@ -89,7 +89,7 @@ class Import
             self::$spreadsheet = $reader->load(self::$filePath);
             return self::$spreadsheet;
         }
-            
+
         return false;
 
     }

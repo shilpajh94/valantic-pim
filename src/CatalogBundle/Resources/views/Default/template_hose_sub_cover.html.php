@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+}
 ?>
 
 <?php if($this->editmode): ?>
@@ -17,20 +19,69 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 if($data):
 foreach($data as $catalogGroupKey => $catalogGroupData):
 ?>
-<div class="seggregate coverPage">
-    <nav class="header alternate">
-       <div id="pageHeader"></div>
-    </nav>
+<div class="template">
+<div class="segregate " id="subCover">
     
-    <article class="containerAll noBorder">
-    <header class="dark">
-            <?= $this->image("HHSC_Image"); ?>
-    </header>
+    <div id="pageHeader" class="alternate"></div>
+ 
+        <div class="footer">
+                <footer class="flex-center ">
+                        <span class="logo">
+                                <b>Hose</b>
+                                <img src="/CatalogImages/logo_new.png">
+                        </span>
+                        <div class="flex aligned">
+                                <h5>
+                                    <?php
+                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
+                                    ?>
+                                </h5>
+                                <div>               
+                                    <span>
+                                    <?php
+                                    echo $this->image("HHSC_Footer_Image", ["width" => 40]);
+                                    ?>
+                                    </span>
+                                                   
+                                </div>       
+                        </div>
+                </footer>
+        </div>
+
+        <div class="footer1">
+                <footer class="flex-center ">   
+                        <div class="flex aligned">
+                                 <div>               
+                                    <span>
+                                    <?php
+                                    echo $this->image("HHSC_Footer_Image1", ["width" => 40]);
+                                    ?>
+                                    </span>
+                                                   
+                                 </div>
+                                <h5>
+                                    <?php
+                                    echo $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey);
+                                    ?>
+                                </h5>
+                                
+                        </div>
+                        <span class="logo">
+                                <b>Hose</b>
+                                <img src="/CatalogImages/logo_new.png">
+                        </span>
+                </footer>
+        </div>
+
+    <article class="containerAll noBorder coverPage">
+        <header class="dark ">
+                <?= $this->image("HHSC_Image"); ?>
+        </header>
     
         <nav class="marginBottom30">
             <h4><?= $this->input("HHSC_Heading"); ?></h4>
         </nav>
-        <div class="fullcontainer containerAll">
+        <div class="fullcontainer single">
             <p class="marginBottom30">
             <?= $this->wysiwyg("HHSC_Description",["class"=>"marginBottom30"]); ?>
             </p>
@@ -47,20 +98,20 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         ?>
                         </h3>               
             </div>
-            <div class="grid">
-                    
-                    <p class="head noBorder">
-                           <span></span>
-                            <span><?= $this->translate('Page') ?></span>
-                            <span><?= $this->translate('Construction') ?></span>
-                            <span><?= $this->translate('Inner Tube') ?></span>
-                            <span><?= $this->translate('Working Pressure (psi)') ?></span>
-                            <span><?= $this->translate('Temperature Range') ?></span>
-                            <span><?= $this->translate('Fitting Series') ?></span>
-                            <span><?= $this->translate('Approvals') ?></span>
-                            <span><?= $this->translate('Packaging') ?></span>
-                    </p>
-
+            <table cellspacing="0" cellpadding="0" class="grid">
+                   <thead> 
+                    <tr class="head noBorder">
+                           <td></td>
+                            <td><?= $this->translate('Page') ?></td>
+                            <td><?= $this->translate('Construction') ?></td>
+                            <td><?= $this->translate('Inner Tube') ?></td>
+                            <td><?= $this->translate('Working Pressure (psi)') ?></td>
+                            <td><?= $this->translate('Temperature Range') ?></td>
+                            <td><?= $this->translate('Fitting Series') ?></td>
+                            <td><?= $this->translate('Approvals') ?></td>
+                            <td><?= $this->translate('Packaging') ?></td>
+                    </tr>
+                    </thead>
                     <?php
                         if($data):
                         $incr = 1;
@@ -69,21 +120,21 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         ?>
 
                         <?php if($incr%2==0): ?>
-                        <div>
+                        <tr>
                         <?php else: ?>
-                        <div class="active">
+                        <tr class="active">
                         <?php endif; ?>
 
-                                <span><b><?= $brandName; ?></b></span>
-                                <span><?= $this->input("HHSC_Page_{$incr}") ?></span>
-                                <span><?= $reinforcement; ?></span>
-                                <span><?= $tubeMaterialAtrributeString; ?></span>
-                                <span><?= $workingPressurePSIString; ?></span>
-                                <span><?= ($tempFmin .'&#8457; to '. $tempFmax.'&#8457;')?></span>
-                                <span><?= $fittingFamily; ?></span>
-                                <span><?= $industryStandard; ?></span>
-                                <span></span>
-                        </div>
+                                <td><b><?= $brandName; ?></b></td>
+                                <td><?= $this->input("HHSC_Page_{$incr}") ?></td>
+                                <td><?= $reinforcement; ?></td>
+                                <td><?= $tubeMaterialAtrributeString; ?></td>
+                                <td><?= $workingPressurePSIString; ?></td>
+                                <td><?= ($tempFmin .'&#8457; to '. $tempFmax.'&#8457;')?></td>
+                                <td><?= $fittingFamily; ?></td>
+                                <td><?= $industryStandard; ?></td>
+                                <td></td>
+                        </tr>
 
                         <?php 
                         $incr++;
@@ -91,37 +142,16 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         endif;
                         ?>
                     
-            </div>
+            </table>
               
         </div>
            
     </article>
-    <div class="footer containerAll">
-                <footer class="flex-center ">
-                        <span class="logo">
-                                <b>Hose</b>
-                                <img src="/CatalogImages/logo_new.png">
-                        </span>
-                        <div class="flex aligned">
-                        <div class="rowD">               
-                                    <span>
-                                    <?php
-                                    echo $this->image("HHSC_Footer_Image", ["width" => 40]);
-                                    ?>
-                                    </span>
-                                    <h5>
-                                    <?php
-                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
-                                    ?>
-                                    </h5>               
-                        </div>
-                                
-                        </div>
-                </footer>
-        </div>
+  
 </div>
-<div class="break-before"></div>
+
 <?php 
 endforeach; 
 endif;
 ?>
+</div>

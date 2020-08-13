@@ -401,7 +401,7 @@ class SalesMaterialModel
                             'epixFlag' => $epixFlag,
                             'pricePageFlag' => $pricePageFlag,
                             'privateBrand' => $privateOrGenericBrand,
-                            'Material' => $materialObjId,
+                            'Material' => ",".$materialObjId.",",
                             'deletedFlagAtDistributionChainLevel' => $distChainStatus,
                             'deletedFlagAtSalesLevel' => (strtoupper(trim($deletionFlag)) == 'X') ? 1 : -1 
                         ];

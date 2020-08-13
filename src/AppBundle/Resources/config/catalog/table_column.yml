@@ -371,7 +371,7 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
-            WorkingPressurePSI:
+            AccessoriesWorkingPressurePSI:
                 fieldLevel: objectBrick
                 fieldLabel: 'Maximum Working Pressure'
                 fieldType: Input
@@ -383,6 +383,44 @@ parameters:
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
+    Hose Accessories Orings: 
+        Hose Accessories-Orings:
+            Descriptive: 
+                fieldLevel: objectBrick
+                fieldLabel: 'Part Number'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            ORingIdInDec: 
+                fieldLevel: objectBrick
+                fieldLabel: 'O-Ring ID (in) Dec'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            ORingWidthInAndMMDecimal:
+                fieldLevel: objectBrick
+                fieldLabel: 'O-Ring Width (in & mm) Decimal'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
+            ThreadDashSize1:
+                fieldLevel: objectBrick
+                fieldLabel: 'Thread Dash Size 1'
+                fieldType: Input
+                parent:
+                    name: AccessoriesFert 
     Hydraulic Fitting:
         Fittings:
             id:
@@ -488,18 +526,18 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
-            ThreadSize1InDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: Thread Size 1 (in)
-                fieldType: Input
-                parent:
-                    name: HydFittingsFert
-            ThreadSize2InDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: Thread Size 2 (mm)
-                fieldType: Input
-                parent:
-                    name: HydFittingsFert
+            # ThreadSize1InDecimal:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Thread Size 1 (in)
+            #     fieldType: Input
+            #     parent:
+            #         name: HydFittingsFert
+            # ThreadSize2InDecimal:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Thread Size 2 (mm)
+            #     fieldType: Input
+            #     parent:
+            #         name: HydFittingsFert
             ThreadDashSize1:
                 fieldLevel: objectBrick
                 fieldLabel: Thread Dash Size
@@ -518,12 +556,12 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
-            OrificeTubeODInDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: Orifice Tube OD (in)
-                fieldType: Input
-                parent:
-                    name: HydFittingsFert
+            # OrificeTubeODInDecimal:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Orifice Tube OD (in)
+            #     fieldType: Input
+            #     parent:
+            #         name: HydFittingsFert
             OrificeTubeODMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Orifice Tube OD (mm)
@@ -828,6 +866,10 @@ parameters:
                 fieldLevel: class
                 fieldLabel: ID
                 fieldType: Input
+            mainImage:
+                fieldLevel: class
+                fieldLabel: Main Image
+                fieldType: Media
             oldMaterialCode:
                 fieldLevel: class
                 fieldLabel: Old Material Code

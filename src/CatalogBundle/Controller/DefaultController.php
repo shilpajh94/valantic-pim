@@ -186,8 +186,6 @@ class DefaultController extends FrontendController {
         $tableColumnsConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getCatalogTableColumnConfig();
         $this->tableColumns = $commonHelper->getParameter($tableColumnsConfig, 'tableColumns');
 
-        $language = $request->getLocale();
-        $this->get('translator')->setLocale('en');
         /* if($this->tableColumns)
           {
           foreach ($this->tableColumns as $key => $value) {
@@ -208,7 +206,7 @@ class DefaultController extends FrontendController {
             if ($tableColumns !== null) {
                 if (!empty($tableColumns) && count($tableColumns) > 0) {
                     foreach ($tableColumns as $key => $column) {
-                        $fieldLabel = $this->get('translator')->trans($column['fieldLabel']);
+                        $fieldLabel = $column['fieldLabel'];
                         $columns[] = array($key, $fieldLabel);
                         //  $store[] = array($key=> $t);
                     }
@@ -274,6 +272,7 @@ class DefaultController extends FrontendController {
         $siopCategory = $catalogCategory->getCategory();
 
         $productList = new DataObject\Product\Listing();
+        $conditionArray = [];
         $x = array();
         for ($i = 0; $i < count($siopCategory); $i++) {
             $y = "," . $siopCategory[$i] . ",";
@@ -299,9 +298,10 @@ class DefaultController extends FrontendController {
         }
         else
         {
-        $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
+            $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
         }
-        $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
+        $conditionArray[] = "ProductType = 'fert' ";
+//        $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
 
         if ($brand != null && count($brand) > 0) {
 
@@ -320,7 +320,9 @@ class DefaultController extends FrontendController {
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
         if ($fitting != null && !empty($fitting) && $fitting != '1') {
-            $productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
+            $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
+            $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.INHFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
+            //$productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
         if ($baseProduct !== null && count($baseProduct) > 0) {
             $baseIds = implode(',', $baseProduct);
@@ -338,8 +340,9 @@ class DefaultController extends FrontendController {
             }
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
-
-        $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
+        $conditionArray[] = "printedCatalogFlag = '1' ";
+        $productList->setCondition(implode(' AND ', $conditionArray));
+//        $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
       
         //$productData = $productList->load();
         // $classFields = array_keys($productData[0]->getClass()->getFieldDefinitions());
@@ -419,7 +422,7 @@ class DefaultController extends FrontendController {
                     } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
-                        if ($item->getFert() !== null) {
+                        if ($item->getFert()->$brickGetter() !== null) {
                             $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
@@ -657,6 +660,8 @@ class DefaultController extends FrontendController {
         die;
     }
 
+
+
     /**
      * @Route("/catalog/get-initial-data")
      */
@@ -719,7 +724,7 @@ class DefaultController extends FrontendController {
                 }
                 foreach ($productsData as $k => $row) {
                     $oldMaterialCode = $row['oldMaterialCode'];
-                    if(empty($oldMaterialCode) || $oldMaterialCode=="N/A" || strlen($oldMaterialCode)<14 || empty($row['brandName'])) {
+                    if(empty($oldMaterialCode) || $oldMaterialCode=="N/A" || strlen($oldMaterialCode)<14 || (is_array($row['brandName']) && empty($row['brandName']))) {
                         continue;
                     }
                     
@@ -731,15 +736,14 @@ class DefaultController extends FrontendController {
                         $images[$baseId] = $row['mainImage'];
                     }
                     if (isset($data[$baseId]) && empty($data[$baseId])) {
-                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'];
+                        $data[$baseId]['brandName'] = isset($data[$baseId]['brandName']) && !empty($data[$baseId]['brandName']) ? $data[$baseId]['brandName'] : $row['brandName'][0];
                         $data[$baseId]['industryStandard'] = isset($data[$baseId]['industryStandard']) && !empty($data[$baseId]['industryStandard']) ? $data[$baseId]['industryStandard'] : $row['industryStandard'];
                         $data[$baseId]['BrandShortText'][0] = isset($data[$baseId]['BrandShortText1'][0]) && !empty($data[$baseId]['BrandShortText1'][0]) ? $data[$baseId]['BrandShortText1'][0] : $row['BrandShortText1'];
                         $data[$baseId]['BrandShortText'][1] = isset($data[$baseId]['BrandShortText2'][1]) && !empty($data[$baseId]['BrandShortText2'][1]) ? $data[$baseId]['BrandShortText2'][1] : $row['BrandShortText2'];
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-                        $data[$baseId]['hoseIdNominalId'][] = isset($data[$baseId]['hoseIdNominalId'][$k]) && !empty($data[$baseId]['hoseIdNominalId'][$k]) ? $data[$baseId]['hoseIdNominalId'][$k] : $row['hoseIdNominalId'];
-                        $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
+                        
                         $data[$baseId]['mainImage'] = isset($row['mainImage'])&&!empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
                             $features = $row['FeaturesBenefitsBulletPoint'];
@@ -758,6 +762,11 @@ class DefaultController extends FrontendController {
                             $features,
                             $featureObj);
                         }
+                    }
+
+if(isset($data[$baseId])) {
+                        $data[$baseId]['hoseIdNominalId'][] = isset($data[$baseId]['hoseIdNominalId'][$k]) && !empty($data[$baseId]['hoseIdNominalId'][$k]) ? $data[$baseId]['hoseIdNominalId'][$k] : $row['hoseIdNominalId'];
+                        $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
                 }
                 
@@ -825,6 +834,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -844,7 +854,7 @@ class DefaultController extends FrontendController {
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
 
-            $featuresList = $this->getFeaturesList('IFS');
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $catalogGrouping = array();
             
@@ -1011,6 +1021,7 @@ class DefaultController extends FrontendController {
             // p_r($catalogGroupData);
             // die;
             $this->view['data'] = $catalogGroupData;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1033,6 +1044,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1132,6 +1144,7 @@ class DefaultController extends FrontendController {
 
             }
             $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1154,6 +1167,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1230,6 +1244,130 @@ class DefaultController extends FrontendController {
 
             }
             $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+        }
+    }
+
+    public function templateHoseAccessoriesOringAction(Request $request)
+    {
+        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+
+        $template = $this->getDocumentTag('relation', 'template_hose_accessories_oring')->getElement();
+        
+        if($template)
+        {
+            $catalogCategoryObjID = $template->getParentId();
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
+            $catalogObjID = $catalogCategoryObj->getParentId();
+
+            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $footerBgColor = $template->getColor();
+            $productsData = $template->getProductsData();
+            $headerData = \json_decode($template->getHeaderData());
+            $headerDataArr = (array)$headerData;
+            $headerKeys = array_keys((array)$headerData);
+            $columnsData = $template->getColumns();
+            $iconRequired = 'NO';
+            $columnsData = json_decode($columnsData);
+            $columnsDataWithImages = array();
+
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
+
+            if($columnsData)
+            {
+                foreach ($columnsData as $key => $value) {
+                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
+                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
+                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+            }
+            
+            $brandsData = array();
+
+            if($productsData){
+                foreach ($productsData as $key => $item) {
+                    $productsDataWithHeaders = array_combine($headerKeys, $item);
+
+                    if(!empty(trim($productsDataWithHeaders['BrandShortText1'])))
+                        $brandsData[$productsDataWithHeaders['BrandShortText1']][] = $productsDataWithHeaders;
+                }
+            }
+
+            $material = array();
+            $brandData = array();
+            $hardness = array();
+            $imageObj = '';
+            $tempFmin = $tempFmax = $tempCmin = $tempCmax = '';
+
+            if($brandsData)
+            {
+                foreach ($brandsData as $brandKey => $brandArray) {
+
+                    $tempFmin = $brandArray[0]['minimumTemperatureF'];
+                    $tempFmax = $brandArray[0]['maximumTemperatureF'];
+                    $tempCmin = $brandArray[0]['minimumTemperatureC'];
+                    $tempCmax = $brandArray[0]['maximumTemperatureC'];
+
+                    $brandName = $brandArray[0]['BrandShortText1'];
+
+                    if($brandArray[0]['mainImage'])
+                    {
+                        $mainImage = $brandArray[0]['mainImage'];
+                        $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                    }
+                    
+                    $articlesData = array();
+
+                    foreach($brandArray as $key => $element): 
+                            foreach($element as $bkey => $value): 
+                                    if($bkey == 'MaterialType')
+                                        $material = array_merge($material, $value);
+                                    if($bkey == 'Hardness')
+                                        $hardness[] = $value;
+                                            
+                            endforeach; 
+
+                            foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                                $articlesData[$key][$ckey] = $element[$ckey];
+                            }
+
+                    endforeach; 
+
+                    
+                    $brandData[$brandKey]['brandName'] = $brandName;
+                    $brandData[$brandKey]['iconRequired'] = $iconRequired;
+                    $brandData[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    // array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+
+
+                    $brandData[$brandKey]['articlesData'] = $articlesData;
+
+                }
+            }
+
+            
+            $hardness = array_unique($hardness);
+            $hardness = implode(', ', $hardness);
+
+            $material = array_unique($material);
+            $materialString = implode(', ', $material);
+
+            $data['imageObj'] = $imageObj;
+            $data['materialString'] = $materialString;
+            $data['hardness'] = $hardness;
+            $data['tempratureRange'] = "{$tempCmin} &#8451; to  {$tempCmax} &#8451; ({$tempFmin} &#8457; to {$tempFmax} &#8457;)";
+            $data['brandData'] = $brandData;
+            
+            $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1312,7 +1450,7 @@ class DefaultController extends FrontendController {
             //     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             // }
 
-            $featuresList = $this->getFeaturesList('IFS');
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $catalogGrouping = array();
             
@@ -1417,6 +1555,7 @@ class DefaultController extends FrontendController {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
             
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1484,6 +1623,7 @@ class DefaultController extends FrontendController {
 
             }
             $this->view['data'] = $data;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
         }
     }
 
@@ -1513,17 +1653,18 @@ class DefaultController extends FrontendController {
     /**
      * return material object or false
      */
-    public function getFeaturesList($catalog_type){
+    public function getFeaturesList($catalog_type, $language){
         $entries = new DataObject\Features\Listing();
         // $entries->setCondition("FeatureType = ?", "{$catalog_type}");
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
+            // p_r($entry);
             
             if($entry->getIcon())
                 $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
             
-            $featureData[$entry->getId()]['name'] = $entry->getName();
+            $featureData[$entry->getId()]['name'] = $entry->getName($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
             $featureData[$entry->getId()]['key'] = $entry->getId();
         }
@@ -1603,6 +1744,7 @@ class DefaultController extends FrontendController {
             $Currency = $catalogObj->getCurrency();
             $ValidFromDate = $catalogObj->getValidFromDate();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1610,7 +1752,7 @@ class DefaultController extends FrontendController {
             $headerKeys = array_keys((array)$headerData);
             $columnsData = $template->getColumns();
 
-            $iconRequired = 'NO';
+            $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
 
@@ -1628,13 +1770,14 @@ class DefaultController extends FrontendController {
             {
                 $columnsDataWithImages['listPrice']['columnName'] = 'listPrice';
                 $columnsDataWithImages['listPrice']['columnLabel'] = $this->get('translator')->trans('listPrice');
-                $columnsDataWithImages['listPrice']['columnIcon'] = '';
+                $columnsDataWithImages['listPrice']['columnIcon'] = $attributeImages['listPrice'];
             }
 
-            $featuresList = $this->getFeaturesList('IFS');
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $columnConfig = array();
             $catagoryDescription = array();
+            $mainImageObj = '';
             $LeftPrintCatalogImageObj = '';
             $RightPrintCatalogImageObj = '';
             $ProfileDimensionImageObj = '';
@@ -1644,15 +1787,21 @@ class DefaultController extends FrontendController {
                 $productsDataWithHeaders = array_combine($headerKeys, $item);
                 $product = DataObject\Product::getById($productsDataWithHeaders['id']);
 
-                if(!$LeftPrintCatalogImageObj && $productsDataWithHeaders['LeftPrintCatalogImage'])
+                
+                if(!$mainImageObj && $productsDataWithHeaders['mainImage'])
                 {
-                    $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['LeftPrintCatalogImage']);
+                    $mainImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['mainImage']);
                 }
 
-                if(!$RightPrintCatalogImageObj && $productsDataWithHeaders['RightPrintCatalogImage'])
-                {
-                    $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['RightPrintCatalogImage']);
-                }
+                // if(!$LeftPrintCatalogImageObj && $productsDataWithHeaders['LeftPrintCatalogImage'])
+                // {
+                //     $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['LeftPrintCatalogImage']);
+                // }
+
+                // if(!$RightPrintCatalogImageObj && $productsDataWithHeaders['RightPrintCatalogImage'])
+                // {
+                //     $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['RightPrintCatalogImage']);
+                // }
 
                 if(!$ProfileDimensionImageObj && $productsDataWithHeaders['ProfileDimensionImage'])
                 {
@@ -1859,22 +2008,26 @@ class DefaultController extends FrontendController {
                 $groupData['material'] = $material;
                 $groupData['reinforcement'] = $reinforcement;
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
-                $groupData['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                $groupData['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                $groupData['mainImageObj'] = $mainImageObj;
+                
+                // $groupData['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                // $groupData['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                 $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['tempFmin'] = $tempFmin;
                 $groupData['tempFmax'] = $tempFmax;
                 $groupData['tempCmin'] = $tempCmin;
                 $groupData['tempCmax'] = $tempCmax;
-                $groupData['groupData'] = $data;
+                $groupData['data'] = $data;
                 $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 $groupData['IsPriceCatalog'] = $IsPriceCatalog;
                 
-                
+                // p_r($groupData);
+                // die;
                 $this->view['groupData'] = $groupData;
+                $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             }
         }
     }
@@ -1902,4 +2055,15 @@ class DefaultController extends FrontendController {
             $this->view['footerLogo'] = \Pimcore\Model\Asset::getByPath($request->get('footerLogo'));
         }        
     }
+
+    public function templateIndexDescriptiveNumberAction(Request $request)
+    {
+        // $this->view['title'] = $request->get('title');
+    }
+
+    public function templateIndexProductNumberAction(Request $request)
+    {
+        // $this->view['title'] = $request->get('title');
+    }
 }
+

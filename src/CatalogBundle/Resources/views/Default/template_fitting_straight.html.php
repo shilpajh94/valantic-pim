@@ -1,5 +1,7 @@
 <?php
+if (!isset($this->parentContainer)) {
 $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <?php if ($this->editmode) { ?>
     <?= $this->relation("fitting-straight"); ?>

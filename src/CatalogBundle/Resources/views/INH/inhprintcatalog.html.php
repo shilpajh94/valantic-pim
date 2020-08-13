@@ -4,22 +4,55 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php if ($this->editmode) { ?>
     <?= $this->relation("inh-printcatalog"); ?>
 <?php } ?>
-<div class="seggregate">
-    <nav class="header">
-        <div id="pageHeader"></div>
-        <span>Hydraulic Hose</span>
-    </nav>
-    <!-- <div class="seggregate"></div> -->
+<div class="template">
+<div class="segregate">
 
-    <div class="seggregate">
-        <article class="fullcontainer ">
+   <div id="pageHeader"></div>
+    <span  class="pageName">Index</span>
+
+ <div class="footer">
+                <footer class="flex-center ">
+                        <span class="logo">
+                            <b>Fittings</b>
+                            <?php echo $this->image("logo")->setImage($info['logo']);?>
+                        </span>
+                        <div class="flex aligned">
+                                <h5>
+                                     Split flanges
+                        <span>Code 61 / Code 62 clamps kit</span>
+                                </h5>
+                                     
+                        </div>
+                </footer>
+        </div>
+
+        <div class="footer1">
+                <footer class="flex-center ">   
+                        <div class="flex aligned">
+                               
+                                <h5>
+                                    Split flanges
+                        <span>Code 61 / Code 62 clamps kit</span>
+                                </h5>
+                                
+                        </div>
+                        <span class="logo">
+                           <b>Fittings</b>
+                           <?php echo $this->image("logo1")->setImage($info['logo']);?>
+                        </span>
+                </footer>
+        </div>
+
+
+   
+        <article class="fullcontainer single">
             <?php
             if (isset($info['data']) && !empty($info['data'])) {
                 foreach ($info['data'] as $tableName => $data) {
                     // p_r($data['dispColumns']);
                     // die;
             ?>
-                    <div class="flex reverse">
+                    <div class="flex ">
                         <div class="sidebar">
                             <ul>
                                 <!-- <li class="first">
@@ -148,23 +181,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <?php }
             } ?>
 
-
-
-
-            <footer class="flex reverseColor">
-                <span class="logo">
-                    <b>Fittings</b>
-                    <?php echo $this->image("logo")->setImage($info['logo']);?>
-                </span>
-                <div class="flex aligned">
-                    <h3>
-                        Split flanges
-                        <span>Code 61 / Code 62 clamps kit</span>
-                    </h3>
-
-
-                </div>
-            </footer>
-        </article>
+       </article>
 
     </div>
+</div>

@@ -174,7 +174,8 @@ class IndustrialHoseController extends FrontendController
      * 
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
-        $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];        
+        $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];     
+        $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $common = \Pimcore::getContainer()->get('app.common_helper');
         $dispColumns = array();
         if ($this->getDocumentTag('relation', 'inh-printcatalog')->getElement() instanceof  \Pimcore\Model\DataObject) {
@@ -342,10 +343,12 @@ class IndustrialHoseController extends FrontendController
                         // Product list brand wise
                         $r = array();
                         $b = array();
-                        foreach($productPageColumns['columns'] as $col) {
-                            if(array_key_exists($col, $row)) {
-                                $r[$col] = $row[$col];
-                            }                            
+                        if(isset($productPageColumns['columns'])) {
+                            foreach($productPageColumns['columns'] as $col) {
+                                if(array_key_exists($col, $row)) {
+                                    $r[$col] = $row[$col];
+                                }                            
+                            }
                         }
 
 
@@ -376,6 +379,9 @@ class IndustrialHoseController extends FrontendController
                         if(!isset($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogPackaging']) && empty($data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogPackaging'])) {
                             $data[$uniqueId]['data'][$brandName]['info']['VirtualCatalogPackaging'] = $row['VirtualCatalogPackaging'];
                         }
+                        if(!isset($data[$uniqueId]['data'][$brandName]['info']['longDescription']) && empty($data[$uniqueId]['data'][$brandName]['info']['longDescription'])) {
+                            $data[$uniqueId]['data'][$brandName]['info']['longDescription'] = $row['longDescription'];
+                        }
 
                         $features = $row['FeaturesBenefitsBulletPoint'];
                         $featureObj = null;
@@ -401,7 +407,7 @@ class IndustrialHoseController extends FrontendController
                     }
                 }
             }
-            // p_r($data);die;
+            //p_r($data);die;
             $categories = $this->getSIOP();
             // p_r($categories);die;
             $this->view['info'] = array(
@@ -410,7 +416,9 @@ class IndustrialHoseController extends FrontendController
                 'dataTableColumn' => $columns,
                 'categories' => $categories,
                 'selectedCategory' => $selectedSiop,
-                'defaultPageImage' => \Pimcore\Model\Asset::getByPath('/CatalogImages/INH/airandmultipurpose.png')
+                'defaultPageImage' => \Pimcore\Model\Asset::getByPath('/CatalogImages/INH/airandmultipurpose.png'),
+                'logo'  =>  \Pimcore\Model\Asset::getByPath('/CatalogImages/logo.JPG'),
+                'attrImages' => $attrImages
             );
         }
     }

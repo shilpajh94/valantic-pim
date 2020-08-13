@@ -1,274 +1,349 @@
+
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php', ['name1' => 'Name from Extend']);
+}
 ?>
 
-<?php if($this->editmode): ?>
-        <?= $this->relation("inh_template_hose_product_page", [
-                "types" => ["object"],
-                "subtypes" => [
-                "object" => ["object"]
-                ],
-                "classes" => ["CatalogTables"],
-        ]); 
-        ?>
+<?php if ($this->editmode): ?>
+    <?=
+    $this->relation("inh_template_hose_product_page", [
+        "types" => ["object"],
+        "subtypes" => [
+            "object" => ["object"]
+        ],
+        "classes" => ["CatalogTables"],
+    ]);
+    ?>
 <?php endif; ?>
 
 <?php
-if($data):
-foreach($data as $catalogGroupKey => $catalogGroupData):
+if ($data):
+    foreach ($data as $catalogGroupKey => $catalogGroupData):
 
-$incr = 1;
-foreach($catalogGroupData as $brandName => $brandData):
-extract($brandData);
+        $incr = 1;
+        foreach ($catalogGroupData as $brandName => $brandData):
+            extract($brandData);
 
 // foreach($data as $key => $brand):
-
 // extract($brand);
 
-$imageObj = '';
-if($incr % 2 == 0)
-        $imageObj = $RightPrintCatalogImageObj;
-else 
-        $imageObj = $LeftPrintCatalogImageObj;
+            $imageObj = '';
+            if ($incr % 2 == 0) {
+                $imageObj = $RightPrintCatalogImageObj;
+            } else {
+                $imageObj = $LeftPrintCatalogImageObj;
+            }
+            ?>
+            <div class="template">
+                <section class="segregate">
 
-?>
+                    <div id="pageHeader"></div>
+                    <span  class="pageName">
+                        <?php
+                        if ($this->editmode) {
+                            echo $this->input("HHPP_Header_{$incr}")->setDataFromResource('Hydraulic Hose');
+                        } else {
+                            echo $this->input("HHPP_Header_{$incr}");
+                        }
+                        ?>
+                    </span>
 
-<section class="seggregate">
-        <nav class="header alternate">
-                <div id="pageHeader"></div>
-                <span>
-                <?php 
-                if($this->editmode){
-                        echo $this->input("HHPP_Header_{$incr}")->setDataFromResource('Hydraulic Hose'); 
-                }else{
-                        echo $this->input("HHPP_Header_{$incr}");
-                }                
-                ?>
-                </span>
-        </nav>
-        <div class="footer">
-        <footer class="flex-center ">
-                        <span class="logo">
+                    <div class="footer">
+                        <footer class="flex-center <?php echo $footer_class; ?>">
+                            <span class="logo">
                                 <b>Hose</b>
-                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                        </span>
-                        <div class="flex aligned">
-                                <h5 class="rowC">
-                                
-                                <?php 
-                                if($this->editmode){
-                                        echo $this->input("HHPP_Footer_BrandName_{$incr}")->setDataFromResource($brandName); 
-                                }else{
+                                <?php if ($footer_class == 'reverseColor'): ?>
+                                    <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                                <?php else: ?>
+                                    <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <?php endif; ?>
+                            </span>
+                            <div class="flex aligned">
+                                <h5>
+                                    <?php
+                                    if ($this->editmode) {
+                                        echo $this->input("HHPP_Footer_BrandName_{$incr}")->setDataFromResource($brandName);
+                                    } else {
                                         echo $this->input("HHPP_Footer_BrandName_{$incr}");
-                                }                
-                                ?>
+                                    }
+                                    ?>
 
-                                <span>
-                                
-                                <?php 
-                                if($this->editmode){
-                                        echo $this->input("HHPP_Footer_HoseType_{$incr}")->setDataFromResource('High Pressure'); 
-                                }else{
-                                        echo $this->input("HHPP_Footer_HoseType_{$incr}");
-                                }                
-                                ?>
+                                    <span>
 
-                                </span>
+                                        <?php
+                                        if ($this->editmode) {
+                                            echo $this->input("HHPP_Footer_HoseType_{$incr}")->setDataFromResource('High Pressure');
+                                        } else {
+                                            echo $this->input("HHPP_Footer_HoseType_{$incr}");
+                                        }
+                                        ?>
 
+                                    </span>
                                 </h5>
 
-
-                                <div class="rowC compatible">
-                                        <b>
-                                        <?php 
-                                        if($this->editmode){
-                                                echo $this->input("HHPP_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
-                                        }else{
-                                                echo $this->input("HHPP_Footer_Compatibility_{$incr}");
-                                        }                
+                                <div class="compatible">
+                                    <b>
+                                        <?php
+                                        if ($this->editmode) {
+                                            echo $this->input("HHPP_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings');
+                                        } else {
+                                            echo $this->input("HHPP_Footer_Compatibility_{$incr}");
+                                        }
                                         ?>
-                                        </b>
-                                        
-                                        <?php 
-                                        $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
-                                        if($this->editmode){
-                                                echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
-                                        }else{
-                                                echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}");
-                                        }                
+                                    </b>
+
+                                    <?php
+                                    $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                    if ($this->editmode) {
+                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description);
+                                    } else {
+                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}");
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                    <div class="footer1">
+                        <footer class="flex-center <?php echo $footer_class; ?>">     
+                            <div class="flex aligned">
+                                <div class="compatible">
+                                    <b>
+                                        <?php
+                                        if ($this->editmode) {
+                                            echo $this->input("HHPP_Footer_Compatibility1_{$incr}")->setDataFromResource('Compatible fittings');
+                                        } else {
+                                            echo $this->input("HHPP_Footer_Compatibility1_{$incr}");
+                                        }
                                         ?>
-                                </d>
-                        </div>
-                </footer>
-        </div>
-        <header class="content white">
-                <h1>
-                <?php
-                        if($this->editmode){
-                                echo $this->input("HHPP_Heading_{$incr}")->setDataFromResource($brandName); 
-                        }else{
-                                echo $this->input("HHPP_Heading_{$incr}");
-                        }                
-                ?>
-                </h1>
-                <aside>
-                        <p>
-                        <?php
-                        if($this->editmode){
-                                echo $this->wysiwyg("HHPP_LongDescription_{$incr}")->setDataFromResource($longDescription); 
-                        }else{
-                                echo $this->wysiwyg("HHPP_LongDescription_{$incr}");
-                        }                
-                        ?>
-                        </p>
-                        <?php
-                        if($this->editmode){
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg","width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj); 
-                        }else{
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class"=>"leftImg", "width" => 600, "height" => 200]);
-                        }                
-                        ?>
-                        <?php
-                        if($this->editmode){
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj); 
-                        }else{
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class"=>"rightImg", "width" => 600, "height" => 200]);
-                        }                
-                        ?>
-                </aside>
-        </header>
-        <article class="fullcontainer">
+                                    </b>
 
-                <section class="content">
-                        <?php if($safetyFeatures || $standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
-                                
-                        <menu class="flex">
-                                <?php if($standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
-                                <div class="specs">
-                                                <h6><?= $this->translate('performance + specs') ?></h6>
-                                                <div class="spec-requirement">
-                                                <div>
-                                                        <?php if($standardsMetHose): ?>
-                                                        
-                                                                <?php foreach($standardsMetHose as $key => $standard): ?>
-                                                                        <?= $this->translate($standard) ?>
-                                                                        <p><?= $standard ?></p>
-                                                                <?php endforeach; ?>
-                                                        
-                                                        <?php endif; ?>
-                                                </div>
-                                                </div>
-                                                <div class="spec-requirement">
-                                                <div>
-                                                        <?php if(!empty(trim($tubeMaterialAtrributeString))): ?>
-                                                        <p>
-                                                                <b><?= $this->translate('Inner Tube') ?></b>
-                                                                <?= $tubeMaterialAtrributeString ?>
-                                                        </p>
-                                                        <?php endif; ?>
+                                    <?php
+                                    $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                    if ($this->editmode) {
+                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$incr}")->setDataFromResource($compatibility_description);
+                                    } else {
+                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$incr}");
+                                    }
+                                    ?>
+                                </div>
+                                <h5>
 
-                                                        <?php if(!empty(trim($reinforcement))): ?>
-                                                        <p>                
-                                                                <b><?= $this->translate('Reinforcement') ?></b>
-                                                                <?= $reinforcement ?>
-                                                        </p>
-                                                        <?php endif; ?>
+                                    <?php
+                                    if ($this->editmode) {
+                                        echo $this->input("HHPP_Footer_BrandName1_{$incr}")->setDataFromResource($brandName);
+                                    } else {
+                                        echo $this->input("HHPP_Footer_BrandName1_{$incr}");
+                                    }
+                                    ?>
 
-                                                        <?php if(!empty(trim($coverMaterialattributeString))): ?>
-                                                        <p>              
-                                                                <b><?= $this->translate('Cover') ?></b>
-                                                                <?= $coverMaterialattributeString ?>
-                                                        </p>
-                                                        <?php endif; ?>
+                                    <span>
 
-                                                        <?php if(!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))): ?>
-                                                        <p>              
-                                                                <b><?= $this->translate('Temperature Range') ?></b>
-                                                                <?=$tempFmin ?>&#8457; to  <?=$tempFmax ?>&#8457; (<?=$tempCmin ?>&#8451; to  <?=$tempCmax ?>&#8451;)
-                                                        </p>
-                                                        <?php endif; ?>
-                                                </div>
+                                        <?php
+                                        if ($this->editmode) {
+                                            echo $this->input("HHPP_Footer_HoseType1_{$incr}")->setDataFromResource('High Pressure');
+                                        } else {
+                                            echo $this->input("HHPP_Footer_HoseType1_{$incr}");
+                                        }
+                                        ?>
 
-                                                </div>
-                                </div> 
+                                    </span>
+
+                                </h5>
+                            </div>
+                            <span class="logo">
+                                <b>Hose</b>
+                                <?php if ($footer_class == 'reverseColor'): ?>
+                                    <img src="/CatalogImages/Continental_Logo_Master_Black.png">
+                                <?php else: ?>
+                                    <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
                                 <?php endif; ?>
+                            </span>
+                        </footer>
+                    </div>
+                    <header class="content white productHeadingProductPage">
+                        <h1>
+                            <?php
+                            if ($this->editmode) {
+                                echo $this->input("HHPP_Heading_{$incr}")->setDataFromResource($brandName);
+                            } else {
+                                echo $this->input("HHPP_Heading_{$incr}");
+                            }
+                            ?>
+                        </h1>
+                        <aside>
+                            <p>
+                                <?php
+                                if ($this->editmode) {
+                                    echo $this->wysiwyg("HHPP_LongDescription_{$incr}")->setDataFromResource($longDescription);
+                                } else {
+                                    echo $this->wysiwyg("HHPP_LongDescription_{$incr}");
+                                }
+                                ?>
+                            </p>
+                            <?php
+                            if ($this->editmode) {
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj);
+                            } else {
+                                echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200]);
+                            }
+                            ?>
+                            <?php
+                            if ($this->editmode) {
+                                echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj);
+                            } else {
+                                echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                            }
+                            ?>
+                        </aside>
+                    </header>
+                    <article class="fullcontainer ">
 
-                                <?php if($safetyFeatures): ?>
-                                <div class="feature">
-                                                <h6><?= $this->translate('features') ?></h6>
+                        <section class="content single">
+                            <?php if ($safetyFeatures || $standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+
+                                <menu class="flex">
+                                    <?php if ($standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                                        <div class="specs">
+                                            <h6><?= $this->translate('performance + specs') ?></h6>
+                                            <div class="spec-requirement">
                                                 <div>
-                                                        <?php foreach($safetyFeatures as $key => $feature): ?>
-                                                                <p  class="flex">
-                                                                        <img src="<?= $feature['iconSrc'] ?>" />
-                                                                        <font> <?= $feature['name'] ?></font>
-                                                                </p>
+                                                    <?php if ($standardsMetHose): ?>
+
+                                                        <?php foreach ($standardsMetHose as $key => $standard): ?>
+                                                            <?= $this->translate($standard) ?>
+                                                            <p><?= $standard ?></p>
                                                         <?php endforeach; ?>
 
+                                                    <?php endif; ?>
                                                 </div>
-                                </div>
-                                <?php endif; ?>
+                                            </div>
+                                            <div class="spec-requirement">
+                                                <div>
+                                                    <?php if (!empty(trim($tubeMaterialAtrributeString))): ?>
+                                                        <p>
+                                                            <b><?= $this->translate('Inner Tube') ?></b>
+                                                            <?= $tubeMaterialAtrributeString ?>
+                                                        </p>
+                                                    <?php endif; ?>
 
-                        </menu>
-                        <?php endif; ?>
+                                                    <?php if (!empty(trim($reinforcement))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Reinforcement') ?></b>
+                                                            <?= $reinforcement ?>
+                                                        </p>
+                                                    <?php endif; ?>
 
-                        <?php if(!empty(trim($BrandingLayline))): ?>
-                        <menu>
-                                <h6><?= $this->translate('branding') ?></h6>
-                                <figure>
+                                                    <?php if (!empty(trim($coverMaterialattributeString))): ?>
+                                                        <p>              
+                                                            <b><?= $this->translate('Cover') ?></b>
+                                                            <?= $coverMaterialattributeString ?>
+                                                        </p>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))): ?>
+                                                        <p>              
+                                                            <b><?= $this->translate('Temperature Range') ?></b>
+                                                            <?= $tempFmin ?>&#8457; to  <?= $tempFmax ?>&#8457; (<?= $tempCmin ?>&#8451; to  <?= $tempCmax ?>&#8451;)
+                                                        </p>
+                                                    <?php endif; ?>
+                                                </div>
+
+                                            </div>
+                                        </div> 
+                                    <?php endif; ?>
+
+                                    <?php if ($safetyFeatures): ?>
+                                        <div class="feature">
+                                            <h6><?= $this->translate('features') ?></h6>
+                                            <div>
+                                                <?php foreach ($safetyFeatures as $key => $feature): ?>
+                                                    <p  class="flex">
+                                                        <?php if ($feature['iconSrc']): ?>
+                                                            <img src="<?= $feature['iconSrc'] ?>" />
+                                                        <?php endif; ?>
+                                                        <font> <?= $feature['name'] ?></font>
+                                                    </p>
+                                                <?php endforeach; ?>
+
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+
+                                </menu>
+                            <?php endif; ?>
+
+                            <?php if (!empty(trim($BrandingLayline))): ?>
+                                <menu>
+                                    <h6><?= $this->translate('branding') ?></h6>
+                                    <figure>
                                         <img src="/CatalogImages/Continental_Logo_Master_yellow.png" width='80'/> 
                                         <figcaption><b><?= $brandName ?></b></figcaption> 
                                         <figcaption> <?= $BrandingLayline ?> </figcaption>
-                                </figure>
-                        </menu>
-                        <?php endif; ?>
-                
-                        <div class="grid">
+                                    </figure>
+                                </menu>
+                            <?php endif; ?>
 
-                                <?php if($iconRequired == 'YES'): ?>
-                                        <p class="sub-head">
-                                                <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                        <span><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></span>
-                                                <?php endforeach; ?>
-                                        </p>
-                                <?php endif; ?>
+                            <table cellpadding="0" cellspacing="0" class="grid">
+                                <thead>
+                                    <?php if ($iconRequired == 'YES'): ?>
+                                        <tr class="sub-head">
+                                            <?php foreach ($columnsDataWithImages as $key => $columnsData): ?>
+                                                <td><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></td>
+                                            <?php endforeach; ?>
+                                        </tr>
+                                    <?php endif; ?>
 
 
-                                <p class="head">
+                                    <tr class="head">
 
-                                        <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                                <span><?= $columnsData['columnLabel'] ?></span>
+                                        <?php foreach ($columnsDataWithImages as $key => $columnsData): ?>
+                                            <td><?= $columnsData['columnLabel'] ?></td>
                                         <?php endforeach; ?>
-                                        
-                                </p>
+
+                                    </tr>
+                                </thead>
                                 <?php $incrRow = 1; ?>        
-                                <?php foreach($articlesData as $key => $element): ?>
-                                        <?php if($incrRow%2==0): ?>
-                                        <p>
+                                <?php foreach ($articlesData as $key => $element): ?>
+                                    <?php if ($incrRow % 2 == 0): ?>
+                                        <tr>
                                         <?php else: ?>
-                                        <p class="active">
+                                        <tr class="active">
                                         <?php endif; ?>
-                                                <?php foreach($element as $ekey => $value): ?>
-                                                        <span><?= $value; ?></span>
-                                                <?php endforeach; ?>
-                                        </p>
-                                        <?php $incrRow++ ?>
+                                        <?php foreach ($element as $ekey => $value): ?>
+                                            <td><?= $value; ?></td>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                    <?php $incrRow++ ?>
                                 <?php endforeach; ?>
 
-                        </div>
+                            </table>
+                        </section>
+
+                    </article>
+
+                    <?php //if($incr != count($catalogGroupData)):  ?>
+
+                    <?php //endif;  ?>    
+
                 </section>
-        
-        </article>
+            </div>
+            <?php
+            $incr++;
+        endforeach;
 
-        <?php //if($incr != count($catalogGroupData)): ?>
-        <div class="break-before"></div>
-        <?php //endif; ?>    
-
-</section>
-
-<?php 
-$incr++;
-endforeach; 
-
-endforeach; 
+    endforeach;
 endif;
 ?>
+
+<script>
+    var rows = document.querySelectorAll(".productHeadingProductPage");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = onLeftPage ? "leftpHeadingSection" : "rightpHeadingSection";
+    });
+</script>
+

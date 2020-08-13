@@ -1,10 +1,6 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-28T10:04:04+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
 - boreType [input]
 - finish [input]
@@ -549,7 +545,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => 3,
                      'name' => 'minBoreIn',
-                     'title' => 'Min bore (in)',
+                     'title' => 'Min Bore Size (in)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1167,9 +1163,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => 1,
+                     'decimalPrecision' => 3,
                      'name' => 'minBoreMm',
-                     'title' => 'Min bore (mm)',
+                     'title' => 'Min Bore Size (mm)',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
