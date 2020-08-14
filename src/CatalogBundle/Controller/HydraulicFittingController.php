@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HydraulicFittingController extends FrontendController
+class HydraulicFittingController extends AbstractController
 {
 
     private $tableColumns;
@@ -73,7 +73,7 @@ class HydraulicFittingController extends FrontendController
                             $data[$uniqueId][$row['FittingTableName']]['leftImage'] = !isset($data[$uniqueId][$row['FittingTableName']]['leftImage']) && !empty($data[$uniqueId][$row['FittingTableName']]['leftImage']) ? $data[$uniqueId][$row['FittingTableName']]['leftImage'] : $leftImage;
                             $data[$uniqueId][$row['FittingTableName']]['rightImage'] = !isset($data[$uniqueId][$row['FittingTableName']]['rightImage']) && !empty($data[$uniqueId][$row['FittingTableName']]['rightImage']) ? $data[$uniqueId][$row['FittingTableName']]['rightImage'] : $rightImage;
 
-                           if (isset($row['HoseID1InDec'])) {
+                            if (isset($row['HoseID1InDec'])) {
                                 $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($row['HoseID1InDec'])][] = $row;                                
                             } else {
                                 $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][0][] = $row;

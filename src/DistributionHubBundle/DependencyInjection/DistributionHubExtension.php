@@ -2,27 +2,44 @@
 
 namespace DistributionHubBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 /**
  * This is the class that loads and manages your bundle configuration.
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class DistributionHubExtension extends Extension
+class DistributionHubExtension extends ConfigurableExtension
 {
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function loadInternal(array $config, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $loader = new YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__ . '/../Resources/config')
+        );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter(
+            'distribution_hub.core_fields_configuration',
+            $config['core_fields_configuration']
+        );
+
+        // load mappings for field definition adapters
+        $serviceLocator = $container->getDefinition("bundle.distribution_hub.filter_locator");
+        $arguments = [];
+
+        foreach ($config['field_definition_adapters'] as $key => $serviceId) {
+            $arguments[$key] = new Reference($serviceId);
+        }
+
+        $serviceLocator->setArgument(0, $arguments);
     }
 }

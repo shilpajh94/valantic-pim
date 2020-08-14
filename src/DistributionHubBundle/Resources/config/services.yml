@@ -1,4 +1,4 @@
-services:    
+services:
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -10,15 +10,173 @@ services:
         public: false
 
     # controllers are imported separately to make sure they're public
-    # and have a tag that allows actions to type-hint services
+    # and have a tag that allows actions to type-hint servicescd /
     DistributionHubBundle\Controller\:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
+    
+    # installer
+    DistributionHubBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('DistributionHubBundle')"
+    
+    #  FieldDefinition Adapters
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\DefaultAdapter:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\DefaultAdapter
+        shared: false
 
-# add more services, or override services that need manual wiring
-#    DistributionHubBundle\ExampleClass:
-#        arguments:
-#            - "@service_id"
-#            - "plain_value"
-#            - "%parameter%"
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\CalculatedValue:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\CalculatedValue
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Checkbox:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Checkbox
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\BooleanSelect:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\BooleanSelect
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Country:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Country
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Countrymultiselect:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Countrymultiselect
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Date:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Date
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Datetime:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Datetime
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Fieldcollections:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Fieldcollections
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToOneRelation:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToOneRelation
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Language:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Language
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Languagemultiselect:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Languagemultiselect
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyRelation:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyRelation
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyRelation:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyRelation
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Multiselect:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Multiselect
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Numeric:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Numeric
+        shared: false
+    
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Slider:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Slider
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Objectbricks:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Objectbricks
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyObjectRelation:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\ManyToManyObjectRelation
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyObjectRelation:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\AdvancedManyToManyObjectRelation
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\QuantityValue:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\QuantityValue
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Select:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Select
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\Time:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Time
+        shared: false
+
+    DistributionHubBundle\Filter\FieldDefinitionAdapter\User:
+        class: DistributionHubBundle\Filter\FieldDefinitionAdapter\User
+        shared: false
+
+    bundle.distribution_hub.services.filter_service:
+        alias: DistributionHubBundle\Services\FilterService
+        
+    DistributionHubBundle\Services\FilterService:
+        public: true 
+        calls:
+            - [setCoreFieldsConfig, ['%distribution_hub.core_fields_configuration%']]
+        arguments:
+            - '@logger'
+            - '@pimcore_admin.security.token_storage_user_resolver' 
+            - '@bundle.distribution_hub.filter_locator'
+            
+    bundle.distribution_hub.filter_locator:
+        class: Symfony\Component\DependencyInjection\ServiceLocator
+        tags: ['container.service_locator']
+        
+    DistributionHubBundle\Services\BundleService:
+        public: true
+
+    DistributionHubBundle\Services\BasicConfigService: 
+        public: true
+
+    DistributionHubBundle\Services\ScheduleService:
+        public: true
+
+    DistributionHubBundle\Command\ExportCommand:
+        tags: ['console.command']
+
+    DistributionHubBundle\Services\ExportService:
+        public: true
+
+    DistributionHubBundle\Services\ScheduleProcessHelperService:
+        public: true
+
+    DistributionHubBundle\Services\MailNotificationService:
+        public: true
+
+    pimcore.data_object.grid_column_config.operator.factory.mediagetter:
+        class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\MediaGetter
+        tags:
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: MediaGetter }
+
+    pimcore.data_object.grid_column_config.operator.factory.ignore:
+        class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\Ignore
+        tags:
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: Ignore }
+
+    pimcore.data_object.grid_column_config.operator.factory.collectionmediagetter:
+        class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\CollectionMediaGetter
+        tags:
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }

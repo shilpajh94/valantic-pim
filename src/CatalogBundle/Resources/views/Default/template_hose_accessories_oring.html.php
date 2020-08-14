@@ -25,7 +25,18 @@ if ($data):
             <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                     <span class="logo">
-                        <b>Fittings</b>
+                        <b>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("HHAO_Logo_Text1")->isEmpty()): ?>
+                                        <?= $this->input("HHAO_Logo_Text1")->setDataFromResource('Fittings') ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHAO_Logo_Text1"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAO_Logo_Text1") ?>
+                        <?php endif; ?>
+                        </b>
+                        
                         <?php if ($footer_class == 'reverseColor'): ?>
                             <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                         <?php else: ?>
@@ -92,7 +103,17 @@ if ($data):
                 </h5>
                     </div>
                     <span class="logo">
-                        <b>Fittings</b>
+                        <b>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("HHAO_Logo_Text2")->isEmpty()): ?>
+                                        <?= $this->input("HHAO_Logo_Text2")->setDataFromResource('Fittings') ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHAO_Logo_Text2"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("HHAO_Logo_Text2") ?>
+                        <?php endif; ?>
+                        </b>
                         <?php if ($footer_class == 'reverseColor'): ?>
                             <img src="/CatalogImages/Continental_Logo_Master_Black.png">
                         <?php else: ?>
@@ -118,7 +139,7 @@ if ($data):
                     <tr>
                         <td valign="top" width="20%">
 
-                            <?= $this->image("HHAO_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
+                            <?= $this->image("HHAO_Image", ["width" => 200])->setImage($imageObj); ?>
                             <div class="material-desc">
                                 <?php if ($materialString): ?>
                                     <span class="flex-center">
