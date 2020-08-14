@@ -56,31 +56,32 @@ class PopulateHydFittingTableNameCommand extends AbstractCommand
 
         $fittingFamilyThreadToNomenIdMap = array();
 
-        $listing = new DataObject\NomenClature\Listing();
-        $condition = "FittingFamily IS NOT NULL AND Thread IS NOT NULL ";
-        $listing->setCondition($condition);
-        $listing->load();
+//        $listing = new DataObject\NomenClature\Listing();
+//        $condition = "FittingFamily IS NOT NULL AND Thread IS NOT NULL ";
+//        $listing->setCondition($condition);
+//        $listing->load();
+//
+//        foreach ($listing->getObjects() as $nomObject) {
+//
+//            $threadCodes = array();
+//            $threadMetaItems = $nomObject->getThread();
+//            foreach ($threadMetaItems as $threadMetaItem) {
+//                $threadObject = $threadMetaItem->getObject();
+//                $threadCodes[] = trim($threadObject->getName());
+//            }
+//
+//            $fittingFamilyMetaItems = $nomObject->getFittingFamily();
+//            foreach ($fittingFamilyMetaItems as $fittingFamilyMetaItem) {
+//                $fittingFamilyObject = $fittingFamilyMetaItem->getObject();
+//                $fittingFamilyCode = trim($fittingFamilyObject->getName());
+//
+//                foreach ($threadCodes as $threadCode) {
+//                    $key = $fittingFamilyCode . "-" . $threadCode;
+//                    $fittingFamilyThreadToNomenIdMap[$key][] = $nomObject->getId();
+//                }
+//            }
+//        }
 
-        foreach ($listing->getObjects() as $nomObject) {
-
-            $threadCodes = array();
-            $threadMetaItems = $nomObject->getThread();
-            foreach ($threadMetaItems as $threadMetaItem) {
-                $threadObject = $threadMetaItem->getObject();
-                $threadCodes[] = trim($threadObject->getName());
-            }
-
-            $fittingFamilyMetaItems = $nomObject->getFittingFamily();
-            foreach ($fittingFamilyMetaItems as $fittingFamilyMetaItem) {
-                $fittingFamilyObject = $fittingFamilyMetaItem->getObject();
-                $fittingFamilyCode = trim($fittingFamilyObject->getName());
-
-                foreach ($threadCodes as $threadCode) {
-                    $key = $fittingFamilyCode . "-" . $threadCode;
-                    $fittingFamilyThreadToNomenIdMap[$key][] = $nomObject->getId();
-                }
-            }
-        }
 
         $statusCountArray = array(
             self::STATUS_SUCCESS => 0,
@@ -115,14 +116,14 @@ class PopulateHydFittingTableNameCommand extends AbstractCommand
             $updatedProductCount = 0;
 
             try {
-
                 $fittingFamilyThreadString = trim($worksheet->getCell("A" . strval($i))->getValue());
                 $tableName = trim($worksheet->getCell("B" . strval($i))->getValue());
 
                 if (!empty($fittingFamilyThreadString) && !empty($tableName)) {
-                    if (array_key_exists($fittingFamilyThreadString, $fittingFamilyThreadToNomenIdMap)) {
-                        $nomIds = $fittingFamilyThreadToNomenIdMap[$fittingFamilyThreadString];
-                        $productIds = $this->getProductIdsWithNomenClatureId($nomIds);
+                    $nomObject = DataObject\NomenClature::getByPartialPartNumber($fittingFamilyThreadString,1);
+
+                    if($nomObject){
+                        $productIds = $this->getProductIdsWithNomenClatureId($nomObject->getId());
 
                         if(count($productIds) > 0 ){
                             $this->updateProductsWithTableName($productIds, $tableName);
@@ -134,14 +135,33 @@ class PopulateHydFittingTableNameCommand extends AbstractCommand
                             $status = self::STATUS_NOMENCLATURE_FOUND_BUT_NO_ASSOCIATED_PRODUCT_FOUND;
                             $this->comments[] = "Nomenclature was found but it was not associated with any product.";
                         }
-
-                    } else {
+                    }else {
                         $status = self::STATUS_NOMECLATURE_NOT_FOUND;
-                        $this->comments[] = "No nomenclature could be found for FittingFamily+Thread " . $fittingFamilyThreadString;
+                        $this->comments[] = "No nomenclature could be found for FittingFamily+Thread (Partial Part Number) " . $fittingFamilyThreadString;
                     }
+
+//                    if (array_key_exists($fittingFamilyThreadString, $fittingFamilyThreadToNomenIdMap)) {
+//                        $nomIds = $fittingFamilyThreadToNomenIdMap[$fittingFamilyThreadString];
+//                        $productIds = $this->getProductIdsWithNomenClatureId($nomIds);
+//
+//                        if(count($productIds) > 0 ){
+//                            $this->updateProductsWithTableName($productIds, $tableName);
+//                            $status = self::STATUS_SUCCESS;
+//                            $updatedProductCount = count($productIds);
+//                            $totalUpdatedProducts += $updatedProductCount;
+//                            $this->comments[] = "Updated product count: (" . $updatedProductCount . ") ids: " . implode(', ', $productIds);
+//                        }else{
+//                            $status = self::STATUS_NOMENCLATURE_FOUND_BUT_NO_ASSOCIATED_PRODUCT_FOUND;
+//                            $this->comments[] = "Nomenclature was found but it was not associated with any product.";
+//                        }
+//
+//                    } else {
+//                        $status = self::STATUS_NOMECLATURE_NOT_FOUND;
+//                        $this->comments[] = "No nomenclature could be found for FittingFamily+Thread " . $fittingFamilyThreadString;
+//                    }
                 } else {
                     $status = self::STATUS_INVALID_DATA;
-                    $this->comments[] = "Fitting Family+ Thread or Table name not found.";
+                    $this->comments[] = "Fitting Family+Thread or Table name not found.";
                 }
             } catch (\Exception $exception) {
                 $status = self::STATUS_FAILURE;
@@ -169,22 +189,20 @@ class PopulateHydFittingTableNameCommand extends AbstractCommand
 
     }
 
-    private function getProductIdsWithNomenClatureId(array $nomIds): array
+    private function getProductIdsWithNomenClatureId(int $nomId): array
     {
         $productIds = array();
-        $formattedIdArrayForQuery = $this->formatIdsArrayForQuery($nomIds);
-
-        if (count($formattedIdArrayForQuery) > 0) {
+//        $formattedIdArrayForQuery = $this->formatIdsArrayForQuery($nomIds);
+        if ($nomId) {
             $hydFittingFertTableName = "object_brick_query_HydFittingsFert_" . $this->productClassId;
 
             $query = "SELECT o_id FROM " . $hydFittingFertTableName;
-            $query .= " WHERE nomenclatureDetails IN " . "(" . implode(",", $formattedIdArrayForQuery) . ")";
+            $query .= " WHERE nomenclatureDetails = " . "',". $nomId . ",'" ;
 
             $productIds = $this->db->fetchCol($query);
         }
         return $productIds;
     }
-
 
     private function formatIdsArrayForQuery(array $nomIds): array
     {
