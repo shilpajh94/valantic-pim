@@ -54,13 +54,13 @@ if ($data):
                             <span class="logo">
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text1")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text1")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text1_{$incr}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$incr}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text1"); ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$incr}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text1") ?>
+                                        <?= $this->input("HHPP_Logo_Text1_{$incr}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">
@@ -162,13 +162,13 @@ if ($data):
 
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text2")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text2")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text2_{$incr}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$incr}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text2"); ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$incr}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text2") ?>
+                                        <?= $this->input("HHPP_Logo_Text2_{$incr}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">

@@ -1262,6 +1262,7 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_oring')->getElement();
         
@@ -1376,6 +1377,7 @@ if(isset($data[$baseId])) {
             
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
 
