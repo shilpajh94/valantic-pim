@@ -16,6 +16,7 @@ class ImportFittingDbCommand extends AbstractCommand
     private $successCount = 0;
     private $failedCount = 0;
     private $fileColumns;
+    private $unitConverter;
     const FITTING_DB_LOG_DIR = 'var/logs/fittingDB/';
 
     protected function configure()
@@ -49,6 +50,9 @@ class ImportFittingDbCommand extends AbstractCommand
         $dataCount = count($excelData);
         if($dataCount>0)
         {
+
+            $this->unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
+
             $allErrors = array();
             foreach ($excelData as $key => $recordValue) {
                 $recordValue['Status'] = '';
@@ -157,17 +161,26 @@ class ImportFittingDbCommand extends AbstractCommand
                     $assemblyVendor = array_map('trim', $assemblyVendor);
                     $brickData->setAssemblyVendor($assemblyVendor);
 
-                    $brickData->setDropLengthIN($data['Drop Length']);
-                    $brickData->setDropLengthMM($data['Drop Length']);
-                    $brickData->setOverallLengthIn($data['Overall Length']);
-                    $brickData->setOverallLengthMm($data['Overall Length']);
-                    $brickData->setRunLengthIn($data['Run Length']);
-                    $brickData->setRunLengthMm($data['Run Length']);
-                    $brickData->setCutOffLengthIn($data['Cut Off Length']);
-                    $brickData->setCutOffLengthMm($data['Cut Off Length']);
-                    $brickData->setInsertionDepthIn($data['Insertion Depth']);
-                    $brickData->setInsertionDepthMm($data['Insertion Depth']);
+                    $dropLengthUnit = $this->unitConverter->getGroupWithValues('DropLengthIN', floatval($data['Drop Length']));
+                    $brickData->setDropLengthIN($dropLengthUnit['DropLengthIN']);
+                    $brickData->setDropLengthMM($dropLengthUnit['DropLengthMM']);
                     
+                    $OverallLengthUnit = $this->unitConverter->getGroupWithValues('OverallLengthIN', floatval($data['Overall Length']));
+                    $brickData->setOverallLengthIN($OverallLengthUnit['OverallLengthIN']);
+                    $brickData->setOverallLengthMm($OverallLengthUnit['OverallLengthMm']);
+
+                    $RunLengthUnit = $this->unitConverter->getGroupWithValues('RunLengthIN', floatval($data['Run Length']));
+                    $brickData->setRunLengthIN($RunLengthUnit['RunLengthIN']);
+                    $brickData->setRunLengthMM($RunLengthUnit['RunLengthMM']);
+
+                    $CutOffLengthUnit = $this->unitConverter->getGroupWithValues('CutOffLengthIN', floatval($data['Cut Off Length']));
+                    $brickData->setCutOffLengthIN($CutOffLengthUnit['CutOffLengthIN']);
+                    $brickData->setCutOffLengthMM($CutOffLengthUnit['CutOffLengthMM']);
+
+                    $InsertionDepthUnit = $this->unitConverter->getGroupWithValues('InsertionDepthIN', floatval($data['Insertion Depth']));
+                    $brickData->setInsertionDepthIN($InsertionDepthUnit['InsertionDepthIN']);
+                    $brickData->setInsertionDepthMM($InsertionDepthUnit['InsertionDepthMM']);
+
                     if(empty(trim($record['Released To Production Date'])))
                     {
                         $ReleasedToProductionDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Released To Production Date']))));
