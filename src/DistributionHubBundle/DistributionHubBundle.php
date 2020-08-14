@@ -2,188 +2,79 @@
 
 namespace DistributionHubBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Pimcore\Extension\Bundle\Installer\InstallerInterface;
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
-use \Pimcore\Model\User\Permission\Definition;
+use Pimcore\Model\User\Permission\Definition;
+use DistributionHubBundle\Installer;
 
 class DistributionHubBundle extends AbstractPimcoreBundle {
 
     /**
-     *
-     * @var object 
+     * @return Installer
      */
-    protected $db;
-
-    /**
-     *
-     * @var string
-     */
-    public $className1 = 'Mapping';
-    public $className2 = 'Channel';
-
-    /**
-     *
-     * @var int
-     */
-    public $userId = 0;
-
-    public function getNiceName() {
-        return "DistributionHub";
-    }
-
-    public function getInstaller() {
-        $path = self::getInstallPath();
-        $tmpPath = self::getTempPath();
-
-        $xmlPath = PIMCORE_PROJECT_ROOT . '/web/var/TempXmlFileFolder';
-        if (!is_dir($path)) {
-            $this->createMappingClass();
-            $this->importMappingClass();
-
-            $this->createChannelClass();
-            $this->importChannelClass();
-            mkdir($path);
-            if (!is_dir($tmpPath)) {
-                mkdir($tmpPath);
-            }
-        }
-        if (!is_dir($xmlPath)) {
-            mkdir($xmlPath);
-        }
-        $this->getJsPaths();
-        $this->getCssPaths();
-        $permissionDefinition = new Definition();
-        $permissionDefinition->setKey("plugin_DistributionHub_access");
-        $permissionDefinition->save();
-
-        $mappermissionDefinition = new Definition();
-        $mappermissionDefinition->setKey("plugin_DistributionHub_mapping");
-        $mappermissionDefinition->save();
-
-        $chapermissionDefinition = new Definition();
-        $chapermissionDefinition->setKey("plugin_DistributionHub_channel");
-        $chapermissionDefinition->save();
-    }
-
-    public static function getInstallPath() {
-        return PIMCORE_PROJECT_ROOT . "/src/DistributionHubBundle/install";
-    }
-
-    public static function getTempPath() {
-        return PIMCORE_PROJECT_ROOT . "/src/DistributionHubBundle/tmp";
-    }
-
-    /**
-     * Create Mapping class
-     *
-     * @return boolean
-     */
-    public function createMappingClass() {
-        $class = \Pimcore\Model\DataObject\ClassDefinition::getByName($this->className1);
-        if (empty($class)) {
-            $class = \Pimcore\Model\DataObject\ClassDefinition::create(
-                            [
-                                'name' => $this->className1,
-                                'userOwner' => $this->userId
-                            ]
-            );
-            $class->save();
-        }
-
-        return true;
-    }
-
-    /**
-     * Import Mapping class
-     *
-     * @return boolean
-     */
-    public function importMappingClass() {
-        // Import class definition
-        $class = \Pimcore\Model\DataObject\ClassDefinition::getByName($this->className1);
-        $json = file_get_contents(PIMCORE_PROJECT_ROOT . "/src/DistributionHubBundle/Resources/class/class_" . $this->className1 . "_export.json");
-        $array = json_decode($json, true);
-        $array['layoutDefinitions']['childs'][0]['childs'][0]['classes'] = [];
-        $json = json_encode($array);
-        $success = \Pimcore\Model\DataObject\ClassDefinition\Service::importClassDefinitionFromJson($class, $json);
-        return true;
-    }
-
-    public function createChannelClass() {
-        $class = \Pimcore\Model\DataObject\ClassDefinition::getByName($this->className2);
-        if (empty($class)) {
-            $class = \Pimcore\Model\DataObject\ClassDefinition::create(
-                            [
-                                'name' => $this->className2,
-                                'userOwner' => $this->userId
-                            ]
-            );
-            $class->save();
-        }
-
-        return true;
-    }
-
-    /**
-     * Channel class import
-     *
-     * @return boolean
-     */
-    public function importChannelClass() {
-        // Import class definition
-        $class = \Pimcore\Model\DataObject\ClassDefinition::getByName($this->className2);
-        $json = file_get_contents(PIMCORE_PROJECT_ROOT . "/src/DistributionHubBundle/Resources/class/class_" . $this->className2 . "_export.json");
-        $array = json_decode($json, true);
-        $array['layoutDefinitions']['childs'][0]['childs'][0]['classes'] = [];
-        $json = json_encode($array);
-        $success = \Pimcore\Model\DataObject\ClassDefinition\Service::importClassDefinitionFromJson($class, $json);
-        return true;
-    }
-
-    public static function uninstall() {
-        $this->removeClass($this->className1);
-        $this->removeClass($this->className2);
-        return true;
-    }
-
-    /**
-     * Execute on uninstall plugin. 
-     */
-    public function removeClass($clsName) {
-        $class = \Pimcore\Model\DataObject\ClassDefinition::getByName($clsName);
-        $class->delete();
+    public function getInstaller()
+    {
+        return $this->container->get(Installer::class);
     }
 
     public function getJsPaths() {
         return [
             '/bundles/distributionhub/js/pimcore/startup.js',
-            '/bundles/distributionhub/js/pimcore/mappingtoolbar.js',
-            '/bundles/distributionhub/js/pimcore/dataconnector.js',
-            '/bundles/distributionhub/js/pimcore/columnConfigDialog.js',
-            '/bundles/distributionhub/js/pimcore/channelstoolbar.js',
-            '/bundles/distributionhub/js/pimcore/channelspanel.js',
-            '/bundles/distributionhub/js/pimcore/connector/channels/item.js',
-            '/bundles/distributionhub/js/pimcore/connector/channels/panel.js',
-            '/bundles/distributionhub/js/pimcore/connector/channels/helpers/grid.js',
-            '/bundles/distributionhub/js/pimcore/connector/mapping/item.js',
-            '/bundles/distributionhub/js/pimcore/connector/mapping/panel.js',
+            '/bundles/distributionhub/js/pimcore/toolbar.js',
+            '/bundles/distributionhub/js/pimcore/mappingPanel.js',
+            '/bundles/distributionhub/js/pimcore/mappingLeftPanel.js',
+            '/bundles/distributionhub/js/pimcore/configItem.js',
+            '/bundles/distributionhub/js/pimcore/globalConstants.js',
+            '/bundles/distributionhub/js/pimcore/helpers/customPagingTreeStore.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/conditionPanelContainerBuilder.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/conditionPanel.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/resultAbstractPanel.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/resultExtension.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/conditionAbstractPanel.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/conditionEntryPanel.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/default.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/localizedfields.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/numeric.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/slider.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/manyToManyOne.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/manyToManyObjectRelation.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/manyToManyRelation.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/fieldcollections.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/objectbricks.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/advancedManyToManyObjectRelation.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/advancedManyToManyRelation.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/checkbox.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/booleanSelect.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/select.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/language.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/country.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/user.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/multiselect.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/countrymultiselect.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/languagemultiselect.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/datetime.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/date.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/time.js',
+            '/bundles/distributionhub/js/pimcore/filtersConfig/fieldConditionPanel/quantityValue.js',
+            '/bundles/distributionhub/js/pimcore/tabs/basicConfig.js',
+            '/bundles/distributionhub/js/pimcore/tabs/filtersConfig.js',
+            '/bundles/distributionhub/js/pimcore/tabs/preview.js',
+            '/bundles/distributionhub/js/pimcore/helpers/customPagingTreeStore.js',
+            '/bundles/distributionhub/js/pimcore/helpers/classAttributesStore.js',
+            '/bundles/distributionhub/js/pimcore/tabs/scheduleConfig.js',
+            '/bundles/distributionhub/js/pimcore/operator/MediaGetter.js',
+            '/bundles/distributionhub/js/pimcore/tabs/columnConfiguration.js',
+            '/bundles/distributionhub/js/pimcore/tabs/scheduleConfig.js',
+            '/bundles/distributionhub/js/pimcore/helpers/classTree.js',
+            '/bundles/distributionhub/js/pimcore/tabs/shareConfig.js',
+            '/bundles/distributionhub/js/pimcore/operator/CollectionMediaGetter.js',
+
         ];
     }
 
     public function getCssPaths() {
-        return array(
-            '/bundles/distributionhub/css/example.css',
-        );
-    }
-
-    public function getConfig() {
-
-        $path = PIMCORE_PROJECT_ROOT . "/src/DistributionHubBundle/plugin.xml";
-        $obj = new \Symfony\Component\Serializer\Encoder\XmlEncoder();
-        $data = $obj->decode(file_get_contents($path), 'XML');
-        return $data['plugin'];
+        return [
+            '/bundles/distributionhub/css/dHub.css'
+        ];
     }
 
 }

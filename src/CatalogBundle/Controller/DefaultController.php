@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends FrontendController {
+class DefaultController extends AbstractController {
 
     private $tableColumns;
     private $db;
@@ -272,6 +272,7 @@ class DefaultController extends FrontendController {
         $siopCategory = $catalogCategory->getCategory();
 
         $productList = new DataObject\Product\Listing();
+        $conditionArray = [];
         $x = array();
         for ($i = 0; $i < count($siopCategory); $i++) {
             $y = "," . $siopCategory[$i] . ",";
@@ -297,9 +298,10 @@ class DefaultController extends FrontendController {
         }
         else
         {
-        $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
+            $productList->addConditionParam("SIOPLevel4 IN (:category)", ["category" => $x], 'AND');
         }
-        $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
+        $conditionArray[] = "ProductType = 'fert' ";
+//        $productList->addConditionParam('ProductType = :type', ['type' => 'fert'], 'AND');
 
         if ($brand != null && count($brand) > 0) {
 
@@ -318,7 +320,9 @@ class DefaultController extends FrontendController {
             $productList->addConditionParam('brandName IN (:brand)', ['brand' => $brand], 'AND');
         }
         if ($fitting != null && !empty($fitting) && $fitting != '1') {
-            $productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
+            $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
+            $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.INHFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
+            //$productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
         if ($baseProduct !== null && count($baseProduct) > 0) {
             $baseIds = implode(',', $baseProduct);
@@ -336,8 +340,9 @@ class DefaultController extends FrontendController {
             }
             $productList->addConditionParam('o_parentId IN (:parent)', ['parent' => $skeletonProductId], 'AND');
         }
-
-        $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
+        $conditionArray[] = "printedCatalogFlag = '1' ";
+        $productList->setCondition(implode(' AND ', $conditionArray));
+//        $productList->setCondition('printedCatalogFlag = :print', ['print' => '1']);
       
         //$productData = $productList->load();
         // $classFields = array_keys($productData[0]->getClass()->getFieldDefinitions());
@@ -418,7 +423,7 @@ class DefaultController extends FrontendController {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getFert()->$brickGetter() !== null) {
-                                $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
@@ -654,6 +659,8 @@ class DefaultController extends FrontendController {
         echo json_encode($arr);
         die;
     }
+
+
 
     /**
      * @Route("/catalog/get-initial-data")

@@ -283,6 +283,8 @@ class CategoryModel
         if (isset($this->reader) && isset($this->reader['description'])) {
             if($this->processingCode==$levelInfo['levelFullCode']) {
                 $catObj->setDescription($this->reader['description'], 'en');
+                $catObj->setPrintedCatalogDescription($this->reader['description'], 'en');
+                $catObj->setConstructionType($this->reader['description'], 'en');
             }
         }
 

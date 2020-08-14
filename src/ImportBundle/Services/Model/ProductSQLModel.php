@@ -150,7 +150,7 @@ class ProductSQLModel
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
         $this->processDeletedProducts();
-//        
+        
         $this->initiatePTGProductsProcess();
         
         $this->initiateIFSProductsProcess();
@@ -590,7 +590,7 @@ class ProductSQLModel
         for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
-            $siopData[$index] = $this->categories[$catCode]['id'];
+            $siopData[$index] = ",".$this->categories[$catCode]['id'].",";
         }
         $siopFullCode = trim($record['4']);
         if ($productType == 'base') {

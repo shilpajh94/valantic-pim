@@ -240,8 +240,51 @@ class AppService
     }
 
     /**
+     * update Fitting Family and Thread Desc in HydFittingFert
+     * by picking values from related nomenclature master object
+     *
+     * @param Product $product
+     */
+    public function updateFittingFamilyAndThreadDescInHydFittingFert(Product $product): void
+    {
+        if($product->getFert() && $hydFittingFert = $product->getFert()->getHydFittingsFert()){
+            $nomenclature = null;
+            $nomeClatureDetailMetaItems = $hydFittingFert->getNomenclatureDetails();
+            if($nomeClatureDetailMetaItems){
+                foreach($nomeClatureDetailMetaItems as $nomeClatureDetailMeta){
+                    $nomenclature = $nomeClatureDetailMeta->getObject();
+                    break;
+                }
+            }
+
+            if($nomenclature){
+                $fittingFamilyMetaItems = $nomenclature->getFittingFamily();
+                $fittingFamilies = array();
+                foreach($fittingFamilyMetaItems as $fittingFamilyMeta){
+                    $fittingFamily = $fittingFamilyMeta->getObject();
+                    $fittingFamilies[] = $fittingFamily->getId();
+                }
+
+                $threadMetaItems = $nomenclature->getThread();
+                $threadDesc = '';
+                foreach($threadMetaItems as $threadMeta){
+                    $thread = $threadMeta->getObject();
+                    $threadDesc = $thread->getDescription();
+                    break;
+                }
+
+                $hydFittingFert->setHydFittingFamily($fittingFamilies);
+                $hydFittingFert->setHydThreadDescription($threadDesc);
+            }else{
+                $hydFittingFert->setHydFittingFamily([]);
+                $hydFittingFert->setHydThreadDescription(null);
+            }
+        }
+    }
+
+    /**
      * if siop 4 category has true value for nomenclatureHierarchy, then create
-     * folder hierarchy using fitting family desc and thread desc and move the
+     * folder hierarchy using fitting family and thread desc and move the
      * product to the inner folder
      *
      * @param Product $product
@@ -257,22 +300,41 @@ class AppService
             $product->getFert() &&
             ($hydfittingFert = $product->getFert()->getHydFittingsFert())
         ){
-            $fittingFamilyDesc = $hydfittingFert->getFittingFamilyDescription();
-            $threadDesc = $hydfittingFert->getThreadDescription1();
+            $fittingFamilyDesc = null;
+            $threadDesc = $hydfittingFert->getHydThreadDescription();
+
+            $fittingFamilyIdArr = $hydfittingFert->getHydFittingFamily();
+            if(is_array($fittingFamilyIdArr) && count($fittingFamilyIdArr) > 0){
+                $fittingFamilyId = $fittingFamilyIdArr[0];
+                $fittingFamilyObj = \Pimcore\Model\DataObject\FittingFamily::getById($fittingFamilyId);
+                if($fittingFamilyObj){
+                    $fittingFamilyDesc = $fittingFamilyObj->getDescription();
+                }
+            }
+
+            $siop4CatPath = $siop4Cats[0]->getRealFullPath();
+            $productPathFor4levelCat = $this->convertCategoryPathToProductPath($siop4CatPath);
+
+            $targetFolderPath = $productPathFor4levelCat;
 
             if($fittingFamilyDesc && ( $validFittingFamilyDesc = $this->getValidNameForKey($fittingFamilyDesc)) ){
-                $productParentPath = $product->getPath();
-
-                $targetFolderPath = $productParentPath.$validFittingFamilyDesc;
-                $targetFolder = $this->getProductFolderByPath($targetFolderPath);
+//                $productParentPath = $product->getPath();
+                $targetFolderPath = $targetFolderPath."/".$validFittingFamilyDesc;
 
                 if($threadDesc && ( $validThreadDesc = $this->getValidNameForKey($threadDesc)) ){
                     $targetFolderPath = $targetFolderPath."/".$validThreadDesc;
-                    $targetFolder = $this->getProductFolderByPath($targetFolderPath);
                 }
-                $product->setParent($targetFolder);
             }
+
+            $targetFolder = $this->getProductFolderByPath($targetFolderPath);
+            $product->setParent($targetFolder);
         }
+    }
+
+    public function convertCategoryPathToProductPath($categoryPath) {
+        $search = '/Master List/SIOP Master List/SIOP Engineered Products';
+        $replace = '/Products Master';
+        return str_replace($search, $replace, $categoryPath);
     }
 
     /**

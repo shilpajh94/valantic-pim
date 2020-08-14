@@ -143,5 +143,18 @@ return [
         "priority" => 0,
         "creationDate" => 1596707873,
         "modificationDate" => 1596708025
+    ],
+    12 => [
+        "id" => 12,
+        "name" => "PDF Page",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "Content",
+        "action" => "pdf",
+        "template" => "CatalogBundle:Content:pdf.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1597380677,
+        "modificationDate" => 1597380711
     ]
 ];

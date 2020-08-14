@@ -21,12 +21,18 @@ class AssetImportCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('conti:asset-import')
-            ->setDescription('Asset Import');
+            ->setDescription('Asset Import')
+            ->addArgument('import_type', InputArgument::REQUIRED, 'PTG or IFS');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $serviceObj = \Pimcore::getContainer()->get('import.asset_import_service');
-        $serviceObj->import();
+        $importType = strtoupper($input->getArgument('import_type'));
+        if(!in_array($importType, ["PTG", "IFS"])){
+            echo $importType." is not valid import type. It can either be PTG or IFS".PHP_EOL;
+            return;
+        }
+        $serviceObj->import($importType);
     }
 }

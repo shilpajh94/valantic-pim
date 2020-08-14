@@ -62,12 +62,12 @@ parameters:
                 fieldType: Input
                 parent:
                     name: Product
-            fittingFamily:
-                fieldLevel: class
+            INHFittingFamily:
+                fieldLevel: objectBrick
                 fieldLabel: 'Fitting Family'
                 fieldType: Relation
                 parent:
-                    name: Product
+                    name: HoseSkeleton
                     class:
                        name: FittingFamily
                        fieldName: Name    
@@ -447,12 +447,12 @@ parameters:
                 fieldLevel: class
                 fieldLabel: Brand Short Text 1
                 fieldType: Input
-            fittingFamily:
-                fieldLevel: class
+            HydFittingFamily:
+                fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Fitting Family
                 parent: 
-                    name: Product
+                    name: HydFittingsFert
                     class: 
                         name : FittingFamily
                         fieldName: Name

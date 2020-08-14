@@ -1,12 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-06T14:35:00+02:00
+* Generated at: 2020-08-11T12:03:38+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
-- HydFittingFamily [input]
+- HydFittingFamily [multiselect]
+- HydThreadDescription [input]
 - nomenclatureDetails [advancedManyToManyObjectRelation]
 - ActivantNumber [input]
 - AssemblyRevisionNumber [input]
@@ -225,25 +226,176 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => 350,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 150,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+             'fieldtype' => 'multiselect',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'AV',
+                'value' => 1819900,
+              ),
+              1 => 
+              array (
+                'key' => 'CB',
+                'value' => 1819904,
+              ),
+              2 => 
+              array (
+                'key' => 'CLIP',
+                'value' => 1819907,
+              ),
+              3 => 
+              array (
+                'key' => 'CLIPHLDR',
+                'value' => 1819909,
+              ),
+              4 => 
+              array (
+                'key' => 'COT',
+                'value' => 1819810,
+              ),
+              5 => 
+              array (
+                'key' => 'FSL',
+                'value' => 1819915,
+              ),
+              6 => 
+              array (
+                'key' => 'FT',
+                'value' => 1819815,
+              ),
+              7 => 
+              array (
+                'key' => 'FTN',
+                'value' => 1819819,
+              ),
+              8 => 
+              array (
+                'key' => 'FTS',
+                'value' => 1819821,
+              ),
+              9 => 
+              array (
+                'key' => 'FTSM',
+                'value' => 1819823,
+              ),
+              10 => 
+              array (
+                'key' => 'HM',
+                'value' => 1819825,
+              ),
+              11 => 
+              array (
+                'key' => 'ILOT',
+                'value' => 1819833,
+              ),
+              12 => 
+              array (
+                'key' => 'NP',
+                'value' => 1819976,
+              ),
+              13 => 
+              array (
+                'key' => 'OF',
+                'value' => 1819936,
+              ),
+              14 => 
+              array (
+                'key' => 'OI',
+                'value' => 1819839,
+              ),
+              15 => 
+              array (
+                'key' => 'OIM',
+                'value' => 1819850,
+              ),
+              16 => 
+              array (
+                'key' => 'OSWCH',
+                'value' => 1819947,
+              ),
+              17 => 
+              array (
+                'key' => 'OT',
+                'value' => 1819847,
+              ),
+              18 => 
+              array (
+                'key' => 'OTC',
+                'value' => 1819849,
+              ),
+              19 => 
+              array (
+                'key' => 'PLIERS',
+                'value' => 1819966,
+              ),
+              20 => 
+              array (
+                'key' => 'SF',
+                'value' => 1819881,
+              ),
+              21 => 
+              array (
+                'key' => 'SWCN',
+                'value' => 1819891,
+              ),
+              22 => 
+              array (
+                'key' => 'VA',
+                'value' => 1819893,
+              ),
+              23 => 
+              array (
+                'key' => 'VCORE',
+                'value' => 1819902,
+              ),
+            ),
+             'width' => 300,
+             'height' => '',
+             'maxItems' => '',
+             'renderType' => 'tags',
+             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
+             'optionsProviderData' => 'FittingFamily|Name',
+             'queryColumnType' => 'text',
+             'columnType' => 'text',
+             'phpdocType' => 'array',
+             'dynamicOptions' => false,
              'name' => 'HydFittingFamily',
-             'title' => 'Fitting Family (HYD)',
+             'title' => 'Fitting Family (Hyd)',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
-             'style' => 'margin-top:20px;',
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => 300,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'showCharCount' => false,
+             'name' => 'HydThreadDescription',
+             'title' => 'Thread Description (Hyd)',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
@@ -252,7 +404,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          1 => 
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyObjectRelation::__set_state(array(
              'allowedClassId' => 'NomenClature',
              'visibleFields' => 'family1,familyDescription1,family2,familyDescription2',
@@ -271,7 +423,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             ),
              'width' => '',
              'height' => '',
-             'maxItems' => '',
+             'maxItems' => 1,
              'queryColumnType' => 'text',
              'relationType' => true,
              'allowToCreateNewObject' => true,
@@ -294,7 +446,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          2 => 
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
              'fieldtype' => 'tabpanel',
              'border' => false,
@@ -1372,7 +1524,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => '',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -3218,7 +3370,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'columnType' => 'double',
                              'phpdocType' => 'float',
                              'integer' => false,
-                             'unsigned' => true,
+                             'unsigned' => false,
                              'minValue' => NULL,
                              'maxValue' => NULL,
                              'unique' => false,

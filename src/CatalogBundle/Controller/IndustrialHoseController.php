@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class IndustrialHoseController extends FrontendController
+class IndustrialHoseController extends AbstractController
 {
 
     private $tableColumns;
@@ -263,7 +263,7 @@ class IndustrialHoseController extends FrontendController
                     }
 
                     $fittingTableName = $row['FittingTableName'];
-                    $productPageColumns = $inhSectionPageConfig[$fittingTableName];
+                    $productPageColumns = is_array($inhSectionPageConfig) && isset($inhSectionPageConfig[$fittingTableName]) ? $inhSectionPageConfig[$fittingTableName] : null;                    
                     $orderCode = "";
 
                     if(isset($row['oldMaterialCode']) && !empty($row['oldMaterialCode']) && $row['oldMaterialCode']!=='N/A') {
@@ -350,6 +350,7 @@ class IndustrialHoseController extends FrontendController
                                 }                            
                             }
                         }
+                        
 
 
                         if(!empty($orderCode)) {

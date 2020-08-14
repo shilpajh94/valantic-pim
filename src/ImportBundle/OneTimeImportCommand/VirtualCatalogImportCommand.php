@@ -32,6 +32,8 @@ class VirtualCatalogImportCommand extends AbstractCommand
     const BASE_QUERY_TABLE_NAME = 'object_query_1';
     const BASE_STORE_TABLE_NAME = 'object_store_1';
 
+    const LOCALIZED_TABLE_1 = 'object_localized_data_1';
+
     const SUCCESS = "Success";
     const FAILED = "Failed";
 
@@ -40,6 +42,8 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private $db;
     private $t;
     private $results;
+    private $baseLevelRecords;
+    private $skeleLevelRecords;
     protected function configure()
     {
         $this->setName('conti:onetimeimport:hose')
@@ -58,7 +62,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
             p_r('------------------------------------------------');
             $this->createTempTable();
             $this->import($filePath);
-            $this->updateObject();
+            $this->update();
             // $this->updateSkeleton();
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
@@ -74,7 +78,122 @@ class VirtualCatalogImportCommand extends AbstractCommand
         $this->updateTable($this->results, 'virtual_catalog_temp');
     }
 
+    /**
+     * It will update object for catalog using php api
+     */
+    private function update()
+    {
+        $sql = "SELECT * FROM `virtual_catalog_temp`";
+        $results = $this->db->fetchAll($sql);
+        $logs = array();
+        $arr6Digit = array();
+        $digitFound = false;
+        $keys = array();
+        if (is_array($results) && !empty($results)) {
+            foreach ($results as $i => $result) {
+                $digitFound = false;
+                $logs[$i] = array(
+                    'data' => $result
+                );
 
+                if (!empty($result['6_Digit']) && is_numeric($result['6_Digit']) && strlen($result['6_Digit']) == 6) {
+                    $digitFound = true;
+                    $this->baseLevelRecords[$result['6_Digit']] = $result;
+                } else {
+                    $error[] = "Code {$result['6_Digit']} could not processed due to wrong length ";
+                }
+                /* if(!empty($result['6_Digit']) && is_numeric($result['6_Digit']) && strlen($result['6_Digit'])>=9) {
+                    $digitFound = true;
+                    $skeletonLevel = substr($result['6_Digit'], 0, 9);
+                    $this->skeleLevelRecords[$skeletonLevel] = $result;
+                    unset($skeletonLevel);
+                } */
+                if (!empty($error)) {
+                    $logs[$i]['statusCode'] = self::FAILED;
+                    $logs[$i]['failedReason'] =  implode(", ", $error);
+                } else {
+                    $logs[$i]['statusCode'] = self::SUCCESS;
+                    $logs[$i]['failedReason'] = '';
+                }
+            }
+
+            if (!empty($this->baseLevelRecords)) {
+                $this->mapBaseLevelId($this->baseLevelRecords, array_keys($this->baseLevelRecords));
+            }
+            if (!empty($this->skeleLevelRecords)) {
+                $this->mapBaseLevelId($this->skeleLevelRecords, array_keys($this->skeleLevelRecords));
+            }
+
+            $this->updateBase();
+            /**
+             * Update Log
+             */
+            p_r('Updateing Log');
+            $this->insertDataToLogTable($logs);
+            p_r('Updateing Log Done');
+        }
+    }
+
+    private function updateBase()
+    {
+        /**
+         * Updating Data
+         */
+        if (is_array($this->baseLevelRecords) && !empty($this->baseLevelRecords)) {
+            p_r("Updating " . count($this->baseLevelRecords) . " Records at base level");
+            foreach ($this->baseLevelRecords as $result) {
+                $o = \Pimcore\Model\DataObject\Product::getById($result['level6n9digit_id']);
+                if (!is_null($o)) {
+                    p_r("Updating " . $result['level6n9digit_id']. ' '.$result['6_Digit'] );
+                    if (!empty($result['Marketing_Long_Description'])) {
+                        $o->setLongDescription($result['Marketing_Long_Description']);
+                    }
+                    if (!empty($result['Temperature_Range_F_and_C_Virtual_Catalog_Description'])) {
+                        $o->setVirtualCatalogHoseTemperatureRangeFAndC($result['Temperature_Range_F_and_C_Virtual_Catalog_Description']);
+                    }
+                    if (!empty($result['Branding_Layline'])) {
+                        $o->setBrandingLayline($result['Branding_Layline']);
+                    }
+
+
+                    // Hose Base Brick
+                    if (!empty($result['Tube_Material_Virtual_Catalog_Description'])) {
+                        $o->getBase()->getHoseBase()->setVirtualCatalogTubeMaterial($result['Tube_Material_Virtual_Catalog_Description']);
+                    }
+                    if (!empty($result['Cover_Material_Virtual_Catalog_Description'])) {
+                        $o->getBase()->getHoseBase()->setVirtualCatalogCoverMaterial($result['Cover_Material_Virtual_Catalog_Description']);
+                    }
+                    if (!empty($result['Couplings_Virtual_Catalog_Description'])) {
+                        $o->getBase()->getHoseBase()->setVirtualCatalogCoupling($result['Couplings_Virtual_Catalog_Description']);
+                    }
+                    if (!empty($result['Non_Stock_Sizes'])) {
+                        $o->getBase()->getHoseBase()->setNonStockSizes($result['Non_Stock_Sizes']);
+                    }
+
+                    // Skeleton
+                    if (!empty($result['Reinforcement_Virtual_Catalog_Description'])) {
+                        // $o->getSkeleton()->getHoseSkeleton()->setVirtualCatalogReinforcement($result['Reinforcement_Virtual_Catalog_Description']);
+                    }
+                    $o->save();
+                }
+            }
+        }
+    }
+
+    private function updateSkeleton()
+    {
+    }
+
+    private function mapBaseLevelId(&$arr, $keys)
+    {
+        $sql = "SELECT o_id, o_key FROM object_1 WHERE o_key IN (" . implode(",", $keys) . ")";
+        $results = $this->db->fetchAll($sql);
+        foreach ($results as $result) {
+            if (array_key_exists($result['o_key'], $arr)) {
+                $arr[$result['o_key']]['level6n9digit_id'] = $result['o_id'];
+            }
+        }
+    }
     private function updateObject()
     {
         $sql = "SELECT * FROM `virtual_catalog_temp`";
@@ -94,6 +213,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     if (is_array($hoseLevels) && !empty($hoseLevels)) {
                         foreach ($hoseLevels as $hoseLevel) {
                             p_r('Process record number ' . ($i + 1));
+                            $digitFound = true;
                             $records = array();
                             $bd = array();
                             $bdL = array();
@@ -107,8 +227,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                                 // Update Store Table
                                 $this->updateBrickTable($records, self::HOSE_BASE_OBJECT_BRICK_STORE);
                                 $success[] = "Code $hoseLevel processed";
-                            }                            
-                            else if (strlen($hoseLevel) == 9) {
+                            } else if (strlen($hoseLevel) == 9) {
                                 $records = array();
                                 $d = array();
                                 $records = $this->getHoseSkeletonData($result, $hoseLevel);
@@ -116,33 +235,38 @@ class VirtualCatalogImportCommand extends AbstractCommand
                                 $this->updateBrickTable($records, self::HOSE_SKELE_OBJECT_BRICK_STORE);
                                 $success[] = "Code $hoseLevel processed";
                             } else {
+                                $digitFound = false;
                                 $error[] = "Code $hoseLevel could not processed due to wrong length";
                             }
-                            $this->updateBaseTable($bd, self::BASE_QUERY_TABLE_NAME, 'oo_id');
-                            $this->updateBaseTable($bd, self::BASE_STORE_TABLE_NAME, 'oo_id');
-                            foreach ($this->langArr as $lk => $lang) {
-                                $tblName = "object_localized_query_1_" . $lang;
-                                $this->updateBaseTable($bdL, $tblName, 'ooo_id');
+                            if ($digitFound) {
+                                $this->updateBaseTable($bd, self::BASE_QUERY_TABLE_NAME, 'oo_id');
+                                $this->updateBaseTable($bd, self::BASE_STORE_TABLE_NAME, 'oo_id');
+                                $this->updateLocalizedData($bdL, self::LOCALIZED_TABLE_1, 'ooo_id');
+                                foreach ($this->langArr as $lk => $lang) {
+                                    $tblName = "object_localized_query_1_" . $lang;
+                                    $this->updateBaseTable($bdL, $tblName, 'ooo_id');
+                                }
                             }
-                            if(!empty($error)) {
+
+                            if (!empty($error)) {
                                 $logs[$i]['statusCode'] = self::FAILED;
-                                $logs[$i]['failedReason'] =  implode(", ",$error);
+                                $logs[$i]['failedReason'] =  implode(", ", $error);
                             } else {
                                 $logs[$i]['statusCode'] = self::SUCCESS;
                                 $logs[$i]['failedReason'] = '';
                             }
-                            
+                            unset($digitFound);
                         }
                     } else {
                         $error[] = "Not valid 6_9 digit code";
                         $logs[$i]['statusCode'] = self::FAILED;
-                        $logs[$i]['failedReason'] = implode(", ",$error);
+                        $logs[$i]['failedReason'] = implode(", ", $error);
                     }
                 }
             }
             /**
              * Update Log
-            */
+             */
             p_r('Updateing Log');
             $this->insertDataToLogTable($logs);
             p_r('Updateing Log Done');
@@ -218,10 +342,45 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 $wh = " WHERE $pk IN (SELECT o_id FROM objects WHERE o_key='" . $result['o_key'] . "')";
                 // echo $sql . $cond . $wh;die;
                 $this->db->query($sql . $cond . $wh);
-                
+
                 p_r('Processed Key: ' . $result['o_key']);
             }
         }
+    }
+
+    private function updateLocalizedData($results, $table, $pk)
+    {
+        $data = array();
+        $oid = null;
+        foreach ($this->langArr as $lang) {
+            foreach ($results as $result) {
+                if (empty($oid)) {
+                    $oid = $this->getObjectIdByKey($result['o_key']);
+                }
+                $d = array(
+                    'ooo_id' => $oid,
+                    'longDescription' => $result['longDescription'],
+                    'language' => $lang
+                );
+                array_push($data, $d);
+            }
+        }
+        p_r($data);
+        if (!empty($data)) {
+            $this->updateTable($data, $table);
+        }
+    }
+
+    private function getObjectIdByKey($key)
+    {
+        $sql = "SELECT o_id FROM objects WHERE o_key='" . $key . "'";
+        $results = $this->db->fetchAll($sql);
+        if (is_array($results)) {
+            foreach ($results as $result) {
+                return $result['o_id'];
+            }
+        }
+        return null;
     }
 
     private function updateLog()
@@ -231,7 +390,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
         $data = $this->db->query($sql);
         $this->insertDataToLogTable($data, "", "Object does not match in material mara");
     }
-    
+
 
     private function getBaseData($r, $key)
     {
