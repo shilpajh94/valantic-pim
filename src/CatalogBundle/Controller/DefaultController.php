@@ -815,6 +815,9 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+        $CatalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
+        
 
         $template = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
 
@@ -1011,10 +1014,11 @@ if(isset($data[$baseId])) {
                 }
                 $catalogGroupData[$catalogKey] = $data;
             }
-            // p_r($catalogGroupData);
-            // die;
+            
             $this->view['data'] = $catalogGroupData;
+            $this->view['branding_image_src'] = $CatalogImagesHYDProduct['BrandingImage'];
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
 
@@ -1024,6 +1028,7 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_sleeving')->getElement();
         
@@ -1138,6 +1143,7 @@ if(isset($data[$baseId])) {
             }
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
 
@@ -1147,6 +1153,7 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_clamps')->getElement();
         
@@ -1238,6 +1245,7 @@ if(isset($data[$baseId])) {
             }
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
 
@@ -1375,9 +1383,11 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         $templates = $this->getDocumentTag('relations', 'page_number_designations')->getElements();
 
+        $footerBgColor = '';
         if ($templates) {
 
             $headerData = \json_decode($templates[0]->getHeaderData());
@@ -1387,6 +1397,10 @@ if(isset($data[$baseId])) {
             $catalogGrouping = array();
             foreach ($templates as $key => $template) 
             {
+                
+                if(empty(trim($footerBgColor)))
+                    $footerBgColor = $template->getColor();
+
                 $productsData = $template->getProductsData();
                 
                 foreach ($productsData as $key => $item) {
@@ -1401,9 +1415,10 @@ if(isset($data[$baseId])) {
                 
             }
         }
-        // p_r($catalogGrouping);
-        // die;
+        
         $this->view['data'] = $catalogGrouping;
+        $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+        $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
     }
 
     public function templateHoseSubCoverAction(Request $request)
@@ -1412,6 +1427,7 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         $template = $this->getDocumentTag('relation', 'template_hose_product_page')->getElement();
 
@@ -1424,6 +1440,7 @@ if(isset($data[$baseId])) {
             $catalogObj = DataObject\Catalog::getById($catalogObjID);
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
+            $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = \json_decode($template->getHeaderData());
             $headerDataArr = (array)$headerData;
@@ -1524,8 +1541,10 @@ if(isset($data[$baseId])) {
                 }
                 $catalogGroupData[$catalogKey] = $data;
             }
-            // p_r($catalogGroupData);
+
             $this->view['data'] = $catalogGroupData;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
 
@@ -1535,6 +1554,7 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_flanges')->getElement();
         
@@ -1617,6 +1637,7 @@ if(isset($data[$baseId])) {
             }
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
 
@@ -1718,6 +1739,7 @@ if(isset($data[$baseId])) {
 
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
         $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+        $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
 
         $template = $this->getDocumentTag('relation', 'ptg_product_page')->getElement();
 
@@ -2015,6 +2037,7 @@ if(isset($data[$baseId])) {
                 // die;
                 $this->view['groupData'] = $groupData;
                 $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+                $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
             }
         }
     }

@@ -1,5 +1,5 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+$this->extend('CatalogBundle:Layouts:layout.html.php');
 ?>
 
 <?php if($this->editmode): ?>
@@ -15,22 +15,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Exten
 
 <?php
 if($groupData):
-// foreach($data as $catalogGroupKey => $catalogGroupData):
-
-// $incr = 1;
-// foreach($catalogGroupData as $brandName => $brandData):
-// extract($brandData);
-
-// foreach($data as $key => $brand):
-
-// extract($groupData);
-
-// $imageObj = '';
-// if($incr % 2 == 0)
-//         $imageObj = $RightPrintCatalogImageObj;
-// else 
-//         $imageObj = $LeftPrintCatalogImageObj;
-
 ?>
 
 <section class="segregate">
@@ -50,11 +34,7 @@ if($groupData):
     <div class="footer">
         <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
-                                <?php if($footer_class == 'reverseColor'): ?>
-                                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                                <?php else: ?>
-                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                                <?php endif; ?>
+                                <img src="<?= $footer_logo_src; ?>">
                         </span>
                         <div class="flex aligned">
                             <h5>
@@ -155,11 +135,7 @@ if($groupData):
                                 </h5>
                         </div>
                         <span class="logo">
-                                <?php if($footer_class == 'reverseColor'): ?>
-                                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                                <?php else: ?>
-                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                                <?php endif; ?>
+                                <img src="<?= $footer_logo_src; ?>">
                         </span>
                 </footer>
         </div>
