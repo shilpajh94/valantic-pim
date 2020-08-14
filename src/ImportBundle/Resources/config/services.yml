@@ -85,6 +85,11 @@ services:
     ImportBundle\OneTimeImportCommand\AssociateNomenclatureToProductCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:assoc-nomenclature-product' }
+
+
+    ImportBundle\OneTimeImportCommand\PopulateHydFittingTableNameCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:populate-hyd-fitting-table-name' }
             
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
