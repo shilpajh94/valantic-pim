@@ -143,5 +143,18 @@ return [
         "priority" => 0,
         "creationDate" => 1596707873,
         "modificationDate" => 1596708025
+    ],
+    12 => [
+        "id" => 12,
+        "name" => "Container Page",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "container",
+        "template" => NULL,
+        "type" => "page",
+        "priority" => 0,
+        "creationDate" => 1597168061,
+        "modificationDate" => 1597168851
     ]
 ];
