@@ -146,7 +146,20 @@ return [
     ],
     12 => [
         "id" => 12,
-        "name" => "PDF Page",
+        "name" => "Container Page",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "container",
+        "template" => NULL,
+        "type" => "page",
+        "priority" => 0,
+        "creationDate" => 1597168061,
+        "modificationDate" => 1597168851
+    ],
+    13 => [
+	"id" => 13,
+	"name" => "PDF Page",
         "group" => "Catalog",
         "module" => "CatalogBundle",
         "controller" => "Content",

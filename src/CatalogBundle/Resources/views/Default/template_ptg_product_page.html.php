@@ -32,7 +32,7 @@ if($groupData):
 //         $imageObj = $LeftPrintCatalogImageObj;
 
 ?>
-
+<div class="template">
 <section class="segregate">
 
 <div id="pageHeader"></div>
@@ -185,7 +185,7 @@ if($groupData):
                         }                
                         ?>
                         </div>
- <span class="imageHolder">
+                        <span class="imageHolder">
                         <?php
                         if($this->editmode){
                                 echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
@@ -201,7 +201,7 @@ if($groupData):
                                 echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
                         }                
                         ?>
-</span>
+                    </span>
                </aside>
         </header>
        
@@ -210,71 +210,34 @@ if($groupData):
 
                 <section class="content single ptg">
                         <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || (!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))) ): ?>
+
                                 
                         <menu class="flex">
                                 <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || (!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))) ): ?>
+
                                 <div class="specs">
-                                                <h6><?= $this->translate('performance + specs') ?></h6>
-                                                <div class="spec-requirement">
-                                                        <?php if(!empty(trim($groupData['BrandShortText1']))): ?>
-                                                        <p>
-                                                                <?= $groupData['BrandShortText1'] ?>
-                                                        </p>
-                                                        <?php endif; ?>
+                                                <h6><?= $this->translate('specs') ?></h6>
+                                                    <div class="spec-requirement">
+                                                      <div>
+                                                            <?php if(!empty(trim($groupData['reinforcement']))): ?>
+                                                            <p>                
+                                                                    <b><?= $this->translate('Reinforcement') ?></b>
+                                                                    <?= $groupData['reinforcement'] ?>
+                                                            </p>
+                                                            <?php endif; ?>
 
-                                                        <?php if(!empty(trim($groupData['BrandShortText2']))): ?>
-                                                        <p>
-                                                                <?= $groupData['BrandShortText2'] ?>
-                                                        </p>
-                                                        <?php endif; ?>
-
-                                                        <?php if(!empty(trim($groupData['BrandShortText3']))): ?>
-                                                        <p>
-                                                                <?= $groupData['BrandShortText3'] ?>
-                                                        </p>
-                                                        <?php endif; ?>
-
-                                                        <?php if(!empty(trim($groupData['BrandShortText4']))): ?>
-                                                        <p>
-                                                                <?= $groupData['BrandShortText4'] ?>
-                                                        </p>
-                                                        <?php endif; ?>
-
-                                                        <?php if(!empty(trim($groupData['BrandShortText5']))): ?>
-                                                        <p>
-                                                                <?= $groupData['BrandShortText5'] ?>
-                                                        </p>
-                                                        <?php endif; ?>
-
-                                                        <?php if(!empty(trim($groupData['material']))): ?>
-                                                        <p>
-                                                                <b><?= $this->translate('Material') ?></b>
-                                                                <?= $material ?>
-                                                        </p>
-                                                        <?php endif; ?>
-
-                                                        <div class="spec-requirement">
-                                                        <?php if(!empty(trim($groupData['reinforcement']))): ?>
-                                                        <p>                
-                                                                <b><?= $this->translate('Reinforcement') ?></b>
-                                                                <?= $groupData['reinforcement'] ?>
-                                                        </p>
-                                                        <?php endif; ?>
-
-                                                        <?php if(!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))): ?>
-                                                        <p>              
-                                                                <b><?= $this->translate('Temperature Range') ?></b>
-                                                                <?= $groupData['tempFmin'] ?>&#8457; to  <?= $groupData['tempFmax'] ?>&#8457; (<?= $groupData['tempCmin'] ?>&#8451; to  <?= $groupData['tempCmax'] ?>&#8451;)
-                                                        </p>
-                                                        <?php endif; ?>
+                                                            <?php if(!empty(trim($groupData['tempFmin'])) && !empty(trim($groupData['tempFmax'])) && !empty(trim($groupData['tempCmin'])) && !empty(trim($groupData['tempCmax']))): ?>
+                                                            <p>              
+                                                                    <b><?= $this->translate('Temperature Range') ?></b>
+                                                                    <?= $groupData['tempFmin'] ?>&#8457; to  <?= $groupData['tempFmax'] ?>&#8457; (<?= $groupData['tempCmin'] ?>&#8451; to  <?= $groupData['tempCmax'] ?>&#8451;)
+                                                            </p>
+                                                            <?php endif; ?>
                                                         </div>
-                                                
+                                                </div>
                                 </div> 
-                                <?php endif; ?>
-
-                                <?php if($groupData['safetyFeatures']): ?>
+<?php if($groupData['safetyFeatures']): ?>
                                 <div class="feature">
-                                                <h6><?= $this->translate('features') ?></h6>
+                                                <h6><?= $this->translate('Key features + Benefits') ?></h6>
                                                 <div>
                                                         <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                 <p  class="flex">
@@ -288,6 +251,9 @@ if($groupData):
                                                 </div>
                                 </div>
                                 <?php endif; ?>
+                                <?php endif; ?>
+
+                                
 
                         </menu>
                         <?php endif; ?>
@@ -350,5 +316,5 @@ if($groupData):
        
 
 </section>
-
+</div>
         <?php endif; ?>
