@@ -859,6 +859,8 @@ if(isset($data[$baseId])) {
 
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
+            $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
+            
             $catalogGrouping = array();
             
             foreach ($productsData as $key => $item) {
@@ -932,7 +934,14 @@ if(isset($data[$baseId])) {
                         foreach($element as $bkey => $value): 
 
                                 if($bkey == 'standardMetHose')
-                                    $standardsMetHose = array_merge($standardsMetHose, $value);
+                                {
+                                    if(count($value)>0)
+                                    {
+                                        foreach ($value as $standardMetHosekey => $standardMetHoseValue) {
+                                            array_push($standardsMetHose,$standardMetHoseValue);
+                                        }
+                                    }
+                                }
                                 if($bkey == 'tubeMaterial')
                                     $tubeMaterial = array_merge($tubeMaterial, $value);
                                 if($bkey == 'tubeColor')
@@ -966,13 +975,13 @@ if(isset($data[$baseId])) {
 
 
                     $standardsMetHose = array_unique($standardsMetHose);
+                    $safetyFeatures = array_unique($safetyFeatures);
                     $tubeMaterial = array_unique($tubeMaterial);
                     $tubeAttribute = array_unique($tubeAttribute);
                     $reinforcement = array_unique($reinforcement);
                     $coverMaterial = array_unique($coverMaterial);
                     $coverAttribute = array_unique($coverAttribute);
 
-                    $safetyFeatures = array_unique($safetyFeatures);
 
                     $safetyFeaturesListWithImage = array();
                     $safetyFeaturesListWithOutImage = array();
@@ -984,6 +993,15 @@ if(isset($data[$baseId])) {
                                 $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
                             else
                                 $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        }
+                    }
+
+                    $standardMetHoseListData = array();
+                    if($standardsMetHose)
+                    {
+                        foreach ($standardsMetHose as $fkey => $fvalue) {
+                            if(isset($standardMetHoseList[$fvalue]))
+                                $standardMetHoseListData[] = array('name'=>$standardMetHoseList[$fvalue]['name'], 'CustomerFacingVersion' => $standardMetHoseList[$fvalue]['CustomerFacingVersion']);
                         }
                     }
 
@@ -1010,7 +1028,7 @@ if(isset($data[$baseId])) {
                     $data[$brandKey]['reinforcement'] = $reinforcement;
                     $data[$brandKey]['tubeMaterialAtrributeString'] = $tubeMaterialAtrributeString;
                     $data[$brandKey]['coverMaterialattributeString'] = $coverMaterialattributeString;
-                    $data[$brandKey]['standardsMetHose'] = $standardsMetHose;
+                    $data[$brandKey]['standardMetHoseListData'] = $standardMetHoseListData;
                     $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
                     $data[$brandKey]['iconRequired'] = $iconRequired;
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
@@ -1525,11 +1543,14 @@ if(isset($data[$baseId])) {
                     $fittingFamily = array_unique($fittingFamily);
 
                     $workingPressurePSIString = "";
-                    if($workingPressurePSI && $workingPressurePSI)
+                    if($workingPressurePSI)
                     {
                         $minWorkingPressurePSI = min($workingPressurePSI);
                         $maxWorkingPressurePSI = max($workingPressurePSI);
-                        $workingPressurePSIString = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;
+                        if($minWorkingPressurePSI == $maxWorkingPressurePSI)
+                            $workingPressurePSIString = $minWorkingPressurePSI;
+                        else
+                            $workingPressurePSIString = $minWorkingPressurePSI."-".$maxWorkingPressurePSI;  
                     }
 
 
@@ -1690,6 +1711,23 @@ if(isset($data[$baseId])) {
             $featureData[$entry->getId()]['name'] = $entry->getName($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
             $featureData[$entry->getId()]['key'] = $entry->getId();
+        }
+        return $featureData;
+    }
+
+    /**
+     * return material object or false
+     */
+    public function getStandardMetHoseList($catalog_type, $language){
+        $entries = new DataObject\MultiselectMaster\Listing();
+        $entries->setCondition("masterType = ?", "{$catalog_type}");
+        $entries->load();
+        $featureData = array();
+        foreach($entries as $entry) {
+            $featureData[$entry->getId()]['key'] = $entry->getKey();
+            $featureData[$entry->getId()]['name'] = $entry->getName($language);
+            $featureData[$entry->getId()]['Description'] = $entry->getDescription($language);
+            $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
         }
         return $featureData;
     }

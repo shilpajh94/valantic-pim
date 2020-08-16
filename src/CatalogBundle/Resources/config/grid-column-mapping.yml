@@ -9,7 +9,7 @@ parameters:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
-                        fieldName: Name
+                        fieldName: id
             longDescription:
                 fieldLevel: class
                 fieldType: Input

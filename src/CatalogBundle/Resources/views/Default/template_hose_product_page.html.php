@@ -214,22 +214,23 @@ if ($data):
                     <article class="fullcontainer ">
 
                         <section class="content single">
-                            <?php if ($safetyFeatures || $standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                            <?php if ($safetyFeatures || $standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
 
                                 <menu class="flex">
-                                    <?php if ($standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                                    <?php if ($standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
                                         <div class="specs">
                                             <h6><?= $this->translate('performance + specs') ?></h6>
                                             <div class="spec-requirement">
                                                 <div>
-                                                    <?php if ($standardsMetHose): ?>
+                                                    <?php if ($standardMetHoseListData): ?>
 
-                                                        <?php foreach ($standardsMetHose as $key => $standard): ?>
-                                                            <?= $this->translate($standard) ?>
-                                                            <p><?= $standard ?></p>
+                                                        <?php foreach ($standardMetHoseListData as $key => $standard): ?>
+                                                            <?= $this->input("standardMetHose{$incr}_{$key}")->setDataFromResource($standard['CustomerFacingVersion']) ?>
+                                                            <p><?= $standard['name'] ?></p>
                                                         <?php endforeach; ?>
 
                                                     <?php endif; ?>
+                                                    <?= $this->input("customer_data_{$incr}_{$key}",['placeholder'=>'Enter data']) ?>
                                                 </div>
                                             </div>
                                             <div class="spec-requirement">
