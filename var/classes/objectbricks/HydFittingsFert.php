@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-14T13:29:09+02:00
+* Generated at: 2020-08-16T08:28:30+02:00
 * IP: 127.0.0.1
 
 
@@ -182,17 +182,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
       'fieldname' => 'Fert',
     ),
   ),
-   'title' => '',
-   'group' => 'HYD_FITTINGS',
+   'dao' => NULL,
    'key' => 'HydFittingsFert',
    'parentClass' => '',
+   'implementsInterfaces' => '',
+   'title' => '',
+   'group' => 'HYD_FITTINGS',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -212,7 +213,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'labelWidth' => 200,
          'layout' => NULL,
          'border' => false,
-         'icon' => '',
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -233,73 +233,498 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
             array (
               0 => 
               array (
-                'key' => NULL,
-                'value' => 1694314,
+                'key' => 'ABCT',
+                'value' => 1829868,
               ),
               1 => 
               array (
-                'key' => NULL,
-                'value' => 1694315,
+                'key' => 'ABPT',
+                'value' => 1829869,
               ),
               2 => 
               array (
-                'key' => NULL,
-                'value' => 1694316,
+                'key' => 'AC',
+                'value' => 1829865,
               ),
               3 => 
               array (
-                'key' => NULL,
-                'value' => 1694317,
+                'key' => 'AV',
+                'value' => 1829939,
               ),
               4 => 
               array (
-                'key' => NULL,
-                'value' => 1694318,
+                'key' => 'B2',
+                'value' => 1829854,
               ),
               5 => 
               array (
-                'key' => NULL,
-                'value' => 1694319,
+                'key' => 'B2SC',
+                'value' => 1830638,
               ),
               6 => 
               array (
-                'key' => NULL,
-                'value' => 1694321,
+                'key' => 'BP',
+                'value' => 1829870,
               ),
               7 => 
               array (
-                'key' => NULL,
-                'value' => 1694322,
+                'key' => 'BT',
+                'value' => 1829867,
               ),
               8 => 
               array (
-                'key' => 'AC',
-                'value' => 1694320,
+                'key' => 'CB',
+                'value' => 1829941,
               ),
               9 => 
               array (
-                'key' => 'B2',
-                'value' => 1694295,
+                'key' => 'CLIP',
+                'value' => 1829942,
               ),
               10 => 
               array (
-                'key' => 'S6',
-                'value' => 1694306,
+                'key' => 'CLIPHLDR',
+                'value' => 1830382,
               ),
               11 => 
               array (
-                'key' => 'SE',
-                'value' => 1694307,
+                'key' => 'COT',
+                'value' => 1829928,
               ),
               12 => 
               array (
-                'key' => 'SG',
-                'value' => 1694296,
+                'key' => 'CT',
+                'value' => 1829871,
               ),
               13 => 
               array (
+                'key' => 'DG',
+                'value' => 1829859,
+              ),
+              14 => 
+              array (
+                'key' => 'DGF1',
+                'value' => 1829891,
+              ),
+              15 => 
+              array (
+                'key' => 'DGF2',
+                'value' => 1829892,
+              ),
+              16 => 
+              array (
+                'key' => 'DH',
+                'value' => 1829872,
+              ),
+              17 => 
+              array (
+                'key' => 'DL',
+                'value' => 1829873,
+              ),
+              18 => 
+              array (
+                'key' => 'FG',
+                'value' => 1829861,
+              ),
+              19 => 
+              array (
+                'key' => 'FG2',
+                'value' => 1829893,
+              ),
+              20 => 
+              array (
+                'key' => 'FG5',
+                'value' => 1829894,
+              ),
+              21 => 
+              array (
+                'key' => 'FH',
+                'value' => 1830119,
+              ),
+              22 => 
+              array (
+                'key' => 'FL',
+                'value' => 1829874,
+              ),
+              23 => 
+              array (
+                'key' => 'FSL',
+                'value' => 1830388,
+              ),
+              24 => 
+              array (
+                'key' => 'FT',
+                'value' => 1830304,
+              ),
+              25 => 
+              array (
+                'key' => 'FTN',
+                'value' => 1829929,
+              ),
+              26 => 
+              array (
+                'key' => 'FTS',
+                'value' => 1829930,
+              ),
+              27 => 
+              array (
+                'key' => 'FTSM',
+                'value' => 1829931,
+              ),
+              28 => 
+              array (
+                'key' => 'GC',
+                'value' => 1829895,
+              ),
+              29 => 
+              array (
+                'key' => 'GG',
+                'value' => 1829863,
+              ),
+              30 => 
+              array (
+                'key' => 'HM',
+                'value' => 1829875,
+              ),
+              31 => 
+              array (
+                'key' => 'ILOT',
+                'value' => 1829932,
+              ),
+              32 => 
+              array (
+                'key' => 'JC',
+                'value' => 1829876,
+              ),
+              33 => 
+              array (
+                'key' => 'JS',
+                'value' => 1829877,
+              ),
+              34 => 
+              array (
+                'key' => 'KM',
+                'value' => 1829878,
+              ),
+              35 => 
+              array (
+                'key' => 'MC',
+                'value' => 1829879,
+              ),
+              36 => 
+              array (
+                'key' => 'MH',
+                'value' => 1829943,
+              ),
+              37 => 
+              array (
+                'key' => 'ML',
+                'value' => 1829880,
+              ),
+              38 => 
+              array (
+                'key' => 'MLL',
+                'value' => 1829944,
+              ),
+              39 => 
+              array (
+                'key' => 'MP',
+                'value' => 1829881,
+              ),
+              40 => 
+              array (
+                'key' => 'MS',
+                'value' => 1829882,
+              ),
+              41 => 
+              array (
+                'key' => 'NP',
+                'value' => 1829883,
+              ),
+              42 => 
+              array (
+                'key' => 'NS',
+                'value' => 1829884,
+              ),
+              43 => 
+              array (
+                'key' => 'OB',
+                'value' => 1829885,
+              ),
+              44 => 
+              array (
+                'key' => 'OF',
+                'value' => 1829886,
+              ),
+              45 => 
+              array (
+                'key' => 'OI',
+                'value' => 1829933,
+              ),
+              46 => 
+              array (
+                'key' => 'OIM',
+                'value' => 1829936,
+              ),
+              47 => 
+              array (
+                'key' => 'OSWCH',
+                'value' => 1830419,
+              ),
+              48 => 
+              array (
+                'key' => 'OT',
+                'value' => 1829934,
+              ),
+              49 => 
+              array (
+                'key' => 'OTC',
+                'value' => 1829935,
+              ),
+              50 => 
+              array (
+                'key' => 'PB',
+                'value' => 1829887,
+              ),
+              51 => 
+              array (
+                'key' => 'PLIERS',
+                'value' => 1830438,
+              ),
+              52 => 
+              array (
+                'key' => 'PPT',
+                'value' => 1829888,
+              ),
+              53 => 
+              array (
+                'key' => 'R2',
+                'value' => 1829896,
+              ),
+              54 => 
+              array (
+                'key' => 'RA',
+                'value' => 1829897,
+              ),
+              55 => 
+              array (
+                'key' => 'S4',
+                'value' => 1829898,
+              ),
+              56 => 
+              array (
+                'key' => 'S6',
+                'value' => 1829857,
+              ),
+              57 => 
+              array (
+                'key' => 'SE',
+                'value' => 1829858,
+              ),
+              58 => 
+              array (
+                'key' => 'SF',
+                'value' => 1829864,
+              ),
+              59 => 
+              array (
+                'key' => 'SG',
+                'value' => 1829855,
+              ),
+              60 => 
+              array (
+                'key' => 'SH',
+                'value' => 1829899,
+              ),
+              61 => 
+              array (
+                'key' => 'SI',
+                'value' => 1829889,
+              ),
+              62 => 
+              array (
+                'key' => 'SRT',
+                'value' => 1829900,
+              ),
+              63 => 
+              array (
+                'key' => 'ST',
+                'value' => 1829890,
+              ),
+              64 => 
+              array (
+                'key' => 'SWCN',
+                'value' => 1829937,
+              ),
+              65 => 
+              array (
+                'key' => 'T7',
+                'value' => 1829866,
+              ),
+              66 => 
+              array (
                 'key' => 'T8',
-                'value' => 1694297,
+                'value' => 1829856,
+              ),
+              67 => 
+              array (
+                'key' => 'UC',
+                'value' => 1829860,
+              ),
+              68 => 
+              array (
+                'key' => 'UCF1',
+                'value' => 1829901,
+              ),
+              69 => 
+              array (
+                'key' => 'UCF10',
+                'value' => 1829902,
+              ),
+              70 => 
+              array (
+                'key' => 'UCF11',
+                'value' => 1829903,
+              ),
+              71 => 
+              array (
+                'key' => 'UCF2',
+                'value' => 1829904,
+              ),
+              72 => 
+              array (
+                'key' => 'UCF3',
+                'value' => 1829905,
+              ),
+              73 => 
+              array (
+                'key' => 'UCF4',
+                'value' => 1829906,
+              ),
+              74 => 
+              array (
+                'key' => 'UCF5',
+                'value' => 1829907,
+              ),
+              75 => 
+              array (
+                'key' => 'UCF6',
+                'value' => 1829908,
+              ),
+              76 => 
+              array (
+                'key' => 'UCF7',
+                'value' => 1829909,
+              ),
+              77 => 
+              array (
+                'key' => 'UCF8',
+                'value' => 1831134,
+              ),
+              78 => 
+              array (
+                'key' => 'UCF9',
+                'value' => 1829910,
+              ),
+              79 => 
+              array (
+                'key' => 'UCFB2',
+                'value' => 1829911,
+              ),
+              80 => 
+              array (
+                'key' => 'UCFSG',
+                'value' => 1829912,
+              ),
+              81 => 
+              array (
+                'key' => 'UCH',
+                'value' => 1829913,
+              ),
+              82 => 
+              array (
+                'key' => 'UCSC',
+                'value' => 1829914,
+              ),
+              83 => 
+              array (
+                'key' => 'UCSG',
+                'value' => 1829915,
+              ),
+              84 => 
+              array (
+                'key' => 'UT',
+                'value' => 1829862,
+              ),
+              85 => 
+              array (
+                'key' => 'VA',
+                'value' => 1829938,
+              ),
+              86 => 
+              array (
+                'key' => 'VCORE',
+                'value' => 1829940,
+              ),
+              87 => 
+              array (
+                'key' => 'XB2',
+                'value' => 1829916,
+              ),
+              88 => 
+              array (
+                'key' => 'XDG',
+                'value' => 1829917,
+              ),
+              89 => 
+              array (
+                'key' => 'XDG3',
+                'value' => 1829918,
+              ),
+              90 => 
+              array (
+                'key' => 'XDGF1',
+                'value' => 1829919,
+              ),
+              91 => 
+              array (
+                'key' => 'XDGF2',
+                'value' => 1829920,
+              ),
+              92 => 
+              array (
+                'key' => 'XDGF3',
+                'value' => 1829921,
+              ),
+              93 => 
+              array (
+                'key' => 'XS6',
+                'value' => 1829922,
+              ),
+              94 => 
+              array (
+                'key' => 'XS6C',
+                'value' => 1829923,
+              ),
+              95 => 
+              array (
+                'key' => 'XSC',
+                'value' => 1829924,
+              ),
+              96 => 
+              array (
+                'key' => 'XSG',
+                'value' => 1829925,
+              ),
+              97 => 
+              array (
+                'key' => 'XUC',
+                'value' => 1829926,
+              ),
+              98 => 
+              array (
+                'key' => 'XUCF',
+                'value' => 1829927,
               ),
             ),
              'width' => 300,
@@ -379,7 +804,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'relationType' => true,
              'allowToCreateNewObject' => true,
              'optimizedAdminLoading' => false,
-             'lazyLoading' => NULL,
              'classes' => 
             array (
             ),
@@ -422,7 +846,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 100,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'Finished',
                  'type' => NULL,
                  'region' => NULL,
@@ -477,11 +900,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
-                             'width' => 300,
+                             'width' => NULL,
                              'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
-                             'columnLength' => 150,
+                             'columnLength' => 190,
                              'phpdocType' => 'string',
                              'regex' => '',
                              'unique' => false,
@@ -500,11 +923,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -717,6 +1142,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -800,6 +1226,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -827,6 +1254,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -854,6 +1282,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -878,8 +1307,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           12 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
                              'queryColumnType' => 'double',
@@ -912,6 +1341,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -936,8 +1366,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           14 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
                              'queryColumnType' => 'double',
@@ -967,9 +1397,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           15 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'fieldtype' => 'numeric',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                             'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -994,15 +1425,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'defaultValueGenerator' => '',
                           )),
                           16 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => 3,
@@ -1026,6 +1459,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -1053,6 +1487,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -1080,6 +1515,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1139,11 +1575,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 150,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => 3,
@@ -1167,6 +1605,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1195,11 +1634,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
                              'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 150,
-                             'phpdocType' => 'string',
-                             'regex' => '',
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
                              'unique' => false,
                              'decimalSize' => NULL,
                              'decimalPrecision' => 3,
@@ -1223,6 +1664,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1250,6 +1692,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1277,6 +1720,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1304,6 +1748,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1331,6 +1776,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1352,11 +1798,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           29 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1378,11 +1826,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           30 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1406,88 +1856,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          30 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                             'fieldtype' => 'textarea',
-                             'width' => 300,
-                             'height' => 120,
-                             'maxLength' => NULL,
-                             'showCharCount' => false,
-                             'excludeFromSearchIndex' => false,
-                             'queryColumnType' => 'longtext',
-                             'columnType' => 'longtext',
-                             'phpdocType' => 'string',
-                             'name' => 'FittingFamilyDescription',
-                             'title' => 'Fitting Family Description',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                          )),
-                          31 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'NumberOfHex',
-                             'title' => 'Number of Hex',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          32 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 190,
-                             'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'HydFittingId',
-                             'title' => 'Id',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
                           31 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                              'fieldtype' => 'textarea',
@@ -1518,6 +1886,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -1539,11 +1908,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           33 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -1565,6 +1936,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -1643,6 +2015,811 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'BFFX',
+                                'value' => 1829692,
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'BPFX',
+                                'value' => 1829693,
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'BPFX45',
+                                'value' => 1829694,
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'BPFX90',
+                                'value' => 1829695,
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'BPM',
+                                'value' => 1829696,
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'BTM',
+                                'value' => 1829697,
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'CB12VS90',
+                                'value' => 1829698,
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'CB12VSR90',
+                                'value' => 1829699,
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'CF',
+                                'value' => 1829700,
+                              ),
+                              9 => 
+                              array (
+                                'key' => 'CF22',
+                                'value' => 1829701,
+                              ),
+                              10 => 
+                              array (
+                                'key' => 'CF30',
+                                'value' => 1829702,
+                              ),
+                              11 => 
+                              array (
+                                'key' => 'CF45',
+                                'value' => 1829703,
+                              ),
+                              12 => 
+                              array (
+                                'key' => 'CF60',
+                                'value' => 1829704,
+                              ),
+                              13 => 
+                              array (
+                                'key' => 'CF67',
+                                'value' => 1829705,
+                              ),
+                              14 => 
+                              array (
+                                'key' => 'CF90',
+                                'value' => 1829706,
+                              ),
+                              15 => 
+                              array (
+                                'key' => 'CLIP',
+                                'value' => 1829707,
+                              ),
+                              16 => 
+                              array (
+                                'key' => 'CLIPHLDR',
+                                'value' => 1829708,
+                              ),
+                              17 => 
+                              array (
+                                'key' => 'COTF134V90',
+                                'value' => 1829709,
+                              ),
+                              18 => 
+                              array (
+                                'key' => 'COTF45',
+                                'value' => 1829710,
+                              ),
+                              19 => 
+                              array (
+                                'key' => 'COTF90',
+                                'value' => 1829711,
+                              ),
+                              20 => 
+                              array (
+                                'key' => 'DHFX',
+                                'value' => 1829712,
+                              ),
+                              21 => 
+                              array (
+                                'key' => 'DHFX45',
+                                'value' => 1829713,
+                              ),
+                              22 => 
+                              array (
+                                'key' => 'DHFX90',
+                                'value' => 1829714,
+                              ),
+                              23 => 
+                              array (
+                                'key' => 'DHM',
+                                'value' => 1829715,
+                              ),
+                              24 => 
+                              array (
+                                'key' => 'DLFX',
+                                'value' => 1829716,
+                              ),
+                              25 => 
+                              array (
+                                'key' => 'DLFX45',
+                                'value' => 1829717,
+                              ),
+                              26 => 
+                              array (
+                                'key' => 'DLFX90',
+                                'value' => 1829718,
+                              ),
+                              27 => 
+                              array (
+                                'key' => 'DLM',
+                                'value' => 1829719,
+                              ),
+                              28 => 
+                              array (
+                                'key' => 'DNFX45',
+                                'value' => 1829720,
+                              ),
+                              29 => 
+                              array (
+                                'key' => 'DNFX90',
+                                'value' => 1829721,
+                              ),
+                              30 => 
+                              array (
+                                'key' => 'F',
+                                'value' => 1829722,
+                              ),
+                              31 => 
+                              array (
+                                'key' => 'Ferrule',
+                                'value' => 1829852,
+                              ),
+                              32 => 
+                              array (
+                                'key' => 'FH',
+                                'value' => 1829723,
+                              ),
+                              33 => 
+                              array (
+                                'key' => 'FH22',
+                                'value' => 1829724,
+                              ),
+                              34 => 
+                              array (
+                                'key' => 'FH30',
+                                'value' => 1829725,
+                              ),
+                              35 => 
+                              array (
+                                'key' => 'FH45',
+                                'value' => 1829726,
+                              ),
+                              36 => 
+                              array (
+                                'key' => 'FH60',
+                                'value' => 1829727,
+                              ),
+                              37 => 
+                              array (
+                                'key' => 'FH67',
+                                'value' => 1829728,
+                              ),
+                              38 => 
+                              array (
+                                'key' => 'FH90',
+                                'value' => 1829729,
+                              ),
+                              39 => 
+                              array (
+                                'key' => 'FL',
+                                'value' => 1829730,
+                              ),
+                              40 => 
+                              array (
+                                'key' => 'FL110',
+                                'value' => 1829731,
+                              ),
+                              41 => 
+                              array (
+                                'key' => 'FL135',
+                                'value' => 1829732,
+                              ),
+                              42 => 
+                              array (
+                                'key' => 'FL22',
+                                'value' => 1829733,
+                              ),
+                              43 => 
+                              array (
+                                'key' => 'FL30',
+                                'value' => 1829734,
+                              ),
+                              44 => 
+                              array (
+                                'key' => 'FL45',
+                                'value' => 1829735,
+                              ),
+                              45 => 
+                              array (
+                                'key' => 'FL60',
+                                'value' => 1829736,
+                              ),
+                              46 => 
+                              array (
+                                'key' => 'FL67',
+                                'value' => 1829737,
+                              ),
+                              47 => 
+                              array (
+                                'key' => 'FL90',
+                                'value' => 1829738,
+                              ),
+                              48 => 
+                              array (
+                                'key' => 'FL90EOC',
+                                'value' => 1829739,
+                              ),
+                              49 => 
+                              array (
+                                'key' => 'FSLF',
+                                'value' => 1829740,
+                              ),
+                              50 => 
+                              array (
+                                'key' => 'FSLF45',
+                                'value' => 1829741,
+                              ),
+                              51 => 
+                              array (
+                                'key' => 'FSLF90',
+                                'value' => 1829742,
+                              ),
+                              52 => 
+                              array (
+                                'key' => 'FSLM',
+                                'value' => 1829743,
+                              ),
+                              53 => 
+                              array (
+                                'key' => 'FSLM45',
+                                'value' => 1829744,
+                              ),
+                              54 => 
+                              array (
+                                'key' => 'FSLM90',
+                                'value' => 1829745,
+                              ),
+                              55 => 
+                              array (
+                                'key' => 'FT',
+                                'value' => 1829746,
+                              ),
+                              56 => 
+                              array (
+                                'key' => 'FTBO',
+                                'value' => 1829747,
+                              ),
+                              57 => 
+                              array (
+                                'key' => 'FTM',
+                                'value' => 1829748,
+                              ),
+                              58 => 
+                              array (
+                                'key' => 'FTM90',
+                                'value' => 1829749,
+                              ),
+                              59 => 
+                              array (
+                                'key' => 'FTMM',
+                                'value' => 1829750,
+                              ),
+                              60 => 
+                              array (
+                                'key' => 'FTN',
+                                'value' => 1829751,
+                              ),
+                              61 => 
+                              array (
+                                'key' => 'FTSM',
+                                'value' => 1829752,
+                              ),
+                              62 => 
+                              array (
+                                'key' => 'GTF',
+                                'value' => 1829753,
+                              ),
+                              63 => 
+                              array (
+                                'key' => 'HJ',
+                                'value' => 1829754,
+                              ),
+                              64 => 
+                              array (
+                                'key' => 'HM',
+                                'value' => 1829755,
+                              ),
+                              65 => 
+                              array (
+                                'key' => 'HM12V',
+                                'value' => 1829756,
+                              ),
+                              66 => 
+                              array (
+                                'key' => 'HM134V',
+                                'value' => 1829757,
+                              ),
+                              67 => 
+                              array (
+                                'key' => 'HM180',
+                                'value' => 1829758,
+                              ),
+                              68 => 
+                              array (
+                                'key' => 'HM90',
+                                'value' => 1829759,
+                              ),
+                              69 => 
+                              array (
+                                'key' => 'HMSG',
+                                'value' => 1829760,
+                              ),
+                              70 => 
+                              array (
+                                'key' => 'HMT',
+                                'value' => 1829761,
+                              ),
+                              71 => 
+                              array (
+                                'key' => 'IHUF1502',
+                                'value' => 1829762,
+                              ),
+                              72 => 
+                              array (
+                                'key' => 'IHUM1502',
+                                'value' => 1829763,
+                              ),
+                              73 => 
+                              array (
+                                'key' => 'ILOTBLK',
+                                'value' => 1829764,
+                              ),
+                              74 => 
+                              array (
+                                'key' => 'ILOTBLU',
+                                'value' => 1829765,
+                              ),
+                              75 => 
+                              array (
+                                'key' => 'ILOTORA',
+                                'value' => 1829766,
+                              ),
+                              76 => 
+                              array (
+                                'key' => 'ILOTRED',
+                                'value' => 1829767,
+                              ),
+                              77 => 
+                              array (
+                                'key' => 'ILOTWHI',
+                                'value' => 1829768,
+                              ),
+                              78 => 
+                              array (
+                                'key' => 'JCFX',
+                                'value' => 1829769,
+                              ),
+                              79 => 
+                              array (
+                                'key' => 'JCFX45',
+                                'value' => 1829770,
+                              ),
+                              80 => 
+                              array (
+                                'key' => 'JCFX90',
+                                'value' => 1829771,
+                              ),
+                              81 => 
+                              array (
+                                'key' => 'JCM',
+                                'value' => 1829772,
+                              ),
+                              82 => 
+                              array (
+                                'key' => 'JSFX',
+                                'value' => 1829773,
+                              ),
+                              83 => 
+                              array (
+                                'key' => 'KF',
+                                'value' => 1829774,
+                              ),
+                              84 => 
+                              array (
+                                'key' => 'KF45',
+                                'value' => 1829775,
+                              ),
+                              85 => 
+                              array (
+                                'key' => 'KF90',
+                                'value' => 1829776,
+                              ),
+                              86 => 
+                              array (
+                                'key' => 'KMFX',
+                                'value' => 1829777,
+                              ),
+                              87 => 
+                              array (
+                                'key' => 'KMFX45',
+                                'value' => 1829778,
+                              ),
+                              88 => 
+                              array (
+                                'key' => 'KMFX90',
+                                'value' => 1829779,
+                              ),
+                              89 => 
+                              array (
+                                'key' => 'NPF',
+                                'value' => 1829780,
+                              ),
+                              90 => 
+                              array (
+                                'key' => 'NPFX',
+                                'value' => 1829781,
+                              ),
+                              91 => 
+                              array (
+                                'key' => 'NPM',
+                                'value' => 1829782,
+                              ),
+                              92 => 
+                              array (
+                                'key' => 'NPM90',
+                                'value' => 1829783,
+                              ),
+                              93 => 
+                              array (
+                                'key' => 'NPMAPI',
+                                'value' => 1829784,
+                              ),
+                              94 => 
+                              array (
+                                'key' => 'NPMX',
+                                'value' => 1829785,
+                              ),
+                              95 => 
+                              array (
+                                'key' => 'NPMX90',
+                                'value' => 1829786,
+                              ),
+                              96 => 
+                              array (
+                                'key' => 'NSFX',
+                                'value' => 1829787,
+                              ),
+                              97 => 
+                              array (
+                                'key' => 'OBM',
+                                'value' => 1829788,
+                              ),
+                              98 => 
+                              array (
+                                'key' => 'OBMX',
+                                'value' => 1829789,
+                              ),
+                              99 => 
+                              array (
+                                'key' => 'OBMX90',
+                                'value' => 1829790,
+                              ),
+                              100 => 
+                              array (
+                                'key' => 'OFFX',
+                                'value' => 1829791,
+                              ),
+                              101 => 
+                              array (
+                                'key' => 'OFFX45',
+                                'value' => 1829792,
+                              ),
+                              102 => 
+                              array (
+                                'key' => 'OFFX90',
+                                'value' => 1829793,
+                              ),
+                              103 => 
+                              array (
+                                'key' => 'OFM',
+                                'value' => 1829794,
+                              ),
+                              104 => 
+                              array (
+                                'key' => 'OFS',
+                                'value' => 1829795,
+                              ),
+                              105 => 
+                              array (
+                                'key' => 'OIM',
+                                'value' => 1829796,
+                              ),
+                              106 => 
+                              array (
+                                'key' => 'OIM134V',
+                                'value' => 1829797,
+                              ),
+                              107 => 
+                              array (
+                                'key' => 'OIM134V90',
+                                'value' => 1829798,
+                              ),
+                              108 => 
+                              array (
+                                'key' => 'OIM45',
+                                'value' => 1829799,
+                              ),
+                              109 => 
+                              array (
+                                'key' => 'OIM90',
+                                'value' => 1829800,
+                              ),
+                              110 => 
+                              array (
+                                'key' => 'OIMB90',
+                                'value' => 1829801,
+                              ),
+                              111 => 
+                              array (
+                                'key' => 'OSWCH',
+                                'value' => 1829802,
+                              ),
+                              112 => 
+                              array (
+                                'key' => 'OTCF10',
+                                'value' => 1829803,
+                              ),
+                              113 => 
+                              array (
+                                'key' => 'OTF',
+                                'value' => 1829804,
+                              ),
+                              114 => 
+                              array (
+                                'key' => 'OTF06',
+                                'value' => 1829805,
+                              ),
+                              115 => 
+                              array (
+                                'key' => 'OTF08',
+                                'value' => 1829806,
+                              ),
+                              116 => 
+                              array (
+                                'key' => 'OTF10',
+                                'value' => 1829807,
+                              ),
+                              117 => 
+                              array (
+                                'key' => 'OTF12',
+                                'value' => 1829808,
+                              ),
+                              118 => 
+                              array (
+                                'key' => 'OTF12V',
+                                'value' => 1829809,
+                              ),
+                              119 => 
+                              array (
+                                'key' => 'OTF12V90',
+                                'value' => 1829810,
+                              ),
+                              120 => 
+                              array (
+                                'key' => 'OTF134V',
+                                'value' => 1829811,
+                              ),
+                              121 => 
+                              array (
+                                'key' => 'OTF134V45',
+                                'value' => 1829812,
+                              ),
+                              122 => 
+                              array (
+                                'key' => 'OTF134V90',
+                                'value' => 1829813,
+                              ),
+                              123 => 
+                              array (
+                                'key' => 'OTF134VH',
+                                'value' => 1829814,
+                              ),
+                              124 => 
+                              array (
+                                'key' => 'OTF180',
+                                'value' => 1829815,
+                              ),
+                              125 => 
+                              array (
+                                'key' => 'OTF45',
+                                'value' => 1829816,
+                              ),
+                              126 => 
+                              array (
+                                'key' => 'OTF90',
+                                'value' => 1829817,
+                              ),
+                              127 => 
+                              array (
+                                'key' => 'OTFM',
+                                'value' => 1829818,
+                              ),
+                              128 => 
+                              array (
+                                'key' => 'OTFM45',
+                                'value' => 1829819,
+                              ),
+                              129 => 
+                              array (
+                                'key' => 'OTFM90',
+                                'value' => 1829820,
+                              ),
+                              130 => 
+                              array (
+                                'key' => 'OTM',
+                                'value' => 1829821,
+                              ),
+                              131 => 
+                              array (
+                                'key' => 'OTM134V',
+                                'value' => 1829822,
+                              ),
+                              132 => 
+                              array (
+                                'key' => 'OTM134V90',
+                                'value' => 1829823,
+                              ),
+                              133 => 
+                              array (
+                                'key' => 'OTM45',
+                                'value' => 1829824,
+                              ),
+                              134 => 
+                              array (
+                                'key' => 'OTM90',
+                                'value' => 1829825,
+                              ),
+                              135 => 
+                              array (
+                                'key' => 'OTMLP',
+                                'value' => 1829826,
+                              ),
+                              136 => 
+                              array (
+                                'key' => 'OTUBE',
+                                'value' => 1829827,
+                              ),
+                              137 => 
+                              array (
+                                'key' => 'PLIER',
+                                'value' => 1829828,
+                              ),
+                              138 => 
+                              array (
+                                'key' => 'PTTFX',
+                                'value' => 1829829,
+                              ),
+                              139 => 
+                              array (
+                                'key' => 'SFFX',
+                                'value' => 1829830,
+                              ),
+                              140 => 
+                              array (
+                                'key' => 'SFFX45',
+                                'value' => 1829831,
+                              ),
+                              141 => 
+                              array (
+                                'key' => 'SFFX90',
+                                'value' => 1829832,
+                              ),
+                              142 => 
+                              array (
+                                'key' => 'SFM',
+                                'value' => 1829833,
+                              ),
+                              143 => 
+                              array (
+                                'key' => 'SFM45',
+                                'value' => 1829834,
+                              ),
+                              144 => 
+                              array (
+                                'key' => 'SFM90',
+                                'value' => 1829835,
+                              ),
+                              145 => 
+                              array (
+                                'key' => 'SIF',
+                                'value' => 1829836,
+                              ),
+                              146 => 
+                              array (
+                                'key' => 'SIM',
+                                'value' => 1829837,
+                              ),
+                              147 => 
+                              array (
+                                'key' => 'SIMX',
+                                'value' => 1829838,
+                              ),
+                              148 => 
+                              array (
+                                'key' => 'SIMX45',
+                                'value' => 1829839,
+                              ),
+                              149 => 
+                              array (
+                                'key' => 'SIMX90',
+                                'value' => 1829840,
+                              ),
+                              150 => 
+                              array (
+                                'key' => 'SP',
+                                'value' => 1829841,
+                              ),
+                              151 => 
+                              array (
+                                'key' => 'SP45',
+                                'value' => 1829842,
+                              ),
+                              152 => 
+                              array (
+                                'key' => 'SWA',
+                                'value' => 1829843,
+                              ),
+                              153 => 
+                              array (
+                                'key' => 'SWCN',
+                                'value' => 1829844,
+                              ),
+                              154 => 
+                              array (
+                                'key' => 'SWCW',
+                                'value' => 1829845,
+                              ),
+                              155 => 
+                              array (
+                                'key' => 'VA12V1/4',
+                                'value' => 1829846,
+                              ),
+                              156 => 
+                              array (
+                                'key' => 'VA12V3/16',
+                                'value' => 1829847,
+                              ),
+                              157 => 
+                              array (
+                                'key' => 'VC12V',
+                                'value' => 1829848,
+                              ),
+                              158 => 
+                              array (
+                                'key' => 'VC134VH',
+                                'value' => 1829849,
+                              ),
+                              159 => 
+                              array (
+                                'key' => 'VC134VL',
+                                'value' => 1829850,
+                              ),
+                              160 => 
+                              array (
+                                'key' => 'VCORE',
+                                'value' => 1829851,
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -1667,14 +2844,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
-                             'defaultValue' => '',
-                             'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
-                             'optionsProviderData' => 'FittingEndFamilyType|Name',
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -1702,6 +2878,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2002,6 +3179,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -2029,6 +3207,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -2056,6 +3235,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2297,6 +3477,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2324,6 +3505,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2345,11 +3527,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           26 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2405,6 +3589,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2458,6 +3643,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => NULL,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -2662,7 +3848,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleGridView' => false,
                              'visibleSearch' => false,
                           )),
-                          5 => 
+                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
@@ -2765,6 +3951,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -2848,6 +4035,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -3029,6 +4217,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -3079,11 +4268,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3105,6 +4296,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -3207,6 +4399,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3214,7 +4407,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 100,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'Thread',
                  'type' => NULL,
                  'region' => NULL,
@@ -3270,6 +4462,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3297,6 +4490,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3324,6 +4518,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -3351,6 +4546,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -3403,6 +4599,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -3461,6 +4658,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3488,6 +4686,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3515,6 +4714,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -3542,6 +4742,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 190,
@@ -3594,6 +4795,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -3634,6 +4836,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -3641,7 +4844,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 100,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'STEM',
                  'type' => NULL,
                  'region' => NULL,
@@ -3697,6 +4899,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3749,6 +4952,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -3785,6 +4989,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3858,6 +5063,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3916,6 +5122,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -3937,6 +5144,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -3967,11 +5175,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4003,6 +5213,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               3 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4010,7 +5221,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 100,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'FERRULE',
                  'type' => NULL,
                  'region' => NULL,
@@ -4066,6 +5276,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4149,6 +5360,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -4179,6 +5391,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -4209,6 +5422,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           5 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -4239,6 +5453,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           6 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
@@ -4262,6 +5477,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -4289,6 +5505,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4310,11 +5527,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4336,6 +5555,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -4366,6 +5586,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -4396,6 +5617,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -4426,6 +5648,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -4435,6 +5658,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               4 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4442,7 +5666,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 100,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'SWIVEL NUT',
                  'type' => NULL,
                  'region' => NULL,
@@ -4498,6 +5721,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4519,6 +5743,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -4549,11 +5774,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4575,6 +5802,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -4605,11 +5833,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4631,6 +5861,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -4658,6 +5889,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -4679,6 +5911,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -4740,6 +5973,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
@@ -4763,6 +5997,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -4772,6 +6007,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               5 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4779,7 +6015,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 200,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'THRUST WIRE',
                  'type' => NULL,
                  'region' => NULL,
@@ -4797,6 +6032,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -4818,6 +6054,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -4848,11 +6085,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -4874,6 +6113,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -4920,6 +6160,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               6 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -4927,7 +6168,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 200,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'O-RING',
                  'type' => NULL,
                  'region' => NULL,
@@ -4983,6 +6223,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -5004,11 +6245,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           1 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -5030,6 +6273,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -5060,6 +6304,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -5092,7 +6337,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'visibleSearch' => false,
                              'defaultValueGenerator' => '',
                           )),
-                          3 => 
+                          4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'fieldtype' => 'numeric',
                              'width' => 300,
@@ -5101,7 +6346,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'columnType' => 'double',
                              'phpdocType' => 'float',
                              'integer' => false,
-                             'unsigned' => true,
+                             'unsigned' => false,
                              'minValue' => NULL,
                              'maxValue' => NULL,
                              'unique' => false,
@@ -5149,6 +6394,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -5163,7 +6409,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
-                             'style' => '',
+                             'style' => 'margin-left:20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
                              'relationType' => false,
@@ -5195,121 +6441,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
-                             'style' => '',
+                             'style' => 'margin-left:20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
                              'relationType' => false,
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          6 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
-                             'fieldtype' => 'date',
-                             'queryColumnType' => 'bigint(20)',
-                             'columnType' => 'bigint(20)',
-                             'phpdocType' => '\\Carbon\\Carbon',
-                             'defaultValue' => NULL,
-                             'useCurrentDate' => false,
-                             'name' => 'FerruleRevDate',
-                             'title' => 'Ferrule Rev Date',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                        ),
-                         'locked' => false,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                         'fieldtype' => 'fieldcontainer',
-                         'labelWidth' => 200,
-                         'layout' => 'vbox',
-                         'fieldLabel' => '',
-                         'name' => 'Field Container',
-                         'type' => NULL,
-                         'region' => NULL,
-                         'title' => '',
-                         'width' => NULL,
-                         'height' => NULL,
-                         'collapsible' => false,
-                         'collapsed' => false,
-                         'bodyStyle' => '',
-                         'datatype' => 'layout',
-                         'permissions' => NULL,
-                         'childs' => 
-                        array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 150,
-                             'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'FerruleComponentSAPNumber',
-                             'title' => 'Ferrule Component SAP Number',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'fieldtype' => 'input',
-                             'width' => 300,
-                             'defaultValue' => NULL,
-                             'queryColumnType' => 'varchar',
-                             'columnType' => 'varchar',
-                             'columnLength' => 150,
-                             'phpdocType' => 'string',
-                             'regex' => '',
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'name' => 'FerruleRevisionNumber',
-                             'title' => 'Ferrule Revision Number',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => 'margin-left: 20px;',
-                             'permissions' => NULL,
-                             'datatype' => 'data',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'defaultValueGenerator' => '',
                           )),
                           2 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'fieldtype' => 'input',
                              'width' => 300,
+                             'defaultValue' => NULL,
                              'queryColumnType' => 'varchar',
                              'columnType' => 'varchar',
                              'columnLength' => 150,
@@ -5331,6 +6475,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                           3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
@@ -5354,7 +6499,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'noteditable' => false,
                              'index' => false,
                              'locked' => false,
-                             'style' => 'margin-left: 20px;',
+                             'style' => 'margin-left:20px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
                              'relationType' => false,
@@ -5392,6 +6537,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,
@@ -5401,6 +6547,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               7 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -5408,7 +6555,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 200,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'INTERNAL O-RING',
                  'type' => NULL,
                  'region' => NULL,
@@ -5426,6 +6572,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5453,6 +6600,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5480,6 +6628,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5536,6 +6685,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               8 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -5543,7 +6693,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 240,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'BACK-UP O-RING',
                  'type' => NULL,
                  'region' => NULL,
@@ -5592,6 +6741,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5650,6 +6800,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5677,6 +6828,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5702,6 +6854,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               9 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -5709,7 +6862,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 200,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'SLIP NUT RETAINING RING',
                  'type' => NULL,
                  'region' => NULL,
@@ -5727,6 +6879,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5816,6 +6969,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5843,6 +6997,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5868,6 +7023,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               10 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -5875,7 +7031,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 240,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'THREAD PROTECTOR',
                  'type' => NULL,
                  'region' => NULL,
@@ -5893,6 +7048,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -5982,6 +7138,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -6009,6 +7166,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -6034,6 +7192,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
               11 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -6041,7 +7200,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelWidth' => 200,
                  'layout' => NULL,
                  'border' => false,
-                 'icon' => '',
                  'name' => 'PACKAGING',
                  'type' => NULL,
                  'region' => NULL,
@@ -6090,6 +7248,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 150,
@@ -6115,15 +7274,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   )),
                 ),
                  'locked' => false,
+                 'icon' => '',
               )),
             ),
              'locked' => false,
           )),
         ),
          'locked' => false,
+         'icon' => '',
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
-   'dao' => NULL,
 ));

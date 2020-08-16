@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-31T09:10:05+02:00
+* Generated at: 2020-08-10T20:27:29+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -36,7 +36,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1596179405,
+   'modificationDate' => 1597084049,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -789,7 +789,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => true,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'float:left; margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
