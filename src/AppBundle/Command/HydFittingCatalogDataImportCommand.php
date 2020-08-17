@@ -25,14 +25,14 @@ class HydFittingCatalogDataImportCommand extends Command
     const IMPORT_SHEETS = array(
         "HYD_CATALOG_SHEET" => array(
             "SHEET_NUMBER" => 0,
-            "DATA_ROW_NUMBER" => 4,
+            "DATA_ROW_NUMBER" => 2,
             "SAP_NUMBER_COLUMN" => "M",
             "COLUMN_MAP" => "HYD_CATALOG_SHEET_COLUMN_MAP",
             "LOG_FILE_NAME" => "hydraulics_catalog_sheet_import_log"
         ),
         "ACCESSORY_SHEET" => array(
             "SHEET_NUMBER" => 1,
-            "DATA_ROW_NUMBER" => 3,
+            "DATA_ROW_NUMBER" => 2,
             "SAP_NUMBER_COLUMN" => "E",
             "COLUMN_MAP" => "ACCESSORY_SHEET_COLUMN_MAP",
             "LOG_FILE_NAME" => "accessory_sheet_import_log"
@@ -128,8 +128,8 @@ class HydFittingCatalogDataImportCommand extends Command
      * mapping for accessories sheet in file
      */
     const ACCESSORY_SHEET_COLUMN_MAP = [
-//        "A" => array("field" => "shortDescription", "brickKey" => null, "type" => "wysiwyg", "brickType" => null),
-        "B" => array("field" => "BrandShortText1", "brickKey" => null, "type" => "input", "brickType" => null),
+        "A" => array("field" => "brandName", "brickKey" => null, "type" => "select", "brickType" => null,"masterType" => "Brand","isMaster" => true),
+        "B" => array("field" => "shortDescription", "brickKey" => null, "type" => "input", "brickType" => null),
         "C" => array("field" => "descriptive", "brickKey" => "HoseSkeleton", "type" => "input", "brickType" => "skeleton"),
         "D" => array("field" => "industryStandard", "brickKey" => null, "type" => "input", "brickType" => null),
 //        "E" => sapNumber

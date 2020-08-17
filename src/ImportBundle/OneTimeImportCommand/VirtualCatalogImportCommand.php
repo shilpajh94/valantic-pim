@@ -44,9 +44,10 @@ class VirtualCatalogImportCommand extends AbstractCommand
     private $results;
     private $baseLevelRecords;
     private $skeleLevelRecords;
+    private $brands;
     protected function configure()
     {
-        $this->setName('conti:onetimeimport:hose')
+        $this->setName('conti:onetimeimport:virtialcatalog')
             ->setDescription('Virtual Catalog Import')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
@@ -60,6 +61,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
+            $this->loadMaster();
             $this->createTempTable();
             $this->import($filePath);
             $this->update();
@@ -95,13 +97,23 @@ class VirtualCatalogImportCommand extends AbstractCommand
                 $logs[$i] = array(
                     'data' => $result
                 );
-
+                if (!empty($result['Brand_Name'])) { 
+                    $brandName = strtolower($result['Brand_Name']);
+                    $clrInfo = $this->getBrands($brandName);   
+                    if (!empty($clrInfo['itemNotFound'])) {
+                        $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
+                    } else {
+                        $result['Brand_Name'] = $clrInfo['items'];
+                    }
+                    unset($clrInfo);
+                }
                 if (!empty($result['6_Digit']) && is_numeric($result['6_Digit']) && strlen($result['6_Digit']) == 6) {
                     $digitFound = true;
                     $this->baseLevelRecords[$result['6_Digit']] = $result;
                 } else {
                     $error[] = "Code {$result['6_Digit']} could not processed due to wrong length ";
                 }
+                
                 /* if(!empty($result['6_Digit']) && is_numeric($result['6_Digit']) && strlen($result['6_Digit'])>=9) {
                     $digitFound = true;
                     $skeletonLevel = substr($result['6_Digit'], 0, 9);
@@ -139,9 +151,11 @@ class VirtualCatalogImportCommand extends AbstractCommand
         /**
          * Updating Data
          */
+        // p_r($this->baseLevelRecords);die;
         if (is_array($this->baseLevelRecords) && !empty($this->baseLevelRecords)) {
             p_r("Updating " . count($this->baseLevelRecords) . " Records at base level");
             foreach ($this->baseLevelRecords as $result) {
+                $brnds = "";
                 $o = \Pimcore\Model\DataObject\Product::getById($result['level6n9digit_id']);
                 if (!is_null($o)) {
                     p_r("Updating " . $result['level6n9digit_id']. ' '.$result['6_Digit'] );
@@ -153,6 +167,12 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     }
                     if (!empty($result['Branding_Layline'])) {
                         $o->setBrandingLayline($result['Branding_Layline']);
+                    }
+                    if (!empty($result['Reinforcement_Virtual_Catalog_Description'])) {
+                        $o->setVirtualCatalogReinforcement($result['Reinforcement_Virtual_Catalog_Description']);
+                    }
+                    if (!empty($result['Brand_Name'])) { 
+                        $o->setBrandName($result['Brand_Name']);
                     }
 
 
@@ -170,18 +190,44 @@ class VirtualCatalogImportCommand extends AbstractCommand
                         $o->getBase()->getHoseBase()->setNonStockSizes($result['Non_Stock_Sizes']);
                     }
 
-                    // Skeleton
-                    if (!empty($result['Reinforcement_Virtual_Catalog_Description'])) {
-                        // $o->getSkeleton()->getHoseSkeleton()->setVirtualCatalogReinforcement($result['Reinforcement_Virtual_Catalog_Description']);
-                    }
+                    $o->setPrintedCatalogFlag(1);
+                    $o->setVirtualCatalogFlag(1);
+                    
                     $o->save();
                 }
             }
         }
     }
 
-    private function updateSkeleton()
+    /**
+     * Loading Masters
+     * Class: Multiselector
+     * ClassId = 22
+     * View: object_22
+     */
+    private function loadMaster()
     {
+        /* Loading Brands */
+        $sql = "SELECT o_id, `name` FROM object_3 ";
+        $results = $this->db->query($sql);
+        foreach ($results as $result) {
+            $this->brands[$result['o_id']] = strtolower($result['name']);
+            unset($type);
+        }
+    }
+
+    /**
+     * It will return brand ids
+     * @param Brand information
+     * return array (brand_ids)
+     */
+    private function getBrands($items)
+    {
+        $item = array_search(trim($items), $this->brands) ?: false;
+        return array(
+            'items' =>  $item,
+            'itemNotFound' => empty($item) ? $item : false
+        );
     }
 
     private function mapBaseLevelId(&$arr, $keys)

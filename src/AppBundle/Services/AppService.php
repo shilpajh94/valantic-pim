@@ -276,8 +276,8 @@ class AppService
                 $hydFittingFert->setHydFittingFamily($fittingFamilies);
                 $hydFittingFert->setHydThreadDescription($threadDesc);
             }else{
-                $hydFittingFert->setHydFittingFamily([]);
-                $hydFittingFert->setHydThreadDescription(null);
+//                $hydFittingFert->setHydFittingFamily([]);
+//                $hydFittingFert->setHydThreadDescription(null);
             }
         }
     }
