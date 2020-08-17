@@ -2,6 +2,7 @@
 
 namespace CatalogBundle\Controller;
 
+use AppBundle\Helper\Common;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
 use Pimcore\Controller\FrontendController;
@@ -699,10 +700,6 @@ class DefaultController extends AbstractController {
         return $commonHelper->getParameter($tableColumnsConfig, 'headers');
     }
 
-    public function templateFittingPageStandardAction(Request $request) {
-        
-    }
-
     public function templateHoseLineTileTemplateAction(Request $request)
     {
         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
@@ -817,32 +814,28 @@ if(isset($data[$baseId])) {
     }
 
 
-    public function templateHoseProductPageAction(Request $request) {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-        $CatalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
-        
-
+    public function templateHoseProductPageAction(Request $request) 
+    {
         $template = $this->getDocumentTag('relation', 'inh_template_hose_product_page')->getElement();
 
-        if ($template) {
-            $catalogCategoryObjID = $template->getParentId();
+        if($template) 
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
-
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            $CatalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
+            
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            
-            $headerKeys = array_keys((array)$headerData);
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+
             $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
@@ -872,32 +865,12 @@ if(isset($data[$baseId])) {
                 }
             }
 
-
-            // foreach ($productsData as $key => $item) {
-            //     $productsDataWithHeaders = array_combine($headerKeys, $item);
-            //     if(!empty(trim($productsDataWithHeaders['brandName'][0])))
-            //     {
-            //         // $ff= "Saflex® (NSFX)";
-            //         // $brandNamekey = \Pimcore\Model\Element\Service::getValidKey($productsDataWithHeaders['brandName'][0], 'string');
-            //         $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
-            //     }
-            // }
             foreach($catalogGrouping as $catalogKey => $brandsData)
             {
-
                 foreach ($brandsData as $brandKey => $brandArray) {
 
                     $brandName = $brandArray[0]['brandName'][0];
 
-                    $baseLevelID = $brandArray[0]['baseLevelID'];
-                    // $mainImage = $brandArray[0]['mainImage'];
-
-                    // $imageObj = '';
-                    // if($mainImage)
-                    // {
-                    //     $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
-                    // }
-                    
                     $longDescription = $brandArray[0]['longDescription'];
                     $BrandingLayline = $brandArray[0]['BrandingLayline'];
                     $tempFmin = $brandArray[0]['minimumTemperatureF'];
@@ -1015,8 +988,6 @@ if(isset($data[$baseId])) {
 
                     $reinforcement = implode(', ', $reinforcement);
                     $data[$brandKey]['brandName'] = $brandName;
-                    // $data[$brandKey]['imageObj'] = $imageObj;
-                    // $data[$brandKey]['mainImage'] = $mainImage;
                     $data[$brandKey]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
                     $data[$brandKey]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                     $data[$brandKey]['longDescription'] = $longDescription;
@@ -1049,29 +1020,25 @@ if(isset($data[$baseId])) {
 
     public function templateHoseAccessoriesSleevingAction(Request $request)
     {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_sleeving')->getElement();
         
         if($template)
         {
-            $catalogCategoryObjID = $template->getParentId();
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
-
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            $headerKeys = array_keys((array)$headerData);
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+            
             $columnsData = $template->getColumns();
             $iconRequired = 'NO';
             $columnsData = json_decode($columnsData);
@@ -1174,29 +1141,25 @@ if(isset($data[$baseId])) {
 
     public function templateHoseAccessoriesClampsAction(Request $request)
     {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_clamps')->getElement();
         
         if($template)
         {
-            $catalogCategoryObjID = $template->getParentId();
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
-
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            $headerKeys = array_keys((array)$headerData);
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+
             $columnsData = $template->getColumns();
             $iconRequired = 'NO';
             $columnsData = json_decode($columnsData);
@@ -1276,29 +1239,25 @@ if(isset($data[$baseId])) {
 
     public function templateHoseAccessoriesOringAction(Request $request)
     {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_oring')->getElement();
         
         if($template)
         {
-            $catalogCategoryObjID = $template->getParentId();
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
-
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            $headerKeys = array_keys((array)$headerData);
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+
             $columnsData = $template->getColumns();
             $iconRequired = 'NO';
             $columnsData = json_decode($columnsData);
@@ -1401,45 +1360,38 @@ if(isset($data[$baseId])) {
 
     public function templateTableOfContentsAction(Request $request)
     {
-
     }
 
     public function templatePartNumberDesignationsAction(Request $request)
     {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
         $templates = $this->getDocumentTag('relations', 'page_number_designations')->getElements();
 
         $footerBgColor = '';
-        if ($templates) {
+        if($templates) 
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $headerData = \json_decode($templates[0]->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            $headerKeys = array_keys((array)$headerData);
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogGrouping = array();
             foreach ($templates as $key => $template) 
             {
-                
                 if(empty(trim($footerBgColor)))
                     $footerBgColor = $template->getColor();
 
                 $productsData = $template->getProductsData();
+                $headerData = json_decode($template->getHeaderData(), true);
+                $headerKeys = array_keys($headerData);
                 
                 foreach ($productsData as $key => $item) {
                     $productsDataWithHeaders = array_combine($headerKeys, $item);
-
                     if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
                     {
                         $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders['industryStandard'];
                     }
                 }
-
-                
             }
         }
         
@@ -1450,29 +1402,25 @@ if(isset($data[$baseId])) {
 
     public function templateHoseSubCoverAction(Request $request)
     {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
         $template = $this->getDocumentTag('relation', 'template_hose_product_page')->getElement();
 
-        if ($template) {
-            $catalogCategoryObjID = $template->getParentId();
+        if($template) 
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
-
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
+            
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            
-            $headerKeys = array_keys((array)$headerData);
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+
             $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
@@ -1480,13 +1428,7 @@ if(isset($data[$baseId])) {
 
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
-
-            // foreach ($columnsData as $key => $value) {
-            //     $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-            //     $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($headerDataArr[$value->columnName]);
-            //     $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
-            // }
-
+            
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $catalogGrouping = array();
@@ -1580,29 +1522,25 @@ if(isset($data[$baseId])) {
 
     public function templateFittingSplitFlangesAction(Request $request)
     {
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
         $template = $this->getDocumentTag('relation', 'template_hose_accessories_flanges')->getElement();
         
         if($template)
         {
-            $catalogCategoryObjID = $template->getParentId();
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
             
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
-            $headerKeys = array_keys((array)$headerData);
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
+            
             $columnsData = $template->getColumns();
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
@@ -1677,34 +1615,12 @@ if(isset($data[$baseId])) {
         $this->view->allChildren = $allChildren;
     }
 
-    public function headerTemplateHoseProductPageAction(Request $request)
-    {
-        $this->view['title'] = $request->get('title');
-    }
-
-    public function headerTemplateTableOfContentsAction(Request $request)
-    {
-        $this->view['title'] = $request->get('title');
-    }
-
-    public function footerTemplateHoseProductPageAction(Request $request)
-    {
-        $this->view['title'] = $request->get('title');
-        $this->view['subTitle'] = $request->get('subTitle');
-        $this->view['thirdSection'] = $request->get('thirdSection');
-    }
-
-    /**
-     * return material object or false
-     */
     public function getFeaturesList($catalog_type, $language){
         $entries = new DataObject\Features\Listing();
         // $entries->setCondition("FeatureType = ?", "{$catalog_type}");
         $entries->load();
         $featureData = array();
         foreach($entries as $entry) {
-            // p_r($entry);
-            
             if($entry->getIcon())
                 $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
             
@@ -1715,9 +1631,6 @@ if(isset($data[$baseId])) {
         return $featureData;
     }
 
-    /**
-     * return material object or false
-     */
     public function getStandardMetHoseList($catalog_type, $language){
         $entries = new DataObject\MultiselectMaster\Listing();
         $entries->setCondition("masterType = ?", "{$catalog_type}");
@@ -1731,8 +1644,6 @@ if(isset($data[$baseId])) {
         }
         return $featureData;
     }
-
-    
 
     /**
      * Fitting Straight
@@ -1780,24 +1691,21 @@ if(isset($data[$baseId])) {
         }
     }
 
-    public function templatePtgProductPageAction(Request $request)
+    public function templatePtgProductPageAction(Request $request) 
     {      
-        $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
-
-        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
-        $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
-
         $template = $this->getDocumentTag('relation', 'ptg_product_page')->getElement();
+        if($template) 
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $priceListTableConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPriceListTableConfig();
+            
+            $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
 
-        if ($template) {
-
-            $catalogCategoryObjID = $template->getParentId();
-
-            $catalogCategoryObj = DataObject\CatalogCategory::getById($catalogCategoryObjID);
-            $catalogObjID = $catalogCategoryObj->getParentId();
-
-            $catalogObj = DataObject\Catalog::getById($catalogObjID);
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             
             $IsPriceCatalog = $catalogObj->getIsPriceCatalog();
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
@@ -1808,12 +1716,10 @@ if(isset($data[$baseId])) {
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
-            $headerData = \json_decode($template->getHeaderData());
-            $headerDataArr = (array)$headerData;
+            $headerData = json_decode($template->getHeaderData(), true);
+            $headerKeys = array_keys($headerData);
             
-            $headerKeys = array_keys((array)$headerData);
             $columnsData = $template->getColumns();
-
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData);
             $columnsDataWithImages = array();
@@ -1827,7 +1733,6 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
             }
 
-            $countTableColumn = count($columnsDataWithImages);
             if($IsPriceCatalog)
             {
                 $columnsDataWithImages['listPrice']['columnName'] = 'listPrice';
@@ -1837,7 +1742,6 @@ if(isset($data[$baseId])) {
 
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
-            $columnConfig = array();
             $catagoryDescription = array();
             $mainImageObj = '';
             $LeftPrintCatalogImageObj = '';
@@ -1855,27 +1759,11 @@ if(isset($data[$baseId])) {
                     $mainImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['mainImage']);
                 }
 
-                // if(!$LeftPrintCatalogImageObj && $productsDataWithHeaders['LeftPrintCatalogImage'])
-                // {
-                //     $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['LeftPrintCatalogImage']);
-                // }
-
-                // if(!$RightPrintCatalogImageObj && $productsDataWithHeaders['RightPrintCatalogImage'])
-                // {
-                //     $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['RightPrintCatalogImage']);
-                // }
-
                 if(!$ProfileDimensionImageObj && $productsDataWithHeaders['ProfileDimensionImage'])
                 {
                     $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($productsDataWithHeaders['ProfileDimensionImage']);
                 }
-
-                if(!isset($columnConfig['config']))
-                {
-                    $attributes = $product->getClass()->getFieldDefinition('priceData');
-                    $columnConfig['config'] = array_column($attributes->getColumnConfig(), 'label');
-                }
-
+                
                 if(!isset($catagoryDescription['SIOP3Description']))
                 {
                     $siop3Categories = $product->getSIOPLevel3();
@@ -1915,14 +1803,13 @@ if(isset($data[$baseId])) {
                     if($priceData)
                     {
                         foreach ($priceData as $pkey => $pvalue) {
-                            $record = array_combine($columnConfig['config'], $pvalue);
-                            if($record['Rate Unit'] == $Currency)
+                            if($pvalue[$priceListTableColumn['Rate Unit']] == $Currency)
                             {
-                                $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$record['Validity Start Date']);
-                                $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$record['Validity End Date']);
+                                $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
+                                $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
 
                                 if ($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
-                                    $listPrice[$record['Distribution Channel']][$record['Sales Organization']] = $record['Rate'];
+                                    $listPrice[$pvalue[$priceListTableColumn['Distribution Channel']]][$pvalue[$priceListTableColumn['Sales Organization']]] = $pvalue[$priceListTableColumn['Rate']];
                                 }
                             }
                         }
@@ -1938,20 +1825,6 @@ if(isset($data[$baseId])) {
                 }
 
                 $brandsData[$siop6Category][] = $productsDataWithHeaders;
-                // if(isset($productsDataWithHeaders['pitchMM']) && !empty(trim($productsDataWithHeaders['pitchMM'])))
-                // {
-                //     $brandsData[$productsDataWithHeaders['pitchMM']][] = $productsDataWithHeaders;
-                // }
-
-                // if(isset($productsDataWithHeaders['outsideLengthIN']) && !empty(trim($productsDataWithHeaders['outsideLengthIN'])))
-                // {
-                //     $brandsData[$productsDataWithHeaders['outsideLengthIN']][] = $productsDataWithHeaders;
-                // }
-
-                // if(isset($productsDataWithHeaders['insideLengthIN']) && !empty(trim($productsDataWithHeaders['insideLengthIN'])))
-                // {
-                //     $brandsData[$productsDataWithHeaders['insideLengthIN']][] = $productsDataWithHeaders;
-                // }
             }
             
             if($brandsData)
@@ -2001,18 +1874,6 @@ if(isset($data[$baseId])) {
                                 if($bkey == 'maximumTemperatureC' && !empty(trim($value)))
                                     $tempCmax = $value;
 
-                                if($bkey == 'BrandShortText1' && !empty(trim($value)))
-                                    $BrandShortText1 = $value;
-                                if($bkey == 'BrandShortText2' && !empty(trim($value)))
-                                    $BrandShortText2 = $value;
-                                if($bkey == 'BrandShortText3' && !empty(trim($value)))
-                                    $BrandShortText3 = $value;
-                                if($bkey == 'BrandShortText4' && !empty(trim($value)))
-                                    $BrandShortText4 = $value;
-                                if($bkey == 'BrandShortText5' && !empty(trim($value)))
-                                    $BrandShortText5 = $value;
-                                
-
                         endforeach; 
 
                         foreach ($columnsDataWithImages as $ckey => $cvalue) {
@@ -2022,11 +1883,6 @@ if(isset($data[$baseId])) {
                     endforeach; 
 
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-
-                    // outsideLengthIN
-                    // if(isset())
-
-                    // array_multisort (array_column($articlesData, 'pitchLengthMM'), SORT_ASC, $articlesData);
                     $data[$brandKey]['articlesData'] = $articlesData;
 
                 }
@@ -2055,19 +1911,12 @@ if(isset($data[$baseId])) {
                 $material = implode(', ', $material);
 
                 $groupData = array();
-                $groupData['BrandShortText1'] = $BrandShortText1;
-                $groupData['BrandShortText2'] = $BrandShortText2;
-                $groupData['BrandShortText3'] = $BrandShortText3;
-                $groupData['BrandShortText4'] = $BrandShortText4;
-                $groupData['BrandShortText5'] = $BrandShortText5;
                 $groupData['iconRequired'] = $iconRequired;
                 $groupData['material'] = $material;
                 $groupData['reinforcement'] = $reinforcement;
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
                 $groupData['mainImageObj'] = $mainImageObj;
                 
-                // $groupData['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                // $groupData['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
                 $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['tempFmin'] = $tempFmin;
@@ -2080,47 +1929,19 @@ if(isset($data[$baseId])) {
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 $groupData['IsPriceCatalog'] = $IsPriceCatalog;
                 
-                // p_r($groupData);
-                // die;
                 $this->view['groupData'] = $groupData;
                 $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
                 $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
             }
         }
-    }
-
-    public function headerFittingStraightAction(Request $request)
-    {      
-    }
-    public function footerFittingStraightAction(Request $request)
-    {      
-    }
-    /* End Fitting Straight */
-    public function headerTemplateHoseLineTileAction(Request $request)
-    {
-        $this->view['title'] = $request->get('title');
-    }
-
-    public function footerTemplateHoseLineTileAction(Request $request)
-    {
-        $this->view['footerTitle'] = $request->get('footerTitle');
-        $this->view['footerContent'] = $request->get('footerContent');
-        $this->view['featuresFooter'] = $request->get('featuresFooter');
-        $this->view['brandsInfo'] = $request->get('brandsInfo');
-        $this->view['brandPickupInfo'] = $request->get('brandPickupInfo');
-        if($request->get('footerLogo')){
-            $this->view['footerLogo'] = \Pimcore\Model\Asset::getByPath($request->get('footerLogo'));
-        }        
-    }
-
+    }  
+    
     public function templateIndexDescriptiveNumberAction(Request $request)
     {
-        // $this->view['title'] = $request->get('title');
     }
 
     public function templateIndexProductNumberAction(Request $request)
     {
-        // $this->view['title'] = $request->get('title');
     }
 }
 
