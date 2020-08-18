@@ -1,6 +1,6 @@
 <?php
 if (!isset($this->parentContainer)) {
-    $this->extend('CatalogBundle:Layouts:layout.html.php', ['name1' => 'Name from Extend']);
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
 }
 ?>
 <?php if ($this->editmode): ?>
@@ -36,12 +36,7 @@ if ($data):
                                 <?= $this->input("HHAO_Logo_Text1") ?>
                         <?php endif; ?>
                         </b>
-                        
-                        <?php if ($footer_class == 'reverseColor'): ?>
-                            <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                        <?php else: ?>
-                            <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                        <?php endif; ?>
+                        <img src="<?= $footer_logo_src; ?>">
                     </span>
                     <div class="flex aligned">
 
@@ -114,11 +109,7 @@ if ($data):
                                 <?= $this->input("HHAO_Logo_Text2") ?>
                         <?php endif; ?>
                         </b>
-                        <?php if ($footer_class == 'reverseColor'): ?>
-                            <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                        <?php else: ?>
-                            <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                        <?php endif; ?>
+                        <img src="<?= $footer_logo_src; ?>">
                     </span>
                 </footer>
             </div>

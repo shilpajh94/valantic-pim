@@ -9,7 +9,7 @@ parameters:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
-                        fieldName: Name
+                        fieldName: id
             longDescription:
                 fieldLevel: class
                 fieldType: Input
@@ -170,26 +170,26 @@ parameters:
                 fieldLabel: Profile Dimension Image
                 parent: 
                     name: Product
-            BrandShortText1:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Bullet1
-            BrandShortText2:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Bullet2
-            BrandShortText3:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Bullet3
-            BrandShortText4:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Bullet4
-            BrandShortText5:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Bullet5
+            # BrandShortText1:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Bullet1
+            # BrandShortText2:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Bullet2
+            # BrandShortText3:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Bullet3
+            # BrandShortText4:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Bullet4
+            # BrandShortText5:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Bullet5
             longDescription:
                 fieldLevel: class
                 fieldType: Input

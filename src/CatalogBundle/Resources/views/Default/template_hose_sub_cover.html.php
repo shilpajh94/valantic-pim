@@ -1,6 +1,6 @@
 <?php
 if (!isset($this->parentContainer)) {
-$this->extend('CatalogBundle:Layouts:layout.html.php',['name1'=>'Name from Extend']);
+$this->extend('CatalogBundle:Layouts:layout.html.php');
 }
 ?>
 
@@ -25,7 +25,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
     <div id="pageHeader" class="alternate"></div>
  
         <div class="footer">
-                <footer class="flex-center ">
+                <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
                         <b>
                         <?php if($this->editmode): ?>
@@ -39,7 +39,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <?php endif; ?>
                         </b>
                         
-                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                        <img src="<?= $footer_logo_src; ?>">
                         </span>
                         <div class="flex aligned">
                                 <h5>
@@ -60,7 +60,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         </div>
 
         <div class="footer1">
-                <footer class="flex-center ">   
+                <footer class="flex-center <?php echo $footer_class; ?>">   
                         <div class="flex aligned">
                                  <div>               
                                     <span>
@@ -89,7 +89,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                         <?= $this->input("HHSC_Logo_Text2") ?>
                                 <?php endif; ?>
                                 </b>
-                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                                <img src="<?= $footer_logo_src; ?>">
                         </span>
                 </footer>
         </div>

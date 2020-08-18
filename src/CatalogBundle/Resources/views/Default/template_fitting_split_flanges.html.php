@@ -22,25 +22,21 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
    <div class="footer">
         <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
-                        <b>
-                <?php if($this->editmode): ?>
-                        <?php if($this->input("HHAFC_Logo_Text1")->isEmpty()): ?>
-                                <?= $this->input("HHAFC_Logo_Text1")->setDataFromResource('Fittings') ?>
-                        <?php else: ?>
-                                <?= $this->input("HHAFC_Logo_Text1"); ?>
-                        <?php endif; ?>
-                <?php else: ?>
-                        <?= $this->input("HHAFC_Logo_Text1") ?>
-                <?php endif; ?>
-                </b>
+                                <b>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("HHAFC_Logo_Text1")->isEmpty()): ?>
+                                                <?= $this->input("HHAFC_Logo_Text1")->setDataFromResource('Fittings') ?>
+                                        <?php else: ?>
+                                                <?= $this->input("HHAFC_Logo_Text1"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHAFC_Logo_Text1") ?>
+                                <?php endif; ?>
+                                </b>
 
-
-        <?php if($footer_class == 'reverseColor'): ?>
-                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                <?php else: ?>
-                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                <?php endif; ?>
+                                <img src="<?= $footer_logo_src; ?>">
                         </span>
+                        
                         <div class="flex aligned">
                         <h5>
                     <?php if($this->editmode): ?>
@@ -114,11 +110,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("HHAFC_Logo_Text2") ?>
                 <?php endif; ?>
                 </b>
-        <?php if($footer_class == 'reverseColor'): ?>
-                        <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                <?php else: ?>
-                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                <?php endif; ?>
+                <img src="<?= $footer_logo_src; ?>">
                         </span>
                 </footer>
         </div>

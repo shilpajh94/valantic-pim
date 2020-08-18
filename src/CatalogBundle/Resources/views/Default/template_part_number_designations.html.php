@@ -18,7 +18,7 @@ if (!isset($this->parentContainer)) {
     <div id="pageHeader"></div>
     <span class="pageName">Hydraulic Hose</span>
     <div class="footer">
-        <footer class="flex-center ">
+        <footer class="flex-center <?php echo $footer_class; ?>">
             <span class="logo">
                 <b>
                     <?php if($this->editmode): ?>
@@ -31,7 +31,7 @@ if (!isset($this->parentContainer)) {
                         <?= $this->input("PBD_Logo_Text1") ?>
                     <?php endif; ?>
                 </b>
-                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <img src="<?= $footer_logo_src; ?>">
             </span>
             <div class="flex aligned ">
                 <h5>
@@ -62,7 +62,7 @@ if (!isset($this->parentContainer)) {
         </footer>
     </div>
     <div class="footer1">
-        <footer class="flex-center ">
+        <footer class="flex-center <?php echo $footer_class; ?>">
             <div class="flex aligned ">
                 <h5>
                 <?php if($this->editmode): ?>
@@ -101,7 +101,7 @@ if (!isset($this->parentContainer)) {
                         <?= $this->input("PBD_Logo_Text2") ?>
                     <?php endif; ?>
                 </b>
-                <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
+                <img src="<?= $footer_logo_src; ?>">
             </span>
         </footer>
     </div>
