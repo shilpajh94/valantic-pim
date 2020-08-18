@@ -8,10 +8,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
  
  <div id="pageHeader"></div>
  <span  class="pageName">Hydraulic Hose</span>
-       
-
-
-<div class="footer">
+ <div class="footer">
  <footer class="flex-center ">
             <span class="logo">
                 <b>Hose</b>
@@ -32,8 +29,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 ?>
                 <span>
                 <?php
-                    if($this->editmode) {
-                        echo $this->input('fittingFamily_11')->setDataFromResource('B2 Fittings');
+                    if($this->editmode) {                        
+                        echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->setDataFromResource('B2 Fittings');
                     } else {
                         echo $this->input('fittingFamily_11');
                     }
@@ -74,7 +71,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
 <div class="footer1">
  <footer class="flex-center ">
-
          <div class="flex aligned ">
 <p class="flex-center">
                 <?php
@@ -135,22 +131,29 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             </span>
         
 </footer>
-</div>
+</div>      
+
+
+
 
 
 <div class="wrapper padding">
 
     <?php
+    
     if (is_array($info['data']) && !empty($info['data'])) {
+        $dispColumns = array_keys($info['dataTableColumn']);
         foreach ($info['data'] as $uniqueId => $tableData) {
             foreach ($tableData as $tableName => $tableRows) {
                 $tableColumns = $info['fittingTableColumn'][$tableName];
-
+                $uniqueId = md5($uniqueId.$tableName);
                 if (is_array($tableColumns) && !empty($tableColumns)) {
-                    $result = array_diff_assoc($tableColumns['columns'], $tableRows['data']);
+                    $result = array_intersect($tableColumns['columns'], $dispColumns);
+                    // $result = array_diff_assoc($tableColumns['columns'], $tableRows['data']);
                     
                     /* New Family Info */
     ?>
+    
                     <article class="container noBorder ">
                         <figure class="headingSection">
                             <span>
@@ -186,10 +189,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <figcaption class="highlight">
                                 <h3>
                                     <?php
-                                    if ($this->input('BrandShortText1' . $uniqueId)->isEmpty()) {
-                                        echo $this->input('BrandShortText1' . $uniqueId)->setDataFromResource($tableRows['BrandShortText1']);
+                                    if ($this->input('brandName' . $uniqueId)->isEmpty()) {
+                                        echo $this->input('brandName' . $uniqueId)->setDataFromResource($tableRows['brandName']);
                                     } else {
-                                        echo $this->input('BrandShortText1' . $uniqueId);
+                                        echo $this->input('brandName' . $uniqueId);
                                     }
                                     ?>
                                 </h3>
