@@ -190,8 +190,8 @@ class VirtualCatalogImportCommand extends AbstractCommand
                         $o->getBase()->getHoseBase()->setNonStockSizes($result['Non_Stock_Sizes']);
                     }
 
-                    $o->setPrintedCatalogFlag(1);
-                    $o->setVirtualCatalogFlag(1);
+                    $o->setPrintedCatalogFlag(null);
+                    $o->setVirtualCatalogFlag(null);
                     
                     $o->save();
                 }
