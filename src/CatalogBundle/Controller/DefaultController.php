@@ -1720,26 +1720,62 @@ if(isset($data[$baseId])) {
             $headerKeys = array_keys($headerData);
             
             $columnsData = $template->getColumns();
+
+            
             $iconRequired = 'YES';
-            $columnsData = json_decode($columnsData);
-            $columnsDataWithImages = array();
+            $columnsData = json_decode($columnsData, true);
+            
+            if($IsPriceCatalog)
+            {
+                $columnsData['listPrice']['columnName'] = 'listPrice';
+                $columnsData['listPrice']['columnLabel'] = 'listPrice';
+            }
+            // array_push($columnsData, $aa);
+            
+            // $columnsDataWithImages = array();
 
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
+            $subHeaderRequired = 'NO';
+            $groupSubHeaderData = array();
             foreach ($columnsData as $key => $value) {
-                $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
-                $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+                
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $subHeaderRequired = 'YES';
+                    // $groupSubHeaderData[$value->groupName][$key]['columnName'] = $value->columnName;
+                    // $groupSubHeaderData[$value->groupName][$key]['unitName'] = $value->unitName;
+                    // $groupSubHeaderData[$value->groupName][$key]['columnIcon'] = $attributeImages[$value->columnName];
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
             }
 
-            if($IsPriceCatalog)
-            {
-                $columnsDataWithImages['listPrice']['columnName'] = 'listPrice';
-                $columnsDataWithImages['listPrice']['columnLabel'] = $this->get('translator')->trans('listPrice');
-                $columnsDataWithImages['listPrice']['columnIcon'] = $attributeImages['listPrice'];
+            // Getting order of the keys
+            $orderKeys = array();
+            foreach ($columnsDataWithImages as $skey => $svalue) {
+                foreach ($svalue as $vkey => $vvalue) {
+                    $orderKeys[$vvalue['columnName']] = $vvalue['columnName'];
+                }
             }
 
+
+// p_r($columnsDataWithImages);
+//             die;
+            // if($IsPriceCatalog)
+            // {
+            //     $columnsDataWithImages['listPrice']['listPrice']['columnName'] = 'listPrice';
+            //     $columnsDataWithImages['listPrice']['listPrice']['columnLabel'] = $this->get('translator')->trans('listPrice');
+            //     $columnsDataWithImages['listPrice']['listPrice']['columnIcon'] = $attributeImages['listPrice'];
+            // }
+            
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $catagoryDescription = array();
@@ -1876,7 +1912,8 @@ if(isset($data[$baseId])) {
 
                         endforeach; 
 
-                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                        foreach ($orderKeys as $ckey => $cvalue) {
+                                // if(count($cvalue))
                                 $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
                         }
 
@@ -1884,8 +1921,11 @@ if(isset($data[$baseId])) {
 
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
                     $data[$brandKey]['articlesData'] = $articlesData;
-
+                    // $data[$brandKey]['groupSubHeaderData'] = $groupSubHeaderData;
                 }
+
+                // p_r($data);
+                // die;
 
                 $safetyFeatures = array_unique($safetyFeatures);
 
@@ -1911,6 +1951,7 @@ if(isset($data[$baseId])) {
                 $material = implode(', ', $material);
 
                 $groupData = array();
+                $groupData['subHeaderRequired'] = $subHeaderRequired;
                 $groupData['iconRequired'] = $iconRequired;
                 $groupData['material'] = $material;
                 $groupData['reinforcement'] = $reinforcement;

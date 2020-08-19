@@ -241,32 +241,47 @@ if($groupData):
                         <?php endif; ?>
 
                         <?php foreach($groupData['data'] as $key => $columnsData): 
-                        //     extract($columnsData);    
                         ?>
                         <table class="grid" cellpadding="0" cellspacing="0">
                             <thead>
                                 <?php if($groupData['iconRequired'] == 'YES'): ?>
                                         <tr class="sub-head">
                                                 <?php foreach($columnsData['columnsDataWithImages'] as $key => $c1data): ?>
-                                                        <td><img src="<?= $c1data['columnIcon'] ?>" width="45" height="45" /></td>
+                                                        <?php 
+                                                                $g1count = count($c1data);
+                                                                $firstArray = array_shift($c1data);
+                                                        ?>
+                                                        <td colspan="<?= $g1count; ?>"><img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" /></td>
+                                                <?php endforeach; ?>
+                                        </tr>
+                                <?php endif; ?>
+                                
+
+
+                                <tr class="head">
+                                        <?php foreach($columnsData['columnsDataWithImages'] as $key => $c2data): ?>
+                                                <?php 
+                                                        $g2count = count($c2data);
+                                                        $first2Array = array_shift($c2data);
+                                                ?>
+                                                <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                        <?php endforeach; ?>
+                                </tr>
+
+                                <?php if($groupData['subHeaderRequired'] == 'YES'): ?>
+                                        <tr class="sub-head">
+                                                <?php foreach($columnsData['columnsDataWithImages'] as $key => $c3data): ?>
+                                                        <?php  foreach($c3data as $c3key => $c3value): ?>
+                                                                <?php if($c3value['unitName']): ?>
+                                                                        <td><?= $c3value['unitName'] ?></td>
+                                                                <?php else: ?>
+                                                                        <td></td>
+                                                                <?php endif; ?>
+                                                        <?php endforeach; ?>
                                                 <?php endforeach; ?>
                                         </tr>
                                 <?php endif; ?>
 
-
-                                <tr class="head">
-
-                                        <?php foreach($columnsData['columnsDataWithImages'] as $key => $c2data): ?>
-                                                <?php if($columnsData['columnName'] == 'listPrice'): ?>
-                                                        <?php if($groupData['IsPriceCatalog']): ?>
-                                                        <td><?= $c2data['columnLabel'] ?></td>
-                                                        <?php endif; ?>
-                                                <?php else: ?>
-                                                        <td><?= $c2data['columnLabel'] ?></td>
-                                                <?php endif; ?>
-                                        <?php endforeach; ?>
-                                        
-                                </tr>
                             </thead>
                                 <?php $incrRow = 1; ?>        
                                 <?php foreach($columnsData['articlesData'] as $key => $element): ?>
