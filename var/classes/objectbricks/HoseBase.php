@@ -1,15 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-18T13:44:07+05:30
-* IP: 192.168.30.66
+* Generated at: 2020-08-20T16:08:23+02:00
+* IP: 127.0.0.1
 
 
 Fields Summary: 
 - staticWire [input]
-- numberOfHelixWires [numeric]
 - numberOfPlies [numeric]
-- LayFlatHoseYN [booleanSelect]
 - HelicalWireYN [booleanSelect]
 - tubeMaterial [multiselect]
 - tubeCharacteristic [multiselect]
@@ -17,6 +15,8 @@ Fields Summary:
 - StandardMetTube [multiselect]
 - StandardMetCover [multiselect]
 - standardMetHoseComment [textarea]
+- numberOfHelixWires [numeric]
+- LayFlatHoseYN [booleanSelect]
 - coverMaterial [multiselect]
 - coverCharacteristic [multiselect]
 - coverColor [multiselect]
@@ -89,206 +89,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
-             'labelWidth' => 200,
-             'layout' => '',
-             'border' => false,
-             'name' => 'Layout',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Imported from SAP',
-             'width' => NULL,
-             'height' => NULL,
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => '',
-             'datatype' => 'layout',
-             'permissions' => NULL,
-             'childs' => 
-            array (
-              0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'staticWire',
-                 'title' => 'Static Wire',
-                 'tooltip' => '
-',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => NULL,
-                 'name' => 'numberOfHelixWires',
-                 'title' => 'Number of Helix Wires',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => 0,
-                 'name' => 'numberOfPlies',
-                 'title' => 'Number of Plies',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                 'fieldtype' => 'booleanSelect',
-                 'yesLabel' => 'Yes',
-                 'noLabel' => 'No',
-                 'emptyLabel' => 'Empty',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 'Empty',
-                    'value' => 0,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 'Yes',
-                    'value' => 1,
-                  ),
-                  2 => 
-                  array (
-                    'key' => 'No',
-                    'value' => -1,
-                  ),
-                ),
-                 'width' => 300,
-                 'queryColumnType' => 'tinyint(1) null',
-                 'columnType' => 'tinyint(1) null',
-                 'phpdocType' => 'boolean',
-                 'name' => 'LayFlatHoseYN',
-                 'title' => 'Lay-Flat Hose Y/N',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                 'fieldtype' => 'booleanSelect',
-                 'yesLabel' => 'Yes',
-                 'noLabel' => 'No',
-                 'emptyLabel' => 'Empty',
-                 'options' => 
-                array (
-                  0 => 
-                  array (
-                    'key' => 'Empty',
-                    'value' => 0,
-                  ),
-                  1 => 
-                  array (
-                    'key' => 'Yes',
-                    'value' => 1,
-                  ),
-                  2 => 
-                  array (
-                    'key' => 'No',
-                    'value' => -1,
-                  ),
-                ),
-                 'width' => 300,
-                 'queryColumnType' => 'tinyint(1) null',
-                 'columnType' => 'tinyint(1) null',
-                 'phpdocType' => 'boolean',
-                 'name' => 'HelicalWireYN',
-                 'title' => 'Helical Wire Y/N',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-            ),
-             'locked' => false,
-             'icon' => '',
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-             'fieldtype' => 'panel',
              'labelWidth' => 100,
              'layout' => NULL,
              'border' => false,
@@ -344,6 +144,109 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'staticWire',
+                         'title' => 'Static Wire',
+                         'tooltip' => '
+',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => 0,
+                         'name' => 'numberOfPlies',
+                         'title' => 'Number of Plies',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                         'fieldtype' => 'booleanSelect',
+                         'yesLabel' => 'Yes',
+                         'noLabel' => 'No',
+                         'emptyLabel' => 'Empty',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Empty',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'No',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => 300,
+                         'queryColumnType' => 'tinyint(1) null',
+                         'columnType' => 'tinyint(1) null',
+                         'phpdocType' => 'boolean',
+                         'name' => 'HelicalWireYN',
+                         'title' => 'Helical Wire Y/N',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -694,7 +597,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      1 => 
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -776,13 +679,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           ),
                           15 => 
                           array (
-                            'key' => 'SMOOTH',
-                            'value' => 1829689,
+                            'key' => 'WRAPPED',
+                            'value' => 1829690,
                           ),
                           16 => 
                           array (
-                            'key' => 'WRAPPED',
-                            'value' => 1829690,
+                            'key' => 'FLUOROTHERMOPLASTIC BARRIER',
+                            'value' => 1831316,
+                          ),
+                          17 => 
+                          array (
+                            'key' => 'SMOOTH',
+                            'value' => 1831354,
                           ),
                         ),
                          'width' => 300,
@@ -810,7 +718,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      2 => 
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -1072,7 +980,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      3 => 
+                      6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -1603,7 +1511,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      4 => 
+                      7 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -2134,7 +2042,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      5 => 
+                      8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                          'fieldtype' => 'textarea',
                          'width' => 300,
@@ -2183,6 +2091,80 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'numberOfHelixWires',
+                         'title' => 'Number of Helix Wires',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+                         'fieldtype' => 'booleanSelect',
+                         'yesLabel' => 'Yes',
+                         'noLabel' => 'No',
+                         'emptyLabel' => 'Empty',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Empty',
+                            'value' => 0,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Yes',
+                            'value' => 1,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'No',
+                            'value' => -1,
+                          ),
+                        ),
+                         'width' => 300,
+                         'queryColumnType' => 'tinyint(1) null',
+                         'columnType' => 'tinyint(1) null',
+                         'phpdocType' => 'boolean',
+                         'name' => 'LayFlatHoseYN',
+                         'title' => 'Lay-Flat Hose Y/N',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -2497,6 +2479,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'key' => 'Nitrile / PVC',
                             'value' => 1830037,
                           ),
+                          62 => 
+                          array (
+                            'key' => 'BLACK',
+                            'value' => 1831327,
+                          ),
+                          63 => 
+                          array (
+                            'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
+                            'value' => 1831328,
+                          ),
                         ),
                          'width' => 300,
                          'height' => '',
@@ -2523,7 +2515,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      1 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -2547,6 +2539,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           array (
                             'key' => 'WRAPPED',
                             'value' => 2676,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'FUTURIN™ SYNTHETIC RUBBER',
+                            'value' => 1831329,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'UHMWPE FILM',
+                            'value' => 1831330,
                           ),
                         ),
                          'width' => 300,
@@ -2574,7 +2576,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      2 => 
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -2871,7 +2873,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      3 => 
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -2967,7 +2969,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      4 => 
+                      6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -2998,7 +3000,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      5 => 
+                      7 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -3529,7 +3531,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      6 => 
+                      8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                          'fieldtype' => 'multiselect',
                          'options' => 
@@ -3560,7 +3562,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                       )),
-                      7 => 
+                      9 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
@@ -3588,7 +3590,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      8 => 
+                      10 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
@@ -3616,7 +3618,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      9 => 
+                      11 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
@@ -3654,7 +3656,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'locked' => false,
              'icon' => '',
           )),
-          2 => 
+          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'fieldtype' => 'panel',
              'labelWidth' => 100,

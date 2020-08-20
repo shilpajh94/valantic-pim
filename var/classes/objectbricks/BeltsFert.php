@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-22T10:41:43+02:00
+* Generated at: 2020-08-20T16:22:43+02:00
 * IP: 127.0.0.1
 
 
@@ -75,11 +75,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
           0 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
              'fieldtype' => 'fieldset',
-             'labelWidth' => 200,
+             'labelWidth' => 220,
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'SAP',
+             'title' => 'Attributes',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
