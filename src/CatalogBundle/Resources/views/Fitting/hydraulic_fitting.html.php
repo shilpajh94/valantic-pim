@@ -4,6 +4,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php if ($this->editmode) { ?>
     <?= $this->relation("fitting-straight"); ?>
 <?php } ?>
+<div class="template">
 <section class="segregate">
  
  <div id="pageHeader"></div>
@@ -141,13 +142,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <div class="wrapper padding">
 
     <?php
+
     if (is_array($info['data']) && !empty($info['data'])) {
+    $dispColumns = array_keys($info['dataTableColumn']);
         foreach ($info['data'] as $uniqueId => $tableData) {
             foreach ($tableData as $tableName => $tableRows) {
                 $tableColumns = $info['fittingTableColumn'][$tableName];
-
+                $uniqueId = md5($uniqueId.$tableName);
                 if (is_array($tableColumns) && !empty($tableColumns)) {
-                    $result = array_diff_assoc($tableColumns['columns'], $tableRows['data']);
+                    $result = array_intersect($tableColumns['columns'], $dispColumns);
                     
                     /* New Family Info */
     ?>
@@ -186,10 +189,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <figcaption class="highlight">
                                 <h3>
                                     <?php
-                                    if ($this->input('BrandShortText1' . $uniqueId)->isEmpty()) {
-                                        echo $this->input('BrandShortText1' . $uniqueId)->setDataFromResource($tableRows['BrandShortText1']);
+                                    if ($this->input('brandName' . $uniqueId)->isEmpty()) {
+                                        echo $this->input('brandName' . $uniqueId)->setDataFromResource($tableRows['brandName']);
                                     } else {
-                                        echo $this->input('BrandShortText1' . $uniqueId);
+                                        echo $this->input('brandName' . $uniqueId);
                                     }
                                     ?>
                                 </h3>
@@ -206,7 +209,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </figure>
 
                         <!-- Starting grid here -->
-                        <table class="grid" cellspacing="0" cellpadding="0">
+                        <table class="grid inh fitting" cellspacing="0" cellpadding="0">
                             <?php
                             echo "<thead> <tr class='sub-head'>";
                             foreach ($result as $col) {
@@ -244,7 +247,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             ?>
                             <!-- Closing grid div here -->
                         </table>
+<span class="tableFooter">
+                        <?php echo $this->input("HYD_PP_".$uniqueId,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
 
+</span>
                     </article>
     <?php
                 }
@@ -261,7 +267,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     <!-- Footer -->
     <!-- End Footer-->
 </section>
-
+</div>
 <style>
 
 </style>

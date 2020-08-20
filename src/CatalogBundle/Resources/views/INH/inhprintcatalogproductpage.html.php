@@ -17,7 +17,7 @@ if (isset($info['data'])) {
     ?>
 
 <div class="template">
-<div class="segregate">
+<div class="segregate" id="inh">
 
    <div id="pageHeader"></div>
     <span  class="pageName">Index</span>
@@ -85,8 +85,8 @@ if (isset($info['data'])) {
 
 
                 <article class="fullcontainer single">
-                    <div class="flex">
-                        <div class="sidebar">
+                    <div class="flex inhsetting">
+                        <div class="sidebar ">
                             <ul>
                                 <?php
                                 if (is_array($info['categories'])) {
@@ -116,7 +116,7 @@ if (isset($info['data'])) {
                                 ?>
                             </ul>
                         </div>
-                        <div class="grow-2">
+                        <div class="grow-2 inhRight">
                             <header class=" white">
                                 <h1><?php echo $brand; ?> </h1>
                                 <aside>
@@ -137,7 +137,7 @@ if (isset($info['data'])) {
                                     <?php echo $this->image('INH_MAIN_IMAGE_' . $brandenc, ['width' => 1067, 'height' => 128]); ?>
                                 </aside>
                             </header>
-                            <section class="content">
+                            <section class="content ">
 
                                 <menu class="flex">
                                     <div class="specs">
@@ -329,3 +329,13 @@ if (isset($info['data'])) {
         }
     } ?>
 <?php } ?>
+
+<script>
+    var rows = document.querySelectorAll(".inhsetting");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = onLeftPage ? "inhsettingLeft" : "inhsettingRight";
+    });
+</script>
