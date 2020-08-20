@@ -506,7 +506,7 @@ header.white {
 
 
 header h1 {
-    color: #faa61d;
+    color: #ffa500;
     padding: 0 0 8px 0;
 font-size: 30px;
 margin-top: 16px;
@@ -531,7 +531,7 @@ header.dark h1 {
 
 header > h3 {
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 1.5px;
     font-size: 16px;
     margin: 0 0;
 }
@@ -605,7 +605,8 @@ article figure p b {
 /*border:5px solid  red;*/ 
 }
 .leftHeadingSection, .rightHeadingSection{ 
-  padding-bottom: 30px;
+  padding-bottom:10px;
+padding-top: 30px;
 }
 .highlight {
     margin-left: 30px;
@@ -675,8 +676,8 @@ display: flex;
 
 .highlight h3 {
     color: #ffa500;
-    font-size: 26px;
-    text-transform: uppercase;
+    font-size: 24px;
+    
     border-bottom: 1px solid #737373;
     padding: 8px 15px;
 }
@@ -829,7 +830,7 @@ menu figure figcaption b {
     width: 100%;
     margin-top: 30px;
 }
-
+.grid.inh{ margin-top:10px;}
 
 .ptgHead{
  display: flex;
@@ -845,12 +846,14 @@ padding-bottom: 10px;
     text-align: center;*/
 }
 
-.grid tr td:nth-child(1),
+.grid:not(.inh) tr td:nth-child(1),
 .grid:not(.inh) tr td:nth-child(2),
 .grid:not(.inh) tr td:nth-child(3) {
     /*width: 100px;*/
     white-space: nowrap;
 }
+
+.tableFooter{ font-size: 10px; display: block; padding-top: 5px;}
 
 .grid .head {
     background-color: #ffffff !important;
@@ -871,9 +874,10 @@ font-weight: normal !important;
     display: block;
 }
 
+
 .grid td {
-    padding: 5px;
-    word-wrap: break-word;
+    padding: 5px 2px;
+    word-break: break-word;
     font-size: 10px;
 text-align: center;
 }
@@ -1034,9 +1038,9 @@ section.content h4 {
     flex: 100%;
     color: #ffa500;
     font-size: 16px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-family: 'ContinentalStagSansLCG-Medium';
-    letter-spacing: 0.15em;
+    letter-spacing: 1px;
 }
 
 /*@media print {
@@ -1054,7 +1058,7 @@ section.content article {
     display: flex;
     position: relative;
     font-size: 10px;
-    padding: 3px 0;
+    padding: 1px 0;
 }
 
 section.content article h5 {
@@ -1072,6 +1076,7 @@ h5 + .pageTitle {
     padding-right: 5px;
     /* padding-bottom: 20px; */
     margin-bottom: 16px;
+font-size: 10px;
     display: block;
 }
 .pageTitle,
@@ -1117,8 +1122,8 @@ margin-bottom: 20px;
    display: block;
        position: running(tableHeader);
 }
-.table-content h4{margin-top: 20px; color: #ffa500; font-size: 12px; letter-spacing: 3px;}
-.table-content h5{ font-size: 10px; letter-spacing: 2px; font-family: 'ContinentalStagSansLCG-Book'; font-weight: normal !important; color: #000;}
+.table-content h4{margin-top: 20px; color: #ffa500; font-size: 12px; letter-spacing: 1.5px;}
+.table-content h5{ font-size: 10px; letter-spacing: 1px; font-family: 'ContinentalStagSansLCG-Book'; font-weight: normal !important; color: #000;}
 
 .table-content > article > *{ margin-right: 40px;}
 
@@ -1128,7 +1133,7 @@ display: block;
        position: running(numberTitle);
 }
 
-.numberTitle h2{ padding:60px 30px 20px 30px; color: #faa61d; font-size:20px;}
+.numberTitle h2{ padding:60px 30px 20px 30px; color: #faa61d; font-size:18px;}
 
 .numberPTitle{
 display: block;
@@ -1141,6 +1146,10 @@ display: block;
 #amortizationTable, #amortizationTable1{ position: relative; top: 60px;}
 
 #amortizationTable .grid, #amortizationTable1 .grid{ padding-right:20px; border-bottom: 0;}
+
+#amortizationTable .grid td, #amortizationTable1 .grid td{padding: 0;}
+
+#amortizationTable .grid td:last-child, #amortizationTable1 .grid td:last-child{text-align: right;}
 
 /*
 @media print {
@@ -1269,6 +1278,11 @@ flex-direction: column;
   font-size: 18px;
 }
 
+#subcover footer h5{
+flex-direction: row;
+align-items: center;
+  }
+
 footer h5 span {
     font-size: 14px;
     display: block;
@@ -1336,30 +1350,70 @@ footer .flex > * {
 /* --- */
 
  /****************** sidebar ***************************/
+.inh.grid.special{margin-bottom:100px!important;}
+#inh section.content{ display: block;}
+#inh{
 
-.sidebar {
-    width: 20%;
-    max-width: 150px;
-    margin-top: 50px;
-    margin-right: 30px;
-    text-align: right;
+page: title9;
+position:relative;
+
 }
-.reverse .sidebar {
+
+@page title9:left{
+@top-left{
+  content: element(inhsettingLeft);
+  position: relative;
+  left:30px;
+top:50px;
+
+}
+}
+
+@page title9:right{
+@top-right{
+  content: element(inhsettingRight);
+  position: relative;
+right:30px;
+top:50px;
+}
+}
+
+.inhRight{ width:80%;}
+.inhsettingLeft{
+ position: running(inhsettingLeft);
+}
+.inhsettingRight{
+ position: running(inhsettingRight);
+}
+
+
+.inhsettingRight, .inhsettingLeft{ display: flex;}
+.inhsettingRight{ flex-direction: row-reverse; /*border:5px solid red;*/}
+.sidebar {
+    width: 15%;
+font-size: 10px;
+    max-width: 150px;
+    margin-top: 60px;
+    margin-right: 15px;
+    text-align: right;
+margin-left:-30px;
+}
+.inhsettingRight .sidebar {
     text-align: left;
-    margin-left: 30px;
+    margin-left: 15px;
     
-    margin-right: auto;
+    margin-right: -30px;
 }
 .sidebar li {
-    padding: 8px 15px;
-    border-bottom: 2px solid #cdcdcd;
+    padding: 5px 8px;
+    border-bottom: 1px solid #f0f0f0;
     line-height: 18px;
     
 }
 .sidebar li.first {
     background: #000000;
     color: #ffffff;
-    border-top: 2px solid #cdcdcd;
+    border-top: 1px solid #f0f0f0;
 }
 /*@media print {
     .sidebar li {
@@ -1444,8 +1498,9 @@ footer .flex > * {
 
     .partNumber {
         text-align: left !important;
-        padding: 8px 30px !important;
+        padding: 5px 30px !important;
         margin-left: 30px;
+    background-color: #f0f0f0!important;
     }
     
 .part_number_table {
@@ -1549,6 +1604,7 @@ padding-left: 16px;
     }
     .bg img {
         margin-right: 5px;
+display: block;
     }
 
    
@@ -1664,6 +1720,7 @@ height: 50px;*/
     }
     .footer {}
     
+.upper{ text-transform: uppercase; font-size:11px;display: block; padding-bottom:5px;}
    
     .alignEnd {
         align-items: flex-end !important;
@@ -1676,8 +1733,18 @@ height: 50px;*/
         padding-left: 30px !important;
         padding-right: 30px !important;
     }
+
+figure figcaption h6{font-family: 'ContinentalStagSansLCG-Book';}
+
+    header h1.oRing{  padding-left: 0px !important;font-size: 26px; margin-bottom: 16px;}
     
-   
+.material-desc{ font-size: 10px;}
+.material-desc td{ padding: 2px 2px; width:50%; word-break: break-word;}
+.material-desc td:first-child{font-family: 'ContinentalStagSansLCG-Book'; }
+/*.material-desc .flex-center > *{
+ flex: 1;
+word-break: break-word;
+}*/
 
    .pageName{
          string-set: chapter self;
@@ -1748,6 +1815,25 @@ width: 100%;
             z-index: 1;
         }
  
+}
+.description{
+        display: block;
+       position: running(description);
+   }
+.description img{ max-width: 90%;}
+#oRing{
+
+page: title8;
+}
+
+@page title8{
+@top-left{
+content: element(description);
+position: relative;
+left:20px;
+width: 200px;
+top: 120px;
+}
 }
 
 #toc {
