@@ -1645,6 +1645,20 @@ if(isset($data[$baseId])) {
         return $featureData;
     }
 
+    public function getPTGMaterialList($catalog_type, $language){
+        $entries = new DataObject\MultiselectMaster\Listing();
+        $entries->setCondition("masterType = ?", "{$catalog_type}");
+        $entries->load();
+        $featureData = array();
+        foreach($entries as $entry) {
+            $featureData[$entry->getId()]['key'] = $entry->getKey();
+            $featureData[$entry->getId()]['name'] = $entry->getName($language);
+            $featureData[$entry->getId()]['Description'] = $entry->getDescription($language);
+            $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
+        }
+        return $featureData;
+    }
+
     /**
      * Fitting Straight
     */
@@ -1777,7 +1791,8 @@ if(isset($data[$baseId])) {
             // }
             
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
-
+            $materialList = $this->getPTGMaterialList('PTG~material', $CatalogLanguage);
+            
             $catagoryDescription = array();
             $mainImageObj = '';
             $LeftPrintCatalogImageObj = '';
@@ -1869,12 +1884,10 @@ if(isset($data[$baseId])) {
                 $material = array();
                 $reinforcement = array();
                 $longDescription = '';
-                $tempFmin = '';
-                $tempFmax = '';
-                $tempCmin = '';
-                $tempCmax = '';
+                $VirtualCatalogHoseTemperatureRangeFAndC = '';
+                $temperatureRangeFAndC = '';
+                $VirtualCatalogReinforcement = '';
                 $safetyFeatures = array();
-                $BrandShortText1 = $BrandShortText2 = $BrandShortText3 = $BrandShortText4 = $BrandShortText5 = '';
                 
                 foreach ($brandsData as $brandKey => $brandArray) 
                 {
@@ -1889,6 +1902,8 @@ if(isset($data[$baseId])) {
                                     $material = array_merge($material, $value);
                                 if($bkey == 'reinforcement')
                                     $reinforcement = array_merge($reinforcement, $value);
+                                if($bkey == 'VirtualCatalogReinforcement')
+                                    $VirtualCatalogReinforcement = $value;
                                 if($bkey == 'FeaturesBenefitsBulletPoint')
                                 {
                                     if(count($value)>0)
@@ -1901,19 +1916,14 @@ if(isset($data[$baseId])) {
 
                                 if($bkey == 'longDescription' && !empty(trim($value)))
                                     $longDescription = $value;
-                                if($bkey == 'minimumTemperatureF' && !empty(trim($value)))
-                                    $tempFmin = $value;
-                                if($bkey == 'maximumTemperatureF' && !empty(trim($value)))
-                                    $tempFmax = $value;
-                                if($bkey == 'minimumTemperatureC' && !empty(trim($value)))
-                                    $tempCmin = $value;
-                                if($bkey == 'maximumTemperatureC' && !empty(trim($value)))
-                                    $tempCmax = $value;
+                                if($bkey == 'VirtualCatalogHoseTemperatureRangeFAndC' && !empty(trim($value)))
+                                    $VirtualCatalogHoseTemperatureRangeFAndC = $value;
+                                if($bkey == 'temperatureRangeFAndC' && !empty(trim($value)))
+                                    $temperatureRangeFAndC = $value;
 
                         endforeach; 
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                                // if(count($cvalue))
                                 $articlesData[$key][$ckey] = ($element[$ckey])? ($element[$ckey]): '';
                         }
 
@@ -1921,11 +1931,7 @@ if(isset($data[$baseId])) {
 
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
                     $data[$brandKey]['articlesData'] = $articlesData;
-                    // $data[$brandKey]['groupSubHeaderData'] = $groupSubHeaderData;
                 }
-
-                // p_r($data);
-                // die;
 
                 $safetyFeatures = array_unique($safetyFeatures);
 
@@ -1948,28 +1954,41 @@ if(isset($data[$baseId])) {
                 $reinforcement = implode(', ', $reinforcement);
 
                 $material = array_unique($material);
-                $material = implode(', ', $material);
+                $materialArray = array();
+                foreach($material as $key => $value)
+                {
+                    if(isset($materialList[$value]))
+                        $materialArray[] = $materialList[$value]['name'];
+                }
+
+                $materialStr = implode(', ', $materialArray);
+
+                $temperatureRange = $VirtualCatalogHoseTemperatureRangeFAndC;
+                if(empty($temperatureRange))
+                    $temperatureRange = $temperatureRangeFAndC;
+
+                $reinforcementStr = $VirtualCatalogReinforcement;
+                if(empty($reinforcementStr))
+                    $reinforcementStr = $reinforcement;
 
                 $groupData = array();
                 $groupData['subHeaderRequired'] = $subHeaderRequired;
                 $groupData['iconRequired'] = $iconRequired;
-                $groupData['material'] = $material;
-                $groupData['reinforcement'] = $reinforcement;
+                $groupData['material'] = $materialStr;
+                $groupData['reinforcement'] = $reinforcementStr;
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
                 $groupData['mainImageObj'] = $mainImageObj;
                 
                 $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
-                $groupData['tempFmin'] = $tempFmin;
-                $groupData['tempFmax'] = $tempFmax;
-                $groupData['tempCmin'] = $tempCmin;
-                $groupData['tempCmax'] = $tempCmax;
+                $groupData['temperatureRange'] = $temperatureRange;
                 $groupData['data'] = $data;
                 $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 $groupData['IsPriceCatalog'] = $IsPriceCatalog;
-                
+                // p_r($groupData);
+                // die;
                 $this->view['groupData'] = $groupData;
                 $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
                 $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
