@@ -77,6 +77,10 @@ class ConfigProviderService
         return $this->getConfigFromYmlFile(ATTRIBUTE_IMAGES_FILE_PATH);
     }
 
+    public function getPriceListTableConfig()
+    {
+        return $this->getConfigFromYmlFile(PRICE_LIST_TABLE_CONFIG_FILE_PATH);
+    }
     
     public function getWorkFlowConfig()
     {
