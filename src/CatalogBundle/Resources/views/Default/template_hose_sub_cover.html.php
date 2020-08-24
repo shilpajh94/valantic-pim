@@ -43,18 +43,15 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         </span>
                         <div class="flex aligned">
                                 <h5>
-                                    <?php
-                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
-                                    ?>
-                                </h5>
-                                <div>               
-                                    <span>
-                                    <?php
+<?php
                                     echo $this->image("HHSC_Footer_Image", ["width" => 40]);
                                     ?>
-                                    </span>
-                                                   
-                                </div>       
+                                   <font> <?php
+                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
+                                    ?>
+</font>
+                                </h5>
+                                     
                         </div>
                 </footer>
         </div>
@@ -62,18 +59,15 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         <div class="footer1">
                 <footer class="flex-center <?php echo $footer_class; ?>">   
                         <div class="flex aligned">
-                                 <div>               
-                                    <span>
-                                    <?php
+                                 
+                                <h5>
+<?php
                                     echo $this->image("HHSC_Footer_Image1", ["width" => 40]);
                                     ?>
-                                    </span>
-                                                   
-                                 </div>
-                                <h5>
-                                    <?php
+                                   <font> <?php
                                     echo $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey);
                                     ?>
+</font>
                                 </h5>
                                 
                         </div>

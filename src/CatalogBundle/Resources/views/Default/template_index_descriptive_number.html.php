@@ -35,8 +35,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <table cellpadding="0" cellspacing="0" class="grid">
                         <thead>
                             <tr>
-                            <td><strong>Descriptive #</strong></td>
-                            <td align="right"><strong>PAGE #</strong></td>
+                            <td><span class="upper">Descriptive #</span></td>
+                            <td align="right"><span class="upper">PAGE #</span></td>
                             </tr>
                         </thead>
                         <?php 
@@ -88,6 +88,7 @@ div.content_double {
     -webkit-column-fill: auto;
     -moz-column-fill: auto;
     column-fill: auto;
+
 }
 
 

@@ -32,8 +32,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <table cellpadding="0" cellspacing="0" class="grid">
                         <thead>
                             <tr>
-                            <td><strong>PRDOUCT #</strong></td>
-                            <td align="right"><strong>PAGE #</strong></td>
+                            <td><span class="upper">PRDOUCT #</span></td>
+                            <td align="right"><span  class="upper">PAGE #</span></td>
                             </tr>
                         </thead>
                         <?php 
