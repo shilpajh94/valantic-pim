@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-20T16:18:24+02:00
+* Generated at: 2020-08-25T13:41:53+02:00
 * IP: 127.0.0.1
 
 
@@ -17,27 +17,26 @@ Fields Summary:
 - InnerHoseIdMM [numeric]
 - hoseOdmm [numeric]
 - InnerHoseOdMM [numeric]
-- workingPressurePSI [numeric]
+- VirtualCatalogWorkingPressurePSI [wysiwyg]
+- VirtualCatalogWorkingPressureMPA [wysiwyg]
 - workingPressureBAR [numeric]
 - minBurstPressurePSI [numeric]
 - BendRadiusIN [numeric]
 - tubeGaugeIN [numeric]
+- VirtualCatalogTubeGaugeIn [wysiwyg]
 - hoseDashSize [numeric]
 - VacuumIN [numeric]
-- workingPressureMPA [numeric]
+- VirtualCatalogVacuumIn [wysiwyg]
+- workingPressurePSI [numeric]
 - descriptive [input]
 - minBurstPressurempa [numeric]
+- workingPressureMPA [numeric]
 - BendRadiusMM [numeric]
 - tubeGaugeMM [numeric]
+- VirtualCatalogTubeGaugeMM [wysiwyg]
 - hoseIdNominalId [input]
 - VacuumMM [numeric]
-- VirtualCatalogTubeGaugeIn [textarea]
-- VirtualCatalogVacuumIn [textarea]
-- VirtualCatalogWorkingPressureMPA [textarea]
-- VirtualCatalogReinforcement [textarea]
-- VirtualCatalogTubeGaugeMM [textarea]
-- VirtualCatalogVacuumMM [textarea]
-- VirtualCatalogWorkingPressurePSI [textarea]
+- VirtualCatalogVacuumMM [wysiwyg]
 */ 
 
 
@@ -1070,22 +1069,17 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'workingPressurePSI',
-                         'title' => 'Working Pressure (psi)',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 500,
+                         'height' => 120,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'VirtualCatalogWorkingPressurePSI',
+                         'title' => 'Virtual Catalog Working Pressure (psi)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1098,9 +1092,33 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 500,
+                         'height' => 120,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'VirtualCatalogWorkingPressureMPA',
+                         'title' => 'Virtual Catalog Working Pressure (mpa)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1131,7 +1149,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      2 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1162,7 +1180,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1193,7 +1211,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1224,7 +1242,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 500,
+                         'height' => 120,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'VirtualCatalogTubeGaugeIn',
+                         'title' => 'Virtual Catalog Tube Gauge (in)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      7 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1255,7 +1298,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      6 => 
+                      8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1285,6 +1328,31 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 500,
+                         'height' => 120,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'VirtualCatalogVacuumIn',
+                         'title' => 'Virtual Catalog Vacuum (in)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                       )),
                     ),
                      'locked' => false,
@@ -1323,8 +1391,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'workingPressureMPA',
-                         'title' => 'Working Pressure (mpa)',
+                         'name' => 'workingPressurePSI',
+                         'title' => 'Working Pressure (psi)',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -1412,6 +1480,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'maxValue' => NULL,
                          'unique' => false,
                          'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'workingPressureMPA',
+                         'title' => 'Working Pressure (mpa)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
                          'decimalPrecision' => 1,
                          'name' => 'BendRadiusMM',
                          'title' => 'BendRadius (mm)',
@@ -1429,7 +1528,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      4 => 
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1460,7 +1559,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 500,
+                         'height' => 120,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'VirtualCatalogTubeGaugeMM',
+                         'title' => 'Virtual Catalog Tube Gauge (mm)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      7 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 300,
@@ -1488,7 +1612,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      6 => 
+                      8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 300,
@@ -1518,6 +1642,31 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 500,
+                         'height' => 120,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'VirtualCatalogVacuumMM',
+                         'title' => 'Virtual Catalog Vacuum (mm)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left: 20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                       )),
                     ),
                      'locked' => false,
@@ -1586,110 +1735,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'childs' => 
                     array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogTubeGaugeIn',
-                         'title' => 'Virtual Catalog Tube Gauge (in)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogVacuumIn',
-                         'title' => 'Virtual Catalog Vacuum (in)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogWorkingPressureMPA',
-                         'title' => 'Virtual Catalog Working Pressure (mpa)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogReinforcement',
-                         'title' => 'Virtual Catalog Reinforcement',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
                     ),
                      'locked' => false,
                   )),
@@ -1712,84 +1757,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'permissions' => NULL,
                      'childs' => 
                     array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogTubeGaugeMM',
-                         'title' => 'Virtual Catalog Tube Gauge (mm)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogVacuumMM',
-                         'title' => 'Virtual Catalog Vacuum (mm)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 100,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'VirtualCatalogWorkingPressurePSI',
-                         'title' => 'Virtual Catalog Working Pressure (psi)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
                     ),
                      'locked' => false,
                   )),

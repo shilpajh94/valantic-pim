@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-30T13:45:41+02:00
+* Generated at: 2020-08-25T19:46:14+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Features',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1596109541,
+   'modificationDate' => 1598377574,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -181,12 +181,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'referencedFields' => 
                 array (
                 ),
-                 'tooltip' => NULL,
-                 'mandatory' => NULL,
-                 'noteditable' => NULL,
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
                  'index' => NULL,
-                 'locked' => NULL,
-                 'style' => NULL,
+                 'locked' => false,
+                 'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
@@ -255,7 +255,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => '',
+   'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 

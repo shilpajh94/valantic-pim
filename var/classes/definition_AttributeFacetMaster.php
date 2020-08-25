@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-06-15T05:03:49+02:00
+* Generated at: 2020-08-25T19:45:56+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'AttributeFacetMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1592190229,
+   'modificationDate' => 1598377556,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -138,7 +138,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
   )),
    'icon' => '',
    'previewUrl' => '',
-   'group' => '',
+   'group' => 'Masters',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
    'compositeIndices' => 
