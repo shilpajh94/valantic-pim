@@ -132,10 +132,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             </span>
         
 </footer>
-</div>      
-
-
-
+</div>
 
 
 <div class="wrapper padding">
@@ -153,7 +150,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     
                     /* New Family Info */
     ?>
-    
                     <article class="container noBorder ">
                         <figure class="headingSection">
                             <span>
@@ -226,8 +222,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 echo "<td>{$info['dataTableColumn'][$col]->columnLabel}</td>";
                             }
                             echo "</tr></thead>";
-                            $activeClassColName = $info['activeClassColName'];
-                            $activeClassColVal = "";
                             $active = "";
                             $i = 1;
                             foreach ($tableRows['data']['HoseID1InDec'] as $k => $rows) {
