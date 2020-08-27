@@ -10,6 +10,7 @@ parameters:
         "041000":
             INHPrintCatalog: INHPrintCatalog
             INHPrintCatalogProductPage: INHPrintCatalogProductPage
+            INHPrintCatalogFittingPage: INHPrintCatalogFittingPage
         "043000":
             Product Table: Product Table
             Synchronous Belts: Synchronous Belts

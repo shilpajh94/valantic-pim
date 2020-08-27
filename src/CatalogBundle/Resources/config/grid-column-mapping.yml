@@ -443,6 +443,68 @@ parameters:
                 fieldLabel: Brand Short Text 1
                 parent:
                     name: Product
+        Industrial Hose Fitting Page:
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Hose Rendering
+                parent: 
+                    name: Product
+            ProfileDimensionImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Profile Dimension Image
+                parent: 
+                    name: Product
+            brandName:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Brand
+                parent:
+                    name: Product
+                    class:
+                        name: Brand
+                        fieldName: Name
+            longDescription:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Marketing Long Description
+                parent: 
+                    name: Product
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Features ID
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: id
+            PressureRatingPSI:
+                fieldLevel: objectBrick
+                fieldType: Number
+                fieldLabel: Pressure Rating
+                parent: 
+                    name: INHFittingsFert
+            BrandingLayline: 
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Branding / Layline
+                parent: 
+                    name: Product
+            VirtualCatalogBrandingLayline:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Virtual Catalog Branding / Layline
+                parent: 
+                    name: Product
+            id:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: ID
+                parent:
+                    name: Product
+
        
     
     

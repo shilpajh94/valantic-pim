@@ -424,6 +424,248 @@ class IndustrialHoseController extends AbstractController
         }
     }
 
+    /**
+     * @Route ("/catalog/inh/fittingpage")
+     * 
+     */
+    public function inhFittingPageAction(Request $request) {
+        $template = $this->getDocumentTag('relation', 'inh_fitting_page')->getElement();
+        if($template) 
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+            
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $footerBgColor = $template->getColor();
+            $productsData = $template->getProductsData();
+            $headerData = json_decode($template->getHeaderData(), true);
+            
+            $headerKeys = array_keys($headerData);
+            $headerKeysIndex = array_flip($headerKeys);
+            
+            $columnsData = $template->getColumns();
+
+            $menuCategories = $this->getSIOP();
+
+            // p_r($categories);
+            // die;
+
+            
+            $iconRequired = 'YES';
+            $columnsData = json_decode($columnsData, true);
+            // p_r($columnsData);
+            // die;
+
+            
+            // $language = $request->getLocale();
+            $this->get('translator')->setLocale($CatalogLanguage);
+
+            $subHeaderRequired = 'NO';
+            $groupSubHeaderData = array();
+            foreach ($columnsData as $key => $value) {
+                
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $subHeaderRequired = 'YES';
+                }
+                // echo "groupColumnName - $groupColumnName".PHP_EOL;
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+            }
+
+            unset($columnsData);
+
+            // Getting order of the keys
+            $orderKeys = array();
+            foreach ($columnsDataWithImages as $skey => $svalue) {
+                foreach ($svalue as $vkey => $vvalue) {
+                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                }
+            }
+
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+            // $materialList = $this->getPTGMaterialList('PTG~material', $CatalogLanguage);
+
+            $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
+
+            $categories = $this->db->fetchAll($query);
+
+            $categoriesList = array();
+
+            foreach ($categories as $key => $value) {
+                $categoriesList[$value['oo_id']] = $value;
+            }
+            unset($categories);
+            
+            $brandName = '';
+            $pressureRating = '';
+            $catagoryDescription = array();
+            $mainImageObj = '';
+            $LeftPrintCatalogImageObj = '';
+            $RightPrintCatalogImageObj = '';
+            $ProfileDimensionImageObj = '';
+            $material = array();
+            $longDescription = '';
+            $BrandingLayline = '';
+            $safetyFeatures = array();
+            $orderCode = array();
+
+            if($productsData)
+            {
+                foreach ($productsData as $key => $item) 
+                {
+                    $query = "select oldMaterialCode, SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
+
+                    $record = $this->db->fetchRow($query);
+                    $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+                    $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
+
+                    
+
+                    if(isset($record['oldMaterialCode']) && !empty($record['oldMaterialCode']) && $record['oldMaterialCode']!=='N/A') {
+                        $orderCode[] = substr($record['oldMaterialCode'],0,6);
+                    }
+
+                    if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
+                    {
+                        $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                    }
+
+                    if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
+                    {
+                        $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
+                    }
+
+                    if(!$brandName && $item[$headerKeysIndex['brandName']])
+                    {
+                        $brandName = $item[$headerKeysIndex['brandName']][0];
+                    }
+
+                    if(!$pressureRating && $item[$headerKeysIndex['PressureRatingPSI']])
+                    {
+                        $pressureRating = $item[$headerKeysIndex['PressureRatingPSI']];
+                    }
+
+                    if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
+                    {
+                        $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                    }
+
+                    if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
+                    {
+                        $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                    }
+                    
+                    if($item[$headerKeysIndex['FittingMaterial']])
+                        $material[] = $item[$headerKeysIndex['FittingMaterial']];
+
+                    if($item[$headerKeysIndex['BrandingLayline']] && empty($BrandingLayline))
+                        $BrandingLayline = $item[$headerKeysIndex['BrandingLayline']];
+
+                    if($item[$headerKeysIndex['VirtualCatalogBrandingLayline']] && empty($VirtualCatalogBrandingLayline))
+                        $VirtualCatalogBrandingLayline = $item[$headerKeysIndex['VirtualCatalogBrandingLayline']];
+                    
+                    if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
+                        $longDescription = $item[$headerKeysIndex['longDescription']];
+
+                    if(count($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
+                    {
+                        foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                            array_push($safetyFeatures,$feature);
+                        }
+                    }
+
+                    foreach ($orderKeys as $ckey => $cvalue) {
+                            $articlesData[] = $item[$cvalue];
+                    }
+
+                    $brandsData[] = $articlesData;
+                    unset($articlesData);
+                }
+
+                $brandingStr = $VirtualCatalogBrandingLayline;
+                if(empty($brandingStr))
+                    $brandingStr = $BrandingLayline;
+
+                // die;
+                
+                $safetyFeatures = array_unique($safetyFeatures);
+
+                $safetyFeaturesListWithImage = array();
+                $safetyFeaturesListWithOutImage = array();
+
+                if($safetyFeatures)
+                {
+                    foreach ($safetyFeatures as $fkey => $fvalue) {
+                        if($featuresList[$fvalue]['icon'])
+                            $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        else
+                            $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                    }
+                }
+
+                unset($safetyFeatures);
+
+                $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                
+                unset($safetyFeaturesListWithImage);
+                unset($safetyFeaturesListWithOutImage);
+
+                $material = array_unique($material);
+                $orderCodeArr = array_unique($orderCode);
+                
+                $materialStr = implode(', ', $material);
+                $orderCodeStr = implode(', ', $orderCodeArr);
+
+                unset($material);
+                unset($materialArray);
+
+                $groupData = array();
+                $groupData['subHeaderRequired'] = $subHeaderRequired;
+                $groupData['iconRequired'] = $iconRequired;
+                $groupData['material'] = $materialStr;
+                $groupData['pressureRating'] = $pressureRating;
+                $groupData['brandingLayline'] = $brandingStr;
+                $groupData['orderCodes'] = $orderCodeStr;
+                $groupData['safetyFeatures'] = $safetyFeaturesList;
+                $groupData['mainImageObj'] = $mainImageObj;
+                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+                $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
+                $groupData['longDescription'] = $longDescription;
+                $groupData['data'] = $brandsData;
+                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+                $groupData['brandName'] = $brandName;
+                $groupData['categories'] = $menuCategories;
+                $groupData['selectedCategory'] = $catagoryDescription['SIOP4Description'];
+                $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
+                $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
+                unset($menuCategories);
+                unset($brandsData);
+                unset($mainImageObj);
+                unset($ProfileDimensionImageObj);
+
+                // p_r($groupData);
+                // die;
+
+                $this->view['groupData'] = $groupData;
+                $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+                $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+            }
+        }
+    }
+
     private function getSIOP() {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
         $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
@@ -459,6 +701,22 @@ class IndustrialHoseController extends AbstractController
         return $categories;
     }
 
+    public function getFeaturesList($catalog_type, $language){
+        $entries = new DataObject\Features\Listing();
+        // $entries->setCondition("FeatureType = ?", "{$catalog_type}");
+        $entries->load();
+        $featureData = array();
+        foreach($entries as $entry) {
+            if($entry->getIcon())
+                $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
+            
+            $featureData[$entry->getId()]['name'] = $entry->getName($language);
+            $featureData[$entry->getId()]['key'] = $entry->getKey();
+            $featureData[$entry->getId()]['key'] = $entry->getId();
+        }
+        return $featureData;
+    }
+    
     private function getSiopObject($siop) {
         if(is_array($siop) && !empty($siop)) {
             foreach ($siop as $siopId) {
