@@ -15,6 +15,7 @@ if (!isset($this->parentContainer)) {
     ?>
 <?php endif; ?>
 <div class="template">
+<div>
     <div id="pageHeader"></div>
     <span class="pageName">Hydraulic Hose</span>
     <div class="footer">
@@ -161,4 +162,5 @@ if (!isset($this->parentContainer)) {
             <?php endif; ?>
         </article>
     </div>
+</div>
 </div>
