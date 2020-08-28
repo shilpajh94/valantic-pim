@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-24T11:22:03+02:00
+* Generated at: 2020-08-28T11:38:15+02:00
 * IP: 127.0.0.1
 
 
@@ -9,18 +9,16 @@ Fields Summary:
 - staticWire [input]
 - numberOfPlies [numeric]
 - HelicalWireYN [booleanSelect]
-- tubeMaterial [multiselect]
 - tubeCharacteristic [multiselect]
 - tubeColor [multiselect]
 - StandardMetTube [multiselect]
-- StandardMetCover [multiselect]
 - Coupling [input]
+- tubeMaterial [multiselect]
 - VirtualCatalogTubeMaterial [wysiwyg]
+- StandardMetCover [multiselect]
 - standardMetHoseComment [wysiwyg]
-- VirtualCatalogCoupling [wysiwyg]
 - numberOfHelixWires [numeric]
 - LayFlatHoseYN [booleanSelect]
-- coverMaterial [multiselect]
 - coverCharacteristic [multiselect]
 - coverColor [multiselect]
 - agencyCompliance [multiselect]
@@ -29,8 +27,8 @@ Fields Summary:
 - acceptableHoseMedia [multiselect]
 - Packaging [input]
 - NonStockSizes [input]
+- coverMaterial [multiselect]
 - VirtualCatalogCoverMaterial [wysiwyg]
-- VirtualCatalogPackaging [wysiwyg]
 */ 
 
 
@@ -235,357 +233,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'EPDM',
-                        'value' => 2658,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'SBR',
-                        'value' => 2659,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Nitrile',
-                        'value' => 2660,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'Chemivic (NBR/PVC)',
-                        'value' => 2661,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'CPE',
-                        'value' => 2662,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'CR (Chloroprene)',
-                        'value' => 2663,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'Synthetic Rubber',
-                        'value' => 2664,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'Nylon',
-                        'value' => 2665,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'Chlorobutyl',
-                        'value' => 2666,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'PVC',
-                        'value' => 2667,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'TPV',
-                        'value' => 2668,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'TPU',
-                        'value' => 2669,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'PE',
-                        'value' => 2670,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'PP',
-                        'value' => 2671,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'EPDM SYNTHETIC RUBBER',
-                        'value' => 1829615,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'PYROSYN® SYNTHETIC RUBBER',
-                        'value' => 1829616,
-                      ),
-                      16 => 
-                      array (
-                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER',
-                        'value' => 1829617,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'TUFSYN SYNTHETIC RUBBER',
-                        'value' => 1829618,
-                      ),
-                      18 => 
-                      array (
-                        'key' => 'PLIOSYN (UHMWPE)',
-                        'value' => 1829619,
-                      ),
-                      19 => 
-                      array (
-                        'key' => 'SBR SYNTHETIC RUBBER',
-                        'value' => 1829620,
-                      ),
-                      20 => 
-                      array (
-                        'key' => 'POLYCHLOROPRENE SYNTHETIC RUBBER',
-                        'value' => 1829621,
-                      ),
-                      21 => 
-                      array (
-                        'key' => 'CHLOROBUTYL SYNTHETIC RUBBER',
-                        'value' => 1829622,
-                      ),
-                      22 => 
-                      array (
-                        'key' => 'CHLOROPRENE SYNTHETIC RUBBER',
-                        'value' => 1829623,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'SYNTHETIC RUBBER',
-                        'value' => 1829624,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'NYLON SILICONE-FREE',
-                        'value' => 1829625,
-                      ),
-                      25 => 
-                      array (
-                        'key' => 'NBR SYNTHETIC RUBBER',
-                        'value' => 1829626,
-                      ),
-                      26 => 
-                      array (
-                        'key' => 'PURETEN NATURAL RUBBER',
-                        'value' => 1829627,
-                      ),
-                      27 => 
-                      array (
-                        'key' => 'TEFLON',
-                        'value' => 1829628,
-                      ),
-                      28 => 
-                      array (
-                        'key' => 'TPE',
-                        'value' => 1829629,
-                      ),
-                      29 => 
-                      array (
-                        'key' => 'PLIOVIC',
-                        'value' => 1829630,
-                      ),
-                      30 => 
-                      array (
-                        'key' => 'PTFE (POLYTETRAFLUOROETHYLENE)',
-                        'value' => 1829631,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'ALPHASYN',
-                        'value' => 1829632,
-                      ),
-                      32 => 
-                      array (
-                        'key' => '(CPE) CHEMRIN SYNTHETIC RUBBER',
-                        'value' => 1829633,
-                      ),
-                      33 => 
-                      array (
-                        'key' => 'SPECLAR (XLPE)',
-                        'value' => 1829634,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'SUPER THERMO-FLO EPDM',
-                        'value' => 1829635,
-                      ),
-                      35 => 
-                      array (
-                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER; FLUOROTHERMOPLASTIC BARRIER',
-                        'value' => 1829636,
-                      ),
-                      36 => 
-                      array (
-                        'key' => '(CR) NEOPRENE SYNTHETIC RUBBER',
-                        'value' => 1829637,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
-                        'value' => 1829638,
-                      ),
-                      38 => 
-                      array (
-                        'key' => 'THERMOPLASTIC',
-                        'value' => 1829639,
-                      ),
-                      39 => 
-                      array (
-                        'key' => 'URETHANE',
-                        'value' => 1829640,
-                      ),
-                      40 => 
-                      array (
-                        'key' => 'POLYURETHANE',
-                        'value' => 1829641,
-                      ),
-                      41 => 
-                      array (
-                        'key' => '(CPE) CHLORINATED POLYETHYLENE',
-                        'value' => 1829642,
-                      ),
-                      42 => 
-                      array (
-                        'key' => '(NR) NATURAL RUBBER',
-                        'value' => 1829643,
-                      ),
-                      43 => 
-                      array (
-                        'key' => 'SURVIVOR SYNTHETIC RUBBER',
-                        'value' => 1829644,
-                      ),
-                      44 => 
-                      array (
-                        'key' => 'UHMWPE',
-                        'value' => 1829645,
-                      ),
-                      45 => 
-                      array (
-                        'key' => 'UHMWPE RUBBER',
-                        'value' => 1829646,
-                      ),
-                      46 => 
-                      array (
-                        'key' => 'NYLON',
-                        'value' => 1829647,
-                      ),
-                      47 => 
-                      array (
-                        'key' => 'POLYESTER',
-                        'value' => 1829648,
-                      ),
-                      48 => 
-                      array (
-                        'key' => 'FLUORINATED ETHYLENE PROPYLENE',
-                        'value' => 1829649,
-                      ),
-                      49 => 
-                      array (
-                        'key' => 'FLOSYN SYNTHETIC RUBBER',
-                        'value' => 1829650,
-                      ),
-                      50 => 
-                      array (
-                        'key' => 'CHLORBUTYL SYNTHETIC RUBBER',
-                        'value' => 1829651,
-                      ),
-                      51 => 
-                      array (
-                        'key' => 'POLYCHLOROPRENE',
-                        'value' => 1829652,
-                      ),
-                      52 => 
-                      array (
-                        'key' => 'TRANSPARENT PLASTOMER',
-                        'value' => 1829653,
-                      ),
-                      53 => 
-                      array (
-                        'key' => 'FLUOROPLASTIC',
-                        'value' => 1829654,
-                      ),
-                      54 => 
-                      array (
-                        'key' => 'UPE LINER',
-                        'value' => 1829655,
-                      ),
-                      55 => 
-                      array (
-                        'key' => 'SBR/EPDM',
-                        'value' => 1829656,
-                      ),
-                      56 => 
-                      array (
-                        'key' => 'NITRILE/PVC',
-                        'value' => 1829657,
-                      ),
-                      57 => 
-                      array (
-                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1829658,
-                      ),
-                      58 => 
-                      array (
-                        'key' => 'Black nitrile synthetic rubber',
-                        'value' => 1830022,
-                      ),
-                      59 => 
-                      array (
-                        'key' => 'NBR (Nitrile)',
-                        'value' => 1830025,
-                      ),
-                      60 => 
-                      array (
-                        'key' => 'CR (Polychloroprene)',
-                        'value' => 1830027,
-                      ),
-                      61 => 
-                      array (
-                        'key' => 'CPE (Chlorinated Polyethylene)',
-                        'value' => 1830029,
-                      ),
-                      62 => 
-                      array (
-                        'key' => 'Oil-resistant synthetic rubber',
-                        'value' => 1830035,
-                      ),
-                      63 => 
-                      array (
-                        'key' => '(NBR) Nitrile',
-                        'value' => 1830038,
-                      ),
-                    ),
-                     'width' => 300,
-                     'height' => '',
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                     'optionsProviderData' => 'INH-HYD-HOSE',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'tubeMaterial',
-                     'title' => 'Tube Material',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
                         'key' => 'Smooth',
                         'value' => 2632,
                       ),
@@ -700,7 +347,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  5 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -962,7 +609,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  6 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -1493,7 +1140,411 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
+                  6 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'Coupling',
+                     'title' => 'Catalog Coupling',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
                   7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'EPDM',
+                        'value' => 2658,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'SBR',
+                        'value' => 2659,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Nitrile',
+                        'value' => 2660,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Chemivic (NBR/PVC)',
+                        'value' => 2661,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'CPE',
+                        'value' => 2662,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'CR (Chloroprene)',
+                        'value' => 2663,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Synthetic Rubber',
+                        'value' => 2664,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'Nylon',
+                        'value' => 2665,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'Chlorobutyl',
+                        'value' => 2666,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'PVC',
+                        'value' => 2667,
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'TPV',
+                        'value' => 2668,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'TPU',
+                        'value' => 2669,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'PE',
+                        'value' => 2670,
+                      ),
+                      13 => 
+                      array (
+                        'key' => 'PP',
+                        'value' => 2671,
+                      ),
+                      14 => 
+                      array (
+                        'key' => 'EPDM SYNTHETIC RUBBER',
+                        'value' => 1829615,
+                      ),
+                      15 => 
+                      array (
+                        'key' => 'PYROSYN® SYNTHETIC RUBBER',
+                        'value' => 1829616,
+                      ),
+                      16 => 
+                      array (
+                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER',
+                        'value' => 1829617,
+                      ),
+                      17 => 
+                      array (
+                        'key' => 'TUFSYN SYNTHETIC RUBBER',
+                        'value' => 1829618,
+                      ),
+                      18 => 
+                      array (
+                        'key' => 'PLIOSYN (UHMWPE)',
+                        'value' => 1829619,
+                      ),
+                      19 => 
+                      array (
+                        'key' => 'SBR SYNTHETIC RUBBER',
+                        'value' => 1829620,
+                      ),
+                      20 => 
+                      array (
+                        'key' => 'POLYCHLOROPRENE SYNTHETIC RUBBER',
+                        'value' => 1829621,
+                      ),
+                      21 => 
+                      array (
+                        'key' => 'CHLOROBUTYL SYNTHETIC RUBBER',
+                        'value' => 1829622,
+                      ),
+                      22 => 
+                      array (
+                        'key' => 'CHLOROPRENE SYNTHETIC RUBBER',
+                        'value' => 1829623,
+                      ),
+                      23 => 
+                      array (
+                        'key' => 'SYNTHETIC RUBBER',
+                        'value' => 1829624,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'NYLON SILICONE-FREE',
+                        'value' => 1829625,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'NBR SYNTHETIC RUBBER',
+                        'value' => 1829626,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'PURETEN NATURAL RUBBER',
+                        'value' => 1829627,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'TEFLON',
+                        'value' => 1829628,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'TPE',
+                        'value' => 1829629,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'PLIOVIC',
+                        'value' => 1829630,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'PTFE (POLYTETRAFLUOROETHYLENE)',
+                        'value' => 1829631,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'ALPHASYN',
+                        'value' => 1829632,
+                      ),
+                      32 => 
+                      array (
+                        'key' => '(CPE) CHEMRIN SYNTHETIC RUBBER',
+                        'value' => 1829633,
+                      ),
+                      33 => 
+                      array (
+                        'key' => 'SPECLAR (XLPE)',
+                        'value' => 1829634,
+                      ),
+                      34 => 
+                      array (
+                        'key' => 'SUPER THERMO-FLO EPDM',
+                        'value' => 1829635,
+                      ),
+                      35 => 
+                      array (
+                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER; FLUOROTHERMOPLASTIC BARRIER',
+                        'value' => 1829636,
+                      ),
+                      36 => 
+                      array (
+                        'key' => '(CR) NEOPRENE SYNTHETIC RUBBER',
+                        'value' => 1829637,
+                      ),
+                      37 => 
+                      array (
+                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
+                        'value' => 1829638,
+                      ),
+                      38 => 
+                      array (
+                        'key' => 'THERMOPLASTIC',
+                        'value' => 1829639,
+                      ),
+                      39 => 
+                      array (
+                        'key' => 'URETHANE',
+                        'value' => 1829640,
+                      ),
+                      40 => 
+                      array (
+                        'key' => 'POLYURETHANE',
+                        'value' => 1829641,
+                      ),
+                      41 => 
+                      array (
+                        'key' => '(CPE) CHLORINATED POLYETHYLENE',
+                        'value' => 1829642,
+                      ),
+                      42 => 
+                      array (
+                        'key' => '(NR) NATURAL RUBBER',
+                        'value' => 1829643,
+                      ),
+                      43 => 
+                      array (
+                        'key' => 'SURVIVOR SYNTHETIC RUBBER',
+                        'value' => 1829644,
+                      ),
+                      44 => 
+                      array (
+                        'key' => 'UHMWPE',
+                        'value' => 1829645,
+                      ),
+                      45 => 
+                      array (
+                        'key' => 'UHMWPE RUBBER',
+                        'value' => 1829646,
+                      ),
+                      46 => 
+                      array (
+                        'key' => 'NYLON',
+                        'value' => 1829647,
+                      ),
+                      47 => 
+                      array (
+                        'key' => 'POLYESTER',
+                        'value' => 1829648,
+                      ),
+                      48 => 
+                      array (
+                        'key' => 'FLUORINATED ETHYLENE PROPYLENE',
+                        'value' => 1829649,
+                      ),
+                      49 => 
+                      array (
+                        'key' => 'FLOSYN SYNTHETIC RUBBER',
+                        'value' => 1829650,
+                      ),
+                      50 => 
+                      array (
+                        'key' => 'CHLORBUTYL SYNTHETIC RUBBER',
+                        'value' => 1829651,
+                      ),
+                      51 => 
+                      array (
+                        'key' => 'POLYCHLOROPRENE',
+                        'value' => 1829652,
+                      ),
+                      52 => 
+                      array (
+                        'key' => 'TRANSPARENT PLASTOMER',
+                        'value' => 1829653,
+                      ),
+                      53 => 
+                      array (
+                        'key' => 'FLUOROPLASTIC',
+                        'value' => 1829654,
+                      ),
+                      54 => 
+                      array (
+                        'key' => 'UPE LINER',
+                        'value' => 1829655,
+                      ),
+                      55 => 
+                      array (
+                        'key' => 'SBR/EPDM',
+                        'value' => 1829656,
+                      ),
+                      56 => 
+                      array (
+                        'key' => 'NITRILE/PVC',
+                        'value' => 1829657,
+                      ),
+                      57 => 
+                      array (
+                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
+                        'value' => 1829658,
+                      ),
+                      58 => 
+                      array (
+                        'key' => 'Black nitrile synthetic rubber',
+                        'value' => 1830022,
+                      ),
+                      59 => 
+                      array (
+                        'key' => 'NBR (Nitrile)',
+                        'value' => 1830025,
+                      ),
+                      60 => 
+                      array (
+                        'key' => 'CR (Polychloroprene)',
+                        'value' => 1830027,
+                      ),
+                      61 => 
+                      array (
+                        'key' => 'CPE (Chlorinated Polyethylene)',
+                        'value' => 1830029,
+                      ),
+                      62 => 
+                      array (
+                        'key' => 'Oil-resistant synthetic rubber',
+                        'value' => 1830035,
+                      ),
+                      63 => 
+                      array (
+                        'key' => '(NBR) Nitrile',
+                        'value' => 1830038,
+                      ),
+                    ),
+                     'width' => 300,
+                     'height' => '',
+                     'maxItems' => '',
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                     'optionsProviderData' => 'INH-HYD-HOSE',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'tubeMaterial',
+                     'title' => 'Tube Material',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  8 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                     'fieldtype' => 'wysiwyg',
+                     'width' => 295,
+                     'height' => 150,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'string',
+                     'toolbarConfig' => '',
+                     'excludeFromSearchIndex' => false,
+                     'name' => 'VirtualCatalogTubeMaterial',
+                     'title' => 'Virtual Catalog Tube Material',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:205px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -2024,64 +2075,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'Coupling',
-                     'title' => 'Coupling',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                     'fieldtype' => 'wysiwyg',
-                     'width' => 500,
-                     'height' => 100,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'toolbarConfig' => '',
-                     'excludeFromSearchIndex' => false,
-                     'name' => 'VirtualCatalogTubeMaterial',
-                     'title' => 'Virtual Catalog Tube Material',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => NULL,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
                   10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'fieldtype' => 'wysiwyg',
-                     'width' => 500,
-                     'height' => 100,
+                     'width' => 295,
+                     'height' => 150,
                      'queryColumnType' => 'longtext',
                      'columnType' => 'longtext',
                      'phpdocType' => 'string',
@@ -2093,33 +2091,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                     'fieldtype' => 'wysiwyg',
-                     'width' => 500,
-                     'height' => 100,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'toolbarConfig' => '',
-                     'excludeFromSearchIndex' => false,
-                     'name' => 'VirtualCatalogCoupling',
-                     'title' => 'Virtual Catalog Coupling',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => NULL,
-                     'style' => '',
+                     'locked' => false,
+                     'style' => 'margin-left:205px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -2230,357 +2203,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'EPDM',
-                        'value' => 2613,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'SBR',
-                        'value' => 2614,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Nitrile',
-                        'value' => 2615,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'Chemivic (NBR/PVC)',
-                        'value' => 2616,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'CPE',
-                        'value' => 2617,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'CR (Chloroprene)',
-                        'value' => 2618,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'CSM',
-                        'value' => 2619,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'ECO',
-                        'value' => 2620,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'Synthetic Rubber',
-                        'value' => 2621,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'XNBR',
-                        'value' => 2622,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'Carbryn',
-                        'value' => 2623,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'Textile',
-                        'value' => 2624,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'Futurin Synthetic Rubber',
-                        'value' => 2625,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'PVC',
-                        'value' => 2626,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'TPV',
-                        'value' => 2627,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'TPU',
-                        'value' => 2628,
-                      ),
-                      16 => 
-                      array (
-                        'key' => 'PE',
-                        'value' => 2629,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'PP',
-                        'value' => 2630,
-                      ),
-                      18 => 
-                      array (
-                        'key' => 'EPDM SYNTHETIC RUBBER',
-                        'value' => 1829454,
-                      ),
-                      19 => 
-                      array (
-                        'key' => 'PYROSYN® SYNTHETIC RUBBER',
-                        'value' => 1829455,
-                      ),
-                      20 => 
-                      array (
-                        'key' => '(XNBR) CARBRYN SYNTHETIC RUBBER',
-                        'value' => 1829456,
-                      ),
-                      21 => 
-                      array (
-                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER',
-                        'value' => 1829457,
-                      ),
-                      22 => 
-                      array (
-                        'key' => 'ARC SYNTHETIC RUBBER',
-                        'value' => 1829458,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'SYNTHETIC RUBBER',
-                        'value' => 1829459,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'SBR SYNTHETIC RUBBER',
-                        'value' => 1829460,
-                      ),
-                      25 => 
-                      array (
-                        'key' => 'FUTURIN™ SYNTHETIC RUBBER',
-                        'value' => 1829461,
-                      ),
-                      26 => 
-                      array (
-                        'key' => '(CR) NEOPRENE SYNTHETIC RUBBER',
-                        'value' => 1829462,
-                      ),
-                      27 => 
-                      array (
-                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
-                        'value' => 1829463,
-                      ),
-                      28 => 
-                      array (
-                        'key' => 'SYNTHETIC FABRIC PLIES',
-                        'value' => 1829464,
-                      ),
-                      29 => 
-                      array (
-                        'key' => 'CHLOROSULFONATED POLYETHYLENE',
-                        'value' => 1829465,
-                      ),
-                      30 => 
-                      array (
-                        'key' => 'POLYCHLOROPRENE',
-                        'value' => 1829466,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'TPE',
-                        'value' => 1829467,
-                      ),
-                      32 => 
-                      array (
-                        'key' => 'PLIOVIC',
-                        'value' => 1829468,
-                      ),
-                      33 => 
-                      array (
-                        'key' => '304 STAINLESS STEEL WIRE BRAID',
-                        'value' => 1829469,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'OMEGASYN RUBBER',
-                        'value' => 1829470,
-                      ),
-                      35 => 
-                      array (
-                        'key' => 'SUPER THERMO-FLO EPDM',
-                        'value' => 1829471,
-                      ),
-                      36 => 
-                      array (
-                        'key' => 'TEXTILE BRAID',
-                        'value' => 1829472,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'THERMOPLASTIC',
-                        'value' => 1829473,
-                      ),
-                      38 => 
-                      array (
-                        'key' => 'IMPREGNATED TEXTILE BRAID',
-                        'value' => 1829474,
-                      ),
-                      39 => 
-                      array (
-                        'key' => 'UHMWPE RUBBER',
-                        'value' => 1829475,
-                      ),
-                      40 => 
-                      array (
-                        'key' => 'CHLOROPRENE SYNTHETIC RUBBER',
-                        'value' => 1829476,
-                      ),
-                      41 => 
-                      array (
-                        'key' => 'SYNTHETIC RUBBER; UHMWPE FILM',
-                        'value' => 1829477,
-                      ),
-                      42 => 
-                      array (
-                        'key' => '(CPE) CHLORINATED POLYETHYLENE',
-                        'value' => 1829478,
-                      ),
-                      43 => 
-                      array (
-                        'key' => 'PURETEN NATURAL RUBBER',
-                        'value' => 1829479,
-                      ),
-                      44 => 
-                      array (
-                        'key' => 'POLYURETHANE',
-                        'value' => 1829480,
-                      ),
-                      45 => 
-                      array (
-                        'key' => 'URETHANE',
-                        'value' => 1829481,
-                      ),
-                      46 => 
-                      array (
-                        'key' => 'POLYESTER',
-                        'value' => 1829482,
-                      ),
-                      47 => 
-                      array (
-                        'key' => 'FIBERGLASS FABRIC OVER RUBBER',
-                        'value' => 1829483,
-                      ),
-                      48 => 
-                      array (
-                        'key' => 'SYNTHETIC FIBER',
-                        'value' => 1829484,
-                      ),
-                      49 => 
-                      array (
-                        'key' => 'CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1829485,
-                      ),
-                      50 => 
-                      array (
-                        'key' => 'FLEXIBLE VINYL',
-                        'value' => 1829486,
-                      ),
-                      51 => 
-                      array (
-                        'key' => 'CHLOROBUTYL SYNTHETIC RUBBER',
-                        'value' => 1829487,
-                      ),
-                      52 => 
-                      array (
-                        'key' => 'NBR SYNTHETIC RUBBER',
-                        'value' => 1829488,
-                      ),
-                      53 => 
-                      array (
-                        'key' => '(NR) NATURAL RUBBER',
-                        'value' => 1829489,
-                      ),
-                      54 => 
-                      array (
-                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1829490,
-                      ),
-                      55 => 
-                      array (
-                        'key' => 'CR/EPDM',
-                        'value' => 1829491,
-                      ),
-                      56 => 
-                      array (
-                        'key' => 'SBR/EPDM',
-                        'value' => 1829492,
-                      ),
-                      57 => 
-                      array (
-                        'key' => 'Polychloroprene',
-                        'value' => 1830024,
-                      ),
-                      58 => 
-                      array (
-                        'key' => 'Chlorinated Polyethylene',
-                        'value' => 1830031,
-                      ),
-                      59 => 
-                      array (
-                        'key' => 'Impregnated Textile Braid',
-                        'value' => 1830032,
-                      ),
-                      60 => 
-                      array (
-                        'key' => 'Chlorosulfonated Polyethylene',
-                        'value' => 1830033,
-                      ),
-                      61 => 
-                      array (
-                        'key' => 'Nitrile / PVC',
-                        'value' => 1830037,
-                      ),
-                      62 => 
-                      array (
-                        'key' => 'BLACK',
-                        'value' => 1831327,
-                      ),
-                      63 => 
-                      array (
-                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1831328,
-                      ),
-                    ),
-                     'width' => 300,
-                     'height' => '',
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
-                     'optionsProviderData' => 'INH-HYD-HOSE',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'coverMaterial',
-                     'title' => 'Cover Material',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
                         'key' => 'CORRUGATED',
                         'value' => 2673,
                       ),
@@ -2635,7 +2257,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  4 => 
+                  3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -2932,7 +2554,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  5 => 
+                  4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3028,7 +2650,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  6 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3059,7 +2681,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  7 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3590,7 +3212,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  8 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
@@ -3621,7 +3243,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleGridView' => false,
                      'visibleSearch' => false,
                   )),
-                  9 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -3634,7 +3256,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'Packaging',
-                     'title' => 'Packaging',
+                     'title' => 'Catalog Packaging',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -3649,7 +3271,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -3677,11 +3299,362 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
+                  10 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
+                     'options' => 
+                    array (
+                      0 => 
+                      array (
+                        'key' => 'EPDM',
+                        'value' => 2613,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'SBR',
+                        'value' => 2614,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Nitrile',
+                        'value' => 2615,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Chemivic (NBR/PVC)',
+                        'value' => 2616,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'CPE',
+                        'value' => 2617,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'CR (Chloroprene)',
+                        'value' => 2618,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'CSM',
+                        'value' => 2619,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'ECO',
+                        'value' => 2620,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'Synthetic Rubber',
+                        'value' => 2621,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'XNBR',
+                        'value' => 2622,
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'Carbryn',
+                        'value' => 2623,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'Textile',
+                        'value' => 2624,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'Futurin Synthetic Rubber',
+                        'value' => 2625,
+                      ),
+                      13 => 
+                      array (
+                        'key' => 'PVC',
+                        'value' => 2626,
+                      ),
+                      14 => 
+                      array (
+                        'key' => 'TPV',
+                        'value' => 2627,
+                      ),
+                      15 => 
+                      array (
+                        'key' => 'TPU',
+                        'value' => 2628,
+                      ),
+                      16 => 
+                      array (
+                        'key' => 'PE',
+                        'value' => 2629,
+                      ),
+                      17 => 
+                      array (
+                        'key' => 'PP',
+                        'value' => 2630,
+                      ),
+                      18 => 
+                      array (
+                        'key' => 'EPDM SYNTHETIC RUBBER',
+                        'value' => 1829454,
+                      ),
+                      19 => 
+                      array (
+                        'key' => 'PYROSYN® SYNTHETIC RUBBER',
+                        'value' => 1829455,
+                      ),
+                      20 => 
+                      array (
+                        'key' => '(XNBR) CARBRYN SYNTHETIC RUBBER',
+                        'value' => 1829456,
+                      ),
+                      21 => 
+                      array (
+                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER',
+                        'value' => 1829457,
+                      ),
+                      22 => 
+                      array (
+                        'key' => 'ARC SYNTHETIC RUBBER',
+                        'value' => 1829458,
+                      ),
+                      23 => 
+                      array (
+                        'key' => 'SYNTHETIC RUBBER',
+                        'value' => 1829459,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'SBR SYNTHETIC RUBBER',
+                        'value' => 1829460,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'FUTURIN™ SYNTHETIC RUBBER',
+                        'value' => 1829461,
+                      ),
+                      26 => 
+                      array (
+                        'key' => '(CR) NEOPRENE SYNTHETIC RUBBER',
+                        'value' => 1829462,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
+                        'value' => 1829463,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'SYNTHETIC FABRIC PLIES',
+                        'value' => 1829464,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'CHLOROSULFONATED POLYETHYLENE',
+                        'value' => 1829465,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'POLYCHLOROPRENE',
+                        'value' => 1829466,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'TPE',
+                        'value' => 1829467,
+                      ),
+                      32 => 
+                      array (
+                        'key' => 'PLIOVIC',
+                        'value' => 1829468,
+                      ),
+                      33 => 
+                      array (
+                        'key' => '304 STAINLESS STEEL WIRE BRAID',
+                        'value' => 1829469,
+                      ),
+                      34 => 
+                      array (
+                        'key' => 'OMEGASYN RUBBER',
+                        'value' => 1829470,
+                      ),
+                      35 => 
+                      array (
+                        'key' => 'SUPER THERMO-FLO EPDM',
+                        'value' => 1829471,
+                      ),
+                      36 => 
+                      array (
+                        'key' => 'TEXTILE BRAID',
+                        'value' => 1829472,
+                      ),
+                      37 => 
+                      array (
+                        'key' => 'THERMOPLASTIC',
+                        'value' => 1829473,
+                      ),
+                      38 => 
+                      array (
+                        'key' => 'IMPREGNATED TEXTILE BRAID',
+                        'value' => 1829474,
+                      ),
+                      39 => 
+                      array (
+                        'key' => 'UHMWPE RUBBER',
+                        'value' => 1829475,
+                      ),
+                      40 => 
+                      array (
+                        'key' => 'CHLOROPRENE SYNTHETIC RUBBER',
+                        'value' => 1829476,
+                      ),
+                      41 => 
+                      array (
+                        'key' => 'SYNTHETIC RUBBER; UHMWPE FILM',
+                        'value' => 1829477,
+                      ),
+                      42 => 
+                      array (
+                        'key' => '(CPE) CHLORINATED POLYETHYLENE',
+                        'value' => 1829478,
+                      ),
+                      43 => 
+                      array (
+                        'key' => 'PURETEN NATURAL RUBBER',
+                        'value' => 1829479,
+                      ),
+                      44 => 
+                      array (
+                        'key' => 'POLYURETHANE',
+                        'value' => 1829480,
+                      ),
+                      45 => 
+                      array (
+                        'key' => 'URETHANE',
+                        'value' => 1829481,
+                      ),
+                      46 => 
+                      array (
+                        'key' => 'POLYESTER',
+                        'value' => 1829482,
+                      ),
+                      47 => 
+                      array (
+                        'key' => 'FIBERGLASS FABRIC OVER RUBBER',
+                        'value' => 1829483,
+                      ),
+                      48 => 
+                      array (
+                        'key' => 'SYNTHETIC FIBER',
+                        'value' => 1829484,
+                      ),
+                      49 => 
+                      array (
+                        'key' => 'CHEMIVIC SYNTHETIC RUBBER',
+                        'value' => 1829485,
+                      ),
+                      50 => 
+                      array (
+                        'key' => 'FLEXIBLE VINYL',
+                        'value' => 1829486,
+                      ),
+                      51 => 
+                      array (
+                        'key' => 'CHLOROBUTYL SYNTHETIC RUBBER',
+                        'value' => 1829487,
+                      ),
+                      52 => 
+                      array (
+                        'key' => 'NBR SYNTHETIC RUBBER',
+                        'value' => 1829488,
+                      ),
+                      53 => 
+                      array (
+                        'key' => '(NR) NATURAL RUBBER',
+                        'value' => 1829489,
+                      ),
+                      54 => 
+                      array (
+                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
+                        'value' => 1829490,
+                      ),
+                      55 => 
+                      array (
+                        'key' => 'CR/EPDM',
+                        'value' => 1829491,
+                      ),
+                      56 => 
+                      array (
+                        'key' => 'SBR/EPDM',
+                        'value' => 1829492,
+                      ),
+                      57 => 
+                      array (
+                        'key' => 'Polychloroprene',
+                        'value' => 1830024,
+                      ),
+                      58 => 
+                      array (
+                        'key' => 'Chlorinated Polyethylene',
+                        'value' => 1830031,
+                      ),
+                      59 => 
+                      array (
+                        'key' => 'Impregnated Textile Braid',
+                        'value' => 1830032,
+                      ),
+                      60 => 
+                      array (
+                        'key' => 'Chlorosulfonated Polyethylene',
+                        'value' => 1830033,
+                      ),
+                      61 => 
+                      array (
+                        'key' => 'Nitrile / PVC',
+                        'value' => 1830037,
+                      ),
+                      62 => 
+                      array (
+                        'key' => 'BLACK',
+                        'value' => 1831327,
+                      ),
+                      63 => 
+                      array (
+                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
+                        'value' => 1831328,
+                      ),
+                    ),
+                     'width' => 300,
+                     'height' => '',
+                     'maxItems' => '',
+                     'renderType' => 'tags',
+                     'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
+                     'optionsProviderData' => 'INH-HYD-HOSE',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
+                     'dynamicOptions' => false,
+                     'name' => 'coverMaterial',
+                     'title' => 'Cover Material',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                  )),
                   11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                      'fieldtype' => 'wysiwyg',
-                     'width' => 500,
-                     'height' => 100,
+                     'width' => 295,
+                     'height' => 150,
                      'queryColumnType' => 'longtext',
                      'columnType' => 'longtext',
                      'phpdocType' => 'string',
@@ -3693,33 +3666,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                  )),
-                  12 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                     'fieldtype' => 'wysiwyg',
-                     'width' => 500,
-                     'height' => 100,
-                     'queryColumnType' => 'longtext',
-                     'columnType' => 'longtext',
-                     'phpdocType' => 'string',
-                     'toolbarConfig' => '',
-                     'excludeFromSearchIndex' => false,
-                     'name' => 'VirtualCatalogPackaging',
-                     'title' => 'Virtual Catalog Packaging',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => NULL,
-                     'style' => 'margin-left: 20px;',
+                     'locked' => false,
+                     'style' => 'margin-left:225px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
