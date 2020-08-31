@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-28T11:49:51+02:00
+* Generated at: 2020-08-31T11:54:14+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -115,7 +115,7 @@ Fields Summary:
 - frontView [image]
 - sideView [image]
 - cutView [image]
-- Images360 [image]
+- Images360 [imageGallery]
 - Document [manyToManyRelation]
 - BrandingLaylineAssets [manyToManyRelation]
 - LeftPrintCatalogImage [image]
@@ -134,7 +134,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1598608190,
+   'modificationDate' => 1598867653,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -14939,7 +14939,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
-                                     'locked' => NULL,
+                                     'locked' => false,
                                      'style' => 'margin-left:20px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
@@ -15763,12 +15763,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           137 => 
                                           array (
@@ -15872,13 +15872,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           157 => 
                                           array (
-                                            'key' => 'Meets ORVR requirements',
-                                            'value' => 3139,
+                                            'key' => 'Meets ORVR Requirements',
+                                            'value' => 759964,
                                           ),
                                           158 => 
                                           array (
-                                            'key' => 'Meets ORVR Requirements',
-                                            'value' => 759964,
+                                            'key' => 'Meets ORVR requirements',
+                                            'value' => 3139,
                                           ),
                                           159 => 
                                           array (
@@ -20424,21 +20424,32 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                         'fieldtype' => 'image',
-                         'width' => 300,
-                         'height' => '',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
+                         'fieldtype' => 'imageGallery',
+                         'queryColumnType' => 
+                        array (
+                          'images' => 'text',
+                          'hotspots' => 'text',
+                        ),
+                         'columnType' => 
+                        array (
+                          'images' => 'text',
+                          'hotspots' => 'text',
+                        ),
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ImageGallery',
+                         'width' => NULL,
+                         'height' => NULL,
                          'uploadPath' => '',
-                         'queryColumnType' => 'int(11)',
-                         'columnType' => 'int(11)',
-                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                         'ratioX' => NULL,
+                         'ratioY' => NULL,
+                         'predefinedDataTemplates' => '',
                          'name' => 'Images360',
                          'title' => '360 Images',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'float:left; margin-right:20px; clear:both;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -20473,7 +20484,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyRelation::__set_state(array(
                          'fieldtype' => 'manyToManyRelation',
-                         'width' => 300,
+                         'width' => '',
                          'height' => '',
                          'maxItems' => '',
                          'assetUploadPath' => '',
@@ -20500,9 +20511,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'Document',
@@ -20512,7 +20531,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'invisible' => false,
@@ -20545,9 +20564,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'BrandingLaylineAssets',
@@ -20590,7 +20617,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 350,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20614,7 +20641,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 300,
+                         'width' => 350,
                          'height' => '',
                          'uploadPath' => '/Continental Aftermarket/Products/IAM ATE/Disc/Brake Disc',
                          'queryColumnType' => 'int(11)',
@@ -20662,7 +20689,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                          'fieldtype' => 'image',
-                         'width' => 400,
+                         'width' => 350,
                          'height' => '',
                          'uploadPath' => '',
                          'queryColumnType' => 'int(11)',
@@ -20675,7 +20702,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => '',
+                         'style' => 'float:left; margin-right:20px; clear:left;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
