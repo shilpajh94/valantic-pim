@@ -666,6 +666,100 @@ class IndustrialHoseController extends AbstractController
         }
     }
 
+    public function inhFittingCoverAction(){
+        $templates = $this->getDocumentTag('relations', 'inh_fitting_cover_page')->getElements();
+
+        if($templates) 
+        {
+            $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+
+            $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+            $INHFittingCoverPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHFittingCoverPageConfig();
+            
+            $featuresMaterials = $commonHelper->getParameter($INHFittingCoverPageConfig, 'headers');
+            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
+            
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($templates[0]->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+            
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $footerBgColor = '';
+            $templateBrandDtata = array();
+            $menuCategories = $this->getSIOP();
+            $catagoryDescription = array();
+
+
+            $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
+
+            $categories = $this->db->fetchAll($query);
+
+            $categoriesList = array();
+
+            foreach ($categories as $key => $value) {
+                $categoriesList[$value['oo_id']] = $value;
+            }
+
+            unset($categories);
+
+            foreach ($templates as $key => $template) 
+            {
+                if(empty(trim($footerBgColor)))
+                    $footerBgColor = $template->getColor();
+
+                $productsData = $template->getProductsData();
+                $headerData = json_decode($template->getHeaderData(), true);
+                $headerKeys = array_keys($headerData);
+                $headerKeysIndex = array_flip($headerKeys);
+                
+                
+                foreach ($productsData as $key => $item) {
+                    
+                    
+                    if(!isset($catagoryDescription['SIOP3Description']))
+                    {
+                        $query = "select SIOPLevel3 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
+
+                        $record = $this->db->fetchRow($query);
+                        $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+
+                        $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                    }
+
+                    foreach($featuresMaterials as $fkey => $material)
+                    {
+                        if($material == $item[$headerKeysIndex['FittingMaterial']])
+                            $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]][$material] = 'Yes'; 
+                        else
+                            $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]][$material] = ''; 
+
+                    }
+                    
+                    // $templateBrandDtata
+                    // p_r($productsData);
+
+                    // $productsDataWithHeaders = array_combine($headerKeys, $item);
+                    // if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
+                    // {
+                    //     $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders['industryStandard'];
+                    // }
+                }
+            }
+
+            unset($categoriesList);
+            // p_r($templateBrandDtata);
+            // die;
+            // $this->view['data'] = $catalogGroupData;
+            $this->view['featuresMaterials'] = $featuresMaterials;
+            $this->view['templateBrandDtata'] = $templateBrandDtata;
+            $this->view['categories'] = $menuCategories;
+            $this->view['selectedCategory'] = $catagoryDescription['SIOP3Description'];
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+        }
+    }
+
     private function getSIOP() {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
         $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);

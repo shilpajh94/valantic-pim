@@ -43,13 +43,18 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         </span>
                         <div class="flex aligned">
                                 <h5>
-<?php
-                                    echo $this->image("HHSC_Footer_Image", ["width" => 40]);
-                                    ?>
-                                   <font> <?php
-                                    echo $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey);
-                                    ?>
-</font>
+                                <?php echo $this->image("HHSC_Footer_Image", ["width" => 40]); ?>
+                                        <font> 
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->input("HHSC_Footer")->isEmpty()): ?>
+                                                        <?= $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("HHSC_Footer"); ?>
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("HHSC_Footer") ?>
+                                        <?php endif; ?>
+                                        </font>
                                 </h5>
                                      
                         </div>
@@ -59,17 +64,20 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         <div class="footer1">
                 <footer class="flex-center <?php echo $footer_class; ?>">   
                         <div class="flex aligned">
-                                 
                                 <h5>
-<?php
-                                    echo $this->image("HHSC_Footer_Image1", ["width" => 40]);
-                                    ?>
-                                   <font> <?php
-                                    echo $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey);
-                                    ?>
-</font>
+                                   <?php echo $this->image("HHSC_Footer_Image1", ["width" => 40]); ?>
+                                        <font> 
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->input("HHSC_Footer1")->isEmpty()): ?>
+                                                        <?= $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("HHSC_Footer1"); ?>
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("HHSC_Footer1") ?>
+                                        <?php endif; ?>
+                                        </font>
                                 </h5>
-                                
                         </div>
                         <span class="logo">
                                 <b>
@@ -108,9 +116,15 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         ?>
                         </span>
                         <h3>
-                        <?php
-                        echo $this->input("HHSC_Title")->setDataFromResource($catalogGroupKey);
-                        ?>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("HHSC_Title")->isEmpty()): ?>
+                                        <?= $this->input("HHSC_Title")->setDataFromResource($catalogGroupKey) ?>
+                                <?php else: ?>
+                                        <?= $this->input("HHSC_Title"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("HHSC_Title") ?>
+                        <?php endif; ?>
                         </h3>               
             </div>
             <table cellspacing="0" cellpadding="0" class="grid">
