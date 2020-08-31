@@ -22,7 +22,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
     <?php if($this->editmode): ?>
     
-        <div id="amortizationTable1" class="content_single single">
+        <div id="amortizationTable1" class="content_double single">
             <?php else: ?>
        
             <div id="amortizationTable1" class="content_double single">
@@ -44,10 +44,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <?php $block->blockConstruct(); ?>
                                     <?php $block->blockStart(); ?> 
                                      <td colspan="2">
-                                       <p class="paging">
+                                       <div class="paging">
                                         <span class="pageTitle"><?= $this->input("td1",['placeholder'=>"Product Number- {$rowCount}"]); ?></span>
                                         <span class="pageNo"><?= $this->input("td2",['placeholder'=>"Page - {$rowCount}"]); ?></span>
-                                       </p>
+                                       </div>
                                      </td>
 
                                       

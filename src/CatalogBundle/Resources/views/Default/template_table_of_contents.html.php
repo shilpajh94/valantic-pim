@@ -24,10 +24,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     
     <?php if($this->editmode): ?>
     
-<div class="content content_single table-content ">
+<div class="content content_double  table-content ">
     <?php else: ?>
    
-<div class="content content_double table-content ">
+<div class="content content_double  table-content ">
     <?php endif; ?>
     <?php while($this->block("TOC_SectionBlock")->loop()) { ?>
         
@@ -44,10 +44,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php while($this->block("TOC_ContentBlock")->loop()) { ?>
-                <p class="paging">
+                <div class="paging">
                     <span class="pageTitle"><?= $this->input("TOC_Title"); ?></span>
                     <span class="pageNo"><?= $this->input("TOC_Page"); ?></span>
-                </p>
+                </div>
                 <?php } ?>
             
             
