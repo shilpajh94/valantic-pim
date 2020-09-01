@@ -154,7 +154,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     
                     /* New Family Info */
     ?>
-                    <article class="container noBorder ">
+                    <article class="container noBorder noBreak">
                         <figure class="headingSection">
                             <span>
                                 <?php

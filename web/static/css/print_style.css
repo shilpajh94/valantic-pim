@@ -613,6 +613,11 @@ article figure p b {
   padding-bottom:10px;
 padding-top: 30px;
 }
+
+.noBreak .grid{ 
+
+break-before: avoid;
+}
 .highlight {
     margin-left: 30px;
 }

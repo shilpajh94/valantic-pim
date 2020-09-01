@@ -1,11 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-23T12:33:40+02:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -25,10 +22,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Catalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1595500419,
+   'modificationDate' => 1597751987,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
+   'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
    'listingUseTraits' => '',
@@ -39,14 +37,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowInherit' => false,
    'allowVariants' => NULL,
    'showVariants' => false,
-   'cacheRawRelationData' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'fieldtype' => 'panel',
      'labelWidth' => 100,
      'layout' => NULL,
      'border' => false,
-     'icon' => NULL,
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -66,7 +62,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'labelWidth' => 100,
          'layout' => NULL,
          'border' => false,
-         'icon' => '',
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -124,6 +119,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
@@ -147,11 +143,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
              'fieldtype' => 'input',
              'width' => NULL,
+             'defaultValue' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -173,6 +171,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -208,16 +207,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           4 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
             array (
+              0 => 
+              array (
+                'key' => 'en',
+                'value' => 'en',
+              ),
+              1 => 
+              array (
+                'key' => 'fr_CA',
+                'value' => 'fr_CA',
+              ),
+              2 => 
+              array (
+                'key' => 'es_MX',
+                'value' => 'es_MX',
+              ),
+              3 => 
+              array (
+                'key' => 'pt',
+                'value' => 'pt',
+              ),
+              4 => 
+              array (
+                'key' => 'de',
+                'value' => 'de',
+              ),
             ),
              'width' => '',
              'defaultValue' => '',
-             'optionsProviderClass' => '',
+             'optionsProviderClass' => 'AppBundle\\OptionProvider\\LanguageOptionsProvider',
              'optionsProviderData' => '',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
@@ -238,6 +263,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           5 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
@@ -351,6 +377,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
           7 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
@@ -666,18 +693,24 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
+         'icon' => '',
       )),
     ),
      'locked' => false,
+     'icon' => NULL,
   )),
    'icon' => '',
    'previewUrl' => '',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
+   'compositeIndices' => 
+  array (
+  ),
    'propertyVisibility' => 
   array (
     'grid' => 
@@ -699,5 +732,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
       'creationDate' => true,
     ),
   ),
+   'enableGridLocking' => false,
    'dao' => NULL,
 ));
