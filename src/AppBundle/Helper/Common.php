@@ -141,11 +141,10 @@ class Common
         return $lang;
     }
 
-public function fractionToDecimal($fraction) 
+    public function fractionToDecimal($fraction) 
     {
         // Split fraction into whole number and fraction components
         preg_match('/^(?P<whole>\d+)?\s?((?P<numerator>\d+)\/(?P<denominator>\d+))?$/', $fraction, $components);
-    
         // Extract whole number, numerator, and denominator components
         $whole = $components['whole'] ?: 0;
         $numerator = $components['numerator'] ?: 0;

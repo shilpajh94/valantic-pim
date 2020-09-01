@@ -222,16 +222,17 @@ class HoseDataImportCommand extends AbstractCommand
             }
 
             
-
+            $brnds = null;
             if (!empty($r['Brand_Name'])) {                
                 $clrArr = "";
                 $clrArr = strtolower($r['Brand_Name']);
-                $clrInfo = $this->getBrands($clrArr);   
+		$clrInfo = $this->getBrands($clrArr);   
+		
                 if (!empty($clrInfo['itemNotFound'])) {
                     $error[] = "Brands(s) '" . $clrInfo['itemNotFound'] . "' not found in master";
                 } else {
                     $brnds = $clrInfo['items'];
-                }
+		}
                 unset($clrInfo);
             }
 
@@ -252,7 +253,7 @@ class HoseDataImportCommand extends AbstractCommand
                 'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
                 'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
                 'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
-                'brandName'    =>  !empty($brnds) ? $brnds : NULL,
+                'brandName'    =>  $brnds,
             );
             $d[$i]['reinforcement'] = !empty($reinforcement) ? implode(", ", $reinforcement) : NUll;
             $i++;
@@ -821,18 +822,18 @@ class HoseDataImportCommand extends AbstractCommand
     private function loadMaster()
     {
         $where = "";
-        $sql = "SELECT o_id, masterType, o_key FROM object_22 ";
+        $sql = "SELECT o.oo_id o_id, o.masterType, oe.name FROM object_query_22 o JOIN object_localized_22_en oe ON(oe.`ooo_id`=o.oo_id)";
         foreach ($this->masterTypes as $type) {
             if (empty($where)) {
-                $where = " WHERE o_published=1 AND  masterType LIKE '%$type%'";
+                $where = " WHERE o.masterType LIKE '%$type%'";
             } else {
-                $where .= " OR masterType LIKE '%$type%'";
+                $where .= " OR o.masterType LIKE '%$type%'";
             }
         }
         $results = $this->db->query($sql . $where);
         foreach ($results as $result) {
             $type = array_search($result['masterType'], $this->masterTypes);
-            $this->masters[$type][$result['o_id']] = strtolower($result['o_key']);
+            $this->masters[$type][$result['o_id']] = strtolower($result['name']);
             unset($type);
         }
         unset($results);
@@ -840,7 +841,7 @@ class HoseDataImportCommand extends AbstractCommand
         $sql = "SELECT o_id, `name` FROM object_3 WHERE o_published=1";
         $results = $this->db->query($sql);
         foreach ($results as $result) {
-            $this->brands[$result['o_id']] = strtolower($result['name']);
+            $this->brands[$result['o_id']] = strtolower(trim($result['name']));
             unset($type);
         }
     }
@@ -882,7 +883,8 @@ class HoseDataImportCommand extends AbstractCommand
     private function getBrands($items)
     {
         $item = array_search(trim($items), $this->brands) ?: false;
-        return array(
+	
+	return array(
             'items' =>  $item,
             'itemNotFound' => empty($item) ? $item : false
         );

@@ -1,6 +1,10 @@
 <?php 
 
 /** 
+* Generated at: 2020-08-20T16:27:19+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - boreType [input]
 - finish [input]
@@ -87,7 +91,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
-         'title' => 'Data Attributes',
+         'title' => '',
          'width' => NULL,
          'height' => NULL,
          'collapsible' => false,
@@ -125,7 +129,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
-                 'title' => 'Imported From SAP',
+                 'title' => '',
                  'width' => NULL,
                  'height' => NULL,
                  'collapsible' => false,

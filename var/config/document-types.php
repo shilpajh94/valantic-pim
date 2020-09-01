@@ -152,14 +152,14 @@ return [
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "container",
         "template" => NULL,
-        "type" => "page",
+        "type" => "printcontainer",
         "priority" => 0,
         "creationDate" => 1597168061,
-        "modificationDate" => 1597168851
+        "modificationDate" => 1597749785
     ],
     13 => [
-	"id" => 13,
-	"name" => "PDF Page",
+        "id" => 13,
+        "name" => "PDF Page",
         "group" => "Catalog",
         "module" => "CatalogBundle",
         "controller" => "Content",

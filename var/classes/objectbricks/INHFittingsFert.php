@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-31T09:21:13+02:00
+* Generated at: 2020-08-20T16:26:01+02:00
 * IP: 127.0.0.1
 
 
@@ -362,8 +362,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
-                     'style' => 'margin-left: 20px;',
+                     'locked' => false,
+                     'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -455,7 +455,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -874,7 +874,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -967,7 +967,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1029,7 +1029,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',

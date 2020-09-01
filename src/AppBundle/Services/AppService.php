@@ -134,8 +134,13 @@ class AppService
                 $hoseLengthFT = $hoseFert->getHoseLengthFT();
 
                 try{
-                    $totalWeightPerPackage = $netWeight / $hoseLengthFT ;
-                    $hoseFert->setTotalWeightPerPackage(round($totalWeightPerPackage, 5));
+                    if (!empty($hoseLengthFT) && !empty($netWeight)) {
+                        $totalWeightPerPackage = $netWeight / $hoseLengthFT ;
+                        $hoseFert->setTotalWeightPerPackage(round($totalWeightPerPackage, 5));
+                    } else {
+                        $hoseFert->setTotalWeightPerPackage(null);
+                    }
+                    
                 }catch (\Exception $exception){
                     $hoseFert->setTotalWeightPerPackage(null);
                 }
@@ -276,8 +281,8 @@ class AppService
                 $hydFittingFert->setHydFittingFamily($fittingFamilies);
                 $hydFittingFert->setHydThreadDescription($threadDesc);
             }else{
-                $hydFittingFert->setHydFittingFamily([]);
-                $hydFittingFert->setHydThreadDescription(null);
+//                $hydFittingFert->setHydFittingFamily([]);
+//                $hydFittingFert->setHydThreadDescription(null);
             }
         }
     }

@@ -48,11 +48,9 @@ class HydraulicFittingController extends AbstractController
             $headers = (array) json_decode($obj->getHeaderData());
             $headerKeys = array_keys($headers);
             $columns = (array) json_decode($obj->getColumns());
-//p_r($columns); die;
             foreach($columns as $key => $cols) {
                 $columns[$key]->columnLabel = $this->get('translator')->trans($key);
             }
-            
             $productsData = array();
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {
@@ -66,46 +64,58 @@ class HydraulicFittingController extends AbstractController
                             $data[$uniqueId] = array();
                         }
                         $leftImage = null;
+                        $rightImage = null;
                         if (isset($row['FittingTableName']) && !empty($row['FittingTableName'])) {
                             $prodObj = \Pimcore\Model\DataObject\Product::getById($row['id']);
                             $leftImage = $prodObj->getLeftPrintCatalogImage();
                             $rightImage = $prodObj->getRightPrintCatalogImage();
-
-// update
-if(!isset($data[$uniqueId][$row['FittingTableName']]['leftImage'])) {
+                            
+                            if(!isset($data[$uniqueId][$row['FittingTableName']]['leftImage'])) {
                                 $data[$uniqueId][$row['FittingTableName']]['leftImage'] = '';
                             }
                             if(!isset($data[$uniqueId][$row['FittingTableName']]['rightImage'])) {
                                 $data[$uniqueId][$row['FittingTableName']]['rightImage'] = '';
                             }
-
-                            $data[$uniqueId][$row['FittingTableName']]['shortDescription'] = !isset($data[$uniqueId][$row['FittingTableName']]['shortDescription']) && !empty($data[$uniqueId][$row['FittingTableName']]['shortDescription']) ? $data[$uniqueId][$row['FittingTableName']]['shortDescription'] : $row['shortDescription'];
-                            $data[$uniqueId][$row['FittingTableName']]['BrandShortText1'] = !isset($data[$uniqueId][$row['FittingTableName']]['BrandShortText1']) && !empty($data[$uniqueId][$row['FittingTableName']]['BrandShortText1']) ? $data[$uniqueId][$row['FittingTableName']]['BrandShortText1'] : $row['BrandShortText1'];
-                            $data[$uniqueId][$row['FittingTableName']]['brandName'] = !isset($data[$uniqueId][$row['FittingTableName']]['brandName']) && !empty($data[$uniqueId][$row['FittingTableName']]['brandName']) ? $data[$uniqueId][$row['FittingTableName']]['brandName'] : $brandName;
-                            //$data[$uniqueId][$row['FittingTableName']]['leftImage'] = !isset($data[$uniqueId][$row['FittingTableName']]['leftImage']) && !empty($data[$uniqueId][$row['FittingTableName']]['leftImage']) ? $data[$uniqueId][$row['FittingTableName']]['leftImage'] : $leftImage;
-                            //$data[$unique Id][$row['FittingTableName']]['rightImage'] = !isset($data[$uniqueId][$row['FittingTableName']]['rightImage']) && !empty($data[$uniqueId][$row['FittingTableName']]['rightImage']) ? $data[$uniqueId][$row['FittingTableName']]['rightImage'] : $rightImage;
-
-if(empty($data[$uniqueId][$row['FittingTableName']]['leftImage'])) {
+                            if(!isset($data[$uniqueId][$row['FittingTableName']]['shortDescription'])) {
+                                $data[$uniqueId][$row['FittingTableName']]['shortDescription'] = '';
+                            }
+                            if(!isset($data[$uniqueId][$row['FittingTableName']]['BrandShortText1'])) {
+                                $data[$uniqueId][$row['FittingTableName']]['BrandShortText1'] = '';
+                            }
+                            if(!isset($data[$uniqueId][$row['FittingTableName']]['brandName'])) {
+                                $data[$uniqueId][$row['FittingTableName']]['brandName'] = '';
+                            }
+                            
+                            if(empty($data[$uniqueId][$row['FittingTableName']]['shortDescription'])) {
+                                $data[$uniqueId][$row['FittingTableName']]['shortDescription'] = $row['shortDescription'];
+                            }
+                            if(empty($data[$uniqueId][$row['FittingTableName']]['BrandShortText1'])) {
+                                $data[$uniqueId][$row['FittingTableName']]['BrandShortText1'] = $row['BrandShortText1'];
+                            }
+                            if(empty($data[$uniqueId][$row['FittingTableName']]['brandName'])) {
+                                $data[$uniqueId][$row['FittingTableName']]['brandName'] = $brandName;
+                            }
+                            if(empty($data[$uniqueId][$row['FittingTableName']]['leftImage'])) {
                                 $data[$uniqueId][$row['FittingTableName']]['leftImage'] = $leftImage;
                             }
                             if(empty($data[$uniqueId][$row['FittingTableName']]['rightImage'])) {
                                 $data[$uniqueId][$row['FittingTableName']]['rightImage'] = $rightImage;
                             }
-
-
-                           if(isset($row['HoseID1InFract']) && !empty($row['HoseID1InFract'])) {
+                            if(isset($row['HydFittingFamily']) && is_array($row['HydFittingFamily']) && !empty($row['HydFittingFamily'])) {
+                                if(!isset($data[$uniqueId][$row['FittingTableName']]['HydFittingFamily']) && empty($data[$uniqueId][$row['FittingTableName']]['HydFittingFamily'])) {
+                                    $data[$uniqueId][$row['FittingTableName']]['HydFittingFamily'] = $row['HydFittingFamily'][0];
+                                }
+                            }
+                            
+                            
+                            if(isset($row['HoseID1InFract']) && !empty($row['HoseID1InFract'])) {
                                 $hoseID = $common->fractionToDecimal($row['HoseID1InFract']);
                             } else {
                                 $hoseID = 0;
                             }
-                            $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($hoseID)][] = $row; 
-
-                            /*if (isset($row['HoseID1InDec'])) {
-                                $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($row['HoseID1InDec'])][] = $row;                                
-                            } else {
-                                $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][0][] = $row;
-                            }*/
+                            $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($hoseID)][] = $row;                            
                             ksort($data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'],SORT_NUMERIC);
+                            unset($hoseID);
                         }
                         unset($brandName);
                     }

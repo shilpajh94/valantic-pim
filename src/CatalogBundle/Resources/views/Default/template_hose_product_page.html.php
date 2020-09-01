@@ -1,7 +1,7 @@
 
 <?php
 if (!isset($this->parentContainer)) {
-    $this->extend('CatalogBundle:Layouts:layout.html.php', ['name1' => 'Name from Extend']);
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
 }
 ?>
 
@@ -54,21 +54,16 @@ if ($data):
                             <span class="logo">
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text1")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text1")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text1_{$incr}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$incr}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text1"); ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$incr}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text1") ?>
+                                        <?= $this->input("HHPP_Logo_Text1_{$incr}") ?>
                                 <?php endif; ?>
                                 </b>
-                            
-                                <?php if ($footer_class == 'reverseColor'): ?>
-                                    <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                                <?php else: ?>
-                                    <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                                <?php endif; ?>
+                                <img src="<?= $footer_logo_src; ?>">
                             </span>
                             <div class="flex aligned">
                                 <h5>
@@ -167,21 +162,16 @@ if ($data):
 
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text2")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text2")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text2_{$incr}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$incr}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text2"); ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$incr}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text2") ?>
+                                        <?= $this->input("HHPP_Logo_Text2_{$incr}") ?>
                                 <?php endif; ?>
                                 </b>
-
-                                <?php if ($footer_class == 'reverseColor'): ?>
-                                    <img src="/CatalogImages/Continental_Logo_Master_Black.png">
-                                <?php else: ?>
-                                    <img src="/CatalogImages/Continental_Logo_Master_yellow.png">
-                                <?php endif; ?>
+                                <img src="<?= $footer_logo_src; ?>">
                             </span>
                         </footer>
                     </div>
@@ -224,22 +214,23 @@ if ($data):
                     <article class="fullcontainer ">
 
                         <section class="content single">
-                            <?php if ($safetyFeatures || $standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                            <?php if ($safetyFeatures || $standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
 
                                 <menu class="flex">
-                                    <?php if ($standardsMetHose || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                                    <?php if ($standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
                                         <div class="specs">
                                             <h6><?= $this->translate('performance + specs') ?></h6>
                                             <div class="spec-requirement">
                                                 <div>
-                                                    <?php if ($standardsMetHose): ?>
+                                                    <?php if ($standardMetHoseListData): ?>
 
-                                                        <?php foreach ($standardsMetHose as $key => $standard): ?>
-                                                            <?= $this->translate($standard) ?>
-                                                            <p><?= $standard ?></p>
+                                                        <?php foreach ($standardMetHoseListData as $key => $standard): ?>
+                                                            <?= $this->input("standardMetHose{$incr}_{$key}")->setDataFromResource($standard['CustomerFacingVersion']) ?>
+                                                            <p><?= $standard['name'] ?></p>
                                                         <?php endforeach; ?>
 
                                                     <?php endif; ?>
+                                                    <?= $this->input("customer_data_{$incr}_{$key}",['placeholder'=>'Enter data']) ?>
                                                 </div>
                                             </div>
                                             <div class="spec-requirement">
@@ -301,7 +292,7 @@ if ($data):
                                 <menu>
                                     <h6><?= $this->translate('branding') ?></h6>
                                     <figure>
-                                        <img src="/CatalogImages/Continental_Logo_Master_yellow.png" width='80'/> 
+                                        <img src="<?= $branding_image_src; ?>" width='80'/> 
                                         <figcaption><b><?= $brandName ?></b></figcaption> 
                                         <figcaption> <?= $BrandingLayline ?> </figcaption>
                                     </figure>

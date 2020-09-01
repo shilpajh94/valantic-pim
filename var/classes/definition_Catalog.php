@@ -1,8 +1,11 @@
 <?php 
 
 /** 
+* Generated at: 2020-08-19T12:32:47+02:00
 * Inheritance: no
 * Variants: no
+* Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -10,7 +13,7 @@ Fields Summary:
 - ValidFromDate [date]
 - CatalogName [input]
 - Currency [select]
-- CatalogLanguage [select]
+- CatalogLanguage [language]
 - IsPriceCatalog [booleanSelect]
 - DistributionChannel [select]
 - SalesOrganisation [select]
@@ -22,7 +25,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Catalog',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1597751987,
+   'modificationDate' => 1597833166,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -210,40 +213,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'fieldtype' => 'select',
-             'options' => 
-            array (
-              0 => 
-              array (
-                'key' => 'en',
-                'value' => 'en',
-              ),
-              1 => 
-              array (
-                'key' => 'fr_CA',
-                'value' => 'fr_CA',
-              ),
-              2 => 
-              array (
-                'key' => 'es_MX',
-                'value' => 'es_MX',
-              ),
-              3 => 
-              array (
-                'key' => 'pt',
-                'value' => 'pt',
-              ),
-              4 => 
-              array (
-                'key' => 'de',
-                'value' => 'de',
-              ),
-            ),
-             'width' => '',
-             'defaultValue' => '',
-             'optionsProviderClass' => 'AppBundle\\OptionProvider\\LanguageOptionsProvider',
-             'optionsProviderData' => '',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Language::__set_state(array(
+             'fieldtype' => 'language',
+             'onlySystemLanguages' => true,
+             'options' => NULL,
+             'width' => NULL,
+             'defaultValue' => NULL,
+             'optionsProviderClass' => NULL,
+             'optionsProviderData' => NULL,
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
@@ -255,8 +232,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
-             'style' => '',
+             'locked' => NULL,
+             'style' => 'width:350px;',
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,

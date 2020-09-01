@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-06T14:28:03+02:00
+* Generated at: 2020-08-20T16:21:58+02:00
 * IP: 127.0.0.1
 
 
@@ -125,7 +125,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
+                 'labelWidth' => 220,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -497,6 +497,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Black',
+                        'value' => 1831364,
+                      ),
                     ),
                      'width' => 300,
                      'height' => '',
@@ -820,7 +825,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -847,7 +852,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'height' => NULL,
                  'collapsible' => false,
                  'collapsed' => false,
-                 'bodyStyle' => 'margin-left:30px;',
+                 'bodyStyle' => 'margin-left:20px;',
                  'datatype' => 'layout',
                  'permissions' => NULL,
                  'childs' => 
@@ -1184,7 +1189,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   11 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -1305,7 +1310,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   15 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
-                     'width' => 350,
+                     'width' => 300,
                      'height' => 100,
                      'maxLength' => NULL,
                      'showCharCount' => false,
@@ -1331,7 +1336,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   16 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
-                     'width' => 350,
+                     'width' => 300,
                      'height' => 100,
                      'maxLength' => NULL,
                      'showCharCount' => false,
@@ -1357,7 +1362,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   17 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
-                     'width' => 350,
+                     'width' => 300,
                      'height' => 100,
                      'maxLength' => NULL,
                      'showCharCount' => false,

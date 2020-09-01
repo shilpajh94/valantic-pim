@@ -9,10 +9,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
  
  <div id="pageHeader"></div>
  <span  class="pageName">Hydraulic Hose</span>
-       
-
-
-<div class="footer">
+ <div class="footer">
  <footer class="flex-center ">
             <span class="logo">
                 <b>Hose</b>
@@ -33,8 +30,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 ?>
                 <span>
                 <?php
-                    if($this->editmode) {
-                        echo $this->input('fittingFamily_11')->setDataFromResource('B2 Fittings');
+                    if($this->editmode) {                        
+                        echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->setDataFromResource('B2 Fittings');
                     } else {
                         echo $this->input('fittingFamily_11');
                     }
@@ -75,7 +72,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
 <div class="footer1">
  <footer class="flex-center ">
-
          <div class="flex aligned ">
 <p class="flex-center">
                 <?php
@@ -226,8 +222,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 echo "<td>{$info['dataTableColumn'][$col]->columnLabel}</td>";
                             }
                             echo "</tr></thead>";
-                            $activeClassColName = $info['activeClassColName'];
-                            $activeClassColVal = "";
                             $active = "";
                             $i = 1;
                             foreach ($tableRows['data']['HoseID1InDec'] as $k => $rows) {
