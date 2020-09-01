@@ -1071,3 +1071,154 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
+    Industrial Hose Fitting Page:
+        INHPrintCatalogFittingPage: 
+            FittingMaterial:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Material
+                parent:
+                    name: INHFittingsFert
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
+            industryStandard:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Part Name
+                parent: 
+                    name: Product
+            SizeInchesFraction:
+                fieldLevel: objectBrick
+                fieldType: Input
+                groupName: SizeInchesFraction
+                unitName: in
+                fieldLabel: Size (inches) Fraction
+                parent: 
+                    name: INHFittingsFert
+            articleNumber:
+                fieldLevel: class
+                fieldLabel: 'SAP Number'
+                fieldType: Input
+                parent:
+                    name: Product
+            DistanceChainLugExtendsfromBodyIN: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: DistanceChainLugExtendsfromBodyIN
+                unitName: in
+                fieldLabel: Distance Chain Lug Extends from Body (in)
+                parent: 
+                    name: INHFittingsFert
+            OverallLengthInches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: OverallLengthInches
+                unitName: in
+                fieldLabel: Overall Length (in)
+                parent: 
+                    name: INHFittingsFert
+            MaximumWidthAcrossAdapterInches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: MaximumWidthAcrossAdapterInches
+                unitName: in
+                fieldLabel: Maximum Width Across Adapter (Inches)
+                parent: 
+                    name: INHFittingsFert
+            MinimumIDInches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: MinimumIDInches
+                unitName: in
+                fieldLabel: Minimum ID (in)
+                parent: 
+                    name: INHFittingsFert
+            MaximumWidthwithCamArmsClosedInches:
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: MaximumWidthwithCamArmsClosedInches
+                unitName: in
+                fieldLabel: Maximum Width with Cam Arms Closed (inches)
+                parent: 
+                    name: INHFittingsFert
+            BrandShortText1:
+                fieldLevel: class
+                fieldLabel: Brand Short Text 1
+                fieldType: Input
+            ExposedLengthInches:
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: ExposedLengthInches
+                unitName: in
+                fieldLabel: Exposed Length (Inches)
+                parent: 
+                    name: INHFittingsFert
+            GasketIDInches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: GasketIDInches
+                unitName: in
+                fieldLabel: Gasket ID (inches)
+                parent: 
+                    name: INHFittingsFert
+            MaximumODIN: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: MaximumODIN
+                unitName: in
+                fieldLabel: Maximum OD (in)
+                parent: 
+                    name: INHFittingsFert
+            MaximumWidthwithCamArmsExtendedInches:
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: MaximumWidthwithCamArmsExtendedInches
+                unitName: in
+                fieldLabel: Maximum Width with Cam Arms Extended (inches)
+                parent: 
+                    name: INHFittingsFert
+            GasketODInches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: GasketODInches
+                unitName: in
+                fieldLabel: Gasket OD (inches)
+                parent: 
+                    name: INHFittingsFert
+            ODWithCamArmsExtendedIN: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: ODWithCamArmsExtendedIN
+                unitName: in
+                fieldLabel: OD With Cam Arms Extended (in)
+                parent: 
+                    name: INHFittingsFert
+            SizeEnd1Inches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: SizeEnd1Inches
+                unitName: in
+                fieldLabel: Size End 1 (inches)
+                parent: 
+                    name: INHFittingsFert
+            SizeEnd2Inches: 
+                fieldLevel: objectBrick
+                fieldType: Number
+                groupName: SizeEnd2Inches
+                unitName: in
+                fieldLabel: Size End 2 (inches)
+                parent: 
+                    name: INHFittingsFert
+            GasketThicknessInches: 
+                fieldLevel: objectBrick
+                groupName: GasketThicknessInches
+                unitName: in
+                fieldType: Number
+                fieldLabel: Gasket Thickness (inches)
+                parent: 
+                    name: INHFittingsFert
+
+            
+
+            
