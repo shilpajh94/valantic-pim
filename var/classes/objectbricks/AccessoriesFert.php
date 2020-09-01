@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-20T16:21:58+02:00
+* Generated at: 2020-08-24T13:22:30+02:00
 * IP: 127.0.0.1
 
 
@@ -112,7 +112,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Updated in PIM',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
@@ -609,7 +609,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Hose ID (in) (Dec.)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -640,7 +640,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Hose ID (mm)',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -671,7 +671,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'Hose ID 1 (in) Fract.',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => true,
+                     'noteditable' => false,
                      'index' => false,
                      'locked' => false,
                      'style' => '',

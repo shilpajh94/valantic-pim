@@ -150,7 +150,7 @@ class ProductSQLModel
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
         $this->processDeletedProducts();
-        
+
         $this->initiatePTGProductsProcess();
         
         $this->initiateIFSProductsProcess();
@@ -381,8 +381,8 @@ class ProductSQLModel
             
             $this->getQueryTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
             $this->getStoreTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
-            $this->getRelationTableData($objId, $record, $levelInfo, 4);
-            $this->getLocalizedQueryData($objId, $record);
+            $this->getRelationTableData($objId, $record, $levelInfo, 4, $type);
+            $this->getLocalizedQueryData($objId, $record, $type);
             $this->getDependencyTableData($objId, $record, $levelInfo, 4);
             $fertLevelCode = $levelInfo[4]['levelFullCode'];
             $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
@@ -449,9 +449,9 @@ class ProductSQLModel
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
             $this->getStoreTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
-            $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex);
-            $this->getLocalizedQueryData($objId, $record);
-            $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex);
+            $this->getRelationTableData($objId, $record, $levelInfo, $objectIndex, $type);
+            $this->getLocalizedQueryData($objId, $record, $type);
+            $this->getDependencyTableData($objId, $record, $levelInfo, $objectIndex, $type);
             $groupNames = $this->categories[$fertLevelCode]['data']['RelatedObjectBrick'];
             $groupNames = trim($groupNames, ',');
             if (!empty($groupNames)) {
@@ -485,9 +485,11 @@ class ProductSQLModel
                             $oldMaterialCode = trim($recData[6]);
                             if ($oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
                                 $recData[6] = '';
+                                $sixDigitCode = '';
+                            } else {
+                                $sixDigitCode = substr($oldMaterialCode, 0, 6);
                             }
-                            $sixDigitCode = substr($oldMaterialCode, 0, 6);
-                            if (!empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
+                            if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
                                 $msg = 'SIOP Code does not match with previous records of same Six digit code.';
                             } else {
                                 $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
@@ -565,11 +567,11 @@ class ProductSQLModel
         }
         return false;
     }
-    public function getLocalizedQueryData($objId, $record) {
+    public function getLocalizedQueryData($objId, $record, $productType = 'fert') {
         
         foreach ($this->langArr as $lang) {
             $value = null;
-            if ($lang == 'en') {
+            if ($lang == 'en' && strtolower($productType) == 'fert') {
                 $value = $record['2'];
             }
             $this->localisedDataTableDataArray[] = [
@@ -676,7 +678,7 @@ class ProductSQLModel
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
 
-    public function getRelationTableData($objId, $record, $levelInfo, $level=4) {
+    public function getRelationTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
         for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
@@ -689,19 +691,21 @@ class ProductSQLModel
                 'ownertype' => 'object'
             ];
         }
-        $materialGroupCode = trim($record['3']);
-        $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
-        if (!empty($materialGroupId)) {
-            $this->relationTableDataArray[] = [
-                'src_id' => $objId,
-                'dest_id' => $materialGroupId,
-                'type' => 'object',
-                'fieldname' => "materialGroup",
-                'ownertype' => 'object'
-            ];
+        if (strtolower($productType) == 'fert') {
+            $materialGroupCode = trim($record['3']);
+            $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
+            if (!empty($materialGroupId)) {
+                $this->relationTableDataArray[] = [
+                    'src_id' => $objId,
+                    'dest_id' => $materialGroupId,
+                    'type' => 'object',
+                    'fieldname' => "materialGroup",
+                    'ownertype' => 'object'
+                ];
+            }
         }
     }
-    public function getDependencyTableData($objId, $record, $levelInfo, $level=4) {
+    public function getDependencyTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert') {
         for ($k=1; $k<=$level; $k++) {
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
@@ -713,15 +717,17 @@ class ProductSQLModel
                 'targettype' => 'object'
             ];
         }
-        $materialGroupCode = trim($record['3']);
-        $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
-        if (!empty($materialGroupId)) {
-            $this->dependencyTableDataArray[] = [
-                'sourceid' => $objId,
-                'targetid' => $materialGroupId,
-                'sourcetype' => 'object',
-                'targettype' => 'object'
-            ];
+        if (strtolower($productType) == 'fert') {
+            $materialGroupCode = trim($record['3']);
+            $materialGroupId = $this->getOrCreateMaterialGroupCodeId($materialGroupCode);
+            if (!empty($materialGroupId)) {
+                $this->dependencyTableDataArray[] = [
+                    'sourceid' => $objId,
+                    'targetid' => $materialGroupId,
+                    'sourcetype' => 'object',
+                    'targettype' => 'object'
+                ];
+            }
         }
     }
     

@@ -42,14 +42,14 @@ parameters:
   businessUnit:
     1000: 'IFS'
     1500: 'IFS'
-    1700: 'IFS'
-    1800: 'IFS'
-    1900: 'IFS'
-    5000: 'IFS'
-    6000: 'IFS'
-    9700: 'IFS'
-    9800: 'IFS'
-    9999: 'IFS'
+    1700: ''
+    1800: ''
+    1900: ''
+    5000: ''
+    6000: ''
+    9700: ''
+    9800: ''
+    9999: ''
     3000: 'PTG'
   # Related classification mapping on list of levels
   relatedClsfcnLvl: [4, 6]
