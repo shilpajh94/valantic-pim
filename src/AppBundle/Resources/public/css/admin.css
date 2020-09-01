@@ -5,9 +5,9 @@
 
 .pimcore_body .x-tab-default-top.x-tab-active {border-top: 2px solid #ffa100 !important;}
 .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {color:#000 !important;}
-.pimcore_class_Product .object_localizedfields_panel .x-toolbar-default {background-color:#fff;}
+.pimcore_class_Product .object_localizedfields_panel .x-toolbar-default {background-color:#fff;} 
 .pimcore_class_Product .x-panel-header-default {background-color:#fff !important;}
-.pimcore_class_Product .x-panel-header-title-default {color:#ffa100 !important; font-size:17px !important; background-color:#fff !important;} 
+.pimcore_class_Product .x-panel-header-title-default {color:#ec9603 !important; font-size:13px !important;  text-transform: none; padding: 0; background-color:#fff !important; } 
 .pimcore_class_Product .object_localizedfields_panel .x-docked-top {border-bottom-width:1px !important}
 .pimcore_class_Product .object_localizedfields_panel .x-panel-default-outer-border-rbl {border-bottom-color:#fff !important; border-right-color:#fff !important; border-left-color:#fff !important;}
 .pimcore_class_Product .object_localizedfields_panel .pimcore_object_panel_edit .x-toolbar-text-default {color:#ffa100 !important;}

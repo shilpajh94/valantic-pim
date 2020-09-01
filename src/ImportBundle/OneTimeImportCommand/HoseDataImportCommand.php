@@ -822,18 +822,18 @@ class HoseDataImportCommand extends AbstractCommand
     private function loadMaster()
     {
         $where = "";
-        $sql = "SELECT o_id, masterType, o_key FROM object_22 ";
+        $sql = "SELECT o.oo_id o_id, o.masterType, oe.name FROM object_query_22 o JOIN object_localized_22_en oe ON(oe.`ooo_id`=o.oo_id)";
         foreach ($this->masterTypes as $type) {
             if (empty($where)) {
-                $where = " WHERE o_published=1 AND  masterType LIKE '%$type%'";
+                $where = " WHERE o.masterType LIKE '%$type%'";
             } else {
-                $where .= " OR masterType LIKE '%$type%'";
+                $where .= " OR o.masterType LIKE '%$type%'";
             }
         }
         $results = $this->db->query($sql . $where);
         foreach ($results as $result) {
             $type = array_search($result['masterType'], $this->masterTypes);
-            $this->masters[$type][$result['o_id']] = strtolower($result['o_key']);
+            $this->masters[$type][$result['o_id']] = strtolower($result['name']);
             unset($type);
         }
         unset($results);

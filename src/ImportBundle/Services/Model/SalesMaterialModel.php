@@ -41,6 +41,7 @@ class SalesMaterialModel
     private $plantArray = array();
     private $salesOrgArray = array();
     private $distributionChannelArray = array();
+    private $productUpdateArray = array();
     
     private $privateMaterialGroup = array();
 
@@ -385,6 +386,30 @@ class SalesMaterialModel
                         $deletionFlag = $rowvalue[$columnDeletionFlag];
                         $distChainStatus = $rowvalue[$columnDistChainStatus];
                         $privateOrGenericBrand = $this->getPrivateOrGenericMaterial($pricePageFlag);
+                        if (!in_array($materialId, $this->productUpdateArray)) {
+                            $product = DataObject\Product::getById($materialId);
+                            if (strtolower($product->getProductType()) == 'fert') {
+                                if (!empty($distChainStatus)) {
+                                    $parentFolder = $this->getParentObject($product, 3);
+                                    if ($parentFolder['success']) {
+                                        $product->setParentId($parentFolder['parentId']);
+                                        $product->save();
+                                    }
+                                } else {
+                                    $currentPath = $product->getFullpath();
+                                    $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
+                                    $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path);
+                                    if ($siopProductPath == $currentPath) {
+                                        $parentFolder = $this->getParentObject($product, 3);
+                                        if ($parentFolder['success']) {
+                                            $product->setParentId($parentFolder['parentId']);
+                                            $product->save();
+                                        }
+                                    }
+                                }
+                            }
+                            $this->productUpdateArray[] = $materialId;
+                        }
 
                         $queryTableDataArray[] = [
                             'oo_id' => $objId,
@@ -496,6 +521,57 @@ class SalesMaterialModel
         unset($data);
     }
 
+    public function getParentObject($object, $level = '') {
+        $currentParent = $object->getParent();
+        if ($level == 3) {
+            $siopLevel3 = $object->getSIOPLevel3()[0];
+            $siopPath = $siopLevel3->getFullpath();
+            $productPath = $this->convertCategoryPathToProduct($siopPath);
+            $productFolderId = $this->getFolderByPath($productPath);
+            return ['success' => true, "parentId" => $productFolderId];
+        } else {
+            $siopCode = $object->getSiopFullCode();
+            if (strlen($siopCode) == 18) {
+                $siopLevel6 = $object->getSIOPLevel6()[0];
+                $siopPath = $siopLevel6->getFullpath();
+                $productPath = $this->convertCategoryPathToProduct($siopPath);
+                $productFolderId = $this->getFolderByPath($productPath);
+                return ['success' => true, "parentId" => $productFolderId];
+            } elseif (strlen($siopCode) == 13) {
+                $siopLevel4 = $object->getSIOPLevel4()[0];
+                $siopPath = $siopLevel6->getFullpath();
+                $productPath = $this->convertCategoryPathToProduct($siopPath);
+                $oldMaterialCode = trim($object->getOldMaterialCode());
+                if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
+                    $productFolderId = $this->getFolderByPath($productPath);
+                    return ['success' => true, "parentId" => $productFolderId];
+                } else {
+                    $sixDigitCode = substr($oldMaterialCode, 0, 6);
+                    $nineDigitCode = substr($oldMaterialCode, 0, 9);
+                    $productFullPath = $productPath."/".$sixDigitCode."/".$nineDigitCode;
+                    $productFolderId = $this->getFolderByPath($productPath);
+                    return ['success' => true, "parentId" => $productFolderId];
+                }
+            }
+        }
+        return ['success' => false, "parentId" => 0];
+    }
+    
+    public function getFolderByPath($folderPath) {
+        $pathExists = \Pimcore\Model\DataObject\Service::pathExists($folderPath);
+        if (empty($pathExists)) {
+            $folder = \Pimcore\Model\DataObject\Service::createFolderByPath($folderPath);
+        } else {
+            $folder = \Pimcore\Model\DataObject\Service::getElementByPath('object', $folderPath);
+        }
+        return $folder->getId();
+    }
+    
+    public function convertCategoryPathToProduct($categoryPath) {
+        $search = '/Master List/SIOP Master List/SIOP Engineered Products';
+        $replace = '/Products Master';
+        return str_replace($search, $replace, $categoryPath);
+    }
     public function processDeletedRecords($deletedRecords)
     {
         $deleteCount = 0;

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-07T11:31:42+02:00
+* Generated at: 2020-08-24T13:25:27+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Languages',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1588843902,
+   'modificationDate' => 1598268327,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -92,7 +92,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -148,7 +148,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -174,9 +174,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => 'SystemCode',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => true,
+             'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
