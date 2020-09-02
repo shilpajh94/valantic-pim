@@ -1257,89 +1257,90 @@ if(isset($data[$baseId])) {
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
             $headerKeys = array_keys($headerData);
+            $headerKeysIndex = array_flip($headerKeys);
 
             $columnsData = $template->getColumns();
             $iconRequired = 'NO';
-            $columnsData = json_decode($columnsData);
+            $subHeaderRequired = 'NO';
+            $columnsData = json_decode($columnsData, true);
             $columnsDataWithImages = array();
 
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            if($columnsData)
-            {
-                foreach ($columnsData as $key => $value) {
-                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName);
-                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            foreach ($columnsData as $key => $value) {
+                
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $subHeaderRequired = 'YES';
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+            }
+
+            unset($columnsData);
+
+            // Getting order of the keys
+            $orderKeys = array();
+            foreach ($columnsDataWithImages as $skey => $svalue) {
+                foreach ($svalue as $vkey => $vvalue) {
+                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                 }
             }
             
             $brandsData = array();
-
-            if($productsData){
-                foreach ($productsData as $key => $item) {
-                    $productsDataWithHeaders = array_combine($headerKeys, $item);
-
-                    if(!empty(trim($productsDataWithHeaders['BrandShortText1'])))
-                        $brandsData[$productsDataWithHeaders['BrandShortText1']][] = $productsDataWithHeaders;
-                }
-            }
-
             $material = array();
             $brandData = array();
             $hardness = array();
             $imageObj = '';
-            $tempFmin = $tempFmax = $tempCmin = $tempCmax = '';
+            $temperatureRangeFAndC = '';
 
-            if($brandsData)
-            {
-                foreach ($brandsData as $brandKey => $brandArray) {
+            if($productsData){
+                foreach ($productsData as $key => $item) {
 
-                    $tempFmin = $brandArray[0]['minimumTemperatureF'];
-                    $tempFmax = $brandArray[0]['maximumTemperatureF'];
-                    $tempCmin = $brandArray[0]['minimumTemperatureC'];
-                    $tempCmax = $brandArray[0]['maximumTemperatureC'];
-
-                    $brandName = $brandArray[0]['BrandShortText1'];
-
-                    if($brandArray[0]['mainImage'])
+                    if(!empty(trim($item[$headerKeysIndex['BrandShortText1']])))
                     {
-                        $mainImage = $brandArray[0]['mainImage'];
-                        $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                        $brandName = $item[$headerKeysIndex['BrandShortText1']];
+
+                        if($item[$headerKeysIndex['MaterialType']])
+                            $material = array_merge($material, $item[$headerKeysIndex['MaterialType']]);
+                        if($item[$headerKeysIndex['Hardness']])
+                            $hardness[] = $item[$headerKeysIndex['Hardness']];
+
+                        if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
+                            $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
+
+                        if(!$imageObj && $item[$headerKeysIndex['mainImage']])
+                            $imageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+
+                        $brandData[$brandName]['brandName'] = $brandName;
+                        $brandData[$brandName]['iconRequired'] = $iconRequired;
+                        $brandData[$brandName]['columnsDataWithImages'] = $columnsDataWithImages;
+                        $brandData[$brandName]['subHeaderRequired'] = $subHeaderRequired;
+                        
+                        $articlesData = array();
+
+                        foreach ($orderKeys as $ckey => $cvalue) {
+                                $articlesData[] = $item[$cvalue];
+                        }
+
+                        $brandData[$brandName]['articlesData'][] = $articlesData;
+
+                        unset($articlesData);
+
+                        // $brandsData[$siop6Category][] = $articlesData;
                     }
-                    
-                    $articlesData = array();
-
-                    foreach($brandArray as $key => $element): 
-                            foreach($element as $bkey => $value): 
-                                    if($bkey == 'MaterialType')
-                                        $material = array_merge($material, $value);
-                                    if($bkey == 'Hardness')
-                                        $hardness[] = $value;
-                                            
-                            endforeach; 
-
-                            foreach ($columnsDataWithImages as $ckey => $cvalue) {
-                                $articlesData[$key][$ckey] = $element[$ckey];
-                            }
-
-                    endforeach; 
-
-                    
-                    $brandData[$brandKey]['brandName'] = $brandName;
-                    $brandData[$brandKey]['iconRequired'] = $iconRequired;
-                    $brandData[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-
-                    // array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
-
-
-                    $brandData[$brandKey]['articlesData'] = $articlesData;
-
                 }
             }
-
             
+            unset($productsData);
+
             $hardness = array_unique($hardness);
             $hardness = implode(', ', $hardness);
 
@@ -1349,8 +1350,10 @@ if(isset($data[$baseId])) {
             $data['imageObj'] = $imageObj;
             $data['materialString'] = $materialString;
             $data['hardness'] = $hardness;
-            $data['tempratureRange'] = "{$tempCmin} &#8451; to  {$tempCmax} &#8451; ({$tempFmin} &#8457; to {$tempFmax} &#8457;)";
+            $data['tempratureRange'] = $temperatureRangeFAndC;
             $data['brandData'] = $brandData;
+
+            unset($brandData);
             
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
