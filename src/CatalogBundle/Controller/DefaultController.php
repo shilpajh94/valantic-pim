@@ -1301,6 +1301,8 @@ if(isset($data[$baseId])) {
             $imageObj = '';
             $temperatureRangeFAndC = '';
 
+            $materialList = $this->getMaterialList('HYD_ACCESSORIES~MaterialType', $CatalogLanguage);
+
             if($productsData){
                 foreach ($productsData as $key => $item) {
 
@@ -1310,6 +1312,7 @@ if(isset($data[$baseId])) {
 
                         if($item[$headerKeysIndex['MaterialType']])
                             $material = array_merge($material, $item[$headerKeysIndex['MaterialType']]);
+                        
                         if($item[$headerKeysIndex['Hardness']])
                             $hardness[] = $item[$headerKeysIndex['Hardness']];
 
@@ -1331,10 +1334,7 @@ if(isset($data[$baseId])) {
                         }
 
                         $brandData[$brandName]['articlesData'][] = $articlesData;
-
                         unset($articlesData);
-
-                        // $brandsData[$siop6Category][] = $articlesData;
                     }
                 }
             }
@@ -1345,7 +1345,17 @@ if(isset($data[$baseId])) {
             $hardness = implode(', ', $hardness);
 
             $material = array_unique($material);
-            $materialString = implode(', ', $material);
+            $materialArray = array();
+            foreach($material as $key => $value)
+            {
+                if(isset($materialList[$value]))
+                    $materialArray[] = $materialList[$value]['name'];
+            }
+
+            $materialString = implode(', ', $materialArray);
+
+            unset($material);
+            unset($materialArray);
 
             $data['imageObj'] = $imageObj;
             $data['materialString'] = $materialString;
@@ -1648,7 +1658,7 @@ if(isset($data[$baseId])) {
         return $featureData;
     }
 
-    public function getPTGMaterialList($catalog_type, $language){
+    public function getMaterialList($catalog_type, $language){
         $entries = new DataObject\MultiselectMaster\Listing();
         $entries->setCondition("masterType = ?", "{$catalog_type}");
         $entries->load();
@@ -1784,7 +1794,7 @@ if(isset($data[$baseId])) {
             }
 
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
-            $materialList = $this->getPTGMaterialList('PTG~material', $CatalogLanguage);
+            $materialList = $this->getMaterialList('PTG~material', $CatalogLanguage);
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4,5,6) ";
 
@@ -1805,7 +1815,6 @@ if(isset($data[$baseId])) {
             $material = array();
             $reinforcement = array();
             $longDescription = '';
-            $VirtualCatalogHoseTemperatureRangeFAndC = '';
             $temperatureRangeFAndC = '';
             $VirtualCatalogReinforcement = '';
             $safetyFeatures = array();
@@ -1887,12 +1896,8 @@ if(isset($data[$baseId])) {
                     if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
                         $longDescription = $item[$headerKeysIndex['longDescription']];
 
-                    if($item[$headerKeysIndex['VirtualCatalogHoseTemperatureRangeFAndC']] && empty($VirtualCatalogHoseTemperatureRangeFAndC))
-                        $VirtualCatalogHoseTemperatureRangeFAndC = $item[$headerKeysIndex['VirtualCatalogHoseTemperatureRangeFAndC']];
-
                     if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
                         $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
-
                     
                     if(count($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
                     {
@@ -1949,10 +1954,6 @@ if(isset($data[$baseId])) {
                 unset($material);
                 unset($materialArray);
 
-                $temperatureRange = $VirtualCatalogHoseTemperatureRangeFAndC;
-                if(empty($temperatureRange))
-                    $temperatureRange = $temperatureRangeFAndC;
-
                 $reinforcementStr = $VirtualCatalogReinforcement;
                 if(empty($reinforcementStr))
                     $reinforcementStr = $reinforcement;
@@ -1967,7 +1968,7 @@ if(isset($data[$baseId])) {
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
-                $groupData['temperatureRange'] = $temperatureRange;
+                $groupData['temperatureRange'] = $temperatureRangeFAndC;
                 $groupData['data'] = $brandsData;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['brandName'] = $catagoryDescription['SIOP5Description'];

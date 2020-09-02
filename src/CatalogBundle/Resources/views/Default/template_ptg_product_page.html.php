@@ -234,10 +234,9 @@ if($groupData):
 
                                 <?php foreach($groupData['data'] as $articleGroupKey => $articleGroupData): ?>
                                 <table class="grid" cellpadding="0" cellspacing="0">
+                                <thead>
                                 
-                                
-                                <tbody>
-                                        <?php if($groupData['iconRequired'] == 'YES'): ?>
+                                <?php if($groupData['iconRequired'] == 'YES'): ?>
                                                 <tr class="sub-head">
                                                         <?php foreach($groupData['columnsDataWithImages'] as $key => $c1data): ?>
                                                                 <?php 
@@ -272,6 +271,8 @@ if($groupData):
                                                         <?php endforeach; ?>
                                                 </tr>
                                         <?php endif; ?>
+                                </thead>
+                                <tbody>
                                         <?php $incrRow = 1; ?>        
                                         <?php foreach($articleGroupData as $key => $element): ?>
                                                 <?php if($incrRow%2==0): ?>

@@ -188,12 +188,12 @@ parameters:
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
-            VirtualCatalogHoseTemperatureRangeFAndC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Virtual Catalog Temperature Range (°F & C°)
-                parent:
-                    name: Product
+            # VirtualCatalogHoseTemperatureRangeFAndC:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Virtual Catalog Temperature Range (°F & C°)
+            #     parent:
+            #         name: Product
             temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
