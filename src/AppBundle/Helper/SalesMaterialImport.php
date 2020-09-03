@@ -188,6 +188,11 @@ class SalesMaterialImport
             echo $ex->getMessage();
         }
     }
+    
+    public function getSalesMaterialRecordsByMaterial($materialObjId) {
+        $sql = "SELECT * from object_10 where `Material` = ".$this->db->quote(",".$materialObjId.",")." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
+        return $this->db->fetchAll($sql);
+    }
 
     /**
      * Function to update master table

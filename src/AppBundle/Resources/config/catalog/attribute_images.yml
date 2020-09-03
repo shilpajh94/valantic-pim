@@ -45,6 +45,9 @@ parameters:
     'Orange': '/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png'
   CatalogImagesHYDProduct: 
     'BrandingImage': '/CatalogImages/HYD/Product/Continental_Logo_Master_yellow.png'
+  CatalogImagesINHFooter: 
+    'Black': '/CatalogImages/INH/Footer/Continental_Logo_Master_Black.png'
+    'Orange': '/CatalogImages/INH/Footer/Continental_Logo_Master_yellow.png'
   CatalogImagesPTGFooter: 
     'Black': '/CatalogImages/PTG/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/PTG/Footer/Continental_Logo_Master_yellow.png'

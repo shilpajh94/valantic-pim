@@ -118,7 +118,10 @@ class Category
 
     public function getLevel2ParentId($bu)
     {
-        $path = $this->root['fullPath'] . '/' . $bu;
+        $path = $this->root['fullPath'];
+        if (!empty($bu)) {
+            $path = $this->root['fullPath'] . '/' . $bu;
+        }
         return DataObject\Service::createFolderByPath($path)->getId();
         /* $o = DataObject::getByPath($path);
         if (!empty($o)) {
