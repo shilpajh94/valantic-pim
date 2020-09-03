@@ -53,6 +53,9 @@ services:
     app.category_helper:
         class: AppBundle\Helper\Category
         public: true
+        
+    AppBundle\Formatter\AssetFormatter:
+        public: true
 
     app.product_helper:
         class: AppBundle\Helper\Product

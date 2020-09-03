@@ -589,10 +589,14 @@ class ProductSQLModel
 
     public function getQueryTableData($objId, $record, $levelInfo, $level=4, $productType = 'fert', $businessUnit = 'IFS') {
         $siopData = [];
-        for ($k=1; $k<=$level; $k++) {
+        for ($k=1; $k<=6; $k++) {
             $index = 'SIOPLevel'.$k;
-            $catCode = $levelInfo[$k]['levelFullCode'];
-            $siopData[$index] = ",".$this->categories[$catCode]['id'].",";
+            if ($k<=$level) {
+                $catCode = $levelInfo[$k]['levelFullCode'];
+                $siopData[$index] = ",".$this->categories[$catCode]['id'].",";
+            } else {
+                $siopData[$index] = null;
+            }
         }
         $siopFullCode = trim($record['4']);
         if ($productType == 'base') {
