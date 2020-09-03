@@ -169,5 +169,31 @@ return [
         "priority" => 0,
         "creationDate" => 1597380677,
         "modificationDate" => 1597380711
+    ],
+    14 => [
+        "id" => 14,
+        "name" => "Industrial Hose Fitting Page",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\IndustrialHoseController",
+        "action" => "inhFittingPage",
+        "template" => "CatalogBundle:INH:inhfitting.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1598342778,
+        "modificationDate" => 1598342862
+    ],
+    15 => [
+        "id" => 15,
+        "name" => "Industrial Hose Fitting Cover Page",
+        "group" => "Catalog",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\IndustrialHoseController",
+        "action" => "inhFittingCover",
+        "template" => "CatalogBundle:INH:inhfitting_cover.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1598599123,
+        "modificationDate" => 1598599204
     ]
 ];
