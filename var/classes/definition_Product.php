@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-03T08:28:25+02:00
+* Generated at: 2020-09-03T13:10:43+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -16,7 +16,6 @@ Fields Summary:
 - brandConstruction [select]
 - searchKeywords [input]
 - BrandingLayline [input]
-- VirtualCatalogBrandingLayline [wysiwyg]
 - localizedfields [localizedfields]
 -- FeaturesBenefitsBulletPoint [multiselect]
 -- legalText [input]
@@ -134,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1599114502,
+   'modificationDate' => 1599131405,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -15005,31 +15004,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
-                                  3 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
-                                     'fieldtype' => 'wysiwyg',
-                                     'width' => 295,
-                                     'height' => 150,
-                                     'queryColumnType' => 'longtext',
-                                     'columnType' => 'longtext',
-                                     'phpdocType' => 'string',
-                                     'toolbarConfig' => '',
-                                     'excludeFromSearchIndex' => false,
-                                     'name' => 'VirtualCatalogBrandingLayline',
-                                     'title' => 'Virtual Catalog Branding / Layline',
-                                     'tooltip' => '',
-                                     'mandatory' => false,
-                                     'noteditable' => false,
-                                     'index' => false,
-                                     'locked' => false,
-                                     'style' => 'margin-left:245px;',
-                                     'permissions' => NULL,
-                                     'datatype' => 'data',
-                                     'relationType' => false,
-                                     'invisible' => false,
-                                     'visibleGridView' => false,
-                                     'visibleSearch' => false,
-                                  )),
                                 ),
                                  'locked' => false,
                               )),
@@ -15382,13 +15356,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           59 => 
                                           array (
-                                            'key' => 'Ease Of Coupling',
-                                            'value' => 759945,
+                                            'key' => 'Ease of Coupling',
+                                            'value' => 3090,
                                           ),
                                           60 => 
                                           array (
-                                            'key' => 'Ease of Coupling',
-                                            'value' => 3090,
+                                            'key' => 'Ease Of Coupling',
+                                            'value' => 759945,
                                           ),
                                           61 => 
                                           array (
@@ -15763,12 +15737,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           137 => 
                                           array (
@@ -15807,13 +15781,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           144 => 
                                           array (
-                                            'key' => 'Meets CARB requirements',
-                                            'value' => 3130,
+                                            'key' => 'Meets CARB Requirements',
+                                            'value' => 759960,
                                           ),
                                           145 => 
                                           array (
-                                            'key' => 'Meets CARB Requirements',
-                                            'value' => 759960,
+                                            'key' => 'Meets CARB requirements',
+                                            'value' => 3130,
                                           ),
                                           146 => 
                                           array (
