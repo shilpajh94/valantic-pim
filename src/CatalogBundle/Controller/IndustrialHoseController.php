@@ -580,7 +580,7 @@ class IndustrialHoseController extends AbstractController
                     if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
                         $longDescription = $item[$headerKeysIndex['longDescription']];
 
-                    if(count($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
+                    if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
                     {
                         foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
                             array_push($safetyFeatures,$feature);
@@ -735,22 +735,11 @@ class IndustrialHoseController extends AbstractController
                             $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]][$material] = ''; 
 
                     }
-                    
-                    // $templateBrandDtata
-                    // p_r($productsData);
-
-                    // $productsDataWithHeaders = array_combine($headerKeys, $item);
-                    // if(!empty(trim($productsDataWithHeaders['CatalogGrouping'])) && !empty(trim($productsDataWithHeaders['brandName'][0])))
-                    // {
-                    //     $catalogGrouping[$productsDataWithHeaders['CatalogGrouping']][$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders['industryStandard'];
-                    // }
                 }
             }
 
             unset($categoriesList);
-            // p_r($templateBrandDtata);
-            // die;
-            // $this->view['data'] = $catalogGroupData;
+
             $this->view['featuresMaterials'] = $featuresMaterials;
             $this->view['templateBrandDtata'] = $templateBrandDtata;
             $this->view['categories'] = $menuCategories;
@@ -763,7 +752,7 @@ class IndustrialHoseController extends AbstractController
     private function getSIOP() {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
         $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
-        $listing->setLimit(10);
+        // $listing->setLimit(10);
         $listing->load();
         $categories = array();
         foreach($listing as $category) {

@@ -19,152 +19,161 @@ if (!isset($this->parentContainer)) {
 <?php
 if($groupData):
 ?>
-<div class="seggregate">
 
-    <div id="pageHeader"></div>
-        <span  class="pageName">
-                <?php 
-                if($this->editmode){
-                        echo $this->input("INH_Fitting_Header")->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); 
-                }else{
-                        echo $this->input("INH_Fitting_Header");
-                }                
-                ?>
-        </span>
+<div class="template">
+        <section class="segregate">
 
-    <article class="fullcontainer ">
-       
-        <div class="flex noWrap">
-                <div class="sidebar">
-                <ul>
-                                        <?php
-                                        if (is_array($groupData['categories'])) {
-                                            foreach ($groupData['categories'] as $category) {
-                                                $catNames = array_column($category, 'name');
-                                                $first = "";
-                                                foreach ($catNames as $cn) {
-                                                    if ($groupData['selectedCategory'] == $cn) {
-                                                        $first = "first";
-                                                    }
-                                                }
-                                                echo "<li class='$first'>";
-                                                if (is_array($category) && !empty($category)) {
-                                                    foreach ($category as $k => $cat) {
-                                                        if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                            echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                        } else {
-                                                            if ($cat['printable'] == 1) {
-                                                                echo "<p>" . $cat['name'] . "</p>";
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                echo "</li>";
-                                            }
-                                        }
-                                        ?>
-                                    </ul>
+                <div id="pageHeader"></div>
+                <span  class="pageName">
+                        <?php 
+                        if($this->editmode){
+                                echo $this->input("INH_Fitting_Header")->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); 
+                        }else{
+                                echo $this->input("INH_Fitting_Header");
+                        }                
+                        ?>
+                </span> 
+
+                <div class="footer">
+                        <footer class="flex-center <?php echo $footer_class; ?>">
+                                <span class="logo">
+                                        <img src="<?= $footer_logo_src; ?>">
+                                </span>
+                                <div class="flex aligned"></div>
+                        </footer>
                 </div>
-                <div class="grow-2 width80" >
-                        <h2 class="borderBottom marginBottom5 flex-center">
-                            <?php 
+                <div class="footer1">
+                        <footer class="flex-center <?php echo $footer_class; ?>">
+                                <div class="flex aligned"></div>
+                                <span class="logo">
+                                        <img src="<?= $footer_logo_src; ?>">
+                                </span>
+                        </footer>
+                </div>
+        
+                
+                
+                <div class="flex noWrap">
+                <div class="sidebar">
+                        <ul>
+                        <?php
+                        if (is_array($groupData['categories'])) {
+                                foreach ($groupData['categories'] as $category) {
+                                $catNames = array_column($category, 'name');
+                                $first = "";
+                                foreach ($catNames as $cn) {
+                                        if ($groupData['selectedCategory'] == $cn) {
+                                        $first = "first";
+                                        }
+                                }
+                                echo "<li class='$first'>";
+                                if (is_array($category) && !empty($category)) {
+                                        foreach ($category as $k => $cat) {
+                                        if ($cat['printable'] == 1 && $cat['level'] == 3) {
+                                                echo "<p><b>" . $cat['name'] . "</b></p>";
+                                        } else {
+                                                if ($cat['printable'] == 1) {
+                                                echo "<p>" . $cat['name'] . "</p>";
+                                                }
+                                        }
+                                        }
+                                }
+                                echo "</li>";
+                                }
+                        }
+                        ?>
+                        </ul>
+                </div>
+        
+                <article class="fullcontainer">
+                        <div class="" >
+                        <header class="content white">
+                        <h1>
+                        <?php 
                             if ($this->editmode) {
                                 echo $this->input('INH_Fitting_brandName')->setDataFromResource($groupData['brandName']);
                             } else {
                                 echo $this->input('INH_Fitting_brandName');
                             }
                             ?>  
-
-                                                    
-                        </h2>
-                        <span class="img-placeholder marginBottom15">
-                        <?php
-                                if($this->editmode){
-                                        echo $this->image("INH_Fitting_MainImage", ["class"=> "alignRight", "width" => 300, "height" => 200])->setImage($groupData['mainImageObj']); 
-                                }else{
-                                        echo $this->image("INH_Fitting_MainImage", ["class"=> "alignRight", "width" => 300, "height" => 200]);
-                                }                
-                            ?>  
-                        </span>
-                        <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['longDescription'])) || !empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>
-                        <h3 class="light"><?= $this->translate('Product specification') ?></h3>
-                        <div class="flex  specs-details">
-                            <div class="col-6">
-                                <?php if(!empty(trim($groupData['longDescription']))): ?>
-                                <p>
-                                    <b><?= $this->translate('Application') ?></b>
-                                    <?php
-                                    if($this->editmode){
-                                            echo $this->wysiwyg("INH_Fitting_LongDescription", ['placeholder'=>"Enter Marketting Description"])->setDataFromResource($groupData['longDescription']); 
-                                    }else{
-                                            echo $this->wysiwyg("INH_Fitting_LongDescription", ['placeholder'=>"Enter Marketting Description"]);
-                                    }                
-                                    ?>
-                                </p>
-                                <?php endif; ?>
-                                <?php if(!empty(trim($groupData['material']))): ?>
-                                <p>
-                                    <b><?= $this->translate('Materials') ?></b>
-                                    <?php
-                                    if($this->editmode){
-                                            echo $this->input("INH_Fitting_Material", ['placeholder'=>"Enter Material"])->setDataFromResource($groupData['material']); 
-                                    }else{
-                                            echo $this->input("INH_Fitting_Material", ['placeholder'=>"Enter Material"]);
-                                    }                
-                                    ?>
-                                </p>
-                                <?php endif; ?>
-                                <?php if(!empty(trim($groupData['pressureRating']))): ?>
-                                <p>    
-                                    <b><?= $this->translate('Pressure Rating') ?></b>
-                                    <?php
-                                    if($this->editmode){
-                                            echo $this->input("INH_Fitting_PressureRating", ['placeholder'=>"Enter Pressure Rating"])->setDataFromResource($groupData['pressureRating']); 
-                                    }else{
-                                            echo $this->input("INH_Fitting_PressureRating", ['placeholder'=>"Enter Pressure Rating"]);
-                                    }                
-                                    ?>
-                                </p>
-                                <?php endif; ?>
-                                <?php if(!empty(trim($groupData['brandingLayline']))): ?>
-                                <p>
-                                    <b><?= $this->translate('Branding') ?></b>
-                                    <?php
-                                    if($this->editmode){
-                                            echo $this->input("INH_Fitting_brandingLayline",['placeholder'=>"Enter Branding"])->setDataFromResource($groupData['brandingLayline']); 
-                                    }else{
-                                            echo $this->input("INH_Fitting_brandingLayline",['placeholder'=>"Enter Branding"]);
-                                    }                
-                                    ?>
-                                </p>
-                                <?php endif; ?>
-                                <?php if(!empty(trim($groupData['orderCodes']))): ?>
-                                <p>    
-                                    <b><?= $this->translate('Order Codes') ?></b>
-                                    <?php
-                                    if($this->editmode){
-                                            echo $this->input("INH_Fitting_OrderCodes",['placeholder'=>"Enter Order Codes"])->setDataFromResource($groupData['orderCodes']); 
-                                    }else{
-                                            echo $this->input("INH_Fitting_OrderCodes",['placeholder'=>"Enter Order Codes"]);
-                                    }                
-                                    ?>
-                                </p>
-                                <?php endif; ?>
-                            </div>
-                            <div class="col-6">
-                                <div class="flex">
-                                        <div class="col-6">
+                        </h1>
+                        <aside class="ptgHead">
+                                <div>
                                         <?php
                                         if($this->editmode){
-                                                echo $this->image("INH_Fitting_ProfileDimension", ["width" => 300, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
+                                                echo $this->wysiwyg("INH_Fitting_LongDescription", ['placeholder'=>"Enter Marketting Description"])->setDataFromResource($groupData['longDescription']); 
                                         }else{
-                                                echo $this->image("INH_Fitting_ProfileDimension", ["width" => 300, "height" => 200]);
+                                                echo $this->wysiwyg("INH_Fitting_LongDescription", ['placeholder'=>"Enter Marketting Description"]);
                                         }                
                                         ?>
-                                        </div>
+                                </div>
+                                <span class="imageHolder">
+                                <?php
+                                if($this->editmode){
+                                        echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
+                                }else{
+                                        echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200]);
+                                }
+                                ?>
+
+                                <?php
+                                if($this->editmode){
+                                        echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
+                                }else{
+                                        echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200]);
+                                }
+                                ?>
+                                </span>
+                        </aside>
+                </header>
+                        <section class="content single ptg">
+                                <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>        
+                                <menu class="flex">
+
                                         
+
+                                        <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>
+                                        <div class="specs">
+                                                        <h6><?= $this->translate('specs') ?></h6>
+                                                        <div class="spec-requirement">
+                                                        <div>
+                                                                
+                                                                        <?php if(!empty(trim($groupData['material']))): ?>
+                                                                        <p>
+                                                                                <b><?= $this->translate('Materials') ?></b>
+                                                                                <?= $groupData['material'] ?>
+                                                                        </p>
+                                                                        <?php endif; ?>
+                                                                <?php if(!empty(trim($groupData['pressureRating']))): ?>
+                                                                <p>                
+                                                                        <b><?= $this->translate('Pressure Rating') ?></b>
+                                                                        <?= $groupData['pressureRating'] ?>
+                                                                </p>
+                                                                <?php endif; ?>
+
+                                                                <?php if(!empty(trim($groupData['brandingLayline']))): ?>
+                                                                <p>              
+                                                                        <b><?= $this->translate('Branding') ?></b>
+                                                                        <?= $groupData['brandingLayline']; ?>
+                                                                </p>
+                                                                <?php endif; ?>
+
+                                                                <?php if(!empty(trim($groupData['orderCodes']))): ?>
+                                                                <p>              
+                                                                        <b><?= $this->translate('Order Codes') ?></b>
+                                                                        <?= $groupData['orderCodes']; ?>
+                                                                </p>
+                                                                <?php endif; ?>
+
+
+
+
+                                                                </div>
+                                                        </div>
+                                        </div> 
+                                        <?php endif; ?>
+
                                         <?php if($groupData['safetyFeatures']): ?>
-                                        <div class="col-6">
                                                 <div class="feature">
                                                         <h6><?= $this->translate('Key features + Benefits') ?></h6>
                                                         <div>
@@ -179,13 +188,11 @@ if($groupData):
 
                                                         </div>
                                                 </div>
-                                        </div>
                                         <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                        <?php if($groupData['data']): ?>
+                                </menu>
+                                <?php endif; ?>
+
+                                <?php if($groupData['data']): ?>
                             <table class="grid special marginBottom5" cellpadding="0" cellspacing="0">
                                 
                                 
@@ -242,19 +249,12 @@ if($groupData):
                             </table>
                         <?php endif; ?>
                         <p class="small"><?php echo $this->input('INH_Fitting_Comment',['placeholder'=>"Enter comment"]); ?></p>
+                        </section>
+                        </div>
+                </article>
                 </div>
-                
-        </div>
-       
-               
-               
-       
-      
-    </article>
-    <footer class="flex <?php echo $footer_class; ?>">
-        <span class="logo">
-                <img src="<?= $footer_logo_src; ?>">
-        </span>
-    </footer>
+
+        </section>
 </div>
+
 <?php endif; ?>
