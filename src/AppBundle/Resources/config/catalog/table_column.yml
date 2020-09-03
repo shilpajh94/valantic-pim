@@ -392,12 +392,16 @@ parameters:
                     name: Product
             ORingIdInDec: 
                 fieldLevel: objectBrick
+                groupName: ORingIdInDec
+                unitName: in
                 fieldLabel: 'O-Ring ID (in) Dec'
                 fieldType: Input
                 parent:
                     name: AccessoriesFert 
             ORingWidthInAndMMDecimal:
                 fieldLevel: objectBrick
+                groupName: ORingWidthInAndMMDecimal
+                unitName: in
                 fieldLabel: 'O-Ring Width (in & mm) Decimal'
                 fieldType: Input
                 parent:

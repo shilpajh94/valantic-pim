@@ -188,12 +188,12 @@ parameters:
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
-            VirtualCatalogHoseTemperatureRangeFAndC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Virtual Catalog Temperature Range (°F & C°)
-                parent:
-                    name: Product
+            # VirtualCatalogHoseTemperatureRangeFAndC:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Virtual Catalog Temperature Range (°F & C°)
+            #     parent:
+            #         name: Product
             temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
@@ -413,30 +413,42 @@ parameters:
                 fieldLabel: Hose Rendering
                 parent: 
                     name: Product
-            minimumTemperatureF:
+            # VirtualCatalogHoseTemperatureRangeFAndC:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Virtual Catalog Temperature Range (°F & C°)
+            #     parent:
+            #         name: Product
+            temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Min temp °F
+                fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
-            maximumTemperatureF:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °F
-                parent:
-                    name: Product
-            minimumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Min temp °C
-                parent:
-                    name: Product
-            maximumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °C
-                parent:
-                    name: Product
+            # minimumTemperatureF:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Min temp °F
+            #     parent:
+            #         name: Product
+            # maximumTemperatureF:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Max temp °F
+            #     parent:
+            #         name: Product
+            # minimumTemperatureC:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Min temp °C
+            #     parent:
+            #         name: Product
+            # maximumTemperatureC:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Max temp °C
+            #     parent:
+            #         name: Product
             BrandShortText1:
                 fieldLevel: class
                 fieldType: Input
