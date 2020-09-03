@@ -8,7 +8,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 if (isset($info['data'])) {
 ?>
     <?php
-    // p_r($info);die;
     if (is_array($info['data'])) {
         $pg = 0;
         foreach ($info['data'] as $tableName => $tableData) {
@@ -18,7 +17,7 @@ if (isset($info['data'])) {
     ?>
 
                 <div class="template">
-                    <div class="segregate">
+                    <div class="segregate" id="inh">
 
                         <div id="pageHeader"></div>
                         <span class="pageName">
@@ -89,7 +88,7 @@ if (isset($info['data'])) {
 
 
                         <article class="fullcontainer single">
-                            <div class="flex">
+                            <div class="flex inhsetting">
                                 <div class="sidebar">
                                     <ul>
                                         <?php
@@ -120,7 +119,7 @@ if (isset($info['data'])) {
                                         ?>
                                     </ul>
                                 </div>
-                                <div class="grow-2">
+                                <div class="grow-2 inhRight">
                                     <header class=" white">
                                         <h1><?php echo $brand; ?> </h1>
                                         <aside>
@@ -401,3 +400,14 @@ if (isset($info['data'])) {
         }
     } ?>
 <?php } ?>
+
+
+<script>
+    var rows = document.querySelectorAll(".inhsetting");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = onLeftPage ? "inhsettingLeft" : "inhsettingRight";
+    });
+</script>

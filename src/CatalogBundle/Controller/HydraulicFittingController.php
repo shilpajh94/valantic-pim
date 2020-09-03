@@ -51,7 +51,6 @@ class HydraulicFittingController extends AbstractController
             foreach($columns as $key => $cols) {
                 $columns[$key]->columnLabel = $this->get('translator')->trans($key);
             }
-            // p_r($columns); die;
             $productsData = array();
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {

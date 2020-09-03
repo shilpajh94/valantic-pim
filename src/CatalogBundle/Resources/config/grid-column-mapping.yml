@@ -152,44 +152,12 @@ parameters:
                 fieldLabel: Hose Rendering
                 parent: 
                     name: Product
-            # LeftPrintCatalogImage:
-            #     fieldLevel: class
-            #     fieldType: Media
-            #     fieldLabel: Left Image
-            #     parent: 
-            #         name: Product
-            # RightPrintCatalogImage:
-            #     fieldLevel: class
-            #     fieldType: Media
-            #     fieldLabel: Right Image
-            #     parent: 
-            #         name: Product
             ProfileDimensionImage:
                 fieldLevel: class
                 fieldType: Media
                 fieldLabel: Profile Dimension Image
                 parent: 
                     name: Product
-            # BrandShortText1:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Bullet1
-            # BrandShortText2:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Bullet2
-            # BrandShortText3:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Bullet3
-            # BrandShortText4:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Bullet4
-            # BrandShortText5:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Bullet5
             longDescription:
                 fieldLevel: class
                 fieldType: Input
@@ -198,13 +166,19 @@ parameters:
                     name: Product
             material:
                 fieldLevel: objectBrick
-                fieldType: Relation
+                fieldType: Multiselection
                 fieldLabel: Material
                 parent: 
                     name: PTGBase
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            VirtualCatalogReinforcement:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Virtual Catalog Reinforcement
+                parent: 
+                    name: Product
             reinforcement:
                 fieldLevel: class
                 fieldType: Relation
@@ -214,28 +188,16 @@ parameters:
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
-            minimumTemperatureF:
+            VirtualCatalogHoseTemperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Min temp °F
+                fieldLabel: Virtual Catalog Temperature Range (°F & C°)
                 parent:
                     name: Product
-            maximumTemperatureF:
+            temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Max temp °F
-                parent:
-                    name: Product
-            minimumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Min temp °C
-                parent:
-                    name: Product
-            maximumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °C
+                fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
             FeaturesBenefitsBulletPoint:

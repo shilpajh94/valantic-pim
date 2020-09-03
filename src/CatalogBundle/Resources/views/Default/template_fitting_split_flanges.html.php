@@ -149,7 +149,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
         ?>   
                <div class="marginBottom30 margin15" >
-                    <h2 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brandName); ?></h2>
+                    <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brandName); ?></h3>
                     <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($shortDescription); ?></h3>
                     <table class="grid special" cellspacing="0" cellpadding="0">
             <thead>
