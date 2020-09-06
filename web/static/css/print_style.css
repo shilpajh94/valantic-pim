@@ -244,6 +244,7 @@ header.dark img {
 
 .borderBottom {
     border-bottom: 1px solid #939597;
+display:inline-block;
 }
 
 .flex {
@@ -912,6 +913,7 @@ padding-left:5px;
     text-align: left !important;
     min-width: 100px;
 }
+
 
 .grid img {
     max-height: 20px;
@@ -1777,7 +1779,7 @@ height: 50px;*/
         padding-right: 30px !important;
     }
 
-figure figcaption h6{font-family: 'ContinentalStagSansLCG-Book';}
+/*figure figcaption h6{font-family: 'ContinentalStagSansLCG-Book';}*/
 
     header h1.oRing{  padding-left: 0px !important;font-size: 26px; margin-bottom: 16px;}
     
@@ -2050,7 +2052,17 @@ right:0;
 
 .template{ max-width: 960px; margin: auto;}
 .template > *{ display: flex; flex-direction: column;}
+
+.ptg .grid{padding-bottom: 30px; }
+
+
+
 @media print{ 
 .template{ max-width:100%;}
 .template > *{ display: block;}
+.ptg .grid{padding-bottom: 10px; }
 }
+
+
+.imageHolder .pimcore_editable{ width: 150px !important;}
+
