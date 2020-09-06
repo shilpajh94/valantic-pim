@@ -2,6 +2,7 @@
 
 namespace CatalogBundle\Controller;
 
+use Pimcore\Model\Asset;
 use AppBundle\Helper\Common;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
@@ -1775,7 +1776,9 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                
+                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
             }
 
             unset($columnsData);

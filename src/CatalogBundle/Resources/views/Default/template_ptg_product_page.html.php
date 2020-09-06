@@ -243,7 +243,11 @@ if($groupData):
                                                                         $g1count = count($c1data);
                                                                         $firstArray = array_shift($c1data);
                                                                 ?>
-                                                                <td colspan="<?= $g1count; ?>"><img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" /></td>
+                                                                <td colspan="<?= $g1count; ?>">
+                                                                <?php if($firstArray['columnIcon']): ?>
+                                                                <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                                <?php endif; ?>
+                                                                </td>
                                                         <?php endforeach; ?>
                                                 </tr>
                                         <?php endif; ?>
