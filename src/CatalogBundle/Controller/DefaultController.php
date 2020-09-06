@@ -2,6 +2,7 @@
 
 namespace CatalogBundle\Controller;
 
+use Pimcore\Model\Asset;
 use AppBundle\Helper\Common;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
@@ -513,7 +514,6 @@ class DefaultController extends AbstractController {
 
                     $headers[$dFieldKey] = $dFieldName['fieldLabel'];
                     if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
-
                         $getter = 'get' . ucfirst($dFieldKey);
                         if($item->$getter() !== null && !empty($item->$getter()))
                         {
@@ -524,7 +524,6 @@ class DefaultController extends AbstractController {
                         $pData[$item->getId()][$dFieldKey] = '';   
                         }
                     } else if ($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media') {
-
                         $getter = 'get' . ucfirst($dFieldKey);
                     // p_r($item->$getter());
                         if ($item->$getter() !== null) {
@@ -1777,7 +1776,9 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                
+                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
             }
 
             unset($columnsData);
@@ -1899,7 +1900,7 @@ if(isset($data[$baseId])) {
                     if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
                         $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
                     
-                    if(count($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
+                    if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
                     {
                         foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
                             array_push($safetyFeatures,$feature);

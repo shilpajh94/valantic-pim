@@ -16,76 +16,95 @@ if (!isset($this->parentContainer)) {
     ?>
 <?php endif; ?>
 
-<?php
-// if($groupData):
-?>
-<div class="seggregate">
 
-    <div id="pageHeader"></div>
-        <span  class="pageName">
-                <?php 
+<div class="template">
+<div class="segregate">
+
+   <div id="pageHeader"></div>
+    <span  class="pageName">
+    <?php 
                 if($this->editmode){
                         echo $this->input("INH_Fitting_Cover_Header")->setDataFromResource($selectedCategory); 
                 }else{
                         echo $this->input("INH_Fitting_Cover_Header");
                 }                
                 ?>
-        </span>
-
-    <article class="fullcontainer ">
-       
-        <div class="flex noWrap">
-                <div class="sidebar">
-                <ul>
-                                        <?php
-                                        if (is_array($categories)) {
-                                            foreach ($categories as $category) {
-                                                $catNames = array_column($category, 'name');
-                                                $first = "";
-                                                foreach ($catNames as $cn) {
-                                                    if ($selectedCategory == $cn) {
-                                                        $first = "first";
-                                                    }
-                                                }
-                                                echo "<li class='$first'>";
-                                                if (is_array($category) && !empty($category)) {
-                                                    foreach ($category as $k => $cat) {
-                                                        if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                            echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                        } else {
-                                                            if ($cat['printable'] == 1) {
-                                                                echo "<p>" . $cat['name'] . "</p>";
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                echo "</li>";
+    </span>
+        <div class="footer">
+            <footer class="flex <?php echo $footer_class; ?>">
+                <span class="logo">
+                        <img src="<?= $footer_logo_src; ?>">
+                </span>
+            </footer>
+        </div>
+        <div class="footer1">
+            <footer class="flex <?php echo $footer_class; ?>">
+                <span class="logo">
+                        <img src="<?= $footer_logo_src; ?>">
+                </span>
+            </footer>
+        </div>
+        
+        <article class="fullcontainer single">
+            
+            
+                    <div class="flex ">
+                        <div class="sidebar">
+                            <ul>
+                                <?php
+                                if (is_array($categories)) {
+                                    foreach ($categories as $category) {
+                                        $catNames = array_column($category, 'name');
+                                        $first = "";
+                                        foreach ($catNames as $cn) {
+                                            if ($selectedCategory == $cn) {
+                                                $first = "first";
                                             }
                                         }
-                                        ?>
-                                    </ul>
-                </div>
-                <div class="grow-2 width80" >
-                        <h2 class="borderBottom marginBottom5 flex-center">
-                            <?php 
-                            if ($this->editmode) {
-                                echo $this->input('INH_Fitting_Cover_brandName')->setDataFromResource($selectedCategory);
-                            } else {
-                                echo $this->input('INH_Fitting_Cover_brandName');
-                            }
-                            ?>  
-
-                                                    
-                        </h2>
-                        <span class="img-placeholder marginBottom15">
-                        <?php
-                                echo $this->image("INH_Fitting_MainImage", ["class"=> "alignRight", "width" => 300, "height" => 200]);
-                        ?>  
-                        </span>
-                        <?php if($templateBrandDtata): ?>
-                            <table class="grid special marginBottom5" cellpadding="0" cellspacing="0">
-                                <tbody>
-                                        
+                                        echo "<li class='$first'>";
+                                        if (is_array($category) && !empty($category)) {
+                                            foreach ($category as $k => $cat) {
+                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
+                                                    echo "<p><b>" . $cat['name'] . "</b></p>";
+                                                } else {
+                                                    if ($cat['printable'] == 1) {
+                                                        echo "<p>" . $cat['name'] . "</p>";
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        echo "</li>";
+                                    }
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                        <div class="grow-2">
+                        
+                            <h2 class="borderBottom marginBottom5">
+                                <?php 
+                                if ($this->editmode) {
+                                    echo $this->input('INH_Fitting_Cover_brandName')->setDataFromResource($selectedCategory);
+                                } else {
+                                    echo $this->input('INH_Fitting_Cover_brandName');
+                                }
+                                ?> 
+                            </h2>
+                            <p class=" borderBottom">
+                                <?php
+                                if ($this->editmode) {
+                                    echo $this->image('INH_Fitting_Cover_DefaultImage', [
+                                        'widht' => 450,
+                                        'height' => 222
+                                    ])->setImage($defaultPageImage);
+                                } else {
+                                    echo $this->image('INH_Fitting_Cover_DefaultImage', [
+                                        'widht' => 450,
+                                        'height' => 222
+                                    ]);
+                                } ?>
+                            </p>
+                            <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
                                         <tr class="head">
                                                 <td></td>
                                                 <td>page</td>
@@ -108,22 +127,21 @@ if (!isset($this->parentContainer)) {
                                                 </tr>
                                                 <?php $incrRow++ ?>
                                         <?php endforeach; ?>
-                                </tbody>
+
                             </table>
-                        <?php endif; ?>
-                </div>
-                
-        </div>
-       
-               
-               
-       
-      
-    </article>
-    <footer class="flex <?php echo $footer_class; ?>">
-        <span class="logo">
-                <img src="<?= $footer_logo_src; ?>">
-        </span>
-    </footer>
+                            <?php if($this->editmode) {?>
+                            <p class="small">*<?php echo $this->input('INH_Fitting_Cover_Table_Bottom_Text', ["placeholder"=>"Table Bottom Title"])?></p>
+                            <?php }?>
+                            <?php if(!$this->editmode && !$this->input('INH_Fitting_Cover_Table_Bottom_Text')->isEmpty()) { ?>
+                                <p class="small">*<?php echo $this->input('INH_Fitting_Cover_Table_Bottom_Text', ["placeholder"=>"Table Bottom Title"])?></p>
+                            <?php }?>
+                        </div>
+
+                    </div>
+            
+            
+
+       </article>
+
+    </div>
 </div>
-<?php //endif; ?>

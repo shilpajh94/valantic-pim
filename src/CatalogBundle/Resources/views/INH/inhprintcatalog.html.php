@@ -9,42 +9,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
    <div id="pageHeader"></div>
     <span  class="pageName">Index</span>
-
- <div class="footer">
-                <footer class="flex-center ">
-                        <span class="logo">
-                            <b>Fittings</b>
-                            <?php echo $this->image("logo")->setImage($info['logo']);?>
-                        </span>
-                        <div class="flex aligned">
-                                <h5>
-                                     Split flanges
-                        <span>Code 61 / Code 62 clamps kit</span>
-                                </h5>
-                                     
-                        </div>
-                </footer>
+        <div class="footer">
+            <footer class="flex-center <?php echo $info['footer_class']; ?> ">
+                <span class="logo">
+                    <img src="<?= $info['footer_logo_src']; ?>">
+                </span>
+                <div class="flex aligned">
+                    <h5>
+                        <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Split flanges"])->setDataFromResource('Split flanges'); ?>
+                        <span><?= $this->input("INH_SP_FOOTER_HP_1", ["placeholder" => "eg: Code 61 / Code 62 clamps kit"])->setDataFromResource("Code 61 / Code 62 clamps kit"); ?></span>
+                    </h5>
+                </div>
+            </footer>
         </div>
-
         <div class="footer1">
-                <footer class="flex-center ">   
-                        <div class="flex aligned">
-                               
-                                <h5>
-                                    Split flanges
-                        <span>Code 61 / Code 62 clamps kit</span>
-                                </h5>
-                                
+                            <footer class="flex-center <?php echo $info['footer_class']; ?> ">
+                                <div class="flex aligned">
+                                    <h5>
+                                        <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Split flanges"])->setDataFromResource('Split flanges'); ?>
+                                        <span><?= $this->input("INH_SP_FOOTER_HP_2", ["placeholder" => "eg: Code 61 / Code 62 clamps kit"])->setDataFromResource("Code 61 / Code 62 clamps kit"); ?></span>
+                                    </h5>
+                                </div>
+                                <span class="logo">
+                                    <img src="<?= $info['footer_logo_src']; ?>">
+                                </span>
+                            </footer>
                         </div>
-                        <span class="logo">
-                           <b>Fittings</b>
-                           <?php echo $this->image("logo1")->setImage($info['logo']);?>
-                        </span>
-                </footer>
-        </div>
-
-
-   
+        
         <article class="fullcontainer single">
             <?php
             if (isset($info['data']) && !empty($info['data'])) {
