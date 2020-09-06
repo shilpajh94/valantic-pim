@@ -353,6 +353,8 @@ class IndustrialHoseController extends AbstractController
                 $safetyFeaturesListWithImage = array();
                 $safetyFeaturesListWithOutImage = array();
 
+                $FeaturesBenefitsBulletPointArr = array_unique($FeaturesBenefitsBulletPointArr);
+
                 if($FeaturesBenefitsBulletPointArr)
                 {
                     foreach ($FeaturesBenefitsBulletPointArr as $fkey => $fvalue) {
