@@ -185,7 +185,7 @@ if($groupData):
                                 <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
                                 <menu class="flex">
                                         <?php if($groupData['safetyFeatures']): ?>
-                                        <div class="feature">
+                                        <div class="specs">
                                                         <h6><?= $this->translate('Key features + Benefits') ?></h6>
                                                         <div>
                                                                 <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>

@@ -158,11 +158,11 @@ extract($brand);
                 endif;
                 ?>
 
-                <h4 class="contitech-yellow">
+                <h3 class="contitech-yellow">
                 <?php
                         echo $this->input("HHAC_BrandName")->setDataFromResource($brandName);
                 ?>
-                </h4>
+                </h3>
 
                 <span>
                 <?php
@@ -192,7 +192,7 @@ extract($brand);
            <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
            
        </figure>
-       <table class="grid" cellspacing="0" cellpadding="0">
+       <table class="grid inh" cellspacing="0" cellpadding="0">
 <thead>
                 <?php if($iconRequired == 'YES'): ?>
                         <tr class="sub-head">
