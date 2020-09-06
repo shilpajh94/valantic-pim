@@ -651,7 +651,85 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
             }
         });
 
-    }
+    },
+    postOpenObject: function (object, type) {
+        self = this;
+        var configs = this.configdata;
+        Ext.override(pimcore.object.tags.objectbricks, {
+             getControls: function (blockElement) {
+
+                var menuData = this.objectbricks;
+                var menu = this.buildMenu(menuData, blockElement);
+                var items = [];
+                if (!this.fieldConfig.noteditable) {
+
+                    if (menu.length == 1) {
+                        if (!menu[0].menu) {
+                            var handler = menu[0].menu ? menu[0].menu[0].handler : menu[0].handler;
+                            items.push({
+                                cls: "pimcore_block_button_plus",
+                                iconCls: "pimcore_icon_plus",
+                                handler: handler
+                            });
+                        } else {
+                            items.push({
+                                cls: "pimcore_block_button_plus",
+                                iconCls: "pimcore_icon_plus",
+                                menu: menu
+                            });
+
+                        }
+                    } else if (menu.length > 1) {
+                        items.push({
+                            cls: "pimcore_block_button_plus",
+                            iconCls: "pimcore_icon_plus",
+                            menu: menu
+                        });
+                    }
+                }
+
+                items.push({
+                    xtype: "tbtext",
+                    text: t(this.fieldConfig.title)
+                });
+                if (this.object.data.general.o_className == "Product") {
+                    var toolbar = new Ext.Toolbar({
+//                    items: items
+                    });
+                } else {
+                    var toolbar = new Ext.Toolbar({
+                        items: items
+                    });
+                }
+                return toolbar;
+            }
+
+        });
+    },
+    preOpenObject: function (object) {
+        Ext.override(pimcore.object.tags.objectbricks, {
+            initData: function (response) {
+                var bricksData = Ext.decode(response.responseText);
+                this.objectbricks = bricksData.objectbricks;
+                this.layoutDefinitions = bricksData.layoutDefinitions;
+                this.component.insert(0, this.getControls());
+                if (this.data.length > 0) {
+                    for (var i = 0; i < this.data.length; i++) {
+                        if (this.data[i] != null) {
+                            if (this.object.data.general.o_className == "Product") {//class name Needs to be changed for different system
+                                this.preventDelete[this.data[i].type] = true;
+                            } else {
+                                this.preventDelete[this.data[i].type] = this.data[i].inherited;
+                            }
+                            this.addBlockElement(i, this.data[i].type, this.data[i], true, this.data[i].title);
+                        }
+                    }
+                }
+                this.tabpanel.setActiveTab(0);
+                pimcore.layout.refresh();
+            },
+        });
+    },
 });
 
 var RequiredAttributesBundlePlugin = new pimcore.plugin.RequiredAttributesBundle();
