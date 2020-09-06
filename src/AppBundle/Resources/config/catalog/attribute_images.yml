@@ -2,15 +2,15 @@ parameters:
   attributeImages: 
     'DescriptivePartNumber': '/CatalogImages/Icons/HYH-Icons-09.png'
     'descriptive': '/CatalogImages/Icons/HYH-Icons-09.png'
-    'articleNumber': '/CatalogImages/Icons/HYH-Icons-26-3.png'
+    'articleNumber': '/CatalogImages/Icons/articleNumber.png'
     'hoseIdNominalId': '/CatalogImages/Icons/HYH-Icons-27.png'
-    'hoseOdIn': '/CatalogImages/Icons/HYH-Icons-28.png'
-    'hoseOdmm': '/CatalogImages/Icons/HYH-Icons-28.png'
-    'workingPressurePSI': '/CatalogImages/Icons/HYH-Icons-08.png'
+    'hoseOdIn': '/CatalogImages/Icons/hoseOdIn.png'
+    'hoseOdmm': '/CatalogImages/Icons/hoseOdmm.png'
+    'workingPressurePSI': '/CatalogImages/Icons/workingPressurePSI.png'
     'workingPressureMPA': '/CatalogImages/Icons/HYH-Icons-08.png'
-    'BendRadiusIN': '/CatalogImages/Icons/HYH-Icons-30.png'
+    'BendRadiusIN': '/CatalogImages/Icons/BendRadiusIN.png'
     'BendRadiusMM': '/CatalogImages/Icons/HYH-Icons-30.png'
-    'grossWeight': '/CatalogImages/Icons/HYH-Icons-29.png'
+    'grossWeight': '/CatalogImages/Icons/grossWeight.png'
     'fittingFamily': '/CatalogImages/Icons/Icon-fitting.png'
     'HoseID1InFract': '/CatalogImages/Icons/HYH-Icons-27.png'
     'HoseID2InFract': '/CatalogImages/Icons/HYH-Icons-27.png'
@@ -53,6 +53,16 @@ parameters:
     'ODWithCamArmsExtendedIN': '/CatalogImages/Icons/ODWithCamArmsExtendedIN.png'
     'GasketThicknessInches': '/CatalogImages/Icons/GasketThicknessInches.png'
     'BrandShortText1': '/CatalogImages/Icons/BrandShortText1.png'
+    'HoseIDNominalIDFrac': '/CatalogImages/Icons/HoseIDNominalIDFrac.png'
+    'hoseIdMM': '/CatalogImages/Icons/hoseIdMM.png'
+    'hoseLengthFT': '/CatalogImages/Icons/hoseLengthFT.png'
+    'coverColor': '/CatalogImages/Icons/coverColor.png'
+    'workingPressureBAR': '/CatalogImages/Icons/workingPressureBAR.png'
+    'weightKg': '/CatalogImages/Icons/weightKg.png'
+    'VacuumIN' : '/CatalogImages/Icons/VacuumIN.png'
+    'InnerHoseIDFractional': '/CatalogImages/Icons/InnerHoseIDFractional.png'
+    'InnerHoseOdInDec': '/CatalogImages/Icons/InnerHoseOdInDec.png'
+    'InnerHoseWeightLbs': '/CatalogImages/Icons/InnerHoseWeightLbs.png'
 
   CatalogImagesHYDFooter: 
     'Black': '/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png'
@@ -62,6 +72,9 @@ parameters:
   CatalogImagesINHFooter: 
     'Black': '/CatalogImages/INH/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/INH/Footer/Continental_Logo_Master_yellow.png'
+  CatalogImagesINHProduct: 
+    'BrandingImage': '/CatalogImages/INH/Product/Continental_Logo_Master_yellow.png'
+    'DefaultCoverImage': '/CatalogImages/INH/Product/airandmultipurpose.png'
   CatalogImagesPTGFooter: 
     'Black': '/CatalogImages/PTG/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/PTG/Footer/Continental_Logo_Master_yellow.png'
