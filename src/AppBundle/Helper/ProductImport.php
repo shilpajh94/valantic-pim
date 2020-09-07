@@ -42,7 +42,7 @@ class ProductImport
     }
     
     public function checkIfArticleExists($articleNumber) {
-        $sql = " SELECT `oo_id`, `articleNumber` FROM `object_query_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        $sql = " SELECT `oo_id`, `o_parentId`, `articleNumber` FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
         return $this->db->fetchAll($sql);
     }
 

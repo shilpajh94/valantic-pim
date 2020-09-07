@@ -374,6 +374,7 @@ class ProductSQLModel
                 if (!empty($data) && count($data)>0) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['o_id'] = $objId;
+                    $objectArr['parentId'] = $data[0]['o_parentId'];
                 }
             }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
@@ -443,6 +444,7 @@ class ProductSQLModel
                 if (!empty($data) && count($data)>0) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['o_id'] = $objId;
+                    $objectArr['parentId'] = $data[0]['o_parentId'];
                 }
             }
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
