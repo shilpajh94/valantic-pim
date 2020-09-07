@@ -55,9 +55,9 @@ non_localized:
     BrandingLayline:
         type: 'textarea'
         label: 'Branding / Layline'
-    VirtualCatalogBrandingLayline:
-        type: 'input'
-        label: 'Virtual Catalog Branding / Layline'
+#    VirtualCatalogBrandingLayline:
+#        type: 'input'
+#        label: 'Virtual Catalog Branding / Layline'
     # panel break here
     packageLengthIN:
         type: 'numeric'
@@ -271,7 +271,7 @@ object_bricks:
                     descriptive:
                         type: 'input'
                         label: 'Descriptive #'
-                    hoseIdNominalId:
+                    HoseIDNominalIDFrac:
                         type: 'input'
                         label: 'Hose ID (in Fract) Nominal ID'
                     hoseDashSize:
