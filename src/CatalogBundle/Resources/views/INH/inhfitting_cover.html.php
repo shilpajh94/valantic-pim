@@ -120,7 +120,7 @@ if (!isset($this->parentContainer)) {
                                                 <tr class="active">
                                                 <?php endif; ?>
                                                         <td><?= $key; ?></td>
-                                                        <td><?= $this->input("dfg_{$incrRow}"); ?></td>
+                                                        <td><?= $this->input("page_{$incrRow}"); ?></td>
                                                         <?php foreach($element as $ekey => $value): ?>
                                                                         <td><?= $value ?></td>
                                                         <?php endforeach; ?>
