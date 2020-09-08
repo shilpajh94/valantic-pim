@@ -35,10 +35,20 @@ if (!isset($this->parentContainer)) {
                 <span class="logo">
                         <img src="<?= $footer_logo_src; ?>">
                 </span>
+                <div class="flex aligned">
+                    <h5>
+                        <?= $this->input("INH_Fitting_Cover_Category", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory); ?>
+                    </h5>
+                </div>
             </footer>
         </div>
         <div class="footer1">
             <footer class="flex <?php echo $footer_class; ?>">
+                <div class="flex aligned">
+                    <h5>
+                        <?= $this->input("INH_Fitting_Cover_Category1", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory); ?>
+                    </h5>
+                </div>
                 <span class="logo">
                         <img src="<?= $footer_logo_src; ?>">
                 </span>

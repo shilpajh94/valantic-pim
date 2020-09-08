@@ -8,7 +8,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <div class="segregate">
 
    <div id="pageHeader"></div>
-    <span  class="pageName">Index</span>
+    <span  class="pageName"><?= $info['configTableName'] ?></span>
         <div class="footer">
             <footer class="flex-center <?php echo $info['footer_class']; ?> ">
                 <span class="logo">
@@ -16,8 +16,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 </span>
                 <div class="flex aligned">
                     <h5>
-                        <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Split flanges"])->setDataFromResource('Split flanges'); ?>
-                        <span><?= $this->input("INH_SP_FOOTER_HP_1", ["placeholder" => "eg: Code 61 / Code 62 clamps kit"])->setDataFromResource("Code 61 / Code 62 clamps kit"); ?></span>
+                        <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']); ?>
                     </h5>
                 </div>
             </footer>
@@ -26,8 +25,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <footer class="flex-center <?php echo $info['footer_class']; ?> ">
                                 <div class="flex aligned">
                                     <h5>
-                                        <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Split flanges"])->setDataFromResource('Split flanges'); ?>
-                                        <span><?= $this->input("INH_SP_FOOTER_HP_2", ["placeholder" => "eg: Code 61 / Code 62 clamps kit"])->setDataFromResource("Code 61 / Code 62 clamps kit"); ?></span>
+                                        <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']); ?>
                                     </h5>
                                 </div>
                                 <span class="logo">
@@ -84,7 +82,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             </ul>
                         </div>
                         <div class="grow-2">
-                            <h2 class="borderBottom marginBottom5"><?php echo $tableName; ?></h2>
+                            <h2 class="borderBottom marginBottom5"><?= $this->input("INH_SP_CATAGORY")->setDataFromResource($info['configTableName']); ?></h2>
                             <p class=" borderBottom">
                                 <?php
                                 if ($this->editmode) {

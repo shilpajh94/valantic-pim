@@ -100,7 +100,7 @@ if (isset($info['brandsData'])) {
                                 </div>
                                 <div class="grow-2 inhRight">
                                     <header class=" white">
-                                        <h1><?php echo $brandKey; ?> </h1>
+                                        <h1><?php echo $this->input("INH_PRODUCT_BRANDNAME_{$pg}")->setDataFromResource($brandKey); ?> </h1>
                                         <aside>
                                             <p>
                                             <?php

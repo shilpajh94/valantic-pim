@@ -105,6 +105,7 @@ class IndustrialHoseController extends AbstractController
 
             $categories = $this->getSIOP();
             $this->view['info'] = array(
+                'configTableName'=> $configTableName,
                 'data' => $data,
                 'categories' => $categories,
                 'defaultPageImage' => \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']),
