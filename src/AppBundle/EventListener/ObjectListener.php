@@ -157,6 +157,16 @@ class ObjectListener
              */
             $this->appService->updateProductHierarchyForNomenclature($object);
 
+            /**
+             * update VirtualCatalogReinforcement value if reinforcement is updated
+             */
+            $requestStack = $this->requestStack;
+            $currRequest = $requestStack->getCurrentRequest();
+            if($currRequest instanceof Request){
+                $this->appService->updateVirtualCatalogReinforcementForUpdateInReinforcement($object,$currRequest);
+            }
+
+
         }
     }
 
