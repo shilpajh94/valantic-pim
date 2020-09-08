@@ -82,8 +82,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             </ul>
                         </div>
                         <div class="grow-2">
-                            <h2 class="borderBottom marginBottom5"><?= $this->input("INH_SP_CATAGORY")->setDataFromResource($info['configTableName']); ?></h2>
-                            <p class=" borderBottom">
+                            <h2 class="borderBottom block marginBottom5"><?= $this->input("INH_SP_CATAGORY")->setDataFromResource($info['configTableName']); ?></h2>
+                            <p class=" borderBottom block">
                                 <?php
                                 if ($this->editmode) {
                                     echo $this->image('INH_SP_' . md5($tableName), [

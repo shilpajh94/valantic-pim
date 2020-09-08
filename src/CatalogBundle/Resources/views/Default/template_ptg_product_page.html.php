@@ -189,7 +189,7 @@ if($groupData):
                                                         <h6><?= $this->translate('Key features + Benefits') ?></h6>
                                                         <div>
                                                                 <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
-                                                                        <p  class="flex">
+                                                                        <p  class="flex center">
                                                                                 <?php if($feature['iconSrc']): ?>
                                                                                 <img src="<?= $feature['iconSrc'] ?>" />
                                                                                 <?php endif; ?>
