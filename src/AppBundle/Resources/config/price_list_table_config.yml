@@ -7,4 +7,7 @@ parameters:
     "Validity Start Date": 4
     "Rate": 5
     "Rate Unit": 6
-  
+  priceListCurrency:
+    "USD": 'USDCurrenySign'
+    "CAD": 'CADCurrenySign'
+    "MXN": 'MXNCurrenySign'  
