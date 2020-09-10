@@ -7,6 +7,7 @@ use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\Service;
+use Symfony\Component\HttpFoundation\Request;
 
 class AppService
 {
@@ -20,6 +21,8 @@ class AppService
      */
     private $configProviderService;
 
+    private $db;
+
     /**
      * AppService constructor.
      * @param UnitConverterService $unitConverterService
@@ -29,6 +32,7 @@ class AppService
     {
         $this->unitConverterService = $unitConverterService;
         $this->configProviderService = $configProviderService;
+        $this->db = \Pimcore\Db::get();
     }
 
     /**
@@ -140,7 +144,7 @@ class AppService
                     } else {
                         $hoseFert->setTotalWeightPerPackage(null);
                     }
-                    
+
                 }catch (\Exception $exception){
                     $hoseFert->setTotalWeightPerPackage(null);
                 }
@@ -365,6 +369,48 @@ class AppService
         $string = explode("(",$string)[0];
         $string = substr($string, 0, FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC);
         return \Pimcore\Model\Element\Service::getValidKey($string,'object');
+    }
+
+    /**
+     * update VirtualCatalogReinforcement value if reinforcement is updated
+     */
+    public function updateVirtualCatalogReinforcementForUpdateInReinforcement(Product $product,Request $request)
+    {
+        if ($request->get('data')) {
+            $changedData = json_decode($request->get('data'), true);
+            if(array_key_exists("reinforcement",$changedData)){
+                $masterNames = $this->getMasterNames($changedData['reinforcement']);
+                $product->setVirtualCatalogReinforcement(implode(",",$masterNames));
+            }
+        }
+    }
+
+    /**
+     * get english master name for master ids
+     *
+     * @param array $masterIds
+     * @return array
+     * @throws \Exception
+     */
+    private function getMasterNames(array $masterIds): array
+    {
+        $masterClassId = $this->getPimcoreClassIdbyName("MultiselectMaster");
+        $names = array();
+
+        if(count($masterIds) > 0){
+            $sql = "SELECT name FROM object_localized_query_" . $masterClassId . "_en";
+            $sql .= " WHERE ooo_id IN (" . implode(",",$masterIds) . ")";
+            // adding order by so that the names appear in the order of passed $masterIds
+            $sql .= " ORDER BY FIELD(ooo_id," . implode(",",$masterIds) . ")";
+
+            try{
+                $names = $this->db->fetchCol($sql);
+            }catch (\Exception $exception){
+                Logger::error("Exception: " . $exception->getMessage());
+                throw new \Exception("An unexpected error occurred.");
+            }
+        }
+        return $names;
     }
 
 }
