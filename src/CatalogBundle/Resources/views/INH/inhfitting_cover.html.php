@@ -30,26 +30,29 @@ if (!isset($this->parentContainer)) {
                 }                
                 ?>
     </span>
-        <div class="footer">
-            <footer class="flex <?php echo $footer_class; ?>">
-                <span class="logo">
-                        <img src="<?= $footer_logo_src; ?>">
-                </span>
-            </footer>
-        </div>
-        <div class="footer1">
-            <footer class="flex <?php echo $footer_class; ?>">
-                <span class="logo">
-                        <img src="<?= $footer_logo_src; ?>">
-                </span>
-            </footer>
-        </div>
+    <div class="footer">
+        <footer class="flex-center <?php echo $footer_class; ?> ">
+            <span class="logo">
+                <img src="<?= $footer_logo_src; ?>">                            
+
+            </span>
+           
+        </footer>
+    </div>
+    <div class="footer1">
+        <footer class="flex-center <?php echo $footer_class; ?> ">
+           
+            <span class="logo">
+                <img src="<?= $footer_logo_src; ?>">    
+            </span>
+        </footer>
+    </div>
         
         <article class="fullcontainer single">
             
             
-                    <div class="flex ">
-                        <div class="sidebar">
+                    <div class="inhsetting1">
+                        <div class="inhsetting-sidebar sidebar">
                             <ul>
                                 <?php
                                 if (is_array($categories)) {
@@ -79,9 +82,9 @@ if (!isset($this->parentContainer)) {
                                 ?>
                             </ul>
                         </div>
-                        <div class="grow-2">
+                        <div class=" inhRight">
                         
-                            <h2 class="borderBottom block marginBottom5">
+                            <h2 class="borderBottom block marginBottom5 contitech-yellow">
                                 <?php 
                                 if ($this->editmode) {
                                     echo $this->input('INH_Fitting_Cover_brandName')->setDataFromResource($selectedCategory);
@@ -145,3 +148,13 @@ if (!isset($this->parentContainer)) {
 
     </div>
 </div>
+
+<script>
+    var rows = document.querySelectorAll(".inhsetting1");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+    });
+</script>

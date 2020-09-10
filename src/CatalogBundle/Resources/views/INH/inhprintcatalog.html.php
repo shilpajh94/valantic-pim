@@ -43,17 +43,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     // p_r($data['dispColumns']);
                     // die;
             ?>
-                    <div class="flex ">
-                        <div class="sidebar">
+
+                        <div class="inhsetting1">
+                            <div class="inhsetting-sidebar sidebar">
                             <ul>
-                                <!-- <li class="first">
-                                <p>
-                                    Lorem ipsum
-                                </p>
-                                <p>
-                                    <b>Lorem ipsum</b>
-                                </p>
-                            </li> -->
+                                
                                 <?php
                                 if (is_array($info['categories'])) {
                                     foreach ($info['categories'] as $category) {
@@ -83,7 +77,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                             </ul>
                         </div>
-                        <div class="grow-2">
+                        <div class="inhRight">
                             <h2 class="borderBottom block marginBottom5"><?php echo $tableName; ?></h2>
                             <p class=" borderBottom block">
                                 <?php
@@ -176,3 +170,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
     </div>
 </div>
+
+
+<script>
+    var rows = document.querySelectorAll(".inhsetting1");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+    });
+</script>

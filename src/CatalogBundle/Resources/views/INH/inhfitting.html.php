@@ -20,7 +20,7 @@ if (!isset($this->parentContainer)) {
 if($groupData):
 ?>
 <div class="template">
-        <div class="segregate" id="inh">
+        <div class="segregate inh">
 
                 <div id="pageHeader"></div>
                 <span class="pageName">
@@ -51,8 +51,8 @@ if($groupData):
                 </div>
 
                 <article class="fullcontainer single">
-                        <div class="flex inhsetting">
-                                <div class="sidebar">
+                        <div class="inhsetting1">
+                            <div class="inhsetting-sidebar sidebar">
                                         <ul>
                                                 <?php
                                                 if (is_array($groupData['categories'])) {
@@ -82,7 +82,7 @@ if($groupData):
                                                 ?>
                                         </ul>
                                 </div>
-                                <div class="grow-2 inhRight">
+                                <div class="inhRight">
                                         <header class=" white">
                                                 <h1>
                                                         <?php 
@@ -126,7 +126,7 @@ if($groupData):
                                         <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>  
                                                 <menu class="flex">
                                                         <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>
-                                                                <div class="specs">
+                                                                <div class="specs col-6">
                                                                         <h6><?= $this->translate('specs') ?></h6>
                                                                         <div class="spec-requirement">
                                                                                 <div>
@@ -164,7 +164,7 @@ if($groupData):
                                                         <?php endif; ?>
 
                                                         <?php if($groupData['safetyFeatures']): ?>
-                                                                <div class="feature">
+                                                                <div class="feature col-6">
                                                                         <h6><?= $this->translate('Key features + Benefits') ?></h6>
                                                                         <div>
                                                                                 <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
@@ -248,3 +248,13 @@ if($groupData):
         </div>
 </div>
 <?php endif; ?>
+
+<script>
+    var rows = document.querySelectorAll(".inhsetting1");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+    });
+</script>
