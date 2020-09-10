@@ -95,14 +95,14 @@ if (isset($info['brandsData'])) {
                                             echo "</li>";
                                         }
                                     }
-                                    ?>
-                                </ul>
-                            </div>
-                            <div class=" inhRight">
-                                <header class=" white">
-                                    <h1><?php echo $brandKey; ?> </h1>
-                                    <aside>
-                                        <div>
+                                        ?>
+                                    </ul>
+                                </div>
+                                <div class="inhRight">
+                                    <header class=" white">
+                                        <h1><?php echo $this->input("INH_PRODUCT_BRANDNAME_{$pg}")->setDataFromResource($brandKey); ?> </h1>
+					<aside>
+                                         <div>
                                             <?php
                                             if ($this->editmode) {
                                                 echo $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}")->setDataFromResource($brand['brandData']['longDescription']);

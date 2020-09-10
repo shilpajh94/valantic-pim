@@ -38,12 +38,22 @@ if($groupData):
                                 <span class="logo">
                                         <img src="<?= $footer_logo_src; ?>">
                                 </span>
-                                <div class="flex aligned"></div>
+                                <div class="flex aligned">
+                                <h5>
+                                        <?= $this->input("INH_FITTING_FOOTER_BRAND_" . $pg)->setDataFromResource($groupData['brandName']); ?>
+                                        <span><?= $this->input("INH_FITTING_FOOTER_HP_" . $pg)->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); ?></span>
+                                </h5>
+                                </div>
                         </footer>
                 </div>
                 <div class="footer1">
                         <footer class="flex-center <?php echo $footer_class; ?>">
-                                <div class="flex aligned"></div>
+                                <div class="flex aligned">
+                                <h5>
+                                        <?= $this->input("INH_FITTING_FOOTER_BRAND1_" . $pg)->setDataFromResource($groupData['brandName']); ?>
+                                        <span><?= $this->input("INH_FITTING_FOOTER_HP1_" . $pg)->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); ?></span>
+                                </h5>
+                                </div>
                                 <span class="logo">
                                         <img src="<?= $footer_logo_src; ?>">
                                 </span>

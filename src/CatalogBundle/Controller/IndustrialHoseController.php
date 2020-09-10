@@ -105,6 +105,7 @@ class IndustrialHoseController extends AbstractController
 
             $categories = $this->getSIOP();
             $this->view['info'] = array(
+                'configTableName'=> $configTableName,
                 'data' => $data,
                 'categories' => $categories,
                 'defaultPageImage' => \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']),
@@ -483,70 +484,71 @@ class IndustrialHoseController extends AbstractController
             {
                 foreach ($productsData as $key => $item) 
                 {
-                    $query = "select oldMaterialCode, SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
-
-                    $record = $this->db->fetchRow($query);
-                    $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
-                    $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
-
-                    
-
-                    if(isset($record['oldMaterialCode']) && !empty($record['oldMaterialCode']) && $record['oldMaterialCode']!=='N/A') {
-                        $orderCode[] = substr($record['oldMaterialCode'],0,6);
-                    }
-
-                    if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
+                    if($item[$headerKeysIndex['brandName']])
                     {
-                        $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
-                    }
+                        $query = "select oldMaterialCode, SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
 
-                    if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
-                    {
-                        $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
-                    }
+                        $record = $this->db->fetchRow($query);
+                        $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+                        $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
 
-                    if(!$brandName && $item[$headerKeysIndex['brandName']])
-                    {
-                        $brandName = $item[$headerKeysIndex['brandName']][0];
-                    }
-
-                    if(!$pressureRating && $item[$headerKeysIndex['PressureRatingPSI']])
-                    {
-                        $pressureRating = $item[$headerKeysIndex['PressureRatingPSI']];
-                    }
-
-                    if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
-                    {
-                        $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                    }
-
-                    if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
-                    {
-                        $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                    }
-                    
-                    if($item[$headerKeysIndex['FittingMaterial']])
-                        $material[] = $item[$headerKeysIndex['FittingMaterial']];
-
-                    if($item[$headerKeysIndex['BrandingLayline']] && empty($BrandingLayline))
-                        $BrandingLayline = $item[$headerKeysIndex['BrandingLayline']];
-
-                    if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
-                        $longDescription = $item[$headerKeysIndex['longDescription']];
-
-                    if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
-                    {
-                        foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
-                            array_push($safetyFeatures,$feature);
+                        if(!$brandName && $item[$headerKeysIndex['brandName']])
+                        {
+                            $brandName = $item[$headerKeysIndex['brandName']][0];
                         }
-                    }
 
-                    foreach ($orderKeys as $ckey => $cvalue) {
-                            $articlesData[] = $item[$cvalue];
-                    }
+                        if(isset($record['oldMaterialCode']) && !empty($record['oldMaterialCode']) && $record['oldMaterialCode']!=='N/A') {
+                            $orderCode[] = substr($record['oldMaterialCode'],0,6);
+                        }
 
-                    $brandsData[] = $articlesData;
-                    unset($articlesData);
+                        if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
+                        {
+                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                        }
+
+                        if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
+                        {
+                            $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
+                        }
+
+                        if(!$pressureRating && $item[$headerKeysIndex['PressureRatingPSI']])
+                        {
+                            $pressureRating = $item[$headerKeysIndex['PressureRatingPSI']];
+                        }
+
+                        if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
+                        {
+                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                        }
+
+                        if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
+                        {
+                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                        }
+                        
+                        if($item[$headerKeysIndex['FittingMaterial']])
+                            $material[] = $item[$headerKeysIndex['FittingMaterial']];
+
+                        if($item[$headerKeysIndex['BrandingLayline']] && empty($BrandingLayline))
+                            $BrandingLayline = $item[$headerKeysIndex['BrandingLayline']];
+
+                        if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
+                            $longDescription = $item[$headerKeysIndex['longDescription']];
+
+                        if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
+                        {
+                            foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                                array_push($safetyFeatures,$feature);
+                            }
+                        }
+
+                        foreach ($orderKeys as $ckey => $cvalue) {
+                                $articlesData[] = $item[$cvalue];
+                        }
+
+                        $brandsData[] = $articlesData;
+                        unset($articlesData);
+                    }
                 }
 
                 $brandingStr = $BrandingLayline;
@@ -664,21 +666,24 @@ class IndustrialHoseController extends AbstractController
                 $materialKeys = array_fill_keys($featuresMaterials, '');
                 foreach ($productsData as $key => $item) {
                     
-                    if(!isset($catagoryDescription['SIOP3Description']))
+                    if($item[$headerKeysIndex['brandName']][0])
                     {
-                        $query = "select SIOPLevel3 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
+                        if(!isset($catagoryDescription['SIOP3Description']))
+                        {
+                            $query = "select SIOPLevel3 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
 
-                        $record = $this->db->fetchRow($query);
-                        $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+                            $record = $this->db->fetchRow($query);
+                            $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
 
-                        $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                        }
+                        foreach($featuresMaterials as $fkey => $material)
+                        {
+                            if($material == $item[$headerKeysIndex['FittingMaterial']])
+                                $materialKeys[$material] = 'Yes';
+                        }
+                        $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]]= $materialKeys;
                     }
-                    foreach($featuresMaterials as $fkey => $material)
-                    {
-                        if($material == $item[$headerKeysIndex['FittingMaterial']])
-                            $materialKeys[$material] = 'Yes';
-                    }
-                    $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]]= $materialKeys;
                 }
             }
 
