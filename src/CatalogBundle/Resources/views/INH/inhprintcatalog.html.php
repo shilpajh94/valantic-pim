@@ -8,43 +8,32 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <div class="segregate">
 
    <div id="pageHeader"></div>
-    <span  class="pageName">Index</span>
-
- <div class="footer">
-                <footer class="flex-center ">
-                        <span class="logo">
-                            <b>Fittings</b>
-                            <?php echo $this->image("logo")->setImage($info['logo']);?>
-                        </span>
-                        <div class="flex aligned">
-                                <h5>
-                                     Split flanges
-                        <span>Code 61 / Code 62 clamps kit</span>
-                                </h5>
-                                     
-                        </div>
-                </footer>
+    <span  class="pageName"><?= $info['configTableName'] ?></span>
+        <div class="footer">
+            <footer class="flex-center <?php echo $info['footer_class']; ?> ">
+                <span class="logo">
+                    <img src="<?= $info['footer_logo_src']; ?>">
+                </span>
+                <div class="flex aligned">
+                    <h5>
+                        <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']); ?>
+                    </h5>
+                </div>
+            </footer>
         </div>
-
         <div class="footer1">
-                <footer class="flex-center ">   
-                        <div class="flex aligned">
-                               
-                                <h5>
-                                    Split flanges
-                        <span>Code 61 / Code 62 clamps kit</span>
-                                </h5>
-                                
+                            <footer class="flex-center <?php echo $info['footer_class']; ?> ">
+                                <div class="flex aligned">
+                                    <h5>
+                                        <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']); ?>
+                                    </h5>
+                                </div>
+                                <span class="logo">
+                                    <img src="<?= $info['footer_logo_src']; ?>">
+                                </span>
+                            </footer>
                         </div>
-                        <span class="logo">
-                           <b>Fittings</b>
-                           <?php echo $this->image("logo1")->setImage($info['logo']);?>
-                        </span>
-                </footer>
-        </div>
-
-
-   
+        
         <article class="fullcontainer single">
             <?php
             if (isset($info['data']) && !empty($info['data'])) {
@@ -52,17 +41,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     // p_r($data['dispColumns']);
                     // die;
             ?>
-                    <div class="flex ">
-                        <div class="sidebar">
+
+                        <div class="inhsetting1">
+                            <div class="inhsetting-sidebar sidebar">
                             <ul>
-                                <!-- <li class="first">
-                                <p>
-                                    Lorem ipsum
-                                </p>
-                                <p>
-                                    <b>Lorem ipsum</b>
-                                </p>
-                            </li> -->
+                                
                                 <?php
                                 if (is_array($info['categories'])) {
                                     foreach ($info['categories'] as $category) {
@@ -92,9 +75,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                             </ul>
                         </div>
-                        <div class="grow-2">
-                            <h2 class="borderBottom marginBottom5"><?php echo $tableName; ?></h2>
-                            <p class=" borderBottom">
+                        <div class="inhRight">
+                            <h2 class="borderBottom block marginBottom5"><?= $this->input("INH_SP_CATAGORY")->setDataFromResource($info['configTableName']); ?></h2>
+                            <p class=" borderBottom block">
                                 <?php
                                 if ($this->editmode) {
                                     echo $this->image('INH_SP_' . md5($tableName), [
@@ -185,3 +168,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
     </div>
 </div>
+
+
+<script>
+    var rows = document.querySelectorAll(".inhsetting1");
+    rows.forEach(function (row) {
+        var rowDescriptions = ro.layout.getBoxDescriptions(row);
+        var rowDescription = rowDescriptions[0];
+        const onLeftPage = rowDescription.pageLeft;
+        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+    });
+</script>
