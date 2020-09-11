@@ -1056,81 +1056,83 @@ if(isset($data[$baseId])) {
             }
             
             $brandsData = array();
+            if($productsData)
+            {
+                foreach ($productsData as $key => $item) {
+                    $productsDataWithHeaders = array_combine($headerKeys, $item);
 
-            foreach ($productsData as $key => $item) {
-                $productsDataWithHeaders = array_combine($headerKeys, $item);
-
-                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
-                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
-            }
-
-            foreach ($brandsData as $brandKey => $brandArray) {
-
-                $brandName = $brandArray[0]['brandName'][0];
-
-                $mainImage = $brandArray[0]['mainImage'];
-
-                $imageObj = '';
-                if($mainImage)
-                {
-                    $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                    if(!empty(trim($productsDataWithHeaders['brandName'][0])))
+                        $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
                 }
-                
-                $longDescription = $brandArray[0]['longDescription'];
-                $tempFmin = $brandArray[0]['minimumTemperatureF'];
-                $tempFmax = $brandArray[0]['maximumTemperatureF'];
-                $tempCmin = $brandArray[0]['minimumTemperatureC'];
-                $tempCmax = $brandArray[0]['maximumTemperatureC'];
 
-                $color = array();
-                $material = array();
-                $availableLength = array();
-                $articlesData = array();
+                foreach ($brandsData as $brandKey => $brandArray) {
 
-                foreach($brandArray as $key => $element): 
-                        foreach($element as $bkey => $value): 
-                                if($bkey == 'Color')
-                                    $color = array_merge($color, $value);
-                                if($bkey == 'MaterialType')
-                                    $material = array_merge($material, $value);
-                                if($bkey == 'LengthIN')
-                                    $availableLength[] = $value;
-                                        
-                        endforeach; 
+                    $brandName = $brandArray[0]['brandName'][0];
 
-                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
-                            $articlesData[$key][$ckey] = $element[$ckey];
-                        }
+                    $mainImage = $brandArray[0]['mainImage'];
 
-                endforeach; 
+                    $imageObj = '';
+                    if($mainImage)
+                    {
+                        $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+                    }
+                    
+                    $longDescription = $brandArray[0]['longDescription'];
+                    $tempFmin = $brandArray[0]['minimumTemperatureF'];
+                    $tempFmax = $brandArray[0]['maximumTemperatureF'];
+                    $tempCmin = $brandArray[0]['minimumTemperatureC'];
+                    $tempCmax = $brandArray[0]['maximumTemperatureC'];
 
-                $color = array_unique($color);
-                $material = array_unique($material);
-                $availableLength = array_unique($availableLength);
+                    $color = array();
+                    $material = array();
+                    $availableLength = array();
+                    $articlesData = array();
 
-                $colorString = implode(', ', $color);
-                $materialString = implode(', ', $material);
-                $availableLengthString = implode(', ', $availableLength);
+                    foreach($brandArray as $key => $element): 
+                            foreach($element as $bkey => $value): 
+                                    if($bkey == 'Color')
+                                        $color = array_merge($color, $value);
+                                    if($bkey == 'MaterialType')
+                                        $material = array_merge($material, $value);
+                                    if($bkey == 'LengthIN')
+                                        $availableLength[] = $value;
+                                            
+                            endforeach; 
 
-                $data[$brandKey]['brandName'] = $brandName;
-                $data[$brandKey]['imageObj'] = $imageObj;
-                $data[$brandKey]['mainImage'] = $mainImage;
-                
-                $data[$brandKey]['longDescription'] = $longDescription;
-                $data[$brandKey]['tempFmin'] = $tempFmin;
-                $data[$brandKey]['tempFmax'] = $tempFmax;
-                $data[$brandKey]['tempCmin'] = $tempCmin;
-                $data[$brandKey]['tempCmax'] = $tempCmax;
+                            foreach ($columnsDataWithImages as $ckey => $cvalue) {
+                                $articlesData[$key][$ckey] = $element[$ckey];
+                            }
 
-                $data[$brandKey]['materialString'] = $materialString;
-                $data[$brandKey]['availableLengthString'] = $availableLengthString;
-                $data[$brandKey]['colorString'] = $colorString;
-                $data[$brandKey]['iconRequired'] = $iconRequired;
-                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                    endforeach; 
 
-                array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
-                $data[$brandKey]['articlesData'] = $articlesData;
+                    $color = array_unique($color);
+                    $material = array_unique($material);
+                    $availableLength = array_unique($availableLength);
 
+                    $colorString = implode(', ', $color);
+                    $materialString = implode(', ', $material);
+                    $availableLengthString = implode(', ', $availableLength);
+
+                    $data[$brandKey]['brandName'] = $brandName;
+                    $data[$brandKey]['imageObj'] = $imageObj;
+                    $data[$brandKey]['mainImage'] = $mainImage;
+                    
+                    $data[$brandKey]['longDescription'] = $longDescription;
+                    $data[$brandKey]['tempFmin'] = $tempFmin;
+                    $data[$brandKey]['tempFmax'] = $tempFmax;
+                    $data[$brandKey]['tempCmin'] = $tempCmin;
+                    $data[$brandKey]['tempCmax'] = $tempCmax;
+
+                    $data[$brandKey]['materialString'] = $materialString;
+                    $data[$brandKey]['availableLengthString'] = $availableLengthString;
+                    $data[$brandKey]['colorString'] = $colorString;
+                    $data[$brandKey]['iconRequired'] = $iconRequired;
+                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    $data[$brandKey]['articlesData'] = $articlesData;
+
+                }
             }
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
@@ -1775,7 +1777,12 @@ if(isset($data[$baseId])) {
                 }
 
                 $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
+
+                if($value['columnName'] == 'listPrice')
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                else
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
+
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
@@ -1834,89 +1841,94 @@ if(isset($data[$baseId])) {
                     $SIOPLevel5 = trim($record['SIOPLevel5'], ',');
                     $SIOPLevel6 = trim($record['SIOPLevel6'], ',');
 
-                    if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
-                    {
-                        $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
-                    }
-
-                    if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
-                    {
-                        $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
-                    }
-
-                    if(!isset($catagoryDescription['SIOP5Description']) && $record['SIOPLevel5'])
-                    {
-                        $catagoryDescription['SIOP5Description'] = !empty($categoriesList[$SIOPLevel5]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel5]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel5]['description'];
-                    }
-
                     $siop6Category = !empty($categoriesList[$SIOPLevel6]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel6]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel6]['description'];
                     $siop6Category = trim($siop6Category);
 
-                    $listPrice = '';
-
-                    if($record['priceData'])
+                    if($siop6Category)
                     {
-                        $recordArray = explode(PHP_EOL, $record['priceData']);
-
-                        if(count($recordArray))
+                        if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
                         {
-                            
-                            foreach ($recordArray as $rkey => $rvalue) {
-                                $pvalue = explode('|', $rvalue);
-                                if(($pvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
-                                {
-                                    $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
-                                    $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
+                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                        }
 
-                                    if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
-                                        $listPrice = $pvalue[$priceListTableColumn['Rate']];
-                                        break;
+                        if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
+                        {
+                            $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
+                        }
+
+                        if(!isset($catagoryDescription['SIOP5Description']) && $record['SIOPLevel5'])
+                        {
+                            $catagoryDescription['SIOP5Description'] = !empty($categoriesList[$SIOPLevel5]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel5]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel5]['description'];
+                        }
+
+                        
+
+                        $listPrice = '';
+
+                        if($record['priceData'])
+                        {
+                            $recordArray = explode(PHP_EOL, $record['priceData']);
+
+                            if(count($recordArray))
+                            {
+                                
+                                foreach ($recordArray as $rkey => $rvalue) {
+                                    $pvalue = explode('|', $rvalue);
+                                    if(($pvalue[$priceListTableColumn['Rate Unit']] == $Currency) && ($pvalue[$priceListTableColumn['Distribution Channel']] == $distributionChannel) && ($pvalue[$priceListTableColumn['Sales Organization']] == $salesOrganisation))
+                                    {
+                                        $ValidityStartDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity Start Date']]);
+                                        $ValidityEndDate = \Carbon\Carbon::createFromFormat('Y-m-d',$pvalue[$priceListTableColumn['Validity End Date']]);
+
+                                        if($ValidFromDate->between($ValidityStartDate, $ValidityEndDate)) {
+                                            $listPrice = $pvalue[$priceListTableColumn['Rate']];
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    
-                    if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
-                    {
-                        $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                    }
-
-                    if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
-                    {
-                        $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                    }
-
-                    if($item[$headerKeysIndex['material']])
-                        $material = array_merge($material, $item[$headerKeysIndex['material']]);
-
-                    if($item[$headerKeysIndex['reinforcement']])
-                        $reinforcement = array_merge($reinforcement, $item[$headerKeysIndex['reinforcement']]);
-                    
-                    if($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($VirtualCatalogReinforcement))
-                        $VirtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
-                    
-                    if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
-                        $longDescription = $item[$headerKeysIndex['longDescription']];
-
-                    if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
-                        $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
-                    
-                    if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
-                    {
-                        foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
-                            array_push($safetyFeatures,$feature);
+                        
+                        if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
+                        {
+                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                         }
-                    }
-                    
-                    $item[] = $listPrice;
-                    
-                    foreach ($orderKeys as $ckey => $cvalue) {
-                            $articlesData[] = $item[$cvalue];
-                    }
 
-                    $brandsData[$siop6Category][] = $articlesData;
-                    unset($articlesData);
+                        if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
+                        {
+                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                        }
+
+                        if($item[$headerKeysIndex['material']])
+                            $material = array_merge($material, $item[$headerKeysIndex['material']]);
+
+                        if($item[$headerKeysIndex['reinforcement']])
+                            $reinforcement = array_merge($reinforcement, $item[$headerKeysIndex['reinforcement']]);
+                        
+                        if($item[$headerKeysIndex['VirtualCatalogReinforcement']] && empty($VirtualCatalogReinforcement))
+                            $VirtualCatalogReinforcement = $item[$headerKeysIndex['VirtualCatalogReinforcement']];
+                        
+                        if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
+                            $longDescription = $item[$headerKeysIndex['longDescription']];
+
+                        if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
+                            $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
+                        
+                        if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
+                        {
+                            foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                                array_push($safetyFeatures,$feature);
+                            }
+                        }
+                        
+                        $item[] = $listPrice;
+                        
+                        foreach ($orderKeys as $ckey => $cvalue) {
+                                $articlesData[] = $item[$cvalue];
+                        }
+
+                        $brandsData[$siop6Category][] = $articlesData;
+                        unset($articlesData);
+                    }
                 }
                 
                 $brandsDataArr = array();
@@ -1926,19 +1938,15 @@ if(isset($data[$baseId])) {
 
                         if(isset($headerKeysIndex['pitchMM']) && isset($headerKeysIndex['widthmm']))
                             array_multisort(array_column($bvalue, $headerKeysIndex['pitchMM']), SORT_ASC, array_column($bvalue, $headerKeysIndex['widthmm']), SORT_ASC, $bvalue);
-                        
-                        if(isset($headerKeysIndex['outsideLengthIN']) && isset($headerKeysIndex['netWeight']))
+                        else if(isset($headerKeysIndex['outsideLengthIN']) && isset($headerKeysIndex['netWeight']))
                             array_multisort(array_column($bvalue, $headerKeysIndex['outsideLengthIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
-                        
-                        if(isset($headerKeysIndex['insideLengthIN']))
+                        else if(isset($headerKeysIndex['insideLengthIN']))
                             array_multisort(array_column($bvalue, $headerKeysIndex['insideLengthIN']), SORT_ASC, $bvalue);
-                        
-                        if(isset($headerKeysIndex['pulleyDiameterIN']) && isset($headerKeysIndex['GroovesPerTooth']))
+                        else if(isset($headerKeysIndex['pulleyDiameterIN']) && isset($headerKeysIndex['GroovesPerTooth']))
                             array_multisort(array_column($bvalue, $headerKeysIndex['pulleyDiameterIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['GroovesPerTooth']), SORT_ASC, $bvalue);
-                        
-                        if(isset($headerKeysIndex['numberOfTeeth']) && isset($headerKeysIndex['netWeight']))
+                        else if(isset($headerKeysIndex['numberOfTeeth']) && isset($headerKeysIndex['netWeight']))
                             array_multisort(array_column($bvalue, $headerKeysIndex['numberOfTeeth']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
-                        
+
                         $brandsDataArr[$bkey] = $bvalue;
                     }
 

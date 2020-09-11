@@ -18,14 +18,15 @@ if (isset($info['brandsData'])) {
 
                     <div id="pageHeader"></div>
                     <span class="pageName">
-                        <?php
-                        if (isset($info['selectedCategory']) && !empty($info['selectedCategory'])) {
-                            echo $this->input("INH_PP_HEADER_CAP_" . $pg, ["placehoder" => "SIOP Cat Description"])->setDataFromResource($info['selectedCategory']);
-                        } else {
-                            echo $this->input("INH_PP_HEADER_CAP_" . $pg, ["placehoder" => "SIOP Cat Description"]);
-                        }
-                        ?>
-
+                        <?php if($this->editmode): ?>
+                            <?php if($this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"])->isEmpty()): ?>
+                                    <?= $this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"])->setDataFromResource($info['selectedCategory']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"]); ?>
+                            <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"]) ?>
+                        <?php endif; ?>
                     </span>
 
                     <div class="footer">
@@ -35,12 +36,38 @@ if (isset($info['brandsData'])) {
                             </span>
                             <div class="flex aligned">
                                 <h5>
-                                    <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"])->setDataFromResource($brandKey); ?>
-                                    <span><?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: High Pressure"])->setDataFromResource("High Pressure"); ?></span>
+                                    <?php if($this->editmode): ?>
+                                        <?php if($this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"])->isEmpty()): ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"]); ?>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"]) ?>
+                                    <?php endif; ?>
+                                    <span>
+                                        <?php if($this->editmode): ?>
+                                            <?php if($this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource($info['selectedCategory']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                        <?php endif; ?>
+                                    </span>
                                 </h5>
 
                                 <div class="compatible">
-                                    <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg)->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>"); ?>                                        
+                                    <?php if($this->editmode): ?>
+                                        <?php if($this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") ?>
+                                        <?php else: ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                    <?php endif; ?>
                                 </div>
 
                             </div>
@@ -52,11 +79,36 @@ if (isset($info['brandsData'])) {
                             <div class="flex aligned">
 
                                 <div class="compatible">
-                                    <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg)->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>"); ?>
+                                    <?php if($this->editmode): ?>
+                                        <?php if($this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") ?>
+                                        <?php else: ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                    <?php endif; ?> 
                                 </div>
                                 <h5>
-                                    <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg)->setDataFromResource($brandKey); ?>
-                                    <span><?= $this->input("INH_PP_FOOTER_HP1_" . $pg)->setDataFromResource("High Pressure"); ?></span>
+                                    <?php if($this->editmode): ?>
+                                        <?php if($this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"])->isEmpty()): ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"]); ?>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"]) ?>
+                                    <?php endif; ?>
+                                    <span>
+                                        <?php if($this->editmode): ?>
+                                            <?php if($this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource($info['selectedCategory']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                        <?php endif; ?> 
                                 </h5>
 
                             </div>
@@ -100,22 +152,35 @@ if (isset($info['brandsData'])) {
                                 </div>
                                 <div class="inhRight">
                                     <header class=" white">
-                                        <h1><?php echo $this->input("INH_PRODUCT_BRANDNAME_{$pg}")->setDataFromResource($brandKey); ?> </h1>
+                                        <h1>
+                                            <?php if($this->editmode): ?>
+                                                <?php if($this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"])->isEmpty()): ?>
+                                                        <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"])->setDataFromResource($brandKey) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"]); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"]) ?>
+                                            <?php endif; ?> 
+                                        </h1>
 					<aside>
                                          <div>
-                                            <?php
-                                            if ($this->editmode) {
-                                                echo $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}")->setDataFromResource($brand['brandData']['longDescription']);
-                                            } else {
-                                                echo $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}");
-                                            }
-                                            ?>
+                                            <?php if($this->editmode): ?>
+                                                <?php if($this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"])->isEmpty()): ?>
+                                                        <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"])->setDataFromResource($brand['brandData']['longDescription']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"]); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"]) ?>
+                                            <?php endif; ?>   
                                         </div>
                                         <?php
                                         if ($this->editmode) {
                                             echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
                                         } else {
-                                            echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128]);
+                                            if(!$this->image("INH_MAIN_IMAGE_{$pg}")->isEmpty())
+                                                echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128]);
                                         }
                                         ?>
                                     </aside>

@@ -24,13 +24,15 @@ if($groupData):
 
                 <div id="pageHeader"></div>
                 <span class="pageName">
-                <?php 
-                if($this->editmode){
-                        echo $this->input("INH_Fitting_Header")->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); 
-                }else{
-                        echo $this->input("INH_Fitting_Header");
-                }                
-                ?>
+                        <?php if($this->editmode): ?>
+                            <?php if($this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->isEmpty()): ?>
+                                    <?= $this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]); ?>
+                            <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]) ?>
+                        <?php endif; ?>
                 </span>
 
                 <div class="footer">
@@ -40,8 +42,26 @@ if($groupData):
                                 </span>
                                 <div class="flex aligned">
                                 <h5>
-                                        <?= $this->input("INH_FITTING_FOOTER_BRAND_" . $pg)->setDataFromResource($groupData['brandName']); ?>
-                                        <span><?= $this->input("INH_FITTING_FOOTER_HP_" . $pg)->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); ?></span>
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->input("INH_FITTING_FOOTER_BRAND_" . $pg, ["placeholder" => "Enter Brand"])->isEmpty()): ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_BRAND_" . $pg, ["placeholder" => "Enter Brand"])->setDataFromResource($groupData['brandName']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_BRAND_" . $pg, ["placeholder" => "Enter Brand"]); ?>
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_FITTING_FOOTER_BRAND_" . $pg, ["placeholder" => "Enter Brand"]) ?>
+                                        <?php endif; ?>
+                                        <span>
+                                                <?php if($this->editmode): ?>
+                                                <?php if($this->input("INH_FITTING_FOOTER_HP_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->isEmpty()): ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_HP_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_HP_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]); ?>
+                                                <?php endif; ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_HP_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]) ?>
+                                                <?php endif; ?>
+                                        </span>
                                 </h5>
                                 </div>
                         </footer>
@@ -50,8 +70,26 @@ if($groupData):
                         <footer class="flex-center <?php echo $footer_class; ?>">
                                 <div class="flex aligned">
                                 <h5>
-                                        <?= $this->input("INH_FITTING_FOOTER_BRAND1_" . $pg)->setDataFromResource($groupData['brandName']); ?>
-                                        <span><?= $this->input("INH_FITTING_FOOTER_HP1_" . $pg)->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']); ?></span>
+                                <?php if($this->editmode): ?>
+                                                <?php if($this->input("INH_FITTING_FOOTER_BRAND1_" . $pg, ["placeholder" => "Enter Brand"])->isEmpty()): ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_BRAND1_" . $pg, ["placeholder" => "Enter Brand"])->setDataFromResource($groupData['brandName']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_BRAND1_" . $pg, ["placeholder" => "Enter Brand"]); ?>
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_FITTING_FOOTER_BRAND1_" . $pg, ["placeholder" => "Enter Brand"]) ?>
+                                        <?php endif; ?>
+                                        <span>
+                                                <?php if($this->editmode): ?>
+                                                <?php if($this->input("INH_FITTING_FOOTER_HP1_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->isEmpty()): ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_HP1_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_HP1_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]); ?>
+                                                <?php endif; ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("INH_FITTING_FOOTER_HP1_" . $pg, ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]) ?>
+                                                <?php endif; ?>
+                                        </span>
                                 </h5>
                                 </div>
                                 <span class="logo">
@@ -95,30 +133,35 @@ if($groupData):
                                 <div class="inhRight">
                                         <header class=" white">
                                                 <h1>
-                                                        <?php 
-                                                        if ($this->editmode) {
-                                                                echo $this->input('INH_Fitting_brandName')->setDataFromResource($groupData['brandName']);
-                                                        } else {
-                                                                echo $this->input('INH_Fitting_brandName');
-                                                        }
-                                                        ?>
+                                                        <?php if($this->editmode): ?>
+                                                                <?php if($this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"])->isEmpty()): ?>
+                                                                        <?= $this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"])->setDataFromResource($groupData['brandName']) ?>
+                                                                <?php else: ?>
+                                                                        <?= $this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"]); ?>
+                                                                <?php endif; ?>
+                                                        <?php else: ?>
+                                                                <?= $this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"]) ?>
+                                                        <?php endif; ?>
                                                 </h1>
                                                 <aside class="ptgHead">
                                                         <div>
-                                                                <?php
-                                                                if($this->editmode){
-                                                                        echo $this->wysiwyg("INH_Fitting_LongDescription", ['placeholder'=>"Enter Marketting Description"])->setDataFromResource($groupData['longDescription']); 
-                                                                }else{
-                                                                        echo $this->wysiwyg("INH_Fitting_LongDescription", ['placeholder'=>"Enter Marketting Description"]);
-                                                                }                
-                                                                ?>
+                                                                <?php if($this->editmode): ?>
+                                                                        <?php if($this->wysiwyg("INH_Fitting_LongDescription", ["placeholder" => "Enter Marketting Description"])->isEmpty()): ?>
+                                                                                <?= $this->wysiwyg("INH_Fitting_LongDescription", ["placeholder" => "Enter Marketting Description"])->setDataFromResource($groupData['longDescription']) ?>
+                                                                        <?php else: ?>
+                                                                                <?= $this->wysiwyg("INH_Fitting_LongDescription", ["placeholder" => "Enter Marketting Description"]); ?>
+                                                                        <?php endif; ?>
+                                                                <?php else: ?>
+                                                                        <?= $this->wysiwyg("INH_Fitting_LongDescription", ["placeholder" => "Enter Marketting Description"]) ?>
+                                                                <?php endif; ?>
                                                         </div>
                                                         <span class="imageHolder">
                                                         <?php
                                                         if($this->editmode){
                                                                 echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
                                                         }else{
-                                                                echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200]);
+                                                                if(!$this->image("INH_Fitting_MainImage")->isEmpty())
+                                                                        echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200]);
                                                         }
                                                         ?>
 
@@ -126,7 +169,8 @@ if($groupData):
                                                         if($this->editmode){
                                                                 echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
                                                         }else{
-                                                                echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200]);
+                                                                if(!$this->image("INH_Fitting_ProfileDimension")->isEmpty())
+                                                                        echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200]);
                                                         }
                                                         ?>
                                                         </span>
