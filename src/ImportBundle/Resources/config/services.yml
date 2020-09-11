@@ -90,6 +90,15 @@ services:
     ImportBundle\OneTimeImportCommand\PopulateHydFittingTableNameCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:populate-hyd-fitting-table-name' }
+
+
+    ImportBundle\OneTimeImportCommand\AssociateCategorySubCategoryForBrandNameCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:assoc-category-subcategory-for-brand-name' }
+
+    ImportBundle\OneTimeImportCommand\AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:assoc-fitting-category-subcategory-for-fitting-and-thread' }
             
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
