@@ -14,12 +14,12 @@ parameters:
                 fieldType: Input
                 parent:
                     name: Product
-            hoseIdNominalId:
-                fieldLevel: objectBrick
-                fieldLabel: 'Hose ID Fractional'
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
+            # hoseIdNominalId:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: 'Hose ID Fractional'
+            #     fieldType: Input
+            #     parent:
+            #         name: HoseSkeleton
             hoseOdIn:
                 fieldLevel: objectBrick
                 fieldLabel: 'Hose OD(In)'
@@ -922,8 +922,10 @@ parameters:
                 fieldType: Input
             mainImage:
                 fieldLevel: class
-                fieldLabel: Main Image
                 fieldType: Media
+                fieldLabel: Main Image
+                parent: 
+                    name: Product
             oldMaterialCode:
                 fieldLevel: class
                 fieldLabel: Old Material Code
@@ -943,13 +945,13 @@ parameters:
                 fieldType: Input
                 parent:
                     name: Product
-            VirtualCatalogHoseTemperatureRangeFAndC:
+            temperatureRangeFAndC:
                 fieldLevel: class
-                fieldLabel: Temperature Range
-                fieldType: Textarea
+                fieldType: Input
+                fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
-            VirtualCatalogBrandingLayline:
+            BrandingLayline:
                 fieldLevel: class
                 fieldLabel: Branding
                 fieldType: Textarea
@@ -967,7 +969,7 @@ parameters:
             longDescription:
                 fieldLevel: class
                 fieldLabel: Application
-                fieldType: Wysiwyg
+                fieldType: Input
                 parent:
                     name: Product
             FittingTableName:
@@ -983,75 +985,114 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
-            VirtualCatalogPackaging:
+            Packaging:
                 fieldLevel: objectBrick
                 fieldLabel: Packaging
-                fieldType: Textarea
+                fieldType: input
                 parent:
                     name: HoseBase
+            coverMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Cover Material
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
             VirtualCatalogCoverMaterial:
                 fieldLevel: objectBrick
-                fieldLabel: Cover
+                fieldLabel: Virtual Catalog Cover Material
                 fieldType: Textarea
                 parent:
                     name: HoseBase
+            tubeMaterial:
+                fieldLevel: objectBrick
+                fieldLabel: Tube Material
+                fieldType: Relation
+                parent:
+                    name: HoseBase
+                    class:
+                        name: MultiselectMaster
+                        fieldName: Name
             VirtualCatalogTubeMaterial:
                 fieldLevel: objectBrick
-                fieldLabel: Tube
+                fieldLabel: Virtual Catalog Tube Material
                 fieldType: Textarea
                 parent:
                     name: HoseBase
-            VirtualCatalogCoupling:
+            Coupling:
                 fieldLevel: objectBrick
                 fieldLabel: Coupling
-                fieldType: Textarea
+                fieldType: input
                 parent:
                     name: HoseBase
             VirtualCatalogReinforcement:
-                fieldLevel: objectBrick
+                fieldLevel: class
+                fieldLabel: VirtualCatalogReinforcement
+                fieldType: Textarea
+            reinforcement:
+                fieldLevel: class
+                fieldType: Relation
                 fieldLabel: Reinforcement
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
-            hoseIdNominalId:
+                parent: 
+                    name: Product
+                    class: 
+                        name : MultiselectMaster
+                        fieldName: Name
+            HoseIDNominalIDFrac:
                 fieldLevel: objectBrick
-                fieldLabel: 'ID (in)'
+                fieldLabel: Hose ID (in Fract) Nominal ID'
+                groupName: HoseIDNominalIDFrac
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             hoseIdMM:
                 fieldLevel: objectBrick
                 fieldLabel: 'ID (mm)'
+                groupName: hoseIdMM
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             hoseOdIn:
                 fieldLevel: objectBrick
                 fieldLabel: 'OD (in)'
+                groupName: hoseOD
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             hoseOdmm:
                 fieldLevel: objectBrick
                 fieldLabel: OD (mm)
+                groupName: hoseOD
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             hoseLengthFT:
                 fieldLevel: objectBrick
                 fieldLabel: Hose Length (ft)
+                groupName: hoseLengthFT
+                unitName: ft
                 fieldType: Input
                 parent:
                     name: HoseFert
             workingPressurePSI:
                 fieldLevel: objectBrick
                 fieldLabel: WP (psi)
+                groupName: workingPressurePSI
+                unitName: (psi)
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             workingPressureBAR:
                 fieldLevel: objectBrick
                 fieldLabel: WP (bar)
+                groupName: workingPressureBAR
+                unitName: (bar)
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1062,16 +1103,22 @@ parameters:
             weightKg:
                 fieldLevel: class
                 fieldLabel: W (kg)
+                groupName: weightKg
+                unitName: kg
                 fieldType: Number
             BendRadiusIN:
                 fieldLevel: objectBrick
                 fieldLabel: BR (in)
+                groupName: BendRadiusIN
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             VacuumIN:
                 fieldLevel: objectBrick
                 fieldLabel: Vacuum (in)
+                groupName: VacuumIN
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HoseSkeleton

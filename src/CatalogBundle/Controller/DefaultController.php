@@ -2,6 +2,7 @@
 
 namespace CatalogBundle\Controller;
 
+use Pimcore\Model\Asset;
 use AppBundle\Helper\Common;
 use Pimcore\Db;
 use Pimcore\Model\DataObject;
@@ -513,7 +514,6 @@ class DefaultController extends AbstractController {
 
                     $headers[$dFieldKey] = $dFieldName['fieldLabel'];
                     if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
-
                         $getter = 'get' . ucfirst($dFieldKey);
                         if($item->$getter() !== null && !empty($item->$getter()))
                         {
@@ -524,7 +524,6 @@ class DefaultController extends AbstractController {
                         $pData[$item->getId()][$dFieldKey] = '';   
                         }
                     } else if ($dFieldName['fieldLevel'] == 'class' && $dFieldName['fieldType'] == 'Media') {
-
                         $getter = 'get' . ucfirst($dFieldKey);
                     // p_r($item->$getter());
                         if ($item->$getter() !== null) {
@@ -1728,6 +1727,7 @@ if(isset($data[$baseId])) {
             $priceListTableConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getPriceListTableConfig();
             
             $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
+            $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
             $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
 
@@ -1758,6 +1758,7 @@ if(isset($data[$baseId])) {
             {
                 $columnsData['listPrice']['columnName'] = 'listPrice';
                 $columnsData['listPrice']['columnLabel'] = 'listPrice';
+                $columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
             }
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
@@ -1777,7 +1778,9 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                
+                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
             }
 
             unset($columnsData);
@@ -1899,7 +1902,7 @@ if(isset($data[$baseId])) {
                     if($item[$headerKeysIndex['temperatureRangeFAndC']] && empty($temperatureRangeFAndC))
                         $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
                     
-                    if(count($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
+                    if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
                     {
                         foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
                             array_push($safetyFeatures,$feature);
@@ -1916,6 +1919,32 @@ if(isset($data[$baseId])) {
                     unset($articlesData);
                 }
                 
+                $brandsDataArr = array();
+                if($brandsData)
+                {
+                    foreach ($brandsData as $bkey => $bvalue) {
+
+                        if(isset($headerKeysIndex['pitchMM']) && isset($headerKeysIndex['widthmm']))
+                            array_multisort(array_column($bvalue, $headerKeysIndex['pitchMM']), SORT_ASC, array_column($bvalue, $headerKeysIndex['widthmm']), SORT_ASC, $bvalue);
+                        
+                        if(isset($headerKeysIndex['outsideLengthIN']) && isset($headerKeysIndex['netWeight']))
+                            array_multisort(array_column($bvalue, $headerKeysIndex['outsideLengthIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
+                        
+                        if(isset($headerKeysIndex['insideLengthIN']))
+                            array_multisort(array_column($bvalue, $headerKeysIndex['insideLengthIN']), SORT_ASC, $bvalue);
+                        
+                        if(isset($headerKeysIndex['pulleyDiameterIN']) && isset($headerKeysIndex['GroovesPerTooth']))
+                            array_multisort(array_column($bvalue, $headerKeysIndex['pulleyDiameterIN']), SORT_ASC, array_column($bvalue, $headerKeysIndex['GroovesPerTooth']), SORT_ASC, $bvalue);
+                        
+                        if(isset($headerKeysIndex['numberOfTeeth']) && isset($headerKeysIndex['netWeight']))
+                            array_multisort(array_column($bvalue, $headerKeysIndex['numberOfTeeth']), SORT_ASC, array_column($bvalue, $headerKeysIndex['netWeight']), SORT_ASC, $bvalue);
+                        
+                        $brandsDataArr[$bkey] = $bvalue;
+                    }
+
+                }
+                unset($brandsData);
+
                 $safetyFeatures = array_unique($safetyFeatures);
 
                 $safetyFeaturesListWithImage = array();
@@ -1969,7 +1998,7 @@ if(isset($data[$baseId])) {
                 $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['temperatureRange'] = $temperatureRangeFAndC;
-                $groupData['data'] = $brandsData;
+                $groupData['data'] = $brandsDataArr;
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['brandName'] = $catagoryDescription['SIOP5Description'];
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];

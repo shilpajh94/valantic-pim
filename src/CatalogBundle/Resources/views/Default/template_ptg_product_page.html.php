@@ -189,7 +189,7 @@ if($groupData):
                                                         <h6><?= $this->translate('Key features + Benefits') ?></h6>
                                                         <div>
                                                                 <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
-                                                                        <p  class="flex">
+                                                                        <p  class="flex center">
                                                                                 <?php if($feature['iconSrc']): ?>
                                                                                 <img src="<?= $feature['iconSrc'] ?>" />
                                                                                 <?php endif; ?>
@@ -243,7 +243,11 @@ if($groupData):
                                                                         $g1count = count($c1data);
                                                                         $firstArray = array_shift($c1data);
                                                                 ?>
-                                                                <td colspan="<?= $g1count; ?>"><img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" /></td>
+                                                                <td colspan="<?= $g1count; ?>">
+                                                                <?php if($firstArray['columnIcon']): ?>
+                                                                <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                                <?php endif; ?>
+                                                                </td>
                                                         <?php endforeach; ?>
                                                 </tr>
                                         <?php endif; ?>

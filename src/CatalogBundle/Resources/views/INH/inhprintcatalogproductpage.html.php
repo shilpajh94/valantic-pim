@@ -5,409 +5,299 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     <?= $this->relation("inh-printcatalog"); ?>
 <?php } ?>
 <?php
-if (isset($info['data'])) {
-?>
-    <?php
-    if (is_array($info['data'])) {
-        $pg = 0;
-        foreach ($info['data'] as $tableName => $tableData) {
-            foreach ($tableData['data'] as $brand => $rows) {
-                $brandenc = md5($brand . $pg);
-                //p_r($rows);die;
+if (isset($info['brandsData'])) {
     ?>
 
-                <div class="template">
-                    <div class="segregate" id="inh">
+    <?php
+    if (is_array($info['brandsData'])) {
+        $pg = 0;
+        foreach ($info['brandsData'] as $brandKey => $brand) {
+            ?>
+            <div class="template">
+                <div class="segregate inh">
 
-                        <div id="pageHeader"></div>
-                        <span class="pageName">
-                            <?php
-                            if (isset($info['selectedCategory']) && !empty($info['selectedCategory'])) {
-                                echo $this->input("INH_PP_HEADER_CAP_" . $brandenc, ["placehoder" => "SIOP Cat Description"])->setDataFromResource($info['selectedCategory']);
-                            } else {
-                                echo $this->input("INH_PP_HEADER_CAP_" . $brandenc, ["placehoder" => "SIOP Cat Description"]);
-                            }
-                            ?>
+                    <div id="pageHeader"></div>
+                    <span class="pageName">
+                        <?php
+                        if (isset($info['selectedCategory']) && !empty($info['selectedCategory'])) {
+                            echo $this->input("INH_PP_HEADER_CAP_" . $pg, ["placehoder" => "SIOP Cat Description"])->setDataFromResource($info['selectedCategory']);
+                        } else {
+                            echo $this->input("INH_PP_HEADER_CAP_" . $pg, ["placehoder" => "SIOP Cat Description"]);
+                        }
+                        ?>
 
-                        </span>
+                    </span>
 
+                    <div class="footer">
+                        <footer class="flex-center <?php echo $info['footer_class']; ?> ">
+                            <span class="logo">
+                                <img src="<?= $info['footer_logo_src']; ?>">
+                            </span>
+                            <div class="flex aligned">
+                                <h5>
+                                    <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"])->setDataFromResource($brandKey); ?>
+                                    <span><?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: High Pressure"])->setDataFromResource("High Pressure"); ?></span>
+                                </h5>
 
-
-                        <div class="footer">
-                            <footer class="flex-center ">
-                                <span class="logo">
-                                    <?php
-                                    if ($info['logo'] != null) {
-                                        echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 120, "height" => 53])->setImage($info['logo']);
-                                    } else {
-                                        echo $this->image("FOOTER_LOGO_" . $brandenc, ["width" => 120, "height" => 53]);
-                                    }
-
-                                    ?>
-                                </span>
-                                <div class="flex aligned">
-                                    <h5>
-                                        <?= $this->input("INH_PP_FOOTER_BRAND_" . $brandenc, ["placeholder" => "Brand"])->setDataFromResource($brand); ?>
-                                        <span><?= $this->input("INH_PP_FOOTER_HP_" . $brandenc, ["placeholder" => "eg: High Pressure"])->setDataFromResource("High Pressure"); ?></span>
-                                    </h5>
-
-                                    <div class="compatible">
-                                    <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $brandenc)->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>"); ?>                                        
-                                    </div>
-
+                                <div class="compatible">
+                                    <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg)->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>"); ?>                                        
                                 </div>
-                            </footer>
-                        </div>
 
-                        <div class="footer1">
-                            <footer class="flex-center ">
-                                <div class="flex aligned">
+                            </div>
+                        </footer>
+                    </div>
 
-                                    <div class="compatible">
-                                    <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $brandenc)->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>"); ?>
+                    <div class="footer1">
+                        <footer class="flex-center <?php echo $info['footer_class']; ?> ">
+                            <div class="flex aligned">
 
-                                    <h5>
-                                        <?= $this->input("INH_PP_FOOTER_BRAND1_" . $brandenc)->setDataFromResource($brand); ?>
-                                        <span><?= $this->input("INH_PP_FOOTER_HP1_" . $brandenc)->setDataFromResource("High Pressure"); ?></span>
-                                    </h5>
-
+                                <div class="compatible">
+                                    <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg)->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>"); ?>
                                 </div>
-                                <span class="logo">
+                                <h5>
+                                    <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg)->setDataFromResource($brandKey); ?>
+                                    <span><?= $this->input("INH_PP_FOOTER_HP1_" . $pg)->setDataFromResource("High Pressure"); ?></span>
+                                </h5>
+
+                            </div>
+                            <span class="logo">
+                                <img src="<?= $info['footer_logo_src']; ?>">
+                            </span>
+                        </footer>
+                    </div>
+
+                    <article class="fullcontainer single">
+                        <div class="inhsetting1">
+                            <div class="inhsetting-sidebar sidebar">
+                                <ul>
                                     <?php
-                                    if ($info['logo'] != null) {
-                                        echo $this->image("FOOTER_LOGO1_" . $brandenc, ["width" => 120, "height" => 53])->setImage($info['logo']);
-                                    } else {
-                                        echo $this->image("FOOTER_LOGO1_" . $brandenc, ["width" => 120, "height" => 53]);
-                                    }
-
-                                    ?>
-                                </span>
-                            </footer>
-                        </div>
-
-
-
-                        <article class="fullcontainer single">
-                            <div class="flex inhsetting">
-                                <div class="sidebar">
-                                    <ul>
-                                        <?php
-                                        if (is_array($info['categories'])) {
-                                            foreach ($info['categories'] as $category) {
-                                                $catNames = array_column($category, 'name');
-                                                $first = "";
-                                                foreach ($catNames as $cn) {
-                                                    if ($info['selectedCategory'] == $cn) {
-                                                        $first = "first";
-                                                    }
+                                    if (is_array($info['categories'])) {
+                                        foreach ($info['categories'] as $category) {
+                                            $catNames = array_column($category, 'name');
+                                            $first = "";
+                                            foreach ($catNames as $cn) {
+                                                if ($info['selectedCategory'] == $cn) {
+                                                    $first = "first";
                                                 }
-                                                echo "<li class='$first'>";
-                                                if (is_array($category) && !empty($category)) {
-                                                    foreach ($category as $k => $cat) {
-                                                        if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                            echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                        } else {
-                                                            if ($cat['printable'] == 1) {
-                                                                echo "<p>" . $cat['name'] . "</p>";
-                                                            }
+                                            }
+                                            echo "<li class='$first'>";
+                                            if (is_array($category) && !empty($category)) {
+                                                foreach ($category as $k => $cat) {
+                                                    if ($cat['printable'] == 1 && $cat['level'] == 3) {
+                                                        echo "<p><b>" . $cat['name'] . "</b></p>";
+                                                    } else {
+                                                        if ($cat['printable'] == 1) {
+                                                            echo "<p>" . $cat['name'] . "</p>";
                                                         }
                                                     }
                                                 }
-                                                echo "</li>";
                                             }
+                                            echo "</li>";
                                         }
+                                    }
                                         ?>
                                     </ul>
                                 </div>
-                                <div class="grow-2 inhRight">
+                                <div class="inhRight">
                                     <header class=" white">
-                                        <h1><?php echo $brand; ?> </h1>
-                                        <aside>
-                                            <p>
-                                                <?php
-                                                if ($this->editmode) { ?>
-                                                    <?php
-                                                    echo $this->textarea('INH_LONG_DESCRIPTION_' . $brandenc)->setDataFromResource($rows['info']['longDescription']);
-                                                    ?>
-                                                <?php } ?>
-                                                <?php
-                                                if (!$this->editmode && !$this->textarea('INH_LONG_DESCRIPTION_' . $brandenc)->isEmpty()) { ?>
-                                                    <?php
-                                                    echo $this->textarea('INH_LONG_DESCRIPTION_' . $brandenc);
-                                                    ?>
-                                                <?php } ?>
-                                            </p>
-                                            <?php echo $this->image('INH_MAIN_IMAGE_' . $brandenc, ['width' => 1067, 'height' => 128]); ?>
-                                        </aside>
-                                    </header>
-                                    <section class="content">
-                                        <menu class="flex">
-                                            <div class="specs">
-                                                <h6>performance + specs</h6>
-                                                <div class="spec-requirement flex">
-                                                    <div class="col-6">
-                                                        <?php
-                                                        if ($this->editmode) {
-                                                        ?>
-                                                            <p>
-                                                                <b><?= $this->translate('VirtualCatalogTubeMaterial'); ?></b>
-                                                                <?= $this->wysiwyg('INH_PP_Tube_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogTubeMaterial']); ?>
-                                                            </p>
-                                                            <p>
-                                                                <b><?= $this->translate('VirtualCatalogReinforcement'); ?></b>
-                                                                <?= $this->wysiwyg('INH_PP_Reinforcement_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogReinforcement']); ?>
-                                                            </p>
-                                                            <p>
-                                                                <b><?= $this->translate('VirtualCatalogCoverMaterial'); ?></b>
-                                                                <?php
-                                                                echo $this->wysiwyg('INH_PP_Cover_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogCoverMaterial']);
-                                                                ?>
-                                                            </p>
-                                                            <p>
-                                                                <b><?= $this->translate('VirtualCatalogHoseTemperatureRangeFAndC'); ?></b>
-                                                                <?= $this->textarea('INH_PP_Temprance_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogHoseTemperatureRangeFAndC']); ?>
-                                                            </p>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (
-                                                            !$this->editmode
-                                                        ) { ?>
-                                                            <?php
-                                                            if (!$this->wysiwyg('INH_PP_Tube_' . $brandenc)->isEmpty()) { ?>
-                                                                <p>
-                                                                    <b><?= $this->translate('VirtualCatalogTubeMaterial'); ?></b>
-                                                                    <?php
-                                                                    echo $this->wysiwyg('INH_PP_Tube_' . $brandenc);
-                                                                    ?>
-                                                                </p>
-                                                            <?php }
-                                                            ?>
+                                        <h1><?php echo $this->input("INH_PRODUCT_BRANDNAME_{$pg}")->setDataFromResource($brandKey); ?> </h1>
+					<aside>
+                                         <div>
+                                            <?php
+                                            if ($this->editmode) {
+                                                echo $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}")->setDataFromResource($brand['brandData']['longDescription']);
+                                            } else {
+                                                echo $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}");
+                                            }
+                                            ?>
+                                        </div>
+                                        <?php
+                                        if ($this->editmode) {
+                                            echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
+                                        } else {
+                                            echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128]);
+                                        }
+                                        ?>
+                                    </aside>
+                                </header>
+                                <section class="content">
+                                    <menu class="flex">
+                                        <div class="specs">
+                                            <h6>performance + specs</h6>
+                                            <div class="spec-requirement flex">
+                                                <div class="col-6">
+                                                    <?php if (!empty(trim($brand['brandData']['tubeMaterial']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Tube Material') ?></b>
+                                                            <?= $brand['brandData']['tubeMaterial'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
 
-                                                            <?php
-                                                            if (!$this->wysiwyg('INH_PP_Reinforcement_' . $brandenc)->isEmpty()) { ?>
-                                                                <p>
-                                                                    <b><?= $this->translate('VirtualCatalogReinforcement'); ?></b>
-                                                                    <?php
-                                                                    echo $this->wysiwyg('INH_PP_Reinforcement_' . $brandenc);
-                                                                    ?>
-                                                                </p>
-                                                            <?php }
-                                                            ?>
+                                                    <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Reinforcement') ?></b>
+                                                            <?= $brand['brandData']['reinforcement'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
 
-                                                            <?php
-                                                            if (!$this->wysiwyg('INH_PP_Cover_' . $brandenc)->isEmpty()) { ?>
-                                                                <p>
-                                                                    <b><?= $this->translate('VirtualCatalogCoverMaterial'); ?></b>
-                                                                    <?php
-                                                                    echo $this->wysiwyg('INH_PP_Cover_' . $brandenc);
-                                                                    ?>
-                                                                </p>
-                                                            <?php }
-                                                            ?>
+                                                    <?php if (!empty(trim($brand['brandData']['coverMaterial']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Cover Material') ?></b>
+                                                            <?= $brand['brandData']['coverMaterial'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
 
-                                                            <?php
-                                                            if (!$this->wysiwyg('INH_PP_Temprance_' . $brandenc)->isEmpty()) { ?>
-                                                                <p>
-                                                                    <b><?= $this->translate('VirtualCatalogHoseTemperatureRangeFAndC'); ?></b>
-                                                                    <?php
-                                                                    echo $this->wysiwyg('INH_PP_Temprance_' . $brandenc);
-                                                                    ?>
-                                                                </p>
-                                                            <?php }
-                                                            ?>
-
-                                                        <?php } ?>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <?php
-                                                        if ($this->editmode) { ?>
-                                                            <p>
-                                                                <b><?= $this->translate('VirtualCatalogPackaging'); ?></b>
-                                                                <?php
-                                                                echo $this->wysiwyg('INH_PP_Packaging_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogPackaging']);
-                                                                ?>
-                                                            </p>
-                                                            <p>
-                                                                <b><?= $this->translate('VirtualCatalogCoupling'); ?></b>
-                                                                <?php
-                                                                echo $this->textarea('INH_PP_Coupling_' . $brandenc)->setDataFromResource($rows['info']['VirtualCatalogCoupling']);
-                                                                ?>
-                                                            </p>
-                                                        <?php } ?>
-
-                                                        <?php
-                                                        if (!$this->editmode) {
-                                                        ?>
-                                                            <?php
-                                                            if (!$this->wysiwyg('INH_PP_Packaging_' . $brandenc)->isEmpty()) { ?>
-                                                                <p>
-                                                                    <b><?= $this->translate('VirtualCatalogPackaging'); ?></b>
-                                                                    <?php
-                                                                    echo $this->wysiwyg('INH_PP_Packaging_' . $brandenc);
-                                                                    ?>
-                                                                </p>
-                                                            <?php } ?>
-
-                                                            <?php
-                                                            if (!$this->textarea('INH_PP_Coupling_' . $brandenc)->isEmpty()) { ?>
-                                                                <p>
-                                                                    <b><?= $this->translate('VirtualCatalogCoupling'); ?></b>
-                                                                    <?php
-                                                                    echo $this->textarea('INH_PP_Coupling_' . $brandenc);
-                                                                    ?>
-                                                                </p>
-                                                            <?php } ?>
-                                                        <?php
-
-                                                        }
-                                                        ?>
-
-                                                    </div>
+                                                    <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Temperature Range') ?></b>
+                                                            <?= $brand['brandData']['temperatureRangeFAndC'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
+                                                    <?php if (!empty(trim($brand['brandData']['orderCodes']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Order Codes') ?></b>
+                                                            <?= $brand['brandData']['orderCodes'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
                                                 </div>
-                                                <div class="col-12">
-                                                        <?php
-                                                        if ($this->editmode) {
-                                                        ?>
-                                                            <p>
-                                                                <b><?= $this->translate('note'); ?></b>
-                                                                <?php
-                                                                echo $this->wysiwyg('INH_PP_Note_' . $brandenc);
-                                                                ?>
-                                                            </p>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (!$this->editmode && !$this->wysiwyg('INH_PP_Note_' . $brandenc)->isEmpty()) {
-                                                        ?>
-                                                            <p>
-                                                                <b><?= $this->translate('note'); ?></b>
-                                                                <?php
-                                                                echo $this->wysiwyg('INH_PP_Note_' . $brandenc);
-                                                                ?>
-                                                            </p>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </div>
+                                                <div class="col-6">
+                                                    <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Coupling') ?></b>
+                                                            <?= $brand['brandData']['Coupling'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
+                                                    <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
+                                                        <p>                
+                                                            <b><?= $this->translate('Packaging') ?></b>
+                                                            <?= $brand['brandData']['Packaging'] ?>
+                                                        </p>
+                                                    <?php endif; ?>
+                                                </div>
                                             </div>
+                                            <div class="col-12">
+                                                <?= $this->input('INH_PP_Note_' . $pg, ['placeholder' => 'Enter notes']); ?>
+                                            </div>
+                                        </div>
 
+                                        <?php if ($brand['brandData']['safetyFeatures']): ?>
                                             <div class="feature">
-                                                <h6>features</h6>
+                                                <h6><?= $this->translate('features') ?></h6>
                                                 <div>
-                                                    <?php
-                                                    // Feature Icons
-                                                    if (is_array($rows['info']['featureIcon'])) {
-                                                        $fn = 0;
-                                                        foreach ($rows['info']['featureIcon'] as $fid => $feature) {
-                                                            echo "<p class='flex'>";
-                                                            if ($this->editmode) {
-                                                                echo $this->image('INH_PP_ICONS_' . $brandenc . $fid)->setImage($feature['icon']);
-                                                            } else {
-                                                                echo $this->image('INH_PP_ICONS_' . $brandenc . $fid);
-                                                            }
-                                                            if ($fn == 0) {
-                                                                echo "<span>";
-                                                                echo $this->input("INH_PP_FNAME_" . $brandenc . $fid)->setDataFromResource($feature['name']);
-                                                                echo "</span>";
-                                                            } else {
-                                                                echo $this->input("INH_PP_FNAME_" . $brandenc . $fid)->setDataFromResource($feature['name']);
-                                                            }
-
-                                                            echo "</p>";
-                                                            $fn++;
-                                                        }
-                                                    }
-                                                    ?>
+                                                    <?php foreach ($brand['brandData']['safetyFeatures'] as $key => $feature): ?>
+                                                        <p  class="flex">
+                                                            <?php if ($feature['iconSrc']): ?>
+                                                                <img src="<?= $feature['iconSrc'] ?>" />
+                                                            <?php endif; ?>
+                                                            <font> <?= $feature['name'] ?></font>
+                                                        </p>
+                                                    <?php endforeach; ?>
 
                                                 </div>
                                             </div>
-                                        </menu>
-
-                                        <menu>
-                                            <h6><?= $this->translate('branding') ?></h6>
-                                            <figure>
-                                                <img src="/CatalogImages/Continental_Logo_Master_yellow.png" width='80' />
-                                                <figcaption><b><?= $brand ?></b></figcaption>
-                                                <figcaption> <?= $rows['info']['VirtualCatalogBrandingLayline'] ?> </figcaption>
-                                            </figure>
-                                        </menu>
+                                        <?php endif; ?>
 
 
+
+                                    </menu>
+
+                                    <menu>
+                                        <h6><?= $this->translate('branding') ?></h6>
+                                        <figure>
+                                            <img src="<?= $info['branding_image_src']; ?>" width='80'/> 
+                                            <figcaption><b><?= $brandKey ?></b></figcaption>
+                                            <figcaption> <?= $brand['brandData']['BrandingLayline'] ?> </figcaption>
+                                        </figure>
+                                    </menu>
+                                    <?php foreach ($brand['articleData'] as $key => $fittingTableName): ?>
+                                        <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
                                         <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
-                                            <?php
-                                            echo "<thead> <tr class='sub-head'>";
-                                            foreach ($info['dispColumns'] as $key => $col) {
-                                                if (array_key_exists($col, $info['attrImages'])) {
-                                                    echo "<td><img src='{$info['attrImages'][$col]}' /></td>";
-                                                } else {
-                                                    echo "<td></td>";
-                                                }
-                                            }
-                                            echo "</tr>";
-                                            ?>
                                             <thead>
-                                                <tr class="head ">
-                                                    <?php
-                                                    foreach ($info['dispColumns'] as $key => $col) {
-                                                        echo "<td>{$this->translate($info['dataTableColumn'][$col]->columnLabel)}</td>";
-                                                    }
-                                                    ?>
+
+                                                <?php if ($info['iconRequired'] == 'YES'): ?>
+                                                    <tr class="sub-head">
+                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c1data): ?>
+                                                            <?php
+                                                            $g1count = count($c1data);
+                                                            $firstArray = array_shift($c1data);
+                                                            ?>
+                                                            <td colspan="<?= $g1count; ?>">
+                                                                <?php if ($firstArray['columnIcon']): ?>
+                                                                    <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                                <?php endif; ?>
+                                                            </td>
+                                                        <?php endforeach; ?>
+                                                    </tr>
+                                                <?php endif; ?>
+                                                <tr class="head">
+                                                    <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c2data): ?>
+                                                        <?php
+                                                        $g2count = count($c2data);
+                                                        $first2Array = array_shift($c2data);
+                                                        ?>
+                                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                                    <?php endforeach; ?>
                                                 </tr>
+
+                                                <?php if ($fittingTableName['subHeaderRequired'] == 'YES'): ?>
+                                                    <tr class="head">
+                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c3data): ?>
+                                                            <?php foreach ($c3data as $c3key => $c3value): ?>
+                                                                <?php if ($c3value['unitName']): ?>
+                                                                    <td><?= $c3value['unitName'] ?></td>
+                                                                <?php else: ?>
+                                                                    <td></td>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        <?php endforeach; ?>
+                                                    </tr>
+                                                <?php endif; ?>
                                             </thead>
-                                            <?php
-                                            if (is_array($rows['products']) && !empty($rows['products'])) {
-                                                $i = 1;
-                                                foreach ($rows['products'] as $row) {
-                                                    $active = "";
-                                                    if ($i % 2 != 0) {
-                                                        $active = "active";
-                                                    }
-                                                    $i++;
-                                                    echo "<tr class='$active'>";
-                                                    foreach ($info['dispColumns'] as $key => $col) {
-                                                        $td = false;
-                                                        if (is_array($row[$col])) {
-                                                            if (!empty($row[$col])) {
-                                                                $td = true;
-                                                                echo "<td>{$row[$col][0]}</td>";
-                                                            }
-                                                        } else {
-                                                            $td = true;
-                                                            echo "<td>{$row[$col]}</td>";
-                                                        }
-                                                        if (!$td) {
-                                                            echo "<td></td>";
-                                                        }
-                                                    }
-                                                    echo "</tr>";
-                                                }
-                                            }
-                                            ?>
+                                            <tbody>
+                                                <?php $incrRow = 1; ?>        
+                                                <?php foreach ($fittingTableName['articles'] as $key => $element): ?>
+                                                    <?php if ($incrRow % 2 == 0): ?>
+                                                        <tr>
+                                                        <?php else: ?>
+                                                        <tr class="active">
+                                                        <?php endif; ?>
+                                                        <?php foreach ($element as $ekey => $value): ?>
+                                                            <td><?= $value ?></td>
+                                                        <?php endforeach; ?>
+                                                    </tr>
+                                                    <?php $incrRow++ ?>
+                                                <?php endforeach; ?>
+                                            </tbody>
+
+
                                         </table>
+                                    <?php endforeach; ?>
 
-                                    </section>
 
-                                </div>
+
+                                </section>
+
                             </div>
-                        </article>
-                    </div>
+                        </div>
+                    </article>
                 </div>
-    <?php }
+            </div>
+            <?php
             $pg++;
         }
-    } ?>
+    }
+    ?>
+
+
 <?php } ?>
 
 
 <script>
-    var rows = document.querySelectorAll(".inhsetting");
+    var rows = document.querySelectorAll(".inhsetting1");
     rows.forEach(function (row) {
         var rowDescriptions = ro.layout.getBoxDescriptions(row);
         var rowDescription = rowDescriptions[0];
         const onLeftPage = rowDescription.pageLeft;
-        row.className = onLeftPage ? "inhsettingLeft" : "inhsettingRight";
+        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
     });
 </script>

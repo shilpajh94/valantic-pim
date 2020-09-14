@@ -257,12 +257,12 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Brand Short Text 5
-            hoseIdNominalId:
-                fieldLevel: objectBrick
-                fieldType: Input
-                fieldLabel: Hose ID - Fract
-                parent:
-                    name: HoseSkeleton
+            # hoseIdNominalId:
+            #     fieldLevel: objectBrick
+            #     fieldType: Input
+            #     fieldLabel: Hose ID - Fract
+            #     parent:
+            #         name: HoseSkeleton
             hoseIdDec:
                 fieldLevel: objectBrick
                 fieldType: Input
@@ -504,18 +504,26 @@ parameters:
                 fieldLabel: Branding / Layline
                 parent: 
                     name: Product
-            VirtualCatalogBrandingLayline:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Virtual Catalog Branding / Layline
-                parent: 
-                    name: Product
+            # VirtualCatalogBrandingLayline:
+            #     fieldLevel: class
+            #     fieldType: Input
+            #     fieldLabel: Virtual Catalog Branding / Layline
+            #     parent: 
+            #         name: Product
             id:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: ID
                 parent:
                     name: Product
+        Industrial Hose Product Page:
+            mainImage:
+                fieldLevel: class
+                fieldType: Media
+                fieldLabel: Main Image
+                parent: 
+                    name: Product
+
 
        
     
