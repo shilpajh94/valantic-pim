@@ -167,6 +167,7 @@ class AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand extends 
 
             $status = null;
             $failedProducts = [];
+            $savedProductCount = 0;
 
             $threadName = trim($worksheet->getCell(self::THREAD_NAME_COLUMN . strval($i))->getValue());
             $subCategoryName = trim($worksheet->getCell(self::SUB_CATEGORY_COLUMN . strval($i))->getValue());
@@ -195,7 +196,7 @@ class AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand extends 
 
                         try {
                             $product->save();
-                            $failedProducts[] = $product->getId();
+                            $savedProductCount++;
                         }catch (\Exception $exception){
                             $this->consoleLog($exception->getMessage(),"ERROR");
                             $failedProducts[] = $product->getArticleNumber();
@@ -222,7 +223,7 @@ class AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand extends 
 
             $this->consoleLog("STATUS: [ " . $status . " ]");
 
-            $comment = '';
+            $comment = 'Saved product count : ' . $savedProductCount . '. ';
             if(count($failedProducts)  > 0){
                 $comment = "Products which could not be saved: [" . implode(", ", $failedProducts) . "]";
             }
