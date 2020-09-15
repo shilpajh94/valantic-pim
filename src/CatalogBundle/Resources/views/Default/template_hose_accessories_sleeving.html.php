@@ -165,15 +165,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php if(!empty(trim($materialString)) || !empty(trim($colorString)) || !empty(trim($availableLengthString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
                    <menu>             
                    <div class="specs">
-                        <h6><?= $this->translate('features + specs') ?></h6>
+                        <h6><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
 
-                           <?php if(!empty(trim($materialString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                           <?php if(!empty(trim($materialString)) || (!empty(trim($temperatureRangeFAndC)))): ?>
                             <div>
-                                <?php if(!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))): ?>
+                                <?php if(!empty(trim($temperatureRangeFAndC))): ?>
                                 <p class="small">     
                                         <b><?= $this->translate('Temperature Range') ?></b>
-                                        <?=$tempFmin ?>&#8457; to  <?=$tempFmax ?>&#8457; (<?=$tempCmin ?>&#8451; to  <?=$tempCmax ?>&#8451;)
+                                        <?=$temperatureRangeFAndC ?>
                                 </p>
                                 <?php endif; ?>
                                 <?php if(!empty(trim($materialString))): ?>
@@ -212,24 +212,49 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
            
        </figure>
        <table class="grid" cellspacing="0" cellpadding="0">
-<thead>
-                <?php if($iconRequired == 'YES'): ?>
-                        <tr class="sub-head">
-                                <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                        <td><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></td>
-                                <?php endforeach; ?>
-                        </tr>
-                <?php endif; ?>
+                <thead>
+                        <?php if($iconRequired == 'YES'): ?>
+                                <tr class="sub-head">
+                                        <?php foreach($columnsDataWithImages as $key => $c1data): ?>
+                                                <?php 
+                                                        $g1count = count($c1data);
+                                                        $firstArray = array_shift($c1data);
+                                                ?>
+                                                <td colspan="<?= $g1count; ?>">
+                                                <?php if($firstArray['columnIcon']): ?>
+                                                <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                <?php endif; ?>
+                                                </td>
+                                        <?php endforeach; ?>
+                                </tr>
+                        <?php endif; ?>
 
-
-                <tr class="head">
-
-                        <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                <td><?= $columnsData['columnLabel'] ?></td>
+                        <tr class="head">
+                        <?php foreach($columnsDataWithImages as $key => $c2data): ?>
+                                
+                                <?php 
+                                        $g2count = count($c2data);
+                                        $first2Array = array_shift($c2data);
+                                ?>
+                                <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                
                         <?php endforeach; ?>
-                        
-                </tr>
-                    </thead>    
+                        </tr>
+                                        
+                        <?php if($subHeaderRequired == 'YES'): ?>
+                                <tr class="sub-head">
+                                        <?php foreach($columnsDataWithImages as $key => $c3data): ?>
+                                                <?php  foreach($c3data as $c3key => $c3value): ?>
+                                                        <?php if($c3value['unitName']): ?>
+                                                                <td><?= $c3value['unitName'] ?></td>
+                                                        <?php else: ?>
+                                                                <td></td>
+                                                        <?php endif; ?>
+                                                <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                </tr>
+                        <?php endif; ?>
+                </thead>    
                 <?php $incrRow = 1; ?>        
                 <?php foreach($articlesData as $key => $element): ?>
                         <?php if($incrRow%2==0): ?>
