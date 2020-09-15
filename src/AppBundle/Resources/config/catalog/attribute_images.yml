@@ -63,6 +63,11 @@ parameters:
     'InnerHoseIDFractional': '/CatalogImages/Icons/InnerHoseIDFractional.png'
     'InnerHoseOdInDec': '/CatalogImages/Icons/InnerHoseOdInDec.png'
     'InnerHoseWeightLbs': '/CatalogImages/Icons/InnerHoseWeightLbs.png'
+    'INHFittingFamily': '/CatalogImages/Icons/INHFittingFamily.png'
+    'ClampingDiameterInFract': '/CatalogImages/Icons/ClampingDiameterInFract.png'
+    'BoltHoleSizeInFract': '/CatalogImages/Icons/BoltHoleSizeInFract.png'
+    'SleevingIDInDecimal': '/CatalogImages/Icons/SleevingIDInDecimal.png'
+    'FlatWidthIn': '/CatalogImages/Icons/FlatWidthIn.png'
 
   CatalogImagesHYDFooter: 
     'Black': '/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png'

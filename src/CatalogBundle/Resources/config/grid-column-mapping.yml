@@ -40,6 +40,12 @@ parameters:
                 fieldLabel: Industry Standard
                 parent: 
                     name: Product
+            VirtualCatalogTubeMaterial:
+                fieldLevel: objectBrick
+                fieldType: Wysiwyg
+                fieldLabel: Virtual Catalog Tube Material
+                parent: 
+                    name: HoseBase
             tubeMaterial:
                 fieldLevel: objectBrick
                 fieldType: Relation
@@ -58,6 +64,12 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            VirtualCatalogCoverMaterial:
+                fieldLevel: objectBrick
+                fieldType: Wysiwyg
+                fieldLabel: Virtual Catalog Cover Material
+                parent: 
+                    name: HoseBase
             coverMaterial:
                 fieldLevel: objectBrick
                 fieldType: Relation
@@ -76,6 +88,12 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            VirtualCatalogReinforcement:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Virtual Catalog Reinforcement
+                parent: 
+                    name: Product
             reinforcement:
                 fieldLevel: class
                 fieldType: Relation
@@ -91,28 +109,10 @@ parameters:
                 fieldLabel: Catalog Grouping
                 parent:
                     name: Product
-            minimumTemperatureF:
+            temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Min temp °F
-                parent:
-                    name: Product
-            maximumTemperatureF:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °F
-                parent:
-                    name: Product
-            minimumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Min temp °C
-                parent:
-                    name: Product
-            maximumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °C
+                fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
             FeaturesBenefitsBulletPoint:
@@ -188,12 +188,6 @@ parameters:
                     class: 
                         name : MultiselectMaster
                         fieldName: Name
-            # VirtualCatalogHoseTemperatureRangeFAndC:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Virtual Catalog Temperature Range (°F & C°)
-            #     parent:
-            #         name: Product
             temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
@@ -299,28 +293,10 @@ parameters:
                     class:
                         name: Brand
                         fieldName: Name
-            minimumTemperatureF:
+            temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
-                fieldLabel: Min temp °F
-                parent:
-                    name: Product
-            maximumTemperatureF:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °F
-                parent:
-                    name: Product
-            minimumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Min temp °C
-                parent:
-                    name: Product
-            maximumTemperatureC:
-                fieldLevel: class
-                fieldType: Input
-                fieldLabel: Max temp °C
+                fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
             MaterialType:
@@ -413,42 +389,12 @@ parameters:
                 fieldLabel: Hose Rendering
                 parent: 
                     name: Product
-            # VirtualCatalogHoseTemperatureRangeFAndC:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Virtual Catalog Temperature Range (°F & C°)
-            #     parent:
-            #         name: Product
             temperatureRangeFAndC:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Temperature Range (°F & C°)
                 parent:
                     name: Product
-            # minimumTemperatureF:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Min temp °F
-            #     parent:
-            #         name: Product
-            # maximumTemperatureF:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Max temp °F
-            #     parent:
-            #         name: Product
-            # minimumTemperatureC:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Min temp °C
-            #     parent:
-            #         name: Product
-            # maximumTemperatureC:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Max temp °C
-            #     parent:
-            #         name: Product
             BrandShortText1:
                 fieldLevel: class
                 fieldType: Input
@@ -504,12 +450,6 @@ parameters:
                 fieldLabel: Branding / Layline
                 parent: 
                     name: Product
-            # VirtualCatalogBrandingLayline:
-            #     fieldLevel: class
-            #     fieldType: Input
-            #     fieldLabel: Virtual Catalog Branding / Layline
-            #     parent: 
-            #         name: Product
             id:
                 fieldLevel: class
                 fieldType: Input
