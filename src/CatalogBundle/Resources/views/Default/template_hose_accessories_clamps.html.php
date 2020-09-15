@@ -171,8 +171,8 @@ extract($brand);
                 </span>
                 <?php if(!empty(trim($materialString))): ?>
                  <menu>
-                   <div class="specs ">
-                        <h6 class="small contitech-black"><?= $this->translate('features + specs') ?></h6>
+                   <div class="specs">
+                        <h6 class="small contitech-black"><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
                            <div>
                                 <?php if(!empty(trim($materialString))): ?>

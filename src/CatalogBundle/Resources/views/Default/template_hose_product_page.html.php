@@ -219,9 +219,9 @@ if ($data):
                                 <menu class="flex">
                                     <?php if ($standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || !empty(trim($temperatureRangeFAndC))): ?>
                                         <div class="specs">
-                                            <h6><?= $this->translate('performance + specs') ?></h6>
+                                            <h6><?= $this->translate('specs') ?></h6>
                                             <div class="spec-requirement">
-                                                <div>
+                                                <div class="col-6">
                                                     <?php if ($standardMetHoseListData): ?>
 
                                                         <?php foreach ($standardMetHoseListData as $key => $standard): ?>
@@ -232,9 +232,7 @@ if ($data):
                                                     <?php endif; ?>
                                                     <?= $this->input("customer_data_{$incr}_{$key}",['placeholder'=>'Enter data']) ?>
                                                 </div>
-                                            </div>
-                                            <div class="spec-requirement">
-                                                <div>
+                                                <div class="col-6">
                                                     <?php if (!empty(trim($tubeMaterialAtrributeString))): ?>
                                                         <p>
                                                             <b><?= $this->translate('Inner Tube') ?></b>

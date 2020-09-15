@@ -186,86 +186,84 @@ if (isset($info['brandsData'])) {
                                     </aside>
                                 </header>
                                 <section class="content">
-                                    <menu class="flex">
-                                        <div class="specs">
-                                            <h6>performance + specs</h6>
-                                            <div class="spec-requirement flex">
-                                                <div class="col-6">
-                                                    <?php if (!empty(trim($brand['brandData']['tubeMaterial']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Tube Material') ?></b>
-                                                            <?= $brand['brandData']['tubeMaterial'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
+                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['orderCodes'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>  
+                                        <menu class="flex">
+                                            <div class="specs">
+                                                <h6><?= $this->translate('specs') ?></h6>
+                                                <div class="spec-requirement flex">
+                                                    <div class="col-6">
+                                                        <?php if (!empty(trim($brand['brandData']['tubeMaterial']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Tube Material') ?></b>
+                                                                <?= $brand['brandData']['tubeMaterial'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
 
-                                                    <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Reinforcement') ?></b>
-                                                            <?= $brand['brandData']['reinforcement'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
+                                                        <?php if (!empty(trim($brand['brandData']['coverMaterial']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Cover Material') ?></b>
+                                                                <?= $brand['brandData']['coverMaterial'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
 
-                                                    <?php if (!empty(trim($brand['brandData']['coverMaterial']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Cover Material') ?></b>
-                                                            <?= $brand['brandData']['coverMaterial'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
-
-                                                    <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Temperature Range') ?></b>
-                                                            <?= $brand['brandData']['temperatureRangeFAndC'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
-                                                    <?php if (!empty(trim($brand['brandData']['orderCodes']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Order Codes') ?></b>
-                                                            <?= $brand['brandData']['orderCodes'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
+                                                        
+                                                        <?php if (!empty(trim($brand['brandData']['orderCodes']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Order Codes') ?></b>
+                                                                <?= $brand['brandData']['orderCodes'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Reinforcement') ?></b>
+                                                                <?= $brand['brandData']['reinforcement'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Temperature Range') ?></b>
+                                                                <?= $brand['brandData']['temperatureRangeFAndC'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Coupling') ?></b>
+                                                                <?= $brand['brandData']['Coupling'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
+                                                            <p>                
+                                                                <b><?= $this->translate('Packaging') ?></b>
+                                                                <?= $brand['brandData']['Packaging'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                    </div>
                                                 </div>
-                                                <div class="col-6">
-                                                    <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Coupling') ?></b>
-                                                            <?= $brand['brandData']['Coupling'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
-                                                    <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
-                                                        <p>                
-                                                            <b><?= $this->translate('Packaging') ?></b>
-                                                            <?= $brand['brandData']['Packaging'] ?>
-                                                        </p>
-                                                    <?php endif; ?>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <?= $this->input('INH_PP_Note_' . $pg, ['placeholder' => 'Enter notes']); ?>
-                                            </div>
-                                        </div>
-
-                                        <?php if ($brand['brandData']['safetyFeatures']): ?>
-                                            <div class="feature">
-                                                <h6><?= $this->translate('features') ?></h6>
-                                                <div>
-                                                    <?php foreach ($brand['brandData']['safetyFeatures'] as $key => $feature): ?>
-                                                        <p  class="flex">
-                                                            <?php if ($feature['iconSrc']): ?>
-                                                                <img src="<?= $feature['iconSrc'] ?>" />
-                                                            <?php endif; ?>
-                                                            <font> <?= $feature['name'] ?></font>
-                                                        </p>
-                                                    <?php endforeach; ?>
-
+                                                <div class="col-12">
+                                                    <?= $this->input('INH_PP_Note_' . $pg, ['placeholder' => 'Enter notes']); ?>
                                                 </div>
                                             </div>
-                                        <?php endif; ?>
 
+                                            <?php if ($brand['brandData']['safetyFeatures']): ?>
+                                                <div class="feature">
+                                                    <h6><?= $this->translate('features') ?></h6>
+                                                    <div>
+                                                        <?php foreach ($brand['brandData']['safetyFeatures'] as $key => $feature): ?>
+                                                            <p  class="flex">
+                                                                <?php if ($feature['iconSrc']): ?>
+                                                                    <img src="<?= $feature['iconSrc'] ?>" />
+                                                                <?php endif; ?>
+                                                                <font> <?= $feature['name'] ?></font>
+                                                            </p>
+                                                        <?php endforeach; ?>
 
-
-                                    </menu>
-
+                                                    </div>
+                                                </div>
+                                            <?php endif; ?>
+                                        </menu>
+                                    <?php endif; ?>
                                     <menu>
                                         <h6><?= $this->translate('branding') ?></h6>
                                         <figure>

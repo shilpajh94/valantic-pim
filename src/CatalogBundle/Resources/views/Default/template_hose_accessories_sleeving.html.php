@@ -165,7 +165,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php if(!empty(trim($materialString)) || !empty(trim($colorString)) || !empty(trim($availableLengthString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
                    <menu>             
                    <div class="specs">
-                        <h6><?= $this->translate('features + specs') ?></h6>
+                        <h6><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
 
                            <?php if(!empty(trim($materialString)) || (!empty(trim($temperatureRangeFAndC)))): ?>

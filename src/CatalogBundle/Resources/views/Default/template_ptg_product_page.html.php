@@ -186,7 +186,7 @@ if($groupData):
                                 <menu class="flex">
                                         <?php if($groupData['safetyFeatures']): ?>
                                         <div class="specs">
-                                                        <h6><?= $this->translate('Key features + Benefits') ?></h6>
+                                                        <h6><?= $this->translate('features') ?></h6>
                                                         <div>
                                                                 <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                         <p  class="flex center">
