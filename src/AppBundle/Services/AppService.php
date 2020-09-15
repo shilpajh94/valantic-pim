@@ -239,7 +239,7 @@ class AppService
      * @param string $pimcoreClassName
      * @return string|null
      */
-    private function getPimcoreClassIdbyName(string $pimcoreClassName): ?string
+    public function getPimcoreClassIdbyName(string $pimcoreClassName): ?string
     {
         $classDef = ClassDefinition::getByName($pimcoreClassName);
         if($classDef){
