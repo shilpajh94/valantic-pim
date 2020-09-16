@@ -208,8 +208,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 </menu>
                    <?php endif; ?>
            </figcaption>
-           <?= $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
-           
+                <?php
+                if ($this->editmode) {
+                echo $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj);
+                } else {
+                if(!$this->image("HHAS_Image_{$incr}")->isEmpty())
+                        echo $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200]);
+                }
+                ?>
        </figure>
        <table class="grid" cellspacing="0" cellpadding="0">
                 <thead>

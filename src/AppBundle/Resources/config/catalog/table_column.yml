@@ -1069,7 +1069,7 @@ parameters:
             HoseIDNominalIDFrac:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID (in Fract) Nominal ID'
-                groupName: HoseIDNominalIDFrac
+                groupName: HoseID
                 unitName: in
                 fieldType: Input
                 parent:
@@ -1077,7 +1077,7 @@ parameters:
             hoseIdMM:
                 fieldLevel: objectBrick
                 fieldLabel: 'ID (mm)'
-                groupName: hoseIdMM
+                groupName: HoseID
                 unitName: mm
                 fieldType: Input
                 parent:
@@ -1109,7 +1109,7 @@ parameters:
             workingPressurePSI:
                 fieldLevel: objectBrick
                 fieldLabel: WP (psi)
-                groupName: workingPressurePSI
+                groupName: workingPressure
                 unitName: (psi)
                 fieldType: Input
                 parent:
@@ -1117,14 +1117,16 @@ parameters:
             workingPressureBAR:
                 fieldLevel: objectBrick
                 fieldLabel: WP (bar)
-                groupName: workingPressureBAR
+                groupName: workingPressure
                 unitName: (bar)
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             grossWeight:
                 fieldLevel: class
-                fieldLabel: GW
+                fieldLabel: 'Weight (lbs per ft)'
+                groupName: grossWeight
+                unitName: lbs per ft
                 fieldType: Number
             weightKg:
                 fieldLevel: class

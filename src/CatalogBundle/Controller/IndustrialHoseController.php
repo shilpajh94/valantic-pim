@@ -51,13 +51,14 @@ class IndustrialHoseController extends AbstractController
 
             $siop = $obj->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
-            $configTableName = "AIR & MULTIPURPOSE";
+            $configTableName = $tableName = "AIR & MULTIPURPOSE";
 
             if($siopObj != null) {
-                $configTableName = $siopObj->getParent()->getDescription();
+                $tableName = $siopObj->getParent()->getDescription();
+                $configTableName = ($siopObj->getParent()->getPrintedCatalogDescription($lang)) ? $siopObj->getParent()->getPrintedCatalogDescription($lang) : $siopObj->getParent()->getDescription($lang);
             }
 
-            $productPageColumns = $inhSectionPageConfig[$configTableName];
+            $productPageColumns = $inhSectionPageConfig[$tableName];
             foreach ($productPageColumns['dispColumns'] as $key => $value) {
                 $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
             }
@@ -103,7 +104,7 @@ class IndustrialHoseController extends AbstractController
                 }
             }
 
-            $categories = $this->getSIOP();
+            $categories = $this->getSIOP($lang);
             $this->view['info'] = array(
                 'configTableName'=> $configTableName,
                 'data' => $data,
@@ -163,219 +164,238 @@ class IndustrialHoseController extends AbstractController
             $siopObj = $this->getSiopObject($siop);
             $selectedSiop = "AIR & MULTIPURPOSE";
             if($siopObj != null) {
-                $selectedSiop = $siopObj->getDescription();
+                // $selectedSiop = $siopObj->getDescription();
+                $selectedSiop = ($siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage)) ? $siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage) : $siopObj->getParent()->getDescription($CatalogLanguage);
             }
             
             $productsData = $obj->getProductsData();
-            $brandsData = array();
-            foreach ($productsData as $key => $item) 
-            {
-                if($item[$headerKeysIndex['brandName']][0])
-                {
-                    $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
-                    unset($item);
-                }
-            }
 
-            unset($productsData);
+            if($productsData)
+            {
+                $brandsData = array();
+                foreach ($productsData as $key => $item) 
+                {
+                    if($item[$headerKeysIndex['brandName']][0])
+                    {
+                        $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                        unset($item);
+                    }
+                }
+
+                unset($productsData);
+            }
 
             $newBrandArray = array();
-            foreach ($brandsData as $key => $brand) {
-
-                $reinforcementArr = array();
-                $tubeMaterialArr = array();
-                $coverMaterialArr = array();
-                
-                $BrandingLayline = '';
-                $VirtualCatalogReinforcement = '';
-                $VirtualCatalogTubeMaterial = '';
-                $VirtualCatalogCoverMaterial = '';
-                $mainImage = '';
-                $temperatureRangeFAndC = '';
-                $Coupling = '';
-                $Packaging = '';
-                $longDescription = '';
-                $FeaturesBenefitsBulletPointArr = array();
-                $oldMaterialCodeArr = array();
-
-                foreach ($brand as $bkey => $bvalue) {
-
-                    if(isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']]!=='N/A') {
-                        $oldMaterialCodeArr[] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
-                    }
-
-                    if($bvalue[$headerKeysIndex['reinforcement']]) {
-                        $reinforcementArr = array_merge($reinforcementArr, $bvalue[$headerKeysIndex['reinforcement']]);
-                    }
-
-                    if(!$BrandingLayline && $bvalue[$headerKeysIndex['BrandingLayline']]) {
-                        $BrandingLayline = $bvalue[$headerKeysIndex['BrandingLayline']];
-                    }
-
-                    if(!$VirtualCatalogReinforcement && $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']]) {
-                        $VirtualCatalogReinforcement = $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']];
-                    }
-
-                    if($bvalue[$headerKeysIndex['tubeMaterial']]) {
-                        $tubeMaterialArr = array_merge($tubeMaterialArr, $bvalue[$headerKeysIndex['tubeMaterial']]);
-                    }
-
-                    if(!$VirtualCatalogTubeMaterial && $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']]) {
-                        $VirtualCatalogTubeMaterial = $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']];
-                    }
-
-                    if($bvalue[$headerKeysIndex['coverMaterial']]) {
-                        $coverMaterialArr = array_merge($tubeMaterialArr, $bvalue[$headerKeysIndex['coverMaterial']]);
-                    }
-
-                    if(!$VirtualCatalogCoverMaterial && $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']]) {
-                        $VirtualCatalogCoverMaterial = $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']];
-                    }
-
-                    if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) {
-                        $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
-                    }
-
-                    if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
-                        $temperatureRangeFAndC = $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
-                    }
-
-                    if(!$Coupling && $bvalue[$headerKeysIndex['Coupling']]) {
-                        $Coupling = $bvalue[$headerKeysIndex['Coupling']];
-                    }
-
-                    if(!$Packaging && $bvalue[$headerKeysIndex['Packaging']]) {
-                        $Packaging = $bvalue[$headerKeysIndex['Packaging']];
-                    }
-
-                    if(!$longDescription && $bvalue[$headerKeysIndex['longDescription']]) {
-                        $longDescription = $bvalue[$headerKeysIndex['longDescription']];
-                    }
-
-                    if($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
-                    {
-                        if(count($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
-                        {
-                            foreach ($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
-                                array_push($FeaturesBenefitsBulletPointArr,$feature);
-                            }
-                        }
-                    }
-                    
-                    $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
-                    $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
-                    $columnsDataWithImages = array();
-                    $articlesData = array();
-                    $subHeaderRequired = '';
-                    foreach ($FittingTableKeys as $ckey => $cvalue) {
-
-                        foreach ($columnsData as $dkey => $value) {
-
-                            if($cvalue == $dkey)
-                            {
-                                $groupColumnName = $value['columnName'];
-                                if(isset($value['groupName']) && $value['groupName'])
-                                {
-                                    $groupColumnName = $value['groupName'];
-                                    $subHeaderRequired = 'YES';
-                                }
-                
-                                $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                                $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                                $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                                $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                                
-                                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                                    $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$value['columnName']];
-
-                                
-                            }
-                        }
-                    }
-
-                    // Getting order of the keys
-                    $orderKeys = array();
-                    foreach ($columnsDataWithImages as $skey => $svalue) {
-                        foreach ($svalue as $vkey => $vvalue) {
-                                $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
-                        }
-                    }
-                        
-                    foreach ($orderKeys as $ckey => $cvalue) {
-                            if($ckey == 'coverColor')
-                            {
-                                $temp = '';
-                                if($bvalue[$headerKeysIndex[$ckey]])
-                                {
-                                    $temp = implode(',', $bvalue[$headerKeysIndex[$ckey]]);
-                                }
-                            }
-                            else{
-                                $temp = $bvalue[$headerKeysIndex[$ckey]];
-                            }
-
-                            $articlesData[] = $temp;
-                    }
-                   
-                    $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['subHeaderRequired'] = $subHeaderRequired;
-                    $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['columnsDataWithImages'] = $columnsDataWithImages;
-                    $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['articles'][] = $articlesData;
-                    
-                }
-
-                $reinforcementStr = $VirtualCatalogReinforcement;
-                if(empty($reinforcementStr) && $reinforcementArr)
-                    $reinforcementStr = implode(', ', array_unique($reinforcementArr));
-
-                $tubeMaterialStr = $VirtualCatalogTubeMaterial;
-                if(empty($tubeMaterialStr) && $tubeMaterialArr)
-                    $tubeMaterialStr = implode(', ', array_unique($tubeMaterialArr));
-
-                $coverMaterialStr = $VirtualCatalogCoverMaterial;
-                if(empty($coverMaterialStr) && $coverMaterialArr)
-                    $coverMaterialStr = implode(', ', array_unique($coverMaterialArr));
-
-                $oldMaterialCodeStr = '';
-                if($oldMaterialCodeArr)
-                    $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr));
-                
-                    
-                $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
-                $newBrandArray[$key]['brandData']['reinforcement'] = $reinforcementStr;
-                $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
-                $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
-                $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
-                $newBrandArray[$key]['brandData']['orderCodes'] = $oldMaterialCodeStr;
-                $newBrandArray[$key]['brandData']['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                $newBrandArray[$key]['brandData']['Coupling'] = $Coupling;
-                $newBrandArray[$key]['brandData']['Packaging'] = $Packaging;
-                $newBrandArray[$key]['brandData']['longDescription'] = $longDescription;
-
-                $safetyFeaturesListWithImage = array();
-                $safetyFeaturesListWithOutImage = array();
-
-                $FeaturesBenefitsBulletPointArr = array_unique($FeaturesBenefitsBulletPointArr);
-
-                if($FeaturesBenefitsBulletPointArr)
+            if($brandsData)
+            {
+                foreach ($brandsData as $key => $brand) 
                 {
-                    foreach ($FeaturesBenefitsBulletPointArr as $fkey => $fvalue) {
-                        if($featuresList[$fvalue]['icon'])
-                            $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
-                        else
-                            $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+
+                    $reinforcementArr = array();
+                    $tubeMaterialArr = array();
+                    $coverMaterialArr = array();
+                    
+                    $BrandingLayline = '';
+                    $VirtualCatalogReinforcement = '';
+                    $VirtualCatalogTubeMaterial = '';
+                    $VirtualCatalogCoverMaterial = '';
+                    $mainImage = '';
+                    $temperatureRangeFAndC = '';
+                    $Coupling = '';
+                    $Packaging = '';
+                    $longDescription = '';
+                    $FeaturesBenefitsBulletPointArr = array();
+                    $oldMaterialCodeArr = array();
+
+                    foreach ($brand as $bkey => $bvalue) {
+                        
+                        $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
+                        if($FittingTableName)
+                        {
+
+                            if(isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']]!=='N/A') {
+                                $oldMaterialCodeArr[] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
+                            }
+
+                            if($bvalue[$headerKeysIndex['reinforcement']]) {
+                                $reinforcementArr = array_merge($reinforcementArr, $bvalue[$headerKeysIndex['reinforcement']]);
+                            }
+
+                            if(!$BrandingLayline && $bvalue[$headerKeysIndex['BrandingLayline']]) {
+                                $BrandingLayline = $bvalue[$headerKeysIndex['BrandingLayline']];
+                            }
+
+                            if(!$VirtualCatalogReinforcement && $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']]) {
+                                $VirtualCatalogReinforcement = $bvalue[$headerKeysIndex['VirtualCatalogReinforcement']];
+                            }
+
+                            if($bvalue[$headerKeysIndex['tubeMaterial']]) {
+                                $tubeMaterialArr = array_merge($tubeMaterialArr, $bvalue[$headerKeysIndex['tubeMaterial']]);
+                            }
+
+                            if(!$VirtualCatalogTubeMaterial && $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']]) {
+                                $VirtualCatalogTubeMaterial = $bvalue[$headerKeysIndex['VirtualCatalogTubeMaterial']];
+                            }
+
+                            if($bvalue[$headerKeysIndex['coverMaterial']]) {
+                                $coverMaterialArr = array_merge($tubeMaterialArr, $bvalue[$headerKeysIndex['coverMaterial']]);
+                            }
+
+                            if(!$VirtualCatalogCoverMaterial && $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']]) {
+                                $VirtualCatalogCoverMaterial = $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']];
+                            }
+
+                            if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) {
+                                if (Asset\Service::pathExists($bvalue[$headerKeysIndex['mainImage']])) 
+                                {
+                                    $mainImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
+                                    if(file_exists($mainImageObj->getFileSystemPath()))
+                                    {
+                                        $mainImage = $mainImageObj;
+                                    }
+                                    unset($mainImageObj);
+                                }
+                            }
+
+                            if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
+                                $temperatureRangeFAndC = $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
+                            }
+
+                            if(!$Coupling && $bvalue[$headerKeysIndex['Coupling']]) {
+                                $Coupling = $bvalue[$headerKeysIndex['Coupling']];
+                            }
+
+                            if(!$Packaging && $bvalue[$headerKeysIndex['Packaging']]) {
+                                $Packaging = $bvalue[$headerKeysIndex['Packaging']];
+                            }
+
+                            if(!$longDescription && $bvalue[$headerKeysIndex['longDescription']]) {
+                                $longDescription = $bvalue[$headerKeysIndex['longDescription']];
+                            }
+
+                            if($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
+                            {
+                                if(count($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']])>0)
+                                {
+                                    foreach ($bvalue[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                                        array_push($FeaturesBenefitsBulletPointArr,$feature);
+                                    }
+                                }
+                            }
+                        
+                            $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
+                            $columnsDataWithImages = array();
+                            $articlesData = array();
+                            $subHeaderRequired = '';
+                            foreach ($FittingTableKeys as $ckey => $cvalue) {
+
+                                foreach ($columnsData as $dkey => $value) {
+
+                                    if($cvalue == $dkey)
+                                    {
+                                        $groupColumnName = $value['columnName'];
+                                        if(isset($value['groupName']) && $value['groupName'])
+                                        {
+                                            $groupColumnName = $value['groupName'];
+                                            $subHeaderRequired = 'YES';
+                                        }
+                        
+                                        $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
+                                        $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                                        $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
+                                        $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                                        
+                                        if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
+                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$value['columnName']];
+
+                                        
+                                    }
+                                }
+                            }
+
+                            // Getting order of the keys
+                            $orderKeys = array();
+                            foreach ($columnsDataWithImages as $skey => $svalue) {
+                                foreach ($svalue as $vkey => $vvalue) {
+                                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
+                                }
+                            }
+                                
+                            foreach ($orderKeys as $ckey => $cvalue) {
+                                    if($ckey == 'coverColor')
+                                    {
+                                        $temp = '';
+                                        if($bvalue[$headerKeysIndex[$ckey]])
+                                        {
+                                            $temp = implode(',', $bvalue[$headerKeysIndex[$ckey]]);
+                                        }
+                                    }
+                                    else{
+                                        $temp = $bvalue[$headerKeysIndex[$ckey]];
+                                    }
+
+                                    $articlesData[] = $temp;
+                            }
+                        
+                            $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['subHeaderRequired'] = $subHeaderRequired;
+                            $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['columnsDataWithImages'] = $columnsDataWithImages;
+                            $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['articles'][] = $articlesData;
+                        }
                     }
+
+                    $reinforcementStr = $VirtualCatalogReinforcement;
+                    if(empty($reinforcementStr) && $reinforcementArr)
+                        $reinforcementStr = implode(', ', array_unique($reinforcementArr));
+
+                    $tubeMaterialStr = $VirtualCatalogTubeMaterial;
+                    if(empty($tubeMaterialStr) && $tubeMaterialArr)
+                        $tubeMaterialStr = implode(', ', array_unique($tubeMaterialArr));
+
+                    $coverMaterialStr = $VirtualCatalogCoverMaterial;
+                    if(empty($coverMaterialStr) && $coverMaterialArr)
+                        $coverMaterialStr = implode(', ', array_unique($coverMaterialArr));
+
+                    $oldMaterialCodeStr = '';
+                    if($oldMaterialCodeArr)
+                        $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr));
+                    
+                        
+                    $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
+                    $newBrandArray[$key]['brandData']['reinforcement'] = $reinforcementStr;
+                    $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
+                    $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
+                    $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
+                    $newBrandArray[$key]['brandData']['orderCodes'] = $oldMaterialCodeStr;
+                    $newBrandArray[$key]['brandData']['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $newBrandArray[$key]['brandData']['Coupling'] = $Coupling;
+                    $newBrandArray[$key]['brandData']['Packaging'] = $Packaging;
+                    $newBrandArray[$key]['brandData']['longDescription'] = $longDescription;
+
+                    $safetyFeaturesListWithImage = array();
+                    $safetyFeaturesListWithOutImage = array();
+
+                    $FeaturesBenefitsBulletPointArr = array_unique($FeaturesBenefitsBulletPointArr);
+
+                    if($FeaturesBenefitsBulletPointArr)
+                    {
+                        foreach ($FeaturesBenefitsBulletPointArr as $fkey => $fvalue) {
+                            if($featuresList[$fvalue]['icon'])
+                                $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            else
+                                $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        }
+                    }
+
+                    $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+
+                    $newBrandArray[$key]['brandData']['safetyFeatures'] = $safetyFeaturesList;
+
+                    unset($brandsData[$key]);
                 }
-
-                $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
-
-                $newBrandArray[$key]['brandData']['safetyFeatures'] = $safetyFeaturesList;
-
-                unset($brandsData[$key]);
             }
+            
+            $categories = $this->getSIOP($CatalogLanguage);
 
-            // p_r($newBrandArray);
-            // die;
-            $categories = $this->getSIOP();
             $this->view['info'] = array(
                 'iconRequired' => $iconRequired,
                 'brandsData' => $newBrandArray,
@@ -417,7 +437,7 @@ class IndustrialHoseController extends AbstractController
             
             $columnsData = $template->getColumns();
 
-            $menuCategories = $this->getSIOP();
+            $menuCategories = $this->getSIOP($CatalogLanguage);
 
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData, true);
@@ -518,12 +538,28 @@ class IndustrialHoseController extends AbstractController
 
                         if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            {
+                                $mainImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                                if(file_exists($mainImage->getFileSystemPath()))
+                                {
+                                    $mainImageObj = $mainImage;
+                                }
+                                unset($mainImage);
+                            }
                         }
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                         {
-                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                            if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
+                            {
+                                $ProfileDimensionImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                                if(file_exists($ProfileDimensionImage->getFileSystemPath()))
+                                {
+                                    $ProfileDimensionImageObj = $ProfileDimensionImage;
+                                }
+                                unset($ProfileDimensionImage);
+                            }
                         }
                         
                         if($item[$headerKeysIndex['FittingMaterial']])
@@ -637,7 +673,7 @@ class IndustrialHoseController extends AbstractController
 
             $footerBgColor = '';
             $templateBrandDtata = array();
-            $menuCategories = $this->getSIOP();
+            $menuCategories = $this->getSIOP($CatalogLanguage);
             $catagoryDescription = array();
 
 
@@ -699,7 +735,7 @@ class IndustrialHoseController extends AbstractController
         }
     }
 
-    private function getSIOP() {
+    private function getSIOP($language) {
         $listing = new \Pimcore\Model\DataObject\ProductCategory\Listing;
         $listing->setCondition("CatalogFlag = :catFlag", ["catFlag" => 1]);
         // $listing->setLimit(10);
@@ -708,7 +744,7 @@ class IndustrialHoseController extends AbstractController
         foreach($listing as $category) {
             if($category->getLevel()==3) {
                 $categories[$category->getFullCode()][] = array(
-                    'name' => $category->getDescription(),
+                    'name' => ($category->getPrintedCatalogDescription($language)) ? $category->getPrintedCatalogDescription($language) : $category->getDescription($language),
                     'level' => $category->getLevel(),
                     'printable' => 1
                 );
@@ -716,13 +752,13 @@ class IndustrialHoseController extends AbstractController
             } else {
                 $fullCode = $category->getParent()->getFullCode();
                 $cat = array(
-                    'name' => $category->getDescription(),
+                    'name' => ($category->getPrintedCatalogDescription($language)) ? $category->getPrintedCatalogDescription($language) : $category->getDescription($language),
                     'level' => $category->getLevel(),
                     'printable' => 1
                 );
                 if(!isset($categories[$fullCode])) {
                     $categories[$fullCode][] = array(
-                        'name' => $category->getParent()->getDescription(),
+                        'name' => ($category->getParent()->getPrintedCatalogDescription($language)) ? $category->getParent()->getPrintedCatalogDescription($language) : $category->getParent()->getDescription($language),
                         'level' => $category->getParent()->getLevel(),
                         'printable' => 0
                     );
