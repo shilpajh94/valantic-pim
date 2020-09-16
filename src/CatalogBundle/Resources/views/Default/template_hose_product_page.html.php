@@ -199,14 +199,16 @@ if ($data):
                             if ($this->editmode) {
                                 echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj);
                             } else {
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
+                                    echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200]);
                             }
                             ?>
                             <?php
                             if ($this->editmode) {
                                 echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj);
                             } else {
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Right_{$incr}")->isEmpty())
+                                    echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
                             }
                             ?>
                         </aside>

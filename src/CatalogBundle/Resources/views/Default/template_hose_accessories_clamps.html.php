@@ -189,7 +189,14 @@ extract($brand);
                    <?php endif; ?>
            </figcaption>
            
-           <?= $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj); ?>
+                <?php
+                if ($this->editmode) {
+                echo $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj);
+                } else {
+                if(!$this->image("HHAC_Image")->isEmpty())
+                        echo $this->image("HHAC_Image", ["width" => 200, "height" => 200]);
+                }
+                ?>
            
        </figure>
        <table class="grid inh" cellspacing="0" cellpadding="0">

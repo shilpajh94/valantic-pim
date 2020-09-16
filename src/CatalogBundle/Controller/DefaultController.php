@@ -936,11 +936,31 @@ if(isset($data[$baseId])) {
 
                         $LeftPrintCatalogImage = $element[$headerKeysIndex['LeftPrintCatalogImage']];
                         if(empty($LeftPrintCatalogImageObj) && $LeftPrintCatalogImage)
-                            $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
+                        {
+                            if (Asset\Service::pathExists($LeftPrintCatalogImage)) 
+                            {
+                                $LeftPrintCatalogImage = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
+                                if(file_exists($LeftPrintCatalogImage->getFileSystemPath()))
+                                {
+                                    $LeftPrintCatalogImageObj = $LeftPrintCatalogImage;
+                                }
+                                unset($LeftPrintCatalogImage);
+                            }
+                        }
 
                         $RightPrintCatalogImage = $element[$headerKeysIndex['RightPrintCatalogImage']];
                         if(empty($RightPrintCatalogImageObj) && $RightPrintCatalogImage)
-                            $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
+                        {
+                            if (Asset\Service::pathExists($RightPrintCatalogImage)) 
+                            {
+                                $RightPrintCatalogImage = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
+                                if(file_exists($RightPrintCatalogImage->getFileSystemPath()))
+                                {
+                                    $RightPrintCatalogImageObj = $RightPrintCatalogImage;
+                                }
+                                unset($RightPrintCatalogImage);
+                            }
+                        }
 
                         foreach($element as $bkey => $value): 
 
@@ -1151,7 +1171,17 @@ if(isset($data[$baseId])) {
                             $brandName = $element[$headerKeysIndex['brandName']][0];
 
                             if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
-                                $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                            {
+                                if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
+                                {
+                                    $mainImage = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                                    if(file_exists($mainImage->getFileSystemPath()))
+                                    {
+                                        $imageObj = $mainImage;
+                                    }
+                                    unset($mainImage);
+                                }
+                            }
         
                             if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
                                 $longDescription = $element[$headerKeysIndex['longDescription']];
@@ -1287,7 +1317,17 @@ if(isset($data[$baseId])) {
                     $brandName = $element[$headerKeysIndex['brandName']][0];
 
                     if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
-                        $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                    {
+                        if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
+                        {
+                            $mainImage = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                            if(file_exists($mainImage->getFileSystemPath()))
+                            {
+                                $imageObj = $mainImage;
+                            }
+                            unset($mainImage);
+                        }
+                    }
 
                     if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
                         $longDescription = $element[$headerKeysIndex['longDescription']];
@@ -1408,7 +1448,17 @@ if(isset($data[$baseId])) {
                             $temperatureRangeFAndC = $item[$headerKeysIndex['temperatureRangeFAndC']];
 
                         if(!$imageObj && $item[$headerKeysIndex['mainImage']])
-                            $imageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                        {
+                            if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            {
+                                $mainImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                                if(file_exists($mainImage->getFileSystemPath()))
+                                {
+                                    $imageObj = $mainImage;
+                                }
+                                unset($mainImage);
+                            }
+                        }
 
                         $brandData[$brandName]['brandName'] = $brandName;
                         $brandData[$brandName]['iconRequired'] = $iconRequired;
@@ -1997,12 +2047,28 @@ if(isset($data[$baseId])) {
                         
                         if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            {
+                                $mainImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                                if(file_exists($mainImage->getFileSystemPath()))
+                                {
+                                    $mainImageObj = $mainImage;
+                                }
+                                unset($mainImage);
+                            }
                         }
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                         {
-                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                            if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
+                            {
+                                $ProfileDimensionImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                                if(file_exists($ProfileDimensionImage->getFileSystemPath()))
+                                {
+                                    $ProfileDimensionImageObj = $ProfileDimensionImage;
+                                }
+                                unset($ProfileDimensionImage);
+                            }
                         }
 
                         if($item[$headerKeysIndex['material']])

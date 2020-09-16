@@ -165,7 +165,8 @@ if($groupData):
                                 if($this->editmode){
                                         echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
                                 }else{
-                                        echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
+                                        if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
+                                                echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
                                 }                
                                 ?>
 
@@ -173,7 +174,8 @@ if($groupData):
                                 if($this->editmode){
                                         echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
                                 }else{
-                                        echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
+                                        if(!$this->image("Drawing_Picture_{$incr}")->isEmpty())
+                                                echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
                                 }                
                                 ?>
                         </span>
