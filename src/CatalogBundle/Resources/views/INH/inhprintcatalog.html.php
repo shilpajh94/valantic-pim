@@ -16,7 +16,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 </span>
                 <div class="flex aligned">
                     <h5>
-                        <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']); ?>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"])->isEmpty()): ?>
+                                    <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"]); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("INH_SP_FOOTER_BRAND_1", ["placeholder" => "Enter Product Category"]) ?>
+                    <?php endif; ?>
                     </h5>
                 </div>
             </footer>
@@ -25,7 +33,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <footer class="flex-center <?php echo $info['footer_class']; ?> ">
                                 <div class="flex aligned">
                                     <h5>
-                                        <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']); ?>
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"])->isEmpty()): ?>
+                                                    <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"]); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->input("INH_SP_FOOTER_BRAND_2", ["placeholder" => "Enter Product Category"]) ?>
+                                    <?php endif; ?>
                                     </h5>
                                 </div>
                                 <span class="logo">
@@ -38,8 +54,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <?php
             if (isset($info['data']) && !empty($info['data'])) {
                 foreach ($info['data'] as $tableName => $data) {
-                    // p_r($data['dispColumns']);
-                    // die;
             ?>
 
                         <div class="inhsetting1">
@@ -76,21 +90,44 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             </ul>
                         </div>
                         <div class="inhRight">
-                            <h2 class="borderBottom block marginBottom5"><?= $this->input("INH_SP_CATAGORY")->setDataFromResource($info['configTableName']); ?></h2>
-                            <p class=" borderBottom block">
+                            <h2 class="borderBottom block marginBottom5">
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"])->isEmpty()): ?>
+                                                <?= $this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"]); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"]) ?>
+                                <?php endif; ?>
+                            </h2>
+                            
                                 <?php
                                 if ($this->editmode) {
-                                    echo $this->image('INH_SP_' . md5($tableName), [
-                                        'widht' => 450,
-                                        'height' => 222
-                                    ])->setImage($info['defaultPageImage']);
+                                    ?>
+                                    <p class=" borderBottom block">
+                                    
+                                    <?php
+                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200])->setImage($info['defaultPageImage']);
+                                    ?>
+                                    </p>
+                                    <?php
                                 } else {
-                                    echo $this->image('INH_SP_' . md5($tableName), [
-                                        'widht' => 450,
-                                        'height' => 222
-                                    ]);
+                                    if(!$this->image('INH_SP_' . md5($tableName))->isEmpty())
+                                    {
+                                    ?>
+                                        <p class=" borderBottom block">
+                                        <?php
+                                        echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200]);
+                                        ?>
+                                        </p>
+                                        <?php
+                                    }
+                                    ?>
+                                    
+                                <?php
                                 } ?>
-                            </p>
+                            
                             <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr class="head ">

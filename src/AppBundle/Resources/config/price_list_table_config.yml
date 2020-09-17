@@ -8,6 +8,6 @@ parameters:
     "Rate": 5
     "Rate Unit": 6
   priceListCurrency:
-    "USD": 'USDCurrenySign'
-    "CAD": 'CADCurrenySign'
-    "MXN": 'MXNCurrenySign'  
+    "USD": '$'
+    "CAD": '$'
+    "MXN": '$'  
