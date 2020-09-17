@@ -109,7 +109,7 @@ if (!isset($this->parentContainer)) {
                         </div>
                         <div class=" inhRight">
                         
-                            <h2 class="borderBottom block marginBottom5 contitech-yellow">
+                            <h1 class="borderBottom block marginBottom5 contitech-yellow">
                                 <?php if($this->editmode): ?>
                                     <?php if($this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"])->isEmpty()): ?>
                                             <?= $this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory) ?>
@@ -119,7 +119,7 @@ if (!isset($this->parentContainer)) {
                                 <?php else: ?>
                                         <?= $this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"]) ?>
                                 <?php endif; ?>
-                            </h2>
+                            </h1>
 
                             <?php
                                 if ($this->editmode) {
