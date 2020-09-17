@@ -132,7 +132,7 @@ if($groupData):
                                 </div>
                                 <div class="inhRight">
                                         <header class=" white">
-                                                <h1>
+                                                <h1 class="contitech-yellow">
                                                         <?php if($this->editmode): ?>
                                                                 <?php if($this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"])->isEmpty()): ?>
                                                                         <?= $this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"])->setDataFromResource($groupData['brandName']) ?>

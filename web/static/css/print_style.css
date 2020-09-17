@@ -411,6 +411,8 @@ menu figure figcaption {
     margin: 0 15px;
 }
 
+menu figure > * { flex: 1;}
+
 
 /* ------------------- Heading ----------------------- */
 
@@ -743,7 +745,7 @@ menu figure {
 
 menu figure img {
     margin: 4px 16px;
-    max-width: 100%;
+    max-width: 120px;
     height: auto;
 }
 
@@ -845,6 +847,7 @@ menu figure figcaption b {
     /* border-right: 1px solid black; */
     width: 100%;
     margin-top: 30px;
+table-layout: fixed;
 }
 .grid.inh{ margin-top:10px;}
 
@@ -866,7 +869,7 @@ padding-bottom: 10px;
 .grid:not(.inh) tr td:nth-child(2),
 .grid:not(.inh) tr td:nth-child(3) {
     /*width: 100px;*/
-    white-space: nowrap;
+   /* white-space: nowrap;*/
 }
 
 .tableFooter{ font-size: 10px; display: block; padding-top: 5px;}
@@ -907,7 +910,7 @@ text-align: center;
 
 .grid .sub-head td {
     font-size: 10px;
-padding-left:5px;
+padding-left:0px;
 }
 
 .grid .active {
@@ -916,7 +919,7 @@ padding-left:5px;
 
 .grid td:first-child {
     text-align: left !important;
-    min-width: 100px;
+   /* min-width: 100px;*/
 }
 
 
@@ -1398,64 +1401,54 @@ footer .flex > * {
  /****************** sidebar ***************************/
 
 .inh section.content{ display: block;}
-/*
-.inhsettingLeft{
- position: running(inhsettingLeft);
-}
-.inhsettingRight{
- position: running(inhsettingRight);
-}
-*/
+
 .inhsetting1{ display: flex;}
+
 /*
-.inhsetting1{
- position: running(inhsetting1);
+.inhsetting-sidebar{
+ position:relative;
+ display: block;
+       position: running(inhsetting-sidebar);
 }
 
-.inh{
-width: 100%;
-height: 100%;
-page: title9;
-position:relative;
+#inhSetting{
 
-border: 2px solid pink;
-
+page: title10;
 }
 
-@page title9:left{
-@top-right{
-  content: element(inhsetting1);
-  position: relative;
-  right:0px;
-top:50px;
-
-}
-}
-
-@page title9:right{
+@page title10:left{
 @top-left{
-  content: element(inhsetting1);
-  position: relative;
-display: flex;
-left:0px;
-top:50px;
+content: element(inhsetting-sidebar);
+position: absolute;
+top:0;
+left:0;
 }
 }
-*/
-/*
-.inhRight{ width:80%;  border: 5px solid green; display: inline-block; vertical-align: top;}
-.inhRight header{width:100%; border: 5px solid red;}
+
+@page title10:right{
+@top-right{
+content: element(inhsetting-sidebar);
+position: absolute;
+top:0;
+right:0;
+}
+}
+
+
 */
 
 .inhRight{ width:85%; }
 .inh .grid{  margin-bottom: 0px;}
 
+.inhRight h1{ font-size: 30px; padding-left: 15px !important;}
 
 .inhsettingRight, .inhsettingLeft{ display: flex; }
-.inhsettingRight{ flex-direction: row-reverse;  }
+.inhsettingRight{ flex-direction: row-reverse; }
+
+.inhsetting-sidebar{}
 .sidebar {
     width: 20%;
-font-size: 8px;
+font-size: 10px;
    
     margin-top: 50px;
     margin-right: 15px;
@@ -1465,13 +1458,13 @@ margin-left:-30px;
 
 
 }
+
 .inhsettingRight .sidebar {
     text-align: left;
     margin-left: 15px;
     
-    margin-right: -35px;
+    margin-right: -30px;
 }
-
 
 
 
