@@ -54,7 +54,7 @@ class IndustrialHoseController extends AbstractController
             $configTableName = $tableName = "AIR & MULTIPURPOSE";
 
             if($siopObj != null) {
-                $tableName = $siopObj->getParent()->getDescription();
+                $tableName = $siopObj->getParent()->getDescription($lang);
                 $configTableName = ($siopObj->getParent()->getPrintedCatalogDescription($lang)) ? $siopObj->getParent()->getPrintedCatalogDescription($lang) : $siopObj->getParent()->getDescription($lang);
             }
 
@@ -78,7 +78,7 @@ class IndustrialHoseController extends AbstractController
                 foreach ($productsData as $k => $row) {
                     
                     if (isset($row['brandName']) && !empty($row['brandName'])) {
-                        $uniqueId = $configTableName;
+                        $uniqueId = $tableName;
                         $brandName = $row['brandName'][0];
                         if (!isset($data[$uniqueId])) {
                             $data[$uniqueId][$brandName] = array();
@@ -164,7 +164,7 @@ class IndustrialHoseController extends AbstractController
             $siopObj = $this->getSiopObject($siop);
             $selectedSiop = "AIR & MULTIPURPOSE";
             if($siopObj != null) {
-                // $selectedSiop = $siopObj->getDescription();
+                // $selectedSiop = $siopObj->getParent()->getDescription($CatalogLanguage);
                 $selectedSiop = ($siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage)) ? $siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage) : $siopObj->getParent()->getDescription($CatalogLanguage);
             }
             
@@ -327,7 +327,7 @@ class IndustrialHoseController extends AbstractController
                                         $temp = '';
                                         if($bvalue[$headerKeysIndex[$ckey]])
                                         {
-                                            $temp = implode(',', $bvalue[$headerKeysIndex[$ckey]]);
+                                            $temp = implode(', ', $bvalue[$headerKeysIndex[$ckey]]);
                                         }
                                     }
                                     else{
@@ -636,7 +636,7 @@ class IndustrialHoseController extends AbstractController
                 $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['brandName'] = $brandName;
                 $groupData['categories'] = $menuCategories;
-                $groupData['selectedCategory'] = $catagoryDescription['SIOP4Description'];
+                $groupData['selectedCategory'] = $catagoryDescription['SIOP3Description'];
                 $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
                 $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
                 unset($menuCategories);
@@ -710,7 +710,6 @@ class IndustrialHoseController extends AbstractController
 
                             $record = $this->db->fetchRow($query);
                             $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
-
                             $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
                         }
                         foreach($featuresMaterials as $fkey => $material)

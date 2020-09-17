@@ -519,48 +519,64 @@ parameters:
             Hex1WrenchSizeIN:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 1 Wrench Size (in)
+                groupName: Hex1WrenchSize
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             Hex1WrenchSizeMM:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 1 Wrench Size (mm)
+                groupName: Hex1WrenchSize
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             Hex2WrenchSizeIN:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 2 Wrench Size
+                groupName: Hex2WrenchSize
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             Hex2WrenchSizeMM:
                 fieldLevel: objectBrick
                 fieldLabel: Hex 2 Wrench Size (mm)
+                groupName: Hex2WrenchSize
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             CutOffLengthIN:
                 fieldLevel: objectBrick
                 fieldLabel: Cut-Off (C) (in)
+                groupName: CutOffLength
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             CutOffLengthMM:
                 fieldLevel: objectBrick
                 fieldLabel: Cut-Off (C) (mm)
+                groupName: CutOffLength
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             ThreadSize1InMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Thread Size 1 (in & mm) Decimal
+                groupName: ThreadSize1InMMDecimal
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             ThreadSize2InMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Thread Size 2 (in & mm) Decimal
+                groupName: ThreadSize2InMMDecimal
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -573,48 +589,64 @@ parameters:
             TubeODInFract:
                 fieldLevel: objectBrick
                 fieldLabel: Tube OD (in)
+                groupName: TubeOD
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             TubeODMM:
                 fieldLevel: objectBrick
                 fieldLabel: Tube OD (mm)
+                groupName: TubeOD
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             OrificeTubeODInDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Orifice Tube OD (in)
+                groupName: OrificeTubeOD
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             OrificeTubeODMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Orifice Tube OD (mm)
+                groupName: OrificeTubeOD
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             OrificeTubeLengthInDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Orifice Tube Length (in)
+                groupName: OrificeTubeLength
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             OrificeTubeLengthMMDecimal:
                 fieldLevel: objectBrick
                 fieldLabel: Orifice Tube Length (mm)
+                groupName: OrificeTubeLength
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             ValveSizeInDec:
                 fieldLevel: objectBrick
                 fieldLabel: Valve Size (in)
+                groupName: ValveSizeInDec
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             ValveSize2InDec:
                 fieldLevel: objectBrick
-                fieldLabel: Valve Size (mm)
+                fieldLabel: Valve Size (in)
+                groupName: ValveSize2InDec
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -627,42 +659,54 @@ parameters:
             LengthIN:
                 fieldLevel: objectBrick
                 fieldLabel: Length (in)
+                groupName: length
+                unitName: in
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
             LengthMM:
                 fieldLevel: objectBrick
                 fieldLabel: Length (mm)
+                groupName: length
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
             OverallLengthIN:
                 fieldLevel: objectBrick
                 fieldLabel: Overall Length (in)
+                groupName: OverallLength
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             OverallLengthMm:
                 fieldLevel: objectBrick
                 fieldLabel: Overall Length (mm)
+                groupName: OverallLength
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FlangeIDInFract:
                 fieldLevel: objectBrick
                 fieldLabel: Flange ID (in) Fract.
-                fieldType: Input
-                parent:
-                    name: HydFittingsFert
-            FlangeODInFract:
-                fieldLevel: objectBrick
-                fieldLabel: Flange OD (in) Fract.
+                groupName: FlangeID
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FlangeIDMM:
                 fieldLevel: objectBrick
                 fieldLabel: Flange ID (mm)
+                groupName: FlangeID
+                unitName: mm
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            FlangeODInFract:
+                fieldLevel: objectBrick
+                fieldLabel: Flange OD (in) Fract.
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -687,153 +731,75 @@ parameters:
             FerruleIDInDec:
                 fieldLevel: objectBrick
                 fieldLabel: Ferrule ID (in)
+                groupName: FerruleID
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FerruleIDMM:
                 fieldLevel: objectBrick
                 fieldLabel: Ferrule ID (mm)
+                groupName: FerruleID
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FerruleODInDec:
                 fieldLevel: objectBrick
                 fieldLabel: Ferrule OD (in)
+                groupName: FerruleOD
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FerruleODMM:
                 fieldLevel: objectBrick
                 fieldLabel: Ferrule OD (mm)
+                groupName: FerruleOD
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FerruleLengthInDec:
                 fieldLevel: objectBrick
                 fieldLabel: Ferrule Length (in)
+                groupName: FerruleLength
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FerruleLengthMM:
                 fieldLevel: objectBrick
                 fieldLabel: Ferrule Length (mm)
+                groupName: FerruleLength
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             DropLengthIN:
                 fieldLevel: objectBrick
                 fieldLabel: Drop Length (in)
+                groupName: DropLength
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             DropLengthMM:
                 fieldLevel: objectBrick
                 fieldLabel: Drop Length (mm)
+                groupName: DropLength
+                unitName: mm
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
-            hoseOdIn:
-                fieldLevel: objectBrick
-                fieldLabel: Hose OD (in)
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
             HoseIDNominalIDFrac:
                 fieldLevel: objectBrick
                 fieldLabel: Hose ID Fract(in)
+                groupName: HoseIDNominalIDFrac
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
-            hoseOdmm:
-                fieldLevel: objectBrick
-                fieldLabel: Hose OD (mm)
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
-            workingPressurePSI:
-                fieldLevel: objectBrick
-                fieldLabel: Working Pressure (psi)
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
-            workingPressureMPA:
-                fieldLevel: objectBrick
-                fieldLabel: Working Pressure (Mpa)
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
-            BendRadiusIN:
-                fieldLevel: objectBrick
-                fieldLabel: Bend Radius (in)
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
-            BendRadiusMM:
-                fieldLevel: objectBrick
-                fieldLabel: Bend Radius (mm)
-                fieldType: Input
-                parent:
-                    name: HoseSkeleton
-            PortHoleIDFract:
-                fieldLevel: objectBrick
-                fieldLabel: Flange Port Hole ID
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            FlangePatternDimensionAInAndMMDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: A Flange Pattern Dimension
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            FlangePatternDimensionBInAndMMDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: B Flange Pattern Dimension
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            RecommendedGrade8Bolt:
-                fieldLevel: objectBrick
-                fieldLabel: Recommended Grade 8 Bolts
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            ClampingDiameterInFract:
-                fieldLevel: objectBrick
-                fieldLabel: Clamping Diameter (fract)
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            ClampingDiameterInDec:
-                fieldLevel: objectBrick
-                fieldLabel: Clamping Diameter (dec)
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            BoltHoleSizeInFract:
-                fieldLevel: objectBrick
-                fieldLabel: Bolt Hole Size (fract)
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            BoltHoleSizeInDec:
-                fieldLevel: objectBrick
-                fieldLabel: Bolt Hole Size (dec)
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            SleevingIDInDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: Sleeving ID (in) Decimal
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            SleevingWidthInAndMMDecimal:
-                fieldLevel: objectBrick
-                fieldLabel: Sleeving Width (in & mm) Decimal
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
             ORingIdInDec:
                 fieldLevel: objectBrick
                 fieldLabel: ORing ID (dec)
@@ -1110,7 +1076,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: WP (psi)
                 groupName: workingPressure
-                unitName: (psi)
+                unitName: psi
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1118,20 +1084,20 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: WP (bar)
                 groupName: workingPressure
-                unitName: (bar)
+                unitName: bar
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
             grossWeight:
                 fieldLevel: class
                 fieldLabel: 'Weight (lbs per ft)'
-                groupName: grossWeight
+                groupName: weight
                 unitName: lbs per ft
                 fieldType: Number
             weightKg:
                 fieldLevel: class
                 fieldLabel: W (kg)
-                groupName: weightKg
+                groupName: weight
                 unitName: kg
                 fieldType: Number
             BendRadiusIN:
