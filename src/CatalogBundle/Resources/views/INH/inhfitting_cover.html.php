@@ -18,7 +18,7 @@ if (!isset($this->parentContainer)) {
 
 
 <div class="template">
-<div class="segregate">
+<div class="segregate inhSettingN">
 
    <div id="pageHeader"></div>
     <span  class="pageName">
@@ -77,7 +77,8 @@ if (!isset($this->parentContainer)) {
             
             
                     <div class="inhsetting1">
-                        <div class="inhsetting-sidebar sidebar">
+ <div class="inhsetting-sidebar"> 
+                        <div class="sidebar">
                             <ul>
                                 <?php
                                 if (is_array($categories)) {
@@ -107,6 +108,7 @@ if (!isset($this->parentContainer)) {
                                 ?>
                             </ul>
                         </div>
+</div>
                         <div class=" inhRight">
                         
                             <h1 class="borderBottom block marginBottom5 contitech-yellow">

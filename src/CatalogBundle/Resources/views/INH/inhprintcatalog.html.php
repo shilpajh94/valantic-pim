@@ -5,7 +5,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     <?= $this->relation("inh-printcatalog"); ?>
 <?php } ?>
 <div class="template">
-<div class="segregate">
+<div class="segregate inhSettingN">
 
    <div id="pageHeader"></div>
     <span  class="pageName"><?= $info['configTableName'] ?></span>
@@ -57,7 +57,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             ?>
 
                         <div class="inhsetting1">
-                            <div class="inhsetting-sidebar sidebar">
+ <div class="inhsetting-sidebar"> 
+                            <div class=" sidebar">
                             <ul>
                                 
                                 <?php
@@ -89,6 +90,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                             </ul>
                         </div>
+</div>
                         <div class="inhRight">
                             <h1 class="borderBottom block marginBottom5 contitech-yellow">
                                 <?php if($this->editmode): ?>
