@@ -26,6 +26,11 @@ services:
     B2BExportBundle\Command\ExportCommand:
         tags:
             - { name: 'console.command', command: 'conti:b2b-export' }
+
+
+    B2BExportBundle\Command\FindMismatchInB2BAttributeMappingCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:find-mismatch-in-b2b-attribute-mapping' }
             
             
 
