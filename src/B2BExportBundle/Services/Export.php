@@ -105,7 +105,7 @@ class Export {
                     $datum["oo_id"],
                     $datum["top_group"],
                     $datum["parent_group_identifier"],
-                    $datum["name"],
+                    utf8_encode($datum["name"]),
                     $datum["sequence"]
             ), ',');
 
@@ -337,9 +337,9 @@ class Export {
 						$row[] = utf8_encode($languageMaster[$language]);
 						$row[] = utf8_encode(preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription)));
 						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
-							$row[] = \Pimcore\Tool::getHostUrl(). $object;
+							$row[] = utf8_encode(\Pimcore\Tool::getHostUrl(). $object);
 						} else {
-							$row[] = $object;
+                            $row[] = utf8_encode($object);
 						}
 						fputcsv($fileResource, $row, ',');
 						unset($row);
