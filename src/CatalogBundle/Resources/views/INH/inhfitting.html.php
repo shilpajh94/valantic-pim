@@ -132,7 +132,7 @@ if($groupData):
                                 </div>
                                 <div class="inhRight">
                                         <header class=" white">
-                                                <h1>
+                                                <h1 class="contitech-yellow">
                                                         <?php if($this->editmode): ?>
                                                                 <?php if($this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"])->isEmpty()): ?>
                                                                         <?= $this->input("INH_Fitting_brandName", ["placeholder" => "Enter Brand"])->setDataFromResource($groupData['brandName']) ?>
@@ -219,7 +219,7 @@ if($groupData):
 
                                                         <?php if($groupData['safetyFeatures']): ?>
                                                                 <div class="feature col-6">
-                                                                        <h6><?= $this->translate('Key features + Benefits') ?></h6>
+                                                                        <h6><?= $this->translate('features') ?></h6>
                                                                         <div>
                                                                                 <?php foreach($groupData['safetyFeatures'] as $key => $feature): ?>
                                                                                         <p  class="flex">

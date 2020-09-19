@@ -47,7 +47,7 @@ class UnitConverterService
 
         foreach($attributeGroupWithValues as $attributeName => $value){
             $setter = 'set'.ucfirst($attributeName);
-            $value = $value == null ? null : round($value, 5);
+            $value = $value === null ? null : round($value, 5);
             $object->$setter($value);
         }
     }
@@ -76,7 +76,7 @@ class UnitConverterService
         }
         $unitObjectOfGivenAttribute = new Unit($unitStringOfGivenAttribute);
 
-        if($value == null){
+        if($value === null){
             foreach($groupConfig as $attributeName => $attributeUnit){
                 $returnValue[$attributeName] = null;
             }

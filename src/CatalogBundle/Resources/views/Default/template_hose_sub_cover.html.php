@@ -159,7 +159,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 <td><?= $reinforcement; ?></td>
                                 <td><?= $tubeMaterialAtrributeString; ?></td>
                                 <td><?= $workingPressurePSIString; ?></td>
-                                <td><?= ($tempFmin .'&#8457; to '. $tempFmax.'&#8457;')?></td>
+                                <td><?= $temperatureRangeFAndC; ?></td>
                                 <td><?= $fittingFamily; ?></td>
                                 <td><?= $industryStandard; ?></td>
                                 <td></td>

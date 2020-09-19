@@ -199,14 +199,16 @@ if ($data):
                             if ($this->editmode) {
                                 echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj);
                             } else {
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
+                                    echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200]);
                             }
                             ?>
                             <?php
                             if ($this->editmode) {
                                 echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj);
                             } else {
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Right_{$incr}")->isEmpty())
+                                    echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
                             }
                             ?>
                         </aside>
@@ -214,14 +216,14 @@ if ($data):
                     <article class="fullcontainer ">
 
                         <section class="content single">
-                            <?php if ($safetyFeatures || $standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                            <?php if ($safetyFeatures || $standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) ||!empty(trim($temperatureRangeFAndC))): ?>
 
                                 <menu class="flex">
-                                    <?php if ($standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax)))): ?>
+                                    <?php if ($standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || !empty(trim($temperatureRangeFAndC))): ?>
                                         <div class="specs">
-                                            <h6><?= $this->translate('performance + specs') ?></h6>
+                                            <h6><?= $this->translate('specs') ?></h6>
                                             <div class="spec-requirement">
-                                                <div>
+                                                <div class="col-6">
                                                     <?php if ($standardMetHoseListData): ?>
 
                                                         <?php foreach ($standardMetHoseListData as $key => $standard): ?>
@@ -232,9 +234,7 @@ if ($data):
                                                     <?php endif; ?>
                                                     <?= $this->input("customer_data_{$incr}_{$key}",['placeholder'=>'Enter data']) ?>
                                                 </div>
-                                            </div>
-                                            <div class="spec-requirement">
-                                                <div>
+                                                <div class="col-6">
                                                     <?php if (!empty(trim($tubeMaterialAtrributeString))): ?>
                                                         <p>
                                                             <b><?= $this->translate('Inner Tube') ?></b>
@@ -256,10 +256,10 @@ if ($data):
                                                         </p>
                                                     <?php endif; ?>
 
-                                                    <?php if (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))): ?>
+                                                    <?php if (!empty(trim($temperatureRangeFAndC))): ?>
                                                         <p>              
                                                             <b><?= $this->translate('Temperature Range') ?></b>
-                                                            <?= $tempFmin ?>&#8457; to  <?= $tempFmax ?>&#8457; (<?= $tempCmin ?>&#8451; to  <?= $tempCmax ?>&#8451;)
+                                                            <?= $temperatureRangeFAndC ?>
                                                         </p>
                                                     <?php endif; ?>
                                                 </div>
@@ -301,22 +301,46 @@ if ($data):
 
                             <table cellpadding="0" cellspacing="0" class="grid">
                                 <thead>
-                                    <?php if ($iconRequired == 'YES'): ?>
-                                        <tr class="sub-head">
-                                            <?php foreach ($columnsDataWithImages as $key => $columnsData): ?>
-                                                <td><img src="<?= $columnsData['columnIcon'] ?>" width="45" height="45" /></td>
-                                            <?php endforeach; ?>
+                                        <?php if($iconRequired == 'YES'): ?>
+                                                <tr class="sub-head">
+                                                        <?php foreach($columnsDataWithImages as $key => $c1data): ?>
+                                                                <?php 
+                                                                        $g1count = count($c1data);
+                                                                        $firstArray = array_shift($c1data);
+                                                                ?>
+                                                                <td colspan="<?= $g1count; ?>">
+                                                                <?php if($firstArray['columnIcon']): ?>
+                                                                <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                                <?php endif; ?>
+                                                                </td>
+                                                        <?php endforeach; ?>
+                                                </tr>
+                                        <?php endif; ?>
+
+                                        <tr class="head">
+                                                <?php foreach($columnsDataWithImages as $key => $c2data): ?>
+                                                        <?php 
+                                                                $g2count = count($c2data);
+                                                                $first2Array = array_shift($c2data);
+                                                        ?>
+                                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                                <?php endforeach; ?>
                                         </tr>
-                                    <?php endif; ?>
+                                        
+                                        <?php if($subHeaderRequired == 'YES'): ?>
+                                                <tr class="sub-head">
+                                                        <?php foreach($columnsDataWithImages as $key => $c3data): ?>
+                                                                <?php  foreach($c3data as $c3key => $c3value): ?>
+                                                                        <?php if($c3value['unitName']): ?>
+                                                                                <td><?= $c3value['unitName'] ?></td>
+                                                                        <?php else: ?>
+                                                                                <td></td>
+                                                                        <?php endif; ?>
+                                                                <?php endforeach; ?>
+                                                        <?php endforeach; ?>
+                                                </tr>
+                                        <?php endif; ?>
 
-
-                                    <tr class="head">
-
-                                        <?php foreach ($columnsDataWithImages as $key => $columnsData): ?>
-                                            <td><?= $columnsData['columnLabel'] ?></td>
-                                        <?php endforeach; ?>
-
-                                    </tr>
                                 </thead>
                                 <?php $incrRow = 1; ?>        
                                 <?php foreach ($articlesData as $key => $element): ?>

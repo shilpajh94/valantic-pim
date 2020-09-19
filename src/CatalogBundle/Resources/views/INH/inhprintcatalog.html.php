@@ -90,7 +90,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             </ul>
                         </div>
                         <div class="inhRight">
-                            <h2 class="borderBottom block marginBottom5">
+                            <h1 class="borderBottom block marginBottom5 contitech-yellow">
                                 <?php if($this->editmode): ?>
                                         <?php if($this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"])->isEmpty()): ?>
                                                 <?= $this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"])->setDataFromResource($info['configTableName']) ?>
@@ -100,7 +100,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php else: ?>
                                         <?= $this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"]) ?>
                                 <?php endif; ?>
-                            </h2>
+                            </h1>
                             
                                 <?php
                                 if ($this->editmode) {

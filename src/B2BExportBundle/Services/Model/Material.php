@@ -9,7 +9,7 @@ use Pimcore\Model\DataObject;
 /**
  * Model Class Material
  *
- * Material Service Model 
+ * Material Service Model
  *
  * @package ExportBundle\Services\Model
  */
@@ -25,28 +25,31 @@ class Material
      */
     public static function getPlants(){
 		try {
-      // Querying data from Sales Material Master Database		
-      $salesMaterialMaster = Db::get()->fetchAll("SELECT DISTINCT
-        o1.articleNumber as partNo,
-        o6.code AS salesOrgCode,
-        o8.code AS dcCode,
-        o5.Plant AS plantCode,
-        0 AS leadTime,
-        0 as minOrdQty,
-        0 AS maxOrdQty,
-        0 as ordIncrementQty,
-        '' AS SalesUOM,
-        o10.pricePageFlag
-        FROM object_10 o10
-        JOIN object_6  o6
-        ON o6.o_id = o10.SalesOrganization__id
-        JOIN object_8  o8
-        ON o8.o_id = o10.DistributionChannel__id
-        JOIN object_5  o5
-        ON o5.o_id = o10.DeliveringPlant__id
-        JOIN object_1  o1
-        ON o1.o_id = o10.Material
-        WHERE o10.epixFlag = 001
+      // Querying data from Sales Material Master Database
+      $salesMaterialMaster = Db::get()->fetchAll("
+            SELECT
+                    product.articleNumber as partNo,
+                    salesOrg.code AS salesOrgCode,
+                    distChannel.code AS dcCode,
+                    plant.Plant AS plantCode,
+                    0 AS leadTime,
+                    0 as minOrdQty,
+                    0 AS maxOrdQty,
+                    0 as ordIncrementQty,
+                    salesMaster.SalesUOM AS SalesUOM,
+                    salesMaster.pricePageFlag
+            FROM
+                    object_query_10 salesMaster
+                        JOIN
+                    object_query_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
+                        JOIN
+                    object_query_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
+                        JOIN
+                    object_query_8 distChannel ON distChannel.oo_id = salesMaster.DistributionChannel__id
+                        JOIN
+                    object_query_5 plant ON plant.oo_id = salesMaster.DeliveringPlant__id
+            WHERE
+                    salesMaster.epixFlag = '001';
     ");
     return $salesMaterialMaster;
       } catch (Exception $ex) {
