@@ -132,7 +132,14 @@ if ($data):
                         <td valign="top" width="30%">
 &nbsp;
                         <div class="description">
-                            <?= $this->image("HHAO_Image", ["width" => 200])->setImage($data['imageObj']); ?>
+                        <?php
+                        if ($this->editmode) {
+                        echo $this->image("HHAO_Image", ["width" => 200])->setImage($data['imageObj']);
+                        } else {
+                        if(!$this->image("HHAO_Image")->isEmpty())
+                                echo $this->image("HHAO_Image", ["width" => 200]);
+                        }
+                        ?>
                             <div class="material-desc">
 <table cellspacing="0" cellpadding="0">
                                 <?php if ($data['materialString']): ?>

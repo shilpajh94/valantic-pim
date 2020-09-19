@@ -22,13 +22,15 @@ if (!isset($this->parentContainer)) {
 
    <div id="pageHeader"></div>
     <span  class="pageName">
-    <?php 
-                if($this->editmode){
-                        echo $this->input("INH_Fitting_Cover_Header")->setDataFromResource($selectedCategory); 
-                }else{
-                        echo $this->input("INH_Fitting_Cover_Header");
-                }                
-                ?>
+    <?php if($this->editmode): ?>
+            <?php if($this->input("INH_Fitting_Cover_Header")->isEmpty()): ?>
+                    <?= $this->input("INH_Fitting_Cover_Header")->setDataFromResource($selectedCategory) ?>
+            <?php else: ?>
+                    <?= $this->input("INH_Fitting_Cover_Header"); ?>
+            <?php endif; ?>
+    <?php else: ?>
+            <?= $this->input("INH_Fitting_Cover_Header") ?>
+    <?php endif; ?>
     </span>
         <div class="footer">
             <footer class="flex-center <?php echo $footer_class; ?>">
@@ -37,7 +39,15 @@ if (!isset($this->parentContainer)) {
                 </span>
                 <div class="flex-center aligned">
                     <h5>
-                        <?= $this->input("INH_Fitting_Cover_Category", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory); ?>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("INH_Fitting_Cover_Category", ["placeholder" => "Enter Fitting Category"])->isEmpty()): ?>
+                                    <?= $this->input("INH_Fitting_Cover_Category", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory) ?>
+                            <?php else: ?>
+                                    <?= $this->input("INH_Fitting_Cover_Category", ["placeholder" => "Enter Fitting Category"]); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("INH_Fitting_Cover_Category", ["placeholder" => "Enter Fitting Category"]) ?>
+                    <?php endif; ?>
                     </h5>
                 </div>
             </footer>
@@ -46,7 +56,15 @@ if (!isset($this->parentContainer)) {
             <footer class="flex-center <?php echo $footer_class; ?>">
                 <div class="flex-center aligned">
                     <h5>
-                        <?= $this->input("INH_Fitting_Cover_Category1", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory); ?>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("INH_Fitting_Cover_Category1", ["placeholder" => "Enter Fitting Category"])->isEmpty()): ?>
+                                        <?= $this->input("INH_Fitting_Cover_Category1", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory) ?>
+                                <?php else: ?>
+                                        <?= $this->input("INH_Fitting_Cover_Category1", ["placeholder" => "Enter Fitting Category"]); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("INH_Fitting_Cover_Category1", ["placeholder" => "Enter Fitting Category"]) ?>
+                        <?php endif; ?>
                     </h5>
                 </div>
                 <span class="logo">
@@ -91,29 +109,43 @@ if (!isset($this->parentContainer)) {
                         </div>
                         <div class=" inhRight">
                         
-                            <h2 class="borderBottom block marginBottom5 contitech-yellow">
-                                <?php 
+                            <h1 class="borderBottom block marginBottom5 contitech-yellow">
+                                <?php if($this->editmode): ?>
+                                    <?php if($this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"])->isEmpty()): ?>
+                                            <?= $this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"])->setDataFromResource($selectedCategory) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"]); ?>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"]) ?>
+                                <?php endif; ?>
+                            </h1>
+
+                            <?php
                                 if ($this->editmode) {
-                                    echo $this->input('INH_Fitting_Cover_brandName')->setDataFromResource($selectedCategory);
+                                    ?>
+                                    <p class=" borderBottom block">
+                                    <?php
+                                    echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200])->setImage($defaultPageImage);
+                                    ?>
+                                    </p>
+                                    <?php
                                 } else {
-                                    echo $this->input('INH_Fitting_Cover_brandName');
-                                }
-                                ?> 
-                            </h2>
-                            <p class=" borderBottom block">
-                                <?php
-                                if ($this->editmode) {
-                                    echo $this->image('INH_Fitting_Cover_DefaultImage', [
-                                        'widht' => 450,
-                                        'height' => 222
-                                    ])->setImage($defaultPageImage);
-                                } else {
-                                    echo $this->image('INH_Fitting_Cover_DefaultImage', [
-                                        'widht' => 450,
-                                        'height' => 222
-                                    ]);
+                                    if(!$this->image('INH_Fitting_Cover_DefaultImage')->isEmpty())
+                                    {
+                                    ?>
+                                        <p class=" borderBottom block">
+                                        <?php
+                                        echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200]);
+                                        ?>
+                                        </p>
+                                        <?php
+                                    }
+                                    ?>
+                                    
+                            <?php
                                 } ?>
-                            </p>
+
                             <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
                                         <tr class="head">
                                                 <td></td>
