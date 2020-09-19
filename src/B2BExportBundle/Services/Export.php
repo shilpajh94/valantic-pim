@@ -194,7 +194,8 @@ class Export {
         $columns = array('GroupIdentifier', 'Name', 'LanguageId');
         fputcsv($fileResource, $columns, ',');
 
-        $data = Catalog::getAllManualCategories();
+        $catObject = new Catalog();
+        $data = $catObject->getAllManualCategories();
 
         foreach($data as $datum){
             fputcsv($fileResource, array($datum['oo_id'], utf8_encode($datum['name']), '-1'));
