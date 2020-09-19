@@ -100,6 +100,13 @@ parameters:
     'FlangeODInFract': '/CatalogImages/Icons/FlangeODInFract.png'
     'FlangeIDMM': '/CatalogImages/Icons/FlangeIDMM.png'
     'FlangeODInDec': '/CatalogImages/Icons/FlangeODInDec.png'
+    'PortHoleIDFract': '/CatalogImages/Icons/PortHoleIDFract.png'
+    'FlangePatternDimensionAInAndMMDecimal': '/CatalogImages/Icons/FlangePatternDimensionAInAndMMDecimal.png'
+    'FlangePatternDimensionBInAndMMDecimal': '/CatalogImages/Icons/FlangePatternDimensionBInAndMMDecimal.png'
+    'AccessoriesWorkingPressure': '/CatalogImages/Icons/AccessoriesWorkingPressure.png'
+    'RecommendedGrade8Bolt': '/CatalogImages/Icons/RecommendedGrade8Bolt.png'
+    'ORingWidthInAndMMDecimal': '/CatalogImages/Icons/ORingWidthInAndMMDecimal.png'
+    'ThreadDashSize1': '/CatalogImages/Icons/ThreadDashSize1.png'
   CatalogImagesHYDFooter: 
     'Black': '/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png'

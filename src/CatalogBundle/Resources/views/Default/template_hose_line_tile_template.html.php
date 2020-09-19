@@ -29,39 +29,21 @@ $featuresFooter = false;
     </div>
 
     <div class="footer">
-        <footer class="flex-center ">
+        <footer class="flex-center <?= $info['footer_class']; ?>">
             <span class="logo">
                 <b>
-                    <?php
-                    if ($this->editmode) {
-                        echo $this->input("footerTitle");
-                    } else {
-                        echo $this->input("footerTitle");
-                    }
-                    ?>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("footerTitle")->isEmpty()): ?>
+                                    <?= $this->input("footerTitle")->setDataFromResource('Hose') ?>
+                            <?php else: ?>
+                                    <?= $this->input("footerTitle"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("footerTitle") ?>
+                    <?php endif; ?>
                 </b>
-                <?php
-                if ($this->editmode) {
-                    echo $this->image('footerLogo', [
-                        "width" => 170,
-                        "height" => 'auto',
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ]);
-                } else {
-                    echo $this->image('footerLogo', [
-                        "width" => 'auto',
-                        "height" => 'auto',
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ]);
-                }
-                ?>
 
+                <img src="<?= $info['footer_logo_src']; ?>">
             </span>
             <div class="flex aligned ">
 
@@ -80,7 +62,7 @@ $featuresFooter = false;
     </div>
 
     <div class="footer1">
-        <footer class="flex-center ">
+        <footer class="flex-center <?= $info['footer_class']; ?>">
 
             <div class="flex aligned ">
 
@@ -98,35 +80,18 @@ $featuresFooter = false;
             </div>
             <span class="logo">
                 <b>
-                    <?php
-                    if ($this->editmode) {
-                        echo $this->input("footerTitle1");
-                    } else {
-                        echo $this->input("footerTitle1");
-                    }
-                    ?>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("footerTitle1")->isEmpty()): ?>
+                                    <?= $this->input("footerTitle1")->setDataFromResource('Hose') ?>
+                            <?php else: ?>
+                                    <?= $this->input("footerTitle1"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("footerTitle1") ?>
+                    <?php endif; ?>
                 </b>
-                <?php
-                if ($this->editmode) {
-                    echo $this->image('footerLogo1', [
-                        "width" => 170,
-                        "height" => 'auto',
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ]);
-                } else {
-                    echo $this->image('footerLogo1', [
-                        "width" => 'auto',
-                        "height" => 'auto',
-                        "aspectratio" => true,
-                        "interlace" => true,
-                        "quality" => 95,
-                        "format" => "PNG"
-                    ]);
-                }
-                ?>
+
+                <img src="<?= $info['footer_logo_src']; ?>">
             </span>
         </footer>
     </div>
