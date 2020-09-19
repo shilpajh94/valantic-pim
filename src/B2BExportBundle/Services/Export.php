@@ -337,7 +337,7 @@ class Export {
 						$row[] = utf8_encode($languageMaster[$language]);
 						$row[] = utf8_encode(preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription)));
 						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
-							$row[] = utf8_encode(\Pimcore\Tool::getHostUrl(). $object);
+							$row[] = utf8_encode(\Pimcore\Tool::getHostUrl(). ltrim($object,'/'));
 						} else {
                             $row[] = utf8_encode($object);
 						}
