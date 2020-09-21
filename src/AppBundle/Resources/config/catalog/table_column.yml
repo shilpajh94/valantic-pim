@@ -369,24 +369,32 @@ parameters:
             PortHoleIDFract: 
                 fieldLevel: objectBrick
                 fieldLabel: 'Port Hole ID (in)'
+                groupName: PortHoleIDFract
+                unitName: in
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
             FlangePatternDimensionAInAndMMDecimal: 
                 fieldLevel: objectBrick
                 fieldLabel: 'Flange Pattern Dimension A (in)'
+                groupName: FlangePatternDimensionAInAndMMDecimal
+                unitName: in
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
             FlangePatternDimensionBInAndMMDecimal: 
                 fieldLevel: objectBrick
                 fieldLabel: 'Flange Pattern Dimension B (in)'
+                groupName: FlangePatternDimensionBInAndMMDecimal
+                unitName: in
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
             AccessoriesWorkingPressurePSI:
                 fieldLevel: objectBrick
                 fieldLabel: 'Maximum Working Pressure'
+                groupName: AccessoriesWorkingPressure
+                unitName: psi
                 fieldType: Input
                 parent:
                     name: AccessoriesFert

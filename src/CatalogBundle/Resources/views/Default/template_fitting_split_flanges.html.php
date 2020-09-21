@@ -145,34 +145,71 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         $incr =1;
         foreach($data as $key => $brand):
 
-        extract($brand);
+        //extract($brand);
 
         ?>   
                <div class="marginBottom30 margin15" >
-                    <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brandName); ?></h3>
-                    <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($shortDescription); ?></h3>
+                    <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brand['brandName']); ?></h3>
+                    <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($brand['shortDescription']); ?></h3>
                     <table class="grid special" cellspacing="0" cellpadding="0">
-            <thead>
-                            <tr class="head noBorder">
+                        <thead>
+                                <?php if($iconRequired == 'YES'): ?>
+                                        <tr class="sub-head">
+                                                <?php foreach($brand['columnsDataWithImages'] as $key => $c1data): ?>
+                                                        <?php 
+                                                                $g1count = count($c1data);
+                                                                $firstArray = array_shift($c1data);
+                                                        ?>
+                                                        <td colspan="<?= $g1count; ?>">
+                                                        <?php if($firstArray['columnIcon']): ?>
+                                                        <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                        <?php endif; ?>
+                                                        </td>
+                                                <?php endforeach; ?>
+                                        </tr>
+                                <?php endif; ?>
 
-                            <?php foreach($columnsDataWithImages as $key => $columnsData): ?>
-                                    <td><?= $columnsData['columnLabel'] ?></td>
-                            <?php endforeach; ?>
-
-                            </tr>
-                            
-                            
+                                <tr class="head">
+                                <?php foreach($brand['columnsDataWithImages'] as $key => $c2data): ?>
+                                        
+                                        <?php 
+                                                $g2count = count($c2data);
+                                                $first2Array = array_shift($c2data);
+                                        ?>
+                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                        
+                                <?php endforeach; ?>
+                                </tr>
+                                                
+                                <?php if($subHeaderRequired == 'YES'): ?>
+                                        <tr class="sub-head">
+                                                <?php foreach($brand['columnsDataWithImages'] as $key => $c3data): ?>
+                                                        <?php  foreach($c3data as $c3key => $c3value): ?>
+                                                                <?php if($c3value['unitName']): ?>
+                                                                        <td><?= $c3value['unitName'] ?></td>
+                                                                <?php else: ?>
+                                                                        <td></td>
+                                                                <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                <?php endforeach; ?>
+                                        </tr>
+                                <?php endif; ?>
                         </thead>    
-                            <?php foreach($articlesData as $key => $element): ?>
-                                    <tr>
-                                            <?php foreach($element as $ekey => $value): ?>
-                                                    <td><?= $value; ?></td>
-                                            <?php endforeach; ?>
-                                    </tr>
-                            <?php endforeach; ?>
-                            
-                           
-                           
+                        <tbody>
+                                <?php $incrRow = 1; ?>        
+                                <?php foreach($brand['articlesData'] as $key => $element): ?>
+                                        <?php if($incrRow%2==0): ?>
+                                        <tr>
+                                        <?php else: ?>
+                                        <tr class="active">
+                                        <?php endif; ?>
+                                                <?php foreach($element as $ekey => $value): ?>
+                                                        <td><?= $value; ?></td>
+                                                <?php endforeach; ?>
+                                        </tr>
+                                        <?php $incrRow++ ?>
+                                <?php endforeach; ?>
+                        </tbody>
                         </table>
                </div>
                
