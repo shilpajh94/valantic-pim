@@ -11,6 +11,13 @@ VirtualCatalog:
         - frontView
         - sideView
         - cutView
+        - brandName
+        - minimumTemperatureF
+        - maximumTemperatureF
+        - minimumTemperatureC
+        - maximumTemperatureC
+        - rangeTemperatureF
+        - rangeTemperatureC
       Images:
         - mainImage
         - frontView
@@ -36,24 +43,17 @@ VirtualCatalog:
       ObjectBricks:
           Hose:
             Fields:
-              - brandName
               - VirtualCatalogTubeMaterial
               - tubeColor
               - VirtualCatalogCoverMaterial
               - coverColor
-              - hoseMinimumTemperatureF
-              - hoseMaximumTemperatureF
-              - hoseMinimumTemperatureC
-              - hoseMaximumTemperatureC
-              - hoseRangeTemperatureF
-              - hoseRangeTemperatureC
               - agencyCompliance
               - StandardMetTube
               - StandardMetCover
               - standardMetHose
               - safetyFactor
-              - VirtualCatalogCoupling
-              - VirtualCatalogPackaging 
+              - Coupling
+              - Packaging 
           PTG:
   Skeleton:
       Fields:
@@ -64,8 +64,10 @@ VirtualCatalog:
         - sideView
         - cutView
         - prop65Message
-        - VirtualCatalogBrandingLayline
+        - BrandingLayline
         - longDescription
+        - reinforcement
+        - grossWeight
       Images:
         - mainImage
         - frontView
@@ -75,24 +77,21 @@ VirtualCatalog:
       ObjectBricks:
           Hose:
             Fields:
-              - VirtualCatalogTubeGaugeIn
-              - VirtualCatalogTubeGaugeMM
-              - grossWeight
-              - VirtualCatalogReinforcement
+              - tubeGaugeIn
+              - tubeGaugeMM
               - BendRadiusIN
               - BendRadiusMM
-              - VirtualCatalogVacuumIn
-              - VirtualCatalogVacuumMM
-              - VirtualCatalogWorkingPressureMPA
-              - VirtualCatalogWorkingPressurePSI
+              - VacuumIn
+              - VacuumMM
+              - workingPressureMPA
+              - workingPressurePSI
               - minBurstPressurePSI
               - minBurstPressurempa
               - hoseIdDec
               - hoseIdMM
-              - hoseIdNominalId
               - hoseOdIn
               - hoseOdmm
-              - fittingFamily
+              - INHFittingFamily
               
           PTG:
             Fields:

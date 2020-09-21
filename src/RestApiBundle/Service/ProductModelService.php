@@ -296,6 +296,7 @@ class ProductModelService
                     $product = DataObject\Product::getById($objId);
                     $bData  =   '';
                     // Get Field Definition.
+
                     if($product->$productBrickField()->$brickText()){
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
 
