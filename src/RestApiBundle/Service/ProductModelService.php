@@ -299,7 +299,7 @@ class ProductModelService
                     if($product->$productBrickField()->$brickText()){
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
 
-                        if($fieldDef->getFieldtype()==="multiselect"){
+                        if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
                              $bData = [];
                              if(!empty($bDataTmp)){

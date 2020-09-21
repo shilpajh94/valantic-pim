@@ -632,7 +632,7 @@ class ProductSQLModel
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $queryTableData['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
             $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
             $queryTableData['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
@@ -675,7 +675,7 @@ class ProductSQLModel
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            $storeTableDataArray['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
             $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
             $storeTableDataArray['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);

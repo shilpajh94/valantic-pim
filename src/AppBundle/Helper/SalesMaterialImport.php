@@ -107,6 +107,7 @@ class SalesMaterialImport
         return $lastId;
     }
 
+    
     private function createId($data)
     {
         $keyColumnValues = array();
@@ -118,6 +119,44 @@ class SalesMaterialImport
 
         $id = implode(ImportConstants::IMPORT_TABLE_ID_SEPARATOR, $keyColumnValues);
         return $id;
+    }
+    
+    public function updateProductPath($dataArray) {
+        $rowCount = 1;
+        $firstRec = $dataArray[0];
+        $keys = array_keys($firstRec);
+        $sql = "INSERT INTO `objects` ";
+        $sqlColumns = [];
+        $updateColumns = [];
+        $valColumns = [];
+        foreach ($keys as $key) {
+            $sqlColumns[] = "`".$key."`";
+            if ($key!='o_id') {
+                $updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
+            }
+            $valColumns[] = $key;
+        }
+        $sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
+        $update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+        $values = '';
+        foreach ($dataArray as $data) {
+            $valueArray = [];
+            foreach ($valColumns as $key) {
+                $valueArray[] = $this->db->quote($data[$key]);
+            }
+            $values .= '('.implode(",", $valueArray).'),';
+            // inserting records in batch
+            if ($rowCount % 500 == 0) {
+                $query = $sql.rtrim($values, ',').$update;
+                $this->db->query($query);
+                $values = '';
+            }
+            $rowCount++;
+        }
+        if (!empty($values)) {
+            $query = $sql.rtrim($values, ',').$update ;
+            $this->db->query($query);
+        }
     }
 
     public function insertDataInTemp($arrData, $fileColumns)
@@ -190,8 +229,16 @@ class SalesMaterialImport
     }
     
     public function getSalesMaterialRecordsByMaterial($materialObjId) {
-        $sql = "SELECT * from object_10 where `Material` = ".$this->db->quote(",".$materialObjId.",")." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
-        return $this->db->fetchAll($sql);
+        $sql = "SELECT * from object_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
+        $salesData = $this->db->fetchAll($sql);
+        $flag = true;
+        foreach ($salesData as $rec) {
+            if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
+                $flag = false;
+                break;
+            }
+        }
+        return $flag;
     }
 
     /**

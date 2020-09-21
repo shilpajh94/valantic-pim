@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-20T16:28:53+02:00
+* Generated at: 2020-09-18T14:16:55+02:00
 * IP: 127.0.0.1
 
 
@@ -14,6 +14,8 @@ Fields Summary:
 - PDFLink [input]
 - PDFDrawing [booleanSelect]
 - CADFile [booleanSelect]
+- ConflictMinerals [multiselect]
+- AdditionalInformation [input]
 */ 
 
 
@@ -374,6 +376,65 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
+          )),
+          8 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+             'fieldtype' => 'multiselect',
+             'options' => 
+            array (
+            ),
+             'width' => '',
+             'height' => '',
+             'maxItems' => '',
+             'renderType' => 'tags',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+             'queryColumnType' => 'text',
+             'columnType' => 'text',
+             'phpdocType' => 'array',
+             'dynamicOptions' => false,
+             'name' => 'ConflictMinerals',
+             'title' => 'Conflict Minerals',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          9 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'defaultValue' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'showCharCount' => false,
+             'name' => 'AdditionalInformation',
+             'title' => 'Additional Information',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
           )),
         ),
          'locked' => false,
