@@ -10,12 +10,21 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
  <div id="pageHeader"></div>
  <span  class="pageName">Hydraulic Hose</span>
  <div class="footer">
- <footer class="flex-center ">
+ <footer class="flex-center <?php echo $footer_class; ?>">
             <span class="logo">
-                <b>Hose</b>
-                <img src="/CatalogImages/logo_new.png">
+                <b>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("HHFP_Logo_Text1")->isEmpty()): ?>
+                                <?= $this->input("HHFP_Logo_Text1")->setDataFromResource('Hose') ?>
+                        <?php else: ?>
+                                <?= $this->input("HHFP_Logo_Text1"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("HHFP_Logo_Text1") ?>
+                <?php endif; ?>
+                </b>
+                <img src="<?= $footer_logo_src; ?>">
             </span>
-        
          <div class="flex aligned ">
               
            
@@ -71,7 +80,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 </div>
 
 <div class="footer1">
- <footer class="flex-center ">
+ <footer class="flex-center <?php echo $footer_class; ?>">
          <div class="flex aligned ">
 <p class="flex-center">
                 <?php
@@ -124,13 +133,21 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
          
 
 </div>
-
             <span class="logo">
-                <b>Hose</b>
-<img src="/CatalogImages/logo_new.png">
-               
+
+            <b>
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("HHFP_Logo_Text2")->isEmpty()): ?>
+                            <?= $this->input("HHFP_Logo_Text2")->setDataFromResource('Hose') ?>
+                    <?php else: ?>
+                            <?= $this->input("HHFP_Logo_Text2"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("HHFP_Logo_Text2") ?>
+            <?php endif; ?>
+            </b>
+            <img src="<?= $footer_logo_src ?>">
             </span>
-        
 </footer>
 </div>
 
@@ -139,14 +156,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
     <?php
 
-    if (is_array($info['data']) && !empty($info['data'])) {
-    $dispColumns = array_keys($info['dataTableColumn']);
-        foreach ($info['data'] as $uniqueId => $tableData) {
+    if (is_array($brandsData) && !empty($brandsData)) {
+        $incr = 1;
+    // $dispColumns = array_keys($info['dataTableColumn']);
+        foreach ($brandsData as $uniqueId => $tableData) {
             foreach ($tableData as $tableName => $tableRows) {
-                $tableColumns = $info['fittingTableColumn'][$tableName];
-                $uniqueId = md5($uniqueId.$tableName);
-                if (is_array($tableColumns) && !empty($tableColumns)) {
-                    $result = array_intersect($tableColumns['columns'], $dispColumns);
+                // $tableColumns = $info['fittingTableColumn'][$tableName];
+                // $uniqueId = md5($uniqueId.$tableName);
+                // if (is_array($tableColumns) && !empty($tableColumns)) {
+                //     $result = array_intersect($tableColumns['columns'], $dispColumns);
                     
                     /* New Family Info */
     ?>
@@ -155,49 +173,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <span>
                                 <?php
                                 if ($this->editmode) {
-                                    echo $this->image('catLeftImage' . $uniqueId, [
-                                        "class" => "leftImg",
-                                        "width" => 226,
-                                        "height" => 150
-                                    ])->setImage($tableRows['leftImage']);
+                                    echo $this->image('catLeftImage' . $incr, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
                                 } else {
-                                    echo $this->image('catLeftImage' . $uniqueId, [
-                                        "class" => "lImg",
-                                        "width" => 226,
-                                        "height" => 150
-                                    ]);
+                                    echo $this->image('catLeftImage' . $incr, ["class" => "lImg", "width" => 226, "height" => 150]);
                                 }
                                 if ($this->editmode) {
-                                    echo $this->image('catRightImage' . $uniqueId, [
-                                        "class" => "rightImg",
-                                        "width" => 226,
-                                        "height" => 150
-                                    ])->setImage($tableRows['rightImage']);
+                                    echo $this->image('catRightImage' . $incr, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
                                 } else {
-                                    echo $this->image('catRightImage' . $uniqueId, [
-                                        "class" => "rImg",
-                                        "width" => 226,
-                                        "height" => 150
-                                    ]);
+                                    echo $this->image('catRightImage' . $incr, ["class" => "rImg", "width" => 226, "height" => 150]);
                                 }
                                 ?>
                             </span>
                             <figcaption class="highlight">
                                 <h3>
                                     <?php
-                                    if ($this->input('brandName' . $uniqueId)->isEmpty()) {
-                                        echo $this->input('brandName' . $uniqueId)->setDataFromResource($tableRows['brandName']);
+                                    if ($this->input('brandName' . $incr)->isEmpty()) {
+                                        echo $this->input('brandName' . $incr)->setDataFromResource($tableRows['brandData']['BrandShortText1']);
                                     } else {
-                                        echo $this->input('brandName' . $uniqueId);
+                                        echo $this->input('brandName' . $incr);
                                     }
                                     ?>
                                 </h3>
                                 <p>
                                     <?php
-                                    if ($this->input('shortDescription' . $uniqueId)->isEmpty()) {
-                                        echo $this->input('shortDescription' . $uniqueId)->setDataFromResource($tableRows['shortDescription']);
+                                    if ($this->input('shortDescription' . $incr)->isEmpty()) {
+                                        echo $this->input('shortDescription' . $incr)->setDataFromResource($tableRows['brandData']['shortDescription']);
                                     } else {
-                                        echo $this->input('shortDescription' . $uniqueId);
+                                        echo $this->input('shortDescription' . $incr);
                                     }
                                     ?>
                                 </p>
@@ -206,50 +208,75 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                         <!-- Starting grid here -->
                         <table class="grid inh fitting" cellspacing="0" cellpadding="0">
-                            <?php
-                            echo "<thead> <tr class='sub-head'>";
-                            foreach ($result as $col) {
-                                if(array_key_exists($col, $info['attrImages'])) {
-                                    echo "<td><img src='{$info['attrImages'][$col]}' /></td>";
-                                } else {
-                                    echo "<td></td>";
-                                }
-                                
-                            }
-                            echo "</tr>";
-                            echo "<tr class='head'>";
-                            foreach ($result as $col) {
-                                echo "<td>{$info['dataTableColumn'][$col]->columnLabel}</td>";
-                            }
-                            echo "</tr></thead>";
-                            $active = "";
-                            $i = 1;
-                            foreach ($tableRows['data']['HoseID1InDec'] as $k => $rows) {
-                                $active = "";
-                                if($i%2==0) {
-                                    $active = "active";
-                                }
-                                foreach($rows as $row) {
-                                    echo "<tr class='{$active}'>";
-                                    foreach ($result as $col) {                                    
-                                        echo "<td>{$row[$col]}</td>";
-                                    }
-                                    echo "</tr>";                                    
-                                }
-                                $i++;
-                            }
-                            ?>
+                            <thead>       
+                                <?php if ($iconRequired == 'YES'): ?>
+                                    <tr class="sub-head">
+                                        <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c1data): ?>
+                                            <?php
+                                            $g1count = count($c1data);
+                                            $firstArray = array_shift($c1data);
+                                            ?>
+                                            <td colspan="<?= $g1count; ?>">
+                                                <?php if ($firstArray['columnIcon']): ?>
+                                                    <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                <?php endif; ?>
+                                            </td>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                <?php endif; ?>
+                                <tr class="head">
+                                    <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c2data): ?>
+                                        <?php
+                                        $g2count = count($c2data);
+                                        $first2Array = array_shift($c2data);
+                                        ?>
+                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                    <?php endforeach; ?>
+                                </tr>
+
+                                <?php if ($tableRows['articleData']['subHeaderRequired'] == 'YES'): ?>
+                                    <tr class="head">
+                                        <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c3data): ?>
+                                            <?php foreach ($c3data as $c3key => $c3value): ?>
+                                                <?php if ($c3value['unitName']): ?>
+                                                    <td><?= $c3value['unitName'] ?></td>
+                                                <?php else: ?>
+                                                    <td></td>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                <?php endif; ?>
+                            </thead>
+                            <tbody>
+                                <?php $incrRow = 1; ?>        
+                                <?php foreach ($tableRows['articleData']['articles'] as $key => $shortedRows): ?>
+                                    <?php $activeClass = ($incrRow % 2 == 0) ? 'active' : ''; ?>
+                                        <?php foreach ($shortedRows as $ekey => $element): ?>
+                                            <tr class="<?= $activeClass; ?>">
+                                                <?php foreach ($element as $ekey => $value): ?>
+                                                    <td><?= $value ?></td>
+                                                <?php endforeach; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php $incrRow++ ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                            
+                            
                             <!-- Closing grid div here -->
                         </table>
 <span class="tableFooter">
-                        <?php echo $this->input("HYD_PP_".$uniqueId,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
+                        <?php echo $this->input("HYD_PP_".$incr,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
 
 </span>
                     </article>
     <?php
-                }
+                // }
+                $incr++;
             }
         }
+        
     }
     ?>
 

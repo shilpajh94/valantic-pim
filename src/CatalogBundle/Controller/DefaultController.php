@@ -702,9 +702,13 @@ class DefaultController extends AbstractController {
     public function templateHoseLineTileTemplateAction(Request $request)
     {
         $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+        $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
+        $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
         if ($this->getDocumentTag('href', 'tiletemplate')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->getDocumentTag('href', 'tiletemplate')->getId();
             $obj = \Pimcore\Model\DataObject::getById($id);
+
+            $footerBgColor = $obj->getColor();
             // p_r($obj->getProperty('headerTitle'));
             $data = array();
             $blockDes = "";
@@ -761,7 +765,7 @@ class DefaultController extends AbstractController {
                     }
 
 if(isset($data[$baseId])) {
-                        $data[$baseId]['hoseIdNominalId'][] = isset($data[$baseId]['hoseIdNominalId'][$k]) && !empty($data[$baseId]['hoseIdNominalId'][$k]) ? $data[$baseId]['hoseIdNominalId'][$k] : $row['hoseIdNominalId'];
+                        $data[$baseId]['HoseIDNominalIDFrac'][] = isset($data[$baseId]['HoseIDNominalIDFrac'][$k]) && !empty($data[$baseId]['HoseIDNominalIDFrac'][$k]) ? $data[$baseId]['HoseIDNominalIDFrac'][$k] : $row['HoseIDNominalIDFrac'];
                         $data[$baseId]['hoseIdDec'][] = isset($data[$baseId]['hoseIdDec'][$k]) && !empty($data[$baseId]['hoseIdDec'][$k]) ? $data[$baseId]['hoseIdDec'][$k] : $row['hoseIdDec'];
                     }
                 }
@@ -781,7 +785,7 @@ if(isset($data[$baseId])) {
                         $minKey = array_search($min, $row['hoseIdDec']);
                         $maxKey = array_search($max, $row['hoseIdDec']);
                         if (!empty($min) && !empty($max)) {
-                            $range = "ID " . $row['hoseIdNominalId'][$minKey] . '"' . '-' . $row['hoseIdNominalId'][$maxKey] . '"';
+                            $range = "ID " . $row['HoseIDNominalIDFrac'][$minKey] . '"' . '-' . $row['HoseIDNominalIDFrac'][$maxKey] . '"';
                         }
 
                         $data[$baseId]['range'] = $range;
@@ -801,6 +805,9 @@ if(isset($data[$baseId])) {
                 $this->view['info'] = array(
                     'brandsInfo' => $data,
                     'blockDes' => $blockDes,
+                    'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
+                    'footer_logo_src' => (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange']
+        
                     /* 'headerTitle' => $obj->getProperty('headerTitle'),
                     'footer' => array(
                         'footerTitle' => $obj->getProperty('footerTitle'),
@@ -1702,79 +1709,109 @@ if(isset($data[$baseId])) {
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
             $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
-
+            
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
-            
+
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
             $headerKeys = array_keys($headerData);
             
+            $headerKeysIndex = array_flip($headerKeys);
+
             $columnsData = $template->getColumns();
             $iconRequired = 'YES';
-            $columnsData = json_decode($columnsData);
+            $subHeaderRequired = 'NO';
+            $columnsData = json_decode($columnsData, true);
             $columnsDataWithImages = array();
 
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            if($columnsData)
-            {
-                foreach ($columnsData as $key => $value) {
-                    $columnsDataWithImages[$key]['columnName'] = $value->columnName;
-                    $columnsDataWithImages[$key]['columnLabel'] = $this->get('translator')->trans($value->columnName); 
-                    $columnsDataWithImages[$key]['columnIcon'] = $attributeImages[$value->columnName];
+            foreach ($columnsData as $key => $value) {
+                
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $subHeaderRequired = 'YES';
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+                
+                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+            }
+            
+            unset($columnsData);
+
+            $orderKeys = array();
+            foreach ($columnsDataWithImages as $skey => $svalue) {
+                foreach ($svalue as $vkey => $vvalue) {
+                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                 }
             }
             
             $brandsData = array();
-
-            foreach ($productsData as $key => $item) {
-                $productsDataWithHeaders = array_combine($headerKeys, $item);
-
-                if(!empty(trim($productsDataWithHeaders['brandName'][0])))
-                    $brandsData[$productsDataWithHeaders['brandName'][0]][] = $productsDataWithHeaders;
-            }
-
-            foreach ($brandsData as $brandKey => $brandArray) {
-
-                $brandName = $brandArray[0]['brandName'][0];
-
-                $mainImage = $brandArray[0]['mainImage'];
-
-                $imageObj = '';
-                if($mainImage)
-                {
-                    $imageObj = \Pimcore\Model\Asset::getByPath($mainImage);
+            if($productsData)
+            {
+                foreach ($productsData as $key => $item) {
+                    if(!empty(trim($item[$headerKeysIndex['brandName']][0])))
+                        $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
                 }
-                
-                $articlesData = array();
 
-                foreach($brandArray as $key => $element): 
+                foreach ($brandsData as $brandKey => $brandArray) {
 
-                        if($element['shortDescription'])
-                            $shortDescription = $element['shortDescription'];
-                        
-                        foreach ($columnsDataWithImages as $ckey => $cvalue) {
-                            $articlesData[$key][$ckey] = $element[$ckey];
-                        }
+                    $brandName = '';
+                    $imageObj = '';
+                    $shortDescription = '';
+                    
+                    foreach($brandArray as $key => $element): 
 
-                endforeach; 
+                            $brandName = $element[$headerKeysIndex['brandName']][0];
 
-                $data[$brandKey]['brandName'] = $brandName;
-                $data[$brandKey]['imageObj'] = $imageObj;
-                $data[$brandKey]['shortDescription'] = $shortDescription;
-                $data[$brandKey]['iconRequired'] = $iconRequired;
-                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                            if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
+                            {
+                                if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
+                                {
+                                    $mainImage = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                                    if(file_exists($mainImage->getFileSystemPath()))
+                                    {
+                                        $imageObj = $mainImage;
+                                    }
+                                    unset($mainImage);
+                                }
+                            }
+        
+                            if(empty($shortDescription) && $element[$headerKeysIndex['shortDescription']])
+                                $shortDescription = $element[$headerKeysIndex['shortDescription']];
 
-                array_multisort (array_column($articlesData, 'FlangePatternDimensionAInAndMMDecimal'), SORT_ASC, $articlesData);
+                            foreach ($orderKeys as $ckey => $cvalue) {
+                                $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                            }
 
-                $data[$brandKey]['articlesData'] = $articlesData;
+                    endforeach; 
 
+                    $data[$brandKey]['brandName'] = $brandName;
+                    $data[$brandKey]['imageObj'] = $imageObj;
+                    $data[$brandKey]['shortDescription'] = $shortDescription;
+                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+
+                    // array_multisort (array_column($articlesData, $headerKeysIndex['FlangePatternDimensionAInAndMMDecimal']), SORT_ASC, $articlesData);
+
+                    $data[$brandKey]['articlesData'] = $articlesData;
+
+                }
             }
+
             $this->view['data'] = $data;
+            $this->view['iconRequired'] = $iconRequired;
+            $this->view['subHeaderRequired'] = $subHeaderRequired;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }

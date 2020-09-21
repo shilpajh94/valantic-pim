@@ -82,7 +82,7 @@ parameters:
   Fitting-Straight:
     columns: ['DescriptivePartNumber','ActivantNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM',  'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight 2:
-    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'HoseID1InFract','ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight Reatt:
     columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'SocketWrenchSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight Reatt 2:
@@ -95,13 +95,13 @@ parameters:
     columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Union Skive:
     columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
-  Hose:
-    columns: ['DescriptivePartNumber', 'articleNumber', 'HoseID1InFract', 'hoseOdIn', 'hoseOdmm', 'workingPressurePSI', 'workingPressureMPA', 'BendRadiusIN', 'BendRadiusMM', 'fittingFamily']
-  Hose Accessories-Flange Clamps:
-    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'PortHoleIDFract', 'FlangePatternDimensionAInAndMMDecimal', 'FlangePatternDimensionBInAndMMDecimal', 'workingPressurePSI', 'workingPressureMPA', 'RecommendedGrade8Bolt']
-  Hose Accessories-Hose Clamps:
-    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'ClampingDiameterInFract', 'ClampingDiameterInDec', 'BoltHoleSizeInFract', 'BoltHoleSizeInDec']
-  Hose Accessories-Orings:
-    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'OringIdInDec', 'ThreadDashSize1']
-  Hose Accessories-Sleeving:
-    columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'SleevingIDInDecimal', 'SleevingWidthInAndMMDecimal']
+  # Hose:
+  #   columns: ['DescriptivePartNumber', 'articleNumber', 'HoseID1InFract', 'hoseOdIn', 'hoseOdmm', 'workingPressurePSI', 'workingPressureMPA', 'BendRadiusIN', 'BendRadiusMM', 'fittingFamily']
+  # Hose Accessories-Flange Clamps:
+  #   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'PortHoleIDFract', 'FlangePatternDimensionAInAndMMDecimal', 'FlangePatternDimensionBInAndMMDecimal', 'workingPressurePSI', 'workingPressureMPA', 'RecommendedGrade8Bolt']
+  # Hose Accessories-Hose Clamps:
+  #   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'ClampingDiameterInFract', 'ClampingDiameterInDec', 'BoltHoleSizeInFract', 'BoltHoleSizeInDec']
+  # Hose Accessories-Orings:
+  #   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'OringIdInDec', 'ThreadDashSize1']
+  # Hose Accessories-Sleeving:
+  #   columns: ['DescriptivePartNumber', 'ActivantNumber', 'articleNumber', 'SleevingIDInDecimal', 'SleevingWidthInAndMMDecimal']
