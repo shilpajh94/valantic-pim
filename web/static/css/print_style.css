@@ -1463,10 +1463,11 @@ width:130px;
  margin-left:330px;
 
 }
-
+@media print{
 .inhRight .grid{
-position:relative:
-top:100px;
+position:relative;
+top:15px;
+}
 }
  
 
@@ -1607,6 +1608,7 @@ top:100px;
     }
     .pimcore_tag_image_empty {
         background-color: #ffffff !important;
+max-width: 100% !important;
     }
     .hoseline aside.flex.first > div > .pimcore_block_entry:first-child {
         max-width: 100%;
