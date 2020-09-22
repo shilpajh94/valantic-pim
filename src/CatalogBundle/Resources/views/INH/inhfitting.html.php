@@ -20,7 +20,7 @@ if (!isset($this->parentContainer)) {
 if($groupData):
 ?>
 <div class="template">
-        <div class="segregate inh">
+        <div class="segregate inh inhSettingN">
 
                 <div id="pageHeader"></div>
                 <span class="pageName">
@@ -100,7 +100,8 @@ if($groupData):
 
                 <article class="fullcontainer single">
                         <div class="inhsetting1">
-                            <div class="inhsetting-sidebar sidebar">
+ <div class="inhsetting-sidebar"> 
+                            <div class=" sidebar">
                                         <ul>
                                                 <?php
                                                 if (is_array($groupData['categories'])) {
@@ -130,6 +131,7 @@ if($groupData):
                                                 ?>
                                         </ul>
                                 </div>
+</div>
                                 <div class="inhRight">
                                         <header class=" white">
                                                 <h1 class="contitech-yellow">

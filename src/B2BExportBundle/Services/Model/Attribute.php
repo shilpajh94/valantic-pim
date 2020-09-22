@@ -9,7 +9,7 @@ use Pimcore\Model\DataObject;
 /**
  * Model Class Attribute
  *
- * Attribute Service Model 
+ * Attribute Service Model
  *
  * @package ExportBundle\Services\Model
  */
@@ -48,7 +48,7 @@ class Attribute
               JOIN object_5  o5
               ON o5.o_id = o12.Plant__id');
             // Querying ProductLine data from Database
-            $productLineMaster = Db::get()->fetchAll('SELECT 
+            $productLineMaster = Db::get()->fetchAll('SELECT
               DISTINCT
               (o2.Level - 1) AS level,
               RIGHT(`fullCode`, LENGTH(`fullCode`) - 2) AS code
@@ -75,46 +75,76 @@ class Attribute
     public static function getValuesCategoryEntry() {
         try {
             // Querying data from Sales Material Master Database
-            $salesMaterialMaster = Db::get()->fetchAll("SELECT DISTINCT
-                o1.articleNumber as partNo,
-                CONCAT(o6.code, '/', o8.code, '/', o5.Plant) as value
-                FROM object_10 o10
-                JOIN object_6  o6
-                ON o6.o_id = o10.SalesOrganization__id
-                JOIN object_8  o8
-                ON o8.o_id = o10.DistributionChannel__id
-                JOIN object_5  o5
-                ON o5.o_id = o10.DeliveringPlant__id
-                JOIN object_1 o1 ON 
-                o10.Material = o1.oo_id
-                WHERE o10.epixFlag = '001'
-                UNION DISTINCT
-                SELECT DISTINCT
-                o1.articleNumber as partNo,
-                CONCAT(o6.code, '/', o8.code, '/', o5.Plant) as value
-                FROM object_10 o10
-                JOIN object_6  o6
-                ON o6.o_id = o10.SalesOrganization__id
-                JOIN object_8  o8
-                ON o8.o_id = o10.DistributionChannel__id
-                JOIN object_5  o5
-                ON o5.o_id = o10.DeliveringPlant__id
-                JOIN object_1 o1
-                ON FIND_IN_SET(o1.oo_id, o10.Material)
-                WHERE o10.epixFlag = '001'
-                AND o10.Material REGEXP ','
-            ");
+
+//            $oldSql = "
+//            SELECT DISTINCT
+//                o1.articleNumber as partNo,
+//                CONCAT(o6.code, '/', o8.code, '/', o5.Plant) as value
+//                FROM object_10 o10
+//                JOIN object_6  o6
+//                ON o6.o_id = o10.SalesOrganization__id
+//                JOIN object_8  o8
+//                ON o8.o_id = o10.DistributionChannel__id
+//                JOIN object_5  o5
+//                ON o5.o_id = o10.DeliveringPlant__id
+//                JOIN object_1 o1 ON
+//                o10.Material = o1.oo_id
+//                WHERE o10.epixFlag = '001'
+//                UNION DISTINCT
+//                SELECT DISTINCT
+//                o1.articleNumber as partNo,
+//                CONCAT(o6.code, '/', o8.code, '/', o5.Plant) as value
+//                FROM object_10 o10
+//                JOIN object_6  o6
+//                ON o6.o_id = o10.SalesOrganization__id
+//                JOIN object_8  o8
+//                ON o8.o_id = o10.DistributionChannel__id
+//                JOIN object_5  o5
+//                ON o5.o_id = o10.DeliveringPlant__id
+//                JOIN object_1 o1
+//                ON FIND_IN_SET(o1.oo_id, o10.Material)
+//                WHERE o10.epixFlag = '001'
+//                AND o10.Material REGEXP ','
+//            ";
+
+            $newSql = "
+                SELECT
+                    product.articleNumber as partNo,
+                    CONCAT(salesOrg.code, '/', distChannel.code, '/', plant.Plant) AS value
+                FROM
+                    object_query_10 salesMaster
+                        JOIN
+                    object_query_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
+                        JOIN
+                    object_query_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
+                        JOIN
+                    object_query_8 distChannel ON distChannel.oo_id = salesMaster.DistributionChannel__id
+                        JOIN
+                    object_query_5 plant ON plant.oo_id = salesMaster.DeliveringPlant__id
+                WHERE
+                    salesMaster.epixFlag = '001';
+            ";
+
+            $salesMaterialMaster = Db::get()->fetchAll($newSql);
             // Querying Product Line Master data from Database
-            $productLineMaster = Db::get()->fetchAll("SELECT DISTINCT
-                o1.articleNumber as partNo,
-                o2.code as value
-                FROM object_10 o10
-                JOIN object_1 o1 ON 
-                (REPLACE(SUBSTRING(substring_index(o10.Material, ',', 1), 
-                length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
-                JOIN object_2  o2
-                ON o2.oo_id = o1.SIOPLevel2
-            ");
+//            $oldSql1 = "SELECT DISTINCT
+//                o1.articleNumber as partNo,
+//                o2.code as value
+//                FROM object_10 o10
+//                JOIN object_1 o1 ON
+//                (REPLACE(SUBSTRING(substring_index(o10.Material, ',', 1),
+//                length(substring_index(o10.Material, ',', 1- 1)) + 1), ',', '') = o1.oo_id)
+//                JOIN object_2  o2
+//                ON o2.oo_id = o1.SIOPLevel2";
+
+            $newSql1 = "
+                SELECT
+                    articleNumber as partNo, SUBSTRING(TRIM(siopFullCode), 3, 4) as value
+                FROM
+                    object_1;
+            ";
+
+            $productLineMaster = Db::get()->fetchAll($newSql1);
             // Returning Sales material & product line master Array
             return ['salesMaterialMaster' => $salesMaterialMaster, 'productLineMaster' => $productLineMaster];
         } catch (Exception $ex) {
@@ -178,22 +208,38 @@ class Attribute
     public static function getAttrValCatEntryFacets() {
         try {
             // Querying product master data from Database
-            $productsMaster = Db::get()->fetchAll("SELECT
-                    o1.oo_id
-                FROM object_10 o10
-                JOIN object_1 o1
-                ON o1.oo_id = o10.Material
-                WHERE o10.epixFlag = '001' 
-                UNION DISTINCT
-                SELECT
-                    o1.oo_id
-                FROM object_10 o10
-                JOIN object_1 o1
-                ON FIND_IN_SET(o1.oo_id, o10.Material)
-                WHERE 
-                o10.epixFlag = '001' 
-                AND o10.Material REGEXP ','
-            ");
+//            $oldSql = "SELECT
+//                    o1.oo_id
+//                FROM object_10 o10
+//                JOIN object_1 o1
+//                ON o1.oo_id = o10.Material
+//                WHERE o10.epixFlag = '001'
+//                UNION DISTINCT
+//                SELECT
+//                    o1.oo_id
+//                FROM object_10 o10
+//                JOIN object_1 o1
+//                ON FIND_IN_SET(o1.oo_id, o10.Material)
+//                WHERE
+//                o10.epixFlag = '001'
+//                AND o10.Material REGEXP ','
+//            ";
+
+
+            $newSql = "
+                SELECT DISTINCT
+                    SUBSTRING(TRIM(material),
+                        2,
+                        (LENGTH(TRIM(material)) - 2)) AS oo_id
+                FROM
+                    object_query_10
+                WHERE
+                    epixFlag = '001'
+                        AND material IS NOT NULL
+                        AND material != ''
+		    ";
+
+            $productsMaster = Db::get()->fetchAll($newSql);
             // Querying B2B attributes from Database
 			$b2bObjectPath = Db::get()->fetchOne('SELECT
                 CONCAT(`o_path`, `o_key`) AS `path`
@@ -202,7 +248,7 @@ class Attribute
             $attributes = DataObject::getByPath($b2bObjectPath)->getB2BAttributeMapping();
             // Returning products master & attributes @Array
             return [
-                'productsMaster' => $productsMaster, 
+                'productsMaster' => $productsMaster,
                 'attributes' => $attributes
             ];
         } catch (Exception $ex) {
@@ -213,7 +259,7 @@ class Attribute
     /**
      * Function to eleminate duplicates from multi diamentional array by key
      *
-     * @param array $array & String $key 
+     * @param array $array & String $key
      *
      * @return array
      *

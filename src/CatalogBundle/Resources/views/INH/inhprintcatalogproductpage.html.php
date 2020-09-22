@@ -14,7 +14,7 @@ if (isset($info['brandsData'])) {
         foreach ($info['brandsData'] as $brandKey => $brand) {
             ?>
             <div class="template">
-                <div class="segregate inh " id="inhSetting">
+                <div class="segregate inh  inhSettingN">
 
                     <div id="pageHeader"></div>
                     <span class="pageName">
@@ -120,7 +120,7 @@ if (isset($info['brandsData'])) {
 
                     <article class="fullcontainer single">
                         <div class="inhsetting1">
-<!-- <div class="inhsetting-sidebar"> -->
+ <div class="inhsetting-sidebar"> 
                             <div class=" sidebar">
                                 <ul>
                                     <?php
@@ -151,7 +151,8 @@ if (isset($info['brandsData'])) {
                                         ?>
                                     </ul>
                                 </div>
-<!-- </div> -->
+ </div> 
+<!--<div class="inhSettingRight">-->
                                 <div class="inhRight">
                                     <header class=" white">
                                         <h1>
@@ -344,6 +345,7 @@ if (isset($info['brandsData'])) {
 
                             </div>
                         </div>
+<!-- </div> -->
                     </article>
                 </div>
             </div>
