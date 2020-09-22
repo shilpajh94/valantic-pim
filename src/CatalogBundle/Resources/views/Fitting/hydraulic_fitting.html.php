@@ -8,7 +8,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <section class="segregate">
  
  <div id="pageHeader"></div>
- <span  class="pageName">Hydraulic Hose</span>
+ <span  class="pageName">Hydraulic Fittings</span>
  <div class="footer">
  <footer class="flex-center <?php echo $footer_class; ?>">
             <span class="logo">
@@ -40,7 +40,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <span>
                 <?php
                     if($this->editmode) {                        
-                        echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->setDataFromResource('B2 Fittings');
+                        echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->setDataFromResource($HydFittingFamily. ' Fittings');
                     } else {
                         echo $this->input('fittingFamily_11');
                     }
@@ -121,7 +121,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <span>
                 <?php
                     if($this->editmode) {
-                        echo $this->input('fittingFamily_1')->setDataFromResource('B2 Fittings');
+                        echo $this->input('fittingFamily_1')->setDataFromResource($HydFittingFamily. ' Fittings');
                     } else {
                         echo $this->input('fittingFamily_1');
                     }
@@ -188,7 +188,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <h3>
                                     <?php
                                     if ($this->input('brandName' . $incr)->isEmpty()) {
-                                        echo $this->input('brandName' . $incr)->setDataFromResource($tableRows['brandData']['BrandShortText1']);
+                                        echo $this->input('brandName' . $incr)->setDataFromResource($tableRows['brandData']['brandName']);
                                     } else {
                                         echo $this->input('brandName' . $incr);
                                     }
