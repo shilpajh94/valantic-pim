@@ -1,132 +1,151 @@
 ## YAML Template.
 VirtualCatalog: 
-  Base:
-      Fields:
-        - oo_id
-        - o_parentId
-        - SIOPLevel2
-        - SIOPLevel3
-        - SIOPLevel4
-        - mainImage
-        - frontView
-        - sideView
-        - cutView
-        - brandName
-        - minimumTemperatureF
-        - maximumTemperatureF
-        - minimumTemperatureC
-        - maximumTemperatureC
-        - rangeTemperatureF
-        - rangeTemperatureC
-      Images:
-        - mainImage
-        - frontView
-        - sideView
-        - cutView
-      Object:
-          ProductCategory:
-              SIOPLevel2:
-                  Fields:
-                      - Level
-                      - Code
-                      - Description
-              SIOPLevel3:
-                  Fields:
-                      - Level
-                      - Code
-                      - Description
-              SIOPLevel4:
-                  Fields:
-                      - Level
-                      - Code
-                      - Description
-      ObjectBricks:
-          Hose:
-            Fields:
-              - VirtualCatalogTubeMaterial
-              - tubeColor
-              - VirtualCatalogCoverMaterial
-              - coverColor
-              - agencyCompliance
-              - StandardMetTube
-              - StandardMetCover
-              - standardMetHose
-              - safetyFactor
-              - Coupling
-              - Packaging 
-          PTG:
-  Skeleton:
-      Fields:
-        - oo_id
-        - o_parentId
-        - mainImage
-        - frontView
-        - sideView
-        - cutView
-        - prop65Message
-        - BrandingLayline
-        - longDescription
-        - reinforcement
-        - grossWeight
-      Images:
-        - mainImage
-        - frontView
-        - sideView
-        - cutView    
-      Object:
-      ObjectBricks:
-          Hose:
-            Fields:
-              - tubeGaugeIn
-              - tubeGaugeMM
-              - BendRadiusIN
-              - BendRadiusMM
-              - VacuumIn
-              - VacuumMM
-              - workingPressureMPA
-              - workingPressurePSI
-              - minBurstPressurePSI
-              - minBurstPressurempa
-              - hoseIdDec
-              - hoseIdMM
-              - hoseOdIn
-              - hoseOdmm
-              - INHFittingFamily
-              
-          PTG:
-            Fields:
-  Fert:
-      Fields:
-        - oo_id
-        - o_parentId
-        - mainImage
-        - frontView
-        - sideView
-        - cutView
-        - articleNumber
-        - oldMaterialCode
-      Images:
-        - mainImage
-        - frontView
-        - sideView
-        - cutView
-      Object:
-      ObjectBricks:
-          Accessories:
-              Fields:
-          Belts:
-              Fields:
-          Hose:
-              Fields:
-              - hoseLengthFT
-              - CompleteFittingText
-          HydFittings:
-              Fields:
-          INHFittings:
-              Fields:
-          Metal:
-              Fields:
-          PTG:
-              Fields:
-          Synchronous:
-              Fields:
+    Base:
+        Fields:
+            - oo_id
+            - o_parentId
+            - SIOPLevel2
+            - SIOPLevel3
+            - SIOPLevel4
+            - category
+            - subCategory
+            - fittingCategory
+            - fittingSubCategory
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+            - brandName
+            - minimumTemperatureF
+            - maximumTemperatureF
+            - minimumTemperatureC
+            - maximumTemperatureC
+            - rangeTemperatureF
+            - rangeTemperatureC
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+        Object:
+            ProductCategory:
+                SIOPLevel2:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel3:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+                SIOPLevel4:
+                    Fields:
+                        - Level
+                        - Code
+                        - Description
+            Category:
+                category:
+                    Fields:
+                        - Name
+            SubCategory:
+                subCategory:
+                    Fields:
+                        - Name
+            FittingCategory:
+                fittingCategory:
+                    Fields:
+                        - Name
+            FittingSubCategory:
+                fittingSubCategory:
+                    Fields:
+                        - Name
+        ObjectBricks:
+            Hose:
+                Fields:
+                    - VirtualCatalogTubeMaterial
+                    - tubeColor
+                    - VirtualCatalogCoverMaterial
+                    - coverColor
+                    - agencyCompliance
+                    - StandardMetTube
+                    - StandardMetCover
+                    - standardMetHose
+                    - safetyFactor
+                    - Coupling
+                    - Packaging 
+            PTG:
+    Skeleton:
+        Fields:
+            - oo_id
+            - o_parentId
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+            - prop65Message
+            - BrandingLayline
+            - longDescription
+            - reinforcement
+            - grossWeight
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView    
+        Object:
+        ObjectBricks:
+            Hose:
+                Fields:
+                    - tubeGaugeIn
+                    - tubeGaugeMM
+                    - BendRadiusIN
+                    - BendRadiusMM
+                    - VacuumIn
+                    - VacuumMM
+                    - workingPressureMPA
+                    - workingPressurePSI
+                    - minBurstPressurePSI
+                    - minBurstPressurempa
+                    - hoseIdDec
+                    - hoseIdMM
+                    - hoseOdIn
+                    - hoseOdmm
+                    - INHFittingFamily 
+            PTG:
+                Fields:
+    Fert:
+        Fields:
+            - oo_id
+            - o_parentId
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+            - articleNumber
+            - oldMaterialCode
+        Images:
+            - mainImage
+            - frontView
+            - sideView
+            - cutView
+        Object:
+        ObjectBricks:
+            Accessories:
+                Fields:
+            Belts:
+                Fields:
+            Hose:
+                Fields:
+                - hoseLengthFT
+                - CompleteFittingText
+            HydFittings:
+                Fields:
+            INHFittings:
+                Fields:
+            Metal:
+                Fields:
+            PTG:
+                Fields:
+            Synchronous:
+                Fields:
