@@ -85,37 +85,7 @@ class SalesMaterialModel
 
         echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
-        // $excelDataNewArray = array();
-        // $excelData = array();
-        // $excelData = Import::getCSVData($this->filePath);
-        // $this->fileColumns = $excelData['header'];
-        // $excelDataNewArray = $excelData['data'];
-        // unset($excelData);
-        // print_r($excelDataNewArray['header']);
-        // echo count($excelDataNewArray['data']);
-        // $worksheet = $spreadsheet->getActiveSheet();
-        // $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
-
-        /**
-         * Optaining next column from last column for "status" field
-         */
-        // $highestDataColumnIndex =  \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($worksheetHighestColumnRow['highestDataColumn']);
-        // $nextColumnIndex = $highestDataColumnIndex + 1;
-        // $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
-
-        // $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
-
         
-        /**
-         * get all the data from the spreadsheet
-         */
-        // $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
-        
-        /**
-         * get folder ids of Master List, MaterialMaster, Master List/Plants, 
-         * Master List/Sales Organizations, Master List/Distribution Channel 
-         * and MaterialMaster/SalesMaterialMaster
-         */
         DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_FOLDER);
         DataObject\Service::createFolderByPath(ImportConstants::MATERIAL_MASTER_FOLDER);
         $plantFolderId= DataObject\Service::createFolderByPath(ImportConstants::MASTER_LIST_PLANTS_FOLDER)->getId();
@@ -177,9 +147,9 @@ class SalesMaterialModel
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
             if($deltaCount > 0)
             {
-                $j = 1;
+                $j = 63;
 
-                $i = 0;
+                $i = 62000;
                 $length = ImportConstants::IMPORT_BATCH_SIZE;
                 while ($i<$deltaCount) {
                     $offset = $i;
@@ -193,6 +163,8 @@ class SalesMaterialModel
                     echo "Part {$j}, Record {$length}, Batch size ".ImportConstants::IMPORT_BATCH_SIZE.", ".PHP_EOL;
                     $this->processSlicedData($partialData, $plantFolderId, $salesOrganizationsFolderId, $distributionChannelFolderId);
                     $partialData = null;
+                    $this->processObsleteFlagMaterials();
+                    $this->productUpdateArray = [];
                     \Pimcore::collectGarbage();
                     gc_collect_cycles();
                     $j++;
@@ -220,10 +192,7 @@ class SalesMaterialModel
             $this->tableImportHelper->updateMaster();
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-            $time = new \DateTime();
-            $this->processObsleteFlagMaterials();
-            $timediff = $time->diff(new \DateTime());
-            echo $timediff4->format("Obslete flag based product level update in %h hour %i minute %s second").PHP_EOL;
+            
         }
         else
         {
@@ -504,32 +473,45 @@ class SalesMaterialModel
 
     
     public function processObsleteFlagMaterials() {
-        print_r($this->productUpdateArray); 
+//        print_r($this->productUpdateArray); 
+        $productUpdateArray = [];
         foreach ($this->productUpdateArray as $objectId => $sapNumber) {
-            $product = DataObject\Product::getById($objectId);
-            if (strtolower($product->getProductType()) == 'fert') {
-                $flag = false;
-                $salesRecords = $this->tableImportHelper->getSalesMaterialRecordsByMaterial($objectId);
-                if (!empty($salesRecords) && count($salesRecords)>0) {
-                    $level = 3;
-                    $flag = true;
-                } else {
-                    $level = '';
-                    $currentPath = $product->getPath();
-                    $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
-                    $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path)."/";
-                    if ($siopProductPath == $currentPath) {
+//            $product = DataObject\Product::getById($objectId);
+//            if (!empty($product) && $product instanceof \Pimcore\Model\DataObject\Product) {
+//                if (strtolower($product->getProductType()) == 'fert') {
+                    $flag = false;
+                    $salesRecordsFlag = $this->tableImportHelper->getSalesMaterialRecordsByMaterial($objectId);
+                    if (!empty($$salesRecordsFlag)) {
+                        $level = 3;
                         $flag = true;
+                    } else {
+//                        $level = '';
+//                        $product = DataObject\Product::getById($objectId);
+//                        $currentPath = $product->getPath();
+//                        $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
+//                        $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path)."/";
+//                        if ($siopProductPath == $currentPath) {
+//                            $flag = true;
+//                        }
                     }
-                }
-                if ($flag) {
-                    $parentFolder = $this->getParentObject($product, $level);
-                    if ($parentFolder['success']) {
-                        $product->setParentId($parentFolder['parentId']);
-                        $product->save();
+                    if ($flag) {
+                        $product = DataObject\Product::getById($objectId);
+                        $parentFolder = $this->getParentObject($product, $level);
+                        if ($parentFolder['success']) {
+                            $productUpdateArray[] = [
+                                'o_id' => $objectId,
+                                'o_parentId' => $parentFolder['parentId'],
+                                'o_path' => $parentFolder['parentPath']."/"
+                            ];
+//                            $product->setParentId($parentFolder['parentId']);
+//                            $product->save();
+                        }
                     }
-                }
-            }
+//                }
+//            }
+        }
+        if (!empty($productUpdateArray)) {
+            $this->tableImportHelper->updateProductPath($productUpdateArray);
         }
     }
     public function getParentObject($object, $level = '') {
@@ -539,7 +521,7 @@ class SalesMaterialModel
             $siopPath = $siopLevel3->getFullpath();
             $productPath = $this->convertCategoryPathToProduct($siopPath);
             $productFolderId = $this->getFolderByPath($productPath);
-            return ['success' => true, "parentId" => $productFolderId];
+            return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
         } else {
             $siopCode = $object->getSiopFullCode();
             if (strlen($siopCode) == 18) {
@@ -547,7 +529,7 @@ class SalesMaterialModel
                 $siopPath = $siopLevel6->getFullpath();
                 $productPath = $this->convertCategoryPathToProduct($siopPath);
                 $productFolderId = $this->getFolderByPath($productPath);
-                return ['success' => true, "parentId" => $productFolderId];
+                return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
             } elseif (strlen($siopCode) == 13) {
                 $siopLevel4 = $object->getSIOPLevel4()[0];
                 $siopPath = $siopLevel4->getFullpath();
@@ -555,13 +537,13 @@ class SalesMaterialModel
                 $oldMaterialCode = trim($object->getOldMaterialCode());
                 if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                     $productFolderId = $this->getFolderByPath($productPath);
-                    return ['success' => true, "parentId" => $productFolderId];
+                    return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
                 } else {
                     $sixDigitCode = substr($oldMaterialCode, 0, 6);
                     $nineDigitCode = substr($oldMaterialCode, 0, 9);
                     $productFullPath = $productPath."/".$sixDigitCode."/".$nineDigitCode;
                     $productFolderId = $this->getFolderByPath($productFullPath);
-                    return ['success' => true, "parentId" => $productFolderId];
+                    return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productFullPath];
                 }
             }
         }

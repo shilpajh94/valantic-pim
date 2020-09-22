@@ -296,10 +296,11 @@ class ProductModelService
                     $product = DataObject\Product::getById($objId);
                     $bData  =   '';
                     // Get Field Definition.
+
                     if($product->$productBrickField()->$brickText()){
                         $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
 
-                        if($fieldDef->getFieldtype()==="multiselect"){
+                        if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
                              $bData = [];
                              if(!empty($bDataTmp)){

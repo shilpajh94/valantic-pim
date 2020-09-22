@@ -102,12 +102,6 @@ non_localized:
     casePackQuantity:
         type: 'numeric'
         label: 'Case Pack Quantity'
-    orderIncrement:
-        type: 'numeric'
-        label: 'Order Increment'
-    minimumOrderQuantity:
-        type: 'numeric'
-        label: 'Minimum Order Quantity'
     numberOfCoils:
         type: 'numeric'
         label: 'Number of Coils'
@@ -197,9 +191,6 @@ localized:
     legalText:
         type: 'input'
         label: 'Legal Text'
-    Application:
-        type: 'input'
-        label: 'Application (What does the hose convey?)'
     BrandShortText1:
         type: 'input'
         label: 'Brand Short Text 1'
