@@ -28,6 +28,16 @@ class Export {
      */
     const GENERATE_SAMPLE_FILES_ONLY = false;
 
+    /**
+     * only maintain the 4th level categories here
+     */
+    const HYDRAULIC_HOSE_CATEGORY_SAP_IDS = ['0415001510000'];
+
+    /**
+     * only maintain the 4th level categories here
+     */
+    const FITTINGS_CATEGORY_SAP_IDS = ['0415001510100'];
+
 	/**
 	 * Execute generate Function
 	 *
@@ -44,8 +54,8 @@ class Export {
 			$fileName = Config::catalogGroupDescFileName();
 			$this->saveCatalogGroupsDescCSV($fileName);
 			// Generating CSV for Catalog Entries
-//			$fileName = Config::catalogEntriesFileName();
-//			$this->saveCatalogEntriesCSV($fileName);        // taking too long
+			$fileName = Config::catalogEntriesFileName();
+			$this->saveCatalogEntriesCSV($fileName);        // taking too long
 			// Generating CSV for Catalog Entries Description
 			$fileName = Config::catalogEntriesDescFileName();
 			$this->saveCatalogEntriesDescCSV($fileName);    // taking too long
@@ -56,14 +66,14 @@ class Export {
 			$fileName = Config::attrValCatEntryFileName();
 			$this->saveAttrValCatEntryCSV($fileName);       // taking too long
 			// Generating CSV for Attribute Facets
-//			$fileName = Config::attributeFacetsFileName();
-//			$this->saveAttributeFacetsCSV($fileName);
-			// Generating CSV for Catalog Entries
-//			$fileName = Config::attrValsFacetsFileName();
-//			$this->saveAttrValsFacetsCSV($fileName);
-			// Generating CSV for Catalog Entries
-//			$fileName = Config::attrValCatEntryFacetsFileName();
-//			$this->saveAttrValCatEntryFacetsCSV($fileName); // taking too long
+			$fileName = Config::attributeFacetsFileName();
+			$this->saveAttributeFacetsCSV($fileName);
+//			 Generating CSV for Catalog Entries
+			$fileName = Config::attrValsFacetsFileName();
+			$this->saveAttrValsFacetsCSV($fileName);
+//			 Generating CSV for Catalog Entries
+			$fileName = Config::attrValCatEntryFacetsFileName();
+			$this->saveAttrValCatEntryFacetsCSV($fileName); // taking too long
 			// Generating CSV for Catalog Entries
 			$fileName = Config::xMaterialPlantFileName();
 			$this->saveXMaterialPlantCSV($fileName);
@@ -131,9 +141,15 @@ class Export {
 								$topGroup = 'TRUE';
 								$parentGroupIdentifier = 0;
 							}
+
+                            $desc = $description;
+                            if($PrintedCatalogDescription && trim($PrintedCatalogDescription) !== ''){
+                                $desc = $PrintedCatalogDescription;
+                            }
+
 							$row[] = utf8_encode($topGroup);
 							$row[] = utf8_encode($parentGroupIdentifier);
-							$row[] = utf8_encode($description);
+							$row[] = utf8_encode($desc);
 							$row[] = utf8_encode($sequence);
 							fputcsv($fileResource, $row, ',');
 							unset($row);
@@ -150,9 +166,15 @@ class Export {
 								$topGroup = 'TRUE';
 								$parentGroupIdentifier = 0;
 							}
+
+                            $desc = $description;
+                            if($PrintedCatalogDescription && trim($PrintedCatalogDescription) !== ''){
+                                $desc = $PrintedCatalogDescription;
+                            }
+
 							$row[] = utf8_encode($topGroup);
 							$row[] = utf8_encode($parentGroupIdentifier);
-							$row[] = utf8_encode($description);
+							$row[] = utf8_encode($desc);
 							$row[] = utf8_encode($sequence);
 							fputcsv($fileResource, $row, ',');
 							unset($row);
@@ -213,8 +235,14 @@ class Export {
 						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
 							foreach ($language as $key => $languageIterator) {
 								if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
+
+								    $desc = $languageIterator['description'];
+								    if($languageIterator['PrintedCatalogDescription'] && trim($languageIterator['PrintedCatalogDescription']) !== ''  ){
+                                        $desc = $languageIterator['PrintedCatalogDescription'];
+                                    }
+
 									$row[] = utf8_encode(ltrim($fullCode, '04'));
-									$row[] = utf8_encode($languageIterator['description']);
+									$row[] = utf8_encode($desc);
 									$row[] = utf8_encode($languageMaster[$key]);
 									fputcsv($fileResource, $row, ',');
 									unset($row);
@@ -227,8 +255,14 @@ class Export {
 						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
 							foreach ($language as $key => $languageIterator) {
 								if (!empty($languageIterator['description']) && isset($languageMaster[$key])) {
+
+                                    $desc = $languageIterator['description'];
+                                    if($languageIterator['PrintedCatalogDescription'] && trim($languageIterator['PrintedCatalogDescription']) !== ''  ){
+                                        $desc = $languageIterator['PrintedCatalogDescription'];
+                                    }
+
 									$row[] = utf8_encode(ltrim($fullCode, '04'));
-									$row[] = utf8_encode($languageIterator['description']);
+									$row[] = utf8_encode($desc);
 									$row[] = utf8_encode($languageMaster[$key]);
 									fputcsv($fileResource, $row, ',');
 									unset($row);
@@ -277,18 +311,30 @@ class Export {
 			fputcsv($fileResource, $columns, ',');
 			$c = 0;
 			foreach ($data as $item) {
-
 				// Filling CSV Data Rows
 				extract($item);
 				// dd($item);
-				if (!in_array($siopFullCode, ['04', '04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
-					$row[] = utf8_encode($partNo);
-					$row[] = utf8_encode($MFPartNumber);
-					$row[] = utf8_encode(substr($industryStandard,0,64));
-					$row[] = utf8_encode($sapDescription);
-					$row[] = utf8_encode(ltrim($siopFullCode, '04'));
-					fputcsv($fileResource, $row, ',');
-					unset($row);
+                if (!in_array($siopFullCode, ['04', '04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
+
+                    $level4SIOPCode = substr($siopFullCode, 0, 13);
+                    $parentGroupIdentifier = ltrim($siopFullCode, '04');
+
+                    if(in_array($level4SIOPCode, self::HYDRAULIC_HOSE_CATEGORY_SAP_IDS)){
+                        $parentGroupIdentifier = $categoryId;
+                    }elseif (in_array($level4SIOPCode, self::FITTINGS_CATEGORY_SAP_IDS)){
+                        $parentGroupIdentifier = $fittingCategoryId;
+                    }
+
+                    if($parentGroupIdentifier !== null && trim($parentGroupIdentifier) !== ''){
+                        $row[] = utf8_encode($partNo);
+                        $row[] = utf8_encode($MFPartNumber);
+                        $row[] = utf8_encode(substr($industryStandard,0,64));
+                        $row[] = utf8_encode($sapDescription);
+                        $row[] = utf8_encode($parentGroupIdentifier);
+                        fputcsv($fileResource, $row, ',');
+                        unset($row);
+                    }
+
 				}
 
                 $c++;
