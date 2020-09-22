@@ -182,8 +182,8 @@ class HydraulicFittingController extends AbstractController
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                                         
-                                        if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$value['columnName']];
+                                        if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$groupColumnName];
 
                                         
                                     }

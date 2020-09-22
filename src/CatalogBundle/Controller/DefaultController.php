@@ -867,8 +867,8 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
 
             unset($columnsData);
@@ -1141,8 +1141,8 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
 
             unset($columnsData);
@@ -1289,8 +1289,8 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
 
             
@@ -1416,7 +1416,7 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
 
             unset($columnsData);
@@ -1744,8 +1744,8 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
             
             unset($columnsData);
@@ -1980,8 +1980,8 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
 
             unset($columnsData);
