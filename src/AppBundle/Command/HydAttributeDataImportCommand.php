@@ -94,7 +94,7 @@ class HydAttributeDataImportCommand extends Command
     const FERT_COLUMN_MAP = array(
         // not sure about this map ( don't import this column )
 //        "F" => array("field" => "sapDescription", "brickKey" => null, "type" => "textarea", "brickType" => null),
-        "G" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
+//        "G" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "H" => array("field" => "brandName", "brickKey" => null, "type" => "select", "brickType" => null,"masterType" => "Brand","isMaster" => true),
         "P" => array("field" => "reinforcement", "brickKey" => null, "type" => "multiselect", "brickType" => null,"masterType" => "MultiselectMaster","isMaster" => true),
         // name of these temp fields is different than modeling ( this is fine )
