@@ -305,8 +305,8 @@ class IndustrialHoseController extends AbstractController
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                                         
-                                        if (Asset\Service::pathExists($attributeImages[$value['columnName']])) 
-                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$value['columnName']];
+                                        if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
+                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$groupColumnName];
 
                                         
                                     }
@@ -460,7 +460,7 @@ class IndustrialHoseController extends AbstractController
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$value['columnName']];
+                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
             }
 
             unset($columnsData);

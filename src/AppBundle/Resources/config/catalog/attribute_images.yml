@@ -107,6 +107,7 @@ parameters:
     'RecommendedGrade8Bolt': '/CatalogImages/Icons/RecommendedGrade8Bolt.png'
     'ORingWidthInAndMMDecimal': '/CatalogImages/Icons/ORingWidthInAndMMDecimal.png'
     'ThreadDashSize1': '/CatalogImages/Icons/ThreadDashSize1.png'
+    'OverallLength': '/CatalogImages/Icons/OverallLength.png'
   CatalogImagesHYDFooter: 
     'Black': '/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png'
