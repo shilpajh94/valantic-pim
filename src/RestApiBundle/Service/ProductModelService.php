@@ -85,9 +85,12 @@ class ProductModelService
         if(empty($products)){ return $finalProductArray; }
         
         foreach($products as $key=>$value){
-            $value  =   array_filter($value);            
+            $value  =   array_filter($value); 
             $nineDigitData  =   $this->getSkeletonData($value['o_parentId']);
-            $sixDigitData   =   $this->getBaseData($nineDigitData['o_parentId']);
+            $sixDigitData = [];
+            if (!empty($nineDigitData)) {
+                $sixDigitData   =   $this->getBaseData($nineDigitData['o_parentId']);
+            }
             $sixDigit       =   substr($value['oldMaterialCode'],0,6);
             $nineDigit      =   substr($value['oldMaterialCode'],0,9);
 
