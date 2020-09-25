@@ -95,7 +95,14 @@ class ProductModelService
             if(!isset($finalProductArray[$sixDigit]['6digit']) || empty($finalProductArray[$sixDigit]['6digit'])){
 
                 $sixDigitData['6digit'] =   $sixDigit;
-                $sixDigitData['siop']   =   $this->getSoipDetails($sixDigitData);
+                $siopData = $this->getSoipDetails($sixDigitData);
+                foreach ($siopData as $key => $data) {
+                    if($key == "ProductCategory") {
+                        $sixDigitData['SIOP Categories'] = $data;   
+                    } else {
+                        $sixDigitData[$key] = $data;   
+                    }
+                }
 
                 // Get Base Object Bricks Data.
                 $baseObjectBrickData = array();
@@ -182,8 +189,8 @@ class ProductModelService
      * @throws
      */ 
     private function getSoipDetails($product){
-        $soipDetail = [];
-        if(empty($product)){ return $soipDetail;}
+        $siopDetail = [];
+        if(empty($product)){ return $siopDetail;}
         $vCatalogMap = $this->getVirtualCatalogFieldMapping();
         foreach($vCatalogMap['VirtualCatalog']['Base']['Object'] as $key=>$value){
             foreach($value as $k1=>$v1){
@@ -196,19 +203,19 @@ class ProductModelService
                     $productCat->setUnpublished(true);
                     $productCat->load();
                     $productCat = $productCat->getObjects();
+                    $tempArray = [];
                     if (isset($productCat) && count($productCat) > 0) {
                         $productCategory = $productCat[0];
-                        $tempArray = [];
                         foreach($v1['Fields'] as $fkey=>$fvalue){
                             $fCommand   =   "get".$fvalue;
                             $tempArray[strtolower($fvalue)] =  $productCategory->$fCommand();
-                        }                        
+                        }
+                        $siopDetail[$key][] = $tempArray;
                     }
                 }
-                $soipDetail[] = $tempArray;
             }
         }
-         return $soipDetail;
+        return $siopDetail;
     }
 
     /**
