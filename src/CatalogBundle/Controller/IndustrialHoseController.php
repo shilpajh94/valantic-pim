@@ -160,15 +160,28 @@ class IndustrialHoseController extends AbstractController
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             // Getting Selected 3rd Level Category at Catalog Category object
-            $siop = $obj->getSiopLevel4();
-            $siopObj = $this->getSiopObject($siop);
-            $selectedSiop = "AIR & MULTIPURPOSE";
-            if($siopObj != null) {
-                // $selectedSiop = $siopObj->getParent()->getDescription($CatalogLanguage);
-                $selectedSiop = ($siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage)) ? $siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage) : $siopObj->getParent()->getDescription($CatalogLanguage);
-            }
+            // $siop = $obj->getSiopLevel4();
+            // $siopObj = $this->getSiopObject($siop);
+            // $selectedSiop = "AIR & MULTIPURPOSE";
+            // if($siopObj != null) {
+            //     // $selectedSiop = $siopObj->getParent()->getDescription($CatalogLanguage);
+            //     $selectedSiop = ($siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage)) ? $siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage) : $siopObj->getParent()->getDescription($CatalogLanguage);
+            // }
             
             $productsData = $obj->getProductsData();
+
+
+            $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
+
+            $categoriesdb = $this->db->fetchAll($query);
+
+            $categoriesList = array();
+
+            foreach ($categoriesdb as $key => $value) {
+                $categoriesList[$value['oo_id']] = $value;
+            }
+            unset($categoriesdb);
+
 
             if($productsData)
             {
@@ -195,6 +208,8 @@ class IndustrialHoseController extends AbstractController
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
                     
+                    $SIOP4Description = '';
+                    $SIOP3Description = '';
                     $BrandingLayline = '';
                     $VirtualCatalogReinforcement = '';
                     $VirtualCatalogTubeMaterial = '';
@@ -212,6 +227,21 @@ class IndustrialHoseController extends AbstractController
                         $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
                         if($FittingTableName)
                         {
+                            $query = "select SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$bvalue[$headerKeysIndex['id']]."'";
+
+                            $record = $this->db->fetchRow($query);
+                            $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+                            $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
+
+                            if(!$SIOP3Description && $SIOPLevel3)
+                            {
+                                $SIOP3Description = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                            }
+
+                            if(!$SIOP4Description && $SIOPLevel4)
+                            {
+                                $SIOP4Description = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
+                            }
 
                             if(isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']]!=='N/A') {
                                 $oldMaterialCodeArr[] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
@@ -359,7 +389,8 @@ class IndustrialHoseController extends AbstractController
                     if($oldMaterialCodeArr)
                         $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr));
                     
-                        
+                    $newBrandArray[$key]['brandData']['SIOP3Description'] = $SIOP3Description;
+                    $newBrandArray[$key]['brandData']['SIOP4Description'] = $SIOP4Description;
                     $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
                     $newBrandArray[$key]['brandData']['reinforcement'] = $reinforcementStr;
                     $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
@@ -400,7 +431,7 @@ class IndustrialHoseController extends AbstractController
                 'iconRequired' => $iconRequired,
                 'brandsData' => $newBrandArray,
                 'categories' => $categories,
-                'selectedCategory' => $selectedSiop,
+                'selectedCategory' => $SIOP3Description,
                 'branding_image_src' => $CatalogImagesINHProduct['BrandingImage'],
                 'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
                 'footer_logo_src' => (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange']

@@ -502,12 +502,12 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
-            ActivantNumber:
-                fieldLevel: objectBrick
-                fieldLabel: Product Number
+            industryStandard:
+                fieldLevel: class
                 fieldType: Input
-                parent:
-                    name: HydFittingsFert
+                fieldLabel: Product Number
+                parent: 
+                    name: Product
             articleNumber:
                 fieldLevel: class
                 fieldLabel: SAP Number
@@ -1119,11 +1119,43 @@ parameters:
             VacuumIN:
                 fieldLevel: objectBrick
                 fieldLabel: Vacuum (in)
-                groupName: VacuumIN
+                groupName: Vacuum
                 unitName: in
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
+            VacuumMM:
+                fieldLevel: objectBrick
+                fieldLabel: Vacuum (mm)
+                groupName: Vacuum
+                unitName: mm
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            InnerHoseIDFractional:
+                fieldLevel: objectBrick
+                fieldLabel: Inner Hose ID (in Fractional)
+                groupName: InnerHoseIDFractional
+                unitName: in
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            InnerHoseOdInDec:
+                fieldLevel: objectBrick
+                fieldLabel: Inner Hose OD (in Decimal)
+                groupName: InnerHoseOdInDec
+                unitName: in
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
+            InnerHoseWeightLbs: 
+                fieldLevel: objectBrick
+                fieldLabel: Inner Hose Weight (lbs/ft)
+                groupName: InnerHoseWeightLbs
+                unitName: lbs per ft
+                fieldType: Input
+                parent:
+                    name: HoseFert
     Industrial Hose Fitting Page:
         INHPrintCatalogFittingPage: 
             FittingMaterial:
