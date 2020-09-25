@@ -52,7 +52,7 @@ class AuthenticateListner
 
         $credentials = $event->getCredentials();
         $this->username = $credentials['username'];
-        $this->password = 'conti$1#2!567_)';
+        $this->password =  $credentials['password'];
         
         try {
 
@@ -64,17 +64,17 @@ class AuthenticateListner
                 }
             }
             
-            /* $objLdapAuth = new LdapAuthenticate();
-            $retUser = $objLdapAuth->getLdapAuthenticate($this->username, $this->password); */
-            $retUser = array(
-                'success'   =>  1,
-                'data'      =>  array(
-                    'firstname'     =>  'Rohan',
-                    'lastname'      =>  'Kumar',
-                    'email'         =>  'rohan@gmail.com',
-                    // 'password'      =>  '0123456789'
-                )
-            );
+            $objLdapAuth = new LdapAuthenticate();
+            $retUser = $objLdapAuth->getLdapAuthenticate($this->username, $this->password);
+//            $retUser = array(
+//                'success'   =>  1,
+//                'data'      =>  array(
+//                    'firstname'     =>  'Rohan',
+//                    'lastname'      =>  'Kumar',
+//                    'email'         =>  'rohan@gmail.com',
+//                    // 'password'      =>  '0123456789'
+//                )
+//            );
             
             // if (isset($retUser['success']) && 1 == $retUser['success'] && isset($retUser['data'][0]) && is_object($retUser['data'][0])) {
             if (isset($retUser['success']) && 1 == $retUser['success']) {

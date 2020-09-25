@@ -190,23 +190,25 @@ class Catalog {
 //			";
 
             $newSQL = "SELECT
-                            oCommaSaperated.oo_id,
-                            oCommaSaperated.mainImage,
-                            oCommaSaperated.articleNumber AS partNo,
-                            oCommaSaperated.manufacturerPartNumber AS MFPartNumber,
-                            oCommaSaperated.industryStandard,
-                            oCommaSaperated.siopFullCode,
+                            product.oo_id,
+                            product.mainImage,
+                            product.articleNumber AS partNo,
+                            product.manufacturerPartNumber AS MFPartNumber,
+                            product.industryStandard,
+                            product.siopFullCode,
                             objld1.sapDescription,
                             objld1.longDescription,
-                            oCommaSaperated.netWeight,
-                            oCommaSaperated.weightUnit
+                            product.netWeight,
+                            product.weightUnit,
+                            SUBSTRING(product.category, 2, LOCATE(',', product.category, 2) - 2) as categoryId,
+                            SUBSTRING(product.fittingCategory, 2, LOCATE(',', product.fittingCategory, 2) - 2) as fittingCategoryId
                         FROM
-                            object_query_1 oCommaSaperated
+                            object_query_1 product
                                 JOIN
-                            object_localized_query_1_en objld1 ON oCommaSaperated.oo_id = objld1.ooo_id
+                            object_localized_query_1_en objld1 ON product.oo_id = objld1.ooo_id
                                 AND objld1.sapDescription != ''
                         WHERE
-                            oCommaSaperated.oo_id IN (SELECT DISTINCT
+                            product.oo_id IN (SELECT DISTINCT
                                     SUBSTRING(TRIM(material),
                                             2,
                                             (LENGTH(TRIM(material)) - 2))
@@ -216,6 +218,7 @@ class Catalog {
                                     epixFlag = '001'
                                         AND material IS NOT NULL
                                         AND material != '')
+
                                         ";
 
 

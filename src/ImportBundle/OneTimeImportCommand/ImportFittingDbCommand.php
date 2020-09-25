@@ -150,11 +150,11 @@ class ImportFittingDbCommand extends AbstractCommand
 
                     $isMaterialUpdated = true;
                     
-                    $brickData->setActivantNumber($data['Activant Number']);
+//                    $brickData->setActivantNumber($data['Activant Number']);
                     $brickData->setAssemblyRevisionNumber($data['Assembly Revision Number']);
                     $brickData->setComments($data['Comments']);
                     $brickData->setDescriptivePartNumber($data['Descriptive Part Number']);
-                    $brickData->setSAPMaterialNumber($data['SAP Material Number']);
+//                    $brickData->setSAPMaterialNumber($data['SAP Material Number']);
                     $brickData->setFittingWeight($data['Fitting Weight']);
 
                     $assemblyVendor = explode(',', $data['Assembly Vendor']);

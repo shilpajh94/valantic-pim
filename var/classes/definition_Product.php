@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-19T12:39:57+02:00
+* Generated at: 2020-09-25T15:35:27+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -35,10 +35,20 @@ Fields Summary:
 - rangeTemperatureF [input]
 - rangeTemperatureC [input]
 - temperatureRangeApplication [input]
+- temperatureRangeApplication1 [input]
+- temperatureRangeApplication2 [input]
+- temperatureRangeApplication3 [input]
+- temperatureRangeApplication4 [input]
+- temperatureRangeApplication5 [input]
 - minimumTemperatureC [numeric]
 - maximumTemperatureC [numeric]
 - temperatureRangeFAndC [input]
 - VirtualCatalogHoseTemperatureRangeFAndC [wysiwyg]
+- temperatureRangeApplicationFAndC1 [input]
+- temperatureRangeApplicationFAndC2 [input]
+- temperatureRangeApplicationFAndC3 [input]
+- temperatureRangeApplicationFAndC4 [input]
+- temperatureRangeApplicationFAndC5 [input]
 - siopFullCode [input]
 - SIOPLevel1 [manyToManyObjectRelation]
 - SIOPLevel2 [manyToManyObjectRelation]
@@ -134,7 +144,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1600511992,
+   'modificationDate' => 1601040926,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -15764,12 +15774,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           137 => 
                                           array (
@@ -15808,13 +15818,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           144 => 
                                           array (
-                                            'key' => 'Meets CARB Requirements',
-                                            'value' => 759960,
+                                            'key' => 'Meets CARB requirements',
+                                            'value' => 3130,
                                           ),
                                           145 => 
                                           array (
-                                            'key' => 'Meets CARB requirements',
-                                            'value' => 3130,
+                                            'key' => 'Meets CARB Requirements',
+                                            'value' => 759960,
                                           ),
                                           146 => 
                                           array (
@@ -15873,13 +15883,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           157 => 
                                           array (
-                                            'key' => 'Meets ORVR requirements',
-                                            'value' => 3139,
+                                            'key' => 'Meets ORVR Requirements',
+                                            'value' => 759964,
                                           ),
                                           158 => 
                                           array (
-                                            'key' => 'Meets ORVR Requirements',
-                                            'value' => 759964,
+                                            'key' => 'Meets ORVR requirements',
+                                            'value' => 3139,
                                           ),
                                           159 => 
                                           array (
@@ -16163,13 +16173,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           215 => 
                                           array (
-                                            'key' => 'Static conductive',
-                                            'value' => 760056,
+                                            'key' => 'Static Conductive',
+                                            'value' => 3164,
                                           ),
                                           216 => 
                                           array (
-                                            'key' => 'Static Conductive',
-                                            'value' => 3164,
+                                            'key' => 'Static conductive',
+                                            'value' => 760056,
                                           ),
                                           217 => 
                                           array (
@@ -16906,7 +16916,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'fieldtype' => 'fieldcontainer',
-                                 'labelWidth' => 220,
+                                 'labelWidth' => 250,
                                  'layout' => 'vbox',
                                  'fieldLabel' => '',
                                  'name' => 'Field Container',
@@ -17068,13 +17078,153 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'visibleSearch' => false,
                                      'defaultValueGenerator' => '',
                                   )),
+                                  5 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplication1',
+                                     'title' => 'Temperature Range Applications 1',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  6 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplication2',
+                                     'title' => 'Temperature Range Applications 2',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplication3',
+                                     'title' => 'Temperature Range Applications 3',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  8 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplication4',
+                                     'title' => 'Temperature Range Applications 4',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  9 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplication5',
+                                     'title' => 'Temperature Range Applications 5',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
                                 ),
                                  'locked' => false,
                               )),
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'fieldtype' => 'fieldcontainer',
-                                 'labelWidth' => 220,
+                                 'labelWidth' => 250,
                                  'layout' => 'vbox',
                                  'fieldLabel' => '',
                                  'name' => 'Field Container',
@@ -17204,6 +17354,146 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'invisible' => true,
                                      'visibleGridView' => false,
                                      'visibleSearch' => false,
+                                  )),
+                                  4 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplicationFAndC1',
+                                     'title' => 'Temperature Range Application (Range °F to °C) 1',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  5 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplicationFAndC2',
+                                     'title' => 'Temperature Range Application (Range °F to °C) 2',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  6 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplicationFAndC3',
+                                     'title' => 'Temperature Range Application (Range °F to °C) 3',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  7 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplicationFAndC4',
+                                     'title' => 'Temperature Range Application (Range °F to °C) 4',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
+                                  )),
+                                  8 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                                     'fieldtype' => 'input',
+                                     'width' => 300,
+                                     'defaultValue' => NULL,
+                                     'queryColumnType' => 'varchar',
+                                     'columnType' => 'varchar',
+                                     'columnLength' => 190,
+                                     'phpdocType' => 'string',
+                                     'regex' => '',
+                                     'unique' => false,
+                                     'showCharCount' => false,
+                                     'name' => 'temperatureRangeApplicationFAndC5',
+                                     'title' => 'Temperature Range Application (Range °F to °C) 5',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => 'margin-left: 20px;',
+                                     'permissions' => NULL,
+                                     'datatype' => 'data',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'defaultValueGenerator' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -20295,7 +20585,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'region' => NULL,
              'title' => 'Digital Assets',
              'width' => NULL,
-             'height' => NULL,
+             'height' => 1100,
              'collapsible' => false,
              'collapsed' => false,
              'bodyStyle' => '',
@@ -20316,7 +20606,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => NULL,
                  'collapsible' => false,
                  'collapsed' => false,
-                 'bodyStyle' => '',
+                 'bodyStyle' => 'height:100%;',
                  'datatype' => 'layout',
                  'permissions' => NULL,
                  'childs' => 
@@ -20325,14 +20615,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
                      'fieldtype' => 'panel',
                      'labelWidth' => 100,
-                     'layout' => NULL,
+                     'layout' => '',
                      'border' => false,
                      'name' => 'Layout',
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Product Images',
                      'width' => NULL,
-                     'height' => NULL,
+                     'height' => 1000,
                      'collapsible' => false,
                      'collapsed' => false,
                      'bodyStyle' => '',
@@ -20463,7 +20753,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; margin-right:20px; clear:both;',
+                         'style' => 'float:left; margin-right:20px; ',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

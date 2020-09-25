@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-24T13:31:51+02:00
+* Generated at: 2020-09-25T13:12:13+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -14,11 +14,11 @@ Fields Summary:
 - DistributionChannel [manyToOneRelation]
 - DeliveringPlant [manyToOneRelation]
 - SalesUOM [input]
+- deletedFlagAtDistributionChainLevel [numeric]
 - epixFlag [select]
 - pricePageFlag [select]
 - SalesStatus [select]
 - privateBrand [select]
-- deletedFlagAtDistributionChainLevel [numeric]
 - deletedFlagAtSalesLevel [booleanSelect]
 */ 
 
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SalesMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1598268710,
+   'modificationDate' => 1601032333,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => 'Material',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
@@ -184,7 +184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'fieldtype' => 'manyToOneRelation',
-                     'width' => 230,
+                     'width' => 310,
                      'assetUploadPath' => '',
                      'relationType' => true,
                      'queryColumnType' => 
@@ -214,7 +214,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Sales Organization',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -227,7 +227,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'fieldtype' => 'manyToOneRelation',
-                     'width' => 230,
+                     'width' => 310,
                      'assetUploadPath' => '',
                      'relationType' => true,
                      'queryColumnType' => 
@@ -257,7 +257,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Distribution Channel',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -270,7 +270,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                      'fieldtype' => 'manyToOneRelation',
-                     'width' => 230,
+                     'width' => 310,
                      'assetUploadPath' => '',
                      'relationType' => true,
                      'queryColumnType' => 
@@ -300,7 +300,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Delivering Plant',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -326,7 +326,38 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Sales Unit',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  4 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'deletedFlagAtDistributionChainLevel',
+                     'title' => 'Deleted / Obsoleted Flag Distribution Chain Level',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => '',
@@ -389,7 +420,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Epix Flag / B2B Flag',
                      'tooltip' => 'Material Group 1 is Apex/B2B flag.',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
@@ -440,7 +471,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Price Page Flag',
                      'tooltip' => 'Material Group 2 is a price page flag. ',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
@@ -471,7 +502,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Sales Status',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
@@ -512,7 +543,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Generic / Private Brand',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'margin-left: 20px;',
@@ -525,37 +556,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 100,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'deletedFlagAtDistributionChainLevel',
-                     'title' => 'Deleted / Obsoleted Flag Distribution Chain Level',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
                      'fieldtype' => 'booleanSelect',
                      'yesLabel' => 'Yes',
@@ -579,7 +579,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         'value' => -1,
                       ),
                     ),
-                     'width' => 100,
+                     'width' => 350,
                      'queryColumnType' => 'tinyint(1) null',
                      'columnType' => 'tinyint(1) null',
                      'phpdocType' => 'boolean',
@@ -587,10 +587,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'title' => 'Delete Flag - Sales Level',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
