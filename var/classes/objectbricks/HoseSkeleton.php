@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-03T13:06:58+02:00
+* Generated at: 2020-09-25T12:57:52+02:00
 * IP: 127.0.0.1
 
 
@@ -29,7 +29,6 @@ Fields Summary:
 - VacuumIN [numeric]
 - VacuumMM [numeric]
 - hoseDashSize [numeric]
-- descriptive [input]
 */ 
 
 
@@ -1357,34 +1356,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'index' => false,
                  'locked' => false,
                  'style' => 'float:left; margin-right: 20px; clear:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              9 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'varchar',
-                 'columnType' => 'varchar',
-                 'columnLength' => 190,
-                 'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'name' => 'descriptive',
-                 'title' => 'Descriptive #',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,

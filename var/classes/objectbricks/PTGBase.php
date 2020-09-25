@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-17T13:27:58+02:00
+* Generated at: 2020-09-25T14:58:37+02:00
 * IP: 127.0.0.1
 
 
@@ -136,93 +136,13 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'fieldtype' => 'multiselect',
              'options' => 
             array (
-              0 => 
-              array (
-                'key' => 'Chloroprene',
-                'value' => 2762,
-              ),
-              1 => 
-              array (
-                'key' => 'EPDM',
-                'value' => 2763,
-              ),
-              2 => 
-              array (
-                'key' => 'Polybutadiene (PBD)',
-                'value' => 2764,
-              ),
-              3 => 
-              array (
-                'key' => 'Polyurethane',
-                'value' => 2765,
-              ),
-              4 => 
-              array (
-                'key' => 'TPU (Elatech belts)',
-                'value' => 2766,
-              ),
-              5 => 
-              array (
-                'key' => 'Styrene Butadiene (SBR)',
-                'value' => 2767,
-              ),
-              6 => 
-              array (
-                'key' => 'HNBR',
-                'value' => 2768,
-              ),
-              7 => 
-              array (
-                'key' => 'Polymeric Blend (Natural Rubber with SBR most of the time)',
-                'value' => 2769,
-              ),
-              8 => 
-              array (
-                'key' => 'Nylon – Only as a fabric',
-                'value' => 2770,
-              ),
-              9 => 
-              array (
-                'key' => 'Stainless Steel',
-                'value' => 2771,
-              ),
-              10 => 
-              array (
-                'key' => 'Steel',
-                'value' => 2772,
-              ),
-              11 => 
-              array (
-                'key' => 'Cast Iron',
-                'value' => 2773,
-              ),
-              12 => 
-              array (
-                'key' => 'Aluminum',
-                'value' => 2774,
-              ),
-              13 => 
-              array (
-                'key' => 'UHMW',
-                'value' => 2775,
-              ),
-              14 => 
-              array (
-                'key' => 'Delrin',
-                'value' => 2776,
-              ),
-              15 => 
-              array (
-                'key' => 'Chloroprene w/Fiber (CR)',
-                'value' => 2777,
-              ),
             ),
              'width' => 300,
              'height' => '',
              'maxItems' => 20,
              'renderType' => 'tags',
-             'optionsProviderClass' => '',
-             'optionsProviderData' => '',
+             'optionsProviderClass' => 'AppBundle\\OptionProvider\\ApplicationOptionsProvider',
+             'optionsProviderData' => 'PTG',
              'queryColumnType' => 'text',
              'columnType' => 'text',
              'phpdocType' => 'array',
@@ -234,7 +154,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
