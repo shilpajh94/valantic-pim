@@ -50,13 +50,13 @@ class Export {
 			// Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupFileName();
 			$this->saveCatalogGroupsCSV($fileName);
-			// Generating CSV for Catalog Group
+//			 Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupDescFileName();
 			$this->saveCatalogGroupsDescCSV($fileName);
-			// Generating CSV for Catalog Entries
+//			 Generating CSV for Catalog Entries
 			$fileName = Config::catalogEntriesFileName();
 			$this->saveCatalogEntriesCSV($fileName);        // taking too long
-			// Generating CSV for Catalog Entries Description
+//			// Generating CSV for Catalog Entries Description
 			$fileName = Config::catalogEntriesDescFileName();
 			$this->saveCatalogEntriesDescCSV($fileName);    // taking too long
 			// Generating CSV for Attribute Values
@@ -115,7 +115,7 @@ class Export {
                     $datum["oo_id"],
                     $datum["top_group"],
                     $datum["parent_group_identifier"],
-                    utf8_encode($datum["name"]),
+                    $datum["name"],
                     $datum["sequence"]
             ), ',');
 
@@ -134,7 +134,7 @@ class Export {
 					if ($sequence > 0 && $sequence < 6) {
 						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
 							$groupIdentifier = ltrim($fullCode, '04');
-							$row[] = utf8_encode($groupIdentifier);
+							$row[] = $groupIdentifier;
 							$topGroup = 'FALSE';
 							$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
 							if ($sequence == 1) {
@@ -147,10 +147,10 @@ class Export {
                                 $desc = $PrintedCatalogDescription;
                             }
 
-							$row[] = utf8_encode($topGroup);
-							$row[] = utf8_encode($parentGroupIdentifier);
-							$row[] = utf8_encode($desc);
-							$row[] = utf8_encode($sequence);
+							$row[] = $topGroup;
+							$row[] = $parentGroupIdentifier;
+							$row[] = $desc;
+							$row[] = $sequence;
 							fputcsv($fileResource, $row, ',');
 							unset($row);
 						}
@@ -159,7 +159,7 @@ class Export {
 					if ($sequence > 0 && $sequence < 4) {
 						if (!in_array($fullCode, ['04100096000', '049999', '041700', '042000', '049700', '041800', '041900'])) {
 							$groupIdentifier = ltrim($fullCode, '04');
-							$row[] = utf8_encode($groupIdentifier);
+							$row[] = $groupIdentifier;
 							$topGroup = 'FALSE';
 							$parentGroupIdentifier = preg_replace('/' . $code . '$/', '', $groupIdentifier);
 							if ($sequence == 1) {
@@ -172,10 +172,10 @@ class Export {
                                 $desc = $PrintedCatalogDescription;
                             }
 
-							$row[] = utf8_encode($topGroup);
-							$row[] = utf8_encode($parentGroupIdentifier);
-							$row[] = utf8_encode($desc);
-							$row[] = utf8_encode($sequence);
+							$row[] = $topGroup;
+							$row[] = $parentGroupIdentifier;
+							$row[] = $desc;
+							$row[] = $sequence;
 							fputcsv($fileResource, $row, ',');
 							unset($row);
 						}
@@ -220,7 +220,7 @@ class Export {
         $data = $catObject->getAllManualCategories();
 
         foreach($data as $datum){
-            fputcsv($fileResource, array($datum['oo_id'], utf8_encode($datum['name']), '-1'));
+            fputcsv($fileResource, array($datum['oo_id'], $datum['name'], '-1'));
         }
 
         $data = Catalog::getGroupsDescription();
@@ -241,9 +241,9 @@ class Export {
                                         $desc = $languageIterator['PrintedCatalogDescription'];
                                     }
 
-									$row[] = utf8_encode(ltrim($fullCode, '04'));
-									$row[] = utf8_encode($desc);
-									$row[] = utf8_encode($languageMaster[$key]);
+									$row[] = ltrim($fullCode, '04');
+									$row[] = $desc;
+									$row[] = $languageMaster[$key];
 									fputcsv($fileResource, $row, ',');
 									unset($row);
 								}
@@ -261,9 +261,9 @@ class Export {
                                         $desc = $languageIterator['PrintedCatalogDescription'];
                                     }
 
-									$row[] = utf8_encode(ltrim($fullCode, '04'));
-									$row[] = utf8_encode($desc);
-									$row[] = utf8_encode($languageMaster[$key]);
+									$row[] = ltrim($fullCode, '04');
+									$row[] = $desc;
+									$row[] = $languageMaster[$key];
 									fputcsv($fileResource, $row, ',');
 									unset($row);
 								}
@@ -326,11 +326,11 @@ class Export {
                     }
 
                     if($parentGroupIdentifier !== null && trim($parentGroupIdentifier) !== ''){
-                        $row[] = utf8_encode($partNo);
-                        $row[] = utf8_encode($MFPartNumber);
-                        $row[] = utf8_encode(substr($industryStandard,0,64));
-                        $row[] = utf8_encode($sapDescription);
-                        $row[] = utf8_encode($parentGroupIdentifier);
+                        $row[] = $partNo;
+                        $row[] = $MFPartNumber;
+                        $row[] = substr($industryStandard,0,64);
+                        $row[] = $sapDescription;
+                        $row[] = $parentGroupIdentifier;
                         fputcsv($fileResource, $row, ',');
                         unset($row);
                     }
@@ -377,15 +377,15 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				if ($siopFullCode != 04) {
-						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "NULL");
-						$row[] = utf8_encode($partNo);
-						$row[] = utf8_encode($sapDescription . '%' . $netWeight . $weightUnit);
-						$row[] = utf8_encode($languageMaster[$language]);
-						$row[] = utf8_encode(preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription)));
+						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "");
+						$row[] = $partNo;
+						$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
+						$row[] = $languageMaster[$language];
+						$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
 						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
-							$row[] = utf8_encode(\Pimcore\Tool::getHostUrl(). ltrim($object,'/'));
+							$row[] = \Pimcore\Tool::getHostUrl(). ltrim($object,'/');
 						} else {
-                            $row[] = utf8_encode($object);
+                            $row[] = $object;
 						}
 						fputcsv($fileResource, $row, ',');
 						unset($row);
@@ -431,8 +431,8 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				$row[] = 'SalesOrg/DC/Plant';
-				$row[] = utf8_encode($Identifier);
-				$row[] = utf8_encode($Identifier);
+				$row[] = $Identifier;
+				$row[] = $Identifier;
 				$row[] = -1;
 				fputcsv($fileResource, $row, ',');
 				unset($row);
@@ -446,8 +446,8 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				$row[] = 'ProductLine';
-				$row[] = utf8_encode($code);
-				$row[] = utf8_encode($code);
+				$row[] = $code;
+				$row[] = $code;
 				$row[] = -1;
 				fputcsv($fileResource, $row, ',');
 				unset($row);
@@ -491,10 +491,10 @@ class Export {
 			foreach ($salesMaterialMaster as $item) {
 				// Filling SalesOrg/DC/Plant CSV Data Rows
 				extract($item);
-				$row[] = utf8_encode($partNo);
+				$row[] = $partNo;
 				$row[] = 'SalesOrg/DC/Plant';
-				$row[] = utf8_encode($value);
-				$row[] = utf8_encode($value);
+				$row[] = $value;
+				$row[] = $value;
 				$row[] = -1;
 				fputcsv($fileResource, $row, ',');
 				unset($row);
@@ -508,10 +508,10 @@ class Export {
 			foreach ($productLineMaster as $item) {
 				// Filling Product Line CSV Data Rows
 				extract($item);
-				$row[] = utf8_encode($partNo);
+				$row[] = $partNo;
 				$row[] = 'ProductLine';
-				$row[] = utf8_encode($value);
-				$row[] = utf8_encode($value);
+				$row[] = $value;
+				$row[] = $value;
 				$row[] = -1;
 				fputcsv($fileResource, $row, ',');
 				unset($row);
@@ -554,8 +554,8 @@ class Export {
 			foreach ($data as $item) {
 				// Filling CSV Data Rows
 				if ($item['PIM Attribute Name'] != '') {
-					$row[] = utf8_encode($item['B2B Attribute ID'] ?: "");
-					$row[] = utf8_encode(lcfirst( str_replace('VirtualCatalog', '', $item['PIM Attribute Name'])) ?: "");
+					$row[] = $item['B2B Attribute ID'] ?: "";
+					$row[] = lcfirst( str_replace('VirtualCatalog', '', $item['PIM Attribute Name'])) ?: "";
 					$row[] = -1;
 					fputcsv($fileResource, $row, ',');
 					unset($row);
@@ -773,17 +773,17 @@ class Export {
 			foreach ($data as $item) {
 				// Filling CSV Data Rows
 				extract($item);
-				$row[] = utf8_encode($partNo);
-				$row[] = utf8_encode($salesOrgCode);
-				$row[] = utf8_encode($dcCode);
-				$row[] = utf8_encode($SalesUOM);
-				$row[] = utf8_encode($plantCode);
-				$row[] = utf8_encode($leadTime);
-				$row[] = utf8_encode((string) sprintf('%.20f', $minOrdQty));
-				$row[] = utf8_encode((string) sprintf('%.20f', $maxOrdQty));
-				$row[] = utf8_encode((string) sprintf('%.20f', $ordIncrementQty));
-				$row[] = utf8_encode($SalesUOM ?: "<NA>");
-				$row[] = utf8_encode($pricePageFlag ?: 'NA');
+				$row[] = $partNo;
+				$row[] = $salesOrgCode;
+				$row[] = $dcCode;
+				$row[] = $SalesUOM;
+				$row[] = $plantCode;
+				$row[] = $leadTime;
+				$row[] = (string) sprintf('%.20f', $minOrdQty);
+				$row[] = (string) sprintf('%.20f', $maxOrdQty);
+				$row[] = (string) sprintf('%.20f', $ordIncrementQty);
+				$row[] = $SalesUOM ?: "<NA>";
+				$row[] = $pricePageFlag ?: 'NA';
 				fputcsv($fileResource, $row, ',');
 				unset($row, $key_array);
 

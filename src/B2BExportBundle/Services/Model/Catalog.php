@@ -30,7 +30,7 @@ class Catalog {
 			');
 			return $productCategories;
 		} catch (Exception $e) {
-            Logger::log('b2bexport',"CatalogGroup Model Exception :: " .$ex->getMessage());
+            Logger::log('b2bexport',"CatalogGroup Model Exception :: " .$e->getMessage());
 		}
 	}
 
@@ -103,16 +103,37 @@ class Catalog {
         try{
             $categorySql = "
                 SELECT oo_id,name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_query_". $categoryClassId ."
-                UNION
-                SELECT oo_id,name, 'FALSE' as top_group,'2' as sequence,IF(category IS NULL OR category = '','',SUBSTRING(category, 2 ,  LOCATE(',',category, 2)-2 )) as parent_group_identifier  FROM object_query_". $subCategoryClassId ."
-                UNION
+		    ";
+
+            $categoryData = Db::get()->fetchAll($categorySql);
+
+            $subCategoriesSQL = "SELECT oo_id,name, 'FALSE' as top_group,'2' as sequence,category FROM object_query_". $subCategoryClassId;
+            $subCategories = Db::get()->fetchAll($subCategoriesSQL);
+            $subCategoryData = [];
+            foreach($subCategories as $subCategory){
+
+                $categoriesString = trim($subCategory['category'],',');
+                $categoriesArray = explode(",",$categoriesString);
+                foreach($categoriesArray as $categoryId){
+                    $row = [];
+                    $row['oo_id'] = $subCategory['oo_id'];
+                    $row['name'] = $subCategory['name'];
+                    $row['top_group'] = $subCategory['top_group'];
+                    $row['sequence'] = $subCategory['sequence'];
+                    $row['parent_group_identifier'] = $categoryId;
+                    $subCategoryData[] = $row;
+                }
+            }
+
+            $fittingCategorySql = "
                 SELECT oo_id,name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_query_". $fittingCategoryClassId ."
                 UNION
                 SELECT oo_id,name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_query_". $fittingSubCategoryClassId ."
 		    ";
 
-            $result = Db::get()->fetchAll($categorySql);
-            return $result;
+            $fittingCategoryData = Db::get()->fetchAll($fittingCategorySql);
+
+            return array_merge($categoryData,$subCategoryData, $fittingCategoryData);
         }catch (Exception $e) {
 
             Logger::log('b2bexport',"Catalog Model Exception :: " .$e->getMessage());
@@ -316,7 +337,7 @@ class Catalog {
                         FROM
                             object_query_1 oCommaSaperated
                                 JOIN
-                            object_localized_query_1_en objld1 ON oCommaSaperated.oo_id = objld1.ooo_id
+                            object_localized_data_1 objld1 ON oCommaSaperated.oo_id = objld1.ooo_id
                                 AND objld1.sapDescription != ''
                         WHERE
                             oCommaSaperated.oo_id IN (SELECT DISTINCT
