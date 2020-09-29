@@ -50,13 +50,13 @@ class Export {
 			// Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupFileName();
 			$this->saveCatalogGroupsCSV($fileName);
-			// Generating CSV for Catalog Group
+//			 Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupDescFileName();
 			$this->saveCatalogGroupsDescCSV($fileName);
-			// Generating CSV for Catalog Entries
+//			 Generating CSV for Catalog Entries
 			$fileName = Config::catalogEntriesFileName();
 			$this->saveCatalogEntriesCSV($fileName);        // taking too long
-			// Generating CSV for Catalog Entries Description
+//			// Generating CSV for Catalog Entries Description
 			$fileName = Config::catalogEntriesDescFileName();
 			$this->saveCatalogEntriesDescCSV($fileName);    // taking too long
 			// Generating CSV for Attribute Values
@@ -377,9 +377,9 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				if ($siopFullCode != 04) {
-						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "NULL");
+						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "");
 						$row[] = utf8_encode($partNo);
-						$row[] = utf8_encode($sapDescription . '%' . $netWeight . $weightUnit);
+						$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
 						$row[] = utf8_encode($languageMaster[$language]);
 						$row[] = utf8_encode(preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription)));
 						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
