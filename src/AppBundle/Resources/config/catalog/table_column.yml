@@ -7,7 +7,7 @@ parameters:
                 fieldLabel: 'Part Number'
                 fieldType: Input
                 parent:
-                    name: HoseSkeleton   
+                    name: HoseFert  
             articleNumber:
                 fieldLevel: class
                 fieldLabel: 'SAP Number'
@@ -490,12 +490,12 @@ parameters:
                     class:
                         name : FittingFamily
                         fieldName: Name
-            ElbowType:
-                fieldLevel: objectBrick
-                fieldLabel: Elbow Type
-                fieldType: Select
-                parent:
-                    name: HydFittingsFert
+            # ElbowType:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Elbow Type
+            #     fieldType: Select
+            #     parent:
+            #         name: HydFittingsFert
             DescriptivePartNumber:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
