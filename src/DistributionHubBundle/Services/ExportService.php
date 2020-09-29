@@ -106,10 +106,18 @@ class ExportService
     public function prepareFieldsAndHelperDefinition(array $columnAttributeMapping)
     {
         $selectedGridColumnAssoc = $columnAttributeMapping['selectedGridColumns'];
+        $templateColumns = $columnAttributeMapping['templateAttribute'];
         $fields = [];
         $helperDefinition = [];
-        foreach($selectedGridColumnAssoc as $selectedGridColumn){
-            $fields[] = $selectedGridColumn['key'];
+        foreach($selectedGridColumnAssoc as $key => $selectedGridColumn){
+            
+            foreach ($templateColumns as $index => $templateColumn) {
+                if($key === $index){
+                    $fields[trim($templateColumn)] = $selectedGridColumn['key'];
+                }
+
+            }
+            
             if($selectedGridColumn['isOperator']){
                 $helperDefinition[$selectedGridColumn['key']] = json_decode(json_encode($selectedGridColumn));
             }

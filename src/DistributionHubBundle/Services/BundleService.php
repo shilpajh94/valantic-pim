@@ -20,7 +20,7 @@ class BundleService
     public function getConfig(?string $param = null)
     {
         $configFile = Constants::CONFIG_FILE;
-        $config = $this->getConfigFromYmlFile($configFile);
+        $config = self::getConfigFromYmlFile($configFile);
 
         if($param){
             return $config[$param];

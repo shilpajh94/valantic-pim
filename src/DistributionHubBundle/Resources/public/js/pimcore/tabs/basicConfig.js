@@ -175,31 +175,6 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
             }
         });
 
-        // when to disable the file upload, yet to be decided
-
-        // let checkToEnableFileUpload = new Ext.create('Ext.form.field.Checkbox',{
-        //     name: 'deleteChannelData',
-        //     fieldLabel: 'Enable File Upload',
-        //     labelWidth: 130,
-        //     width: 180,
-        //     hidden: !fileAlreadImported,
-        //     handler: function(checkbox,newValue){
-        //         if(newValue == true){
-        //             Ext.MessageBox.confirm(t('dHub_existing_channel_data_will_be_lost'), t('dHub_channel_data_delete_on_new_file_upload_msg'), function(btn){
-        //                 if(btn == 'yes'){
-        //                     outerScope.deleteChannelData = true;
-        //                     fileUploadField.setDisabled(false);
-        //                 }else{
-        //                     checkbox.setValue(false);
-        //                     fileUploadField.setDisabled(true);
-        //                 }
-        //             } );
-        //         }
-        //
-        //
-        //     }
-        // });
-
         this.fileUploadField = new Ext.create('Ext.form.field.File', {
             name: 'file',
             fieldLabel: t('dHub_column_header_mapping_file') + ' <span style="color:red;">*</span>',
@@ -505,6 +480,7 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
 
         let exportConfigFieldSet = new Ext.create('Ext.form.FieldSet', {
             title: t('dHub_export_configuration'),
+
             defaults: {
                 labelWidth: 200,
                 // width: 300
@@ -580,6 +556,8 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
 
         let ftpFieldSet = new Ext.create('Ext.form.FieldSet', {
             title: t('dHub_ftp_details'),
+            collapsible: true,
+            collapsed: true,
             defaults: {
                 labelWidth: 220
                         // width: 300
