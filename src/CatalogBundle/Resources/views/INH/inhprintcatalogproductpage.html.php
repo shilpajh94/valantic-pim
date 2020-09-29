@@ -18,15 +18,7 @@ if (isset($info['brandsData'])) {
 
                     <div id="pageHeader"></div>
                     <span class="pageName">
-                        <?php if($this->editmode): ?>
-                            <?php if($this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"])->isEmpty()): ?>
-                                    <?= $this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"])->setDataFromResource($info['selectedCategory']) ?>
-                            <?php else: ?>
-                                    <?= $this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"]); ?>
-                            <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("INH_PP_HEADER_CAP_" . $pg, ["placeholder" => "SIOP Category Description"]) ?>
-                        <?php endif; ?>
+                        <?= $brand['brandData']['SIOP3Description']." - ".$brand['brandData']['SIOP4Description']; ?>
                     </span>
 
                     <div class="footer">
