@@ -145,7 +145,6 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         if($data):
                         $incr = 1;
                         foreach($catalogGroupData as $brandName => $brandData):
-                        extract($brandData);
                         ?>
 
                         <?php if($incr%2==0): ?>
@@ -154,15 +153,15 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <tr class="active">
                         <?php endif; ?>
 
-                                <td><b><?= $brandName; ?></b></td>
+                                <td><b><?= $brandData['brandName']; ?></b></td>
                                 <td><?= $this->input("HHSC_Page_{$incr}") ?></td>
-                                <td><?= $reinforcement; ?></td>
-                                <td><?= $tubeMaterialAtrributeString; ?></td>
-                                <td><?= $workingPressurePSIString; ?></td>
-                                <td><?= $temperatureRangeFAndC; ?></td>
-                                <td><?= $fittingFamily; ?></td>
-                                <td><?= $industryStandard; ?></td>
-                                <td></td>
+                                <td><?= $brandData['reinforcement']; ?></td>
+                                <td><?= $brandData['tubeMaterialAtrributeString']; ?></td>
+                                <td><?= $brandData['workingPressurePSIString']; ?></td>
+                                <td><?= $brandData['temperatureRangeFAndC']; ?></td>
+                                <td><?= $brandData['fittingFamily']; ?></td>
+                                <td><?= $brandData['industryStandard']; ?></td>
+                                <td><?= $brandData['CatalogPackaging']; ?></td>
                         </tr>
 
                         <?php 

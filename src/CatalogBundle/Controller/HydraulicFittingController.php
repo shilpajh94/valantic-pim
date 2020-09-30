@@ -61,7 +61,13 @@ class HydraulicFittingController extends AbstractController
             $subHeaderRequired = 'NO';
             $columnsData = json_decode($columnsData, true);
 
+            $columnsData['ElbowType']['columnName'] = 'ElbowType';
+            $columnsData['ElbowType']['columnLabel'] = 'ElbowType';
+            $headerKeysIndex['ElbowType'] = count($headerKeysIndex);
+            
             $productsData = $obj->getProductsData();
+            $nomenClatureList = $this->getNomenClatureList();
+
             $brandsData = array();
 
             if($productsData)
@@ -157,7 +163,7 @@ class HydraulicFittingController extends AbstractController
                             }
                         
                             $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
-                            // p_r($FittingTableKeys);
+
                             $columnsDataWithImages = array();
                             $articlesData = array();
                             $subHeaderRequired = '';
@@ -187,11 +193,6 @@ class HydraulicFittingController extends AbstractController
                                 }
                             }
 
-                            
-                            // $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($hoseID)][] = $row;                            
-                            // ksort($data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'],SORT_NUMERIC);
-                            
-
                             // Getting order of the keys
                             $orderKeys = array();
                             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -200,6 +201,17 @@ class HydraulicFittingController extends AbstractController
                                 }
                             }
                                 
+                            if($bvalue[$headerKeysIndex['DescriptivePartNumber']])
+                            {
+                                $partialPartNumberArray = explode('-',$bvalue[$headerKeysIndex['DescriptivePartNumber']]);
+                                $partialPartNumber = $partialPartNumberArray[0].'-'.$partialPartNumberArray[1];
+                                $bvalue[]= $nomenClatureList[$partialPartNumber];
+                            }
+                            else
+                            {
+                                $bvalue[]= '';
+                            }
+
                             foreach ($orderKeys as $ckey => $cvalue) {
                                     $articlesData[] = $bvalue[$headerKeysIndex[$ckey]];
                             }
@@ -217,9 +229,6 @@ class HydraulicFittingController extends AbstractController
                             unset($hoseID);
                         }
                     }
-                        
-                    
-
                     unset($brandsData[$key]);
                 }
             }
@@ -231,4 +240,16 @@ class HydraulicFittingController extends AbstractController
             $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
         }
     }
+
+    public function getNomenClatureList(){
+        $query = "select partialPartNumber, elbowType from object_query_20";
+        $record = $this->db->fetchAll($query);
+
+        $NomenClatureData = array();
+        foreach($record as $entry) {
+            $NomenClatureData[$entry['partialPartNumber']] = $entry['elbowType'];
+        }
+        return $NomenClatureData;
+    }
 }
+

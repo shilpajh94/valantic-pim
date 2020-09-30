@@ -2,7 +2,7 @@ parameters:
   Fitting Accessories-AC Adapter:
     columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'ThreadSize1InMMDecimal', 'ThreadSize2InMMDecimal']
   Fitting Accessories-AC Clip:
-   columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac']
+   columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract']
   Fitting Accessories-AC Nut:
     columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'ThreadSize1InMMDecimal', 'TubeODInFract']
   Fitting Accessories-AC Orifice:
@@ -22,76 +22,76 @@ parameters:
   Fitting Accessories-AC Valve Core:
     columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'ThreadSize1InMMDecimal']
   Fitting Accessories-AC Washer:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'shortDescription']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'shortDescription']
   Fitting-AC Joiner:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-AC Joiner Elbow:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-AC Joiner T:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'HoseID2InFract', 'HoseID3InFract', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID2InFract', 'HoseID3InFract', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-AC Joiner Valve:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
   Fitting-AC Straight 1:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-AC Tube:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'FittingSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'FittingSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-AC Valve:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
   Fitting-AC Valve 2:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
   Fitting-AC Valve 3:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'ValveStyle']
   Fitting-Elbow:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Elbow 2:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Elbow 3:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Elbow 4:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Elbow 5:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-Elbow 6:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM']
   Fitting-Elbow Reatt:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'SocketWrenchSizeInFract', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'SocketWrenchSizeInFract', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Elbow Reatt 2:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'SocketWrenchSizeInFract',  'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'SocketWrenchSizeInFract',  'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Elbow Skive:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
   Fitting-Ferrule:
-    columns: ['DescriptivePartNumber', 'articleNumber', 'HoseIDNominalIDFrac', 'FerruleIDInDec', 'FerruleIDMM', 'FerruleODInDec', 'FerruleODMM', 'FerruleLengthInDec', 'FerruleLengthMM']
+    columns: ['DescriptivePartNumber', 'articleNumber', 'HoseID1InFract', 'FerruleIDInDec', 'FerruleIDMM', 'FerruleODInDec', 'FerruleODMM', 'FerruleLengthInDec', 'FerruleLengthMM']
   Fitting-Flange Elbow:
-    columns: ['DescriptivePartNumber', 'industryStandard','articleNumber', 'HoseIDNominalIDFrac', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard','articleNumber', 'HoseID1InFract', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Flange Elbow 2:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'ElbowType', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Flange Elbow Skive:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
   Fitting-Flange Straight:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Flange Straight Skive:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'FlangeIDInFract', 'FlangeODInFract', 'FlangeIDMM', 'FlangeODInDec', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
   Fitting-Joiner:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac',  'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract',  'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Standpipe Elbow:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'TubeODInFract', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'TubeODInFract', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Standpipe Elbow 2:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'TubeODInFract', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'TubeODInFract', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'DropLengthIN', 'DropLengthMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Standpipe Straight:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'TubeODInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'TubeODInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight:
-    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM',  'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber','industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM',  'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight 2:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'HoseID1InFract','ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'HoseID1InFract','ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight Reatt:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'SocketWrenchSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'SocketWrenchSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight Reatt 2:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM','Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'SocketWrenchSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM','Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'SocketWrenchSizeInFract', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Straight Skive:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
   Fitting-Straight Skive 2:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM','Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'Hex1WrenchSizeIN', 'Hex1WrenchSizeMM','Hex2WrenchSizeIN', 'Hex2WrenchSizeMM', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
   Fitting-Union:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm']
   Fitting-Union Skive:
-    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseIDNominalIDFrac', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']
+    columns: ['DescriptivePartNumber', 'industryStandard', 'articleNumber', 'HoseID1InFract', 'ThreadSize1InMMDecimal', 'CutOffLengthIN', 'CutOffLengthMM', 'OverallLengthIN', 'OverallLengthMm', 'SkiveType']

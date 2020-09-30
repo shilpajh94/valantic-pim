@@ -1606,6 +1606,7 @@ if(isset($data[$baseId])) {
                     $temperatureRangeFAndC = '';
                     $industryStandard = '';
                     $CatalogGrouping = '';
+                    $CatalogPackaging = '';
 
                     $tubeMaterial = array();
                     $reinforcement = array();
@@ -1615,6 +1616,9 @@ if(isset($data[$baseId])) {
                     foreach($brandArray as $key => $element): 
 
                         $brandName = $element[$headerKeysIndex['brandName']][0];
+
+                        if(empty($CatalogPackaging) && $element[$headerKeysIndex['Packaging']])
+                                $CatalogPackaging = $element[$headerKeysIndex['Packaging']];
 
                         if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
                                 $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
@@ -1672,6 +1676,10 @@ if(isset($data[$baseId])) {
                     $reinforcement = implode(', ', $reinforcement);
                     $fittingFamily = implode(', ', $fittingFamily);
 
+                    $VirtualCatalogTubeMaterialStr = $VirtualCatalogTubeMaterial;
+                    if(empty($VirtualCatalogTubeMaterialStr))
+                        $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
+
                     $VirtualCatalogCoverMaterialStr = $VirtualCatalogCoverMaterial;
                         if(empty($VirtualCatalogCoverMaterialStr))
                             $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
@@ -1687,7 +1695,9 @@ if(isset($data[$baseId])) {
                     $data[$brandKey]['industryStandard'] = $industryStandard;
                     $data[$brandKey]['CatalogGrouping'] = $CatalogGrouping;
                     $data[$brandKey]['workingPressurePSIString'] = $workingPressurePSIString;
-                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogCoverMaterialStr;
+                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
+                    $data[$brandKey]['CatalogPackaging'] = $CatalogPackaging;
+                    
                 }
                 $catalogGroupData[$catalogKey] = $data;
             }

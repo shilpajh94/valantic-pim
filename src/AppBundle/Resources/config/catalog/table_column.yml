@@ -7,7 +7,7 @@ parameters:
                 fieldLabel: 'Part Number'
                 fieldType: Input
                 parent:
-                    name: HoseSkeleton   
+                    name: HoseFert  
             articleNumber:
                 fieldLevel: class
                 fieldLabel: 'SAP Number'
@@ -490,12 +490,12 @@ parameters:
                     class:
                         name : FittingFamily
                         fieldName: Name
-            ElbowType:
-                fieldLevel: objectBrick
-                fieldLabel: Elbow Type
-                fieldType: Select
-                parent:
-                    name: HydFittingsFert
+            # ElbowType:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Elbow Type
+            #     fieldType: Select
+            #     parent:
+            #         name: HydFittingsFert
             DescriptivePartNumber:
                 fieldLevel: objectBrick
                 fieldLabel: Part Number
@@ -514,13 +514,33 @@ parameters:
                 fieldType: Input
             HoseID1InFract:
                 fieldLevel: objectBrick
-                fieldLabel: Hose ID
+                fieldLabel: Hose ID 1 In Fract
+                groupName: HoseID1InFract
+                unitName: fract
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
-            HoseID1InDec:
+            # HoseID1InDec:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Hose ID 1 In Dec
+            #     groupName: HoseID1InDec
+            #     unitName: in
+            #     fieldType: Input
+            #     parent:
+            #         name: HydFittingsFert
+            HoseID2InFract:
                 fieldLevel: objectBrick
-                fieldLabel: Hose ID (d)
+                fieldLabel: Hose ID 2 In Fract
+                groupName: HoseID2InFract
+                unitName: fract
+                fieldType: Input
+                parent:
+                    name: HydFittingsFert
+            HoseID3InFract:
+                fieldLevel: objectBrick
+                fieldLabel: Hose ID 3 In Fract
+                groupName: HoseID3InFract
+                unitName: fract
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
