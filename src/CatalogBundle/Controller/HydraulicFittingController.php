@@ -163,7 +163,7 @@ class HydraulicFittingController extends AbstractController
                             }
                         
                             $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
-                            // p_r($FittingTableKeys);
+
                             $columnsDataWithImages = array();
                             $articlesData = array();
                             $subHeaderRequired = '';
@@ -192,11 +192,6 @@ class HydraulicFittingController extends AbstractController
                                     }
                                 }
                             }
-
-                            
-                            // $data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'][strval($hoseID)][] = $row;                            
-                            // ksort($data[$uniqueId][$row['FittingTableName']]['data']['HoseID1InDec'],SORT_NUMERIC);
-                            
 
                             // Getting order of the keys
                             $orderKeys = array();
