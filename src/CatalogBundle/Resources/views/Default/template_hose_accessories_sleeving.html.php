@@ -276,7 +276,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php endforeach; ?>
 
         </table>
-
+        <p class="small"><?= $this->input('HHAS_note' . $incr, ['placeholder' => 'Enter comment']); ?></p>
         <?php 
 
         $incr++;

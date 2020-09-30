@@ -973,7 +973,7 @@ if(isset($data[$baseId])) {
 
                                 if($bkey == $headerKeysIndex['standardMetHose'])
                                 {
-                                    if(count($value)>0)
+                                    if($value && count($value)>0)
                                     {
                                         foreach ($value as $standardMetHosekey => $standardMetHoseValue) {
                                             array_push($standardsMetHose,$standardMetHoseValue);
@@ -1006,7 +1006,13 @@ if(isset($data[$baseId])) {
                             if($ckey == 'INHFittingFamily')
                                 $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
                             else
-                                $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                            {
+                                if($element[$headerKeysIndex[$ckey]])
+                                    $articlesData[$key][] = is_float($element[$headerKeysIndex[$ckey]])? (round($element[$headerKeysIndex[$ckey]], 2, PHP_ROUND_HALF_UP)): $element[$headerKeysIndex[$ckey]];
+                                else
+                                    $articlesData[$key][] = '';
+                            }
+                                // $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
                         }
 
                     endforeach; 
@@ -1206,8 +1212,10 @@ if(isset($data[$baseId])) {
                             endforeach; 
         
                             foreach ($orderKeys as $ckey => $cvalue) {
-        
-                                $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                                if($element[$headerKeysIndex[$ckey]])
+                                    $articlesData[$key][$ckey] = is_float($element[$headerKeysIndex[$ckey]])? (round($element[$headerKeysIndex[$ckey]], 2, PHP_ROUND_HALF_UP)): $element[$headerKeysIndex[$ckey]];
+                                else
+                                    $articlesData[$key][$ckey] = '';
                             }
 
                     endforeach; 
@@ -1649,7 +1657,7 @@ if(isset($data[$baseId])) {
                                     if($value)
                                         $workingPressurePSI[] = $value;
                                 }
-                                if($bkey == $headerKeysIndex['INHFittingFamily'])
+                                if(($bkey == $headerKeysIndex['INHFittingFamily']) && $value)
                                     $fittingFamily = array_merge($fittingFamily, $value);
 
                         endforeach; 
