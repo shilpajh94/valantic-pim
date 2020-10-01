@@ -672,7 +672,7 @@ parameters:
                     name: HydFittingsFert
             ValveSize2InDec:
                 fieldLevel: objectBrick
-                fieldLabel: Valve Size (in)
+                fieldLabel: Valve Size2 (in)
                 groupName: ValveSize2InDec
                 unitName: in
                 fieldType: Input
@@ -684,22 +684,22 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
-            LengthIN:
-                fieldLevel: objectBrick
-                fieldLabel: Length (in)
-                groupName: length
-                unitName: in
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
-            LengthMM:
-                fieldLevel: objectBrick
-                fieldLabel: Length (mm)
-                groupName: length
-                unitName: mm
-                fieldType: Input
-                parent:
-                    name: AccessoriesFert
+            # LengthIN:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Length (in)
+            #     groupName: length
+            #     unitName: in
+            #     fieldType: Input
+            #     parent:
+            #         name: AccessoriesFert
+            # LengthMM:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: Length (mm)
+            #     groupName: length
+            #     unitName: mm
+            #     fieldType: Input
+            #     parent:
+            #         name: AccessoriesFert
             OverallLengthIN:
                 fieldLevel: objectBrick
                 fieldLabel: Overall Length (in)
@@ -735,18 +735,24 @@ parameters:
             FlangeODInFract:
                 fieldLevel: objectBrick
                 fieldLabel: Flange OD (in) Fract.
+                groupName: FlangeOD
+                unitName: fract
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             FlangeODInDec:
                 fieldLevel: objectBrick
                 fieldLabel: Flange OD (in) Dec.
+                groupName: FlangeOD
+                unitName: in
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
             SocketWrenchSizeInFract:
                 fieldLevel: objectBrick
                 fieldLabel: Socket Wrench Size (in) Fract
+                groupName: SocketWrenchSizeInFract
+                unitName: fract
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
