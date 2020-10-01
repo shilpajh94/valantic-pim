@@ -232,7 +232,7 @@ if ($data):
                                                         <?php endforeach; ?>
 
                                                     <?php endif; ?>
-                                                    <?= $this->input("customer_data_{$incr}_{$key}",['placeholder'=>'Enter data']) ?>
+                                                    
                                                 </div>
                                                 <div class="col-6">
                                                     <?php if (!empty(trim($tubeMaterialAtrributeString))): ?>
@@ -357,6 +357,7 @@ if ($data):
                                 <?php endforeach; ?>
 
                             </table>
+                            <p class="small"><?= $this->input("customer_data_{$incr}_{$key}", ['placeholder' => 'Enter comment']); ?></p>
                         </section>
 
                     </article>

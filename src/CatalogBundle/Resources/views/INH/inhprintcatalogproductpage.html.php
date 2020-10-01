@@ -237,7 +237,7 @@ if (isset($info['brandsData'])) {
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <?= $this->input('INH_PP_Note_' . $pg, ['placeholder' => 'Enter notes']); ?>
+                                                    
                                                 </div>
                                             </div>
 
@@ -267,7 +267,10 @@ if (isset($info['brandsData'])) {
                                             <figcaption> <?= $brand['brandData']['BrandingLayline'] ?> </figcaption>
                                         </figure>
                                     </menu>
-                                    <?php foreach ($brand['articleData'] as $key => $fittingTableName): ?>
+                                    <?php 
+                                    $noterow = 0;
+                                    foreach ($brand['articleData'] as $key => $fittingTableName): 
+                                    ?>
                                         <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
                                         <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
                                             <thead>
@@ -329,12 +332,12 @@ if (isset($info['brandsData'])) {
 
 
                                         </table>
-                                    <?php endforeach; ?>
-
-
-
+                                        <p class="small"><?= $this->input('INH_PP_Note_' . $pg.'_'.$noterow, ['placeholder' => 'Enter comment']); ?></p>
+                                    <?php
+                                    $noterow++;
+                                    endforeach; 
+                                    ?>
                                 </section>
-
                             </div>
                         </div>
 <!-- </div> -->

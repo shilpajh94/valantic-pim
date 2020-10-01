@@ -21,13 +21,7 @@ if($groupData):
 
                 <div id="pageHeader"></div>
                 <span  class="pageName">
-                        <?php 
-                        if($this->editmode){
-                                echo $this->input("PTG_Header_{$incr}")->setDataFromResource($groupData['siop3Category']); 
-                        }else{
-                                echo $this->input("PTG_Header_{$incr}");
-                        }                
-                        ?>
+                        <?= $groupData['siop3Category']; ?>
                 </span>
 
                 <div class="footer">
@@ -294,6 +288,7 @@ if($groupData):
                                         <?php endforeach; ?>
                                 </tbody>
                                 </table>
+                                <p class="small"><?= $this->input('PTG_Note_' . $incr.'_'.$articleGroupKey, ['placeholder' => 'Enter comment']); ?></p>
                                 <?php endforeach; ?>
                         </section>
                 </article>
