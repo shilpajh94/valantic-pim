@@ -1045,7 +1045,7 @@ if(isset($data[$baseId])) {
                     {
                         foreach ($standardsMetHose as $fkey => $fvalue) {
                             if(isset($standardMetHoseList[$fvalue]))
-                                $standardMetHoseListData[] = array('name'=>$standardMetHoseList[$fvalue]['name'], 'CustomerFacingVersion' => $standardMetHoseList[$fvalue]['CustomerFacingVersion']);
+                                $standardMetHoseListData[$standardMetHoseList[$fvalue]['CustomerFacingVersion']][] = $standardMetHoseList[$fvalue]['name'];
                         }
                     }
 
@@ -1130,6 +1130,8 @@ if(isset($data[$baseId])) {
             $columnsData = json_decode($columnsData, true);
             $columnsDataWithImages = array();
 
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
@@ -1178,6 +1180,7 @@ if(isset($data[$baseId])) {
                     $articlesData = array();
                     $color = array();
                     $availableLength = array();
+                    $safetyFeatures = array();
                     
                     foreach($brandArray as $key => $element): 
 
@@ -1203,6 +1206,15 @@ if(isset($data[$baseId])) {
                                 $temperatureRangeFAndC = $element[$headerKeysIndex['temperatureRangeFAndC']];
         
                             foreach($element as $bkey => $value): 
+                                    if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
+                                    {
+                                        if(count($value)>0)
+                                        {
+                                            foreach ($value as $fkey => $feature) {
+                                                array_push($safetyFeatures,$feature);
+                                            }
+                                        }
+                                    }
                                     if($bkey == $headerKeysIndex['MaterialType'])
                                         $material = array_merge($material, $value);
                                     if($bkey == $headerKeysIndex['Color'])
@@ -1223,6 +1235,23 @@ if(isset($data[$baseId])) {
                     $color = array_unique($color);
                     $material = array_unique($material);
                     $availableLength = array_unique($availableLength);
+                    $safetyFeatures = array_unique($safetyFeatures);
+
+                    $safetyFeaturesListWithImage = array();
+                    $safetyFeaturesListWithOutImage = array();
+
+                    if($safetyFeatures)
+                    {
+                        foreach ($safetyFeatures as $fkey => $fvalue) {
+                            if($featuresList[$fvalue]['icon'])
+                                $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            else
+                                $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        }
+                    }
+
+                    $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    
 
                     $colorString = implode(', ', $color);
                     $materialString = implode(', ', $material);
@@ -1239,6 +1268,7 @@ if(isset($data[$baseId])) {
                     $data[$brandKey]['iconRequired'] = $iconRequired;
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
                     $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
 
                     array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
                     $data[$brandKey]['articlesData'] = $articlesData;
@@ -1591,7 +1621,7 @@ if(isset($data[$baseId])) {
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
             
-            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+            
 
             $catalogGrouping = array();
             

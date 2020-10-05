@@ -329,6 +329,15 @@ parameters:
                 fieldLabel: 'Length'
                 parent:
                     name: AccessoriesFert
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Features ID
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: id
         Hose Accessories Clamps: 
             longDescription:
                 fieldLevel: class

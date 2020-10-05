@@ -8,7 +8,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <div class="segregate inhSettingN">
 
    <div id="pageHeader"></div>
-    <span  class="pageName"><?= $info['configTableName'] ?></span>
+    <span  class="pageName"><?= $info['configTableName']." - ". $info['siop4Description'] ?></span>
         <div class="footer">
             <footer class="flex-center <?php echo $info['footer_class']; ?> ">
                 <span class="logo">
