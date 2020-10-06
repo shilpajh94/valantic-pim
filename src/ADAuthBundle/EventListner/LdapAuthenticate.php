@@ -126,7 +126,6 @@ class LdapAuthenticate
                 else
                     $host = 0;
             }
-
             if ($host) {
                 $this->ldapCreateConnection($host, $this->ldapPort);
                 //$filter = "(&(memberOf=" . $this->ldapUserGroup . ")(" . $this->ldapUserFilter . "=$userName))";

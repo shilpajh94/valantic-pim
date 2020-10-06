@@ -52,7 +52,7 @@ class AuthenticateListner
 
         $credentials = $event->getCredentials();
         $this->username = $credentials['username'];
-        $this->password =  $credentials['password'];
+        $this->password = $credentials['password'];
         
         try {
 
@@ -65,21 +65,13 @@ class AuthenticateListner
             }
             
             $objLdapAuth = new LdapAuthenticate();
+
             $retUser = $objLdapAuth->getLdapAuthenticate($this->username, $this->password);
-//            $retUser = array(
-//                'success'   =>  1,
-//                'data'      =>  array(
-//                    'firstname'     =>  'Rohan',
-//                    'lastname'      =>  'Kumar',
-//                    'email'         =>  'rohan@gmail.com',
-//                    // 'password'      =>  '0123456789'
-//                )
-//            );
             
             // if (isset($retUser['success']) && 1 == $retUser['success'] && isset($retUser['data'][0]) && is_object($retUser['data'][0])) {
             if (isset($retUser['success']) && 1 == $retUser['success']) {
-                // $obj = $retUser['data'][0];                
-                $obj = $retUser['data'];
+                $obj = $retUser['data'][0];                
+                // $obj = $retUser['data'];
                 return $this->createUser($obj, $userObj);
             } else {
                 $event->setCredentials(array());
@@ -101,10 +93,7 @@ class AuthenticateListner
 
         $this->default_role_id = empty($roleObj) ? "" : (string) $roleObj->getId();
 
-        /**/
-        // $email = !empty($obj->getAttribute('mail')[0]) ? $obj->getAttribute('mail')[0] : "";
-        $email = !empty($obj['email']) ? $obj['email'] : '';
-        /* $createUserData = array(
+        $createUserData = array(
             "parentId" => 0,
             "username" => $this->username,
             "email" => $obj->getAttribute('mail')[0],
@@ -117,40 +106,8 @@ class AuthenticateListner
             'firstname' => !empty($obj->getAttribute('givenName')[0]) ? $obj->getAttribute('givenName')[0] : "",
             'lastname' => !empty($obj->getAttribute('sn')[0]) ? $obj->getAttribute('sn')[0] : "",
             "password" => Tool\Authentication::getPasswordHash($this->username, $this->password)
-        ); */
-
-        $createUserData = array(
-            "parentId" => 0,
-            "username" => $this->username,
-            "email" => $email,
-            "active" => true,
-            "activePerspective" => "ReadOnly",
-            "roles" => $this->default_role_id
         );
 
-        $updateUserData = array(
-            'firstname' => !empty($obj['firstname']) ? $obj['firstname'] : "",
-            'lastname' => !empty($obj['lastname']) ? $obj['lastname'] : "",
-            "password" => Tool\Authentication::getPasswordHash($this->username, $this->password)
-        );
-        /**/
-
-        // for testing purpose
-        /**
-        $createUserData = array(
-            "parentId" => 0,
-            "username" => $this->username,
-            "email" => "",
-            "active" => true,
-            "roles" => $this->default_role_id
-        );
-
-        $updateUserData = array(
-            'firstname' => "",
-            'lastname' => "",
-            "password" => Tool\Authentication::getPasswordHash($this->username, $this->password)
-        );
-        /**/
 
         $createUserData = array_merge($createUserData, $updateUserData);
         
