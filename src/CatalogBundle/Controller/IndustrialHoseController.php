@@ -55,6 +55,7 @@ class IndustrialHoseController extends AbstractController
 
             if($siopObj != null) {
                 $tableName = $siopObj->getParent()->getDescription($lang);
+                $siop4Description = ($siopObj->getPrintedCatalogDescription($lang)) ? $siopObj->getPrintedCatalogDescription($lang) : $siopObj->getDescription($lang);
                 $configTableName = ($siopObj->getParent()->getPrintedCatalogDescription($lang)) ? $siopObj->getParent()->getPrintedCatalogDescription($lang) : $siopObj->getParent()->getDescription($lang);
             }
 
@@ -78,7 +79,7 @@ class IndustrialHoseController extends AbstractController
                 foreach ($productsData as $k => $row) {
                     
                     if (isset($row['brandName']) && !empty($row['brandName'])) {
-                        $uniqueId = $tableName;
+                        $uniqueId = $configTableName;
                         $brandName = $row['brandName'][0];
                         if (!isset($data[$uniqueId])) {
                             $data[$uniqueId][$brandName] = array();
@@ -107,6 +108,7 @@ class IndustrialHoseController extends AbstractController
             $categories = $this->getSIOP($lang);
             $this->view['info'] = array(
                 'configTableName'=> $configTableName,
+                'siop4Description'=> $siop4Description,
                 'data' => $data,
                 'categories' => $categories,
                 'defaultPageImage' => \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']),

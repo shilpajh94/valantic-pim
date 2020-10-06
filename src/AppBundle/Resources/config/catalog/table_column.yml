@@ -70,14 +70,14 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
-            grossWeight:
-                fieldLevel: class
+            InnerHoseWeightLbs:
+                fieldLevel: objectBrick
                 fieldLabel: 'Weight (lbs per ft)'
-                groupName: grossWeight
+                groupName: InnerHoseWeightLbs
                 unitName: lbs per ft
                 fieldType: Input
                 parent:
-                    name: Product
+                    name: HoseFert
             INHFittingFamily:
                 fieldLevel: objectBrick
                 fieldLabel: 'Fitting Family'
