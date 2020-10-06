@@ -366,7 +366,10 @@ class IndustrialHoseController extends AbstractController
                                         $temp = $bvalue[$headerKeysIndex[$ckey]];
                                     }
 
-                                    $articlesData[] = $temp;
+                                    if($temp)
+                                        $articlesData[] = is_float($temp)? (round($temp, 2, PHP_ROUND_HALF_UP)): $temp;
+                                    else
+                                        $articlesData[] = '';
                             }
                         
                             $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['subHeaderRequired'] = $subHeaderRequired;
@@ -612,7 +615,10 @@ class IndustrialHoseController extends AbstractController
                         }
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[] = $item[$cvalue];
+                            if($item[$cvalue])
+                                $articlesData[] = is_float($item[$cvalue])? (round($item[$cvalue], 2, PHP_ROUND_HALF_UP)): $item[$cvalue];
+                            else
+                                $articlesData[] = '';
                         }
 
                         $brandsData[] = $articlesData;

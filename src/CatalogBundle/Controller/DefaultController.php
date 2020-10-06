@@ -1012,7 +1012,6 @@ if(isset($data[$baseId])) {
                                 else
                                     $articlesData[$key][] = '';
                             }
-                                // $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
                         }
 
                     endforeach; 
@@ -1387,7 +1386,10 @@ if(isset($data[$baseId])) {
 
                     foreach ($orderKeys as $ckey => $cvalue) {
 
-                        $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                        if($element[$headerKeysIndex[$ckey]])
+                            $articlesData[$key][$ckey] = is_float($element[$headerKeysIndex[$ckey]])? (round($element[$headerKeysIndex[$ckey]], 2, PHP_ROUND_HALF_UP)): $element[$headerKeysIndex[$ckey]];
+                        else
+                            $articlesData[$key][$ckey] = '';
                     }
 
                 endforeach; 
@@ -1513,7 +1515,10 @@ if(isset($data[$baseId])) {
                         $articlesData = array();
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[] = $item[$cvalue];
+                            if($item[$cvalue])
+                                $articlesData[] = is_float($item[$cvalue])? (round($item[$cvalue], 2, PHP_ROUND_HALF_UP)): $item[$cvalue];
+                            else
+                                $articlesData[] = '';
                         }
 
                         $brandData[$brandName]['articlesData'][] = $articlesData;
@@ -1840,7 +1845,10 @@ if(isset($data[$baseId])) {
                                 $shortDescription = $element[$headerKeysIndex['shortDescription']];
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                                if($element[$headerKeysIndex[$ckey]])
+                                    $articlesData[$key][$ckey] = is_float($element[$headerKeysIndex[$ckey]])? (round($element[$headerKeysIndex[$ckey]], 2, PHP_ROUND_HALF_UP)): $element[$headerKeysIndex[$ckey]];
+                                else
+                                    $articlesData[$key][$ckey] = '';
                             }
 
                     endforeach; 
@@ -2181,7 +2189,10 @@ if(isset($data[$baseId])) {
                         $item[] = $listPrice;
                         
                         foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[] = $item[$cvalue];
+                            if($item[$cvalue])
+                                $articlesData[] = is_float($item[$cvalue])? (round($item[$cvalue], 2, PHP_ROUND_HALF_UP)): $item[$cvalue];
+                            else
+                                $articlesData[] = '';
                         }
 
                         $brandsData[$siop6Category][] = $articlesData;
