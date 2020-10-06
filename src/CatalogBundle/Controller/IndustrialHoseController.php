@@ -366,10 +366,13 @@ class IndustrialHoseController extends AbstractController
                                         $temp = $bvalue[$headerKeysIndex[$ckey]];
                                     }
 
-                                    if($temp)
-                                        $articlesData[] = is_float($temp)? (round($temp, 2, PHP_ROUND_HALF_UP)): $temp;
-                                    else
-                                        $articlesData[] = '';
+                                    if(is_numeric($temp)){
+                                        $float_value = (float) $temp;
+                                        $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                                    }
+                                    else{
+                                        $articlesData[] = $temp;
+                                    }
                             }
                         
                             $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['subHeaderRequired'] = $subHeaderRequired;
@@ -615,10 +618,13 @@ class IndustrialHoseController extends AbstractController
                         }
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                            if($item[$cvalue])
-                                $articlesData[] = is_float($item[$cvalue])? (round($item[$cvalue], 2, PHP_ROUND_HALF_UP)): $item[$cvalue];
-                            else
-                                $articlesData[] = '';
+                            if(is_numeric($item[$cvalue])){
+                                $float_value = (float) $item[$cvalue];
+                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                            }
+                            else{
+                                $articlesData[] = $item[$cvalue];
+                            }
                         }
 
                         $brandsData[] = $articlesData;
