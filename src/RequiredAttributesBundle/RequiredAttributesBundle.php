@@ -12,4 +12,11 @@ class RequiredAttributesBundle extends AbstractPimcoreBundle
             '/bundles/requiredattributes/js/pimcore/startup.js'
         ];
     }
+
+    public function getCssPaths()
+    {
+        return [
+            '/bundles/requiredattributes/css/style.css'
+        ];
+    }
 }

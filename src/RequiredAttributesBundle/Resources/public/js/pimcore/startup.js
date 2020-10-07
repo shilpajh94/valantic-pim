@@ -594,26 +594,20 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
                                             highlightRow = !highlightRow;
                                         }
 
-                                        let style = {};
+                                        let cssCls = "nome_panel_label";
                                         if(highlightRow){
-                                            style = {
-                                                "backgroundColor": "#e6e6fa",
-                                                "padding": "5px",
-                                                "display" : "block"
-                                            }
-                                        }else{
-                                            style = {
-                                                "padding": "5px",
-                                                "display" : "block"
-                                            }
+                                            cssCls += " nome_panel_label_highlight";
                                         }
 
                                         let displayField = new Ext.create('Ext.form.field.Display',{
                                             fieldLabel: "<b>"+columnText+"</b>  ",
                                             // name: colDataIndex,
                                             value: columnData,
-                                            style: style,
-                                            // height: 40
+                                            // style: style,
+                                            cls: cssCls,
+                                            labelCls: "small_font_for_nome_panel",
+                                            fieldCls: "small_font_for_nome_panel",
+                                            height: 35
                                         });
 
                                         if(i % 2 == 0){

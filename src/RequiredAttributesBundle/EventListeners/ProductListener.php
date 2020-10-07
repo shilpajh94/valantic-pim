@@ -41,7 +41,10 @@ class ProductListener
     {
         $object = $event->getObject();
         if ($object instanceof DataObject\Product) {
-            if($object->getProductType() == 'fert'){
+//            if($object->getProductType() == 'base' ||
+//                $object->getProductType() == 'skeleton' ||
+//                $object->getProductType() == 'fert'
+//            ){
                 $object->setGetInheritedValues(true);
 
                 $category = $this->attributeIndicatorFieldPopulator->getLevel2CategoryForProduct($object);
@@ -53,7 +56,7 @@ class ProductListener
 
                     }
                 }
-            }
+//            }
 
         }
 
