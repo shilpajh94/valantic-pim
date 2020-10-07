@@ -753,7 +753,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
                     title: title ? ts(title) : ts(type),
                     // items: items
                     items: [],
-                    listeners: {
+                    listeners: { 
                         afterrender: function (childConfig, dataProvider, panel) {
                             if (!panel.__tabpanel_initialized) {
                                 var copy = Ext.decode(Ext.encode(childConfig));

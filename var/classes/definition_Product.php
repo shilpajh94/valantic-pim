@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-25T15:35:27+02:00
+* Generated at: 2020-10-07T13:28:34+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -144,7 +144,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1601040926,
+   'modificationDate' => 1602070112,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -15774,12 +15774,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           137 => 
                                           array (
@@ -16173,13 +16173,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           215 => 
                                           array (
-                                            'key' => 'Static Conductive',
-                                            'value' => 3164,
+                                            'key' => 'Static conductive',
+                                            'value' => 760056,
                                           ),
                                           216 => 
                                           array (
-                                            'key' => 'Static conductive',
-                                            'value' => 760056,
+                                            'key' => 'Static Conductive',
+                                            'value' => 3164,
                                           ),
                                           217 => 
                                           array (
@@ -20788,9 +20788,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                       Pimcore\Model\DataObject\ClassDefinition\Data\AdvancedManyToManyRelation::__set_state(array(
                          'columns' => 
                         array (
+                          0 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 1,
+                            'key' => 'DrawingNumber',
+                            'id' => 'extModel2946-1',
+                            'label' => 'Drawing Number',
+                          ),
+                          1 => 
+                          array (
+                            'type' => 'number',
+                            'position' => 2,
+                            'key' => 'DrawingRevisionNumber',
+                            'id' => 'extModel2946-2',
+                            'label' => 'Drawing Revision number',
+                          ),
+                          2 => 
+                          array (
+                            'type' => 'text',
+                            'position' => 3,
+                            'key' => 'DrawingRevisionDate',
+                            'id' => 'extModel2946-3',
+                            'label' => 'Drawing Revision Date',
+                            'width' => NULL,
+                          ),
                         ),
                          'columnKeys' => 
                         array (
+                          0 => 'DrawingNumber',
+                          1 => 'DrawingRevisionNumber',
+                          2 => 'DrawingRevisionDate',
                         ),
                          'fieldtype' => 'advancedManyToManyRelation',
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\ElementMetadata[]',
@@ -20823,9 +20851,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Document',
@@ -20868,9 +20904,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
+                          0 => 
+                          array (
+                            'documentTypes' => '',
+                          ),
                         ),
                          'classes' => 
                         array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'BrandingLaylineAssets',
