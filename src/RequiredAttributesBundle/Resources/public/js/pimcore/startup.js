@@ -650,7 +650,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         self = this;
         var configs = this.configdata;
         Ext.override(pimcore.object.tags.objectbricks, {
-             getControls: function (blockElement) {
+            getControls: function (blockElement) {
 
                 var menuData = this.objectbricks;
                 var menu = this.buildMenu(menuData, blockElement);
@@ -696,8 +696,129 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
                     });
                 }
                 return toolbar;
-            }
+            },
 
+            addBlockElement: function (index, type, blockData, ignoreChange, title) {
+                if (!type) {
+                    return;
+                }
+                if (!this.layoutDefinitions[type]) {
+                    return;
+                }
+                if (this.fieldConfig.maxItems && this.getCurrentElementsCount() >= this.fieldConfig.maxItems) {
+                    Ext.Msg.alert(t("error"), t("limit_reached"));
+                    return;
+                }
+
+                var dataFields = [];
+                var currentData = {};
+                var currentMetaData = {};
+
+                if (blockData) {
+                    currentData = blockData.data;
+                    currentMetaData = blockData.metaData;
+                }
+
+                var dataProvider = {
+                    getDataForField: function (fieldConfig) {
+                        var name = fieldConfig.name;
+                        return currentData[name];
+                    },
+
+                    getMetaDataForField: function (fieldConfig) {
+                        var name = fieldConfig.name;
+                        return currentMetaData[name];
+                    },
+
+                    addToDataFields: function (field, name) {
+                        dataFields.push(field);
+                    }
+                };
+
+                var childConfig = this.layoutDefinitions[type];
+                var closable = !this.fieldConfig.noteditable;
+                if (this.object.data.general.o_className == "Product") {
+                    closable = false;
+                }
+
+
+
+                var blockElement = new Ext.Panel({
+                    //bodyStyle: "padding:10px;",
+                    style: "margin: 0 0 10px 0;",
+                    cls: 'pimcore_objectbrick_item',
+                    closable: closable,
+                    autoHeight: true,
+                    border: false,
+                    title: title ? ts(title) : ts(type),
+                    // items: items
+                    items: [],
+                    listeners: {
+                        afterrender: function (childConfig, dataProvider, panel) {
+                            if (!panel.__tabpanel_initialized) {
+                                var copy = Ext.decode(Ext.encode(childConfig));
+                                var children = this.getRecursiveLayout(copy, null, {
+                                    containerType: "objectbrick",
+                                    containerKey: type,
+                                    ownerName: this.fieldConfig.name
+                                }, false, true, dataProvider);
+                                if (this.fieldConfig.noteditable && children) {
+                                    children.forEach(function (record) {
+                                        record.disabled = true;
+                                    });
+                                }
+
+                                if (children) {
+                                    panel.add(children);
+                                }
+
+                                panel.updateLayout();
+
+                                if (panel.setActiveTab) {
+                                    var activeTab = panel.items.items[0];
+                                    if (activeTab) {
+                                        activeTab.updateLayout();
+                                        panel.setActiveTab(activeTab);
+                                    }
+                                }
+
+                                panel.__tabpanel_initialized = true;
+
+
+                            }
+                        }.bind(this, childConfig, dataProvider)
+
+                    }
+                });
+
+                if (!this.fieldConfig.noteditable) {
+                    blockElement.on("beforeclose", this.removeBlock.bind(this, blockElement));
+                }
+
+                this.component.remove(this.component.getComponent(0));
+
+                this.addedTypes[type] = true;
+
+                blockElement.key = type;
+                blockElement.fieldtype = type;
+                this.tabpanel.add(blockElement);
+                this.component.insert(0, this.getControls(null));
+
+                this.tabpanel.updateLayout();
+                this.component.updateLayout();
+
+                this.currentElements[type] = null;
+                this.currentElements[type] = {
+                    container: blockElement,
+                    fields: dataFields,
+                    type: type
+                };
+
+                if (!ignoreChange) {
+                    this.dirty = true;
+                    this.tabpanel.setActiveTab(blockElement);
+                }
+            }
         });
     },
     preOpenObject: function (object) {
