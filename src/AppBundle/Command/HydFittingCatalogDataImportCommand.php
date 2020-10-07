@@ -93,7 +93,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "AM" => array("field" => "SkiveType", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         // master
 //        "AN" => array("field" => "ElbowType", "brickKey" => "HydFittingsFert", "type" => "master", "brickType" => "fert","masterType" => "selectMaster"),
-        "AN" => array("field" => "ElbowType", "brickKey" => "HydFittingsFert", "type" => "select", "brickType" => "fert","masterType" => "MultiselectMaster","isMaster" => true),
+//        "AN" => array("field" => "ElbowType", "brickKey" => "HydFittingsFert", "type" => "select", "brickType" => "fert","masterType" => "MultiselectMaster","isMaster" => true),
 
         "AO" => array("field" => "FlangeIDInFract", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "AP" => array("field" => "FlangeODInDec", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
