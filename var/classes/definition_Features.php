@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-25T19:46:14+02:00
+* Generated at: 2020-10-08T12:43:58+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -12,6 +12,7 @@ Fields Summary:
 - FeatureType [select]
 - localizedfields [localizedfields]
 -- Name [input]
+- SortOrder [numeric]
 - Icon [image]
 */ 
 
@@ -21,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Features',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1598377574,
+   'modificationDate' => 1602153838,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -193,6 +194,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'invisible' => false,
                  'visibleGridView' => true,
                  'visibleSearch' => true,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'name' => 'SortOrder',
+                 'title' => 'Sort Order',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
               )),
             ),
              'locked' => false,

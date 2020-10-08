@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-10-07T13:28:34+02:00
+* Generated at: 2020-10-08T12:46:40+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -134,7 +134,7 @@ Fields Summary:
 - ProfileDimensionImage [image]
 - priceData [table]
 - CatalogGrouping [input]
-- FittingTableName [input]
+- FittingTableName [select]
 - CatalogSortTable [numeric]
 */ 
 
@@ -144,7 +144,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1602070112,
+   'modificationDate' => 1602153999,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -15774,12 +15774,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           137 => 
                                           array (
@@ -16173,13 +16173,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           215 => 
                                           array (
-                                            'key' => 'Static conductive',
-                                            'value' => 760056,
+                                            'key' => 'Static Conductive',
+                                            'value' => 3164,
                                           ),
                                           216 => 
                                           array (
-                                            'key' => 'Static Conductive',
-                                            'value' => 3164,
+                                            'key' => 'Static conductive',
+                                            'value' => 760056,
                                           ),
                                           217 => 
                                           array (
@@ -20851,17 +20851,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => 'AppBundle\\Formatter\\AssetFormatter',
                          'name' => 'Document',
@@ -20904,17 +20896,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'documentsAllowed' => false,
                          'documentTypes' => 
                         array (
-                          0 => 
-                          array (
-                            'documentTypes' => '',
-                          ),
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'BrandingLaylineAssets',
@@ -21199,24 +21183,307 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'fieldtype' => 'input',
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'fieldtype' => 'select',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Adapter',
+                    'value' => 'Fitting Accessories-AC Adapter',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Clip',
+                    'value' => 'Fitting Accessories-AC Clip',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Nut',
+                    'value' => 'Fitting Accessories-AC Nut',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Orifice',
+                    'value' => 'Fitting Accessories-AC Orifice',
+                  ),
+                  4 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC O-ring',
+                    'value' => 'Fitting Accessories-AC O-ring',
+                  ),
+                  5 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC O-ring 2',
+                    'value' => 'Fitting Accessories-AC O-ring 2',
+                  ),
+                  6 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Sleeve',
+                    'value' => 'Fitting Accessories-AC Sleeve',
+                  ),
+                  7 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Tools',
+                    'value' => 'Fitting Accessories-AC Tools',
+                  ),
+                  8 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Valve Adapter',
+                    'value' => 'Fitting Accessories-AC Valve Adapter',
+                  ),
+                  9 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Valve Caps',
+                    'value' => 'Fitting Accessories-AC Valve Caps',
+                  ),
+                  10 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Valve Core',
+                    'value' => 'Fitting Accessories-AC Valve Core',
+                  ),
+                  11 => 
+                  array (
+                    'key' => 'Fitting Accessories-AC Washer',
+                    'value' => 'Fitting Accessories-AC Washer',
+                  ),
+                  12 => 
+                  array (
+                    'key' => 'Fitting-AC Joiner',
+                    'value' => 'Fitting-AC Joiner',
+                  ),
+                  13 => 
+                  array (
+                    'key' => 'Fitting-AC Joiner Elbow',
+                    'value' => 'Fitting-AC Joiner Elbow',
+                  ),
+                  14 => 
+                  array (
+                    'key' => 'Fitting-AC Joiner T',
+                    'value' => 'Fitting-AC Joiner T',
+                  ),
+                  15 => 
+                  array (
+                    'key' => 'Fitting-AC Joiner Valve',
+                    'value' => 'Fitting-AC Joiner Valve',
+                  ),
+                  16 => 
+                  array (
+                    'key' => 'Fitting-AC Straight 1',
+                    'value' => 'Fitting-AC Straight 1',
+                  ),
+                  17 => 
+                  array (
+                    'key' => 'Fitting-AC Tube',
+                    'value' => 'Fitting-AC Tube',
+                  ),
+                  18 => 
+                  array (
+                    'key' => 'Fitting-AC Valve',
+                    'value' => 'Fitting-AC Valve',
+                  ),
+                  19 => 
+                  array (
+                    'key' => 'Fitting-AC Valve 2',
+                    'value' => 'Fitting-AC Valve 2',
+                  ),
+                  20 => 
+                  array (
+                    'key' => 'Fitting-AC Valve 3',
+                    'value' => 'Fitting-AC Valve 3',
+                  ),
+                  21 => 
+                  array (
+                    'key' => 'Fitting-Elbow',
+                    'value' => 'Fitting-Elbow',
+                  ),
+                  22 => 
+                  array (
+                    'key' => 'Fitting-Elbow 2',
+                    'value' => 'Fitting-Elbow 2',
+                  ),
+                  23 => 
+                  array (
+                    'key' => 'Fitting-Elbow 3',
+                    'value' => 'Fitting-Elbow 3',
+                  ),
+                  24 => 
+                  array (
+                    'key' => 'Fitting-Elbow 4',
+                    'value' => 'Fitting-Elbow 4',
+                  ),
+                  25 => 
+                  array (
+                    'key' => 'Fitting-Elbow 5',
+                    'value' => 'Fitting-Elbow 5',
+                  ),
+                  26 => 
+                  array (
+                    'key' => 'Fitting-Elbow 6',
+                    'value' => 'Fitting-Elbow 6',
+                  ),
+                  27 => 
+                  array (
+                    'key' => 'Fitting-Elbow Reatt',
+                    'value' => 'Fitting-Elbow Reatt',
+                  ),
+                  28 => 
+                  array (
+                    'key' => 'Fitting-Elbow Reatt 2',
+                    'value' => 'Fitting-Elbow Reatt 2',
+                  ),
+                  29 => 
+                  array (
+                    'key' => 'Fitting-Elbow Skive',
+                    'value' => 'Fitting-Elbow Skive',
+                  ),
+                  30 => 
+                  array (
+                    'key' => 'Fitting-Ferrule',
+                    'value' => 'Fitting-Ferrule',
+                  ),
+                  31 => 
+                  array (
+                    'key' => 'Fitting-Flange Elbow',
+                    'value' => 'Fitting-Flange Elbow',
+                  ),
+                  32 => 
+                  array (
+                    'key' => 'Fitting-Flange Elbow 2',
+                    'value' => 'Fitting-Flange Elbow 2',
+                  ),
+                  33 => 
+                  array (
+                    'key' => 'Fitting-Flange Elbow Skive',
+                    'value' => 'Fitting-Flange Elbow Skive',
+                  ),
+                  34 => 
+                  array (
+                    'key' => 'Fitting-Flange Straight',
+                    'value' => 'Fitting-Flange Straight',
+                  ),
+                  35 => 
+                  array (
+                    'key' => 'Fitting-Flange Straight Skive',
+                    'value' => 'Fitting-Flange Straight Skive',
+                  ),
+                  36 => 
+                  array (
+                    'key' => 'Fitting-Joiner',
+                    'value' => 'Fitting-Joiner',
+                  ),
+                  37 => 
+                  array (
+                    'key' => 'Fitting-Standpipe Elbow',
+                    'value' => 'Fitting-Standpipe Elbow',
+                  ),
+                  38 => 
+                  array (
+                    'key' => 'Fitting-Standpipe Elbow 2',
+                    'value' => 'Fitting-Standpipe Elbow 2',
+                  ),
+                  39 => 
+                  array (
+                    'key' => 'Fitting-Standpipe Straight',
+                    'value' => 'Fitting-Standpipe Straight',
+                  ),
+                  40 => 
+                  array (
+                    'key' => 'Fitting-Straight',
+                    'value' => 'Fitting-Straight',
+                  ),
+                  41 => 
+                  array (
+                    'key' => 'Fitting-Straight 2',
+                    'value' => 'Fitting-Straight 2',
+                  ),
+                  42 => 
+                  array (
+                    'key' => 'Fitting-Straight Reatt',
+                    'value' => 'Fitting-Straight Reatt',
+                  ),
+                  43 => 
+                  array (
+                    'key' => 'Fitting-Straight Reatt 2',
+                    'value' => 'Fitting-Straight Reatt 2',
+                  ),
+                  44 => 
+                  array (
+                    'key' => 'Fitting-Straight Skive',
+                    'value' => 'Fitting-Straight Skive',
+                  ),
+                  45 => 
+                  array (
+                    'key' => 'Fitting-Straight Skive 2',
+                    'value' => 'Fitting-Straight Skive 2',
+                  ),
+                  46 => 
+                  array (
+                    'key' => 'Fitting-Union',
+                    'value' => 'Fitting-Union',
+                  ),
+                  47 => 
+                  array (
+                    'key' => 'Fitting-Union Skive',
+                    'value' => 'Fitting-Union Skive',
+                  ),
+                  48 => 
+                  array (
+                    'key' => 'Hose Attribute Table 1',
+                    'value' => 'Hose Attribute Table 1',
+                  ),
+                  49 => 
+                  array (
+                    'key' => 'Hose Attribute Table 2',
+                    'value' => 'Hose Attribute Table 2',
+                  ),
+                  50 => 
+                  array (
+                    'key' => 'Hose Attribute Table 3',
+                    'value' => 'Hose Attribute Table 3',
+                  ),
+                  51 => 
+                  array (
+                    'key' => 'Hose Attribute Table 4',
+                    'value' => 'Hose Attribute Table 4',
+                  ),
+                  52 => 
+                  array (
+                    'key' => 'Hose Attribute Table 5',
+                    'value' => 'Hose Attribute Table 5',
+                  ),
+                  53 => 
+                  array (
+                    'key' => 'Hose Attribute Table 6',
+                    'value' => 'Hose Attribute Table 6',
+                  ),
+                  54 => 
+                  array (
+                    'key' => 'Hose Attribute Table 7',
+                    'value' => 'Hose Attribute Table 7',
+                  ),
+                  55 => 
+                  array (
+                    'key' => 'Hose Attribute Table 8',
+                    'value' => 'Hose Attribute Table 8',
+                  ),
+                ),
                  'width' => 350,
-                 'defaultValue' => NULL,
+                 'defaultValue' => '',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
                  'queryColumnType' => 'varchar',
                  'columnType' => 'varchar',
                  'columnLength' => 190,
                  'phpdocType' => 'string',
-                 'regex' => '',
-                 'unique' => false,
-                 'showCharCount' => false,
+                 'dynamicOptions' => false,
                  'name' => 'FittingTableName',
                  'title' => 'Fitting Table Name',
                  'tooltip' => 'Attribute for grouping products of catalog based on different data attribute tables.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => false,
+                 'locked' => NULL,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
