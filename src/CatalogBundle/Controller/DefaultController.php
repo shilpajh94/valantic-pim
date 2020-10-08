@@ -1003,7 +1003,7 @@ if(isset($data[$baseId])) {
                         endforeach; 
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                            if($ckey == 'INHFittingFamily')
+                            if($ckey == 'HydFittingFamily')
                                 $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
                             else
                             {
@@ -1703,7 +1703,7 @@ if(isset($data[$baseId])) {
                                     if($value)
                                         $workingPressurePSI[] = $value;
                                 }
-                                if(($bkey == $headerKeysIndex['INHFittingFamily']) && $value)
+                                if(($bkey == $headerKeysIndex['HydFittingFamily']) && $value)
                                     $fittingFamily = array_merge($fittingFamily, $value);
 
                         endforeach; 
