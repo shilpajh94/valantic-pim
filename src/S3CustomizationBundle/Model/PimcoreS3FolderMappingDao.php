@@ -28,10 +28,10 @@ class PimcoreS3FolderMappingDao
 
         if($pimcoreObjectId){
             $sql = "INSERT INTO ".self::MAPPING_TABLE_NAME."(pimcore_object_id,pimcore_path,s3_path)";
-            $sql .= " VALUES(".$pimcoreObjectId.",'".$pimcorePath."','".$s3Path."'".") ";
+            $sql .= " VALUES(".$pimcoreObjectId.",". $this->db->quote($pimcorePath).",".$this->db->quote($s3Path).") ";
         }else{
             $sql = "INSERT INTO ".self::MAPPING_TABLE_NAME."(pimcore_path,s3_path)";
-            $sql .= " VALUES('".$pimcorePath."','".$s3Path."'".") ";
+            $sql .= " VALUES(".$this->db->quote($pimcorePath).",".$this->db->quote($s3Path)."".") ";
         }
 
         $result = $this->db->exec($sql);
@@ -40,7 +40,7 @@ class PimcoreS3FolderMappingDao
 
     public function doesS3PathExist($s3Path){
         $sql = "SELECT pimcore_path FROM ".self::MAPPING_TABLE_NAME;
-        $sql .= " WHERE s3_path = '".$s3Path."'";
+        $sql .= " WHERE s3_path = ".$this->db->quote($s3Path);
 
         $result = $this->db->fetchOne($sql);
         if($result){
@@ -58,8 +58,8 @@ class PimcoreS3FolderMappingDao
 //        $sql .= " SET pimcore_path = REPLACE(pimcore_path,"."'".$oldFolderPath."','".$newFolderPath."')";
 //        this is because we don't want to replace all occurrences of $oldFolderPathLen in pimcore_path
 //        we just want to replace the first occurrence
-        $sql .= " SET pimcore_path = CONCAT('$newFolderPath',SUBSTRING(pimcore_path,".($oldFolderPathLen + 1)."))";
-        $sql .= " WHERE pimcore_path LIKE '".$oldFolderPath."%' ";
+        $sql .= " SET pimcore_path = CONCAT(" . $this->db->quote($newFolderPath) . ",SUBSTRING(pimcore_path,".($oldFolderPathLen + 1)."))";
+        $sql .= " WHERE pimcore_path LIKE ".$this->db->quote($oldFolderPath."%");
 
         $result = $this->db->executeUpdate($sql);
         return $result;
@@ -68,7 +68,7 @@ class PimcoreS3FolderMappingDao
     public function addPimcoreIdForPimcorePath($pimcoreFolderPath,$folderId){
         $sql = "UPDATE ".self::MAPPING_TABLE_NAME;
         $sql .= " SET pimcore_object_id=".$folderId;
-        $sql .= " WHERE pimcore_path = '".$pimcoreFolderPath."'";
+        $sql .= " WHERE pimcore_path = ". $this->db->quote($pimcoreFolderPath);
 
         $result = $this->db->executeUpdate($sql);
         return $result;
@@ -85,7 +85,7 @@ class PimcoreS3FolderMappingDao
     public function deleteOldEntriesForGivenPimcoreObjectIdAndNewPath($pimcoreObjectId,$newPath){
         $sql = " DELETE FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_object_id = ".$pimcoreObjectId;
-        $sql .= " AND pimcore_path != '".$newPath."'";
+        $sql .= " AND pimcore_path != ". $this->db->quote($newPath);
 
         $result = $this->db->executeUpdate($sql);
         return $result;
@@ -101,7 +101,7 @@ class PimcoreS3FolderMappingDao
 
     public function deleteEntryForPimcorePath($pimcorePath){
         $sql = "DELETE FROM ".self::MAPPING_TABLE_NAME;
-        $sql .= " WHERE pimcore_path = '".$pimcorePath."'";
+        $sql .= " WHERE pimcore_path = ". $this->db->quote($pimcorePath);
 
         $result = $this->db->executeUpdate($sql);
         return $result;
@@ -109,7 +109,7 @@ class PimcoreS3FolderMappingDao
 
     public function deleteParentChildEntriesForParentPimcorePath($pimcorePath){
         $sql = "DELETE FROM ".self::MAPPING_TABLE_NAME;
-        $sql .= " WHERE pimcore_path LIKE '".$pimcorePath."%' ";
+        $sql .= " WHERE pimcore_path LIKE ".$this->db->quote($pimcorePath."%");
 
         $result = $this->db->executeUpdate($sql);
         return $result;
