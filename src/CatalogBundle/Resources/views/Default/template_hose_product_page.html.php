@@ -223,17 +223,19 @@ if ($data):
                                         <div class="specs">
                                             <h6><?= $this->translate('specs') ?></h6>
                                             <div class="spec-requirement">
+                                                <?php if ($standardMetHoseListData): ?>
                                                 <div class="col-6">
-                                                    <?php if ($standardMetHoseListData): ?>
-
-                                                        <?php foreach ($standardMetHoseListData as $key => $standard): ?>
-                                                            <?= $this->input("standardMetHose{$incr}_{$key}")->setDataFromResource($standard['CustomerFacingVersion']) ?>
-                                                            <p><?= $standard['name'] ?></p>
-                                                        <?php endforeach; ?>
-
-                                                    <?php endif; ?>
-                                                    <?= $this->input("customer_data_{$incr}_{$key}",['placeholder'=>'Enter data']) ?>
+                                                        <?php 
+                                                            $hoseMetCount = 0;
+                                                            foreach ($standardMetHoseListData as $key => $standard): ?>
+                                                            <?= $this->input("standardMetHose{$incr}_{$hoseMetCount}")->setDataFromResource($key) ?>
+                                                            <p><?= implode('<br>',$standard); ?></p>
+                                                        <?php
+                                                            $hoseMetCount++; 
+                                                            endforeach; 
+                                                        ?>
                                                 </div>
+                                                <?php endif; ?>
                                                 <div class="col-6">
                                                     <?php if (!empty(trim($tubeMaterialAtrributeString))): ?>
                                                         <p>
@@ -357,6 +359,7 @@ if ($data):
                                 <?php endforeach; ?>
 
                             </table>
+                            <p class="small"><?= $this->input("customer_data_{$incr}_{$key}", ['placeholder' => 'Enter comment']); ?></p>
                         </section>
 
                     </article>

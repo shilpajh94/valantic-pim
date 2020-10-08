@@ -168,7 +168,19 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <h6><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
 
-                           <?php if(!empty(trim($materialString)) || (!empty(trim($temperatureRangeFAndC)))): ?>
+                           <?php if($safetyFeatures || !empty(trim($materialString)) || (!empty(trim($temperatureRangeFAndC)))): ?>
+                            
+                                <?php if ($safetyFeatures): ?>
+                                        <div>
+                                        <?php foreach ($safetyFeatures as $key => $feature): ?>
+                                                <p  class="flex">
+                                                <font> <?= $feature['name'] ?></font>
+                                                </p>
+                                        <?php endforeach; ?>
+
+                                        </div>
+                                <?php endif; ?>
+
                             <div>
                                 <?php if(!empty(trim($temperatureRangeFAndC))): ?>
                                 <p class="small">     
@@ -276,7 +288,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php endforeach; ?>
 
         </table>
-
+        <p class="small"><?= $this->input('HHAS_note' . $incr, ['placeholder' => 'Enter comment']); ?></p>
         <?php 
 
         $incr++;

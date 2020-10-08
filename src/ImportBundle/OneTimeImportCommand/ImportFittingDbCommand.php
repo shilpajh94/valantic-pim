@@ -39,7 +39,7 @@ class ImportFittingDbCommand extends AbstractCommand
         echo "Script started.\n";
         echo "Processing has been started for file: ".$input_file.".\n\n";
 
-        if (!file_exists(self::FITTING_DB_LOG_DIR)) 
+        if (!file_exists(self::FITTING_DB_LOG_DIR))
             mkdir(self::FITTING_DB_LOG_DIR);
 
         $filePath = self::FITTING_DB_LOG_DIR.'fittingDb-import-'.time().'.csv';
@@ -67,7 +67,7 @@ class ImportFittingDbCommand extends AbstractCommand
                 {
                     $errorsData = $this->updateBrickData($record);
                 }
-                
+
                 if(isset($errorsData['SUCCESS']))
                 {
                     echo $errorsString = "SUCCESS: ".$errorsData['SUCCESS']."\n";
@@ -94,7 +94,7 @@ class ImportFittingDbCommand extends AbstractCommand
             $countMsg .= "\nUpdated Records:".$this->successCount.", ";
             $countMsg .= "\nFailed Records:".$this->failedCount."\n";
 
-            if ($this->failedCount > 0) 
+            if ($this->failedCount > 0)
             {
                 echo "Fitting db import command failed to import {$this->failedCount} Record(s) out of {$dataCount} Record(s)".$countMsg;
             }else
@@ -117,7 +117,7 @@ class ImportFittingDbCommand extends AbstractCommand
         $errorsData = array();
         $materialKey = $data['SAP Number'];
         $product = $this->getMaterialObject($materialKey);
-        
+
         if($product)
         {
             $allBricks = $product->getFert();
@@ -125,7 +125,7 @@ class ImportFittingDbCommand extends AbstractCommand
             $isMaterialUpdated = false;
             foreach ($allBricksGetters as $key => $brick) {
                 $brickData = $product->getFert()->$brick();
-                
+
                 if($brickData && ($brickData->getType() == 'HydFittingsFert'))
                 {
                     $partialPartNumberArray = explode('-',$data['Descriptive Part Number']);
@@ -134,7 +134,7 @@ class ImportFittingDbCommand extends AbstractCommand
 
                     if($NomenClatureObj)
                     {
-                        
+
                         $fittingFamilyObj = $NomenClatureObj->getFittingFamily();
                         $familyArray = array();
                         foreach($fittingFamilyObj as $key => $family)
@@ -143,13 +143,13 @@ class ImportFittingDbCommand extends AbstractCommand
                             $familyArray[] = $familyDetails->getName();
                         }
 
-                        $brickData->setHydFittingFamily($familyArray); 
-                        $brickData->setHydThreadDescription(''); 
-                        $brickData->setElbowType($NomenClatureObj->getElbowType());
+                        $brickData->setHydFittingFamily($familyArray);
+                        $brickData->setHydThreadDescription('');
+//                        $brickData->setElbowType($NomenClatureObj->getElbowType());
                     }
 
                     $isMaterialUpdated = true;
-                    
+
 //                    $brickData->setActivantNumber($data['Activant Number']);
                     $brickData->setAssemblyRevisionNumber($data['Assembly Revision Number']);
                     $brickData->setComments($data['Comments']);
@@ -164,7 +164,7 @@ class ImportFittingDbCommand extends AbstractCommand
                     $dropLengthUnit = $this->unitConverter->getGroupWithValues('DropLengthIN', floatval($data['Drop Length']));
                     $brickData->setDropLengthIN($dropLengthUnit['DropLengthIN']);
                     $brickData->setDropLengthMM($dropLengthUnit['DropLengthMM']);
-                    
+
                     $OverallLengthUnit = $this->unitConverter->getGroupWithValues('OverallLengthIN', floatval($data['Overall Length']));
                     $brickData->setOverallLengthIN($OverallLengthUnit['OverallLengthIN']);
                     $brickData->setOverallLengthMm($OverallLengthUnit['OverallLengthMm']);
@@ -205,7 +205,7 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setStemHexinchFraction($data['Stem Hex inch Fraction']);
                     $brickData->setStemHexMM($data['Stem Hex mm']);
                     $brickData->setStemMaterial($data['Stem Material']);
-                    
+
                     if(empty(trim($record['Stem Rev Date'])))
                     {
                         $StemRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Stem Rev Date']))));
@@ -304,7 +304,7 @@ class ImportFittingDbCommand extends AbstractCommand
                     $product->save();
                     $errorsData['SUCCESS'] = "SAP Number ".$materialKey. " has been updated. \n";
                 }
-                
+
                 unset($brickData);
             }
 
@@ -324,12 +324,12 @@ class ImportFittingDbCommand extends AbstractCommand
      * return material object or false
      */
     public function getMaterialObject($MaterialKey){
-        
+
         $objectMaterial = new DataObject\Product\Listing();
         $objectMaterial->setCondition("articleNumber LIKE ?", "%".$MaterialKey."%");
         $objectMaterial->setLimit(1);
         $objectMaterial->load();
-        
+
         foreach ($objectMaterial as $material) {
             return $material;
         }
@@ -341,12 +341,12 @@ class ImportFittingDbCommand extends AbstractCommand
      * return material object or false
      */
     public function getNomenClatureObject($Key){
-        
+
         $objectNomenClature = new DataObject\NomenClature\Listing();
         $objectNomenClature->setCondition("o_key LIKE ?", "%".$Key."%");
         $objectNomenClature->setLimit(1);
         $objectNomenClature->load();
-        
+
         foreach ($objectNomenClature as $nomenClature) {
             return $nomenClature;
         }

@@ -24,15 +24,7 @@ if($groupData):
 
                 <div id="pageHeader"></div>
                 <span class="pageName">
-                        <?php if($this->editmode): ?>
-                            <?php if($this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->isEmpty()): ?>
-                                    <?= $this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"])->setDataFromResource($groupData['siop3Category']."/".$groupData['siop4Category']) ?>
-                            <?php else: ?>
-                                    <?= $this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]); ?>
-                            <?php endif; ?>
-                        <?php else: ?>
-                                <?= $this->input("INH_Fitting_Header", ["placeholder" => "SIOP 3 Category / SIOP 4 Category"]) ?>
-                        <?php endif; ?>
+                        <?= $groupData['siop3Category']." - ".$groupData['siop4Category']; ?>
                 </span>
 
                 <div class="footer">

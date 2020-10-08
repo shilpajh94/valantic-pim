@@ -258,6 +258,7 @@ extract($brand);
                 <?php endforeach; ?>
 
         </table>
+        <p class="small"><?= $this->input('HHAC_note' . $key, ['placeholder' => 'Enter comment']); ?></p>
        <?php 
 
         endforeach; 

@@ -584,7 +584,7 @@ class ProductSQLModel
             $this->localisedQueryTableDataArray[$lang][] = [
                 'ooo_id' => $objId,
                 'language' => $lang,
-                'sapDescription' => $record['2']
+                'sapDescription' => $value
             ];
         }
     }
