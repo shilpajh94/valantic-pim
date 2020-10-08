@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-03T19:11:33+02:00
+* Generated at: 2020-10-08T12:44:01+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -13,6 +13,7 @@ Fields Summary:
 - Industry [select]
 - Level [numeric]
 - nomenclatureHierarchy [booleanSelect]
+- SortOrder [numeric]
 - ParentObjectId [numeric]
 - ParentCategoryCode [input]
 - RelatedObjectBrick [multiselect]
@@ -32,7 +33,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1596474693,
+   'modificationDate' => 1602153841,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -316,6 +317,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => false,
+                          )),
+                          4 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'fieldtype' => 'numeric',
+                             'width' => '',
+                             'defaultValue' => NULL,
+                             'queryColumnType' => 'double',
+                             'columnType' => 'double',
+                             'phpdocType' => 'float',
+                             'integer' => false,
+                             'unsigned' => false,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'name' => 'SortOrder',
+                             'title' => 'Sort Order',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => NULL,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'datatype' => 'data',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => false,
+                             'defaultValueGenerator' => '',
                           )),
                         ),
                          'locked' => false,

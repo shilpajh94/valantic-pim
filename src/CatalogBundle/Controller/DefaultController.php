@@ -973,7 +973,7 @@ if(isset($data[$baseId])) {
 
                                 if($bkey == $headerKeysIndex['standardMetHose'])
                                 {
-                                    if(count($value)>0)
+                                    if($value && count($value)>0)
                                     {
                                         foreach ($value as $standardMetHosekey => $standardMetHoseValue) {
                                             array_push($standardsMetHose,$standardMetHoseValue);
@@ -1006,7 +1006,15 @@ if(isset($data[$baseId])) {
                             if($ckey == 'INHFittingFamily')
                                 $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
                             else
-                                $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                            {
+                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
+                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
+                                    $articlesData[$key][] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                                }
+                                else{
+                                    $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
+                                }
+                            }
                         }
 
                     endforeach; 
@@ -1039,7 +1047,7 @@ if(isset($data[$baseId])) {
                     {
                         foreach ($standardsMetHose as $fkey => $fvalue) {
                             if(isset($standardMetHoseList[$fvalue]))
-                                $standardMetHoseListData[] = array('name'=>$standardMetHoseList[$fvalue]['name'], 'CustomerFacingVersion' => $standardMetHoseList[$fvalue]['CustomerFacingVersion']);
+                                $standardMetHoseListData[$standardMetHoseList[$fvalue]['CustomerFacingVersion']][] = $standardMetHoseList[$fvalue]['name'];
                         }
                     }
 
@@ -1124,6 +1132,8 @@ if(isset($data[$baseId])) {
             $columnsData = json_decode($columnsData, true);
             $columnsDataWithImages = array();
 
+            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
@@ -1172,6 +1182,7 @@ if(isset($data[$baseId])) {
                     $articlesData = array();
                     $color = array();
                     $availableLength = array();
+                    $safetyFeatures = array();
                     
                     foreach($brandArray as $key => $element): 
 
@@ -1197,6 +1208,15 @@ if(isset($data[$baseId])) {
                                 $temperatureRangeFAndC = $element[$headerKeysIndex['temperatureRangeFAndC']];
         
                             foreach($element as $bkey => $value): 
+                                    if($bkey == $headerKeysIndex['FeaturesBenefitsBulletPoint'])
+                                    {
+                                        if(count($value)>0)
+                                        {
+                                            foreach ($value as $fkey => $feature) {
+                                                array_push($safetyFeatures,$feature);
+                                            }
+                                        }
+                                    }
                                     if($bkey == $headerKeysIndex['MaterialType'])
                                         $material = array_merge($material, $value);
                                     if($bkey == $headerKeysIndex['Color'])
@@ -1206,8 +1226,13 @@ if(isset($data[$baseId])) {
                             endforeach; 
         
                             foreach ($orderKeys as $ckey => $cvalue) {
-        
-                                $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
+                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
+                                    $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                                }
+                                else{
+                                    $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
+                                }
                             }
 
                     endforeach; 
@@ -1215,6 +1240,23 @@ if(isset($data[$baseId])) {
                     $color = array_unique($color);
                     $material = array_unique($material);
                     $availableLength = array_unique($availableLength);
+                    $safetyFeatures = array_unique($safetyFeatures);
+
+                    $safetyFeaturesListWithImage = array();
+                    $safetyFeaturesListWithOutImage = array();
+
+                    if($safetyFeatures)
+                    {
+                        foreach ($safetyFeatures as $fkey => $fvalue) {
+                            if($featuresList[$fvalue]['icon'])
+                                $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                            else
+                                $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon']);
+                        }
+                    }
+
+                    $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    
 
                     $colorString = implode(', ', $color);
                     $materialString = implode(', ', $material);
@@ -1231,6 +1273,7 @@ if(isset($data[$baseId])) {
                     $data[$brandKey]['iconRequired'] = $iconRequired;
                     $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
                     $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
 
                     array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
                     $data[$brandKey]['articlesData'] = $articlesData;
@@ -1348,8 +1391,13 @@ if(isset($data[$baseId])) {
                     endforeach; 
 
                     foreach ($orderKeys as $ckey => $cvalue) {
-
-                        $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                        if(is_numeric($element[$headerKeysIndex[$ckey]])){
+                            $float_value = (float) $element[$headerKeysIndex[$ckey]];
+                            $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                        }
+                        else{
+                            $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
+                        }
                     }
 
                 endforeach; 
@@ -1475,7 +1523,13 @@ if(isset($data[$baseId])) {
                         $articlesData = array();
 
                         foreach ($orderKeys as $ckey => $cvalue) {
+                            if(is_numeric($item[$cvalue])){
+                                $float_value = (float) $item[$cvalue];
+                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                            }
+                            else{
                                 $articlesData[] = $item[$cvalue];
+                            }
                         }
 
                         $brandData[$brandName]['articlesData'][] = $articlesData;
@@ -1583,7 +1637,7 @@ if(isset($data[$baseId])) {
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
             
-            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+            
 
             $catalogGrouping = array();
             
@@ -1606,6 +1660,7 @@ if(isset($data[$baseId])) {
                     $temperatureRangeFAndC = '';
                     $industryStandard = '';
                     $CatalogGrouping = '';
+                    $CatalogPackaging = '';
 
                     $tubeMaterial = array();
                     $reinforcement = array();
@@ -1615,6 +1670,9 @@ if(isset($data[$baseId])) {
                     foreach($brandArray as $key => $element): 
 
                         $brandName = $element[$headerKeysIndex['brandName']][0];
+
+                        if(empty($CatalogPackaging) && $element[$headerKeysIndex['Packaging']])
+                                $CatalogPackaging = $element[$headerKeysIndex['Packaging']];
 
                         if(empty($VirtualCatalogTubeMaterial) && $element[$headerKeysIndex['VirtualCatalogTubeMaterial']])
                                 $VirtualCatalogTubeMaterial = $element[$headerKeysIndex['VirtualCatalogTubeMaterial']];
@@ -1645,7 +1703,7 @@ if(isset($data[$baseId])) {
                                     if($value)
                                         $workingPressurePSI[] = $value;
                                 }
-                                if($bkey == $headerKeysIndex['INHFittingFamily'])
+                                if(($bkey == $headerKeysIndex['INHFittingFamily']) && $value)
                                     $fittingFamily = array_merge($fittingFamily, $value);
 
                         endforeach; 
@@ -1672,6 +1730,10 @@ if(isset($data[$baseId])) {
                     $reinforcement = implode(', ', $reinforcement);
                     $fittingFamily = implode(', ', $fittingFamily);
 
+                    $VirtualCatalogTubeMaterialStr = $VirtualCatalogTubeMaterial;
+                    if(empty($VirtualCatalogTubeMaterialStr))
+                        $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
+
                     $VirtualCatalogCoverMaterialStr = $VirtualCatalogCoverMaterial;
                         if(empty($VirtualCatalogCoverMaterialStr))
                             $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
@@ -1687,7 +1749,9 @@ if(isset($data[$baseId])) {
                     $data[$brandKey]['industryStandard'] = $industryStandard;
                     $data[$brandKey]['CatalogGrouping'] = $CatalogGrouping;
                     $data[$brandKey]['workingPressurePSIString'] = $workingPressurePSIString;
-                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogCoverMaterialStr;
+                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
+                    $data[$brandKey]['CatalogPackaging'] = $CatalogPackaging;
+                    
                 }
                 $catalogGroupData[$catalogKey] = $data;
             }
@@ -1792,7 +1856,13 @@ if(isset($data[$baseId])) {
                                 $shortDescription = $element[$headerKeysIndex['shortDescription']];
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                $articlesData[$key][$ckey] = ($element[$headerKeysIndex[$ckey]])? ($element[$headerKeysIndex[$ckey]]): '';
+                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
+                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
+                                    $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                                }
+                                else{
+                                    $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
+                                }
                             }
 
                     endforeach; 
@@ -2133,7 +2203,13 @@ if(isset($data[$baseId])) {
                         $item[] = $listPrice;
                         
                         foreach ($orderKeys as $ckey => $cvalue) {
+                            if(is_numeric($item[$cvalue])){
+                                $float_value = (float) $item[$cvalue];
+                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
+                            }
+                            else{
                                 $articlesData[] = $item[$cvalue];
+                            }
                         }
 
                         $brandsData[$siop6Category][] = $articlesData;

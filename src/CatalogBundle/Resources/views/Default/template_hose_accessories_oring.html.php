@@ -230,7 +230,9 @@ if ($data):
                                             <?php endforeach; ?>
 
                                         </table>
+                                        <p class="small"><?= $this->input('HHAO_note' . $tableCount, ['placeholder' => 'Enter comment']); ?></p>
                                     </div>
+                                    
                                     <?php $tableCount++;
                                 endforeach;
                             endif; ?>

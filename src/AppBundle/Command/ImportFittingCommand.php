@@ -82,7 +82,7 @@ class ImportFittingCommand extends AbstractCommand
                         $hydFert->setHex2WrenchSizeMM($row['Hex2WrenchSizeMM']);
                         $hydFert->setThreadSize1InDecimal($row['ThreadSize1InDecimal']);
                         $hydFert->setThreadSize2InDecimal($row['ThreadSize2InDecimal']);
-                        $hydFert->setElbowType($row['Elbow Type']);
+//                        $hydFert->setElbowType($row['Elbow Type']);
                     }
 
                     if (!empty($accFert)) {
@@ -99,7 +99,7 @@ class ImportFittingCommand extends AbstractCommand
             p_r($th->getMessage());
         }
     }
-    
+
     private function masterSelectSampleData($filePath) {
         try {
             $results = $this->getCSVData($filePath);
@@ -116,13 +116,13 @@ class ImportFittingCommand extends AbstractCommand
                         $obj->setKey($row['Name']);
                         $obj->setMasterType($row['Type']);
                         $obj->setName($row['Name']);
-                        $obj->save();                        
+                        $obj->save();
                         p_r($obj->getId());
                     } else {
                         $obj->setPublished(1);
                         $obj->save();
                     }
-                    
+
                 }
             }
         } catch (\Throwable $th) {
@@ -136,7 +136,7 @@ class ImportFittingCommand extends AbstractCommand
         $listing = new \Pimcore\Model\DataObject\Product\Listing;
         $listing->setCondition("articleNumber LIKE :articleNumber", ["articleNumber" => $sapNumber]);
         $listing->setLimit(1);
-        foreach ($listing as $obj) {                        
+        foreach ($listing as $obj) {
             return $obj;
         }
     }

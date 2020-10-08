@@ -22,15 +22,7 @@ if (!isset($this->parentContainer)) {
 
    <div id="pageHeader"></div>
     <span  class="pageName">
-    <?php if($this->editmode): ?>
-            <?php if($this->input("INH_Fitting_Cover_Header")->isEmpty()): ?>
-                    <?= $this->input("INH_Fitting_Cover_Header")->setDataFromResource($selectedCategory) ?>
-            <?php else: ?>
-                    <?= $this->input("INH_Fitting_Cover_Header"); ?>
-            <?php endif; ?>
-    <?php else: ?>
-            <?= $this->input("INH_Fitting_Cover_Header") ?>
-    <?php endif; ?>
+        <?= $selectedCategory; ?>
     </span>
         <div class="footer">
             <footer class="flex-center <?php echo $footer_class; ?>">

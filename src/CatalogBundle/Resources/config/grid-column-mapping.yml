@@ -40,6 +40,12 @@ parameters:
                 fieldLabel: Industry Standard
                 parent: 
                     name: Product
+            Packaging:
+                fieldLevel: objectBrick
+                fieldType: Input
+                fieldLabel: Catalog Packaging
+                parent: 
+                    name: HoseBase
             VirtualCatalogTubeMaterial:
                 fieldLevel: objectBrick
                 fieldType: Wysiwyg
@@ -323,6 +329,15 @@ parameters:
                 fieldLabel: 'Length'
                 parent:
                     name: AccessoriesFert
+            FeaturesBenefitsBulletPoint:
+                fieldLevel: class
+                fieldType: Relation
+                fieldLabel: Features ID
+                parent:
+                    name: Product
+                    class:
+                        name: Features
+                        fieldName: id
         Hose Accessories Clamps: 
             longDescription:
                 fieldLevel: class

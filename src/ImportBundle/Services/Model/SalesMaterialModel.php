@@ -147,9 +147,9 @@ class SalesMaterialModel
             echo "Total {$deltaCount} Delta records found...".PHP_EOL;
             if($deltaCount > 0)
             {
-                $j = 63;
+                $j = 1;
 
-                $i = 62000;
+                $i = 0;
                 $length = ImportConstants::IMPORT_BATCH_SIZE;
                 while ($i<$deltaCount) {
                     $offset = $i;
@@ -485,14 +485,14 @@ class SalesMaterialModel
                         $level = 3;
                         $flag = true;
                     } else {
-//                        $level = '';
-//                        $product = DataObject\Product::getById($objectId);
-//                        $currentPath = $product->getPath();
-//                        $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
-//                        $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path)."/";
-//                        if ($siopProductPath == $currentPath) {
-//                            $flag = true;
-//                        }
+                        $level = '';
+                        $product = DataObject\Product::getById($objectId);
+                        $currentPath = $product->getPath();
+                        $siopLevel3Path = $product->getSIOPLevel3()[0]->getFullpath();
+                        $siopProductPath = $this->convertCategoryPathToProduct($siopLevel3Path)."/Quote/";
+                        if ($siopProductPath == $currentPath) {
+                            $flag = true;
+                        }
                     }
                     if ($flag) {
                         $product = DataObject\Product::getById($objectId);
@@ -519,7 +519,7 @@ class SalesMaterialModel
         if ($level == 3) {
             $siopLevel3 = $object->getSIOPLevel3()[0];
             $siopPath = $siopLevel3->getFullpath();
-            $productPath = $this->convertCategoryPathToProduct($siopPath);
+            $productPath = $this->convertCategoryPathToProduct($siopPath)."/Quote";
             $productFolderId = $this->getFolderByPath($productPath);
             return ['success' => true, "parentId" => $productFolderId, "parentPath" => $productPath];
         } else {
