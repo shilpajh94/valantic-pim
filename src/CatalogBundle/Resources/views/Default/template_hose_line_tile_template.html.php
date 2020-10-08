@@ -215,7 +215,7 @@ $featuresFooter = false;
             $iccnt = 0;
             if (isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
                 foreach ($row['featureIcon'] as $iccntKey => $featureIcon) {
-                if($iccnt<=2){
+                if($iccnt<=3){
                     if ($this->image('productLogo' . $key . $iccnt)->isEmpty() && !is_null($featureIcon['icon'])) {
                         echo $this->image('productLogo' . $key . $iccnt, [
                             "width" => $featureIcon['icon']->getWidth(),
@@ -241,7 +241,7 @@ $featuresFooter = false;
                 }
             }
 
-            for ($iccnt = $iccnt; $iccnt <= 2; $iccnt++) {
+            for ($iccnt = $iccnt; $iccnt <= 3; $iccnt++) {
                 echo $this->image('productLogo' . $key . $iccnt, [
                     "width" => 91,
                     "height" => 53,

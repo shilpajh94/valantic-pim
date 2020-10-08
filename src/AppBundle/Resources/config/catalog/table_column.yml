@@ -78,15 +78,15 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseFert
-            INHFittingFamily:
+            HydFittingFamily:
                 fieldLevel: objectBrick
-                fieldLabel: 'Fitting Family'
                 fieldType: Relation
+                fieldLabel: Fitting Family
                 parent:
-                    name: HoseSkeleton
+                    name: HydFittingsFert
                     class:
-                       name: FittingFamily
-                       fieldName: Name    
+                        name : FittingFamily
+                        fieldName: Name
     PTG Product Page:
         Synchronous Belts:
             industryStandard:
