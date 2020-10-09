@@ -144,10 +144,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         echo $this->image("HHAFC_Image", ["width" => 400, "height" => 300]); 
                 }
                 else{
-                $imgSrcObj =  $this->image("HHAFC_Image", ["width" => 400, "height" => 300]); 
-                ?>
-                <img src="<?= $imgSrcObj->getSrc(); ?>" height="300" width="400"/>
-                <?php } ?>
+                        $imgSrcObj =  $this->image("HHAFC_Image"); 
+                
+                        if($imgSrcObj)
+                        {
+                        ?>
+                        <img src="<?= $imgSrcObj->getSrc(); ?>" height="300" width="400"/>
+                        <?php 
+                        }
+                } ?>
             </span>
         </figure>
         <?php

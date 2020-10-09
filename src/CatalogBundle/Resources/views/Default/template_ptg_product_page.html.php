@@ -160,10 +160,14 @@ if($groupData):
                                         echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
                                 }else{
                                         if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
-                                                $imgSrcObj1 = $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
-                                                ?>
-                                                <img src="<?= $imgSrcObj1->getSrc(); ?>"width="400" height="200"/>
-                                                <?php
+                                                $imgSrcObj1 = $this->image("HHPP_Image_Left_{$incr}");
+                                                
+                                        if($imgSrcObj1)
+                                        {
+                                        ?>
+                                        <img src="<?= $imgSrcObj1->getSrc(); ?>"width="400" height="200"/>
+                                        <?php
+                                        }
                                 }                
                                 ?>
 
@@ -172,10 +176,14 @@ if($groupData):
                                         echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
                                 }else{
                                         if(!$this->image("Drawing_Picture_{$incr}")->isEmpty())
-                                                $imgSrcObj2 = $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
-                                                ?>
-                                                <img src="<?= $imgSrcObj2->getSrc(); ?>"width="400" height="200"/>
-                                                <?php
+                                                $imgSrcObj2 = $this->image("Drawing_Picture_{$incr}");
+
+                                        if($imgSrcObj2)
+                                        {
+                                        ?>
+                                        <img src="<?= $imgSrcObj2->getSrc(); ?>"width="400" height="200"/>
+                                        <?php
+                                        }
                                 }                
                                 ?>
                         </span>

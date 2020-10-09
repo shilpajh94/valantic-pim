@@ -193,11 +193,15 @@ extract($brand);
                 if ($this->editmode) {
                 echo $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj);
                 } else {
-                if(!$this->image("HHAC_Image")->isEmpty())
-                        $imgSrcObj =  $this->image("HHAC_Image", ["width" => 200, "height" => 200]);
+                        if(!$this->image("HHAC_Image")->isEmpty())
+                                $imgSrcObj =  $this->image("HHAC_Image");
+                        
+                        if($imgSrcObj)
+                        {
                         ?>
                         <img src="<?= $imgSrcObj->getSrc(); ?>" height="200" width="200"/>
                         <?php
+                        }
                 }
                 ?>
            

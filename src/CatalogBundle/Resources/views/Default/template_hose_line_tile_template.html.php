@@ -149,9 +149,13 @@ $featuresFooter = false;
                                         "quality" => 95,
                                         "format" => "PNG"
                                     ]);
+
+                                    if($imgSrcObj1)
+                                    {
                                     ?>
                                                 <img src="<?= $imgSrcObj1->getSrc(); ?>"width="92" height="240"/>
                                                 <?php
+                                    }
                                 }
                                 ?>
                                     </span>
@@ -252,9 +256,12 @@ $featuresFooter = false;
                     else
                     {
                         $imgSrcObj2 = $this->image('productLogo' . $key . $iccnt);
+                        if($imgSrcObj2)
+                        {
                         ?>
                         <img src="<?= $imgSrcObj2->getSrc(); ?>" width="91" height="53"/>
                         <?php
+                        }
                     }
                 }
             }
