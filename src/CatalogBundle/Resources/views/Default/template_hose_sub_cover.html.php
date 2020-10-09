@@ -47,10 +47,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                         if($this->editmode)
                                                 echo $this->image("HHSC_Footer_Image", ["width" => 40]); 
                                         else{
-                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image", ["width" => 40]); 
+                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image"); 
+                                                if($imgSrcObj4)
+                                                {
                                                 ?>
                                                 <img src="<?= $imgSrcObj4->getSrc(); ?>" width="40"/>
                                                 <?php
+                                                }
                                         }
                                         ?>
                                         <font> 
@@ -78,10 +81,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                         if($this->editmode)
                                                 echo $this->image("HHSC_Footer_Image1", ["width" => 40]); 
                                         else{
-                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1", ["width" => 40]); 
+                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1"); 
+                                                if($imgSrcObj3)
+                                                {
                                                 ?>
                                                 <img src="<?= $imgSrcObj3->getSrc(); ?>" width="40"/>
                                                 <?php
+                                                }
                                         }
                                         ?>
                                         <font> 
@@ -121,9 +127,12 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         echo $this->image("HHSC_Image"); 
                 else{
                         $imgSrcObj =  $this->image("HHSC_Image"); 
+                        if($imgSrcObj)
+                        {
                         ?>
                         <img src="<?= $imgSrcObj->getSrc(); ?>"/>
                         <?php
+                        }
                 }?>
         </header>
     
@@ -141,10 +150,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         if($this->editmode)
                                 echo $this->image("HHSC_Title_Image", ["width" => 50]); 
                         else{
-                                $imgSrcObj2 =  $this->image("HHSC_Title_Image", ["width" => 50]); 
+                                $imgSrcObj2 =  $this->image("HHSC_Title_Image"); 
+                                if($imgSrcObj2)
+                                {
                                 ?>
                                 <img src="<?= $imgSrcObj2->getSrc(); ?>" width="50"/>
                                 <?php
+                                }
                         }
                         ?>
                         </span>

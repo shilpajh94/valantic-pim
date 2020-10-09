@@ -75,9 +75,12 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 else
                 {
                     $imgSrcObj3 = $this->image('myCrampApp_f11');
+                    if($imgSrcObj3)
+                    {
                     ?>
                     <img src="<?= $imgSrcObj3->getSrc(); ?>" width="61" height="60"/>
                     <?php
+                    }
                 }
                 ?>
                 <span>
@@ -119,9 +122,12 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 else
                 {
                     $imgSrcObj4 = $this->image('myCrampApp_f1');
+                    if($imgSrcObj4)
+                    {
                     ?>
                     <img src="<?= $imgSrcObj4->getSrc(); ?>" width="61" height="60"/>
                     <?php
+                    }
                 }
                 ?>
                 <span>
@@ -195,18 +201,24 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 if ($this->editmode) {
                                     echo $this->image('catLeftImage' . $incr, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
                                 } else {
-                                    $imgSrcObj1 =  $this->image('catLeftImage' . $incr, ["class" => "lImg", "width" => 226, "height" => 150]);
+                                    $imgSrcObj1 =  $this->image('catLeftImage' . $incr);
+                                    if($imgSrcObj1)
+                                    {
                                     ?>
                                     <img src="<?= $imgSrcObj1->getSrc(); ?>" class="lImg" width="226" height="150"/>
                                     <?php
+                                    }
                                 }
                                 if ($this->editmode) {
                                     echo $this->image('catRightImage' . $incr, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
                                 } else {
-                                    $imgSrcObj2 = $this->image('catRightImage' . $incr, ["class" => "rImg", "width" => 226, "height" => 150]);
+                                    $imgSrcObj2 = $this->image('catRightImage' . $incr);
+                                    if($imgSrcObj2)
+                                    {
                                     ?>
                                     <img src="<?= $imgSrcObj2->getSrc(); ?>" class="rImg" width="226" height="150"/>
                                     <?php
+                                    }
                                 }
                                 ?>
                             </span>

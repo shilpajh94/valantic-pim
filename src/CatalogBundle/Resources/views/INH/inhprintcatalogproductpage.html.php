@@ -175,10 +175,14 @@ if (isset($info['brandsData'])) {
                                             echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
                                         } else {
                                             if(!$this->image("INH_MAIN_IMAGE_{$pg}")->isEmpty())
-                                                $imgSrcObj = $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128]);
+                                                $imgSrcObj = $this->image("INH_MAIN_IMAGE_{$pg}");
+
+                                            if($imgSrcObj)
+                                            {
                                             ?>
                                             <img src="<?= $imgSrcObj->getSrc(); ?>" width="1067" height="128"/>
                                             <?php
+                                            }
                                         }
                                         ?>
                                     </aside>
