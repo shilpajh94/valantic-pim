@@ -10,7 +10,8 @@ namespace B2BExportBundle\Services;
  */
 class Config {
 	// Required Constants for B2B Export
-	const PIMCORE_B2B_EXPORT_ROOT = PIMCORE_WEB_ROOT;
+//	const PIMCORE_B2B_EXPORT_ROOT = PIMCORE_WEB_ROOT;
+    const PIMCORE_B2B_EXPORT_ROOT = PIMCORE_PRIVATE_VAR;
 	const PIMCORE_B2B_EXPORT_DIRNAME = '/B2BExport/';
 	const PIMCORE_B2B_EXPORT_DIRPATH =  self::PIMCORE_B2B_EXPORT_ROOT . self::PIMCORE_B2B_EXPORT_DIRNAME;
 	const PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUP = 'CatalogGroups';
@@ -23,7 +24,7 @@ class Config {
 	const PIMCORE_B2B_EXPORT_FILENAME_ATTRVALSFACETS = 'AttrValsFacets';
 	const PIMCORE_B2B_EXPORT_FILENAME_ATTRVALCATENTRYFACETS = 'AttrValCatEntryFacets';
 	const PIMCORE_B2B_EXPORT_FILENAME_XMATERIALPLANT = 'xMaterialPlant';
-	
+
 	/**
 	* Getting CSV filename for catalog group
 	* @return String
@@ -32,8 +33,8 @@ class Config {
 	public static function catalogGroupFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUP . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUP .
 			'.csv'
 		);
 	}
@@ -46,8 +47,8 @@ class Config {
 	public static function catalogGroupDescFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUPDESC . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGGROUPDESC .
 			'.csv'
 		);
 	}
@@ -60,8 +61,8 @@ class Config {
 	public static function catalogEntriesFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGENTRIES . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGENTRIES .
 			'.csv'
 		);
 	}
@@ -74,8 +75,8 @@ class Config {
 	public static function catalogEntriesDescFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGENTRIESDESC . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_CATALOGENTRIESDESC .
 			'.csv'
 		);
 	}
@@ -88,12 +89,12 @@ class Config {
 	public static function	attrValsFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALS . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALS .
 			'.csv'
 		);
 	}
-	
+
 	/**
 	* Getting CSV filename for Attribute Value Catagory Entry
 	* @return String
@@ -102,12 +103,12 @@ class Config {
 	public static function	attrValCatEntryFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALCATENTRY . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALCATENTRY .
 			'.csv'
 		);
 	}
-	
+
 	/**
 	* Getting CSV filename for Attribute Facets
 	* @return String
@@ -116,12 +117,12 @@ class Config {
 	public static function	attributeFacetsFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRIBUTEFACETS . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRIBUTEFACETS .
 			'.csv'
 		);
 	}
-	
+
 	/**
 	* Getting CSV filename for Attribute Values Facets
 	* @return String
@@ -130,12 +131,12 @@ class Config {
 	public static function	attrValsFacetsFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALSFACETS . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALSFACETS .
 			'.csv'
 		);
 	}
-	
+
 	/**
 	* Getting CSV filename for Attribute Value Catagory Entry Facets
 	* @return String
@@ -144,12 +145,12 @@ class Config {
 	public static function	attrValCatEntryFacetsFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALCATENTRYFACETS . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_ATTRVALCATENTRYFACETS .
 			'.csv'
 		);
 	}
-	
+
 	/**
 	* Getting CSV filename for X Material Plant
 	* @return String
@@ -158,8 +159,8 @@ class Config {
 	public static function	xMaterialPlantFileName() {
 		return  (
 			self::PIMCORE_B2B_EXPORT_DIRPATH .
-			date('d-m-Y') . '/' .
-			self::PIMCORE_B2B_EXPORT_FILENAME_XMATERIALPLANT . 
+//			date('d-m-Y') . '/' .
+			self::PIMCORE_B2B_EXPORT_FILENAME_XMATERIALPLANT .
 			'.csv'
 		);
 	}

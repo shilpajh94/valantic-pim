@@ -1,6 +1,7 @@
 <?php
 namespace B2BExportBundle\Services\Model;
 
+use AppBundle\Logger\LogLevel;
 use Exception;
 use Pimcore\Db;
 use Pimcore\Log\Simple as Logger;
@@ -30,7 +31,7 @@ class Catalog {
 			');
 			return $productCategories;
 		} catch (Exception $e) {
-            Logger::log('b2bexport',"CatalogGroup Model Exception :: " .$e->getMessage());
+            \B2BExportBundle\Lib\Utils::log("CatalogGroup Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
 
@@ -64,7 +65,7 @@ class Catalog {
 
 	    	return $data;
 		} catch (Exception $e) {
-            Logger::log('b2bexport',"Catalog Group Description Model Exception :: " .$e->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Catalog Group Description Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
 
@@ -89,7 +90,7 @@ class Catalog {
             $result = Db::get()->fetchAll($categorySql);
             return $result;
         }catch (Exception $e) {
-            Logger::log('b2bexport',"Catalog Model Exception :: " .$e->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
         }
     }
 
@@ -136,7 +137,7 @@ class Catalog {
             return array_merge($categoryData,$subCategoryData, $fittingCategoryData);
         }catch (Exception $e) {
 
-            Logger::log('b2bexport',"Catalog Model Exception :: " .$e->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
         }
     }
 
@@ -248,8 +249,7 @@ class Catalog {
 
 	    	return $productMaster;
 		} catch (Exception $e) {
-		    p_r($e->getMessage());
-            Logger::log('b2bexport',"Catalog Entries Model Exception :: " .$e->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Catalog Entries Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
 
@@ -324,7 +324,7 @@ class Catalog {
 
             $newSql = "SELECT
                             oCommaSaperated.oo_id,
-                            oCommaSaperated.mainImage,
+                            oCommaSaperated.epixImage,
                             oCommaSaperated.articleNumber as partNo,
                             oCommaSaperated.manufacturerPartNumber as MFPartNumber,
                             oCommaSaperated.industryStandard,
@@ -357,7 +357,7 @@ class Catalog {
 	    	// returning product master and language master data
 	    	return ['productMaster' => $productMaster, 'languageMaster' => self::languageMaster()];
 		} catch (Exception $e) {
-            Logger::log('b2bexport',"Catalog Entries Description Model Exception :: " .$e->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Catalog Entries Description Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
 

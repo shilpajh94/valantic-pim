@@ -9,3 +9,10 @@ parameters:
     s3.secret: "a9gwy6KZlSA4v1gJPRDv2FTm6fw1CqQ0Jix3YLnR"
     s3.bucket: "continental-assets-input"
     s3.region: "eu-central-1"
+
+    b2b_export_sftp:
+        host: "upload.pimcoreclients.com"
+        port: 22
+        username: "rohit.sriwastva"
+        password: "R@H!T@4321"
+        path: "/vsftpd/rohit.sriwastva"

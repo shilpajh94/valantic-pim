@@ -2,6 +2,8 @@
 
 namespace B2BExportBundle\Services;
 
+use AppBundle\Lib\SFTPConnection;
+use AppBundle\Logger\LogLevel;
 use Exception;
 use Pimcore\Db;
 use Pimcore\File;
@@ -38,6 +40,8 @@ class Export {
      */
     const FITTINGS_CATEGORY_SAP_IDS = ['0415001510100'];
 
+    private $files = [];
+
 	/**
 	 * Execute generate Function
 	 *
@@ -50,37 +54,50 @@ class Export {
 			// Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupFileName();
 			$this->saveCatalogGroupsCSV($fileName);
+            $this->files[] = $fileName;
 //			 Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupDescFileName();
 			$this->saveCatalogGroupsDescCSV($fileName);
+            $this->files[] = $fileName;
 //			 Generating CSV for Catalog Entries
 			$fileName = Config::catalogEntriesFileName();
 			$this->saveCatalogEntriesCSV($fileName);        // taking too long
+            $this->files[] = $fileName;
 //			// Generating CSV for Catalog Entries Description
 			$fileName = Config::catalogEntriesDescFileName();
 			$this->saveCatalogEntriesDescCSV($fileName);    // taking too long
+            $this->files[] = $fileName;
 			// Generating CSV for Attribute Values
 			$fileName = Config::attrValsFileName();
 			$this->saveAttrValsCSV($fileName);
+            $this->files[] = $fileName;
 			// Generating CSV for Attribute Value Category Entry
 			$fileName = Config::attrValCatEntryFileName();
 			$this->saveAttrValCatEntryCSV($fileName);       // taking too long
+            $this->files[] = $fileName;
 			// Generating CSV for Attribute Facets
 			$fileName = Config::attributeFacetsFileName();
 			$this->saveAttributeFacetsCSV($fileName);
+            $this->files[] = $fileName;
 //			 Generating CSV for Catalog Entries
 			$fileName = Config::attrValsFacetsFileName();
 			$this->saveAttrValsFacetsCSV($fileName);
+            $this->files[] = $fileName;
 //			 Generating CSV for Catalog Entries
 			$fileName = Config::attrValCatEntryFacetsFileName();
 			$this->saveAttrValCatEntryFacetsCSV($fileName); // taking too long
+            $this->files[] = $fileName;
 			// Generating CSV for Catalog Entries
 			$fileName = Config::xMaterialPlantFileName();
 			$this->saveXMaterialPlantCSV($fileName);
+            $this->files[] = $fileName;
+
+            $this->sendFilesToSFTP();
 			// Returning Void
 			return;
 		} catch (Exception $e) {
-			Logger::log('b2bexport', $e->getMessage());
+            \B2BExportBundle\Lib\Utils::log($e->getMessage(),LogLevel::CRITICAL());
+//            Logger::log('b2bexport', $e->getMessage());
 		};
 	}
 
@@ -377,16 +394,23 @@ class Export {
 				// Filling CSV Data Rows
 				extract($item);
 				if ($siopFullCode != 04) {
-						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "");
+				        $object = '';
+				        if($item['epixImage'] != NULL){
+				            $asset = Asset::getById($item['epixImage']);
+//                            $object = $asset instanceof Asset ? Utils::getAssetFullPathCompatibleToS3($asset) : '';
+				            $object = $asset instanceof Asset ? $asset->getRealFullPath(): '';
+                        }
+//						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "");
 						$row[] = $partNo;
 						$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
 						$row[] = $languageMaster[$language];
 						$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
-						if(\Pimcore\Tool::getHostUrl() && $object != 'NULL'){
-							$row[] = \Pimcore\Tool::getHostUrl(). ltrim($object,'/');
-						} else {
-                            $row[] = $object;
-						}
+//						if($object != ''){
+//							$row[] = \Pimcore\Tool::getHostUrl(). ltrim($object,'/');
+//						} else {
+//                            $row[] = $object;
+//						}
+                        $row[] = $object;
 						fputcsv($fileResource, $row, ',');
 						unset($row);
 				}
@@ -866,4 +890,36 @@ class Export {
 	   }
 	   return $fieldName;
    }
+
+
+    private function sendFilesToSFTP()
+    {
+        try
+        {
+            $sftp = new SFTPConnection(B2B_EXPORT_SFTP_HOST, B2B_EXPORT_SFTP_PORT);
+            $sftp->login(B2B_EXPORT_SFTP_USERNAME, B2B_EXPORT_SFTP_PASSWORD);
+        }
+        catch (Exception $e)
+        {
+            \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP]".$e->getMessage(),LogLevel::CRITICAL());
+        }
+
+        foreach($this->files as $filePath){
+            if(file_exists($filePath)){
+                $basename = basename($filePath);
+                $uploadPath = B2B_EXPORT_SFTP_PATH."/".$basename;
+                try{
+                    $sftp->uploadFile($filePath, $uploadPath);
+                    \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] File  $basename uploaded to SFTP server successfully.",LogLevel::INFO());
+                    unlink($filePath);
+                }catch (\Exception $e){
+                    \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] Error uploading file $basename: ".$e->getMessage(),LogLevel::CRITICAL());
+                }
+            }
+
+        }
+
+    }
+
+
 }
