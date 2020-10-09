@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-10-08T12:46:40+02:00
+* Generated at: 2020-10-09T11:12:43+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -125,6 +125,7 @@ Fields Summary:
 - frontView [image]
 - sideView [image]
 - cutView [image]
+- epixImage [image]
 - Images360 [imageGallery]
 - Document [advancedManyToManyRelation]
 - BrandingLaylineAssets [manyToManyRelation]
@@ -144,7 +145,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1602153999,
+   'modificationDate' => 1602222160,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -7092,250 +7093,255 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                       1351 => 
                                       array (
+                                        'key' => 'WASHING MACHINE TUBING',
+                                        'value' => 1831550,
+                                      ),
+                                      1352 => 
+                                      array (
                                         'key' => 'WASTE MATE',
                                         'value' => 2546,
                                       ),
-                                      1352 => 
+                                      1353 => 
                                       array (
                                         'key' => 'WATER',
                                         'value' => 1829360,
                                       ),
-                                      1353 => 
+                                      1354 => 
                                       array (
                                         'key' => 'WATER & AIR HD',
                                         'value' => 2547,
                                       ),
-                                      1354 => 
+                                      1355 => 
                                       array (
                                         'key' => 'WATER 150 HD',
                                         'value' => 1829322,
                                       ),
-                                      1355 => 
+                                      1356 => 
                                       array (
                                         'key' => 'WATER DISCHARGE',
                                         'value' => 2548,
                                       ),
-                                      1356 => 
+                                      1357 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 100',
                                         'value' => 1829320,
                                       ),
-                                      1357 => 
+                                      1358 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 150',
                                         'value' => 1829233,
                                       ),
-                                      1358 => 
+                                      1359 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 250',
                                         'value' => 1829376,
                                       ),
-                                      1359 => 
+                                      1360 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD',
                                         'value' => 2549,
                                       ),
-                                      1360 => 
+                                      1361 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD 600',
                                         'value' => 1829264,
                                       ),
-                                      1361 => 
+                                      1362 => 
                                       array (
                                         'key' => 'WATER HD',
                                         'value' => 2550,
                                       ),
-                                      1362 => 
+                                      1363 => 
                                       array (
                                         'key' => 'WATER JETTING',
                                         'value' => 1829279,
                                       ),
-                                      1363 => 
+                                      1364 => 
                                       array (
                                         'key' => 'WATER JETTING 1000',
                                         'value' => 2551,
                                       ),
-                                      1364 => 
+                                      1365 => 
                                       array (
                                         'key' => 'WATER JETTING 500',
                                         'value' => 2552,
                                       ),
-                                      1365 => 
+                                      1366 => 
                                       array (
                                         'key' => 'WATER REHAB',
                                         'value' => 2553,
                                       ),
-                                      1366 => 
+                                      1367 => 
                                       array (
                                         'key' => 'WATER S&D',
                                         'value' => 1829252,
                                       ),
-                                      1367 => 
+                                      1368 => 
                                       array (
                                         'key' => 'WATER SUCTION & DISCHARGE',
                                         'value' => 2554,
                                       ),
-                                      1368 => 
+                                      1369 => 
                                       array (
                                         'key' => 'WEDGE TLP',
                                         'value' => 1829527,
                                       ),
-                                      1369 => 
+                                      1370 => 
                                       array (
                                         'key' => 'WEST MICH',
                                         'value' => 1829111,
                                       ),
-                                      1370 => 
+                                      1371 => 
                                       array (
                                         'key' => 'WESTERN',
                                         'value' => 2555,
                                       ),
-                                      1371 => 
+                                      1372 => 
                                       array (
                                         'key' => 'WHALE OIL',
                                         'value' => 2556,
                                       ),
-                                      1372 => 
+                                      1373 => 
                                       array (
                                         'key' => 'WHALE WATER',
                                         'value' => 2557,
                                       ),
-                                      1373 => 
+                                      1374 => 
                                       array (
                                         'key' => 'WHIPEND BLAST',
                                         'value' => 2558,
                                       ),
-                                      1374 => 
+                                      1375 => 
                                       array (
                                         'key' => 'WHITE FLEXTRA',
                                         'value' => 2559,
                                       ),
-                                      1375 => 
+                                      1376 => 
                                       array (
                                         'key' => 'WHITE FLEXWING',
                                         'value' => 2560,
                                       ),
-                                      1376 => 
+                                      1377 => 
                                       array (
                                         'key' => 'WHITEWATER',
                                         'value' => 2561,
                                       ),
-                                      1377 => 
+                                      1378 => 
                                       array (
                                         'key' => 'WHW GAUNTLET',
                                         'value' => 1829423,
                                       ),
-                                      1378 => 
+                                      1379 => 
                                       array (
                                         'key' => 'WILD HOG',
                                         'value' => 1829225,
                                       ),
-                                      1379 => 
+                                      1380 => 
                                       array (
                                         'key' => 'WINGCRAFT',
                                         'value' => 2562,
                                       ),
-                                      1380 => 
+                                      1381 => 
                                       array (
                                         'key' => 'WIRE INSERTED RADIATOR HOSE',
                                         'value' => 2563,
                                       ),
-                                      1381 => 
+                                      1382 => 
                                       array (
                                         'key' => 'WOODMI SAWDUST',
                                         'value' => 2564,
                                       ),
-                                      1382 => 
+                                      1383 => 
                                       array (
                                         'key' => 'X-LIFE XCP3',
                                         'value' => 2566,
                                       ),
-                                      1383 => 
+                                      1384 => 
                                       array (
                                         'key' => 'X-LIFE XCP3S',
                                         'value' => 2567,
                                       ),
-                                      1384 => 
+                                      1385 => 
                                       array (
                                         'key' => 'X-LIFE XCP4',
                                         'value' => 2568,
                                       ),
-                                      1385 => 
+                                      1386 => 
                                       array (
                                         'key' => 'X-LIFE XCP4S',
                                         'value' => 2569,
                                       ),
-                                      1386 => 
+                                      1387 => 
                                       array (
                                         'key' => 'X-LIFE XCP5S',
                                         'value' => 2570,
                                       ),
-                                      1387 => 
+                                      1388 => 
                                       array (
                                         'key' => 'X-LIFE XCP6S',
                                         'value' => 2571,
                                       ),
-                                      1388 => 
+                                      1389 => 
                                       array (
                                         'key' => 'X-LIFE XR16SC',
                                         'value' => 2572,
                                       ),
-                                      1389 => 
+                                      1390 => 
                                       array (
                                         'key' => 'XF BLAST',
                                         'value' => 2565,
                                       ),
-                                      1390 => 
+                                      1391 => 
                                       array (
                                         'key' => 'XLPE CHEMICAL TRANSFER',
                                         'value' => 2573,
                                       ),
-                                      1391 => 
+                                      1392 => 
                                       array (
                                         'key' => 'XPOWER',
                                         'value' => 2574,
                                       ),
-                                      1392 => 
+                                      1393 => 
                                       array (
                                         'key' => 'XPOWER OILFIELD FRAC HW',
                                         'value' => 1829105,
                                       ),
-                                      1393 => 
+                                      1394 => 
                                       array (
                                         'key' => 'YARDMASTER GARDEN HOSE',
                                         'value' => 2575,
                                       ),
-                                      1394 => 
+                                      1395 => 
                                       array (
                                         'key' => 'YELLOW FLEXWING',
                                         'value' => 2576,
                                       ),
-                                      1395 => 
+                                      1396 => 
                                       array (
                                         'key' => 'YUKON',
                                         'value' => 2577,
                                       ),
-                                      1396 => 
+                                      1397 => 
                                       array (
                                         'key' => 'YUKON BLUE',
                                         'value' => 1829293,
                                       ),
-                                      1397 => 
+                                      1398 => 
                                       array (
                                         'key' => 'YUKON SPIRAFLEX',
                                         'value' => 2578,
                                       ),
-                                      1398 => 
+                                      1399 => 
                                       array (
                                         'key' => 'ZZH561K-AA2',
                                         'value' => 2579,
                                       ),
-                                      1399 => 
+                                      1400 => 
                                       array (
                                         'key' => 'ZZH561K-BA2',
                                         'value' => 2580,
                                       ),
-                                      1400 => 
+                                      1401 => 
                                       array (
                                         'key' => 'ZZH601 3-2',
                                         'value' => 2581,
@@ -14685,250 +14691,255 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                       1351 => 
                                       array (
+                                        'key' => 'WASHING MACHINE TUBING',
+                                        'value' => 1831550,
+                                      ),
+                                      1352 => 
+                                      array (
                                         'key' => 'WASTE MATE',
                                         'value' => 2546,
                                       ),
-                                      1352 => 
+                                      1353 => 
                                       array (
                                         'key' => 'WATER',
                                         'value' => 1829360,
                                       ),
-                                      1353 => 
+                                      1354 => 
                                       array (
                                         'key' => 'WATER & AIR HD',
                                         'value' => 2547,
                                       ),
-                                      1354 => 
+                                      1355 => 
                                       array (
                                         'key' => 'WATER 150 HD',
                                         'value' => 1829322,
                                       ),
-                                      1355 => 
+                                      1356 => 
                                       array (
                                         'key' => 'WATER DISCHARGE',
                                         'value' => 2548,
                                       ),
-                                      1356 => 
+                                      1357 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 100',
                                         'value' => 1829320,
                                       ),
-                                      1357 => 
+                                      1358 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 150',
                                         'value' => 1829233,
                                       ),
-                                      1358 => 
+                                      1359 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 250',
                                         'value' => 1829376,
                                       ),
-                                      1359 => 
+                                      1360 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD',
                                         'value' => 2549,
                                       ),
-                                      1360 => 
+                                      1361 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD 600',
                                         'value' => 1829264,
                                       ),
-                                      1361 => 
+                                      1362 => 
                                       array (
                                         'key' => 'WATER HD',
                                         'value' => 2550,
                                       ),
-                                      1362 => 
+                                      1363 => 
                                       array (
                                         'key' => 'WATER JETTING',
                                         'value' => 1829279,
                                       ),
-                                      1363 => 
+                                      1364 => 
                                       array (
                                         'key' => 'WATER JETTING 1000',
                                         'value' => 2551,
                                       ),
-                                      1364 => 
+                                      1365 => 
                                       array (
                                         'key' => 'WATER JETTING 500',
                                         'value' => 2552,
                                       ),
-                                      1365 => 
+                                      1366 => 
                                       array (
                                         'key' => 'WATER REHAB',
                                         'value' => 2553,
                                       ),
-                                      1366 => 
+                                      1367 => 
                                       array (
                                         'key' => 'WATER S&D',
                                         'value' => 1829252,
                                       ),
-                                      1367 => 
+                                      1368 => 
                                       array (
                                         'key' => 'WATER SUCTION & DISCHARGE',
                                         'value' => 2554,
                                       ),
-                                      1368 => 
+                                      1369 => 
                                       array (
                                         'key' => 'WEDGE TLP',
                                         'value' => 1829527,
                                       ),
-                                      1369 => 
+                                      1370 => 
                                       array (
                                         'key' => 'WEST MICH',
                                         'value' => 1829111,
                                       ),
-                                      1370 => 
+                                      1371 => 
                                       array (
                                         'key' => 'WESTERN',
                                         'value' => 2555,
                                       ),
-                                      1371 => 
+                                      1372 => 
                                       array (
                                         'key' => 'WHALE OIL',
                                         'value' => 2556,
                                       ),
-                                      1372 => 
+                                      1373 => 
                                       array (
                                         'key' => 'WHALE WATER',
                                         'value' => 2557,
                                       ),
-                                      1373 => 
+                                      1374 => 
                                       array (
                                         'key' => 'WHIPEND BLAST',
                                         'value' => 2558,
                                       ),
-                                      1374 => 
+                                      1375 => 
                                       array (
                                         'key' => 'WHITE FLEXTRA',
                                         'value' => 2559,
                                       ),
-                                      1375 => 
+                                      1376 => 
                                       array (
                                         'key' => 'WHITE FLEXWING',
                                         'value' => 2560,
                                       ),
-                                      1376 => 
+                                      1377 => 
                                       array (
                                         'key' => 'WHITEWATER',
                                         'value' => 2561,
                                       ),
-                                      1377 => 
+                                      1378 => 
                                       array (
                                         'key' => 'WHW GAUNTLET',
                                         'value' => 1829423,
                                       ),
-                                      1378 => 
+                                      1379 => 
                                       array (
                                         'key' => 'WILD HOG',
                                         'value' => 1829225,
                                       ),
-                                      1379 => 
+                                      1380 => 
                                       array (
                                         'key' => 'WINGCRAFT',
                                         'value' => 2562,
                                       ),
-                                      1380 => 
+                                      1381 => 
                                       array (
                                         'key' => 'WIRE INSERTED RADIATOR HOSE',
                                         'value' => 2563,
                                       ),
-                                      1381 => 
+                                      1382 => 
                                       array (
                                         'key' => 'WOODMI SAWDUST',
                                         'value' => 2564,
                                       ),
-                                      1382 => 
+                                      1383 => 
                                       array (
                                         'key' => 'X-LIFE XCP3',
                                         'value' => 2566,
                                       ),
-                                      1383 => 
+                                      1384 => 
                                       array (
                                         'key' => 'X-LIFE XCP3S',
                                         'value' => 2567,
                                       ),
-                                      1384 => 
+                                      1385 => 
                                       array (
                                         'key' => 'X-LIFE XCP4',
                                         'value' => 2568,
                                       ),
-                                      1385 => 
+                                      1386 => 
                                       array (
                                         'key' => 'X-LIFE XCP4S',
                                         'value' => 2569,
                                       ),
-                                      1386 => 
+                                      1387 => 
                                       array (
                                         'key' => 'X-LIFE XCP5S',
                                         'value' => 2570,
                                       ),
-                                      1387 => 
+                                      1388 => 
                                       array (
                                         'key' => 'X-LIFE XCP6S',
                                         'value' => 2571,
                                       ),
-                                      1388 => 
+                                      1389 => 
                                       array (
                                         'key' => 'X-LIFE XR16SC',
                                         'value' => 2572,
                                       ),
-                                      1389 => 
+                                      1390 => 
                                       array (
                                         'key' => 'XF BLAST',
                                         'value' => 2565,
                                       ),
-                                      1390 => 
+                                      1391 => 
                                       array (
                                         'key' => 'XLPE CHEMICAL TRANSFER',
                                         'value' => 2573,
                                       ),
-                                      1391 => 
+                                      1392 => 
                                       array (
                                         'key' => 'XPOWER',
                                         'value' => 2574,
                                       ),
-                                      1392 => 
+                                      1393 => 
                                       array (
                                         'key' => 'XPOWER OILFIELD FRAC HW',
                                         'value' => 1829105,
                                       ),
-                                      1393 => 
+                                      1394 => 
                                       array (
                                         'key' => 'YARDMASTER GARDEN HOSE',
                                         'value' => 2575,
                                       ),
-                                      1394 => 
+                                      1395 => 
                                       array (
                                         'key' => 'YELLOW FLEXWING',
                                         'value' => 2576,
                                       ),
-                                      1395 => 
+                                      1396 => 
                                       array (
                                         'key' => 'YUKON',
                                         'value' => 2577,
                                       ),
-                                      1396 => 
+                                      1397 => 
                                       array (
                                         'key' => 'YUKON BLUE',
                                         'value' => 1829293,
                                       ),
-                                      1397 => 
+                                      1398 => 
                                       array (
                                         'key' => 'YUKON SPIRAFLEX',
                                         'value' => 2578,
                                       ),
-                                      1398 => 
+                                      1399 => 
                                       array (
                                         'key' => 'ZZH561K-AA2',
                                         'value' => 2579,
                                       ),
-                                      1399 => 
+                                      1400 => 
                                       array (
                                         'key' => 'ZZH561K-BA2',
                                         'value' => 2580,
                                       ),
-                                      1400 => 
+                                      1401 => 
                                       array (
                                         'key' => 'ZZH601 3-2',
                                         'value' => 2581,
@@ -15774,12 +15785,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           137 => 
                                           array (
@@ -15818,13 +15829,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           144 => 
                                           array (
-                                            'key' => 'Meets CARB requirements',
-                                            'value' => 3130,
+                                            'key' => 'Meets CARB Requirements',
+                                            'value' => 759960,
                                           ),
                                           145 => 
                                           array (
-                                            'key' => 'Meets CARB Requirements',
-                                            'value' => 759960,
+                                            'key' => 'Meets CARB requirements',
+                                            'value' => 3130,
                                           ),
                                           146 => 
                                           array (
@@ -15883,13 +15894,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           157 => 
                                           array (
-                                            'key' => 'Meets ORVR Requirements',
-                                            'value' => 759964,
+                                            'key' => 'Meets ORVR requirements',
+                                            'value' => 3139,
                                           ),
                                           158 => 
                                           array (
-                                            'key' => 'Meets ORVR requirements',
-                                            'value' => 3139,
+                                            'key' => 'Meets ORVR Requirements',
+                                            'value' => 759964,
                                           ),
                                           159 => 
                                           array (
@@ -20727,6 +20738,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'fieldtype' => 'image',
+                         'width' => 300,
+                         'height' => '',
+                         'uploadPath' => '',
+                         'queryColumnType' => 'int(11)',
+                         'columnType' => 'int(11)',
+                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                         'name' => 'epixImage',
+                         'title' => 'EPIX Image',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => 'float:left; margin-right:20px; clear:left;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                          'fieldtype' => 'imageGallery',
                          'queryColumnType' => 
@@ -21483,7 +21518,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
