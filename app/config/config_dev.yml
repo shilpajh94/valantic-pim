@@ -3,12 +3,12 @@ imports:
 
 parameters:
     cdn.enable: 0
-    cdn.host: "https://s3.us-east-1.amazonaws.com"
-    s3.host: "https://s3.eu-central-1.amazonaws.com"
-    s3.key: "AKIA4E4JQ6AM6ZVEZBTH"
-    s3.secret: "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"
-    s3.bucket: "continental-assets-input"
-    s3.region: "eu-central-1"
+    cdn.host: "https://cdn_path"
+    s3.host: "https://s3.us-east-1.amazonaws.com"
+    s3.key: "AKIAZ6MFIGPTWVTS2K6D"
+    s3.secret: "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"
+    s3.bucket: "megha-pim"
+    s3.region: "us-east-1"
 
     b2b_export_sftp:
         host: "upload.pimcoreclients.com"

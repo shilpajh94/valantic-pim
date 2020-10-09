@@ -1,6 +1,6 @@
 <?php
 
-// require_once('s3_config_constants.php');
+ require_once('s3_config_constants.php');
 
 /**
  * to include the constants used to name the log file

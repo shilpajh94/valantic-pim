@@ -23,19 +23,7 @@ services:
 #            - "plain_value"
 #            - "%parameter%"
 
-    S3CustomizationBundle\Services\S3CustomizationService:
-        public: true
-        
-    S3CustomizationBundle\Model\PimcoreS3FolderMappingDao:
-        public: true
-        
-    S3CustomizationBundle\Model\AssetsDao:
-        public: true
-        
-#    app.s3.customization_service:
-#        class: S3CustomizationBundle\Services\S3CustomizationService
-#        public: true
-        
+
     S3CustomizationBundle\EventListeners\AssetEventsListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.asset.preAdd, method: onPreAdd }
@@ -46,3 +34,34 @@ services:
             - { name: kernel.event_listener, event: pimcore.asset.postAddFailure, method: onPostAddFailure }
             - { name: kernel.event_listener, event: pimcore.asset.postUpdateFailure, method: onPostUpdateFailure }
 
+
+#    app.s3.customization_service:
+#        class: S3CustomizationBundle\Services\S3CustomizationService
+#        public: true
+
+    S3CustomizationBundle\Services\S3CustomizationService:
+        public: true
+
+    S3CustomizationBundle\Model\PimcoreS3FolderMappingDao:
+        public: true
+
+    S3CustomizationBundle\Model\AssetsDao:
+        public: true
+
+#    app.s3.customization_service:
+#        class: S3CustomizationBundle\Services\S3CustomizationService
+#        public: true
+
+    # aws s3 listener:
+    S3CustomizationBundle\EventListeners\S3Listener:
+        tags:
+#            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: onPostAdd }
+#            - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: onPostUpdate }
+#            - { name: kernel.event_listener, event: pimcore.frontend.path.asset.image.thumbnail, method: onFrontendPathThumbnail }
+            #- { name: kernel.event_listener, event: pimcore.frontend.path.asset.document.image-thumbnail, method: onFrontendPathThumbnail }
+            #- { name: kernel.event_listener, event: pimcore.frontend.path.asset.video.image-thumbnail, method: onFrontendPathThumbnail }
+            #- { name: kernel.event_listener, event: pimcore.frontend.path.asset.video.thumbnail, method: onFrontendPathThumbnail }
+            - { name: kernel.event_listener, event: pimcore.asset.image.thumbnail, method: onAssetThumbnailCreated }
+            - { name: kernel.event_listener, event: pimcore.asset.video.image-thumbnail, method: onAssetThumbnailCreated }
+            - { name: kernel.event_listener, event: pimcore.asset.document.image-thumbnail, method: onAssetThumbnailCreated }
+            - { name: kernel.event_listener, event: pimcore.frontend.path.asset, method: onFrontEndPathAsset }

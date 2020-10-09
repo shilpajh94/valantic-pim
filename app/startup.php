@@ -28,7 +28,7 @@ $s3ConfigSettings = [
 
 $s3Client = new S3Client($s3ConfigSettings);
 
-$s3Client->registerStreamWrapper();
+//$s3Client->registerStreamWrapper();
 
 /**
  * to customize the default behaviour of wrapper,all the file and directory operations
