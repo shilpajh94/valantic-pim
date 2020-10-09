@@ -141,7 +141,7 @@ $featuresFooter = false;
                                         "format" => "PNG"
                                     ])->setImage($row['mainImage']);
                                 } else {
-                                    echo $this->image('productImage' . $k, [
+                                    $imgSrcObj1 =  $this->image('productImage' . $k, [
                                         "width" => 92,
                                         "height" => 240,
                                         "aspectratio" => true,
@@ -149,6 +149,9 @@ $featuresFooter = false;
                                         "quality" => 95,
                                         "format" => "PNG"
                                     ]);
+                                    ?>
+                                                <img src="<?= $imgSrcObj1->getSrc(); ?>"width="92" height="240"/>
+                                                <?php
                                 }
                                 ?>
                                     </span>
@@ -214,30 +217,45 @@ $featuresFooter = false;
             <?php
             $iccnt = 0;
             if (isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
+                
                 foreach ($row['featureIcon'] as $iccntKey => $featureIcon) {
-                if($iccnt<=3){
-                    if ($this->image('productLogo' . $key . $iccnt)->isEmpty() && !is_null($featureIcon['icon'])) {
-                        echo $this->image('productLogo' . $key . $iccnt, [
-                            "width" => $featureIcon['icon']->getWidth(),
-                            "height" => $featureIcon['icon']->getHeight(),
-                            "aspectratio" => true,
-                            "interlace" => true,
-                            "quality" => 95,
-                            "format" => "PNG"
-                        ])->setImage($featureIcon['icon']);
-                    } else {
-                        echo $this->image('productLogo' . $key . $iccnt, [
-                            "width" => 91,
-                            "height" => 53,
-                            "aspectratio" => true,
-                            "interlace" => true,
-                            "quality" => 95,
-                            "format" => "PNG"
-                        ]);
-                    }
 
-                    $iccnt++;
-                }
+                    if($this->editmode)
+                    {
+                        if($iccnt<=3){
+                            if ($this->image('productLogo' . $key . $iccnt)->isEmpty() && !is_null($featureIcon['icon'])) {
+                                echo $this->image('productLogo' . $key . $iccnt, [
+                                    "width" => $featureIcon['icon']->getWidth(),
+                                    "height" => $featureIcon['icon']->getHeight(),
+                                    "aspectratio" => true,
+                                    "interlace" => true,
+                                    "quality" => 95,
+                                    "format" => "PNG"
+                                ])->setImage($featureIcon['icon']);
+                            } else {
+                                echo $this->image('productLogo' . $key . $iccnt, [
+                                    "width" => 91,
+                                    "height" => 53,
+                                    "aspectratio" => true,
+                                    "interlace" => true,
+                                    "quality" => 95,
+                                    "format" => "PNG"
+                                ]);
+                                ?>
+                                
+                                <?php
+                            }
+
+                            $iccnt++;
+                        }
+                    }
+                    else
+                    {
+                        $imgSrcObj2 = $this->image('productLogo' . $key . $iccnt);
+                        ?>
+                        <img src="<?= $imgSrcObj2->getSrc(); ?>" width="91" height="53"/>
+                        <?php
+                    }
                 }
             }
 
