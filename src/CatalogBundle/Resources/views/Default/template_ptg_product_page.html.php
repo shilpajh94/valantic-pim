@@ -160,7 +160,10 @@ if($groupData):
                                         echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
                                 }else{
                                         if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
-                                                echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
+                                                $imgSrcObj1 = $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200]);
+                                                ?>
+                                                <img src="<?= $imgSrcObj1->getSrc(); ?>"width="400" height="200"/>
+                                                <?php
                                 }                
                                 ?>
 
@@ -169,7 +172,10 @@ if($groupData):
                                         echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
                                 }else{
                                         if(!$this->image("Drawing_Picture_{$incr}")->isEmpty())
-                                                echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
+                                                $imgSrcObj2 = $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200]);
+                                                ?>
+                                                <img src="<?= $imgSrcObj2->getSrc(); ?>"width="400" height="200"/>
+                                                <?php
                                 }                
                                 ?>
                         </span>
