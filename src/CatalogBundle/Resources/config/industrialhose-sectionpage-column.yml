@@ -1,6 +1,6 @@
 parameters:
   Air & Multipurpose:
-    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'ConstructionType', 'FeaturesBenefitsBulletPoint', 'temperatureRangeFAndC', 'workingPressurePSI']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -33,18 +33,27 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Non-Conductive Tube & Cover
+      ConstructionType:
+        title: Tube Material
+        type: attr
       coupledAssembliesAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Coupled Assemblies Available
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
+      workingPressurePSI:
+        title: WP (PSI)
+        type: attr
       lightweightConstruction:
         title: LW Const.
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Lightweight Construction
   Chemical:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -72,6 +81,12 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: WP (PSI)
         type: attr
@@ -81,7 +96,7 @@ parameters:
         fieldName: FeaturesBenefitsBulletPoint
         feature: Superior Flexibility
   Cleaning:
-    columns: ['brandName', 'StandardMetCover', 'coverCharacteristic', 'tubeMaterial', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'StandardMetCover', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -114,16 +129,22 @@ parameters:
       tubeMaterial:
         title: Tube Material
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       coupledAssembliesAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Coupled Assemblies Available
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: WP (PSI)
         type: attr
   Food:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -151,6 +172,9 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       3A1803CertifiedTube:
         title: 3-A 18-03 Certified Tube
         type: feature
@@ -166,11 +190,14 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: NSF-61 Listed Tube
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
   Marine:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'standardMetHoseComment', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'standardMetHoseComment', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -185,6 +212,9 @@ parameters:
       tubeMaterial:
         title: Tube Material
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       standardMetHoseComment:
         title: Standard MetHose Comment
         type: attr
@@ -193,11 +223,14 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: USCG
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
   Material Handling:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -220,16 +253,22 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       visibilityofFlow:
         title: Visibility of Flow
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Visibility of Flow
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
   Mining:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -257,16 +296,22 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       coupledAssembliesAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Coupled Assemblies Available
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
   Petroleum:
-    columns: ['brandName', 'coverCharacteristic', 'staticWire', 'standardMetHose', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'staticWire', 'standardMetHose', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -280,6 +325,9 @@ parameters:
         type: attr
       staticWire:
         title: Static Wire
+        type: attr
+      ConstructionType:
+        title: Tube Material
         type: attr
       coupledAssembliesAvailable:
         title: CAA
@@ -299,6 +347,9 @@ parameters:
       standardMetHose:
         title: Standard MetHose Comment
         type: attr
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: WP (PSI)
         type: attr
@@ -308,7 +359,7 @@ parameters:
         fieldName: FeaturesBenefitsBulletPoint
         feature: Lightweight Construction
   Steam:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -323,16 +374,22 @@ parameters:
       tubeMaterial:
         title: Cover Characteristic
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       coupledAssembliesAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Coupled Assemblies Available
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: WP (PSI)
         type: attr
   Water:
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'LayFlatHoseYN', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'LayFlatHoseYN', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -352,6 +409,9 @@ parameters:
       tubeMaterial:
         title: Tube Material
         type: attr
+      ConstructionType:
+        title: Tube Material
+        type: attr
       visibilityofFlow:
         title: Visibility of Flow
         type: feature
@@ -365,11 +425,14 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Coupled Assemblies Available
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: WP (PSI)
         type: attr
   Welding:
-    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'workingPressurePSI', 'acceptableHoseMedia', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'temperatureRangeFAndC', 'workingPressurePSI', 'acceptableHoseMedia', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -407,6 +470,9 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Coupled Assemblies Available
+      temperatureRangeFAndC:
+        title: Temperature Range (°F & C°)
+        type: attr
       workingPressurePSI:
         title: WP (PSI)
         type: attr
