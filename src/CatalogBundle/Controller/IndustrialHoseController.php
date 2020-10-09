@@ -52,8 +52,9 @@ class IndustrialHoseController extends AbstractController
             $siop = $obj->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
             $configTableName = $tableName = "AIR & MULTIPURPOSE";
-
+            $constructionType = '';
             if($siopObj != null) {
+                $constructionType = $siopObj->getConstructionType($lang);
                 $tableName = $siopObj->getParent()->getDescription($lang);
                 $siop4Description = ($siopObj->getPrintedCatalogDescription($lang)) ? $siopObj->getPrintedCatalogDescription($lang) : $siopObj->getDescription($lang);
                 $configTableName = ($siopObj->getParent()->getPrintedCatalogDescription($lang)) ? $siopObj->getParent()->getPrintedCatalogDescription($lang) : $siopObj->getParent()->getDescription($lang);
@@ -64,14 +65,15 @@ class IndustrialHoseController extends AbstractController
                 $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
             }
 
-
             $data = array();
             $headers = (array) json_decode($obj->getHeaderData());
 
             $headerKeys = array_keys($headers);
-
+            $headerKeys[] = 'ConstructionType';
+            
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {
+                    $row[]= $constructionType;
                     $productsData[] = array_combine($headerKeys, $row);
                 }
                 $i = 0;
@@ -82,12 +84,8 @@ class IndustrialHoseController extends AbstractController
                         $uniqueId = $configTableName;
                         $brandName = $row['brandName'][0];
                         if (!isset($data[$uniqueId])) {
-                            $data[$uniqueId][$brandName] = array();
                             $data[$uniqueId]['columns'] = $productPageColumns['columns'];
                             $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];                                                      
-                        }
-                        if(!isset($data[$uniqueId]['data'][$brandName])) {
-                            $data[$uniqueId]['data'][$brandName] = array();
                         }
 
                         foreach($productPageColumns['columns'] as $col) {
@@ -104,7 +102,6 @@ class IndustrialHoseController extends AbstractController
                     }
                 }
             }
-
             $categories = $this->getSIOP($lang);
             $this->view['info'] = array(
                 'configTableName'=> $configTableName,

@@ -78,15 +78,15 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseFert
-            INHFittingFamily:
+            HydFittingFamily:
                 fieldLevel: objectBrick
-                fieldLabel: 'Fitting Family'
                 fieldType: Relation
+                fieldLabel: Fitting Family
                 parent:
-                    name: HoseSkeleton
+                    name: HydFittingsFert
                     class:
-                       name: FittingFamily
-                       fieldName: Name    
+                        name : FittingFamily
+                        fieldName: Name
     PTG Product Page:
         Synchronous Belts:
             industryStandard:
@@ -927,6 +927,18 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            temperatureRangeFAndC:
+                fieldLevel: class
+                fieldType: Input
+                fieldLabel: Temperature Range (°F & C°)
+                parent:
+                    name: Product
+            workingPressurePSI:
+                fieldLevel: objectBrick
+                fieldLabel: WP (psi)
+                fieldType: Input
+                parent:
+                    name: HoseSkeleton
             acceptableHoseMedia:
                 fieldLevel: objectBrick
                 fieldLabel: Acceptable Hose Media
