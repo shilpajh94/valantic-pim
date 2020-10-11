@@ -3,16 +3,16 @@ imports:
 
 parameters:
     cdn.enable: 0
-    cdn.host: "https://cdn_path"
-    s3.host: ""
+    cdn.host: "https://d3l7tdim6hoq5l.cloudfront.net"
+    s3.host: "https://s3.us-east-1.amazonaws.com"
 #    s3.key: ""
 #    s3.secret: ""
     s3.bucket: "contitech-assets-stage"
-    s3.region: ""
+    s3.region: "us-east-1"
 
     b2b_export_sftp:
-        host: ""
-        port:
-        username: ""
-        password: ""
-        path: ""
+        host: "vey1epxnds01"
+        port: 22
+        username: "pimuser"
+        password: "userpim"
+        path: "/opt/PIM/B2b"
