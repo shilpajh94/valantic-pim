@@ -45,14 +45,16 @@ class S3Listener
      */
     public function __construct()
     {
-        if((int)\Pimcore::getKernel()->getContainer()->getParameter("cdn.enable")) {
-            $this->s3BaseUrl = PIMCORE_CDN_BASEURL;
-            $this->s3AssetUrlPrefix = $this->s3BaseUrl . "/assets";
-            $this->s3TmpUrlPrefix = $this->s3BaseUrl . "/tmp";
-        } else {
-            $this->s3BaseUrl = PIMCORE_S3_BASEURL;
-            $this->s3AssetUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_ASSET_DIRECTORY);
-            $this->s3TmpUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_TEMPORARY_DIRECTORY);
+        if(!DISABLE_S3_CDN) {
+            if ((int)\Pimcore::getKernel()->getContainer()->getParameter("cdn.enable")) {
+                $this->s3BaseUrl = PIMCORE_CDN_BASEURL;
+                $this->s3AssetUrlPrefix = $this->s3BaseUrl . "/assets";
+                $this->s3TmpUrlPrefix = $this->s3BaseUrl . "/tmp";
+            } else {
+                $this->s3BaseUrl = PIMCORE_S3_BASEURL;
+                $this->s3AssetUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_ASSET_DIRECTORY);
+                $this->s3TmpUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_TEMPORARY_DIRECTORY);
+            }
         }
     }
 
@@ -67,16 +69,17 @@ class S3Listener
      * @param GenericEvent $event
      */
     public function onFrontendPathThumbnail(GenericEvent $event) {
-        $fileSystemPath = $event->getSubject()->getFileSystemPath();
+        if(!DISABLE_S3_CDN) {
+            $fileSystemPath = $event->getSubject()->getFileSystemPath();
 
-        $cacheKey = "thumb_s3_" . md5($fileSystemPath);
-        $path = \Pimcore\Cache::load($cacheKey);
+            $cacheKey = "thumb_s3_" . md5($fileSystemPath);
+            $path = \Pimcore\Cache::load($cacheKey);
 
-        if(!$path) {
-            if(!file_exists($fileSystemPath)) {
-                // the thumbnail doesn't exist yet, so we need to create it on request -> Thumbnail controller plugin
-                $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY, "", $fileSystemPath);
-            } else {
+            if(!$path) {
+                if(!file_exists($fileSystemPath)) {
+                    // the thumbnail doesn't exist yet, so we need to create it on request -> Thumbnail controller plugin
+                    $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY, "", $fileSystemPath);
+                } else {
 
 //                $key = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", "/", $fileSystemPath);
 //                try {
@@ -84,11 +87,12 @@ class S3Listener
 //                } catch(\Exception $e) {
 //                    // do nothing
 //                }
-                $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", $this->s3TmpUrlPrefix . "/", $fileSystemPath);
+                    $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", $this->s3TmpUrlPrefix . "/", $fileSystemPath);
+                }
             }
-        }
 
-        $event->setArgument('frontendPath',$path);
+            $event->setArgument('frontendPath',$path);
+        }
     }
 
     /**
@@ -101,14 +105,14 @@ class S3Listener
      */
     public function onAssetThumbnailCreated(GenericEvent $event)
     {
-        $thumbnail = $event->getSubject();
+        if(!DISABLE_S3_CDN) {
+            $thumbnail = $event->getSubject();
+            $fsPath = $thumbnail->getFileSystemPath();
+            if ($fsPath && $event->getArgument("generated")) {
+                $cacheKey = "thumb_s3_" . md5($fsPath);
 
-        $fsPath = $thumbnail->getFileSystemPath();
-
-        if ($fsPath && $event->getArgument("generated")) {
-            $cacheKey = "thumb_s3_" . md5($fsPath);
-
-            \Pimcore\Cache::remove($cacheKey);
+                \Pimcore\Cache::remove($cacheKey);
+            }
         }
     }
 
@@ -119,9 +123,11 @@ class S3Listener
      * @param GenericEvent $event
      */
     public function onFrontEndPathAsset(GenericEvent $event) {
-        $asset = $event->getSubject();
-        $path = Utils::getAssetFullPathCompatibleToS3($asset);
+        if(!DISABLE_S3_CDN) {
+            $asset = $event->getSubject();
+            $path = Utils::getAssetFullPathCompatibleToS3($asset);
 //        $path = str_replace(PIMCORE_ASSET_DIRECTORY . "/", $this->s3AssetUrlPrefix . "/", $asset->getFileSystemPath());
-        $event->setArgument('frontendPath',$path);
+            $event->setArgument('frontendPath',$path);
+        }
     }
 }
