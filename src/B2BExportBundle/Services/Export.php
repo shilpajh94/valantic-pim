@@ -901,7 +901,7 @@ class Export {
         }
         catch (Exception $e)
         {
-            \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP]".$e->getMessage(),LogLevel::CRITICAL());
+            \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] Error connecting/login to SFTP ". B2B_EXPORT_SFTP_HOST. ":".$e->getMessage(),LogLevel::CRITICAL());
         }
 
         foreach($this->files as $filePath){
@@ -910,10 +910,10 @@ class Export {
                 $uploadPath = B2B_EXPORT_SFTP_PATH."/".$basename;
                 try{
                     $sftp->uploadFile($filePath, $uploadPath);
-                    \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] File  $basename uploaded to SFTP server successfully.",LogLevel::INFO());
+                    \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] File  $basename uploaded to SFTP server ".B2B_EXPORT_SFTP_HOST." successfully.",LogLevel::INFO());
                     unlink($filePath);
                 }catch (\Exception $e){
-                    \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] Error uploading file $basename: ".$e->getMessage(),LogLevel::CRITICAL());
+                    \B2BExportBundle\Lib\Utils::log("[PUSH TO SFTP] Error uploading file $basename: to SFTP ".B2B_EXPORT_SFTP_HOST." ".$e->getMessage(),LogLevel::CRITICAL());
                 }
             }
 
