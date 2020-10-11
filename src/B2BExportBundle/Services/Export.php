@@ -397,8 +397,8 @@ class Export {
 				        $object = '';
 				        if($item['epixImage'] != NULL){
 				            $asset = Asset::getById($item['epixImage']);
-//                            $object = $asset instanceof Asset ? Utils::getAssetFullPathCompatibleToS3($asset) : '';
-				            $object = $asset instanceof Asset ? $asset->getRealFullPath(): '';
+                            $object = $asset instanceof Asset ? \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset) : '';
+//				            $object = $asset instanceof Asset ? $asset->getRealFullPath(): '';
                         }
 //						$object = ($item['mainImage'] != NULL ? Asset::getById($item['mainImage'])->getFullPath() : "");
 						$row[] = $partNo;
