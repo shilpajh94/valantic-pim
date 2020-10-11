@@ -5,8 +5,11 @@ use Pimcore\Config;
 use Symfony\Component\Yaml\Yaml;
 use S3CustomizationBundle\Lib\CustomStreamWrapper;
 
-$env = Config::getEnvironment();
+
+//$env = Config::getEnvironment();
+$env = $_SERVER['PIMCORE_ENVIRONMENT'];
 $values = Yaml::parseFile(__DIR__."/config/config_{$env}.yml");
+
 
 $s3ConfigSettings = [
     'version' => 'latest',
@@ -17,14 +20,20 @@ $s3ConfigSettings = [
     ],
 ];
 
-//if($env == "stage" || $env == "prod") {
+if($env == "stage" || $env == "prod") {
+
+    $s3ConfigSettings = [
+        'version' => 'latest',
+        'region' => $values["parameters"]["s3.region"],
+    ];
+
 //    $s3ConfigSettings['http'] = [
 //        'proxy' => [
 //            'http' => 'cias.geoaws.com:8080',
 //            'https' => 'cias.geoaws.com:8080'
 //        ]
 //    ];
-//}
+}
 
 $s3Client = new S3Client($s3ConfigSettings);
 

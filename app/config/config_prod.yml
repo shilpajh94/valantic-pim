@@ -1,3 +1,16 @@
 imports:
     - { resource: config.yml }
 
+parameters:
+    cdn.enable: 0
+    cdn.host: ""
+    s3.host: ""
+    s3.bucket: ""
+    s3.region: ""
+
+    b2b_export_sftp:
+        host: ""
+        port:
+        username: ""
+        password: ""
+        path: ""

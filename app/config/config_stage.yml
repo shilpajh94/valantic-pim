@@ -1,0 +1,18 @@
+imports:
+    - { resource: config.yml }
+
+parameters:
+    cdn.enable: 0
+    cdn.host: "https://cdn_path"
+    s3.host: ""
+#    s3.key: ""
+#    s3.secret: ""
+    s3.bucket: "contitech-assets-stage"
+    s3.region: ""
+
+    b2b_export_sftp:
+        host: ""
+        port:
+        username: ""
+        password: ""
+        path: ""
