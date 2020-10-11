@@ -5,10 +5,10 @@ namespace DistributionHubBundle\Lib\Export;
 use Symfony\Component\HttpFoundation\Request;
 use Pimcore\Localization\LocaleServiceInterface;
 use Pimcore\Model\DataObject;
+use DistributionHubBundle\Services\BundleService;
 
 class DataFetcher
 {
-
     public function getCsvData(Request $request, LocaleServiceInterface $localeService, $list, $fields, $addTitles = true, $helperDefinitions)
     {
         $requestedLanguage = $this->extractLanguage($request);
@@ -19,7 +19,12 @@ class DataFetcher
         foreach ($list->getObjects() as $object) {
             if ($fields) {
                 $objectData = [];
-                foreach ($fields as $field) {
+                foreach ($fields as $key => $field) {
+   
+                    if(empty($field)){
+                        $objectData[$key] = $field;
+                        continue;
+                    }
 
                     if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = DataObject\Service::expandGridColumnForExport($helperDefinitions, $field)) {
 
@@ -38,7 +43,10 @@ class DataFetcher
 
                         $localeService->setLocale($currentLocale);
                     } else {
+                        
+
                         $fieldData = $this->getCsvFieldData($request, $field, $object, $requestedLanguage, $helperDefinitions);
+                        
                         if (!isset($mappedFieldnames[$field])) {
                             $mappedFieldnames[$field] = $this->mapFieldname($field, $helperDefinitions);
                         }
@@ -69,7 +77,7 @@ class DataFetcher
 
     private function getCsvFieldData(Request $request, $field, $object, $requestedLanguage, $helperDefinitions)
     {
-
+        
         //check if field is systemfield
         $systemFieldMap = [
             'id' => 'getId',
@@ -88,7 +96,20 @@ class DataFetcher
         } else {
             //check if field is standard object field
             $fieldDefinition = $object->getClass()->getFieldDefinition($field);
+            $hostName = BundleService::getConfig('host_name');
+            
+
             if ($fieldDefinition) {
+                $fieldType = $fieldDefinition->getFieldtype();
+                if($fieldType === "image" || $fieldType === "imageGallery" || $fieldType === "externalImage" || $fieldType === "hotspotimage"){
+                    $dataForAssetExport = $fieldDefinition->getForCsvExport($object);
+                    
+                    if(empty($dataForAssetExport)){
+                        return $dataForAssetExport;
+                    }
+                    // Prefix hostname with assets
+                    return $hostName.$dataForAssetExport;
+                }
                 return $fieldDefinition->getForCsvExport($object);
             } else {
                 $fieldParts = explode('~', $field);

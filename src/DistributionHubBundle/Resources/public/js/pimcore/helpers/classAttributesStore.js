@@ -2,25 +2,26 @@ pimcore.registerNS("pimcore.plugin.distributionhub.helpers.classAttributesStore"
 pimcore.plugin.distributionhub.helpers.classAttributesStore= Class.create(
     {
 
-        initialize: function () {
+        initialize: function (name, index) {
             this. rootConfig =  {
                 id: "0",
                 root: true,
-                iconCls:'pimcore_icon_object',
-                text: t("Pool Of Attribute"),
+                iconCls:'pimcore_icon_classificationstore',
+                text: t(name),
                 typePool:true,
-                parentType:"PoolOfAttribute",
-                leaf: true,
+                parentType:"ClassStoreAttribute"+index,
+                //leaf: true,
                 isTarget: true,
-                expanded: true,
+                expanded: false,
+                collapsed:true
             };
         },
-        getStore: function(){
+        getStore: function(name, classStoreId){
 
 
-            var itemsPerPage = pimcore.settings['object_tree_paging_limit'];
+            let itemsPerPage = pimcore.settings['object_tree_paging_limit'];
 
-            var store = Ext.create('pimcore.data.CustomPagingTreeStore', {
+            let store = Ext.create('pimcore.plugin.distributionhub.helpers.customPagingTreeStore', {
                 autoLoad: true,
                 autoSync: false,
                 proxy: {
@@ -33,6 +34,8 @@ pimcore.plugin.distributionhub.helpers.classAttributesStore= Class.create(
                     },
                     extraParams: {
                         limit: itemsPerPage,
+                        storeId: classStoreId,
+                        name: name,
                         // view: this.config.customViewId
                     }
                 },
@@ -41,9 +44,14 @@ pimcore.plugin.distributionhub.helpers.classAttributesStore= Class.create(
             });
             return  store;
         },
-        getClassificationStorePanel:function(){
-            //if(!this.classDefinitionTreePanelClass){
-            var classDefinitionTreePanelClass = Ext.create('Ext.tree.Panel', {
+        getClassificationStorePanel:function(name, classStoreId){
+            if(!this.classDefinitionTreePanelClass){
+                this.classDefinitionTreePanelClass = new Ext.tree.TreePanel({
+                region: "center",
+                autoScroll: true,
+                rootVisible: true,
+                bufferedRenderer: false,
+                animate: false,
                 width: 500,
                 viewConfig: {
                     plugins: {
@@ -57,13 +65,12 @@ pimcore.plugin.distributionhub.helpers.classAttributesStore= Class.create(
                     },
                     xtype: 'custompimcoretreeview'
                 },
-                store: this.getStore(),
-                rootVisible: true,
+                store: this.getStore(name, classStoreId),
                 root:this.rootConfig,
                 //renderTo: Ext.getBody()
             });
-            // }
-            return classDefinitionTreePanelClass;
+             }
+            return this.classDefinitionTreePanelClass;
         }
     }
 );
