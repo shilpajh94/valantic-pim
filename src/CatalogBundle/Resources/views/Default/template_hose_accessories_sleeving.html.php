@@ -173,7 +173,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php if ($safetyFeatures): ?>
                                         <div>
                                         <?php foreach ($safetyFeatures as $key => $feature): ?>
-                                                <p  class="flex">
+                                                <p  class="flex is-highlight">
                                                 <font> <?= $feature['name'] ?></font>
                                                 </p>
                                         <?php endforeach; ?>
