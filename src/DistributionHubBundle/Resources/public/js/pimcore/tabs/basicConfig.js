@@ -558,6 +558,7 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
             title: t('dHub_ftp_details'),
             collapsible: true,
             collapsed: true,
+            hidden: true,
             defaults: {
                 labelWidth: 220
                         // width: 300
