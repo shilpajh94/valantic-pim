@@ -1850,6 +1850,14 @@ div.content_double {
     column-fill: auto;
 }
 
+.content_double .grid{ margin-top :0 !important;}
+
+.content_double .pimcore_block_entry{ padding: 10px; }
+
+.content_double > .flex{
+justify-content: space-between !important;
+}
+
 #descriptive{
  page: title4;
 }
@@ -2098,3 +2106,9 @@ right:0;
 .flex.center{ align-items: center;}
 .flex.center img{     max-width: 30px;
     height: auto;}
+
+
+.is-highlight{
+color: #ffa500;
+font-family: 'ContinentalStagSansLCG-Medium' !important;
+}
