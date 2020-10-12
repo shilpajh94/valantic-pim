@@ -229,7 +229,7 @@ if ($data):
                                                             $hoseMetCount = 0;
                                                             foreach ($standardMetHoseListData as $key => $standard): ?>
                                                             <?= $this->input("standardMetHose{$incr}_{$hoseMetCount}")->setDataFromResource($key) ?>
-                                                            <p><?= implode('<br>',$standard); ?></p>
+                                                            <p><font class="is-highlight"><?= implode('<br>',$standard); ?></font></p>
                                                         <?php
                                                             $hoseMetCount++; 
                                                             endforeach; 
