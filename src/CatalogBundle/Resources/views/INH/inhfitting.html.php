@@ -155,7 +155,14 @@ if($groupData):
                                                                 echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
                                                         }else{
                                                                 if(!$this->image("INH_Fitting_MainImage")->isEmpty())
-                                                                        echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200]);
+                                                                        $imgSrcObj1 = $this->image("INH_Fitting_MainImage");
+                                                                
+                                                                if($imgSrcObj1)
+                                                                {
+                                                                ?>
+                                                                <img src="<?= $imgSrcObj1->getSrc(); ?>" width="400" height="200"/>
+                                                                <?php
+                                                                }
                                                         }
                                                         ?>
 
@@ -164,7 +171,14 @@ if($groupData):
                                                                 echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
                                                         }else{
                                                                 if(!$this->image("INH_Fitting_ProfileDimension")->isEmpty())
-                                                                        echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200]);
+                                                                        $imgSrcObj2 = $this->image("INH_Fitting_ProfileDimension");
+
+                                                                if($imgSrcObj2)
+                                                                {
+                                                                ?>
+                                                                <img src="<?= $imgSrcObj2->getSrc(); ?>" width="400" height="200"/>
+                                                                <?php
+                                                                }
                                                         }
                                                         ?>
                                                         </span>

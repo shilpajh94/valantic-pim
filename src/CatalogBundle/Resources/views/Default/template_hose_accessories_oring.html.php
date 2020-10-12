@@ -136,8 +136,15 @@ if ($data):
                         if ($this->editmode) {
                         echo $this->image("HHAO_Image", ["width" => 200])->setImage($data['imageObj']);
                         } else {
-                        if(!$this->image("HHAO_Image")->isEmpty())
-                                echo $this->image("HHAO_Image", ["width" => 200]);
+                            if(!$this->image("HHAO_Image")->isEmpty())
+                                $imgSrcObj = $this->image("HHAO_Image");
+                                
+                            if($imgSrcObj)
+                            {
+                            ?>
+                            <img src="<?= $imgSrcObj->getSrc(); ?>" width="200"/>
+                            <?php
+                            }
                         }
                         ?>
                             <div class="material-desc">

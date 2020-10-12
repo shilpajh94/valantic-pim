@@ -130,8 +130,12 @@ if (!isset($this->parentContainer)) {
                                     ?>
                                         <p class=" borderBottom block">
                                         <?php
-                                        echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200]);
+                                        $imgSrcObj = $this->image('INH_Fitting_Cover_DefaultImage');
+                                        if($imgSrcObj)
+                                        {
                                         ?>
+                                        <img src="<?= $imgSrcObj->getSrc(); ?>" width="600" height="200"/>
+                                        <?php } ?>
                                         </p>
                                         <?php
                                     }

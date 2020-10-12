@@ -224,8 +224,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 if ($this->editmode) {
                 echo $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj);
                 } else {
-                if(!$this->image("HHAS_Image_{$incr}")->isEmpty())
-                        echo $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200]);
+                        if(!$this->image("HHAS_Image_{$incr}")->isEmpty())
+                                $imgSrcObj = $this->image("HHAS_Image_{$incr}");
+                        
+                        if($imgSrcObj)
+                        {
+                        ?>
+                        <img src="<?= $imgSrcObj->getSrc(); ?>" height="200" width="200"/>
+                        <?php
+                        }
                 }
                 ?>
        </figure>

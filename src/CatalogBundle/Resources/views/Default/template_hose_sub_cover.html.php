@@ -43,7 +43,19 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         </span>
                         <div class="flex aligned">
                                 <h5>
-                                <?php echo $this->image("HHSC_Footer_Image", ["width" => 40]); ?>
+                                        <?php 
+                                        if($this->editmode)
+                                                echo $this->image("HHSC_Footer_Image", ["width" => 40]); 
+                                        else{
+                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image"); 
+                                                if($imgSrcObj4)
+                                                {
+                                                ?>
+                                                <img src="<?= $imgSrcObj4->getSrc(); ?>" width="40"/>
+                                                <?php
+                                                }
+                                        }
+                                        ?>
                                         <font> 
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("HHSC_Footer")->isEmpty()): ?>
@@ -65,7 +77,19 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                 <footer class="flex-center <?php echo $footer_class; ?>">   
                         <div class="flex aligned">
                                 <h5>
-                                   <?php echo $this->image("HHSC_Footer_Image1", ["width" => 40]); ?>
+                                        <?php 
+                                        if($this->editmode)
+                                                echo $this->image("HHSC_Footer_Image1", ["width" => 40]); 
+                                        else{
+                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1"); 
+                                                if($imgSrcObj3)
+                                                {
+                                                ?>
+                                                <img src="<?= $imgSrcObj3->getSrc(); ?>" width="40"/>
+                                                <?php
+                                                }
+                                        }
+                                        ?>
                                         <font> 
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("HHSC_Footer1")->isEmpty()): ?>
@@ -98,7 +122,18 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
 
     <article class="containerAll noBorder coverPage">
         <header class="dark ">
-                <?= $this->image("HHSC_Image"); ?>
+                <?php 
+                if($this->editmode)
+                        echo $this->image("HHSC_Image"); 
+                else{
+                        $imgSrcObj =  $this->image("HHSC_Image"); 
+                        if($imgSrcObj)
+                        {
+                        ?>
+                        <img src="<?= $imgSrcObj->getSrc(); ?>"/>
+                        <?php
+                        }
+                }?>
         </header>
     
         <nav class="marginBottom30">
@@ -111,8 +146,18 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
            
             <div class="bg marginTop30">               
                         <span>
-                        <?php
-                        echo $this->image("HHSC_Title_Image", ["width" => 50]);
+                        <?php 
+                        if($this->editmode)
+                                echo $this->image("HHSC_Title_Image", ["width" => 50]); 
+                        else{
+                                $imgSrcObj2 =  $this->image("HHSC_Title_Image"); 
+                                if($imgSrcObj2)
+                                {
+                                ?>
+                                <img src="<?= $imgSrcObj2->getSrc(); ?>" width="50"/>
+                                <?php
+                                }
+                        }
                         ?>
                         </span>
                         <h3>

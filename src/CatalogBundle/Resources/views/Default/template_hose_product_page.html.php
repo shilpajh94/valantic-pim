@@ -200,7 +200,14 @@ if ($data):
                                 echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj);
                             } else {
                                 if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
-                                    echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200]);
+                                    $imgSrcObj1 = $this->image("HHPP_Image_Left_{$incr}");
+
+                                if($imgSrcObj1)
+                                {
+                                ?>
+                                <img src="<?= $imgSrcObj1->getSrc(); ?>" class="leftImg" width="600" height="200"/>
+                                <?php
+                                }
                             }
                             ?>
                             <?php
@@ -208,7 +215,14 @@ if ($data):
                                 echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj);
                             } else {
                                 if(!$this->image("HHPP_Image_Right_{$incr}")->isEmpty())
-                                    echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                                    $imgSrcObj2 = $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                                    
+                                if($imgSrcObj2)
+                                {
+                                ?>
+                                <img src="<?= $imgSrcObj2->getSrc(); ?>" class="rightImg" width="600" height="200"/>
+                                <?php
+                                }
                             }
                             ?>
                         </aside>
