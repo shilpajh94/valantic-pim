@@ -25,7 +25,7 @@ parameters:
             hoseOdIn:
                 fieldLevel: objectBrick
                 fieldLabel: 'Hose OD (in)'
-                groupName: HoseID
+                groupName: HoseOD
                 unitName: in
                 fieldType: Input
                 parent:
@@ -33,7 +33,7 @@ parameters:
             hoseOdmm:
                 fieldLevel: objectBrick
                 fieldLabel: 'Hose OD (mm)'
-                groupName: HoseID
+                groupName: HoseOD
                 unitName: mm
                 fieldType: Input
                 parent:
@@ -1097,7 +1097,7 @@ parameters:
             hoseOdIn:
                 fieldLevel: objectBrick
                 fieldLabel: 'OD (in)'
-                groupName: HoseID
+                groupName: HoseOD
                 unitName: in
                 fieldType: Input
                 parent:
@@ -1105,7 +1105,7 @@ parameters:
             hoseOdmm:
                 fieldLevel: objectBrick
                 fieldLabel: OD (mm)
-                groupName: HoseID
+                groupName: HoseOD
                 unitName: mm
                 fieldType: Input
                 parent:

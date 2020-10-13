@@ -11,7 +11,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <div class="numberTitle">
             <?php if($this->editmode): ?>
                 <?php if($this->input("HHIDN_Heading")->isEmpty()): ?>
-                    <h2><?= $this->input("HHIDN_Heading")->setDataFromResource('Alphanumeric Index by Descriptive Number'); ?></h2>
+                    <h2><?= $this->input("HHIDN_Heading", ['placeholder'=>"Index Page Title"])->setDataFromResource('Index'); ?></h2>
                 <?php else: ?>
                     <h2><?= $this->input("HHIDN_Heading"); ?></h2>
                 <?php endif; ?>
@@ -22,16 +22,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <div id="amortizationTable" class="content_double single">
             <?php if($this->editmode): ?>
                 <div>
-                    <div class="upper"> <?= $this->input("HHIDN_th_col_1",['placeholder'=>"Table column 1"])->setDataFromResource('Descriptive #'); ?></div>
-                    <div class="upper"> <?= $this->input("HHIDN_th_col_2",['placeholder'=>"Table column 2"])->setDataFromResource('Page #'); ?> </div>
+                    <div class="upper"> <?= $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"])->setDataFromResource('Descriptive #'); ?></div>
+                    <div class="upper"> <?= $this->input("HHIDN_th_col_2",['placeholder'=>"Column 2"])->setDataFromResource('Page #'); ?> </div>
                 </div>
                     
                 <?php 
                 $rowCount = 1;
                 while($this->block("HHIDN_Index_Content")->loop()) { ?>
                 <div class="paging">
-                    <span class="pageTitle"><?= $this->input("HHIDN_td1",['placeholder'=>"Descriptive Number- {$rowCount}"])->setDataFromResource("title-{$rowCount}"); ?></span>
-                    <span class="pageNo"><?= $this->input("HHIDN_td2",['placeholder'=>"Page - {$rowCount}"])->setDataFromResource("p-{$rowCount}"); ?></span>
+                    <span class="pageTitle"><?= $this->input("HHIDN_td1",['placeholder'=>"Page Title"]); ?></span>
+                    <span class="pageNo"><?= $this->input("HHIDN_td2",['placeholder'=>"Page No"]); ?></span>
                 </div>
                 <?php 
                 $rowCount++;
@@ -52,8 +52,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <tr>
                         <td colspan="2">
                         <div class="paging">
-                            <span class="pageTitle"><?= $this->input("HHIDN_td1",['placeholder'=>"Descriptive Number- {$rowCount}"])->setDataFromResource("title-{$rowCount}"); ?></span>
-                            <span class="pageNo"><?= $this->input("HHIDN_td2",['placeholder'=>"Page - {$rowCount}"])->setDataFromResource("p-{$rowCount}"); ?></span>
+                            <span class="pageTitle"><?= $this->input("HHIDN_td1"); ?></span>
+                            <span class="pageNo"><?= $this->input("HHIDN_td2"); ?></span>
                         </div>
                         </td>
                         </tr>

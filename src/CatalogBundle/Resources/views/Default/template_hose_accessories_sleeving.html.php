@@ -174,7 +174,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         <div>
                                         <?php foreach ($safetyFeatures as $key => $feature): ?>
                                                 <p  class="flex">
-                                                <font> <?= $feature['name'] ?></font>
+                                                <font class="is-highlight"> <?= $feature['name'] ?></font>
                                                 </p>
                                         <?php endforeach; ?>
 
