@@ -21,6 +21,8 @@ class Constants
 
     const CONFIG_FILE = PIMCORE_PROJECT_ROOT.'/src/DistributionHubBundle/Resources/config/config.yml';
 
+    const PACKAGE_CONFIG_FILE = PIMCORE_PROJECT_ROOT.'/src/DistributionHubBundle/Resources/config/pimcore/package/plugin_config.yml';
+
     const SCHEDULE_STATUS_CREATED = 'CREATED';
     /**
      * @IMPORTANT: if this constant is changed then this also needs to be handled in scheduleConfig.js in delete action column handler

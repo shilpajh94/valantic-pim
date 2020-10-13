@@ -3,7 +3,9 @@
 namespace DistributionHubBundle\Lib;
 
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Pimcore\Tool;
+use DistributionHubBundle\Lib\DHubLogger;
 
 class Utils
 {
@@ -15,9 +17,16 @@ class Utils
      * @return mixed
      */
     public static function getYmlConfig(string $filePath){
-        $yaml = new Parser();
-        $value = $yaml->parseFile($filePath);
-        return $value;
+        
+        try {
+            $yaml = new Parser();
+            $value = $yaml->parseFile($filePath);
+            return $value;
+        } catch (ParseException $e) {
+            DHubLogger::log("Unable to parse the YAML string: %s". $e->getMessage(), DHubLogger::ERROR);
+            throw new ParseException("Unable to parse the YAML string: %s ". $e->getMessage());
+        }
+
     }
 
     /**

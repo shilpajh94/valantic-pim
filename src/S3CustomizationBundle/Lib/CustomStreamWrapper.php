@@ -158,7 +158,7 @@ class CustomStreamWrapper extends StreamWrapper
 
     private function getS3PathForPimcorePath($pimcorePath)
     {
-        $service =  \Pimcore::getContainer()->get("S3CustomizationBundle\Services\S3CustomizationService");
+        $service =  \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class);
         return $service->getS3PathForPimcorePath($pimcorePath);
     }
 

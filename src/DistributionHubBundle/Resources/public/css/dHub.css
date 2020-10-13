@@ -33,6 +33,12 @@
 .dHub_fc_media_getter {
     background: url("/bundles/pimcoreadmin/img/flat-color-icons/night_landscape.svg") center center no-repeat !important;
 }
+
+.info_ftp {
+/*    clear:left;
+    float:left;*/
+    margin-right:50px;
+}
  
 .x-btn-icon-el.x-tbar-page-refresh:before {
     content: "\f021";

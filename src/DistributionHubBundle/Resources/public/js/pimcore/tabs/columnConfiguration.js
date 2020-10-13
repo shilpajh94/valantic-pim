@@ -32,7 +32,8 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
             "BooleanFormatter",
             "MediaGetter",
             "LocaleSwitcher",
-            "CollectionMediaGetter"
+            "CollectionMediaGetter",
+            "SelectTypeMasterGetter"
         ];
         this.configPanel = new Ext.Panel({
             layout: "border",
@@ -112,17 +113,6 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
     },
     getLeftPanel: function () {
         if (!this.leftPanel) {
-
-            /*var items = [
-                 this.getClassDefinitionTreePanel(),
-                 this.getOperatorTree()
-             ];
-
-             this.leftPanel = new Ext.Panel({
-                  layout: "border",
-                  region: "center",
-                  items: items,
-              });*/
             let items = this.getOperatorTrees();
             items.unshift(this.getClassDefinitionTreePanel());
             this.brickKeys = [];
@@ -672,48 +662,59 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
     },
     getClassDefinitionTreePanel: function () {
         if (!this.classDefinitionTreePanel) {
-            this.classDefinitionTreePanel = this.getClassTree("/admin/class/get-class-definition-for-column-config",
+            let outerScope = this;
+            this.brickKeys = [];
+            let tree = this.getClassTree("/admin/distributionhub/channel/get-class-definition-for-column-config",
                 this.config.classId, 0);
+            if (typeof this.config.classId !== 'undefined' && this.config.classId !== 0 && this.config.classId !== null) {
+                Ext.Ajax.request({
+                    url: "/admin/distributionhub/channel/get-classification-store-for-column-config",
+                    method: "GET",
+                    params: {
+                        id: this.config.classId
+                    },
+                    success: function(response){
+                       let result = Ext.decode(response.responseText);
+                       if(result.length >0){
+                           result.forEach(function (element, index, array) {
+                               let classAttributeStore = new pimcore.plugin.distributionhub.helpers.classAttributesStore(element.name, index);
+                               let storeAttribute= classAttributeStore.getClassificationStorePanel(element.name, element.storeId);
+                               outerScope.classDefinitionTreePanel.add(storeAttribute);
+                           });
+                       }
+                    },
+                    failure: function(response){
+                        alert("Error in classification store " );
+                    }
+                });
+            }
+            this.classDefinitionTreePanel = new Ext.Panel({
+                title: t('class_attributes'),
+                iconCls: 'pimcore_icon_gridconfig_class_attributes',
+                region: "center",
+                width: 150,
+                autoScroll:true,
+                rootVisible: false,
+                items: []
+            });
+            this.classDefinitionTreePanel.add(tree);
         }
-
         return this.classDefinitionTreePanel;
     },
     getClassTree: function (url, classId) {
 
-        var classTreeHelper = new pimcore.object.helpers.classTree(true);
+        const classTreeHelper = new pimcore.plugin.distributionhub.helpers.classTree(true);
+
         let tree = new Ext.tree.TreePanel({
-            title: t('class_attributes'),
-            iconCls: 'pimcore_icon_gridconfig_class_attributes',
             region: "center",
-            width: 150,
             rootVisible: false
         });
         if (typeof classId === 'undefined' || classId === 0 || classId === null) {
             return tree;
         } else {
             tree = classTreeHelper.getClassTree(url, classId);
-
-            /*     tree.addListener("itemdblclick", function (tree, record, item, index, e, eOpts) {
-                     if (!record.data.root && record.data.type != "layout"
-                         && record.data.dataType != 'localizedfields') {
-                         var copy = Ext.apply({}, record.data);
-
-                         if (this.selectionPanel && !this.selectionPanel.getRootNode().findChild("key", record.data.key)) {
-                             delete copy.id;
-                             copy = this.selectionPanel.getRootNode().appendChild(copy);
-
-                             var ownerTree = this.selectionPanel;
-
-                             if (record.data.dataType == "classificationstore") {
-                                 var ccd = new pimcore.object.classificationstore.columnConfigDialog();
-                                 ccd.getConfigDialog(ownerTree, copy, this.selectionPanel);
-                             }
-                         }
-                     }
-                 }.bind(this));*/
-
-            return tree;
         }
+        return tree;
     },
     getChangeTypeMenu: function (record) {
         var operators = Object.keys(pimcore.object.gridcolumn.operator);

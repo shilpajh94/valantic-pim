@@ -93,9 +93,8 @@ class AssociateNomenclatureToProductCommand extends AbstractCommand
                     $this->consoleLog("Nomenclature NOT FOUND found for '" . $searchString . "'");
                 }
                 array_pop($descriptivePartNumberParts);
-                // assuming that there will always be at-least one '-' in $productDescriptivePartNumber
                 $searchString = implode("-",$descriptivePartNumberParts);
-            }while ( count($descriptivePartNumberParts) > 1 );
+            }while ( count($descriptivePartNumberParts) > 0 );
 
 
             $this->csvLog($csvLogFileHandle,[$index, $productDescriptivePartNumber, $nomenclatureFound, $searchString, $assocProductSap]);

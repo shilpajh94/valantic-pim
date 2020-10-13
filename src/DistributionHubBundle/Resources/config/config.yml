@@ -1,47 +1,20 @@
-
-#allowed_csv_mime_types_in_template_upload: ['text/csv']
-#
-#allowed_excel_mime_types_in_template_upload: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/wps-office.xlsx']
-
-# this is the place where the template uploaded by user are kept,once the user
-# hits the save button file is removed from this place and a corresponding asset is created
-tmp_template_upload_pimcore_dir: 'var/tmp/'
-
-# root pimcore asset directory for all Distribution Hub assets
+host_name: 'http://host.com'
+tmp_template_upload_pimcore_dir: var/tmp/
 asset_folder: 'Distribution Hub'
-
-#pimcore folder in asset_folder where asset is created for uploaded template file
 folder_for_uploaded_template_in_asset_folder: 'Uploaded Templates'
-
-#pimcore folder in asset_folder where asset is created for uploaded template file
 folder_for_exported_files_in_asset_folder: 'Exported Files'
-
-# same as [Constants::FILE_TYPE_XLSX, Constants::FILE_TYPE_CSV]
-export_formats_for_schedule: ['Xlsx','Csv']
-
-export_locations_for_schedule: ['FTP','Pimcore']
-
+export_formats_for_schedule:
+    - Xlsx
+    - Csv
+export_locations_for_schedule:
+    - FTP
+    - Pimcore
 schedule_expiry_days: 14
-
-# php format of the date being shown in the shedule grid
 schedule_date_format: 'm/d/Y H:i'
-
-default_mapping_file_csv_delimiter: ';'
-
-default_export_file_csv_delimiter: ';'
-
-# records of this batch size will be written in the export file one by one
+default_mapping_file_csv_delimiter: ;
+default_export_file_csv_delimiter: ;
 batch_size_of_records_for_export_file_generation: 500
-
-# in progress export process will be killed after this much minutes
 in_progress_process_life: 360
-
-# max count of active export parallel process
 max_parallel_active_process_count: 2
-
-# after this many number of batches it will be checked whether
-#  the schedule has been deleted or not
 is_schedule_deleted_check_batch_interval: 3
-
-# mention time in minutes
 schedule_screen_refresh_time: 1

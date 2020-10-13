@@ -1,6 +1,7 @@
 <?php
 namespace B2BExportBundle\Services\Model;
 
+use AppBundle\Logger\LogLevel;
 use Exception;
 use Pimcore\Db;
 use Pimcore\Log\Simple as Logger;
@@ -53,7 +54,7 @@ class Material
     ");
     return $salesMaterialMaster;
       } catch (Exception $ex) {
-              Logger::log('b2bexport',"Material Model Exception :: " .$ex->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Material Model Exception :: " .$ex->getMessage(),LogLevel::CRITICAL());
       }
     }
 }

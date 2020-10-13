@@ -75,11 +75,12 @@ class ScheduleController extends AdminController
      */
     public function saveScheduleAction(Request $request,ScheduleService $scheduleService)
     {
+ 
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');
         $exportFormat = $request->get('exportFormat');
-        $exportLocation = $request->get('exportLocation');
+        $exportLocation = empty($request->get('exportLocation')) ? "Pimcore" : $request->get('exportLocation');
         $exportFtp = $request->get('exportFtp');
         $channelId = $request->get('channelId');
         $downloadFileName = $request->get('downloadFileName');
@@ -140,7 +141,7 @@ class ScheduleController extends AdminController
         }catch (NotNullConstraintViolationException $exception) {
             DHubLogger::log("Error saving schedule: ".$exception->getMessage(), DHubLogger::CRITICAL);
 
-            $msg = $this->trans('mandatory_field_check_failed');
+            $msg = $this->trans('mandatory_field_check_failed-check application logger for more details.');
             return $this->json(['success' => false, 'msg' => $msg]);
         }catch (\Exception $exception) {
             DHubLogger::log("Error saving schedule: ".$exception->getMessage(), DHubLogger::CRITICAL);

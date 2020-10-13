@@ -294,6 +294,7 @@ class ChannelController extends AdminController
      * @param Request $request
      * @param TranslatorInterface $translator
      * @return JsonResponse
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function getGroupKeysAction(Request $request, TranslatorInterface $translator) {
         $params = array_merge($request->request->all(), $request->query->all());
@@ -301,28 +302,12 @@ class ChannelController extends AdminController
         $start = $params['start'] ?? 0;
         $fromPaging = $params['fromPaging'] ?? 0;
         $limit = $params['limit'] ?? 0;
+        $storeId = $params['storeId'] ?? 0;
         $editor = $params['editor'] ?? 0;
-        $classificationstoreKeys = [];
-        $total = 0;
-        $sqlResult = [];
-
-        foreach ($sqlResult as $row) {
-            $keyDetails = array();
-            $keyDetails['id'] = (int) $row['Key Id'];
-            $keyDetails['text'] = $translator->trans($row['Key Name'], [], 'admin');
-            $keyDetails['key'] = $row['name'];
-            $keyDetails['type'] = 'data';
-            $keyDetails['leaf'] = true;
-            $keyDetails['allowDrag'] = true;
-            $keyDetails['dataType'] = $row['Key type'];
-            $keyDetails['iconCls'] = ($row['Key type'] == 'advancedQuantityValue') ? "pimcore_icon_quantityValue" : "pimcore_icon_" . $row['Key type'];
-            $keyDetails['expanded'] = false;
-            $keyDetails['brickDescriptor'] = 'brickDescriptor';
-            $keyDetails['layout'] = $keyDetails;
-            array_push($classificationstoreKeys, $keyDetails);
-        }
-
-        return $this->json(['nodes' => $classificationstoreKeys, 'total' => (int) $total, 'filter' => $filter, 'limit' => (int) $limit, 'inSearch' => (int) (!empty($filter)), 'offset' => (int) $start, 'overflow' => false, 'fromPaging' => (int) $fromPaging]);
+        $name = $params['name'] ?? '';
+        $classificationStoreService = $this->get(Services\ClassificationStoreService::class);
+        $result = $classificationStoreService->getGroupKeys($filter, $start, $limit, $storeId, $name, $editor, $translator);
+        return $this->json(['nodes' => $result['key'], 'total' => (int) $result['count'], 'filter' => $filter, 'limit' => (int) $limit, 'inSearch' => (int) (!empty($filter)), 'offset' => (int) $start, 'overflow' => false, 'fromPaging' => (int) $fromPaging]);
     }
 
     /**
@@ -388,5 +373,41 @@ class ChannelController extends AdminController
         return $this->json(["languages" => $fieldArray]);
     }
 
+    /**
+     * @Route("/get-class-definition-for-column-config", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
+     * @throws Exception
+     */
+    public function getClassDefinitionForColumnConfigAction(Request $request)
+    {
+        $class = DataObject\ClassDefinition::getById($request->get('id'));
+        $objectId = intval($request->get('oid'));
+        $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
+        $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
+        $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
+        $class->setFieldDefinitions([]);
+        $result = [];
+        $result['objectColumns']['childs'] = $layoutDefinitions->getChilds();
+        $result['objectColumns']['nodeLabel'] = 'object_columns';
+        $result['objectColumns']['nodeType'] = 'object';
+        Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);
+        Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
+        return $this->adminJson($result);
+    }
+    /**
+     * @Route("/get-classification-store-for-column-config", methods={"GET"})
+     *
+     * @param Request $request
+     *
+     * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
+     * @throws Exception
+     */
+    public function getClassificationStoreForColumnConfigAction(Request $request){
+       $request =  Services\ClassificationStoreService::getStore($request->get('id'));
+       return $this->adminJson($request);
+    }
 
 }

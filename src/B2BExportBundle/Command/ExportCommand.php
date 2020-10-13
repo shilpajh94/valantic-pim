@@ -8,6 +8,7 @@
 
 namespace B2BExportBundle\Command;
 
+use AppBundle\Logger\LogLevel;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use B2BExportBundle\Services\Export;
 use Pimcore\Log;
@@ -24,13 +25,13 @@ use Exception;
  * @package B2BExportBundle\Command
  */
 class ExportCommand extends AbstractCommand {
-    
+
     /**
      * Service variable for service class
      * @var $service
      */
 	public $service;
-	
+
     public function __construct() {
         parent::__construct();
         $this->service = \Pimcore::getContainer()->get('b2b.export-service');
@@ -53,7 +54,7 @@ class ExportCommand extends AbstractCommand {
      * @param OutputInterface $output
      * @return void
      * @throws \Exception
-     * 
+     *
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
     	try{
@@ -65,7 +66,7 @@ class ExportCommand extends AbstractCommand {
         } catch (Exception $ex) {
             // Generating Error logs in Pimcore Log Directory
             // Path /var/log/export_b2b_catalog_groups_logs.log
-            Logger::log('b2bexport',"Exception :: " .$ex->getMessage());
+            \B2BExportBundle\Lib\Utils::log("Exception :: " .$ex->getMessage(),LogLevel::CRITICAL());
         }
     }
 

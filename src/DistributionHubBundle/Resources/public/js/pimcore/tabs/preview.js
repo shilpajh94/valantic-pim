@@ -1,4 +1,3 @@
-
 pimcore.registerNS("pimcore.plugin.distributionhub.tabs.preview");
 pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distributionhub.filtersConfig.resultAbstractPanel, {
 

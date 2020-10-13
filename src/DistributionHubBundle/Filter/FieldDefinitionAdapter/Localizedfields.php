@@ -74,7 +74,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
      * @throws Exception
      */
     public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
-
+        
         $validLanguages = Tool::getValidLanguages();
 
         $classId = $listing->getClassId();
@@ -112,6 +112,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
             return $fieldDefinitionAdapter->getQueryForLocalized($fieldFilter, $relationsTable);
         } else {
             $filteredResults = $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $lang,], $tableName);
+            
         }
 
         $resultsIds = array();
@@ -144,20 +145,24 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
      */ 
     public function getDataForLocalized($fieldFilter, $classId, $fieldDefinition, $fieldType) {
 
-        $validLanguages = Tool::getValidLanguages();
-        
+        $validLanguages = Tool::getValidLanguages(); 
         
         if ($fieldType === "objectbricks") {
             $tableName = "object_brick_localized_" . $fieldFilter['type'] . "_" . $classId;
+            $lang = array_keys($fieldFilter['filterCondition']['filterEntryData'])['0'];
+            $data = $fieldFilter['filterCondition']['filterEntryData'][$lang]['0'];
         } elseif ($fieldType === "fieldcollections") {
             $tableName = "object_collection_" . $fieldFilter['type'] . "_localized_" . $classId;
+            $lang = array_keys($fieldFilter['filterCondition']['filterEntryData'])['0'];
+            $data = $fieldFilter['filterCondition']['filterEntryData'][$lang]['0'];
+        } elseif ($fieldType === "object"){
+            $tableName = "object_localized_data_". $classId;
+            $lang = array_keys($fieldFilter['filterEntryData'])['0'];
+            $data = $fieldFilter['filterEntryData'][$lang]['0'];
         }
-
-        $lang = array_keys($fieldFilter['filterCondition']['filterEntryData'])['0'];
         if (empty($lang)) {
             $lang = $validLanguages['0'];
         }
-        $data = $fieldFilter['filterCondition']['filterEntryData'][$lang]['0'];
 
         $fieldName = $data['fieldname'];
         $childFieldType = $this->getLocalizedFieldType($fieldDefinition, $fieldName);
