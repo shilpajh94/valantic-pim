@@ -1,18 +1,2 @@
 imports:
     - { resource: config.yml }
-
-parameters:
-    cdn.enable: 0
-    cdn.host: "https://cdn_path"
-    s3.host: "https://s3.us-east-1.amazonaws.com"
-    s3.key: "AKIAZ6MFIGPTWVTS2K6D"
-    s3.secret: "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"
-    s3.bucket: "megha-pim"
-    s3.region: "us-east-1"
-
-    b2b_export_sftp:
-        host: "upload.pimcoreclients.com"
-        port: 22
-        username: "rohit.sriwastva"
-        password: "R@H!T@4321"
-        path: "/vsftpd/rohit.sriwastva"

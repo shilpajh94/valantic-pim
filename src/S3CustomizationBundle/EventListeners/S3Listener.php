@@ -46,7 +46,7 @@ class S3Listener
     public function __construct()
     {
         if(!DISABLE_S3_CDN) {
-            if ((int)\Pimcore::getKernel()->getContainer()->getParameter("cdn.enable")) {
+            if ((int)CDN_ENABLE) {
                 $this->s3BaseUrl = PIMCORE_CDN_BASEURL;
                 $this->s3AssetUrlPrefix = $this->s3BaseUrl . "/assets";
                 $this->s3TmpUrlPrefix = $this->s3BaseUrl . "/tmp";
