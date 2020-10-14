@@ -110,7 +110,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     <p class=" borderBottom block">
                                     
                                     <?php
-                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200])->setImage($info['defaultPageImage']);
+                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200]);
                                     ?>
                                     </p>
                                     <?php

@@ -120,7 +120,7 @@ if (!isset($this->parentContainer)) {
                                     ?>
                                     <p class=" borderBottom block">
                                     <?php
-                                    echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200])->setImage($defaultPageImage);
+                                    echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200]);
                                     ?>
                                     </p>
                                     <?php

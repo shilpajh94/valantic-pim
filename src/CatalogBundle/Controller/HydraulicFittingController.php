@@ -9,6 +9,7 @@ use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use S3CustomizationBundle\Lib\Utils;
 
 class HydraulicFittingController extends AbstractController
 {
@@ -67,6 +68,8 @@ class HydraulicFittingController extends AbstractController
             
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
+
+            $attrbuteImgS3Arr = array();
 
             $brandsData = array();
 
@@ -133,27 +136,27 @@ class HydraulicFittingController extends AbstractController
                             }
 
                             if(!$LeftPrintCatalogImageObj && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
-                                if (Asset\Service::pathExists($bvalue[$headerKeysIndex['LeftPrintCatalogImage']])) 
-                                {
-                                    $LeftPrintCatalogImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
-                                    if(file_exists($LeftPrintCatalogImage->getFileSystemPath()))
-                                    {
-                                        $LeftPrintCatalogImageObj = $LeftPrintCatalogImage;
-                                    }
-                                    unset($LeftPrintCatalogImage);
-                                }
+                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['LeftPrintCatalogImage']])) 
+                                // {
+                                    $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]);
+                                    // if(file_exists($LeftPrintCatalogImage->getFileSystemPath()))
+                                    // {
+                                    //     $LeftPrintCatalogImageObj = $LeftPrintCatalogImage;
+                                    // }
+                                    // unset($LeftPrintCatalogImage);
+                                // }
                             }
 
                             if(!$RightPrintCatalogImageObj && $bvalue[$headerKeysIndex['RightPrintCatalogImage']]) {
-                                if (Asset\Service::pathExists($bvalue[$headerKeysIndex['RightPrintCatalogImage']])) 
-                                {
-                                    $RightPrintCatalogImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['RightPrintCatalogImage']]);
-                                    if(file_exists($RightPrintCatalogImage->getFileSystemPath()))
-                                    {
-                                        $RightPrintCatalogImageObj = $RightPrintCatalogImage;
-                                    }
-                                    unset($RightPrintCatalogImage);
-                                }
+                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['RightPrintCatalogImage']])) 
+                                // {
+                                    $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['RightPrintCatalogImage']]);
+                                    // if(file_exists($RightPrintCatalogImage->getFileSystemPath()))
+                                    // {
+                                    //     $RightPrintCatalogImageObj = $RightPrintCatalogImage;
+                                    // }
+                                    // unset($RightPrintCatalogImage);
+                                // }
                             }
 
                             if(isset($bvalue[$headerKeysIndex['HoseID1InFract']]) && !empty($bvalue[$headerKeysIndex['HoseID1InFract']])) {
@@ -185,9 +188,22 @@ class HydraulicFittingController extends AbstractController
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                                         
-                                        if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$groupColumnName];
-
+                                        if ($iconRequired == 'YES') 
+                                        {
+                                            if(!isset($attrbuteImgS3Arr[$groupColumnName]))
+                                            {
+                                                
+                                                $attributeImagesSrc = $attributeImages[$groupColumnName];
+                                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                                $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                                            }
+                                            else
+                                            {
+                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attrbuteImgS3Arr[$groupColumnName];
+                                            }
+                                    
+                                        }
                                         
                                     }
                                 }
@@ -239,12 +255,26 @@ class HydraulicFittingController extends AbstractController
                 }
             }
 
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $this->view['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
             $this->view['iconRequired'] = $iconRequired;
             $this->view['brandsData'] = $newBrandArray;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
+    }
+
+    public function getS3ImageSrc($src)
+    {
+        $s3src = '';
+        $imgObj = \Pimcore\Model\Asset::getByPath($src);
+        
+        if($imgObj)
+            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+
+        return $s3src;
     }
 
     public function getNomenClatureList(){

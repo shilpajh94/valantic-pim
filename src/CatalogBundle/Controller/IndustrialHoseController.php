@@ -10,6 +10,7 @@ use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use S3CustomizationBundle\Lib\Utils;
 
 class IndustrialHoseController extends AbstractController
 {
@@ -102,15 +103,19 @@ class IndustrialHoseController extends AbstractController
                     }
                 }
             }
+
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $categories = $this->getSIOP($lang);
             $this->view['info'] = array(
                 'configTableName'=> $configTableName,
                 'siop4Description'=> $siop4Description,
                 'data' => $data,
                 'categories' => $categories,
-                'defaultPageImage' => \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']),
+                // 'defaultPageImage' => \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']),
                 'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
-                'footer_logo_src' => (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange']
+                'footer_logo_src' => $footer_logo_src
             );
         }
     }
@@ -152,6 +157,7 @@ class IndustrialHoseController extends AbstractController
             $subHeaderRequired = 'NO';
             $columnsData = json_decode($columnsData, true);
             
+            $attrbuteImgS3Arr = array();
 
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
@@ -275,15 +281,15 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) {
-                                if (Asset\Service::pathExists($bvalue[$headerKeysIndex['mainImage']])) 
-                                {
-                                    $mainImageObj = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
-                                    if(file_exists($mainImageObj->getFileSystemPath()))
-                                    {
-                                        $mainImage = $mainImageObj;
-                                    }
-                                    unset($mainImageObj);
-                                }
+                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['mainImage']])) 
+                                // {
+                                    $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
+                                //     if(file_exists($mainImageObj->getFileSystemPath()))
+                                //     {
+                                //         $mainImage = $mainImageObj;
+                                //     }
+                                //     unset($mainImageObj);
+                                // }
                             }
 
                             if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
@@ -334,10 +340,21 @@ class IndustrialHoseController extends AbstractController
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                                         
-                                        if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImages[$groupColumnName];
-
-                                        
+                                        if ($iconRequired == 'YES') 
+                                        {
+                                            if(!isset($attrbuteImgS3Arr[$groupColumnName]))
+                                            {
+                                                
+                                                $attributeImagesSrc = $attributeImages[$groupColumnName];
+                                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                                $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                                            }
+                                            else
+                                            {
+                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attrbuteImgS3Arr[$groupColumnName];
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -435,14 +452,20 @@ class IndustrialHoseController extends AbstractController
             
             $categories = $this->getSIOP($CatalogLanguage);
 
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
+            $BrandingImageSrc = $CatalogImagesINHProduct['BrandingImage'];
+            $BrandingImageSrc = $this->getS3ImageSrc($BrandingImageSrc);
+
             $this->view['info'] = array(
                 'iconRequired' => $iconRequired,
                 'brandsData' => $newBrandArray,
                 'categories' => $categories,
                 'selectedCategory' => $SIOP3Description,
-                'branding_image_src' => $CatalogImagesINHProduct['BrandingImage'],
+                'branding_image_src' => $BrandingImageSrc,
                 'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
-                'footer_logo_src' => (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange']
+                'footer_logo_src' => $footer_logo_src
             );
         }
     }
@@ -499,7 +522,13 @@ class IndustrialHoseController extends AbstractController
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                }
             }
 
             unset($columnsData);
@@ -577,28 +606,28 @@ class IndustrialHoseController extends AbstractController
 
                         if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
-                            {
-                                $mainImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                                if(file_exists($mainImage->getFileSystemPath()))
-                                {
-                                    $mainImageObj = $mainImage;
-                                }
-                                unset($mainImage);
-                            }
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            // {
+                                $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            //     if(file_exists($mainImage->getFileSystemPath()))
+                            //     {
+                            //         $mainImageObj = $mainImage;
+                            //     }
+                            //     unset($mainImage);
+                            // }
                         }
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                         {
-                            if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
-                            {
-                                $ProfileDimensionImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                                if(file_exists($ProfileDimensionImage->getFileSystemPath()))
-                                {
-                                    $ProfileDimensionImageObj = $ProfileDimensionImage;
-                                }
-                                unset($ProfileDimensionImage);
-                            }
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
+                            // {
+                                $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                            //     if(file_exists($ProfileDimensionImage->getFileSystemPath()))
+                            //     {
+                            //         $ProfileDimensionImageObj = $ProfileDimensionImage;
+                            //     }
+                            //     unset($ProfileDimensionImage);
+                            // }
                         }
                         
                         if($item[$headerKeysIndex['FittingMaterial']])
@@ -692,9 +721,12 @@ class IndustrialHoseController extends AbstractController
                 unset($mainImageObj);
                 unset($ProfileDimensionImageObj);
 
+                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+                $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
                 $this->view['groupData'] = $groupData;
                 $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-                $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+                $this->view['footer_logo_src'] = $footer_logo_src;
             }
         }
     }
@@ -772,13 +804,16 @@ class IndustrialHoseController extends AbstractController
 
             unset($categoriesList);
 
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $this->view['featuresMaterials'] = $featuresMaterials;
             $this->view['templateBrandDtata'] = $templateBrandDtata;
             $this->view['categories'] = $menuCategories;
             $this->view['selectedCategory'] = $catagoryDescription['SIOP3Description'];
-            $this->view['defaultPageImage'] = \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']);
+            // $this->view['defaultPageImage'] = \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']);
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -842,5 +877,16 @@ class IndustrialHoseController extends AbstractController
             }
         }
         return false;
+    }
+
+    public function getS3ImageSrc($src)
+    {
+        $s3src = '';
+        $imgObj = \Pimcore\Model\Asset::getByPath($src);
+        
+        if($imgObj)
+            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+
+        return $s3src;
     }
 }

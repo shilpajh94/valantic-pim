@@ -10,6 +10,7 @@ use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use S3CustomizationBundle\Lib\Utils;
 
 class DefaultController extends AbstractController {
 
@@ -801,6 +802,9 @@ if(isset($data[$baseId])) {
                 // p_r($data);
                 // p_r($images);die;
                 // p_r($data);die;
+
+                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+                $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
                 
                 $this->view['info'] = array(
                     'brandsInfo' => $data,
@@ -867,8 +871,13 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+            
+                }
             }
 
             unset($columnsData);
@@ -944,29 +953,29 @@ if(isset($data[$baseId])) {
                         $LeftPrintCatalogImage = $element[$headerKeysIndex['LeftPrintCatalogImage']];
                         if(empty($LeftPrintCatalogImageObj) && $LeftPrintCatalogImage)
                         {
-                            if (Asset\Service::pathExists($LeftPrintCatalogImage)) 
-                            {
-                                $LeftPrintCatalogImage = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
-                                if(file_exists($LeftPrintCatalogImage->getFileSystemPath()))
-                                {
-                                    $LeftPrintCatalogImageObj = $LeftPrintCatalogImage;
-                                }
-                                unset($LeftPrintCatalogImage);
-                            }
+                            // if (Asset\Service::pathExists($LeftPrintCatalogImage)) 
+                            // {
+                                $LeftPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($LeftPrintCatalogImage);
+                            //     if(file_exists($LeftPrintCatalogImage->getFileSystemPath()))
+                            //     {
+                            //         $LeftPrintCatalogImageObj = $LeftPrintCatalogImage;
+                            //     }
+                            //     unset($LeftPrintCatalogImage);
+                            // }
                         }
 
                         $RightPrintCatalogImage = $element[$headerKeysIndex['RightPrintCatalogImage']];
                         if(empty($RightPrintCatalogImageObj) && $RightPrintCatalogImage)
                         {
-                            if (Asset\Service::pathExists($RightPrintCatalogImage)) 
-                            {
-                                $RightPrintCatalogImage = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
-                                if(file_exists($RightPrintCatalogImage->getFileSystemPath()))
-                                {
-                                    $RightPrintCatalogImageObj = $RightPrintCatalogImage;
-                                }
-                                unset($RightPrintCatalogImage);
-                            }
+                            // if (Asset\Service::pathExists($RightPrintCatalogImage)) 
+                            // {
+                                $RightPrintCatalogImageObj = \Pimcore\Model\Asset::getByPath($RightPrintCatalogImage);
+                            //     if(file_exists($RightPrintCatalogImage->getFileSystemPath()))
+                            //     {
+                            //         $RightPrintCatalogImageObj = $RightPrintCatalogImage;
+                            //     }
+                            //     unset($RightPrintCatalogImage);
+                            // }
                         }
 
                         foreach($element as $bkey => $value): 
@@ -1099,10 +1108,16 @@ if(isset($data[$baseId])) {
                 $catalogGroupData[$catalogKey] = $data;
             }
 
+
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
+            $branding_image_src = $this->getS3ImageSrc($CatalogImagesHYDProduct['BrandingImage']);
+
             $this->view['data'] = $catalogGroupData;
-            $this->view['branding_image_src'] = $CatalogImagesHYDProduct['BrandingImage'];
+            $this->view['branding_image_src'] = $branding_image_src;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -1154,8 +1169,12 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                }
             }
 
             unset($columnsData);
@@ -1193,15 +1212,15 @@ if(isset($data[$baseId])) {
 
                             if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
                             {
-                                if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
-                                {
-                                    $mainImage = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
-                                    if(file_exists($mainImage->getFileSystemPath()))
-                                    {
-                                        $imageObj = $mainImage;
-                                    }
-                                    unset($mainImage);
-                                }
+                                // if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
+                                // {
+                                    $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                                //     if(file_exists($mainImage->getFileSystemPath()))
+                                //     {
+                                //         $imageObj = $mainImage;
+                                //     }
+                                //     unset($mainImage);
+                                // }
                             }
         
                             if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
@@ -1285,9 +1304,13 @@ if(isset($data[$baseId])) {
 
                 }
             }
+
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -1337,8 +1360,12 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                }
             }
 
             
@@ -1373,15 +1400,15 @@ if(isset($data[$baseId])) {
 
                     if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
                     {
-                        if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
-                        {
-                            $mainImage = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
-                            if(file_exists($mainImage->getFileSystemPath()))
-                            {
-                                $imageObj = $mainImage;
-                            }
-                            unset($mainImage);
-                        }
+                        // if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
+                        // {
+                            $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                        //     if(file_exists($mainImage->getFileSystemPath()))
+                        //     {
+                        //         $imageObj = $mainImage;
+                        //     }
+                        //     unset($mainImage);
+                        // }
                     }
 
                     if(empty($longDescription) && $element[$headerKeysIndex['longDescription']])
@@ -1419,9 +1446,13 @@ if(isset($data[$baseId])) {
                 $data[$brandKey]['articlesData'] = $articlesData;
 
             }
+
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -1469,7 +1500,13 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                }
             }
 
             unset($columnsData);
@@ -1509,15 +1546,15 @@ if(isset($data[$baseId])) {
 
                         if(!$imageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
-                            {
-                                $mainImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                                if(file_exists($mainImage->getFileSystemPath()))
-                                {
-                                    $imageObj = $mainImage;
-                                }
-                                unset($mainImage);
-                            }
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            // {
+                                $imageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            //     if(file_exists($mainImage->getFileSystemPath()))
+                            //     {
+                            //         $imageObj = $mainImage;
+                            //     }
+                            //     unset($mainImage);
+                            // }
                         }
 
                         $brandData[$brandName]['brandName'] = $brandName;
@@ -1568,10 +1605,13 @@ if(isset($data[$baseId])) {
             $data['brandData'] = $brandData;
 
             unset($brandData);
+
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
             
             $this->view['data'] = $data;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -1612,9 +1652,12 @@ if(isset($data[$baseId])) {
             }
         }
         
+        $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+        $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
         $this->view['data'] = $catalogGrouping;
         $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-        $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
 
     public function templateHoseSubCoverAction(Request $request)
@@ -1761,9 +1804,12 @@ if(isset($data[$baseId])) {
                 $catalogGroupData[$catalogKey] = $data;
             }
 
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $this->view['data'] = $catalogGroupData;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -1813,8 +1859,12 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                }
             }
             
             unset($columnsData);
@@ -1846,15 +1896,15 @@ if(isset($data[$baseId])) {
 
                             if(empty($imageObj) && $element[$headerKeysIndex['mainImage']])
                             {
-                                if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
-                                {
-                                    $mainImage = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
-                                    if(file_exists($mainImage->getFileSystemPath()))
-                                    {
-                                        $imageObj = $mainImage;
-                                    }
-                                    unset($mainImage);
-                                }
+                                // if (Asset\Service::pathExists($element[$headerKeysIndex['mainImage']])) 
+                                // {
+                                    $imageObj = \Pimcore\Model\Asset::getByPath($element[$headerKeysIndex['mainImage']]);
+                                //     if(file_exists($mainImage->getFileSystemPath()))
+                                //     {
+                                //         $imageObj = $mainImage;
+                                //     }
+                                //     unset($mainImage);
+                                // }
                             }
         
                             if(empty($shortDescription) && $element[$headerKeysIndex['shortDescription']])
@@ -1884,11 +1934,14 @@ if(isset($data[$baseId])) {
                 }
             }
 
+            $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
             $this->view['data'] = $data;
             $this->view['iconRequired'] = $iconRequired;
             $this->view['subHeaderRequired'] = $subHeaderRequired;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-            $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -2056,8 +2109,12 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
                 
-                if (Asset\Service::pathExists($attributeImages[$groupColumnName])) 
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImages[$groupColumnName];
+                if ($iconRequired == 'YES') 
+                {
+                    $attributeImagesSrc = $attributeImages[$groupColumnName];
+                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                }
             }
 
             unset($columnsData);
@@ -2160,28 +2217,28 @@ if(isset($data[$baseId])) {
                         
                         if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
-                            {
-                                $mainImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                                if(file_exists($mainImage->getFileSystemPath()))
-                                {
-                                    $mainImageObj = $mainImage;
-                                }
-                                unset($mainImage);
-                            }
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            // {
+                                $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            //     if(file_exists($mainImage->getFileSystemPath()))
+                            //     {
+                            //         $mainImageObj = $mainImage;
+                            //     }
+                            //     unset($mainImage);
+                            // }
                         }
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                         {
-                            if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
-                            {
-                                $ProfileDimensionImage = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                                if(file_exists($ProfileDimensionImage->getFileSystemPath()))
-                                {
-                                    $ProfileDimensionImageObj = $ProfileDimensionImage;
-                                }
-                                unset($ProfileDimensionImage);
-                            }
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
+                            // {
+                                $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                            //     if(file_exists($ProfileDimensionImage->getFileSystemPath()))
+                            //     {
+                            //         $ProfileDimensionImageObj = $ProfileDimensionImage;
+                            //     }
+                            //     unset($ProfileDimensionImage);
+                            // }
                         }
 
                         if($item[$headerKeysIndex['material']])
@@ -2311,13 +2368,28 @@ if(isset($data[$baseId])) {
                 unset($mainImageObj);
                 unset($ProfileDimensionImageObj);
 
+                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
+                $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+
                 $this->view['groupData'] = $groupData;
                 $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-                $this->view['footer_logo_src'] = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
+                $this->view['footer_logo_src'] = $footer_logo_src;
             }
         }
     }  
     
+
+    public function getS3ImageSrc($src)
+    {
+        $s3src = '';
+        $imgObj = \Pimcore\Model\Asset::getByPath($src);
+        
+        if($imgObj)
+            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+
+        return $s3src;
+    }
+
     public function templateIndexDescriptiveNumberAction(Request $request)
     {
     }
