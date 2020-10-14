@@ -286,7 +286,12 @@ if($groupData):
                                                         <?php endif; ?>
                                                 </thead>
                                                 <tbody>
-                                                        <?php $incrRow = 1; ?>        
+                                                        <?php 
+                                                        
+                                                        if(isset($groupData['data']) && is_array($groupData['data'])):
+
+                                                        $incrRow = 1; 
+                                                        ?>        
                                                         <?php foreach($groupData['data'] as $key => $element): ?>
                                                                 <?php if($incrRow%2==0): ?>
                                                                 <tr>
@@ -298,7 +303,10 @@ if($groupData):
                                                                         <?php endforeach; ?>
                                                                 </tr>
                                                                 <?php $incrRow++ ?>
-                                                        <?php endforeach; ?>
+                                                        <?php 
+                                                                endforeach;
+                                                        endif;
+                                                        ?>
                                                 </tbody>
                                         </table>
                                         <?php endif; ?>

@@ -245,6 +245,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </figure>
 
                         <!-- Starting grid here -->
+                        <?php 
+
+                        if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
+
+                        ?>
                         <table class="grid inh fitting" cellspacing="0" cellpadding="0">
                             <thead>       
                                 <?php if ($iconRequired == 'YES'): ?>
@@ -287,7 +292,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php endif; ?>
                             </thead>
                             <tbody>
-                                <?php $incrRow = 1; ?>        
+                                <?php 
+                                if(isset($tableRows['articleData']['articles']) && is_array($tableRows['articleData']['articles'])): 
+                                $incrRow = 1; 
+                                ?>        
                                 <?php foreach ($tableRows['articleData']['articles'] as $key => $shortedRows): ?>
                                     <?php $activeClass = ($incrRow % 2 == 0) ? 'active' : ''; ?>
                                         <?php foreach ($shortedRows as $ekey => $element): ?>
@@ -298,7 +306,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php $incrRow++ ?>
-                                <?php endforeach; ?>
+                                <?php 
+                                    endforeach; 
+                                endif;
+                                ?>
                             </tbody>
                             
                             
@@ -306,8 +317,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </table>
 <span class="tableFooter">
                         <?php echo $this->input("HYD_PP_".$incr,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
-
+                                
 </span>
+                        <?php endif; ?>
                     </article>
     <?php
                 // }

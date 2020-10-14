@@ -276,73 +276,85 @@ if (isset($info['brandsData'])) {
                                     </menu>
                                     <?php 
                                     $noterow = 0;
-                                    foreach ($brand['articleData'] as $key => $fittingTableName): 
-                                    ?>
-                                        <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
-                                        <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
-                                            <thead>
 
-                                                <?php if ($info['iconRequired'] == 'YES'): ?>
-                                                    <tr class="sub-head">
-                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c1data): ?>
-                                                            <?php
-                                                            $g1count = count($c1data);
-                                                            $firstArray = array_shift($c1data);
-                                                            ?>
-                                                            <td colspan="<?= $g1count; ?>">
-                                                                <?php if ($firstArray['columnIcon']): ?>
-                                                                    <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
-                                                                <?php endif; ?>
-                                                            </td>
-                                                        <?php endforeach; ?>
-                                                    </tr>
-                                                <?php endif; ?>
-                                                <tr class="head">
-                                                    <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c2data): ?>
-                                                        <?php
-                                                        $g2count = count($c2data);
-                                                        $first2Array = array_shift($c2data);
-                                                        ?>
-                                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
-                                                    <?php endforeach; ?>
-                                                </tr>
+                                    if(isset($brand['articleData']) && is_array($brand['articleData'])):
 
-                                                <?php if ($fittingTableName['subHeaderRequired'] == 'YES'): ?>
-                                                    <tr class="head">
-                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c3data): ?>
-                                                            <?php foreach ($c3data as $c3key => $c3value): ?>
-                                                                <?php if ($c3value['unitName']): ?>
-                                                                    <td><?= $c3value['unitName'] ?></td>
-                                                                <?php else: ?>
-                                                                    <td></td>
-                                                                <?php endif; ?>
+                                        foreach ($brand['articleData'] as $key => $fittingTableName): 
+                                        ?>
+                                            <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
+                                            <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
+                                                <thead>
+
+                                                    <?php if ($info['iconRequired'] == 'YES'): ?>
+                                                        <tr class="sub-head">
+                                                            <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c1data): ?>
+                                                                <?php
+                                                                $g1count = count($c1data);
+                                                                $firstArray = array_shift($c1data);
+                                                                ?>
+                                                                <td colspan="<?= $g1count; ?>">
+                                                                    <?php if ($firstArray['columnIcon']): ?>
+                                                                        <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                                    <?php endif; ?>
+                                                                </td>
                                                             <?php endforeach; ?>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                    <tr class="head">
+                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c2data): ?>
+                                                            <?php
+                                                            $g2count = count($c2data);
+                                                            $first2Array = array_shift($c2data);
+                                                            ?>
+                                                            <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
                                                         <?php endforeach; ?>
                                                     </tr>
-                                                <?php endif; ?>
-                                            </thead>
-                                            <tbody>
-                                                <?php $incrRow = 1; ?>        
-                                                <?php foreach ($fittingTableName['articles'] as $key => $element): ?>
-                                                    <?php if ($incrRow % 2 == 0): ?>
-                                                        <tr>
-                                                        <?php else: ?>
-                                                        <tr class="active">
-                                                        <?php endif; ?>
-                                                        <?php foreach ($element as $ekey => $value): ?>
-                                                            <td><?= $value ?></td>
-                                                        <?php endforeach; ?>
-                                                    </tr>
-                                                    <?php $incrRow++ ?>
-                                                <?php endforeach; ?>
-                                            </tbody>
+
+                                                    <?php if ($fittingTableName['subHeaderRequired'] == 'YES'): ?>
+                                                        <tr class="head">
+                                                            <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c3data): ?>
+                                                                <?php foreach ($c3data as $c3key => $c3value): ?>
+                                                                    <?php if ($c3value['unitName']): ?>
+                                                                        <td><?= $c3value['unitName'] ?></td>
+                                                                    <?php else: ?>
+                                                                        <td></td>
+                                                                    <?php endif; ?>
+                                                                <?php endforeach; ?>
+                                                            <?php endforeach; ?>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                </thead>
+                                                <tbody>
+                                                    <?php 
+                                                    
+                                                    if(isset($fittingTableName['articles']) && is_array($fittingTableName['articles'])):
+                                                    $incrRow = 1; 
+                                                    
+                                                    ?>        
+                                                    <?php foreach ($fittingTableName['articles'] as $key => $element): ?>
+                                                        <?php if ($incrRow % 2 == 0): ?>
+                                                            <tr>
+                                                            <?php else: ?>
+                                                            <tr class="active">
+                                                            <?php endif; ?>
+                                                            <?php foreach ($element as $ekey => $value): ?>
+                                                                <td><?= $value ?></td>
+                                                            <?php endforeach; ?>
+                                                        </tr>
+                                                        <?php $incrRow++ ?>
+                                                    <?php 
+                                                        endforeach; 
+                                                    endif;
+                                                    ?>
+                                                </tbody>
 
 
-                                        </table>
-                                        <p class="small"><?= $this->input('INH_PP_Note_' . $pg.'_'.$noterow, ['placeholder' => 'Enter comment']); ?></p>
-                                    <?php
-                                    $noterow++;
-                                    endforeach; 
+                                            </table>
+                                            <p class="small"><?= $this->input('INH_PP_Note_' . $pg.'_'.$noterow, ['placeholder' => 'Enter comment']); ?></p>
+                                        <?php
+                                        $noterow++;
+                                        endforeach; 
+                                    endif;
                                     ?>
                                 </section>
                             </div>

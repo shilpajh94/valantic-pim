@@ -117,7 +117,8 @@ class HydraulicFittingController extends AbstractController
                     foreach ($brand as $bkey => $bvalue) {
                         
                         $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
-                        if($FittingTableName)
+                        $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
+                        if($FittingTableName && is_array($FittingTableKeys))
                         {
                             if(!$brandName && $bvalue[$headerKeysIndex['brandName']][0]) {
                                 $brandName = $bvalue[$headerKeysIndex['brandName']][0];
@@ -165,7 +166,7 @@ class HydraulicFittingController extends AbstractController
                                 $hoseID = 0;
                             }
                         
-                            $FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
+                            //$FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
 
                             $columnsDataWithImages = array();
                             $articlesData = array();

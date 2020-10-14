@@ -230,7 +230,8 @@ class IndustrialHoseController extends AbstractController
                     foreach ($brand as $bkey => $bvalue) {
                         
                         $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
-                        if($FittingTableName)
+                        $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
+                        if($FittingTableName && is_array($FittingTableKeys))
                         {
                             $query = "select SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$bvalue[$headerKeysIndex['id']]."'";
 
@@ -318,7 +319,6 @@ class IndustrialHoseController extends AbstractController
                                 }
                             }
                         
-                            $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
                             $columnsDataWithImages = array();
                             $articlesData = array();
                             $subHeaderRequired = '';
@@ -389,9 +389,9 @@ class IndustrialHoseController extends AbstractController
                                     }
                             }
                         
-                            $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['subHeaderRequired'] = $subHeaderRequired;
-                            $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['columnsDataWithImages'] = $columnsDataWithImages;
-                            $newBrandArray[$key]['articleData'][$bvalue[$headerKeysIndex['FittingTableName']]]['articles'][] = $articlesData;
+                            $newBrandArray[$key]['articleData'][$FittingTableName]['subHeaderRequired'] = $subHeaderRequired;
+                            $newBrandArray[$key]['articleData'][$FittingTableName]['columnsDataWithImages'] = $columnsDataWithImages;
+                            $newBrandArray[$key]['articleData'][$FittingTableName]['articles'][] = $articlesData;
                         }
                     }
 
