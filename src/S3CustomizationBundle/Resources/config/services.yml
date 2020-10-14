@@ -55,8 +55,8 @@ services:
     # aws s3 listener:
     S3CustomizationBundle\EventListeners\S3Listener:
         tags:
-#            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: onPostAdd }
-#            - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: onPostUpdate }
+            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: onPostAdd }
+            - { name: kernel.event_listener, event: pimcore.asset.postUpdate, method: onPostUpdate }
 #            - { name: kernel.event_listener, event: pimcore.frontend.path.asset.image.thumbnail, method: onFrontendPathThumbnail }
             #- { name: kernel.event_listener, event: pimcore.frontend.path.asset.document.image-thumbnail, method: onFrontendPathThumbnail }
             #- { name: kernel.event_listener, event: pimcore.frontend.path.asset.video.image-thumbnail, method: onFrontendPathThumbnail }

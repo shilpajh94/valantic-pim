@@ -5,6 +5,8 @@ namespace S3CustomizationBundle\EventListeners;
 
 
 use Aws\S3\S3Client;
+use Pimcore\Event\Model\AssetEvent;
+use Pimcore\Event\Model\ElementEventInterface;
 use S3CustomizationBundle\Lib\Utils;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
@@ -55,9 +57,137 @@ class S3Listener
                 $this->s3AssetUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_ASSET_DIRECTORY);
                 $this->s3TmpUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_TEMPORARY_DIRECTORY);
             }
+
+            $this->s3Client = $this->getS3Client();
         }
     }
 
+    /**
+     * Create a new s3 client object
+     *
+     * @return S3Client
+     */
+    protected function getS3Client()
+    {
+        $env = CUSTOM_ENV;
+
+        if ($env == "stage" || $env == "prod"){
+
+            $s3ConfigSettings = [
+                'version' => 'latest',
+                'region' => S3_REGION,
+            ];
+
+            $s3ConfigSettings['http'] = [
+                'proxy' => [
+                    'http' => 'cias.geoaws.com:8080',
+                    'https' => 'cias.geoaws.com:8080'
+                ]
+            ];
+
+        }elseif ($env == "dev" || $env == "qc"){
+
+            $s3ConfigSettings = [
+                'version' => 'latest',
+                'region' => S3_REGION,
+                'credentials' => [
+                    'key' => S3_KEY,
+                    'secret' => S3_SECRET
+                ],
+            ];
+
+        }
+
+        return new S3Client($s3ConfigSettings);
+    }
+
+
+    /**
+     * Make s3 bucket asset publicly available
+     */
+    protected function makeAssetPublicInS3($assetPath, $isTmp = false)
+    {
+        // get the S3 path of asset from pimcore_s3 path mapping
+        $s3CustomizationService = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class);
+        $assetPath = $s3CustomizationService->getS3PathForPimcorePath($assetPath,true);
+
+
+        $this->s3Client->putObjectAcl(array(
+            'ACL' => 'public-read-write',
+            'Grants' => array(
+                array(
+                    'Grantee' => array(
+                        'DisplayName' => 'public-read-write',
+                        'EmailAddress' => 'pradeep.singh@pimcore.services',
+                        'Type' => 'CanonicalUser1'),
+                    'Permission' => 'READ',
+                ),
+            ),
+            'Owner' => array(
+                'DisplayName' => S3_BUCKET,
+            ),
+            'Bucket' => S3_BUCKET,
+            'Key' => $assetPath,
+            'RequestPayer' => S3_BUCKET,
+        ));
+
+//        if($isTmp === false) {
+//            $this->asset->update(true);
+//        }
+    }
+
+    /**
+     * Check if asset need to make public in S3 bucket
+     */
+    protected function checkIfMakeAssetPublicinS3()
+    {
+       return true;
+    }
+
+
+    public function onPostUpdate(ElementEventInterface $e)
+    {
+        if(!DISABLE_S3_CDN) {
+            if($e instanceof AssetEvent) {
+                $this->asset = $e->getAsset();
+                if($this->asset->getType() == "folder") {
+                    return false;
+                }
+                $key = $this->asset->getRealFullPath();
+
+                if($this->checkIfMakeAssetPublicinS3()) {
+                    try {
+                        //if(!$this->asset->getProperty("isPublicInS3")) {
+                        $this->makeAssetPublicInS3('assets'.$key);
+                        //}
+                    } catch(\Exception $e) {
+                        // do nothing
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    public function onPostAdd(ElementEventInterface $e)
+    {
+        if(!DISABLE_S3_CDN) {
+            if($e instanceof AssetEvent) {
+                $this->asset = $e->getAsset();
+                $key = $this->asset->getRealFullPath();
+
+                if($this->checkIfMakeAssetPublicinS3()) {
+                    try {
+                        $this->makeAssetPublicInS3('assets'.$key);
+                    } catch(\Exception $e) {
+                        // do nothing
+                    }
+                }
+            }
+        }
+
+    }
 
     /**
      * Listen to following events
@@ -81,12 +211,12 @@ class S3Listener
                     $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY, "", $fileSystemPath);
                 } else {
 
-//                $key = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", "/", $fileSystemPath);
-//                try {
-//                    $this->makeAssetPublicInS3('tmp'.$key, true);
-//                } catch(\Exception $e) {
-//                    // do nothing
-//                }
+                $key = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", "/", $fileSystemPath);
+                try {
+                    $this->makeAssetPublicInS3('tmp'.$key, true);
+                } catch(\Exception $e) {
+                    // do nothing
+                }
                     $path = str_replace(PIMCORE_TEMPORARY_DIRECTORY . "/", $this->s3TmpUrlPrefix . "/", $fileSystemPath);
                 }
             }
