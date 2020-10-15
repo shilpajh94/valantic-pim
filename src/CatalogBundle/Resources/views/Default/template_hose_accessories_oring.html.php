@@ -17,8 +17,8 @@ if (!isset($this->parentContainer)) {
 <?php
 if ($data):
     // extract($data);
-    ?> 
-    <div class="template">  
+    ?>
+    <div class="template">
         <section class="" id="oRing">
             <div id="pageHeader"></div>
             <span class="pageName">Hydraulic Hose</span>
@@ -50,7 +50,7 @@ if ($data):
                 <?php else: ?>
                                 <?= $this->input("HHAO_Footer_Title1") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAO_Footer_SubTitle1")->isEmpty()): ?>
@@ -61,16 +61,16 @@ if ($data):
                         <?php else: ?>
                                         <?= $this->input("HHAO_Footer_SubTitle1") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
-                        
-                        
+
+
                     </div>
                 </footer>
             </div>
             <div class="footer1">
-                <footer class="flex-center <?php echo $footer_class; ?>">                   
+                <footer class="flex-center <?php echo $footer_class; ?>">
                     <div class="flex aligned">
                     <h5>
                     <?php if($this->editmode): ?>
@@ -82,7 +82,7 @@ if ($data):
                 <?php else: ?>
                                 <?= $this->input("HHAO_Footer_Title2") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAO_Footer_SubTitle2")->isEmpty()): ?>
@@ -93,7 +93,7 @@ if ($data):
                         <?php else: ?>
                                         <?= $this->input("HHAO_Footer_SubTitle2") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
                     </div>
@@ -127,7 +127,7 @@ if ($data):
                     </h1>
                 </header>
                 <table cellpadding="0" cellspacing="0" class="orings">
-                  
+
                     <tr>
                         <td valign="top" width="30%">
 &nbsp;
@@ -138,11 +138,11 @@ if ($data):
                         } else {
                             if(!$this->image("HHAO_Image")->isEmpty())
                                 $imgSrcObj = $this->image("HHAO_Image");
-                                
+
                             if($imgSrcObj)
                             {
                             ?>
-                            <img src="<?= $imgSrcObj->getSrc(); ?>" width="200"/>
+                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="200"/>
                             <?php
                             }
                         }
@@ -173,7 +173,7 @@ if ($data):
 </table>
                             </div>
 </div>
-                        
+
                         </td>
 
                         <td width="70%">
@@ -191,7 +191,7 @@ if ($data):
                                                 <?php if($brand['iconRequired'] == 'YES'): ?>
                                                     <tr class="sub-head">
                                                             <?php foreach($brand['columnsDataWithImages'] as $key => $c1data): ?>
-                                                                    <?php 
+                                                                    <?php
                                                                             $g1count = count($c1data);
                                                                             $firstArray = array_shift($c1data);
                                                                     ?>
@@ -201,7 +201,7 @@ if ($data):
                                                 <?php endif; ?>
                                                 <tr class="head">
                                                         <?php foreach($brand['columnsDataWithImages'] as $key => $c2data): ?>
-                                                                <?php 
+                                                                <?php
                                                                         $g2count = count($c2data);
                                                                         $first2Array = array_shift($c2data);
                                                                 ?>
@@ -221,8 +221,8 @@ if ($data):
                                                                 <?php endforeach; ?>
                                                         </tr>
                                                 <?php endif; ?>
-                                            </thead>      
-                                            <?php $incrRow = 1; ?>        
+                                            </thead>
+                                            <?php $incrRow = 1; ?>
                                             <?php foreach ($brand['articlesData'] as $key => $element): ?>
                                                     <?php if ($incrRow % 2 == 0): ?>
                                                         <tr>
@@ -239,7 +239,7 @@ if ($data):
                                         </table>
                                         <p class="small"><?= $this->input('HHAO_note' . $tableCount, ['placeholder' => 'Enter comment']); ?></p>
                                     </div>
-                                    
+
                                     <?php $tableCount++;
                                 endforeach;
                             endif; ?>

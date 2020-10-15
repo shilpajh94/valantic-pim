@@ -92,7 +92,7 @@ if($groupData):
 
                 <article class="fullcontainer single">
                         <div class="inhsetting1">
- <div class="inhsetting-sidebar"> 
+ <div class="inhsetting-sidebar">
                             <div class=" sidebar">
                                         <ul>
                                                 <?php
@@ -152,15 +152,15 @@ if($groupData):
                                                         <span class="imageHolder">
                                                         <?php
                                                         if($this->editmode){
-                                                                echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
+                                                                echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
                                                         }else{
                                                                 if(!$this->image("INH_Fitting_MainImage")->isEmpty())
                                                                         $imgSrcObj1 = $this->image("INH_Fitting_MainImage");
-                                                                
+
                                                                 if($imgSrcObj1)
                                                                 {
                                                                 ?>
-                                                                <img src="<?= $imgSrcObj1->getSrc(); ?>" width="400" height="200"/>
+                                                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" width="400" height="200"/>
                                                                 <?php
                                                                 }
                                                         }
@@ -168,7 +168,7 @@ if($groupData):
 
                                                         <?php
                                                         if($this->editmode){
-                                                                echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
+                                                                echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                                         }else{
                                                                 if(!$this->image("INH_Fitting_ProfileDimension")->isEmpty())
                                                                         $imgSrcObj2 = $this->image("INH_Fitting_ProfileDimension");
@@ -176,7 +176,7 @@ if($groupData):
                                                                 if($imgSrcObj2)
                                                                 {
                                                                 ?>
-                                                                <img src="<?= $imgSrcObj2->getSrc(); ?>" width="400" height="200"/>
+                                                                <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="400" height="200"/>
                                                                 <?php
                                                                 }
                                                         }
@@ -185,14 +185,14 @@ if($groupData):
                                                 </aside>
                                         </header>
                                         <section class="content">
-                                        <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>  
+                                        <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>
                                                 <menu class="flex">
                                                         <?php if(!empty(trim($groupData['material'])) || !empty(trim($groupData['pressureRating'])) || !empty(trim($groupData['brandingLayline'])) || !empty(trim($groupData['orderCodes']))): ?>
                                                                 <div class="specs col-6">
                                                                         <h6><?= $this->translate('specs') ?></h6>
                                                                         <div class="spec-requirement">
                                                                                 <div>
-                                                                        
+
                                                                                         <?php if(!empty(trim($groupData['material']))): ?>
                                                                                         <p>
                                                                                                 <b><?= $this->translate('Materials') ?></b>
@@ -201,28 +201,28 @@ if($groupData):
                                                                                         <?php endif; ?>
 
                                                                                         <?php if(!empty(trim($groupData['pressureRating']))): ?>
-                                                                                        <p>                
+                                                                                        <p>
                                                                                                 <b><?= $this->translate('Pressure Rating') ?></b>
                                                                                                 <?= $groupData['pressureRating'] ?>
                                                                                         </p>
                                                                                         <?php endif; ?>
 
                                                                                         <?php if(!empty(trim($groupData['brandingLayline']))): ?>
-                                                                                        <p>              
+                                                                                        <p>
                                                                                                 <b><?= $this->translate('Branding') ?></b>
                                                                                                 <?= $groupData['brandingLayline']; ?>
                                                                                         </p>
                                                                                         <?php endif; ?>
 
                                                                                         <?php if(!empty(trim($groupData['orderCodes']))): ?>
-                                                                                        <p>              
+                                                                                        <p>
                                                                                                 <b><?= $this->translate('Order Codes') ?></b>
                                                                                                 <?= $groupData['orderCodes']; ?>
                                                                                         </p>
                                                                                         <?php endif; ?>
                                                                                 </div>
                                                                         </div>
-                                                                </div> 
+                                                                </div>
                                                         <?php endif; ?>
 
                                                         <?php if($groupData['safetyFeatures']): ?>
@@ -240,7 +240,7 @@ if($groupData):
 
                                                                         </div>
                                                                 </div>
-                                                        
+
                                                         <?php endif; ?>
 
                                                 </menu>
@@ -252,7 +252,7 @@ if($groupData):
                                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
                                                                 <tr class="sub-head">
                                                                         <?php foreach($groupData['columnsDataWithImages'] as $key => $c1data): ?>
-                                                                                <?php 
+                                                                                <?php
                                                                                         $g1count = count($c1data);
                                                                                         $firstArray = array_shift($c1data);
                                                                                 ?>
@@ -263,7 +263,7 @@ if($groupData):
 
                                                         <tr class="head">
                                                                 <?php foreach($groupData['columnsDataWithImages'] as $key => $c2data): ?>
-                                                                        <?php 
+                                                                        <?php
                                                                                 $g2count = count($c2data);
                                                                                 $first2Array = array_shift($c2data);
                                                                         ?>
@@ -286,12 +286,12 @@ if($groupData):
                                                         <?php endif; ?>
                                                 </thead>
                                                 <tbody>
-                                                        <?php 
-                                                        
+                                                        <?php
+
                                                         if(isset($groupData['data']) && is_array($groupData['data'])):
 
-                                                        $incrRow = 1; 
-                                                        ?>        
+                                                        $incrRow = 1;
+                                                        ?>
                                                         <?php foreach($groupData['data'] as $key => $element): ?>
                                                                 <?php if($incrRow%2==0): ?>
                                                                 <tr>
@@ -303,7 +303,7 @@ if($groupData):
                                                                         <?php endforeach; ?>
                                                                 </tr>
                                                                 <?php $incrRow++ ?>
-                                                        <?php 
+                                                        <?php
                                                                 endforeach;
                                                         endif;
                                                         ?>

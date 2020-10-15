@@ -11,7 +11,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "object" => ["object"]
                 ],
                 "classes" => ["CatalogTables"],
-        ]); 
+        ]);
         ?>
 <?php endif; ?>
 
@@ -21,9 +21,9 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
 ?>
 <div class="template">
 <div class="segregate " id="subCover">
-    
+
     <div id="pageHeader" class="alternate"></div>
- 
+
         <div class="footer">
                 <footer class="flex-center <?php echo $footer_class; ?>">
                         <span class="logo">
@@ -38,25 +38,25 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 <?= $this->input("HHSC_Logo_Text1") ?>
                         <?php endif; ?>
                         </b>
-                        
+
                         <img src="<?= $footer_logo_src; ?>">
                         </span>
                         <div class="flex aligned">
                                 <h5>
-                                        <?php 
+                                        <?php
                                         if($this->editmode)
-                                                echo $this->image("HHSC_Footer_Image", ["width" => 40]); 
+                                                echo $this->image("HHSC_Footer_Image", ["width" => 40]);
                                         else{
-                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image"); 
+                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image");
                                                 if($imgSrcObj4)
                                                 {
                                                 ?>
-                                                <img src="<?= $imgSrcObj4->getSrc(); ?>" width="40"/>
+                                                <img src="<?= $imgSrcObj4->getThumbnail('catalog_thumb'); ?>" width="40"/>
                                                 <?php
                                                 }
                                         }
                                         ?>
-                                        <font> 
+                                        <font>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("HHSC_Footer")->isEmpty()): ?>
                                                         <?= $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey) ?>
@@ -68,29 +68,29 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                         <?php endif; ?>
                                         </font>
                                 </h5>
-                                     
+
                         </div>
                 </footer>
         </div>
 
         <div class="footer1">
-                <footer class="flex-center <?php echo $footer_class; ?>">   
+                <footer class="flex-center <?php echo $footer_class; ?>">
                         <div class="flex aligned">
                                 <h5>
-                                        <?php 
+                                        <?php
                                         if($this->editmode)
-                                                echo $this->image("HHSC_Footer_Image1", ["width" => 40]); 
+                                                echo $this->image("HHSC_Footer_Image1", ["width" => 40]);
                                         else{
-                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1"); 
+                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1");
                                                 if($imgSrcObj3)
                                                 {
                                                 ?>
-                                                <img src="<?= $imgSrcObj3->getSrc(); ?>" width="40"/>
+                                                <img src="<?= $imgSrcObj3->getThumbnail('catalog_thumb'); ?>" width="40"/>
                                                 <?php
                                                 }
                                         }
                                         ?>
-                                        <font> 
+                                        <font>
                                         <?php if($this->editmode): ?>
                                                 <?php if($this->input("HHSC_Footer1")->isEmpty()): ?>
                                                         <?= $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey) ?>
@@ -122,20 +122,20 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
 
     <article class="containerAll noBorder coverPage">
         <header class="dark ">
-                <?php 
+                <?php
                 if($this->editmode)
-                        echo $this->image("HHSC_Image"); 
+                        echo $this->image("HHSC_Image");
                 else{
-                        $imgSrcObj =  $this->image("HHSC_Image"); 
+                        $imgSrcObj =  $this->image("HHSC_Image");
                         if($imgSrcObj)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj->getSrc(); ?>"/>
+                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>"/>
                         <?php
                         }
                 }?>
         </header>
-    
+
         <nav class="marginBottom30">
             <h4><?= $this->input("HHSC_Heading"); ?></h4>
         </nav>
@@ -143,18 +143,18 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
             <p class="marginBottom30">
             <?= $this->wysiwyg("HHSC_Description",["class"=>"marginBottom30"]); ?>
             </p>
-           
-            <div class="bg marginTop30">               
+
+            <div class="bg marginTop30">
                         <span>
-                        <?php 
+                        <?php
                         if($this->editmode)
-                                echo $this->image("HHSC_Title_Image", ["width" => 50]); 
+                                echo $this->image("HHSC_Title_Image", ["width" => 50]);
                         else{
-                                $imgSrcObj2 =  $this->image("HHSC_Title_Image"); 
+                                $imgSrcObj2 =  $this->image("HHSC_Title_Image");
                                 if($imgSrcObj2)
                                 {
                                 ?>
-                                <img src="<?= $imgSrcObj2->getSrc(); ?>" width="50"/>
+                                <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="50"/>
                                 <?php
                                 }
                         }
@@ -170,10 +170,10 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <?php else: ?>
                                 <?= $this->input("HHSC_Title") ?>
                         <?php endif; ?>
-                        </h3>               
+                        </h3>
             </div>
             <table cellspacing="0" cellpadding="0" class="grid">
-                   <thead> 
+                   <thead>
                     <tr class="head noBorder">
                            <td></td>
                             <td><?= $this->translate('Page') ?></td>
@@ -209,22 +209,22 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 <td><?= $brandData['CatalogPackaging']; ?></td>
                         </tr>
 
-                        <?php 
+                        <?php
                         $incr++;
-                        endforeach; 
+                        endforeach;
                         endif;
                         ?>
-                    
+
             </table>
-              
+
         </div>
-           
+
     </article>
-  
+
 </div>
 
-<?php 
-endforeach; 
+<?php
+endforeach;
 endif;
 ?>
 </div>
