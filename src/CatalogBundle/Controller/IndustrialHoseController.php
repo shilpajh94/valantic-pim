@@ -71,7 +71,7 @@ class IndustrialHoseController extends AbstractController
 
             $headerKeys = array_keys($headers);
             $headerKeys[] = 'ConstructionType';
-            
+
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {
                     $row[]= $constructionType;
@@ -80,13 +80,13 @@ class IndustrialHoseController extends AbstractController
                 $i = 0;
 
                 foreach ($productsData as $k => $row) {
-                    
+
                     if (isset($row['brandName']) && !empty($row['brandName'])) {
                         $uniqueId = $configTableName;
                         $brandName = $row['brandName'][0];
                         if (!isset($data[$uniqueId])) {
                             $data[$uniqueId]['columns'] = $productPageColumns['columns'];
-                            $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];                                                      
+                            $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];
                         }
 
                         foreach($productPageColumns['columns'] as $col) {
@@ -97,8 +97,8 @@ class IndustrialHoseController extends AbstractController
                                 if(empty($data[$uniqueId]['data'][$brandName][$col])) {
                                     $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
                                 }
-                                
-                            }                            
+
+                            }
                         }
                     }
                 }
@@ -122,10 +122,10 @@ class IndustrialHoseController extends AbstractController
 
     /**
      * @Route ("/catalog/inh/productpage")
-     * 
+     *
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
-        $inhProductPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];     
+        $inhProductPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
         $attributeImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
         $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
@@ -147,7 +147,7 @@ class IndustrialHoseController extends AbstractController
             $data = array();
 
             $headerData = json_decode($obj->getHeaderData(), true);
-            
+
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
@@ -156,7 +156,7 @@ class IndustrialHoseController extends AbstractController
             $iconRequired = 'YES';
             $subHeaderRequired = 'NO';
             $columnsData = json_decode($columnsData, true);
-            
+
             $attrbuteImgS3Arr = array();
 
             // $language = $request->getLocale();
@@ -172,7 +172,7 @@ class IndustrialHoseController extends AbstractController
             //     // $selectedSiop = $siopObj->getParent()->getDescription($CatalogLanguage);
             //     $selectedSiop = ($siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage)) ? $siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage) : $siopObj->getParent()->getDescription($CatalogLanguage);
             // }
-            
+
             $productsData = $obj->getProductsData();
 
 
@@ -191,7 +191,7 @@ class IndustrialHoseController extends AbstractController
             if($productsData)
             {
                 $brandsData = array();
-                foreach ($productsData as $key => $item) 
+                foreach ($productsData as $key => $item)
                 {
                     if($item[$headerKeysIndex['brandName']][0])
                     {
@@ -206,13 +206,13 @@ class IndustrialHoseController extends AbstractController
             $newBrandArray = array();
             if($brandsData)
             {
-                foreach ($brandsData as $key => $brand) 
+                foreach ($brandsData as $key => $brand)
                 {
 
                     $reinforcementArr = array();
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
-                    
+
                     $SIOP4Description = '';
                     $SIOP3Description = '';
                     $BrandingLayline = '';
@@ -228,7 +228,7 @@ class IndustrialHoseController extends AbstractController
                     $oldMaterialCodeArr = array();
 
                     foreach ($brand as $bkey => $bvalue) {
-                        
+
                         $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
                         $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
                         if($FittingTableName && is_array($FittingTableKeys))
@@ -282,7 +282,7 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) {
-                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['mainImage']])) 
+                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['mainImage']]))
                                 // {
                                     $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
                                 //     if(file_exists($mainImageObj->getFileSystemPath()))
@@ -318,7 +318,7 @@ class IndustrialHoseController extends AbstractController
                                     }
                                 }
                             }
-                        
+
                             $columnsDataWithImages = array();
                             $articlesData = array();
                             $subHeaderRequired = '';
@@ -334,17 +334,17 @@ class IndustrialHoseController extends AbstractController
                                             $groupColumnName = $value['groupName'];
                                             $subHeaderRequired = 'YES';
                                         }
-                        
+
                                         $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
                                         $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
                                         $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-                                        
-                                        if ($iconRequired == 'YES') 
+
+                                        if ($iconRequired == 'YES')
                                         {
                                             if(!isset($attrbuteImgS3Arr[$groupColumnName]))
                                             {
-                                                
+
                                                 $attributeImagesSrc = $attributeImages[$groupColumnName];
                                                 $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
                                                 $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
@@ -366,7 +366,7 @@ class IndustrialHoseController extends AbstractController
                                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                                 }
                             }
-                                
+
                             foreach ($orderKeys as $ckey => $cvalue) {
                                     if($ckey == 'coverColor')
                                     {
@@ -388,7 +388,7 @@ class IndustrialHoseController extends AbstractController
                                         $articlesData[] = $temp;
                                     }
                             }
-                        
+
                             $newBrandArray[$key]['articleData'][$FittingTableName]['subHeaderRequired'] = $subHeaderRequired;
                             $newBrandArray[$key]['articleData'][$FittingTableName]['columnsDataWithImages'] = $columnsDataWithImages;
                             $newBrandArray[$key]['articleData'][$FittingTableName]['articles'][] = $articlesData;
@@ -410,7 +410,7 @@ class IndustrialHoseController extends AbstractController
                     $oldMaterialCodeStr = '';
                     if($oldMaterialCodeArr)
                         $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr));
-                    
+
                     $newBrandArray[$key]['brandData']['SIOP3Description'] = $SIOP3Description;
                     $newBrandArray[$key]['brandData']['SIOP4Description'] = $SIOP4Description;
                     $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
@@ -449,7 +449,7 @@ class IndustrialHoseController extends AbstractController
                     unset($brandsData[$key]);
                 }
             }
-            
+
             $categories = $this->getSIOP($CatalogLanguage);
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
@@ -473,44 +473,44 @@ class IndustrialHoseController extends AbstractController
 
     /**
      * @Route ("/catalog/inh/fittingpage")
-     * 
+     *
      */
     public function inhFittingPageAction(Request $request) {
         $template = $this->getDocumentTag('relation', 'inh_fitting_page')->getElement();
-        if($template) 
+        if($template)
         {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            
+
             $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            
+
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
-            
+
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
-            
+
             $columnsData = $template->getColumns();
 
             $menuCategories = $this->getSIOP($CatalogLanguage);
 
             $iconRequired = 'YES';
             $columnsData = json_decode($columnsData, true);
-            
+
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
             $subHeaderRequired = 'NO';
             $groupSubHeaderData = array();
             foreach ($columnsData as $key => $value) {
-                
+
                 $groupColumnName = $value['columnName'];
                 if(isset($value['groupName']) && $value['groupName'])
                 {
@@ -523,7 +523,7 @@ class IndustrialHoseController extends AbstractController
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
 
-                if ($iconRequired == 'YES') 
+                if ($iconRequired == 'YES')
                 {
                     $attributeImagesSrc = $attributeImages[$groupColumnName];
                     $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
@@ -554,7 +554,7 @@ class IndustrialHoseController extends AbstractController
                 $categoriesList[$value['oo_id']] = $value;
             }
             unset($categories);
-            
+
             $brandName = '';
             $pressureRating = '';
             $catagoryDescription = array();
@@ -570,7 +570,7 @@ class IndustrialHoseController extends AbstractController
 
             if($productsData)
             {
-                foreach ($productsData as $key => $item) 
+                foreach ($productsData as $key => $item)
                 {
                     if($item[$headerKeysIndex['brandName']])
                     {
@@ -606,7 +606,7 @@ class IndustrialHoseController extends AbstractController
 
                         if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            // if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']])) 
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']]))
                             // {
                                 $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                             //     if(file_exists($mainImage->getFileSystemPath()))
@@ -619,7 +619,7 @@ class IndustrialHoseController extends AbstractController
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                         {
-                            // if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']])) 
+                            // if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']]))
                             // {
                                 $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
                             //     if(file_exists($ProfileDimensionImage->getFileSystemPath()))
@@ -629,7 +629,7 @@ class IndustrialHoseController extends AbstractController
                             //     unset($ProfileDimensionImage);
                             // }
                         }
-                        
+
                         if($item[$headerKeysIndex['FittingMaterial']])
                             $material[] = $item[$headerKeysIndex['FittingMaterial']];
 
@@ -662,7 +662,7 @@ class IndustrialHoseController extends AbstractController
                 }
 
                 $brandingStr = $BrandingLayline;
-                
+
                 $safetyFeatures = array_unique($safetyFeatures);
 
                 $safetyFeaturesListWithImage = array();
@@ -684,13 +684,13 @@ class IndustrialHoseController extends AbstractController
                 array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
 
                 $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
-                
+
                 unset($safetyFeaturesListWithImage);
                 unset($safetyFeaturesListWithOutImage);
 
                 $material = array_unique($material);
                 $orderCodeArr = array_unique($orderCode);
-                
+
                 $materialStr = implode(', ', $material);
                 $orderCodeStr = implode(', ', $orderCodeArr);
 
@@ -734,21 +734,21 @@ class IndustrialHoseController extends AbstractController
     public function inhFittingCoverAction(){
         $templates = $this->getDocumentTag('relations', 'inh_fitting_cover_page')->getElements();
 
-        if($templates) 
+        if($templates)
         {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
             $INHFittingCoverPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHFittingCoverPageConfig();
-            
+
             $featuresMaterials = $commonHelper->getParameter($INHFittingCoverPageConfig, 'headers');
             $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
             $CatalogImagesINHProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHProduct');
-            
+
             $catalogCategoryObj = DataObject\CatalogCategory::getById($templates[0]->getParentId());
             $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
-            
+
             $CatalogLanguage = $catalogObj->getCatalogLanguage();
 
             $footerBgColor = '';
@@ -769,7 +769,7 @@ class IndustrialHoseController extends AbstractController
 
             unset($categories);
 
-            foreach ($templates as $key => $template) 
+            foreach ($templates as $key => $template)
             {
                 if(empty(trim($footerBgColor)))
                     $footerBgColor = $template->getColor();
@@ -778,10 +778,10 @@ class IndustrialHoseController extends AbstractController
                 $headerData = json_decode($template->getHeaderData(), true);
                 $headerKeys = array_keys($headerData);
                 $headerKeysIndex = array_flip($headerKeys);
-                
+
                 $materialKeys = array_fill_keys($featuresMaterials, '');
                 foreach ($productsData as $key => $item) {
-                    
+
                     if($item[$headerKeysIndex['brandName']][0])
                     {
                         if(!isset($catagoryDescription['SIOP3Description']))
@@ -847,7 +847,7 @@ class IndustrialHoseController extends AbstractController
                 }
                 $categories[$fullCode][] = $cat;
             }
-            
+
         }
         return $categories;
     }
@@ -860,7 +860,7 @@ class IndustrialHoseController extends AbstractController
         foreach($entries as $entry) {
             if($entry->getIcon())
                 $featureData[$entry->getId()]['icon'] = $entry->getIcon()->getPath().$entry->getIcon()->getFilename();
-            
+
             $featureData[$entry->getId()]['name'] = $entry->getName($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
             $featureData[$entry->getId()]['key'] = $entry->getId();
@@ -868,7 +868,7 @@ class IndustrialHoseController extends AbstractController
         }
         return $featureData;
     }
-    
+
     private function getSiopObject($siop) {
         if(is_array($siop) && !empty($siop)) {
             foreach ($siop as $siopId) {
@@ -883,9 +883,11 @@ class IndustrialHoseController extends AbstractController
     {
         $s3src = '';
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
-        
-        if($imgObj)
-            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+
+        if($imgObj){
+            $s3src = $imgObj->getThumbnail('catalog_thumb');
+//            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+        }
 
         return $s3src;
     }
