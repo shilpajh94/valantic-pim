@@ -448,10 +448,8 @@ class FilterService {
      * @throws \Exception
      */
     public function getFilteredResults($fieldDefinition, $filterEntryObject, $listingClass) {
-        
         $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, false); 
         return $fieldDefinitionAdapter->getQueryPart($filterEntryObject, $fieldDefinition, $listingClass);
-        
     } 
 
     /**

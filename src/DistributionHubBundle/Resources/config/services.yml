@@ -180,3 +180,13 @@ services:
             $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\CollectionMediaGetter
         tags:
             - { name: pimcore.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }
+
+    pimcore.data_object.grid_column_config.operator.factory.selecttypemastergetter:
+        class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\SelectTypeMasterGetter
+        tags:
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: SelectTypeMasterGetter }
+
+    DistributionHubBundle\Services\ClassificationStoreService:
+        public: true

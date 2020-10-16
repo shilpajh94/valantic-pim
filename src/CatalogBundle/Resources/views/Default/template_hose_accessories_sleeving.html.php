@@ -10,7 +10,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "object" => ["object"]
                 ],
                 "classes" => ["CatalogTables"],
-        ]); 
+        ]);
         ?>
 <?php endif; ?>
 <div class="template">
@@ -46,7 +46,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                                 <?= $this->input("HHAS_Footer_Title1") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAS_Footer_SubTitle1")->isEmpty()): ?>
@@ -57,13 +57,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php else: ?>
                                         <?= $this->input("HHAS_Footer_SubTitle1") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
 
-            
+
     </div>
-   
+
 
     </footer>
 
@@ -71,7 +71,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
 <div class="footer1">
     <footer class="flex-center <?php echo $footer_class; ?>">
- 
+
     <div class="flex aligned">
     <h5>
                     <?php if($this->editmode): ?>
@@ -83,7 +83,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                                 <?= $this->input("HHAS_Footer_Title2") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAS_Footer_SubTitle2")->isEmpty()): ?>
@@ -94,7 +94,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php else: ?>
                                         <?= $this->input("HHAS_Footer_SubTitle2") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
     </div>
@@ -129,10 +129,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
         extract($brand);
 
-        ?>      
+        ?>
 
        <figure class="justify-between">
-           
+
            <figcaption>
                 <?php if(!$onlyOneTitle): ?>
                 <h2>
@@ -144,13 +144,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 }
                 ?>
                 </h2>
-                <?php 
+                <?php
                 $onlyOneTitle = true;
                 endif;
                 ?>
 
                 <h4 class="contitech-yellow">
-                
+
                 <?php
                         echo $this->input("HHAS_BrandNameRight_{$incr}")->setDataFromResource($brandName);
                 ?>
@@ -163,18 +163,18 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 </span>
 
                 <?php if(!empty(trim($materialString)) || !empty(trim($colorString)) || !empty(trim($availableLengthString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
-                   <menu>             
+                   <menu>
                    <div class="specs">
                         <h6><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
 
                            <?php if($safetyFeatures || !empty(trim($materialString)) || (!empty(trim($temperatureRangeFAndC)))): ?>
-                            
+
                                 <?php if ($safetyFeatures): ?>
                                         <div>
                                         <?php foreach ($safetyFeatures as $key => $feature): ?>
                                                 <p  class="flex">
-                                                <font> <?= $feature['name'] ?></font>
+                                                <font class="is-highlight"> <?= $feature['name'] ?></font>
                                                 </p>
                                         <?php endforeach; ?>
 
@@ -183,7 +183,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                             <div>
                                 <?php if(!empty(trim($temperatureRangeFAndC))): ?>
-                                <p class="small">     
+                                <p class="small">
                                         <b><?= $this->translate('Temperature Range') ?></b>
                                         <?=$temperatureRangeFAndC ?>
                                 </p>
@@ -196,24 +196,24 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php endif; ?>
                             </div>
                             <?php endif; ?>
-                                
+
                             <?php if(!empty(trim($colorString)) || !empty(trim($availableLengthString))): ?>
                             <div>
                                 <?php if(!empty(trim($colorString))): ?>
-                                        <p class="small">            
+                                        <p class="small">
                                         <b><?= $this->translate('Color') ?></b>
                                         <?= $colorString ?>
                                         </p>
                                 <?php endif; ?>
                                 <?php if(!empty(trim($availableLengthString))): ?>
-                                        <p class="small">            
+                                        <p class="small">
                                         <b><?= $this->translate('Available Lengths') ?></b>
                                         <?= "Continuous {$availableLengthString}' rolls" ?>
                                 </p>
                                 <?php endif; ?>
-                                    
-                            </div>   
-                            <?php endif; ?>   
+
+                            </div>
+                            <?php endif; ?>
 
                         </div>
                    </div>
@@ -226,11 +226,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 } else {
                         if(!$this->image("HHAS_Image_{$incr}")->isEmpty())
                                 $imgSrcObj = $this->image("HHAS_Image_{$incr}");
-                        
+
                         if($imgSrcObj)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj->getSrc(); ?>" height="200" width="200"/>
+                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" height="200" width="200"/>
                         <?php
                         }
                 }
@@ -241,7 +241,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php if($iconRequired == 'YES'): ?>
                                 <tr class="sub-head">
                                         <?php foreach($columnsDataWithImages as $key => $c1data): ?>
-                                                <?php 
+                                                <?php
                                                         $g1count = count($c1data);
                                                         $firstArray = array_shift($c1data);
                                                 ?>
@@ -256,16 +256,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                         <tr class="head">
                         <?php foreach($columnsDataWithImages as $key => $c2data): ?>
-                                
-                                <?php 
+
+                                <?php
                                         $g2count = count($c2data);
                                         $first2Array = array_shift($c2data);
                                 ?>
                                 <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
-                                
+
                         <?php endforeach; ?>
                         </tr>
-                                        
+
                         <?php if($subHeaderRequired == 'YES'): ?>
                                 <tr class="sub-head">
                                         <?php foreach($columnsDataWithImages as $key => $c3data): ?>
@@ -279,8 +279,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         <?php endforeach; ?>
                                 </tr>
                         <?php endif; ?>
-                </thead>    
-                <?php $incrRow = 1; ?>        
+                </thead>
+                <?php $incrRow = 1; ?>
                 <?php foreach($articlesData as $key => $element): ?>
                         <?php if($incrRow%2==0): ?>
                         <tr>
@@ -296,11 +296,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
         </table>
         <p class="small"><?= $this->input('HHAS_note' . $incr, ['placeholder' => 'Enter comment']); ?></p>
-        <?php 
+        <?php
 
         $incr++;
 
-        endforeach; 
+        endforeach;
 
         endif;
 
@@ -314,5 +314,5 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
 
 </section>
-   
+
     </div>

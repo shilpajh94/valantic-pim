@@ -9,7 +9,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "object" => ["object"]
                 ],
                 "classes" => ["CatalogTables"],
-        ]); 
+        ]);
         ?>
 <?php endif; ?>
 
@@ -31,22 +31,22 @@ if($groupData):
                                 </span>
                                 <div class="flex aligned">
                                 <h5>
-                                        <?php 
+                                        <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_BrandName_{$incr}")->setDataFromResource($groupData['brandName']); 
+                                                echo $this->input("PTG_Footer_BrandName")->setDataFromResource($groupData['brandName']);
                                         }else{
-                                                echo $this->input("PTG_Footer_BrandName_{$incr}");
-                                        }                
+                                                echo $this->input("PTG_Footer_BrandName");
+                                        }
                                         ?>
 
                                         <span>
-                                        
-                                        <?php 
+
+                                        <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_HoseType_{$incr}")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType2_{$incr}")->setDataFromResource($groupData['siop4Category']); 
+                                                echo $this->input("PTG_Footer_HoseType")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop4Category']);
                                         }else{
-                                                echo $this->input("PTG_Footer_HoseType_{$incr}")."/".$this->input("PTG_Footer_HoseType2_{$incr}");
-                                        }                
+                                                echo $this->input("PTG_Footer_HoseType")."/".$this->input("PTG_Footer_HoseType2");
+                                        }
                                         ?>
 
                                         </span>
@@ -54,22 +54,22 @@ if($groupData):
 
                                         <div class="compatible">
                                                 <b>
-                                                <?php 
+                                                <?php
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                                        echo $this->input("PTG_Footer_Compatibility")->setDataFromResource('Compatible fittings');
                                                 }else{
-                                                        echo $this->input("PTG_Footer_Compatibility_{$incr}");
-                                                }                
+                                                        echo $this->input("PTG_Footer_Compatibility");
+                                                }
                                                 ?>
                                                 </b>
-                                                
-                                                <?php 
+
+                                                <?php
                                                 $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description); 
+                                                        echo $this->input("PTG_Footer_Compatibility_Description")->setDataFromResource($compatibility_description);
                                                 }else{
-                                                        echo $this->input("PTG_Footer_Compatibility_Description_{$incr}");
-                                                }                
+                                                        echo $this->input("PTG_Footer_Compatibility_Description");
+                                                }
                                                 ?>
                                         </div>
                                 </div>
@@ -77,49 +77,49 @@ if($groupData):
                 </div>
                 <div class="footer1">
                         <footer class="flex-center <?php echo $footer_class; ?>">
-                                
+
                                 <div class="flex aligned">
-                                        
+
 
 
                                         <div class="compatible">
                                                                                 <b>
-                                                <?php 
+                                                <?php
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility1_{$incr}")->setDataFromResource('Compatible fittings'); 
+                                                        echo $this->input("PTG_Footer_Compatibility1")->setDataFromResource('Compatible fittings');
                                                 }else{
-                                                        echo $this->input("PTG_Footer_Compatibility1_{$incr}");
-                                                }                
+                                                        echo $this->input("PTG_Footer_Compatibility1");
+                                                }
                                                 ?>
                                                 </b>
-                                                
-                                                <?php 
+
+                                                <?php
                                                 $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description_{$incr}")->setDataFromResource($compatibility_description); 
+                                                        echo $this->input("PTG_Footer_Compatibility1_Description")->setDataFromResource($compatibility_description);
                                                 }else{
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description_{$incr}");
-                                                }                
+                                                        echo $this->input("PTG_Footer_Compatibility1_Description");
+                                                }
                                                 ?>
                                         </div>
                                         <h5>
-                                        
-                                        <?php 
+
+                                        <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_BrandName1_{$incr}")->setDataFromResource($groupData['brandName']); 
+                                                echo $this->input("PTG_Footer_BrandName1")->setDataFromResource($groupData['brandName']);
                                         }else{
-                                                echo $this->input("PTG_Footer_BrandName1_{$incr}");
-                                        }                
+                                                echo $this->input("PTG_Footer_BrandName1");
+                                        }
                                         ?>
 
                                         <span>
-                                        
-                                        <?php 
+
+                                        <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_HoseType1_{$incr}")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType3_{$incr}")->setDataFromResource($groupData['siop4Category']); 
+                                                echo $this->input("PTG_Footer_HoseType1")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop4Category']);
                                         }else{
-                                                echo $this->input("PTG_Footer_HoseType1_{$incr}")."/".$this->input("PTG_Footer_HoseType3_{$incr}");
-                                        }                
+                                                echo $this->input("PTG_Footer_HoseType1")."/".$this->input("PTG_Footer_HoseType3");
+                                        }
                                         ?>
 
                                         </span>
@@ -132,64 +132,64 @@ if($groupData):
                                 </span>
                         </footer>
                 </div>
-        
-                
+
+
                 <header class="content white">
                         <h1>
                         <?php
                                 if($this->editmode){
-                                        echo $this->input("PTG_Heading_{$incr}")->setDataFromResource($groupData['brandName']); 
+                                        echo $this->input("PTG_Heading")->setDataFromResource($groupData['brandName']);
                                 }else{
-                                        echo $this->input("PTG_Heading_{$incr}");
-                                }                
+                                        echo $this->input("PTG_Heading");
+                                }
                         ?>
                         </h1>
                         <aside class="ptgHead">
                                 <div>
                                 <?php
                                 if($this->editmode){
-                                        echo $this->wysiwyg("PTG_LongDescription_{$incr}")->setDataFromResource($groupData['longDescription']); 
+                                        echo $this->wysiwyg("PTG_LongDescription")->setDataFromResource($groupData['longDescription']);
                                 }else{
-                                        echo $this->wysiwyg("PTG_LongDescription_{$incr}");
-                                }                
+                                        echo $this->wysiwyg("PTG_LongDescription");
+                                }
                                 ?>
                                 </div>
                                 <span class="imageHolder">
                                 <?php
                                 if($this->editmode){
-                                        echo $this->image("HHPP_Image_Left_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']); 
+                                        echo $this->image("HHPP_Image_Left", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
                                 }else{
-                                        if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
-                                                $imgSrcObj1 = $this->image("HHPP_Image_Left_{$incr}");
-                                                
+                                        if(!$this->image("HHPP_Image_Left")->isEmpty())
+                                                $imgSrcObj1 = $this->image("HHPP_Image_Left");
+
                                         if($imgSrcObj1)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj1->getSrc(); ?>"width="400" height="200"/>
+                                        <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>"width="400" height="200"/>
                                         <?php
                                         }
-                                }                
+                                }
                                 ?>
 
                                 <?php
                                 if($this->editmode){
-                                        echo $this->image("Drawing_Picture_{$incr}", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']); 
+                                        echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                 }else{
-                                        if(!$this->image("Drawing_Picture_{$incr}")->isEmpty())
-                                                $imgSrcObj2 = $this->image("Drawing_Picture_{$incr}");
+                                        if(!$this->image("Drawing_Picture")->isEmpty())
+                                                $imgSrcObj2 = $this->image("Drawing_Picture");
 
                                         if($imgSrcObj2)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj2->getSrc(); ?>"width="400" height="200"/>
+                                        <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>"width="400" height="200"/>
                                         <?php
                                         }
-                                }                
+                                }
                                 ?>
                         </span>
                 </aside>
                 </header>
-        
+
                 <article class="fullcontainer">
                         <section class="content single ptg">
                                 <?php if($groupData['safetyFeatures'] || !empty(trim($groupData['material'])) || !empty(trim($groupData['reinforcement'])) || !empty(trim($groupData['temperatureRange']))): ?>
@@ -223,33 +223,38 @@ if($groupData):
                                                                         </p>
                                                                         <?php endif; ?>
                                                                 <?php if(!empty(trim($groupData['reinforcement']))): ?>
-                                                                <p>                
+                                                                <p>
                                                                         <b><?= $this->translate('Reinforcement') ?></b>
                                                                         <?= $groupData['reinforcement'] ?>
                                                                 </p>
                                                                 <?php endif; ?>
 
                                                                 <?php if(!empty(trim($groupData['temperatureRange']))): ?>
-                                                                <p>              
+                                                                <p>
                                                                         <b><?= $this->translate('Temperature Range') ?></b>
                                                                         <?= $groupData['temperatureRange']; ?>
                                                                 </p>
                                                                 <?php endif; ?>
                                                                 </div>
                                                         </div>
-                                        </div> 
+                                        </div>
                                         <?php endif; ?>
                                 </menu>
                                 <?php endif; ?>
 
-                                <?php foreach($groupData['data'] as $articleGroupKey => $articleGroupData): ?>
+                                <?php
+
+                                $tableNoteCount = 0;
+                                foreach($groupData['data'] as $articleGroupKey => $articleGroupData):
+
+                                ?>
                                 <table class="grid" cellpadding="0" cellspacing="0">
                                 <thead>
-                                
+
                                 <?php if($groupData['iconRequired'] == 'YES'): ?>
                                                 <tr class="sub-head">
                                                         <?php foreach($groupData['columnsDataWithImages'] as $key => $c1data): ?>
-                                                                <?php 
+                                                                <?php
                                                                         $g1count = count($c1data);
                                                                         $firstArray = array_shift($c1data);
                                                                 ?>
@@ -264,7 +269,7 @@ if($groupData):
 
                                         <tr class="head">
                                                 <?php foreach($groupData['columnsDataWithImages'] as $key => $c2data): ?>
-                                                        <?php 
+                                                        <?php
                                                                 $g2count = count($c2data);
                                                                 $first2Array = array_shift($c2data);
                                                         ?>
@@ -287,7 +292,7 @@ if($groupData):
                                         <?php endif; ?>
                                 </thead>
                                 <tbody>
-                                        <?php $incrRow = 1; ?>        
+                                        <?php $incrRow = 1; ?>
                                         <?php foreach($articleGroupData as $key => $element): ?>
                                                 <?php if($incrRow%2==0): ?>
                                                 <tr>
@@ -302,8 +307,12 @@ if($groupData):
                                         <?php endforeach; ?>
                                 </tbody>
                                 </table>
-                                <p class="small"><?= $this->input('PTG_Note_' . $incr.'_'.$articleGroupKey, ['placeholder' => 'Enter comment']); ?></p>
-                                <?php endforeach; ?>
+                                <p class="small"><?= $this->input('PTG_Note_' .$tableNoteCount, ['placeholder' => 'Enter comment']); ?></p>
+                                <?php
+
+                                $tableNoteCount++;
+
+                                endforeach; ?>
                         </section>
                 </article>
 

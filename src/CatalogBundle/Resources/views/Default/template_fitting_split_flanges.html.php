@@ -10,7 +10,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "object" => ["object"]
                 ],
                 "classes" => ["CatalogTables"],
-        ]); 
+        ]);
         ?>
 <?php endif; ?>
 <div class="template">
@@ -36,7 +36,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                                 <img src="<?= $footer_logo_src; ?>">
                         </span>
-                        
+
                         <div class="flex aligned">
                         <h5>
                     <?php if($this->editmode): ?>
@@ -48,7 +48,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                                 <?= $this->input("HHAFC_Footer_Title1") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAFC_Footer_SubTitle1")->isEmpty()): ?>
@@ -59,17 +59,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php else: ?>
                                         <?= $this->input("HHAFC_Footer_SubTitle1") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
-                
-                               
+
+
                         </div>
                 </footer>
         </div>
         <div class="footer1">
         <footer class="flex-center <?php echo $footer_class; ?>">
-                        
+
                         <div class="flex aligned">
                         <h5>
                     <?php if($this->editmode): ?>
@@ -81,7 +81,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                                 <?= $this->input("HHAFC_Footer_Title2") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAFC_Footer_SubTitle2")->isEmpty()): ?>
@@ -92,11 +92,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php else: ?>
                                         <?= $this->input("HHAFC_Footer_SubTitle2") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
-                               
-                               
+
+
                         </div>
                         <span class="logo">
                         <b>
@@ -121,14 +121,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             <p><?php echo $this->wysiwyg("HHAFC_Description"); ?></p>
         </header>
         <figure class="margin15 marginBottom30">
-            <figcaption class="col-6"> 
+            <figcaption class="col-6">
                 <h6 class="contitech-yellow"><?php echo $this->input("HHAFC_Sub_Title_1"); ?></h6>
                 <ul class="list method ">
 
                 <?php while($this->block("HHAFC_SectionFirst")->loop()) { ?>
                     <li><?php echo $this->input("HHAFC_SectionFirst_".$this->block("HHAFC_SectionFirst")->getCurrent()); ?></li>
                 <?php } ?>
-                    
+
                 </ul>
                 <h6 class="contitech-yellow"><?php echo $this->input("HHAFC_Sub_Title_2"); ?></h6>
                 <ul class="list">
@@ -138,19 +138,19 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 </ul>
             </figcaption>
             <span class="img-placeholder">
-            <?php 
+            <?php
                 if($this->editmode)
                 {
-                        echo $this->image("HHAFC_Image", ["width" => 400, "height" => 300]); 
+                        echo $this->image("HHAFC_Image", ["width" => 400, "height" => 300]);
                 }
                 else{
-                        $imgSrcObj =  $this->image("HHAFC_Image"); 
-                
+                        $imgSrcObj =  $this->image("HHAFC_Image");
+
                         if($imgSrcObj)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj->getSrc(); ?>" height="300" width="400"/>
-                        <?php 
+                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" height="300" width="400"/>
+                        <?php
                         }
                 } ?>
             </span>
@@ -163,7 +163,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
         //extract($brand);
 
-        ?>   
+        ?>
                <div class="marginBottom30 margin15" >
                     <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brand['brandName']); ?></h3>
                     <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($brand['shortDescription']); ?></h3>
@@ -172,7 +172,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php if($iconRequired == 'YES'): ?>
                                         <tr class="sub-head">
                                                 <?php foreach($brand['columnsDataWithImages'] as $key => $c1data): ?>
-                                                        <?php 
+                                                        <?php
                                                                 $g1count = count($c1data);
                                                                 $firstArray = array_shift($c1data);
                                                         ?>
@@ -187,16 +187,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
                                 <tr class="head">
                                 <?php foreach($brand['columnsDataWithImages'] as $key => $c2data): ?>
-                                        
-                                        <?php 
+
+                                        <?php
                                                 $g2count = count($c2data);
                                                 $first2Array = array_shift($c2data);
                                         ?>
                                         <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
-                                        
+
                                 <?php endforeach; ?>
                                 </tr>
-                                                
+
                                 <?php if($subHeaderRequired == 'YES'): ?>
                                         <tr class="sub-head">
                                                 <?php foreach($brand['columnsDataWithImages'] as $key => $c3data): ?>
@@ -210,9 +210,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                                 <?php endforeach; ?>
                                         </tr>
                                 <?php endif; ?>
-                        </thead>    
+                        </thead>
                         <tbody>
-                                <?php $incrRow = 1; ?>        
+                                <?php $incrRow = 1; ?>
                                 <?php foreach($brand['articlesData'] as $key => $element): ?>
                                         <?php if($incrRow%2==0): ?>
                                         <tr>
@@ -229,17 +229,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </table>
                         <p class="small"><?= $this->input('HHAFC_note' . $incr, ['placeholder' => 'Enter comment']); ?></p>
                </div>
-               
-               
-            
-           <?php 
+
+
+
+           <?php
             $incr++;
-            endforeach; 
+            endforeach;
 
             endif;
 
             ?>
-      
+
     </article>
 </div>
 </div>

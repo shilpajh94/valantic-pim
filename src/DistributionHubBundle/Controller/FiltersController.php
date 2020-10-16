@@ -221,7 +221,7 @@ class FiltersController extends AdminController{
      * @throws RequestParameterNotValidException
      */
     public function gridProxyAction(Request $request, FilterService $service, EventDispatcherInterface $eventDispatcher) {
-        $allParams = array_merge($request->request->all(), $request->query->all()); 
+        $allParams = array_merge($request->request->all(), $request->query->all());
         $requestedLanguage = $request->get("language");
         if ($requestedLanguage) {
             if ($requestedLanguage != "default") {

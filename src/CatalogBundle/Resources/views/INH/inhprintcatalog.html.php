@@ -49,7 +49,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 </span>
                             </footer>
                         </div>
-        
+
         <article class="fullcontainer single">
             <?php
             if (isset($info['data']) && !empty($info['data'])) {
@@ -57,10 +57,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             ?>
 
                         <div class="inhsetting1">
- <div class="inhsetting-sidebar"> 
+ <div class="inhsetting-sidebar">
                             <div class=" sidebar">
                             <ul>
-                                
+
                                 <?php
                                 if (is_array($info['categories'])) {
                                     foreach ($info['categories'] as $category) {
@@ -103,14 +103,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         <?= $this->input("INH_SP_CATAGORY", ["placeholder" => "Enter Product Category"]) ?>
                                 <?php endif; ?>
                             </h1>
-                            
+
                                 <?php
                                 if ($this->editmode) {
                                     ?>
                                     <p class=" borderBottom block">
-                                    
+
                                     <?php
-                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200])->setImage($info['defaultPageImage']);
+                                    echo $this->image('INH_SP_' . md5($tableName), ["width" => 600, "height" => 200]);
                                     ?>
                                     </p>
                                     <?php
@@ -125,16 +125,16 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                         if($imgSrcObj)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj->getSrc(); ?>" width="600" height="200"/>
+                                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="600" height="200"/>
                                         <?php } ?>
                                         </p>
                                         <?php
                                     }
                                     ?>
-                                    
+
                                 <?php
                                 } ?>
-                            
+
                             <table class="grid special marginBottom5" cellspacing="0" cellpadding="0">
                                 <thead>
                                     <tr class="head ">

@@ -42,6 +42,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      */
     public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
 
+
         $operator = $fieldFilter->getOperator();
         $fieldName = $fieldDefinition->getName();
 
@@ -92,9 +93,16 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                             $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList); 
                         } 
                     } else {
-                        
+
                         $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
-                        $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                        if ($fieldDefinitionAdapter instanceof \DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields) {
+                            // localized context
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData()['filters']['0'], $fieldFilter->getFilterEntryData()['classId'], $selectedFieldType, $fieldFilter->getFilterEntryData()["type"]);
+                            
+                        } else {
+                            // non-localized context
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);    
+                        }
                     }
                 }
 
@@ -102,12 +110,21 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 if (!empty($relationFieldConditions)) {
 
                     foreach ($relationFieldConditions as $cond) {
-                        $relatedConditions[] = $cond['0'];
+                        
+                        if($cond['0'] && $cond['0']['ooo_id']){
+                            $relatedConditions[] = $cond['0']['ooo_id'];
+                        } else {
+                            $relatedConditions[] = $cond['0'];   
+                        }
                     }
                 }
-
+                //Todo: Handle the deadstate of filters in an alternative approach.
+                if(strpos(implode(" OR ", $relatedConditions), "=  'Array'")){
+                    throw new \Exception('Filters for current level -> relation inside a relation, are not supported.');
+                }
+               
                 $relClassList->setCondition(implode(" OR ", $relatedConditions));
-
+                
                 $relClassList->load();
                 $relObjects = $relClassList->getObjects();
 
@@ -157,7 +174,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      */ 
     // ToDo: Revisit the logic and use prepared statements
     public function getQueryForLocalized($fieldFilter, $tableName) {
-
+        
         $db = Db::get();
         
         if ($fieldFilter->getFilterEntryData()) {
@@ -241,7 +258,11 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                         $relatedConditions[] = $cond['0'];
                     }
                 }
-
+                //Todo: Handle the deadstate of filters in an alternative approach.
+                if(strpos(implode(" OR ", $relatedConditions), "=  'Array'")){
+                    throw new \Exception('Filters for current level -> localized relation inside a relation, are not supported.');
+                }
+                
                 $relClassList->setCondition(implode(" OR ", $relatedConditions));
 
                 $relClassList->load();
