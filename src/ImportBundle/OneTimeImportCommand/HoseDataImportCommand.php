@@ -46,7 +46,7 @@ class HoseDataImportCommand extends AbstractCommand
     protected function configure()
     {
         $this->setName('conti:onetimeimport:hose')
-            ->setDescription('PTG Import')
+            ->setDescription('INH HYD File Import')
             ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
@@ -56,7 +56,8 @@ class HoseDataImportCommand extends AbstractCommand
             'tubeColor' => 'INH-HYD-HOSE~tubeColor', 'coverCharacteristic' => 'INH-HYD-HOSE~coverCharacteristic',
             'coverColor' => 'INH-HYD-HOSE~coverColor', 'agencyCompliance' => 'INH-HYD-HOSE~agencyCompliance',
             'reinforcement' => 'ProductClass~reinforcement', 'coverMaterial' => 'INH-HYD-HOSE~coverMaterial',
-            'tubeCharacteristic' => 'INH-HYD-HOSE~tubeCharacteristic', 'tubeMaterial' => 'INH-HYD-HOSE~tubeMaterial'
+            'tubeCharacteristic' => 'INH-HYD-HOSE~tubeCharacteristic', 'tubeMaterial' => 'INH-HYD-HOSE~tubeMaterial',
+            'StandardMetTube' => 'INH-HYD-HOSE~StandardMetTube', 'StandardMetCover' => 'INH-HYD-HOSE~StandardMetCover', 'standardMetHose' => 'INH-HYD-HOSE~standardMetHose'
         ];
 
         $this->baseLevel = [];
@@ -130,6 +131,7 @@ class HoseDataImportCommand extends AbstractCommand
      */
     private function updateBase()
     {
+        
         if (!empty($this->baseLevelRecords)) {
             $this->mapBaseLevelId($this->baseLevelRecords, $this->baseLevel);
             
@@ -247,8 +249,8 @@ class HoseDataImportCommand extends AbstractCommand
 
             $d[$i] = array(
                 'oo_id'  =>  $r['level6n9digit_id'],
-                'grossWeight' => !empty($r['Weight_lb_ft']) ? $r['Weight_lb_ft'] : NULL,
-                'weightg' => !empty($r['Weight_G_M']) ? $r['Weight_G_M'] : NULL,
+//                'grossWeight' => !empty($r['Weight_lb_ft']) ? $r['Weight_lb_ft'] : NULL,
+//                'weightg' => !empty($r['Weight_G_M']) ? $r['Weight_G_M'] : NULL,
                 'minimumTemperatureF'  =>  !empty($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
                 'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
                 'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
@@ -356,7 +358,41 @@ class HoseDataImportCommand extends AbstractCommand
                 }
                 unset($clrInfo);
             }
-
+            if (!empty($r['Standard_Met_Tube'])) {
+                $clrArr = array();
+                $clrArr = $r['Standard_Met_Tube']; 
+                $clrInfo = $this->getMultiselectInfo('StandardMetTube', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Standard_Met_Tube '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $smtChars = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+            
+            if (!empty($r['Standard_Met_Cover'])) {
+                $clrArr = array();
+                $clrArr = $r['Standard_Met_Cover']; 
+                $clrInfo = $this->getMultiselectInfo('StandardMetCover', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Standard_Met_Cover '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $smcCols = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
+            
+            if (!empty($r['Standard_Met_Hose'])) {
+                $clrArr = array();
+                $clrArr = $r['Standard_Met_Hose']; 
+                $clrInfo = $this->getMultiselectInfo('standardMetHose', $clrArr);
+                if (!empty($clrInfo['itemNotFound'])) {
+                    $error[] = "Standard_Met_Hose '" . $clrInfo['itemNotFound'] . "' not found in master";
+                } else {
+                    $smhChars = $clrInfo['items'];
+                }
+                unset($clrInfo);
+            }
 
             if (!empty($error)) {
                 $results[$k]['statusCode'] = "Failed - Base Level";
@@ -375,7 +411,9 @@ class HoseDataImportCommand extends AbstractCommand
                 'coverMaterial'     =>  !empty($cvMatrls) ? implode(',', $cvMatrls) : NULL,
                 'coverCharacteristic'   =>  !empty($cvChars) ? implode(',', $cvChars) : NULL,
                 'coverColor'    =>  !empty($cvCols) ? implode(',', $cvCols) : NULL,
-
+                'StandardMetCover' => !empty($smcCols) ? implode(',', $smcCols) : NULL,
+                'StandardMetTube' => !empty($smtChars) ? implode(',', $smtChars) : NULL,
+                'standardMetHose' => !empty($smhChars) ? implode(',', $smhChars) : NULL,
                 'numberOfHelixWires'    =>  !empty($r['Number_of_Helix_Wires']) ? $r['Number_of_Helix_Wires'] : NULL,
                 'numberOfPlies'     =>  !empty($r['Number_of_Plies']) ? $r['Number_of_Plies'] : NULL,
                 'staticWire'  =>  !empty($r['Static_Wire']) ? 1 : NULL,
@@ -432,13 +470,7 @@ class HoseDataImportCommand extends AbstractCommand
                 'hoseIdDec' =>  !empty($r['Hose_ID_in_Dec_Actual_ID']) ? $r['Hose_ID_in_Dec_Actual_ID'] : NULL,
                 'hoseIdMM' =>  !empty($r['Hose_ID_mm_Actual_ID']) ? $r['Hose_ID_mm_Actual_ID'] : NULL,
                 'hoseOdIn' =>  !empty($r['Hose_OD_in']) ? $r['Hose_OD_in'] : NULL,
-                'hoseOdmm' =>  !empty($r['Hose_OD_mm']) ? $r['Hose_OD_mm'] : NULL,
-
-                'VirtualCatalogVacuumIn'    =>  !empty($r['Vacuum_Rating_in']) ? $r['Vacuum_Rating_in'] : NULL,
-                'VirtualCatalogWorkingPressureMPA'  =>  !empty($r['Working_Pressure_MPa']) ? $r['Working_Pressure_MPa'] : NULL,
-                // 'VirtualCatalogReinforcement'   =>  !empty($reinfo) ? implode(',', $reinfo) : NULL,
-                'VirtualCatalogVacuumMM'    => !empty($r['Vacuum_Rating_mm']) ? $r['Vacuum_Rating_mm'] : NULL,
-                'VirtualCatalogWorkingPressurePSI'  => !empty($r['Working_Pressure_PSI']) ? $r['Working_Pressure_PSI'] : NULL
+                'hoseOdmm' =>  !empty($r['Hose_OD_mm']) ? $r['Hose_OD_mm'] : NULL
             );
             
             $i++;
@@ -512,12 +544,12 @@ class HoseDataImportCommand extends AbstractCommand
                 $d[$baseLevelCode] = array();
             }
             foreach ($results as $K => $result) {
-                if (!isset($d[$baseLevelCode]['Weight_lb_ft'])) {
-                    $d[$baseLevelCode]['Weight_lb_ft'] = '';
-                }
-                if (!isset($d[$baseLevelCode]['Weight_G_M'])) {
-                    $d[$baseLevelCode]['Weight_G_M'] = '';
-                }
+//                if (!isset($d[$baseLevelCode]['Weight_lb_ft'])) {
+//                    $d[$baseLevelCode]['Weight_lb_ft'] = '';
+//                }
+//                if (!isset($d[$baseLevelCode]['Weight_G_M'])) {
+//                    $d[$baseLevelCode]['Weight_G_M'] = '';
+//                }
                 if (!isset($d[$baseLevelCode]['MinTemperature_Rating_F'])) {
                     $d[$baseLevelCode]['MinTemperature_Rating_F'] = '';
                 }
@@ -554,6 +586,15 @@ class HoseDataImportCommand extends AbstractCommand
                 if (!isset($d[$baseLevelCode]['Cover_color'])) {
                     $d[$baseLevelCode]['Cover_color'] = NULL;
                 }
+                if (!isset($d[$baseLevelCode]['Standard_Met_Tube'])) {
+                    $d[$baseLevelCode]['Standard_Met_Tube'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Standard_Met_Cover'])) {
+                    $d[$baseLevelCode]['Standard_Met_Cover'] = NULL;
+                }
+                if (!isset($d[$baseLevelCode]['Standard_Met_Hose'])) {
+                    $d[$baseLevelCode]['Standard_Met_Hose'] = NULL;
+                }
                 if (!isset($d[$baseLevelCode]['Number_of_Helix_Wires'])) {
                     $d[$baseLevelCode]['Number_of_Helix_Wires'] = '';
                 }
@@ -564,12 +605,12 @@ class HoseDataImportCommand extends AbstractCommand
                     $d[$baseLevelCode]['Brand_Name'] = '';
                 }
 
-                if (empty($d[$baseLevelCode]['Weight_lb_ft'])) {
-                    $d[$baseLevelCode]['Weight_lb_ft'] = $result['Weight_lb_ft'];
-                }
-                if (empty($d[$baseLevelCode]['Weight_G_M'])) {
-                    $d[$baseLevelCode]['Weight_G_M'] = $result['Weight_G_M'];
-                }
+//                if (empty($d[$baseLevelCode]['Weight_lb_ft'])) {
+//                    $d[$baseLevelCode]['Weight_lb_ft'] = $result['Weight_lb_ft'];
+//                }
+//                if (empty($d[$baseLevelCode]['Weight_G_M'])) {
+//                    $d[$baseLevelCode]['Weight_G_M'] = $result['Weight_G_M'];
+//                }
                 if (empty($d[$baseLevelCode]['MinTemperature_Rating_F'])) {
                     $d[$baseLevelCode]['MinTemperature_Rating_F'] = $result['MinTemperature_Rating_F'];
                 }
@@ -601,6 +642,28 @@ class HoseDataImportCommand extends AbstractCommand
                     $d[$baseLevelCode]['Number_of_Plies'] = $result['Number_of_Plies'];
                 }
                 
+                if (!empty($result['Standard_Met_Tube'])) {
+                    $arr = explode("/", $result['Standard_Met_Tube']);
+                    foreach ($arr as $tm) {
+                        $d[$baseLevelCode]['Standard_Met_Tube'][$tm] = $tm;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Standard_Met_Cover'])) {
+                    $arr = explode("/", $result['Standard_Met_Cover']);
+                    foreach ($arr as $tc) {
+                        $d[$baseLevelCode]['Standard_Met_Cover'][$tc] = $tc;
+                    }
+                    unset($arr);
+                }
+                if (!empty($result['Standard_Met_Hose'])) {
+                    $arr = explode("/", $result['Standard_Met_Hose']);
+                    foreach ($arr as $tc) {
+                        $d[$baseLevelCode]['Standard_Met_Hose'][$tc] = $tc;
+                    }
+                    unset($arr);
+                }
+                
                 if (!empty($result['Tube_Material'])) {
                     $arr = explode("/", $result['Tube_Material']);
                     foreach ($arr as $tm) {
@@ -611,7 +674,7 @@ class HoseDataImportCommand extends AbstractCommand
                 if (!empty($result['Tube_Characteristic'])) {
                     $arr = explode("/", $result['Tube_Characteristic']);
                     foreach ($arr as $tc) {
-                        $d[$baseLevelCode]['Tube_Material'][$tc] = $tc;
+                        $d[$baseLevelCode]['Tube_Characteristic'][$tc] = $tc;
                     }
                     unset($arr);
                 }
@@ -622,6 +685,7 @@ class HoseDataImportCommand extends AbstractCommand
                     }
                     unset($arr);
                 }
+                
                 if (!empty($result['Cover_Material'])) {
                     $arr = explode("/", $result['Cover_Material']);
                     foreach ($arr as $cm) {
@@ -836,6 +900,7 @@ class HoseDataImportCommand extends AbstractCommand
             $this->masters[$type][$result['o_id']] = strtolower($result['name']);
             unset($type);
         }
+        
         unset($results);
         /* Loading Brands */
         $sql = "SELECT o_id, `name` FROM object_3 WHERE o_published=1";
@@ -856,7 +921,7 @@ class HoseDataImportCommand extends AbstractCommand
      * 
      */
     private function getMultiselectInfo($masterKey, $items)
-    {
+    {   
         $res = array();
         $itemNotFound = array();
         $hayStackArr = isset($this->masters[$masterKey]) && is_array($this->masters[$masterKey]) ? $this->masters[$masterKey] : array();
@@ -972,7 +1037,7 @@ class HoseDataImportCommand extends AbstractCommand
     public function getCSVData($fileName)
     {
         try {
-            $columns = ['Object', 'Mat_Group', 'Plant', 'old_Mat', '6_Digts', 'Product_H', 'Description', 'Brand_Name', 'Tube_Material', 'Tube_Characteristic', 'Tube_Color', 'Cover_Material', 'Cover_Characteristic', 'Cover_color', 'Reinforcement', 'MinTemperature_Rating_F', 'MinTemperature_Rating_C', 'MaxTemperature_Rating_F', 'MaxTemperature_Rating_C', 'Static_Wire', 'Number_of_Helix_Wires', 'Number_of_Plies', 'Hose_Length_ft', 'Hose_Length_M', 'Hose_ID_in_Fract_Nominal_ID', 'Hose_ID_in_Dec_Actual_ID', 'Hose_ID_mm_Actual_ID', 'Hose_OD_in', 'Hose_OD_mm', 'Working_Pressure_Mpa', 'Working_Pressure_PSI', 'Min_Burst_Pressure_PSI', 'Min_Burst_Pressure_Mpa', 'Bend_Radius_in', 'Bend_Radius_mm', 'Vacuum_Rating_in', 'Vacuum_Rating_mm', 'Fitting_1_Type', 'Fitting_1_Size_FRACT', 'Fitting_1_Material', 'Fitting_2_Type', 'Fitting_2_Size_FRACT', 'Fitting_2_Material', 'Assembly_Not_Assembly', 'Weight_lb_ft', 'Weight_G_M'];
+            $columns = ['Object', 'Mat_Group', 'Plant', 'old_Mat', '6_Digts', 'Product_H', 'Description', 'Brand_Name', 'Tube_Material', 'Tube_Characteristic', 'Tube_Color', 'Standard_Met_Tube', 'Cover_Material', 'Cover_Characteristic', 'Standard_Met_Cover', 'Standard_Met_Hose', 'Reinforcement', 'MinTemperature_Rating_F', 'MinTemperature_Rating_C', 'MaxTemperature_Rating_F', 'MaxTemperature_Rating_C', 'Static_Wire', 'Number_of_Helix_Wires', 'Number_of_Plies', 'Hose_Length_ft', 'Hose_Length_M', 'Hose_ID_in_Fract_Nominal_ID', 'Hose_ID_in_Dec_Actual_ID', 'Hose_ID_mm_Actual_ID', 'Hose_OD_in', 'Hose_OD_mm', 'Working_Pressure_Mpa', 'Working_Pressure_PSI', 'Min_Burst_Pressure_PSI', 'Min_Burst_Pressure_Mpa', 'Bend_Radius_in', 'Bend_Radius_mm', 'Vacuum_Rating_in', 'Vacuum_Rating_mm', 'Fitting_1_Type', 'Fitting_1_Size_FRACT', 'Fitting_1_Material', 'Fitting_2_Type', 'Fitting_2_Size_FRACT', 'Fitting_2_Material', 'Assembly_Not_Assembly', 'Weight_lb_ft', 'Weight_G_M'];
 
             $csvFilePath = $fileName;
             $firstRowData = array();

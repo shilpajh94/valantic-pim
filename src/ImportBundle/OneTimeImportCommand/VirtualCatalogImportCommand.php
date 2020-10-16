@@ -93,6 +93,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
         $keys = array();
         if (is_array($results) && !empty($results)) {
             foreach ($results as $i => $result) {
+                $error = array();
                 $digitFound = false;
                 $logs[$i] = array(
                     'data' => $result
@@ -162,9 +163,9 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     if (!empty($result['Marketing_Long_Description'])) {
                         $o->setLongDescription($result['Marketing_Long_Description']);
                     }
-                    if (!empty($result['Temperature_Range_F_and_C_Virtual_Catalog_Description'])) {
-                        $o->setVirtualCatalogHoseTemperatureRangeFAndC($result['Temperature_Range_F_and_C_Virtual_Catalog_Description']);
-                    }
+                    // if (!empty($result['Temperature_Range_F_and_C_Virtual_Catalog_Description'])) {
+                    //     $o->setVirtualCatalogHoseTemperatureRangeFAndC($result['Temperature_Range_F_and_C_Virtual_Catalog_Description']);
+                    // }
                     if (!empty($result['Branding_Layline'])) {
                         $o->setBrandingLayline($result['Branding_Layline']);
                     }
@@ -184,7 +185,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
                         $o->getBase()->getHoseBase()->setVirtualCatalogCoverMaterial($result['Cover_Material_Virtual_Catalog_Description']);
                     }
                     if (!empty($result['Couplings_Virtual_Catalog_Description'])) {
-                        $o->getBase()->getHoseBase()->setVirtualCatalogCoupling($result['Couplings_Virtual_Catalog_Description']);
+                        $o->getBase()->getHoseBase()->setCoupling($result['Couplings_Virtual_Catalog_Description']);
                     }
                     if (!empty($result['Non_Stock_Sizes'])) {
                         $o->getBase()->getHoseBase()->setNonStockSizes($result['Non_Stock_Sizes']);

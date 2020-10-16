@@ -58,7 +58,9 @@ class SalesMaterialModel
         try {
             $this->updateDefaults($param);
             // $spreadsheet = Import::load($this->filePath);
+            
             $csvImportedData = Import::getCSVData($this->filePath);
+            
             $this->fileColumns = $csvImportedData['header'];
             $csvData = $csvImportedData['data'];
             unset($csvImportedData);
@@ -281,14 +283,17 @@ class SalesMaterialModel
             {
                 try
                 { 
-                    if(!isset($this->materialArray[$material]))
+                    if(empty($this->materialArray[$material]))
                     {
                         $materialId = $this->getMaterialObject($material);
-                        if($materialId)
+                        if ($materialId) {
                             $this->materialArray[$material] = $materialId;
+                        }
+                    } else {
+                        $materialId = $this->materialArray[$material];
                     }
 
-                    if(isset($this->materialArray[$material]))
+                    if(!empty($this->materialArray[$material]))
                     {
                         $materialObjId = $this->materialArray[$material];
                         // $salesOrgCode = $this->salesOrganizations[$salesOrg];
@@ -475,13 +480,14 @@ class SalesMaterialModel
     public function processObsleteFlagMaterials() {
 //        print_r($this->productUpdateArray); 
         $productUpdateArray = [];
+        
         foreach ($this->productUpdateArray as $objectId => $sapNumber) {
 //            $product = DataObject\Product::getById($objectId);
 //            if (!empty($product) && $product instanceof \Pimcore\Model\DataObject\Product) {
 //                if (strtolower($product->getProductType()) == 'fert') {
                     $flag = false;
                     $salesRecordsFlag = $this->tableImportHelper->getSalesMaterialRecordsByMaterial($objectId);
-                    if (!empty($$salesRecordsFlag)) {
+                    if (!empty($salesRecordsFlag)) {
                         $level = 3;
                         $flag = true;
                     } else {

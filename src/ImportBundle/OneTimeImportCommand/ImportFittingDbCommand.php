@@ -144,7 +144,7 @@ class ImportFittingDbCommand extends AbstractCommand
                         }
 
                         $brickData->setHydFittingFamily($familyArray);
-                        $brickData->setHydThreadDescription('');
+//                        $brickData->setHydThreadDescription('');
 //                        $brickData->setElbowType($NomenClatureObj->getElbowType());
                     }
 
@@ -181,17 +181,19 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setInsertionDepthIN($InsertionDepthUnit['InsertionDepthIN']);
                     $brickData->setInsertionDepthMM($InsertionDepthUnit['InsertionDepthMM']);
 
-                    if(empty(trim($record['Released To Production Date'])))
+                    if(!empty(trim($record['Released To Production Date'])))
                     {
                         $ReleasedToProductionDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Released To Production Date']))));
                         $brickData->setReleasedToProductionDate($ReleasedToProductionDate);
                     }
 
-                    if(strtolower($data['Released To Production']) == 'yes')
+                    if(strtolower($data['Released To Production']) == 'yes') {
                         $brickData->setReleasedToProduction(true);
+                    }
 
-                    if(strtolower($data['Released To Production']) == 'no')
+                    if (strtolower($data['Released To Production']) == 'no') {
                         $brickData->setReleasedToProduction(false);
+                    }
 
                     $brickData->setStemComponentNumber($data['Stem Component Number']);
                     $brickData->setStemComponentSAPNumber($data['Stem Component SAP Number']);
@@ -206,7 +208,7 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setStemHexMM($data['Stem Hex mm']);
                     $brickData->setStemMaterial($data['Stem Material']);
 
-                    if(empty(trim($record['Stem Rev Date'])))
+                    if(!empty(trim($record['Stem Rev Date'])))
                     {
                         $StemRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Stem Rev Date']))));
                         $brickData->setStemRevDate($StemRevDate);
@@ -224,7 +226,7 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setFerruleMaterial($data['Ferrule Material']);
                     $brickData->setFerruleODInDec(0);
 
-                    if(empty(trim($record['Ferrule Rev Date'])))
+                    if(!empty(trim($record['Ferrule Rev Date'])))
                     {
                         $FerruleRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Ferrule Rev Date']))));
                         $brickData->setFerruleRevDate($FerruleRevDate);
@@ -243,7 +245,7 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setSwivelNutinchDecimal($data['Swviel Nut inch Decimal']);
                     $brickData->setSwivelNutMaterial($data['Swivel Nut Material']);
 
-                    if(empty(trim($record['Nut Rev Date'])))
+                    if(!empty(trim($record['Nut Rev Date'])))
                     {
                         $NutRevDate = new \DateTime(date("d-m-Y", strtotime(str_replace('/', '-', $data['Nut Rev Date']))));
                         $brickData->setSwivelNutRevDate($NutRevDate);
@@ -253,8 +255,8 @@ class ImportFittingDbCommand extends AbstractCommand
                     $brickData->setThrustWireComponentNumber($data['Thrust Wire Component Number']);
                     $brickData->setThrustWireMaterial($data['Thrust Wire Material']);
                     $brickData->setThrustWireRevisionNumber($data['Thrust Wire Revision Number']);
-                    $brickData->setThrustWireNut('');
-                    $brickData->setORingBOMSAPNumber(0);
+                    //$brickData->setThrustWireNut('');
+                    //$brickData->setORingBOMSAPNumber(0);
                     $brickData->setORingComponentNumber($data['O-Ring Component Number']);
                     $brickData->setORingComponentSAPNumber($data['O-Ring Component SAP Number']);
 
