@@ -19,7 +19,7 @@ class HydAttributeDataImportCommand extends Command
     /**
      * file path to import
      */
-    const DATA_FILE_PATH = PIMCORE_PROJECT_ROOT."/hyd_attribute_without_cal_values.xlsx";
+    const DATA_FILE_PATH = PIMCORE_PROJECT_ROOT."/OneTimeImportFiles/CSVs/HYD_ATTRIBUTE_DATA_IMPORT_FILE_FINAL.xlsx";
 
     const IMPORT_CONFIG = array(
         "BASE_CONFIG" => array(
@@ -68,7 +68,7 @@ class HydAttributeDataImportCommand extends Command
      * mapping for skeleton level columns
      */
     const SKELETON_COLUMN_MAP = array(
-        "AJ" => array("field" => "hoseIdNominalId", "brickKey" => "HoseSkeleton", "type" => "input", "brickType" => "skeleton"),
+        "AJ" => array("field" => "HoseIDNominalIDFrac", "brickKey" => "HoseSkeleton", "type" => "input", "brickType" => "skeleton"),
         "AK" => array("field" => "hoseIdDec", "brickKey" => "HoseSkeleton", "type" => "numeric", "brickType" => "skeleton"),
         // will get value from unit conversion
 //        "AL" => array("field" => "hoseIdMM", "brickKey" => "HoseSkeleton", "type" => "numeric", "brickType" => "skeleton"),
@@ -105,17 +105,17 @@ class HydAttributeDataImportCommand extends Command
         // will get value from unit conversion
 //        "T" => array("field" => "maximumTemperatureC", "brickKey" => null, "type" => "numeric", "brickType" => null),
 
-        "U" => array("field" => "temperatureRangeApplication1", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "V" => array("field" => "temperatureRangeApplicationFAndC1", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "W" => array("field" => "temperatureRangeApplication2", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "X" => array("field" => "temperatureRangeApplicationFAndC2", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
+        "U" => array("field" => "temperatureRangeApplication1", "type" => "input", "brickType" => "fert"),
+        "V" => array("field" => "temperatureRangeApplicationFAndC1", "type" => "input", "brickType" => "fert"),
+        "W" => array("field" => "temperatureRangeApplication2", "type" => "input", "brickType" => "fert"),
+        "X" => array("field" => "temperatureRangeApplicationFAndC2", "type" => "input", "brickType" => "fert"),
 
-        "Y" => array("field" => "temperatureRangeApplication3", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "Z" => array("field" => "temperatureRangeApplicationFAndC3", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "AA" => array("field" => "temperatureRangeApplication4", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "AB" => array("field" => "temperatureRangeApplicationFAndC4", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "AC" => array("field" => "temperatureRangeApplication5", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
-        "AD" => array("field" => "temperatureRangeApplicationFAndC5", "brickKey" => "HoseFert", "type" => "input", "brickType" => "fert"),
+        "Y" => array("field" => "temperatureRangeApplication3", "type" => "input", "brickType" => "fert"),
+        "Z" => array("field" => "temperatureRangeApplicationFAndC3", "type" => "input", "brickType" => "fert"),
+        "AA" => array("field" => "temperatureRangeApplication4", "type" => "input", "brickType" => "fert"),
+        "AB" => array("field" => "temperatureRangeApplicationFAndC4", "type" => "input", "brickType" => "fert"),
+        "AC" => array("field" => "temperatureRangeApplication5", "type" => "input", "brickType" => "fert"),
+        "AD" => array("field" => "temperatureRangeApplicationFAndC5", "type" => "input", "brickType" => "fert"),
 
         "AH" => array("field" => "hoseLengthFT", "brickKey" => "HoseFert", "type" => "numeric", "brickType" => "fert"),
         // will get value from unit conversion
