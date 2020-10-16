@@ -2,17 +2,17 @@
 
 if (CUSTOM_ENV == "prod") {
 
-    define("CDN_ENABLE", 0);
-    define("CDN_HOST", "");
-    define("S3_HOST", "");
-    define("S3_BUCKET", "");
-    define("S3_REGION", "");
+    define("CDN_ENABLE", 1);
+    define("CDN_HOST", "https://doq3hlp8ldkf1.cloudfront.net");
+    define("S3_HOST", "https://s3.us-east-1.amazonaws.com");
+    define("S3_BUCKET", "contitech-assets-prod");
+    define("S3_REGION", "us-east-1");
 
-    define("B2B_EXPORT_SFTP_HOST", "");
+    define("B2B_EXPORT_SFTP_HOST", "vey1epxnds01");
     define("B2B_EXPORT_SFTP_PORT", 22);
-    define("B2B_EXPORT_SFTP_USERNAME", "");
-    define("B2B_EXPORT_SFTP_PASSWORD", "");
-    define("B2B_EXPORT_SFTP_PATH", "");
+    define("B2B_EXPORT_SFTP_USERNAME", "pimuser");
+    define("B2B_EXPORT_SFTP_PASSWORD", "userpim");
+    define("B2B_EXPORT_SFTP_PATH", "/opt/PIM/B2b");
 
 } elseif (CUSTOM_ENV == "stage") {
 
