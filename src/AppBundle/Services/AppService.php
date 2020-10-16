@@ -413,4 +413,50 @@ class AppService
         return $names;
     }
 
+    /**
+     * saving objects in batches of $batchSize size
+     *
+     * @param array|null $articleNumbers
+     * @param bool|null $printProgress only useful when running from console
+     */
+    public function saveProductsWithArticleNumbers(?array $articleNumbers = [],?bool $printProgress = false)
+    {
+        $batchSize = 1000;
+
+        $listing = new Product\Listing();
+
+        if(count($articleNumbers) > 0 ){
+            $articleNumbersForQuery = [];
+            foreach($articleNumbers as $articleNumber){
+                $articleNumbersForQuery[] = "'" . $articleNumber . "'";
+            }
+            $condition = " articleNumber IN " . "(" . implode(",",$articleNumbersForQuery) . ")";
+            $listing->setCondition($condition);
+        }
+
+        $totalCount = $listing->getTotalCount();
+        $offset = 0;
+        $savedCount = 0;
+        while($offset <= ( $totalCount - 1) ){
+
+            $listing->setOffset($offset);
+            $listing->setLimit($batchSize);
+
+            $listing->load();
+            foreach($listing->getObjects() as $object){
+                $object->save();
+                $savedCount++;
+                if($printProgress){
+                    if($savedCount % 10 == 0){
+                        echo "Saved " . $savedCount . "/" . $totalCount . PHP_EOL;
+                    }
+                }
+            }
+
+            $offset = $offset + $batchSize;
+        }
+
+
+    }
+
 }
