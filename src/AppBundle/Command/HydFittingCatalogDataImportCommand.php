@@ -20,7 +20,7 @@ class HydFittingCatalogDataImportCommand extends Command
     /**
      * file path to import
      */
-    const DATA_FILE_PATH = PIMCORE_PROJECT_ROOT."/Hydraulics Fittings Catalog Data 05-06-2020 (5).xlsx";
+    const DATA_FILE_PATH = PIMCORE_PROJECT_ROOT."/OneTimeImportFiles/CSVs/HydraulicsFittingsCatalogData05-06-2020.xlsx";
 
     const IMPORT_SHEETS = array(
         "HYD_CATALOG_SHEET" => array(
@@ -54,7 +54,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "J" => array("field" => "DualSeatYN", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
 //        "K" => need to find the mapped column
         "K" => array("field" => "NumberOfHex", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
-        "L" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
+        // "L" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
 //        "M" => sap number
         "N" => array("field" => "HoseID1InFract", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "O" => array("field" => "HoseID1MM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
@@ -69,12 +69,12 @@ class HydFittingCatalogDataImportCommand extends Command
 //        "U" => array("field" => "FerruleLengthMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "V" => array("field" => "ThreadSize1InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "W"  => array("field" => "ThreadSize2InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
-        "X" => array("field" => "Hex1WrenchSizeIN", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
+        "X" => array("field" => "Hex1WrenchSizeIN", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         // will get value from unit conversion
 //        "Y" => array("field" => "Hex1WrenchSizeMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
-        "Z" => array("field" => "Hex2WrenchSizeIN", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
+        "Z" => array("field" => "Hex2WrenchSizeIN", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         // will get value from unit conversion
-//        "AA" => array("field" => "Hex2WrenchSizeMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
+//        "AA" => array("field" => "Hex2WrenchSizeMM", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "AB" => array("field" => "SocketWrenchSizeInFract", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         "AC" => array("field" => "DropLengthIN", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         // will get value from unit conversion
@@ -108,7 +108,7 @@ class HydFittingCatalogDataImportCommand extends Command
         // will get value from unit conversion
 //        "AW" => array("field" => "OrificeTubeLengthMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
 
-        "AX" => array("field" => "sapDescription", "brickKey" => null, "type" => "textarea", "brickType" => null),
+//        "AX" => array("field" => "sapDescription", "brickKey" => null, "type" => "textarea", "brickType" => null),
         "AY" => array("field" => "ORingIdMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         // will get value from unit conversion
 //        "AZ" => array("field" => "ORingIdInDec", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
@@ -116,8 +116,8 @@ class HydFittingCatalogDataImportCommand extends Command
         // will get value from unit conversion
 //        "BB" => array("field" => "ORingThicknessMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BC" => array("field" => "HydFittingId", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
-        "BD" => array("field" => "ThreadSize1InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
-        "BE" => array("field" => "ThreadSize2InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
+//        "BD" => array("field" => "ThreadSize1InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
+//        "BE" => array("field" => "ThreadSize2InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BF" => array("field" => "ValveStyle", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BG" => array("field" => "ValveSizeInDec", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         // same field as in AJ
@@ -131,7 +131,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "A" => array("field" => "brandName", "brickKey" => null, "type" => "select", "brickType" => null,"masterType" => "Brand","isMaster" => true),
         "B" => array("field" => "shortDescription", "brickKey" => null, "type" => "input", "brickType" => null),
         "C" => array("field" => "descriptive", "brickKey" => "HoseSkeleton", "type" => "input", "brickType" => "skeleton"),
-        "D" => array("field" => "industryStandard", "brickKey" => null, "type" => "input", "brickType" => null),
+//        "D" => array("field" => "industryStandard", "brickKey" => null, "type" => "input", "brickType" => null),
 //        "E" => sapNumber
         "F" => array("field" => "AccessoryId", "brickKey" => "AccessoriesFert", "type" => "input", "brickType" => "fert"),
         "G" => array("field" => "FlatWidthIn", "brickKey" => "AccessoriesFert", "type" => "numeric", "brickType" => "fert"),

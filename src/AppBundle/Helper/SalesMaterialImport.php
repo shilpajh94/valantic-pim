@@ -229,7 +229,7 @@ class SalesMaterialImport
     }
     
     public function getSalesMaterialRecordsByMaterial($materialObjId) {
-        $sql = "SELECT * from object_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
+        $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
         $salesData = $this->db->fetchAll($sql);
         $flag = true;
         foreach ($salesData as $rec) {
