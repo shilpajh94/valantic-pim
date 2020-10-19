@@ -20,7 +20,7 @@ pimcore:
                 accepted:
                     label: 'Product Published'
                     color: '#28a013'
-                rejected:
+                unpublished:
                     label: 'Product Unpublished'
                     color: '#f70a0a'
             transitions:
@@ -81,7 +81,7 @@ pimcore:
                                                 value: 'high'
                         
                 publish:
-                    from: review_content
+                    from: [review_content, unpublished]
                     to: [accepted]
                     guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
                     # notificationSettings:
@@ -96,9 +96,8 @@ pimcore:
                             
                 unpublish:
                     from: [enrich, review_content, accepted]
-                    to: rejected
+                    to: unpublished
                     guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
-                    # changePublishedState: "force_unpublished"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_PRODUCTMANAGER']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
@@ -110,9 +109,9 @@ pimcore:
                             commentRequired:      true
                         
                 reopen:
-                    from: [accepted, rejected]
+                    from: [accepted]
                     to: enrich
-                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCT-MANAGER')"
+                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
                     options:
                         changePublishedState: "no_change"
                         label: 'Product open to enrich'
