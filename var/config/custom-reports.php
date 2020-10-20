@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     "brandProducts" => [
@@ -114,7 +114,10 @@ return [
                 "order" => TRUE,
                 "width" => 110,
                 "label" => "",
-                "id" => "extModel468-1"
+                "filter" => "string",
+                "displayType" => "",
+                "filter_drilldown" => "",
+                "id" => "extModel466-1"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -123,7 +126,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel468-5"
+                "id" => "extModel466-2"
             ],
             [
                 "name" => "SAP DESCRIPTION",
@@ -132,7 +135,7 @@ return [
                 "order" => TRUE,
                 "width" => 160,
                 "label" => "",
-                "id" => "extModel468-2"
+                "id" => "extModel466-3"
             ],
             [
                 "name" => "SIOP FULL CODE",
@@ -141,7 +144,7 @@ return [
                 "order" => TRUE,
                 "width" => 150,
                 "label" => "",
-                "id" => "extModel468-3"
+                "id" => "extModel466-4"
             ],
             [
                 "name" => "MATERIAL GROUP CODE",
@@ -150,7 +153,7 @@ return [
                 "order" => TRUE,
                 "width" => 150,
                 "label" => "",
-                "id" => "extModel468-6"
+                "id" => "extModel466-5"
             ],
             [
                 "name" => "oo_id",
@@ -160,7 +163,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel468-4"
+                "id" => "extModel466-6"
             ]
         ],
         "niceName" => "DATA COMPLETENESS",
@@ -176,7 +179,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1593410559,
+        "modificationDate" => 1593667827,
         "creationDate" => 1591606593,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -297,7 +300,7 @@ return [
                 "sql" => "SELECT o1.articleNumber AS \"ARTICLE NUMBER\",\nLEFT(o1.oldMaterialCode, 6) AS `SIX DIGIT`,\no1.ProductType AS `PRODUCT TYPE`,\no1.siopFullCode AS `SIOP FULL CODE`,\nold1.sapDescription AS `SAP DESCRIPTION`,\no1.oo_id",
                 "from" => "object_1 o1\n\nJOIN object_localized_data_1 old1\nON o1.oo_id = old1.ooo_id\nAND old1.language = 'en'\n\nLEFT JOIN object_1 skeleton_1\nON o1.o_parentId = skeleton_1.oo_id\nAND skeleton_1.ProductType = 'skeleton'\n\nLEFT JOIN object_1 base_1\nON skeleton_1.o_parentId = base_1.oo_id\nAND base_1.ProductType = 'base'\n\n",
                 "where" => "WHERE\n(o1.ProductType = 'fert'\nAND base_1.siopFullCode != o1.siopFullCode \nOR base_1.brandName != o1.brandName)\nOR (o1.ProductType = 'fert'\nAND base_1.brandName IS NULL\nAND o1.brandName != '')",
-                "groupby" => "GROUP BY o1.articleNumber",
+                "groupby" => "GROUP BY o1.articleNumber\nHAVING o1.ProductType = 'fert'",
                 "type" => "sql"
             ]
         ],
@@ -309,7 +312,7 @@ return [
                 "order" => TRUE,
                 "width" => 120,
                 "label" => "",
-                "id" => "extModel293-1"
+                "id" => "extModel380-1"
             ],
             [
                 "name" => "SIX DIGIT",
@@ -318,7 +321,7 @@ return [
                 "order" => TRUE,
                 "width" => 100,
                 "label" => "",
-                "id" => "extModel293-2"
+                "id" => "extModel380-2"
             ],
             [
                 "name" => "PRODUCT TYPE",
@@ -327,7 +330,7 @@ return [
                 "order" => TRUE,
                 "width" => 110,
                 "label" => "",
-                "id" => "extModel293-3"
+                "id" => "extModel380-3"
             ],
             [
                 "name" => "SIOP FULL CODE",
@@ -336,7 +339,7 @@ return [
                 "order" => TRUE,
                 "width" => 160,
                 "label" => "",
-                "id" => "extModel293-4"
+                "id" => "extModel380-4"
             ],
             [
                 "name" => "SAP DESCRIPTION",
@@ -345,7 +348,7 @@ return [
                 "order" => TRUE,
                 "width" => 190,
                 "label" => "",
-                "id" => "extModel293-5"
+                "id" => "extModel380-5"
             ],
             [
                 "name" => "oo_id",
@@ -355,7 +358,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel293-6"
+                "id" => "extModel380-6"
             ]
         ],
         "niceName" => "PRODUCT ACCURACY",
@@ -371,7 +374,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1593575626,
+        "modificationDate" => 1594007363,
         "creationDate" => 1591696784,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -387,9 +390,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \narticleNumber AS `ARTICLE NUMBER`, \nsiopFullCode AS `SIOP FULL CODE`, \nmainImage AS `MAIN IMAGE`,\nfrontView AS `FRONT VIEW IMAGE`, \nsideView AS `SIDE VIEW IMAGE`, \ncutView AS `CUT VIEW IMAGE`, \noo_id\n",
-                "from" => "object_1\n",
-                "where" => " WHERE (mainImage IS NULL)\nAND ProductType = 'fert'",
+                "sql" => "SELECT \nobject_1.articleNumber AS `ARTICLE NUMBER`, \nobject_1.siopFullCode AS `SIOP FULL CODE`, \nIF(a_mainImage.filename IS NOT NULL, a_mainImage.filename, 'NO IMAGE') AS `MAIN IMAGE`, \nIF(a_frontView.filename IS NOT NULL, a_frontView.filename, 'NO IMAGE') AS `FRONT VIEW IMAGE`, \nIF(a_sideView.filename IS NOT NULL, a_sideView.filename, 'NO IMAGE') AS `SIDE VIEW IMAGE`, \nIF(a_cutView.filename IS NOT NULL, a_cutView.filename, 'NO IMAGE') AS `CUT VIEW IMAGE`, \nobject_1.oo_id \n",
+                "from" => "\nFROM object_1 \nLEFT JOIN assets a_mainImage ON object_1.mainImage = a_mainImage.id \nLEFT JOIN assets a_frontView ON object_1.frontView = a_frontView.id \nLEFT JOIN assets a_sideView ON object_1.sideView = a_sideView.id \nLEFT JOIN assets a_cutView ON object_1.cutView = a_cutView.id \n",
+                "where" => "WHERE \n(object_1.mainImage IS NULL) \nAND object_1.ProductType = 'fert'",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -402,16 +405,16 @@ return [
                 "order" => TRUE,
                 "width" => 110,
                 "label" => "",
-                "id" => "extModel7089-1"
+                "id" => "extModel2333-1"
             ],
             [
                 "name" => "SIOP FULL CODE",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => 170,
+                "width" => 160,
                 "label" => "",
-                "id" => "extModel7089-2"
+                "id" => "extModel2333-2"
             ],
             [
                 "name" => "MAIN IMAGE",
@@ -421,7 +424,7 @@ return [
                 "width" => 90,
                 "label" => "",
                 "filter" => "",
-                "id" => "extModel7089-3"
+                "id" => "extModel2333-3"
             ],
             [
                 "name" => "FRONT VIEW IMAGE",
@@ -431,7 +434,7 @@ return [
                 "width" => 120,
                 "label" => "",
                 "filter" => "",
-                "id" => "extModel7089-4"
+                "id" => "extModel2333-4"
             ],
             [
                 "name" => "SIDE VIEW IMAGE",
@@ -441,7 +444,7 @@ return [
                 "width" => 110,
                 "label" => "",
                 "filter" => "",
-                "id" => "extModel7089-5"
+                "id" => "extModel2333-5"
             ],
             [
                 "name" => "CUT VIEW IMAGE",
@@ -451,7 +454,7 @@ return [
                 "width" => 110,
                 "label" => "",
                 "filter" => "",
-                "id" => "extModel7089-6"
+                "id" => "extModel2333-6"
             ],
             [
                 "name" => "oo_id",
@@ -461,7 +464,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel7089-7"
+                "id" => "extModel2333-7"
             ]
         ],
         "niceName" => "PRODUCTS WITH NO IMAGE",
@@ -477,7 +480,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1593416444,
+        "modificationDate" => 1593757759,
         "creationDate" => 1592191325,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -493,10 +496,10 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\no1.articleNumber AS `ARTICLE NUMBER`, \no1.siopFullCode AS `SIOP FULL CODE`, \nold_sapDesc1.sapDescription AS `SAP DESCRIPTION`,\no1.oo_id ",
-                "from" => "FROM object_1 o1 \nJOIN object_localized_data_1 old1 \nON o1.oo_id = old1.ooo_id\nLEFT JOIN object_localized_data_1 old_sapDesc1 \nON o1.oo_id = old_sapDesc1.ooo_id \nAND old_sapDesc1.language = 'en'\n",
-                "where" => "WHERE o1.ProductType = \"fert\" AND\n(o1.SIOPLevel2 IS NULL\nOR o1.SIOPLevel3 IS NULL\nOR o1.SIOPLevel4 IS NULL\nOR o1.eanUpc IS NULL\nOR o1.webDiscription IS NULL\nOR o1.searchKeywords IS NULL\nOR old1.longDescription IS NULL\nOR old1.FeaturesBenefitsBulletPoint IS NULL\nOR old1.Application IS NULL\nOR o1.proposition65WarningAttributesRequired IS NULL\nOR o1.packageLengthIN IS NULL\nOR o1.packageWidthIN IS NULL\nOR o1.packageHeightIN IS NULL\nOR o1.packageWeightLBS IS NULL\nOR o1.caseLengthIN IS NULL\nOR o1.caseHeightIN IS NULL\nOR o1.caseWidthIN IS NULL\nOR o1.caseWeightLBS IS NULL\nOR o1.SIOPLevel2 = \"\"\nOR o1.SIOPLevel3 = \"\"\nOR o1.SIOPLevel4 = \"\"\nOR o1.eanUpc = \"\"\nOR o1.webDiscription = \"\"\nOR o1.searchKeywords = \"\"\nOR old1.longDescription = \"\"\nOR old1.FeaturesBenefitsBulletPoint = \"\"\nOR old1.Application = \"\"\nOR o1.proposition65WarningAttributesRequired = \"\"\nOR o1.packageLengthIN = \"\"\nOR o1.packageWidthIN = \"\"\nOR o1.packageHeightIN = \"\"\nOR o1.packageWeightLBS = \"\"\nOR o1.caseLengthIN = \"\"\nOR o1.caseHeightIN = \"\"\nOR o1.caseWidthIN = \"\"\nOR o1.caseWeightLBS = \"\"\n)",
-                "groupby" => "`ARTICLE NUMBER`",
+                "sql" => "SELECT\no1.articleNumber AS `ARTICLE NUMBER`, \no1.siopFullCode AS `SIOP FULL CODE`, \nold1.sapDescription AS `SAP DESCRIPTION`,\no1.oo_id ",
+                "from" => "FROM object_1 o1 \n\tJOIN object_localized_query_1_en old1 \n\t ON o1.oo_id = old1.ooo_id",
+                "where" => "WHERE o1.ProductType = \"fert\" AND\n(o1.SIOPLevel2 IS NULL\nOR o1.SIOPLevel3 IS NULL\nOR o1.SIOPLevel4 IS NULL\nOR o1.eanUpc IS NULL\nOR o1.webDiscription IS NULL\nOR o1.searchKeywords IS NULL\nOR old1.longDescription IS NULL\nOR old1.FeaturesBenefitsBulletPoint IS NULL\nOR o1.proposition65WarningAttributesRequired IS NULL\nOR o1.packageLengthIN IS NULL\nOR o1.packageWidthIN IS NULL\nOR o1.packageHeightIN IS NULL\nOR o1.packageWeightLBS IS NULL\nOR o1.caseLengthIN IS NULL\nOR o1.caseHeightIN IS NULL\nOR o1.caseWidthIN IS NULL\nOR o1.caseWeightLBS IS NULL\nOR o1.SIOPLevel2 = \"\"\nOR o1.SIOPLevel3 = \"\"\nOR o1.SIOPLevel4 = \"\"\nOR o1.eanUpc = \"\"\nOR o1.webDiscription = \"\"\nOR o1.searchKeywords = \"\"\nOR old1.longDescription = \"\"\nOR old1.FeaturesBenefitsBulletPoint = \"\"\nOR o1.proposition65WarningAttributesRequired = \"\"\nOR o1.packageLengthIN = \"\"\nOR o1.packageWidthIN = \"\"\nOR o1.packageHeightIN = \"\"\nOR o1.packageWeightLBS = \"\"\nOR o1.caseLengthIN = \"\"\nOR o1.caseHeightIN = \"\"\nOR o1.caseWidthIN = \"\"\nOR o1.caseWeightLBS = \"\"\n)",
+                "groupby" => "",
                 "type" => "sql"
             ]
         ],
@@ -508,7 +511,7 @@ return [
                 "order" => TRUE,
                 "width" => 150,
                 "label" => "",
-                "id" => "extModel293-1"
+                "id" => "extModel286-1"
             ],
             [
                 "name" => "SIOP FULL CODE",
@@ -517,7 +520,7 @@ return [
                 "order" => TRUE,
                 "width" => 150,
                 "label" => "",
-                "id" => "extModel293-2"
+                "id" => "extModel286-2"
             ],
             [
                 "name" => "SAP DESCRIPTION",
@@ -526,7 +529,7 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel293-3"
+                "id" => "extModel286-3"
             ],
             [
                 "name" => "oo_id",
@@ -536,7 +539,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "columnAction" => "openObject",
-                "id" => "extModel293-4"
+                "id" => "extModel286-4"
             ]
         ],
         "niceName" => "PRODUCT ATTRIBUTE INCOMPLETENESS",
@@ -552,7 +555,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1593510749,
+        "modificationDate" => 1603173698,
         "creationDate" => 1592364945,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
