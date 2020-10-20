@@ -213,7 +213,7 @@ class ObjectListener
      * @param \Pimcore\Model\DataObject\Users $object
     */
     private function updatePIMUser(\Pimcore\Model\DataObject\Users $object) {
-        $userObj = \Pimcore\Model\User::getByName($object->getUserName());
+        $userObj = \Pimcore\Model\User::getById($object->getAdminReference());
         if(!empty($userObj)) {
             $userData = array(
                 'firstname' =>  $object->getFirstname(),
@@ -224,7 +224,6 @@ class ObjectListener
             $userObj->setValues($userData);
             $userObj->update();
         }
-
     }
 
     /**

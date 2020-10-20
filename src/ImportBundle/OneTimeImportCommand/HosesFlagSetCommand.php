@@ -49,50 +49,121 @@ class HosesFlagSetCommand extends AbstractCommand
             // 06:13:16 WARNING   [php] Warning: Invalid argument supplied for foreach() ["exception" => ErrorException { …}]
             // $o->save();die;
             $results = $this->getCSVData($filePath);
-            $fhandle = fopen($filePath, 'w');
+//            $fhandle = fopen($filePath, 'w');
             $header = $results['header'];
             $data = $results['data'];
             array_push($header, 'Status');
-            fputcsv($fhandle, $header);
+//            fputcsv($fhandle, $header);
+            $productsData = $this->getProductsData();
+            $updateArray = [];
+            $i = 0;
             if (isset($data) && is_array($data)) {
                 foreach ($data as $result) {
-                    $o = $this->getProductObject($result['Material']);
-                    // p_r($o->getId());die;
-                    if (!empty($o)) {
-                        
+                    if (array_key_exists($result['Material'], $productsData)) {
+                        $objectId = $productsData[$result['Material']];
+                        echo $objectId.PHP_EOL; 
+                        $printedFlag = null;
+                        $virtualFlag = null;
                         if (!empty($result['Printed Catalog Y/N']) && strtolower($result['Printed Catalog Y/N']) == 'y') {
                             //p_r($result['Printed Catalog Y/N']);
-                            $o->setPrintedCatalogFlag(true);
+                            $printedFlag = '1'; //$o->setPrintedCatalogFlag(true);
                         }
                         if (!empty($result['Printed Catalog Y/N']) && strtolower($result['Printed Catalog Y/N']) == 'n') {
                             //p_r($result['Printed Catalog Y/N']);
-                            $o->setPrintedCatalogFlag(false);
+//                            $o->setPrintedCatalogFlag(false);
+                            $printedFlag = '-1';
                         }
                         if (!empty($result['Virtual Catalog']) && strtolower($result['Virtual Catalog']) == 'y') {
                             //p_r($result['Virtual Catalog']);
-                            $o->setVirtualCatalogFlag(true);
+//                            $o->setVirtualCatalogFlag(true);
+                            $virtualFlag = '1';
                         }
                         if (!empty($result['Virtual Catalog']) && strtolower($result['Virtual Catalog']) == 'n') {
                             //p_r($result['Virtual Catalog']);
-                            $o->setVirtualCatalogFlag(false);
+//                            $o->setVirtualCatalogFlag(false);
+                            $virtualFlag = '-1';
                         }
-                        if ($o->save()) {
-                            array_push($result, "Success");
-                        } else {
-                            array_push($result, "Failed");
+                        $updateArray[] = [
+                            'oo_id' => $objectId,
+                            'printedCatalogFlag' => $printedFlag,
+                            'virtualCatalogFlag' => $virtualFlag
+                        ];
+                        if ($i == 1000) {
+                            $this->updateTable($updateArray, 'object_query_1');
+                            $this->updateTable($updateArray, 'object_store_1');
+                            $updateArray = [];
+                            $i = -1;
                         }
-                        fputcsv($fhandle, $result);
+                        $i++;
                     }
+                }
+                if (count($updateArray)>0) {
+                    $this->updateTable($updateArray, 'object_query_1');
+                    $this->updateTable($updateArray, 'object_store_1');
                 }
             }
 
-            fclose($fhandle);
+//            fclose($fhandle);
         } catch (\Throwable $th) {
             //throw $th;
             p_r($th->getMessage());
         }
     }
 
+    
+    public function updateTable($dataArray, $tableName) {
+        try {
+            $this->db = \Pimcore\Db::get();
+            $rowCount = 1;
+            $firstRec = $dataArray[0];
+            $keys = array_keys($firstRec);
+            $sql = "INSERT INTO `".$tableName."` ";
+            $sqlColumns = [];
+            $updateColumns = [];
+            $valColumns = [];
+            foreach ($keys as $key) {
+                    $sqlColumns[] = "`".$key."`";
+                    if ($key!='oo_id') {
+                            $updateColumns[] = "`".$key."`= VALUES(`".$key."`)";
+                    }
+                    $valColumns[] = $key;
+            }
+            $sql = $sql." (".implode(",", $sqlColumns).") VALUES ";
+            $update = " ON DUPLICATE KEY UPDATE ".implode(",", $updateColumns);
+            $values = '';
+            foreach ($dataArray as $data) {
+                    $valueArray = [];
+                    foreach ($valColumns as $key) {
+                            $valueArray[] = $this->db->quote($data[$key]);
+                    }
+                $values .= '('.implode(",", $valueArray).'),';
+                // inserting records in batch
+                if ($rowCount % 1000 == 0) {
+                    $query = $sql.rtrim($values, ',').$update;
+                    $this->db->query($query);
+                    $values = '';
+                }
+                $rowCount++;
+            }
+            if (!empty($values)) {
+                $query = $sql.rtrim($values, ',').$update ;
+                $this->db->query($query);
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage(); die;
+        }
+    }
+    
+    private function getProductsData() {
+        $db = \Pimcore\Db::get();
+        $sql = "SELECT `oo_id`, `articleNumber` From `object_query_1` where `ProductType` = 'fert' ";
+        $results = $db->fetchAll($sql);
+        $productArray = [];
+        foreach ($results as $product) {
+            $productArray[$product['articleNumber']] = $product['oo_id'];
+        }
+        return $productArray;
+    }
     private function getProductObject($articleNumber)
     {
         $entries = new DataObject\Product\Listing();

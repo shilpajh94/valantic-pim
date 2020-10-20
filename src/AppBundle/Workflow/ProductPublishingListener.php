@@ -195,8 +195,8 @@ class ProductPublishingListener implements EventSubscriberInterface
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_UNPUBLISH_ACTION_NAME) {
-            /* $product->setPublished(0);
-            $product->save(); */
+            $product->setPublished(false);
+            $product->save();
             $cuEmail = $user->getEmail();
             $cuFirstName = $user->getFirstname();
             $cuLastName = $user->getLastname();
@@ -278,7 +278,7 @@ class ProductPublishingListener implements EventSubscriberInterface
             'workflow.product_publishing.completed.enrich_again' => ['completedEnrichAgainProductEvent'],
             'workflow.product_publishing.completed.publish' => ['completedPublishProductEvent'],
             'workflow.product_publishing.completed.unpublish' => ['completedUnpublishProductEvent'],
-            'workflow.product_publishing.completed.reopen' => ['completedReopenProductEvent'],
+            'workflow.product_publishing.completed.reopen' => ['completedReopenProductEvent']
         ];
     }
 }
