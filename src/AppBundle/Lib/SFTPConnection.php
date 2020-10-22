@@ -54,4 +54,8 @@ class SFTPConnection
         }
     }
 
+    public function moveFile(string $from , string $to ): bool{
+        return ssh2_sftp_rename($this->sftp, $from, $to);
+    }
+
 }

@@ -204,14 +204,14 @@ class SalesMaterialModel
         /**
          * Move imported file from inbox to archive or failed as per status
          */
-        $moveParam = array(
-            'filePath' => $this->inboxFilePath,
-            'archivePath'   =>  $this->archiveDir,
-            'failedPath'    =>  $this->failedDir,
-            'status'        =>  $allSuccess,
-            'fileName'      =>  time()
-        );
-        $movedAssetObj = $this->common->moveFile($moveParam);
+        // $moveParam = array(
+        //     'filePath' => $this->inboxFilePath,
+        //     'archivePath'   =>  $this->archiveDir,
+        //     'failedPath'    =>  $this->failedDir,
+        //     'status'        =>  $allSuccess,
+        //     'fileName'      =>  time()
+        // );
+        // $movedAssetObj = $this->common->moveFile($moveParam);
         echo $applicationLogMessage;
 
         if ($this->failedCount > 0) 
