@@ -141,8 +141,8 @@ class ProductPublishingListener implements EventSubscriberInterface
         $transition = $event->getTransition();
         $articleNumber = $product->getArticleNumber();
         if ($transition->getName() == WFConst::PB_PUBLISH_ACTION_NAME) {
-            /* $product->setPublished(1);
-            $product->save(); */
+            $product->setPublished(1);
+            $product->save();
             $cuEmail = $user->getEmail();
             $cuFirstName = $user->getFirstname();
             $cuLastName = $user->getLastname();
