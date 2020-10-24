@@ -6,6 +6,7 @@ use Exception;
 use Throwable;
 use Elements\Bundle\ProcessManagerBundle;
 use AppBundle\Logger\AppLogger as Logger;
+use AppBundle\Lib\SFTPConnection;
 
 class Lookup
 {
@@ -15,7 +16,7 @@ class Lookup
         which will load the object and return it back to its receiver        
     */
     public $name;
-    public $fileType;
+    public $fileType = ['csv', 'xlsx'];
     public $description;
     public $feederService;
     public $validatorService;
@@ -45,12 +46,41 @@ class Lookup
      */
     public function execDataFeeder($commands = array())
     {
-        $cmd = array_shift($commands); // Getting the command name      
-        $this->setLogFileName($cmd);
-        $this->getCommandConfig($cmd);
-        $this->updateDefaults($commands); // Update extra parameter value
+        try{
 
-        $this->execute();
+            $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
+            $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
+
+            $cmd = array_shift($commands); // Getting the command name  
+
+            $filePathInfo = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
+
+            $fileName = array_pop($filePathInfo);
+            $filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+
+            $SFTPConObj->downloadFile($filePath, constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
+
+            $this->filePath = $filePath;
+
+            $SFTPConObj->moveFile(constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'), BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+                
+            $this->setLogFileName($cmd);
+            // $this->getCommandConfig($cmd);
+            // $this->updateDefaults($commands); // Update extra parameter value
+
+            $this->execute($cmd);
+
+        } catch (Throwable $th) {
+            echo $message = $th->getMessage();
+            if($this->monitoringItem->id){
+                $this->monitoringItem->setMessage($message)->save();
+                $this->monitoringItem->setStatus($this->monitoringItem::STATUS_FAILED)->save();
+            }
+            Logger::error($this->logFileName, $th);
+            die; 
+        
+        }
+
     }
 
     /**
@@ -58,7 +88,7 @@ class Lookup
      * Lookup for the fill at specified location
      * Send further to responsible class to process the import
     */
-    public function execute()
+    public function execute($cmd)
     {
 //        $this->filePath = $this->filePath."_".date('mdY').".csv";
         
@@ -66,32 +96,58 @@ class Lookup
             if ($this->validateAllowedFileType()) {
                 /* Get actual file path from PIM */
                 
-                $obj = \Pimcore\Model\Asset::getByPath($this->filePath);
-                if(is_null($obj))
-                {
-                    $filePathInfo = explode('/',$this->filePath);
-                    $fileName = array_pop($filePathInfo);
-                    $filePath = implode('/',$filePathInfo);
+                // $obj = \Pimcore\Model\Asset::getByPath($this->filePath);
+                // if(is_null($obj))
+                // {
+                //     $filePathInfo = explode('/',$this->filePath);
+                //     $fileName = array_pop($filePathInfo);
+                //     $filePath = implode('/',$filePathInfo);
 
-                    echo $message = sprintf(IMPORT_FILE_NOT_FOUND, $filePath,$fileName);
-                    if($this->monitoringItem->id){
-                        throw new Exception($message);
-                    }
-                    die;
+                //     echo $message = sprintf(IMPORT_FILE_NOT_FOUND, $filePath,$fileName);
+                //     if($this->monitoringItem->id){
+                //         throw new Exception($message);
+                //     }
+                //     die;
+                // }
+                $this->sysFilePath = realpath($this->filePath);
+                // $this->sysFilePath = $obj->getFileSystemPath();
+                // $feederObj = \Pimcore::getContainer()->get($this->feederService);
+                
+                $feederService = $mappedService = $validatorService = $listingService = '';
+                if($cmd == 'plantMaterial')
+                {
+                    $feederService = 'import.plant_material_master_import_service';
+                    $mappedService = 'pim.plant_material_master_import_service';
                 }
-                
-                $this->sysFilePath = $obj->getFileSystemPath();
-                $feederObj = \Pimcore::getContainer()->get($this->feederService);
-                
+                else if($cmd == 'salesMaterial')
+                {
+                    $feederService = 'import.sales_material_master_import_service';
+                    $mappedService = 'pim.sales_material_master_import_service';
+                }
+                else if($cmd == 'product')
+                {
+                    $feederService = 'import.product_sql_service';
+                    $mappedService = 'pim.product_service';
+                    $validatorService = 'import.product_validator_service';
+                    $listingService = 'pim.product_listing_service';
+                }
+                else if($cmd == 'siop')
+                {
+                    $feederService = 'import.category_service';
+                    $mappedService = 'pim.category_service';
+                    $validatorService = 'import.category_validator_service';
+                    $listingService = 'pim.category_listing_service';
+                }
+                $feederObj = \Pimcore::getContainer()->get($feederService);
                 $params = array(
                     'approvedSalesOrg'  =>  $this->approvedSalesOrg,
                     'filePath'          =>  $this->sysFilePath,
-                    'inboxFilePath'     =>  $this->filePath,
-                    'archiveDir'        =>  $this->archiveDir,
-                    'failedDir'         =>  $this->failedDir,
-                    'validatorService'  =>  $this->validatorService,
-                    'mappedService'     =>  $this->mappedService,
-                    'listingService'    =>  $this->listingService,
+                    // 'inboxFilePath'     =>  $this->filePath,
+                    // 'archiveDir'        =>  $this->archiveDir,
+                    // 'failedDir'         =>  $this->failedDir,
+                    'validatorService'  =>  $validatorService,
+                    'mappedService'     =>  $mappedService,
+                    'listingService'    =>  $listingService,
                     'logFileName'       =>  $this->logFileName,
                     'name'              =>  $this->name
                 );
