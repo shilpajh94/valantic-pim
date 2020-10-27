@@ -1,7 +1,6 @@
 <?php
 
-namespace AppBundle\Lib;
-
+namespace AppBundle\Lib; 
 
 class SFTPConnection
 {
@@ -56,6 +55,10 @@ class SFTPConnection
 
     public function moveFile(string $from , string $to ): bool{
         return ssh2_sftp_rename($this->sftp, $from, $to);
+    }
+    
+    public function fileExists($filePath): bool {
+        return (bool) $this->sftp->file_exists($filePath);
     }
 
 }

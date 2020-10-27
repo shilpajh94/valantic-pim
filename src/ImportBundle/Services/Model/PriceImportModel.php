@@ -37,7 +37,8 @@ class PriceImportModel {
     private $logger;
 
     public function __construct() {
-        $this->datasource = 'ASSETS'; // "ASSETS" OR "FTP"
+        $this->datasource = 'FTP'; // "ASSETS" OR "FTP"
+        
         $this->assetFilePath = '/Data Import Files/Price List/PIM_ListPrice.csv';
         
         //$this->common = \Pimcore::getContainer()->get('app.common_helper');
@@ -198,20 +199,47 @@ class PriceImportModel {
                 $assetObj = \Pimcore\Model\Asset::getByPath($this->assetFilePath);
                 if (!empty($assetObj)) {
                     $sysFilePath = $assetObj->getFileSystemPath();
-                    $csvInfo = Import::getCSVData($sysFilePath);
-                    $this->csvHeader = array_flip($csvInfo['header']);
-                    $dataArray = $csvInfo['data'];
                 } else {
-                    echo "File not found";
+                    $sysFilePath = null;
                 }
-                
+                break;
+            case 'FTP':
+                $sysFilePath = $this->fetchFileFromFTP();
                 break;
             default:
                 echo "Error case : Invalid Datasource";
                 exit;
         }
-
+        if (!empty($sysFilePath) && file_exists($sysFilePath)) {
+            $csvInfo = Import::getCSVData($sysFilePath);
+            $this->csvHeader = array_flip($csvInfo['header']);
+            $dataArray = $csvInfo['data'];
+        }
         return $dataArray;
     }
     
+    public function fetchFileFromFTP() {
+        $SFTPConObj = new \AppBundle\Lib\SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
+        $SFTPConObj->login(BW_SAP_IMPORT_SFTP_USERNAME, BW_SAP_IMPORT_SFTP_PASSWORD);
+        $filePathInfo = explode('/', BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH);
+        $fileName = array_pop($filePathInfo);
+        $ftpFilePath = implode("/", $filePathInfo);
+        $fileNameArray = explode(".", $fileName);
+        $fileNamePrefix = $fileNameArray[0];
+        $fileName = $fileNamePrefix."_".date("mdY");
+        if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
+            $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days"));
+            if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
+                echo "Today's file not uploaded.";
+                return null;
+            }
+        }
+        $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+
+        $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
+
+        $SFTPConObj->moveFile(BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+        
+        return $tmpFilePath;
+    }
 }
