@@ -107,7 +107,6 @@ pimcore.plugin.headerSelection = Class.create({
                         // setting selected headers in selectedHeadersField
                         let formatedSelectedHeaders = this.formatHeaderDataForSave(selectedHeaders, completeData);
                         formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
-                        console.log(formatedSelectedHeaders);
                         headerDataComponent.setValue(formatedSelectedHeaders);
                         // trying to resolve the screen scroll to top issue on item selector value change
                         setTimeout(function(){
