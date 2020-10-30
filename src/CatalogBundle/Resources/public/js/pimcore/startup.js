@@ -167,8 +167,13 @@ pimcore.plugin.CatalogBundle = Class.create(pimcore.plugin.admin, {
                 
                template = eve.value;
              });
-             
-             object.edit.dataFields.AttributeTable.component.on('change', function(event){
+
+            if((object.data.data.AttributeTable !== null && trim(object.data.data.AttributeTable) !== "")){
+                var headerSelection = new pimcore.plugin.headerSelection();
+                headerSelection.attachHeader(object, type,{'value': object.data.data.AttributeTable},template);
+            }
+
+             object.edit.dataFields.AttributeTable.component.on('select', function(event){
                  //console.log(object.data.data.AttributeTable);
               //   if(object.data.data.AttributeTable != event.value)
                  {

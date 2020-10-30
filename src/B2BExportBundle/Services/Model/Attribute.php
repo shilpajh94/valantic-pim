@@ -137,11 +137,21 @@ class Attribute
 //                JOIN object_2  o2
 //                ON o2.oo_id = o1.SIOPLevel2";
 
+//            $oldSql2 = "
+//                SELECT
+//                    articleNumber as partNo, SUBSTRING(TRIM(siopFullCode), 3, 4) as value
+//                FROM
+//                    object_1;
+//            ";
+
             $newSql1 = "
                 SELECT
-                    articleNumber as partNo, SUBSTRING(TRIM(siopFullCode), 3, 4) as value
+                    distinct product.articleNumber as partNo,
+                    SUBSTRING(TRIM(siopFullCode), 3, 4) AS value
                 FROM
-                    object_1;
+                    object_query_10 salesMaster
+                        JOIN
+                    object_query_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
             ";
 
             $productLineMaster = Db::get()->fetchAll($newSql1);
