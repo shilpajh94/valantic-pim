@@ -797,8 +797,8 @@ class HoseDataImportCommand extends AbstractCommand
                     unset($unit);
                 }
 
-                if(empty($d[$baseLevelCode]['Working_Pressure_Mpa'])) {
-                    $unit = $unitConverter->getGroupWithValues('workingPressureMPA', floatval($result['Working_Pressure_Mpa']));
+                if(empty($d[$baseLevelCode]['Working_Pressure_PSI'])) {
+                    $unit = $unitConverter->getGroupWithValues('workingPressurePSI', floatval($result['Working_Pressure_PSI']));
                     $d[$baseLevelCode]['Working_Pressure_Mpa'] = $unit['workingPressureMPA'];//$result['Working_Pressure_Mpa'];
                     $d[$baseLevelCode]['Working_Pressure_PSI'] = $unit['workingPressurePSI'];
                     unset($unit);
