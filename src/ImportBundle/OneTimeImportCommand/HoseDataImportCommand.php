@@ -455,6 +455,7 @@ class HoseDataImportCommand extends AbstractCommand
             }
 
             // p_r($weightLbFt.' - '.$weightGM);
+            
             $d[$i] = array(
                 'o_id'  =>  $r['level6n9digit_id'],
                 'fieldname'  =>  'Skeleton',
@@ -486,6 +487,7 @@ class HoseDataImportCommand extends AbstractCommand
      */
     private function getFertData($results)
     {
+        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
         $d = array();
 
 
@@ -511,11 +513,18 @@ class HoseDataImportCommand extends AbstractCommand
             $error = array();
             $clrInfo = array();
             // p_r($weightLbFt.' - '.$weightGM);
+            $hoseLengthFT = '';
+            $hoseLengthM = '';
+            if (!empty($r['Hose_Length_ft'])) {
+                $unit = $unitConverter->getGroupWithValues('hoseLengthFT', floatval($result['Hose_Length_ft']));
+                $hoseLengthFT = $unit['hoseLengthFT'];
+                $hoseLengthM = $unit['hoseLengthM'];
+            }
             $d[] = array(
                 'o_id'  =>  $r['o_id'],
                 'fieldname'  =>  'Fert',
-                'hoseLengthFT' =>  !empty($r['Hose_Length_ft']) ? $r['Hose_Length_ft'] : NULL,
-                'hoseLengthM' =>  !empty($r['Hose_Length_M']) ? $r['Hose_Length_M'] : NULL,
+                'hoseLengthFT' =>  $hoseLengthFT,
+                'hoseLengthM' =>  $hoseLengthM,
                 'assembly' =>  !empty($r['Assembly_Not_Assembly']) ? 1 : NULL,
                 'fitting1Type' =>  !empty($r['Fitting_1_Type']) ? $r['Fitting_1_Type'] : NULL,
                 'fitting1Size' =>  !empty($r['Fitting_1_Size_FRACT']) ? $r['Fitting_1_Size_FRACT'] : NULL,
@@ -536,6 +545,7 @@ class HoseDataImportCommand extends AbstractCommand
 
     private function sanitizeBaseLevelData()
     {
+        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
         $d = array();
         $rows = array();
         $i = 0;
@@ -612,16 +622,16 @@ class HoseDataImportCommand extends AbstractCommand
 //                    $d[$baseLevelCode]['Weight_G_M'] = $result['Weight_G_M'];
 //                }
                 if (empty($d[$baseLevelCode]['MinTemperature_Rating_F'])) {
-                    $d[$baseLevelCode]['MinTemperature_Rating_F'] = $result['MinTemperature_Rating_F'];
-                }
-                if (empty($d[$baseLevelCode]['MinTemperature_Rating_C'])) {
-                    $d[$baseLevelCode]['MinTemperature_Rating_C'] = $result['MinTemperature_Rating_C'];
+                    $unit = $unitConverter->getGroupWithValues('minimumTemperatureF', floatval($result['MinTemperature_Rating_F']));
+                    $d[$baseLevelCode]['MinTemperature_Rating_F'] = $unit['minimumTemperatureF'];
+                    $d[$baseLevelCode]['MinTemperature_Rating_C'] = $unit['minimumTemperatureC'];
+                    unset($unit);
                 }
                 if (empty($d[$baseLevelCode]['MaxTemperature_Rating_F'])) {
-                    $d[$baseLevelCode]['MaxTemperature_Rating_F'] = $result['MaxTemperature_Rating_F'];
-                }
-                if (empty($d[$baseLevelCode]['MaxTemperature_Rating_C'])) {
-                    $d[$baseLevelCode]['MaxTemperature_Rating_C'] = $result['MaxTemperature_Rating_C'];
+                    $unit = $unitConverter->getGroupWithValues('maximumTemperatureF', floatval($result['MaxTemperature_Rating_F']));
+                    $d[$baseLevelCode]['MaxTemperature_Rating_F'] = $unit['maximumTemperatureF'];
+                    $d[$baseLevelCode]['MaxTemperature_Rating_C'] = $unit['maximumTemperatureC'];
+                    unset($unit);
                 }
                 if (empty($d[$baseLevelCode]['Reinforcement'])) {
                     $arr = explode("/", $result['Reinforcement']);
@@ -772,10 +782,11 @@ class HoseDataImportCommand extends AbstractCommand
                 }
                
                 if(empty($d[$baseLevelCode]['Bend_Radius_in'])) {
-                    $d[$baseLevelCode]['Bend_Radius_in'] = $result['Bend_Radius_in'];
-                }
-                if(empty($d[$baseLevelCode]['Bend_Radius_mm'])) {
-                    $d[$baseLevelCode]['Bend_Radius_mm'] = $result['Bend_Radius_mm'];
+                    $unit = $unitConverter->getGroupWithValues('BendRadiusIN', floatval($result['Bend_Radius_in']));
+                    
+                    $d[$baseLevelCode]['Bend_Radius_in'] = $unit['BendRadiusIN'];
+                    $d[$baseLevelCode]['Bend_Radius_mm'] = $unit['BendRadiusMM'];
+                    unset($unit);
                 }
 
                 if(empty($d[$baseLevelCode]['Vacuum_Rating_in'])) {
@@ -812,11 +823,9 @@ class HoseDataImportCommand extends AbstractCommand
                 }
 
                 if(empty($d[$baseLevelCode]['Hose_OD_in'])) {
-                    $d[$baseLevelCode]['Hose_OD_in'] = $result['Hose_OD_in'];
-                }
-
-                if(empty($d[$baseLevelCode]['Hose_OD_mm'])) {
-                    $d[$baseLevelCode]['Hose_OD_mm'] = $result['Hose_OD_mm'];
+                    $unit = $unitConverter->getGroupWithValues('hoseOdIn', floatval($result['Hose_OD_in']));
+                    $d[$baseLevelCode]['Hose_OD_in'] = $unit['hoseOdIn'];//$result['Working_Pressure_Mpa'];
+                    $d[$baseLevelCode]['Hose_OD_mm'] = $unit['hoseOdmm'];
                 }
                        
             }
