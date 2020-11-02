@@ -14,6 +14,162 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         Ext.override(Ext.data.Connection, { timeout: timeout });
         Ext.override(Ext.data.proxy.Ajax, { timeout:timeout });
 
+        /**
+         * /admin/asset/tree-get-childs-by-id was getting cancelled in 1 min
+         * Overriding to comment the proxy timeout of 60 seconds
+         */
+        Ext.override(pimcore.asset.tree,{
+            init: function(rootNodeConfig) {
+
+                var itemsPerPage = pimcore.settings['asset_tree_paging_limit'];
+
+                rootNodeConfig.text = t("home");
+                rootNodeConfig.allowDrag = true;
+                rootNodeConfig.id = "" +  rootNodeConfig.id;
+                rootNodeConfig.iconCls = "pimcore_icon_home";
+                rootNodeConfig.cls = "pimcore_tree_node_root";
+                rootNodeConfig.expanded = true;
+
+                var store = Ext.create('pimcore.data.PagingTreeStore', {
+                    autoLoad: false,
+                    autoSync: false,
+                    proxy: {
+                        type: 'ajax',
+                        url: this.treeDataUrl,
+                        reader: {
+                            type: 'json',
+                            totalProperty : 'total',
+                            rootProperty: 'nodes'
+
+                        },
+                        extraParams: {
+                            limit: itemsPerPage,
+                            view: this.config.customViewId
+                        },
+                        // timeout: 60000
+                    },
+                    pageSize: itemsPerPage,
+                    root: rootNodeConfig
+                });
+
+                // assets
+                this.tree = Ext.create('pimcore.tree.Panel', {
+                    selModel : {
+                        mode : 'MULTI'
+                    },
+                    store: store,
+                    autoLoad: false,
+                    id: this.config.treeId,
+                    title: this.config.treeTitle,
+                    iconCls: this.config.treeIconCls,
+                    cls: this.config['rootVisible'] ? '' : 'pimcore_tree_no_root_node',
+                    autoScroll:true,
+                    animate:false,
+                    containerScroll: true,
+                    ddAppendOnly: true,
+                    rootVisible: this.config.rootVisible,
+                    forceLayout: true,
+                    bufferedRenderer: false,
+                    border: false,
+                    viewConfig: {
+                        plugins: {
+                            ptype: 'treeviewdragdrop',
+                            appendOnly: true,
+                            ddGroup: "element"
+                        },
+                        listeners: {
+                            beforedrop: function (node, data) {
+                            },
+                            nodedragover: this.onTreeNodeOver.bind(this),
+                            startdrag: function() {
+                            }
+                        },
+                        xtype: 'pimcoretreeview'
+
+                    },
+                    tools: [{
+                        type: "right",
+                        handler: pimcore.layout.treepanelmanager.toRight.bind(this),
+                        hidden: this.position == "right"
+                    },{
+                        type: "left",
+                        handler: pimcore.layout.treepanelmanager.toLeft.bind(this),
+                        hidden: this.position == "left"
+                    }],
+                    root: rootNodeConfig,
+                    listeners: this.getTreeNodeListeners()
+                });
+
+                //TODO
+                this.tree.getView().on("itemafterrender",this.enableHtml5Upload.bind(this));
+                this.tree.on("render", function () {
+                    this.getRootNode().expand();
+                });
+                this.tree.on("afterrender", function () {
+                    try {
+                        this.tree.loadMask = new Ext.LoadMask({
+                            target: this.tree,
+                            msg: t("please_wait"),
+                            hidden: true
+                        });
+
+                        // add listener to root node -> other nodes are added om the "append" event -> see this.enableHtml5Upload()
+                        this.addHtml5DragListener(this.tree.getRootNode());
+
+                        // html5 upload
+                        if (window["FileList"]) {
+                            this.tree.getEl().dom.addEventListener("drop", function (e) {
+
+                                e.stopPropagation();
+                                e.preventDefault();
+
+                                pimcore.helpers.treeNodeThumbnailPreviewHide();
+
+                                try {
+                                    var selection = this.tree.getSelection();
+                                    if (!selection) {
+                                        return true;
+                                    }
+                                    if (selection.length < 1) {
+                                        return true;
+                                    }
+                                } catch (e2) {
+                                    return true;
+                                }
+
+                                var node = selection[0];
+                                this.uploadFileList(e.dataTransfer, node);
+
+                            }.bind(this), true);
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }.bind(this));
+
+                if(!pimcore.settings.asset_disable_tree_preview) {
+                    this.tree.on("itemmouseenter", pimcore.helpers.treeNodeThumbnailPreview.bind(this));
+                    this.tree.on("itemmouseleave", pimcore.helpers.treeNodeThumbnailPreviewHide.bind(this));
+                }
+
+                store.on("nodebeforeexpand", function (node) {
+                    pimcore.helpers.addTreeNodeLoadingIndicator("asset", node.data.id, false);
+                });
+
+                store.on("nodeexpand", function (node, index, item, eOpts) {
+                    pimcore.helpers.removeTreeNodeLoadingIndicator("asset", node.data.id);
+                });
+
+                this.config.parentPanel.insert(this.config.index, this.tree);
+                this.config.parentPanel.updateLayout();
+
+                if (!this.config.parentPanel.alreadyExpanded && this.perspectiveCfg.expanded) {
+                    this.config.parentPanel.alreadyExpanded = true;
+                    this.tree.expand();
+                }
+            },
+        });
+
         pimcore.plugin.broker.registerPlugin(this);
     },
 
