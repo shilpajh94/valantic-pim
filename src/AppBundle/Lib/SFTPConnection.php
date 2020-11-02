@@ -1,7 +1,6 @@
 <?php
 
-namespace AppBundle\Lib;
-
+namespace AppBundle\Lib; 
 
 class SFTPConnection
 {
@@ -52,6 +51,14 @@ class SFTPConnection
         if(!ssh2_scp_recv($this->connection, $remoteFile, $localFile)) {
             throw new \Exception("Could not download: " . $remoteFile);
         }
+    }
+
+    public function moveFile(string $from , string $to ): bool{
+        return ssh2_sftp_rename($this->sftp, $from, $to);
+    }
+    
+    public function fileExists($filePath): bool {
+        return (bool) $this->sftp->file_exists($filePath);
     }
 
 }

@@ -6,6 +6,14 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
     },
 
     initialize: function () {
+
+        let timeout = 120000;
+        Ext.Ajax.timeout= timeout;
+        Ext.override(Ext.form.Basic, { timeout: timeout / 1000 });
+        Ext.override(Ext.data.proxy.Server, { timeout: timeout });
+        Ext.override(Ext.data.Connection, { timeout: timeout });
+        Ext.override(Ext.data.proxy.Ajax, { timeout:timeout });
+
         pimcore.plugin.broker.registerPlugin(this);
     },
 

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-03T08:27:08+02:00
+* Generated at: 2020-10-22T13:31:57+02:00
 * IP: 127.0.0.1
 
 
@@ -201,6 +201,61 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Spool Adapter (Male X  Male)',
+                        'value' => 'Spool Adapter (Male X  Male)',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Spool Adapter (Male X  Male)',
+                        'value' => 'Spool Adapter (Male X  Male)',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Spool Adapter (Male X  Male)',
+                        'value' => 'Spool Adapter (Male X  Male)',
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Jump Size Female Coupler X Male Adapter ',
+                        'value' => 'Jump Size Female Coupler X Male Adapter ',
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Jump Size Female Coupler X Male Adapter ',
+                        'value' => 'Jump Size Female Coupler X Male Adapter ',
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Jump Size Female Coupler X Male Adapter ',
+                        'value' => 'Jump Size Female Coupler X Male Adapter ',
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Jump Size Female Coupler X Male Adapter ',
+                        'value' => 'Jump Size Female Coupler X Male Adapter ',
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'Female Coupler X Female Coupler',
+                        'value' => 'Female Coupler X Female Coupler',
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'Female Coupler X Female Coupler',
+                        'value' => 'Female Coupler X Female Coupler',
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'Female Coupler X Barb Stainless',
+                        'value' => 'Female Coupler X Barb Stainless',
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'Male Adapter X Barb Stainless',
+                        'value' => 'Male Adapter X Barb Stainless',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -232,6 +287,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'MALE',
+                        'value' => 'MALE',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'FEMALE',
+                        'value' => 'FEMALE',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -707,7 +772,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -738,7 +803,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -862,6 +927,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'MALE',
+                        'value' => 'MALE',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'FEMALE',
+                        'value' => 'FEMALE',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -893,6 +968,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'White',
+                        'value' => 'White',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Black',
+                        'value' => 'Black',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Black with Yellow Stripe',
+                        'value' => 'Black with Yellow Stripe',
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Red',
+                        'value' => 'Red',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -1309,7 +1404,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1340,7 +1435,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
