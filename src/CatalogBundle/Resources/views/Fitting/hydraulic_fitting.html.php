@@ -189,7 +189,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
             foreach ($tableData as $tableName => $tableRows) {
                 // $tableColumns = $info['fittingTableColumn'][$tableName];
                 // $uniqueId = md5($uniqueId.$tableName);
-                // if (is_array($tableColumns) && !empty($tableColumns)) {
+                if ($tableName !== 'SortOrder') {
+                    $uniqueId = md5($tableName);
                 //     $result = array_intersect($tableColumns['columns'], $dispColumns);
 
                     /* New Family Info */
@@ -316,13 +317,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <!-- Closing grid div here -->
                         </table>
 <span class="tableFooter">
-                        <?php echo $this->input("HYD_PP_".$incr,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
+                        <?php echo $this->input("HYD_PP_".$uniqueId,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
 
 </span>
                         <?php endif; ?>
                     </article>
     <?php
-                // }
+                }
                 $incr++;
             }
         }

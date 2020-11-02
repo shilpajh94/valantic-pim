@@ -719,6 +719,9 @@ class DefaultController extends AbstractController {
             $baseIdArr = array();
             $fertId = array();
             $images = array();
+
+            $brandsList = $this->getBrandsList();
+
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
@@ -744,8 +747,9 @@ class DefaultController extends AbstractController {
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-
                         $data[$baseId]['mainImage'] = isset($row['mainImage'])&&!empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
+                        $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
+
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
                             $features = $row['FeaturesBenefitsBulletPoint'];
                             $featureObj = null;
@@ -801,6 +805,9 @@ if(isset($data[$baseId])) {
                 }
                 // p_r($data);
                 // p_r($images);die;
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
                 // p_r($data);die;
 
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -890,6 +897,7 @@ if(isset($data[$baseId])) {
                 }
             }
 
+            $brandsList = $this->getBrandsList();
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
@@ -910,6 +918,7 @@ if(isset($data[$baseId])) {
             {
                 foreach ($brandsData as $brandKey => $brandArray)
                 {
+                    $uniqueId = md5($brandKey);
                     $LeftPrintCatalogImageObj = '';
                     $RightPrintCatalogImageObj = '';
                     $longDescription = '';
@@ -1085,29 +1094,33 @@ if(isset($data[$baseId])) {
                     if(empty($reinforcementStr))
                         $reinforcementStr = $reinforcement;
 
-
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                    $data[$brandKey]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
-                    $data[$brandKey]['longDescription'] = $longDescription;
-                    $data[$brandKey]['BrandingLayline'] = $BrandingLayline;
-                    $data[$brandKey]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                    $data[$brandKey]['reinforcement'] = $reinforcementStr;
-                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
-                    $data[$brandKey]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
-                    $data[$brandKey]['standardMetHoseListData'] = $standardMetHoseListData;
-                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
-                    $data[$brandKey]['iconRequired'] = $iconRequired;
-                    $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
-                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                    
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                    $data[$uniqueId]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                    $data[$uniqueId]['longDescription'] = $longDescription;
+                    $data[$uniqueId]['BrandingLayline'] = $BrandingLayline;
+                    $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $data[$uniqueId]['reinforcement'] = $reinforcementStr;
+                    $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
+                    $data[$uniqueId]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
+                    $data[$uniqueId]['standardMetHoseListData'] = $standardMetHoseListData;
+                    $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
+                    $data[$uniqueId]['iconRequired'] = $iconRequired;
+                    $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
                     array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
-                    $data[$brandKey]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
                 $catalogGroupData[$catalogKey] = $data;
             }
-
+            // p_r($data);
+            // die;
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -1186,6 +1199,8 @@ if(isset($data[$baseId])) {
                 }
             }
 
+            $brandsList = $this->getBrandsList();
+
             $brandsData = array();
             if($productsData)
             {
@@ -1195,7 +1210,7 @@ if(isset($data[$baseId])) {
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
-
+                    
                     $brandName = '';
                     $imageObj = '';
                     $longDescription = '';
@@ -1286,23 +1301,26 @@ if(isset($data[$baseId])) {
                     $materialString = implode(', ', $material);
                     $availableLengthString = implode(', ', $availableLength);
 
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['imageObj'] = $imageObj;
-                    $data[$brandKey]['mainImage'] = $mainImage;
-                    $data[$brandKey]['longDescription'] = $longDescription;
-                    $data[$brandKey]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                    $data[$brandKey]['materialString'] = $materialString;
-                    $data[$brandKey]['availableLengthString'] = $availableLengthString;
-                    $data[$brandKey]['colorString'] = $colorString;
-                    $data[$brandKey]['iconRequired'] = $iconRequired;
-                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-                    $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
-                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['imageObj'] = $imageObj;
+                    $data[$uniqueId]['mainImage'] = $mainImage;
+                    $data[$uniqueId]['longDescription'] = $longDescription;
+                    $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $data[$uniqueId]['materialString'] = $materialString;
+                    $data[$uniqueId]['availableLengthString'] = $availableLengthString;
+                    $data[$uniqueId]['colorString'] = $colorString;
+                    $data[$uniqueId]['iconRequired'] = $iconRequired;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
 
                     array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
-                    $data[$brandKey]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -1686,7 +1704,7 @@ if(isset($data[$baseId])) {
             $this->get('translator')->setLocale($CatalogLanguage);
 
 
-
+            $brandsList = $this->getBrandsList();
             $catalogGrouping = array();
 
             foreach ($productsData as $key => $item) {
@@ -1702,6 +1720,7 @@ if(isset($data[$baseId])) {
             {
                 foreach ($brandsData as $brandKey => $brandArray)
                 {
+                    $uniqueId = md5($brandKey);
                     $VirtualCatalogTubeMaterial = '';
                     $VirtualCatalogCoverMaterial = '';
                     $VirtualCatalogReinforcement = '';
@@ -1790,17 +1809,20 @@ if(isset($data[$baseId])) {
                             if(empty($reinforcementStr))
                                 $reinforcementStr = $reinforcement;
 
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                    $data[$brandKey]['reinforcement'] = $reinforcementStr;
-                    $data[$brandKey]['fittingFamily'] = $fittingFamily;
-                    $data[$brandKey]['industryStandard'] = $industryStandard;
-                    $data[$brandKey]['CatalogGrouping'] = $CatalogGrouping;
-                    $data[$brandKey]['workingPressurePSIString'] = $workingPressurePSIString;
-                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
-                    $data[$brandKey]['CatalogPackaging'] = $CatalogPackaging;
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $data[$uniqueId]['reinforcement'] = $reinforcementStr;
+                    $data[$uniqueId]['fittingFamily'] = $fittingFamily;
+                    $data[$uniqueId]['industryStandard'] = $industryStandard;
+                    $data[$uniqueId]['CatalogGrouping'] = $CatalogGrouping;
+                    $data[$uniqueId]['workingPressurePSIString'] = $workingPressurePSIString;
+                    $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
+                    $data[$uniqueId]['CatalogPackaging'] = $CatalogPackaging;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
                 $catalogGroupData[$catalogKey] = $data;
             }
 
@@ -1875,6 +1897,8 @@ if(isset($data[$baseId])) {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                 }
             }
+            
+            $brandsList = $this->getBrandsList();
 
             $brandsData = array();
             if($productsData)
@@ -1885,7 +1909,7 @@ if(isset($data[$baseId])) {
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
-
+                    $uniqueId = md5($brandKey);
                     $brandName = '';
                     $imageObj = '';
                     $shortDescription = '';
@@ -1922,16 +1946,19 @@ if(isset($data[$baseId])) {
 
                     endforeach;
 
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['imageObj'] = $imageObj;
-                    $data[$brandKey]['shortDescription'] = $shortDescription;
-                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['imageObj'] = $imageObj;
+                    $data[$uniqueId]['shortDescription'] = $shortDescription;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
                     // array_multisort (array_column($articlesData, $headerKeysIndex['FlangePatternDimensionAInAndMMDecimal']), SORT_ASC, $articlesData);
 
-                    $data[$brandKey]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -1994,6 +2021,12 @@ if(isset($data[$baseId])) {
             $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
         }
         return $featureData;
+    }
+
+    public function getBrandsList(){
+        $query = "select name, SortOrder from object_query_3";
+        $brandslist = $this->db->fetchPairs($query);
+        return $brandslist;
     }
 
     /**

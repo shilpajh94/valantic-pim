@@ -66,6 +66,8 @@ class IndustrialHoseController extends AbstractController
                 $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
             }
 
+            $brandsList = $this->getBrandsList();
+
             $data = array();
             $headers = (array) json_decode($obj->getHeaderData());
 
@@ -100,10 +102,13 @@ class IndustrialHoseController extends AbstractController
 
                             }
                         }
+
+                        $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName];
+                        array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
                     }
                 }
             }
-
+            
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
@@ -162,6 +167,7 @@ class IndustrialHoseController extends AbstractController
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
+            $brandsList = $this->getBrandsList();
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             // Getting Selected 3rd Level Category at Catalog Category object
@@ -208,7 +214,7 @@ class IndustrialHoseController extends AbstractController
             {
                 foreach ($brandsData as $key => $brand)
                 {
-
+                    
                     $reinforcementArr = array();
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
@@ -445,10 +451,13 @@ class IndustrialHoseController extends AbstractController
                     $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
 
                     $newBrandArray[$key]['brandData']['safetyFeatures'] = $safetyFeaturesList;
+                    $newBrandArray[$key]['SortOrder'] = $brandsList[$key];
 
                     unset($brandsData[$key]);
                 }
             }
+            
+            array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
             $categories = $this->getSIOP($CatalogLanguage);
 
@@ -890,5 +899,11 @@ class IndustrialHoseController extends AbstractController
         }
 
         return $s3src;
+    }
+
+    public function getBrandsList(){
+        $query = "select name, SortOrder from object_query_3";
+        $brandslist = $this->db->fetchPairs($query);
+        return $brandslist;
     }
 }
