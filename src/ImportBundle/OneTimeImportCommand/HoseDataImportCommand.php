@@ -516,7 +516,7 @@ class HoseDataImportCommand extends AbstractCommand
             $hoseLengthFT = '';
             $hoseLengthM = '';
             if (!empty($r['Hose_Length_ft'])) {
-                $unit = $unitConverter->getGroupWithValues('hoseLengthFT', floatval($result['Hose_Length_ft']));
+                $unit = $unitConverter->getGroupWithValues('hoseLengthFT', floatval($r['Hose_Length_ft']));
                 $hoseLengthFT = $unit['hoseLengthFT'];
                 $hoseLengthM = $unit['hoseLengthM'];
             }
@@ -807,7 +807,7 @@ class HoseDataImportCommand extends AbstractCommand
                 if(empty($d[$baseLevelCode]['Min_Burst_Pressure_PSI'])) {
                     $unit = $unitConverter->getGroupWithValues('minBurstPressurePSI', floatval($result['Min_Burst_Pressure_PSI']));
                     $d[$baseLevelCode]['Min_Burst_Pressure_PSI'] = $unit['minBurstPressurePSI'];
-                    $d[$baseLevelCode]['Min_Burst_Pressure_Mpa'] = $result['minBurstPressurempa'];
+                    $d[$baseLevelCode]['Min_Burst_Pressure_Mpa'] = $unit['minBurstPressurempa'];
                     unset($unit);
                 }
 
