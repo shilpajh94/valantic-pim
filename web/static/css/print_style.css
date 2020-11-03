@@ -899,6 +899,9 @@ font-weight: normal !important;
     word-break: break-word;
     font-size: 10px;
 text-align: center;
+word-wrap: break-all;
+text-wrap: normal;
+white-space: normal;
 }
 
 .grid .sub-head {
