@@ -6,26 +6,26 @@ parameters:
       name: 'Editor'
     productManager:
       id: 4
-      name: 'Product-Manager'
+      name: 'ProductManager'
   transitions:
     start_processing:
-      defaultTemplatePath: '/Workflow/Email Template/productReview'
+      defaultTemplatePath: '/Workflow/Email Template/productSentForReview'
       priority:
         normal:
           value: 'normal'
-          templatePath: '/Workflow/Email Template/productReview'
+          templatePath: '/Workflow/Email Template/productSentForReview'
         high:
           value: 'high'
-          templatePath: '/Workflow/Email Template/productReviewPriorityHigh'
+          templatePath: '/Workflow/Email Template/productSentForReviewHighPriority'
     enrich_again:
-      defaultTemplatePath: '/Workflow/Email Template/productEnrich'
+      defaultTemplatePath: '/Workflow/Email Template/reviewRejected'
       priority:
         normal:
           value: 'normal'
-          templatePath: '/Workflow/Email Template/productEnrich'
+          templatePath: '/Workflow/Email Template/reviewRejected'
         high:
           value: 'high'
-          templatePath: '/Workflow/Email Template/productEnrichPriorityHigh'
+          templatePath: '/Workflow/Email Template/reviewRejectedHighPriority'
     publish:
       defaultTemplatePath: '/Workflow/Email Template/productPublish'
     unpublish:

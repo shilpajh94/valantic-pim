@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-08-20T16:30:20+02:00
+* Generated at: 2020-10-30T06:20:56+01:00
 * IP: 127.0.0.1
 
 
@@ -112,6 +112,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'IN',
+                        'value' => 'IN',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'MM',
+                        'value' => 'MM',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -258,6 +268,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'IN',
+                        'value' => 'IN',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'MM',
+                        'value' => 'MM',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',

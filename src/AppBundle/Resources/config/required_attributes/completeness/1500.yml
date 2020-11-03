@@ -259,9 +259,6 @@ object_bricks:
                     BendRadiusIN:
                         type: 'numeric'
                         label: 'BendRadius (in)'
-                    descriptive:
-                        type: 'input'
-                        label: 'Descriptive #'
                     HoseIDNominalIDFrac:
                         type: 'input'
                         label: 'Hose ID (in Fract) Nominal ID'
@@ -278,5 +275,7 @@ object_bricks:
                     hoseLengthFT:
                         type: 'numeric'
                         label: 'Hose Length (ft)'
-
+                    descriptive:
+                        type: 'input'
+                        label: 'Descriptive #'
 

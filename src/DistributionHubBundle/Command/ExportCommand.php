@@ -98,8 +98,7 @@ class ExportCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('To start an export job for the available schedules.')
-        ->addArgument('host_url', InputArgument::REQUIRED, 'Host URL of the application (like http://host.com)');
+        $this->setDescription('To start an export job for the available schedules.');
     }
 
     /**
@@ -109,15 +108,21 @@ class ExportCommand extends Command
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
-    {$this->log("Command started", DHubLogger::INFO);
+    {
         $inProgressProcessesStatus = $this->helperService->getInProgressProcessesStatusAfterUpdatingDeadProcesses();
         if(!$inProgressProcessesStatus['canNewProcessStart']){
             $msg = "Not starting new process.";
             $msg .= $inProgressProcessesStatus['inProgressProcessCount']." process/es is/are already running. ";
             $this->log($msg, DHubLogger::INFO);
 
-        }else{
-            $this->hostUrl = $input->getArgument('host_url');
+        }else{            
+            $this->hostUrl = $this->bundleService->getConfig('host_name');
+            if(empty($this->hostUrl)){
+                $msg ="hostName empty in configuration";
+                $this->handleProcessFailure($msg);
+                return;
+            }
+            
             $this->exportService->setHostURLInSession($this->hostUrl);
 
             $sch = $this->exportService->getScheduleForProcess();
@@ -260,11 +265,19 @@ class ExportCommand extends Command
             try{
                 $resultListObj->load();
                 $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields,$this->channel->getLanguage(), false);
+                
+                if(empty($exportData)){
+                    $msg = "Prepared export data in empty";
+                    $this->handleProcessFailure($msg);
+                    return;
+                }
+                
+                $writer->write($exportData);
             }catch (\Exception $exception){
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
-            $writer->write($exportData);
+            
             $offset = $offset + $this->batchSize;
             $batchIndex++;
         }
@@ -362,12 +375,20 @@ class ExportCommand extends Command
             try{
                 $resultListObj->load();
                 $exportData = $this->exportService->getAssetDataForExport($resultListObj, $fields,$this->channel->getLanguage(), false);
-
+                
+                if(empty($exportData)){
+                    $msg = "Prepared export data in empty";
+                    $this->handleProcessFailure($msg);
+                    return;
+                }
+                
+                $writer->addToZipFolder($exportData);
+                
             }catch (\Exception $exception){
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
-            $writer->addToZipFolder($exportData);
+            
             $offset = $offset + $this->batchSize;
             $batchIndex++;
         }

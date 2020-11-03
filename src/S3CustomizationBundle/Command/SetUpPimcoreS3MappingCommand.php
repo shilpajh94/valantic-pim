@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @package S3CustomizationBundle\Command
  */
-class SetUpPimcoreS3MappingCommand extends \Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand
+class SetUpPimcoreS3MappingCommand extends Command
 {
     /**
      * Function to set the command configurations

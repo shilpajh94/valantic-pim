@@ -6,6 +6,11 @@ use Doctrine\DBAL\Migrations\Version;
 use Doctrine\DBAL\Schema\Schema;
 use Pimcore\Extension\Bundle\Installer\MigrationInstaller;
 use Pimcore\Model\User\Permission\Definition;
+use DistributionHubBundle\Lib\Utils;
+use DistributionHubBundle\Lib\Constants;
+use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 class Installer extends MigrationInstaller
 {
@@ -41,6 +46,7 @@ class Installer extends MigrationInstaller
 
     public function migrateInstall(Schema $schema, Version $version)
     {
+        
         if (! $schema->hasTable(self::DHUB_CLASS_CHANNEL)) {
             $queueTable = $schema->createTable(self::DHUB_CLASS_CHANNEL);
             $queueTable->addColumn('id', 'integer', ['length' => 11, 'autoincrement' => true, 'notnull' => true]);
@@ -129,6 +135,20 @@ class Installer extends MigrationInstaller
             $queueTable->setPrimaryKey(['channelId','ftpDetailId']);
             $queueTable->addIndex(["ftpDetailId"]);
             $queueTable->addIndex(["channelId"]);
+        }
+        
+        // write the Yaml configurations and add the system hostName
+        $configFromPackage = Utils::getYmlConfig(Constants::PACKAGE_CONFIG_FILE);
+        if($configFromPackage){
+            // change the host name to current system hostname
+            $hostName = $_SERVER['HTTP_ORIGIN'];
+            $configFromPackage['host_name'] = $hostName;
+
+            $dumper = new Dumper();
+            $yaml = $dumper->dump($configFromPackage, 2);
+            file_put_contents(Constants::CONFIG_FILE, $yaml);   
+        } else {
+            throw new ParseException("Unable to parse the YAML string: %s ");
         }
     }
 

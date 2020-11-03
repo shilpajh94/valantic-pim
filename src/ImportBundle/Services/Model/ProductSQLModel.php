@@ -53,6 +53,8 @@ class ProductSQLModel
     private $products;
     private $materialGroup;
     private $baseSIOPMapping;
+    private $updatedArticlesArray;
+    private $appService;
     
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
@@ -64,6 +66,7 @@ class ProductSQLModel
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         // $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
+        $this->appService = \Pimcore::getContainer()->get('\AppBundle\Services\AppService');
         $this->tblImpHelper = \Pimcore::getContainer()->get('app.product_import_helper');
         $this->productHelper = \Pimcore::getContainer()->get('app.product_helper');
 //        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
@@ -156,6 +159,11 @@ class ProductSQLModel
         $this->initiateIFSProductsProcess();
         
         $this->tblImpHelper->updateMaster();
+        if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
+            echo "Object Saving started for completeness.";
+            $this->appService->saveProductsWithArticleNumbers($this->updatedArticlesArray, true);
+            echo "Object Saving completed for completeness.";
+        }
     }
     
     /* This function will override the default configuration */
@@ -483,6 +491,7 @@ class ProductSQLModel
                     );
                     $levelInfo = $this->productHelper->getLevels($record['code'], $record);
                     if ($levelInfo['status']) {
+                        $this->updatedArticlesArray[] = $recData[$this->getRecordIndexByKey('material')];
                         if (strtolower($bu) == 'ifs') {
                             $oldMaterialCode = trim($recData[6]);
                             if ($oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
@@ -632,7 +641,11 @@ class ProductSQLModel
             $queryTableData['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $queryTableData['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $queryTableData['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            $queryTableData['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            if (!empty(trim($record[$this->getRecordIndexByKey('eanUPC')]))) {
+                $queryTableData['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            } else {
+                $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            }
             $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
             $queryTableData['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
@@ -675,7 +688,11 @@ class ProductSQLModel
             $storeTableDataArray['industryStandard'] = trim($record[$this->getRecordIndexByKey('industryStandard')]);
             $storeTableDataArray['manufacturer'] = trim($record[$this->getRecordIndexByKey('manufacture')]);
             $storeTableDataArray['manufacturerPartNumber'] = trim($record[$this->getRecordIndexByKey('manufacturePartNumber')]);
-            $storeTableDataArray['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            if (!empty(trim($record[$this->getRecordIndexByKey('eanUPC')]))) {
+                $storeTableDataArray['eanUpc'] = "0".trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            } else {
+                $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
+            }
             $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
             $storeTableDataArray['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);

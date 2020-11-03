@@ -93,6 +93,7 @@ class VirtualCatalogImportCommand extends AbstractCommand
         $keys = array();
         if (is_array($results) && !empty($results)) {
             foreach ($results as $i => $result) {
+                $error = array();
                 $digitFound = false;
                 $logs[$i] = array(
                     'data' => $result
@@ -107,9 +108,26 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     }
                     unset($clrInfo);
                 }
-                if (!empty($result['6_Digit']) && is_numeric($result['6_Digit']) && strlen($result['6_Digit']) == 6) {
-                    $digitFound = true;
-                    $this->baseLevelRecords[$result['6_Digit']] = $result;
+                if (!empty($result['6_Digit'])) {  //&& is_numeric($result['6_Digit']) && strlen($result['6_Digit']) == 6) {
+                    $sixDigitArray = explode(";", $result['6_Digit']);
+                    if (count($sixDigitArray)>1) {
+                        foreach ($sixDigitArray as $sixDigit) {
+                            if (is_numeric($sixDigit) && strlen($sixDigit) == 6) {
+                                $newDataArray = $result;
+                                $newDataArray['6_Digit'] = $sixDigit;
+                                $this->baseLevelRecords[$sixDigit] = $newDataArray;
+                            } else {
+                                $error[] = "Code {$result['6_Digit']} could not processed due to wrong length ";
+                            }
+                        }
+                    } else {
+                        if (is_numeric($result['6_Digit']) && strlen($result['6_Digit']) == 6) {
+                            $digitFound = true;
+                            $this->baseLevelRecords[$result['6_Digit']] = $result;
+                        } else {
+                            $error[] = "Code {$result['6_Digit']} could not processed due to wrong length ";
+                        }
+                    }
                 } else {
                     $error[] = "Code {$result['6_Digit']} could not processed due to wrong length ";
                 }
@@ -162,9 +180,9 @@ class VirtualCatalogImportCommand extends AbstractCommand
                     if (!empty($result['Marketing_Long_Description'])) {
                         $o->setLongDescription($result['Marketing_Long_Description']);
                     }
-                    if (!empty($result['Temperature_Range_F_and_C_Virtual_Catalog_Description'])) {
-                        $o->setVirtualCatalogHoseTemperatureRangeFAndC($result['Temperature_Range_F_and_C_Virtual_Catalog_Description']);
-                    }
+                    // if (!empty($result['Temperature_Range_F_and_C_Virtual_Catalog_Description'])) {
+                    //     $o->setVirtualCatalogHoseTemperatureRangeFAndC($result['Temperature_Range_F_and_C_Virtual_Catalog_Description']);
+                    // }
                     if (!empty($result['Branding_Layline'])) {
                         $o->setBrandingLayline($result['Branding_Layline']);
                     }
@@ -184,14 +202,14 @@ class VirtualCatalogImportCommand extends AbstractCommand
                         $o->getBase()->getHoseBase()->setVirtualCatalogCoverMaterial($result['Cover_Material_Virtual_Catalog_Description']);
                     }
                     if (!empty($result['Couplings_Virtual_Catalog_Description'])) {
-                        $o->getBase()->getHoseBase()->setVirtualCatalogCoupling($result['Couplings_Virtual_Catalog_Description']);
+                        $o->getBase()->getHoseBase()->setCoupling($result['Couplings_Virtual_Catalog_Description']);
                     }
                     if (!empty($result['Non_Stock_Sizes'])) {
                         $o->getBase()->getHoseBase()->setNonStockSizes($result['Non_Stock_Sizes']);
                     }
 
-                    $o->setPrintedCatalogFlag(null);
-                    $o->setVirtualCatalogFlag(null);
+//                    $o->setPrintedCatalogFlag(null);
+//                    $o->setVirtualCatalogFlag(null);
                     
                     $o->save();
                 }

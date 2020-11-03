@@ -6,7 +6,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php } ?>
 <div class="template">
 <section class="segregate">
- 
+
  <div id="pageHeader"></div>
  <span  class="pageName">Hydraulic Fittings</span>
  <div class="footer">
@@ -26,8 +26,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <img src="<?= $footer_logo_src; ?>">
             </span>
          <div class="flex aligned ">
-              
-           
+
+
          <h5>
                 <?php
                     if($this->editmode) {
@@ -35,17 +35,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     } else {
                         echo $this->input('section_11');
                     }
-                    
+
                 ?>
                 <span>
                 <?php
-                    if($this->editmode) {                        
+                    if($this->editmode) {
                         echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->setDataFromResource($HydFittingFamily. ' Fittings');
                     } else {
                         echo $this->input('fittingFamily_11');
                     }
-                    
-                ?>    
+
+                ?>
                 </span>
             </h5>
  <p class="flex-center">
@@ -78,7 +78,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     if($imgSrcObj3)
                     {
                     ?>
-                    <img src="<?= $imgSrcObj3->getSrc(); ?>" width="61" height="60"/>
+                    <img src="<?= $imgSrcObj3->getThumbnail('catalog_thumb'); ?>" width="61" height="60"/>
                     <?php
                     }
                 }
@@ -125,7 +125,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     if($imgSrcObj4)
                     {
                     ?>
-                    <img src="<?= $imgSrcObj4->getSrc(); ?>" width="61" height="60"/>
+                    <img src="<?= $imgSrcObj4->getThumbnail('catalog_thumb'); ?>" width="61" height="60"/>
                     <?php
                     }
                 }
@@ -142,7 +142,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     } else {
                         echo $this->input('section_1');
                     }
-                    
+
                 ?>
                 <span>
                 <?php
@@ -151,12 +151,12 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     } else {
                         echo $this->input('fittingFamily_1');
                     }
-                    
-                ?>    
+
+                ?>
                 </span>
-            </h5> 
-            
-         
+            </h5>
+
+
 
 </div>
             <span class="logo">
@@ -191,7 +191,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 // $uniqueId = md5($uniqueId.$tableName);
                 // if (is_array($tableColumns) && !empty($tableColumns)) {
                 //     $result = array_intersect($tableColumns['columns'], $dispColumns);
-                    
+
                     /* New Family Info */
     ?>
                     <article class="container noBorder noBreak">
@@ -205,7 +205,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     if($imgSrcObj1)
                                     {
                                     ?>
-                                    <img src="<?= $imgSrcObj1->getSrc(); ?>" class="lImg" width="226" height="150"/>
+                                    <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" class="lImg" width="226" height="150"/>
                                     <?php
                                     }
                                 }
@@ -216,7 +216,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     if($imgSrcObj2)
                                     {
                                     ?>
-                                    <img src="<?= $imgSrcObj2->getSrc(); ?>" class="rImg" width="226" height="150"/>
+                                    <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" class="rImg" width="226" height="150"/>
                                     <?php
                                     }
                                 }
@@ -245,8 +245,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </figure>
 
                         <!-- Starting grid here -->
+                        <?php
+
+                        if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
+
+                        ?>
                         <table class="grid inh fitting" cellspacing="0" cellpadding="0">
-                            <thead>       
+                            <thead>
                                 <?php if ($iconRequired == 'YES'): ?>
                                     <tr class="sub-head">
                                         <?php foreach ($tableRows['articleData']['columnsDataWithImages'] as $key => $c1data): ?>
@@ -287,7 +292,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php endif; ?>
                             </thead>
                             <tbody>
-                                <?php $incrRow = 1; ?>        
+                                <?php
+                                if(isset($tableRows['articleData']['articles']) && is_array($tableRows['articleData']['articles'])):
+                                $incrRow = 1;
+                                ?>
                                 <?php foreach ($tableRows['articleData']['articles'] as $key => $shortedRows): ?>
                                     <?php $activeClass = ($incrRow % 2 == 0) ? 'active' : ''; ?>
                                         <?php foreach ($shortedRows as $ekey => $element): ?>
@@ -298,29 +306,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php $incrRow++ ?>
-                                <?php endforeach; ?>
+                                <?php
+                                    endforeach;
+                                endif;
+                                ?>
                             </tbody>
-                            
-                            
+
+
                             <!-- Closing grid div here -->
                         </table>
 <span class="tableFooter">
                         <?php echo $this->input("HYD_PP_".$incr,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
 
 </span>
+                        <?php endif; ?>
                     </article>
     <?php
                 // }
                 $incr++;
             }
         }
-        
+
     }
     ?>
 
 </div>
 
-  
+
 
 
     <!-- Footer -->

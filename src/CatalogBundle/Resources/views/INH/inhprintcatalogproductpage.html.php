@@ -79,7 +79,7 @@ if (isset($info['brandsData'])) {
                                         <?php endif; ?>
                                     <?php else: ?>
                                             <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
-                                    <?php endif; ?> 
+                                    <?php endif; ?>
                                 </div>
                                 <h5>
                                     <?php if($this->editmode): ?>
@@ -100,7 +100,7 @@ if (isset($info['brandsData'])) {
                                             <?php endif; ?>
                                         <?php else: ?>
                                                 <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
-                                        <?php endif; ?> 
+                                        <?php endif; ?>
                                 </h5>
 
                             </div>
@@ -112,7 +112,7 @@ if (isset($info['brandsData'])) {
 
                     <article class="fullcontainer single">
                         <div class="inhsetting1">
- <div class="inhsetting-sidebar"> 
+ <div class="inhsetting-sidebar">
                             <div class=" sidebar">
                                 <ul>
                                     <?php
@@ -143,7 +143,7 @@ if (isset($info['brandsData'])) {
                                         ?>
                                     </ul>
                                 </div>
- </div> 
+ </div>
 <!--<div class="inhSettingRight">-->
                                 <div class="inhRight">
                                     <header class=" white">
@@ -156,7 +156,7 @@ if (isset($info['brandsData'])) {
                                                 <?php endif; ?>
                                             <?php else: ?>
                                                     <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"]) ?>
-                                            <?php endif; ?> 
+                                            <?php endif; ?>
                                         </h1>
 					<aside>
                                          <div>
@@ -168,7 +168,7 @@ if (isset($info['brandsData'])) {
                                                 <?php endif; ?>
                                             <?php else: ?>
                                                     <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"]) ?>
-                                            <?php endif; ?>   
+                                            <?php endif; ?>
                                         </div>
                                         <?php
                                         if ($this->editmode) {
@@ -180,7 +180,7 @@ if (isset($info['brandsData'])) {
                                             if($imgSrcObj)
                                             {
                                             ?>
-                                            <img src="<?= $imgSrcObj->getSrc(); ?>" width="1067" height="128"/>
+                                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="1067" height="128"/>
                                             <?php
                                             }
                                         }
@@ -188,29 +188,29 @@ if (isset($info['brandsData'])) {
                                     </aside>
                                 </header>
                                 <section class="content">
-                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['orderCodes'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>  
+                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['orderCodes'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                         <menu class="flex">
                                             <div class="specs">
                                                 <h6><?= $this->translate('specs') ?></h6>
                                                 <div class="spec-requirement flex">
                                                     <div class="col-6">
                                                         <?php if (!empty(trim($brand['brandData']['tubeMaterial']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Tube Material') ?></b>
                                                                 <?= $brand['brandData']['tubeMaterial'] ?>
                                                             </p>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['coverMaterial']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Cover Material') ?></b>
                                                                 <?= $brand['brandData']['coverMaterial'] ?>
                                                             </p>
                                                         <?php endif; ?>
 
-                                                        
+
                                                         <?php if (!empty(trim($brand['brandData']['orderCodes']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Order Codes') ?></b>
                                                                 <?= $brand['brandData']['orderCodes'] ?>
                                                             </p>
@@ -218,25 +218,25 @@ if (isset($info['brandsData'])) {
                                                     </div>
                                                     <div class="col-6">
                                                         <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
                                                                 <?= $brand['brandData']['reinforcement'] ?>
                                                             </p>
                                                         <?php endif; ?>
                                                         <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Temperature Range') ?></b>
                                                                 <?= $brand['brandData']['temperatureRangeFAndC'] ?>
                                                             </p>
                                                         <?php endif; ?>
                                                         <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Coupling') ?></b>
                                                                 <?= $brand['brandData']['Coupling'] ?>
                                                             </p>
                                                         <?php endif; ?>
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
-                                                            <p>                
+                                                            <p>
                                                                 <b><?= $this->translate('Packaging') ?></b>
                                                                 <?= $brand['brandData']['Packaging'] ?>
                                                             </p>
@@ -244,7 +244,7 @@ if (isset($info['brandsData'])) {
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -269,80 +269,92 @@ if (isset($info['brandsData'])) {
                                     <menu>
                                         <h6><?= $this->translate('branding') ?></h6>
                                         <figure>
-                                            <img src="<?= $info['branding_image_src']; ?>" width='80'/> 
+                                            <img src="<?= $info['branding_image_src']; ?>" width='80'/>
                                             <figcaption><b><?= $brandKey ?></b></figcaption>
                                             <figcaption> <?= $brand['brandData']['BrandingLayline'] ?> </figcaption>
                                         </figure>
                                     </menu>
-                                    <?php 
-                                    $noterow = 0;
-                                    foreach ($brand['articleData'] as $key => $fittingTableName): 
-                                    ?>
-                                        <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
-                                        <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
-                                            <thead>
-
-                                                <?php if ($info['iconRequired'] == 'YES'): ?>
-                                                    <tr class="sub-head">
-                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c1data): ?>
-                                                            <?php
-                                                            $g1count = count($c1data);
-                                                            $firstArray = array_shift($c1data);
-                                                            ?>
-                                                            <td colspan="<?= $g1count; ?>">
-                                                                <?php if ($firstArray['columnIcon']): ?>
-                                                                    <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
-                                                                <?php endif; ?>
-                                                            </td>
-                                                        <?php endforeach; ?>
-                                                    </tr>
-                                                <?php endif; ?>
-                                                <tr class="head">
-                                                    <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c2data): ?>
-                                                        <?php
-                                                        $g2count = count($c2data);
-                                                        $first2Array = array_shift($c2data);
-                                                        ?>
-                                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
-                                                    <?php endforeach; ?>
-                                                </tr>
-
-                                                <?php if ($fittingTableName['subHeaderRequired'] == 'YES'): ?>
-                                                    <tr class="head">
-                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c3data): ?>
-                                                            <?php foreach ($c3data as $c3key => $c3value): ?>
-                                                                <?php if ($c3value['unitName']): ?>
-                                                                    <td><?= $c3value['unitName'] ?></td>
-                                                                <?php else: ?>
-                                                                    <td></td>
-                                                                <?php endif; ?>
-                                                            <?php endforeach; ?>
-                                                        <?php endforeach; ?>
-                                                    </tr>
-                                                <?php endif; ?>
-                                            </thead>
-                                            <tbody>
-                                                <?php $incrRow = 1; ?>        
-                                                <?php foreach ($fittingTableName['articles'] as $key => $element): ?>
-                                                    <?php if ($incrRow % 2 == 0): ?>
-                                                        <tr>
-                                                        <?php else: ?>
-                                                        <tr class="active">
-                                                        <?php endif; ?>
-                                                        <?php foreach ($element as $ekey => $value): ?>
-                                                            <td><?= $value ?></td>
-                                                        <?php endforeach; ?>
-                                                    </tr>
-                                                    <?php $incrRow++ ?>
-                                                <?php endforeach; ?>
-                                            </tbody>
-
-
-                                        </table>
-                                        <p class="small"><?= $this->input('INH_PP_Note_' . $pg.'_'.$noterow, ['placeholder' => 'Enter comment']); ?></p>
                                     <?php
-                                    $noterow++;
-                                    endforeach; 
+                                    $noterow = 0;
+
+                                    if(isset($brand['articleData']) && is_array($brand['articleData'])):
+
+                                        foreach ($brand['articleData'] as $key => $fittingTableName):
+                                        ?>
+                                            <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
+                                            <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
+                                                <thead>
+
+                                                    <?php if ($info['iconRequired'] == 'YES'): ?>
+                                                        <tr class="sub-head">
+                                                            <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c1data): ?>
+                                                                <?php
+                                                                $g1count = count($c1data);
+                                                                $firstArray = array_shift($c1data);
+                                                                ?>
+                                                                <td colspan="<?= $g1count; ?>">
+                                                                    <?php if ($firstArray['columnIcon']): ?>
+                                                                        <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
+                                                                    <?php endif; ?>
+                                                                </td>
+                                                            <?php endforeach; ?>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                    <tr class="head">
+                                                        <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c2data): ?>
+                                                            <?php
+                                                            $g2count = count($c2data);
+                                                            $first2Array = array_shift($c2data);
+                                                            ?>
+                                                            <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                                        <?php endforeach; ?>
+                                                    </tr>
+
+                                                    <?php if ($fittingTableName['subHeaderRequired'] == 'YES'): ?>
+                                                        <tr class="head">
+                                                            <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c3data): ?>
+                                                                <?php foreach ($c3data as $c3key => $c3value): ?>
+                                                                    <?php if ($c3value['unitName']): ?>
+                                                                        <td><?= $c3value['unitName'] ?></td>
+                                                                    <?php else: ?>
+                                                                        <td></td>
+                                                                    <?php endif; ?>
+                                                                <?php endforeach; ?>
+                                                            <?php endforeach; ?>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+
+                                                    if(isset($fittingTableName['articles']) && is_array($fittingTableName['articles'])):
+                                                    $incrRow = 1;
+
+                                                    ?>
+                                                    <?php foreach ($fittingTableName['articles'] as $key => $element): ?>
+                                                        <?php if ($incrRow % 2 == 0): ?>
+                                                            <tr>
+                                                            <?php else: ?>
+                                                            <tr class="active">
+                                                            <?php endif; ?>
+                                                            <?php foreach ($element as $ekey => $value): ?>
+                                                                <td><?= $value ?></td>
+                                                            <?php endforeach; ?>
+                                                        </tr>
+                                                        <?php $incrRow++ ?>
+                                                    <?php
+                                                        endforeach;
+                                                    endif;
+                                                    ?>
+                                                </tbody>
+
+
+                                            </table>
+                                            <p class="small"><?= $this->input('INH_PP_Note_' . $pg.'_'.$noterow, ['placeholder' => 'Enter comment']); ?></p>
+                                        <?php
+                                        $noterow++;
+                                        endforeach;
+                                    endif;
                                     ?>
                                 </section>
                             </div>

@@ -136,7 +136,7 @@ class ZipWriter implements Writer
         $folderPathForDestFile = $this->zipFolderForColumns[$templateColumnName];
         $completeDestFilePath = $folderPathForDestFile."/".basename($sourcePath);
         if($folderPathForDestFile){
-            $completeSourceFilePath = "http://".$this->getHostUrl().rawurlencode($sourcePath);
+            $completeSourceFilePath = $this->getHostUrl().rawurlencode($sourcePath);
             $success = $this->copyFile($completeSourceFilePath,$completeDestFilePath);
         }
         
@@ -153,24 +153,9 @@ class ZipWriter implements Writer
     private function copyFile($source, $destination): bool
     {
         $source = str_replace("%2F","/",$source);
- 
         $success = boolval(file_put_contents($destination, file_get_contents($source)));
-//
-//                copy($source, $destination);
-//        die();
-//
-//        $url = $source;
-//        $ch = curl_init($url);
-//
-//        $fp = fopen($destination, 'wb');
-//
-//        curl_setopt($ch, CURLOPT_FILE, $fp);
-//        curl_setopt($ch, CURLOPT_HEADER, 0);
-//
-//        curl_exec($ch);
-//        curl_close($ch);
 
-         return $success;
+        return $success;
 
     }
 

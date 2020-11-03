@@ -27,7 +27,7 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
      * @throws Exception
      */
     public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
-     
+  
         $operator = $fieldFilter->getOperator();
         $fieldName = $fieldDefinition->getName();
         $data = $fieldFilter->getFilterEntryData();
@@ -98,10 +98,14 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
                         
                     }
                 }   
-                 
+
                 if(!empty($conditons)){
                     $mergedConditions = implode(" OR ", $conditons);
-                    
+                                    
+                    //Todo: Handle the deadstate of filters in an alternative approach.
+                    if(strpos($mergedConditions, "=  'Array'")){
+                        throw new \Exception('Filters for current level -> relation inside a relation - is/are not supported.');
+                    }
                     $conditionParams['key'] = $mergedConditions;
                     $conditionParams['value'] = NULL;
                     $conditionParams['concatenator'] = "AND";

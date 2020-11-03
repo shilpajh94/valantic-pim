@@ -64,12 +64,12 @@ if (!isset($this->parentContainer)) {
                 </span>
             </footer>
         </div>
-        
+
         <article class="fullcontainer single">
-            
-            
+
+
                     <div class="inhsetting1">
- <div class="inhsetting-sidebar"> 
+ <div class="inhsetting-sidebar">
                         <div class="sidebar">
                             <ul>
                                 <?php
@@ -102,7 +102,7 @@ if (!isset($this->parentContainer)) {
                         </div>
 </div>
                         <div class=" inhRight">
-                        
+
                             <h1 class="borderBottom block marginBottom5 contitech-yellow">
                                 <?php if($this->editmode): ?>
                                     <?php if($this->input("INH_Fitting_Cover_brandName", ["placeholder" => "Enter Fitting Category"])->isEmpty()): ?>
@@ -120,7 +120,7 @@ if (!isset($this->parentContainer)) {
                                     ?>
                                     <p class=" borderBottom block">
                                     <?php
-                                    echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200])->setImage($defaultPageImage);
+                                    echo $this->image('INH_Fitting_Cover_DefaultImage', ["width" => 600, "height" => 200]);
                                     ?>
                                     </p>
                                     <?php
@@ -134,13 +134,13 @@ if (!isset($this->parentContainer)) {
                                         if($imgSrcObj)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj->getSrc(); ?>" width="600" height="200"/>
+                                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="600" height="200"/>
                                         <?php } ?>
                                         </p>
                                         <?php
                                     }
                                     ?>
-                                    
+
                             <?php
                                 } ?>
 
@@ -152,7 +152,7 @@ if (!isset($this->parentContainer)) {
                                                         <td><?= $material; ?></td>
                                                 <?php endforeach; ?>
                                         </tr>
-                                        <?php $incrRow = 1; ?>        
+                                        <?php $incrRow = 1; ?>
                                         <?php foreach($templateBrandDtata as $key => $element): ?>
                                                 <?php if($incrRow%2==0): ?>
                                                 <tr>
@@ -178,8 +178,8 @@ if (!isset($this->parentContainer)) {
                         </div>
 
                     </div>
-            
-            
+
+
 
        </article>
 

@@ -10,14 +10,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 "object" => ["object"]
                 ],
                 "classes" => ["CatalogTables"],
-        ]); 
+        ]);
         ?>
 <?php endif; ?>
 <div class="template">
 <section class="segregate">
     <div id="pageHeader"></div>
         <span class="pageName">Hydraulic Hose</span>
-   
+
 
 
 <div class="footer">
@@ -49,7 +49,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                                 <?= $this->input("HHAC_Footer_Title1") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAC_Footer_SubTitle1")->isEmpty()): ?>
@@ -60,13 +60,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php else: ?>
                                         <?= $this->input("HHAC_Footer_SubTitle1") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
-                    
-                    
 
-            
+
+
+
     </div>
         </footer>
 
@@ -89,7 +89,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                                 <?= $this->input("HHAC_Footer_Title2") ?>
                 <?php endif; ?>
-    
+
                     <span>
                     <?php if($this->editmode): ?>
                         <?php if($this->input("HHAC_Footer_SubTitle2")->isEmpty()): ?>
@@ -100,13 +100,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php else: ?>
                                         <?= $this->input("HHAC_Footer_SubTitle2") ?>
                         <?php endif; ?>
-                    
+
                     </span>
                 </h5>
-                    
-                    
 
-            
+
+
+
     </div>
 
 <span class="logo">
@@ -138,9 +138,9 @@ foreach($data as $key => $brand):
 
 extract($brand);
 
-?>   
+?>
        <figure class="justify-between">
-           
+
            <figcaption>
            <?php if(!$onlyOneTitle): ?>
                 <h2>
@@ -153,7 +153,7 @@ extract($brand);
                 ?>
                 </h2>
 
-                <?php 
+                <?php
                 $onlyOneTitle = true;
                 endif;
                 ?>
@@ -188,30 +188,30 @@ extract($brand);
 </menu>
                    <?php endif; ?>
            </figcaption>
-           
+
                 <?php
                 if ($this->editmode) {
                 echo $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj);
                 } else {
                         if(!$this->image("HHAC_Image")->isEmpty())
                                 $imgSrcObj =  $this->image("HHAC_Image");
-                        
+
                         if($imgSrcObj)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj->getSrc(); ?>" height="200" width="200"/>
+                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" height="200" width="200"/>
                         <?php
                         }
                 }
                 ?>
-           
+
        </figure>
        <table class="grid inh" cellspacing="0" cellpadding="0">
                 <thead>
                         <?php if($iconRequired == 'YES'): ?>
                                 <tr class="sub-head">
                                         <?php foreach($columnsDataWithImages as $key => $c1data): ?>
-                                                <?php 
+                                                <?php
                                                         $g1count = count($c1data);
                                                         $firstArray = array_shift($c1data);
                                                 ?>
@@ -226,16 +226,16 @@ extract($brand);
 
                         <tr class="head">
                         <?php foreach($columnsDataWithImages as $key => $c2data): ?>
-                                
-                                <?php 
+
+                                <?php
                                         $g2count = count($c2data);
                                         $first2Array = array_shift($c2data);
                                 ?>
                                 <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
-                                
+
                         <?php endforeach; ?>
                         </tr>
-                                        
+
                         <?php if($subHeaderRequired == 'YES'): ?>
                                 <tr class="sub-head">
                                         <?php foreach($columnsDataWithImages as $key => $c3data): ?>
@@ -249,8 +249,8 @@ extract($brand);
                                         <?php endforeach; ?>
                                 </tr>
                         <?php endif; ?>
-                  </thead>      
-                <?php $incrRow = 1; ?>        
+                  </thead>
+                <?php $incrRow = 1; ?>
                 <?php foreach($articlesData as $key => $element): ?>
                         <?php if($incrRow%2==0): ?>
                         <tr>
@@ -266,9 +266,9 @@ extract($brand);
 
         </table>
         <p class="small"><?= $this->input('HHAC_note' . $key, ['placeholder' => 'Enter comment']); ?></p>
-       <?php 
+       <?php
 
-        endforeach; 
+        endforeach;
 
         endif;
 

@@ -112,7 +112,7 @@ if ($data):
                         </footer>
                     </div>
                     <div class="footer1">
-                        <footer class="flex-center <?php echo $footer_class; ?>">     
+                        <footer class="flex-center <?php echo $footer_class; ?>">
                             <div class="flex aligned">
                                 <div class="compatible">
                                     <b>
@@ -205,7 +205,7 @@ if ($data):
                                 if($imgSrcObj1)
                                 {
                                 ?>
-                                <img src="<?= $imgSrcObj1->getSrc(); ?>" class="leftImg" width="600" height="200"/>
+                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" class="leftImg" width="600" height="200"/>
                                 <?php
                                 }
                             }
@@ -216,11 +216,11 @@ if ($data):
                             } else {
                                 if(!$this->image("HHPP_Image_Right_{$incr}")->isEmpty())
                                     $imgSrcObj2 = $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
-                                    
+
                                 if($imgSrcObj2)
                                 {
                                 ?>
-                                <img src="<?= $imgSrcObj2->getSrc(); ?>" class="rightImg" width="600" height="200"/>
+                                <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" class="rightImg" width="600" height="200"/>
                                 <?php
                                 }
                             }
@@ -239,14 +239,14 @@ if ($data):
                                             <div class="spec-requirement">
                                                 <?php if ($standardMetHoseListData): ?>
                                                 <div class="col-6">
-                                                        <?php 
+                                                        <?php
                                                             $hoseMetCount = 0;
                                                             foreach ($standardMetHoseListData as $key => $standard): ?>
                                                             <?= $this->input("standardMetHose{$incr}_{$hoseMetCount}")->setDataFromResource($key) ?>
                                                             <p><font class="is-highlight"><?= implode('<br>',$standard); ?></font></p>
                                                         <?php
-                                                            $hoseMetCount++; 
-                                                            endforeach; 
+                                                            $hoseMetCount++;
+                                                            endforeach;
                                                         ?>
                                                 </div>
                                                 <?php endif; ?>
@@ -259,21 +259,21 @@ if ($data):
                                                     <?php endif; ?>
 
                                                     <?php if (!empty(trim($reinforcement))): ?>
-                                                        <p>                
+                                                        <p>
                                                             <b><?= $this->translate('Reinforcement') ?></b>
                                                             <?= $reinforcement ?>
                                                         </p>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty(trim($coverMaterialattributeString))): ?>
-                                                        <p>              
+                                                        <p>
                                                             <b><?= $this->translate('Cover') ?></b>
                                                             <?= $coverMaterialattributeString ?>
                                                         </p>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty(trim($temperatureRangeFAndC))): ?>
-                                                        <p>              
+                                                        <p>
                                                             <b><?= $this->translate('Temperature Range') ?></b>
                                                             <?= $temperatureRangeFAndC ?>
                                                         </p>
@@ -281,7 +281,7 @@ if ($data):
                                                 </div>
 
                                             </div>
-                                        </div> 
+                                        </div>
                                     <?php endif; ?>
 
                                     <?php if ($safetyFeatures): ?>
@@ -308,8 +308,8 @@ if ($data):
                                 <menu>
                                     <h6><?= $this->translate('branding') ?></h6>
                                     <figure>
-                                        <img src="<?= $branding_image_src; ?>" width='80'/> 
-                                        <figcaption><b><?= $brandName ?></b></figcaption> 
+                                        <img src="<?= $branding_image_src; ?>" width='80'/>
+                                        <figcaption><b><?= $brandName ?></b></figcaption>
                                         <figcaption> <?= $BrandingLayline ?> </figcaption>
                                     </figure>
                                 </menu>
@@ -320,7 +320,7 @@ if ($data):
                                         <?php if($iconRequired == 'YES'): ?>
                                                 <tr class="sub-head">
                                                         <?php foreach($columnsDataWithImages as $key => $c1data): ?>
-                                                                <?php 
+                                                                <?php
                                                                         $g1count = count($c1data);
                                                                         $firstArray = array_shift($c1data);
                                                                 ?>
@@ -335,14 +335,14 @@ if ($data):
 
                                         <tr class="head">
                                                 <?php foreach($columnsDataWithImages as $key => $c2data): ?>
-                                                        <?php 
+                                                        <?php
                                                                 $g2count = count($c2data);
                                                                 $first2Array = array_shift($c2data);
                                                         ?>
                                                         <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
                                                 <?php endforeach; ?>
                                         </tr>
-                                        
+
                                         <?php if($subHeaderRequired == 'YES'): ?>
                                                 <tr class="sub-head">
                                                         <?php foreach($columnsDataWithImages as $key => $c3data): ?>
@@ -358,7 +358,7 @@ if ($data):
                                         <?php endif; ?>
 
                                 </thead>
-                                <?php $incrRow = 1; ?>        
+                                <?php $incrRow = 1; ?>
                                 <?php foreach ($articlesData as $key => $element): ?>
                                     <?php if ($incrRow % 2 == 0): ?>
                                         <tr>
@@ -380,7 +380,7 @@ if ($data):
 
                     <?php //if($incr != count($catalogGroupData)):  ?>
 
-                    <?php //endif;  ?>    
+                    <?php //endif;  ?>
 
                 </section>
             </div>

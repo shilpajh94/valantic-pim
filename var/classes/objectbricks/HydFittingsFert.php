@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-25T14:20:22+02:00
+* Generated at: 2020-10-13T11:59:00+02:00
 * IP: 127.0.0.1
 
 
@@ -1080,11 +1080,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                   array (
                                     'key' => 'V9',
                                     'value' => 'V9',
-                                  ),
-                                  10 => 
-                                  array (
-                                    'key' => '',
-                                    'value' => '',
                                   ),
                                 ),
                                  'width' => 300,
@@ -3575,16 +3570,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'fieldcontainer',
                          'labelWidth' => 100,
                          'layout' => 'hbox',
-                         'fieldLabel' => '',
-                         'name' => '',
+                         'fieldLabel' => NULL,
+                         'name' => 'Layout',
                          'type' => NULL,
                          'region' => NULL,
-                         'title' => '',
+                         'title' => NULL,
                          'width' => NULL,
                          'height' => NULL,
                          'collapsible' => false,
                          'collapsed' => false,
-                         'bodyStyle' => '',
+                         'bodyStyle' => NULL,
                          'datatype' => 'layout',
                          'permissions' => NULL,
                          'childs' => 
@@ -5112,6 +5107,421 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'G 1/4-19A',
+                                'value' => 'G 1/4-19A',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'G 3/8-19A',
+                                'value' => 'G 3/8-19A',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'G 1/2-14A',
+                                'value' => 'G 1/2-14A',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'G 5/8-14A',
+                                'value' => 'G 5/8-14A',
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'G 3/4-14A',
+                                'value' => 'G 3/4-14A',
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'G 1-11A',
+                                'value' => 'G 1-11A',
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'G 1 1/4-11A',
+                                'value' => 'G 1 1/4-11A',
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'G 1 1/2-11A',
+                                'value' => 'G 1 1/2-11A',
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'G 2-11A',
+                                'value' => 'G 2-11A',
+                              ),
+                              9 => 
+                              array (
+                                'key' => '1/4-19 BSPT',
+                                'value' => '1/4-19 BSPT',
+                              ),
+                              10 => 
+                              array (
+                                'key' => '3/8-19 BSPT',
+                                'value' => '3/8-19 BSPT',
+                              ),
+                              11 => 
+                              array (
+                                'key' => '1/2-14 BSPT',
+                                'value' => '1/2-14 BSPT',
+                              ),
+                              12 => 
+                              array (
+                                'key' => '3/4-14 BSPT',
+                                'value' => '3/4-14 BSPT',
+                              ),
+                              13 => 
+                              array (
+                                'key' => '1-11 BSPT',
+                                'value' => '1-11 BSPT',
+                              ),
+                              14 => 
+                              array (
+                                'key' => '7/16-20 UNF-2A',
+                                'value' => '7/16-20 UNF-2A',
+                              ),
+                              15 => 
+                              array (
+                                'key' => '1/2-20 UNF-2A',
+                                'value' => '1/2-20 UNF-2A',
+                              ),
+                              16 => 
+                              array (
+                                'key' => '9/16-18 UNF-2A',
+                                'value' => '9/16-18 UNF-2A',
+                              ),
+                              17 => 
+                              array (
+                                'key' => '3/4-16 UNF-2A',
+                                'value' => '3/4-16 UNF-2A',
+                              ),
+                              18 => 
+                              array (
+                                'key' => '7/8-14 UNF-2A',
+                                'value' => '7/8-14 UNF-2A',
+                              ),
+                              19 => 
+                              array (
+                                'key' => '1-1/16-12 UN 2A',
+                                'value' => '1-1/16-12 UN 2A',
+                              ),
+                              20 => 
+                              array (
+                                'key' => '1-5/16-12 UN 2A',
+                                'value' => '1-5/16-12 UN 2A',
+                              ),
+                              21 => 
+                              array (
+                                'key' => 'M16 X 1.5',
+                                'value' => 'M16 X 1.5',
+                              ),
+                              22 => 
+                              array (
+                                'key' => 'M18 X 1.5',
+                                'value' => 'M18 X 1.5',
+                              ),
+                              23 => 
+                              array (
+                                'key' => 'M20 X 1.5',
+                                'value' => 'M20 X 1.5',
+                              ),
+                              24 => 
+                              array (
+                                'key' => 'M22 X 1.5',
+                                'value' => 'M22 X 1.5',
+                              ),
+                              25 => 
+                              array (
+                                'key' => 'M24 X 1.5',
+                                'value' => 'M24 X 1.5',
+                              ),
+                              26 => 
+                              array (
+                                'key' => 'M30 X 2.0',
+                                'value' => 'M30 X 2.0',
+                              ),
+                              27 => 
+                              array (
+                                'key' => 'M36 X 2.0',
+                                'value' => 'M36 X 2.0',
+                              ),
+                              28 => 
+                              array (
+                                'key' => 'M42 X 2.0',
+                                'value' => 'M42 X 2.0',
+                              ),
+                              29 => 
+                              array (
+                                'key' => 'M52 X 2.0',
+                                'value' => 'M52 X 2.0',
+                              ),
+                              30 => 
+                              array (
+                                'key' => 'M12 X 1.5',
+                                'value' => 'M12 X 1.5',
+                              ),
+                              31 => 
+                              array (
+                                'key' => 'M14 X 1.5',
+                                'value' => 'M14 X 1.5',
+                              ),
+                              32 => 
+                              array (
+                                'key' => 'M26 X 1.5',
+                                'value' => 'M26 X 1.5',
+                              ),
+                              33 => 
+                              array (
+                                'key' => '1/2-27 UNS -2B',
+                                'value' => '1/2-27 UNS -2B',
+                              ),
+                              34 => 
+                              array (
+                                'key' => '3.5 TPI ACME 2G',
+                                'value' => '3.5 TPI ACME 2G',
+                              ),
+                              35 => 
+                              array (
+                                'key' => '3 TPI ACME 2G',
+                                'value' => '3 TPI ACME 2G',
+                              ),
+                              36 => 
+                              array (
+                                'key' => '7/8-14 UN-2A',
+                                'value' => '7/8-14 UN-2A',
+                              ),
+                              37 => 
+                              array (
+                                'key' => '1-1/16-12 UN-2A',
+                                'value' => '1-1/16-12 UN-2A',
+                              ),
+                              38 => 
+                              array (
+                                'key' => '1-3/16-12 UN-2A',
+                                'value' => '1-3/16-12 UN-2A',
+                              ),
+                              39 => 
+                              array (
+                                'key' => '1-5/16-12 UN-2A',
+                                'value' => '1-5/16-12 UN-2A',
+                              ),
+                              40 => 
+                              array (
+                                'key' => '1-5/8-12 UN-2A',
+                                'value' => '1-5/8-12 UN-2A',
+                              ),
+                              41 => 
+                              array (
+                                'key' => '1-7/8-12 UN-2A',
+                                'value' => '1-7/8-12 UN-2A',
+                              ),
+                              42 => 
+                              array (
+                                'key' => '2-1/2-12 UN-2A',
+                                'value' => '2-1/2-12 UN-2A',
+                              ),
+                              43 => 
+                              array (
+                                'key' => '1/8-27 NPTF CLASS 2 PLUG',
+                                'value' => '1/8-27 NPTF CLASS 2 PLUG',
+                              ),
+                              44 => 
+                              array (
+                                'key' => '1/4-18 NPTF CLASS 2 PLUG',
+                                'value' => '1/4-18 NPTF CLASS 2 PLUG',
+                              ),
+                              45 => 
+                              array (
+                                'key' => '3/8-18 NPTF CLASS 2',
+                                'value' => '3/8-18 NPTF CLASS 2',
+                              ),
+                              46 => 
+                              array (
+                                'key' => '3/8-18 NPTF CLASS 2 PLUG',
+                                'value' => '3/8-18 NPTF CLASS 2 PLUG',
+                              ),
+                              47 => 
+                              array (
+                                'key' => '1/2-14 NPTF CLASS 2 PLUG',
+                                'value' => '1/2-14 NPTF CLASS 2 PLUG',
+                              ),
+                              48 => 
+                              array (
+                                'key' => '3/4-14 NPTF CLASS 2 PLUG',
+                                'value' => '3/4-14 NPTF CLASS 2 PLUG',
+                              ),
+                              49 => 
+                              array (
+                                'key' => '1-11-1/2 NPTF CLASS 2',
+                                'value' => '1-11-1/2 NPTF CLASS 2',
+                              ),
+                              50 => 
+                              array (
+                                'key' => '1/8-27 NPTF CLASS 2',
+                                'value' => '1/8-27 NPTF CLASS 2',
+                              ),
+                              51 => 
+                              array (
+                                'key' => '1/4-18 NPTF CLASS 2',
+                                'value' => '1/4-18 NPTF CLASS 2',
+                              ),
+                              52 => 
+                              array (
+                                'key' => '1/2-14 NPTF CLASS 2',
+                                'value' => '1/2-14 NPTF CLASS 2',
+                              ),
+                              53 => 
+                              array (
+                                'key' => '3/4-14 NPTF CLASS 2',
+                                'value' => '3/4-14 NPTF CLASS 2',
+                              ),
+                              54 => 
+                              array (
+                                'key' => '1-1/4-11-1/2 NPTF CLASS 2',
+                                'value' => '1-1/4-11-1/2 NPTF CLASS 2',
+                              ),
+                              55 => 
+                              array (
+                                'key' => '1-1/2-11-1/2 NPTF CLASS 2',
+                                'value' => '1-1/2-11-1/2 NPTF CLASS 2',
+                              ),
+                              56 => 
+                              array (
+                                'key' => '2-11-1/2 NPTF CLASS 2',
+                                'value' => '2-11-1/2 NPTF CLASS 2',
+                              ),
+                              57 => 
+                              array (
+                                'key' => '1-1/2 11-1/2 API API5B',
+                                'value' => '1-1/2 11-1/2 API API5B',
+                              ),
+                              58 => 
+                              array (
+                                'key' => '2-11-1/2 API API5B',
+                                'value' => '2-11-1/2 API API5B',
+                              ),
+                              59 => 
+                              array (
+                                'key' => '1-1/6-12 UN-2A',
+                                'value' => '1-1/6-12 UN-2A',
+                              ),
+                              60 => 
+                              array (
+                                'key' => '11/16-16 UN-2A',
+                                'value' => '11/16-16 UN-2A',
+                              ),
+                              61 => 
+                              array (
+                                'key' => '13/16-16 UN-2A',
+                                'value' => '13/16-16 UN-2A',
+                              ),
+                              62 => 
+                              array (
+                                'key' => '1-14 UNS-2A',
+                                'value' => '1-14 UNS-2A',
+                              ),
+                              63 => 
+                              array (
+                                'key' => '1-7/16-12 UN-2A',
+                                'value' => '1-7/16-12 UN-2A',
+                              ),
+                              64 => 
+                              array (
+                                'key' => '1-11/16-12 UN-2A',
+                                'value' => '1-11/16-12 UN-2A',
+                              ),
+                              65 => 
+                              array (
+                                'key' => '5/8-18 UNF-2A',
+                                'value' => '5/8-18 UNF-2A',
+                              ),
+                              66 => 
+                              array (
+                                'key' => '1-1/16-14 UN-2A',
+                                'value' => '1-1/16-14 UN-2A',
+                              ),
+                              67 => 
+                              array (
+                                'key' => '1-11-1/2 API API5B',
+                                'value' => '1-11-1/2 API API5B',
+                              ),
+                              68 => 
+                              array (
+                                'key' => '1-1/4 11-1/2 API API5B',
+                                'value' => '1-1/4 11-1/2 API API5B',
+                              ),
+                              69 => 
+                              array (
+                                'key' => '3-11-1/2 API API5B',
+                                'value' => '3-11-1/2 API API5B',
+                              ),
+                              70 => 
+                              array (
+                                'key' => '1 1/16 - 12 UNC-2A',
+                                'value' => '1 1/16 - 12 UNC-2A',
+                              ),
+                              71 => 
+                              array (
+                                'key' => '1 5/16 - 12 UNC-2A',
+                                'value' => '1 5/16 - 12 UNC-2A',
+                              ),
+                              72 => 
+                              array (
+                                'key' => '1-11 1/2 NPTF CLASS 2',
+                                'value' => '1-11 1/2 NPTF CLASS 2',
+                              ),
+                              73 => 
+                              array (
+                                'key' => '1 1/4-11 1/2 NPTF CLASS 2',
+                                'value' => '1 1/4-11 1/2 NPTF CLASS 2',
+                              ),
+                              74 => 
+                              array (
+                                'key' => '2-11 1/2 NPTF CLASS 2',
+                                'value' => '2-11 1/2 NPTF CLASS 2',
+                              ),
+                              75 => 
+                              array (
+                                'key' => 'G 1-1/4-11A',
+                                'value' => 'G 1-1/4-11A',
+                              ),
+                              76 => 
+                              array (
+                                'key' => 'G 1-1/2-11A',
+                                'value' => 'G 1-1/2-11A',
+                              ),
+                              77 => 
+                              array (
+                                'key' => '2-11 BSPT',
+                                'value' => '2-11 BSPT',
+                              ),
+                              78 => 
+                              array (
+                                'key' => '2-11 1/2 NPTF',
+                                'value' => '2-11 1/2 NPTF',
+                              ),
+                              79 => 
+                              array (
+                                'key' => '2-12 UN-2A',
+                                'value' => '2-12 UN-2A',
+                              ),
+                              80 => 
+                              array (
+                                'key' => '?',
+                                'value' => '?',
+                              ),
+                              81 => 
+                              array (
+                                'key' => '1/8-27 NPSM External 1/4-28 UNF Internal',
+                                'value' => '1/8-27 NPSM External 1/4-28 UNF Internal',
+                              ),
+                              82 => 
+                              array (
+                                'key' => '1-18 UN-2A',
+                                'value' => '1-18 UN-2A',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -5276,6 +5686,56 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'multiselect',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'Experimental',
+                                'value' => 'Experimental',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'V1',
+                                'value' => 'V1',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'V2',
+                                'value' => 'V2',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'V3',
+                                'value' => 'V3',
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'V4',
+                                'value' => 'V4',
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'V5',
+                                'value' => 'V5',
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'V6',
+                                'value' => 'V6',
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'V7',
+                                'value' => 'V7',
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'V8',
+                                'value' => 'V8',
+                              ),
+                              9 => 
+                              array (
+                                'key' => 'V9',
+                                'value' => 'V9',
+                              ),
                             ),
                              'width' => 300,
                              'height' => '',
@@ -5335,6 +5795,46 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => '1215, 1045',
+                                'value' => '1215, 1045',
+                              ),
+                              1 => 
+                              array (
+                                'key' => '316 STAINLESS',
+                                'value' => '316 STAINLESS',
+                              ),
+                              2 => 
+                              array (
+                                'key' => '316 Stainless',
+                                'value' => '316 Stainless',
+                              ),
+                              3 => 
+                              array (
+                                'key' => '4140',
+                                'value' => '4140',
+                              ),
+                              4 => 
+                              array (
+                                'key' => '316',
+                                'value' => '316',
+                              ),
+                              5 => 
+                              array (
+                                'key' => '1045, 1215',
+                                'value' => '1045, 1215',
+                              ),
+                              6 => 
+                              array (
+                                'key' => '340 Brass',
+                                'value' => '340 Brass',
+                              ),
+                              7 => 
+                              array (
+                                'key' => '360 BRASS',
+                                'value' => '360 BRASS',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -5489,6 +5989,56 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'multiselect',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'Experimental',
+                                'value' => 'Experimental',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'V1',
+                                'value' => 'V1',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'V2',
+                                'value' => 'V2',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'V3',
+                                'value' => 'V3',
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'V4',
+                                'value' => 'V4',
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'V5',
+                                'value' => 'V5',
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'V6',
+                                'value' => 'V6',
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'V7',
+                                'value' => 'V7',
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'V8',
+                                'value' => 'V8',
+                              ),
+                              9 => 
+                              array (
+                                'key' => 'V9',
+                                'value' => 'V9',
+                              ),
                             ),
                              'width' => 300,
                              'height' => '',
@@ -5520,6 +6070,56 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => '1215, 1020',
+                                'value' => '1215, 1020',
+                              ),
+                              1 => 
+                              array (
+                                'key' => '316L STAINLESS',
+                                'value' => '316L STAINLESS',
+                              ),
+                              2 => 
+                              array (
+                                'key' => '316L STAINLESS STEEL',
+                                'value' => '316L STAINLESS STEEL',
+                              ),
+                              3 => 
+                              array (
+                                'key' => '316L Stainless Steel',
+                                'value' => '316L Stainless Steel',
+                              ),
+                              4 => 
+                              array (
+                                'key' => '316L',
+                                'value' => '316L',
+                              ),
+                              5 => 
+                              array (
+                                'key' => '1215, 102',
+                                'value' => '1215, 102',
+                              ),
+                              6 => 
+                              array (
+                                'key' => '340 Brass',
+                                'value' => '340 Brass',
+                              ),
+                              7 => 
+                              array (
+                                'key' => '1215, 1045',
+                                'value' => '1215, 1045',
+                              ),
+                              8 => 
+                              array (
+                                'key' => '316 Stainless Steel',
+                                'value' => '316 Stainless Steel',
+                              ),
+                              9 => 
+                              array (
+                                'key' => '',
+                                'value' => '',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -5934,6 +6534,421 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'G 3/8-19',
+                                'value' => 'G 3/8-19',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'G 1/2-14',
+                                'value' => 'G 1/2-14',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'G 3/4-14',
+                                'value' => 'G 3/4-14',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'G 1/4-19',
+                                'value' => 'G 1/4-19',
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'G 5/8-14',
+                                'value' => 'G 5/8-14',
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'G 1-11',
+                                'value' => 'G 1-11',
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'G 1-1/4-11',
+                                'value' => 'G 1-1/4-11',
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'G 1-1/2-11',
+                                'value' => 'G 1-1/2-11',
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'G 2-11',
+                                'value' => 'G 2-11',
+                              ),
+                              9 => 
+                              array (
+                                'key' => 'M16 X 1.5',
+                                'value' => 'M16 X 1.5',
+                              ),
+                              10 => 
+                              array (
+                                'key' => 'M18 X 1.5',
+                                'value' => 'M18 X 1.5',
+                              ),
+                              11 => 
+                              array (
+                                'key' => 'M20 X 1.5',
+                                'value' => 'M20 X 1.5',
+                              ),
+                              12 => 
+                              array (
+                                'key' => 'M22 X 1.5',
+                                'value' => 'M22 X 1.5',
+                              ),
+                              13 => 
+                              array (
+                                'key' => 'M24 X 1.5',
+                                'value' => 'M24 X 1.5',
+                              ),
+                              14 => 
+                              array (
+                                'key' => 'M30 X 2.0',
+                                'value' => 'M30 X 2.0',
+                              ),
+                              15 => 
+                              array (
+                                'key' => 'M36 X 2.0',
+                                'value' => 'M36 X 2.0',
+                              ),
+                              16 => 
+                              array (
+                                'key' => 'M42 X 2.0',
+                                'value' => 'M42 X 2.0',
+                              ),
+                              17 => 
+                              array (
+                                'key' => 'M52 X 2.0',
+                                'value' => 'M52 X 2.0',
+                              ),
+                              18 => 
+                              array (
+                                'key' => 'M12 X 1.5',
+                                'value' => 'M12 X 1.5',
+                              ),
+                              19 => 
+                              array (
+                                'key' => 'M14 X 1.5',
+                                'value' => 'M14 X 1.5',
+                              ),
+                              20 => 
+                              array (
+                                'key' => 'M26 X 1.5',
+                                'value' => 'M26 X 1.5',
+                              ),
+                              21 => 
+                              array (
+                                'key' => 'M45 X 2.0',
+                                'value' => 'M45 X 2.0',
+                              ),
+                              22 => 
+                              array (
+                                'key' => '7/16-20 UNF 2B',
+                                'value' => '7/16-20 UNF 2B',
+                              ),
+                              23 => 
+                              array (
+                                'key' => '3/8-24 UNF 2B',
+                                'value' => '3/8-24 UNF 2B',
+                              ),
+                              24 => 
+                              array (
+                                'key' => '1/2-20 UNF 2B',
+                                'value' => '1/2-20 UNF 2B',
+                              ),
+                              25 => 
+                              array (
+                                'key' => '9/16-18 UNF 2B',
+                                'value' => '9/16-18 UNF 2B',
+                              ),
+                              26 => 
+                              array (
+                                'key' => '3/4-16 UNF 2B',
+                                'value' => '3/4-16 UNF 2B',
+                              ),
+                              27 => 
+                              array (
+                                'key' => '7/8-14 UNF 2B',
+                                'value' => '7/8-14 UNF 2B',
+                              ),
+                              28 => 
+                              array (
+                                'key' => '1-1/16-12 UN 2B',
+                                'value' => '1-1/16-12 UN 2B',
+                              ),
+                              29 => 
+                              array (
+                                'key' => '1-5/16-12 UN 2B',
+                                'value' => '1-5/16-12 UN 2B',
+                              ),
+                              30 => 
+                              array (
+                                'key' => '1-3/16-12 UN 2B',
+                                'value' => '1-3/16-12 UN 2B',
+                              ),
+                              31 => 
+                              array (
+                                'key' => '1-5/8-12 UN 2B',
+                                'value' => '1-5/8-12 UN 2B',
+                              ),
+                              32 => 
+                              array (
+                                'key' => '1-7/8-12 UN 2B',
+                                'value' => '1-7/8-12 UN 2B',
+                              ),
+                              33 => 
+                              array (
+                                'key' => '2-1/2-12 UN 2B',
+                                'value' => '2-1/2-12 UN 2B',
+                              ),
+                              34 => 
+                              array (
+                                'key' => 'G 1 1/4-11',
+                                'value' => 'G 1 1/4-11',
+                              ),
+                              35 => 
+                              array (
+                                'key' => 'M30 X 1.5',
+                                'value' => 'M30 X 1.5',
+                              ),
+                              36 => 
+                              array (
+                                'key' => 'M33 X 1.5',
+                                'value' => 'M33 X 1.5',
+                              ),
+                              37 => 
+                              array (
+                                'key' => 'M36 X 1.5',
+                                'value' => 'M36 X 1.5',
+                              ),
+                              38 => 
+                              array (
+                                'key' => 'M42 X 1.5',
+                                'value' => 'M42 X 1.5',
+                              ),
+                              39 => 
+                              array (
+                                'key' => '1/4-18 NPFT CLASS 2',
+                                'value' => '1/4-18 NPFT CLASS 2',
+                              ),
+                              40 => 
+                              array (
+                                'key' => '3/8-18 NPTF CLASS 2',
+                                'value' => '3/8-18 NPTF CLASS 2',
+                              ),
+                              41 => 
+                              array (
+                                'key' => '1-11 1/2 NPTF CLASS 2',
+                                'value' => '1-11 1/2 NPTF CLASS 2',
+                              ),
+                              42 => 
+                              array (
+                                'key' => '1/8-27 NPTF CLASS 2',
+                                'value' => '1/8-27 NPTF CLASS 2',
+                              ),
+                              43 => 
+                              array (
+                                'key' => '1/4-18 NPTF CLASS 2',
+                                'value' => '1/4-18 NPTF CLASS 2',
+                              ),
+                              44 => 
+                              array (
+                                'key' => '1/2-14 NPTF CLASS 2',
+                                'value' => '1/2-14 NPTF CLASS 2',
+                              ),
+                              45 => 
+                              array (
+                                'key' => '3/4-14 NPTF CLASS 2',
+                                'value' => '3/4-14 NPTF CLASS 2',
+                              ),
+                              46 => 
+                              array (
+                                'key' => '1/8-27 NPSM',
+                                'value' => '1/8-27 NPSM',
+                              ),
+                              47 => 
+                              array (
+                                'key' => '1/4-18 NPSM',
+                                'value' => '1/4-18 NPSM',
+                              ),
+                              48 => 
+                              array (
+                                'key' => '3/8-18 NPSM',
+                                'value' => '3/8-18 NPSM',
+                              ),
+                              49 => 
+                              array (
+                                'key' => '1/2-14 NPSM',
+                                'value' => '1/2-14 NPSM',
+                              ),
+                              50 => 
+                              array (
+                                'key' => '1/2-14 NPSM THREAD',
+                                'value' => '1/2-14 NPSM THREAD',
+                              ),
+                              51 => 
+                              array (
+                                'key' => '3/4-14 NPSM',
+                                'value' => '3/4-14 NPSM',
+                              ),
+                              52 => 
+                              array (
+                                'key' => '1-11 1/2 NPSM',
+                                'value' => '1-11 1/2 NPSM',
+                              ),
+                              53 => 
+                              array (
+                                'key' => '1 1/4-11 1/2 NPSM',
+                                'value' => '1 1/4-11 1/2 NPSM',
+                              ),
+                              54 => 
+                              array (
+                                'key' => '7/16-20 UNF 2A',
+                                'value' => '7/16-20 UNF 2A',
+                              ),
+                              55 => 
+                              array (
+                                'key' => '9/16-18 UNF 2A',
+                                'value' => '9/16-18 UNF 2A',
+                              ),
+                              56 => 
+                              array (
+                                'key' => '3/4-16 UNF 2A',
+                                'value' => '3/4-16 UNF 2A',
+                              ),
+                              57 => 
+                              array (
+                                'key' => '7/8-14 UNF 2A',
+                                'value' => '7/8-14 UNF 2A',
+                              ),
+                              58 => 
+                              array (
+                                'key' => '1-1/16-12 UN 2A',
+                                'value' => '1-1/16-12 UN 2A',
+                              ),
+                              59 => 
+                              array (
+                                'key' => '9/16-18 UNF-2A',
+                                'value' => '9/16-18 UNF-2A',
+                              ),
+                              60 => 
+                              array (
+                                'key' => '1/2-20 UNF 2A',
+                                'value' => '1/2-20 UNF 2A',
+                              ),
+                              61 => 
+                              array (
+                                'key' => '11/16-16 UN 2B',
+                                'value' => '11/16-16 UN 2B',
+                              ),
+                              62 => 
+                              array (
+                                'key' => '13/16-16 UN 2B',
+                                'value' => '13/16-16 UN 2B',
+                              ),
+                              63 => 
+                              array (
+                                'key' => '1-14 UNS 2B',
+                                'value' => '1-14 UNS 2B',
+                              ),
+                              64 => 
+                              array (
+                                'key' => '1-7/16-12 UN 2B',
+                                'value' => '1-7/16-12 UN 2B',
+                              ),
+                              65 => 
+                              array (
+                                'key' => '1-11/16-12 UN 2B',
+                                'value' => '1-11/16-12 UN 2B',
+                              ),
+                              66 => 
+                              array (
+                                'key' => '2-12 UN 2B',
+                                'value' => '2-12 UN 2B',
+                              ),
+                              67 => 
+                              array (
+                                'key' => '9/16-24 UNEF 2B',
+                                'value' => '9/16-24 UNEF 2B',
+                              ),
+                              68 => 
+                              array (
+                                'key' => '5/8-18 UNF 2B',
+                                'value' => '5/8-18 UNF 2B',
+                              ),
+                              69 => 
+                              array (
+                                'key' => '1-1/16-14 UNS 2B',
+                                'value' => '1-1/16-14 UNS 2B',
+                              ),
+                              70 => 
+                              array (
+                                'key' => '3/8-24 2A THREAD',
+                                'value' => '3/8-24 2A THREAD',
+                              ),
+                              71 => 
+                              array (
+                                'key' => '7/16-24 2A THREAD',
+                                'value' => '7/16-24 2A THREAD',
+                              ),
+                              72 => 
+                              array (
+                                'key' => '1/2-20 2A THREAD',
+                                'value' => '1/2-20 2A THREAD',
+                              ),
+                              73 => 
+                              array (
+                                'key' => '5/8-18 2A THREAD',
+                                'value' => '5/8-18 2A THREAD',
+                              ),
+                              74 => 
+                              array (
+                                'key' => '11/16-18 2A THREAD',
+                                'value' => '11/16-18 2A THREAD',
+                              ),
+                              75 => 
+                              array (
+                                'key' => '3/4-18 2A THREAD',
+                                'value' => '3/4-18 2A THREAD',
+                              ),
+                              76 => 
+                              array (
+                                'key' => '7/8-18 2A THREAD',
+                                'value' => '7/8-18 2A THREAD',
+                              ),
+                              77 => 
+                              array (
+                                'key' => '2-11 UN 2B',
+                                'value' => '2-11 UN 2B',
+                              ),
+                              78 => 
+                              array (
+                                'key' => '7/8-16 UNF 2B',
+                                'value' => '7/8-16 UNF 2B',
+                              ),
+                              79 => 
+                              array (
+                                'key' => '9/16-20 UNF 2B',
+                                'value' => '9/16-20 UNF 2B',
+                              ),
+                              80 => 
+                              array (
+                                'key' => '5/8-16 UNF 2B',
+                                'value' => '5/8-16 UNF 2B',
+                              ),
+                              81 => 
+                              array (
+                                'key' => 'G1-1/2-11',
+                                'value' => 'G1-1/2-11',
+                              ),
+                              82 => 
+                              array (
+                                'key' => '2-12 UN-2B',
+                                'value' => '2-12 UN-2B',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -5993,6 +7008,286 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'select',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => '22 MM HEX',
+                                'value' => '22 MM HEX',
+                              ),
+                              1 => 
+                              array (
+                                'key' => '27 MM HEX',
+                                'value' => '27 MM HEX',
+                              ),
+                              2 => 
+                              array (
+                                'key' => '32 MM HEX',
+                                'value' => '32 MM HEX',
+                              ),
+                              3 => 
+                              array (
+                                'key' => '19 MM HEX',
+                                'value' => '19 MM HEX',
+                              ),
+                              4 => 
+                              array (
+                                'key' => '38 MM HEX',
+                                'value' => '38 MM HEX',
+                              ),
+                              5 => 
+                              array (
+                                'key' => '50 MM HEX',
+                                'value' => '50 MM HEX',
+                              ),
+                              6 => 
+                              array (
+                                'key' => '55 MM HEX',
+                                'value' => '55 MM HEX',
+                              ),
+                              7 => 
+                              array (
+                                'key' => '70 MM HEX',
+                                'value' => '70 MM HEX',
+                              ),
+                              8 => 
+                              array (
+                                'key' => '24 MM HEX',
+                                'value' => '24 MM HEX',
+                              ),
+                              9 => 
+                              array (
+                                'key' => '30 MM HEX',
+                                'value' => '30 MM HEX',
+                              ),
+                              10 => 
+                              array (
+                                'key' => '36 MM HEX',
+                                'value' => '36 MM HEX',
+                              ),
+                              11 => 
+                              array (
+                                'key' => '46 MM HEX',
+                                'value' => '46 MM HEX',
+                              ),
+                              12 => 
+                              array (
+                                'key' => '60 MM HEX',
+                                'value' => '60 MM HEX',
+                              ),
+                              13 => 
+                              array (
+                                'key' => '14 MM HEX',
+                                'value' => '14 MM HEX',
+                              ),
+                              14 => 
+                              array (
+                                'key' => '17 MM HEX',
+                                'value' => '17 MM HEX',
+                              ),
+                              15 => 
+                              array (
+                                'key' => '1215',
+                                'value' => '1215',
+                              ),
+                              16 => 
+                              array (
+                                'key' => '19 MM',
+                                'value' => '19 MM',
+                              ),
+                              17 => 
+                              array (
+                                'key' => '27 MM HEX STAINLESS',
+                                'value' => '27 MM HEX STAINLESS',
+                              ),
+                              18 => 
+                              array (
+                                'key' => '41 MM HEX',
+                                'value' => '41 MM HEX',
+                              ),
+                              19 => 
+                              array (
+                                'key' => '5/8 HEX',
+                                'value' => '5/8 HEX',
+                              ),
+                              20 => 
+                              array (
+                                'key' => '5/8 HEX STAINLESS STEEL',
+                                'value' => '5/8 HEX STAINLESS STEEL',
+                              ),
+                              21 => 
+                              array (
+                                'key' => '19 MM HEX STAINLESS STEEL',
+                                'value' => '19 MM HEX STAINLESS STEEL',
+                              ),
+                              22 => 
+                              array (
+                                'key' => '25 MM HEX',
+                                'value' => '25 MM HEX',
+                              ),
+                              23 => 
+                              array (
+                                'key' => '25 MM HEX STAINLESS STEEL',
+                                'value' => '25 MM HEX STAINLESS STEEL',
+                              ),
+                              24 => 
+                              array (
+                                'key' => '27 MM HEX STAINLESS STEEL',
+                                'value' => '27 MM HEX STAINLESS STEEL',
+                              ),
+                              25 => 
+                              array (
+                                'key' => '32 MM HEX STAINLESS STEEL',
+                                'value' => '32 MM HEX STAINLESS STEEL',
+                              ),
+                              26 => 
+                              array (
+                                'key' => '38 MM HEX STAINLESS STEEL',
+                                'value' => '38 MM HEX STAINLESS STEEL',
+                              ),
+                              27 => 
+                              array (
+                                'key' => '50 MM HEX STAINLESS STEEL',
+                                'value' => '50 MM HEX STAINLESS STEEL',
+                              ),
+                              28 => 
+                              array (
+                                'key' => '55 MM HEX STAINLESS STEEL',
+                                'value' => '55 MM HEX STAINLESS STEEL',
+                              ),
+                              29 => 
+                              array (
+                                'key' => '75 MM HEX',
+                                'value' => '75 MM HEX',
+                              ),
+                              30 => 
+                              array (
+                                'key' => '70 MM HEX STAINLESS STEEL',
+                                'value' => '70 MM HEX STAINLESS STEEL',
+                              ),
+                              31 => 
+                              array (
+                                'key' => '75MM HEX 1045',
+                                'value' => ' 1215',
+                              ),
+                              32 => 
+                              array (
+                                'key' => '16 MM HEX',
+                                'value' => '16 MM HEX',
+                              ),
+                              33 => 
+                              array (
+                                'key' => '17 MM HEX STANLESS STEEL',
+                                'value' => '17 MM HEX STANLESS STEEL',
+                              ),
+                              34 => 
+                              array (
+                                'key' => '22 MM HEX STAINLESS STEEL',
+                                'value' => '22 MM HEX STAINLESS STEEL',
+                              ),
+                              35 => 
+                              array (
+                                'key' => '41 MM HEX STAINLESS STEEL',
+                                'value' => '41 MM HEX STAINLESS STEEL',
+                              ),
+                              36 => 
+                              array (
+                                'key' => '22 HEX',
+                                'value' => '22 HEX',
+                              ),
+                              37 => 
+                              array (
+                                'key' => '17MM',
+                                'value' => '17MM',
+                              ),
+                              38 => 
+                              array (
+                                'key' => '22MM',
+                                'value' => '22MM',
+                              ),
+                              39 => 
+                              array (
+                                'key' => '25MM',
+                                'value' => '25MM',
+                              ),
+                              40 => 
+                              array (
+                                'key' => '32MM',
+                                'value' => '32MM',
+                              ),
+                              41 => 
+                              array (
+                                'key' => '58 MM HEX',
+                                'value' => '58 MM HEX',
+                              ),
+                              42 => 
+                              array (
+                                'key' => '14 HEX',
+                                'value' => '14 HEX',
+                              ),
+                              43 => 
+                              array (
+                                'key' => '24 HEX',
+                                'value' => '24 HEX',
+                              ),
+                              44 => 
+                              array (
+                                'key' => '44 MM HEX',
+                                'value' => '44 MM HEX',
+                              ),
+                              45 => 
+                              array (
+                                'key' => '55MM HEX',
+                                'value' => '55MM HEX',
+                              ),
+                              46 => 
+                              array (
+                                'key' => '30MM HEX',
+                                'value' => '30MM HEX',
+                              ),
+                              47 => 
+                              array (
+                                'key' => '60MM HEX',
+                                'value' => '60MM HEX',
+                              ),
+                              48 => 
+                              array (
+                                'key' => '46 MM HEX STAINLESS STEEL',
+                                'value' => '46 MM HEX STAINLESS STEEL',
+                              ),
+                              49 => 
+                              array (
+                                'key' => '22MM HEX',
+                                'value' => '22MM HEX',
+                              ),
+                              50 => 
+                              array (
+                                'key' => '9/16 HEX',
+                                'value' => '9/16 HEX',
+                              ),
+                              51 => 
+                              array (
+                                'key' => '24 MM HEX STAINLESS STEEL',
+                                'value' => '24 MM HEX STAINLESS STEEL',
+                              ),
+                              52 => 
+                              array (
+                                'key' => '60 MM HEX STAINLESS STEEL',
+                                'value' => '60 MM HEX STAINLESS STEEL',
+                              ),
+                              53 => 
+                              array (
+                                'key' => '17.4 MM HEX',
+                                'value' => '17.4 MM HEX',
+                              ),
+                              54 => 
+                              array (
+                                'key' => '22.2 MM HEX',
+                                'value' => '22.2 MM HEX',
+                              ),
+                              55 => 
+                              array (
+                                'key' => '15/16 HEX',
+                                'value' => '15/16 HEX',
+                              ),
                             ),
                              'width' => 300,
                              'defaultValue' => '',
@@ -6102,6 +7397,56 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'fieldtype' => 'multiselect',
                              'options' => 
                             array (
+                              0 => 
+                              array (
+                                'key' => 'Experimental',
+                                'value' => 'Experimental',
+                              ),
+                              1 => 
+                              array (
+                                'key' => 'V1',
+                                'value' => 'V1',
+                              ),
+                              2 => 
+                              array (
+                                'key' => 'V2',
+                                'value' => 'V2',
+                              ),
+                              3 => 
+                              array (
+                                'key' => 'V3',
+                                'value' => 'V3',
+                              ),
+                              4 => 
+                              array (
+                                'key' => 'V4',
+                                'value' => 'V4',
+                              ),
+                              5 => 
+                              array (
+                                'key' => 'V5',
+                                'value' => 'V5',
+                              ),
+                              6 => 
+                              array (
+                                'key' => 'V6',
+                                'value' => 'V6',
+                              ),
+                              7 => 
+                              array (
+                                'key' => 'V7',
+                                'value' => 'V7',
+                              ),
+                              8 => 
+                              array (
+                                'key' => 'V8',
+                                'value' => 'V8',
+                              ),
+                              9 => 
+                              array (
+                                'key' => 'V9',
+                                'value' => 'V9',
+                              ),
                             ),
                              'width' => 300,
                              'height' => '',
@@ -6245,6 +7590,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => '304 STAINLESS STEEL',
+                        'value' => '304 STAINLESS STEEL',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -6481,6 +7831,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'NBR',
+                                    'value' => 'NBR',
+                                  ),
                                 ),
                                  'width' => 300,
                                  'defaultValue' => '',
@@ -6624,6 +7979,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'fieldtype' => 'multiselect',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Parker',
+                                    'value' => 'Parker',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'NOK',
+                                    'value' => 'NOK',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Dichtomatic',
+                                    'value' => 'Dichtomatic',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Sterling Seal',
+                                    'value' => 'Sterling Seal',
+                                  ),
                                 ),
                                  'width' => 300,
                                  'height' => '',
@@ -6915,6 +8290,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'fieldtype' => 'multiselect',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Parker',
+                                    'value' => 'Parker',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'NOK',
+                                    'value' => 'NOK',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Dichtomatic',
+                                    'value' => 'Dichtomatic',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Sterling Seal',
+                                    'value' => 'Sterling Seal',
+                                  ),
                                 ),
                                  'width' => 300,
                                  'height' => '',
@@ -7010,6 +8405,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'fieldtype' => 'multiselect',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Parker',
+                                    'value' => 'Parker',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'NOK',
+                                    'value' => 'NOK',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Dichtomatic',
+                                    'value' => 'Dichtomatic',
+                                  ),
+                                  3 => 
+                                  array (
+                                    'key' => 'Sterling Seal',
+                                    'value' => 'Sterling Seal',
+                                  ),
                                 ),
                                  'width' => 300,
                                  'height' => '',
@@ -7041,6 +8456,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Teflon',
+                                    'value' => 'Teflon',
+                                  ),
                                 ),
                                  'width' => 300,
                                  'defaultValue' => '',
@@ -7238,6 +8658,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'MICROPLASTICS',
+                        'value' => 'MICROPLASTICS',
+                      ),
+                      1 => 
+                      array (
+                        'key' => '',
+                        'value' => '',
+                      ),
                     ),
                      'width' => 300,
                      'height' => '',
@@ -7269,6 +8699,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'HS NYLON 6 NATURAL',
+                        'value' => 'HS NYLON 6 NATURAL',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',
@@ -7548,6 +8983,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Box 2',
+                        'value' => 'Box 2',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Box 3',
+                        'value' => 'Box 3',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Box 4',
+                        'value' => 'Box 4',
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Box 5',
+                        'value' => 'Box 5',
+                      ),
                     ),
                      'width' => 300,
                      'defaultValue' => '',

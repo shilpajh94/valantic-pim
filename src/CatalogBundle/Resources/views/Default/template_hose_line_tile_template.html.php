@@ -153,7 +153,7 @@ $featuresFooter = false;
                                     if($imgSrcObj1)
                                     {
                                     ?>
-                                                <img src="<?= $imgSrcObj1->getSrc(); ?>"width="92" height="240"/>
+                                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>"width="92" height="240"/>
                                                 <?php
                                     }
                                 }
@@ -221,7 +221,7 @@ $featuresFooter = false;
             <?php
             $iccnt = 0;
             if (isset($row['featureIcon']) && is_array($row['featureIcon']) && !empty($row['featureIcon'])) {
-                
+
                 foreach ($row['featureIcon'] as $iccntKey => $featureIcon) {
 
                     if($this->editmode)
@@ -246,7 +246,7 @@ $featuresFooter = false;
                                     "format" => "PNG"
                                 ]);
                                 ?>
-                                
+
                                 <?php
                             }
 
@@ -259,7 +259,7 @@ $featuresFooter = false;
                         if($imgSrcObj2)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj2->getSrc(); ?>" width="91" height="53"/>
+                        <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="91" height="53"/>
                         <?php
                         }
                     }
@@ -299,7 +299,7 @@ $featuresFooter = false;
                                         ?>
                     <?php } ?>
                 </aside>
-                
+
                 <!-- Footer Area -->
 
             </article>

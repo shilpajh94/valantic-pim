@@ -43,7 +43,13 @@ class S3CustomizationService
             $pathPrefix = "assets";
         }
 
-        $pathFromPimcoreAssetRoot = str_replace($pathPrefix, '', $pimcorePath);
+        //        $pathFromPimcoreAssetRoot = str_replace($pathPrefix, '', $pimcorePath);
+        if(strpos($pimcorePath, $pathPrefix) === 0) {
+            $pathFromPimcoreAssetRoot = substr_replace($pimcorePath, '', 0, strlen($pathPrefix));
+        }else{
+            $pathFromPimcoreAssetRoot = $pimcorePath;
+        }
+
         $s3Path = $this->dao->getS3PathForPimcorePath($pathFromPimcoreAssetRoot);
         if ($s3Path) {
             $completeS3Path = $pathPrefix . $s3Path;
@@ -65,7 +71,13 @@ class S3CustomizationService
      */
     public function getS3PathForNotMappedPimcorePath($pimcorePath,$fileKey)
     {
-        $pathFromPimcoreAssetRoot = str_replace(PIMCORE_ASSET_DIRECTORY, '', $pimcorePath);
+//        $pathFromPimcoreAssetRoot = str_replace(PIMCORE_ASSET_DIRECTORY, '', $pimcorePath);
+
+        if(strpos($pimcorePath, PIMCORE_ASSET_DIRECTORY) === 0){
+            $pathFromPimcoreAssetRoot  = substr_replace($pimcorePath, '', 0, strlen(PIMCORE_ASSET_DIRECTORY));
+        }else{
+            $pathFromPimcoreAssetRoot = $pimcorePath;
+        }
         // this is the path of parent folder
 
         $parentPath = dirname($pathFromPimcoreAssetRoot);
@@ -181,6 +193,19 @@ class S3CustomizationService
             return $pimPath;
         }
         return $s3Path;
+    }
+
+    public function getS3PathForFileSystemPathInFFMPEG($fileSystemPath)
+    {
+        if(strpos($fileSystemPath, "s3://") !== false) {
+            $fileSystemPath = str_replace("s3://","", $fileSystemPath);
+            $fileSystemPathParts = explode("/",$fileSystemPath,2);
+            $bucket = $fileSystemPathParts[0];
+            $assetPath = $fileSystemPathParts[1];
+            $assetS3Path = $this->getS3PathForPimcorePath($assetPath, true);
+            return "s3://" . $bucket ."/". $assetS3Path;
+        }
+        return $fileSystemPath;
     }
 
 }

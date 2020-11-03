@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-25T15:00:41+02:00
+* Generated at: 2020-10-19T19:10:21+02:00
 * IP: 127.0.0.1
 
 
@@ -289,6 +289,26 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Tantalum',
+                        'value' => 'Tantalum',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Tin',
+                        'value' => 'Tin',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Gold',
+                        'value' => 'Gold',
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Tungsten',
+                        'value' => 'Tungsten',
+                      ),
                     ),
                      'width' => '',
                      'height' => '',

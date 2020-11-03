@@ -114,24 +114,26 @@ class Workflow
      * Get user list belong to given group
      * @param Int $roleId, $groupId
      */
-    public function getUserByRoleAndGroup($roleId, $groupIds)
+    public function getUserByRoleAndGroup($roleId, $siopArray)
     {
-        $users = new \Pimcore\Model\DataObject\Users\Listing;
+        $users = new \Pimcore\Model\DataObject\Users\Listing();
         $roleId = is_array($roleId) ? $roleId[0] : $roleId;
         $rId = $this->getOppositeUserRoleIdByRoleId($roleId);
-
+        $conditionArray = [];
         if (!empty($rId)) {
-            $users->setCondition("userType LIKE '%$rId%'");
+            $conditionArray[] = "userType LIKE ".$users->quote('%,'.$rId.',%');
         }
-        if (!empty($groupIds)) {
-            foreach ($groupIds as $groupObj) {
-                $users->addConditionParam("MaterialGroupAccess = ?", $groupObj->getId(), "OR");
+        if (!empty($siopArray)) {
+            $siopConditionArray = [];
+            foreach ($siopArray as $siop) {
+                $siopConditionArray[] = "SIOPAccess like ".$users->quote("%,".$siop.",%");
             }
+            $conditionArray[] = "(".implode(' OR ', $siopConditionArray).")";
+        }
+        if (!empty($conditionArray) && count($conditionArray)>0) {
+            $users->setCondition(implode(" AND ", $conditionArray));
         }
         $users->load();
-        foreach ($users as $user) {
-            $fn = $user->getFirstname() . '.txt';
-        }
         unset($rId);
         return $users;
     }

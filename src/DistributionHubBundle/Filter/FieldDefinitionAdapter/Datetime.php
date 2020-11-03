@@ -198,9 +198,7 @@ class Datetime extends Numeric implements FieldDefinitionAdapterInterface {
     }
 
     public function getRelatedFilterData($fieldFilter) {
-
-        $datetime = new \DateTime($fieldFilter->getFilterEntryData());
-        $value = $datetime->format(\DateTime::ISO8601);
+        
         if (is_array($fieldFilter['filterEntryData'])) {
             $operator = array_keys($fieldFilter['filterEntryData'])['0'];
             $val = array_values($fieldFilter['filterEntryData'])['0'];
@@ -248,12 +246,6 @@ class Datetime extends Numeric implements FieldDefinitionAdapterInterface {
      * @param bool $ignoreInheritance
      */
     protected function getDataValue($object, $ignoreInheritance = false) {
-//        $inheritanceBackup = null;
-//        if($ignoreInheritance) {
-//            $inheritanceBackup = AbstractObject::getGetInheritedValues();
-//            AbstractObject::setGetInheritedValues(false);
-//        }
-
         $value = null;
 
         $getter = "get" . $this->fieldDefinition->getName();
