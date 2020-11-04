@@ -255,12 +255,15 @@ $featuresFooter = false;
                     }
                     else
                     {
-                        $imgSrcObj2 = $this->image('productLogo' . $key . $iccnt);
-                        if($imgSrcObj2)
-                        {
-                        ?>
-                        <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="91" height="53"/>
-                        <?php
+                        if($iccnt<=3){
+                            $imgSrcObj2 = $this->image('productLogo' . $key . $iccnt);
+                            if($imgSrcObj2)
+                            {
+                            ?>
+                            <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="91" height="53"/>
+                            <?php
+                                $iccnt++;
+                            }
                         }
                     }
                 }

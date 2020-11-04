@@ -48,46 +48,27 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 ?>
                 </span>
             </h5>
- <p class="flex-center">
-                <?php
-                if($this->editmode)
-                {
-                    if ($this->image('myCrampApp_f11')->isEmpty() && !is_null($myCrampApp)) {
-                        echo $this->image('myCrampApp_f11', [
-                            "width" => 61,
-                            "height" => 60,
-                            "aspectratio" => true,
-                            "interlace" => true,
-                            "quality" => 95,
-                            "format" => "PNG"
-                        ])->setImage($logo);
-                    } else {
-                        echo $this->image('myCrampApp_f11', [
-                            "width" => 61,
-                            "height" => 60,
-                            "aspectratio" => true,
-                            "interlace" => true,
-                            "quality" => 95,
-                            "format" => "PNG"
-                        ]);
-                    }
-                }
-                else
-                {
-                    $imgSrcObj3 = $this->image('myCrampApp_f11');
-                    if($imgSrcObj3)
-                    {
-                    ?>
-                    <img src="<?= $imgSrcObj3->getThumbnail('catalog_thumb'); ?>" width="61" height="60"/>
-                    <?php
-                    }
-                }
-                ?>
-                <span>
-                    Download the <strong class="contitech-yellow">MyCrimp App</strong><br />
-                    for more information
-                </span>
-            </p>
+            <div class="compatible">
+                                    <b>
+                                        <?php
+                                        if ($this->editmode) {
+                                            echo $this->input("HHF_Footer_Compatibility11", ["placeholder"=>'Compatible Hose:']);
+                                        } else {
+                                            echo $this->input("HHF_Footer_Compatibility11");
+                                        }
+                                        ?>
+                                    </b>
+
+                                    <?php
+                                    if ($this->editmode) {
+                                        echo $this->input("HHF_Footer_Compatibility_Description11", ["placeholder"=>'SR1SN SR2SN SR3SN']);
+                                    } else {
+                                        echo $this->input("HHF_Footer_Compatibility_Description11", ["placeholder"=>'SR1SN SR2SN SR3SN']);
+                                    }
+                                    ?>
+                                </div>
+ 
+ 
 </div>
 </footer>
 </div>
@@ -135,6 +116,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     for more information
                 </span>
             </p>
+            
              <h5>
                 <?php
                     if($this->editmode) {

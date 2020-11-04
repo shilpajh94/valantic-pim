@@ -1451,17 +1451,17 @@ if(isset($data[$baseId])) {
                     }
 
                 endforeach;
-
+                $uniqueId = md5($brandKey);
                 $material = array_unique($material);
                 $materialString = implode(', ', $material);
-                $data[$brandKey]['brandName'] = $brandName;
-                $data[$brandKey]['imageObj'] = $imageObj;
-                $data[$brandKey]['longDescription'] = $longDescription;
-                $data[$brandKey]['materialString'] = $materialString;
-                $data[$brandKey]['iconRequired'] = $iconRequired;
-                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-                $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
-                $data[$brandKey]['articlesData'] = $articlesData;
+                $data[$uniqueId]['brandName'] = $brandName;
+                $data[$uniqueId]['imageObj'] = $imageObj;
+                $data[$uniqueId]['longDescription'] = $longDescription;
+                $data[$uniqueId]['materialString'] = $materialString;
+                $data[$uniqueId]['iconRequired'] = $iconRequired;
+                $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                $data[$uniqueId]['articlesData'] = $articlesData;
 
             }
 
@@ -1575,10 +1575,11 @@ if(isset($data[$baseId])) {
                             // }
                         }
 
-                        $brandData[$brandName]['brandName'] = $brandName;
-                        $brandData[$brandName]['iconRequired'] = $iconRequired;
-                        $brandData[$brandName]['columnsDataWithImages'] = $columnsDataWithImages;
-                        $brandData[$brandName]['subHeaderRequired'] = $subHeaderRequired;
+                        $uniqueId = md5($brandName);
+                        $brandData[$uniqueId]['brandName'] = $brandName;
+                        $brandData[$uniqueId]['iconRequired'] = $iconRequired;
+                        $brandData[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                        $brandData[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
 
                         $articlesData = array();
 
@@ -1592,7 +1593,7 @@ if(isset($data[$baseId])) {
                             }
                         }
 
-                        $brandData[$brandName]['articlesData'][] = $articlesData;
+                        $brandData[$uniqueId]['articlesData'][] = $articlesData;
                         unset($articlesData);
                     }
                 }
