@@ -56,13 +56,26 @@ class Lookup
             $filePathInfo = explode('/',constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
 
             $fileName = array_pop($filePathInfo);
-            $filePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+            
+            $ftpFilePath = implode("/", $filePathInfo);
+            $fileNameArray = explode(".", $fileName);
+            $fileNamePrefix = $fileNameArray[0];
+            $fileName = $fileNamePrefix."_".date("mdY");
+            if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
+                $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days"));
+                if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
+                    echo "Today's file not uploaded.";
+                    return null;
+                }
+            }
 
-            $SFTPConObj->downloadFile($filePath, constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
+            $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$fileName;
+            $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
+//            $SFTPConObj->downloadFile($tmpFilePath, constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'));
 
-            $this->filePath = $filePath;
+            $this->filePath = $tmpFilePath;
 
-            $SFTPConObj->moveFile(constant('BW_SAP_IMPORT_SFTP_'. strtoupper($cmd).'_FILE_PATH'), BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+            $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
                 
             $this->setLogFileName($cmd);
             // $this->getCommandConfig($cmd);
