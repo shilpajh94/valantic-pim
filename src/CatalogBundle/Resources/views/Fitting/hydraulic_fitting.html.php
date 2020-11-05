@@ -165,14 +165,14 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     <?php
 
     if (is_array($brandsData) && !empty($brandsData)) {
-        $incr = 1;
+      //  $incr = 1;
     // $dispColumns = array_keys($info['dataTableColumn']);
         foreach ($brandsData as $uniqueId => $tableData) {
             foreach ($tableData as $tableName => $tableRows) {
                 // $tableColumns = $info['fittingTableColumn'][$tableName];
                 // $uniqueId = md5($uniqueId.$tableName);
                 if ($tableName !== 'SortOrder') {
-                    $uniqueId = md5($tableName);
+                    $uniqueId = md5($uniqueId.$tableName);
                 //     $result = array_intersect($tableColumns['columns'], $dispColumns);
 
                     /* New Family Info */
@@ -182,9 +182,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <span>
                                 <?php
                                 if ($this->editmode) {
-                                    echo $this->image('catLeftImage' . $incr, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
+                                    echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
                                 } else {
-                                    $imgSrcObj1 =  $this->image('catLeftImage' . $incr);
+                                    $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueId);
                                     if($imgSrcObj1)
                                     {
                                     ?>
@@ -193,9 +193,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                     }
                                 }
                                 if ($this->editmode) {
-                                    echo $this->image('catRightImage' . $incr, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
+                                    echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
                                 } else {
-                                    $imgSrcObj2 = $this->image('catRightImage' . $incr);
+                                    $imgSrcObj2 = $this->image('catRightImage' . $uniqueId);
                                     if($imgSrcObj2)
                                     {
                                     ?>
@@ -208,19 +208,19 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <figcaption class="highlight">
                                 <h3>
                                     <?php
-                                    if ($this->input('brandName' . $incr)->isEmpty()) {
-                                        echo $this->input('brandName' . $incr)->setDataFromResource($tableRows['brandData']['brandName']);
+                                    if ($this->input('brandName' . $uniqueId)->isEmpty()) {
+                                        echo $this->input('brandName' . $uniqueId)->setDataFromResource($tableRows['brandData']['brandName']);
                                     } else {
-                                        echo $this->input('brandName' . $incr);
+                                        echo $this->input('brandName' . $uniqueId);
                                     }
                                     ?>
                                 </h3>
                                 <p>
                                     <?php
-                                    if ($this->input('shortDescription' . $incr)->isEmpty()) {
-                                        echo $this->input('shortDescription' . $incr)->setDataFromResource($tableRows['brandData']['shortDescription']);
+                                    if ($this->input('shortDescription' . $uniqueId)->isEmpty()) {
+                                        echo $this->input('shortDescription' . $uniqueId)->setDataFromResource($tableRows['brandData']['shortDescription']);
                                     } else {
-                                        echo $this->input('shortDescription' . $incr);
+                                        echo $this->input('shortDescription' . $uniqueId);
                                     }
                                     ?>
                                 </p>
@@ -306,7 +306,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                     </article>
     <?php
                 }
-                $incr++;
+               // $incr++;
             }
         }
 
