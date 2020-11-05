@@ -11,6 +11,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         this.allowedOperatorList = [
             "Ignore",
             "AnyGetter",
+            "ReverseManyToManyGetter",
             "Arithmetic",
             "Comparison",
             "DateFormatter",
@@ -32,8 +33,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
             "BooleanFormatter",
             "MediaGetter",
             "LocaleSwitcher",
-            "CollectionMediaGetter",
-            "SelectTypeMasterGetter"
+            "CollectionMediaGetter"
         ];
         this.configPanel = new Ext.Panel({
             layout: "border",

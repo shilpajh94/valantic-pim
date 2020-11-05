@@ -142,13 +142,13 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                 dataIndex: "expiry",
 
             },
-            // {
-            //     text: t("dHub_export_ftp"),
-            //     width: 150,
-            //     sortable: true,
-            //     dataIndex: 'export_ftp',
-            //
-            // },
+            {
+                text: t("dHub_export_ftp"),
+                width: 150,
+                sortable: true,
+                dataIndex: 'export_ftp',
+
+            },
             {
                 text: t("dHub_export_status"),
                 width: 100,
@@ -457,7 +457,6 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                     displayField: 'name',
                     valueField: 'id',
                     editable: false,
-                    hidden: true,
                     allowBlank: false
 //                    blankText: t('dHub_field_is_required'),
 //                    msgTarget: 'under',
