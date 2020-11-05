@@ -251,10 +251,10 @@ class HoseDataImportCommand extends AbstractCommand
                 'oo_id'  =>  $r['level6n9digit_id'],
 //                'grossWeight' => !empty($r['Weight_lb_ft']) ? $r['Weight_lb_ft'] : NULL,
 //                'weightg' => !empty($r['Weight_G_M']) ? $r['Weight_G_M'] : NULL,
-                'minimumTemperatureF'  =>  !empty($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
-                'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
-                'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
-                'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
+                'minimumTemperatureF'  =>  isset($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
+                'minimumTemperatureC'  =>  isset($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
+                'maximumTemperatureF'  =>  isset($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
+                'maximumTemperatureC'  =>  isset($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
                 'brandName'    =>  $brnds,
             );
             $d[$i]['reinforcement'] = !empty($reinforcement) ? implode(", ", $reinforcement) : NUll;

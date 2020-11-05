@@ -18,7 +18,7 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_PORT", 22);
     define("BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
     define("BW_SAP_IMPORT_SFTP_PASSWORD", "D3duct!0n");
-    define("BW_SAP_IMPORT_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
+    define("BW_SAP_IMPORT_SFTP_PATH", "/P9A/PIMCORE/OUTBOUND");
 
     define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialPlant.csv");
     define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialSales.csv");
@@ -47,7 +47,7 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_PORT", 22);
     define("BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
     define("BW_SAP_IMPORT_SFTP_PASSWORD", "D3duct!0n");
-    define("BW_SAP_IMPORT_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
+    define("BW_SAP_IMPORT_SFTP_PATH", "/Q9A/PIMCORE/OUTBOUND");
 
     define("BW_SAP_IMPORT_SFTP_PLANTMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialPlant.csv");
     define("BW_SAP_IMPORT_SFTP_SALESMATERIAL_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/PIM_MaterialSales.csv");
