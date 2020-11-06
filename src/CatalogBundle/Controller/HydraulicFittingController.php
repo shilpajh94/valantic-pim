@@ -70,10 +70,6 @@ class HydraulicFittingController extends AbstractController
             $nomenClatureList = $this->getNomenClatureList();
 
             $brandsList = $this->getBrandsList();
-            $brandsList["O-Ring Face Seal (SAE J1453 ORS/ORFS)"] = 4;
-            $brandsList["B2-SP-0406"] = 1;
-            $brandsList["B2-SP45-0408"] = 2;
-            $brandsList["O-Ring Boss Straight Thread (SAE J514)"] = 3;
 
             $attrbuteImgS3Arr = array();
 

@@ -299,7 +299,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                             <!-- Closing grid div here -->
                         </table>
 <span class="tableFooter">
-                        <?php echo $this->input("HYD_PP_".$uniqueId,["Table Info"])->setDataFromResource("Table Name: ".$tableName);?>
+                        <?php echo $this->input("HYD_PP_".$uniqueId,["Table Info"], ["placeholder" => "Enter comment"]);?>
 
 </span>
                         <?php endif; ?>
