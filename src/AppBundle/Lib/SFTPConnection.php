@@ -58,7 +58,7 @@ class SFTPConnection
     }
     
     public function fileExists($filePath): bool {
-        return (bool) $this->sftp->file_exists($filePath);
+        return (bool) file_exists('ssh2.sftp://' . $this->sftp . $filePath );
     }
 
 }
