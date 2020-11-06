@@ -11,23 +11,8 @@ class ProductPublishingListener implements EventSubscriberInterface
     
     public function getProductSIOP($product) {
         $siopArray = [];
-        if (!empty($product->getSIOPLevel6())) {
-            $siopArray[] = $product->getSIOPLevel6()[0]->getId();
-        }
-        if (!empty($product->getSIOPLevel5())) {
-            $siopArray[] = $product->getSIOPLevel5()[0]->getId();
-        }
         if (!empty($product->getSIOPLevel4())) {
             $siopArray[] = $product->getSIOPLevel4()[0]->getId();
-        }
-        if (!empty($product->getSIOPLevel3())) {
-            $siopArray[] = $product->getSIOPLevel3()[0]->getId();
-        }
-        if (!empty($product->getSIOPLevel2())) {
-            $siopArray[] = $product->getSIOPLevel2()[0]->getId();
-        }
-        if (!empty($product->getSIOPLevel1())) {
-            $siopArray[] = $product->getSIOPLevel1()[0]->getId();
         }
         return $siopArray;
     }
