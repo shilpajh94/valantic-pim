@@ -66,7 +66,7 @@ class ProductSQLModel
         /* Initilize monitoring item and set the number of steps will take to complete the task */
         // $this->monitoringItem = ProcessManagerBundle\ElementsProcessManagerBundle::getMonitoringItem();
         $this->common = \Pimcore::getContainer()->get('app.common_helper');
-        $this->appService = \Pimcore::getContainer()->get('\AppBundle\Services\AppService');
+        $this->appService = \Pimcore::getContainer()->get('AppBundle\Services\AppService');
         $this->tblImpHelper = \Pimcore::getContainer()->get('app.product_import_helper');
         $this->productHelper = \Pimcore::getContainer()->get('app.product_helper');
 //        $this->catHelper = \Pimcore::getContainer()->get('app.category_helper');
@@ -152,7 +152,7 @@ class ProductSQLModel
     {
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
-        $this->processDeletedProducts();
+//        $this->processDeletedProducts();
 
         $this->initiatePTGProductsProcess();
         
