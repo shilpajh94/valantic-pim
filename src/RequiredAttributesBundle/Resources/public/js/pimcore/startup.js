@@ -177,6 +177,20 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         // alert("RequiredAttributesBundle ready!");
 
         /**
+         * screen was moving up and down when setTitle was running to set dirty mark on the tab
+         */
+        Ext.override(pimcore.element.abstract,{
+            detectedChange: function () {
+                // this.tab.setTitle(this.tab.initialConfig.title + " *");
+                let titleDom = this.tab.tab.btnInnerEl.dom;
+                titleDom.innerHTML = titleDom.innerHTML + " *";
+
+                this.dirty = true;
+                this.stopChangeDetector();
+            },
+        });
+
+        /**
          * overriding this file so that custom panel (helper panel) can be shown
          * for the nomenclature relation field in product
          */
