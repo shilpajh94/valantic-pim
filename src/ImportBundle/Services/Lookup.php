@@ -76,8 +76,8 @@ class Lookup
 
             $this->filePath = $tmpFilePath;
 
-//            $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
-                
+            $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+            
             $this->setLogFileName($cmd);
             // $this->getCommandConfig($cmd);
             // $this->updateDefaults($commands); // Update extra parameter value

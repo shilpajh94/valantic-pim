@@ -239,7 +239,7 @@ class PriceImportModel {
 
         $SFTPConObj->downloadFile($tmpFilePath, $ftpFilePath."/".$fileName);
 
-//        $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
+        $SFTPConObj->moveFile($ftpFilePath."/".$fileName, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$fileName);
         
         return $tmpFilePath;
     }
