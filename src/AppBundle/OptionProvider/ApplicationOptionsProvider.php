@@ -10,8 +10,11 @@ namespace AppBundle\OptionProvider;
 
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use AppBundle\Services\OptionProviderCacheService;
 
 class ApplicationOptionsProvider implements SelectOptionsProviderInterface {
+
+    private $optionProvider;
 
     /**
      * @param $context array
@@ -19,20 +22,36 @@ class ApplicationOptionsProvider implements SelectOptionsProviderInterface {
      * @return array
      */
     public function getOptions($context, $fieldDefinition) {
+
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $allAvailablelArray = array();
         $type = $fieldDefinition->getOptionsProviderData();
         if ($type) {
             $className = "Applications";
-            $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
-            $listingObject = new $listingClassName();
-            $listingObject->setCondition("ApplicationType = ".$listingObject->quote($type));
-            $listingObject->setOrderKey("Name");
-            $listingObject->setOrder("ASC");
-            foreach ($listingObject as $object) {
-                $name = $object->getName();
-                $allAvailablelArray[] = array(
-                    "key" => $name, "value" => $object->getId()
-                );
+
+            if(!$this->optionProvider->isCacheAvailableForClass($className))
+            {
+                $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
+                $listingObject = new $listingClassName();
+                $listingObject->setCondition("ApplicationType = ".$listingObject->quote($type));
+                $listingObject->setOrderKey("Name");
+                $listingObject->setOrder("ASC");
+                foreach ($listingObject as $object) {
+                    $name = $object->getName();
+                    $allAvailablelArray[] = array(
+                        "key" => $name, "value" => $object->getId()
+                    );
+                }
+
+                if(!empty($allAvailablelArray))
+                {
+                    $this->optionProvider->setAllOptionsInCacheForClass($className, $allAvailablelArray);
+                    $this->optionProvider->setCachedOptionProviders($className);
+                }
+            }
+            else
+            {
+                $allAvailablelArray = $this->optionProvider->getAllOptionsByClassKeyCache($className);
             }
         }
         return $allAvailablelArray;

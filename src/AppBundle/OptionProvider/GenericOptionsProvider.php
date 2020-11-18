@@ -10,8 +10,11 @@ namespace AppBundle\OptionProvider;
 
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use AppBundle\Services\OptionProviderCacheService;
 
 class GenericOptionsProvider implements SelectOptionsProviderInterface {
+
+    private $optionProvider;
 
     /**
      * @param $context array
@@ -19,6 +22,8 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
      * @return array
      */
     public function getOptions($context, $fieldDefinition) {
+
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $allAvailablelArray = array();
         $displayFieldData = $fieldDefinition->getOptionsProviderData();
         if ($displayFieldData) {
@@ -26,17 +31,32 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
             if (is_array($displayFieldData) && count($displayFieldData) > 1) {
                 $className = $displayFieldData[0];
                 $displayFieldName = $displayFieldData[1];
-                $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
-                $listingObject = new $listingClassName();
-                $listingObject->setOrderKey($displayFieldName);
-                $listingObject->setOrder("ASC");
-                foreach ($listingObject as $object) {
-                    $displayFieldGetter = "get" . ucfirst($displayFieldName);
-                    $name = $object->$displayFieldGetter();
-                    $allAvailablelArray[] = array(
-                        "key" => $name, "value" => $object->getId()
-                    );
+                
+                if(!$this->optionProvider->isCacheAvailableForClass($className))
+                {
+                    $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
+                    $listingObject = new $listingClassName();
+                    $listingObject->setOrderKey($displayFieldName);
+                    $listingObject->setOrder("ASC");
+                    foreach ($listingObject as $object) {
+                        $displayFieldGetter = "get" . ucfirst($displayFieldName);
+                        $name = $object->$displayFieldGetter();
+                        $allAvailablelArray[] = array(
+                            "key" => $name, "value" => $object->getId()
+                        );
+                    }
+
+                    if(!empty($allAvailablelArray))
+                    {
+                        $this->optionProvider->setAllOptionsInCacheForClass($className, $allAvailablelArray);
+                        $this->optionProvider->setCachedOptionProviders($className);
+                    }
                 }
+                else
+                {
+                    $allAvailablelArray = $this->optionProvider->getAllOptionsByClassKeyCache($className);
+                }
+                
             }
         }
         return $allAvailablelArray;
