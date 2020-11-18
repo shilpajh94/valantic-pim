@@ -15,6 +15,20 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         Ext.override(Ext.data.proxy.Ajax, { timeout:timeout });
 
         /**
+         * screen was moving up and down when setTitle was running to set dirty mark on the tab
+         */
+        Ext.override(pimcore.element.abstract,{
+            detectedChange: function () {
+                // this.tab.setTitle(this.tab.initialConfig.title + " *");
+                let titleDom = this.tab.tab.btnInnerEl.dom;
+                titleDom.innerHTML = titleDom.innerHTML + " *";
+
+                this.dirty = true;
+                this.stopChangeDetector();
+            },
+        });
+
+        /**
          * /admin/asset/tree-get-childs-by-id was getting cancelled in 1 min
          * Overriding to comment the proxy timeout of 60 seconds
          */
