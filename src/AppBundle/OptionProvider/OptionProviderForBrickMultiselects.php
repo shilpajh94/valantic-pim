@@ -62,7 +62,7 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
             }
             else
             {
-                $returnValue = $this->optionProvider->getAllOptionsByClassKeyCache($cacheMasterType);
+                $returnValue = $this->optionProvider->getCachedKeyData($cacheMasterType);
             }
         }
 

@@ -21,12 +21,17 @@ use Pimcore\Model\DataObject;
 class OptionProviderCacheListener
 {
     private $optionProvider;
+    private $commonHelper;
+    private $optionProviderClasses;
+    private $postAddNotAllowClasses;
 
-    private $optionProviderClasses = ["Brand", "FittingFamily", "Features", "FittingEndFamilyType", "MultiselectMaster"];
-    
     public function __construct(OptionProviderCacheService $optionProvider)
     {
         $this->optionProvider = $optionProvider;
+        $this->commonHelper = \Pimcore::getContainer()->get('app.common_helper');
+        $optionProviderCacheConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getOptionProviderCacheConfig();
+        $this->optionProviderClasses = $this->commonHelper->getParameter($optionProviderCacheConfig, 'optionProviderClasses');
+        $this->postAddNotAllowClasses = $this->commonHelper->getParameter($optionProviderCacheConfig, 'postAddNotAllowClasses');
     }
 
     /**
@@ -38,7 +43,7 @@ class OptionProviderCacheListener
         $object = $event->getObject();
         $className = $object->getClassName();
 
-        if(in_array($className, $this->optionProviderClasses) && ($className != "MultiselectMaster"))
+        if(in_array($className, $this->optionProviderClasses) && !in_array($className, $this->postAddNotAllowClasses))
         {
             $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
         }
@@ -53,17 +58,43 @@ class OptionProviderCacheListener
     {
         $object = $event->getObject();
         $className = $object->getClassName();
+        $isPublished = $object->getPublished();
 
         if(in_array($className, $this->optionProviderClasses))
         {
             if($className == 'MultiselectMaster'){
+                
                 $masterType = $object->getMasterType();
                 
                 if($masterType)
-                    $this->optionProvider->createUpdateOptionProviderMapCache($masterType, $object->getId(), $object->getName());
-            }
-            else{
-                $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                {
+                    if($isPublished)
+                        $this->optionProvider->createUpdateOptionProviderMapCache($masterType, $object->getId(), $object->getName());
+                    else
+                        $this->optionProvider->clearOptionProviderMapCache($masterType, $object->getId());
+
+                }
+            
+            }else if($className == 'Applications'){
+                
+                $applicationType = $object->getApplicationType();
+                $className = $className.'~'.$applicationType;
+                
+                if($applicationType)
+                {
+                    if($isPublished)
+                        $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                    else
+                        $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+                }
+            
+            }else{
+
+                if($isPublished)
+                    $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                else
+                    $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+                    
             }
         }
 
@@ -83,6 +114,9 @@ class OptionProviderCacheListener
         {
             if($className == 'MultiselectMaster')
                 $className = $object->getMasterType();
+            
+            if($className == 'Applications')
+                $className = $className.'~'. $object->getApplicationType();
 
             $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
         }

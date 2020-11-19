@@ -19,75 +19,69 @@ class OptionProviderCacheService
     /**
      * @return array
      */
-    public function setAllOptionsInCacheForClass(string $classKey, $data)
+    public function setAllOptionsInCacheForClass(string $classKey, $data): bool
     {
-        \Pimcore\Cache::save($data, self::CACHE_KEY.$classKey, [], null, 0, true);
-        return true;
+        return \Pimcore\Cache::save($data, self::CACHE_KEY.$classKey, [], null, 0, true);
     }
 
     /**
      * @param string $cacheKey
      * @return array
      */
-    public function getCachedKeyData(string $cacheKey)
+    public function getCachedKeyData(string $cacheKey, bool $isFullKey = FALSE)
     {
-        $cachedData = \Pimcore\Cache::load($cacheKey);
-        return $cachedData;
+        if($isFullKey)
+            return \Pimcore\Cache::load($cacheKey);
+        else
+            return \Pimcore\Cache::load(self::CACHE_KEY.$cacheKey);
     }
 
     /**
-     * @param string $attrubuteGroupName
-     * @return array
-     */
-    public function getAllOptionsByClassKeyCache(string $classKey)
-    {
-        $returnValue = \Pimcore\Cache::load(self::CACHE_KEY.$classKey);
-        return $returnValue;
-    }
-    
-    /**
-     * @throws \Exception
      */
     public function createUpdateOptionProviderMapCache(string $classKey, int $valueId, $valueName): bool
     {
-        $optionProviderClassCache = $this->getAllOptionsByClassKeyCache($classKey);
+        $optionProviderClassCache = $this->getCachedKeyData($classKey);
         
         if($optionProviderClassCache)
         {
             $indexId = array_search($valueId, array_column($optionProviderClassCache, 'value')); 
-
-            if($indexId)
-                $optionProviderClassCache[$indexId] = array("key"=>$valueName, "value" => $valueId);
-            else
+            if($indexId === FALSE)
                 $optionProviderClassCache[] = array("key"=>$valueName, "value" => $valueId);
-            
-            \Pimcore\Cache::save($optionProviderClassCache, self::CACHE_KEY.$classKey, [], null, 0, true);
+            else
+                $optionProviderClassCache[$indexId] = array("key"=>$valueName, "value" => $valueId);
         }
+        else
+        {
+            $this->setCachedOptionProviders($classKey);
+            $optionProviderClassCache[] = array("key"=>$valueName, "value" => $valueId);
+        }
+
+        $this->setAllOptionsInCacheForClass($classKey, $optionProviderClassCache);
 
         return true;
     }
 
     public function clearOptionProviderMapCache($classKey, $valueId)
     {
-        $optionProviderClassCache = $this->getAllOptionsByClassKeyCache($classKey);
+        $optionProviderClassCache = $this->getCachedKeyData($classKey);
         
         if($optionProviderClassCache)
         {
             $indexId = array_search($valueId, array_column($optionProviderClassCache, 'value')); 
             unset($optionProviderClassCache[$indexId]);
-            \Pimcore\Cache::save($optionProviderClassCache, self::CACHE_KEY.$classKey, [], null, 0, true);
+            $this->setAllOptionsInCacheForClass($classKey, $optionProviderClassCache);
         }
     }
 
     public function isCacheAvailableForClass(string $classKey): bool
     {
-        $map = \Pimcore\Cache::load(self::CACHE_KEY.$classKey);
+        $map = $this->getCachedKeyData($classKey);
         return ($map && !empty($map))? true : false;
     }
 
     public function setCachedOptionProviders(string $classKey): bool
     {
-        $cachedOptionProviders = \Pimcore\Cache::load(self::CACHED_OPTION_PROVIDERS);
+        $cachedOptionProviders = $this->getCachedOptionProvidersKeys();
 
         if(!$cachedOptionProviders)
             $cachedOptionProviders = [];
@@ -95,15 +89,19 @@ class OptionProviderCacheService
         if(!in_array(self::CACHE_KEY.$classKey, $cachedOptionProviders))
         {
             $cachedOptionProviders[] = self::CACHE_KEY.$classKey;
-            \Pimcore\Cache::save($cachedOptionProviders, self::CACHED_OPTION_PROVIDERS, [], null, 0, true);
+            $this->setCachedOptionProvidersKeys($cachedOptionProviders);
         }
         return true;
     }
 
     public function getCachedOptionProvidersKeys()
     {
-        $returnValue = \Pimcore\Cache::load(self::CACHED_OPTION_PROVIDERS);
-        return $returnValue;
+        return $this->getCachedKeyData(self::CACHED_OPTION_PROVIDERS, TRUE);
+    }
+
+    public function setCachedOptionProvidersKeys($optionProvidersKeys)
+    {
+        return \Pimcore\Cache::save($optionProvidersKeys, self::CACHED_OPTION_PROVIDERS, [], null, 0, true);
     }
 
     public function getCachedOptionProvidersData($cacheKey)
@@ -112,54 +110,53 @@ class OptionProviderCacheService
 
         if($cacheKey)
         {
-            $data = \Pimcore\Cache::load($cacheKey);
+            $data = $this->getCachedKeyData($cacheKey, TRUE);
         }
         else
         {
-            $optionProvidersKeys = \Pimcore\Cache::load(self::CACHED_OPTION_PROVIDERS);
+            $optionProvidersKeys = $this->getCachedOptionProvidersKeys();
             if($optionProvidersKeys)
             {
                 foreach ($optionProvidersKeys as $okey => $ovalue) {
-                    $data[$ovalue] = $this->getCachedKeyData($ovalue);
+                    $data[$ovalue] = $this->getCachedKeyData($ovalue, TRUE);
                 }
             }
         }
-        
-
         return $data;
     }
 
     public function unsetAllOptionProviderCache($cacheKey): bool
     {
+        $optionProvidersKeys = $this->getCachedOptionProvidersKeys();
+
         if($cacheKey)
         {
-            
-            $optionProvidersKeys = \Pimcore\Cache::load(self::CACHED_OPTION_PROVIDERS);
-            
             if($optionProvidersKeys)
             {
                 $indexId = array_search($cacheKey, $optionProvidersKeys); 
                 unset($optionProvidersKeys[$indexId]);
-                \Pimcore\Cache::save($optionProvidersKeys, self::CACHED_OPTION_PROVIDERS, [], null, 0, true);
+                $this->setCachedOptionProvidersKeys($optionProvidersKeys);
             }
 
-            \Pimcore\Cache::remove($cacheKey);
-
+            $this->removeCacheData($cacheKey);
         }
         else
         {
-            $optionProvidersKeys = \Pimcore\Cache::load(self::CACHED_OPTION_PROVIDERS);
             $data = array();
             if($optionProvidersKeys)
             {
                 foreach ($optionProvidersKeys as $okey => $ovalue) {
-                    \Pimcore\Cache::remove($ovalue);
+                    $this->removeCacheData($ovalue);
                 }
             }
 
-            \Pimcore\Cache::remove(self::CACHED_OPTION_PROVIDERS);
+            $this->removeCacheData(self::CACHED_OPTION_PROVIDERS);
         }
 
         return true;
+    }
+
+    public function removeCacheData($cacheKey){
+        \Pimcore\Cache::remove($cacheKey);
     }
 }

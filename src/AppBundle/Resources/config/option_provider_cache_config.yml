@@ -1,0 +1,3 @@
+parameters:
+  optionProviderClasses: ["Applications", "Brand", "FittingFamily", "Features", "FittingEndFamilyType", "MultiselectMaster"]
+  postAddNotAllowClasses: ["Applications", "MultiselectMaster"]

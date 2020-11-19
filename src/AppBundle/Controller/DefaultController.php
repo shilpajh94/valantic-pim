@@ -20,6 +20,8 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * http://contitechdev.com.local/show-cached-option-provider-keys
+     * 
      * @Route("/show-cached-option-provider-keys")
      *
      * @param Request $request

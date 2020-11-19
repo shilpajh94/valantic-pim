@@ -54,7 +54,7 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
                 }
                 else
                 {
-                    $allAvailablelArray = $this->optionProvider->getAllOptionsByClassKeyCache($className);
+                    $allAvailablelArray = $this->optionProvider->getCachedKeyData($className);
                 }
                 
             }
