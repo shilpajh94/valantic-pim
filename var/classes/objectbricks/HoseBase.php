@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-25T14:58:20+02:00
+* Generated at: 2020-11-19T17:39:16+05:30
 * IP: 127.0.0.1
 
 
@@ -26,7 +26,7 @@ Fields Summary:
 - safetyFactor [multiselect]
 - standardMetHose [multiselect]
 - acceptableHoseMedia [multiselect]
-- Packaging [input]
+- Packaging [textarea]
 - NonStockSizes [input]
 - coverMaterial [multiselect]
 - VirtualCatalogCoverMaterial [wysiwyg]
@@ -1471,7 +1471,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       59 => 
                       array (
-                        'key' => 'NBR (Nitrile)',
+                        'key' => 'NITRILE (NBR)',
                         'value' => 1830025,
                       ),
                       60 => 
@@ -1493,6 +1493,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       array (
                         'key' => '(NBR) Nitrile',
                         'value' => 1830038,
+                      ),
+                      64 => 
+                      array (
+                        'key' => 'SUGAR CAIN BASED EPDM',
+                        'value' => 3831422,
                       ),
                     ),
                      'width' => 300,
@@ -2106,6 +2111,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'IFS test',
+                        'value' => 1840105,
+                      ),
                     ),
                      'width' => 300,
                      'height' => '',
@@ -2687,6 +2697,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => '2:1',
+                        'value' => 3831286,
+                      ),
+                      1 => 
+                      array (
+                        'key' => '3:1',
+                        'value' => 3831287,
+                      ),
+                      2 => 
+                      array (
+                        'key' => '4:1',
+                        'value' => 3831288,
+                      ),
+                      3 => 
+                      array (
+                        'key' => '5:1',
+                        'value' => 3831289,
+                      ),
+                      4 => 
+                      array (
+                        'key' => '10:1',
+                        'value' => 3831290,
+                      ),
+                      5 => 
+                      array (
+                        'key' => '20:1',
+                        'value' => 3831291,
+                      ),
                     ),
                      'width' => 300,
                      'height' => '',
@@ -3249,6 +3289,191 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'ABRASIVE MATERIALS',
+                        'value' => 3831293,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'ACID',
+                        'value' => 3831294,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'AGRICULTURAL CHEMICALS',
+                        'value' => 3831295,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'AIR',
+                        'value' => 3831296,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'B100',
+                        'value' => 3831297,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'B20',
+                        'value' => 3831298,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'B5',
+                        'value' => 3831299,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'BARK',
+                        'value' => 3831300,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'BASE',
+                        'value' => 3831301,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'BEER',
+                        'value' => 3831302,
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'CEMENT',
+                        'value' => 3831303,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'CONCRETE',
+                        'value' => 3831304,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'DEF',
+                        'value' => 3831305,
+                      ),
+                      13 => 
+                      array (
+                        'key' => 'DIESEL',
+                        'value' => 3831306,
+                      ),
+                      14 => 
+                      array (
+                        'key' => 'E10',
+                        'value' => 3831307,
+                      ),
+                      15 => 
+                      array (
+                        'key' => 'E100',
+                        'value' => 3831308,
+                      ),
+                      16 => 
+                      array (
+                        'key' => 'E25',
+                        'value' => 3831309,
+                      ),
+                      17 => 
+                      array (
+                        'key' => 'E85',
+                        'value' => 3831310,
+                      ),
+                      18 => 
+                      array (
+                        'key' => 'FUEL OIL',
+                        'value' => 3831311,
+                      ),
+                      19 => 
+                      array (
+                        'key' => 'GASOLINE',
+                        'value' => 3831312,
+                      ),
+                      20 => 
+                      array (
+                        'key' => 'GRASS',
+                        'value' => 3831313,
+                      ),
+                      21 => 
+                      array (
+                        'key' => 'HYDROCARBON',
+                        'value' => 3831314,
+                      ),
+                      22 => 
+                      array (
+                        'key' => 'KEROSENE',
+                        'value' => 3831315,
+                      ),
+                      23 => 
+                      array (
+                        'key' => 'LACQUERS',
+                        'value' => 3831316,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'LPG',
+                        'value' => 3831317,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'M100',
+                        'value' => 3831318,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'MULCH',
+                        'value' => 3831319,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'NATURAL GAS',
+                        'value' => 3831320,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'OIL',
+                        'value' => 3831321,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'PAINT',
+                        'value' => 3831322,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'SALT WATER',
+                        'value' => 3831323,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'SEWAGE',
+                        'value' => 3831324,
+                      ),
+                      32 => 
+                      array (
+                        'key' => 'STEAM',
+                        'value' => 3831325,
+                      ),
+                      33 => 
+                      array (
+                        'key' => 'THINNERS',
+                        'value' => 3831326,
+                      ),
+                      34 => 
+                      array (
+                        'key' => 'TURPENTINE',
+                        'value' => 3831327,
+                      ),
+                      35 => 
+                      array (
+                        'key' => 'WATER',
+                        'value' => 3831328,
+                      ),
+                      36 => 
+                      array (
+                        'key' => 'WINE',
+                        'value' => 3831329,
+                      ),
                     ),
                      'width' => 300,
                      'height' => '',
@@ -3276,24 +3501,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                     'fieldtype' => 'textarea',
                      'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
+                     'height' => 150,
+                     'maxLength' => NULL,
                      'showCharCount' => false,
+                     'excludeFromSearchIndex' => false,
+                     'queryColumnType' => 'longtext',
+                     'columnType' => 'longtext',
+                     'phpdocType' => 'string',
                      'name' => 'Packaging',
                      'title' => 'Catalog Packaging',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => 'margin-left: 20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -3301,7 +3525,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                   9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
@@ -3655,6 +3878,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       array (
                         'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
                         'value' => 1831328,
+                      ),
+                      64 => 
+                      array (
+                        'key' => 'SUGAR CANE BASED EPDM',
+                        'value' => 3831421,
+                      ),
+                      65 => 
+                      array (
+                        'key' => 'CHLOROPRENE (CR)',
+                        'value' => 3831425,
                       ),
                     ),
                      'width' => 300,

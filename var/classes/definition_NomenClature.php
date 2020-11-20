@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-07-31T10:25:43+02:00
+* Generated at: 2020-11-20T13:35:44+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -18,19 +18,19 @@ Fields Summary:
 - attributeCode [input]
 - AdapterAttributeType [input]
 - assemblyMaterialCode [input]
-- assemblyMaterialDescription [input]
+- assemblyMaterialDescription [select]
+- valve [select]
+- styleDescription [input]
 - markettingShortDescription [textarea]
 - gender1 [select]
 - gender2 [select]
 - elbowYN [booleanSelect]
 - numberOfElbows [input]
-- elbowType [input]
-- elbowAngle1 [input]
-- elbowAngle2 [input]
-- attributeDescription [input]
+- elbowType [select]
+- elbowAngle1 [select]
+- elbowAngle2 [select]
+- attributeDescription [select]
 - styleCode [input]
-- styleDescription [input]
-- valve [input]
 */ 
 
 
@@ -39,7 +39,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'NomenClature',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1596183942,
+   'modificationDate' => 1605859544,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -143,7 +143,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -185,7 +185,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -452,6 +452,103 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'STAINLESS',
+                            'value' => 'STAINLESS',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'ARMOR PLATE',
+                            'value' => 'ARMOR PLATE',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'STEEL',
+                            'value' => 'STEEL',
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'BRASS',
+                            'value' => 'BRASS',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'assemblyMaterialDescription',
+                         'title' => 'Assembly Material Description',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'R12',
+                            'value' => 'R12',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'R134',
+                            'value' => 'R134',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'R134A',
+                            'value' => 'R134A',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'valve',
+                         'title' => 'Valve',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      9 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => NULL,
@@ -463,8 +560,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'assemblyMaterialDescription',
-                         'title' => 'Assembly Material Description',
+                         'name' => 'styleDescription',
+                         'title' => 'Style Description',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -681,24 +778,52 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'BLOCK',
+                            'value' => 'BLOCK',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'DOUBLE BEND',
+                            'value' => 'DOUBLE BEND',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'LONG',
+                            'value' => 'LONG',
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'SHORT',
+                            'value' => 'SHORT',
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'EXTRA LONG',
+                            'value' => 'EXTRA LONG',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
                          'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
+                         'dynamicOptions' => false,
                          'name' => 'elbowType',
                          'title' => 'Elbow Type',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -709,24 +834,87 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => '22.5',
+                            'value' => '22.5',
+                          ),
+                          1 => 
+                          array (
+                            'key' => '30',
+                            'value' => '30',
+                          ),
+                          2 => 
+                          array (
+                            'key' => '45',
+                            'value' => '45',
+                          ),
+                          3 => 
+                          array (
+                            'key' => '50',
+                            'value' => '50',
+                          ),
+                          4 => 
+                          array (
+                            'key' => '60',
+                            'value' => '60',
+                          ),
+                          5 => 
+                          array (
+                            'key' => '65',
+                            'value' => '65',
+                          ),
+                          6 => 
+                          array (
+                            'key' => '67',
+                            'value' => '67',
+                          ),
+                          7 => 
+                          array (
+                            'key' => '90',
+                            'value' => '90',
+                          ),
+                          8 => 
+                          array (
+                            'key' => '110',
+                            'value' => '110',
+                          ),
+                          9 => 
+                          array (
+                            'key' => '135',
+                            'value' => '135',
+                          ),
+                          10 => 
+                          array (
+                            'key' => '137',
+                            'value' => '137',
+                          ),
+                          11 => 
+                          array (
+                            'key' => '175',
+                            'value' => '175',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
                          'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
+                         'dynamicOptions' => false,
                          'name' => 'elbowAngle1',
                          'title' => 'Elbow Angle 1',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -737,24 +925,87 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => '22.5',
+                            'value' => '22.5',
+                          ),
+                          1 => 
+                          array (
+                            'key' => '30',
+                            'value' => '30',
+                          ),
+                          2 => 
+                          array (
+                            'key' => '45',
+                            'value' => '45',
+                          ),
+                          3 => 
+                          array (
+                            'key' => '50',
+                            'value' => '50',
+                          ),
+                          4 => 
+                          array (
+                            'key' => '60',
+                            'value' => '60',
+                          ),
+                          5 => 
+                          array (
+                            'key' => '65',
+                            'value' => '65',
+                          ),
+                          6 => 
+                          array (
+                            'key' => '67',
+                            'value' => '67',
+                          ),
+                          7 => 
+                          array (
+                            'key' => '90',
+                            'value' => '90',
+                          ),
+                          8 => 
+                          array (
+                            'key' => '110',
+                            'value' => '110',
+                          ),
+                          9 => 
+                          array (
+                            'key' => '135',
+                            'value' => '135',
+                          ),
+                          10 => 
+                          array (
+                            'key' => '137',
+                            'value' => '137',
+                          ),
+                          11 => 
+                          array (
+                            'key' => '175',
+                            'value' => '175',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
                          'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
+                         'dynamicOptions' => false,
                          'name' => 'elbowAngle2',
                          'title' => 'Elbow Angle 2',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -765,24 +1016,317 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       8 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Accumulator',
+                            'value' => 'Accumulator',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'Black',
+                            'value' => 'Black',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'Blue',
+                            'value' => 'Blue',
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'Braze On',
+                            'value' => 'Braze On',
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'Bulkhead',
+                            'value' => 'Bulkhead',
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'Compressor Narrow',
+                            'value' => 'Compressor Narrow',
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'Compressor Wide',
+                            'value' => 'Compressor Wide',
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'High Pressure Side',
+                            'value' => 'High Pressure Side',
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'Long Pilot',
+                            'value' => 'Long Pilot',
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'Low Pressure Side',
+                            'value' => 'Low Pressure Side',
+                          ),
+                          10 => 
+                          array (
+                            'key' => 'Metric',
+                            'value' => 'Metric',
+                          ),
+                          11 => 
+                          array (
+                            'key' => 'Nut',
+                            'value' => 'Nut',
+                          ),
+                          12 => 
+                          array (
+                            'key' => 'Orange',
+                            'value' => 'Orange',
+                          ),
+                          13 => 
+                          array (
+                            'key' => 'Red',
+                            'value' => 'Red',
+                          ),
+                          14 => 
+                          array (
+                            'key' => 'Sight Glass',
+                            'value' => 'Sight Glass',
+                          ),
+                          15 => 
+                          array (
+                            'key' => 'Single',
+                            'value' => 'Single',
+                          ),
+                          16 => 
+                          array (
+                            'key' => 'Single Reversed',
+                            'value' => 'Single Reversed',
+                          ),
+                          17 => 
+                          array (
+                            'key' => 'Sleeve',
+                            'value' => 'Sleeve',
+                          ),
+                          18 => 
+                          array (
+                            'key' => 'Sleeve',
+                            'value' => ' Metric',
+                          ),
+                          19 => 
+                          array (
+                            'key' => 'Tee',
+                            'value' => 'Tee',
+                          ),
+                          20 => 
+                          array (
+                            'key' => 'White',
+                            'value' => 'White',
+                          ),
+                          21 => 
+                          array (
+                            'key' => 'Bonded Seal',
+                            'value' => 'Bonded Seal',
+                          ),
+                          22 => 
+                          array (
+                            'key' => 'Breather Vent Plug',
+                            'value' => 'Breather Vent Plug',
+                          ),
+                          23 => 
+                          array (
+                            'key' => 'Bulkhead',
+                            'value' => 'Bulkhead',
+                          ),
+                          24 => 
+                          array (
+                            'key' => 'Bulkhead Lock Nut',
+                            'value' => 'Bulkhead Lock Nut',
+                          ),
+                          25 => 
+                          array (
+                            'key' => 'Cap',
+                            'value' => 'Cap',
+                          ),
+                          26 => 
+                          array (
+                            'key' => 'Close Nipple',
+                            'value' => 'Close Nipple',
+                          ),
+                          27 => 
+                          array (
+                            'key' => 'Cutting Ring',
+                            'value' => 'Cutting Ring',
+                          ),
+                          28 => 
+                          array (
+                            'key' => 'Drain Cock',
+                            'value' => ' Angle Bib',
+                          ),
+                          29 => 
+                          array (
+                            'key' => 'Drain Cock',
+                            'value' => ' External Seat',
+                          ),
+                          30 => 
+                          array (
+                            'key' => 'Drain Cock',
+                            'value' => ' External Seat',
+                          ),
+                          31 => 
+                          array (
+                            'key' => 'Drain Cock',
+                            'value' => ' Internal Seat',
+                          ),
+                          32 => 
+                          array (
+                            'key' => 'Drain Cock',
+                            'value' => ' Internal Seat',
+                          ),
+                          33 => 
+                          array (
+                            'key' => 'Expander / Extender',
+                            'value' => 'Expander / Extender',
+                          ),
+                          34 => 
+                          array (
+                            'key' => 'Extended Bushing',
+                            'value' => 'Extended Bushing',
+                          ),
+                          35 => 
+                          array (
+                            'key' => 'Hex Nipple',
+                            'value' => 'Hex Nipple',
+                          ),
+                          36 => 
+                          array (
+                            'key' => 'Hollow Hex Plug',
+                            'value' => 'Hollow Hex Plug',
+                          ),
+                          37 => 
+                          array (
+                            'key' => 'Hollow Hex Plug',
+                            'value' => ' Flush',
+                          ),
+                          38 => 
+                          array (
+                            'key' => 'Insert',
+                            'value' => 'Insert',
+                          ),
+                          39 => 
+                          array (
+                            'key' => 'Needle Valve',
+                            'value' => 'Needle Valve',
+                          ),
+                          40 => 
+                          array (
+                            'key' => 'Nipple',
+                            'value' => ' Long',
+                          ),
+                          41 => 
+                          array (
+                            'key' => 'Nut',
+                            'value' => 'Nut',
+                          ),
+                          42 => 
+                          array (
+                            'key' => 'Nut',
+                            'value' => ' Long',
+                          ),
+                          43 => 
+                          array (
+                            'key' => 'Nut',
+                            'value' => ' Short',
+                          ),
+                          44 => 
+                          array (
+                            'key' => 'Plug',
+                            'value' => 'Plug',
+                          ),
+                          45 => 
+                          array (
+                            'key' => 'Reducer Bushing',
+                            'value' => 'Reducer Bushing',
+                          ),
+                          46 => 
+                          array (
+                            'key' => 'Reducer Bushing',
+                            'value' => ' Short Hex',
+                          ),
+                          47 => 
+                          array (
+                            'key' => 'Reducer Expanded',
+                            'value' => 'Reducer Expanded',
+                          ),
+                          48 => 
+                          array (
+                            'key' => 'Reducer Expander',
+                            'value' => 'Reducer Expander',
+                          ),
+                          49 => 
+                          array (
+                            'key' => 'Sleeve',
+                            'value' => 'Sleeve',
+                          ),
+                          50 => 
+                          array (
+                            'key' => 'Slotted Plug',
+                            'value' => 'Slotted Plug',
+                          ),
+                          51 => 
+                          array (
+                            'key' => 'Square Head Plug',
+                            'value' => 'Square Head Plug',
+                          ),
+                          52 => 
+                          array (
+                            'key' => 'Tube Cap',
+                            'value' => 'Tube Cap',
+                          ),
+                          53 => 
+                          array (
+                            'key' => 'Tube Coupling',
+                            'value' => 'Tube Coupling',
+                          ),
+                          54 => 
+                          array (
+                            'key' => 'Tube Nut',
+                            'value' => 'Tube Nut',
+                          ),
+                          55 => 
+                          array (
+                            'key' => 'Tube Nut',
+                            'value' => ' Long',
+                          ),
+                          56 => 
+                          array (
+                            'key' => 'Tube Plug',
+                            'value' => 'Tube Plug',
+                          ),
+                          57 => 
+                          array (
+                            'key' => 'Tube Sleeve',
+                            'value' => 'Tube Sleeve',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
                          'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
+                         'dynamicOptions' => false,
                          'name' => 'attributeDescription',
                          'title' => 'Attribute Description',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -806,62 +1350,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'showCharCount' => false,
                          'name' => 'styleCode',
                          'title' => 'Style Code',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      10 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'styleDescription',
-                         'title' => 'Style Description',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left: 20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      11 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => NULL,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'valve',
-                         'title' => 'Valve',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
