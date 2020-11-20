@@ -48,8 +48,8 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
 
                     if(!empty($allAvailablelArray))
                     {
-                        $this->optionProvider->setAllOptionsInCacheForClass($className, $allAvailablelArray);
                         $this->optionProvider->setCachedOptionProviders($className);
+                        $this->optionProvider->setAllOptionsInCacheForClass($className, $allAvailablelArray);
                     }
                 }
                 else

@@ -40,6 +40,7 @@ class OptionProviderCacheService
      */
     public function createUpdateOptionProviderMapCache(string $classKey, int $valueId, $valueName): bool
     {
+        $this->setCachedOptionProviders($classKey);
         $optionProviderClassCache = $this->getCachedKeyData($classKey);
         
         if($optionProviderClassCache)
@@ -52,7 +53,6 @@ class OptionProviderCacheService
         }
         else
         {
-            $this->setCachedOptionProviders($classKey);
             $optionProviderClassCache[] = array("key"=>$valueName, "value" => $valueId);
         }
 

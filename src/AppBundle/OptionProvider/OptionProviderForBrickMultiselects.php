@@ -56,8 +56,8 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
 
                 if(!empty($returnValue))
                 {
-                    $this->optionProvider->setAllOptionsInCacheForClass($cacheMasterType, $returnValue);
                     $this->optionProvider->setCachedOptionProviders($cacheMasterType);
+                    $this->optionProvider->setAllOptionsInCacheForClass($cacheMasterType, $returnValue);
                 }
             }
             else

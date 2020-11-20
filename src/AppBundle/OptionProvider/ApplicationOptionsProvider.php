@@ -46,8 +46,8 @@ class ApplicationOptionsProvider implements SelectOptionsProviderInterface {
 
                 if(!empty($allAvailablelArray))
                 {
-                    $this->optionProvider->setAllOptionsInCacheForClass($cacheClassName, $allAvailablelArray);
                     $this->optionProvider->setCachedOptionProviders($cacheClassName);
+                    $this->optionProvider->setAllOptionsInCacheForClass($cacheClassName, $allAvailablelArray);
                 }
             }
             else

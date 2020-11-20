@@ -40,13 +40,13 @@ class OptionProviderCacheListener
      */
     public function postAdd(DataObjectEvent $event)
     {
-        $object = $event->getObject();
-        $className = $object->getClassName();
+        // $object = $event->getObject();
+        // $className = $object->getClassName();
 
-        if(in_array($className, $this->optionProviderClasses) && !in_array($className, $this->postAddNotAllowClasses))
-        {
-            $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
-        }
+        // if(in_array($className, $this->optionProviderClasses) && !in_array($className, $this->postAddNotAllowClasses))
+        // {
+        //     $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+        // }
     }
 
     /**
