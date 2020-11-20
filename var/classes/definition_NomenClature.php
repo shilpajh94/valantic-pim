@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-11-20T13:35:44+05:30
+* Generated at: 2020-11-20T20:01:34+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -39,7 +39,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'NomenClature',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1605859544,
+   'modificationDate' => 1605882694,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -492,7 +492,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -538,7 +538,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -823,7 +823,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -914,7 +914,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1005,7 +1005,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1112,8 +1112,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           18 => 
                           array (
-                            'key' => 'Sleeve',
-                            'value' => ' Metric',
+                            'key' => 'Sleeve, Metric',
+                            'value' => 'Sleeve- Metric',
                           ),
                           19 => 
                           array (
@@ -1162,33 +1162,33 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           28 => 
                           array (
-                            'key' => 'Drain Cock',
-                            'value' => ' Angle Bib',
+                            'key' => 'Drain Cock, Angle Bib',
+                            'value' => 'Drain Cock- Angle Bib',
                           ),
                           29 => 
                           array (
-                            'key' => 'Drain Cock',
-                            'value' => ' External Seat',
+                            'key' => 'Drain Cock, External Seat, Wing Down Facing',
+                            'value' => 'Drain Cock- External Seat- Wing Down Facing',
                           ),
                           30 => 
                           array (
-                            'key' => 'Drain Cock',
-                            'value' => ' External Seat',
+                            'key' => 'Drain Cock, External Seat, Wing Extended',
+                            'value' => 'Drain Cock- External Seat- Wing Extended',
                           ),
                           31 => 
                           array (
-                            'key' => 'Drain Cock',
-                            'value' => ' Internal Seat',
+                            'key' => 'Drain Cock, Internal Seat',
+                            'value' => 'Drain Cock- Internal Seat',
                           ),
                           32 => 
                           array (
-                            'key' => 'Drain Cock',
-                            'value' => ' Internal Seat',
+                            'key' => 'Drain Cock, Internal Seat, Tee Handle',
+                            'value' => 'Drain Cock- Internal Seat- Tee Handle',
                           ),
                           33 => 
                           array (
                             'key' => 'Expander / Extender',
-                            'value' => 'Expander / Extender',
+                            'value' => 'Expander - Extender',
                           ),
                           34 => 
                           array (
@@ -1207,8 +1207,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           37 => 
                           array (
-                            'key' => 'Hollow Hex Plug',
-                            'value' => ' Flush',
+                            'key' => 'Hollow Hex Plug, Flush',
+                            'value' => 'Hollow Hex Plug- Flush',
                           ),
                           38 => 
                           array (
@@ -1222,8 +1222,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           40 => 
                           array (
-                            'key' => 'Nipple',
-                            'value' => ' Long',
+                            'key' => 'Nipple, Long',
+                            'value' => 'Nipple- Long',
                           ),
                           41 => 
                           array (
@@ -1232,13 +1232,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           42 => 
                           array (
-                            'key' => 'Nut',
-                            'value' => ' Long',
+                            'key' => 'Nut, Long',
+                            'value' => 'Nut- Long',
                           ),
                           43 => 
                           array (
-                            'key' => 'Nut',
-                            'value' => ' Short',
+                            'key' => 'Nut, Short',
+                            'value' => 'Nut- Short',
                           ),
                           44 => 
                           array (
@@ -1252,8 +1252,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           46 => 
                           array (
-                            'key' => 'Reducer Bushing',
-                            'value' => ' Short Hex',
+                            'key' => 'Reducer Bushing, Short Hex',
+                            'value' => 'Reducer Bushing- Short Hex',
                           ),
                           47 => 
                           array (
@@ -1297,8 +1297,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           55 => 
                           array (
-                            'key' => 'Tube Nut',
-                            'value' => ' Long',
+                            'key' => 'Tube Nut, Long',
+                            'value' => 'Tube Nut- Long',
                           ),
                           56 => 
                           array (
@@ -1326,7 +1326,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left: 20px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
