@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-10-19T19:10:21+02:00
+* Generated at: 2020-11-19T17:14:35+05:30
 * IP: 127.0.0.1
 
 
@@ -10,12 +10,11 @@ Fields Summary:
 - widthmm [numeric]
 - CADLink [input]
 - PDFDrawing [booleanSelect]
-- ConflictMinerals [multiselect]
+- AdditionalInformation [input]
 - customerProductFamily [input]
 - widthIn [numeric]
 - CADFile [booleanSelect]
 - PDFLink [input]
-- AdditionalInformation [input]
 */ 
 
 
@@ -285,55 +284,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                     'fieldtype' => 'multiselect',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'Tantalum',
-                        'value' => 'Tantalum',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Tin',
-                        'value' => 'Tin',
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'Gold',
-                        'value' => 'Gold',
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'Tungsten',
-                        'value' => 'Tungsten',
-                      ),
-                    ),
-                     'width' => '',
-                     'height' => '',
-                     'maxItems' => '',
-                     'renderType' => 'tags',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                     'queryColumnType' => 'text',
-                     'columnType' => 'text',
-                     'phpdocType' => 'array',
-                     'dynamicOptions' => false,
-                     'name' => 'ConflictMinerals',
-                     'title' => 'Conflict Minerals',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => NULL,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'AdditionalInformation',
+                     'title' => 'Additional Information',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'margin-left:20px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -475,34 +451,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'title' => 'PDF LINK',
                      'tooltip' => '
 ',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left:20px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => NULL,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'AdditionalInformation',
-                     'title' => 'Additional Information',
-                     'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
