@@ -53,7 +53,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "I" => array("field" => "ThrustWireNut", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
         "J" => array("field" => "DualSeatYN", "brickKey" => "HydFittingsFert", "type" => "booleanSelect", "brickType" => "fert"),
 //        "K" => need to find the mapped column
-        "K" => array("field" => "NumberOfHex", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
+//        "K" => array("field" => "NumberOfHex", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
         // "L" => array("field" => "ActivantNumber", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
 //        "M" => sap number
         "N" => array("field" => "HoseID1InFract", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
@@ -115,7 +115,7 @@ class HydFittingCatalogDataImportCommand extends Command
         "BA" => array("field" => "ORingThicknessInDec", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         // will get value from unit conversion
 //        "BB" => array("field" => "ORingThicknessMM", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
-        "BC" => array("field" => "HydFittingId", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
+//        "BC" => array("field" => "HydFittingId", "brickKey" => "HydFittingsFert", "type" => "input", "brickType" => "fert"),
 //        "BD" => array("field" => "ThreadSize1InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
 //        "BE" => array("field" => "ThreadSize2InMMDecimal", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),
         "BF" => array("field" => "ValveStyle", "brickKey" => "HydFittingsFert", "type" => "numeric", "brickType" => "fert"),

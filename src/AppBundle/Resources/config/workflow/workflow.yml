@@ -6,7 +6,7 @@ parameters:
       name: 'Editor'
     productManager:
       id: 4
-      name: 'Product-Manager'
+      name: 'ProductManager'
   transitions:
     start_processing:
       defaultTemplatePath: '/Workflow/Email Template/productSentForReview'

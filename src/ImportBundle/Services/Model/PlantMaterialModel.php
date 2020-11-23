@@ -158,11 +158,11 @@ class PlantMaterialModel
 
             echo "Getting deleted records...".PHP_EOL;
             $time5 = new \DateTime();
-            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-            $deleteRecordCount = count($deletedRecords);
-            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-            $this->processDeletedRecords($deletedRecords);
-            unset($deletedRecords);
+//            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+//            $deleteRecordCount = count($deletedRecords);
+//            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+//            $this->processDeletedRecords($deletedRecords);
+//            unset($deletedRecords);
             $timediff5 = $time5->diff(new \DateTime());
             echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
 

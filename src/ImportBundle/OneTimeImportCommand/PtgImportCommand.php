@@ -127,8 +127,9 @@ class PtgImportCommand extends AbstractCommand
      */
     private function updateBase()
     {
-        $sql = "SELECT siopLvl5_object_id o_id, 'Base' as fieldname, Material material, Min_Temperature_F minimumTemperatureF, Min_Temperature_C minimumTemperatureC, Reinforcement reinforcement, Max_Temperature_F maximumTemperatureF, Max_Temperature_C maximumTemperatureC, LongDescriptionHTML, CharacteristicDescription, Bullet_Point_1, Bullet_Point_2, Bullet_Point_3, Bullet_Point_4, Bullet_Point_5, Brand FROM siopLvl5_objects";
+        $sql = "SELECT siopLvl5_object_id o_id, 'Base' as fieldname, Material material, Min_Temperature_F minimumTemperatureF, Min_Temperature_C minimumTemperatureC, Reinforcement reinforcement, Max_Temperature_F maximumTemperatureF, Max_Temperature_C maximumTemperatureC, LongDescriptionHTML, CharacteristicDescription, Bullet_Point_1, Bullet_Point_2, Bullet_Point_3, Bullet_Point_4, Bullet_Point_5, Brand FROM siopLvl5_objects ";
         $results = $this->db->fetchAll($sql);
+        
         // Update Query Table
 
         $records = $this->getMainClassData($results);
@@ -461,6 +462,7 @@ class PtgImportCommand extends AbstractCommand
 
     private function getMainClassData($results)
     {
+        $unitConverter = \Pimcore::getContainer()->get('AppBundle\Services\UnitConverterService');
         $d = array();
         foreach ($results as $k => $r) {
             $reinforcement = array();
@@ -489,15 +491,33 @@ class PtgImportCommand extends AbstractCommand
                 }
                 unset($clrInfo);
             }
-
             $d[$k] = array(
                 'oo_id'  =>  $r['o_id'],
-                'minimumTemperatureF'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureF']) ? $r['minimumTemperatureF'] : NULL,
-                'minimumTemperatureC'  =>  !$this->isSheetValueEmpty($r['minimumTemperatureC']) ? $r['minimumTemperatureC'] : NULL,
-                'maximumTemperatureF'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureF']) ? $r['maximumTemperatureF'] : NULL,
-                'maximumTemperatureC'  =>  !$this->isSheetValueEmpty($r['maximumTemperatureC']) ? $r['maximumTemperatureC'] : NULL,
+//                'minimumTemperatureF'  =>  isset($r['minimumTemperatureF']) ? $r['minimumTemperatureF'] : NULL,
+//                'minimumTemperatureC'  =>  $unitConverter->getGroupWithValues('widthIn', floatval($r['Width_in']))['widthmm'] ,
+//                'maximumTemperatureF'  =>  isset($r['maximumTemperatureF']) ? $r['maximumTemperatureF'] : NULL,
+//                'maximumTemperatureC'  =>  isset($r['maximumTemperatureC']) ? $r['maximumTemperatureC'] : NULL,
                 'brandName'    =>  !empty($brnds) ? implode(',', $brnds) : NULL
             );
+            if (isset($r['minimumTemperatureF']) && $r['minimumTemperatureF'] != '' && $r['minimumTemperatureF'] != null && $r['minimumTemperatureF'] != '-') {
+                $unit = $unitConverter->getGroupWithValues('minimumTemperatureF', floatval($r['minimumTemperatureF']));
+                $d[$k]['minimumTemperatureF'] = $unit['minimumTemperatureF'];
+                $d[$k]['minimumTemperatureC'] = $unit['minimumTemperatureC'];
+                unset($unit);
+            } else {
+                $d[$k]['minimumTemperatureF'] = null;
+                $d[$k]['minimumTemperatureC'] = null;
+            }
+            if (isset($r['maximumTemperatureF']) && $r['maximumTemperatureF'] != '' && $r['maximumTemperatureF'] != null && $r['maximumTemperatureF'] != '-') {
+                $unit = $unitConverter->getGroupWithValues('maximumTemperatureF', floatval($r['maximumTemperatureF']));
+                $d[$k]['maximumTemperatureF'] = $unit['maximumTemperatureF'];
+                $d[$k]['maximumTemperatureC'] = $unit['maximumTemperatureC'];
+                unset($unit);
+            } else {
+                $d[$k]['maximumTemperatureF'] = null;
+                $d[$k]['maximumTemperatureC'] = null;
+            }
+            
             $d[$k]['reinforcement'] = !empty($reinforcement) ? implode(",", $reinforcement) : NULL;
         }
         return $d;

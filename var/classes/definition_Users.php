@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-05-01T08:12:48+02:00
+* Generated at: 2020-11-03T10:56:44+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -20,6 +20,7 @@ Fields Summary:
 - adminReference [user]
 - userType [multiselect]
 - MaterialGroupAccess [manyToManyObjectRelation]
+- SIOPAccess [manyToManyObjectRelation]
 */ 
 
 
@@ -28,7 +29,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Users',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1588313568,
+   'modificationDate' => 1604397404,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -354,13 +355,123 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   ),
                   1 => 
                   array (
-                    'value' => 5,
-                    'key' => 'editor',
+                    'value' => 23,
+                    'key' => 'Andy (Andy Speidel)',
                   ),
                   2 => 
                   array (
-                    'value' => 6,
-                    'key' => 'productManager',
+                    'value' => 16,
+                    'key' => 'Ben (Ben Tracey)',
+                  ),
+                  3 => 
+                  array (
+                    'value' => 11,
+                    'key' => 'cory (Cory Walter)',
+                  ),
+                  4 => 
+                  array (
+                    'value' => 21,
+                    'key' => 'Dave (Dave Smith)',
+                  ),
+                  5 => 
+                  array (
+                    'value' => 33,
+                    'key' => 'editor',
+                  ),
+                  6 => 
+                  array (
+                    'value' => 22,
+                    'key' => 'Eric (Eric Dupont)',
+                  ),
+                  7 => 
+                  array (
+                    'value' => 28,
+                    'key' => 'Jarek (Jarek Zakrzewski)',
+                  ),
+                  8 => 
+                  array (
+                    'value' => 20,
+                    'key' => 'Jeff (Jeff Epperson)',
+                  ),
+                  9 => 
+                  array (
+                    'value' => 25,
+                    'key' => 'Jeremy (Jeremy Lidgett)',
+                  ),
+                  10 => 
+                  array (
+                    'value' => 14,
+                    'key' => 'Joe (joe glandorf)',
+                  ),
+                  11 => 
+                  array (
+                    'value' => 26,
+                    'key' => 'Karina (Karina Robinson)',
+                  ),
+                  12 => 
+                  array (
+                    'value' => 17,
+                    'key' => 'Laszlo (Laszlo Dobo)',
+                  ),
+                  13 => 
+                  array (
+                    'value' => 12,
+                    'key' => 'macenzie',
+                  ),
+                  14 => 
+                  array (
+                    'value' => 8,
+                    'key' => 'Mark (Rohan Kumar)',
+                  ),
+                  15 => 
+                  array (
+                    'value' => 24,
+                    'key' => 'MarkR (Mark Rosetta)',
+                  ),
+                  16 => 
+                  array (
+                    'value' => 15,
+                    'key' => 'Nicole (Nicole Kostelnick)',
+                  ),
+                  17 => 
+                  array (
+                    'value' => 27,
+                    'key' => 'Paul (Paul Whiffin)',
+                  ),
+                  18 => 
+                  array (
+                    'value' => 34,
+                    'key' => 'productmanager',
+                  ),
+                  19 => 
+                  array (
+                    'value' => 29,
+                    'key' => 'Randy (Rohan Kumar)',
+                  ),
+                  20 => 
+                  array (
+                    'value' => 9,
+                    'key' => 'Reji',
+                  ),
+                  21 => 
+                  array (
+                    'value' => 13,
+                    'key' => 'Rohit (Rohit Sriwastva)',
+                  ),
+                  22 => 
+                  array (
+                    'value' => 18,
+                    'key' => 'Steve (Steve Davison)',
+                  ),
+                  23 => 
+                  array (
+                    'value' => 30,
+                    'key' => 'uic60917 (Rohan Kumar)',
+                  ),
+                  24 => 
+                  array (
+                    'value' => 19,
+                    'key' => 'Zach (Zach Christenson)',
                   ),
                 ),
                  'width' => '',
@@ -416,6 +527,21 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'fieldtype' => 'multiselect',
                  'options' => 
                 array (
+                  0 => 
+                  array (
+                    'key' => 'Editor',
+                    'value' => 3,
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'ProductManager',
+                    'value' => 4,
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'ReadOnly',
+                    'value' => 31,
+                  ),
                 ),
                  'width' => '',
                  'height' => '',
@@ -467,6 +593,43 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'pathFormatterClass' => '',
                  'name' => 'MaterialGroupAccess',
                  'title' => 'Material Group Access',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'invisible' => true,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'fieldtype' => 'manyToManyObjectRelation',
+                 'width' => '',
+                 'height' => '',
+                 'maxItems' => '',
+                 'queryColumnType' => 'text',
+                 'phpdocType' => 'array',
+                 'relationType' => true,
+                 'visibleFields' => 'code,fullCode,description',
+                 'allowToCreateNewObject' => false,
+                 'optimizedAdminLoading' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'ProductCategory',
+                  ),
+                ),
+                 'pathFormatterClass' => '',
+                 'name' => 'SIOPAccess',
+                 'title' => 'SIOP Access',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,

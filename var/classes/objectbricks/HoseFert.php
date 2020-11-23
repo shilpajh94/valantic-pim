@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-25T15:31:56+02:00
+* Generated at: 2020-11-18T13:19:07+05:30
 * IP: 127.0.0.1
 
 
@@ -159,7 +159,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'totalWeightPerPackage',
                      'title' => 'Total Weight (lbs) / Packaged Weight',
                      'tooltip' => '
@@ -318,7 +318,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'maxValue' => NULL,
                      'unique' => false,
                      'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'decimalPrecision' => 2,
                      'name' => 'totalWeight',
                      'title' => 'Total Weight (kg)',
                      'tooltip' => '',

@@ -47,10 +47,24 @@ class SFTPConnection
         if(!file_exists('ssh2.sftp://' . $this->sftp . $remoteFile )){
             throw new \Exception("File " . $remoteFile . " does not exist.");
         }
-
-        if(!ssh2_scp_recv($this->connection, $remoteFile, $localFile)) {
-            throw new \Exception("Could not download: " . $remoteFile);
+        $local = fopen($localFile, 'w');
+        $remote = fopen('ssh2.sftp://' . $this->sftp . $remoteFile, 'r');
+        $read = 0;
+        $filesize = filesize('ssh2.sftp://' . $this->sftp . $remoteFile);
+        while ( ($read < $filesize) && ($buffer = fread($remote, $filesize - $read)) )
+        {
+            $read += strlen($buffer);
+            if (fwrite($local, $buffer) === FALSE)
+            {
+                echo "Failed to write to local file: $file\n";
+                break;
+            }
         }
+        fclose($local);
+        fclose($remote);
+//        if(!ssh2_scp_recv($this->connection, $remoteFile, $localFile)) {
+//            throw new \Exception("Could not download: " . $remoteFile);
+//        }
     }
 
     public function moveFile(string $from , string $to ): bool{
@@ -58,7 +72,7 @@ class SFTPConnection
     }
     
     public function fileExists($filePath): bool {
-        return (bool) $this->sftp->file_exists($filePath);
+        return (bool) file_exists('ssh2.sftp://' . $this->sftp . $filePath );
     }
 
 }
