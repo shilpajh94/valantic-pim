@@ -477,10 +477,10 @@ parameters:
                     class:
                         name: Brand
                         fieldName: Name
-            BrandShortText1:
-                fieldLevel: class
-                fieldLabel: Brand Short Text 1
-                fieldType: Input
+            # BrandShortText1:
+            #     fieldLevel: class
+            #     fieldLabel: Brand Short Text 1
+            #     fieldType: Input
             HydFittingFamily:
                 fieldLevel: objectBrick
                 fieldType: Relation

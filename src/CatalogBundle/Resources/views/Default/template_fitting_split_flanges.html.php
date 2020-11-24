@@ -158,15 +158,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <?php
 
         if($data):
-        $incr =1;
-        foreach($data as $key => $brand):
-
-        //extract($brand);
-
+        foreach($data as $md5key => $brand):
         ?>
                <div class="marginBottom30 margin15" >
-                    <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$incr}")->setDataFromResource($brand['brandName']); ?></h3>
-                    <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$incr}")->setDataFromResource($brand['shortDescription']); ?></h3>
+                    <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$md5key}")->setDataFromResource($brand['brandName']); ?></h3>
+                    <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$md5key}")->setDataFromResource($brand['shortDescription']); ?></h3>
                     <table class="grid special" cellspacing="0" cellpadding="0">
                         <thead>
                                 <?php if($iconRequired == 'YES'): ?>
@@ -227,17 +223,11 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php endforeach; ?>
                         </tbody>
                         </table>
-                        <p class="small"><?= $this->input('HHAFC_note' . $incr, ['placeholder' => 'Enter comment']); ?></p>
+                        <p class="small"><?= $this->input('HHAFC_note' . $md5key, ['placeholder' => 'Enter comment']); ?></p>
                </div>
-
-
-
            <?php
-            $incr++;
             endforeach;
-
             endif;
-
             ?>
 
     </article>

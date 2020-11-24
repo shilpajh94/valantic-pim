@@ -134,9 +134,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
 if($data):
 $onlyOneTitle = false;
-foreach($data as $key => $brand):
+foreach($data as $md5Key => $brand):
 
-extract($brand);
+// extract($brand);
 
 ?>
        <figure class="justify-between">
@@ -160,25 +160,25 @@ extract($brand);
 
                 <h3 class="contitech-yellow">
                 <?php
-                        echo $this->input("HHAC_BrandName")->setDataFromResource($brandName);
+                        echo $this->input("HHAC_BrandName_{$md5Key}")->setDataFromResource($brand['brandName']);
                 ?>
                 </h3>
 
                 <span>
                 <?php
-                        echo $this->wysiwyg("HHAC_LongDescription")->setDataFromResource($longDescription);
+                        echo $this->wysiwyg("HHAC_LongDescription_{$md5Key}")->setDataFromResource($brand['longDescription']);
                 ?>
                 </span>
-                <?php if(!empty(trim($materialString))): ?>
+                <?php if(!empty(trim($brand['materialString']))): ?>
                  <menu>
                    <div class="specs">
                         <h6 class="small contitech-black"><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
                            <div>
-                                <?php if(!empty(trim($materialString))): ?>
+                                <?php if(!empty(trim($brand['materialString']))): ?>
                                         <p class="small">
                                                 <b><?= $this->translate('Material') ?></b>
-                                                <?= $materialString ?>
+                                                <?= $brand['materialString'] ?>
                                         </p>
                                 <?php endif; ?>
                            </div>
@@ -191,10 +191,10 @@ extract($brand);
 
                 <?php
                 if ($this->editmode) {
-                echo $this->image("HHAC_Image", ["width" => 200, "height" => 200])->setImage($imageObj);
+                echo $this->image("HHAC_Image_{$md5Key}", ["width" => 200, "height" => 200])->setImage($brand['imageObj']);
                 } else {
-                        if(!$this->image("HHAC_Image")->isEmpty())
-                                $imgSrcObj =  $this->image("HHAC_Image");
+                        if(!$this->image("HHAC_Image_{$md5Key}")->isEmpty())
+                                $imgSrcObj =  $this->image("HHAC_Image_{$md5Key}");
 
                         if($imgSrcObj)
                         {
@@ -208,9 +208,9 @@ extract($brand);
        </figure>
        <table class="grid inh" cellspacing="0" cellpadding="0">
                 <thead>
-                        <?php if($iconRequired == 'YES'): ?>
+                        <?php if($brand['iconRequired'] == 'YES'): ?>
                                 <tr class="sub-head">
-                                        <?php foreach($columnsDataWithImages as $key => $c1data): ?>
+                                        <?php foreach($brand['columnsDataWithImages'] as $key => $c1data): ?>
                                                 <?php
                                                         $g1count = count($c1data);
                                                         $firstArray = array_shift($c1data);
@@ -225,7 +225,7 @@ extract($brand);
                         <?php endif; ?>
 
                         <tr class="head">
-                        <?php foreach($columnsDataWithImages as $key => $c2data): ?>
+                        <?php foreach($brand['columnsDataWithImages'] as $key => $c2data): ?>
 
                                 <?php
                                         $g2count = count($c2data);
@@ -236,9 +236,9 @@ extract($brand);
                         <?php endforeach; ?>
                         </tr>
 
-                        <?php if($subHeaderRequired == 'YES'): ?>
+                        <?php if($brand['subHeaderRequired'] == 'YES'): ?>
                                 <tr class="sub-head">
-                                        <?php foreach($columnsDataWithImages as $key => $c3data): ?>
+                                        <?php foreach($brand['columnsDataWithImages'] as $key => $c3data): ?>
                                                 <?php  foreach($c3data as $c3key => $c3value): ?>
                                                         <?php if($c3value['unitName']): ?>
                                                                 <td><?= $c3value['unitName'] ?></td>
@@ -251,7 +251,7 @@ extract($brand);
                         <?php endif; ?>
                   </thead>
                 <?php $incrRow = 1; ?>
-                <?php foreach($articlesData as $key => $element): ?>
+                <?php foreach($brand['articlesData'] as $key => $element): ?>
                         <?php if($incrRow%2==0): ?>
                         <tr>
                         <?php else: ?>
@@ -265,7 +265,7 @@ extract($brand);
                 <?php endforeach; ?>
 
         </table>
-        <p class="small"><?= $this->input('HHAC_note' . $key, ['placeholder' => 'Enter comment']); ?></p>
+        <p class="small"><?= $this->input('HHAC_note_' . $md5Key, ['placeholder' => 'Enter comment']); ?></p>
        <?php
 
         endforeach;
