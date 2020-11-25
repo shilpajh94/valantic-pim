@@ -40,13 +40,50 @@ class OptionProviderCacheListener
      */
     public function postAdd(DataObjectEvent $event)
     {
-        // $object = $event->getObject();
-        // $className = $object->getClassName();
+        $object = $event->getObject();
+        if($object->getType() !== 'folder')
+        {
+            $className = $object->getClassName();
+            $isPublished = $object->getPublished();
 
-        // if(in_array($className, $this->optionProviderClasses) && !in_array($className, $this->postAddNotAllowClasses))
-        // {
-        //     $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
-        // }
+            if(in_array($className, $this->optionProviderClasses))
+            {
+                if($className == 'MultiselectMaster'){
+                    
+                    $masterType = $object->getMasterType();
+                    
+                    if($masterType)
+                    {
+                        if($isPublished)
+                            $this->optionProvider->createUpdateOptionProviderMapCache($masterType, $object->getId(), $object->getName());
+                        else
+                            $this->optionProvider->clearOptionProviderMapCache($masterType, $object->getId());
+
+                    }
+                
+                }else if($className == 'Applications'){
+                    
+                    $applicationType = $object->getApplicationType();
+                    $className = $className.'~'.$applicationType;
+                    
+                    if($applicationType)
+                    {
+                        if($isPublished)
+                            $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                        else
+                            $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+                    }
+                
+                }else{
+
+                    if($isPublished)
+                        $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                    else
+                        $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+                        
+                }
+            }
+        }
     }
 
     /**
@@ -57,44 +94,47 @@ class OptionProviderCacheListener
     public function postUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
-        $className = $object->getClassName();
-        $isPublished = $object->getPublished();
-
-        if(in_array($className, $this->optionProviderClasses))
+        if($object->getType() !== 'folder')
         {
-            if($className == 'MultiselectMaster'){
-                
-                $masterType = $object->getMasterType();
-                
-                if($masterType)
-                {
-                    if($isPublished)
-                        $this->optionProvider->createUpdateOptionProviderMapCache($masterType, $object->getId(), $object->getName());
-                    else
-                        $this->optionProvider->clearOptionProviderMapCache($masterType, $object->getId());
+            $className = $object->getClassName();
+            $isPublished = $object->getPublished();
 
-                }
-            
-            }else if($className == 'Applications'){
+            if(in_array($className, $this->optionProviderClasses))
+            {
+                if($className == 'MultiselectMaster'){
+                    
+                    $masterType = $object->getMasterType();
+                    
+                    if($masterType)
+                    {
+                        if($isPublished)
+                            $this->optionProvider->createUpdateOptionProviderMapCache($masterType, $object->getId(), $object->getName());
+                        else
+                            $this->optionProvider->clearOptionProviderMapCache($masterType, $object->getId());
+
+                    }
                 
-                $applicationType = $object->getApplicationType();
-                $className = $className.'~'.$applicationType;
+                }else if($className == 'Applications'){
+                    
+                    $applicationType = $object->getApplicationType();
+                    $className = $className.'~'.$applicationType;
+                    
+                    if($applicationType)
+                    {
+                        if($isPublished)
+                            $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
+                        else
+                            $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+                    }
                 
-                if($applicationType)
-                {
+                }else{
+
                     if($isPublished)
                         $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
                     else
                         $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+                        
                 }
-            
-            }else{
-
-                if($isPublished)
-                    $this->optionProvider->createUpdateOptionProviderMapCache($className, $object->getId(), $object->getName());
-                else
-                    $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
-                    
             }
         }
 
@@ -108,17 +148,20 @@ class OptionProviderCacheListener
     public function postDelete(DataObjectEvent $event)
     {
         $object = $event->getObject();
-        $className = $object->getClassName();
-
-        if(in_array($className, $this->optionProviderClasses))
+        if($object->getType() !== 'folder')
         {
-            if($className == 'MultiselectMaster')
-                $className = $object->getMasterType();
-            
-            if($className == 'Applications')
-                $className = $className.'~'. $object->getApplicationType();
+            $className = $object->getClassName();
 
-            $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+            if(in_array($className, $this->optionProviderClasses))
+            {
+                if($className == 'MultiselectMaster')
+                    $className = $object->getMasterType();
+                
+                if($className == 'Applications')
+                    $className = $className.'~'. $object->getApplicationType();
+
+                $this->optionProvider->clearOptionProviderMapCache($className, $object->getId());
+            }
         }
     }
 }

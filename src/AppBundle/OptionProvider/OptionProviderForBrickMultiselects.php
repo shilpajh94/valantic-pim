@@ -38,10 +38,14 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
             $cacheMasterType = $masterType;
             if($brickGroupName == 'Product Class')
                 $cacheMasterType = 'ProductClass~'.$fieldName;
-            
-            $isAvailable = $this->optionProvider->isCacheAvailableForClass($cacheMasterType);
-            // echo $cacheMasterType." = " .$isAvailable."\n";
-            if(!$isAvailable)
+
+            $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($cacheMasterType);
+            if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+            {
+                $returnValue = $allAvailablelArrayCache;
+                unset($allAvailablelArrayCache);
+            }
+            else
             {
                 $list = new \Pimcore\Model\DataObject\MultiselectMaster\Listing();
                 $list->setCondition(" masterType = :masterType ",["masterType" => $masterType]);
@@ -59,10 +63,6 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
                     $this->optionProvider->setCachedOptionProviders($cacheMasterType);
                     $this->optionProvider->setAllOptionsInCacheForClass($cacheMasterType, $returnValue);
                 }
-            }
-            else
-            {
-                $returnValue = $this->optionProvider->getCachedKeyData($cacheMasterType);
             }
         }
 

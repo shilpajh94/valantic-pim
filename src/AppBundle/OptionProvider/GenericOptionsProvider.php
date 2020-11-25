@@ -32,7 +32,13 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
                 $className = $displayFieldData[0];
                 $displayFieldName = $displayFieldData[1];
                 
-                if(!$this->optionProvider->isCacheAvailableForClass($className))
+                $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($className);
+                if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+                {
+                    $allAvailablelArray = $allAvailablelArrayCache;
+                    unset($allAvailablelArrayCache);
+                }
+                else
                 {
                     $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
                     $listingObject = new $listingClassName();
@@ -52,11 +58,6 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
                         $this->optionProvider->setAllOptionsInCacheForClass($className, $allAvailablelArray);
                     }
                 }
-                else
-                {
-                    $allAvailablelArray = $this->optionProvider->getCachedKeyData($className);
-                }
-                
             }
         }
         return $allAvailablelArray;

@@ -73,12 +73,6 @@ class OptionProviderCacheService
         }
     }
 
-    public function isCacheAvailableForClass(string $classKey): bool
-    {
-        $map = $this->getCachedKeyData($classKey);
-        return ($map && !empty($map))? true : false;
-    }
-
     public function setCachedOptionProviders(string $classKey): bool
     {
         $cachedOptionProviders = $this->getCachedOptionProvidersKeys();

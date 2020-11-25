@@ -30,7 +30,14 @@ class ApplicationOptionsProvider implements SelectOptionsProviderInterface {
             $className = "Applications";
 
             $cacheClassName = $className.'~'.$type;
-            if(!$this->optionProvider->isCacheAvailableForClass($cacheClassName))
+
+            $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($cacheClassName);
+            if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+            {
+                $allAvailablelArray = $allAvailablelArrayCache;
+                unset($allAvailablelArrayCache);
+            }
+            else
             {
                 $listingClassName = "\\Pimcore\\Model\\DataObject\\" . $className . "\\Listing";
                 $listingObject = new $listingClassName();
@@ -49,10 +56,6 @@ class ApplicationOptionsProvider implements SelectOptionsProviderInterface {
                     $this->optionProvider->setCachedOptionProviders($cacheClassName);
                     $this->optionProvider->setAllOptionsInCacheForClass($cacheClassName, $allAvailablelArray);
                 }
-            }
-            else
-            {
-                $allAvailablelArray = $this->optionProvider->getCachedKeyData($cacheClassName);
             }
         }
         return $allAvailablelArray;
