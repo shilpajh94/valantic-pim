@@ -152,7 +152,7 @@ class ProductSQLModel
     {
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
-//        $this->processDeletedProducts();
+        $this->processDeletedProducts();
 
         $this->initiatePTGProductsProcess();
         

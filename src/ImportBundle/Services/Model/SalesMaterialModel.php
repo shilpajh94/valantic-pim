@@ -127,15 +127,15 @@ class SalesMaterialModel
             echo $timediff1->format("Total {$csvRowCount} records inserted in temp table takes %h hour %i minute %s second").PHP_EOL;
             unset($excelDataNewArray);
 
-//            echo "Getting deleted records...".PHP_EOL;
-//            $time5 = new \DateTime();
-//            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-//            $deleteRecordCount = count($deletedRecords);
-//            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-//            $this->processDeletedRecords($deletedRecords);
-//            unset($deletedRecords);
-//            $timediff5 = $time5->diff(new \DateTime());
-//            echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
+            echo "Getting deleted records...".PHP_EOL;
+            $time5 = new \DateTime();
+            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+            $deleteRecordCount = count($deletedRecords);
+            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+            $this->processDeletedRecords($deletedRecords);
+            unset($deletedRecords);
+            $timediff5 = $time5->diff(new \DateTime());
+            echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
 
             echo "Getting delta records...".PHP_EOL;
             $t1 = new \DateTime();

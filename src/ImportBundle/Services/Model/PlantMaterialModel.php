@@ -85,32 +85,7 @@ class PlantMaterialModel
 
         echo 'Importing File: ' . $this->filePath.PHP_EOL;
         $time = new \DateTime();
-        // $excelDataNewArray = array();
-        // $excelData = array();
-        // $excelData = Import::getCSVData($this->filePath);
-        // $this->fileColumns = $excelData['header'];
-        // $excelDataNewArray = $excelData['data'];
-        // unset($excelData);
-        // print_r($excelDataNewArray['header']);
-        // echo count($excelDataNewArray['data']);
-        // $worksheet = $spreadsheet->getActiveSheet();
-        // $worksheetHighestColumnRow = Import::getActiveSheetInfo($worksheet);
-
-        /**
-         * Optaining next column from last column for "status" field
-         */
-        // $highestDataColumnIndex =  \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($worksheetHighestColumnRow['highestDataColumn']);
-        // $nextColumnIndex = $highestDataColumnIndex + 1;
-        // $nextColumn = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($nextColumnIndex);
-
-        // $lastRowLastColumn = $worksheetHighestColumnRow['highestDataColumn'] . $worksheetHighestColumnRow['highestDataRow'];
-
-
-        /**
-         * get all the data from the spreadsheet
-         */
-        // $excelDataNewArray = $spreadsheet->getActiveSheet()->rangeToArray("A1:$lastRowLastColumn",NULL,TRUE,TRUE,FALSE);
-
+        
         /**
          * get folder ids of Master List, MaterialMaster, Master List/Plants,
          * Master List/Sales Organizations, Master List/Distribution Channel
@@ -158,11 +133,11 @@ class PlantMaterialModel
 
             echo "Getting deleted records...".PHP_EOL;
             $time5 = new \DateTime();
-//            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
-//            $deleteRecordCount = count($deletedRecords);
-//            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
-//            $this->processDeletedRecords($deletedRecords);
-//            unset($deletedRecords);
+            $deletedRecords = $this->tableImportHelper->getDeletedRecords();
+            $deleteRecordCount = count($deletedRecords);
+            echo "Record {$deleteRecordCount} need to update deletion flag.".PHP_EOL;
+            $this->processDeletedRecords($deletedRecords);
+            unset($deletedRecords);
             $timediff5 = $time5->diff(new \DateTime());
             echo $timediff5->format("Delete flag updation takes %h hour %i minute %s second").PHP_EOL;
 
