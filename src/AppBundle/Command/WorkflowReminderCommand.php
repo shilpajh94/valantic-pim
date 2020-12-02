@@ -13,7 +13,7 @@ class WorkflowReminderCommand extends AbstractCommand
     private $db;
     protected function configure()
     {
-        $this->setName('workflow:reminder')
+        $this->setName('contitech:workflow:reminder')
             ->setDescription('This command will send reminder to process the peding actions');        
     }
 
@@ -82,7 +82,7 @@ class WorkflowReminderCommand extends AbstractCommand
                     // p_r(array($userInfo->getUserType()));die;
                     $product = \Pimcore\Model\DataObject::getById($data['subjectId']);
                     $receiver = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $this->getProductSIOP($product));
-
+                    
                     
                     $productId = $product->getId();
                     $deepLink = $wfHelper->getDeepLinkByCommandLine($productId);
