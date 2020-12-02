@@ -80,9 +80,10 @@ class WorkflowReminderCommand extends AbstractCommand
                 // p_r($sender->getFirstname());die;
                 if (!empty($userInfo)) {
                     // p_r(array($userInfo->getUserType()));die;
-                    $receiver = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $userInfo->getMaterialGroupAccess());
-
                     $product = \Pimcore\Model\DataObject::getById($data['subjectId']);
+                    $receiver = $wfHelper->getUserByRoleAndGroup($userInfo->getUserType(), $this->getProductSIOP($product));
+
+                    
                     $productId = $product->getId();
                     $deepLink = $wfHelper->getDeepLinkByCommandLine($productId);
                     $articleNumber = $product->getArticleNumber();
@@ -97,7 +98,7 @@ class WorkflowReminderCommand extends AbstractCommand
                     if ($receiver) {
                         foreach ($receiver as $k => $user) {
                             $array = array(
-                                'subject'       =>  $emailSubject,
+//                                'subject'       =>  $emailSubject,
                                 'templateName'  =>  $wfHelper->getReminderTemplatePath($data['place']),
                                 'toEmails'      =>  array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname()),
                                 'ccEmails'      =>  array($senderEmail => $senderFullName),
@@ -115,7 +116,15 @@ class WorkflowReminderCommand extends AbstractCommand
             echo "No Matching interval";
         }
     }
-
+    
+    public function getProductSIOP($product) {
+        $siopArray = [];
+        if (!empty($product->getSIOPLevel4())) {
+            $siopArray[] = $product->getSIOPLevel4()[0]->getId();
+        }
+        return $siopArray;
+    }
+    
     public function sendReminderToBUAdmin($data)
     {
         p_r('Sending email to BU Admin');
