@@ -115,9 +115,13 @@ class Installer extends MigrationInstaller
             $queueTable->addColumn('id', 'integer', ['length' => 11, 'autoincrement' => true, 'notnull' => true]);
             $queueTable->addColumn('objectType', 'string', ['length' => 10, 'notnull' => false]);
             $queueTable->addColumn('filterConfig', 'text', ['notnull' => false]); 
+            $queueTable->addColumn('filterByList', 'smallint', ['length' => 6, 'notnull' => false]);
+            $queueTable->addColumn('filterByAttribute', 'string', ['length' => 50, 'notnull' => false]);
+            $queueTable->addColumn('listFileAssetId', 'int', ['length' => 11, 'notnull' => false]);
+            $queueTable->addColumn('listFileSavePath', 'string', ['length' => 90, 'notnull' => false]);
             $queueTable->setPrimaryKey(['id']);
         }
-        
+
         if (! $schema->hasTable(self::DHUB_CLASS_SHARE)) {
             $queueTable = $schema->createTable(self::DHUB_CLASS_SHARE);
             $queueTable->addColumn('channelId', 'integer', ['length' => 11, 'notnull' => true]);

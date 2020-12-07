@@ -1,11 +1,13 @@
 <?php
 namespace DistributionHubBundle\Lib\Export\Writers;
 
+use AppBundle\Services\AppService;
 use DistributionHubBundle\Lib\Constants;
 use DistributionHubBundle\Lib\DHubLogger;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\Schedule;
 use Pimcore\Model\Asset;
+use S3CustomizationBundle\Lib\Utils;
 
 class ZipWriter implements Writer
 {
@@ -36,6 +38,8 @@ class ZipWriter implements Writer
         /**
          * create the folders in the root folder using the very first element in the
          * $data array
+         *
+         * create folder for each of the mapped columns
          */
         if(count($this->zipFolderForColumns) == 0){
             $this->createZipFolders($data);
@@ -95,32 +99,13 @@ class ZipWriter implements Writer
     {
         $asset = Asset::getById($columnConfig['assetId']);
         $sourcePath = null;
-        if($asset){
-            $sourcePath = $asset->getRealFullPath();
-            if(array_key_exists('thumbnail',$columnConfig)){
-                $thumbName = $columnConfig['thumbnail'];
-                $thumbnailConfig = \Pimcore\Model\Asset\Image\Thumbnail\Config::getByName($thumbName);
-                if($thumbnailConfig){
-                    $sourcePath = urldecode(strval($asset->getThumbnail($thumbName)));
-                }
-            }
-        } 
+	// for contitech
+        if($asset && $asset instanceof Asset\Image){
+            $sourcePath = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($asset, $columnConfig['thumbnail']);
+        }
         return$sourcePath;
     }
 
-    /**
-     * @return mixed|string
-     */
-    private function getHostUrl(): string
-    {
-        $hostUrl = null;
-        if(php_sapi_name() === 'cli'){
-            $hostUrl = $_SESSION[Constants::HOST_NAME_KEY_IN_SESSION];
-        }else{
-            $hostUrl = \Pimcore\Tool::getHostUrl();
-        }
-        return $hostUrl;
-    }
 
     /**
      * add file to respective folder
@@ -136,10 +121,13 @@ class ZipWriter implements Writer
         $folderPathForDestFile = $this->zipFolderForColumns[$templateColumnName];
         $completeDestFilePath = $folderPathForDestFile."/".basename($sourcePath);
         if($folderPathForDestFile){
-            $completeSourceFilePath = $this->getHostUrl().rawurlencode($sourcePath);
+		// for contitech
+//            $completeSourceFilePath = $this->getHostUrl().rawurlencode($sourcePath);
+//            $completeSourceFilePath = rawurlencode($sourcePath);
+            $completeSourceFilePath = $sourcePath;
             $success = $this->copyFile($completeSourceFilePath,$completeDestFilePath);
         }
-        
+
         return $success;
     }
 

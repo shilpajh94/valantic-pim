@@ -123,12 +123,12 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                 sortable: true,
                 dataIndex: "export_date",
             },
-            {
-                text: t("dHub_export_format"),
-                width: 100,
-                sortable: true,
-                dataIndex: 'export_format',
-            },
+            // {
+            //     text: t("dHub_export_format"),
+            //     width: 100,
+            //     sortable: true,
+            //     dataIndex: 'export_format',
+            // },
             {
                 text: t("dHub_export_location"),
                 width: 100,
@@ -551,9 +551,10 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
             displayField: 'name',
             valueField: 'id',
             editable: false,
-            allowBlank: false,
+            // allowBlank: false,
             blankText: t('dHub_field_is_required'),
             msgTarget: 'under',
+            hidden: true
         });
 
         return exportFormatCombo;

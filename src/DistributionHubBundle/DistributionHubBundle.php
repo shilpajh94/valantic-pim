@@ -19,7 +19,7 @@ class DistributionHubBundle extends AbstractPimcoreBundle {
     public function getJsPaths() {
         return [
             '/bundles/distributionhub/js/pimcore/startup.js',
-            '/bundles/distributionhub/js/pimcore/toolbar.js',
+//            '/bundles/distributionhub/js/pimcore/toolbar.js',
             '/bundles/distributionhub/js/pimcore/mappingPanel.js',
             '/bundles/distributionhub/js/pimcore/mappingLeftPanel.js',
             '/bundles/distributionhub/js/pimcore/configItem.js',

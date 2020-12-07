@@ -177,14 +177,14 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
 
         this.fileUploadField = new Ext.create('Ext.form.field.File', {
             name: 'file',
-            fieldLabel: t('dHub_column_header_mapping_file') + ' <span style="color:red;">*</span>',
+            fieldLabel: t('dHub_column_header_mapping_file_csv') + ' <span style="color:red;">*</span>',
             labelWidth: 220,
             width: 800,
             style: {
                 marginLeft: '30px'
             },
-            regex: /^.*\.(csv|CSV|Csv|xls|XLS|Xls|xlsx|XLSX|Xlsx)$/,
-            regexText: t('dHub_csv_xls_xlsx_allowed_only'),
+            regex: /^.*\.(csv|CSV|Csv)$/,
+            regexText: t('dHub_csv_allowed_only'),
             msgTarget: 'under',
             buttonText: t('dHub_upload_file_csv_excel'),
             labelStyle: "color: black !important",

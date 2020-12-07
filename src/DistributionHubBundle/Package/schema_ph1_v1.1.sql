@@ -6,11 +6,14 @@ DROP TABLE IF EXISTS `distribution_hub_filter`;
 
 CREATE TABLE `distribution_hub_filter` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `objectType` enum('object','variant') DEFAULT NULL,
+  `objectType` varchar(10) DEFAULT NULL,
   `filterConfig` longtext DEFAULT NULL,
+  `filterByList` smallint(6) DEFAULT NULL,
+  `filterByAttribute` varchar(50) DEFAULT NULL,
+  `listFileAssetId` int(11) DEFAULT NULL,
+  `listFileSavePath` varchar(90) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 -- -----------------------------------------------------
 -- Table `distribution_hub_channel`

@@ -9,6 +9,7 @@ use Pimcore\File;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element\ValidationException;
 use Pimcore\Tool\Admin;
+use S3CustomizationBundle\Lib\Utils;
 
 /**
  * Class ChannelService
@@ -149,11 +150,15 @@ class ChannelService
         if(!$assetObject instanceof Asset){
             throw new \Exception('dHub_template_required');
         }
-        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
+	// for contitech
+//        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
+        $fullPath = Utils::getAssetFullPathCompatibleToS3($assetObject);
+
         if (strtolower($fileType) === 'csv') {
             $fp = fopen($fullPath, 'r');
             $header = fgetcsv($fp, 4096, $separator, '"');
-            $headerRow = explode(',', $header[0]);
+//            $headerRow = explode(',', $header[0]);
+            $headerRow = $header;
             foreach ($headerRow as $column) {
                 if (!is_null($column) && $column != "") {
                     $columns['col'][] = $column;

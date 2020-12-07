@@ -77,7 +77,7 @@ class FilterService {
      * @param ClassDefinition|Definition $definition 
      * @return FieldSelectionInformation[]
      */
-    public function getFieldSelectionInformationForClassDefinition($definition, $allowInheritance = false) {
+    public function getFieldSelectionInformationForClassDefinition($definition, $allowInheritance = false, $fieldTypes) {
 
         $fieldSelectionInformationEntries = [];
 
@@ -85,39 +85,22 @@ class FilterService {
             $this->getCoreFieldDefinitions(),
             $definition->getFieldDefinitions()
         );
-            $AllowedDataComponants = [
-                "numeric",
-                "select",
-                "input",
-                "textarea",
-                "wysiwyg",
-                "slider",
-                "quantityValue",
-                "multiselect",
-                "booleanSelect",
-                "languagemultiselect",
-                "language",
-                "country",
-                "countrymultiselect",
-                "checkbox",
-                "manyToManyObjectRelation",
-                "manyToOneRelation",
-                "localizedfields",
-                "advancedManyToManyRelation",
-                "advancedManyToManyObjectRelation",
-                "fieldcollections",
-                "objectbricks",
-                "date",
-                "datetime",
-                "time"
-            ]; 
+        if($fieldTypes === "flat"){
+            $fieldDefinitions = $definition->getFieldDefinitions();
+            $AllowedDataComponants = \DistributionHubBundle\Lib\Constants::FLAT_ATTRIBUTE_TYPES;
+        } else {
+            $fieldDefinitions = array_merge(
+                $this->getCoreFieldDefinitions(),
+                $definition->getFieldDefinitions()
+            );
+            $AllowedDataComponants = \DistributionHubBundle\Lib\Constants::SUPPORTED_ATTRIBUTE_TYPES;
+        }
  
-        foreach($fieldDefinitions as $fieldDefinition) { 
-
-             if(in_array($fieldDefinition->getFieldtype(), $AllowedDataComponants)){
-                $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
-                $fieldSelectionInformationEntries = array_merge($fieldSelectionInformationEntries, $fieldDefinitionAdapter->getFieldSelectionInformation());
-             }
+        foreach($fieldDefinitions as $fieldDefinition) {
+            if(in_array($fieldDefinition->getFieldtype(), $AllowedDataComponants)){
+               $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
+               $fieldSelectionInformationEntries = array_merge($fieldSelectionInformationEntries, $fieldDefinitionAdapter->getFieldSelectionInformation());
+            }
         }
 
         return $fieldSelectionInformationEntries;
@@ -224,8 +207,7 @@ class FilterService {
                     $localizedTypes = $classDefinition->getFieldDefinition('localizedfields')->getChildren();
                     if(!empty($localizedTypes)){
                         foreach ($localizedTypes as $child) {
-
-                            if($child->getFieldtype() === $attrInfo->dataType){
+                            if($child->fieldtype === $attrInfo->dataType){
                                 $gridConfigPrepare['columns'][$index] = [
                                     'key'  => $attrInfo->attribute,
                                     'type' => $child->getFieldtype(),   
@@ -400,43 +382,94 @@ class FilterService {
         }
         
         $conditionParams = array();
-        if(!empty($filters)){
-            $classDefinition = \Pimcore\Model\DataObject\ClassDefinition::getById($classId);
-          
-            foreach($filters as $filterEntry) { 
-                $filterEntryObject = $this->buildFilterEntryObject($filterEntry);
-                $fieldDefinition = $classDefinition->getFieldDefinition($filterEntryObject->getFieldname());
-                $considerInheritance = $classDefinition->getAllowInherit(); 
-
-                // filters adapters for core columns
-                if(empty($fieldDefinition)){
-                    $coreDefinitions = $this->getCoreFieldDefinitions();
-                    $fName = $filterEntryObject->getFieldname();
         
-                    if(array_key_exists($fName, $coreDefinitions)){
-                        $fDefinition = $coreDefinitions[$fName]; 
-                        $conditionParams[] = $this->getFilteredResults($fDefinition, $filterEntryObject, $listingClass);
-                    } 
-                } else {
-                    // filters adapters for non-core columns 
-                    $conditionParams[] = $this->getFilteredResults($fieldDefinition, $filterEntryObject, $listingClass);
-                } 
-            }
-            // addConditionParams to listing class 
-            foreach ($conditionParams as $condition) {
-                if(!empty($condition)){
-                    $listingClass->addConditionParam($condition['key'], $condition['value'], $condition['concatenator']);
-                } else {
-                    $listingClass->setCondition("`o_id` IS NULL");
-                }
-            }
+        // results based on filter conditions
+        if(!$data['filterByList']){
+            if(!empty($filters)){
+               $classDefinition = \Pimcore\Model\DataObject\ClassDefinition::getById($classId);
 
-            return $listingClass;
+               foreach($filters as $filterEntry) { 
+                   $filterEntryObject = $this->buildFilterEntryObject($filterEntry);
+                   $fieldDefinition = $classDefinition->getFieldDefinition($filterEntryObject->getFieldname());
+                   $considerInheritance = $classDefinition->getAllowInherit(); 
+
+                   // filters adapters for core columns
+                   if(empty($fieldDefinition)){
+                       $coreDefinitions = $this->getCoreFieldDefinitions();
+                       $fName = $filterEntryObject->getFieldname();
+
+                       if(array_key_exists($fName, $coreDefinitions)){
+                           $fDefinition = $coreDefinitions[$fName]; 
+                           $conditionParams[] = $this->getFilteredResults($fDefinition, $filterEntryObject, $listingClass);
+                       } 
+                   } else {
+                       // filters adapters for non-core columns 
+                       $conditionParams[] = $this->getFilteredResults($fieldDefinition, $filterEntryObject, $listingClass);
+                   } 
+               }
+               // addConditionParams to listing class 
+               foreach ($conditionParams as $condition) {
+                   if(!empty($condition)){
+                       $listingClass->addConditionParam($condition['key'], $condition['value'], $condition['concatenator']);
+                   } else {
+                       $listingClass->setCondition("`o_id` IS NULL");
+                   }
+               }
+
+               return $listingClass;
+           } else {
+               return $listingClass;
+           }
+           
         } else {
+            // results based on uploaded List
+            if(empty($data['listFileAssetId'])){
+                return $listingClass;
+            }
+            
+            $listDataConditions = $this->getSheetData($data['listFileAssetId'], $data['filterByAttribute']);
+            
+            if(empty($listDataConditions)){
+                return $listingClass;
+            }
+            
+            $listingClass->setCondition(implode(" OR ", $listDataConditions));
+            
             return $listingClass;
         }
+        
     }
 
+    /**
+     * @param $assetId
+     * @return array[]
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
+    public static function getSheetData(int $assetId, string $attribute)
+    { 
+        $assetObject = \Pimcore\Model\Asset::getById($assetId);
+        if(!$assetObject instanceof \Pimcore\Model\Asset\Text){
+            throw new \Exception('Filter by List : Only csv file type supported');
+        }
+        
+        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
+        $csvData = array_map ( 'str_getcsv', file ( $fullPath ) );
+        
+        // Remove header info from csv data
+        unset($csvData['0']);
+        
+        $conditonForList = [];
+        if(!empty($csvData)){
+            foreach ($csvData as $val) {
+                $conditonForList[] = " `".$attribute."` LIKE '%".$val['0']."%' ";
+            }
+        }
+        
+        return $conditonForList;
+    }
+    
+    
     /**
      * return conditions applied in listing,
      * based on fieldType adapter

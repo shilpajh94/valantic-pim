@@ -5,6 +5,7 @@ namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 use DistributionHubBundle\Lib\Constants;
 use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use S3CustomizationBundle\Lib\Utils;
 
 class CollectionMediaGetter extends AbstractOperator
 {
@@ -28,42 +29,15 @@ class CollectionMediaGetter extends AbstractOperator
         $result->label = $this->label;
 
         $image = $this->getAsset($element);
-
-        if($image instanceof \Pimcore\Model\DataObject\Data\Hotspotimage){
-            $image = $image->getImage();
-        }
-
+	// for contitech
         if ($image instanceof \Pimcore\Model\Asset\Image) {
-            $hostUrl = $this->getHostUrl();
-
-            if($this->thumbnail){
-                $thumbnailConfig = \Pimcore\Model\Asset\Image\Thumbnail\Config::getByName($this->thumbnail);
-                if($thumbnailConfig){
-                    $result->value = $hostUrl.strval($image->getThumbnail($this->thumbnail));
-                }else{
-                    DHubLogger::log("Thumbnail $this->thumbnail do not exit.", DHubLogger::NOTICE);
-                }
-            }else{
-                $result->value = $hostUrl.strval($image);
-            }
-
+            $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($image, $this->thumbnail);
         }
         if($result->value && $this->getContext()['purpose'] == "gridview"){
             $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
         }
 
         return $result;
-    }
-
-    public function getHostUrl()
-    {
-        $hostUrl = null;
-        if(php_sapi_name() === 'cli'){
-            $hostUrl = $_SESSION[Constants::HOST_NAME_KEY_IN_SESSION];
-        }else{
-            $hostUrl = \Pimcore\Tool::getHostUrl();
-        }
-        return $hostUrl;
     }
 
     private function getAsset($element)

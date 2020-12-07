@@ -2,6 +2,8 @@
 
 namespace DistributionHubBundle\Lib;
 
+use AppBundle\Services\AppService;
+use Pimcore\Model\Asset\Image;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Pimcore\Tool;
@@ -17,7 +19,7 @@ class Utils
      * @return mixed
      */
     public static function getYmlConfig(string $filePath){
-        
+
         try {
             $yaml = new Parser();
             $value = $yaml->parseFile($filePath);
@@ -40,11 +42,11 @@ class Utils
         $cacheKey = str_replace("\\","_",$cacheKey);
         return $cacheKey;
     }
-    
+
     /**
      * returns available system languages
      *
-     * @param 
+     * @param
      * @return array
      */
     public static function getAvailableLanguages() {
@@ -61,5 +63,21 @@ class Utils
         }
 
         return $fieldArray;
+    }
+
+    /**
+     * @param Image $asset
+     * @param null $thumbnail: example: "1200"
+     * for contitech
+     * @return string
+     */
+    public static function getImageOrThumbnailPublicPath(Image $asset, $thumbnail = null): string
+    {
+        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+        if($thumbnail){
+            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
+            $sourcePath = urldecode($appService->getFilenameAsPerResolution($sourcePath,"__" . $thumbnail));
+        }
+        return $sourcePath;
     }
 }
