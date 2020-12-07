@@ -8,11 +8,12 @@
 
 namespace AppBundle\OptionProvider;
 
-
+use AppBundle\Services\OptionProviderCacheService;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface;
 
 class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderInterface
 {
+    private $optionProvider;
 
     /**
      *
@@ -25,6 +26,7 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
      */
     public function getOptions($context, $fieldDefinition)
     {
+        $this->optionProvider = \Pimcore::getKernel()->getContainer()->get('AppBundle\Services\OptionProviderCacheService');
         $returnValue = array();
         $brickGroupName = $fieldDefinition->getOptionsProviderData();
 
@@ -32,16 +34,35 @@ class OptionProviderForBrickMultiselects implements MultiSelectOptionsProviderIn
         if($brickGroupName){
             $fieldName = $fieldDefinition->getName();
             $masterType = $this->getMasterType($brickGroupName,$fieldName);
+            
+            $cacheMasterType = $masterType;
+            if($brickGroupName == 'Product Class')
+                $cacheMasterType = 'ProductClass~'.$fieldName;
 
-            $list = new \Pimcore\Model\DataObject\MultiselectMaster\Listing();
-            $list->setCondition(" masterType = :masterType ",["masterType" => $masterType]);
-            $list->load();
+            $allAvailablelArrayCache = $this->optionProvider->getCachedKeyData($cacheMasterType);
+            if($allAvailablelArrayCache && !empty($allAvailablelArrayCache))
+            {
+                $returnValue = $allAvailablelArrayCache;
+                unset($allAvailablelArrayCache);
+            }
+            else
+            {
+                $list = new \Pimcore\Model\DataObject\MultiselectMaster\Listing();
+                $list->setCondition(" masterType = :masterType ",["masterType" => $masterType]);
+                $list->load();
 
-            foreach($list as $object){
-                $key = $object->getName("en");
-                $value = $object->getId();
+                foreach($list as $object){
+                    $key = $object->getName("en");
+                    $value = $object->getId();
 
-                $returnValue[] = array('key' => $key, 'value' => $value);
+                    $returnValue[] = array('key' => $key, 'value' => $value);
+                }
+
+                if(!empty($returnValue))
+                {
+                    $this->optionProvider->setCachedOptionProviders($cacheMasterType);
+                    $this->optionProvider->setAllOptionsInCacheForClass($cacheMasterType, $returnValue);
+                }
             }
         }
 

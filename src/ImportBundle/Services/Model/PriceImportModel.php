@@ -226,9 +226,10 @@ class PriceImportModel {
         $ftpFilePath = implode("/", $filePathInfo);
         $fileNameArray = explode(".", $fileName);
         $fileNamePrefix = $fileNameArray[0];
-        $fileName = $fileNamePrefix."_".date("mdY");
+        $ext = $fileNameArray[1];
+        $fileName = $fileNamePrefix."_".date("mdY").".".$ext;
         if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
-            $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days"));
+            $fileName = $fileNamePrefix."_".date('mdY',strtotime("-1 days")).".".$ext;
             if (!$SFTPConObj->fileExists($ftpFilePath."/".$fileName)) {
                 echo "Today's file not uploaded.";
                 return null;

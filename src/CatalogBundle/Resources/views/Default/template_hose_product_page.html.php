@@ -21,19 +21,7 @@ if (!isset($this->parentContainer)) {
 if ($data):
     foreach ($data as $catalogGroupKey => $catalogGroupData):
 
-        $incr = 1;
-        foreach ($catalogGroupData as $brandName => $brandData):
-            extract($brandData);
-
-// foreach($data as $key => $brand):
-// extract($brand);
-
-            $imageObj = '';
-            if ($incr % 2 == 0) {
-                $imageObj = $RightPrintCatalogImageObj;
-            } else {
-                $imageObj = $LeftPrintCatalogImageObj;
-            }
+        foreach ($catalogGroupData as $md5key => $brandData):
             ?>
             <div class="template">
                 <section class="segregate">
@@ -42,9 +30,9 @@ if ($data):
                     <span  class="pageName">
                         <?php
                         if ($this->editmode) {
-                            echo $this->input("HHPP_Header_{$incr}")->setDataFromResource('Hydraulic Hose');
+                            echo $this->input("HHPP_Header_{$md5key}")->setDataFromResource('Hydraulic Hose');
                         } else {
-                            echo $this->input("HHPP_Header_{$incr}");
+                            echo $this->input("HHPP_Header_{$md5key}");
                         }
                         ?>
                     </span>
@@ -54,13 +42,13 @@ if ($data):
                             <span class="logo">
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text1_{$incr}")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text1_{$incr}")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text1_{$md5key}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$md5key}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text1_{$incr}"); ?>
+                                                <?= $this->input("HHPP_Logo_Text1_{$md5key}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text1_{$incr}") ?>
+                                        <?= $this->input("HHPP_Logo_Text1_{$md5key}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">
@@ -69,9 +57,9 @@ if ($data):
                                 <h5>
                                     <?php
                                     if ($this->editmode) {
-                                        echo $this->input("HHPP_Footer_BrandName_{$incr}")->setDataFromResource($brandName);
+                                        echo $this->input("HHPP_Footer_BrandName_{$md5key}")->setDataFromResource($brandData['brandName']);
                                     } else {
-                                        echo $this->input("HHPP_Footer_BrandName_{$incr}");
+                                        echo $this->input("HHPP_Footer_BrandName_{$md5key}");
                                     }
                                     ?>
 
@@ -79,9 +67,9 @@ if ($data):
 
                                         <?php
                                         if ($this->editmode) {
-                                            echo $this->input("HHPP_Footer_HoseType_{$incr}")->setDataFromResource('High Pressure');
+                                            echo $this->input("HHPP_Footer_HoseType_{$md5key}")->setDataFromResource('High Pressure');
                                         } else {
-                                            echo $this->input("HHPP_Footer_HoseType_{$incr}");
+                                            echo $this->input("HHPP_Footer_HoseType_{$md5key}");
                                         }
                                         ?>
 
@@ -92,19 +80,19 @@ if ($data):
                                     <b>
                                         <?php
                                         if ($this->editmode) {
-                                            echo $this->input("HHPP_Footer_Compatibility_{$incr}")->setDataFromResource('Compatible fittings');
+                                            echo $this->input("HHPP_Footer_Compatibility_{$md5key}")->setDataFromResource('Compatible fittings');
                                         } else {
-                                            echo $this->input("HHPP_Footer_Compatibility_{$incr}");
+                                            echo $this->input("HHPP_Footer_Compatibility_{$md5key}");
                                         }
                                         ?>
                                     </b>
 
                                     <?php
-                                    $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                    $compatibility_description = "All fittings compatible with ".$brandData['brandName']." are listed in Section 1 (starting on page 131).";
                                     if ($this->editmode) {
-                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}")->setDataFromResource($compatibility_description);
+                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}")->setDataFromResource($compatibility_description);
                                     } else {
-                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$incr}");
+                                        echo $this->input("HHPP_Footer_Compatibility_Description_{$md5key}");
                                     }
                                     ?>
                                 </div>
@@ -118,19 +106,19 @@ if ($data):
                                     <b>
                                         <?php
                                         if ($this->editmode) {
-                                            echo $this->input("HHPP_Footer_Compatibility1_{$incr}")->setDataFromResource('Compatible fittings');
+                                            echo $this->input("HHPP_Footer_Compatibility1_{$md5key}")->setDataFromResource('Compatible fittings');
                                         } else {
-                                            echo $this->input("HHPP_Footer_Compatibility1_{$incr}");
+                                            echo $this->input("HHPP_Footer_Compatibility1_{$md5key}");
                                         }
                                         ?>
                                     </b>
 
                                     <?php
-                                    $compatibility_description = "All fittings compatible with {$brandName} are listed in Section 1 (starting on page 131).";
+                                    $compatibility_description = "All fittings compatible with ".$brandData['brandName']." are listed in Section 1 (starting on page 131).";
                                     if ($this->editmode) {
-                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$incr}")->setDataFromResource($compatibility_description);
+                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}")->setDataFromResource($compatibility_description);
                                     } else {
-                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$incr}");
+                                        echo $this->input("HHPP_Footer_Compatibility_Description1_{$md5key}");
                                     }
                                     ?>
                                 </div>
@@ -138,9 +126,9 @@ if ($data):
 
                                     <?php
                                     if ($this->editmode) {
-                                        echo $this->input("HHPP_Footer_BrandName1_{$incr}")->setDataFromResource($brandName);
+                                        echo $this->input("HHPP_Footer_BrandName1_{$md5key}")->setDataFromResource($brandData['brandName']);
                                     } else {
-                                        echo $this->input("HHPP_Footer_BrandName1_{$incr}");
+                                        echo $this->input("HHPP_Footer_BrandName1_{$md5key}");
                                     }
                                     ?>
 
@@ -148,9 +136,9 @@ if ($data):
 
                                         <?php
                                         if ($this->editmode) {
-                                            echo $this->input("HHPP_Footer_HoseType1_{$incr}")->setDataFromResource('High Pressure');
+                                            echo $this->input("HHPP_Footer_HoseType1_{$md5key}")->setDataFromResource('High Pressure');
                                         } else {
-                                            echo $this->input("HHPP_Footer_HoseType1_{$incr}");
+                                            echo $this->input("HHPP_Footer_HoseType1_{$md5key}");
                                         }
                                         ?>
 
@@ -162,13 +150,13 @@ if ($data):
 
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHPP_Logo_Text2_{$incr}")->isEmpty()): ?>
-                                                <?= $this->input("HHPP_Logo_Text2_{$incr}")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHPP_Logo_Text2_{$md5key}")->isEmpty()): ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$md5key}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHPP_Logo_Text2_{$incr}"); ?>
+                                                <?= $this->input("HHPP_Logo_Text2_{$md5key}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHPP_Logo_Text2_{$incr}") ?>
+                                        <?= $this->input("HHPP_Logo_Text2_{$md5key}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">
@@ -179,9 +167,9 @@ if ($data):
                         <h1>
                             <?php
                             if ($this->editmode) {
-                                echo $this->input("HHPP_Heading_{$incr}")->setDataFromResource($brandName);
+                                echo $this->input("HHPP_Heading_{$md5key}")->setDataFromResource($brandData['brandName']);
                             } else {
-                                echo $this->input("HHPP_Heading_{$incr}");
+                                echo $this->input("HHPP_Heading_{$md5key}");
                             }
                             ?>
                         </h1>
@@ -189,18 +177,18 @@ if ($data):
                             <p>
                                 <?php
                                 if ($this->editmode) {
-                                    echo $this->wysiwyg("HHPP_LongDescription_{$incr}")->setDataFromResource($longDescription);
+                                    echo $this->wysiwyg("HHPP_LongDescription_{$md5key}")->setDataFromResource($brandData['longDescription']);
                                 } else {
-                                    echo $this->wysiwyg("HHPP_LongDescription_{$incr}");
+                                    echo $this->wysiwyg("HHPP_LongDescription_{$md5key}");
                                 }
                                 ?>
                             </p>
                             <?php
                             if ($this->editmode) {
-                                echo $this->image("HHPP_Image_Left_{$incr}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($LeftPrintCatalogImageObj);
+                                echo $this->image("HHPP_Image_Left_{$md5key}", ["class" => "leftImg", "width" => 600, "height" => 200])->setImage($brandData['LeftPrintCatalogImageObj']);
                             } else {
-                                if(!$this->image("HHPP_Image_Left_{$incr}")->isEmpty())
-                                    $imgSrcObj1 = $this->image("HHPP_Image_Left_{$incr}");
+                                if(!$this->image("HHPP_Image_Left_{$md5key}")->isEmpty())
+                                    $imgSrcObj1 = $this->image("HHPP_Image_Left_{$md5key}");
 
                                 if($imgSrcObj1)
                                 {
@@ -212,10 +200,10 @@ if ($data):
                             ?>
                             <?php
                             if ($this->editmode) {
-                                echo $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($RightPrintCatalogImageObj);
+                                echo $this->image("HHPP_Image_Right_{$md5key}", ["class" => "rightImg", "width" => 600, "height" => 200])->setImage($brandData['RightPrintCatalogImageObj']);
                             } else {
-                                if(!$this->image("HHPP_Image_Right_{$incr}")->isEmpty())
-                                    $imgSrcObj2 = $this->image("HHPP_Image_Right_{$incr}", ["class" => "rightImg", "width" => 600, "height" => 200]);
+                                if(!$this->image("HHPP_Image_Right_{$md5key}")->isEmpty())
+                                    $imgSrcObj2 = $this->image("HHPP_Image_Right_{$md5key}", ["class" => "rightImg", "width" => 600, "height" => 200]);
 
                                 if($imgSrcObj2)
                                 {
@@ -230,19 +218,19 @@ if ($data):
                     <article class="fullcontainer ">
 
                         <section class="content single">
-                            <?php if ($safetyFeatures || $standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) ||!empty(trim($temperatureRangeFAndC))): ?>
+                            <?php if ($brandData['safetyFeatures'] || $brandData['standardMetHoseListData'] || !empty(trim($brandData['tubeMaterialAtrributeString'])) || !empty(trim($brandData['reinforcement'])) || !empty(trim($brandData['coverMaterialattributeString'])) ||!empty(trim($brandData['temperatureRangeFAndC']))): ?>
 
                                 <menu class="flex">
-                                    <?php if ($standardMetHoseListData || !empty(trim($tubeMaterialAtrributeString)) || !empty(trim($reinforcement)) || !empty(trim($coverMaterialattributeString)) || !empty(trim($temperatureRangeFAndC))): ?>
+                                    <?php if ($brandData['standardMetHoseListData'] || !empty(trim($brandData['tubeMaterialAtrributeString'])) || !empty(trim($brandData['reinforcement'])) || !empty(trim($brandData['coverMaterialattributeString'])) || !empty(trim($brandData['temperatureRangeFAndC']))): ?>
                                         <div class="specs">
                                             <h6><?= $this->translate('specs') ?></h6>
                                             <div class="spec-requirement">
-                                                <?php if ($standardMetHoseListData): ?>
+                                                <?php if ($brandData['standardMetHoseListData']): ?>
                                                 <div class="col-6">
                                                         <?php
                                                             $hoseMetCount = 0;
-                                                            foreach ($standardMetHoseListData as $key => $standard): ?>
-                                                            <?= $this->input("standardMetHose{$incr}_{$hoseMetCount}")->setDataFromResource($key) ?>
+                                                            foreach ($brandData['standardMetHoseListData'] as $key => $standard): ?>
+                                                            <?= $this->input("standardMetHose{$md5key}_{$hoseMetCount}")->setDataFromResource($key) ?>
                                                             <p><font class="is-highlight"><?= implode('<br>',$standard); ?></font></p>
                                                         <?php
                                                             $hoseMetCount++;
@@ -251,31 +239,31 @@ if ($data):
                                                 </div>
                                                 <?php endif; ?>
                                                 <div class="col-6">
-                                                    <?php if (!empty(trim($tubeMaterialAtrributeString))): ?>
+                                                    <?php if (!empty(trim($brandData['tubeMaterialAtrributeString']))): ?>
                                                         <p>
                                                             <b><?= $this->translate('Inner Tube') ?></b>
-                                                            <?= $tubeMaterialAtrributeString ?>
+                                                            <?= $brandData['tubeMaterialAtrributeString'] ?>
                                                         </p>
                                                     <?php endif; ?>
 
-                                                    <?php if (!empty(trim($reinforcement))): ?>
+                                                    <?php if (!empty(trim($brandData['reinforcement']))): ?>
                                                         <p>
                                                             <b><?= $this->translate('Reinforcement') ?></b>
-                                                            <?= $reinforcement ?>
+                                                            <?= $brandData['reinforcement'] ?>
                                                         </p>
                                                     <?php endif; ?>
 
-                                                    <?php if (!empty(trim($coverMaterialattributeString))): ?>
+                                                    <?php if (!empty(trim($brandData['coverMaterialattributeString']))): ?>
                                                         <p>
                                                             <b><?= $this->translate('Cover') ?></b>
-                                                            <?= $coverMaterialattributeString ?>
+                                                            <?= $brandData['coverMaterialattributeString'] ?>
                                                         </p>
                                                     <?php endif; ?>
 
-                                                    <?php if (!empty(trim($temperatureRangeFAndC))): ?>
+                                                    <?php if (!empty(trim($brandData['temperatureRangeFAndC']))): ?>
                                                         <p>
                                                             <b><?= $this->translate('Temperature Range') ?></b>
-                                                            <?= $temperatureRangeFAndC ?>
+                                                            <?= $brandData['temperatureRangeFAndC'] ?>
                                                         </p>
                                                     <?php endif; ?>
                                                 </div>
@@ -284,11 +272,11 @@ if ($data):
                                         </div>
                                     <?php endif; ?>
 
-                                    <?php if ($safetyFeatures): ?>
+                                    <?php if ($brandData['safetyFeatures']): ?>
                                         <div class="feature">
                                             <h6><?= $this->translate('features') ?></h6>
                                             <div>
-                                                <?php foreach ($safetyFeatures as $key => $feature): ?>
+                                                <?php foreach ($brandData['safetyFeatures'] as $key => $feature): ?>
                                                     <p  class="flex">
                                                         <?php if ($feature['iconSrc']): ?>
                                                             <img src="<?= $feature['iconSrc'] ?>" />
@@ -304,22 +292,22 @@ if ($data):
                                 </menu>
                             <?php endif; ?>
 
-                            <?php if (!empty(trim($BrandingLayline))): ?>
+                            <?php if (!empty(trim($brandData['BrandingLayline']))): ?>
                                 <menu>
                                     <h6><?= $this->translate('branding') ?></h6>
                                     <figure>
                                         <img src="<?= $branding_image_src; ?>" width='80'/>
-                                        <figcaption><b><?= $brandName ?></b></figcaption>
-                                        <figcaption> <?= $BrandingLayline ?> </figcaption>
+                                        <figcaption><b><?= $brandData['brandName'] ?></b></figcaption>
+                                        <figcaption> <?= $brandData['BrandingLayline'] ?> </figcaption>
                                     </figure>
                                 </menu>
                             <?php endif; ?>
 
                             <table cellpadding="0" cellspacing="0" class="grid">
                                 <thead>
-                                        <?php if($iconRequired == 'YES'): ?>
+                                        <?php if($brandData['iconRequired'] == 'YES'): ?>
                                                 <tr class="sub-head">
-                                                        <?php foreach($columnsDataWithImages as $key => $c1data): ?>
+                                                        <?php foreach($brandData['columnsDataWithImages'] as $key => $c1data): ?>
                                                                 <?php
                                                                         $g1count = count($c1data);
                                                                         $firstArray = array_shift($c1data);
@@ -334,7 +322,7 @@ if ($data):
                                         <?php endif; ?>
 
                                         <tr class="head">
-                                                <?php foreach($columnsDataWithImages as $key => $c2data): ?>
+                                                <?php foreach($brandData['columnsDataWithImages'] as $key => $c2data): ?>
                                                         <?php
                                                                 $g2count = count($c2data);
                                                                 $first2Array = array_shift($c2data);
@@ -343,9 +331,9 @@ if ($data):
                                                 <?php endforeach; ?>
                                         </tr>
 
-                                        <?php if($subHeaderRequired == 'YES'): ?>
+                                        <?php if($brandData['subHeaderRequired'] == 'YES'): ?>
                                                 <tr class="sub-head">
-                                                        <?php foreach($columnsDataWithImages as $key => $c3data): ?>
+                                                        <?php foreach($brandData['columnsDataWithImages'] as $key => $c3data): ?>
                                                                 <?php  foreach($c3data as $c3key => $c3value): ?>
                                                                         <?php if($c3value['unitName']): ?>
                                                                                 <td><?= $c3value['unitName'] ?></td>
@@ -359,7 +347,7 @@ if ($data):
 
                                 </thead>
                                 <?php $incrRow = 1; ?>
-                                <?php foreach ($articlesData as $key => $element): ?>
+                                <?php foreach ($brandData['articlesData'] as $key => $element): ?>
                                     <?php if ($incrRow % 2 == 0): ?>
                                         <tr>
                                         <?php else: ?>
@@ -373,19 +361,14 @@ if ($data):
                                 <?php endforeach; ?>
 
                             </table>
-                            <p class="small"><?= $this->input("customer_data_{$incr}_{$key}", ['placeholder' => 'Enter comment']); ?></p>
+                            <p class="small"><?= $this->input("customer_data_{$md5key}", ['placeholder' => 'Enter comment']); ?></p>
                         </section>
 
                     </article>
 
-                    <?php //if($incr != count($catalogGroupData)):  ?>
-
-                    <?php //endif;  ?>
-
                 </section>
             </div>
             <?php
-            $incr++;
         endforeach;
 
     endforeach;

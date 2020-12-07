@@ -69,6 +69,8 @@ class HydraulicFittingController extends AbstractController
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
 
+            $brandsList = $this->getBrandsList();
+
             $attrbuteImgS3Arr = array();
 
             $brandsData = array();
@@ -79,18 +81,20 @@ class HydraulicFittingController extends AbstractController
                 foreach ($productsData as $key => $item)
                 {
                     $brandName = $item[$headerKeysIndex['brandName']][0];
-                    $BrandShortText1 = $item[$headerKeysIndex['BrandShortText1']];
+                    // $BrandShortText1 = $item[$headerKeysIndex['BrandShortText1']];
 
                     if(!empty($brandName))
                     {
-                        $uniqueId = md5($brandName);
-                        $brandsData[$uniqueId][] = $item;
+                        // $uniqueId = ($brandName);
+                        // $uniqueId = md5($brandName);
+                        $brandsData[$brandName][] = $item;
                     }
-                    else if(!empty($BrandShortText1))
-                    {
-                        $uniqueId = md5($BrandShortText1);
-                        $brandsData[$uniqueId][] = $item;
-                    }
+                    // else if(!empty($BrandShortText1))
+                    // {
+                    //     $uniqueId = ($BrandShortText1);
+                    //     // $uniqueId = md5($BrandShortText1);
+                    //     $brandsData[$uniqueId][] = $item;
+                    // }
                     unset($item);
                 }
 
@@ -101,7 +105,7 @@ class HydraulicFittingController extends AbstractController
             $HydFittingFamilyArr = array();
             if($brandsData)
             {
-                foreach ($brandsData as $key => $brand)
+                foreach ($brandsData as $brandKey => $brand)
                 {
 
                     $reinforcementArr = array();
@@ -109,7 +113,7 @@ class HydraulicFittingController extends AbstractController
                     $coverMaterialArr = array();
 
                     $shortDescription = '';
-                    $BrandShortText1 = '';
+                    // $BrandShortText1 = '';
                     $LeftPrintCatalogImageObj = '';
                     $RightPrintCatalogImageObj = '';
                     $brandName = '';
@@ -132,9 +136,9 @@ class HydraulicFittingController extends AbstractController
                                 $shortDescription = $bvalue[$headerKeysIndex['shortDescription']];
                             }
 
-                            if(!$BrandShortText1 && $bvalue[$headerKeysIndex['BrandShortText1']]) {
-                                $BrandShortText1 = $bvalue[$headerKeysIndex['BrandShortText1']];
-                            }
+                            // if(!$BrandShortText1 && $bvalue[$headerKeysIndex['BrandShortText1']]) {
+                            //     $BrandShortText1 = $bvalue[$headerKeysIndex['BrandShortText1']];
+                            // }
 
                             if(!$LeftPrintCatalogImageObj && $bvalue[$headerKeysIndex['LeftPrintCatalogImage']]) {
                                 // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['LeftPrintCatalogImage']]))
@@ -239,21 +243,26 @@ class HydraulicFittingController extends AbstractController
                                 }
                             }
 
-                            $newBrandArray[$key][$FittingTableName]['articleData']['articles'][strval($hoseID)][] = $articlesData;
-                            ksort($newBrandArray[$key][$FittingTableName]['articleData']['articles'],SORT_NUMERIC);
-                            $newBrandArray[$key][$FittingTableName]['articleData']['subHeaderRequired'] = $subHeaderRequired;
-                            $newBrandArray[$key][$FittingTableName]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
-                            $newBrandArray[$key][$FittingTableName]['brandData']['brandName'] = !empty($brandName) ? $brandName : $BrandShortText1;
+                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'][strval($hoseID)][] = $articlesData;
+                            ksort($newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'],SORT_NUMERIC);
+                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['subHeaderRequired'] = $subHeaderRequired;
+                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
+                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['brandName'] = $brandName;
                             // $newBrandArray[$key][$FittingTableName]['brandData']['HydFittingFamily'] = $HydFittingFamily;
-                            $newBrandArray[$key][$FittingTableName]['brandData']['shortDescription'] = $shortDescription;
+                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['shortDescription'] = $shortDescription;
                             // $newBrandArray[$key][$FittingTableName]['brandData']['BrandShortText1'] = $BrandShortText1;
-                            $newBrandArray[$key][$FittingTableName]['brandData']['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                            $newBrandArray[$key][$FittingTableName]['brandData']['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                            $newBrandArray[$brandKey][$FittingTableName]['brandData']['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                            // $newBrandArray[$key][$FittingTableName]['SortOrder'] = $brandsList[$BrandShortText1];
+                        
                             unset($hoseID);
                         }
+
                     }
-                    unset($brandsData[$key]);
+                    $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandName];
+                    unset($brandsData[$brandKey]);
                 }
+                array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -289,6 +298,12 @@ class HydraulicFittingController extends AbstractController
             $NomenClatureData[$entry['partialPartNumber']] = $entry['elbowType'];
         }
         return $NomenClatureData;
+    }
+
+    public function getBrandsList(){
+        $query = "select name, SortOrder from object_query_3";
+        $brandslist = $this->db->fetchPairs($query);
+        return $brandslist;
     }
 }
 

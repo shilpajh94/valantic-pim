@@ -104,6 +104,11 @@ services:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
 
+    AppBundle\EventListener\OptionProviderCacheListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.postDelete, method: postDelete }
 
     AppBundle\Services\ConfigProviderService:
       public: true
@@ -132,11 +137,16 @@ services:
     ImportBundle\OneTimeImportCommand\VirtualCatalogImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:virtialcatalog' }
-
+    ImportBundle\OneTimeImportCommand\TableNameImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:table-name-import' }
     AppBundle\Services\UnitConverterService:
       public: true
 
     AppBundle\Services\AppService:
+        public: true
+
+    AppBundle\Services\OptionProviderCacheService:
         public: true
 
     AppBundle\Services\MultiselectMasterService:

@@ -1,5 +1,5 @@
 parameters:
-  host: 'http://192.168.9.241:8000'
+  host: 'https://pim.conti.de'
   roles:
     editor:
       id: 3
