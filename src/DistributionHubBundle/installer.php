@@ -22,7 +22,7 @@ class Installer extends MigrationInstaller
     const DHUB_CLASS_FILTER = "distribution_hub_filter";
     const DHUB_CLASS_SHARE = "distribution_hub_channel_user_share";
 
-    
+
     protected function beforeInstallMigration()
     {
         return true;
@@ -46,7 +46,7 @@ class Installer extends MigrationInstaller
 
     public function migrateInstall(Schema $schema, Version $version)
     {
-        
+
         if (! $schema->hasTable(self::DHUB_CLASS_CHANNEL)) {
             $queueTable = $schema->createTable(self::DHUB_CLASS_CHANNEL);
             $queueTable->addColumn('id', 'integer', ['length' => 11, 'autoincrement' => true, 'notnull' => true]);
@@ -68,23 +68,23 @@ class Installer extends MigrationInstaller
             $queueTable->addColumn('shareGlobally', 'smallint', ['length' => 1, 'notnull' => false]);
             $queueTable->addColumn('expiryDate', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->addColumn('creationDate', 'integer', ['length' => 11, 'notnull' => false]);
-            $queueTable->addColumn('modificationDate', 'integer', ['length' => 11, 'notnull' => false]); 
+            $queueTable->addColumn('modificationDate', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->setPrimaryKey(['id']);
             $queueTable->addIndex(["filterId"]);
             $queueTable->addIndex(["userOwner"]);
         }
-        
+
         if (! $schema->hasTable(self::DHUB_CLASS_FTP)) {
             $queueTable = $schema->createTable(self::DHUB_CLASS_FTP);
             $queueTable->addColumn('id', 'integer', ['length' => 11, 'autoincrement' => true, 'notnull' => true]);
             $queueTable->addColumn('name', 'string', ['length' => 100, 'notnull' => false]);
-            $queueTable->addColumn('serverAddress', 'string', ['length' => 190, 'notnull' => true]); 
+            $queueTable->addColumn('serverAddress', 'string', ['length' => 190, 'notnull' => true]);
             $queueTable->addColumn('serverPort', 'integer', ['length' => 5, 'notnull' => true]);
-            $queueTable->addColumn('userName', 'string', ['length' => 45, 'notnull' => false]); 
+            $queueTable->addColumn('userName', 'string', ['length' => 45, 'notnull' => false]);
             $queueTable->addColumn('password', 'string', ['length' => 45, 'notnull' => false]);
             $queueTable->setPrimaryKey(['id']);
         }
-        
+
         if (! $schema->hasTable(self::DHUB_CLASS_SCHEDULE)) {
             $queueTable = $schema->createTable(self::DHUB_CLASS_SCHEDULE);
             $queueTable->addColumn('id', 'integer', ['length' => 11, 'autoincrement' => true, 'notnull' => true]);
@@ -101,10 +101,10 @@ class Installer extends MigrationInstaller
             $queueTable->addColumn('exportAssetFilePimcoreAssetId', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->addColumn('userOwner', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->addColumn('exportProcessStartTime', 'integer', ['length' => 11, 'notnull' => false]);
-            $queueTable->addColumn('exportProcessEndTime', 'integer', ['length' => 11, 'notnull' => false]); 
+            $queueTable->addColumn('exportProcessEndTime', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->addColumn('channelId', 'integer', ['length' => 11, 'notnull' => TRUE]);
             $queueTable->addColumn('creationDate', 'integer', ['length' => 11, 'notnull' => false]);
-            $queueTable->addColumn('ftpDetailId', 'integer', ['length' => 11, 'notnull' => false]); 
+            $queueTable->addColumn('ftpDetailId', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->setPrimaryKey(['id']);
             $queueTable->addIndex(["channelId"]);
             $queueTable->addIndex(["ftpDetailId"]);
@@ -114,10 +114,10 @@ class Installer extends MigrationInstaller
             $queueTable = $schema->createTable(self::DHUB_CLASS_FILTER);
             $queueTable->addColumn('id', 'integer', ['length' => 11, 'autoincrement' => true, 'notnull' => true]);
             $queueTable->addColumn('objectType', 'string', ['length' => 10, 'notnull' => false]);
-            $queueTable->addColumn('filterConfig', 'text', ['notnull' => false]); 
+            $queueTable->addColumn('filterConfig', 'text', ['notnull' => false]);
             $queueTable->addColumn('filterByList', 'smallint', ['length' => 6, 'notnull' => false]);
             $queueTable->addColumn('filterByAttribute', 'string', ['length' => 50, 'notnull' => false]);
-            $queueTable->addColumn('listFileAssetId', 'int', ['length' => 11, 'notnull' => false]);
+            $queueTable->addColumn('listFileAssetId', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->addColumn('listFileSavePath', 'string', ['length' => 90, 'notnull' => false]);
             $queueTable->setPrimaryKey(['id']);
         }
@@ -126,7 +126,7 @@ class Installer extends MigrationInstaller
             $queueTable = $schema->createTable(self::DHUB_CLASS_SHARE);
             $queueTable->addColumn('channelId', 'integer', ['length' => 11, 'notnull' => true]);
             $queueTable->addColumn('sharedWithUserId', 'integer', ['length' => 11, 'notnull' => true]);
-            $queueTable->addColumn('expiryDate', 'integer', ['length' => 11, 'notnull' => false]); 
+            $queueTable->addColumn('expiryDate', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->addColumn('creationDate', 'integer', ['length' => 11, 'notnull' => false]);
             $queueTable->setPrimaryKey(['channelId','sharedWithUserId']);
             $queueTable->addIndex(["sharedWithUserId"]);
@@ -135,12 +135,12 @@ class Installer extends MigrationInstaller
         if (! $schema->hasTable(self::DHUB_CLASS_FTP_MAP)) {
             $queueTable = $schema->createTable(self::DHUB_CLASS_FTP_MAP);
             $queueTable->addColumn('channelId', 'integer', ['length' => 11, 'notnull' => true]);
-            $queueTable->addColumn('ftpDetailId', 'integer', ['length' => 11, 'notnull' => true]); 
+            $queueTable->addColumn('ftpDetailId', 'integer', ['length' => 11, 'notnull' => true]);
             $queueTable->setPrimaryKey(['channelId','ftpDetailId']);
             $queueTable->addIndex(["ftpDetailId"]);
             $queueTable->addIndex(["channelId"]);
         }
-        
+
         // write the Yaml configurations and add the system hostName
         $configFromPackage = Utils::getYmlConfig(Constants::PACKAGE_CONFIG_FILE);
         if($configFromPackage){
@@ -150,7 +150,7 @@ class Installer extends MigrationInstaller
 
             $dumper = new Dumper();
             $yaml = $dumper->dump($configFromPackage, 2);
-            file_put_contents(Constants::CONFIG_FILE, $yaml);   
+            file_put_contents(Constants::CONFIG_FILE, $yaml);
         } else {
             throw new ParseException("Unable to parse the YAML string: %s ");
         }
@@ -175,7 +175,7 @@ class Installer extends MigrationInstaller
 
         $key = self::DHUB_PERMISSION_KEY;
         $this->connection->query("DELETE FROM users_permission_definitions WHERE `key` = '{$key}'");
-    } 
+    }
 
     public function needsReloadAfterInstall()
     {
