@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-11-18T13:24:51+05:30
+* Generated at: 2020-12-07T11:15:03+05:30
 * IP: 127.0.0.1
 
 
@@ -2429,6 +2429,21 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                                  'fieldtype' => 'select',
                                  'options' => 
                                 array (
+                                  0 => 
+                                  array (
+                                    'key' => 'Steel',
+                                    'value' => 'Steel',
+                                  ),
+                                  1 => 
+                                  array (
+                                    'key' => 'Stainless Steel',
+                                    'value' => 'Stainless Steel',
+                                  ),
+                                  2 => 
+                                  array (
+                                    'key' => 'Brass',
+                                    'value' => 'Brass',
+                                  ),
                                 ),
                                  'width' => 200,
                                  'defaultValue' => '',
@@ -8784,6 +8799,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'multiselect',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Continental',
+                        'value' => 'Continental',
+                      ),
                     ),
                      'width' => 200,
                      'height' => '',
@@ -8815,6 +8835,21 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'Steel',
+                        'value' => 'Steel',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Stainless Steel',
+                        'value' => 'Stainless Steel',
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Brass',
+                        'value' => 'Brass',
+                      ),
                     ),
                      'width' => 200,
                      'defaultValue' => '',
