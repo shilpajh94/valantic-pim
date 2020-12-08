@@ -157,8 +157,7 @@ class ChannelService
         if (strtolower($fileType) === 'csv') {
             $fp = fopen($fullPath, 'r');
             $header = fgetcsv($fp, 4096, $separator, '"');
-//            $headerRow = explode(',', $header[0]);
-            $headerRow = $header;
+            $headerRow = explode(',', $header[0]);
             foreach ($headerRow as $column) {
                 if (!is_null($column) && $column != "") {
                     $columns['col'][] = $column;
