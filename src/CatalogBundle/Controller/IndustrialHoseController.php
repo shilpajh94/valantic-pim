@@ -103,7 +103,7 @@ class IndustrialHoseController extends AbstractController
                             }
                         }
 
-                        $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName];
+                        $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
                         array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
                     }
                 }
@@ -201,20 +201,31 @@ class IndustrialHoseController extends AbstractController
                 {
                     if($item[$headerKeysIndex['brandName']][0])
                     {
+                        // if(trim($brandsList[$item[$headerKeysIndex['brandName']][0]]['GroupingFieldName']))
+                        // {
+                        //     if($item[$headerKeysIndex[$brandsList[$item[$headerKeysIndex['brandName']][0]]['GroupingFieldName']]])
+                        //         $brandsData[$item[$headerKeysIndex['brandName']][0]][$item[$headerKeysIndex[$brandsList[$item[$headerKeysIndex['brandName']][0]]['GroupingFieldName']]]][] = $item;
+                        // }
+                        // else
+                        // {
+                            // $brandsData[$item[$headerKeysIndex['brandName']][0]][0][] = $item;
+                        // }
+
                         $brandsData[$item[$headerKeysIndex['brandName']][0]][] = $item;
+                        
                         unset($item);
                     }
                 }
 
                 unset($productsData);
             }
-
+            // p_r($brandsData);
+            // die;
             $newBrandArray = array();
             if($brandsData)
             {
                 foreach ($brandsData as $key => $brand)
                 {
-                    
                     $reinforcementArr = array();
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
@@ -234,7 +245,8 @@ class IndustrialHoseController extends AbstractController
                     $oldMaterialCodeArr = array();
 
                     foreach ($brand as $bkey => $bvalue) {
-
+                        $GroupingFieldName = $brandsList[$key]['GroupingFieldName'];
+                        $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
                         $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
                         $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
                         if($FittingTableName && is_array($FittingTableKeys))
@@ -256,7 +268,7 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']]!=='N/A') {
-                                $oldMaterialCodeArr[] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
+                                $oldMaterialCodeArr[$GroupingFieldNameValue][] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
                             }
 
                             if($bvalue[$headerKeysIndex['reinforcement']]) {
@@ -395,11 +407,18 @@ class IndustrialHoseController extends AbstractController
                                     }
                             }
 
-                            $newBrandArray[$key]['articleData'][$FittingTableName]['subHeaderRequired'] = $subHeaderRequired;
-                            $newBrandArray[$key]['articleData'][$FittingTableName]['columnsDataWithImages'] = $columnsDataWithImages;
-                            $newBrandArray[$key]['articleData'][$FittingTableName]['articles'][] = $articlesData;
+                            $oldMaterialCodeStr = '';
+                            if($oldMaterialCodeArr[$GroupingFieldNameValue])
+                                $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr[$GroupingFieldNameValue]));
+
+                            $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['orderCodes'] = $oldMaterialCodeStr;
+                            $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['subHeaderRequired'] = $subHeaderRequired;
+                            $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['columnsDataWithImages'] = $columnsDataWithImages;
+                            $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['articles'][] = $articlesData;
                         }
                     }
+                    ksort($newBrandArray[$key]['articleData']);
+                    
 
                     $reinforcementStr = $VirtualCatalogReinforcement;
                     if(empty($reinforcementStr) && $reinforcementArr)
@@ -413,10 +432,6 @@ class IndustrialHoseController extends AbstractController
                     if(empty($coverMaterialStr) && $coverMaterialArr)
                         $coverMaterialStr = implode(', ', array_unique($coverMaterialArr));
 
-                    $oldMaterialCodeStr = '';
-                    if($oldMaterialCodeArr)
-                        $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr));
-
                     $newBrandArray[$key]['brandData']['SIOP3Description'] = $SIOP3Description;
                     $newBrandArray[$key]['brandData']['SIOP4Description'] = $SIOP4Description;
                     $newBrandArray[$key]['brandData']['BrandingLayline'] = $BrandingLayline;
@@ -424,7 +439,6 @@ class IndustrialHoseController extends AbstractController
                     $newBrandArray[$key]['brandData']['tubeMaterial'] = $tubeMaterialStr;
                     $newBrandArray[$key]['brandData']['coverMaterial'] = $coverMaterialStr;
                     $newBrandArray[$key]['brandData']['mainImage'] = $mainImage;
-                    $newBrandArray[$key]['brandData']['orderCodes'] = $oldMaterialCodeStr;
                     $newBrandArray[$key]['brandData']['temperatureRangeFAndC'] = $temperatureRangeFAndC;
                     $newBrandArray[$key]['brandData']['Coupling'] = $Coupling;
                     $newBrandArray[$key]['brandData']['Packaging'] = $Packaging;
@@ -451,12 +465,12 @@ class IndustrialHoseController extends AbstractController
                     $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
 
                     $newBrandArray[$key]['brandData']['safetyFeatures'] = $safetyFeaturesList;
-                    $newBrandArray[$key]['SortOrder'] = $brandsList[$key];
+                    $newBrandArray[$key]['SortOrder'] = $brandsList[$key]['SortOrder'];
 
                     unset($brandsData[$key]);
                 }
             }
-            
+
             array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
             $categories = $this->getSIOP($CatalogLanguage);
@@ -902,8 +916,17 @@ class IndustrialHoseController extends AbstractController
     }
 
     public function getBrandsList(){
-        $query = "select name, SortOrder from object_query_3";
-        $brandslist = $this->db->fetchPairs($query);
+        $query = "select name, SortOrder, GroupingFieldNameForInhHoseProductTemplate from object_query_3";
+        $brandslistRecords = $this->db->fetchAll($query);
+        
+        $brandslist = array();
+        if($brandslistRecords)
+        {
+            foreach ($brandslistRecords as $key => $value) {
+                $brandslist[$value['name']]['SortOrder'] = $value['SortOrder'];
+                $brandslist[$value['name']]['GroupingFieldName'] = $value['GroupingFieldNameForInhHoseProductTemplate'];
+            }
+        }
         return $brandslist;
     }
 }

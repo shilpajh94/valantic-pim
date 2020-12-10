@@ -209,39 +209,37 @@ if (isset($info['brandsData'])) {
                                                             </p>
                                                         <?php endif; ?>
 
-
-                                                        <?php if (!empty(trim($brand['brandData']['orderCodes']))): ?>
-                                                            <p>
-                                                                <b><?= $this->translate('Order Codes') ?></b>
-                                                                <?= $brand['brandData']['orderCodes'] ?>
-                                                            </p>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div class="col-6">
                                                         <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
                                                             <p>
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
                                                                 <?= $brand['brandData']['reinforcement'] ?>
                                                             </p>
                                                         <?php endif; ?>
+
                                                         <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
                                                             <p>
                                                                 <b><?= $this->translate('Temperature Range') ?></b>
                                                                 <?= $brand['brandData']['temperatureRangeFAndC'] ?>
                                                             </p>
                                                         <?php endif; ?>
-                                                        <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <p>
-                                                                <b><?= $this->translate('Coupling') ?></b>
-                                                                <?= $brand['brandData']['Coupling'] ?>
-                                                            </p>
-                                                        <?php endif; ?>
+                                                        
+                                                    </div>
+                                                    <div class="col-6">
+                                                        
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
                                                             <p>
                                                                 <b><?= $this->translate('Packaging') ?></b>
                                                                 <?= $brand['brandData']['Packaging'] ?>
                                                             </p>
                                                         <?php endif; ?>
+
+                                                        <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
+                                                            <p>
+                                                                <b><?= $this->translate('Coupling') ?></b>
+                                                                <?= $brand['brandData']['Coupling'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -280,9 +278,14 @@ if (isset($info['brandsData'])) {
 
                                     if(isset($brand['articleData']) && is_array($brand['articleData'])):
 
-                                        foreach ($brand['articleData'] as $key => $fittingTableName):
-                                            $tableKey = md5($key);
+                                        foreach ($brand['articleData'] as $key => $GroupingFields):
+                                            foreach ($GroupingFields as $gkey => $fittingTableName):
+                                            $tableKey = md5($key.$gkey);
                                         ?>
+                                            <h5><?= $brandKey. " ". $key ?> </h5>
+                                            <?php if($fittingTableName['orderCodes']): ?>
+                                            <p><b>Order Codes :</b> <?= $fittingTableName['orderCodes'] ?> </p>
+                                            <?php endif; ?>
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
                                             <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
                                                 <thead>
@@ -355,6 +358,7 @@ if (isset($info['brandsData'])) {
                                             <p class="small"><?= $this->input('INH_PP_Note_' . $uniqueId.'_'.$tableKey, ['placeholder' => 'Enter comment']); ?></p>
                                         <?php
                                         $noterow++;
+                                        endforeach;
                                         endforeach;
                                     endif;
                                     ?>
