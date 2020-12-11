@@ -44,20 +44,24 @@ class ProductImport
     public function getDistributionChainFlagByMaterial($materialObjId) {
         $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
         $salesData = $this->db->fetchAll($sql);
-        $flag = true;
-        foreach ($salesData as $rec) {
-            if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
-                $flag = false;
-                break;
+	$flag = true;
+	if (count($salesData) > 0) {
+            foreach ($salesData as $rec) {
+                if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
+                    $flag = false;
+                    break;
+                }
             }
+        } else {
+            $flag = false;
         }
         return $flag;
     }
     
     public function getFittingFamilyFlagByMaterial($materialObjId) {
-        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote(",".$materialObjId.",")." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') "; //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
+        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') "; 
         $data = $this->db->fetchAll($sql);
-        $flag = false;
+	$flag = false;
         if (count($data)>0) {
             $flag = true;
         }

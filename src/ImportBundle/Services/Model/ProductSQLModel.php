@@ -376,23 +376,18 @@ class ProductSQLModel
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
             if ($type == 'fert') {
-                $articleNumber = $record[$this->getRecordIndexByKey('material')];
-                $data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
-                if (!empty($data) && count($data)>0) {
+		    $articleNumber = $record[$this->getRecordIndexByKey('material')];
+		$data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
+		if (!empty($data) && count($data)>0) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['o_id'] = $objId;
-                    if ($oldMaterialCode != $data[0]['oldMaterialCode']) {
-                        $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
-                        if (!empty($distributionFlag)) {
-                            /** 
-                             * Fitting family and thread description handling
-                             */
-                            $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
-                            if (!empty($fittingFamilyFlag)) {
-                                $objectArr['parentId'] = $data[0]['o_parentId'];
-                            }
-                        }
-                    } 
+                    //if ($oldMaterialCode != $data[0]['oldMaterialCode']) {
+		    $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
+		    $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
+                    if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
+                        $objectArr['parentId'] = $data[0]['o_parentId'];
+                    }
+			//}
                 }
             }
             
@@ -488,8 +483,8 @@ class ProductSQLModel
         return [$objId, $currentLevelPath];
     }
     public function processSingleRecord($siopCode, $row, $bu) {
-        $recData =  (array) json_decode($row['record']);
-        $status = 'Failed';
+	    $recData =  (array) json_decode($row['record']);
+	    $status = 'Failed';
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
             if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
