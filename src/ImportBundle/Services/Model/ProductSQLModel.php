@@ -199,7 +199,6 @@ class ProductSQLModel
     public function initiateIFSProductsProcess() {
         $a = time();
         $delta = $this->tblImpHelper->getDelta('ifs');
-        
         $this->setVariablesToEmpty();
         echo "Delta count: ".$deltaCount = count($delta);
         $j = 1;
@@ -382,9 +381,21 @@ class ProductSQLModel
                 if (!empty($data) && count($data)>0) {
                     $objId = $data[0]['oo_id'];
                     $objectArr['o_id'] = $objId;
-                    $objectArr['parentId'] = $data[0]['o_parentId'];
+                    if ($oldMaterialCode != $data[0]['oldMaterialCode']) {
+                        $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
+                        if (!empty($distributionFlag)) {
+                            /** 
+                             * Fitting family and thread description handling
+                             */
+                            $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
+                            if (!empty($fittingFamilyFlag)) {
+                                $objectArr['parentId'] = $data[0]['o_parentId'];
+                            }
+                        }
+                    } 
                 }
             }
+            
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
             
@@ -498,7 +509,7 @@ class ProductSQLModel
                                 $recData[6] = '';
                                 $sixDigitCode = '';
                             } else {
-                                $sixDigitCode = substr($oldMaterialCode, 0, 6);
+                                $sixDigitCode = substr($oldMaterialCode, 0, 6); 
                             }
                             if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
                                 $msg = 'SIOP Code does not match with previous records of same Six digit code.';
@@ -509,18 +520,23 @@ class ProductSQLModel
                                 $folderPath = $this->categories[$folderCode]['fullPath'];
                                 $folderPath = $this->convertCategoryPathToProduct($folderPath);
                                 $folderId = $this->getFolderByPath($folderPath);
+//                                echo $folderId;
+//                                echo $folderPath;
+//                                echo strlen($oldMaterialCode); die;
                                 if (!array_key_exists($folderPath, $this->products)) {
                                     $folderId = $this->getFolderByPath($folderPath);
                                     $this->products[$folderPath] = $folderId;
                                 } else {
                                     $folderId = $this->products[$folderPath];
                                 }
+                                
                                 if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                     $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
                                 } else {
                                     $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
                                     $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
                                     $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                    
                                 }
                                 $status = 'Success';
                                 $msg = 'Object Id is: '.$levelArray[0];
