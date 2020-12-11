@@ -140,6 +140,9 @@ services:
     ImportBundle\OneTimeImportCommand\TableNameImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:table-name-import' }
+    ImportBundle\OneTimeImportCommand\FeatureImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:feature-import-command' }
     AppBundle\Services\UnitConverterService:
       public: true
 
