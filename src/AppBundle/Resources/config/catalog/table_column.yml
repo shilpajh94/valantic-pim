@@ -103,7 +103,7 @@ parameters:
             pitchMM:
                 fieldLevel: objectBrick
                 fieldType: Input
-                groupName: pitch
+                groupName: Pitch
                 unitName: mm
                 numberOfDecimalPoints: 2
                 fieldLabel: Pitch (mm)
@@ -1212,7 +1212,7 @@ parameters:
             BendRadiusIN:
                 fieldLevel: objectBrick
                 fieldLabel: BR (in)
-                groupName: BendRadiusIN
+                groupName: bendRadius
                 unitName: in
                 numberOfDecimalPoints: 2
                 fieldType: Input
