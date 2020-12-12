@@ -618,10 +618,18 @@ article figure p b {
 padding-top: 30px;
 }
 
+.noBreak { 
+border:1px solid red !important;
+break-after: avoid;
+
+}
+/*
 .noBreak .grid{ 
 
 break-before: avoid;
+
 }
+*/
 .highlight {
     margin-left: 30px;
 }
@@ -2114,4 +2122,11 @@ right:0;
 .is-highlight{
 color: #ffa500;
 font-family: 'ContinentalStagSansLCG-Medium' !important;
+}
+
+.relative{ position: relative;}
+.small.relative{ margin-bottom: 20px;}
+
+@media print{
+.small.relative{ margin-top: 20px;}
 }
