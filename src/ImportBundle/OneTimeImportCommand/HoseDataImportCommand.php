@@ -247,20 +247,40 @@ class HoseDataImportCommand extends AbstractCommand
                 $results[$k]['failedReason'] = "";
             }
 
+            
             $d[$i] = array(
                 'oo_id'  =>  $r['level6n9digit_id'],
 //                'grossWeight' => !empty($r['Weight_lb_ft']) ? $r['Weight_lb_ft'] : NULL,
 //                'weightg' => !empty($r['Weight_G_M']) ? $r['Weight_G_M'] : NULL,
-                'minimumTemperatureF'  =>  isset($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
-                'minimumTemperatureC'  =>  isset($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
-                'maximumTemperatureF'  =>  isset($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
-                'maximumTemperatureC'  =>  isset($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
+//                'minimumTemperatureF'  =>  !empty($r['MinTemperature_Rating_F']) ? $r['MinTemperature_Rating_F'] : NULL,
+//                'minimumTemperatureC'  =>  !empty($r['MinTemperature_Rating_C']) ? $r['MinTemperature_Rating_C'] : NULL,
+//                'maximumTemperatureF'  =>  !empty($r['MaxTemperature_Rating_F']) ? $r['MaxTemperature_Rating_F'] : NULL,
+//                'maximumTemperatureC'  =>  !empty($r['MaxTemperature_Rating_C']) ? $r['MaxTemperature_Rating_C'] : NULL,
                 'brandName'    =>  $brnds,
             );
+            if ($r['MinTemperature_Rating_F'] != '' && $r['MinTemperature_Rating_F'] != null) {
+                $d[$i]['minimumTemperatureF'] = $r['MinTemperature_Rating_F'];
+            } else {
+                $d[$i]['minimumTemperatureF'] = null;
+            }
+            if ($r['MinTemperature_Rating_C'] != '' && $r['MinTemperature_Rating_C'] != null) {
+                $d[$i]['minimumTemperatureC'] = $r['MinTemperature_Rating_C'];
+            } else {
+                $d[$i]['minimumTemperatureC'] = null;
+            }
+            if ($r['MaxTemperature_Rating_F'] != '' && $r['MaxTemperature_Rating_F'] != null) {
+                $d[$i]['maximumTemperatureF'] = $r['MaxTemperature_Rating_F'];
+            } else {
+                $d[$i]['maximumTemperatureF'] = null;
+            }
+            if ($r['MaxTemperature_Rating_C'] != '' && $r['MaxTemperature_Rating_C'] != null) {
+                $d[$i]['maximumTemperatureC'] = $r['MaxTemperature_Rating_C'];
+            } else {
+                $d[$i]['maximumTemperatureC'] = null;
+            }
             $d[$i]['reinforcement'] = !empty($reinforcement) ? implode(", ", $reinforcement) : NUll;
             $i++;
         }
-
         $this->insertDataToLogTable($results);
         return $d;
     }
@@ -549,6 +569,7 @@ class HoseDataImportCommand extends AbstractCommand
         $d = array();
         $rows = array();
         $i = 0;
+        
         foreach ($this->baseLevelRecords as $baseLevelCode => $results) {
             if (!isset($d[$baseLevelCode])) {
                 $d[$baseLevelCode] = array();
@@ -622,16 +643,27 @@ class HoseDataImportCommand extends AbstractCommand
 //                    $d[$baseLevelCode]['Weight_G_M'] = $result['Weight_G_M'];
 //                }
                 if (empty($d[$baseLevelCode]['MinTemperature_Rating_F'])) {
-                    $unit = $unitConverter->getGroupWithValues('minimumTemperatureF', floatval($result['MinTemperature_Rating_F']));
-                    $d[$baseLevelCode]['MinTemperature_Rating_F'] = $unit['minimumTemperatureF'];
-                    $d[$baseLevelCode]['MinTemperature_Rating_C'] = $unit['minimumTemperatureC'];
-                    unset($unit);
+                    if ($result['MinTemperature_Rating_F']== '' || $result['MinTemperature_Rating_F']== null) {
+                        $d[$baseLevelCode]['MinTemperature_Rating_F'] = null;
+                        $d[$baseLevelCode]['MinTemperature_Rating_C'] = null;
+                    } else {
+                        $unit = $unitConverter->getGroupWithValues('minimumTemperatureF', floatval($result['MinTemperature_Rating_F']));
+                        $d[$baseLevelCode]['MinTemperature_Rating_F'] = $unit['minimumTemperatureF'];
+                        $d[$baseLevelCode]['MinTemperature_Rating_C'] = $unit['minimumTemperatureC'];
+                        unset($unit);
+                    }
                 }
                 if (empty($d[$baseLevelCode]['MaxTemperature_Rating_F'])) {
-                    $unit = $unitConverter->getGroupWithValues('maximumTemperatureF', floatval($result['MaxTemperature_Rating_F']));
-                    $d[$baseLevelCode]['MaxTemperature_Rating_F'] = $unit['maximumTemperatureF'];
-                    $d[$baseLevelCode]['MaxTemperature_Rating_C'] = $unit['maximumTemperatureC'];
-                    unset($unit);
+                    if ($result['MaxTemperature_Rating_F']== '' || $result['MaxTemperature_Rating_F']== null) {
+                        $d[$baseLevelCode]['MaxTemperature_Rating_F'] = null;
+                        $d[$baseLevelCode]['MaxTemperature_Rating_C'] = null;
+                    } else {
+                        $unit = $unitConverter->getGroupWithValues('maximumTemperatureF', floatval($result['MaxTemperature_Rating_F']));
+                        $d[$baseLevelCode]['MaxTemperature_Rating_F'] = $unit['maximumTemperatureF'];
+                        $d[$baseLevelCode]['MaxTemperature_Rating_C'] = $unit['maximumTemperatureC'];
+                        unset($unit);
+                    }
+                    
                 }
                 if (empty($d[$baseLevelCode]['Reinforcement'])) {
                     $arr = explode("/", $result['Reinforcement']);

@@ -47,7 +47,16 @@ class UnitConverterService
 
         foreach($attributeGroupWithValues as $attributeName => $value){
             $setter = 'set'.ucfirst($attributeName);
-            $value = $value === null ? null : round($value, 5);
+//            $value = $value === null ? null : round($value, 5);
+
+            if($value !== null){
+                if($attributeName === "minimumTemperatureC" || $attributeName === "maximumTemperatureC"){
+                    $value = round($value);
+                }else{
+                    $value = round($value, 5);
+                }
+            }
+
             $object->$setter($value);
         }
     }
