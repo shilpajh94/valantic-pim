@@ -693,7 +693,7 @@ class DefaultController extends AbstractController {
 
     public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints)
     {
-        if($needUpdateValue && $value)
+        if($needUpdateValue && $value && is_numeric($value))
             $fieldValue = number_format($value, $numberOfDecimalPoints); 
         else
             $fieldValue = $value;
