@@ -98,7 +98,7 @@ parameters:
             pitchMM:
                 fieldLevel: objectBrick
                 fieldType: Input
-                groupName: pitch
+                groupName: Pitch
                 unitName: mm
                 fieldLabel: Pitch (mm)
                 parent:
@@ -1149,7 +1149,7 @@ parameters:
             BendRadiusIN:
                 fieldLevel: objectBrick
                 fieldLabel: BR (in)
-                groupName: BendRadiusIN
+                groupName: bendRadius
                 unitName: in
                 fieldType: Input
                 parent:
