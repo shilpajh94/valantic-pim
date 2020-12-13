@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     "brandProducts" => [
@@ -642,7 +642,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-1"
+                "id" => "extModel286-1"
             ],
             [
                 "name" => "SAP Description",
@@ -652,7 +652,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-2"
+                "id" => "extModel286-2"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -662,7 +662,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-3"
+                "id" => "extModel286-3"
             ],
             [
                 "name" => "Product Type",
@@ -672,7 +672,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-4"
+                "id" => "extModel286-4"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -682,7 +682,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-5"
+                "id" => "extModel286-5"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -692,7 +692,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-6"
+                "id" => "extModel286-6"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -702,7 +702,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-7"
+                "id" => "extModel286-7"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -712,7 +712,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-8"
+                "id" => "extModel286-8"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -722,7 +722,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-9"
+                "id" => "extModel286-9"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -732,7 +732,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1740-10"
+                "id" => "extModel286-10"
             ],
             [
                 "name" => "o_id",
@@ -743,7 +743,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel1740-11"
+                "id" => "extModel286-11"
             ]
         ],
         "niceName" => "NEW - Item Count",
@@ -759,9 +759,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607081718,
+        "modificationDate" => 1607404090,
         "creationDate" => 1606361037,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
@@ -791,7 +791,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-1"
+                "id" => "extModel603-1"
             ],
             [
                 "name" => "SAP Description",
@@ -801,7 +801,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-2"
+                "id" => "extModel603-2"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -811,7 +811,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-3"
+                "id" => "extModel603-3"
             ],
             [
                 "name" => "Product Type",
@@ -821,7 +821,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-4"
+                "id" => "extModel603-4"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -831,7 +831,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-5"
+                "id" => "extModel603-5"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -841,7 +841,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-6"
+                "id" => "extModel603-6"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -851,7 +851,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-7"
+                "id" => "extModel603-7"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -861,7 +861,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-8"
+                "id" => "extModel603-8"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -871,7 +871,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-9"
+                "id" => "extModel603-9"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -881,7 +881,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1901-10"
+                "id" => "extModel603-10"
             ],
             [
                 "name" => "o_id",
@@ -892,7 +892,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel1901-11"
+                "id" => "extModel603-11"
             ]
         ],
         "niceName" => "NEW PRODUCTS",
@@ -908,9 +908,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607081747,
+        "modificationDate" => 1607404144,
         "creationDate" => 1606362991,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
@@ -940,7 +940,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-1"
+                "id" => "extModel1878-1"
             ],
             [
                 "name" => "SAP Description",
@@ -950,7 +950,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-2"
+                "id" => "extModel1878-2"
             ],
             [
                 "name" => "Brand",
@@ -960,7 +960,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-3"
+                "id" => "extModel1878-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -970,7 +970,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-4"
+                "id" => "extModel1878-4"
             ],
             [
                 "name" => "Product Type",
@@ -980,7 +980,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-5"
+                "id" => "extModel1878-5"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -990,7 +990,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-6"
+                "id" => "extModel1878-6"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1000,7 +1000,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-7"
+                "id" => "extModel1878-7"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1010,7 +1010,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-8"
+                "id" => "extModel1878-8"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1020,7 +1020,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-9"
+                "id" => "extModel1878-9"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1030,7 +1030,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-10"
+                "id" => "extModel1878-10"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1040,7 +1040,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2061-11"
+                "id" => "extModel1878-11"
             ],
             [
                 "name" => "o_id",
@@ -1051,7 +1051,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel2061-12"
+                "id" => "extModel1878-12"
             ]
         ],
         "niceName" => "NEW BRAND SKUs",
@@ -1067,9 +1067,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607081766,
+        "modificationDate" => 1607404153,
         "creationDate" => 1606812138,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
@@ -1099,7 +1099,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-1"
+                "id" => "extModel2040-1"
             ],
             [
                 "name" => "SAP Description",
@@ -1109,7 +1109,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-2"
+                "id" => "extModel2040-2"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1119,7 +1119,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-3"
+                "id" => "extModel2040-3"
             ],
             [
                 "name" => "Main Image",
@@ -1130,7 +1130,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel2223-4"
+                "id" => "extModel2040-4"
             ],
             [
                 "name" => "Front View Image",
@@ -1141,7 +1141,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel2223-5"
+                "id" => "extModel2040-5"
             ],
             [
                 "name" => "Side View Image",
@@ -1152,7 +1152,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel2223-6"
+                "id" => "extModel2040-6"
             ],
             [
                 "name" => "Cut View Image",
@@ -1163,7 +1163,7 @@ return [
                 "label" => "",
                 "filter" => "string",
                 "columnAction" => "",
-                "id" => "extModel2223-7"
+                "id" => "extModel2040-7"
             ],
             [
                 "name" => "Epix Image",
@@ -1173,7 +1173,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-8"
+                "id" => "extModel2040-8"
             ],
             [
                 "name" => "Alternate Image 1",
@@ -1183,7 +1183,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-9"
+                "id" => "extModel2040-9"
             ],
             [
                 "name" => "Alternate Image 2",
@@ -1193,7 +1193,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-10"
+                "id" => "extModel2040-10"
             ],
             [
                 "name" => "Alternate Image 3",
@@ -1203,7 +1203,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-11"
+                "id" => "extModel2040-11"
             ],
             [
                 "name" => "Alternate Image 4",
@@ -1213,7 +1213,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-12"
+                "id" => "extModel2040-12"
             ],
             [
                 "name" => "Alternate Image 5",
@@ -1223,7 +1223,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-13"
+                "id" => "extModel2040-13"
             ],
             [
                 "name" => "Alternate Image 6",
@@ -1233,7 +1233,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-14"
+                "id" => "extModel2040-14"
             ],
             [
                 "name" => "Alternate Image 7",
@@ -1243,7 +1243,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-15"
+                "id" => "extModel2040-15"
             ],
             [
                 "name" => "Alternate Image 8",
@@ -1253,7 +1253,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-16"
+                "id" => "extModel2040-16"
             ],
             [
                 "name" => "Alternate Image 9",
@@ -1263,7 +1263,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-17"
+                "id" => "extModel2040-17"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1273,7 +1273,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-18"
+                "id" => "extModel2040-18"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1283,7 +1283,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-19"
+                "id" => "extModel2040-19"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1293,7 +1293,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-20"
+                "id" => "extModel2040-20"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1303,7 +1303,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-21"
+                "id" => "extModel2040-21"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1313,7 +1313,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-22"
+                "id" => "extModel2040-22"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1323,7 +1323,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-23"
+                "id" => "extModel2040-23"
             ],
             [
                 "name" => "Product Type",
@@ -1333,7 +1333,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2223-24"
+                "id" => "extModel2040-24"
             ],
             [
                 "name" => "o_id",
@@ -1344,7 +1344,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel2223-25"
+                "id" => "extModel2040-25"
             ]
         ],
         "niceName" => "NEW PRODUCTS WITH NO IMAGE",
@@ -1360,9 +1360,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607081798,
+        "modificationDate" => 1607404165,
         "creationDate" => 1606817832,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
@@ -1392,7 +1392,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-1"
+                "id" => "extModel2200-1"
             ],
             [
                 "name" => "SAP Description",
@@ -1402,7 +1402,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-2"
+                "id" => "extModel2200-2"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1412,7 +1412,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-3"
+                "id" => "extModel2200-3"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -1422,7 +1422,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-4"
+                "id" => "extModel2200-4"
             ],
             [
                 "name" => "Product Type",
@@ -1432,7 +1432,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-5"
+                "id" => "extModel2200-5"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1442,7 +1442,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-6"
+                "id" => "extModel2200-6"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1452,7 +1452,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-7"
+                "id" => "extModel2200-7"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1462,7 +1462,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-8"
+                "id" => "extModel2200-8"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1472,7 +1472,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-9"
+                "id" => "extModel2200-9"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1482,7 +1482,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-10"
+                "id" => "extModel2200-10"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1492,7 +1492,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2383-11"
+                "id" => "extModel2200-11"
             ],
             [
                 "name" => "o_id",
@@ -1503,7 +1503,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel2383-12"
+                "id" => "extModel2200-12"
             ]
         ],
         "niceName" => "NEW DATA COMPLETENESS",
@@ -1519,9 +1519,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607081812,
+        "modificationDate" => 1607404174,
         "creationDate" => 1606822831,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
@@ -1551,7 +1551,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-1"
+                "id" => "extModel2361-1"
             ],
             [
                 "name" => "SAP Description",
@@ -1561,7 +1561,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-2"
+                "id" => "extModel2361-2"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1571,7 +1571,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-3"
+                "id" => "extModel2361-3"
             ],
             [
                 "name" => "Product Type",
@@ -1581,7 +1581,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-4"
+                "id" => "extModel2361-4"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1591,7 +1591,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-5"
+                "id" => "extModel2361-5"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1601,7 +1601,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-6"
+                "id" => "extModel2361-6"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1611,7 +1611,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-7"
+                "id" => "extModel2361-7"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1621,7 +1621,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-8"
+                "id" => "extModel2361-8"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1631,7 +1631,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-9"
+                "id" => "extModel2361-9"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1641,7 +1641,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2544-10"
+                "id" => "extModel2361-10"
             ],
             [
                 "name" => "o_id",
@@ -1652,7 +1652,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel2544-11"
+                "id" => "extModel2361-11"
             ]
         ],
         "niceName" => "NEW PRODUCT ATTRIBUTE INCOMPLETENESS",
@@ -1668,9 +1668,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607081832,
+        "modificationDate" => 1607404182,
         "creationDate" => 1606824473,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
@@ -1700,7 +1700,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-1"
+                "id" => "extModel2522-1"
             ],
             [
                 "name" => "SAP Description",
@@ -1710,7 +1710,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-2"
+                "id" => "extModel2522-2"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1720,7 +1720,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-3"
+                "id" => "extModel2522-3"
             ],
             [
                 "name" => "Last Action Date",
@@ -1729,7 +1729,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel882-14"
+                "id" => "extModel2522-4"
             ],
             [
                 "name" => "Last Action Name",
@@ -1739,7 +1739,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-4"
+                "id" => "extModel2522-5"
             ],
             [
                 "name" => "Pending Since",
@@ -1749,7 +1749,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-5"
+                "id" => "extModel2522-6"
             ],
             [
                 "name" => "Product Type",
@@ -1759,7 +1759,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-6"
+                "id" => "extModel2522-7"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1769,7 +1769,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-7"
+                "id" => "extModel2522-8"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1779,7 +1779,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-8"
+                "id" => "extModel2522-9"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1789,7 +1789,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-9"
+                "id" => "extModel2522-10"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1799,7 +1799,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-10"
+                "id" => "extModel2522-11"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1809,7 +1809,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-11"
+                "id" => "extModel2522-12"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1819,7 +1819,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel882-12"
+                "id" => "extModel2522-13"
             ],
             [
                 "name" => "o_id",
@@ -1830,7 +1830,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel882-13"
+                "id" => "extModel2522-14"
             ]
         ],
         "niceName" => "Workflow Pending SKUs",
@@ -1846,9 +1846,9 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607084469,
+        "modificationDate" => 1607404224,
         "creationDate" => 1606838413,
-        "shareGlobally" => FALSE,
+        "shareGlobally" => TRUE,
         "sharedUserNames" => [
 
         ],
