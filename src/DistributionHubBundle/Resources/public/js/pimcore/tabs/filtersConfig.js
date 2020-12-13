@@ -82,7 +82,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
         
         filterPanelsStore.data.items.forEach(function (item) {
             let filterPanelInfo = {
-                boxLabel: item.data.boxLabel,
+                boxLabel: item.data.id,
                 xtype: 'radiofield',
                 name: "filterBy",
                 width: 300,
