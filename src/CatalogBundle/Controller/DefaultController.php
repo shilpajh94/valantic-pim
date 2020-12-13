@@ -261,6 +261,8 @@ class DefaultController extends AbstractController {
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
+        // p_r($dynamicColumnsData);
+        // p_r($tableColumns);
         if($tableColumns!== null)
         {
                 $columns = array_keys($tableColumns);
@@ -396,11 +398,23 @@ class DefaultController extends AbstractController {
             foreach ($columns as $fieldName) {
                 if (in_array($fieldName, array_keys($printColumns))) {
                     $headers[$fieldName] = $printColumns[$fieldName]['fieldLabel'];
+                    
+                    $numberOfDecimalPoints = "";
+                    
+                    if(isset($printColumns[$fieldName]['numberOfDecimalPoints']) && $printColumns[$fieldName]['numberOfDecimalPoints'])
+                    {
+                        $numberOfDecimalPoints = $printColumns[$fieldName]['numberOfDecimalPoints'];
+                        $needUpdateValue = TRUE;
+                    }
+                    else{
+                        $needUpdateValue = FALSE;
+                    }
+                    
                     if ($printColumns[$fieldName]['fieldLevel'] == 'class' && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $getter = 'get' . ucfirst($fieldName);
                         if($item->$getter() !== null && !empty($item->$getter()))
                         {
-                        $pData[$item->getId()][$fieldName] = $item->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
                         }
                         else
                         {
@@ -421,12 +435,14 @@ class DefaultController extends AbstractController {
                             array_push($dataValues, $obj->$fieldGetter());
                         }
                         }
-                        $pData[$item->getId()][$fieldName] = $dataValues;
+
+                        $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
+
                     } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getFert()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->getFert()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
@@ -434,7 +450,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getSkeleton()->$brickGetter() != null) {
-                            $pData[$item->getId()][$fieldName] = $item->getSkeleton()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->getSkeleton()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
@@ -443,7 +459,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getBase()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$fieldName] = $item->getBase()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->getBase()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -462,7 +478,8 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$fieldName] = $dataValues;
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
+
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -481,7 +498,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$fieldName] = $dataValues;
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -500,7 +517,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$fieldName] = $dataValues;
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -514,11 +531,24 @@ class DefaultController extends AbstractController {
                 foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
                     $headers[$dFieldKey] = $dFieldName['fieldLabel'];
+
+                    $numberOfDecimalPoints = "";
+                    
+                    if(isset($dFieldName['numberOfDecimalPoints']) && $dFieldName['numberOfDecimalPoints'])
+                    {
+                        $numberOfDecimalPoints = $dFieldName['numberOfDecimalPoints'];
+                        $needUpdateValue = TRUE;
+                    }
+                    else{
+                        $needUpdateValue = FALSE;
+                    }
+
+
                     if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
                         $getter = 'get' . ucfirst($dFieldKey);
                         if($item->$getter() !== null && !empty($item->$getter()))
                         {
-                        $pData[$item->getId()][$dFieldKey] = $item->$getter();
+                        $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
                         }
                         else
                         {
@@ -548,12 +578,12 @@ class DefaultController extends AbstractController {
                             array_push($dataValues, $obj->$fieldGetter());
                         }
                         }
-                        $pData[$item->getId()][$dFieldKey] = $dataValues;
+                        $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                     } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getFert()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$dFieldKey] = $item->getFert()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->getFert()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -561,7 +591,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getSkeleton()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$dFieldKey] = $item->getSkeleton()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->getSkeleton()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -569,7 +599,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getBase()->$brickGetter()) {
-                            $pData[$item->getId()][$dFieldKey] = $item->getBase()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->getBase()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -588,7 +618,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -607,7 +637,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -626,7 +656,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -661,6 +691,15 @@ class DefaultController extends AbstractController {
         die;
     }
 
+    public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints)
+    {
+        if($needUpdateValue && $value && is_numeric($value))
+            $fieldValue = number_format($value, $numberOfDecimalPoints); 
+        else
+            $fieldValue = $value;
+
+        return $fieldValue;
+    }
 
 
     /**
@@ -1025,13 +1064,7 @@ if(isset($data[$baseId])) {
                                 $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
                             else
                             {
-                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                                    $articlesData[$key][] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
                             }
                         }
 
@@ -1263,13 +1296,7 @@ if(isset($data[$baseId])) {
                             endforeach;
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                                    $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                             }
 
                     endforeach;
@@ -1441,13 +1468,7 @@ if(isset($data[$baseId])) {
                     endforeach;
 
                     foreach ($orderKeys as $ckey => $cvalue) {
-                        if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                            $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                            $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                        }
-                        else{
-                            $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                        }
+                        $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                     }
 
                 endforeach;
@@ -1584,13 +1605,7 @@ if(isset($data[$baseId])) {
                         $articlesData = array();
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                            if(is_numeric($item[$cvalue])){
-                                $float_value = (float) $item[$cvalue];
-                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                            }
-                            else{
-                                $articlesData[] = $item[$cvalue];
-                            }
+                            $articlesData[] = $item[$cvalue];
                         }
 
                         $brandData[$uniqueId]['articlesData'][] = $articlesData;
@@ -1936,13 +1951,7 @@ if(isset($data[$baseId])) {
                                 $shortDescription = $element[$headerKeysIndex['shortDescription']];
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                                    $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                             }
 
                     endforeach;
@@ -2300,13 +2309,7 @@ if(isset($data[$baseId])) {
                         $item[] = $listPrice;
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                            if(is_numeric($item[$cvalue])){
-                                $float_value = (float) $item[$cvalue];
-                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                            }
-                            else{
-                                $articlesData[] = $item[$cvalue];
-                            }
+                            $articlesData[] = $item[$cvalue];
                         }
 
                         $brandsData[$siop6Category][] = $articlesData;

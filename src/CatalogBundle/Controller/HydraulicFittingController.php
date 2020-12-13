@@ -234,13 +234,7 @@ class HydraulicFittingController extends AbstractController
                             }
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                if(is_numeric($bvalue[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $bvalue[$headerKeysIndex[$ckey]];
-                                    $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[] = $bvalue[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[] = $bvalue[$headerKeysIndex[$ckey]];
                             }
 
                             $newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'][strval($hoseID)][] = $articlesData;

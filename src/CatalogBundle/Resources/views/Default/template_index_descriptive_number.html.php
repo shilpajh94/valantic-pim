@@ -21,7 +21,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         </div>
         <div id="amortizationTable" class="content_double single">
             <?php if($this->editmode): ?>
-                <div>
+                <div class="flex">
                     <div class="upper"> <?= $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"])->setDataFromResource('Descriptive #'); ?></div>
                     <div class="upper"> <?= $this->input("HHIDN_th_col_2",['placeholder'=>"Column 2"])->setDataFromResource('Page #'); ?> </div>
                 </div>
