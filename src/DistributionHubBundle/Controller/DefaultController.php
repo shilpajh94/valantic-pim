@@ -2,6 +2,7 @@
 
 namespace DistributionHubBundle\Controller;
 
+use DistributionHubBundle\Lib\Constants;
 use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,24 +13,20 @@ class DefaultController extends FrontendController {
 
     /**
      * @Route("/admin/default/list_thumb")
-     * 
+     *
      * @param Request $request
      * @return type
      */
     public function listThumbnailAction(Request $request) {
         $data = array();
-        
-        $filterFunc = function ($dataRow){           
-            return $dataRow['downloadable'];
-        };
-        
-        $list = new \Pimcore\Model\Asset\Image\Thumbnail\Config\Listing();
-        $list->setFilter($filterFunc);
-        $items = $list->getThumbnails();
+
+        // for contitech
+        $items = Constants::S3_THUMBS_WITH_LAMBDA;
         foreach ($items as $item) {
-            $tmp = ['id' => $item->getName(), 'name' => $item->getName()];
+            $tmp = ['id' => $item, 'name' => $item];
             $data[] = $tmp;
         }
+
         return $this->json(['success' => true, 'data' => $data]);
     }
 

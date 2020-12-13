@@ -11,6 +11,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         this.allowedOperatorList = [
             "Ignore",
             "AnyGetter",
+            "ReverseManyToManyGetter",
             "Arithmetic",
             "Comparison",
             "DateFormatter",

@@ -10,6 +10,13 @@ class Filter extends AbstractModel
 
     public $filterConfig;
 
+    public $filterByList;
+
+    public $listFileAssetId;
+
+    public $filterByAttribute;
+    
+    public $listFileSavePath;
 
     /**
      * @return mixed
@@ -41,5 +48,69 @@ class Filter extends AbstractModel
     public function setFilterConfig(?string $filterConfig): void
     {
         $this->filterConfig = $filterConfig;
-    } 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilterByList()
+    {
+        return $this->filterByList;
+    }
+
+    /**
+     * @param mixed $filterByList
+     */
+    public function setFilterByList(?bool $filterByList): void
+    {
+        $this->filterByList = $filterByList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getListFileAssetId()
+    {
+        return $this->listFileAssetId;
+    }
+
+    /**
+     * @param mixed $listFileAssetId
+     */
+    public function setListFileAssetId(?string $listFileAssetId): void
+    {
+        $this->listFileAssetId = $listFileAssetId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilterByAttribute()
+    {
+        return $this->filterByAttribute;
+    }
+
+    /**
+     * @param mixed $filterByAttribute
+     */
+    public function setFilterByAttribute(?string $filterByAttribute): void
+    {
+        $this->filterByAttribute = $filterByAttribute;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getListFileSavePath()
+    {
+        return $this->listFileSavePath;
+    }
+
+    /**
+     * @param mixed $listFileSavePath
+     */
+    public function setListFileSavePath(?string $listFileSavePath): void
+    {
+        $this->listFileSavePath = $listFileSavePath;
+    }
 }

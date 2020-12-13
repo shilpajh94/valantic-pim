@@ -147,6 +147,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
 
         $validLanguages = Tool::getValidLanguages(); 
         
+                            
         if ($fieldType === "objectbricks") {
             $tableName = "object_brick_localized_" . $fieldFilter['type'] . "_" . $classId;
             $lang = array_keys($fieldFilter['filterCondition']['filterEntryData'])['0'];

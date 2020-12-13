@@ -190,7 +190,7 @@ class BasicConfigService
             $tmpUploadPath = $tmpUploadPathfolder . $fileName;
 
             move_uploaded_file($requestBinaryFile['tmp_name'], $tmpUploadPath);
-//            chmod($tmpUploadPath, 0777);
+            
             try {
                 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($tmpUploadPath);
             } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {

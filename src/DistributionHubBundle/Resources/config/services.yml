@@ -181,6 +181,13 @@ services:
         tags:
             - { name: pimcore.data_object.grid_column_config.operator_factory, id: CollectionMediaGetter }
 
+    pimcore.data_object.grid_column_config.operator.factory.reversemanytomanygetter:
+        class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
+        arguments:
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\ReverseManyToManyGetter
+        tags:
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: ReverseManyToManyGetter }
+
     pimcore.data_object.grid_column_config.operator.factory.selecttypemastergetter:
         class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:

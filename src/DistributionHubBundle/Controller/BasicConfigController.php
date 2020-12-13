@@ -57,6 +57,7 @@ class BasicConfigController extends AdminController
      */
     public function readUploadedFile(Request $request, BasicConfigService $basicConfigService)
     {
+
         try {
             $result = $basicConfigService->validateUploadedFile($_FILES['file']);
 
@@ -71,6 +72,48 @@ class BasicConfigController extends AdminController
 
         return $this->json(["success" => true, "fileType" => $result['fileType'], 'sheetNames' => $result['sheetNames'], 'fileName' => $result['fileName']]);
 
+    }
+
+    /**
+     * @Route("/read_uploaded_list_file")
+     *
+     * @param Request $request
+     * @param BasicConfigService $basicConfigService
+     * @return JsonResponse
+     */
+    public function readUploadedFileList(Request $request, BasicConfigService $basicConfigService, BundleService $bundleService)
+    {
+        $allParams = array_merge($request->request->all(), $request->query->all());
+        $channelName = $allParams["channelName"];
+
+        try {
+            $result = $basicConfigService->validateUploadedFile($_FILES['file']);
+
+            if($result['fileType'] === Constants::FILE_TYPE_CSV){
+                $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/'.$bundleService->getConfig('tmp_template_upload_pimcore_dir');
+
+                $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'] ;
+                try{
+                    $asset = $basicConfigService->addFileInAsset($uploadedFilePath, $channelName);
+                }catch (\Exception $exception){
+                    DHubLogger::log("Error creating asset for uploaded file: ".$exception->getMessage(), DHubLogger::CRITICAL);
+                    $msg = $this->trans("dHub_error_uploading_file");
+                    return $this->json(['success' => false, 'msg' => $msg]);
+                }
+                $newAssetFileName = $asset->getFilename();
+                $newAsseetId = $asset->getId();
+            }
+
+        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
+            DHubLogger::log("Error reading uploaded file in Filter configuration readUploadedFile:".$exception->getMessage(), DHubLogger::INFO);
+            return $this->json(['success' => false, 'msg' => $this->trans('dHub_file_not_valid') ]);
+
+        } catch (\Exception $exception) {
+            DHubLogger::log("Error reading uploaded file :".$exception->getMessage(), DHubLogger::INFO);
+            return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
+        }
+
+        return $this->json(["success" => true, "fileType" => $result['fileType'], 'fileName' => $result['fileName'], 'assetId' => $newAsseetId]);
     }
 
     /**
