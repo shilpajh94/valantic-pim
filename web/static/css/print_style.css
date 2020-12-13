@@ -619,7 +619,7 @@ padding-top: 30px;
 }
 
 .noBreak { 
-border:1px solid red !important;
+/*border:1px solid red !important;*/
 break-after: avoid;
 
 }
@@ -2086,7 +2086,7 @@ position:relative;
 background: #fff;
 width:100%;
 height:10px;
-border:1px solid red;
+/*border:1px solid red;*/
  }
 
 .pageTitleC:before{
