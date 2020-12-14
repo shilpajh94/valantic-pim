@@ -19,7 +19,7 @@ class DistributionHubBundle extends AbstractPimcoreBundle {
     public function getJsPaths() {
         return [
             '/bundles/distributionhub/js/pimcore/startup.js',
-            '/bundles/distributionhub/js/pimcore/toolbar.js',
+//            '/bundles/distributionhub/js/pimcore/toolbar.js',
             '/bundles/distributionhub/js/pimcore/mappingPanel.js',
             '/bundles/distributionhub/js/pimcore/mappingLeftPanel.js',
             '/bundles/distributionhub/js/pimcore/configItem.js',
@@ -67,6 +67,7 @@ class DistributionHubBundle extends AbstractPimcoreBundle {
             '/bundles/distributionhub/js/pimcore/helpers/classTree.js',
             '/bundles/distributionhub/js/pimcore/tabs/shareConfig.js',
             '/bundles/distributionhub/js/pimcore/operator/CollectionMediaGetter.js',
+            '/bundles/distributionhub/js/pimcore/operator/ReverseManyToManyGetter.js',
             '/bundles/distributionhub/js/pimcore/operator/SelectTypeMasterGetter.js',
 
         ];

@@ -8,6 +8,7 @@ namespace DistributionHubBundle\Lib;
  */
 class Constants
 {
+    const S3_THUMBS_WITH_LAMBDA = ["1200"];
 
     const FILE_TYPE_CSV = 'Csv';
 
@@ -46,4 +47,43 @@ class Constants
     const EXPORT_DATA_ASSETS_BOTH = "dHub_both";
 
     const HOST_NAME_KEY_IN_SESSION = "app_host_url";
+    
+    const SUPPORTED_ATTRIBUTE_TYPES = [
+                "numeric",
+                "select",
+                "input",
+                "textarea",
+                "wysiwyg",
+                "slider",
+                "quantityValue",
+                "multiselect",
+                "booleanSelect",
+                "languagemultiselect",
+                "language",
+                "country",
+                "countrymultiselect",
+                "checkbox",
+                "manyToManyObjectRelation",
+                "manyToOneRelation",
+                "localizedfields",
+                "advancedManyToManyRelation",
+                "advancedManyToManyObjectRelation",
+                "fieldcollections",
+                "objectbricks",
+                "date",
+                "datetime",
+                "time"
+            ];
+    
+    const FLAT_ATTRIBUTE_TYPES = [
+                "numeric",
+                "select",
+                "input",
+                "textarea",
+                "wysiwyg",
+                "slider",
+                "multiselect",
+                "booleanSelect",
+                "checkbox",
+            ];
 }

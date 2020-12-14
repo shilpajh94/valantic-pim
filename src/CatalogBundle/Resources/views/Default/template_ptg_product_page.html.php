@@ -307,7 +307,7 @@ if($groupData):
                                         <?php endforeach; ?>
                                 </tbody>
                                 </table>
-                                <p class="small"><?= $this->input('PTG_Note_' .$tableNoteCount, ['placeholder' => 'Enter comment']); ?></p>
+                                <div class="small relative"><?= $this->input('PTG_Note_' .$tableNoteCount, ['placeholder' => 'Enter comment']); ?></div>
                                 <?php
 
                                 $tableNoteCount++;

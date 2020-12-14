@@ -111,7 +111,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                     foreach ($relationFieldConditions as $cond) {
                         
-                        if($cond['0'] && $cond['0']['ooo_id']){
+                        if($cond['0'] && isset($cond['0']['ooo_id'])){
                             $relatedConditions[] = $cond['0']['ooo_id'];
                         } else {
                             $relatedConditions[] = $cond['0'];   

@@ -27,7 +27,7 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
      * @throws Exception
      */
     public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
-  
+
         $operator = $fieldFilter->getOperator();
         $fieldName = $fieldDefinition->getName();
         $data = $fieldFilter->getFilterEntryData();
@@ -70,9 +70,16 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
                             $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList); 
                         } 
                     } else {
-                        
+                         
                         $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
-                        $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                        if ($fieldDefinitionAdapter instanceof \DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields) {
+                            // localized context
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData()['filters']['0'], $fieldFilter->getFilterEntryData()['classId'], $selectedFieldType, $fieldFilter->getFilterEntryData()["type"]);
+                            
+                        } else {
+                            // non-localized context
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);    
+                        }
                     }
  
                 } 
@@ -80,24 +87,42 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
                 $relatedConditions = array();
                 if(!empty($relationFieldConditions)){
                 
-                    foreach ($relationFieldConditions as $cond) { 
-                        $relatedConditions[] = $cond['0']; 
+                    foreach ($relationFieldConditions as $cond) {
+                        
+                        if($cond['0'] && isset($cond['0']['ooo_id'])){
+                            $relatedConditions[] = $cond['0']['ooo_id'];
+                            $relObjects = null;
+                        } else {
+                            $relatedConditions[] = $cond['0'];
+                            $relClassList->setCondition(implode(" OR ", $relatedConditions));
+                
+                            $relClassList->load();
+                            $relObjects = $relClassList->getObjects();
+                        }
                     }
                 }
-  
-                $relClassList->setCondition(implode(" OR ", $relatedConditions)); 
- 
-                $relClassList->load();
-                $relObjects = $relClassList->getObjects();
+
+                //Todo: Handle the deadstate of filters in an alternative approach.
+                if(strpos(implode(" OR ", $relatedConditions), "=  'Array'")){
+                    throw new \Exception('Filters for current level -> relation inside a relation, are not supported.');
+                }
+                
                 $relIds = array();
                 $conditons = array();
-                if(!empty($relObjects)){
+                if (!empty($relObjects)) {
                     foreach ($relObjects as $relObj) { 
-                         $id = ",".$relObj->getId().",";
+                        $id = ",".$relObj->getId().",";
                         $conditons[] = "`".$fieldName."`  LIKE '%".$id."%'";
-                        
                     }
-                }   
+                    $mergedConditions = implode(" OR ", $conditons);
+                    
+                } else {
+                    foreach ($relatedConditions as $relatedCond) {
+                        $id = ",".$relatedCond.",";
+                        $conditons[] = "`".$fieldName."`  LIKE '%".$id ."%'";
+                    }
+                    $mergedConditions = implode(" OR ", $conditons);
+                }
 
                 if(!empty($conditons)){
                     $mergedConditions = implode(" OR ", $conditons);

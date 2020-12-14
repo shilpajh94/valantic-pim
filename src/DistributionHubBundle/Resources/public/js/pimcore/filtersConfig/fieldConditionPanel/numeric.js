@@ -1,4 +1,4 @@
-pimcore.registerNS("pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric");
+    pimcore.registerNS("pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric");
 pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric = Class.create(pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.default, {
 
     getConditionPanel: function() {

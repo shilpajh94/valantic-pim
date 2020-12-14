@@ -385,16 +385,24 @@ class ChannelController extends AdminController
     {
         $class = DataObject\ClassDefinition::getById($request->get('id'));
         $objectId = intval($request->get('oid'));
+        $loadChilds = boolval($request->get('loadChilds'));
+        
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
-        $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
+        if($loadChilds){
+            $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
+        }
         $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
         $class->setFieldDefinitions([]);
         $result = [];
-        $result['objectColumns']['childs'] = $layoutDefinitions->getChilds();
+        $result['objectColumns']['childs'] = $loadChilds ? $layoutDefinitions->getChilds() : [];
         $result['objectColumns']['nodeLabel'] = 'object_columns';
         $result['objectColumns']['nodeType'] = 'object';
-        Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);
-        Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
+
+        if(!$loadChilds){
+            Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);
+            Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
+        }
+        
         return $this->adminJson($result);
     }
     /**
@@ -409,5 +417,36 @@ class ChannelController extends AdminController
        $request =  Services\ClassificationStoreService::getStore($request->get('id'));
        return $this->adminJson($request);
     }
-
+    
+     /**
+      * @Route("/get-brick-attributes", methods={"GET"})
+      *
+      *  Load Object Bricks layout
+      * @param $request
+      */
+    public function getBrickAttributes(Request $request){
+        $classId = intval($request->get('id'));
+        $brickName = $request->get('brickName');
+        $class = DataObject\ClassDefinition::getById($classId);
+        $list = new DataObject\Objectbrick\Definition\Listing();
+        $list = $list->load();
+        $result = [];
+        foreach ($list as $brickDefinition) {
+            $classDefs = $brickDefinition->getClassDefinitions();
+            if (!empty($classDefs)) {
+                foreach ($classDefs as $classDef) {
+                    if ($classDef['classname'] === $class->getName()) {
+                        $fieldName = $classDef['fieldname'];
+                        $key = $brickDefinition->getKey();
+                        $result[$key]['nodeLabel'] = $key;
+                        $result[$key]['brickField'] = $fieldName;
+                        $result[$key]['nodeType'] = 'objectbricks';
+                        $result[$key]['childs'] = $brickDefinition->getLayoutDefinitions()->getChildren();
+                        break;
+                    }
+                }
+            }
+        }
+        return $this->adminJson($result[$brickName]);
+    }
 }
