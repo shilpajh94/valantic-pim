@@ -9,7 +9,8 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Definition;
 use Pimcore\Db;
 
-class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
@@ -23,7 +24,7 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
     protected $fieldDefinition;
     
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -34,7 +35,8 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
         $db = Db::get();
 
         $fieldCollectionType = $fieldFilter->getFilterEntryData()['type'];
@@ -58,13 +60,12 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
                 }
                 $conditonPrepare = implode(' OR ', $resultsIds);
                 $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
 
                 return $conditionParams;
             }
         } else {
-
             $filteredResults = $fieldDefinitionAdapter->getCollectionsData($fieldFilter->getFilterEntryData());
 
             $tableName = "object_brick_store_" . $fieldCollectionType . "_" . $listing->getClassId();
@@ -83,7 +84,7 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
 
                 $conditonPrepare = implode(' OR ', $resultsIds);
                 $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
 
                 return $conditionParams;
@@ -95,7 +96,8 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
      * @param Concrete $object
      * @return array
      */
-    public function getDataValue($object) {
+    public function getDataValue($object)
+    {
 
         $data = [];
 
@@ -103,8 +105,6 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
         $objectBrickContainer = $object->$getter();
 
         if ($objectBrickContainer) {
-
-
             foreach ($objectBrickContainer->getItems() as $item) {
                 $definition = Definition::getByKey($item->getType());
 
@@ -125,7 +125,8 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
     /**
      * @inheritdoc
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
 
         $allowedTypes = [];
         foreach ($this->fieldDefinition->getAllowedTypes() as $allowedType) {
@@ -133,10 +134,12 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
         }
 
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'allowedTypes' => $allowedTypes,
                     ]
         )];
     }
-
 }

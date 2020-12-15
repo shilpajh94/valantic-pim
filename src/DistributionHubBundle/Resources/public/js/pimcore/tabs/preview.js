@@ -369,7 +369,6 @@ pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distri
                         disabled: true,
                         tdCls: 'x-item-disabled',
                         dataIndex: "published",
-                        disabled: this.isSearch,
                         locked: this.getColumnLock(field)
                     }));
                 } else if (field.key == "fullpath") {

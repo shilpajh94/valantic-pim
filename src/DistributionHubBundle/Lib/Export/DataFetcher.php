@@ -20,14 +20,12 @@ class DataFetcher
             if ($fields) {
                 $objectData = [];
                 foreach ($fields as $key => $field) {
-   
-                    if(empty($field)){
+                    if (empty($field)) {
                         $objectData[$key] = $field;
                         continue;
                     }
 
                     if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = DataObject\Service::expandGridColumnForExport($helperDefinitions, $field)) {
-
                         $currentLocale = $localeService->getLocale();
                         $mappedFieldnameBase = $this->mapFieldname($field, $helperDefinitions);
 
@@ -43,8 +41,6 @@ class DataFetcher
 
                         $localeService->setLocale($currentLocale);
                     } else {
-                        
-
                         $fieldData = $this->getCsvFieldData($request, $field, $object, $requestedLanguage, $helperDefinitions);
                         
                         if (!isset($mappedFieldnames[$field])) {
@@ -101,10 +97,10 @@ class DataFetcher
 
             if ($fieldDefinition) {
                 $fieldType = $fieldDefinition->getFieldtype();
-                if($fieldType === "image" || $fieldType === "imageGallery" || $fieldType === "externalImage" || $fieldType === "hotspotimage"){
+                if ($fieldType === "image" || $fieldType === "imageGallery" || $fieldType === "externalImage" || $fieldType === "hotspotimage") {
                     $dataForAssetExport = $fieldDefinition->getForCsvExport($object);
                     
-                    if(empty($dataForAssetExport)){
+                    if (empty($dataForAssetExport)) {
                         return $dataForAssetExport;
                     }
                     // Prefix hostname with assets
@@ -278,7 +274,7 @@ class DataFetcher
             if ($fields) {
                 foreach ($fields as $field) {
                         $fieldData = $this->getAssetFieldData($field, $object, $requestedLanguage);
-                        $objectData[$field['templateColumn']] = $fieldData; 
+                        $objectData[$field['templateColumn']] = $fieldData;
                 }
                 $objects[$object->getId()] = $objectData;
             }
@@ -286,32 +282,31 @@ class DataFetcher
         return $objects;
     }
     
-    private function getAssetFieldData($field, $object, $requestedLanguage) {
+    private function getAssetFieldData($field, $object, $requestedLanguage)
+    {
 
-        if(!empty($field)){
+        if (!empty($field)) {
             // handle field collections
-            if($field['fcFieldInBaseClass']){
+            if ($field['fcFieldInBaseClass']) {
                 $collectionGetter = "get".ucfirst($field['fcFieldInBaseClass']);
                 $collection = $object->$collectionGetter();
       
-                if(!empty($collection)){
-                    // ToDo: handle multiple collections
-                    $getter = "get".ucfirst($field['attributeName']); 
+                if (!empty($collection)) {
+                    $getter = "get".ucfirst($field['attributeName']);
                     $asset = !empty($collection->getItems()) ? $collection->getItems()[$field['fcIndex']]->$getter() : null;
-                    if(!empty($asset)){
+                    if (!empty($asset)) {
                         $field['assetId'] = $asset->getId();
-                    } 
+                    }
                 }
                 return $field;
             }
            
             $getter = "get".ucfirst($field['attributeName']);
             $asset = $object->$getter();
-            if(!empty($asset)){
+            if (!empty($asset)) {
                 $field['assetId'] = $asset->getId();
             }
             return $field;
         }
-            
     }
 }

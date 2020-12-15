@@ -13,7 +13,8 @@ use Monolog\Processor\WebProcessor;
  * @package DistributionHubBundle\Lib\Logger
  */
 class DHubLogger
-{ 
+{
+
     /** const string - log source */
     const SOURCE = 'dHub';
     
@@ -62,18 +63,17 @@ class DHubLogger
     public static function log($message, $type = self::INFO)
     {
         try {
-            $source = self::SOURCE; 
+            $source = self::SOURCE;
             
             $data = [
                 'source' => $source,
                 'message' => $message,
                 'type' => Logger::getLevelName($type),
                 'logtime' => time()
-            ]; 
-            self::getMonoLogger($source.'.log')->log($type, $message); 
+            ];
+            self::getMonoLogger($source.'.log')->log($type, $message);
             
-            self::logInApplicationLogger($data);   
-            
+            self::logInApplicationLogger($data);
         } catch (\Exception $exception) {
             self::logException($source, 'Error in save dHub_logs', $exception);
         }
@@ -86,9 +86,8 @@ class DHubLogger
     }
      
     public static function logInApplicationLogger($logDetails)
-    {  
-        $logger = \Pimcore\Log\ApplicationLogger::getInstance($logDetails['source'],true); 
+    {
+        $logger = \Pimcore\Log\ApplicationLogger::getInstance($logDetails['source'], true);
         $logger->log($logDetails['type'], $logDetails['message']);
-        
     }
 }

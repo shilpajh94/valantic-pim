@@ -22,7 +22,7 @@ class BundleService
         $configFile = Constants::CONFIG_FILE;
         $config = self::getConfigFromYmlFile($configFile);
 
-        if($param){
+        if ($param) {
             return $config[$param];
         }
 
@@ -102,7 +102,7 @@ class BundleService
     {
         $asset = Asset::getByPath($path);
 
-        if(!$asset){
+        if (!$asset) {
             $assetParentPath = dirname($path);
             $assetName = basename($path);
 
@@ -128,7 +128,7 @@ class BundleService
         $ftp = null;
         $ftpDetails = $channel->getFTPDetails();
 
-        if(count($ftpDetails) > 0){
+        if (count($ftpDetails) > 0) {
             $ftp = $ftpDetails[0];
         }
         return $ftp;
@@ -165,5 +165,4 @@ class BundleService
     {
         return $this->getConfig('is_schedule_deleted_check_batch_interval');
     }
-
 }

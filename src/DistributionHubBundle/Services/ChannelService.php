@@ -20,9 +20,7 @@ class ChannelService
 
     /**
      * Returns a unique key for the element in the $target-Path (recursive)
-     *
      * @static
-     *
      * @param string $type
      * @param string $sourceKey
      * @param $target
@@ -118,10 +116,11 @@ class ChannelService
      * @param $name
      * @return bool|false|int|string
      */
-    public static function getSheetIndex($sheets, $name) {
-        if(count($sheets)) {
-            $sheets =array_column($sheets,'key');
-            return array_search($name,$sheets);
+    public static function getSheetIndex($sheets, $name)
+    {
+        if (count($sheets)) {
+            $sheets =array_column($sheets, 'key');
+            return array_search($name, $sheets);
         }
         return false;
     }
@@ -147,7 +146,7 @@ class ChannelService
         $sheets = [];
         $sheetIndex = self::getSheetIndex($sheets, $sheetNumber);
         $assetObject = \Pimcore\Model\Asset::getById($assetId);
-        if(!$assetObject instanceof Asset){
+        if (!$assetObject instanceof Asset) {
             throw new \Exception('dHub_template_required');
         }
 	// for contitech
@@ -185,7 +184,8 @@ class ChannelService
         }
         return $columns;
     }
-    public static function gridConfigToPimConfig($config) {
+    public static function gridConfigToPimConfig($config)
+    {
         $mapped = isset($config['mappingJson']) ? json_decode($config['mappingJson'], true) : [];
         $templateAttribute = $mapped['templateAttribute'] ?? [];
         $selectedGridColumns = $mapped['selectedGridColumns'] ?? [];
@@ -194,7 +194,7 @@ class ChannelService
         $formulaStackAttribute = [];
         if (count($templateAttribute)) {
             foreach ($templateAttribute as $tKey => $tAttributeValue) {
-                $tAttribute = str_replace("\n"," ",$tAttributeValue);
+                $tAttribute = str_replace("\n", " ", $tAttributeValue);
                 if (isset($selectedGridColumns[$tKey])) {
                     $pimMapped = [];
                     $mappedObject = $selectedGridColumns[$tKey] ?? [];
@@ -207,10 +207,9 @@ class ChannelService
                     $pimMapped['targetAttributeId'] = $mappedObject['targetAttributeId'] ?? '';
                     $data[] = ["templateAttribute" => $tAttributeValue, "targetAttributes" => $pimMapped];
 
-                    if(isset($pimMapped['definition']['class']) && $pimMapped['definition']['class']=='PimFormula'){
+                    if (isset($pimMapped['definition']['class']) && $pimMapped['definition']['class']=='PimFormula') {
                         $formulaStackAttribute["d.{$tAttribute}"] = $tAttributeValue;
                         $formulaStack["d.{$tAttribute}"] = self::getTemplateAttributes($pimMapped['definition']['dependentAttribute']);
-
                     }
                 } else {
                     break;
@@ -220,19 +219,21 @@ class ChannelService
 
         $stack = self::validateFormulaStack($formulaStack);
 
-        foreach($stack as $sKey=>$value) {
+        foreach ($stack as $sKey => $value) {
             $stack[$sKey] = $formulaStackAttribute[$value];
         }
 
         return ['formulaStack'=>$stack,'attributeMapping'=>$data];
     }
 
-    private static function getTemplateAttributes($attributes) {
-        return count($attributes) ? array_filter(array_map(function($attribute){
+    private static function getTemplateAttributes($attributes)
+    {
+        return count($attributes) ? array_filter(array_map(function ($attribute) {
             return ($attribute['type'] == "template") ? $attribute['name']:false;
-        },$attributes)) : [];
+        }, $attributes)) : [];
     }
-    public static function childWithInner($object, $pimMapped) {
+    public static function childWithInner($object, $pimMapped)
+    {
         $object = $object['attributes'] ?? $object;
         $pimMapped['isOperator'] = (isset($object['type']) && $object['type'] == 'operator');
         $pimMapped['targetAttributeKey'] = $object['targetAttributeKey'] ?? '';
@@ -248,7 +249,8 @@ class ChannelService
         return $pimMapped;
     }
 
-    public static function filterMappedData($object) {
+    public static function filterMappedData($object)
+    {
         $data = [];
         $data['dataType'] = $object['dataType'] ?? '';
         $data['isLocalizedfield'] = $object['isLocalizedfield'] != "" ? $object['isLocalizedfield'] : false;
@@ -278,7 +280,8 @@ class ChannelService
         $data['dependentAttribute'] = $object['attributeJson'] ?? '';
         return $data;
     }
-    public static function filterAttributeMappingConfig($data) {
+    public static function filterAttributeMappingConfig($data)
+    {
         $mapped = !empty($data) ? json_decode($data, true) : [];
 
         $templateAttribute = $mapped['templateAttribute'] ?? [];
@@ -299,9 +302,10 @@ class ChannelService
 
         return $mapped;
     }
-    public static function updateChannelMapping($data,$objectId){
+    public static function updateChannelMapping($data, $objectId)
+    {
         $mappingObject = Channel::getById($objectId);
-        if(!is_null($mappingObject) && $mappingObject instanceof Channel) {
+        if (!is_null($mappingObject) && $mappingObject instanceof Channel) {
             //$mappingObject->setMapping($data['mapping']);
             $mappingObject->setLanguage($data['lang']);
             $mappingObject->setColumnAttributeMapping($data['mappingJson']);
@@ -312,49 +316,48 @@ class ChannelService
         throw new ValidationException("Object $objectId not found.");
     }
 
-    private static function checkCycle($match,$value,$array){
+    private static function checkCycle($match, $value, $array)
+    {
         $getArray = $array[$value];
         unset($array[$value]);
-        foreach($getArray as $attribute){
-            if(isset($array[$attribute]) && in_array($match,$array[$attribute])){
+        foreach ($getArray as $attribute) {
+            if (isset($array[$attribute]) && in_array($match, $array[$attribute])) {
                 return true;
-            }elseif(isset($array[$attribute])){
-                return self::checkCycle($match,$attribute,$array);
+            } elseif (isset($array[$attribute])) {
+                return self::checkCycle($match, $attribute, $array);
             }
         }
         return false;
     }
 
-    private static function validateFormulaStack($array){
+    private static function validateFormulaStack($array)
+    {
         $getKeys = [];
-        if(count($array)){
+        if (count($array)) {
             $getKeys = array_keys($array);
-            foreach($getKeys as $value) {
-                if(isset($array[$value]) && in_array($value, $array[$value])){
+            foreach ($getKeys as $value) {
+                if (isset($array[$value]) && in_array($value, $array[$value])) {
                     throw new \Exception("You cannot use same template attribute with same destination.");
-                }elseif(self::checkCycle($value, $value,$array)){
+                } elseif (self::checkCycle($value, $value, $array)) {
                     throw new \Exception("You are using cycle dependencies with $value.");
                 }
             }
+            $k = null;
+            foreach ($array as $aKey => $attributes) {
+                foreach ($attributes as $attribute) {
+                    if (isset($array[$attribute])) {
+                        $index_1 = array_search($attribute, $getKeys);
+                        $index_2 = array_search($aKey, $getKeys);
 
-            foreach($array as $aKey=>$attributes){
-                foreach($attributes as $attribute) {
-                    if(isset($array[$attribute])){
-                        $index_1 = array_search($attribute,$getKeys);
-                        $index_2 = array_search($aKey,$getKeys);
-
-                        if($index_2<$index_1){
+                        if ($index_2<$index_1) {
                             $getKeys[$index_1] = $k;
                             $getKeys[$index_2] = $attribute;
                         }
                     }
                 }
             }
-
-
         }
 
         return $getKeys;
-
     }
 }

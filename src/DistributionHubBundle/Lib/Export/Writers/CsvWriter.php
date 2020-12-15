@@ -13,10 +13,10 @@ class CsvWriter implements Writer
     private $delimiter;
     private $filePointer;
 
-    public function __construct(Channel $channel,Schedule $schedule,string $tmpFilePathFolder)
+    public function __construct(Channel $channel, Schedule $schedule, string $tmpFilePathFolder)
     {
         $downloadFileName = $schedule->getDownloadFileName();
-        if(!$downloadFileName){
+        if (!$downloadFileName) {
             $downloadFileName = $channel->getName().'-'.$schedule->getName();
         }
         $this->downloadFileName = $downloadFileName.'-'.time();
@@ -32,14 +32,14 @@ class CsvWriter implements Writer
 
     public function write(array $data)
     {
-        foreach($data as $row){
+        foreach ($data as $row) {
             $this->writeArrayToFile($row);
         }
     }
 
     private function initializeFilePointer()
     {
-        $fp = fopen($this->tmpFilePath,'a');
+        $fp = fopen($this->tmpFilePath, 'a');
         $this->filePointer = $fp;
     }
 
@@ -63,5 +63,4 @@ class CsvWriter implements Writer
     {
         return $this->tmpFilePath;
     }
-
 }

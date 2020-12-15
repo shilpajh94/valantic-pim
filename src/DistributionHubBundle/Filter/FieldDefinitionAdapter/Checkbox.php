@@ -8,7 +8,8 @@ use Pimcore\Model\DataObject\Concrete;
 use DistributionHubBundle\Filter\FilterEntry;
 use Pimcore\Db;
 
-class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
@@ -17,7 +18,7 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
     protected $fieldType = "checkbox";
     
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -28,32 +29,29 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
 
         $fieldName = $fieldDefinition->getName();
         $conditionParams = array();
         if ($fieldName === "o_published") {
-            if ($fieldFilter->getFilterEntryData() == self::DHUB_OPERATOR_TRUE) {
-
+            if ($fieldFilter->getFilterEntryData() === self::DHUB_OPERATOR_TRUE) {
                 $conditionParams['key'] = " `" . $fieldName . "`  = ? ";
                 $conditionParams['value'] = '1';
                 $conditionParams['concatenator'] = "AND";
-            } elseif ($fieldFilter->getFilterEntryData() == self::DHUB_OPERATOR_FALSE) {
-
+            } elseif ($fieldFilter->getFilterEntryData() === self::DHUB_OPERATOR_FALSE) {
                 $conditionParams['key'] = " `" . $fieldName . "`  = ? ";
                 $conditionParams['value'] = '0';
                 $conditionParams['concatenator'] = "AND";
             }
         } else {
-            if ($fieldFilter->getFilterEntryData() == self::DHUB_OPERATOR_TRUE) {
-
+            if ($fieldFilter->getFilterEntryData() === self::DHUB_OPERATOR_TRUE) {
                 $conditionParams['key'] = " `" . $fieldName . "`  = ? ";
                 $conditionParams['value'] = '1';
                 $conditionParams['concatenator'] = "AND";
-            } elseif ($fieldFilter->getFilterEntryData() == self::DHUB_OPERATOR_FALSE) {
-
+            } elseif ($fieldFilter->getFilterEntryData() === self::DHUB_OPERATOR_FALSE) {
                 $conditionParams['key'] = " `" . $fieldName . "`  IS NULL OR `" . $fieldName . "` = '0' ";
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
             }
         }
@@ -62,17 +60,18 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
     }
 
     /**
-     * Get localized query based on applied filter, 
-     * use queryBuilder prepared statements 
+     * Get localized query based on applied filter,
+     * use queryBuilder prepared statements
      *
      * @param array [$fieldName, $value, $lang]
-     * @param tableName for queryBuilder 
+     * @param tableName for queryBuilder
      *
      * @return $conditonParams
      *
      * @throws Exception
      */
-    public function getQueryForLocalized(array $details, $tableName) {
+    public function getQueryForLocalized(array $details, $tableName)
+    {
 
         $db = Db::get();
         // Use of queryBuilder for prepared statements
@@ -82,33 +81,33 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
         $value = $details['2'];
         $lang = $details['3'];
 
-        if ($value == self::DHUB_OPERATOR_TRUE) {
+        if ($value === self::DHUB_OPERATOR_TRUE) {
             $queryBuilder
                 ->select('ooo_id')
                 ->from($tableName)
                 ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq($fieldName, $value),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        ) 
-                    );
-            
-        } elseif ($value == self::DHUB_OPERATOR_FALSE) {
+                    $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->eq($fieldName, $value),
+                        $queryBuilder->expr()->eq('language', '"'.$lang.'"')
+                    )
+                );
+        } elseif ($value === self::DHUB_OPERATOR_FALSE) {
             $queryBuilder
                 ->select('ooo_id')
-                ->from($tableName) 
+                ->from($tableName)
                 ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->isNull($fieldName, '?'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        ) 
-                    );
+                    $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->isNull($fieldName, '?'),
+                        $queryBuilder->expr()->eq('language', '"'.$lang.'"')
+                    )
+                );
         }
 
         return $queryBuilder->execute()->fetchAll();
     }
 
-    public function getRelatedFilterData($fieldFilter) {
+    public function getRelatedFilterData($fieldFilter)
+    {
 
         $value = $fieldFilter["filterEntryData"];
         $fieldName = $fieldFilter["fieldname"];
@@ -126,13 +125,16 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
     /**
      * @inheritdoc
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'operators' => [FilterEntry::SELECTED, FilterEntry::NOT_SELECTED],
                 'classInheritanceEnabled' => $this->considerInheritance
                     ]
         )];
     }
-
 }

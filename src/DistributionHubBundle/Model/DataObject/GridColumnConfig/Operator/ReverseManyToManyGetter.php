@@ -34,15 +34,15 @@ class ReverseManyToManyGetter extends AbstractOperator
         $entries = $element->getRelationData($field->getOwnerFieldName(), false, $field->getOwnerClassId());
         $values = [];
         if ($entries) {
-            foreach($entries as $entry) {
+            foreach ($entries as $entry) {
                 $obj = AbstractObject::getById($entry["id"]);
-                if($obj && method_exists($obj, $relatedElementGetter)) {
+                if ($obj && method_exists($obj, $relatedElementGetter)) {
                     $values[] = $obj->$relatedElementGetter();
                 }
             }
         }
 
-        if(!$this->getReturnLastResult()) {
+        if (!$this->getReturnLastResult()) {
             $result->value = implode(",", $values);
         } else {
             $result->value = end($values);

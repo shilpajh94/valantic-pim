@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DistributionHubBundle\Lib\DHubLogger;
 
-class DefaultController extends FrontendController {
+class DefaultController extends FrontendController
+{
 
     /**
      * @Route("/admin/default/list_thumb")
@@ -29,5 +30,4 @@ class DefaultController extends FrontendController {
 
         return $this->json(['success' => true, 'data' => $data]);
     }
-
 }

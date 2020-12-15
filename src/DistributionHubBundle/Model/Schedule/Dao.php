@@ -22,16 +22,14 @@ class Dao extends AbstractDao
         }
         $this->assignVariablesToModel($data);
 
-        if($data['ftpDetailId']){
+        if ($data['ftpDetailId']) {
             $ftp = FTPDetail::getById($data['ftpDetailId']);
             $this->model->setFTPDetail($ftp);
         }
 
-        if($data['channelId']){
+        if ($data['channelId']) {
             $channel = Channel::getById($data['channelId']);
             $this->model->setChannel($channel);
         }
-
     }
-
 }

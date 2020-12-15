@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model\Listing;
 
-
 abstract class AbstractDao extends \Pimcore\Model\Listing\Dao\AbstractDao
 {
     public function load()

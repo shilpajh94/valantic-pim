@@ -3,14 +3,14 @@
 namespace DistributionHubBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route; 
+use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Bundle\AdminBundle\Controller\AdminController;
 use Pimcore\Model\DataObject;
 use Pimcore\Tool;
 use DistributionHubBundle\Services\FilterService;
 use DistributionHubBundle\Model\Channel;
-use DistributionHubBundle\Model\Filter; 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface; 
+use DistributionHubBundle\Model\Filter;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Pimcore\Event\AdminEvents;
@@ -21,22 +21,23 @@ use DistributionHubBundle\Lib\DHubLogger;
 * @package DistributionHubBundle\Controller
 * @Route("/admin/distributionhub/filters")
 */
-class FiltersController extends AdminController{
+class FiltersController extends AdminController
+{
                 
     /**
      * @Route("/get_filter_config")
-     * 
+     *
      * @param Request $request
      * @return JsonResponse
      * @throws RequestParameterNotValidException
      */
-    public function getFilterConfigAction(Request $request) 
-    { 
+    public function getFilterConfigAction(Request $request)
+    {
         $filterConfig = null;
-        try{
+        try {
             $channelId = $request->get('channelId');
             $channel = Channel::getById($channelId);
-            if($channel){
+            if ($channel) {
                 $filterConfig = $this->getSavedFilters($channel);
             }
         } catch (Exception $ex) {
@@ -50,23 +51,24 @@ class FiltersController extends AdminController{
                 
     /**
      * @Route("/get-fields")
-     * 
+     *
      * @param Request $request
      * @param FilterService
      * @return JsonResponse
      * @throws RequestParameterNotValidException
      */
-    public function getFieldsAction(Request $request, FilterService $service) {
+    public function getFieldsAction(Request $request, FilterService $service)
+    {
 
-        $type = strip_tags($request->get("type")); 
+        $type = strip_tags($request->get("type"));
         
         $allowInheritance = false;
         
-        $classID = $request->get("class_id"); 
+        $classID = $request->get("class_id");
 
         $fieldTypes = $request->get("allowedFields") ? $request->get("allowedFields") : null;
                 
-        if(!empty($classID)){
+        if (!empty($classID)) {
             switch ($type) {
                 case "class":
                     $classId = strip_tags($request->get("class_id"));
@@ -90,7 +92,7 @@ class FiltersController extends AdminController{
                     break;
 
                 default:
-                    throw new \Exception("Invalid type '$type''");  
+                    throw new \Exception("Invalid type '$type''");
             }
         } else {
             DHubLogger::log("Pimcore Class id not found in channel .", DHubLogger::CRITICAL);
@@ -100,7 +102,7 @@ class FiltersController extends AdminController{
         $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $allowInheritance, $fieldTypes);
 
         $fields = [];
-        foreach($fieldSelectionInformationEntries as $entry) {
+        foreach ($fieldSelectionInformationEntries as $entry) {
             $fields[] = $entry->toArray();
         }
 
@@ -110,58 +112,58 @@ class FiltersController extends AdminController{
     
     /**
      * @Route("/save")
-     * 
+     *
      * @param Request $request
      * @param FilterService
      * @return JsonResponse
      * @throws RequestParameterNotValidException
      */
-    public function saveAction(Request $request, FilterService $service) {
+    public function saveAction(Request $request, FilterService $service)
+    {
         
-        $data = json_decode($request->get("data")); 
+        $data = json_decode($request->get("data"));
         $filterByList = $request->get("filterByList") === "true" ? 1 : 0;
-        
+        $type = $request->get("type");
         
         $config = ['type' => $type, 'conditions' => $data->conditions];
 
-        $id = (intval($request->get("id"))); 
-        if($id) {
+        $id = (intval($request->get("id")));
+        if ($id) {
             $savedChannel = Channel::getById($id);
-        }  
+        }
         
-        if($savedChannel instanceof Channel){
-            
-            if(empty($savedChannel->getFilter())){
+        if ($savedChannel instanceof Channel) {
+            if (empty($savedChannel->getFilter())) {
                 $filter = new Filter();
-                $filter->setObjectType($request->get("type"));
+                $filter->setObjectType($type);
                 $filter->setFilterByList($filterByList);
-                if(!empty($request->get("listFileAssetId"))){
+                if (!empty($request->get("listFileAssetId"))) {
                     $filter->setListFileAssetId($request->get("listFileAssetId"));
                 }
                 $filter->setFilterByAttribute($request->get("filterByAttribute"));
-                if(!empty($request->get("listFileSavePath"))){
-                    $filter->setListFileSavePath($request->get("listFileSavePath"));   
+                if (!empty($request->get("listFileSavePath"))) {
+                    $filter->setListFileSavePath($request->get("listFileSavePath"));
                 }
                 $filter->setFilterConfig(json_encode($config));
-                $filter->save(); 
+                $filter->save();
                 $savedChannel->setFilter($filter);
                 $savedChannel->save();
             } else {
                 $filter = $savedChannel->getFilter();
-                $filter->setObjectType($request->get("type"));
+                $filter->setObjectType($type);
                 $filter->setFilterConfig(json_encode($config));
                 $filter->setFilterByList($filterByList);
-                if(!empty($request->get("listFileAssetId"))){
+                if (!empty($request->get("listFileAssetId"))) {
                     $filter->setListFileAssetId($request->get("listFileAssetId"));
                 }
                 $filter->setFilterByAttribute($request->get("filterByAttribute"));
-                if(!empty($request->get("listFileSavePath"))){
-                    $filter->setListFileSavePath($request->get("listFileSavePath"));   
+                if (!empty($request->get("listFileSavePath"))) {
+                    $filter->setListFileSavePath($request->get("listFileSavePath"));
                 }
                 $filter->save();
                 $savedChannel->setFilter($filter);
                 $savedChannel->save();
-            } 
+            }
         } else {
             DHubLogger::log("Invalid Channel.", DHubLogger::ERROR);
         }
@@ -169,29 +171,30 @@ class FiltersController extends AdminController{
         return $this->adminJson(["success" => true, "id" => $filter->getId()]);
     }
     
-    /** 
-     * Returns current saved filter in channel object 
+    /**
+     * Returns current saved filter in channel object
      * @param channel Object
      * @return array
      * @throws RequestParameterNotValidException
      */
-      public function getSavedFilters($channelObject) {
+    public function getSavedFilters($channelObject)
+    {
 
         $filter = $channelObject->getFilter();
-        if($filter) {
+        if ($filter) {
             $config = json_decode($filter->getFilterConfig(), true);
             $classDefinition = DataObject\ClassDefinition::getById($channelObject->getPimcoreClassId());
 
-            if(!empty($config["gridConfig"]["columns"])) {
+            if (!empty($config["gridConfig"]["columns"])) {
                 $helperColumns = [];
 
                 foreach ($config["gridConfig"]["columns"] as &$column) {
-                    if(!($column["isOperator"] ?? false)) {
+                    if (!($column["isOperator"] ?? false)) {
                         $fieldDefinition = $classDefinition->getFieldDefinition($column['key']);
-                        if($fieldDefinition) {
+                        if ($fieldDefinition) {
                             $width = isset($column["layout"]["width"]) ? $column["layout"]["width"] : null;
                             $column["layout"] = json_decode(json_encode($fieldDefinition), true);
-                            if($width) {
+                            if ($width) {
                                 $column["layout"]["width"] = $width;
                             }
                         }
@@ -226,7 +229,7 @@ class FiltersController extends AdminController{
                 'listFileSavePath' => $filter->getListFileSavePath(),
                 'conditions' => $config['conditions'],
                 'gridConfig' => $config['gridConfig']
-            ]; 
+            ];
         } else {
             DHubLogger::log("No saved filter found for channel Id".$channelObject->getId(), DHubLogger::CRITICAL);
             return json_encode(["success" => false, "message" => "No saved filter found not found."]);
@@ -235,15 +238,16 @@ class FiltersController extends AdminController{
 
     /**
      * @Route("/grid-proxy")
-     * 
+     *
      * @param Request $request
      * @param FilterService $service
      * @param EventDispatcherInterface $eventDispatcher
-     * 
+     *
      * @return JsonResponse
      * @throws RequestParameterNotValidException
      */
-    public function gridProxyAction(Request $request, FilterService $service, EventDispatcherInterface $eventDispatcher) {
+    public function gridProxyAction(Request $request, FilterService $service, EventDispatcherInterface $eventDispatcher)
+    {
         $allParams = array_merge($request->request->all(), $request->query->all());
         
         $requestedLanguage = $request->get("language");
@@ -258,7 +262,6 @@ class FiltersController extends AdminController{
         if ($request->get("data")) {
             return $this->forward("PimcoreAdminBundle:Admin/DataObject/DataObject:gridProxy", [], $request->query->all());
         } else {
-
             // get list of objects
 //            $class = DataObject\ClassDefinition::getById($request->get("classId"));
             $className = $request->get("class");
@@ -290,7 +293,7 @@ class FiltersController extends AdminController{
             $list = new $listClass();
             
             $results = $service->getFilteredList($data, $list);
-                
+           
             $conditionFilters = [];
             if (!$this->getAdminUser()->isAdmin()) {
                 $userIds = $this->getAdminUser()->getRoles();
@@ -302,12 +305,12 @@ class FiltersController extends AdminController{
                  )';
             }
             
-            if($limit) {
-                $results->setLimit($limit);  
+            if ($limit) {
+                $results->setLimit($limit);
             }
-            if($start) {
+            if ($start) {
                 $results->setOffset($start);
-            } 
+            }
                
             
             $beforeListLoadEvent = new GenericEvent($this, [
@@ -317,11 +320,11 @@ class FiltersController extends AdminController{
             $eventDispatcher->dispatch(AdminEvents::OBJECT_LIST_BEFORE_LIST_LOAD, $beforeListLoadEvent);
             $results = $beforeListLoadEvent->getArgument('list');
             
-            $results->load(); 
+            $results->load();
             $objects = array();
             foreach ($results->getObjects() as $object) {
                 $o = DataObject\Service::gridObjectData($object, $fields, $requestedLanguage);
-                $objects[] = $o; 
+                $objects[] = $o;
                 if ($object->isAllowed('list')) {
                     $objects[] = $o;
                 }
@@ -342,20 +345,21 @@ class FiltersController extends AdminController{
     
     /**
      * @Route("/get-updated-channel-details")
-     * 
-     * @param Request $request  
+     *
+     * @param Request $request
      * @return JsonResponse
      * @throws RequestParameterNotValidException
-     */ 
-    public function getUpdatedContent(Request $request) {
+     */
+    public function getUpdatedContent(Request $request)
+    {
        
         //check channel class available or not
         $channelId = $request->get("id");
                 
-        if(!empty($channelId)){
+        if (!empty($channelId)) {
             $channel = Channel::getById($channelId);
-            if(!empty($channel->getPimcoreClassId())){ 
-               return $this->adminJson(['success' => true, 'classId' => $channel->getPimcoreClassId(), 'showInGrid' => $channel->getShowInGridMapping(), "lang" => $channel->getLanguage()]);
+            if (!empty($channel->getPimcoreClassId())) {
+                return $this->adminJson(['success' => true, 'classId' => $channel->getPimcoreClassId(), 'showInGrid' => $channel->getShowInGridMapping(), "lang" => $channel->getLanguage()]);
             } else {
                 return $this->adminJson(['success' => false]);
             }

@@ -20,7 +20,7 @@ class ZipWriter implements Writer
     private $rootZipFolderPath;
     private $zipFilePath;
 
-    public function __construct(Channel $channel,Schedule $schedule,string $tmpFilePathFolder)
+    public function __construct(Channel $channel, Schedule $schedule, string $tmpFilePathFolder)
     {
         $this->tmpDir = $tmpFilePathFolder;
         $currTime = time();
@@ -41,19 +41,19 @@ class ZipWriter implements Writer
          *
          * create folder for each of the mapped columns
          */
-        if(count($this->zipFolderForColumns) == 0){
+        if (count($this->zipFolderForColumns) == 0) {
             $this->createZipFolders($data);
         }
         /**
          * get the source file for the config and add the file to the
          * respective folder for the zip
          */
-        foreach($data as $objectId => $objectConfig){
-            foreach($objectConfig as $templateColumnName => $columnConfig){
+        foreach ($data as $objectId => $objectConfig) {
+            foreach ($objectConfig as $templateColumnName => $columnConfig) {
                 $path = null;
-                if(array_key_exists('assetId',$columnConfig)){
+                if (array_key_exists('assetId', $columnConfig)) {
                     $sourcePath = $this->getSourceFilePath($columnConfig);
-                    if($sourcePath){
+                    if ($sourcePath) {
                         $this->addFileToFolder($sourcePath, $columnConfig);
                     }
                 }
@@ -71,7 +71,7 @@ class ZipWriter implements Writer
         mkdir($this->rootZipFolderPath);
         $keys = array_keys($data);
         $firstRecord = $data[$keys[0]];
-        foreach($firstRecord as $templateColumnName => $config){
+        foreach ($firstRecord as $templateColumnName => $config) {
             $this->zipFolderForColumns[$templateColumnName] = $this->createTemplateColumnFolder($templateColumnName);
         }
     }
@@ -127,7 +127,7 @@ class ZipWriter implements Writer
             $completeSourceFilePath = $sourcePath;
             $success = $this->copyFile($completeSourceFilePath,$completeDestFilePath);
         }
-
+        
         return $success;
     }
 
@@ -140,11 +140,10 @@ class ZipWriter implements Writer
      */
     private function copyFile($source, $destination): bool
     {
-        $source = str_replace("%2F","/",$source);
+        $source = str_replace("%2F", "/", $source);
         $success = boolval(file_put_contents($destination, file_get_contents($source)));
 
         return $success;
-
     }
 
     public function write(array $data): ?bool
@@ -179,30 +178,24 @@ class ZipWriter implements Writer
         }
         $source = str_replace('\\', '/', realpath($source));
 
-        if (is_dir($source) === true)
-        {
+        if (is_dir($source) === true) {
             $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 $file = str_replace('\\', '/', $file);
 
                 // Ignore "." and ".." folders
-                if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+                if (in_array(substr($file, strrpos($file, '/')+1), array('.', '..'))) {
                     continue;
+                }
                 $file = realpath($file);
 
-                if (is_dir($file) === true)
-                {
+                if (is_dir($file) === true) {
                     $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
-                }
-                else if (is_file($file) === true)
-                {
+                } elseif (is_file($file) === true) {
                     $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
                 }
             }
-        }
-        else if (is_file($source) === true)
-        {
+        } elseif (is_file($source) === true) {
             $zip->addFromString(basename($source), file_get_contents($source));
         }
         return $zip->close();
@@ -215,5 +208,4 @@ class ZipWriter implements Writer
     {
         return $this->zipFilePath;
     }
-
 }

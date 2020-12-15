@@ -10,7 +10,8 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Fieldcollection;
 use Pimcore\Db;
 
-class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
@@ -24,7 +25,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
     protected $fieldDefinition;
     
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -35,7 +36,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
         $db = Db::get();
         $fieldCollectionType = $fieldFilter->getFilterEntryData()['type'];
         $filterCondition = $fieldFilter->getFilterEntryData()['filterCondition'];
@@ -59,13 +61,12 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
                 }
                 $conditonPrepare = implode(' OR ', $resultsIds);
                 $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
 
                 return $conditionParams;
             }
         } else {
-
             $filteredResults = $fieldDefinitionAdapter->getCollectionsData($fieldFilter->getFilterEntryData());
 
             $tableName = "object_collection_" . $fieldCollectionType . "_" . $listing->getClassId();
@@ -84,7 +85,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
 
                 $conditonPrepare = implode(' OR ', $resultsIds);
                 $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
 
                 return $conditionParams;
@@ -96,7 +97,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
      * @param Concrete $object
      * @return array
      */
-    public function getDataValue($object) {
+    public function getDataValue($object)
+    {
 
         $data = [];
 
@@ -104,7 +106,6 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
         $fieldCollectionItems = $object->$getter();
 
         if ($fieldCollectionItems) {
-
             //deactivate inheritance since within field collections there is no inheritance
             $inheritanceBackup = AbstractObject::getGetInheritedValues();
             AbstractObject::setGetInheritedValues(false);
@@ -135,7 +136,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
     /**
      * @inheritdoc
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
 
         $allowedTypes = [];
         foreach ($this->fieldDefinition->getAllowedTypes() as $allowedType) {
@@ -143,10 +145,12 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
         }
 
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'allowedTypes' => $allowedTypes,
                     ]
         )];
     }
-
 }

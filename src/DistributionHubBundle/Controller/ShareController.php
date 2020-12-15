@@ -54,7 +54,7 @@ class ShareController extends AdminController
                 $channel->setExpiryDate(null);
                 $channel->setDescription($description);
                 $channel->save();
-            }else{
+            } else {
                 $share_globally = ($share_globally) ? 1 : 0;
                 ChannelConfigShare::deleteShareConfig($channelId);
                 if ($share_globally) {
@@ -72,12 +72,11 @@ class ShareController extends AdminController
             return $this->json([self::SUCCESS => false, self::MESSAGE => $exception->getMessage()]);
         }
         return $this->json([self::SUCCESS => true]);
-
     }
 
     private function saveShareChannel($sharedUsers, $channelId)
     {
-        foreach ($sharedUsers as $userId):
+        foreach ($sharedUsers as $userId) :
             $share = new ChannelConfigShare();
             $share->setChannelId($channelId);
             $share->setSharedWithUserId($userId);
@@ -88,11 +87,12 @@ class ShareController extends AdminController
 
     /**
      * @Route("/get-users")
-     *  
+     *
      * @return JsonResponse
      * @throws RequestParameterNotValidException
-     */ 
-    public function getUsersAction(Request $request) {
+     */
+    public function getUsersAction(Request $request)
+    {
 
         $users = [];
 
@@ -103,7 +103,7 @@ class ShareController extends AdminController
         $rolesList->load();
         $roles = $rolesList->getRoles();
 
-        foreach($roles as $role) {
+        foreach ($roles as $role) {
             $condition[] = "CONCAT(',', roles, ',') LIKE '%," . $role->getId() . ",%'";
         }
 
@@ -116,7 +116,7 @@ class ShareController extends AdminController
         $list->load();
         $userList = $list->getUsers();
 
-        foreach($userList as $user) {
+        foreach ($userList as $user) {
             $users[] = [
                 'id' => $user->getId(),
                 'label' => $user->getUsername()
@@ -129,11 +129,12 @@ class ShareController extends AdminController
 
     /**
      * @Route("/get-roles")
-     *  
+     *
      * @return JsonResponse
      * @throws RequestParameterNotValidException
-     */ 
-    public function getRolesAction() {
+     */
+    public function getRolesAction()
+    {
 
         $users = [];
 

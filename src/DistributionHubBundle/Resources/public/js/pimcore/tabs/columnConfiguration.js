@@ -685,7 +685,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                        }
                     },
                     failure: function(response){
-                        alert("Error in classification store " );
+                        Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
                     }
                 });
             }
@@ -808,7 +808,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         }
 
         var operatorGroupKeys = [];
-        for (k in operatorGroups) {
+        for (let k in operatorGroups) {
             if (operatorGroups.hasOwnProperty(k)) {
                 operatorGroupKeys.push(k);
             }
@@ -816,7 +816,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         operatorGroupKeys.sort();
         var result = [];
         var len = operatorGroupKeys.length;
-        for (i = 0; i < len; i++) {
+        for (let i = 0; i < len; i++) {
             var operatorGroupName = operatorGroupKeys[i];
             var groupNodes = operatorGroups[operatorGroupName];
             result.push(this.getOperatorTree(operatorGroupName, groupNodes));
@@ -987,8 +987,6 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     pimcore.helpers.loadingHide();
                     if (rdata && rdata.success) {
                         pimcore.helpers.showNotification(t("success"), t("dHub_mapping_save_success"), "success");
-                        //this.modificationDate = rdata.modificationDate;
-                        //this.resetChanges();
                     } else {
                         pimcore.helpers.showNotification(t("error"), t("dHub_mapping_saveerror"), "error", t(rdata.message));
                     }

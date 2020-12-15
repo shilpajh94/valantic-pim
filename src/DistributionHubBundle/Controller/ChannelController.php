@@ -53,17 +53,17 @@ class ChannelController extends AdminController
         $userIds = [$userOwner];
         $userIds = array_merge($userIds, $user->getRoles());
         $userIds = implode(',', $userIds);
-        if(!empty($shared)){
+        if (!empty($shared)) {
             $sharedObj = new ChannelConfigShare\Listing();
             $sharedObj->setCondition("sharedWithUserId IN (".$userIds.")");
             $sharedChannel = array_column($sharedObj->load(), 'channelId');
-            $sharedChannel = (count($sharedChannel)>0)?"id IN (".implode(',',$sharedChannel).")":"id IN ('')";
+            $sharedChannel = (count($sharedChannel)>0)?"id IN (".implode(',', $sharedChannel).")":"id IN ('')";
             if (!empty($filter)) {
                 $obj->setCondition("( $sharedChannel OR shareGlobally = 1) AND (expiryDate=0 OR expiryDate=null OR expiryDate > CURRENT_DATE()) AND name LIKE ? ", ["%$filter%"]);
             } else {
                 $obj->setCondition("$sharedChannel OR shareGlobally = ? AND (expiryDate=0 OR expiryDate=null OR expiryDate > CURRENT_DATE())", [1]);
             }
-        }else{
+        } else {
             if (!empty($filter)) {
                 $obj->setCondition("userOwner = ? AND name LIKE ? ", [$userOwner, "%$filter%"]);
             } else {
@@ -92,7 +92,7 @@ class ChannelController extends AdminController
         $defaultAssetFolderPathForExportedFiles = $bundleService->getDefaultAssetFolderPathForExportedFiles();
 
         $savedExportFilePath = $channel->getExportFilePath();
-        if($savedExportFilePath == $defaultAssetFolderPathForExportedFiles){
+        if ($savedExportFilePath == $defaultAssetFolderPathForExportedFiles) {
             $savedExportFilePath = null;
         }
 
@@ -135,7 +135,6 @@ class ChannelController extends AdminController
             'defaultExportFileCSVDelimiter' => $defaultExportFileCSVDelimiter,
             'scheduleScreenRefreshTime' => $scheduleScreenRefreshTime
         ];
-
     }
 
     /**
@@ -156,7 +155,6 @@ class ChannelController extends AdminController
             $data['columnAttributeMapping'] = json_decode(json_encode($object->getColumnAttributeMapping()), true);
             $data['showInGridMapping'] = json_decode($object->getShowInGridMapping(), true);
             $data['extraConfigs'] = $basicConfigService->getExtraConfigForBasicTab($object);
-
         } catch (Exception $e) {
             $msg = $e->getMessage();
             return $this->json(['result' => false, 'data' => [], "msg" => $msg]);
@@ -176,7 +174,7 @@ class ChannelController extends AdminController
         try {
             $name = $request->get('name');
             $object = Channel::getByName(trim($name));
-            if(!$object instanceof Channel){
+            if (!$object instanceof Channel) {
                 $newObject = new Channel();
                 $newObject->setName($name);
                 $mappingAttributes = $this->encodeJson(Services\ChannelService::getMappingInfo([]));
@@ -186,7 +184,7 @@ class ChannelController extends AdminController
                 $newObject->setUserOwner($userOwner);
                 $newObject->save();
                 return $this->json([self::SUCCESS => true, "id" => $newObject->getId(), 'message' => '']);
-            }else{
+            } else {
                 $message = 'prevented creating object because object with same path+key already exists';
                 return $this->json([self::SUCCESS => false, self::MESSAGE => $message, 'id' => $object->getId()]);
             }
@@ -227,7 +225,7 @@ class ChannelController extends AdminController
             $id = intval($request->query->get('id'));
             $name = trim($request->query->get('name'));
             $object = Channel::getByName(trim($name));
-            if(!$object instanceof Channel){
+            if (!$object instanceof Channel) {
                 $object = Channel::getById($id);
                 $object->setName($name);
                 $object->save();
@@ -257,14 +255,14 @@ class ChannelController extends AdminController
             $name = trim($request->get('name'));
             $channel  = Channel::getById($id);
             $filter =  $channel->getFilter();
-            if($filter){
+            if ($filter) {
                 $filter->setId(null);
                 $filter->save();
             }
 
             if ($channel instanceof Channel) {
                 $newObject = new Channel();
-                $newObject->setName(Services\ChannelService::getUniqueCopyName(self::CLASS_NAME,  $name, 'object'));
+                $newObject->setName(Services\ChannelService::getUniqueCopyName(self::CLASS_NAME, $name, 'object'));
                 $userOwner = (int)Admin::getCurrentUser()->getId();
                 $newObject->setColumnAttributeMapping($channel->getColumnAttributeMapping());
                 $newObject->setExportFilePath($channel->getExportFilePath());
@@ -275,13 +273,13 @@ class ChannelController extends AdminController
                 $newObject->setPimcoreClassId($channel->getPimcoreClassId());
                 $newObject->setSheetNumberInMappingFile($channel->getSheetNumberInMappingFile());
                 $newObject->setUserOwner($userOwner);
-                if($filter){
+                if ($filter) {
                     $newObject->setFilter($filter);
                 }
                 $newObject->setColumnAttributeMapping($channel->getColumnAttributeMapping());
                 $newObject->save();
                 return $this->json([self::SUCCESS => true, "id" => $newObject->getId(), self::MESSAGE => '']);
-            }else{
+            } else {
                 return $this->createNotFoundException('Channel configuration not found');
             }
         } catch (Exception $e) {
@@ -296,7 +294,8 @@ class ChannelController extends AdminController
      * @return JsonResponse
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function getGroupKeysAction(Request $request, TranslatorInterface $translator) {
+    public function getGroupKeysAction(Request $request, TranslatorInterface $translator)
+    {
         $params = array_merge($request->request->all(), $request->query->all());
         $filter = $params['filter'] ?? '';
         $start = $params['start'] ?? 0;
@@ -316,7 +315,8 @@ class ChannelController extends AdminController
      * @param Request $request
      * @return string|JsonResponse
      */
-    public function columnHeaderImportAction(Request $request) {
+    public function columnHeaderImportAction(Request $request)
+    {
         $channelId = intval($request->get('id'));
         $rowsColumns = array();
         $success = false;
@@ -324,7 +324,7 @@ class ChannelController extends AdminController
         try {
             $rowsColumns = Services\ChannelService::getSheetColumns($channelId);
         } catch (\Exception $e) {
-           return $this->json([self::SUCCESS => false, self::MESSAGE => $e->getMessage()]);
+            return $this->json([self::SUCCESS => false, self::MESSAGE => $e->getMessage()]);
         }
         $success = ((isset($rowsColumns['col']) && count($rowsColumns['col']) > 0));
         $msg = (isset($rowsColumns['col']) && count($rowsColumns['col']) > 0) ? $success : "dHub_invalid_header_row_no";
@@ -336,10 +336,11 @@ class ChannelController extends AdminController
      * @param Request $request
      * @return JsonResponse
      */
-    public function saveMapping(Request $request) {
+    public function saveMapping(Request $request)
+    {
         $objectId = (int) $request->get('objectId');
+        
         try {
-            //Todo : Mapping JSON to be concluded onto one
             $data = $request->request->all();
             $data['mapping'] = json_encode(Services\ChannelService::gridConfigToPimConfig($data));
             $data['mappingJson'] = json_encode(Services\ChannelService::filterAttributeMappingConfig($data['mappingJson']));
@@ -357,7 +358,8 @@ class ChannelController extends AdminController
      * @Route("/get-available-languages")
      * @return JsonResponse
      */
-    public function getAvailableLanguagesAction() {
+    public function getAvailableLanguagesAction()
+    {
 
         $locales = \Pimcore\Tool::getSupportedLocales();
         $availableLanguages = \Pimcore\Tool::getValidLanguages();
@@ -388,7 +390,7 @@ class ChannelController extends AdminController
         $loadChilds = boolval($request->get('loadChilds'));
         
         $filteredDefinitions = DataObject\Service::getCustomLayoutDefinitionForGridColumnConfig($class, $objectId);
-        if($loadChilds){
+        if ($loadChilds) {
             $layoutDefinitions = isset($filteredDefinitions['layoutDefinition']) ? $filteredDefinitions['layoutDefinition'] : false;
         }
         $filteredFieldDefinition = isset($filteredDefinitions['fieldDefinition']) ? $filteredDefinitions['fieldDefinition'] : false;
@@ -398,7 +400,7 @@ class ChannelController extends AdminController
         $result['objectColumns']['nodeLabel'] = 'object_columns';
         $result['objectColumns']['nodeType'] = 'object';
 
-        if(!$loadChilds){
+        if (!$loadChilds) {
             Services\ClassificationStoreService::updateObjectLayout($filteredDefinitions);
             Services\ClassificationStoreService::setBricksLayout($class, $result, $filteredFieldDefinition);
         }
@@ -413,9 +415,10 @@ class ChannelController extends AdminController
      * @return \Pimcore\Bundle\AdminBundle\HttpFoundation\JsonResponse
      * @throws Exception
      */
-    public function getClassificationStoreForColumnConfigAction(Request $request){
-       $request =  Services\ClassificationStoreService::getStore($request->get('id'));
-       return $this->adminJson($request);
+    public function getClassificationStoreForColumnConfigAction(Request $request)
+    {
+        $request =  Services\ClassificationStoreService::getStore($request->get('id'));
+        return $this->adminJson($request);
     }
     
      /**
@@ -424,7 +427,8 @@ class ChannelController extends AdminController
       *  Load Object Bricks layout
       * @param $request
       */
-    public function getBrickAttributes(Request $request){
+    public function getBrickAttributes(Request $request)
+    {
         $classId = intval($request->get('id'));
         $brickName = $request->get('brickName');
         $class = DataObject\ClassDefinition::getById($classId);

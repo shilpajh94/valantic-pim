@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 abstract class AbstractModel extends \Pimcore\Model\AbstractModel
 {
 
@@ -41,6 +40,4 @@ abstract class AbstractModel extends \Pimcore\Model\AbstractModel
     {
         $this->getDao()->save();
     }
-
-
 }

@@ -3,8 +3,9 @@
 namespace DistributionHubBundle\Filter\FieldDefinitionAdapter;
 
 /**
- * Class CalculatedValue 
+ * Class CalculatedValue
  */
-class CalculatedValue extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class CalculatedValue extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
     
 }

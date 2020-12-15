@@ -18,8 +18,9 @@ class Utils
      * @param string $filePath
      * @return mixed
      */
-    public static function getYmlConfig(string $filePath){
-
+    public static function getYmlConfig(string $filePath)
+    {
+        
         try {
             $yaml = new Parser();
             $value = $yaml->parseFile($filePath);
@@ -28,7 +29,6 @@ class Utils
             DHubLogger::log("Unable to parse the YAML string: %s". $e->getMessage(), DHubLogger::ERROR);
             throw new ParseException("Unable to parse the YAML string: %s ". $e->getMessage());
         }
-
     }
 
     /**
@@ -37,19 +37,21 @@ class Utils
      * @param $filePath
      * @return mixed
      */
-    public static function getCacheKeyForFilePath($filePath){
-        $cacheKey = str_replace("/","_",$filePath);
-        $cacheKey = str_replace("\\","_",$cacheKey);
+    public static function getCacheKeyForFilePath($filePath)
+    {
+        $cacheKey = str_replace("/", "_", $filePath);
+        $cacheKey = str_replace("\\", "_", $cacheKey);
         return $cacheKey;
     }
-
+    
     /**
      * returns available system languages
      *
      * @param
      * @return array
      */
-    public static function getAvailableLanguages() {
+    public static function getAvailableLanguages()
+    {
 
         $locales = \Pimcore\Tool::getSupportedLocales();
         $availableLanguages = \Pimcore\Tool::getValidLanguages();

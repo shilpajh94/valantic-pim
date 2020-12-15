@@ -2,15 +2,12 @@
 
 namespace DistributionHubBundle\Services;
 
-
 use DistributionHubBundle\Lib\Constants;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\FTPDetail;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element;
 use DistributionHubBundle\Lib\DHubLogger;
-
-
 
 /**
  * Class BasicConfigService
@@ -63,11 +60,11 @@ class BasicConfigService
         $asset = Asset::getById($fileAssetId);
         if ($asset) {
             $headerMappingFileExists = true;
-            if($headerMappingFileType == Constants::FILE_TYPE_EXCEL){
+            if ($headerMappingFileType == Constants::FILE_TYPE_EXCEL) {
                 $file = $asset->getFileSystemPath();
-                try{
+                try {
                     $headerMappingFileSheetNames = $this->getSheetNamesInExcelFile($file);
-                }catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     DHubLogger::log("Error reading template file in BasicConfigController getSheetsInExcelAsset:".$exception->getMessage(), DHubLogger::CRITICAL);
                     throw new \Exception('dHub_could_not_read_template_file');
                 }
@@ -78,13 +75,13 @@ class BasicConfigService
         $defaultAssetFolderPathForExportedFiles = $this->bundleService->getDefaultAssetFolderPathForExportedFiles();
 
         $savedExportFilePath = $channel->getExportFilePath();
-        if($savedExportFilePath == $defaultAssetFolderPathForExportedFiles){
+        if ($savedExportFilePath == $defaultAssetFolderPathForExportedFiles) {
             $savedExportFilePath = null;
         }
         $exportFilePathFolderId = null;
-        if($savedExportFilePath){
+        if ($savedExportFilePath) {
             $exportFilePathFolderObject  = Asset::getByPath($savedExportFilePath);
-            if($exportFilePathFolderObject){
+            if ($exportFilePathFolderObject) {
                 $exportFilePathFolderId = $exportFilePathFolderObject->getId();
             }
         }
@@ -96,13 +93,12 @@ class BasicConfigService
                     'exportFilePathFolderId' => $exportFilePathFolderId,
                     'ftpDetails' => $this->getFTPDetails($channel)
                 ]);
-
     }
 
     private function getFTPDetails(Channel $channel): array
     {
         $ftp = $this->bundleService->getFtpForChannel($channel);
-        if(!$ftp){
+        if (!$ftp) {
             $ftp = new FTPDetail();
         }
 
@@ -114,7 +110,6 @@ class BasicConfigService
             'ftpUserName' => $ftp->getUserName(),
             'ftpPassword' => $ftp->getPassword()
         ];
-
     }
 
     /**
@@ -148,7 +143,7 @@ class BasicConfigService
         $assetPath = $parentAsset->getFullPath().'/'.$fileName;
         $asset = Asset::getByPath($assetPath);
 
-        if(!$asset){
+        if (!$asset) {
             $asset = new Asset();
             $asset->setParent($parentAsset);
             $asset->setFilename($fileName);
@@ -207,7 +202,6 @@ class BasicConfigService
                 $sheetNames = $spreadsheet->getSheetNames();
             }
             return ["fileType" => $fileType, 'sheetNames' => $sheetNames, 'fileName' => $fileName];
-
         } else {
             DHubLogger::log("Uploaded file extension (".$info['extension'].") type not valid.", DHubLogger::INFO);
             throw new \Exception('dHub_file_not_valid');

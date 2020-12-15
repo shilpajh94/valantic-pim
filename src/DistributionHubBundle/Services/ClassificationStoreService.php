@@ -30,7 +30,8 @@ class ClassificationStoreService
     /**
      * ClassificationStoreService constructor.
      */
-    public function  __construct() {
+    public function __construct()
+    {
         $this->db = Db::get();
     }
 
@@ -47,16 +48,16 @@ class ClassificationStoreService
     {
         $class = DataObject\ClassDefinition::getById($classId);
         $classificationStore = [];
-        if($class){
-           $definitions = $class->getFieldDefinitions();
-           foreach ($definitions as $definition){
-               if ($definition->fieldtype === "classificationstore") {
-                   $cDetails =  ['name' => $definition->getName(),'title' => $definition->getTitle(), 'storeId' => $definition->getStoreId()];
-                   array_push($classificationStore, $cDetails);
-               }
-           }
-          return  $classificationStore;
-        }else{
+        if ($class) {
+            $definitions = $class->getFieldDefinitions();
+            foreach ($definitions as $definition) {
+                if ($definition->fieldtype === "classificationstore") {
+                    $cDetails =  ['name' => $definition->getName(),'title' => $definition->getTitle(), 'storeId' => $definition->getStoreId()];
+                    array_push($classificationStore, $cDetails);
+                }
+            }
+            return  $classificationStore;
+        } else {
             throw new \Exception('dHub_class_not_found');
         }
     }
@@ -73,7 +74,8 @@ class ClassificationStoreService
      * @return array
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function getGroupKeys($filter, $start, $limit, $storeId, $name, $editor, $translator) {
+    public function getGroupKeys($filter, $start, $limit, $storeId, $name, $editor, $translator)
+    {
         $classificationStoreKeys = [];
         $total = $this->getTotalCount($filter, $storeId, $editor);
         $sqlResult = $this->getRecords($filter, $start, $limit, $storeId, $editor);
@@ -104,18 +106,19 @@ class ClassificationStoreService
      * @param string $editor
      * @return int|mixed
      */
-    public function getTotalCount($filter, $storeId, $editor=""){
+    public function getTotalCount($filter, $storeId, $editor = "")
+    {
         $field = 'lcase(name)';
         $filter = strtolower($filter);
         $param=[];
-        if(!empty($editor)){
+        if (!empty($editor)) {
             $field = 'k.title';
         }
-        if(!empty($filter)) {
+        if (!empty($filter)) {
             $sql = 'SELECT count(id) as total FROM classificationstore_relations as kg INNER JOIN classificationstore_keys k ON k.id=kg.keyId WHERE k.storeId = :storeId AND '.$field.' LIKE :title';
             $param+=[":storeId"=>$storeId];
             $param+=[":title"=>$filter . '%'];
-        }else{
+        } else {
             $sql = 'SELECT count(id) as total FROM classificationstore_relations as kg INNER JOIN classificationstore_keys k ON k.id=kg.keyId WHERE k.storeId = :storeId';
             $param+=[":storeId"=>$storeId];
         }
@@ -124,10 +127,10 @@ class ClassificationStoreService
             $stmt->execute($param);
             $result =  $stmt->fetch();
             return $result['total'] ?? 0;
-        }catch(DBALException $ex) {
+        } catch (DBALException $ex) {
             DHubLogger::log("Classifications store keys total count error:".$ex->getMessage(), DHubLogger::CRITICAL);
             return 0;
-        }catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             DHubLogger::log("Classifications store keys total count error:".$ex->getMessage(), DHubLogger::CRITICAL);
             return 0;
         }
@@ -142,31 +145,32 @@ class ClassificationStoreService
      * @param string $editor
      * @return array|mixed[]
      */
-    public function getRecords($filter, $offset, $limit, $storeId, $editor=""){
+    public function getRecords($filter, $offset, $limit, $storeId, $editor = "")
+    {
         $wfield = 'lcase(name)';
         $param=[];
         $filter = strtolower($filter);
         $field = "k.id as KeyId, k.title as KeyName, k.type as KeyType, k.name, kg.groupId, g.name as groupName";
-        if(!empty($editor)){
+        if (!empty($editor)) {
             $wfield = 'k.title';
             $field = "k.id as KeyId, k.title as KeyName, k.type as KeyType, k.name, kg.groupId, g.name as groupName";
         }
-        if(!empty($filter)) {
+        if (!empty($filter)) {
             $sql  = "SELECT   $field  FROM classificationstore_relations as kg INNER JOIN classificationstore_keys k ON k.id=kg.keyId INNER JOIN classificationstore_groups as g ON g.id=kg.groupId WHERE k.storeId = :storeId AND $wfield LIKE :title ORDER BY k.name ASC limit $offset,$limit";
             $param+=[":storeId"=>$storeId];
             $param+=[":title"=>$filter . '%'];
-        }else{
-          $sql  = "SELECT $field  FROM classificationstore_relations as kg INNER JOIN classificationstore_keys k ON k.id=kg.keyId INNER JOIN classificationstore_groups as g ON g.id=kg.groupId WHERE k.storeId = :storeId ORDER BY k.name ASC limit $offset,$limit";
-          $param+=[":storeId"=>$storeId];
+        } else {
+            $sql  = "SELECT $field  FROM classificationstore_relations as kg INNER JOIN classificationstore_keys k ON k.id=kg.keyId INNER JOIN classificationstore_groups as g ON g.id=kg.groupId WHERE k.storeId = :storeId ORDER BY k.name ASC limit $offset,$limit";
+            $param+=[":storeId"=>$storeId];
         }
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->execute($param);
             return $stmt->fetchAll() ?? [];
-        }catch(DBALException $ex) {
+        } catch (DBALException $ex) {
             DHubLogger::log("Classifications store keys error:".$ex->getMessage(), DHubLogger::CRITICAL);
             return [];
-        }catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             DHubLogger::log("Classifications store keys error:".$ex->getMessage(), DHubLogger::CRITICAL);
             return [];
         }
@@ -176,17 +180,18 @@ class ClassificationStoreService
      * Update object column layout
      * @param $filteredDefinitions
      */
-    public static function  updateObjectLayout($filteredDefinitions){
+    public static function updateObjectLayout($filteredDefinitions)
+    {
         $childArray = [];
         foreach ($filteredDefinitions["layoutDefinition"]->getChilds() as $childPanel) {
             foreach ($childPanel->getChilds() as $key => $child) {
-                if(method_exists($child, "getChilds")){
+                if (method_exists($child, "getChilds")) {
                     foreach ($child->getChilds() as $key => $childLevel) {
                         if ($childLevel->fieldtype !== "classificationstore") {
                             $childArray[] = $childLevel;
                         }
                     }
-                }else{
+                } else {
                     if ($child->fieldtype !== "classificationstore") {
                         $childArray[] = $child;
                     }
@@ -202,7 +207,8 @@ class ClassificationStoreService
      * @param $result
      * @param $filteredFieldDefinition
      */
-    public static function setBricksLayout($class, &$result, $filteredFieldDefinition){
+    public static function setBricksLayout($class, &$result, $filteredFieldDefinition)
+    {
         $list = new DataObject\Objectbrick\Definition\Listing();
         $list = $list->load();
         foreach ($list as $brickDefinition) {

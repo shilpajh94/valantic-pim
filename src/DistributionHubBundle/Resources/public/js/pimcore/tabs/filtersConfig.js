@@ -387,7 +387,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
 
         this.fieldSelection = Ext.create('Ext.form.ComboBox',
             {
-                fieldLabel: t("dHub_field_filterList"),
+                fieldLabel: t("dHub_field_filterList")+'<span style="color:red;">*</span>',
                 name: "attributeListUpload",
                 store: fieldStore,
                 queryMode: 'local',
@@ -482,6 +482,20 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
             this.fileUploadField.setValue(this.savedfilterConfig.listFileSavePath);
         }
         
+        let infoImage = "/bundles/pimcoreadmin/img/flat-color-icons/info.svg";
+        let infoMsg = "<img src='"+ infoImage +"' style='vertical-align: middle' > " + "<span><i>" +t('dHub_supported_upload_list') + "</i></span>";
+
+        let infoPanel = new Ext.create('Ext.panel.Panel',{
+            cls:'info_ftp',
+            style:{
+                clear:'left',
+                float:'left',
+                paddingLeft:'240px',
+                paddingTop:'5px'
+            },
+            html: infoMsg
+        });
+        
         this.fileUploadForm = Ext.create('Ext.form.Panel', {
             itemId: 'panel1',
             hidden: true,
@@ -495,7 +509,8 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
                         this.fileUploadField,
                         this.openAssetButton
                     ]
-                }
+                },
+                infoPanel
                 
             ]
         });

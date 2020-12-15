@@ -11,14 +11,16 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Db;
 use DistributionHubBundle\Lib\DHubLogger;
 
-class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * @var Data\Localizedfields
      */
     protected $fieldDefinition;
 
-    public function __construct(FilterService $service) {
+    public function __construct(FilterService $service)
+    {
         parent::__construct($service);
     }
 
@@ -29,7 +31,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
     protected $fieldType = "manyToOneRelation";
     
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -40,7 +42,8 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
 
 
         $operator = $fieldFilter->getOperator();
@@ -54,7 +57,6 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
         $conditionParams = array();
         if (array_key_exists("id", $data)) {
-
             if (array_key_exists("type", $data)) {
                 return $this->getHrefConditions($data, $fieldName);
             }
@@ -66,7 +68,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 }
                 $conditonPrepare = implode(" OR ", $conditions);
                 $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
 
                 return $conditionParams;
@@ -81,45 +83,39 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                 $relationFieldConditions = array();
                 foreach ($data['filters'] as $relFilter) {
-
                     $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
-                    if(empty($selectedFieldType)){
+                    if (empty($selectedFieldType)) {
                         $coreDefinitions = $this->service->getCoreFieldDefinitions();
                         $fName = $relFilter['fieldname'];
-                        if(array_key_exists($fName, $coreDefinitions)){
+                        if (array_key_exists($fName, $coreDefinitions)) {
                             $fDefinition = $coreDefinitions[$fName];
                             
                             $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList); 
-                        } 
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                        }
                     } else {
-
                         $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
                         if ($fieldDefinitionAdapter instanceof \DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields) {
                             // localized context
                             $relationFieldConditions[] = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData()['filters']['0'], $fieldFilter->getFilterEntryData()['classId'], $selectedFieldType, $fieldFilter->getFilterEntryData()["type"]);
-                            
                         } else {
                             // non-localized context
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);    
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
                         }
                     }
                 }
 
                 $relatedConditions = array();
                 if (!empty($relationFieldConditions)) {
-
                     foreach ($relationFieldConditions as $cond) {
-                        
-                        if($cond['0'] && isset($cond['0']['ooo_id'])){
+                        if ($cond['0'] && isset($cond['0']['ooo_id'])) {
                             $relatedConditions[] = $cond['0']['ooo_id'];
                         } else {
-                            $relatedConditions[] = $cond['0'];   
+                            $relatedConditions[] = $cond['0'];
                         }
                     }
                 }
-                //Todo: Handle the deadstate of filters in an alternative approach.
-                if(strpos(implode(" OR ", $relatedConditions), "=  'Array'")){
+                if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
                     throw new \Exception('Filters for current level -> relation inside a relation, are not supported.');
                 }
                
@@ -146,9 +142,8 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
 
                 if (!empty($conditons)) {
-
                     $conditionParams['key'] = $mergedConditions;
-                    $conditionParams['value'] = NULL;
+                    $conditionParams['value'] = null;
                     $conditionParams['concatenator'] = "AND";
 
                     return $conditionParams;
@@ -162,18 +157,18 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
     }
     
     /**
-     * Get localized query based on applied filter, 
-     * use queryBuilder prepared statements 
+     * Get localized query based on applied filter,
+     * use queryBuilder prepared statements
      *
      * @param array [$fieldName, $value, $lang]
-     * @param tableName for queryBuilder 
+     * @param tableName for queryBuilder
      *
      * @return $conditonParams
      *
      * @throws Exception
-     */ 
-    // ToDo: Revisit the logic and use prepared statements
-    public function getQueryForLocalized($fieldFilter, $tableName) {
+     */
+    public function getQueryForLocalized($fieldFilter, $tableName)
+    {
         
         $db = Db::get();
         
@@ -200,13 +195,12 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
             try {
                 $results = $db->fetchAll($query);
             } catch (Exception $ex) {
-                DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);    
+                DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
             }
             
             $resultsIds = array();
 
             if (!empty($results)) {
-
                 foreach ($results as $val) {
                     $val = $val['src_id'];
                     $resultsIds[] = " `o_id` = '" . $val . "' ";
@@ -215,14 +209,13 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                 $conditionParams = array();
                 $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
                 return $conditionParams;
             } else {
                 return false;
             }
         } elseif (array_key_exists("type", $fieldData)) {
-
             $relationClassId = $fieldData['classId'];
             if (!empty($fieldData['filters'])) {
                 $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
@@ -232,20 +225,18 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                 $relationFieldConditions = array();
                 foreach ($fieldData['filters'] as $relFilter) {
-
-                    $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']); 
+                    $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
                     
-                    if(empty($selectedFieldType)){
+                    if (empty($selectedFieldType)) {
                         $coreDefinitions = $this->service->getCoreFieldDefinitions();
                         $fName = $relFilter['fieldname'];
-                        if(array_key_exists($fName, $coreDefinitions)){
+                        if (array_key_exists($fName, $coreDefinitions)) {
                             $fDefinition = $coreDefinitions[$fName];
                             
                             $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList); 
-                        } 
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                        }
                     } else {
-                        
                         $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
                         $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
                     }
@@ -253,13 +244,11 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                 $relatedConditions = array();
                 if (!empty($relationFieldConditions)) {
-
                     foreach ($relationFieldConditions as $cond) {
                         $relatedConditions[] = $cond['0'];
                     }
                 }
-                //Todo: Handle the deadstate of filters in an alternative approach.
-                if(strpos(implode(" OR ", $relatedConditions), "=  'Array'")){
+                if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
                     throw new \Exception('Filters for current level -> localized relation inside a relation, are not supported.');
                 }
                 
@@ -279,14 +268,13 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                     try {
                         $results = $db->fetchAll($query);
                     } catch (Exception $ex) {
-                        DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);    
+                        DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
                     }
                 }
 
                 $resultsIds = array();
 
                 if (!empty($results)) {
-
                     foreach ($results as $val) {
                         $val = $val['src_id'];
                         $resultsIds[] = " `o_id` = '" . $val . "' ";
@@ -295,7 +283,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                     $conditionParams = array();
                     $conditionParams['key'] = $conditonPrepare;
-                    $conditionParams['value'] = NULL;
+                    $conditionParams['value'] = null;
                     $conditionParams['concatenator'] = "AND";
 
                     return $conditionParams;
@@ -308,7 +296,8 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      * returns manyToOne conditions
      * @return $conditionParams[]
      */
-    public function getHrefConditions($data, $fieldName) {
+    public function getHrefConditions($data, $fieldName)
+    {
         if (!empty($data['id'])) {
             $hrefFieldName = $fieldName . "__id";
             $hrefFieldType = $fieldName . "__type";
@@ -318,7 +307,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 $conditions = "`" . $hrefFieldName . "`  = '" . $value . "' AND `" . $hrefFieldType . "` = '" . $type . "' ";
             }
             $conditionParams['key'] = $conditions;
-            $conditionParams['value'] = NULL;
+            $conditionParams['value'] = null;
             $conditionParams['concatenator'] = "AND";
 
             return $conditionParams;
@@ -329,21 +318,21 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      * Get localized query for Bricks & collections
      *
      * @param array [$fieldFilter]
-     * @param tableName for queryBuilder 
+     * @param tableName for queryBuilder
      *
      * @return $conditonParams
      * @throws Exception
-     */ 
+     */
     
-    // ToDo: use prepared statements
-    public function getLocalizedStructuredResults($fieldFilter, $tableName, $fieldType) {
+    public function getLocalizedStructuredResults($fieldFilter, $tableName, $fieldType)
+    {
 
         $db = Db::get();
         if (is_array($fieldFilter['filterCondition'])) {
             $data = $fieldFilter['filterCondition']['filterEntryData'];
         } else {
             $data = $fieldFilter->getFilterEntryData();
-        } 
+        }
 
         $lang = array_keys($data)['0'];
         $fieldName = $data[$lang]['0']['fieldname'];
@@ -380,7 +369,6 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 return false;
             }
         } elseif (array_key_exists("type", $fieldData)) {
-
             $relationClassId = $fieldData['classId'];
             if (!empty($fieldData['filters'])) {
                 $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
@@ -390,7 +378,6 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                 $relationFieldConditions = array();
                 foreach ($fieldData['filters'] as $relFilter) {
-
                     $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
 
                     $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
@@ -400,7 +387,6 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
                 $relatedConditions = array();
                 if (!empty($relationFieldConditions)) {
-
                     foreach ($relationFieldConditions as $cond) {
                         $relatedConditions[] = $cond['0'];
                     }
@@ -443,18 +429,19 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      * returns selectable fields with their type information for filter frontEnd
      * @return FieldSelectionInformation[]
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
         $allowedTypes = [];
         $allowedClasses = [];
         if ($this->fieldDefinition->getAssetsAllowed()) {
-            $allowedTypes[] = ["asset", "asset_id"];
+            $allowedTypes[] = ["asset", self::DHUB_ASSET_ID];
         }
         if ($this->fieldDefinition->getDocumentsAllowed()) {
-            $allowedTypes[] = ["document", "document_id"];
+            $allowedTypes[] = ["document", self::DHUB_DOCUMENT_ID];
         }
         if ($this->fieldDefinition->getObjectsAllowed()) {
-            $allowedTypes[] = ["object", "object_id"];
-            $allowedTypes[] = ["object_filter", "object_filter"];
+            $allowedTypes[] = ["object", self::DHUB_OBJECT_ID];
+            $allowedTypes[] = ["object_filter", self::DHUB_OBJECT_FILTER];
 
             foreach ($this->fieldDefinition->getClasses() as $class) {
                 $allowedClasses[] = $class['classes'];
@@ -462,7 +449,10 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
         }
 
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'operators' => [FilterEntry::MUST, FilterEntry::SHOULD, FilterEntry::MUST_NOT, FilterEntry::EXISTS, FilterEntry::NOT_EXISTS],
                 'allowedTypes' => $allowedTypes,
                 'allowedClasses' => $allowedClasses,
@@ -475,7 +465,8 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      * @param Concrete $object
      * @param bool $ignoreInheritance
      */
-    protected function getDataValue($object, $ignoreInheritance = false) {
+    protected function getDataValue($object, $ignoreInheritance = false)
+    {
         $inheritanceBackup = null;
         if ($ignoreInheritance) {
             $inheritanceBackup = AbstractObject::getGetInheritedValues();
@@ -490,5 +481,4 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
 
         return $value;
     }
-
 }

@@ -31,7 +31,7 @@ class Dao extends AbstractDao
         }
         $this->assignVariablesToModel($data);
 
-        if($data['filterId']){
+        if ($data['filterId']) {
             $filter = Filter::getById($data['filterId']);
             $this->model->setFilter($filter);
         }
@@ -45,7 +45,7 @@ class Dao extends AbstractDao
         }
         $this->assignVariablesToModel($data);
 
-        if($data['filterId']){
+        if ($data['filterId']) {
             $filter = Filter::getById($data['filterId']);
             $this->model->setFilter($filter);
         }
@@ -61,7 +61,7 @@ class Dao extends AbstractDao
         $this->db->beginTransaction();
         try {
             $dateTime = new \DateTime();
-            if(!$this->model->getId()){
+            if (!$this->model->getId()) {
                 $this->model->setCreationDate($dateTime);
             }
             $this->model->setModificationDate($dateTime);
@@ -74,9 +74,9 @@ class Dao extends AbstractDao
                 }
             }
 
-            if(count($this->model->ftpDetailIds) > 0 ){
+            if (count($this->model->ftpDetailIds) > 0) {
                 $ftpData = [];
-                foreach($this->model->ftpDetailIds as $id){
+                foreach ($this->model->ftpDetailIds as $id) {
                     $tmp = ['channelId' => $this->model->getId(), 'ftpDetailId' => $id];
                     $ftpData = $tmp;
                 }
@@ -104,14 +104,14 @@ class Dao extends AbstractDao
      */
     public function getFTPDetails()
     {
-        try{
-            $data = $this->db->fetchCol("SELECT ftpDetailId FROM " . $this->db->quoteIdentifier(self::CHANNEL_FTP_MAP_TABLE_NAME) . " WHERE channelId = ?",[$this->model->getId()]);
-        }catch (\Exception $e){
+        try {
+            $data = $this->db->fetchCol("SELECT ftpDetailId FROM " . $this->db->quoteIdentifier(self::CHANNEL_FTP_MAP_TABLE_NAME) . " WHERE channelId = ?", [$this->model->getId()]);
+        } catch (\Exception $e) {
             throw $e;
         }
 
         $ftpDetails = array();
-        foreach($data as $ftpDetailId){
+        foreach ($data as $ftpDetailId) {
             $ftpDetails[] = FTPDetail::getById($ftpDetailId);
         }
 
@@ -131,13 +131,13 @@ class Dao extends AbstractDao
         try {
             // delete filter of the schedule
             $filter = $this->model->getFilter();
-            if($filter && $filter->getId()){
+            if ($filter && $filter->getId()) {
                 $this->db->delete(static::FILTER_TABLE_NAME, ['id' => $filter->getId()]);
             }
 
             // delete schedules of the channel
             $scheduleIds = $this->getScheduleIds();
-            foreach($scheduleIds as $scheduleId){
+            foreach ($scheduleIds as $scheduleId) {
                 $this->db->delete(static::SCHEDULE_TABLE_NAME, ['id' => $scheduleId]);
             }
 
@@ -153,9 +153,8 @@ class Dao extends AbstractDao
 
     public function getScheduleIds()
     {
-        try{
-            $data = $this->db->fetchCol("SELECT id FROM " . $this->db->quoteIdentifier(self::SCHEDULE_TABLE_NAME) . " WHERE channelId = ?",[$this->model->getId()]);
-
+        try {
+            $data = $this->db->fetchCol("SELECT id FROM " . $this->db->quoteIdentifier(self::SCHEDULE_TABLE_NAME) . " WHERE channelId = ?", [$this->model->getId()]);
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -184,5 +183,4 @@ class Dao extends AbstractDao
 //
 //        return $filters;
 //    }
-
 }
