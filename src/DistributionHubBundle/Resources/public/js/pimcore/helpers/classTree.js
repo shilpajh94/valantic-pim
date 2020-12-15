@@ -2,7 +2,7 @@ pimcore.registerNS("pimcore.plugin.distributionhub.helpers.classTree");
 pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
     showFieldName: false,
-    notShow : ['isDummy','productId'],
+    notShow: ['isDummy', 'productId'],
 
     initialize: function (showFieldName) {
         if (showFieldName) {
@@ -44,17 +44,16 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
         var rootNode = tree.getRootNode()
         rootNode.set('text', currentFilterValue ? t('element_tag_filtered_tags') : t('element_tag_all_tags'));
-        //rootNode.expand(true);
     },
 
     getClassTree: function (url, classId, objectId) {
 
         var filterField = new Ext.form.field.Text(
-            {
-                width: 230,
-                hideLabel: true,
-                enableKeyEvents: true
-            }
+                {
+                    width: 230,
+                    hideLabel: true,
+                    enableKeyEvents: true
+                }
         );
 
         var filterButton = new Ext.button.Button({
@@ -70,7 +69,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
         };
 
         var tree = new Ext.tree.TreePanel({
-            
+
             //tbar: headerConfig,
             region: "center",
             autoScroll: true,
@@ -80,12 +79,12 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             expanded: false,
             width: 500,
             root: {
-                id: "0",
-                root: true,
-                text: t("base"),
-                allowDrag: false,
-                leaf: true,
-                isTarget: true
+                id: "0"
+//                root: true,
+//                text: t("base"),
+//                allowDrag: false,
+//                leaf: true,
+//                isTarget: true
             },
             viewConfig: {
                 plugins: {
@@ -96,15 +95,61 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 }
             },
             listeners: {
-                itemexpand: function ( node, eOpts  ){
-                    if(node.data.type == 'classificationstore_store' && node.childNodes.length == 0) {
-                        var loadCollections = Ext.MessageBox.show({title: 'Loading', msg: 'Please wait loading collections'});
+                itemexpand: function (node, eOpts) {
+                    if (node.data.type === 'layout' && node.childNodes.length === 0) {
+                        var outerScope = this;
+                        var loadBrickAttributes = Ext.MessageBox.show({title: 'Loading', msg: t('dHub_loading_attr')});
+                        Ext.Ajax.request({
+                            url: "/admin/distributionhub/channel/get-class-definition-for-column-config",
+                            params: {
+                                id: classId,
+                                loadChilds: true
+                            },
+                            success: function (response) {
+                                result = Ext.decode(response.responseText);
+
+                                if (result) {
+                                    outerScope.initClassFields(result, node);
+                                }
+                                loadBrickAttributes.hide();
+                            },
+                            failure: function (response) {
+                                Ext.MessageBox.hide();
+                                alert(t('dHub_error_loading_attr'));
+                            }
+                        });
+                    }
+                    if (node.data.type === 'objectbricks' && node.childNodes.length === 0) {
+                        var outerScope = this;
+                        var loadBrickAttributes = Ext.MessageBox.show({title: 'Loading', msg: t('dHub_loading_attr')});
+                        Ext.Ajax.request({
+                            url: "/admin/distributionhub/channel/get-brick-attributes",
+                            params: {
+                                id: classId,
+                                brickName: node.data.brickName
+                            },
+                            success: function (response) {
+                                result = Ext.decode(response.responseText);
+
+                                if (result) {
+                                    outerScope.initBrickFields(result, node);
+                                }
+                                loadBrickAttributes.hide();
+                            },
+                            failure: function (response) {
+                                Ext.MessageBox.hide();
+                                alert(t('dHub_error_loading_attr'));
+                            }
+                        });
+                    }
+                    if (node.data.type === 'classificationstore_store' && node.childNodes.length === 0) {
+                        var loadCollections = Ext.MessageBox.show({title: 'Loading', msg: t('dHub_loading_attr')});
                         Ext.Ajax.request({
                             url: "/admin/distributionhub/channel/getCollections",
                             method: 'POST',
-                            success: function(response){
+                            success: function (response) {
                                 result = Ext.decode(response.responseText);
-                                $.each(result, function(index, collection){
+                                $.each(result, function (index, collection) {
                                     var newNode = {
                                         type: "classification_collection",
                                         expanded: false,
@@ -112,24 +157,21 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                         allowDrag: false,
                                         iconCls: "pimcore_icon_panel",
                                         text: collection.title,
-                                        id: "collection_"+collection.id
+                                        id: "collection_" + collection.id
                                     };
 
                                     newNode = node.appendChild(newNode);
                                 })
                                 loadCollections.hide()
                             },
-                            failure: function(response){
+                            failure: function (response) {
                                 Ext.MessageBox.hide()
-                                alert("Error in collection loading" );
-
-
+                                alert(t('dHub_error_loading_attr'));
                             }
                         });
 
                     }
-                    if(node.data.type == 'classification_collection' && node.childNodes.length == 0) {
-                        //console.log(node)
+                    if (node.data.type === 'classification_collection' && node.childNodes.length === 0) {
                         Ext.Ajax.request({
                             url: "/admin/distributionhub/channel/getCollectionGroups",
 
@@ -137,9 +179,9 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                             params: {
                                 collectionId: node.data.id
                             },
-                            success: function(response){
+                            success: function (response) {
                                 result = Ext.decode(response.responseText);
-                                $.each(result, function(index, group){
+                                $.each(result, function (index, group) {
                                     var newNode = {
                                         type: "classification_group",
                                         expanded: false,
@@ -147,19 +189,18 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                         allowDrag: false,
                                         iconCls: "pimcore_icon_panel",
                                         text: group.title,
-                                        id: "group_"+group.id
+                                        id: "group_" + group.id
                                     };
 
                                     newNode = node.appendChild(newNode);
                                 })
                             },
-                            failure: function(response){
-                                alert("Error in collection " );
-
+                            failure: function (response) {
+                                alert(t('dHub_error_loading_attr'));
                             }
                         });
                     }
-                    if(node.data.type == 'classification_group' && node.childNodes.length == 0) {
+                    if (node.data.type === 'classification_group' && node.childNodes.length === 0) {
                         Ext.Ajax.request({
                             url: "/admin/distributionhub/channel/getGroupKeys",
 
@@ -167,11 +208,11 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                             params: {
                                 groupId: node.data.id
                             },
-                            success: function(response){
+                            success: function (response) {
                                 result = Ext.decode(response.responseText);
 
                                 var brickDescriptor = {};
-                                $.each(result, function(index, keyObj){
+                                $.each(result, function (index, keyObj) {
                                     var newNode = {
                                         text: keyObj.title,
                                         key: keyObj.name,
@@ -188,11 +229,24 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
                                 })
                             },
-                            failure: function(response){
-                                alert("Error in collection " );
+                            failure: function (response) {
+                                alert("Error in collection ");
 
                             }
                         });
+                    }
+                }.bind(this),
+
+                itemcollapse: function (node, eOpts) {
+                    if (node.data.type === 'objectbricks' || node.data.type === 'layout') {
+                        if (node.childNodes) {
+                            node.childNodes = null;
+                            node.childNodes = [];
+                            node.firstChild = null;
+                            node.firstChild = [];
+                            node.lastChild = null;
+                            node.lastChild = [];
+                        }
                     }
                 }.bind(this)
             }
@@ -215,56 +269,112 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
     },
 
     initLayoutFields: function (tree, response) {
+
         var data = Ext.decode(response.responseText);
 
         var keys = Object.keys(data);
         for (var i = 0; i < keys.length; i++) {
             if (data[keys[i]]) {
-                if (data[keys[i]].childs) {
 
-                    var text = t(data[keys[i]].nodeLabel);
+                var text = t(data[keys[i]].nodeLabel);
 
-                    var brickDescriptor = {};
+                var brickDescriptor = {};
 
-                    if (data[keys[i]].nodeType == "objectbricks") {
-                        brickDescriptor = {
-                            insideBrick: true,
-                            brickType: data[keys[i]].nodeLabel,
-                            brickField: data[keys[i]].brickField
-                        };
+                if (data[keys[i]].nodeType === "objectbricks") {
+                    brickDescriptor = {
+                        insideBrick: true,
+                        brickType: data[keys[i]].nodeLabel,
+                        brickField: data[keys[i]].brickField
+                    };
 
-                        text = ts(data[keys[i]].nodeLabel) + " " + t("columns");
+                    text = ts(data[keys[i]].nodeLabel) + " " + t("columns");
 
-                    }
-                    if(text != 'Taxanomy') {
-                        var baseNode = {
-                            type: "layout",
-                            allowDrag: false,
-                            iconCls: "pimcore_icon_" + data[keys[i]].nodeType,
-                            parentType : data[keys[i]].parentType ?  data[keys[i]].parentType : '',
-                            text: text
-                        };
+                    var baseNode = {
+                        type: "objectbricks",
+                        allowDrag: false,
+                        iconCls: "pimcore_icon_" + data[keys[i]].nodeType,
+                        parentType: data[keys[i]].parentType ? data[keys[i]].parentType : '',
+                        text: text,
+                        brickName: ts(data[keys[i]].nodeLabel)
+                    };
+                    baseNode = tree.getRootNode().appendChild(baseNode);
+                }
 
-                        baseNode = tree.getRootNode().appendChild(baseNode);
-                    
+                if (data[keys[i]].nodeType === "object" && data[keys[i]].childs) {
+                    var baseNode = {
+                        type: "layout",
+                        visible: true,
+                        expanded: false,
+                        allowDrag: false,
+                        iconCls: "pimcore_icon_" + data[keys[i]].nodeType,
+                        parentType: data[keys[i]].parentType ? data[keys[i]].parentType : '',
+                        text: text
+                    };
+                    baseNode = tree.getRootNode().appendChild(baseNode);
+                    if (data[keys[i]].childs) {
                         for (var j = 0; j < data[keys[i]].childs.length; j++) {
-                            baseNode.appendChild(this.recursiveAddNode(data[keys[i]].childs[j], baseNode, brickDescriptor));
+                            baseNode.appendChild(this.recursiveAddClassNode(data[keys[i]].childs[j], baseNode));
                         }
-                         
                     }
                 }
             }
         }
     },
 
-    recursiveAddNode: function (con, scope, brickDescriptor) {
+    initBrickFields: function (data, node) {
+        if (data.childs) {
+            var brickDescriptor = {};
+
+            brickDescriptor = {
+                insideBrick: true,
+                brickType: data.nodeLabel,
+                brickField: data.brickField
+            };
+
+            for (var j = 0; j < data.childs.length; j++) {
+                node.appendChild(this.recursiveAddBrickNode(data.childs[j], node, brickDescriptor));
+            }
+        }
+    },
+
+    initClassFields: function (data, node) {
+        if (data.objectColumns.childs) {
+            for (var j = 0; j < data.objectColumns.childs.length; j++) {
+                node.appendChild(this.recursiveAddBrickNode(data.objectColumns.childs[j], node));
+            }
+        }
+    },
+
+    recursiveAddClassNode: function (con, scope) {
 
         var fn = null;
         var newNode = null;
-        if (con.datatype == "layout") {
+        if (con.datatype === "layout") {
+            scope.data.expanded = false;
+
             fn = this.addLayoutChild.bind(scope, con.fieldtype, con);
+        } else if (con.datatype === "data") {
+            fn = this.addDataChild.bind(scope, con.fieldtype, con, this.showFieldName, {});
         }
-        else if (con.datatype == "data") {
+
+        newNode = fn();
+
+        if (con.childs) {
+            for (var i = 0; i < con.childs.length; i++) {
+                this.recursiveAddClassNode(con.childs[i], newNode);
+            }
+        }
+
+        return newNode;
+    },
+
+    recursiveAddBrickNode: function (con, scope, brickDescriptor) {
+
+        var fn = null;
+        var newNode = null;
+        if (con.datatype === "layout") {
+            fn = this.addLayoutChild.bind(scope, con.fieldtype, con);
+        } else if (con.datatype === "data") {
             fn = this.addDataChild.bind(scope, con.fieldtype, con, this.showFieldName, brickDescriptor);
         }
 
@@ -272,7 +382,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
         if (con.childs) {
             for (var i = 0; i < con.childs.length; i++) {
-                this.recursiveAddNode(con.childs[i], newNode, brickDescriptor);
+                this.recursiveAddBrickNode(con.childs[i], newNode, brickDescriptor);
             }
         }
 
@@ -281,7 +391,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
     addLayoutChild: function (type, initData) {
 
-        var nodeLabel = t(type); 
+        var nodeLabel = t(type);
         if (initData) {
             if (initData.title) {
                 nodeLabel = initData.title;
@@ -290,10 +400,10 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             }
         }
 
-        if(type != 'classificationstore') {
+        if (type != 'classificationstore') {
             expandable = initData.childs.length
             expanded = true,
-                datatype = 'layout'
+                    datatype = 'layouts'
         } else {
             expandable = 1
             expanded = false
@@ -311,7 +421,6 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
         };
 
         newNode = this.appendChild(newNode);
-
         this.expand();
 
         return newNode;
@@ -319,7 +428,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
     addDataChild: function (type, initData, showFieldname, brickDescriptor) {
         // && !initData.invisible
-        var notShow = ['isDummy','productId','keywords','manufacturer'];
+        var notShow = ['isDummy', 'productId', 'keywords', 'manufacturer'];
 
         if (type != "objectbricks" && notShow.indexOf(initData.name) == -1) {
             var isLeaf = true;
@@ -334,7 +443,6 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                 Ext.apply(brickDescriptor, {
                     insideLocalizedFields: true
                 });
-
             }
 
             var key = initData.name;
@@ -379,8 +487,6 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
         } else {
             return null;
         }
-
     }
-
 });
 

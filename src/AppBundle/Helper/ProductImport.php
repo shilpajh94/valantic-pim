@@ -41,8 +41,35 @@ class ProductImport
         $this->mappingCsvColumn = $table['mappingCsvColumn'];
     }
     
+    public function getDistributionChainFlagByMaterial($materialObjId) {
+        $sql = "SELECT * from object_query_10 where `Material` = ".$this->db->quote(",".$materialObjId.","); //." AND deletedFlagAtDistributionChainLevel != 0 AND deletedFlagAtDistributionChainLevel != '' AND deletedFlagAtDistributionChainLevel IS NOT NULL";
+        $salesData = $this->db->fetchAll($sql);
+	$flag = true;
+	if (count($salesData) > 0) {
+            foreach ($salesData as $rec) {
+                if (empty($rec['deletedFlagAtDistributionChainLevel'])) {
+                    $flag = false;
+                    break;
+                }
+            }
+        } else {
+            $flag = false;
+        }
+        return $flag;
+    }
+    
+    public function getFittingFamilyFlagByMaterial($materialObjId) {
+        $sql = "SELECT * from object_brick_query_HydFittingsFert_1 where `o_id` = ".$this->db->quote($materialObjId)." AND (`HydFittingFamily` is not null OR `HydFittingFamily` != '') "; 
+        $data = $this->db->fetchAll($sql);
+	$flag = false;
+        if (count($data)>0) {
+            $flag = true;
+        }
+        return $flag;
+    }
+    
     public function checkIfArticleExists($articleNumber) {
-        $sql = " SELECT `oo_id`, `o_parentId`, `articleNumber` FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
+        $sql = " SELECT `oo_id`, `o_parentId`, `articleNumber`, `oldMaterialCode` FROM `object_1` WHERE `articleNumber` = ".$this->db->quote(trim($articleNumber)) ." AND `ProductType` = 'fert'";
         return $this->db->fetchAll($sql);
     }
 

@@ -63,7 +63,9 @@ class FiltersController extends AdminController{
         $allowInheritance = false;
         
         $classID = $request->get("class_id"); 
-        
+
+        $fieldTypes = $request->get("allowedFields") ? $request->get("allowedFields") : null;
+                
         if(!empty($classID)){
             switch ($type) {
                 case "class":
@@ -94,8 +96,8 @@ class FiltersController extends AdminController{
             DHubLogger::log("Pimcore Class id not found in channel .", DHubLogger::CRITICAL);
             return $this->adminJson(['success' => 'false']);
         }
-
-        $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $allowInheritance);
+        
+        $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $allowInheritance, $fieldTypes);
 
         $fields = [];
         foreach($fieldSelectionInformationEntries as $entry) {
@@ -116,8 +118,9 @@ class FiltersController extends AdminController{
      */
     public function saveAction(Request $request, FilterService $service) {
         
-        $data = json_decode($request->get("data"));
-        $type = $request->get("type");
+        $data = json_decode($request->get("data")); 
+        $filterByList = $request->get("filterByList") === "true" ? 1 : 0;
+        
         
         $config = ['type' => $type, 'conditions' => $data->conditions];
 
@@ -130,15 +133,31 @@ class FiltersController extends AdminController{
             
             if(empty($savedChannel->getFilter())){
                 $filter = new Filter();
-                $filter->setObjectType($type);
+                $filter->setObjectType($request->get("type"));
+                $filter->setFilterByList($filterByList);
+                if(!empty($request->get("listFileAssetId"))){
+                    $filter->setListFileAssetId($request->get("listFileAssetId"));
+                }
+                $filter->setFilterByAttribute($request->get("filterByAttribute"));
+                if(!empty($request->get("listFileSavePath"))){
+                    $filter->setListFileSavePath($request->get("listFileSavePath"));   
+                }
                 $filter->setFilterConfig(json_encode($config));
                 $filter->save(); 
                 $savedChannel->setFilter($filter);
                 $savedChannel->save();
             } else {
                 $filter = $savedChannel->getFilter();
-                $filter->setObjectType($type);
+                $filter->setObjectType($request->get("type"));
                 $filter->setFilterConfig(json_encode($config));
+                $filter->setFilterByList($filterByList);
+                if(!empty($request->get("listFileAssetId"))){
+                    $filter->setListFileAssetId($request->get("listFileAssetId"));
+                }
+                $filter->setFilterByAttribute($request->get("filterByAttribute"));
+                if(!empty($request->get("listFileSavePath"))){
+                    $filter->setListFileSavePath($request->get("listFileSavePath"));   
+                }
                 $filter->save();
                 $savedChannel->setFilter($filter);
                 $savedChannel->save();
@@ -146,7 +165,7 @@ class FiltersController extends AdminController{
         } else {
             DHubLogger::log("Invalid Channel.", DHubLogger::ERROR);
         }
-        
+       
         return $this->adminJson(["success" => true, "id" => $filter->getId()]);
     }
     
@@ -201,6 +220,10 @@ class FiltersController extends AdminController{
                 'id' => $filter->getId(),
                 'classId' => $channelObject->getPimcoreClassId(),
                 'type' => $filter->getObjectType(),
+                'filterByList' => $filter->getFilterByList(),
+                'listFileAssetId' => $filter->getListFileAssetId(),
+                'filterByAttribute' => $filter->getFilterByAttribute(),
+                'listFileSavePath' => $filter->getListFileSavePath(),
                 'conditions' => $config['conditions'],
                 'gridConfig' => $config['gridConfig']
             ]; 
@@ -222,6 +245,7 @@ class FiltersController extends AdminController{
      */
     public function gridProxyAction(Request $request, FilterService $service, EventDispatcherInterface $eventDispatcher) {
         $allParams = array_merge($request->request->all(), $request->query->all());
+        
         $requestedLanguage = $request->get("language");
         if ($requestedLanguage) {
             if ($requestedLanguage != "default") {

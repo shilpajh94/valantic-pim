@@ -479,4 +479,38 @@ class AppService
 
     }
 
+    /**
+     * Function to get thumbnail path per resolution on S3 for an asset.
+     *
+     * @param string $filepath
+     * @param $resolution: example '__1200'
+     * @return string
+     */
+    public function getFilenameAsPerResolution(string $filepath,$resolution): string
+    {
+        $assetUrl = PIMCORE_TRANSFORMED_ASSET_URL;
+        $assetUrl = substr_replace($assetUrl, "", strpos($assetUrl, "/assets"));
+        $pos = strpos($filepath,$assetUrl) ;
+
+        if($pos !== false) {
+            $filepath =   substr_replace($filepath, '/conversions', strlen($assetUrl),7);
+        } else {
+            $filepath =  '/conversions'.$filepath;
+        }
+        $fileNameComponentAry = explode("/",$filepath);
+        $filenameWithExtension = $fileNameComponentAry[sizeof($fileNameComponentAry)-1];
+
+        //get filename without extension
+        $fileNameAry = explode(".",$filenameWithExtension);
+        $fileExtension = array_pop($fileNameAry);
+        $filename = implode(".", $fileNameAry);
+        //add filename without extension in file path before file name.
+        $componentAryLastIndex = sizeof($fileNameComponentAry)-1;
+        $fileNameComponentAry[] = $fileNameComponentAry[$componentAryLastIndex];
+        $fileNameComponentAry[sizeof($fileNameComponentAry)-2] = $filename; //second last index
+        $filepath = implode("/",$fileNameComponentAry);
+
+        return substr_replace($filepath, $resolution , strrpos($filepath,$fileExtension, -1)-1, 0);
+    }
+
 }

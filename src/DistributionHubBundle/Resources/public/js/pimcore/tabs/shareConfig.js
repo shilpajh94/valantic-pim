@@ -56,7 +56,7 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
 
         this.sharingUserField = Ext.create('Ext.form.field.Tag', {
             name: "shared_users[]",
-            id: "shared_users",
+            id: "shared_users"+this.channelId,
             width: 500,
             fieldLabel: t("dHub_users"),
             queryDelay: 0,
@@ -77,7 +77,7 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
 
         this.rolesSharingField = Ext.create('Ext.form.field.Tag', {
             name: "shared_roles[]",
-            id: "shared_roles",
+            id: "shared_roles"+this.channelId,
             width: 500,
             fieldLabel: t("dHub_roles"),
             queryDelay: 0,
@@ -105,6 +105,7 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
 
         let user = pimcore.globalmanager.get("user");
         if (user.admin) {
+            var outerscope = this;
             this.shareGlobally = new Ext.form.field.Checkbox(
                 {
                     fieldLabel: t("share_globally"),
@@ -114,11 +115,11 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
                     listeners: {
                         change: function (checkbox, newVal, oldVal) {
                             if (newVal == '1'){
-                                Ext.getCmp('shared_users').hide();
-                                Ext.getCmp('shared_roles').hide();
+                                Ext.getCmp('shared_users'+outerscope.channelId).hide();
+                                Ext.getCmp('shared_roles'+outerscope.channelId).hide();
                             }else{
-                                Ext.getCmp('shared_users').show();
-                                Ext.getCmp('shared_roles').show();
+                                Ext.getCmp('shared_users'+outerscope.channelId).show();
+                                Ext.getCmp('shared_roles'+outerscope.channelId).show();
                             }
                         }
                     }
@@ -166,8 +167,8 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
     saveShareConfig: function () {
         let form = this.settingsForm;
         let values = form.getForm().getFieldValues();
-        let shared_users = Ext.getCmp('shared_users').getValue();
-        let shared_roles = Ext.getCmp('shared_roles').getValue()
+        let shared_users = Ext.getCmp('shared_users'+this.channelId).getValue();
+        let shared_roles = Ext.getCmp('shared_roles'+this.channelId).getValue()
         let share_globally = values.share_globally;
        if (form.isValid()) {
           // if (shared_users.length > 0 || shared_roles.length > 0 || share_globally != false) {
