@@ -878,7 +878,7 @@ parameters:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
-                        fieldName: Name
+                        fieldName: Description
             coverCharacteristic:
                 fieldLevel: objectBrick
                 fieldLabel: Cover Characteristic
@@ -896,7 +896,7 @@ parameters:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
-                        fieldName: Name
+                        fieldName: Description
             tubeMaterial:
                 fieldLevel: objectBrick
                 fieldLabel: Tube Material

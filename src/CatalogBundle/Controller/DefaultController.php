@@ -1040,6 +1040,7 @@ if(isset($data[$baseId])) {
 
                     $standardsMetHose = array_unique($standardsMetHose);
                     $safetyFeatures = array_unique($safetyFeatures);
+                    $safetyFeatures = array_slice($safetyFeatures, 0, 5);
                     $tubeMaterial = array_unique($tubeMaterial);
                     $tubeAttribute = array_unique($tubeAttribute);
                     $reinforcement = array_unique($reinforcement);
@@ -1278,6 +1279,7 @@ if(isset($data[$baseId])) {
                     $material = array_unique($material);
                     $availableLength = array_unique($availableLength);
                     $safetyFeatures = array_unique($safetyFeatures);
+                    $safetyFeatures = array_slice($safetyFeatures, 0, 5);
 
                     $safetyFeaturesListWithImage = array();
                     $safetyFeaturesListWithOutImage = array();
@@ -2337,6 +2339,7 @@ if(isset($data[$baseId])) {
                 unset($brandsData);
 
                 $safetyFeatures = array_unique($safetyFeatures);
+                $safetyFeatures = array_slice($safetyFeatures, 0, 5);
 
                 $safetyFeaturesListWithImage = array();
                 $safetyFeaturesListWithOutImage = array();

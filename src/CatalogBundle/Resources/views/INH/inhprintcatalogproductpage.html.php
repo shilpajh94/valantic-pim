@@ -2,7 +2,7 @@
 $this->extend('CatalogBundle:Layouts:layout.html.php');
 ?>
 <?php if ($this->editmode) { ?>
-    <?= $this->relation("inh-printcatalog"); ?>
+    <?= $this->relation("inh-printcatalogproduct"); ?>
 <?php } ?>
 <?php
 if (isset($info['brandsData'])) {
@@ -282,10 +282,24 @@ if (isset($info['brandsData'])) {
                                             foreach ($GroupingFields as $gkey => $fittingTableName):
                                             $tableKey = md5($key.$gkey);
                                         ?>
+                                            <?php if($key): ?>
                                             <h5><?= $brandKey. " ". $key ?> </h5>
-                                            <?php if($fittingTableName['orderCodes']): ?>
-                                            <p><b>Order Codes :</b> <?= $fittingTableName['orderCodes'] ?> </p>
                                             <?php endif; ?>
+                                            <?php if($fittingTableName['orderCodes']): ?>
+                                            <p><b>Order Codes :</b> 
+                                            
+                                            <?php if($this->editmode): ?>
+                                                <?php if($this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->isEmpty()): ?>
+                                                        <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->setDataFromResource($fittingTableName['orderCodes']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"]); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"]) ?>
+                                            <?php endif; ?>
+                                            </p>
+                                            <?php endif; ?>
+
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
                                             <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
                                                 <thead>

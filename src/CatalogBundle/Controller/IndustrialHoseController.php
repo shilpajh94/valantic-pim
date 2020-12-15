@@ -35,22 +35,20 @@ class IndustrialHoseController extends AbstractController
         $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
         $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
         $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
-        $common = \Pimcore::getContainer()->get('app.common_helper');
+        // $common = \Pimcore::getContainer()->get('app.common_helper');
         $dispColumns = array();
-        if ($this->getDocumentTag('relation', 'inh-printcatalog')->getElement() instanceof  \Pimcore\Model\DataObject) {
-            $id = $this->getDocumentTag('relation', 'inh-printcatalog')->getId();
-            $obj = \Pimcore\Model\DataObject::getById($id);
 
-            /**
-             * Get Catalog defined language
-            */
-            $lang = $common->getCatalogLanguage($obj);
-            // $lang = 'fr_CA';
-            $this->get('translator')->setLocale($lang);
+        $template = $this->getDocumentTag('relation', 'inh-printcatalog')->getElement();
 
-            $footerBgColor = $obj->getColor();
+        if ($template instanceof  \Pimcore\Model\DataObject) {
 
-            $siop = $obj->getSiopLevel4();
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $footerBgColor = $template->getColor();
+
+            $siop = $template->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
             $configTableName = $tableName = "AIR & MULTIPURPOSE";
             $constructionType = '';
@@ -61,23 +59,35 @@ class IndustrialHoseController extends AbstractController
                 $configTableName = ($siopObj->getParent()->getPrintedCatalogDescription($lang)) ? $siopObj->getParent()->getPrintedCatalogDescription($lang) : $siopObj->getParent()->getDescription($lang);
             }
 
-            $productPageColumns = $inhSectionPageConfig[$tableName];
-            foreach ($productPageColumns['dispColumns'] as $key => $value) {
-                $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
-            }
-
-            $brandsList = $this->getBrandsList();
-
-            $data = array();
-            $headers = (array) json_decode($obj->getHeaderData());
+            $headers = (array) json_decode($template->getHeaderData());
 
             $headerKeys = array_keys($headers);
             $headerKeys[] = 'ConstructionType';
 
-            if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
-                foreach ($obj->getProductsData() as $k => $row) {
-                    $row[]= $constructionType;
-                    $productsData[] = array_combine($headerKeys, $row);
+            $productPageColumns = $inhSectionPageConfig[$tableName];
+            foreach ($productPageColumns['dispColumns'] as $key => $value) {
+                $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
+            }
+            $brandsList = $this->getBrandsList();
+            $data = array();
+
+            // Getting all siop level 4
+            $query = "select oo_id, ConstructionType from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
+            $constructionTypeList = $this->db->fetchPairs($query);
+
+            if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
+                foreach ($template->getProductsData() as $k => $row) {
+                    $row[]= '';
+                    $newRow = array_combine($headerKeys, $row);
+                    
+                    $query = "select TRIM( BOTH ',' FROM SIOPLevel4)  from object_query_1 where oo_id IN (".$newRow['id'].") ";
+                    $SIOPLevel4Id = $this->db->fetchColumn($query);
+
+                    if(isset($constructionTypeList[$SIOPLevel4Id]))
+                        $newRow['ConstructionType'] = $constructionTypeList[$SIOPLevel4Id];
+
+                    $productsData[] = $newRow;
+                    
                 }
                 $i = 0;
 
@@ -108,7 +118,7 @@ class IndustrialHoseController extends AbstractController
                     }
                 }
             }
-            
+
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
@@ -134,29 +144,27 @@ class IndustrialHoseController extends AbstractController
         $attributeImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
         $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
-        $common = \Pimcore::getContainer()->get('app.common_helper');
+        // $common = \Pimcore::getContainer()->get('app.common_helper');
         $dispColumns = array();
-        if ($this->getDocumentTag('relation', 'inh-printcatalog')->getElement() instanceof  \Pimcore\Model\DataObject) {
-            $id = $this->getDocumentTag('relation', 'inh-printcatalog')->getId();
-            $obj = \Pimcore\Model\DataObject::getById($id);
 
-            $footerBgColor = $obj->getColor();
+        $template = $this->getDocumentTag('relation', 'inh-printcatalogproduct')->getElement();
 
-            /**
-             * Get Catalog defined language
-            */
-            $CatalogLanguage = $common->getCatalogLanguage($obj);
-            // $lang = 'fr_CA';
-            $this->get('translator')->setLocale($lang);
+        if ($template instanceof  \Pimcore\Model\DataObject) {
+
+            $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
+            $catalogObj = DataObject\Catalog::getById($catalogCategoryObj->getParentId());
+            $CatalogLanguage = $catalogObj->getCatalogLanguage();
+
+            $footerBgColor = $template->getColor();
 
             $data = array();
 
-            $headerData = json_decode($obj->getHeaderData(), true);
+            $headerData = json_decode($template->getHeaderData(), true);
 
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $obj->getColumns();
+            $columnsData = $template->getColumns();
 
             $iconRequired = 'YES';
             $subHeaderRequired = 'NO';
@@ -179,7 +187,7 @@ class IndustrialHoseController extends AbstractController
             //     $selectedSiop = ($siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage)) ? $siopObj->getParent()->getPrintedCatalogDescription($CatalogLanguage) : $siopObj->getParent()->getDescription($CatalogLanguage);
             // }
 
-            $productsData = $obj->getProductsData();
+            $productsData = $template->getProductsData();
 
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
@@ -219,11 +227,16 @@ class IndustrialHoseController extends AbstractController
 
                 unset($productsData);
             }
-            // p_r($brandsData);
-            // die;
+
             $newBrandArray = array();
             if($brandsData)
             {
+                // Sorting Array by HoseIDMm
+                foreach ($brandsData as $sortKey => $sortBrand)
+                {
+                    array_multisort (array_column($brandsData[$sortKey], $headerKeysIndex['hoseIdMM']), SORT_ASC, array_column($brandsData[$sortKey], $headerKeysIndex['hoseLengthFT']), SORT_ASC, $brandsData[$sortKey]);
+                }
+
                 foreach ($brandsData as $key => $brand)
                 {
                     $reinforcementArr = array();
@@ -340,38 +353,36 @@ class IndustrialHoseController extends AbstractController
                             $columnsDataWithImages = array();
                             $articlesData = array();
                             $subHeaderRequired = '';
-                            foreach ($FittingTableKeys as $ckey => $cvalue) {
+                            
+                            foreach ($columnsData as $dkey => $value) {
 
-                                foreach ($columnsData as $dkey => $value) {
-
-                                    if($cvalue == $dkey)
+                                if(in_array($dkey,$FittingTableKeys))
+                                {
+                                    $groupColumnName = $value['columnName'];
+                                    if(isset($value['groupName']) && $value['groupName'])
                                     {
-                                        $groupColumnName = $value['columnName'];
-                                        if(isset($value['groupName']) && $value['groupName'])
+                                        $groupColumnName = $value['groupName'];
+                                        $subHeaderRequired = 'YES';
+                                    }
+
+                                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
+                                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                                    $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
+                                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                                    if ($iconRequired == 'YES')
+                                    {
+                                        if(!isset($attrbuteImgS3Arr[$groupColumnName]))
                                         {
-                                            $groupColumnName = $value['groupName'];
-                                            $subHeaderRequired = 'YES';
+
+                                            $attributeImagesSrc = $attributeImages[$groupColumnName];
+                                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                            $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
                                         }
-
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                                        if ($iconRequired == 'YES')
+                                        else
                                         {
-                                            if(!isset($attrbuteImgS3Arr[$groupColumnName]))
-                                            {
-
-                                                $attributeImagesSrc = $attributeImages[$groupColumnName];
-                                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                                                $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
-                                            }
-                                            else
-                                            {
-                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attrbuteImgS3Arr[$groupColumnName];
-                                            }
+                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attrbuteImgS3Arr[$groupColumnName];
                                         }
                                     }
                                 }
@@ -418,7 +429,6 @@ class IndustrialHoseController extends AbstractController
                         }
                     }
                     ksort($newBrandArray[$key]['articleData']);
-                    
 
                     $reinforcementStr = $VirtualCatalogReinforcement;
                     if(empty($reinforcementStr) && $reinforcementArr)
@@ -448,6 +458,7 @@ class IndustrialHoseController extends AbstractController
                     $safetyFeaturesListWithOutImage = array();
 
                     $FeaturesBenefitsBulletPointArr = array_unique($FeaturesBenefitsBulletPointArr);
+                    $FeaturesBenefitsBulletPointArr = array_slice($FeaturesBenefitsBulletPointArr, 0, 5);
 
                     if($FeaturesBenefitsBulletPointArr)
                     {
@@ -470,6 +481,9 @@ class IndustrialHoseController extends AbstractController
                     unset($brandsData[$key]);
                 }
             }
+
+            // p_r($newBrandArray);
+            // die;
 
             array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
@@ -687,6 +701,7 @@ class IndustrialHoseController extends AbstractController
                 $brandingStr = $BrandingLayline;
 
                 $safetyFeatures = array_unique($safetyFeatures);
+                $safetyFeatures = array_slice($safetyFeatures, 0, 5);
 
                 $safetyFeaturesListWithImage = array();
                 $safetyFeaturesListWithOutImage = array();
