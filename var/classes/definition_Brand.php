@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-11-02T12:03:55+05:30
+* Generated at: 2020-12-15T12:06:05+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -13,6 +13,7 @@ Fields Summary:
 - name [input]
 - brandApplication [input]
 - SortOrder [numeric]
+- GroupingFieldNameForInhHoseProductTemplate [select]
 - description [wysiwyg]
 - image [image]
 */ 
@@ -23,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1604298834,
+   'modificationDate' => 1608030364,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -210,7 +211,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
@@ -221,6 +222,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'fieldtype' => 'select',
+                 'options' => 
+                array (
+                  0 => 
+                  array (
+                    'key' => 'Working Pressure (psi)',
+                    'value' => 'workingPressurePSI',
+                  ),
+                ),
+                 'width' => '',
+                 'defaultValue' => '',
+                 'optionsProviderClass' => '',
+                 'optionsProviderData' => '',
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'dynamicOptions' => false,
+                 'name' => 'GroupingFieldNameForInhHoseProductTemplate',
+                 'title' => 'Grouping Field Name For INH Hose Product Template',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                  'fieldtype' => 'wysiwyg',
                  'width' => '',
