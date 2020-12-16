@@ -188,7 +188,7 @@ class AppService
                 }else{
                     try{
                         $numberOfTeeth = $pitchLenghIn / $pitchIN;
-                        $syncFert->setNumberOfTeeth(round($numberOfTeeth, 5));
+                        $syncFert->setNumberOfTeeth(round($numberOfTeeth, 0));
                     }catch (\Exception $exception){
                         $syncFert->setNumberOfTeeth(null);
                     }
