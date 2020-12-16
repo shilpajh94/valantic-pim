@@ -76,3 +76,7 @@ services:
     S3CustomizationBundle\Command\RemovePimcoreDeletedAssetsFromS3Command:
         tags:
             - { name: 'console.command', command: 'contitech:remove_pimcore_deleted_assets_from_s3' }
+
+    S3CustomizationBundle\Command\RestoreDeletedS3ObjectsCommand:
+        tags:
+            - { name: 'console.command', command: 'contitech:s3_restore_deleted_objects' }

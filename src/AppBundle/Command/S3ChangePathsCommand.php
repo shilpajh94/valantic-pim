@@ -35,7 +35,7 @@ class S3ChangePathsCommand extends Command
         $query = "select * from pimcore_s3_path_mapping";
         $query .= " join assets";
         $query .= " on pimcore_s3_path_mapping.pimcore_object_id = assets.id";
-//        $query .= " where type != 'folder'";
+        $query .= " where type != 'folder'";
 
         $result = $db->fetchAll($query);
 
@@ -58,10 +58,12 @@ class S3ChangePathsCommand extends Command
             $s3ProtocolPath = "s3://".S3_BUCKET . "/assets" . $s3Path;
             $pimProtocolPaths = "s3://".S3_BUCKET . "/assets" . $pimPath;
 
+            /*
             if($type === 'folder'){
                 $s3ProtocolPath = rtrim($s3ProtocolPath, '/') . '/';
                 $pimProtocolPaths = rtrim($pimProtocolPaths, '/') . '/';
             }
+            */
 
             $file_exists = file_exists($s3ProtocolPath) ? '1': '0';
             $result = 'NA';
