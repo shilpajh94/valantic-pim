@@ -56,7 +56,9 @@ class PriceImportModel {
     public function import()
     {
         $csvData = $this->fetchDataFromDataSource();
-        
+        if (empty($csvData) || count($csvData)==0) {
+            return false;
+        }
         echo "Truncating Temp table.".PHP_EOL;
         $this->tblImpHelper->truncateTempTable();
         echo "Inserting data into temp table.".PHP_EOL;
