@@ -56,7 +56,11 @@ class AppService
 
         // updated product attributes
         foreach ($updatedData as $attributeName => $attributeValue) {
-            $this->updateAttributeGroup($product, $attributeName, floatval($attributeValue));
+            if($attributeValue === null){
+                $this->updateAttributeGroup($product, $attributeName, null);
+            }else{
+                $this->updateAttributeGroup($product, $attributeName, floatval($attributeValue));
+            }
         }
 
         // update brick attributes
@@ -75,7 +79,11 @@ class AppService
 
                     // iterating every attribute in the brick item
                     foreach ($brickUpdatedData as $brickAttributeName => $brickAttributeValue) {
-                        $this->updateAttributeGroup($brickItem, $brickAttributeName, $brickAttributeValue);
+                        if($brickAttributeValue === null){
+                            $this->updateAttributeGroup($brickItem, $brickAttributeName, null);
+                        }else{
+                            $this->updateAttributeGroup($brickItem, $brickAttributeName, floatval($brickAttributeValue));
+                        }
                     }
                 }
 
@@ -95,7 +103,7 @@ class AppService
      */
     public function updateAttributeGroup($object, string $attributeName, $value)
     {
-        if ( (is_numeric($value) || $value == null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
+        if ( (is_numeric($value) || $value === null ) && $this->unitConverterService->isAttributeExistInAttributeToGroupMapCache($attributeName)) {
             $this->unitConverterService->setGroupValueInObjectByAttribute($object, $attributeName, $value);
         }
         return $object;
@@ -111,22 +119,28 @@ class AppService
         /**
          * setting temperature range fields
          */
-        if($product->getMinimumTemperatureF() && $product->getMaximumTemperatureF()){
+        if($product->getMinimumTemperatureF() !== null && $product->getMaximumTemperatureF() !== null ){
             $tempRangeF = $product->getMinimumTemperatureF() . "°F" .
                             " to " . $product->getMaximumTemperatureF() . "°F";
             $product->setRangeTemperatureF($tempRangeF);
+        }else{
+            $product->setRangeTemperatureF(null);
         }
 
-        if($product->getMinimumTemperatureC() && $product->getMaximumTemperatureC()){
+        if($product->getMinimumTemperatureC() !== null && $product->getMaximumTemperatureC() !== null){
             $tempRangeF = $product->getMinimumTemperatureC() . "°C" .
                             " to " . $product->getMaximumTemperatureC() . "°C";
             $product->setRangeTemperatureC($tempRangeF);
+        }else{
+            $product->setRangeTemperatureC(null);
         }
 
         if($product->getRangeTemperatureF() && $product->getRangeTemperatureC()){
             $tempRangeFAndC = strval($product->getRangeTemperatureF()) . " (" .
                 strval($product->getRangeTemperatureC()) .")" ;
             $product->setTemperatureRangeFAndC($tempRangeFAndC);
+        }else{
+            $product->setTemperatureRangeFAndC(null);
         }
 
         if($product->getFert()){
@@ -174,7 +188,7 @@ class AppService
                 }else{
                     try{
                         $numberOfTeeth = $pitchLenghIn / $pitchIN;
-                        $syncFert->setNumberOfTeeth(round($numberOfTeeth, 5));
+                        $syncFert->setNumberOfTeeth(round($numberOfTeeth, 0));
                     }catch (\Exception $exception){
                         $syncFert->setNumberOfTeeth(null);
                     }
@@ -426,7 +440,7 @@ class AppService
      */
     public function saveProductsWithArticleNumbers(?array $articleNumbers = [],?bool $printProgress = false)
     {
-        $batchSize = 1000;
+        $batchSize = 500;
 
         $listing = new Product\Listing();
 
@@ -449,10 +463,11 @@ class AppService
 
             $listing->load();
             foreach($listing->getObjects() as $object){
+
                 $object->save();
                 $savedCount++;
                 if($printProgress){
-                    if($savedCount % 10 == 0){
+                    if($savedCount % 20 == 0){
                         echo "Saved " . $savedCount . "/" . $totalCount . PHP_EOL;
                     }
                 }
@@ -462,6 +477,40 @@ class AppService
         }
 
 
+    }
+
+    /**
+     * Function to get thumbnail path per resolution on S3 for an asset.
+     *
+     * @param string $filepath
+     * @param $resolution: example '__1200'
+     * @return string
+     */
+    public function getFilenameAsPerResolution(string $filepath,$resolution): string
+    {
+        $assetUrl = PIMCORE_TRANSFORMED_ASSET_URL;
+        $assetUrl = substr_replace($assetUrl, "", strpos($assetUrl, "/assets"));
+        $pos = strpos($filepath,$assetUrl) ;
+
+        if($pos !== false) {
+            $filepath =   substr_replace($filepath, '/conversions', strlen($assetUrl),7);
+        } else {
+            $filepath =  '/conversions'.$filepath;
+        }
+        $fileNameComponentAry = explode("/",$filepath);
+        $filenameWithExtension = $fileNameComponentAry[sizeof($fileNameComponentAry)-1];
+
+        //get filename without extension
+        $fileNameAry = explode(".",$filenameWithExtension);
+        $fileExtension = array_pop($fileNameAry);
+        $filename = implode(".", $fileNameAry);
+        //add filename without extension in file path before file name.
+        $componentAryLastIndex = sizeof($fileNameComponentAry)-1;
+        $fileNameComponentAry[] = $fileNameComponentAry[$componentAryLastIndex];
+        $fileNameComponentAry[sizeof($fileNameComponentAry)-2] = $filename; //second last index
+        $filepath = implode("/",$fileNameComponentAry);
+
+        return substr_replace($filepath, $resolution , strrpos($filepath,$fileExtension, -1)-1, 0);
     }
 
 }

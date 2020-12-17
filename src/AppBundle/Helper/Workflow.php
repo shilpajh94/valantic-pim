@@ -102,8 +102,13 @@ class Workflow
      */
     public function getDeepLinkByCommandLine($id, $type = "object")
     {
-        $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
-        $link = $wfConfigData['host']. "/admin/login/deeplink?";
+        $config = \Pimcore\Config::getSystemConfig()->toArray();
+        if(!empty($config['general']['domain'])) {
+            $host = $config['general']['domain'];
+        } else {
+            $host = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters']['host'];
+        }
+        $link = $host. "/admin/login/deeplink?";
         if ($type == 'object') {
             $link .= 'object_' . $id . '_object';
         }

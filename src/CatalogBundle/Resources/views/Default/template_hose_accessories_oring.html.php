@@ -179,12 +179,11 @@ if ($data):
                         <td width="70%">
 
                             <?php
-                            $tableCount = 0;
                             if ($data['brandData']):
-                                foreach ($data['brandData'] as $key => $brand): ?>
+                                foreach ($data['brandData'] as $md5key => $brand): ?>
                                     <div class="marginBottom50">
                                         <h3 class="contitech-yellow">
-                                            <?php echo $this->input("HHAO_BrandName_{$tableCount}")->setDataFromResource($brand['brandName']); ?>
+                                            <?php echo $this->input("HHAO_BrandName_{$md5key}")->setDataFromResource($brand['brandName']); ?>
                                         </h3>
                                         <table class="grid inh" cellspacing="0" cellpadding="0">
                                             <thead>
@@ -237,10 +236,9 @@ if ($data):
                                             <?php endforeach; ?>
 
                                         </table>
-                                        <p class="small"><?= $this->input('HHAO_note' . $tableCount, ['placeholder' => 'Enter comment']); ?></p>
+                                        <p class="small"><?= $this->input('HHAO_note_' . $md5key, ['placeholder' => 'Enter comment']); ?></p>
                                     </div>
-
-                                    <?php $tableCount++;
+                                    <?php 
                                 endforeach;
                             endif; ?>
                         </td>

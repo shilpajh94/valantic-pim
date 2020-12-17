@@ -53,7 +53,7 @@ class ProductPublishingListener implements EventSubscriberInterface
             if (!empty($productManagers) && !empty($productManagers->getObjects())) {
                 foreach ($productManagers->getObjects() as $k => $user) {
                     $array = array(
-                        'subject'       =>  WFConst::PB_REVIEW_SUBJECT,
+//                        'subject'       =>  WFConst::PB_REVIEW_SUBJECT,
                         'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_START_PROCESSING_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname()),
                         'ccEmails'      =>  array($edEmail => $edFullName),
@@ -106,7 +106,6 @@ class ProductPublishingListener implements EventSubscriberInterface
             if (!empty($productEditors) && !empty($productEditors->getObjects())) {
                 foreach ($productEditors->getObjects() as $user) {
                     $array = array(
-                        'subject'       =>  WFConst::PB_ENRICH_SUBJECT,
                         'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_ENRICH_AGAIN_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
@@ -160,7 +159,6 @@ class ProductPublishingListener implements EventSubscriberInterface
             if (!empty($productEditors) && !empty($productEditors->getObjects())) {
                 foreach ($productEditors->getObjects() as $user) {
                     $array = array(
-                        'subject'       =>  WFConst::PB_PUBLISH_SUBJECT,
                         'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_PUBLISH_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
@@ -215,7 +213,6 @@ class ProductPublishingListener implements EventSubscriberInterface
             if (!empty($productEditors) && !empty($productEditors->getObjects())) {
                 foreach ($productEditors->getObjects() as $user) {
                     $array = array(
-                        'subject'       =>  WFConst::PB_UNPUBLISH_SUBJECT,
                         'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_UNPUBLISH_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),
@@ -264,7 +261,6 @@ class ProductPublishingListener implements EventSubscriberInterface
             if (!empty($productEditors) && !empty($productEditors->getObjects())) {
                 foreach ($productEditors->getObjects() as $user) {
                     $array = array(
-                        'subject'       =>  WFConst::PB_UNPUBLISH_SUBJECT,
                         'templateName'  =>  $wfHelper->getTemplatePath(WFConst::PB_REOPEN_ACTION_NAME, $actionRemarkInfo['optionName'], $actionRemarkInfo['priorityType']),
                         'toEmails'      =>  array($user->getEmail() => $user->getFirstname() . ' ' . $user->getLastname()),
                         'ccEmails'      =>  array($cuEmail => $cuFullName),

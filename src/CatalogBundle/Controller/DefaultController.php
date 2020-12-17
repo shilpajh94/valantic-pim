@@ -261,6 +261,8 @@ class DefaultController extends AbstractController {
         $skeletonProduct = $tableObj->getSkeletonProduct();
         $skeletonIds = [];
         $tableColumns = json_decode($tableData, 1);
+        // p_r($dynamicColumnsData);
+        // p_r($tableColumns);
         if($tableColumns!== null)
         {
                 $columns = array_keys($tableColumns);
@@ -396,11 +398,23 @@ class DefaultController extends AbstractController {
             foreach ($columns as $fieldName) {
                 if (in_array($fieldName, array_keys($printColumns))) {
                     $headers[$fieldName] = $printColumns[$fieldName]['fieldLabel'];
+                    
+                    $numberOfDecimalPoints = "";
+                    
+                    if(isset($printColumns[$fieldName]['numberOfDecimalPoints']) && $printColumns[$fieldName]['numberOfDecimalPoints'])
+                    {
+                        $numberOfDecimalPoints = $printColumns[$fieldName]['numberOfDecimalPoints'];
+                        $needUpdateValue = TRUE;
+                    }
+                    else{
+                        $needUpdateValue = FALSE;
+                    }
+                    
                     if ($printColumns[$fieldName]['fieldLevel'] == 'class' && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $getter = 'get' . ucfirst($fieldName);
                         if($item->$getter() !== null && !empty($item->$getter()))
                         {
-                        $pData[$item->getId()][$fieldName] = $item->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
                         }
                         else
                         {
@@ -421,12 +435,14 @@ class DefaultController extends AbstractController {
                             array_push($dataValues, $obj->$fieldGetter());
                         }
                         }
-                        $pData[$item->getId()][$fieldName] = $dataValues;
+
+                        $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
+
                     } else if ($printColumns[$fieldName]['fieldLevel'] == 'objectBrick' && in_array($printColumns[$fieldName]['parent']['name'], $bricksList['fert']) && strtolower($printColumns[$fieldName]['fieldType']) !== 'relation') {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getFert()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$fieldName] = $item->getFert()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->getFert()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
@@ -434,7 +450,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getSkeleton()->$brickGetter() != null) {
-                            $pData[$item->getId()][$fieldName] = $item->getSkeleton()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->getSkeleton()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = "";
                         }
@@ -443,7 +459,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($printColumns[$fieldName]['parent']['name']);
                         $getter = 'get' . ucfirst($fieldName);
                         if ($item->getBase()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$fieldName] = $item->getBase()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $item->getBase()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -462,7 +478,8 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$fieldName] = $dataValues;
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
+
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -481,7 +498,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$fieldName] = $dataValues;
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -500,7 +517,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$fieldName] = $dataValues;
+                            $pData[$item->getId()][$fieldName] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$fieldName] = '';
                         }
@@ -514,11 +531,24 @@ class DefaultController extends AbstractController {
                 foreach ($dynamicColumnsData[$template] as $dFieldKey => $dFieldName) {
 
                     $headers[$dFieldKey] = $dFieldName['fieldLabel'];
+
+                    $numberOfDecimalPoints = "";
+                    
+                    if(isset($dFieldName['numberOfDecimalPoints']) && $dFieldName['numberOfDecimalPoints'])
+                    {
+                        $numberOfDecimalPoints = $dFieldName['numberOfDecimalPoints'];
+                        $needUpdateValue = TRUE;
+                    }
+                    else{
+                        $needUpdateValue = FALSE;
+                    }
+
+
                     if ($dFieldName['fieldLevel'] == 'class' && strtolower($dFieldName['fieldType']) != 'relation' && $dFieldName['fieldType'] != 'Media') {
                         $getter = 'get' . ucfirst($dFieldKey);
                         if($item->$getter() !== null && !empty($item->$getter()))
                         {
-                        $pData[$item->getId()][$dFieldKey] = $item->$getter();
+                        $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->$getter(), $numberOfDecimalPoints);
                         }
                         else
                         {
@@ -548,12 +578,12 @@ class DefaultController extends AbstractController {
                             array_push($dataValues, $obj->$fieldGetter());
                         }
                         }
-                        $pData[$item->getId()][$dFieldKey] = $dataValues;
+                        $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                     } else if ($dFieldName['fieldLevel'] == 'objectBrick' && in_array($dFieldName['parent']['name'], $bricksList['fert']) && strtolower($dFieldName['fieldType']) != 'relation') {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getFert()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$dFieldKey] = $item->getFert()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->getFert()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -561,7 +591,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getSkeleton()->$brickGetter() !== null) {
-                            $pData[$item->getId()][$dFieldKey] = $item->getSkeleton()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->getSkeleton()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -569,7 +599,7 @@ class DefaultController extends AbstractController {
                         $brickGetter = 'get' . ucfirst($dFieldName['parent']['name']);
                         $getter = 'get' . ucfirst($dFieldKey);
                         if ($item->getBase()->$brickGetter()) {
-                            $pData[$item->getId()][$dFieldKey] = $item->getBase()->$brickGetter()->$getter();
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $item->getBase()->$brickGetter()->$getter(), $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -588,7 +618,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -607,7 +637,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -626,7 +656,7 @@ class DefaultController extends AbstractController {
                             foreach ($classObj as $obj) {
                                 array_push($dataValues, $obj->$fieldGetter());
                             }
-                            $pData[$item->getId()][$dFieldKey] = $dataValues;
+                            $pData[$item->getId()][$dFieldKey] = $this->convertValueToDecimal($needUpdateValue, $dataValues, $numberOfDecimalPoints);
                         } else {
                             $pData[$item->getId()][$dFieldKey] = '';
                         }
@@ -661,6 +691,15 @@ class DefaultController extends AbstractController {
         die;
     }
 
+    public function convertValueToDecimal($needUpdateValue, $value, $numberOfDecimalPoints)
+    {
+        if($needUpdateValue && $value && is_numeric($value))
+            $fieldValue = number_format($value, $numberOfDecimalPoints); 
+        else
+            $fieldValue = $value;
+
+        return $fieldValue;
+    }
 
 
     /**
@@ -719,6 +758,9 @@ class DefaultController extends AbstractController {
             $baseIdArr = array();
             $fertId = array();
             $images = array();
+
+            $brandsList = $this->getBrandsList();
+
             if (is_array($obj->getProductsData()) && !empty($obj->getProductsData())) {
                 foreach ($obj->getProductsData() as $k => $row) {
                     $productsData[] = array_combine($headerKeys, $row);
@@ -744,8 +786,9 @@ class DefaultController extends AbstractController {
                         $data[$baseId]['BrandShortText'][2] = isset($data[$baseId]['BrandShortText3'][2]) && !empty($data[$baseId]['BrandShortText3'][2]) ? $data[$baseId]['BrandShortText3'][2] : $row['BrandShortText3'];
                         $data[$baseId]['BrandShortText'][3] = isset($data[$baseId]['BrandShortText4'][3]) && !empty($data[$baseId]['BrandShortText4'][3]) ? $data[$baseId]['BrandShortText4'][3] : $row['BrandShortText4'];
                         $data[$baseId]['BrandShortText'][4] = isset($data[$baseId]['BrandShortText5'][4]) && !empty($data[$baseId]['BrandShortText5'][4]) ? $data[$baseId]['BrandShortText5'][4] : $row['BrandShortText5'];
-
                         $data[$baseId]['mainImage'] = isset($row['mainImage'])&&!empty($row['mainImage']) ? \Pimcore\Model\Asset::getByPath($row['mainImage']) : null;
+                        $data[$baseId]['SortOrder'] = $brandsList[$data[$baseId]['brandName']];
+
                         if (!isset($data[$baseId]['featureIcon']) && !empty($row['FeaturesBenefitsBulletPoint'])) {
                             $features = $row['FeaturesBenefitsBulletPoint'];
                             $featureObj = null;
@@ -801,6 +844,9 @@ if(isset($data[$baseId])) {
                 }
                 // p_r($data);
                 // p_r($images);die;
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
                 // p_r($data);die;
 
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -890,6 +936,7 @@ if(isset($data[$baseId])) {
                 }
             }
 
+            $brandsList = $this->getBrandsList();
             $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
 
             $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
@@ -910,6 +957,7 @@ if(isset($data[$baseId])) {
             {
                 foreach ($brandsData as $brandKey => $brandArray)
                 {
+                    $uniqueId = md5($brandKey);
                     $LeftPrintCatalogImageObj = '';
                     $RightPrintCatalogImageObj = '';
                     $longDescription = '';
@@ -1016,13 +1064,7 @@ if(isset($data[$baseId])) {
                                 $articlesData[$key][] = ($element[$headerKeysIndex[$ckey]])? implode(',',($element[$headerKeysIndex[$ckey]])): '';
                             else
                             {
-                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                                    $articlesData[$key][] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[$key][] = $element[$headerKeysIndex[$ckey]];
                             }
                         }
 
@@ -1085,29 +1127,33 @@ if(isset($data[$baseId])) {
                     if(empty($reinforcementStr))
                         $reinforcementStr = $reinforcement;
 
-
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
-                    $data[$brandKey]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
-                    $data[$brandKey]['longDescription'] = $longDescription;
-                    $data[$brandKey]['BrandingLayline'] = $BrandingLayline;
-                    $data[$brandKey]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                    $data[$brandKey]['reinforcement'] = $reinforcementStr;
-                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
-                    $data[$brandKey]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
-                    $data[$brandKey]['standardMetHoseListData'] = $standardMetHoseListData;
-                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
-                    $data[$brandKey]['iconRequired'] = $iconRequired;
-                    $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
-                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                    
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['LeftPrintCatalogImageObj'] = $LeftPrintCatalogImageObj;
+                    $data[$uniqueId]['RightPrintCatalogImageObj'] = $RightPrintCatalogImageObj;
+                    $data[$uniqueId]['longDescription'] = $longDescription;
+                    $data[$uniqueId]['BrandingLayline'] = $BrandingLayline;
+                    $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $data[$uniqueId]['reinforcement'] = $reinforcementStr;
+                    $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
+                    $data[$uniqueId]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
+                    $data[$uniqueId]['standardMetHoseListData'] = $standardMetHoseListData;
+                    $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
+                    $data[$uniqueId]['iconRequired'] = $iconRequired;
+                    $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
                     array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
-                    $data[$brandKey]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
                 $catalogGroupData[$catalogKey] = $data;
             }
-
+            // p_r($data);
+            // die;
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -1186,6 +1232,8 @@ if(isset($data[$baseId])) {
                 }
             }
 
+            $brandsList = $this->getBrandsList();
+
             $brandsData = array();
             if($productsData)
             {
@@ -1195,7 +1243,7 @@ if(isset($data[$baseId])) {
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
-
+                    
                     $brandName = '';
                     $imageObj = '';
                     $longDescription = '';
@@ -1248,13 +1296,7 @@ if(isset($data[$baseId])) {
                             endforeach;
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                                    $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                             }
 
                     endforeach;
@@ -1286,23 +1328,26 @@ if(isset($data[$baseId])) {
                     $materialString = implode(', ', $material);
                     $availableLengthString = implode(', ', $availableLength);
 
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['imageObj'] = $imageObj;
-                    $data[$brandKey]['mainImage'] = $mainImage;
-                    $data[$brandKey]['longDescription'] = $longDescription;
-                    $data[$brandKey]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                    $data[$brandKey]['materialString'] = $materialString;
-                    $data[$brandKey]['availableLengthString'] = $availableLengthString;
-                    $data[$brandKey]['colorString'] = $colorString;
-                    $data[$brandKey]['iconRequired'] = $iconRequired;
-                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-                    $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
-                    $data[$brandKey]['safetyFeatures'] = $safetyFeaturesList;
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['imageObj'] = $imageObj;
+                    $data[$uniqueId]['mainImage'] = $mainImage;
+                    $data[$uniqueId]['longDescription'] = $longDescription;
+                    $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $data[$uniqueId]['materialString'] = $materialString;
+                    $data[$uniqueId]['availableLengthString'] = $availableLengthString;
+                    $data[$uniqueId]['colorString'] = $colorString;
+                    $data[$uniqueId]['iconRequired'] = $iconRequired;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
 
                     array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
-                    $data[$brandKey]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -1423,27 +1468,21 @@ if(isset($data[$baseId])) {
                     endforeach;
 
                     foreach ($orderKeys as $ckey => $cvalue) {
-                        if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                            $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                            $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                        }
-                        else{
-                            $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                        }
+                        $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                     }
 
                 endforeach;
-
+                $uniqueId = md5($brandKey);
                 $material = array_unique($material);
                 $materialString = implode(', ', $material);
-                $data[$brandKey]['brandName'] = $brandName;
-                $data[$brandKey]['imageObj'] = $imageObj;
-                $data[$brandKey]['longDescription'] = $longDescription;
-                $data[$brandKey]['materialString'] = $materialString;
-                $data[$brandKey]['iconRequired'] = $iconRequired;
-                $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
-                $data[$brandKey]['subHeaderRequired'] = $subHeaderRequired;
-                $data[$brandKey]['articlesData'] = $articlesData;
+                $data[$uniqueId]['brandName'] = $brandName;
+                $data[$uniqueId]['imageObj'] = $imageObj;
+                $data[$uniqueId]['longDescription'] = $longDescription;
+                $data[$uniqueId]['materialString'] = $materialString;
+                $data[$uniqueId]['iconRequired'] = $iconRequired;
+                $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                $data[$uniqueId]['articlesData'] = $articlesData;
 
             }
 
@@ -1557,24 +1596,19 @@ if(isset($data[$baseId])) {
                             // }
                         }
 
-                        $brandData[$brandName]['brandName'] = $brandName;
-                        $brandData[$brandName]['iconRequired'] = $iconRequired;
-                        $brandData[$brandName]['columnsDataWithImages'] = $columnsDataWithImages;
-                        $brandData[$brandName]['subHeaderRequired'] = $subHeaderRequired;
+                        $uniqueId = md5($brandName);
+                        $brandData[$uniqueId]['brandName'] = $brandName;
+                        $brandData[$uniqueId]['iconRequired'] = $iconRequired;
+                        $brandData[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                        $brandData[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
 
                         $articlesData = array();
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                            if(is_numeric($item[$cvalue])){
-                                $float_value = (float) $item[$cvalue];
-                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                            }
-                            else{
-                                $articlesData[] = $item[$cvalue];
-                            }
+                            $articlesData[] = $item[$cvalue];
                         }
 
-                        $brandData[$brandName]['articlesData'][] = $articlesData;
+                        $brandData[$uniqueId]['articlesData'][] = $articlesData;
                         unset($articlesData);
                     }
                 }
@@ -1686,7 +1720,7 @@ if(isset($data[$baseId])) {
             $this->get('translator')->setLocale($CatalogLanguage);
 
 
-
+            $brandsList = $this->getBrandsList();
             $catalogGrouping = array();
 
             foreach ($productsData as $key => $item) {
@@ -1702,6 +1736,7 @@ if(isset($data[$baseId])) {
             {
                 foreach ($brandsData as $brandKey => $brandArray)
                 {
+                    $uniqueId = md5($brandKey);
                     $VirtualCatalogTubeMaterial = '';
                     $VirtualCatalogCoverMaterial = '';
                     $VirtualCatalogReinforcement = '';
@@ -1790,17 +1825,20 @@ if(isset($data[$baseId])) {
                             if(empty($reinforcementStr))
                                 $reinforcementStr = $reinforcement;
 
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
-                    $data[$brandKey]['reinforcement'] = $reinforcementStr;
-                    $data[$brandKey]['fittingFamily'] = $fittingFamily;
-                    $data[$brandKey]['industryStandard'] = $industryStandard;
-                    $data[$brandKey]['CatalogGrouping'] = $CatalogGrouping;
-                    $data[$brandKey]['workingPressurePSIString'] = $workingPressurePSIString;
-                    $data[$brandKey]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
-                    $data[$brandKey]['CatalogPackaging'] = $CatalogPackaging;
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['temperatureRangeFAndC'] = $temperatureRangeFAndC;
+                    $data[$uniqueId]['reinforcement'] = $reinforcementStr;
+                    $data[$uniqueId]['fittingFamily'] = $fittingFamily;
+                    $data[$uniqueId]['industryStandard'] = $industryStandard;
+                    $data[$uniqueId]['CatalogGrouping'] = $CatalogGrouping;
+                    $data[$uniqueId]['workingPressurePSIString'] = $workingPressurePSIString;
+                    $data[$uniqueId]['tubeMaterialAtrributeString'] = $VirtualCatalogTubeMaterialStr;
+                    $data[$uniqueId]['CatalogPackaging'] = $CatalogPackaging;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
                 $catalogGroupData[$catalogKey] = $data;
             }
 
@@ -1875,6 +1913,8 @@ if(isset($data[$baseId])) {
                         $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                 }
             }
+            
+            $brandsList = $this->getBrandsList();
 
             $brandsData = array();
             if($productsData)
@@ -1885,7 +1925,7 @@ if(isset($data[$baseId])) {
                 }
 
                 foreach ($brandsData as $brandKey => $brandArray) {
-
+                    $uniqueId = md5($brandKey);
                     $brandName = '';
                     $imageObj = '';
                     $shortDescription = '';
@@ -1911,27 +1951,24 @@ if(isset($data[$baseId])) {
                                 $shortDescription = $element[$headerKeysIndex['shortDescription']];
 
                             foreach ($orderKeys as $ckey => $cvalue) {
-                                if(is_numeric($element[$headerKeysIndex[$ckey]])){
-                                    $float_value = (float) $element[$headerKeysIndex[$ckey]];
-                                    $articlesData[$key][$ckey] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                                }
-                                else{
-                                    $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
-                                }
+                                $articlesData[$key][$ckey] = $element[$headerKeysIndex[$ckey]];
                             }
 
                     endforeach;
 
-                    $data[$brandKey]['brandName'] = $brandName;
-                    $data[$brandKey]['imageObj'] = $imageObj;
-                    $data[$brandKey]['shortDescription'] = $shortDescription;
-                    $data[$brandKey]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$uniqueId]['brandName'] = $brandName;
+                    $data[$uniqueId]['imageObj'] = $imageObj;
+                    $data[$uniqueId]['shortDescription'] = $shortDescription;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
+                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
                     // array_multisort (array_column($articlesData, $headerKeysIndex['FlangePatternDimensionAInAndMMDecimal']), SORT_ASC, $articlesData);
 
-                    $data[$brandKey]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['articlesData'] = $articlesData;
+                    $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
+                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -1994,6 +2031,12 @@ if(isset($data[$baseId])) {
             $featureData[$entry->getId()]['CustomerFacingVersion'] = $entry->getCustomerFacingVersion($language);
         }
         return $featureData;
+    }
+
+    public function getBrandsList(){
+        $query = "select name, SortOrder from object_query_3";
+        $brandslist = $this->db->fetchPairs($query);
+        return $brandslist;
     }
 
     /**
@@ -2266,13 +2309,7 @@ if(isset($data[$baseId])) {
                         $item[] = $listPrice;
 
                         foreach ($orderKeys as $ckey => $cvalue) {
-                            if(is_numeric($item[$cvalue])){
-                                $float_value = (float) $item[$cvalue];
-                                $articlesData[] = is_float($float_value)? (round($float_value, 2, PHP_ROUND_HALF_UP)): $float_value;
-                            }
-                            else{
-                                $articlesData[] = $item[$cvalue];
-                            }
+                            $articlesData[] = $item[$cvalue];
                         }
 
                         $brandsData[$siop6Category][] = $articlesData;

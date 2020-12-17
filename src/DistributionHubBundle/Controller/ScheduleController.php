@@ -75,11 +75,11 @@ class ScheduleController extends AdminController
      */
     public function saveScheduleAction(Request $request,ScheduleService $scheduleService)
     {
- 
+
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');
-        $exportFormat = $request->get('exportFormat');
+        $exportFormat = $request->get('exportFormat') ? $request->get('exportFormat') : "Csv";
         $exportLocation = empty($request->get('exportLocation')) ? "Pimcore" : $request->get('exportLocation');
         $exportFtp = $request->get('exportFtp');
         $channelId = $request->get('channelId');

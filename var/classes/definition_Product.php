@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-11-20T18:52:00+05:30
+* Generated at: 2020-11-21T14:00:40+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -160,7 +160,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1605878519,
+   'modificationDate' => 1605947438,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -15491,13 +15491,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           59 => 
                                           array (
-                                            'key' => 'Ease of Coupling',
-                                            'value' => 3090,
+                                            'key' => 'Ease Of Coupling',
+                                            'value' => 759945,
                                           ),
                                           60 => 
                                           array (
-                                            'key' => 'Ease Of Coupling',
-                                            'value' => 759945,
+                                            'key' => 'Ease of Coupling',
+                                            'value' => 3090,
                                           ),
                                           61 => 
                                           array (
@@ -15872,12 +15872,12 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           135 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 3124,
+                                            'value' => 760033,
                                           ),
                                           136 => 
                                           array (
                                             'key' => 'Made in USA',
-                                            'value' => 760033,
+                                            'value' => 3124,
                                           ),
                                           137 => 
                                           array (
@@ -15916,13 +15916,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                           ),
                                           144 => 
                                           array (
-                                            'key' => 'Meets CARB Requirements',
-                                            'value' => 759960,
+                                            'key' => 'Meets CARB requirements',
+                                            'value' => 3130,
                                           ),
                                           145 => 
                                           array (
-                                            'key' => 'Meets CARB requirements',
-                                            'value' => 3130,
+                                            'key' => 'Meets CARB Requirements',
+                                            'value' => 759960,
                                           ),
                                           146 => 
                                           array (
@@ -17346,13 +17346,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'queryColumnType' => 'double',
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
-                                     'integer' => true,
+                                     'integer' => false,
                                      'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => 3,
+                                     'decimalPrecision' => NULL,
                                      'name' => 'minimumTemperatureC',
                                      'title' => 'Min Temp °C',
                                      'tooltip' => '',
@@ -17377,13 +17377,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'queryColumnType' => 'double',
                                      'columnType' => 'double',
                                      'phpdocType' => 'float',
-                                     'integer' => true,
+                                     'integer' => false,
                                      'unsigned' => false,
                                      'minValue' => NULL,
                                      'maxValue' => NULL,
                                      'unique' => false,
                                      'decimalSize' => NULL,
-                                     'decimalPrecision' => 3,
+                                     'decimalPrecision' => NULL,
                                      'name' => 'maximumTemperatureC',
                                      'title' => 'Max temp °C',
                                      'tooltip' => '',

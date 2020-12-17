@@ -77,6 +77,10 @@ services:
     ImportBundle\Command\CopyAssetCommand:
         tags:
             - { name: 'console.command', command: 'conti:copy-asset' }
+    
+    ImportBundle\Command\CleanSIOPCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:product-siop-cleaning' }
             
     ImportBundle\Command\AssetImportCommand:
         tags:

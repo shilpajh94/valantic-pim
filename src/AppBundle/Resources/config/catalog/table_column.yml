@@ -27,6 +27,7 @@ parameters:
                 fieldLabel: 'Hose OD (in)'
                 groupName: HoseOD
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -35,6 +36,7 @@ parameters:
                 fieldLabel: 'Hose OD (mm)'
                 groupName: HoseOD
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -59,6 +61,7 @@ parameters:
                 fieldLabel: 'Bend Radius (in)'
                 groupName: bendRadius
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -67,6 +70,7 @@ parameters:
                 fieldLabel: 'Bend Radius (mm)'
                 groupName: bendRadius
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -75,6 +79,7 @@ parameters:
                 fieldLabel: 'Weight (lbs per ft)'
                 groupName: InnerHoseWeightLbs
                 unitName: lbs per ft
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseFert
@@ -98,8 +103,9 @@ parameters:
             pitchMM:
                 fieldLevel: objectBrick
                 fieldType: Input
-                groupName: pitch
+                groupName: Pitch
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldLabel: Pitch (mm)
                 parent:
                     name: SynchronousFert
@@ -108,6 +114,7 @@ parameters:
                 fieldType: Input
                 groupName: pitchLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Pitch Length (in)
                 parent:
                     name: SynchronousFert
@@ -116,6 +123,7 @@ parameters:
                 fieldType: Input
                 groupName: pitchLength
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldLabel: Pitch Length (MM)
                 parent:
                     name: SynchronousFert
@@ -130,6 +138,7 @@ parameters:
                 fieldType: Input
                 groupName: width
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldLabel: Width (mm)
                 parent:
                     name: PTGFert
@@ -137,12 +146,14 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Net Weight
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
             weightUnit:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Weight Unit
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
         Banded Belts:
@@ -157,6 +168,7 @@ parameters:
                 fieldType: Input
                 groupName: outsideLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Outside Length (in)
                 parent:
                     name: BeltsFert
@@ -164,12 +176,14 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Net Weight
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
             weightUnit:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Weight Unit
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
         V-Belts:
@@ -184,6 +198,7 @@ parameters:
                 fieldType: Input
                 groupName: insideLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Inside Length (in)
                 parent:
                     name: BeltsFert
@@ -191,12 +206,14 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Net Weight
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
             weightUnit:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Weight Unit
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
         Sheave:
@@ -211,6 +228,7 @@ parameters:
                 fieldType: Input
                 groupName: pulleyDiameter
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Pulley Diameter (in)
                 parent:
                     name: MetalFert
@@ -224,12 +242,14 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Net Weight
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
             weightUnit:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Weight Unit
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
         Sprockets:
@@ -244,6 +264,7 @@ parameters:
                 fieldType: Input
                 groupName: Pitch
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldLabel: Pitch (mm)
                 parent:
                     name: SynchronousFert
@@ -257,12 +278,14 @@ parameters:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Net Weight
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
             weightUnit:
                 fieldLevel: class
                 fieldType: Input
                 fieldLabel: Weight Unit
+                numberOfDecimalPoints: 2
                 parent:
                     name: Product
             
@@ -291,6 +314,7 @@ parameters:
                 fieldLabel: 'ID'
                 groupName: SleevingIDInDecimal
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: AccessoriesFert 
@@ -299,6 +323,7 @@ parameters:
                 fieldLabel: 'Flat Width (in)'
                 groupName: FlatWidthIn
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: AccessoriesFert 
@@ -307,6 +332,7 @@ parameters:
                 fieldLabel: 'Weight Lbs per ft'
                 groupName: grossWeight
                 unitName: lbs per ft
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: Product
@@ -379,6 +405,7 @@ parameters:
                 fieldLabel: 'Flange Pattern Dimension A (in)'
                 groupName: FlangePatternDimensionAInAndMMDecimal
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
@@ -387,13 +414,14 @@ parameters:
                 fieldLabel: 'Flange Pattern Dimension B (in)'
                 groupName: FlangePatternDimensionBInAndMMDecimal
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: AccessoriesFert
             AccessoriesWorkingPressurePSI:
                 fieldLevel: objectBrick
                 fieldLabel: 'Maximum Working Pressure'
-                groupName: AccessoriesWorkingPressure
+                groupName: workingPressure
                 unitName: psi
                 fieldType: Input
                 parent:
@@ -428,6 +456,7 @@ parameters:
                 fieldLevel: objectBrick
                 groupName: ORingIdInDec
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: 'O-Ring ID (in) Dec'
                 fieldType: Input
                 parent:
@@ -436,6 +465,7 @@ parameters:
                 fieldLevel: objectBrick
                 groupName: ORingWidthInAndMMDecimal
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: 'O-Ring Width (in & mm) Decimal'
                 fieldType: Input
                 parent:
@@ -477,10 +507,10 @@ parameters:
                     class:
                         name: Brand
                         fieldName: Name
-            BrandShortText1:
-                fieldLevel: class
-                fieldLabel: Brand Short Text 1
-                fieldType: Input
+            # BrandShortText1:
+            #     fieldLevel: class
+            #     fieldLabel: Brand Short Text 1
+            #     fieldType: Input
             HydFittingFamily:
                 fieldLevel: objectBrick
                 fieldType: Relation
@@ -549,6 +579,7 @@ parameters:
                 fieldLabel: Hex 1 Wrench Size (in)
                 groupName: Hex1WrenchSize
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -557,6 +588,7 @@ parameters:
                 fieldLabel: Hex 1 Wrench Size (mm)
                 groupName: Hex1WrenchSize
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -565,6 +597,7 @@ parameters:
                 fieldLabel: Hex 2 Wrench Size
                 groupName: Hex2WrenchSize
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -573,6 +606,7 @@ parameters:
                 fieldLabel: Hex 2 Wrench Size (mm)
                 groupName: Hex2WrenchSize
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -581,6 +615,7 @@ parameters:
                 fieldLabel: Cut-Off (C) (in)
                 groupName: CutOffLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -589,6 +624,7 @@ parameters:
                 fieldLabel: Cut-Off (C) (mm)
                 groupName: CutOffLength
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -597,6 +633,7 @@ parameters:
                 fieldLabel: Thread Size 1 (in & mm) Decimal
                 groupName: ThreadSize1InMMDecimal
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -605,6 +642,7 @@ parameters:
                 fieldLabel: Thread Size 2 (in & mm) Decimal
                 groupName: ThreadSize2InMMDecimal
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -627,6 +665,7 @@ parameters:
                 fieldLabel: Tube OD (mm)
                 groupName: TubeOD
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -635,6 +674,7 @@ parameters:
                 fieldLabel: Orifice Tube OD (in)
                 groupName: OrificeTubeOD
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -643,6 +683,7 @@ parameters:
                 fieldLabel: Orifice Tube OD (mm)
                 groupName: OrificeTubeOD
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -651,6 +692,7 @@ parameters:
                 fieldLabel: Orifice Tube Length (in)
                 groupName: OrificeTubeLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -659,6 +701,7 @@ parameters:
                 fieldLabel: Orifice Tube Length (mm)
                 groupName: OrificeTubeLength
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -667,6 +710,7 @@ parameters:
                 fieldLabel: Valve Size (in)
                 groupName: ValveSizeInDec
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -675,6 +719,7 @@ parameters:
                 fieldLabel: Valve Size2 (in)
                 groupName: ValveSize2InDec
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -705,6 +750,7 @@ parameters:
                 fieldLabel: Overall Length (in)
                 groupName: OverallLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -713,6 +759,7 @@ parameters:
                 fieldLabel: Overall Length (mm)
                 groupName: OverallLength
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -729,6 +776,7 @@ parameters:
                 fieldLabel: Flange ID (mm)
                 groupName: FlangeID
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -745,6 +793,7 @@ parameters:
                 fieldLabel: Flange OD (in) Dec.
                 groupName: FlangeOD
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -767,6 +816,7 @@ parameters:
                 fieldLabel: Ferrule ID (in)
                 groupName: FerruleID
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -775,6 +825,7 @@ parameters:
                 fieldLabel: Ferrule ID (mm)
                 groupName: FerruleID
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -783,6 +834,7 @@ parameters:
                 fieldLabel: Ferrule OD (in)
                 groupName: FerruleOD
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -791,6 +843,7 @@ parameters:
                 fieldLabel: Ferrule OD (mm)
                 groupName: FerruleOD
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -807,6 +860,7 @@ parameters:
                 fieldLabel: Ferrule Length (mm)
                 groupName: FerruleLength
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -815,6 +869,7 @@ parameters:
                 fieldLabel: Drop Length (in)
                 groupName: DropLength
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -823,6 +878,7 @@ parameters:
                 fieldLabel: Drop Length (mm)
                 groupName: DropLength
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HydFittingsFert
@@ -838,12 +894,14 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: ORing ID (dec)
                 fieldType: Input
+                numberOfDecimalPoints: 2
                 parent:
                     name: AccessoriesFert
             ORingIdMM:
                 fieldLevel: objectBrick
                 fieldLabel: ORing ID (mm)
                 fieldType: Input
+                numberOfDecimalPoints: 2
                 parent:
                     name: AccessoriesFert
     Industrial Hose Section Page:
@@ -1091,6 +1149,7 @@ parameters:
                 fieldLabel: 'ID (mm)'
                 groupName: HoseID
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1099,6 +1158,7 @@ parameters:
                 fieldLabel: 'OD (in)'
                 groupName: HoseOD
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1107,6 +1167,7 @@ parameters:
                 fieldLabel: OD (mm)
                 groupName: HoseOD
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1139,18 +1200,21 @@ parameters:
                 fieldLabel: 'Weight (lbs per ft)'
                 groupName: weight
                 unitName: lbs per ft
+                numberOfDecimalPoints: 2
                 fieldType: Number
             weightKg:
                 fieldLevel: class
                 fieldLabel: W (kg)
                 groupName: weight
                 unitName: kg
+                numberOfDecimalPoints: 2
                 fieldType: Number
             BendRadiusIN:
                 fieldLevel: objectBrick
                 fieldLabel: BR (in)
-                groupName: BendRadiusIN
+                groupName: bendRadius
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1159,6 +1223,7 @@ parameters:
                 fieldLabel: Vacuum (in)
                 groupName: Vacuum
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1167,6 +1232,7 @@ parameters:
                 fieldLabel: Vacuum (mm)
                 groupName: Vacuum
                 unitName: mm
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1183,6 +1249,7 @@ parameters:
                 fieldLabel: Inner Hose OD (in Decimal)
                 groupName: InnerHoseOdInDec
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
@@ -1191,6 +1258,7 @@ parameters:
                 fieldLabel: Inner Hose Weight (lbs/ft)
                 groupName: InnerHoseWeightLbs
                 unitName: lbs per ft
+                numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:
                     name: HoseFert
@@ -1230,6 +1298,7 @@ parameters:
                 fieldType: Number
                 groupName: DistanceChainLugExtendsfromBodyIN
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Distance Chain Lug Extends from Body (in)
                 parent: 
                     name: INHFittingsFert
@@ -1238,6 +1307,7 @@ parameters:
                 fieldType: Number
                 groupName: OverallLengthInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Overall Length (in)
                 parent: 
                     name: INHFittingsFert
@@ -1246,6 +1316,7 @@ parameters:
                 fieldType: Number
                 groupName: MaximumWidthAcrossAdapterInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Maximum Width Across Adapter (Inches)
                 parent: 
                     name: INHFittingsFert
@@ -1254,6 +1325,7 @@ parameters:
                 fieldType: Number
                 groupName: MinimumIDInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Minimum ID (in)
                 parent: 
                     name: INHFittingsFert
@@ -1262,6 +1334,7 @@ parameters:
                 fieldType: Number
                 groupName: MaximumWidthwithCamArmsClosedInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Maximum Width with Cam Arms Closed (inches)
                 parent: 
                     name: INHFittingsFert
@@ -1274,6 +1347,7 @@ parameters:
                 fieldType: Number
                 groupName: ExposedLengthInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Exposed Length (Inches)
                 parent: 
                     name: INHFittingsFert
@@ -1282,6 +1356,7 @@ parameters:
                 fieldType: Number
                 groupName: GasketIDInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Gasket ID (inches)
                 parent: 
                     name: INHFittingsFert
@@ -1290,6 +1365,7 @@ parameters:
                 fieldType: Number
                 groupName: MaximumODIN
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Maximum OD (in)
                 parent: 
                     name: INHFittingsFert
@@ -1298,6 +1374,7 @@ parameters:
                 fieldType: Number
                 groupName: MaximumWidthwithCamArmsExtendedInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Maximum Width with Cam Arms Extended (inches)
                 parent: 
                     name: INHFittingsFert
@@ -1306,6 +1383,7 @@ parameters:
                 fieldType: Number
                 groupName: GasketODInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Gasket OD (inches)
                 parent: 
                     name: INHFittingsFert
@@ -1314,6 +1392,7 @@ parameters:
                 fieldType: Number
                 groupName: ODWithCamArmsExtendedIN
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: OD With Cam Arms Extended (in)
                 parent: 
                     name: INHFittingsFert
@@ -1322,6 +1401,7 @@ parameters:
                 fieldType: Number
                 groupName: SizeEnd1Inches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Size End 1 (inches)
                 parent: 
                     name: INHFittingsFert
@@ -1330,6 +1410,7 @@ parameters:
                 fieldType: Number
                 groupName: SizeEnd2Inches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldLabel: Size End 2 (inches)
                 parent: 
                     name: INHFittingsFert
@@ -1337,6 +1418,7 @@ parameters:
                 fieldLevel: objectBrick
                 groupName: GasketThicknessInches
                 unitName: in
+                numberOfDecimalPoints: 2
                 fieldType: Number
                 fieldLabel: Gasket Thickness (inches)
                 parent: 

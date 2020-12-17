@@ -81,6 +81,11 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(PRICE_LIST_TABLE_CONFIG_FILE_PATH);
     }
+
+    public function getOptionProviderCacheConfig()
+    {
+        return $this->getConfigFromYmlFile(OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH);
+    }
     
     public function getWorkFlowConfig()
     {

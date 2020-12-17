@@ -121,14 +121,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
  <article class="container noBorder">
     <section class="content single">
     <?php
-
         if($data):
         $onlyOneTitle = false;
-        $incr = 1;
-        foreach($data as $key => $brand):
-
-        extract($brand);
-
+        foreach($data as $md5key => $brand):
         ?>
 
        <figure class="justify-between">
@@ -137,10 +132,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php if(!$onlyOneTitle): ?>
                 <h2>
                 <?php
-                if ($this->input("HHAS_HeadingRight_{$incr}")->isEmpty()) {
-                        echo $this->input("HHAS_HeadingRight_{$incr}")->setDataFromResource("Hose Accessories");
+                if ($this->input("HHAS_HeadingRight_{$md5key}")->isEmpty()) {
+                        echo $this->input("HHAS_HeadingRight_{$md5key}")->setDataFromResource("Hose Accessories");
                 } else {
-                        echo $this->input("HHAS_HeadingRight_{$incr}");
+                        echo $this->input("HHAS_HeadingRight_{$md5key}");
                 }
                 ?>
                 </h2>
@@ -152,27 +147,27 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <h4 class="contitech-yellow">
 
                 <?php
-                        echo $this->input("HHAS_BrandNameRight_{$incr}")->setDataFromResource($brandName);
+                        echo $this->input("HHAS_BrandNameRight_{$md5key}")->setDataFromResource($brand['brandName']);
                 ?>
                 </h4>
 
                 <span>
                 <?php
-                        echo $this->wysiwyg("HHAS_LongDescriptionRight_{$incr}")->setDataFromResource($longDescription);
+                        echo $this->wysiwyg("HHAS_LongDescriptionRight_{$md5key}")->setDataFromResource($brand['longDescription']);
                 ?>
                 </span>
 
-                <?php if(!empty(trim($materialString)) || !empty(trim($colorString)) || !empty(trim($availableLengthString)) || (!empty(trim($tempFmin)) && !empty(trim($tempFmax)) && !empty(trim($tempCmin)) && !empty(trim($tempCmax))) ): ?>
+                <?php if(!empty(trim($brand['materialString'])) || !empty(trim($brand['colorString'])) || !empty(trim($brand['availableLengthString'])) || (!empty(trim($brand['temperatureRangeFAndC']))) ): ?>
                    <menu>
                    <div class="specs">
                         <h6><?= $this->translate('specs') ?></h6>
                         <div class="spec-requirement">
 
-                           <?php if($safetyFeatures || !empty(trim($materialString)) || (!empty(trim($temperatureRangeFAndC)))): ?>
+                           <?php if($brand['safetyFeatures'] || !empty(trim($brand['materialString'])) || (!empty(trim($brand['temperatureRangeFAndC'])))): ?>
 
-                                <?php if ($safetyFeatures): ?>
+                                <?php if ($brand['safetyFeatures']): ?>
                                         <div>
-                                        <?php foreach ($safetyFeatures as $key => $feature): ?>
+                                        <?php foreach ($brand['safetyFeatures'] as $key => $feature): ?>
                                                 <p  class="flex">
                                                 <font class="is-highlight"> <?= $feature['name'] ?></font>
                                                 </p>
@@ -182,33 +177,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php endif; ?>
 
                             <div>
-                                <?php if(!empty(trim($temperatureRangeFAndC))): ?>
+                                <?php if(!empty(trim($brand['temperatureRangeFAndC']))): ?>
                                 <p class="small">
                                         <b><?= $this->translate('Temperature Range') ?></b>
-                                        <?=$temperatureRangeFAndC ?>
+                                        <?= $brand['temperatureRangeFAndC'] ?>
                                 </p>
                                 <?php endif; ?>
-                                <?php if(!empty(trim($materialString))): ?>
+                                <?php if(!empty(trim($brand['materialString']))): ?>
                                         <p class="small">
                                                 <b><?= $this->translate('Material') ?></b>
-                                                <?= $materialString ?>
+                                                <?= $brand['materialString'] ?>
                                         </p>
                                 <?php endif; ?>
                             </div>
                             <?php endif; ?>
 
-                            <?php if(!empty(trim($colorString)) || !empty(trim($availableLengthString))): ?>
+                            <?php if(!empty(trim($brand['colorString'])) || !empty(trim($brand['availableLengthString']))): ?>
                             <div>
-                                <?php if(!empty(trim($colorString))): ?>
+                                <?php if(!empty(trim($brand['colorString']))): ?>
                                         <p class="small">
                                         <b><?= $this->translate('Color') ?></b>
-                                        <?= $colorString ?>
+                                        <?= $brand['colorString'] ?>
                                         </p>
                                 <?php endif; ?>
-                                <?php if(!empty(trim($availableLengthString))): ?>
+                                <?php if(!empty(trim($brand['availableLengthString']))): ?>
                                         <p class="small">
                                         <b><?= $this->translate('Available Lengths') ?></b>
-                                        <?= "Continuous {$availableLengthString}' rolls" ?>
+                                        <?= "Continuous ".$brand['availableLengthString']."' rolls" ?>
                                 </p>
                                 <?php endif; ?>
 
@@ -222,10 +217,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
            </figcaption>
                 <?php
                 if ($this->editmode) {
-                echo $this->image("HHAS_Image_{$incr}", ["width" => 200, "height" => 200])->setImage($imageObj);
+                echo $this->image("HHAS_Image_{$md5key}", ["width" => 200, "height" => 200])->setImage($brand['imageObj']);
                 } else {
-                        if(!$this->image("HHAS_Image_{$incr}")->isEmpty())
-                                $imgSrcObj = $this->image("HHAS_Image_{$incr}");
+                        if(!$this->image("HHAS_Image_{$md5key}")->isEmpty())
+                                $imgSrcObj = $this->image("HHAS_Image_{$md5key}");
 
                         if($imgSrcObj)
                         {
@@ -238,9 +233,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
        </figure>
        <table class="grid" cellspacing="0" cellpadding="0">
                 <thead>
-                        <?php if($iconRequired == 'YES'): ?>
+                        <?php if($brand['iconRequired'] == 'YES'): ?>
                                 <tr class="sub-head">
-                                        <?php foreach($columnsDataWithImages as $key => $c1data): ?>
+                                        <?php foreach($brand['columnsDataWithImages'] as $key => $c1data): ?>
                                                 <?php
                                                         $g1count = count($c1data);
                                                         $firstArray = array_shift($c1data);
@@ -255,7 +250,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php endif; ?>
 
                         <tr class="head">
-                        <?php foreach($columnsDataWithImages as $key => $c2data): ?>
+                        <?php foreach($brand['columnsDataWithImages'] as $key => $c2data): ?>
 
                                 <?php
                                         $g2count = count($c2data);
@@ -266,9 +261,9 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php endforeach; ?>
                         </tr>
 
-                        <?php if($subHeaderRequired == 'YES'): ?>
+                        <?php if($brand['subHeaderRequired'] == 'YES'): ?>
                                 <tr class="sub-head">
-                                        <?php foreach($columnsDataWithImages as $key => $c3data): ?>
+                                        <?php foreach($brand['columnsDataWithImages'] as $key => $c3data): ?>
                                                 <?php  foreach($c3data as $c3key => $c3value): ?>
                                                         <?php if($c3value['unitName']): ?>
                                                                 <td><?= $c3value['unitName'] ?></td>
@@ -281,7 +276,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php endif; ?>
                 </thead>
                 <?php $incrRow = 1; ?>
-                <?php foreach($articlesData as $key => $element): ?>
+                <?php foreach($brand['articlesData'] as $key => $element): ?>
                         <?php if($incrRow%2==0): ?>
                         <tr>
                         <?php else: ?>
@@ -295,15 +290,10 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php endforeach; ?>
 
         </table>
-        <p class="small"><?= $this->input('HHAS_note' . $incr, ['placeholder' => 'Enter comment']); ?></p>
+        <p class="small"><?= $this->input('HHAS_note_' . $md5key, ['placeholder' => 'Enter comment']); ?></p>
         <?php
-
-        $incr++;
-
         endforeach;
-
         endif;
-
         ?>
 </section>
     </article>

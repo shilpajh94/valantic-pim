@@ -4,6 +4,7 @@
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 
+use DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
@@ -29,7 +30,10 @@ class SelectTypeMasterGetter extends AbstractOperator
             return $result;
         } else {
             $c = $childs[0];
-            $childResult = $c->getLabeledValue($element);
+
+            $customDefaultValue = new CustomDefaultValue($c);
+
+            $childResult = $customDefaultValue->getLabeledValue($element);
 
             $fieldDefinition = $childResult->def;
             $value = $childResult->value;
@@ -51,6 +55,7 @@ class SelectTypeMasterGetter extends AbstractOperator
 
     private function getValueForSelect($fieldDefinition, $value){
         $options = $fieldDefinition->getOptions();
+
         $key = '';
 
         if(is_array($options)){

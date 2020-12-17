@@ -12,6 +12,7 @@ if (isset($info['brandsData'])) {
     if (is_array($info['brandsData'])) {
         $pg = 0;
         foreach ($info['brandsData'] as $brandKey => $brand) {
+            $uniqueId = md5($brandKey);
             ?>
             <div class="template">
                 <div class="segregate inh  inhSettingN">
@@ -29,36 +30,36 @@ if (isset($info['brandsData'])) {
                             <div class="flex aligned">
                                 <h5>
                                     <?php if($this->editmode): ?>
-                                        <?php if($this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"])->isEmpty()): ?>
-                                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
+                                        <?php if($this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"])->isEmpty()): ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
                                         <?php else: ?>
-                                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"]); ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"]); ?>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->input("INH_PP_FOOTER_BRAND_" . $pg, ["placeholder" => "Brand"]) ?>
+                                            <?= $this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"]) ?>
                                     <?php endif; ?>
                                     <span>
                                         <?php if($this->editmode): ?>
-                                            <?php if($this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
-                                                    <?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource($info['selectedCategory']) ?>
+                                            <?php if($this->input("INH_PP_FOOTER_HP_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource($info['selectedCategory']) ?>
                                             <?php else: ?>
-                                                    <?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]); ?>
                                             <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->input("INH_PP_FOOTER_HP_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                                <?= $this->input("INH_PP_FOOTER_HP_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]) ?>
                                         <?php endif; ?>
                                     </span>
                                 </h5>
 
                                 <div class="compatible">
                                     <?php if($this->editmode): ?>
-                                        <?php if($this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
-                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") ?>
+                                        <?php if($this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") ?>
                                         <?php else: ?>
-                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]); ?>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                            <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]) ?>
                                     <?php endif; ?>
                                 </div>
 
@@ -72,34 +73,34 @@ if (isset($info['brandsData'])) {
 
                                 <div class="compatible">
                                     <?php if($this->editmode): ?>
-                                        <?php if($this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
-                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") ?>
+                                        <?php if($this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource("<b>Compatible Fitting</b><p>Meets or exceeds the performance requirements of</p>") ?>
                                         <?php else: ?>
-                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                                <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]); ?>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                            <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]) ?>
                                     <?php endif; ?>
                                 </div>
                                 <h5>
                                     <?php if($this->editmode): ?>
-                                        <?php if($this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"])->isEmpty()): ?>
-                                                <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
+                                        <?php if($this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"])->isEmpty()): ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
                                         <?php else: ?>
-                                                <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"]); ?>
+                                                <?= $this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"]); ?>
                                         <?php endif; ?>
                                     <?php else: ?>
-                                            <?= $this->input("INH_PP_FOOTER_BRAND1_" . $pg, ["placeholder" => "Brand"]) ?>
+                                            <?= $this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"]) ?>
                                     <?php endif; ?>
                                     <span>
                                         <?php if($this->editmode): ?>
-                                            <?php if($this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
-                                                    <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource($info['selectedCategory']) ?>
+                                            <?php if($this->input("INH_PP_FOOTER_HP1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->isEmpty()): ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"])->setDataFromResource($info['selectedCategory']) ?>
                                             <?php else: ?>
-                                                    <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"]); ?>
+                                                    <?= $this->input("INH_PP_FOOTER_HP1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]); ?>
                                             <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->input("INH_PP_FOOTER_HP1_" . $pg, ["placeholder" => "eg: Enter Product Category"]) ?>
+                                                <?= $this->input("INH_PP_FOOTER_HP1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]) ?>
                                         <?php endif; ?>
                                 </h5>
 
@@ -149,33 +150,33 @@ if (isset($info['brandsData'])) {
                                     <header class=" white">
                                         <h1>
                                             <?php if($this->editmode): ?>
-                                                <?php if($this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"])->isEmpty()): ?>
-                                                        <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"])->setDataFromResource($brandKey) ?>
+                                                <?php if($this->input("INH_PRODUCT_BRANDNAME_{$uniqueId}", ["placeholder" => "eg: Enter Brand"])->isEmpty()): ?>
+                                                        <?= $this->input("INH_PRODUCT_BRANDNAME_{$uniqueId}", ["placeholder" => "eg: Enter Brand"])->setDataFromResource($brandKey) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"]); ?>
+                                                        <?= $this->input("INH_PRODUCT_BRANDNAME_{$uniqueId}", ["placeholder" => "eg: Enter Brand"]); ?>
                                                 <?php endif; ?>
                                             <?php else: ?>
-                                                    <?= $this->input("INH_PRODUCT_BRANDNAME_{$pg}", ["placeholder" => "eg: Enter Brand"]) ?>
+                                                    <?= $this->input("INH_PRODUCT_BRANDNAME_{$uniqueId}", ["placeholder" => "eg: Enter Brand"]) ?>
                                             <?php endif; ?>
                                         </h1>
 					<aside>
                                          <div>
                                             <?php if($this->editmode): ?>
-                                                <?php if($this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"])->isEmpty()): ?>
-                                                        <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"])->setDataFromResource($brand['brandData']['longDescription']) ?>
+                                                <?php if($this->wysiwyg("INH_LONG_DESCRIPTION_{$uniqueId}", ["placeholder" => "eg: Enter Brand Description"])->isEmpty()): ?>
+                                                        <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$uniqueId}", ["placeholder" => "eg: Enter Brand Description"])->setDataFromResource($brand['brandData']['longDescription']) ?>
                                                 <?php else: ?>
-                                                        <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"]); ?>
+                                                        <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$uniqueId}", ["placeholder" => "eg: Enter Brand Description"]); ?>
                                                 <?php endif; ?>
                                             <?php else: ?>
-                                                    <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$pg}", ["placeholder" => "eg: Enter Brand Description"]) ?>
+                                                    <?= $this->wysiwyg("INH_LONG_DESCRIPTION_{$uniqueId}", ["placeholder" => "eg: Enter Brand Description"]) ?>
                                             <?php endif; ?>
                                         </div>
                                         <?php
                                         if ($this->editmode) {
-                                            echo $this->image("INH_MAIN_IMAGE_{$pg}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
+                                            echo $this->image("INH_MAIN_IMAGE_{$uniqueId}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
                                         } else {
-                                            if(!$this->image("INH_MAIN_IMAGE_{$pg}")->isEmpty())
-                                                $imgSrcObj = $this->image("INH_MAIN_IMAGE_{$pg}");
+                                            if(!$this->image("INH_MAIN_IMAGE_{$uniqueId}")->isEmpty())
+                                                $imgSrcObj = $this->image("INH_MAIN_IMAGE_{$uniqueId}");
 
                                             if($imgSrcObj)
                                             {
@@ -280,6 +281,7 @@ if (isset($info['brandsData'])) {
                                     if(isset($brand['articleData']) && is_array($brand['articleData'])):
 
                                         foreach ($brand['articleData'] as $key => $fittingTableName):
+                                            $tableKey = md5($key);
                                         ?>
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
                                             <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
@@ -350,7 +352,7 @@ if (isset($info['brandsData'])) {
 
 
                                             </table>
-                                            <p class="small"><?= $this->input('INH_PP_Note_' . $pg.'_'.$noterow, ['placeholder' => 'Enter comment']); ?></p>
+                                            <p class="small"><?= $this->input('INH_PP_Note_' . $uniqueId.'_'.$tableKey, ['placeholder' => 'Enter comment']); ?></p>
                                         <?php
                                         $noterow++;
                                         endforeach;

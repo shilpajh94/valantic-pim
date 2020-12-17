@@ -189,7 +189,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                     <?php
                         if($data):
                         $incr = 1;
-                        foreach($catalogGroupData as $brandName => $brandData):
+                        foreach($catalogGroupData as $md5key => $brandData):
                         ?>
 
                         <?php if($incr%2==0): ?>
@@ -199,7 +199,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <?php endif; ?>
 
                                 <td><b><?= $brandData['brandName']; ?></b></td>
-                                <td><?= $this->input("HHSC_Page_{$incr}") ?></td>
+                                <td><?= $this->input("HHSC_Page_{$md5key}") ?></td>
                                 <td><?= $brandData['reinforcement']; ?></td>
                                 <td><?= $brandData['tubeMaterialAtrributeString']; ?></td>
                                 <td><?= $brandData['workingPressurePSIString']; ?></td>
