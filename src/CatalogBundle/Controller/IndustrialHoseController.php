@@ -16,6 +16,7 @@ class IndustrialHoseController extends AbstractController
 {
 
     private $tableColumns;
+    private $s3srcArr = [];
     private $db;
 
     public function __construct()
@@ -176,7 +177,7 @@ class IndustrialHoseController extends AbstractController
             $this->get('translator')->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
-            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+            $featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
             // Getting Selected 3rd Level Category at Catalog Category object
             // $siop = $obj->getSiopLevel4();
@@ -243,6 +244,8 @@ class IndustrialHoseController extends AbstractController
                     $tubeMaterialArr = array();
                     $coverMaterialArr = array();
 
+                    $tubeMaterialStr = '';
+                    $coverMaterialStr = '';
                     $SIOP4Description = '';
                     $SIOP3Description = '';
                     $BrandingLayline = '';
@@ -260,6 +263,11 @@ class IndustrialHoseController extends AbstractController
                     foreach ($brand as $bkey => $bvalue) {
                         $GroupingFieldName = $brandsList[$key]['GroupingFieldName'];
                         $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
+
+                        if(is_array($GroupingFieldNameValue))
+                            $GroupingFieldNameValue = implode(",", $GroupingFieldNameValue);
+
+                        // p_r($GroupingFieldNameValue);
                         $FittingTableName = $bvalue[$headerKeysIndex['FittingTableName']];
                         $FittingTableKeys = $inhProductPageConfig[$FittingTableName]['columns'];
                         if($FittingTableName && is_array($FittingTableKeys))
@@ -312,17 +320,8 @@ class IndustrialHoseController extends AbstractController
                                 $VirtualCatalogCoverMaterial = $bvalue[$headerKeysIndex['VirtualCatalogCoverMaterial']];
                             }
 
-                            if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) {
-                                // if (Asset\Service::pathExists($bvalue[$headerKeysIndex['mainImage']]))
-                                // {
-                                    $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
-                                //     if(file_exists($mainImageObj->getFileSystemPath()))
-                                //     {
-                                //         $mainImage = $mainImageObj;
-                                //     }
-                                //     unset($mainImageObj);
-                                // }
-                            }
+                            if(!$mainImage && $bvalue[$headerKeysIndex['mainImage']]) 
+                                $mainImage = \Pimcore\Model\Asset::getByPath($bvalue[$headerKeysIndex['mainImage']]);
 
                             if(!$temperatureRangeFAndC && $bvalue[$headerKeysIndex['temperatureRangeFAndC']]) {
                                 $temperatureRangeFAndC = $bvalue[$headerKeysIndex['temperatureRangeFAndC']];
@@ -422,7 +421,11 @@ class IndustrialHoseController extends AbstractController
                             $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['articles'][] = $articlesData;
                         }
                     }
-                    ksort($newBrandArray[$key]['articleData']);
+
+                    if($newBrandArray && isset($newBrandArray[$key]['articleData']))
+                    {
+                        ksort($newBrandArray[$key]['articleData']);
+                    }
 
                     $reinforcementStr = $VirtualCatalogReinforcement;
                     if(empty($reinforcementStr) && $reinforcementArr)
@@ -448,26 +451,12 @@ class IndustrialHoseController extends AbstractController
                     $newBrandArray[$key]['brandData']['Packaging'] = $Packaging;
                     $newBrandArray[$key]['brandData']['longDescription'] = $longDescription;
 
-                    $safetyFeaturesListWithImage = array();
-                    $safetyFeaturesListWithOutImage = array();
+                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPointArr, $featuresList);
 
-                    $FeaturesBenefitsBulletPointArr = array_unique($FeaturesBenefitsBulletPointArr);
-                    $FeaturesBenefitsBulletPointArr = array_slice($FeaturesBenefitsBulletPointArr, 0, 5);
-
-                    if($FeaturesBenefitsBulletPointArr)
-                    {
-                        foreach ($FeaturesBenefitsBulletPointArr as $fkey => $fvalue) {
-                            if($featuresList[$fvalue]['icon'])
-                                $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
-                            else
-                                $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
-                        }
-                    }
-
-                    array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
-                    array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
-
-                    $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+                    unset($reinforcementArr);
+                    unset($tubeMaterialArr);
+                    unset($coverMaterialArr);
+                    unset($FeaturesBenefitsBulletPointArr);
 
                     $newBrandArray[$key]['brandData']['safetyFeatures'] = $safetyFeaturesList;
                     $newBrandArray[$key]['SortOrder'] = $brandsList[$key]['SortOrder'];
@@ -475,9 +464,6 @@ class IndustrialHoseController extends AbstractController
                     unset($brandsData[$key]);
                 }
             }
-
-            // p_r($newBrandArray);
-            // die;
 
             array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
@@ -572,7 +558,7 @@ class IndustrialHoseController extends AbstractController
                 }
             }
 
-            $featuresList = $this->getFeaturesList('IFS', $CatalogLanguage);
+            $featuresList = $this->getFeaturesList('', $CatalogLanguage);
             // $materialList = $this->getPTGMaterialList('PTG~material', $CatalogLanguage);
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
@@ -688,31 +674,9 @@ class IndustrialHoseController extends AbstractController
 
                 $brandingStr = $BrandingLayline;
 
-                $safetyFeatures = array_unique($safetyFeatures);
-                $safetyFeatures = array_slice($safetyFeatures, 0, 5);
-
-                $safetyFeaturesListWithImage = array();
-                $safetyFeaturesListWithOutImage = array();
-
-                if($safetyFeatures)
-                {
-                    foreach ($safetyFeatures as $fkey => $fvalue) {
-                        if($featuresList[$fvalue]['icon'])
-                            $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
-                        else
-                            $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
-                    }
-                }
+                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures,$featuresList);
 
                 unset($safetyFeatures);
-
-                array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
-                array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
-
-                $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
-
-                unset($safetyFeaturesListWithImage);
-                unset($safetyFeaturesListWithOutImage);
 
                 $material = array_unique($material);
                 $orderCodeArr = array_unique($orderCode);
@@ -721,7 +685,8 @@ class IndustrialHoseController extends AbstractController
                 $orderCodeStr = implode(', ', $orderCodeArr);
 
                 unset($material);
-                unset($materialArray);
+                unset($orderCodeArr);
+                unset($safetyFeatures);
 
                 $groupData = array();
                 $groupData['subHeaderRequired'] = $subHeaderRequired;
@@ -889,10 +854,50 @@ class IndustrialHoseController extends AbstractController
 
             $featureData[$entry->getId()]['name'] = $entry->getName($language);
             $featureData[$entry->getId()]['key'] = $entry->getKey();
-            $featureData[$entry->getId()]['key'] = $entry->getId();
             $featureData[$entry->getId()]['SortOrder'] = $entry->getSortOrder();
         }
         return $featureData;
+    }
+
+    public function getFiveSortedFeaturesWithIconList($safetyFeatures, $featuresList){
+        
+        $safetyFeatures = array_unique($safetyFeatures);
+
+        $safetyFeaturesList  = array();
+        $safetyFeaturesListWithImage = array();
+        $safetyFeaturesListWithOutImage = array();
+
+        if($safetyFeatures)
+        {
+            foreach ($safetyFeatures as $fkey => $fvalue) {
+                if($featuresList[$fvalue]['icon'])
+                {
+                    if(!isset($this->s3srcArr[$fvalue]))
+                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($featuresList[$fvalue]['icon']);
+
+                    $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
+                }
+                else
+                    $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
+            }
+        }
+
+        if($safetyFeaturesListWithImage)
+            array_multisort (array_column($safetyFeaturesListWithImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithImage);
+        
+        if($safetyFeaturesListWithOutImage)
+            array_multisort (array_column($safetyFeaturesListWithOutImage, 'SortOrder'), SORT_ASC, $safetyFeaturesListWithOutImage);
+
+        $safetyFeaturesList = array_merge_recursive($safetyFeaturesListWithImage,$safetyFeaturesListWithOutImage);
+        
+        if($safetyFeaturesList)
+            $safetyFeaturesList = array_slice($safetyFeaturesList, 0, 5);
+
+        unset($safetyFeaturesListWithImage);
+        unset($safetyFeaturesListWithOutImage);
+        
+        return $safetyFeaturesList;
+
     }
 
     private function getSiopObject($siop) {
