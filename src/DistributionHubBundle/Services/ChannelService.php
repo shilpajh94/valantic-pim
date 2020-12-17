@@ -9,7 +9,6 @@ use Pimcore\File;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Element\ValidationException;
 use Pimcore\Tool\Admin;
-use S3CustomizationBundle\Lib\Utils;
 
 /**
  * Class ChannelService
@@ -152,8 +151,8 @@ class ChannelService
         }
 	// for contitech
 //        $fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
-        $fullPath = Utils::getAssetFullPathCompatibleToS3($assetObject);
-
+        // path with s3 protocol
+        $fullPath = $assetObject->getFileSystemPath();
         if (strtolower($fileType) === 'csv') {
             $fp = fopen($fullPath, 'r');
             $header = fgetcsv($fp, 4096, $separator, '"');

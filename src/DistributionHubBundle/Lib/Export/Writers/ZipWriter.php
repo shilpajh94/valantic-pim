@@ -4,10 +4,10 @@ namespace DistributionHubBundle\Lib\Export\Writers;
 use AppBundle\Services\AppService;
 use DistributionHubBundle\Lib\Constants;
 use DistributionHubBundle\Lib\DHubLogger;
+use DistributionHubBundle\Lib\Utils;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\Schedule;
 use Pimcore\Model\Asset;
-use S3CustomizationBundle\Lib\Utils;
 
 class ZipWriter implements Writer
 {
@@ -101,9 +101,11 @@ class ZipWriter implements Writer
         $sourcePath = null;
 	// for contitech
         if($asset && $asset instanceof Asset\Image){
-            $sourcePath = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($asset, $columnConfig['thumbnail']);
+//            $sourcePath = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($asset, $columnConfig['thumbnail']);
+            $sourcePath = Utils::getImageOrThumbnailPathForDownload($asset, $columnConfig['thumbnail']);
+
         }
-        return$sourcePath;
+        return $sourcePath;
     }
 
 
