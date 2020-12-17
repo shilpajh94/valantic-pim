@@ -82,4 +82,28 @@ class Utils
         }
         return $sourcePath;
     }
+
+    /**
+     * this will return the path with s3 protocol
+     * @param Image $asset
+     * @param null $thumbnail: example: "1200"
+     * for contitech
+     * @return string
+     */
+    public static function getImageOrThumbnailPathForDownload(Image $asset, $thumbnail = null): string
+    {
+//        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+        $sourcePath = $asset->getFileSystemPath();
+        if($thumbnail){
+            $pimcoreFilePath = $asset->getPath() . $asset->getFilename();
+            $s3Path = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class)->getS3PathForPimcorePath($pimcoreFilePath,true);
+            $s3Path = substr($s3Path, strlen('assets'));
+
+            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
+            $thumbnailS3Path = urldecode($appService->getFilenameAsPerResolution($s3Path,"__" . $thumbnail));
+
+            $sourcePath = "s3://" . S3_BUCKET .$thumbnailS3Path;
+        }
+        return $sourcePath;
+    }
 }

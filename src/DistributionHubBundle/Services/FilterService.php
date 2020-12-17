@@ -16,7 +16,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DistributionHubBundle\Installer;
 use Pimcore\Model\DataObject;
-use S3CustomizationBundle\Lib\Utils;
 
 class FilterService
 {
@@ -438,7 +437,8 @@ class FilterService
         }
         
         //$fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
-        $fullPath = Utils::getAssetFullPathCompatibleToS3($assetObject);
+        // path with s3 protocol
+        $fullPath = $assetObject->getFileSystemPath();
         $csvData = array_map ( 'str_getcsv', file ( $fullPath ) );
         
         // Remove header info from csv data
