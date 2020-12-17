@@ -178,7 +178,8 @@ class AssetEventsListener
                         // in this case only parent id changes in object before save
                         $assetKey = $asset->getKey();
                         $newParentPath = $this->s3CustomizationService->getPimcorePathByPimcoreId($newParentId);
-                        $newAssetPath = $newParentPath."/".$assetKey;
+
+                        $newAssetPath = ( $newParentPath === "/" ? "/".$assetKey : $newParentPath."/".$assetKey );
 
                         $newS3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($newAssetPath,$assetKey);
                         $this->s3CustomizationService->addMappingInCustomTable($newAssetPath,$newS3Path,$asset->getId());
