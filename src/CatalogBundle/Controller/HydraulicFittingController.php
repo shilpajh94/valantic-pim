@@ -16,6 +16,11 @@ class HydraulicFittingController extends AbstractController
 
     private $tableColumns;
     private $db;
+    private $iconRequired = 'NO';
+    private $subHeaderRequired = 'NO';
+    private $attrbuteImgS3Arr = array();
+    private $columnsData = array();
+    private $attributeImages = array();
 
     public function __construct()
     {
@@ -35,7 +40,7 @@ class HydraulicFittingController extends AbstractController
         // $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $common = \Pimcore::getContainer()->get('app.common_helper');
         $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-        $attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
+        $this->attributeImages = $common->getParameter($attributeImagesConfig, 'attributeImages');
         $CatalogImagesHYDFooter = $common->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
         if ($this->getDocumentTag('relation', 'fitting-straight')->getElement() instanceof  \Pimcore\Model\DataObject) {
             $id = $this->getDocumentTag('relation', 'fitting-straight')->getId();
@@ -56,14 +61,15 @@ class HydraulicFittingController extends AbstractController
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $obj->getColumns();
+            $objColumnsData = $obj->getColumns();
 
-            $iconRequired = 'YES';
-            $subHeaderRequired = 'NO';
-            $columnsData = json_decode($columnsData, true);
+            $this->iconRequired = 'YES';
+            // $this->subHeaderRequired = 'NO';
+            $this->columnsData = json_decode($objColumnsData, true);
 
-            $columnsData['ElbowType']['columnName'] = 'ElbowType';
-            $columnsData['ElbowType']['columnLabel'] = 'ElbowType';
+            $this->columnsData['ElbowType']['columnName'] = 'ElbowType';
+            $this->columnsData['ElbowType']['columnLabel'] = 'ElbowType';
+
             $headerKeysIndex['ElbowType'] = count($headerKeysIndex);
 
             $productsData = $obj->getProductsData();
@@ -71,7 +77,7 @@ class HydraulicFittingController extends AbstractController
 
             $brandsList = $this->getBrandsList();
 
-            $attrbuteImgS3Arr = array();
+            // $attrbuteImgS3Arr = array();
 
             $brandsData = array();
 
@@ -172,47 +178,11 @@ class HydraulicFittingController extends AbstractController
 
                             //$FittingTableKeys = $fittingTableColumn[$FittingTableName]['columns'];
 
-                            $columnsDataWithImages = array();
+                            // $columnsDataWithImages = array();
                             $articlesData = array();
-                            $subHeaderRequired = '';
-                            foreach ($FittingTableKeys as $ckey => $cvalue) {
+                            $this->subHeaderRequired = 'NO';
 
-                                foreach ($columnsData as $dkey => $value) {
-
-                                    if($cvalue == $dkey)
-                                    {
-                                        $groupColumnName = $value['columnName'];
-                                        if(isset($value['groupName']) && $value['groupName'])
-                                        {
-                                            $groupColumnName = $value['groupName'];
-                                            $subHeaderRequired = 'YES';
-                                        }
-
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                                        $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                                        if ($iconRequired == 'YES')
-                                        {
-                                            if(!isset($attrbuteImgS3Arr[$groupColumnName]))
-                                            {
-
-                                                $attributeImagesSrc = $attributeImages[$groupColumnName];
-                                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                                                $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
-                                            }
-                                            else
-                                            {
-                                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attrbuteImgS3Arr[$groupColumnName];
-                                            }
-
-                                        }
-
-                                    }
-                                }
-                            }
+                            $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
 
                             // Getting order of the keys
                             $orderKeys = array();
@@ -239,7 +209,7 @@ class HydraulicFittingController extends AbstractController
 
                             $newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'][strval($hoseID)][] = $articlesData;
                             ksort($newBrandArray[$brandKey][$FittingTableName]['articleData']['articles'],SORT_NUMERIC);
-                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['subHeaderRequired'] = $subHeaderRequired;
+                            $newBrandArray[$brandKey][$FittingTableName]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
                             $newBrandArray[$brandKey][$FittingTableName]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
                             $newBrandArray[$brandKey][$FittingTableName]['brandData']['brandName'] = $brandName;
                             // $newBrandArray[$key][$FittingTableName]['brandData']['HydFittingFamily'] = $HydFittingFamily;
@@ -259,11 +229,15 @@ class HydraulicFittingController extends AbstractController
                 array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
             }
 
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
+
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $this->view['HydFittingFamily'] = implode(', ',array_unique($HydFittingFamilyArr));
-            $this->view['iconRequired'] = $iconRequired;
+            $this->view['iconRequired'] = $this->iconRequired;
             $this->view['brandsData'] = $newBrandArray;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
@@ -298,6 +272,88 @@ class HydraulicFittingController extends AbstractController
         $query = "select name, SortOrder from object_query_3";
         $brandslist = $this->db->fetchPairs($query);
         return $brandslist;
+    }
+
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = []){
+
+        $columnsDataWithImages = array();
+
+        if($isTableNameColumnRequired)
+        {
+            foreach ($tableNameColumns as $ckey => $cvalue) {
+
+                foreach ($this->columnsData as $dkey => $value) {
+
+                    if($cvalue == $dkey)
+                    {
+                        $groupColumnName = $value['columnName'];
+                        if(isset($value['groupName']) && $value['groupName'])
+                        {
+                            $groupColumnName = $value['groupName'];
+                            $this->subHeaderRequired = 'YES';
+                        }
+
+                        $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
+                        $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
+                        $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                        $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
+                        $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                        if ($this->iconRequired == 'YES')
+                        {
+                            if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
+                            {
+
+                                $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                                $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                            }
+                            else
+                            {
+                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+
+            foreach ($this->columnsData as $key => $value) {
+
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $this->subHeaderRequired = 'YES';
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                if ($this->iconRequired == 'YES')
+                {
+                    if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
+                    {
+                        $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                        $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                    }
+                    else
+                    {
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
+                    }
+                }
+            }
+        }
+
+        return $columnsDataWithImages;
     }
 }
 
