@@ -121,13 +121,13 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
             }],
             items: [{
                 xtype: 'radiogroup',
-                fieldLabel: 'Filter Objects By',
+                fieldLabel: '<strong>Filter Objects By</strong>',
                 blankText: t('dHub_field_is_required'),
                 msgTarget: 'under',
-                style: "margin-left: 20px",
+                style: "margin-left: 20px;background-color:#e6e0e0;padding-left:20px",
                 items: filterTypes,
                 labelWidth: 230,
-                width: 600,
+                width: 800,
                 allowBlank: false,
                 editable: true,
                 onChange: function (newVal, oldVal) {
@@ -208,7 +208,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
             }
         } else {
             Ext.MessageBox.alert(t('dHub_class_not_selected'), t('dHub_class_not_availabe_save_error'));
-            this.objectTypeCombo.reset();
+            // this.objectTypeCombo.reset();
         }
 
     },
@@ -270,7 +270,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
     },
 
     clear: function () {
-        this.objectTypeCombo.reset();
+        // this.objectTypeCombo.reset();
         this.conditionPanel.conditionsContainerInner.destroy();
         this.conditionPanel = new pimcore.bundle.distributionhub.filtersConfig.conditionPanel(this.classSelection, this.data.conditions);
         this.conditionPanelContainer.add(this.conditionPanel.getConditionPanel());
@@ -293,7 +293,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
 
                 if (resdata.success) {
                     let filterConfig = resdata.filterConfig;
-                    outerScope.objectTypeCombo.setValue(filterConfig.type);
+                    // outerScope.objectTypeCombo.setValue(filterConfig.type);
                     outerScope.conditionPanel.conditionsContainerInner.destroy();
                     outerScope.fieldSelection.setValue(filterConfig.filterByAttribute);
                     outerScope.fileUploadField.setRawValue(filterConfig.listFileSavePath);
@@ -313,12 +313,12 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
         this.conditionPanelContainer = Ext.create('Ext.panel.Panel', {itemId: 'panel2',hidden: true});
 
         if (savedFilterData.success === true) {
-            objectCombo.setValue(savedFilterData.type);
+            // objectCombo.setValue(savedFilterData.type);
             this.conditionPanel = new pimcore.bundle.distributionhub.filtersConfig.conditionPanel(savedFilterData.classId, savedFilterData.conditions, this.channelInfo);
             this.conditionPanelContainer.add(this.conditionPanel.getConditionPanel());
         } else {
             if (this.data) {
-                objectCombo.setValue(globalConstants.DHUB_VARIANT);
+                // objectCombo.setValue(globalConstants.DHUB_VARIANT);
                 this.conditionPanel = new pimcore.bundle.distributionhub.filtersConfig.conditionPanel(this.classSelection, this.data.conditions, this.channelInfo);
                 this.conditionPanelContainer.add(this.conditionPanel.getConditionPanel());
             }
@@ -356,7 +356,8 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
             displayField: 'name',
             valueField: 'value',
             width: 400,
-            value: this.objectTypeValue
+            value: "object",
+            hidden: true
         });
     },
 
@@ -387,7 +388,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
 
         this.fieldSelection = Ext.create('Ext.form.ComboBox',
             {
-                fieldLabel: t("dHub_field_filterList")+'<span style="color:red;">*</span>',
+                fieldLabel: t("dHub_field_filterList"),
                 name: "attributeListUpload",
                 store: fieldStore,
                 queryMode: 'local',
@@ -482,20 +483,6 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
             this.fileUploadField.setValue(this.savedfilterConfig.listFileSavePath);
         }
         
-        let infoImage = "/bundles/pimcoreadmin/img/flat-color-icons/info.svg";
-        let infoMsg = "<img src='"+ infoImage +"' style='vertical-align: middle' > " + "<span><i>" +t('dHub_supported_upload_list') + "</i></span>";
-
-        let infoPanel = new Ext.create('Ext.panel.Panel',{
-            cls:'info_ftp',
-            style:{
-                clear:'left',
-                float:'left',
-                paddingLeft:'240px',
-                paddingTop:'5px'
-            },
-            html: infoMsg
-        });
-        
         this.fileUploadForm = Ext.create('Ext.form.Panel', {
             itemId: 'panel1',
             hidden: true,
@@ -509,8 +496,7 @@ pimcore.plugin.distributionhub.tabs.filtersConfig = Class.create(pimcore.element
                         this.fileUploadField,
                         this.openAssetButton
                     ]
-                },
-                infoPanel
+                }
                 
             ]
         });
