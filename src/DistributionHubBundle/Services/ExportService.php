@@ -342,6 +342,7 @@ class ExportService
 
         try {
             $ftpConn = ftp_connect($ftpServer, $port);
+            
             if (!$ftpConn) {
                 throw new \Exception();
             }
@@ -350,7 +351,7 @@ class ExportService
         }
 
         try {
-             ftp_login($ftpConn, $FTPDetail->getUserName(), $FTPDetail->getPassword());
+            ftp_login($ftpConn, $FTPDetail->getUserName(), $FTPDetail->getPassword());
         } catch (\Exception $exception) {
             throw new \Exception("Could not log in to FTP server '".$FTPDetail->getName()."'");
         }

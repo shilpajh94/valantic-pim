@@ -7,6 +7,7 @@ use DistributionHubBundle\Filter\FilterEntry;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Definition;
+use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\Db;
 
 class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInterface
@@ -43,52 +44,57 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
         $filterCondition = $fieldFilter->getFilterEntryData()['filterCondition'];
         $fieldName = $filterCondition['fieldname'];
         $collectionDefinition = \Pimcore\Model\DataObject\Objectbrick\Definition::getByKey($fieldCollectionType);
-
-        $collFieldDefinition = $collectionDefinition->getFieldDefinition($fieldName);
-
-        $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($collFieldDefinition, false);
         $conditionParams = array();
-        if ($collFieldDefinition->getFieldtype() === "localizedfields") {
-            $filteredResults = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData(), $listing->getClassId(), $collFieldDefinition, $fieldDefinition->getFieldType());
+        
+        $collFieldDefinition = $collectionDefinition->getFieldDefinition($fieldName);
+        
+        $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($collFieldDefinition, false);
+        try {
+            if ($collFieldDefinition->getFieldtype() === "localizedfields") {
+                $filteredResults = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData(), $listing->getClassId(), $collFieldDefinition, $fieldDefinition->getFieldType());
 
-            if (!empty($filteredResults)) {
-                $resultsIds = array();
+                if (!empty($filteredResults)) {
+                    $resultsIds = array();
 
-                foreach ($filteredResults as $val) {
-                    $val = $val['ooo_id'];
-                    $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    foreach ($filteredResults as $val) {
+                        $val = $val['ooo_id'];
+                        $resultsIds[] = " `oo_id` = '" . $val . "' ";
+                    }
+                    $conditonPrepare = implode(' OR ', $resultsIds);
+                    $conditionParams['key'] = $conditonPrepare;
+                    $conditionParams['value'] = null;
+                    $conditionParams['concatenator'] = "AND";
+
+                    return $conditionParams;
                 }
-                $conditonPrepare = implode(' OR ', $resultsIds);
-                $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = null;
-                $conditionParams['concatenator'] = "AND";
+            } else {
+                $filteredResults = $fieldDefinitionAdapter->getCollectionsData($fieldFilter->getFilterEntryData());
 
-                return $conditionParams;
-            }
-        } else {
-            $filteredResults = $fieldDefinitionAdapter->getCollectionsData($fieldFilter->getFilterEntryData());
+                $tableName = "object_brick_store_" . $fieldCollectionType . "_" . $listing->getClassId();
 
-            $tableName = "object_brick_store_" . $fieldCollectionType . "_" . $listing->getClassId();
+                $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
 
-            $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
+                $results = $db->fetchAll($query);
 
-            $results = $db->fetchAll($query);
+                if (!empty($results)) {
+                    $resultsIds = array();
 
-            if (!empty($results)) {
-                $resultsIds = array();
+                    foreach ($results as $val) {
+                        $val = $val['o_id'];
+                        $resultsIds[] = " `oo_id` = '" . $val . "' ";
+                    }
 
-                foreach ($results as $val) {
-                    $val = $val['o_id'];
-                    $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    $conditonPrepare = implode(' OR ', $resultsIds);
+                    $conditionParams['key'] = $conditonPrepare;
+                    $conditionParams['value'] = null;
+                    $conditionParams['concatenator'] = "AND";
+
+                    return $conditionParams;
                 }
-
-                $conditonPrepare = implode(' OR ', $resultsIds);
-                $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = null;
-                $conditionParams['concatenator'] = "AND";
-
-                return $conditionParams;
             }
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - ObjectBrick is currently not supported. Please contact the administrator");
         }
     }
 

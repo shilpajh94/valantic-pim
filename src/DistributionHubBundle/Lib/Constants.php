@@ -32,6 +32,7 @@ class Constants
     const EXPORT_ONLY_DATA = "dHub_data_file";
     const EXPORT_DATA_ASSETS_BOTH = "dHub_both";
     const HOST_NAME_KEY_IN_SESSION = "app_host_url";
+    const SIMPLE_ATTRIBUTE_TYPES = "flat";
     const SUPPORTED_ATTRIBUTE_TYPES = [
         "numeric",
         "select",

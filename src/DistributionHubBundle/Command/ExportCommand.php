@@ -154,6 +154,7 @@ class ExportCommand extends Command
         $exportLocation = $this->schedule->getExportLocation();
         if (strtolower($exportLocation) === 'ftp') {
             $ftpDetail = $this->channel->getFTPDetails();
+            
             $ftpDetail = $ftpDetail[0];
             if (! ($ftpDetail)) {
                 $msg = "FTP not configured for channel and selected export location is FTP.";

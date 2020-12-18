@@ -35,7 +35,6 @@ class ScheduleController extends AdminController
         $channel = Channel::getById($channelId);
 
         // checking if required configs are complete
-//        $filter = $channel->getFilter();
         $attributeMapping = json_decode($channel->getColumnAttributeMapping(), true);
         $selectedGridColumns = $attributeMapping['selectedGridColumns'];
         if (!$channel->getPimcoreClassId() || count($selectedGridColumns) == 0) {
@@ -75,12 +74,12 @@ class ScheduleController extends AdminController
      */
     public function saveScheduleAction(Request $request, ScheduleService $scheduleService)
     {
- 
+
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');
         $exportFormat = $request->get('exportFormat') ? $request->get('exportFormat') : "Csv";
-        $exportLocation = empty($request->get('exportLocation')) ? "Pimcore" : $request->get('exportLocation');
+        $exportLocation = empty($request->get('exportLocation')) ? "Pimcore" : "FTP";
         $exportFtp = $request->get('exportFtp');
         $channelId = $request->get('channelId');
         $downloadFileName = $request->get('downloadFileName');

@@ -29,7 +29,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      * @var string
      */
     protected $fieldType = "manyToOneRelation";
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -89,7 +89,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                         $fName = $relFilter['fieldname'];
                         if (array_key_exists($fName, $coreDefinitions)) {
                             $fDefinition = $coreDefinitions[$fName];
-                            
+
                             $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
                             $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
                         }
@@ -118,9 +118,9 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                 if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
                     throw new \Exception('Filters for current level -> relation inside a relation, are not supported.');
                 }
-               
+
                 $relClassList->setCondition(implode(" OR ", $relatedConditions));
-                
+
                 $relClassList->load();
                 $relObjects = $relClassList->getObjects();
 
@@ -155,7 +155,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
             }
         }
     }
-    
+
     /**
      * Get localized query based on applied filter,
      * use queryBuilder prepared statements
@@ -169,9 +169,9 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      */
     public function getQueryForLocalized($fieldFilter, $tableName)
     {
-        
+
         $db = Db::get();
-        
+
         if ($fieldFilter->getFilterEntryData()) {
             $data = $fieldFilter->getFilterEntryData();
         } else {
@@ -183,93 +183,20 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
         $fieldData = $data[$lang]['0']['filterEntryData'];
         $type = $fieldData['type'];
         $conditions = array();
-        if (array_key_exists("type", $fieldData) && array_key_exists("id", $fieldData)) {
-            if (!empty($fieldData['id'])) {
-                foreach ($fieldData['id'] as $value) {
-                    $conditions[] = "`dest_id` = '" . $value . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
-                }
-                $mergedConditions = implode(" OR ", $conditions);
-            }
-            $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
-            
-            try {
-                $results = $db->fetchAll($query);
-            } catch (Exception $ex) {
-                DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
-            }
-            
-            $resultsIds = array();
-
-            if (!empty($results)) {
-                foreach ($results as $val) {
-                    $val = $val['src_id'];
-                    $resultsIds[] = " `o_id` = '" . $val . "' ";
-                }
-                $conditonPrepare = implode(' OR ', $resultsIds);
-
-                $conditionParams = array();
-                $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = null;
-                $conditionParams['concatenator'] = "AND";
-                return $conditionParams;
-            } else {
-                return false;
-            }
-        } elseif (array_key_exists("type", $fieldData)) {
-            $relationClassId = $fieldData['classId'];
-            if (!empty($fieldData['filters'])) {
-                $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
-
-                $relClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($relClassDef->getName()) . "\\Listing";
-                $relClassList = new $relClass();
-
-                $relationFieldConditions = array();
-                foreach ($fieldData['filters'] as $relFilter) {
-                    $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
-                    
-                    if (empty($selectedFieldType)) {
-                        $coreDefinitions = $this->service->getCoreFieldDefinitions();
-                        $fName = $relFilter['fieldname'];
-                        if (array_key_exists($fName, $coreDefinitions)) {
-                            $fDefinition = $coreDefinitions[$fName];
-                            
-                            $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
-                        }
-                    } else {
-                        $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
-                        $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
-                    }
-                }
-
-                $relatedConditions = array();
-                if (!empty($relationFieldConditions)) {
-                    foreach ($relationFieldConditions as $cond) {
-                        $relatedConditions[] = $cond['0'];
-                    }
-                }
-                if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
-                    throw new \Exception('Filters for current level -> localized relation inside a relation, are not supported.');
-                }
-                
-                $relClassList->setCondition(implode(" OR ", $relatedConditions));
-
-                $relClassList->load();
-                $relObjects = $relClassList->getObjects();
-
-                $conditions = array();
-                if (!empty($relObjects)) {
-                    foreach ($relObjects as $relObj) {
-                        $conditions[] = "`dest_id` = '" . $relObj->getId() . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
+        try {
+            if (array_key_exists("type", $fieldData) && array_key_exists("id", $fieldData)) {
+                if (!empty($fieldData['id'])) {
+                    foreach ($fieldData['id'] as $value) {
+                        $conditions[] = "`dest_id` = '" . $value . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
                     }
                     $mergedConditions = implode(" OR ", $conditions);
+                }
+                $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
 
-                    $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
-                    try {
-                        $results = $db->fetchAll($query);
-                    } catch (Exception $ex) {
-                        DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
-                    }
+                try {
+                    $results = $db->fetchAll($query);
+                } catch (Exception $ex) {
+                    DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
                 }
 
                 $resultsIds = array();
@@ -285,10 +212,88 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
                     $conditionParams['key'] = $conditonPrepare;
                     $conditionParams['value'] = null;
                     $conditionParams['concatenator'] = "AND";
-
                     return $conditionParams;
+                } else {
+                    return false;
+                }
+            } elseif (array_key_exists("type", $fieldData)) {
+                $relationClassId = $fieldData['classId'];
+                if (!empty($fieldData['filters'])) {
+                    $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
+
+                    $relClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($relClassDef->getName()) . "\\Listing";
+                    $relClassList = new $relClass();
+
+                    $relationFieldConditions = array();
+                    foreach ($fieldData['filters'] as $relFilter) {
+                        $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
+
+                        if (empty($selectedFieldType)) {
+                            $coreDefinitions = $this->service->getCoreFieldDefinitions();
+                            $fName = $relFilter['fieldname'];
+                            if (array_key_exists($fName, $coreDefinitions)) {
+                                $fDefinition = $coreDefinitions[$fName];
+
+                                $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
+                                $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                            }
+                        } else {
+                            $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
+                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                        }
+                    }
+
+                    $relatedConditions = array();
+                    if (!empty($relationFieldConditions)) {
+                        foreach ($relationFieldConditions as $cond) {
+                            $relatedConditions[] = $cond['0'];
+                        }
+                    }
+                    if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
+                        throw new \Exception('Filters for current level -> localized relation inside a relation, are not supported.');
+                    }
+
+                    $relClassList->setCondition(implode(" OR ", $relatedConditions));
+
+                    $relClassList->load();
+                    $relObjects = $relClassList->getObjects();
+
+                    $conditions = array();
+                    if (!empty($relObjects)) {
+                        foreach ($relObjects as $relObj) {
+                            $conditions[] = "`dest_id` = '" . $relObj->getId() . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
+                        }
+                        $mergedConditions = implode(" OR ", $conditions);
+
+                        $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
+                        try {
+                            $results = $db->fetchAll($query);
+                        } catch (Exception $ex) {
+                            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+                        }
+                    }
+
+                    $resultsIds = array();
+
+                    if (!empty($results)) {
+                        foreach ($results as $val) {
+                            $val = $val['src_id'];
+                            $resultsIds[] = " `o_id` = '" . $val . "' ";
+                        }
+                        $conditonPrepare = implode(' OR ', $resultsIds);
+
+                        $conditionParams = array();
+                        $conditionParams['key'] = $conditonPrepare;
+                        $conditionParams['value'] = null;
+                        $conditionParams['concatenator'] = "AND";
+
+                        return $conditionParams;
+                    }
                 }
             }
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for ManyToOne Relations (Localized) is currently not supported. Please contact the administrator");
         }
     }
 
@@ -313,7 +318,7 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
             return $conditionParams;
         }
     }
-    
+
     /**
      * Get localized query for Bricks & collections
      *
@@ -323,7 +328,6 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
      * @return $conditonParams
      * @throws Exception
      */
-    
     public function getLocalizedStructuredResults($fieldFilter, $tableName, $fieldType)
     {
 
@@ -342,86 +346,91 @@ class ManyToOneRelation extends DefaultAdapter implements FieldDefinitionAdapter
         $hrefFieldName = $fieldName . "__id";
         $hrefFieldType = $fieldName . "__type";
 
-        if (array_key_exists("type", $fieldData) && array_key_exists("id", $fieldData)) {
-            if (!empty($fieldData['id'])) {
-                foreach ($fieldData['id'] as $value) {
-                    if ($fieldType === "objectbricks") {
-                        $conditions[] = " `language` = '" . $lang . "' AND `" . $hrefFieldName . "` = '" . $value . "'AND `" . $hrefFieldType . "` = '" . $type . "' ";
-                    } elseif ($fieldType === "fieldcollections") {
-                        $conditions[] = "`dest_id` = '" . $value . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
-                    }
-                }
-                $mergedConditions = implode(" OR ", $conditions);
-            }
-
-            if ($fieldType === "objectbricks") {
-                $query = "SELECT `ooo_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
-            } elseif ($fieldType === "fieldcollections") {
-                $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
-            }
-
-            $results = $db->fetchAll($query);
-            $resultsIds = array();
-
-            if (!empty($results)) {
-                return $results;
-            } else {
-                return false;
-            }
-        } elseif (array_key_exists("type", $fieldData)) {
-            $relationClassId = $fieldData['classId'];
-            if (!empty($fieldData['filters'])) {
-                $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
-
-                $relClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($relClassDef->getName()) . "\\Listing";
-                $relClassList = new $relClass();
-
-                $relationFieldConditions = array();
-                foreach ($fieldData['filters'] as $relFilter) {
-                    $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
-
-                    $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
-
-                    $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
-                }
-
-                $relatedConditions = array();
-                if (!empty($relationFieldConditions)) {
-                    foreach ($relationFieldConditions as $cond) {
-                        $relatedConditions[] = $cond['0'];
-                    }
-                }
-
-                $relClassList->setCondition(implode(" OR ", $relatedConditions));
-
-                $relClassList->load();
-                $relObjects = $relClassList->getObjects();
-
-                $conditions = array();
-                if (!empty($relObjects)) {
-                    foreach ($relObjects as $relObj) {
+        try {
+            if (array_key_exists("type", $fieldData) && array_key_exists("id", $fieldData)) {
+                if (!empty($fieldData['id'])) {
+                    foreach ($fieldData['id'] as $value) {
                         if ($fieldType === "objectbricks") {
-                            $conditions[] = " `language` = '" . $lang . "' AND `" . $hrefFieldName . "` = '" . $relObj->getId() . "'AND `" . $hrefFieldType . "` = '" . $type . "' ";
+                            $conditions[] = " `language` = '" . $lang . "' AND `" . $hrefFieldName . "` = '" . $value . "'AND `" . $hrefFieldType . "` = '" . $type . "' ";
                         } elseif ($fieldType === "fieldcollections") {
-                            $conditions[] = "`dest_id` = '" . $relObj->getId() . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
+                            $conditions[] = "`dest_id` = '" . $value . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
                         }
                     }
                     $mergedConditions = implode(" OR ", $conditions);
-
-                    if ($fieldType === "objectbricks") {
-                        $query = "SELECT `ooo_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
-                    } elseif ($fieldType === "fieldcollections") {
-                        $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
-                    }
-
-                    $results = $db->fetchAll($query);
                 }
+
+                if ($fieldType === "objectbricks") {
+                    $query = "SELECT `ooo_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
+                } elseif ($fieldType === "fieldcollections") {
+                    $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
+                }
+
+                $results = $db->fetchAll($query);
+                $resultsIds = array();
+
                 if (!empty($results)) {
                     return $results;
                 } else {
                     return false;
                 }
+            } elseif (array_key_exists("type", $fieldData)) {
+                $relationClassId = $fieldData['classId'];
+                if (!empty($fieldData['filters'])) {
+                    $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
+
+                    $relClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($relClassDef->getName()) . "\\Listing";
+                    $relClassList = new $relClass();
+
+                    $relationFieldConditions = array();
+                    foreach ($fieldData['filters'] as $relFilter) {
+                        $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
+
+                        $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
+
+                        $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                    }
+
+                    $relatedConditions = array();
+                    if (!empty($relationFieldConditions)) {
+                        foreach ($relationFieldConditions as $cond) {
+                            $relatedConditions[] = $cond['0'];
+                        }
+                    }
+
+                    $relClassList->setCondition(implode(" OR ", $relatedConditions));
+
+                    $relClassList->load();
+                    $relObjects = $relClassList->getObjects();
+
+                    $conditions = array();
+                    if (!empty($relObjects)) {
+                        foreach ($relObjects as $relObj) {
+                            if ($fieldType === "objectbricks") {
+                                $conditions[] = " `language` = '" . $lang . "' AND `" . $hrefFieldName . "` = '" . $relObj->getId() . "'AND `" . $hrefFieldType . "` = '" . $type . "' ";
+                            } elseif ($fieldType === "fieldcollections") {
+                                $conditions[] = "`dest_id` = '" . $relObj->getId() . "' AND `fieldname` = '" . $fieldName . "' AND `position` = '" . $lang . "' AND `type` = '" . $type . "'";
+                            }
+                        }
+                        $mergedConditions = implode(" OR ", $conditions);
+
+                        if ($fieldType === "objectbricks") {
+                            $query = "SELECT `ooo_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
+                        } elseif ($fieldType === "fieldcollections") {
+                            $query = "SELECT `src_id` FROM `" . $tableName . "` WHERE " . $mergedConditions;
+                        }
+
+                        $results = $db->fetchAll($query);
+                    }
+                    if (!empty($results)) {
+                        return $results;
+                    } else {
+                        return false;
+                    }
+                }
             }
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - ManyToOne Relations (Structured) is currently not supported. Please contact the administrator");
         }
     }
 

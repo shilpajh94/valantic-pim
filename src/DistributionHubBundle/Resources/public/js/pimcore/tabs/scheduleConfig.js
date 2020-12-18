@@ -48,9 +48,9 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
             stripeRows: true,
             tbar: this.getGridToolbar(),
             viewConfig: {
-                forceFit: true,
+                forceFit: true
             },
-            title: t("dHub_schedule_configuration"),
+            title: t("dHub_schedule_configuration")
         });
 
         let refreshTime = this.scheduleScreenRefreshTime * 60 * 1000;
@@ -59,7 +59,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
                 this.refreshGrid();
             },
             interval: refreshTime,
-            scope: this,
+            scope: this
         });
 
         return this.grid;
@@ -322,7 +322,7 @@ pimcore.plugin.distributionhub.tabs.scheduleConfig = Class.create(pimcore.elemen
 
         let exportResourceStore = new Ext.data.JsonStore({
             data: exportResourceStoreData,
-            fields: ["id", "name"],
+            fields: ["id", "name"]
         });
   
         var downloadTypes = new Array();

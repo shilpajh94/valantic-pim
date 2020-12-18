@@ -126,83 +126,84 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface
      */
     public function getQueryForLocalized(array $details, $tableName)
     {
-
-        $db = Db::get();
-        // Use of queryBuilder for prepared statements
-        $queryBuilder = $db->createQueryBuilder();
-        
-        $fieldName = $details['0'];
-        $operator = $details['1'];
-        $value = $details['2'];
-        $lang = $details['3'];
-        if ($value === "object") {
-            return null;
-        }
-        switch ($operator) {
-            case $operator === self::DHUB_OPERATOR_MUST:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq($fieldName, '"'.$value.'"'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_SHOULD:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->like($fieldName, '"%'.$value.'%"'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_NOT:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->neq($fieldName, '"'.$value.'"'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_EXISTS:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->isNotNull($fieldName, '?'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->isNull($fieldName, '?'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-        }
-
         try {
+            $db = Db::get();
+            // Use of queryBuilder for prepared statements
+            $queryBuilder = $db->createQueryBuilder();
+
+            $fieldName = $details['0'];
+            $operator = $details['1'];
+            $value = $details['2'];
+            $lang = $details['3'];
+            if ($value === "object") {
+                return null;
+            }
+            switch ($operator) {
+                case $operator === self::DHUB_OPERATOR_MUST:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->eq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_SHOULD:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->like($fieldName, '"%' . $value . '%"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->neq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNotNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+            }
+
+
             return $queryBuilder->execute()->fetchAll();
         } catch (Exception $ex) {
-            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - Localized is currently not supported. Please contact the administrator");
         }
     }
-    
+
     /**
      * Get Relational data query based on applied filter
      *
@@ -238,7 +239,7 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface
 
         return $conditons;
     }
-    
+
     /**
      * Get CollectionsData data query based on applied filter
      *

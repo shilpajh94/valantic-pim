@@ -116,17 +116,17 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
         $db = Db::get();
         // Use of queryBuilder for prepared statements
         $queryBuilder = $db->createQueryBuilder();
+        try {
+                $fieldName = $details['0'];
+                $operator = $details['1'];
+                $value = $details['2'];
+                $unit = $details['3'];
+                $lang = $details['4'];
 
-        $fieldName = $details['0'];
-        $operator = $details['1'];
-        $value = $details['2'];
-        $unit = $details['3'];
-        $lang = $details['4'];
-
-        $valueColumn = $fieldName . "__value";
-        switch ($operator) {
-            case $operator === self::DHUB_OPERATOR_MUST:
-                $queryBuilder
+                $valueColumn = $fieldName . "__value";
+            switch ($operator) {
+                case $operator === self::DHUB_OPERATOR_MUST:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -135,9 +135,9 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-            case $operator === self::DHUB_OPERATOR_LOWERTHAN:
-                $queryBuilder
+                    break;
+                case $operator === self::DHUB_OPERATOR_LOWERTHAN:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -146,9 +146,9 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-            case $operator === self::DHUB_OPERATOR_GREATERTHAN:
-                $queryBuilder
+                    break;
+                case $operator === self::DHUB_OPERATOR_GREATERTHAN:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -157,9 +157,9 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-            case $operator === self::DHUB_OPERATOR_LOWER_EQUAL_TO:
-                $queryBuilder
+                    break;
+                case $operator === self::DHUB_OPERATOR_LOWER_EQUAL_TO:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -168,9 +168,9 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-            case $operator === self::DHUB_OPERATOR_GREATER_EQUAL_TO:
-                $queryBuilder
+                    break;
+                case $operator === self::DHUB_OPERATOR_GREATER_EQUAL_TO:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -179,9 +179,9 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-            case $operator === self::DHUB_OPERATOR_EXISTS:
-                $queryBuilder
+                    break;
+                case $operator === self::DHUB_OPERATOR_EXISTS:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -190,9 +190,9 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
-                $queryBuilder
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
+                    $queryBuilder
                         ->select('ooo_id')
                         ->from($tableName)
                         ->where(
@@ -201,12 +201,13 @@ class QuantityValue extends Numeric implements FieldDefinitionAdapterInterface
                                 $queryBuilder->expr()->eq('language', '"' . $lang . '"')
                             )
                         );
-                break;
-        }
-        try {
+                    break;
+            }
+            
             return $queryBuilder->execute()->fetchAll();
-        } catch (Exception $ex) {
-            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - QuantityValue is currently not supported. Please contact the administrator");
         }
     }
 

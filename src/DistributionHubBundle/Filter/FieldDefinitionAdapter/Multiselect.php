@@ -19,7 +19,7 @@ class Multiselect extends Select implements FieldDefinitionAdapterInterface
      * @var string
      */
     protected $fieldType = "multiselect";
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -69,7 +69,7 @@ class Multiselect extends Select implements FieldDefinitionAdapterInterface
 
         return $conditionParams;
     }
-    
+
     /**
      * Get localized query based on applied filter,
      * use queryBuilder prepared statements
@@ -86,75 +86,77 @@ class Multiselect extends Select implements FieldDefinitionAdapterInterface
 
         $db = Db::get();
         // Use of queryBuilder for prepared statements
-        $queryBuilder = $db->createQueryBuilder();
-        
-        $fieldName = $details['0'];
-        $operator = $details['1'];
-        $value = $details['2'];
-        $lang = $details['3'];
-
-        switch ($operator) {
-            case $operator === self::DHUB_OPERATOR_MUST:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->eq($fieldName, '"'.$value.'"'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_SHOULD:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->like($fieldName, '"%'.$value.'%"'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_NOT:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->neq($fieldName, '"'.$value.'"'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_EXISTS:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->isNotNull($fieldName, '?'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                        $queryBuilder->expr()->andX(
-                            $queryBuilder->expr()->isNull($fieldName, '?'),
-                            $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                        )
-                    );
-                break;
-        }
-
         try {
+            $queryBuilder = $db->createQueryBuilder();
+
+            $fieldName = $details['0'];
+            $operator = $details['1'];
+            $value = $details['2'];
+            $lang = $details['3'];
+
+            switch ($operator) {
+                case $operator === self::DHUB_OPERATOR_MUST:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->eq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_SHOULD:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->like($fieldName, '"%' . $value . '%"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->neq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNotNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+            }
+
+
             return $queryBuilder->execute()->fetchAll();
-        } catch (Exception $ex) {
-            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - Multiselect is currently not supported. Please contact the administrator");
         }
     }
 
@@ -186,7 +188,7 @@ class Multiselect extends Select implements FieldDefinitionAdapterInterface
 
         return $conditons;
     }
-    
+
     /**
      * @inheritdoc
      */

@@ -67,7 +67,7 @@ class FiltersController extends AdminController
         $classID = $request->get("class_id");
 
         $fieldTypes = $request->get("allowedFields") ? $request->get("allowedFields") : null;
-                
+
         if (!empty($classID)) {
             switch ($type) {
                 case "class":
@@ -102,7 +102,13 @@ class FiltersController extends AdminController
         $fieldSelectionInformationEntries = $service->getFieldSelectionInformationForClassDefinition($definition, $allowInheritance, $fieldTypes);
 
         $fields = [];
+        
         foreach ($fieldSelectionInformationEntries as $entry) {
+            if ($type === "fieldcollection" || $type === "objectbrick") {
+                if ($entry->getfieldName() === "o_id" || $entry->getfieldName() === "o_published" || $entry->getfieldName() === "o_path") {
+                    continue;
+                }
+            }
             $fields[] = $entry->toArray();
         }
 
@@ -214,8 +220,6 @@ class FiltersController extends AdminController
                     $helperColumns = array_merge($existingColumns, $helperColumns);
                     $session->set('helpercolumns', $helperColumns);
                 }, 'pimcore_gridconfig');
-            } else {
-                DHubLogger::log(__METHOD__." : GridCOnfig not available for channel - ".$channelObject->getId(), DHubLogger::WARNING);
             }
  
             return  [
@@ -263,7 +267,6 @@ class FiltersController extends AdminController
             return $this->forward("PimcoreAdminBundle:Admin/DataObject/DataObject:gridProxy", [], $request->query->all());
         } else {
             // get list of objects
-//            $class = DataObject\ClassDefinition::getById($request->get("classId"));
             $className = $request->get("class");
 
             $fields = array();
@@ -280,7 +283,6 @@ class FiltersController extends AdminController
             if ($request->get("limit")) {
                 $limit = $request->get("limit");
             }
-            
 
             $listClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($className) . "\\Listing";
             
@@ -311,7 +313,6 @@ class FiltersController extends AdminController
             if ($start) {
                 $results->setOffset($start);
             }
-               
             
             $beforeListLoadEvent = new GenericEvent($this, [
                 'list' => $results,
@@ -320,7 +321,12 @@ class FiltersController extends AdminController
             $eventDispatcher->dispatch(AdminEvents::OBJECT_LIST_BEFORE_LIST_LOAD, $beforeListLoadEvent);
             $results = $beforeListLoadEvent->getArgument('list');
             
-            $results->load();
+            try {
+                $results->load();
+            } catch (\Exception $ex) {
+                throw new \Exception("Applied Filter combination is not currently supported. Please contact the administrator");
+            }
+            
             $objects = array();
             foreach ($results->getObjects() as $object) {
                 $o = DataObject\Service::gridObjectData($object, $fields, $requestedLanguage);

@@ -16,7 +16,7 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
      * @var string
      */
     protected $fieldType = "checkbox";
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -72,38 +72,42 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
      */
     public function getQueryForLocalized(array $details, $tableName)
     {
+        try {
+            $db = Db::get();
+            // Use of queryBuilder for prepared statements
+            $queryBuilder = $db->createQueryBuilder();
 
-        $db = Db::get();
-        // Use of queryBuilder for prepared statements
-        $queryBuilder = $db->createQueryBuilder();
-        
-        $fieldName = $details['0'];
-        $value = $details['2'];
-        $lang = $details['3'];
+            $fieldName = $details['0'];
+            $value = $details['2'];
+            $lang = $details['3'];
 
-        if ($value === self::DHUB_OPERATOR_TRUE) {
-            $queryBuilder
-                ->select('ooo_id')
-                ->from($tableName)
-                ->where(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq($fieldName, $value),
-                        $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                    )
-                );
-        } elseif ($value === self::DHUB_OPERATOR_FALSE) {
-            $queryBuilder
-                ->select('ooo_id')
-                ->from($tableName)
-                ->where(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->isNull($fieldName, '?'),
-                        $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                    )
-                );
+            if ($value === self::DHUB_OPERATOR_TRUE) {
+                $queryBuilder
+                        ->select('ooo_id')
+                        ->from($tableName)
+                        ->where(
+                            $queryBuilder->expr()->andX(
+                                $queryBuilder->expr()->eq($fieldName, $value),
+                                $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                            )
+                        );
+            } elseif ($value === self::DHUB_OPERATOR_FALSE) {
+                $queryBuilder
+                        ->select('ooo_id')
+                        ->from($tableName)
+                        ->where(
+                            $queryBuilder->expr()->andX(
+                                $queryBuilder->expr()->isNull($fieldName, '?'),
+                                $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                            )
+                        );
+            }
+
+            return $queryBuilder->execute()->fetchAll();
+        } catch (Exception $ex) {
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - CheckBox is currently not supported. Please contact the administrator");
         }
-
-        return $queryBuilder->execute()->fetchAll();
     }
 
     public function getRelatedFilterData($fieldFilter)

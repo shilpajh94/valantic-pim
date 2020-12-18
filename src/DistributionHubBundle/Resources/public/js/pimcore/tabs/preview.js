@@ -357,7 +357,7 @@ pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distri
             var field = fields[i];
             if (field.key !== null) {
                 if (field.key == "id") {
-                    gridColumns.push({text: 'ID', width: this.getColumnWidth(field, this.getColumnWidth(field, 40)), sortable: false,
+                    gridColumns.push({text: 'ID', width: this.getColumnWidth(field, this.getColumnWidth(field, 60)), sortable: false,
                         dataIndex: 'id', filter: 'numeric', locked: this.getColumnLock(field)});
                 } else if (field.key == "published") {
                     gridColumns.push(new Ext.grid.column.Check({
@@ -372,33 +372,33 @@ pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distri
                         locked: this.getColumnLock(field)
                     }));
                 } else if (field.key == "fullpath") {
-                    gridColumns.push({text: t("path"), width: this.getColumnWidth(field, 200), sortable: false,
+                    gridColumns.push({text: t("path"), width: this.getColumnWidth(field, 100), sortable: false,
                         dataIndex: 'fullpath', filter: "string", locked: this.getColumnLock(field)});
                 } else if (field.key == "filename") {
-                    gridColumns.push({text: t("filename"), width: this.getColumnWidth(field, 200), sortable: false,
+                    gridColumns.push({text: t("filename"), width: this.getColumnWidth(field, 100), sortable: false,
                         dataIndex: 'filename', hidden: !showKey, locked: this.getColumnLock(field)});
                 } else if (field.key == "key") {
-                    gridColumns.push({text: t("key"), width: this.getColumnWidth(field, 200), sortable: false,
+                    gridColumns.push({text: t("key"), width: this.getColumnWidth(field, 100), sortable: false,
                         dataIndex: 'key', hidden: !showKey, filter: 'string', locked: this.getColumnLock(field)});
                 } else if (field.key == "classname") {
-                    gridColumns.push({text: t("class"), width: this.getColumnWidth(field, 200), sortable: false,
+                    gridColumns.push({text: t("class"), width: this.getColumnWidth(field, 100), sortable: false,
                         dataIndex: 'classname', locked: this.getColumnLock(field), renderer: function (v) {
                             return t(v);
                         }/*, hidden: true*/});
                 } else if (field.key == "creationDate") {
-                    gridColumns.push({text: t("creationdate") + " (System)", width: this.getColumnWidth(field, 200), sortable: false,
+                    gridColumns.push({text: t("creationdate") + " (System)", width: this.getColumnWidth(field, 100), sortable: false,
                         dataIndex: "creationDate", filter: 'date', editable: false, locked: this.getColumnLock(field), renderer: function (d) {
                             return Ext.Date.format(d, "Y-m-d H:i:s");
                         }/*, hidden: !propertyVisibility.creationDate*/});
                 } else if (field.key == "modificationDate") {
-                    gridColumns.push({text: t("modificationdate") + " (System)", width: this.getColumnWidth(field, 200), sortable: false,
+                    gridColumns.push({text: t("modificationdate") + " (System)", width: this.getColumnWidth(field, 100), sortable: false,
                         dataIndex: "modificationDate", filter: 'date', editable: false, locked: this.getColumnLock(field), renderer: function (d) {
 
                             return Ext.Date.format(d, "Y-m-d H:i:s");
                         }/*, hidden: !propertyVisibility.modificationDate*/});
                 } else {
                     if (fields[i].isOperator) {
-                        var operatorColumnConfig = {text: field.attributes.label ? field.attributes.label : field.attributes.key, width: field.width ? field.width : 200, locked: this.getColumnLock(field), sortable: false,
+                        var operatorColumnConfig = {text: field.attributes.label ? field.attributes.label : field.attributes.key, width: field.width ? field.width : 100, locked: this.getColumnLock(field), sortable: false,
                             dataIndex: fields[i].key, editable: true};
 
                         if (field.attributes.renderer && pimcore.object.tags[field.attributes.renderer]) {
@@ -427,12 +427,8 @@ pimcore.plugin.distributionhub.tabs.preview = Class.create(pimcore.bundle.distri
                         var tag = pimcore.object.tags[fieldType];
                         if (tag) {
                             var fc = tag.prototype.getGridColumnConfig(field);
-                            fc.width = this.getColumnWidth(field, 120);
-
-                            //                        if (typeof gridFilters[field.key] !== 'undefined') {
-                            //                            fc.filter = gridFilters[field.key];
-                            //                        }
-
+                            fc.width = this.getColumnWidth(field, 100);
+                            
                             if (this.isSearch) {
                                 fc.sortable = false;
                             }

@@ -1,7 +1,7 @@
 <?php
 
 namespace DistributionHubBundle\Services;
- 
+
 use DistributionHubBundle\Filter\FieldDefinitionAdapter\FieldDefinitionAdapterInterface;
 use DistributionHubBundle\Filter\FieldSelectionInformation;
 use DistributionHubBundle\Filter\FilterEntry;
@@ -16,10 +16,11 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DistributionHubBundle\Installer;
 use Pimcore\Model\DataObject;
+use DistributionHubBundle\Lib\Constants;
 
 class FilterService
 {
-    
+
     /**
      * @var User
      */
@@ -29,10 +30,12 @@ class FilterService
      * @var LoggerInterface
      */
     protected $logger;
+
     /**
      * @var ContainerInterface
      */
     protected $filterLocator;
+
     /**
      * @var EventDispatcherInterface
      */
@@ -47,8 +50,7 @@ class FilterService
      * @var array
      */
     protected $coreFieldsConfig;
-    
-    
+
     /**
      * Service constructor.
      * @param LoggerInterface $logger
@@ -83,17 +85,17 @@ class FilterService
 
         $fieldSelectionInformationEntries = [];
 
-        if ($fieldTypes === "flat") {
+        if ($fieldTypes === Constants::SIMPLE_ATTRIBUTE_TYPES) {
             $fieldDefinitions = $definition->getFieldDefinitions();
-            $AllowedDataComponants = \DistributionHubBundle\Lib\Constants::FLAT_ATTRIBUTE_TYPES;
+            $AllowedDataComponants = Constants::FLAT_ATTRIBUTE_TYPES;
         } else {
             $fieldDefinitions = array_merge(
                 $this->getCoreFieldDefinitions(),
                 $definition->getFieldDefinitions()
             );
-            $AllowedDataComponants = \DistributionHubBundle\Lib\Constants::SUPPORTED_ATTRIBUTE_TYPES;
+            $AllowedDataComponants = Constants::SUPPORTED_ATTRIBUTE_TYPES;
         }
- 
+
         foreach ($fieldDefinitions as $fieldDefinition) {
             if (in_array($fieldDefinition->getFieldtype(), $AllowedDataComponants)) {
                 $fieldDefinitionAdapter = $this->getFieldDefinitionAdapter($fieldDefinition, $allowInheritance);
@@ -114,7 +116,7 @@ class FilterService
     {
         $channel = \DistributionHubBundle\Model\Channel::getById($mappingData['objectId']);
         $classId = $channel->getPimcoreClassId();
-       
+
         if (!empty($mappingData)) {
             $columnsMapping = json_decode($mappingData['mappingJson']);
             $showInGrid = $columnsMapping->showInGrid;
@@ -122,7 +124,7 @@ class FilterService
             $templateColumns = $columnsMapping->templateAttribute;
             if (!empty($showInGrid) && !empty($selectedGridColumns)) {
                 $showInGridCols = self::showInGridCols($showInGrid['0'], $selectedGridColumns, $templateColumns);
-                
+
                 return self::createGridConfig($showInGridCols, $classId);
             }
         } else {
@@ -141,11 +143,11 @@ class FilterService
      */
     public function createGridConfig($showInGridCols, $classId)
     {
-        
+
         $classDefinition = \Pimcore\Model\DataObject\ClassDefinition::getById($classId);
 
         $gridConfigPrepare = array();
-        
+
         $predefinedCols = \DistributionHubBundle\Lib\Constants::PREDEFINED_COLUMNS;
 
         $gridConfigPrepare['columns'] = $predefinedCols;
@@ -165,52 +167,76 @@ class FilterService
                 if ($attrInfo->type === "operator") {
                     continue;
                 }
-                
-                if (empty($classDefinition->getFieldDefinition($attrInfo->attribute))) {
+
+                if (empty($classDefinition->getFieldDefinition($attrInfo->attribute)) && empty($classDefinition->getFieldDefinition('localizedfields'))) {
                     continue;
                 }
-                
-                
+
                 if (!empty($classDefinition->getFieldDefinition($attrInfo->attribute))) {
                     $gridConfigPrepare['columns'][$index] = [
-                        'key'  => $attrInfo->attribute,
+                        'key' => $attrInfo->attribute,
                         'type' => $attrInfo->dataType,
                         'label' => $attrInfo->label,
                         'config' => [
-                            'width' => 500
+                            'width' => 150
                         ],
                         'layout' => $classDefinition->getFieldDefinition($attrInfo->attribute),
                         'position' => $i
                     ];
-                    $i++;
-                    $index++;
                 } elseif ($classDefinition->getFieldDefinition('localizedfields')) {
                     $localizedTypes = $classDefinition->getFieldDefinition('localizedfields')->getChildren();
+
                     if (!empty($localizedTypes)) {
                         foreach ($localizedTypes as $child) {
-                            if ($child->fieldtype === $attrInfo->dataType) {
-                                $gridConfigPrepare['columns'][$index] = [
-                                    'key'  => $attrInfo->attribute,
-                                    'type' => $child->getFieldtype(),
-                                    'label' => $attrInfo->label,
-                                    'config' => [
-                                        'width' => 500
-                                    ],
-                                    'layout' => $child,
-                                    'position' => $i
-                                ];
+                            if ($child->fieldtype === "fieldcontainer" || $child->fieldtype === "fieldset" || $child->fieldtype === "accordian") {
+                                if (!empty($child->getChilds())) {
+                                    foreach ($child->getChilds() as $child1stLevel) {
+                                        if ($child1stLevel->fieldtype === "fieldcontainer" || $child1stLevel->fieldtype === "fieldset" || $child1stLevel->fieldtype === "accordian") {
+                                            if (!empty($child1stLevel->getChilds())) {
+                                                foreach ($child1stLevel->getChilds() as $child2ndLevel) {
+                                                    if ($child2ndLevel->fieldtype === $attrInfo->dataType) {
+                                                        $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child2ndLevel, $attrInfo, $i);
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            if ($child1stLevel->fieldtype === $attrInfo->dataType) {
+                                                $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child1stLevel, $attrInfo, $i);
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                if ($child->fieldtype === $attrInfo->dataType) {
+                                    $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child, $attrInfo, $i);
+                                }
                             }
                         }
                     }
-                    $i++;
-                    $index++;
                 } else {
-                    throw new \Exception("Show in Grid Error - '".$attrInfo->attribute."' is not supported in grid Preview, Please select other field types");
+                    throw new \Exception("Show in Grid Error - '" . $attrInfo->attribute . "' is not supported in grid Preview, Please select other field types");
                 }
+                $i++;
+                $index++;
             }
 
             return $gridConfigPrepare;
         }
+    }
+
+    public function prepareGridConfig($child, $attrInfo, $i)
+    {
+
+        return [
+            'key' => $attrInfo->attribute,
+            'type' => $child->getFieldtype(),
+            'label' => $attrInfo->label,
+            'config' => [
+                'width' => 150
+            ],
+            'layout' => $child,
+            'position' => $i
+        ];
     }
 
     /**
@@ -223,10 +249,10 @@ class FilterService
      */
     public function showInGridCols($showInGrid, $selectedGridColumns, $templateColumns)
     {
-        
+
         // typecast an object into array
         $showInGrid = json_decode(json_encode($showInGrid), true);
-       
+
         // get indexes for selected grid columns
         $indexes = array();
         foreach (array_values($showInGrid) as $key => $value) {
@@ -236,7 +262,7 @@ class FilterService
         }
         // get Column details for which show in grid is selected
         $templateCols = array();
-        
+
         foreach ($indexes as $val) {
             foreach ($templateColumns as $key => $temp) {
                 if ($val == $key) {
@@ -244,21 +270,26 @@ class FilterService
                 }
             }
         }
-      
+
         // get Column details for which show in grid is selected
         $showInGridCols = array();
         foreach ($selectedGridColumns as $key => $column) {
             foreach ($indexes as $val) {
                 if ($val == $key) {
-                    $column->attributes->label = $templateCols[$val];
-                    $showInGridCols[] = $column;
+                    // ignore structured inside structured for show in grid. to be handled in js itself
+                    if (!empty($column->attributes->attribute)) {
+                        if (str_contains($column->attributes->attribute, "?{")) {
+                            continue;
+                        }
+                        $column->attributes->label = $templateCols[$val];
+                        $showInGridCols[] = $column;
+                    }
                 }
             }
         }
         return $showInGridCols;
     }
-    
-    
+
     /**
      * @return array
      */
@@ -278,7 +309,7 @@ class FilterService
 
         return $fieldDefinitions;
     }
- 
+
     /**
      * @param array $coreFieldsConfig
      */
@@ -299,7 +330,7 @@ class FilterService
 
         return $this->coreFieldsConfig;
     }
-    
+
     /**
      * @param $name
      * @param array $data
@@ -319,8 +350,7 @@ class FilterService
 
         return $fieldDefinition;
     }
-    
-    
+
     /**
      * returns field definition adapter for given field definition
      *
@@ -343,8 +373,7 @@ class FilterService
 
         return $adapter;
     }
-    
- 
+
     /**
      * Returns FIltered results based on -
      * FieldType adapter
@@ -358,18 +387,18 @@ class FilterService
      */
     public function getFilteredList($data, $listingClass)
     {
-        
+
         $classId = $data['classId'];
         $filters = $data['conditions']['filters'];
-        
+
         if ($data['type'] === DataObject\AbstractObject::OBJECT_TYPE_OBJECT) {
             $listingClass->setObjectTypes([DataObject\AbstractObject::OBJECT_TYPE_OBJECT, DataObject\AbstractObject::OBJECT_TYPE_VARIANT]);
         } elseif ($data['type'] === DataObject\AbstractObject::OBJECT_TYPE_VARIANT) {
             $listingClass->setObjectTypes([DataObject\AbstractObject::OBJECT_TYPE_VARIANT]);
         }
-        
+
         $conditionParams = array();
-        
+
         // results based on filter conditions
         if (!$data['filterByList']) {
             if (!empty($filters)) {
@@ -394,7 +423,8 @@ class FilterService
                         $conditionParams[] = $this->getFilteredResults($fieldDefinition, $filterEntryObject, $listingClass);
                     }
                 }
-               // addConditionParams to listing class
+
+                // addConditionParams to listing class
                 foreach ($conditionParams as $condition) {
                     if (!empty($condition)) {
                         $listingClass->addConditionParam($condition['key'], $condition['value'], $condition['concatenator']);
@@ -412,15 +442,15 @@ class FilterService
             if (empty($data['listFileAssetId'])) {
                 return $listingClass;
             }
-            
+
             $listDataConditions = $this->getSheetData($data['listFileAssetId'], $data['filterByAttribute']);
-            
+
             if (empty($listDataConditions)) {
                 return $listingClass;
             }
-            
+
             $listingClass->setCondition(implode(" OR ", $listDataConditions));
-            
+
             return $listingClass;
         }
     }
@@ -439,22 +469,21 @@ class FilterService
         //$fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
         // path with s3 protocol
         $fullPath = $assetObject->getFileSystemPath();
-        $csvData = array_map ( 'str_getcsv', file ( $fullPath ) );
-        
+        $csvData = array_map('str_getcsv', file($fullPath));
+
         // Remove header info from csv data
         unset($csvData['0']);
-        
+
         $conditonForList = [];
         if (!empty($csvData)) {
             foreach ($csvData as $val) {
-                $conditonForList[] = " `".$attribute."` LIKE '%".$val['0']."%' ";
+                $conditonForList[] = " `" . $attribute . "` LIKE '%" . $val['0'] . "%' ";
             }
         }
-        
+
         return $conditonForList;
     }
-    
-    
+
     /**
      * return conditions applied in listing,
      * based on fieldType adapter

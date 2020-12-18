@@ -14,7 +14,7 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
      * @var string
      */
     protected $fieldType = "manyToManyObjectRelation";
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -34,110 +34,115 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
         $fieldName = $fieldDefinition->getName();
         $data = $fieldFilter->getFilterEntryData();
         $conditionParams = array();
-        if (array_key_exists("id", $data)) {
-            if (!empty($data['id'])) {
-                $conditions = array();
-                foreach ($data['id'] as $value) {
-                    $id = ",".$value.",";
-                    $conditions[] = "`".$fieldName."`  LIKE '%".$id ."%'";
-                }
-                $conditonPrepare = implode(" OR ", $conditions);
-                
-                $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = null;
-                $conditionParams['concatenator'] = "AND";
-                
-                return $conditionParams;
-            }
-        } elseif (array_key_exists("filters", $data)) {
-            $relationClassId = $data['classId'];
-            if (!empty($data['filters'])) {
-                $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
-                        
-                $relClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($relClassDef->getName()) . "\\Listing";
-                $relClassList = new $relClass();
+        try {
+            if (array_key_exists("id", $data)) {
+                if (!empty($data['id'])) {
+                    $conditions = array();
+                    foreach ($data['id'] as $value) {
+                        $id = "," . $value . ",";
+                        $conditions[] = "`" . $fieldName . "`  LIKE '%" . $id . "%'";
+                    }
+                    $conditonPrepare = implode(" OR ", $conditions);
 
-                $relationFieldConditions = array();
-                foreach ($data['filters'] as $relFilter) {
-                    $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
-
-                    if (empty($selectedFieldType)) {
-                        $coreDefinitions = $this->service->getCoreFieldDefinitions();
-                        $fName = $relFilter['fieldname'];
-                        if (array_key_exists($fName, $coreDefinitions)) {
-                            $fDefinition = $coreDefinitions[$fName];
-                            
-                            $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
-                        }
-                    } else {
-                        $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
-                        if ($fieldDefinitionAdapter instanceof \DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields) {
-                            // localized context
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData()['filters']['0'], $fieldFilter->getFilterEntryData()['classId'], $selectedFieldType, $fieldFilter->getFilterEntryData()["type"]);
-                        } else {
-                            // non-localized context
-                            $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
-                        }
-                    }
-                }
-              
-                $relatedConditions = array();
-                if (!empty($relationFieldConditions)) {
-                    foreach ($relationFieldConditions as $cond) {
-                        if ($cond['0'] && isset($cond['0']['ooo_id'])) {
-                            $relatedConditions[] = $cond['0']['ooo_id'];
-                            $relObjects = null;
-                        } else {
-                            $relatedConditions[] = $cond['0'];
-                            $relClassList->setCondition(implode(" OR ", $relatedConditions));
-                
-                            $relClassList->load();
-                            $relObjects = $relClassList->getObjects();
-                        }
-                    }
-                }
-
-                if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
-                    throw new \Exception('Filters for current level -> relation inside a relation, are not supported.');
-                }
-                
-                $relIds = array();
-                $conditons = array();
-                if (!empty($relObjects)) {
-                    foreach ($relObjects as $relObj) {
-                        $id = ",".$relObj->getId().",";
-                        $conditons[] = "`".$fieldName."`  LIKE '%".$id."%'";
-                    }
-                    $mergedConditions = implode(" OR ", $conditons);
-                } else {
-                    foreach ($relatedConditions as $relatedCond) {
-                        $id = ",".$relatedCond.",";
-                        $conditons[] = "`".$fieldName."`  LIKE '%".$id ."%'";
-                    }
-                    $mergedConditions = implode(" OR ", $conditons);
-                }
-
-                if (!empty($conditons)) {
-                    $mergedConditions = implode(" OR ", $conditons);
-                                    
-                    if (strpos($mergedConditions, "=  'Array'")) {
-                        throw new \Exception('Filters for current level -> relation inside a relation - is/are not supported.');
-                    }
-                    $conditionParams['key'] = $mergedConditions;
+                    $conditionParams['key'] = $conditonPrepare;
                     $conditionParams['value'] = null;
                     $conditionParams['concatenator'] = "AND";
 
                     return $conditionParams;
+                }
+            } elseif (array_key_exists("filters", $data)) {
+                $relationClassId = $data['classId'];
+                if (!empty($data['filters'])) {
+                    $relClassDef = \Pimcore\Model\DataObject\ClassDefinition::getById($relationClassId);
+
+                    $relClass = "\\Pimcore\\Model\\DataObject\\" . ucfirst($relClassDef->getName()) . "\\Listing";
+                    $relClassList = new $relClass();
+
+                    $relationFieldConditions = array();
+                    foreach ($data['filters'] as $relFilter) {
+                        $selectedFieldType = $relClassDef->getFieldDefinition($relFilter['fieldname']);
+
+                        if (empty($selectedFieldType)) {
+                            $coreDefinitions = $this->service->getCoreFieldDefinitions();
+                            $fName = $relFilter['fieldname'];
+                            if (array_key_exists($fName, $coreDefinitions)) {
+                                $fDefinition = $coreDefinitions[$fName];
+
+                                $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fDefinition, $this->considerInheritance);
+                                $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                            }
+                        } else {
+                            $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($selectedFieldType, $this->considerInheritance);
+                            if ($fieldDefinitionAdapter instanceof \DistributionHubBundle\Filter\FieldDefinitionAdapter\Localizedfields) {
+                                // localized context
+                                $relationFieldConditions[] = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData()['filters']['0'], $fieldFilter->getFilterEntryData()['classId'], $selectedFieldType, $fieldFilter->getFilterEntryData()["type"]);
+                            } else {
+                                // non-localized context
+                                $relationFieldConditions[] = $fieldDefinitionAdapter->getRelatedFilterData($relFilter, $selectedFieldType, $relClassList);
+                            }
+                        }
+                    }
+
+                    $relatedConditions = array();
+                    if (!empty($relationFieldConditions)) {
+                        foreach ($relationFieldConditions as $cond) {
+                            if ($cond['0'] && isset($cond['0']['ooo_id'])) {
+                                $relatedConditions[] = $cond['0']['ooo_id'];
+                                $relObjects = null;
+                            } else {
+                                $relatedConditions[] = $cond['0'];
+                                $relClassList->setCondition(implode(" OR ", $relatedConditions));
+
+                                $relClassList->load();
+                                $relObjects = $relClassList->getObjects();
+                            }
+                        }
+                    }
+
+                    if (strpos(implode(" OR ", $relatedConditions), "=  'Array'")) {
+                        throw new \Exception('Filters for current level -> relation inside a relation, are not supported.');
+                    }
+
+                    $relIds = array();
+                    $conditons = array();
+                    if (!empty($relObjects)) {
+                        foreach ($relObjects as $relObj) {
+                            $id = "," . $relObj->getId() . ",";
+                            $conditons[] = "`" . $fieldName . "`  LIKE '%" . $id . "%'";
+                        }
+                        $mergedConditions = implode(" OR ", $conditons);
+                    } else {
+                        foreach ($relatedConditions as $relatedCond) {
+                            $id = "," . $relatedCond . ",";
+                            $conditons[] = "`" . $fieldName . "`  LIKE '%" . $id . "%'";
+                        }
+                        $mergedConditions = implode(" OR ", $conditons);
+                    }
+
+                    if (!empty($conditons)) {
+                        $mergedConditions = implode(" OR ", $conditons);
+
+                        if (strpos($mergedConditions, "=  'Array'")) {
+                            throw new \Exception('Filters for current level -> relation inside a relation - is/are not supported.');
+                        }
+                        $conditionParams['key'] = $mergedConditions;
+                        $conditionParams['value'] = null;
+                        $conditionParams['concatenator'] = "AND";
+
+                        return $conditionParams;
+                    } else {
+                        return $conditionParams;
+                    }
                 } else {
                     return $conditionParams;
                 }
-            } else {
-                return $conditionParams;
             }
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - ManyToMany Relations is currently not supported. Please contact the administrator");
         }
     }
-    
+
     /**
      * returns selectable fields with their type information for filter frontEnd
      * @return FieldSelectionInformation[]
