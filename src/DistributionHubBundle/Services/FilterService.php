@@ -278,7 +278,7 @@ class FilterService
                 if ($val == $key) {
                     // ignore structured inside structured for show in grid. to be handled in js itself
                     if (!empty($column->attributes->attribute)) {
-                        if (str_contains($column->attributes->attribute, "?{")) {
+                        if (strpos($column->attributes->attribute, "?{" ) == "false") {
                             continue;
                         }
                         $column->attributes->label = $templateCols[$val];
