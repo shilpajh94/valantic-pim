@@ -253,10 +253,13 @@ if($groupData):
                                                                 <tr class="sub-head">
                                                                         <?php foreach($groupData['columnsDataWithImages'] as $key => $c1data): ?>
                                                                                 <?php
+                                                                                        $columnWidth = '';
                                                                                         $g1count = count($c1data);
                                                                                         $firstArray = array_shift($c1data);
+                                                                                        if($firstArray['columnWidth'])
+                                                                                                $columnWidth = "width=".$firstArray['columnWidth']
                                                                                 ?>
-                                                                                <td colspan="<?= $g1count; ?>"><img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" /></td>
+                                                                                <td colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>><img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" /></td>
                                                                         <?php endforeach; ?>
                                                                 </tr>
                                                         <?php endif; ?>
@@ -264,10 +267,13 @@ if($groupData):
                                                         <tr class="head">
                                                                 <?php foreach($groupData['columnsDataWithImages'] as $key => $c2data): ?>
                                                                         <?php
+                                                                                $columnWidth = '';
                                                                                 $g2count = count($c2data);
                                                                                 $first2Array = array_shift($c2data);
+                                                                                if($first2Array['columnWidth'])
+                                                                                        $columnWidth = "width=".$first2Array['columnWidth']
                                                                         ?>
-                                                                        <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                                                        <td colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
                                                                 <?php endforeach; ?>
                                                         </tr>
 
