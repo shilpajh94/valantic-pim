@@ -18,6 +18,12 @@ class IndustrialHoseController extends AbstractController
     private $tableColumns;
     private $s3srcArr = [];
     private $db;
+    private $iconRequired = 'NO';
+    private $subHeaderRequired = 'NO';
+    private $attrbuteImgS3Arr = array();
+    private $columnsData = array();
+    private $attributeImages = array();
+    private $featuresList = array();
 
     public function __construct()
     {
@@ -142,7 +148,7 @@ class IndustrialHoseController extends AbstractController
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
         $inhProductPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
-        $attributeImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
+        $this->attributeImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
         $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
         // $common = \Pimcore::getContainer()->get('app.common_helper');
@@ -165,19 +171,20 @@ class IndustrialHoseController extends AbstractController
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
+            $objColumnsData = $template->getColumns();
+            $this->columnsData = json_decode($objColumnsData, true);
 
-            $iconRequired = 'YES';
-            $subHeaderRequired = 'NO';
-            $columnsData = json_decode($columnsData, true);
+            $this->iconRequired = 'NO';
+            // $subHeaderRequired = 'NO';
+            
 
-            $attrbuteImgS3Arr = array();
+            // $attrbuteImgS3Arr = array();
 
             // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
             $brandsList = $this->getBrandsList();
-            $featuresList = $this->getFeaturesList('', $CatalogLanguage);
+            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
             // Getting Selected 3rd Level Category at Catalog Category object
             // $siop = $obj->getSiopLevel4();
@@ -349,44 +356,11 @@ class IndustrialHoseController extends AbstractController
                                 }
                             }
 
-                            $columnsDataWithImages = array();
                             $articlesData = array();
-                            $subHeaderRequired = '';
+                            $this->subHeaderRequired = 'NO';
+
+                            $columnsDataWithImages = $this->getColumnHeadersForCatalog(TRUE, $FittingTableKeys);
                             
-                            foreach ($columnsData as $dkey => $value) {
-
-                                if(in_array($dkey,$FittingTableKeys))
-                                {
-                                    $groupColumnName = $value['columnName'];
-                                    if(isset($value['groupName']) && $value['groupName'])
-                                    {
-                                        $groupColumnName = $value['groupName'];
-                                        $subHeaderRequired = 'YES';
-                                    }
-
-                                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                                    $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                                    if ($iconRequired == 'YES')
-                                    {
-                                        if(!isset($attrbuteImgS3Arr[$groupColumnName]))
-                                        {
-
-                                            $attributeImagesSrc = $attributeImages[$groupColumnName];
-                                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                                            $attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
-                                        }
-                                        else
-                                        {
-                                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attrbuteImgS3Arr[$groupColumnName];
-                                        }
-                                    }
-                                }
-                            }
-
                             // Getting order of the keys
                             $orderKeys = array();
                             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -416,7 +390,7 @@ class IndustrialHoseController extends AbstractController
                                 $oldMaterialCodeStr = implode(', ', array_unique($oldMaterialCodeArr[$GroupingFieldNameValue]));
 
                             $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['orderCodes'] = $oldMaterialCodeStr;
-                            $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['subHeaderRequired'] = $subHeaderRequired;
+                            $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['subHeaderRequired'] = $this->subHeaderRequired;
                             $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['columnsDataWithImages'] = $columnsDataWithImages;
                             $newBrandArray[$key]['articleData'][$GroupingFieldNameValue][$FittingTableName]['articles'][] = $articlesData;
                         }
@@ -451,7 +425,7 @@ class IndustrialHoseController extends AbstractController
                     $newBrandArray[$key]['brandData']['Packaging'] = $Packaging;
                     $newBrandArray[$key]['brandData']['longDescription'] = $longDescription;
 
-                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPointArr, $featuresList);
+                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($FeaturesBenefitsBulletPointArr);
 
                     unset($reinforcementArr);
                     unset($tubeMaterialArr);
@@ -465,6 +439,8 @@ class IndustrialHoseController extends AbstractController
                 }
             }
 
+            unset($this->featuresList);
+
             array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
             $categories = $this->getSIOP($CatalogLanguage);
@@ -475,8 +451,12 @@ class IndustrialHoseController extends AbstractController
             $BrandingImageSrc = $CatalogImagesINHProduct['BrandingImage'];
             $BrandingImageSrc = $this->getS3ImageSrc($BrandingImageSrc);
 
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
+
             $this->view['info'] = array(
-                'iconRequired' => $iconRequired,
+                'iconRequired' => $this->iconRequired,
                 'brandsData' => $newBrandArray,
                 'categories' => $categories,
                 'selectedCategory' => $SIOP3Description,
@@ -499,7 +479,7 @@ class IndustrialHoseController extends AbstractController
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
 
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -514,41 +494,21 @@ class IndustrialHoseController extends AbstractController
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
+            $objColumnsData = $template->getColumns();
+            $this->columnsData = json_decode($objColumnsData, true);
 
             $menuCategories = $this->getSIOP($CatalogLanguage);
 
-            $iconRequired = 'YES';
-            $columnsData = json_decode($columnsData, true);
-
-            // $language = $request->getLocale();
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            $subHeaderRequired = 'NO';
-            $groupSubHeaderData = array();
-            foreach ($columnsData as $key => $value) {
+            $this->iconRequired = 'YES';
+            $this->subHeaderRequired = 'NO';
 
-                $groupColumnName = $value['columnName'];
-                if(isset($value['groupName']) && $value['groupName'])
-                {
-                    $groupColumnName = $value['groupName'];
-                    $subHeaderRequired = 'YES';
-                }
-                // echo "groupColumnName - $groupColumnName".PHP_EOL;
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                if ($iconRequired == 'YES')
-                {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                }
-            }
-
-            unset($columnsData);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
@@ -558,11 +518,9 @@ class IndustrialHoseController extends AbstractController
                 }
             }
 
-            $featuresList = $this->getFeaturesList('', $CatalogLanguage);
-            // $materialList = $this->getPTGMaterialList('PTG~material', $CatalogLanguage);
+            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
-
             $categories = $this->db->fetchAll($query);
 
             $categoriesList = array();
@@ -623,28 +581,12 @@ class IndustrialHoseController extends AbstractController
 
                         if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
                         {
-                            // if (Asset\Service::pathExists($item[$headerKeysIndex['mainImage']]))
-                            // {
-                                $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                            //     if(file_exists($mainImage->getFileSystemPath()))
-                            //     {
-                            //         $mainImageObj = $mainImage;
-                            //     }
-                            //     unset($mainImage);
-                            // }
+                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
                         }
 
                         if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
                         {
-                            // if (Asset\Service::pathExists($item[$headerKeysIndex['ProfileDimensionImage']]))
-                            // {
-                                $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                            //     if(file_exists($ProfileDimensionImage->getFileSystemPath()))
-                            //     {
-                            //         $ProfileDimensionImageObj = $ProfileDimensionImage;
-                            //     }
-                            //     unset($ProfileDimensionImage);
-                            // }
+                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
                         }
 
                         if($item[$headerKeysIndex['FittingMaterial']])
@@ -674,9 +616,10 @@ class IndustrialHoseController extends AbstractController
 
                 $brandingStr = $BrandingLayline;
 
-                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures,$featuresList);
+                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
 
                 unset($safetyFeatures);
+                unset($this->featuresList);
 
                 $material = array_unique($material);
                 $orderCodeArr = array_unique($orderCode);
@@ -689,15 +632,14 @@ class IndustrialHoseController extends AbstractController
                 unset($safetyFeatures);
 
                 $groupData = array();
-                $groupData['subHeaderRequired'] = $subHeaderRequired;
-                $groupData['iconRequired'] = $iconRequired;
+                $groupData['subHeaderRequired'] = $this->subHeaderRequired;
+                $groupData['iconRequired'] = $this->iconRequired;
                 $groupData['material'] = $materialStr;
                 $groupData['pressureRating'] = $pressureRating;
                 $groupData['brandingLayline'] = $brandingStr;
                 $groupData['orderCodes'] = $orderCodeStr;
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
                 $groupData['mainImageObj'] = $mainImageObj;
-                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
                 $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
                 $groupData['longDescription'] = $longDescription;
                 $groupData['data'] = $brandsData;
@@ -733,7 +675,6 @@ class IndustrialHoseController extends AbstractController
             $INHFittingCoverPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHFittingCoverPageConfig();
 
             $featuresMaterials = $commonHelper->getParameter($INHFittingCoverPageConfig, 'headers');
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesINHFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHFooter');
             $CatalogImagesINHProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesINHProduct');
 
@@ -859,7 +800,7 @@ class IndustrialHoseController extends AbstractController
         return $featureData;
     }
 
-    public function getFiveSortedFeaturesWithIconList($safetyFeatures, $featuresList){
+    public function getFiveSortedFeaturesWithIconList($safetyFeatures){
         
         $safetyFeatures = array_unique($safetyFeatures);
 
@@ -870,15 +811,15 @@ class IndustrialHoseController extends AbstractController
         if($safetyFeatures)
         {
             foreach ($safetyFeatures as $fkey => $fvalue) {
-                if($featuresList[$fvalue]['icon'])
+                if($this->featuresList[$fvalue]['icon'])
                 {
                     if(!isset($this->s3srcArr[$fvalue]))
-                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($featuresList[$fvalue]['icon']);
+                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
 
-                    $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
-                    $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->featuresList[$fvalue]['icon'], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
             }
         }
 
@@ -897,7 +838,6 @@ class IndustrialHoseController extends AbstractController
         unset($safetyFeaturesListWithOutImage);
         
         return $safetyFeaturesList;
-
     }
 
     private function getSiopObject($siop) {
@@ -936,5 +876,87 @@ class IndustrialHoseController extends AbstractController
             }
         }
         return $brandslist;
+    }
+
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = []){
+
+        $columnsDataWithImages = array();
+
+        if($isTableNameColumnRequired)
+        {
+            foreach ($this->columnsData as $dkey => $value) 
+            {
+                if(in_array($dkey,$tableNameColumns))
+                {
+                    $groupColumnName = $value['columnName'];
+                    if(isset($value['groupName']) && $value['groupName'])
+                    {
+                        $groupColumnName = $value['groupName'];
+                        $this->subHeaderRequired = 'YES';
+                    }
+
+                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                    if ($this->iconRequired == 'YES')
+                    {
+                        if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
+                        {
+                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                        }
+                        else
+                        {
+                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach ($this->columnsData as $key => $value) {
+
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $this->subHeaderRequired = 'YES';
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+
+                if($value['columnName'] == 'listPrice')
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                else
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                if ($this->iconRequired == 'YES')
+                {
+                    if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
+                    {
+                        $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                        $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                    }
+                    else
+                    {
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
+                    }
+                }
+            }
+        }
+
+        return $columnsDataWithImages;
     }
 }

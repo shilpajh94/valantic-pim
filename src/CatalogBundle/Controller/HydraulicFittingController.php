@@ -280,39 +280,35 @@ class HydraulicFittingController extends AbstractController
 
         if($isTableNameColumnRequired)
         {
-            foreach ($tableNameColumns as $ckey => $cvalue) {
-
-                foreach ($this->columnsData as $dkey => $value) {
-
-                    if($cvalue == $dkey)
+            foreach ($this->columnsData as $dkey => $value) 
+            {
+                if(in_array($dkey,$tableNameColumns))
+                {
+                    $groupColumnName = $value['columnName'];
+                    if(isset($value['groupName']) && $value['groupName'])
                     {
-                        $groupColumnName = $value['columnName'];
-                        if(isset($value['groupName']) && $value['groupName'])
+                        $groupColumnName = $value['groupName'];
+                        $this->subHeaderRequired = 'YES';
+                    }
+
+                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                    if ($this->iconRequired == 'YES')
+                    {
+                        if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
                         {
-                            $groupColumnName = $value['groupName'];
-                            $this->subHeaderRequired = 'YES';
+                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
                         }
-
-                        $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
-                        $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
-                        $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                        $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
-                        $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                        if ($this->iconRequired == 'YES')
+                        else
                         {
-                            if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
-                            {
-
-                                $attributeImagesSrc = $this->attributeImages[$groupColumnName];
-                                $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                                $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
-                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
-                            }
-                            else
-                            {
-                                $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
-                            }
+                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
                         }
                     }
                 }
@@ -320,7 +316,6 @@ class HydraulicFittingController extends AbstractController
         }
         else
         {
-
             foreach ($this->columnsData as $key => $value) {
 
                 $groupColumnName = $value['columnName'];
@@ -332,7 +327,12 @@ class HydraulicFittingController extends AbstractController
 
                 $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+
+                if($value['columnName'] == 'listPrice')
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                else
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+
                 $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
                 $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
 

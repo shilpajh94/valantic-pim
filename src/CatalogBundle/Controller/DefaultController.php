@@ -17,6 +17,12 @@ class DefaultController extends AbstractController {
     private $tableColumns;
     private $s3srcArr = [];
     private $db;
+    private $iconRequired = 'NO';
+    private $subHeaderRequired = 'NO';
+    private $attrbuteImgS3Arr = array();
+    private $columnsData = array();
+    private $attributeImages = array();
+    private $featuresList = array();
 
     public function __construct() {
         $this->db = Db::get();
@@ -879,7 +885,7 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
             $CatalogImagesHYDProduct = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDProduct');
 
@@ -896,40 +902,19 @@ if(isset($data[$baseId])) {
                 $headerKeys = array_keys($headerData);
                 $headerKeysIndex = array_flip($headerKeys);
 
-                $columnsData = $template->getColumns();
-                $iconRequired = 'YES';
-                $columnsData = json_decode($columnsData, true);
-                $columnsDataWithImages = array();
+                $objColumnsData = $template->getColumns();
+                $this->iconRequired = 'YES';
+                $this->subHeaderRequired = 'NO';
+                $this->columnsData = json_decode($objColumnsData, true);
 
                 $this->get('translator')->setLocale($CatalogLanguage);
 
-                $subHeaderRequired = 'NO';
-                $groupSubHeaderData = array();
-                foreach ($columnsData as $key => $value) {
-
-                    $groupColumnName = $value['columnName'];
-                    if(isset($value['groupName']) && $value['groupName'])
-                    {
-                        $groupColumnName = $value['groupName'];
-                        $subHeaderRequired = 'YES';
-                    }
-
-                    $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                    $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                    if ($iconRequired == 'YES')
-                    {
-                        $attributeImagesSrc = $attributeImages[$groupColumnName];
-                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-
-                    }
-                }
-
-                unset($columnsData);
-
+                $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+                
+                unset($objColumnsData);
+                unset($this->columnsData);
+                unset($this->attributeImages);
+            
                 // Getting order of the keys
                 $orderKeys = array();
                 foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -939,7 +924,7 @@ if(isset($data[$baseId])) {
                 }
 
                 $brandsList = $this->getBrandsList();
-                $featuresList = $this->getFeaturesList('', $CatalogLanguage);
+                $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
                 $standardMetHoseList = $this->getStandardMetHoseList('INH-HYD-HOSE~standardMetHose', $CatalogLanguage);
 
@@ -1063,7 +1048,7 @@ if(isset($data[$baseId])) {
                         $coverMaterial = array_unique($coverMaterial);
                         $coverAttribute = array_unique($coverAttribute);
 
-                        $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures, $featuresList);
+                        $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
                         
                         $standardMetHoseListData = array();
                         if($standardsMetHose)
@@ -1113,8 +1098,8 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['coverMaterialattributeString'] = $VirtualCatalogCoverMaterialStr;
                         $data[$uniqueId]['standardMetHoseListData'] = $standardMetHoseListData;
                         $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
-                        $data[$uniqueId]['iconRequired'] = $iconRequired;
-                        $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                        $data[$uniqueId]['iconRequired'] = $this->iconRequired;
+                        $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                         $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
                         array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
@@ -1126,12 +1111,14 @@ if(isset($data[$baseId])) {
                     array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
                     $catalogGroupData[$catalogKey] = $data;
                 }
+                
+                unset($this->featuresList);
 
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
                 $branding_image_src = $this->getS3ImageSrc($CatalogImagesHYDProduct['BrandingImage']);
-
+    
                 $this->view['data'] = $catalogGroupData;
                 $this->view['branding_image_src'] = $branding_image_src;
                 $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
@@ -1149,7 +1136,7 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -1163,39 +1150,21 @@ if(isset($data[$baseId])) {
 
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
-            $iconRequired = 'NO';
-            $subHeaderRequired = 'NO';
-            $columnsData = json_decode($columnsData, true);
-            $columnsDataWithImages = array();
+            $objColumnsData = $template->getColumns();
+            $this->iconRequired = 'NO';
+            $this->subHeaderRequired = 'NO';
+            $this->columnsData = json_decode($objColumnsData, true);
+            // $columnsDataWithImages = array();
 
-            $featuresList = $this->getFeaturesList('', $CatalogLanguage);
+            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            foreach ($columnsData as $key => $value) {
-
-                $groupColumnName = $value['columnName'];
-                if(isset($value['groupName']) && $value['groupName'])
-                {
-                    $groupColumnName = $value['groupName'];
-                    $subHeaderRequired = 'YES';
-                }
-
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                if ($iconRequired == 'YES')
-                {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                }
-            }
-
-            unset($columnsData);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
 
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -1270,7 +1239,7 @@ if(isset($data[$baseId])) {
                     $material = array_unique($material);
                     $availableLength = array_unique($availableLength);
 
-                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures, $featuresList);
+                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
                         
                     $colorString = implode(', ', $color);
                     $materialString = implode(', ', $material);
@@ -1288,9 +1257,9 @@ if(isset($data[$baseId])) {
                     $data[$uniqueId]['materialString'] = $materialString;
                     $data[$uniqueId]['availableLengthString'] = $availableLengthString;
                     $data[$uniqueId]['colorString'] = $colorString;
-                    $data[$uniqueId]['iconRequired'] = $iconRequired;
+                    $data[$uniqueId]['iconRequired'] = $this->iconRequired;
                     $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
-                    $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                    $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                     $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
 
                     array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
@@ -1301,6 +1270,8 @@ if(isset($data[$baseId])) {
 
                 array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
+
+            unset($this->featuresList);
             
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -1320,7 +1291,7 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -1334,38 +1305,18 @@ if(isset($data[$baseId])) {
 
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
-            $iconRequired = 'NO';
-            $subHeaderRequired = 'NO';
-            $columnsData = json_decode($columnsData, true);
-            $columnsDataWithImages = array();
+            $objColumnsData = $template->getColumns();
+            $this->iconRequired = 'NO';
+            $this->subHeaderRequired = 'NO';
+            $this->columnsData = json_decode($objColumnsData, true);
 
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            foreach ($columnsData as $key => $value) {
-
-                $groupColumnName = $value['columnName'];
-                if(isset($value['groupName']) && $value['groupName'])
-                {
-                    $groupColumnName = $value['groupName'];
-                    $subHeaderRequired = 'YES';
-                }
-
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                if ($iconRequired == 'YES')
-                {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                }
-            }
-
-
-            unset($columnsData);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
 
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -1419,9 +1370,9 @@ if(isset($data[$baseId])) {
                 $data[$uniqueId]['imageObj'] = $imageObj;
                 $data[$uniqueId]['longDescription'] = $longDescription;
                 $data[$uniqueId]['materialString'] = $materialString;
-                $data[$uniqueId]['iconRequired'] = $iconRequired;
+                $data[$uniqueId]['iconRequired'] = $this->iconRequired;
                 $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
-                $data[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                 $data[$uniqueId]['articlesData'] = $articlesData;
 
             }
@@ -1444,7 +1395,7 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -1457,37 +1408,17 @@ if(isset($data[$baseId])) {
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
-            $iconRequired = 'NO';
-            $subHeaderRequired = 'NO';
-            $columnsData = json_decode($columnsData, true);
-            $columnsDataWithImages = array();
-
+            $objColumnsData = $template->getColumns();
+            $this->iconRequired = 'NO';
+            $this->subHeaderRequired = 'NO';
+            $this->columnsData = json_decode($objColumnsData, true);
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            foreach ($columnsData as $key => $value) {
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
 
-                $groupColumnName = $value['columnName'];
-                if(isset($value['groupName']) && $value['groupName'])
-                {
-                    $groupColumnName = $value['groupName'];
-                    $subHeaderRequired = 'YES';
-                }
-
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                if ($iconRequired == 'YES')
-                {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                }
-            }
-
-            unset($columnsData);
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
@@ -1527,9 +1458,9 @@ if(isset($data[$baseId])) {
 
                         $uniqueId = md5($brandName);
                         $brandData[$uniqueId]['brandName'] = $brandName;
-                        $brandData[$uniqueId]['iconRequired'] = $iconRequired;
+                        $brandData[$uniqueId]['iconRequired'] = $this->iconRequired;
                         $brandData[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
-                        $brandData[$uniqueId]['subHeaderRequired'] = $subHeaderRequired;
+                        $brandData[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
 
                         $articlesData = array();
 
@@ -1592,7 +1523,6 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogGrouping = array();
@@ -1632,7 +1562,6 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -1787,7 +1716,7 @@ if(isset($data[$baseId])) {
             $commonHelper = \Pimcore::getContainer()->get('app.common_helper');
 
             $attributeImagesConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig();
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesHYDFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesHYDFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -1801,37 +1730,18 @@ if(isset($data[$baseId])) {
 
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
-            $iconRequired = 'YES';
-            $subHeaderRequired = 'NO';
-            $columnsData = json_decode($columnsData, true);
-            $columnsDataWithImages = array();
+            $objColumnsData = $template->getColumns();
+            $this->iconRequired = 'YES';
+            $this->subHeaderRequired = 'NO';
+            $this->columnsData = json_decode($objColumnsData, true);
+            // $columnsDataWithImages = array();
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
 
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            foreach ($columnsData as $key => $value) {
-
-                $groupColumnName = $value['columnName'];
-                if(isset($value['groupName']) && $value['groupName'])
-                {
-                    $groupColumnName = $value['groupName'];
-                    $subHeaderRequired = 'YES';
-                }
-
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-                $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                if ($iconRequired == 'YES')
-                {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                }
-            }
-
-            unset($columnsData);
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
 
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -1876,7 +1786,6 @@ if(isset($data[$baseId])) {
                     $data[$uniqueId]['imageObj'] = $imageObj;
                     $data[$uniqueId]['shortDescription'] = $shortDescription;
                     $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
-                    $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
                     // array_multisort (array_column($articlesData, $headerKeysIndex['FlangePatternDimensionAInAndMMDecimal']), SORT_ASC, $articlesData);
 
@@ -1891,8 +1800,8 @@ if(isset($data[$baseId])) {
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
             $this->view['data'] = $data;
-            $this->view['iconRequired'] = $iconRequired;
-            $this->view['subHeaderRequired'] = $subHeaderRequired;
+            $this->view['iconRequired'] = $this->iconRequired;
+            $this->view['subHeaderRequired'] = $this->subHeaderRequired;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
         }
@@ -1965,7 +1874,7 @@ if(isset($data[$baseId])) {
 
             $priceListTableColumn = $commonHelper->getParameter($priceListTableConfig, 'priceListTableColumn');
             $priceListCurrency = $commonHelper->getParameter($priceListTableConfig, 'priceListCurrency');
-            $attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
+            $this->attributeImages = $commonHelper->getParameter($attributeImagesConfig, 'attributeImages');
             $CatalogImagesPTGFooter = $commonHelper->getParameter($attributeImagesConfig, 'CatalogImagesPTGFooter');
 
             $catalogCategoryObj = DataObject\CatalogCategory::getById($template->getParentId());
@@ -1985,51 +1894,28 @@ if(isset($data[$baseId])) {
             $headerKeys = array_keys($headerData);
             $headerKeysIndex = array_flip($headerKeys);
 
-            $columnsData = $template->getColumns();
+            $objColumnsData = $template->getColumns();
 
 
-            $iconRequired = 'YES';
-            $columnsData = json_decode($columnsData, true);
+            $this->iconRequired = 'YES';
+            $this->columnsData = json_decode($objColumnsData, true);
 
             if($IsPriceCatalog)
             {
-                $columnsData['listPrice']['columnName'] = 'listPrice';
-                $columnsData['listPrice']['columnLabel'] = 'listPrice';
-                $columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
+                $this->columnsData['listPrice']['columnName'] = 'listPrice';
+                $this->columnsData['listPrice']['columnLabel'] = 'listPrice';
+                $this->columnsData['listPrice']['unitName'] = $priceListCurrency[$Currency];
             }
             
             $this->get('translator')->setLocale($CatalogLanguage);
 
-            $subHeaderRequired = 'NO';
-            $groupSubHeaderData = array();
-            foreach ($columnsData as $key => $value) {
+            $this->subHeaderRequired = 'NO';
 
-                $groupColumnName = $value['columnName'];
-                if(isset($value['groupName']) && $value['groupName'])
-                {
-                    $groupColumnName = $value['groupName'];
-                    $subHeaderRequired = 'YES';
-                }
-
-                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
-
-                if($value['columnName'] == 'listPrice')
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
-                else
-                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $this->get('translator')->trans($value['unitName']);
-
-                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
-                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
-
-                if ($iconRequired == 'YES')
-                {
-                    $attributeImagesSrc = $attributeImages[$groupColumnName];
-                    $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
-                    $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
-                }
-            }
-
-            unset($columnsData);
+            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+            
+            unset($objColumnsData);
+            unset($this->columnsData);
+            unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
@@ -2042,7 +1928,7 @@ if(isset($data[$baseId])) {
                 }
             }
 
-            $featuresList = $this->getFeaturesList('', $CatalogLanguage);
+            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
             $materialList = $this->getMaterialList('PTG~material', $CatalogLanguage);
 
             $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4,5,6) ";
@@ -2186,7 +2072,7 @@ if(isset($data[$baseId])) {
                 }
                 unset($brandsData);
 
-                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures, $featuresList);
+                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
 
                 $reinforcement = array_unique($reinforcement);
                 $reinforcement = implode(', ', $reinforcement);
@@ -2210,8 +2096,8 @@ if(isset($data[$baseId])) {
                     $reinforcementStr = $reinforcement;
 
                 $groupData = array();
-                $groupData['subHeaderRequired'] = $subHeaderRequired;
-                $groupData['iconRequired'] = $iconRequired;
+                $groupData['subHeaderRequired'] = $this->subHeaderRequired;
+                $groupData['iconRequired'] = $this->iconRequired;
                 $groupData['material'] = $materialStr;
                 $groupData['reinforcement'] = $reinforcementStr;
                 $groupData['safetyFeatures'] = $safetyFeaturesList;
@@ -2229,6 +2115,7 @@ if(isset($data[$baseId])) {
                 unset($brandsData);
                 unset($mainImageObj);
                 unset($ProfileDimensionImageObj);
+                unset($this->featuresList);
 
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -2240,7 +2127,7 @@ if(isset($data[$baseId])) {
         }
     }
 
-    public function getFiveSortedFeaturesWithIconList($safetyFeatures, $featuresList){
+    public function getFiveSortedFeaturesWithIconList($safetyFeatures){
         
         $safetyFeatures = array_unique($safetyFeatures);
 
@@ -2251,15 +2138,15 @@ if(isset($data[$baseId])) {
         if($safetyFeatures)
         {
             foreach ($safetyFeatures as $fkey => $fvalue) {
-                if($featuresList[$fvalue]['icon'])
+                if($this->featuresList[$fvalue]['icon'])
                 {
                     if(!isset($this->s3srcArr[$fvalue]))
-                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($featuresList[$fvalue]['icon']);
+                        $this->s3srcArr[$fvalue] = $this->getS3ImageSrc($this->featuresList[$fvalue]['icon']);
 
-                    $safetyFeaturesListWithImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->s3srcArr[$fvalue], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
                 }
                 else
-                    $safetyFeaturesListWithOutImage[] = array('name'=>$featuresList[$fvalue]['name'], 'iconSrc' => $featuresList[$fvalue]['icon'], 'SortOrder' =>$featuresList[$fvalue]['SortOrder']);
+                    $safetyFeaturesListWithOutImage[] = array('name'=>$this->featuresList[$fvalue]['name'], 'iconSrc' => $this->featuresList[$fvalue]['icon'], 'SortOrder' =>$this->featuresList[$fvalue]['SortOrder']);
             }
         }
 
@@ -2292,6 +2179,88 @@ if(isset($data[$baseId])) {
 
 
         return $s3src;
+    }
+
+    public function getColumnHeadersForCatalog($isTableNameColumnRequired = FALSE, $tableNameColumns = []){
+
+        $columnsDataWithImages = array();
+
+        if($isTableNameColumnRequired)
+        {
+            foreach ($this->columnsData as $dkey => $value) 
+            {
+                if(in_array($dkey,$tableNameColumns))
+                {
+                    $groupColumnName = $value['columnName'];
+                    if(isset($value['groupName']) && $value['groupName'])
+                    {
+                        $groupColumnName = $value['groupName'];
+                        $this->subHeaderRequired = 'YES';
+                    }
+
+                    $columnsDataWithImages[$groupColumnName][$dkey]['groupName'] = $value['groupName'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnWidth'] = $value['columnWidth'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['unitName'] = $this->get('translator')->trans($value['unitName']);
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnName'] = $value['columnName'];
+                    $columnsDataWithImages[$groupColumnName][$dkey]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                    if ($this->iconRequired == 'YES')
+                    {
+                        if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
+                        {
+                            $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                            $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                            $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $attributeImagesSrc;
+                        }
+                        else
+                        {
+                            $columnsDataWithImages[$groupColumnName][$dkey]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach ($this->columnsData as $key => $value) {
+
+                $groupColumnName = $value['columnName'];
+                if(isset($value['groupName']) && $value['groupName'])
+                {
+                    $groupColumnName = $value['groupName'];
+                    $this->subHeaderRequired = 'YES';
+                }
+
+                $columnsDataWithImages[$groupColumnName][$key]['groupName'] = $value['groupName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnWidth'] = $value['columnWidth'];
+
+                if($value['columnName'] == 'listPrice')
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = $value['unitName'];
+                else
+                    $columnsDataWithImages[$groupColumnName][$key]['unitName'] = ($value['unitName']) ? $this->get('translator')->trans($value['unitName']) : '';
+
+                $columnsDataWithImages[$groupColumnName][$key]['columnName'] = $value['columnName'];
+                $columnsDataWithImages[$groupColumnName][$key]['columnLabel'] = $this->get('translator')->trans($groupColumnName);
+
+                if ($this->iconRequired == 'YES')
+                {
+                    if(!isset($this->attrbuteImgS3Arr[$groupColumnName]))
+                    {
+                        $attributeImagesSrc = $this->attributeImages[$groupColumnName];
+                        $attributeImagesSrc = $this->getS3ImageSrc($attributeImagesSrc);
+                        $this->attrbuteImgS3Arr[$groupColumnName] = $attributeImagesSrc;
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $attributeImagesSrc;
+                    }
+                    else
+                    {
+                        $columnsDataWithImages[$groupColumnName][$key]['columnIcon'] = $this->attrbuteImgS3Arr[$groupColumnName];
+                    }
+                }
+            }
+        }
+
+        return $columnsDataWithImages;
     }
 
     public function templateIndexDescriptiveNumberAction(Request $request)
