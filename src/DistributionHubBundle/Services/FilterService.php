@@ -184,35 +184,50 @@ class FilterService
                         'position' => $i
                     ];
                 } elseif ($classDefinition->getFieldDefinition('localizedfields')) {
-                    $localizedTypes = $classDefinition->getFieldDefinition('localizedfields')->getChildren();
+                    $locfieldsDef = $classDefinition->getFieldDefinition('localizedfields');
 
-                    if (!empty($localizedTypes)) {
-                        foreach ($localizedTypes as $child) {
-                            if ($child->fieldtype === "fieldcontainer" || $child->fieldtype === "fieldset" || $child->fieldtype === "accordian") {
-                                if (!empty($child->getChilds())) {
-                                    foreach ($child->getChilds() as $child1stLevel) {
-                                        if ($child1stLevel->fieldtype === "fieldcontainer" || $child1stLevel->fieldtype === "fieldset" || $child1stLevel->fieldtype === "accordian") {
-                                            if (!empty($child1stLevel->getChilds())) {
-                                                foreach ($child1stLevel->getChilds() as $child2ndLevel) {
-                                                    if ($child2ndLevel->fieldtype === $attrInfo->dataType) {
-                                                        $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child2ndLevel, $attrInfo, $i);
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            if ($child1stLevel->fieldtype === $attrInfo->dataType) {
-                                                $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child1stLevel, $attrInfo, $i);
-                                            }
-                                        }
-                                    }
-                                }
-                            } else {
-                                if ($child->fieldtype === $attrInfo->dataType) {
-                                    $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child, $attrInfo, $i);
-                                }
-                            }
-                        }
+                    if($locfieldsDef->getFieldDefinition($attrInfo->attribute)){
+                        $gridConfigPrepare['columns'][$index] = [
+                            'key' => $attrInfo->attribute,
+                            'type' => $attrInfo->dataType,
+                            'label' => $attrInfo->label,
+                            'config' => [
+                                'width' => 150
+                            ],
+                            'layout' => $locfieldsDef->getFieldDefinition($attrInfo->attribute),
+                            'position' => $i
+                        ];
                     }
+
+//                    $localizedTypes = $classDefinition->getFieldDefinition('localizedfields')->getChildren();
+
+//                    if (!empty($localizedTypes)) {
+//                        foreach ($localizedTypes as $child) {
+//                            if ($child->fieldtype === "fieldcontainer" || $child->fieldtype === "fieldset" || $child->fieldtype === "accordian") {
+//                                if (!empty($child->getChilds())) {
+//                                    foreach ($child->getChilds() as $child1stLevel) {
+//                                        if ($child1stLevel->fieldtype === "fieldcontainer" || $child1stLevel->fieldtype === "fieldset" || $child1stLevel->fieldtype === "accordian") {
+//                                            if (!empty($child1stLevel->getChilds())) {
+//                                                foreach ($child1stLevel->getChilds() as $child2ndLevel) {
+//                                                    if ($child2ndLevel->fieldtype === $attrInfo->dataType) {
+//                                                        $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child2ndLevel, $attrInfo, $i);
+//                                                    }
+//                                                }
+//                                            }
+//                                        } else {
+//                                            if ($child1stLevel->fieldtype === $attrInfo->dataType) {
+//                                                $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child1stLevel, $attrInfo, $i);
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            } else {
+//                                if ($child->fieldtype === $attrInfo->dataType) {
+//                                    $gridConfigPrepare['columns'][$index] = self::prepareGridConfig($child, $attrInfo, $i);
+//                                }
+//                            }
+//                        }
+//                    }
                 } else {
                     throw new \Exception("Show in Grid Error - '" . $attrInfo->attribute . "' is not supported in grid Preview, Please select other field types");
                 }
@@ -465,7 +480,7 @@ class FilterService
         if (!$assetObject instanceof \Pimcore\Model\Asset\Text) {
             throw new \Exception('Filter by List : Only csv file type supported');
         }
-        
+
         //$fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
         // path with s3 protocol
         $fullPath = $assetObject->getFileSystemPath();
