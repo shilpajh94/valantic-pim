@@ -124,7 +124,7 @@ class FilterService
             $templateColumns = $columnsMapping->templateAttribute;
             if (!empty($showInGrid) && !empty($selectedGridColumns)) {
                 $showInGridCols = self::showInGridCols($showInGrid['0'], $selectedGridColumns, $templateColumns);
-
+                
                 return self::createGridConfig($showInGridCols, $classId);
             }
         } else {
@@ -183,6 +183,8 @@ class FilterService
                         'layout' => $classDefinition->getFieldDefinition($attrInfo->attribute),
                         'position' => $i
                     ];
+                    $i++;
+                    $index++;
                 } elseif ($classDefinition->getFieldDefinition('localizedfields')) {
                     $locfieldsDef = $classDefinition->getFieldDefinition('localizedfields');
 
@@ -197,7 +199,10 @@ class FilterService
                             'layout' => $locfieldsDef->getFieldDefinition($attrInfo->attribute),
                             'position' => $i
                         ];
+                        $i++;
+                        $index++;
                     }
+
 
 //                    $localizedTypes = $classDefinition->getFieldDefinition('localizedfields')->getChildren();
 
@@ -231,8 +236,7 @@ class FilterService
                 } else {
                     throw new \Exception("Show in Grid Error - '" . $attrInfo->attribute . "' is not supported in grid Preview, Please select other field types");
                 }
-                $i++;
-                $index++;
+
             }
 
             return $gridConfigPrepare;
