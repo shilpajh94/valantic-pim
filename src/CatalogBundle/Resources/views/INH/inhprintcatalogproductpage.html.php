@@ -196,31 +196,31 @@ if (isset($info['brandsData'])) {
                                                 <div class="spec-requirement flex">
                                                     <div class="col-6">
                                                         <?php if (!empty(trim($brand['brandData']['tubeMaterial']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Tube Material') ?></b>
                                                                 <?= $brand['brandData']['tubeMaterial'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['coverMaterial']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Cover Material') ?></b>
                                                                 <?= $brand['brandData']['coverMaterial'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
                                                                 <?= $brand['brandData']['reinforcement'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Temperature Range') ?></b>
                                                                 <?= $brand['brandData']['temperatureRangeFAndC'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
                                                         
                                                     </div>
@@ -282,8 +282,10 @@ if (isset($info['brandsData'])) {
                                             foreach ($GroupingFields as $gkey => $fittingTableName):
                                             $tableKey = md5($key.$gkey);
                                         ?>
+
                                             <?php if($key): ?>
-                                            <h5 class="marginTop"><?= $brandKey. " ". $key ?> </h5>
+<aside class="flex borders">
+                                            <h5 class="marginTop "><?= $brandKey. " ". $key ?> </h5>
                                             <?php endif; ?>
                                             <?php if($fittingTableName['orderCodes']): ?>
                                             <div class="flex alignCenter"><b>Order Codes :</b> 
@@ -298,6 +300,7 @@ if (isset($info['brandsData'])) {
                                                     <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"]) ?>
                                             <?php endif; ?>
                                             </div>
+</aside>
                                             <?php endif; ?>
 
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
