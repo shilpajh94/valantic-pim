@@ -168,34 +168,29 @@ pimcore.plugin.distributionhub.tabs.shareConfig = Class.create(pimcore.element.a
         let form = this.settingsForm;
         let values = form.getForm().getFieldValues();
         let shared_users = Ext.getCmp('shared_users'+this.channelId).getValue();
-        let shared_roles = Ext.getCmp('shared_roles'+this.channelId).getValue()
+        let shared_roles = Ext.getCmp('shared_roles'+this.channelId).getValue();
         let share_globally = values.share_globally;
-       if (form.isValid()) {
-          // if (shared_users.length > 0 || shared_roles.length > 0 || share_globally != false) {
-               form.submit({
-                   url: '/admin/distributionhub/share/save',
-                   method: 'POST',
-                   type:"json",
-                   params: {
-                       channelId: this.channelId,
-                       shared_users: shared_users,
-                       shared_roles: shared_roles,
-                   },
-                   waitMsg: "Wait...",
-                   success: function (form, response) {
-                       response = response.response;
-                       response = Ext.decode(response.responseText);
-                   },
-                   failure: function (form, response) {
-                       response = response.response;
-                       response = Ext.decode(response.responseText);
-                       Ext.MessageBox.alert(t('dHub_failure'), t(response.msg));
-                   }
-               });
-          /* }else{
-               Ext.MessageBox.alert(t('dHub_warning'), t('dHub_shared_mandatory_field'));
-               return;
-           }*/
+        if (form.isValid()) {
+            form.submit({
+                url: '/admin/distributionhub/share/save',
+                method: 'POST',
+                type:"json",
+                params: {
+                    channelId: this.channelId,
+                    shared_users: shared_users,
+                    shared_roles: shared_roles
+                },
+                waitMsg: "Wait...",
+                success: function (form, response) {
+                    response = response.response;
+                    response = Ext.decode(response.responseText);
+                },
+                failure: function (form, response) {
+                    response = response.response;
+                    response = Ext.decode(response.responseText);
+                    Ext.MessageBox.alert(t('dHub_failure'), t(response.msg));
+                }
+            });
         }
     },
 });

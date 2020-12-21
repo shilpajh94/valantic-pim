@@ -6,7 +6,8 @@ use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 use Pimcore\Model\User\Permission\Definition;
 use DistributionHubBundle\Installer;
 
-class DistributionHubBundle extends AbstractPimcoreBundle {
+class DistributionHubBundle extends AbstractPimcoreBundle
+{
 
     /**
      * @return Installer
@@ -16,10 +17,11 @@ class DistributionHubBundle extends AbstractPimcoreBundle {
         return $this->container->get(Installer::class);
     }
 
-    public function getJsPaths() {
+    public function getJsPaths()
+    {
         return [
             '/bundles/distributionhub/js/pimcore/startup.js',
-//            '/bundles/distributionhub/js/pimcore/toolbar.js',
+            '/bundles/distributionhub/js/pimcore/toolbar.js',
             '/bundles/distributionhub/js/pimcore/mappingPanel.js',
             '/bundles/distributionhub/js/pimcore/mappingLeftPanel.js',
             '/bundles/distributionhub/js/pimcore/configItem.js',
@@ -73,10 +75,10 @@ class DistributionHubBundle extends AbstractPimcoreBundle {
         ];
     }
 
-    public function getCssPaths() {
+    public function getCssPaths()
+    {
         return [
             '/bundles/distributionhub/css/dHub.css'
         ];
     }
-
 }

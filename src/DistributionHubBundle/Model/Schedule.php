@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 class Schedule extends AbstractModel
 {
     public $time;
@@ -44,10 +43,9 @@ class Schedule extends AbstractModel
      */
     public function setFTPDetail(FTPDetail $ftpDetail)
     {
-        if($ftpDetail->getId()){
+        if ($ftpDetail->getId()) {
             $this->ftpDetailId = $ftpDetail->getId();
         }
-
     }
 
     /**
@@ -56,7 +54,7 @@ class Schedule extends AbstractModel
     public function getFTPDetail(): ?FTPDetail
     {
         $ftp = null;
-        if($this->ftpDetailId){
+        if ($this->ftpDetailId) {
             $ftp = FTPDetail::getById($this->ftpDetailId);
         }
         return $ftp;
@@ -67,7 +65,7 @@ class Schedule extends AbstractModel
      */
     public function setChannel(Channel $channel)
     {
-        if($channel->getId()){
+        if ($channel->getId()) {
             $this->channelId = $channel->getId();
         }
     }
@@ -78,7 +76,7 @@ class Schedule extends AbstractModel
     public function getChannel(): ?Channel
     {
         $channel = null;
-        if($this->channelId){
+        if ($this->channelId) {
             $channel = Channel::getById($this->channelId);
         }
         return $channel;
@@ -122,7 +120,7 @@ class Schedule extends AbstractModel
      */
     public function getTime()
     {
-        if($this->time){
+        if ($this->time) {
             return $this->getDateFromTimestamp($this->time);
         }
         return $this->time;
@@ -133,7 +131,7 @@ class Schedule extends AbstractModel
      */
     public function setTime($time): void
     {
-        if($time instanceof \DateTime){
+        if ($time instanceof \DateTime) {
             $time = $time->getTimestamp();
         }
         $this->time = $time;
@@ -176,7 +174,7 @@ class Schedule extends AbstractModel
      */
     public function getExpiryTime()
     {
-        if($this->expiryTime){
+        if ($this->expiryTime) {
             return $this->getDateFromTimestamp($this->expiryTime);
         }
         return $this->expiryTime;
@@ -187,7 +185,7 @@ class Schedule extends AbstractModel
      */
     public function setExpiryTime($expiryTime): void
     {
-        if($expiryTime instanceof \DateTime){
+        if ($expiryTime instanceof \DateTime) {
             $expiryTime = $expiryTime->getTimestamp();
         }
         $this->expiryTime = $expiryTime;
@@ -292,7 +290,7 @@ class Schedule extends AbstractModel
      */
     public function getExportProcessStartTime()
     {
-        if($this->exportProcessStartTime){
+        if ($this->exportProcessStartTime) {
             return $this->getDateFromTimestamp($this->exportProcessStartTime);
         }
         return $this->exportProcessStartTime;
@@ -303,7 +301,7 @@ class Schedule extends AbstractModel
      */
     public function setExportProcessStartTime($exportProcessStartTime): void
     {
-        if($exportProcessStartTime instanceof \DateTime){
+        if ($exportProcessStartTime instanceof \DateTime) {
             $exportProcessStartTime = $exportProcessStartTime->getTimestamp();
         }
         $this->exportProcessStartTime = $exportProcessStartTime;
@@ -314,7 +312,7 @@ class Schedule extends AbstractModel
      */
     public function getExportProcessEndTime()
     {
-        if($this->exportProcessEndTime){
+        if ($this->exportProcessEndTime) {
             return $this->getDateFromTimestamp($this->exportProcessEndTime);
         }
         return $this->exportProcessEndTime;
@@ -325,7 +323,7 @@ class Schedule extends AbstractModel
      */
     public function setExportProcessEndTime($exportProcessEndTime): void
     {
-        if($exportProcessEndTime instanceof \DateTime){
+        if ($exportProcessEndTime instanceof \DateTime) {
             $exportProcessEndTime = $exportProcessEndTime->getTimestamp();
         }
         $this->exportProcessEndTime = $exportProcessEndTime;
@@ -336,7 +334,7 @@ class Schedule extends AbstractModel
      */
     public function getCreationDate()
     {
-        if($this->creationDate){
+        if ($this->creationDate) {
             return $this->getDateFromTimestamp($this->creationDate);
         }
         return $this->creationDate;
@@ -347,7 +345,7 @@ class Schedule extends AbstractModel
      */
     public function setCreationDate($creationDate): void
     {
-        if($creationDate instanceof \DateTime){
+        if ($creationDate instanceof \DateTime) {
             $creationDate = $creationDate->getTimestamp();
         }
         $this->creationDate = $creationDate;

@@ -45,7 +45,6 @@ class BasicConfigController extends AdminController
         }
 
         return $this->json(["classes" => $fieldArray]);
-
     }
 
     /**
@@ -60,18 +59,15 @@ class BasicConfigController extends AdminController
 
         try {
             $result = $basicConfigService->validateUploadedFile($_FILES['file']);
-
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
             DHubLogger::log("Error reading uploaded file in BasicConfigController readUploadedFile:".$exception->getMessage(), DHubLogger::INFO);
             return $this->json(['success' => false, 'msg' => $this->trans('dHub_file_not_valid') ]);
-
         } catch (\Exception $exception) {
             DHubLogger::log("Error reading uploaded file BasicConfigController readUploadedFile:".$exception->getMessage(), DHubLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
 
         return $this->json(["success" => true, "fileType" => $result['fileType'], 'sheetNames' => $result['sheetNames'], 'fileName' => $result['fileName']]);
-
     }
 
     /**
@@ -89,13 +85,13 @@ class BasicConfigController extends AdminController
         try {
             $result = $basicConfigService->validateUploadedFile($_FILES['file']);
 
-            if($result['fileType'] === Constants::FILE_TYPE_CSV){
+            if ($result['fileType'] === Constants::FILE_TYPE_CSV) {
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/'.$bundleService->getConfig('tmp_template_upload_pimcore_dir');
 
                 $uploadedFilePath = $tmpUploadPathfolder . $result['fileName'] ;
-                try{
+                try {
                     $asset = $basicConfigService->addFileInAsset($uploadedFilePath, $channelName);
-                }catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     DHubLogger::log("Error creating asset for uploaded file: ".$exception->getMessage(), DHubLogger::CRITICAL);
                     $msg = $this->trans("dHub_error_uploading_file");
                     return $this->json(['success' => false, 'msg' => $msg]);
@@ -103,11 +99,9 @@ class BasicConfigController extends AdminController
                 $newAssetFileName = $asset->getFilename();
                 $newAsseetId = $asset->getId();
             }
-
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $exception) {
             DHubLogger::log("Error reading uploaded file in Filter configuration readUploadedFile:".$exception->getMessage(), DHubLogger::INFO);
             return $this->json(['success' => false, 'msg' => $this->trans('dHub_file_not_valid') ]);
-
         } catch (\Exception $exception) {
             DHubLogger::log("Error reading uploaded file :".$exception->getMessage(), DHubLogger::INFO);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
@@ -125,7 +119,7 @@ class BasicConfigController extends AdminController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function save(Request $request, BasicConfigService $basicConfigService,BundleService $bundleService)
+    public function save(Request $request, BasicConfigService $basicConfigService, BundleService $bundleService)
     {
         $channelId = $request->get('channelId');
         $pimcoreClassId = $request->get('pimcoreClassId');
@@ -150,7 +144,7 @@ class BasicConfigController extends AdminController
 
         if ($channel) {
             $channel->setPimcoreClassId($pimcoreClassId);
-            if(!$channel->getColumnAttributeMapping()){
+            if (!$channel->getColumnAttributeMapping()) {
                 $mappingAttributes = $this->encodeJson(ChannelService::getMappingInfo([], $pimcoreClassId));
                 $channel->setColumnAttributeMapping($mappingAttributes);
             }
@@ -159,20 +153,20 @@ class BasicConfigController extends AdminController
             if ($fileType) {
                 $channel->setHeaderMappingFileType($fileType);
             }
-            if ($fileType == Constants::FILE_TYPE_EXCEL) {
+            if ($fileType === Constants::FILE_TYPE_EXCEL) {
                 $channel->setSheetNumberInMappingFile($sheetNumberInExcel);
                 $channel->setHeaderRowNumberInMappingFile($rowNumberInExcel);
 
                 $channel->setMappingFileCSVDelimiter(null);
-            } elseif ($fileType == Constants::FILE_TYPE_CSV) {
+            } elseif ($fileType === Constants::FILE_TYPE_CSV) {
                 $channel->setSheetNumberInMappingFile(null);
                 $channel->setHeaderRowNumberInMappingFile(null);
 
                 $channel->setMappingFileCSVDelimiter($csvDelimiter);
             }
-            if($exportFileUploadPath){
+            if ($exportFileUploadPath) {
                 $channel->setExportFilePath($exportFileUploadPath);
-            }else{
+            } else {
                 $channel->setExportFilePath($bundleService->getDefaultAssetFolderPathForExportedFiles());
             }
 
@@ -181,9 +175,9 @@ class BasicConfigController extends AdminController
                 $tmpUploadPathfolder = PIMCORE_PROJECT_ROOT . '/'.$bundleService->getConfig('tmp_template_upload_pimcore_dir');
 
                 $uploadedFilePath = $tmpUploadPathfolder . $newlyUploadedFileName;
-                try{
-                    $asset = $basicConfigService->addFileInAsset($uploadedFilePath,$channel->getName());
-                }catch (\Exception $exception){
+                try {
+                    $asset = $basicConfigService->addFileInAsset($uploadedFilePath, $channel->getName());
+                } catch (\Exception $exception) {
                     DHubLogger::log("Error creating asset for uploaded file in BasicConfigController save:".$exception->getMessage(), DHubLogger::CRITICAL);
                     $msg = $this->trans("dHub_error_saving_channel");
                     return $this->json(['success' => false, 'msg' => $msg]);
@@ -197,27 +191,27 @@ class BasicConfigController extends AdminController
 
             $ftpDetails = $channel->getFTPDetails();
             $newFTPCreated = false;
-            if(count($ftpDetails) == 0){
+            if (count($ftpDetails) === 0) {
                 $newFTPCreated = true;
                 $ftp = new FTPDetail();
-            }else{
+            } else {
                 $ftp = $ftpDetails[0];
             }
-            if($ftpServerAddress != null && $ftpPort != null ){
+            if ($ftpServerAddress != null && $ftpPort != null) {
                 $ftp->setName($ftpName);
                 $ftp->setServerAddress($ftpServerAddress);
                 $ftp->setServerPort($ftpPort);
                 $ftp->setUserName($ftpUserName);
                 $ftp->setPassword($ftpPassword);
 
-                try{
+                try {
                     $ftp->save();
-                }catch (NotNullConstraintViolationException $exception) {
+                } catch (NotNullConstraintViolationException $exception) {
                     DHubLogger::log("Error saving FTP for channel ($channelId) in BasicConfigController save :".$exception->getMessage(), DHubLogger::CRITICAL);
 
                     $msg = $this->trans('mandatory_field_check_failed');
                     return $this->json(['success' => false, 'msg' => $msg]);
-                }catch (\Exception $exception) {
+                } catch (\Exception $exception) {
                     DHubLogger::log("Error saving FTP for channel ($channelId) in BasicConfigController save : ".$exception->getMessage(), DHubLogger::CRITICAL);
                     return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
                 }
@@ -226,7 +220,7 @@ class BasicConfigController extends AdminController
 
             try {
                 $channel->save();
-            }catch (NotNullConstraintViolationException $exception) {
+            } catch (NotNullConstraintViolationException $exception) {
                 if ($asset) {
                     $asset->delete();
                 }
@@ -240,7 +234,7 @@ class BasicConfigController extends AdminController
                 DHubLogger::log("Error saving channel ($channelId) in BasicConfigController save:".$exception->getMessage(), DHubLogger::CRITICAL);
                 return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
             }
-            if($uploadedFilePath){
+            if ($uploadedFilePath) {
                 unlink($uploadedFilePath);
             }
 
@@ -249,12 +243,10 @@ class BasicConfigController extends AdminController
                 'newAssetFileName' => $newAssetFileName,
                 'newAssetId' => $newAsseetId
             ]);
-
         } else {
             $msg = $this->trans('dHub_channel_not_found_relaod_admin');
             return $this->json(['success' => false, 'msg' => $msg]);
         }
-
     }
 
 
@@ -272,7 +264,7 @@ class BasicConfigController extends AdminController
         $filter = new \DistributionHubBundle\Model\Filter();
         $filter->setObjectType(AbstractObject::OBJECT_TYPE_VARIANT);
         $filter->save();
-        if($channel){
+        if ($channel) {
             $channel->setColumnAttributeMapping($mappingAttributes);
             $channel->setFilter($filter);
             $channel->setShowInGridMapping(null);
@@ -286,11 +278,11 @@ class BasicConfigController extends AdminController
             $scheduleList = new \DistributionHubBundle\Model\Schedule\Listing();
             $scheduleList->setCondition("channelId = ".$channelId." ");
             $scheduleList->load();
-            if(!empty($scheduleList->getItems())){
+            if (!empty($scheduleList->getItems())) {
                 foreach ($scheduleList->getItems() as $schedule) {
-                    $schedule->delete(); 
+                    $schedule->delete();
                 }
-            } 
+            }
             $channel->save();
 
             return $this->json(['success' => true, 'msg' => "channel resetted"]);

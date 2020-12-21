@@ -58,7 +58,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                 containerScroll: true,
                 viewConfig: {
                     listeners: {
-                        //TODO::write here your code logic
+                        
                     },
                     xtype: 'custompimcoretreeview'
                 },
@@ -68,9 +68,8 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                     text: t('home'),
                     expanded: true,
                     reload: true,
-                    //type: "folder",
                     draggable: false,
-                    allowChildren: true,
+                    allowChildren: true
                 },
                 listeners: this.getTreeNodeListeners(),
                 tbar: {
@@ -82,7 +81,6 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                 }
             });
         }
-        //this.myChannelTree.getRootNode().expand();
         return this.tree;
     },
     getSharedChannelTree:function f() {
@@ -100,10 +98,10 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                     },
                     extraParams: {
                         limit: 15,
-                        type:"shared",
+                        type:"shared"
                     }
                 },
-                pageSize: 15,
+                pageSize: 15
             });
 
             this.sharedChannelTree = Ext.create('Ext.tree.Panel', {
@@ -112,14 +110,12 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                 rootVisible: true,
                 header: {
                     style: {
-                       // backgroundColor: 'blue',
                     }
                 },
                 autoScroll: true,
                 containerScroll: true,
                 viewConfig: {
                     listeners: {
-                        //TODO::write here your code logic
                     },
                     xtype: 'custompimcoretreeview'
                 },
@@ -130,14 +126,11 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                     expanded: true,
                     reload: true,
                     collapsed:false,
-                    //type: "folder",
-                    draggable: false,
-                    //allowChildren: true,
+                    draggable: false
                 },
-                listeners: this.getTreeNodeListeners('shared'),
+                listeners: this.getTreeNodeListeners('shared')
             });
         }
-        //this.sharedChannelTree.getRootNode().expand();
         return this.sharedChannelTree;
     },
     getChannelEditContainer: function() {
@@ -158,7 +151,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                                           index, eOpts) {
                 newChildNode.data.leaf = true;
                 newChildNode.data.expaned = true;
-                newChildNode.data.iconCls = "pimcore_icon_routes"
+                newChildNode.data.iconCls = "pimcore_icon_routes";
             }
         };
         }else{
@@ -169,7 +162,7 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                                               index, eOpts) {
                     newChildNode.data.leaf = true;
                     newChildNode.data.expaned = true;
-                    newChildNode.data.iconCls = "pimcore_icon_routes"
+                    newChildNode.data.iconCls = "pimcore_icon_routes";
                 }
             };
         }
@@ -203,20 +196,12 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
         });
     },
     onTreeNodeContextmenu: function (tree, record, item, index, e, eOpts) {
-       // if(record.data.id>0) {
             e.stopEvent();
 
             tree.select();
 
             const menu = new Ext.menu.Menu();
             if (record.data.allowChildren) {
-                /*menu.add(new Ext.menu.Item({
-                    text: t('create_folder'),
-                    iconCls: "pimcore_icon_folder pimcore_icon_overlay_add",
-                    listeners: {
-                      // "click": this.add.bind(this, "mychannelfolder", null, record)
-                    }
-                }));*/
                 menu.add(new Ext.menu.Item({
                     text: t('refresh'),
                     iconCls: "pimcore_icon_reload",
@@ -231,11 +216,11 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                 iconCls: "pimcore_icon_key",
                 handler: this.renameMapping.bind(this, tree, record)
             }));
-            menu.add(new Ext.menu.Item({
-                text: t('clone'),
-                iconCls: "pimcore_icon_clone",
-                handler: this.cloneMapping.bind(this, tree, record)
-            }));
+            // menu.add(new Ext.menu.Item({
+            //     text: t('clone'),
+            //     iconCls: "pimcore_icon_clone",
+            //     handler: this.cloneMapping.bind(this, tree, record)
+            // }));
             menu.add(new Ext.menu.Item({
                 text: t('delete'),
                 iconCls: "pimcore_icon_delete",
@@ -353,7 +338,6 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
 
             if (btnText === "yes") {
                 this.cloneFieldComplete(tree, options);
-                // completeCallback.copyInfo(options);
             }
         }, this);
     },
@@ -469,11 +453,11 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
     },
     add: function (type, cloneRecord, selectedRecord) {
         if (cloneRecord) {
-            rid = cloneRecord.data.id;
-            parentNode = cloneRecord.parentNode;
+            let rid = cloneRecord.data.id;
+            let parentNode = cloneRecord.parentNode;
         } else {
-            rid = 0;
-            parentNode = selectedRecord;
+            let rid = 0;
+            let parentNode = selectedRecord;
         }
         let pid = parentNode.data.id;
         Ext.MessageBox.prompt(t('add'), t('enter_the_name_of_the_new_item'), function (button, value, object) {
@@ -506,7 +490,6 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
             }
 
         } catch(e){
-            console.log(e);
             pimcore.helpers.showNotification(t("error"), t("user_creation_error"), "error");
         }
     },

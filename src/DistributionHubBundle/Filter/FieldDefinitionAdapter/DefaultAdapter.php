@@ -11,7 +11,8 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Db;
 use DistributionHubBundle\Lib\DHubLogger;
 
-class DefaultAdapter implements FieldDefinitionAdapterInterface {
+class DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
@@ -38,26 +39,29 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
      * DefaultAdapter constructor.
      * @param Service $service
      */
-    public function __construct(FilterService $service) {
+    public function __construct(FilterService $service)
+    {
         $this->service = $service;
     }
 
     /**
      * @param Data $fieldDefinition
      */
-    public function setFieldDefinition(Data $fieldDefinition) {
+    public function setFieldDefinition(Data $fieldDefinition)
+    {
         $this->fieldDefinition = $fieldDefinition;
     }
 
     /**
      * @param bool $considerInheritance
      */
-    public function setConsiderInheritance(bool $considerInheritance) {
+    public function setConsiderInheritance(bool $considerInheritance)
+    {
         $this->considerInheritance = $considerInheritance;
     }
 
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -68,7 +72,8 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
 
         $operator = $fieldFilter->getOperator();
         $fieldName = $fieldDefinition->getName();
@@ -78,29 +83,29 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
         $conditionParams = array();
 
         switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
+            case $operator === self::DHUB_OPERATOR_MUST:
                 $conditionParams['key'] = " `" . $fieldName . "` LIKE ? ";
                 $conditionParams['value'] = $value;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_SHOULD:
+            case $operator === self::DHUB_OPERATOR_SHOULD:
                 $conditionParams['key'] = " `" . $fieldName . "`  LIKE ? ";
                 $conditionParams['value'] = "%" . $value . "%";
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT:
+            case $operator === self::DHUB_OPERATOR_NOT:
                 $conditionParams['key'] = " `" . $fieldName . "` !=  ?";
                 $conditionParams['value'] = $value;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
+            case $operator === self::DHUB_OPERATOR_EXISTS:
                 $conditionParams['key'] = " `" . $fieldName . "`  IS NOT NULL";
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
+            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditionParams['key'] = " `" . $fieldName . "`  IS NULL ";
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
                 break;
         }
@@ -109,102 +114,105 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
     }
 
     /**
-     * Get localized query based on applied filter, 
-     * use queryBuilder prepared statements 
+     * Get localized query based on applied filter,
+     * use queryBuilder prepared statements
      *
      * @param array [$fieldName, $value, $lang]
-     * @param tableName for queryBuilder 
+     * @param tableName for queryBuilder
      *
      * @return $conditonParams
      *
      * @throws Exception
      */
-    public function getQueryForLocalized(array $details, $tableName) {
-
-        $db = Db::get();
-        // Use of queryBuilder for prepared statements
-        $queryBuilder = $db->createQueryBuilder();
-        
-        $fieldName = $details['0'];
-        $operator = $details['1'];
-        $value = $details['2'];
-        $lang = $details['3'];
-        if ($value == "object") {
-            return null;
-        }
-        switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                            $queryBuilder->expr()->andX(
-                                $queryBuilder->expr()->eq($fieldName, '"'.$value.'"'),
-                                $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                            ) 
-                        );
-                break;
-            case $operator == self::DHUB_OPERATOR_SHOULD:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                            $queryBuilder->expr()->andX(
-                                $queryBuilder->expr()->like($fieldName, '"%'.$value.'%"'),
-                                $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                            ) 
-                        );
-                break;
-            case $operator == self::DHUB_OPERATOR_NOT:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName)
-                    ->where(
-                            $queryBuilder->expr()->andX(
-                                $queryBuilder->expr()->neq($fieldName, '"'.$value.'"'),
-                                $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                            ) 
-                        );
-                break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName) 
-                    ->where(
-                            $queryBuilder->expr()->andX(
-                                $queryBuilder->expr()->isNotNull($fieldName, '?'),
-                                $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                            ) 
-                        ); 
-                break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
-                $queryBuilder
-                    ->select('ooo_id')
-                    ->from($tableName) 
-                    ->where(
-                            $queryBuilder->expr()->andX(
-                                $queryBuilder->expr()->isNull($fieldName, '?'),
-                                $queryBuilder->expr()->eq('language', '"'.$lang.'"')
-                            ) 
-                        ); 
-                break;
-        }
-
+    public function getQueryForLocalized(array $details, $tableName)
+    {
         try {
+            $db = Db::get();
+            // Use of queryBuilder for prepared statements
+            $queryBuilder = $db->createQueryBuilder();
+
+            $fieldName = $details['0'];
+            $operator = $details['1'];
+            $value = $details['2'];
+            $lang = $details['3'];
+            if ($value === "object") {
+                return null;
+            }
+            switch ($operator) {
+                case $operator === self::DHUB_OPERATOR_MUST:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->eq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_SHOULD:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->like($fieldName, '"%' . $value . '%"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->neq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNotNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+            }
+
+
             return $queryBuilder->execute()->fetchAll();
         } catch (Exception $ex) {
-            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);    
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - Localized is currently not supported. Please contact the administrator");
         }
     }
-    
+
     /**
      * Get Relational data query based on applied filter
-     * 
+     *
      * @param array [$fieldName, $value, $lang, $operator]
      *
      * @return $conditonParams
      */
-    public function getRelatedFilterData($fieldFilter) {
+    public function getRelatedFilterData($fieldFilter)
+    {
 
         $operator = $fieldFilter["operator"];
         $value = $fieldFilter["filterEntryData"];
@@ -212,34 +220,35 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
 
         $conditons = array();
         switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
+            case $operator === self::DHUB_OPERATOR_MUST:
                 $conditons[] = " `" . $fieldName . "`  =  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_SHOULD:
+            case $operator === self::DHUB_OPERATOR_SHOULD:
                 $conditons[] = " `" . $fieldName . "`  LIKE  '%" . $value . "%' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT:
+            case $operator === self::DHUB_OPERATOR_NOT:
                 $conditons[] = " `" . $fieldName . "`  !=  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
+            case $operator === self::DHUB_OPERATOR_EXISTS:
                 $conditons[] = " `" . $fieldName . "`  IS NOT NULL ";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
+            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditons[] = " `" . $fieldName . "`  IS NULL ";
                 break;
         }
 
         return $conditons;
     }
-    
+
     /**
      * Get CollectionsData data query based on applied filter
-     * 
+     *
      * @param array [$filterConditon]
      *
      * @return $conditonParams
      */
-    public function getCollectionsData($fieldFilter) {
+    public function getCollectionsData($fieldFilter)
+    {
 
         $filterConditon = $fieldFilter['filterCondition'];
         $operator = $filterConditon["operator"];
@@ -247,19 +256,19 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
         $fieldName = $filterConditon["fieldname"];
 
         switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
+            case $operator === self::DHUB_OPERATOR_MUST:
                 $conditon = " `" . $fieldName . "`  =  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_SHOULD:
+            case $operator === self::DHUB_OPERATOR_SHOULD:
                 $conditon = " `" . $fieldName . "`  LIKE  '%" . $value . "%' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT:
+            case $operator === self::DHUB_OPERATOR_NOT:
                 $conditon = " `" . $fieldName . "`  !=  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
+            case $operator === self::DHUB_OPERATOR_EXISTS:
                 $conditon = " `" . $fieldName . "`  IS NOT NULL ";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
+            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditon = " `" . $fieldName . "`  IS NULL ";
                 break;
         }
@@ -270,19 +279,23 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface {
     /**
      * @inheritdoc
      */
-    public function getExistsFilter($fieldFilter, $ignoreInheritance = false, $path = "") {
+    public function getExistsFilter($fieldFilter, $ignoreInheritance = false, $path = "")
+    {
         return true;
     }
 
     /**
      * @inheritdoc
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'operators' => [FilterEntry::MUST, FilterEntry::SHOULD, FilterEntry::MUST_NOT, FilterEntry::EXISTS, FilterEntry::NOT_EXISTS]
                     ]
         )];
     }
-
 }

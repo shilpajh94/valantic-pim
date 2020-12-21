@@ -70,7 +70,6 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
 
         var tree = new Ext.tree.TreePanel({
 
-            //tbar: headerConfig,
             region: "center",
             autoScroll: true,
             rootVisible: false,
@@ -80,11 +79,6 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             width: 500,
             root: {
                 id: "0"
-//                root: true,
-//                text: t("base"),
-//                allowDrag: false,
-//                leaf: true,
-//                isTarget: true
             },
             viewConfig: {
                 plugins: {
@@ -106,7 +100,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                 loadChilds: true
                             },
                             success: function (response) {
-                                result = Ext.decode(response.responseText);
+                                let result = Ext.decode(response.responseText);
 
                                 if (result) {
                                     outerScope.initClassFields(result, node);
@@ -114,8 +108,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                 loadBrickAttributes.hide();
                             },
                             failure: function (response) {
-                                Ext.MessageBox.hide();
-                                alert(t('dHub_error_loading_attr'));
+                                Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
                             }
                         });
                     }
@@ -129,7 +122,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                 brickName: node.data.brickName
                             },
                             success: function (response) {
-                                result = Ext.decode(response.responseText);
+                                let result = Ext.decode(response.responseText);
 
                                 if (result) {
                                     outerScope.initBrickFields(result, node);
@@ -137,8 +130,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                 loadBrickAttributes.hide();
                             },
                             failure: function (response) {
-                                Ext.MessageBox.hide();
-                                alert(t('dHub_error_loading_attr'));
+                                Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
                             }
                         });
                     }
@@ -148,7 +140,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                             url: "/admin/distributionhub/channel/getCollections",
                             method: 'POST',
                             success: function (response) {
-                                result = Ext.decode(response.responseText);
+                                let result = Ext.decode(response.responseText);
                                 $.each(result, function (index, collection) {
                                     var newNode = {
                                         type: "classification_collection",
@@ -161,12 +153,11 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                     };
 
                                     newNode = node.appendChild(newNode);
-                                })
-                                loadCollections.hide()
+                                });
+                                loadCollections.hide();
                             },
                             failure: function (response) {
-                                Ext.MessageBox.hide()
-                                alert(t('dHub_error_loading_attr'));
+                                Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
                             }
                         });
 
@@ -180,7 +171,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                 collectionId: node.data.id
                             },
                             success: function (response) {
-                                result = Ext.decode(response.responseText);
+                                let result = Ext.decode(response.responseText);
                                 $.each(result, function (index, group) {
                                     var newNode = {
                                         type: "classification_group",
@@ -193,10 +184,10 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                     };
 
                                     newNode = node.appendChild(newNode);
-                                })
+                                });
                             },
                             failure: function (response) {
-                                alert(t('dHub_error_loading_attr'));
+                                Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
                             }
                         });
                     }
@@ -209,7 +200,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                 groupId: node.data.id
                             },
                             success: function (response) {
-                                result = Ext.decode(response.responseText);
+                                let result = Ext.decode(response.responseText);
 
                                 var brickDescriptor = {};
                                 $.each(result, function (index, keyObj) {
@@ -227,10 +218,10 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
                                     };
                                     newNode = node.appendChild(newNode);
 
-                                })
+                                });
                             },
                             failure: function (response) {
-                                alert("Error in collection ");
+                                Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
 
                             }
                         });
@@ -401,17 +392,16 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
         }
 
         if (type != 'classificationstore') {
-            expandable = initData.childs.length
-            expanded = true,
-                    datatype = 'layouts'
+            expandable = initData.childs.length;
+            expanded = true;
+            datatype = 'layouts';
         } else {
-            expandable = 1
-            expanded = false
-            datatype = 'classificationstore_store'
+            expandable = 1;
+            expanded = false;
+            datatype = 'classificationstore_store';
         }
 
         var newNode = {
-            // type: "layout",
             type: datatype,
             expanded: expanded,
             expandable: expandable,
@@ -427,7 +417,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
     },
 
     addDataChild: function (type, initData, showFieldname, brickDescriptor) {
-        // && !initData.invisible
+        
         var notShow = ['isDummy', 'productId', 'keywords', 'manufacturer'];
 
         if (type != "objectbricks" && notShow.indexOf(initData.name) == -1) {

@@ -18,8 +18,9 @@ class Utils
      * @param string $filePath
      * @return mixed
      */
-    public static function getYmlConfig(string $filePath){
-
+    public static function getYmlConfig(string $filePath)
+    {
+        
         try {
             $yaml = new Parser();
             $value = $yaml->parseFile($filePath);
@@ -28,7 +29,6 @@ class Utils
             DHubLogger::log("Unable to parse the YAML string: %s". $e->getMessage(), DHubLogger::ERROR);
             throw new ParseException("Unable to parse the YAML string: %s ". $e->getMessage());
         }
-
     }
 
     /**
@@ -37,19 +37,21 @@ class Utils
      * @param $filePath
      * @return mixed
      */
-    public static function getCacheKeyForFilePath($filePath){
-        $cacheKey = str_replace("/","_",$filePath);
-        $cacheKey = str_replace("\\","_",$cacheKey);
+    public static function getCacheKeyForFilePath($filePath)
+    {
+        $cacheKey = str_replace("/", "_", $filePath);
+        $cacheKey = str_replace("\\", "_", $cacheKey);
         return $cacheKey;
     }
-
+    
     /**
      * returns available system languages
      *
      * @param
      * @return array
      */
-    public static function getAvailableLanguages() {
+    public static function getAvailableLanguages()
+    {
 
         $locales = \Pimcore\Tool::getSupportedLocales();
         $availableLanguages = \Pimcore\Tool::getValidLanguages();
@@ -77,6 +79,30 @@ class Utils
         if($thumbnail){
             $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
             $sourcePath = urldecode($appService->getFilenameAsPerResolution($sourcePath,"__" . $thumbnail));
+        }
+        return $sourcePath;
+    }
+
+    /**
+     * this will return the path with s3 protocol
+     * @param Image $asset
+     * @param null $thumbnail: example: "1200"
+     * for contitech
+     * @return string
+     */
+    public static function getImageOrThumbnailPathForDownload(Image $asset, $thumbnail = null): string
+    {
+//        $sourcePath = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($asset);
+        $sourcePath = $asset->getFileSystemPath();
+        if($thumbnail){
+            $pimcoreFilePath = $asset->getPath() . $asset->getFilename();
+            $s3Path = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class)->getS3PathForPimcorePath($pimcoreFilePath,true);
+            $s3Path = substr($s3Path, strlen('assets'));
+
+            $appService = \Pimcore::getKernel()->getContainer()->get(AppService::class);
+            $thumbnailS3Path = urldecode($appService->getFilenameAsPerResolution($s3Path,"__" . $thumbnail));
+
+            $sourcePath = "s3://" . S3_BUCKET .$thumbnailS3Path;
         }
         return $sourcePath;
     }

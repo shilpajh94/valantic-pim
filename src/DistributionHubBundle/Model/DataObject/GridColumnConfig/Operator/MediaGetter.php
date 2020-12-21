@@ -8,10 +8,12 @@ use DistributionHubBundle\Lib\DHubLogger;
 use S3CustomizationBundle\Lib\Utils;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class MediaGetter extends AbstractOperator {
+class MediaGetter extends AbstractOperator
+{
     private $thumbnail;
 
-    public function __construct(\stdClass $config, $context = null) {
+    public function __construct(\stdClass $config, $context = null)
+    {
 
         $this->thumbnail = $config->thumbnail;
         parent::__construct($config, $context);

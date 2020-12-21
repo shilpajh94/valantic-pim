@@ -23,14 +23,14 @@ class MailNotificationService
         $this->mailContent = $mailConfig['mail_content'];
     }
 
-    public function sendNotification(Schedule $schedule,Channel $channel, string $status)
+    public function sendNotification(Schedule $schedule, Channel $channel, string $status)
     {
         $userOwnerId = $schedule->getUserOwner();
         $user = User::getById($userOwnerId);
         $userMail = $user->getEmail();
         $username = $user->getName();
 
-        if(!Mail::isValidEmailAddress($userMail)){
+        if (!Mail::isValidEmailAddress($userMail)) {
             throw new \Exception("Email address '$userMail' of user '$username' is not valid.");
         }
 
@@ -46,16 +46,15 @@ class MailNotificationService
         $mailClient->setTo($userMail);
         $mailClient->setSubject($placeHolderReplacedSubject);
         $mailClient->setBodyText($placeHolderReplacedBody);
-        try{
+        try {
             $mailClient->send();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $msg = "Mail could not be sent. Exception msg:".$exception->getMessage();
             throw new \Exception($msg);
         }
-
     }
 
-    public function replacePlaceHoldersInItem(Schedule $schedule, Channel $channel,User $user, string $item)
+    public function replacePlaceHoldersInItem(Schedule $schedule, Channel $channel, User $user, string $item)
     {
         $placeHolderArray = $this->getPlaceHolderArray($schedule, $channel, $user);
         return strtr($item, $placeHolderArray);
@@ -86,9 +85,9 @@ class MailNotificationService
     {
         $lang = $this->getAvailableContentLanguage($lang);
         $returnValue = '';
-        if(array_key_exists($lang, $this->mailContent)){
+        if (array_key_exists($lang, $this->mailContent)) {
             $langMailConfig = $this->mailContent[$lang];
-            if(array_key_exists($status, $langMailConfig)){
+            if (array_key_exists($status, $langMailConfig)) {
                 $statusMailConfig = $langMailConfig[$status];
                 $returnValue = $statusMailConfig[$item];
             }
@@ -99,13 +98,12 @@ class MailNotificationService
     private function getAvailableContentLanguage(string $userLang)
     {
         $lang = $userLang;
-        if(!array_key_exists($lang, $this->mailContent)){
+        if (!array_key_exists($lang, $this->mailContent)) {
             $lang = Tool::getDefaultLanguage();
-            if(!array_key_exists($lang, $this->mailContent)){
+            if (!array_key_exists($lang, $this->mailContent)) {
                 $lang = array_keys($this->mailContent)[0];
             }
         }
         return $lang;
     }
-
 }

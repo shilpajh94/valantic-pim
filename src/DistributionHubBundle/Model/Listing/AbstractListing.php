@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model\Listing;
 
-
 class AbstractListing extends \Pimcore\Model\Listing\AbstractListing
 {
 
@@ -25,5 +24,4 @@ class AbstractListing extends \Pimcore\Model\Listing\AbstractListing
     {
         return $this->items;
     }
-
 }

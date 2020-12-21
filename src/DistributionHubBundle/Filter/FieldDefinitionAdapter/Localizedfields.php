@@ -12,7 +12,8 @@ use Pimcore\Tool;
 use Pimcore\Db;
 use DistributionHubBundle\Lib\DHubLogger;
 
-class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * @var Data\Localizedfields
@@ -24,7 +25,8 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
      */
     protected $localeService;
 
-    public function __construct(FilterService $service, LocaleServiceInterface $locale = null) {
+    public function __construct(FilterService $service, LocaleServiceInterface $locale = null)
+    {
         parent::__construct($service);
 
         $this->localeService = $locale;
@@ -37,7 +39,8 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
      * @param Concrete $object
      * @return array
      */
-    public function getDataValue($object) {
+    public function getDataValue($object)
+    {
 
         $localeBackup = $this->localeService->getLocale();
 
@@ -62,7 +65,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
     }
     
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -73,7 +76,8 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
         
         $validLanguages = Tool::getValidLanguages();
 
@@ -87,66 +91,65 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
 
         $fieldName = $data['fieldname'];
         $fieldType = $this->getLocalizedFieldType($fieldDefinition, $fieldName);
-
-        if (is_array($data['filterEntryData'])) {
-            $operator = array_keys($data['filterEntryData'])['0'];
-            $value = $data['filterEntryData'][$operator];
-        } else {
-            $value = $data['filterEntryData'];
-            $operator = $data['operator'];
-        }
-        
-        $tableName = "object_localized_query_" . $classId."_".$lang;
-        
-        // Get Adapter for fieldtype
-        $context = $this->getFieldSelectionInformation();
-        $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fieldType, $this->considerInheritance);
-
-        if ($fieldType->getFieldType() === "quantityValue") {
-            $operator = $data['operator'];
-            $value = $data['filterEntryData']['value'];
-            $unit = $data['filterEntryData']['unit'];
-            $filteredResults = $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $unit, $lang], $tableName);
-        } elseif (in_array($fieldType->getFieldType(), self::DHUB_TYPE_RELATIONS)) {
-            $relationsTable = "object_relations_" . $classId;
-            return $fieldDefinitionAdapter->getQueryForLocalized($fieldFilter, $relationsTable);
-        } else {
-            $filteredResults = $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $lang,], $tableName);
-            
-        }
-
-        $resultsIds = array();
-
-        if (!empty($filteredResults)) {
-
-            foreach ($filteredResults as $val) {
-                $val = $val['ooo_id'];
-                $resultsIds[] = " `o_id` = '" . $val . "' ";
+        $conditionParams = array();
+        if (!empty($fieldType)) {
+            if (is_array($data['filterEntryData'])) {
+                $operator = array_keys($data['filterEntryData'])['0'];
+                $value = $data['filterEntryData'][$operator];
+            } else {
+                $value = $data['filterEntryData'];
+                $operator = $data['operator'];
             }
-            $conditonPrepare = implode(' OR ', $resultsIds);
 
-            $conditionParams = array();
-            $conditionParams['key'] = $conditonPrepare;
-            $conditionParams['value'] = NULL;
-            $conditionParams['concatenator'] = "AND";
+            $tableName = "object_localized_query_" . $classId."_".$lang;
 
+            $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($fieldType, $this->considerInheritance);
+
+            if ($fieldType->getFieldType() === "quantityValue") {
+                $operator = $data['operator'];
+                $value = $data['filterEntryData']['value'];
+                $unit = $data['filterEntryData']['unit'];
+                $filteredResults = $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $unit, $lang], $tableName);
+            } elseif (in_array($fieldType->getFieldType(), self::DHUB_TYPE_RELATIONS)) {
+                $relationsTable = "object_relations_" . $classId;
+                return $fieldDefinitionAdapter->getQueryForLocalized($fieldFilter, $relationsTable);
+            } else {
+                $filteredResults = $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $lang,], $tableName);
+            }
+
+            $resultsIds = array();
+
+            if (!empty($filteredResults)) {
+                foreach ($filteredResults as $val) {
+                    $val = $val['ooo_id'];
+                    $resultsIds[] = " `o_id` = '" . $val . "' ";
+                }
+                $conditonPrepare = implode(' OR ', $resultsIds);
+
+                $conditionParams['key'] = $conditonPrepare;
+                $conditionParams['value'] = null;
+                $conditionParams['concatenator'] = "AND";
+
+                return $conditionParams;
+            }
+        } else {
             return $conditionParams;
         }
     }
 
      /**
-     * Get DataForLocalized for Bricks & Collections, 
-     * use queryBuilder prepared statements 
+     * Get DataForLocalized for Bricks & Collections,
+     * use queryBuilder prepared statements
      *
-     * @param mixed  
+     * @param mixed
      * @return mixed
      *
      * @throws Exception
-     */ 
-    public function getDataForLocalized($fieldFilter, $classId, $fieldDefinition, $fieldType) {
+     */
+    public function getDataForLocalized($fieldFilter, $classId, $fieldDefinition, $fieldType)
+    {
 
-        $validLanguages = Tool::getValidLanguages(); 
-        
+        $validLanguages = Tool::getValidLanguages();
                             
         if ($fieldType === "objectbricks") {
             $tableName = "object_brick_localized_" . $fieldFilter['type'] . "_" . $classId;
@@ -156,7 +159,7 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
             $tableName = "object_collection_" . $fieldFilter['type'] . "_localized_" . $classId;
             $lang = array_keys($fieldFilter['filterCondition']['filterEntryData'])['0'];
             $data = $fieldFilter['filterCondition']['filterEntryData'][$lang]['0'];
-        } elseif ($fieldType === "object"){
+        } elseif ($fieldType === "object") {
             $tableName = "object_localized_data_". $classId;
             $lang = array_keys($fieldFilter['filterEntryData'])['0'];
             $data = $fieldFilter['filterEntryData'][$lang]['0'];
@@ -167,45 +170,66 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
 
         $fieldName = $data['fieldname'];
         $childFieldType = $this->getLocalizedFieldType($fieldDefinition, $fieldName);
-
-        if (is_array($data['filterEntryData'])) {
-            $operator = array_keys($data['filterEntryData'])['0'];
-            $value = $data['filterEntryData'][$operator];
-        } else {
-            $value = $data['filterEntryData'];
-            $operator = $data['operator'];
-        }
-        // Get Adapter for $childFieldType
-        $context = $this->getFieldSelectionInformation();
         
-        try { 
-            $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($childFieldType, $this->considerInheritance);
-            if ($childFieldType->getFieldType() === "quantityValue") {
-                $operator = $data['operator'];
-                $value = $data['filterEntryData']['value'];
-                $unit = $data['filterEntryData']['unit'];
-                return $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $unit, $lang], $tableName);
-            } elseif (in_array($childFieldType->getFieldType(), self::DHUB_TYPE_RELATIONS)) {
-                if ($fieldType === "objectbricks") {
-                    $relationsTable = "object_brick_localized_query_" . $fieldFilter['type'] . "_" . $classId . "_" . $lang;
-                } elseif ($fieldType === "fieldcollections") {
-                    $relationsTable = "object_relations_" . $classId;
-                }
-                return $fieldDefinitionAdapter->getLocalizedStructuredResults($fieldFilter, $relationsTable, $fieldType);
+        if (!empty($childFieldType)) {
+            if (is_array($data['filterEntryData'])) {
+                $operator = array_keys($data['filterEntryData'])['0'];
+                $value = $data['filterEntryData'][$operator];
             } else {
-                return $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $lang,], $tableName);
+                $value = $data['filterEntryData'];
+                $operator = $data['operator'];
             }
-        } catch (Exception $ex) {
-            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+
+            try {
+                $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($childFieldType, $this->considerInheritance);
+                if ($childFieldType->getFieldType() === "quantityValue") {
+                    $operator = $data['operator'];
+                    $value = $data['filterEntryData']['value'];
+                    $unit = $data['filterEntryData']['unit'];
+                    return $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $unit, $lang], $tableName);
+                } elseif (in_array($childFieldType->getFieldType(), self::DHUB_TYPE_RELATIONS)) {
+                    if ($fieldType === "objectbricks") {
+                        $relationsTable = "object_brick_localized_query_" . $fieldFilter['type'] . "_" . $classId . "_" . $lang;
+                    } elseif ($fieldType === "fieldcollections") {
+                        $relationsTable = "object_relations_" . $classId;
+                    }
+                    return $fieldDefinitionAdapter->getLocalizedStructuredResults($fieldFilter, $relationsTable, $fieldType);
+                } else {
+                    return $fieldDefinitionAdapter->getQueryForLocalized([$fieldName, $operator, $value, $lang,], $tableName);
+                }
+            } catch (Exception $ex) {
+                DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+            }
+        } else {
+            return false;
         }
     }
     
     /**
-     * returns child fieldTypes of localized type 
+     * returns child fieldTypes of localized type
      * @return childDefiniton/object
      */
-    public function getLocalizedFieldType($fieldDefinition, $fieldName) {
+    public function getLocalizedFieldType($fieldDefinition, $fieldName)
+    {
         foreach ($fieldDefinition->getChilds() as $childDefiniton) {
+            // handling of feild containers if used under localized fields.
+            if ($childDefiniton instanceof \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer) {
+                foreach ($childDefiniton->getChilds() as $childDefiniton1stLevel) {
+                    if ($childDefiniton1stLevel instanceof \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer) {
+                        foreach ($childDefiniton1stLevel->getChilds() as $childDefiniton2ndLevel) {
+                            if ($childDefiniton2ndLevel->getName() === $fieldName) {
+                                return $childDefiniton2ndLevel;
+                            }
+                        }
+                    }
+                    
+                    if ($childDefiniton1stLevel->getName() === $fieldName) {
+                        return $childDefiniton1stLevel;
+                    }
+                }
+            }
+            
+            
             if ($childDefiniton->getName() === $fieldName) {
                 return $childDefiniton;
             }
@@ -213,15 +237,15 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
     }
 
     /**
-     * returns selectable fields with their type information for frontEnd 
+     * returns selectable fields with their type information for frontEnd
      * @return FieldSelectionInformation[]
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
         $fieldSelectionInformationEntries = [];
 
         $children = $this->fieldDefinition->getFieldDefinitions();
         foreach ($children as $child) {
-
             if ($child->getFieldtype() === "image") {
                 continue;
             }
@@ -242,5 +266,4 @@ class Localizedfields extends DefaultAdapter implements FieldDefinitionAdapterIn
 
         return $fieldSelectionInformationEntries;
     }
-
 }

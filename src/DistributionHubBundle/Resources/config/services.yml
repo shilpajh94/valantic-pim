@@ -15,13 +15,13 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
-    
+
     # installer
     DistributionHubBundle\Installer:
         public: true
         arguments:
             $bundle: "@=service('kernel').getBundle('DistributionHubBundle')"
-    
+
     #  FieldDefinition Adapters
     DistributionHubBundle\Filter\FieldDefinitionAdapter\DefaultAdapter:
         class: DistributionHubBundle\Filter\FieldDefinitionAdapter\DefaultAdapter
@@ -90,7 +90,7 @@ services:
     DistributionHubBundle\Filter\FieldDefinitionAdapter\Numeric:
         class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Numeric
         shared: false
-    
+
     DistributionHubBundle\Filter\FieldDefinitionAdapter\Slider:
         class: DistributionHubBundle\Filter\FieldDefinitionAdapter\Slider
         shared: false
@@ -125,24 +125,24 @@ services:
 
     bundle.distribution_hub.services.filter_service:
         alias: DistributionHubBundle\Services\FilterService
-        
+
     DistributionHubBundle\Services\FilterService:
-        public: true 
+        public: true
         calls:
             - [setCoreFieldsConfig, ['%distribution_hub.core_fields_configuration%']]
         arguments:
             - '@logger'
-            - '@pimcore_admin.security.token_storage_user_resolver' 
+            - '@pimcore_admin.security.token_storage_user_resolver'
             - '@bundle.distribution_hub.filter_locator'
-            
+
     bundle.distribution_hub.filter_locator:
         class: Symfony\Component\DependencyInjection\ServiceLocator
         tags: ['container.service_locator']
-        
+
     DistributionHubBundle\Services\BundleService:
         public: true
 
-    DistributionHubBundle\Services\BasicConfigService: 
+    DistributionHubBundle\Services\BasicConfigService:
         public: true
 
     DistributionHubBundle\Services\ScheduleService:

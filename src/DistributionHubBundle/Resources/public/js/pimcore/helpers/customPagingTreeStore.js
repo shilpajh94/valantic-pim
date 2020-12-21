@@ -103,7 +103,7 @@ Ext.define('pimcore.tree.CustomView', {
     doUpdatePaging: function(node) {
 
         if (node.data.expanded && node.needsPaging) {
-
+            let ptb = null;
             node.ptb = ptb = Ext.create('pimcore.toolbar.CustomPaging', {
                     node: node,
                     width: 260
@@ -158,7 +158,7 @@ Ext.define('pimcore.tree.CustomView', {
         var queue = me.queue;
 
         var names = Object.getOwnPropertyNames(queue);
-
+        let i = null;
         for (i = 0; i < names.length; i++) {
             var node = queue[names[i]];
             this.doUpdatePaging(node);
@@ -557,7 +557,6 @@ Ext.define('pimcore.toolbar.CustomPaging', {
     processKeyEvent: function(field, e) {
         var me = this,
             k = e.getKey(),
-        //pageData = me.getPageData(),
             increment = e.shiftKey ? 10 : 1,
             pageNum;
         if (k == e.RETURN) {
@@ -664,7 +663,6 @@ Ext.define('pimcore.toolbar.CustomPaging', {
     },
 
     onDestroy: function() {
-        //this.bindStore(null);
         this.callParent();
     }
 });

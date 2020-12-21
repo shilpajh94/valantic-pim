@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 abstract class AbstractDao extends \Pimcore\Model\Dao\AbstractDao
 {
     /**

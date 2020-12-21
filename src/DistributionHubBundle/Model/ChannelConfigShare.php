@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 class ChannelConfigShare extends AbstractModel
 {
 
@@ -101,7 +100,7 @@ class ChannelConfigShare extends AbstractModel
      */
     public function getExpiryDate()
     {
-        if($this->expiryDate){
+        if ($this->expiryDate) {
             return $this->getDateFromTimestamp($this->expiryDate);
         }
         return $this->expiryDate;
@@ -112,7 +111,7 @@ class ChannelConfigShare extends AbstractModel
      */
     public function setExpiryDate($expiryDate): void
     {
-        if($expiryDate instanceof \DateTime){
+        if ($expiryDate instanceof \DateTime) {
             $expiryDate = $expiryDate->getTimestamp();
         }
         $this->expiryDate = $expiryDate;
@@ -123,7 +122,7 @@ class ChannelConfigShare extends AbstractModel
      */
     public function getCreationDate()
     {
-        if($this->creationDate){
+        if ($this->creationDate) {
             return $this->getDateFromTimestamp($this->creationDate);
         }
         return $this->creationDate;
@@ -134,7 +133,7 @@ class ChannelConfigShare extends AbstractModel
      */
     public function setCreationDate($creationDate): void
     {
-        if($creationDate instanceof \DateTime){
+        if ($creationDate instanceof \DateTime) {
             $creationDate = $creationDate->getTimestamp();
         }
         $this->creationDate = $creationDate;
