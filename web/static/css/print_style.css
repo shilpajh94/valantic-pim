@@ -364,6 +364,8 @@ flex: 0 0 15px;
     margin-top: 30px;
 }
 
+.alignCenter{ align-items: center;}
+
 .alignRight {
     margin-left: auto;
 }
@@ -2134,3 +2136,5 @@ font-family: 'ContinentalStagSansLCG-Medium' !important;
 @media print{
 .small.relative{ margin-top: 20px;}
 }
+
+.marginTop{ margin-top:20px;}
