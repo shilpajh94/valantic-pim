@@ -216,11 +216,11 @@ pimcore.plugin.distributionhub.mappingLeftPanel = Class.create({
                 iconCls: "pimcore_icon_key",
                 handler: this.renameMapping.bind(this, tree, record)
             }));
-            menu.add(new Ext.menu.Item({
-                text: t('clone'),
-                iconCls: "pimcore_icon_clone",
-                handler: this.cloneMapping.bind(this, tree, record)
-            }));
+            // menu.add(new Ext.menu.Item({
+            //     text: t('clone'),
+            //     iconCls: "pimcore_icon_clone",
+            //     handler: this.cloneMapping.bind(this, tree, record)
+            // }));
             menu.add(new Ext.menu.Item({
                 text: t('delete'),
                 iconCls: "pimcore_icon_delete",
