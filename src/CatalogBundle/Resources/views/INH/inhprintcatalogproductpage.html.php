@@ -28,7 +28,7 @@ if (isset($info['brandsData'])) {
                                 <img src="<?= $info['footer_logo_src']; ?>">
                             </span>
                             <div class="flex aligned">
-                                <h5>
+                                <h5 class="marginTop2">
                                     <?php if($this->editmode): ?>
                                         <?php if($this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"])->isEmpty()): ?>
                                                 <?= $this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
@@ -82,7 +82,7 @@ if (isset($info['brandsData'])) {
                                             <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]) ?>
                                     <?php endif; ?>
                                 </div>
-                                <h5>
+                                <h5 class="marginTop2">
                                     <?php if($this->editmode): ?>
                                         <?php if($this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"])->isEmpty()): ?>
                                                 <?= $this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
@@ -283,10 +283,10 @@ if (isset($info['brandsData'])) {
                                             $tableKey = md5($key.$gkey);
                                         ?>
                                             <?php if($key): ?>
-                                            <h5><?= $brandKey. " ". $key ?> </h5>
+                                            <h5 class="marginTop"><?= $brandKey. " ". $key ?> </h5>
                                             <?php endif; ?>
                                             <?php if($fittingTableName['orderCodes']): ?>
-                                            <p><b>Order Codes :</b> 
+                                            <div class="flex alignCenter"><b>Order Codes :</b> 
                                             
                                             <?php if($this->editmode): ?>
                                                 <?php if($this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->isEmpty()): ?>
@@ -297,7 +297,7 @@ if (isset($info['brandsData'])) {
                                             <?php else: ?>
                                                     <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"]) ?>
                                             <?php endif; ?>
-                                            </p>
+                                            </div>
                                             <?php endif; ?>
 
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
