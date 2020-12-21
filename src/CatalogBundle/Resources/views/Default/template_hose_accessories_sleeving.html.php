@@ -237,10 +237,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <tr class="sub-head">
                                         <?php foreach($brand['columnsDataWithImages'] as $key => $c1data): ?>
                                                 <?php
+                                                        $columnWidth = '';
                                                         $g1count = count($c1data);
                                                         $firstArray = array_shift($c1data);
+                                                        if($firstArray['columnWidth'])
+                                                                $columnWidth = "width=".$firstArray['columnWidth']
                                                 ?>
-                                                <td colspan="<?= $g1count; ?>">
+                                                <td colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
                                                 <?php if($firstArray['columnIcon']): ?>
                                                 <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
                                                 <?php endif; ?>
@@ -253,10 +256,13 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         <?php foreach($brand['columnsDataWithImages'] as $key => $c2data): ?>
 
                                 <?php
+                                        $columnWidth = '';
                                         $g2count = count($c2data);
                                         $first2Array = array_shift($c2data);
+                                        if($first2Array['columnWidth'])
+                                                $columnWidth = "width=".$first2Array['columnWidth']
                                 ?>
-                                <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                <td colspan="<?= $g2count; ?>"  <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
 
                         <?php endforeach; ?>
                         </tr>
