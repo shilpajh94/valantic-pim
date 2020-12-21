@@ -173,6 +173,7 @@ pimcore.plugin.headerSelection = Class.create({
                 "columnLabel": completeHeaderData.fieldLabel,
                 "groupName": completeHeaderData.groupName,
                 "unitName": completeHeaderData.unitName,
+                "columnWidth": completeHeaderData.columnWidth,
                 // "columnName": data[i],
                 // "columnWidth": completeHeaderData[1],
                 // "columnLabel": completeHeaderData[2]

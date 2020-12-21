@@ -364,6 +364,8 @@ flex: 0 0 15px;
     margin-top: 30px;
 }
 
+.alignCenter{ align-items: center;}
+
 .alignRight {
     margin-left: auto;
 }
@@ -1621,12 +1623,16 @@ top:15px;
         background-color: #ffffff !important;
 max-width: 100% !important;
     }
+
+.cke_editable{min-height: auto !important; }
+.pimcore_tag_image{ max-width: 100%;}
     .hoseline aside.flex.first > div > .pimcore_block_entry:first-child {
         max-width: 100%;
         flex: 100%;
         display: flex;
         flex-wrap: wrap;
     }
+.pimcore_tag_image_alt .x-form-item{ width: 100% !important;}
     .pimcore_block_buttons {
         flex: 100%;
     }
@@ -2130,3 +2136,5 @@ font-family: 'ContinentalStagSansLCG-Medium' !important;
 @media print{
 .small.relative{ margin-top: 20px;}
 }
+
+.marginTop{ margin-top:20px;}
