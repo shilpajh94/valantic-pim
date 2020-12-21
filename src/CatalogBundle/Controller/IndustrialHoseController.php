@@ -236,6 +236,9 @@ class IndustrialHoseController extends AbstractController
                 unset($productsData);
             }
 
+            $SIOP4Description = '';
+            $SIOP3Description = '';
+
             $newBrandArray = array();
             if($brandsData)
             {
@@ -253,8 +256,6 @@ class IndustrialHoseController extends AbstractController
 
                     $tubeMaterialStr = '';
                     $coverMaterialStr = '';
-                    $SIOP4Description = '';
-                    $SIOP3Description = '';
                     $BrandingLayline = '';
                     $VirtualCatalogReinforcement = '';
                     $VirtualCatalogTubeMaterial = '';
@@ -444,6 +445,9 @@ class IndustrialHoseController extends AbstractController
             array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
             $categories = $this->getSIOP($CatalogLanguage);
+
+            // p_r($categories);
+            // die;
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -757,30 +761,44 @@ class IndustrialHoseController extends AbstractController
         $categories = array();
         foreach($listing as $category) {
             if($category->getLevel()==3) {
-                $categories[$category->getFullCode()][] = array(
+                $categories[$category->getFullCode()]['mainCategory'][] = array(
                     'name' => ($category->getPrintedCatalogDescription($language)) ? $category->getPrintedCatalogDescription($language) : $category->getDescription($language),
                     'level' => $category->getLevel(),
-                    'printable' => 1
+                    'printable' => 1,
+                    'SortOrder' => $category->getSortOrder()
                 );
+                $categories[$category->getFullCode()]['SortOrder']=$category->getSortOrder();
                 // $categories[$category->getId()] = $category->getDescription();
             } else {
                 $fullCode = $category->getParent()->getFullCode();
                 $cat = array(
                     'name' => ($category->getPrintedCatalogDescription($language)) ? $category->getPrintedCatalogDescription($language) : $category->getDescription($language),
                     'level' => $category->getLevel(),
-                    'printable' => 1
+                    'printable' => 1,
+                    'SortOrder' => $category->getSortOrder()
                 );
                 if(!isset($categories[$fullCode])) {
                     $categories[$fullCode][] = array(
                         'name' => ($category->getParent()->getPrintedCatalogDescription($language)) ? $category->getParent()->getPrintedCatalogDescription($language) : $category->getParent()->getDescription($language),
                         'level' => $category->getParent()->getLevel(),
-                        'printable' => 0
+                        'printable' => 0,
+                        'SortOrder' => $category->getSortOrder()
                     );
                 }
-                $categories[$fullCode][] = $cat;
+                $categories[$fullCode]['subCategory'][] = $cat;
             }
 
         }
+
+        array_multisort (array_column($categories, 'SortOrder'), SORT_ASC, $categories);
+
+        foreach ($categories as $catKey => $catValue) {
+            array_multisort (array_column($categories[$catKey]['subCategory'], 'SortOrder'), SORT_ASC, $categories[$catKey]['subCategory']);
+            // unset($categories[$catKey]['SortOrder']);
+            // $categories[$catKey] = $categories[$catKey]['subCategory'];
+            // unset($categories[$catKey]['subCategory']);
+        }
+
         return $categories;
     }
 
