@@ -98,28 +98,28 @@ if($groupData):
                                                 <?php
                                                 if (is_array($groupData['categories'])) {
                                                         foreach ($groupData['categories'] as $category) {
-                                                        $catNames = array_column($category, 'name');
-                                                        $first = "";
-                                                        foreach ($catNames as $cn) {
-                                                                if ($groupData['selectedCategory'] == $cn) {
+                                                            $first = "";
+                                                            if ($groupData['selectedCategory'] == $category['mainCategory'][0]['name']) {
                                                                 $first = "first";
-                                                                }
-                                                        }
-                                                        echo "<li class='$first'>";
-                                                        if (is_array($category) && !empty($category)) {
-                                                                foreach ($category as $k => $cat) {
-                                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                                        echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                                } else {
-                                                                        if ($cat['printable'] == 1) {
+                                                            }
+                                                            
+                                                            echo "<li class='$first'>";
+                
+                                                            if(isset($category['mainCategory'][0]['name']))
+                                                                echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                                            else
+                                                                echo "<p</p>";
+                
+                                                            if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                                                foreach ($category['subCategory'] as $k => $cat) {
+                                                                    if ($cat['printable'] == 1) {
                                                                         echo "<p>" . $cat['name'] . "</p>";
-                                                                        }
+                                                                    }
                                                                 }
-                                                                }
+                                                            }
+                                                            echo "</li>";
                                                         }
-                                                        echo "</li>";
-                                                        }
-                                                }
+                                                    }
                                                 ?>
                                         </ul>
                                 </div>
