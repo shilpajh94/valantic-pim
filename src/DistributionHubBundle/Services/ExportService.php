@@ -88,11 +88,26 @@ class ExportService
         $filterConfig = null;
         if ($filter) {
             $filterConfig = $filter->getFilterConfig();
+            $filterConfig = json_decode($filterConfig, true);
+//            if(!is_array($filterConfig)){
+//                $filterConfig = [];
+//            }
+
+            $filterByList = $filter->getFilterByList();
+            $listFileAssetId = $filter->getListFileAssetId();
+            $filterByAttribute = $filter->getFilterByAttribute();
+
+            $filterConfig["filterByListAttributes"]  = array(
+                "filterByList" => $filterByList,
+                "listFileAssetId" => $listFileAssetId,
+                "filterByAttribute" => $filterByAttribute
+            );
+
         }
 
         return array(
-            "filterConfig" => json_decode($filterConfig, true),
-            "channel" => $channel
+            "filterConfig" => $filterConfig,
+            "channel" => $channel,
         );
     }
 
@@ -115,7 +130,7 @@ class ExportService
                     $fields[trim($templateColumn)] = $selectedGridColumn['key'];
                 }
             }
-            
+
             if ($selectedGridColumn['isOperator']) {
                 $helperDefinition[$selectedGridColumn['key']] = json_decode(json_encode($selectedGridColumn));
             }
@@ -342,7 +357,7 @@ class ExportService
 
         try {
             $ftpConn = ftp_connect($ftpServer, $port);
-            
+
             if (!$ftpConn) {
                 throw new \Exception();
             }
