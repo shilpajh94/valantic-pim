@@ -364,7 +364,7 @@ flex: 0 0 15px;
     margin-top: 30px;
 }
 
-.alignCenter{ align-items: center;}
+.alignCenter{ align-items: center; font-size:10px;}
 
 .alignRight {
     margin-left: auto;
@@ -562,7 +562,7 @@ header aside p {
 header aside img {
     max-width: 100%;
     height: auto;
-
+  max-height:200px;
 }
 
 
@@ -2146,11 +2146,13 @@ font-family: 'ContinentalStagSansLCG-Medium' !important;
      justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid;
-
+font-size:10px;
+margin-top:10px;
 }
-
+.orderCode{ padding-bottom:2px;}
 @media print{
- .borders + .grid{ top: 0px;}
+ .borders + .grid{ top: -5px;}
+
 }
 
 .borders h5{ font-size:14px;}
