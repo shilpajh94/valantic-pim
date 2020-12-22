@@ -284,11 +284,11 @@ if (isset($info['brandsData'])) {
                                         ?>
 
                                             <?php if($key): ?>
-<aside class="flex borders">
+<aside class="borders">
                                             <h5 class="marginTop "><?= $brandKey. " ". $key ?> </h5>
                                             <?php endif; ?>
                                             <?php if($fittingTableName['orderCodes']): ?>
-                                            <div class="flex alignCenter"><b>Order Codes :</b> 
+                                            <div class="flex alignCenter orderCode">Order Codes : 
                                             
                                             <?php if($this->editmode): ?>
                                                 <?php if($this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->isEmpty()): ?>
@@ -401,13 +401,26 @@ if (isset($info['brandsData'])) {
 
 <?php } ?>
 
-
+<style>
+    .inhsetting-sidebar.inhsettingLeft {
+        border: solid 2px blue !important;
+    }
+    .inhsetting-sidebar.inhsettingRight {
+        border: solid 2px red !important;
+    }
+</style>
 <script>
-    var rows = document.querySelectorAll(".inhsetting1");
+//    var rows = document.querySelectorAll(".inhsetting1");
+
+ var rows = document.querySelectorAll(".inhsetting1");
     rows.forEach(function (row) {
         var rowDescriptions = ro.layout.getBoxDescriptions(row);
+
+       // rowDescriptions.forEach(function (rowDescription) {
         var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+            const onLeftPage = rowDescription.pageLeft;
+//console.log(rowDescription.parentNode);
+            row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+        //});
     });
 </script>
