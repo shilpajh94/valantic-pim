@@ -121,7 +121,7 @@ class ExportCommand extends Command
                 $this->handleProcessFailure($msg);
                 return;
             }
-            
+
             $this->exportService->setHostURLInSession($this->hostUrl);
 
             $sch = $this->exportService->getScheduleForProcess();
@@ -154,7 +154,7 @@ class ExportCommand extends Command
         $exportLocation = $this->schedule->getExportLocation();
         if (strtolower($exportLocation) === 'ftp') {
             $ftpDetail = $this->channel->getFTPDetails();
-            
+
             $ftpDetail = $ftpDetail[0];
             if (! ($ftpDetail)) {
                 $msg = "FTP not configured for channel and selected export location is FTP.";
@@ -236,6 +236,9 @@ class ExportCommand extends Command
         $dataForFilterService['classId'] = $pimcoreClassId;
         $dataForFilterService['conditions'] = $filterConfig['conditions'];
         $dataForFilterService['type'] = $filterConfig['type'];
+        $dataForFilterService['filterByList'] = $filterConfig['filterByListAttributes']['filterByList'];
+        $dataForFilterService['listFileAssetId'] = $filterConfig['filterByListAttributes']['listFileAssetId'];
+        $dataForFilterService['filterByAttribute'] = $filterConfig['filterByListAttributes']['filterByAttribute'];
 
         try {
             $resultListObj = $this->filterService->getFilteredList($dataForFilterService, $listObj);
@@ -265,19 +268,19 @@ class ExportCommand extends Command
             try {
                 $resultListObj->load();
                 $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
-                
+
                 if (empty($exportData)) {
                     $msg = "Prepared export data in empty";
                     $this->handleProcessFailure($msg);
                     return;
                 }
-                
+
                 $writer->write($exportData);
             } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
-            
+
             $offset = $offset + $this->batchSize;
             $batchIndex++;
         }
@@ -346,6 +349,9 @@ class ExportCommand extends Command
         $dataForFilterService['classId'] = $pimcoreClassId;
         $dataForFilterService['conditions'] = $filterConfig['conditions'];
         $dataForFilterService['type'] = $filterConfig['type'];
+        $dataForFilterService['filterByList'] = $filterConfig['filterByListAttributes']['filterByList'];
+        $dataForFilterService['listFileAssetId'] = $filterConfig['filterByListAttributes']['listFileAssetId'];
+        $dataForFilterService['filterByAttribute'] = $filterConfig['filterByListAttributes']['filterByAttribute'];
 
         try {
             $resultListObj = $this->filterService->getFilteredList($dataForFilterService, $listObj);
@@ -376,19 +382,19 @@ class ExportCommand extends Command
             try {
                 $resultListObj->load();
                 $exportData = $this->exportService->getAssetDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
-                
+
                 if (empty($exportData)) {
                     $msg = "Prepared export data in empty";
                     $this->handleProcessFailure($msg);
                     return;
                 }
-                
+
                 $writer->addToZipFolder($exportData);
             } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
-            
+
             $offset = $offset + $this->batchSize;
             $batchIndex++;
         }
@@ -456,7 +462,7 @@ class ExportCommand extends Command
         } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }
-        
+
         $msg = "COMPLETED export process for the schedule - ".$this->schedule->getName();
         $this->log($msg, DHubLogger::INFO);
     }
