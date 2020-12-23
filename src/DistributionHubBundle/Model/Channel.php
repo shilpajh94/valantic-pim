@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 class Channel extends AbstractModel
 {
 
@@ -47,7 +46,8 @@ class Channel extends AbstractModel
     public $expiryDate;
 
 
-    public function save(){
+    public function save()
+    {
         parent::save();
     }
 
@@ -65,8 +65,8 @@ class Channel extends AbstractModel
 
     public function setFTPDetails(array $ftpDetails)
     {
-        foreach($ftpDetails as $ftp){
-            if(($ftp instanceof FTPDetail) && ( $ftp->getId() ) && ( !in_array($ftp->getId(),$this->ftpDetailIds) )  ){
+        foreach ($ftpDetails as $ftp) {
+            if (($ftp instanceof FTPDetail) && ( $ftp->getId() ) && ( !in_array($ftp->getId(), $this->ftpDetailIds) )) {
                 $this->ftpDetailIds[] = $ftp->getId();
             }
         }
@@ -80,7 +80,7 @@ class Channel extends AbstractModel
     public function getFilter(): ?Filter
     {
         $filter = null;
-        if($this->filterId){
+        if ($this->filterId) {
             $filter = Filter::getById($this->filterId);
         }
         return $filter;
@@ -88,7 +88,7 @@ class Channel extends AbstractModel
 
     public function setFilter(Filter $filter)
     {
-        if($filter->getId()){
+        if ($filter->getId()) {
             $this->filterId = $filter->getId();
         }
     }
@@ -317,7 +317,7 @@ class Channel extends AbstractModel
      */
     public function getCreationDate()
     {
-        if($this->creationDate){
+        if ($this->creationDate) {
             return $this->getDateFromTimestamp($this->creationDate);
         }
         return $this->creationDate;
@@ -328,7 +328,7 @@ class Channel extends AbstractModel
      */
     public function setCreationDate($creationDate): void
     {
-        if($creationDate instanceof \DateTime){
+        if ($creationDate instanceof \DateTime) {
             $creationDate = $creationDate->getTimestamp();
         }
         $this->creationDate = $creationDate;
@@ -339,7 +339,7 @@ class Channel extends AbstractModel
      */
     public function getModificationDate()
     {
-        if($this->modificationDate){
+        if ($this->modificationDate) {
             return $this->getDateFromTimestamp($this->modificationDate);
         }
         return $this->modificationDate;
@@ -350,7 +350,7 @@ class Channel extends AbstractModel
      */
     public function setModificationDate($modificationDate): void
     {
-        if($modificationDate instanceof \DateTime){
+        if ($modificationDate instanceof \DateTime) {
             $modificationDate = $modificationDate->getTimestamp();
         }
         $this->modificationDate = $modificationDate;
@@ -368,7 +368,7 @@ class Channel extends AbstractModel
      */
     public function getExpiryDate()
     {
-        if($this->expiryDate){
+        if ($this->expiryDate) {
             return $this->getDateFromTimestamp($this->expiryDate);
         }
         return $this->expiryDate;
@@ -379,7 +379,7 @@ class Channel extends AbstractModel
      */
     public function setExpiryDate($expiryDate): void
     {
-        if($expiryDate instanceof \DateTime){
+        if ($expiryDate instanceof \DateTime) {
             $expiryDate = $expiryDate->getTimestamp();
         }
         $this->expiryDate = $expiryDate;

@@ -4,6 +4,7 @@ namespace DistributionHubBundle\Lib\Export\Writers;
 use DistributionHubBundle\Lib\Constants;
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\Schedule;
+use DistributionHubBundle\Lib\DHubLogger;
 
 class CsvWriter implements Writer
 {
@@ -13,10 +14,10 @@ class CsvWriter implements Writer
     private $delimiter;
     private $filePointer;
 
-    public function __construct(Channel $channel,Schedule $schedule,string $tmpFilePathFolder)
+    public function __construct(Channel $channel, Schedule $schedule, string $tmpFilePathFolder)
     {
         $downloadFileName = $schedule->getDownloadFileName();
-        if(!$downloadFileName){
+        if (!$downloadFileName) {
             $downloadFileName = $channel->getName().'-'.$schedule->getName();
         }
         $this->downloadFileName = $downloadFileName.'-'.time();
@@ -32,36 +33,59 @@ class CsvWriter implements Writer
 
     public function write(array $data)
     {
-        foreach($data as $row){
-            $this->writeArrayToFile($row);
+        try {
+            foreach ($data as $row) {
+                $this->writeArrayToFile($row);
+            }
+        } catch (\Exception $ex) {
+            DHubLogger::log($ex->getMessage(), DHubLogger::CRITICAL);
         }
     }
 
     private function initializeFilePointer()
     {
-        $fp = fopen($this->tmpFilePath,'a');
-        $this->filePointer = $fp;
+        try {
+            $fp = fopen($this->tmpFilePath, 'a');
+            $this->filePointer = $fp;
+        } catch (\Exception $ex) {
+            DHubLogger::log($ex->getMessage(), DHubLogger::CRITICAL);
+        }
     }
 
     private function writeHeaders(array $headers)
     {
-        $this->writeArrayToFile($headers);
+        try {
+            $this->writeArrayToFile($headers);
+        } catch (\Exception $ex) {
+            DHubLogger::log($ex->getMessage(), DHubLogger::CRITICAL);
+        }
     }
 
 
     private function writeArrayToFile(array $data)
     {
-        fputcsv($this->filePointer, $data, $this->delimiter);
+        try {
+            fputcsv($this->filePointer, $data, $this->delimiter);
+        } catch (\Exception $ex) {
+            DHubLogger::log($ex->getMessage(), DHubLogger::CRITICAL);
+        }
     }
 
     public function postWrite()
     {
-        fclose($this->filePointer);
+        try {
+            fclose($this->filePointer);
+        } catch (\Exception $ex) {
+            DHubLogger::log($ex->getMessage(), DHubLogger::CRITICAL);
+        }
     }
 
     public function getTmpFilePath()
     {
-        return $this->tmpFilePath;
+        try {
+            return $this->tmpFilePath;
+        } catch (\Exception $ex) {
+            DHubLogger::log($ex->getMessage(), DHubLogger::CRITICAL);
+        }
     }
-
 }

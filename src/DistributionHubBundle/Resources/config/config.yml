@@ -1,4 +1,4 @@
-host_name: ''
+host_name: 'host.com'
 tmp_template_upload_pimcore_dir: var/tmp/
 asset_folder: 'Distribution Hub'
 folder_for_uploaded_template_in_asset_folder: 'Uploaded Templates'

@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model\Filter;
 
-
 use DistributionHubBundle\Model\AbstractDao;
 
 class Dao extends AbstractDao

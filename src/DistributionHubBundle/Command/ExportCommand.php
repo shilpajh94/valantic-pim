@@ -85,7 +85,7 @@ class ExportCommand extends Command
      * @param ScheduleProcessHelperService $helperService
      * @param MailNotificationService $mailNotificationService
      */
-    public function __construct(ExportService $exportService,FilterService $filterService,BundleService $bundleService, ScheduleProcessHelperService $helperService,MailNotificationService $mailNotificationService)
+    public function __construct(ExportService $exportService, FilterService $filterService, BundleService $bundleService, ScheduleProcessHelperService $helperService, MailNotificationService $mailNotificationService)
     {
         $this->exportService = $exportService;
         $this->filterService = $filterService;
@@ -110,23 +110,22 @@ class ExportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $inProgressProcessesStatus = $this->helperService->getInProgressProcessesStatusAfterUpdatingDeadProcesses();
-        if(!$inProgressProcessesStatus['canNewProcessStart']){
+        if (!$inProgressProcessesStatus['canNewProcessStart']) {
             $msg = "Not starting new process.";
             $msg .= $inProgressProcessesStatus['inProgressProcessCount']." process/es is/are already running. ";
             $this->log($msg, DHubLogger::INFO);
-
-        }else{            
+        } else {
             $this->hostUrl = $this->bundleService->getConfig('host_name');
-            if(empty($this->hostUrl)){
+            if (empty($this->hostUrl)) {
                 $msg ="hostName empty in configuration";
                 $this->handleProcessFailure($msg);
                 return;
             }
-            
+
             $this->exportService->setHostURLInSession($this->hostUrl);
 
             $sch = $this->exportService->getScheduleForProcess();
-            if($sch instanceof Schedule){
+            if ($sch instanceof Schedule) {
                 $this->processSchedule($sch);
             }
         }
@@ -153,17 +152,18 @@ class ExportCommand extends Command
          * check if the FTP connection is possible if export location if FTP
          */
         $exportLocation = $this->schedule->getExportLocation();
-        if (strtolower($exportLocation) == 'ftp'){
+        if (strtolower($exportLocation) === 'ftp') {
             $ftpDetail = $this->channel->getFTPDetails();
+
             $ftpDetail = $ftpDetail[0];
-            if(! ($ftpDetail)  ){
+            if (! ($ftpDetail)) {
                 $msg = "FTP not configured for channel and selected export location is FTP.";
                 $this->handleProcessFailure($msg);
                 return;
             }
-            try{
+            try {
                 $this->exportService->validateFTPConnection($ftpDetail);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
@@ -175,19 +175,19 @@ class ExportCommand extends Command
 
 
         switch ($resourceType) {
-            case $resourceType == Constants::EXPORT_ONLY_DATA:
+            case $resourceType === Constants::EXPORT_ONLY_DATA:
                 $this->helperService->updateScheduleStatusToInProgress($this->schedule);
                 $this->processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId);
                 $this->helperService->updateScheduleStatusToComplete($this->schedule);
-                $this->sendNotification(); 
+                $this->sendNotification();
                 break;
-            case $resourceType == Constants::EXPORT_ONLY_ASSETS:
+            case $resourceType === Constants::EXPORT_ONLY_ASSETS:
                 $this->helperService->updateScheduleStatusToInProgress($this->schedule);
                 $this->processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId);
                 $this->helperService->updateScheduleStatusToComplete($this->schedule);
-                $this->sendNotification(); 
+                $this->sendNotification();
                 break;
-            case $resourceType == Constants::EXPORT_DATA_ASSETS_BOTH:
+            case $resourceType === Constants::EXPORT_DATA_ASSETS_BOTH:
                 $this->helperService->updateScheduleStatusToInProgress($this->schedule);
                 $this->processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId);
                 $this->processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId);
@@ -197,7 +197,8 @@ class ExportCommand extends Command
         }
     }
 
-    private function processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId) {
+    private function processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId)
+    {
 
         $msg = "STARTED DataFile Export Process.";
         $this->log($msg, DHubLogger::INFO);
@@ -214,10 +215,9 @@ class ExportCommand extends Command
          */
         $tmpFilePathFolder = PIMCORE_PROJECT_ROOT . '/'.$this->bundleService->getConfig('tmp_template_upload_pimcore_dir');
 
-        try{
+        try {
             $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePathFolder);
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -236,10 +236,13 @@ class ExportCommand extends Command
         $dataForFilterService['classId'] = $pimcoreClassId;
         $dataForFilterService['conditions'] = $filterConfig['conditions'];
         $dataForFilterService['type'] = $filterConfig['type'];
+        $dataForFilterService['filterByList'] = $filterConfig['filterByListAttributes']['filterByList'];
+        $dataForFilterService['listFileAssetId'] = $filterConfig['filterByListAttributes']['listFileAssetId'];
+        $dataForFilterService['filterByAttribute'] = $filterConfig['filterByListAttributes']['filterByAttribute'];
 
         try {
             $resultListObj = $this->filterService->getFilteredList($dataForFilterService, $listObj);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -252,9 +255,9 @@ class ExportCommand extends Command
         $totalCount = $resultListObj->getTotalCount();
         $offset = 0;
         $batchIndex = 1;
-        while($offset <= ( $totalCount - 1) ){
-            if( ($batchIndex == 1) || ( ($batchIndex % $isScheduleDeletedCheckBatchInterval ) == 0 ) ){
-                if($this->helperService->isScheduleDeleted($this->schedule)){
+        while ($offset <= ( $totalCount - 1)) {
+            if (($batchIndex === 1) || ( ($batchIndex % $isScheduleDeletedCheckBatchInterval ) === 0 )) {
+                if ($this->helperService->isScheduleDeleted($this->schedule)) {
                     $msg = "Schedule has been deleted while running export process.";
                     $this->log($msg, DHubLogger::INFO, true);
                     return;
@@ -262,28 +265,28 @@ class ExportCommand extends Command
             }
             $resultListObj->setOffset($offset);
             $resultListObj->setLimit($this->batchSize);
-            try{
+            try {
                 $resultListObj->load();
-                $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields,$this->channel->getLanguage(), false);
-                
-                if(empty($exportData)){
+                $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
+
+                if (empty($exportData)) {
                     $msg = "Prepared export data in empty";
                     $this->handleProcessFailure($msg);
                     return;
                 }
-                
+
                 $writer->write($exportData);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
-            
+
             $offset = $offset + $this->batchSize;
             $batchIndex++;
         }
-        try{
+        try {
             $writer->postWrite();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $msg = "Error while writing to export file. msg: ".$exception->getMessage();
             $this->handleProcessFailure($msg);
         }
@@ -291,16 +294,16 @@ class ExportCommand extends Command
         /**
          * committing the export file to the location selected by user in export location in schedule
          */
-        if(file_exists($writer->getTmpFilePath())){
+        if (file_exists($writer->getTmpFilePath())) {
             try {
                 $isZip = false;
                 $this->exportService->sendExportFileToDesiredLocation($this->channel, $this->schedule, $writer->getTmpFilePath(), $isZip);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
             $this->helperService->updateScheduleParams($this->schedule);
-        }else{
+        } else {
             $msg = "Export file could not be created due to some unexpected error.";
             $this->handleProcessFailure($msg);
             return;
@@ -308,7 +311,8 @@ class ExportCommand extends Command
     }
 
 
-    private function processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId) {
+    private function processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId)
+    {
 
         $msg = "STARTED Assets Export Process.";
         $this->log($msg, DHubLogger::INFO);
@@ -324,9 +328,9 @@ class ExportCommand extends Command
          * creating the file writer according to the export format selected by user in schedule
          */
         $tmpFilePathFolder = PIMCORE_PROJECT_ROOT . '/'.$this->bundleService->getConfig('tmp_template_upload_pimcore_dir');
-        try{
+        try {
             $writer = new ZipWriter($this->channel, $this->schedule, $tmpFilePathFolder);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -345,10 +349,13 @@ class ExportCommand extends Command
         $dataForFilterService['classId'] = $pimcoreClassId;
         $dataForFilterService['conditions'] = $filterConfig['conditions'];
         $dataForFilterService['type'] = $filterConfig['type'];
+        $dataForFilterService['filterByList'] = $filterConfig['filterByListAttributes']['filterByList'];
+        $dataForFilterService['listFileAssetId'] = $filterConfig['filterByListAttributes']['listFileAssetId'];
+        $dataForFilterService['filterByAttribute'] = $filterConfig['filterByListAttributes']['filterByAttribute'];
 
         try {
             $resultListObj = $this->filterService->getFilteredList($dataForFilterService, $listObj);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->handleProcessFailure($exception->getMessage());
             return;
         }
@@ -362,9 +369,9 @@ class ExportCommand extends Command
 
         $offset = 0;
         $batchIndex = 1;
-        while($offset <= ( $totalCount - 1) ){
-            if( ($batchIndex == 1) || ( ($batchIndex % $isScheduleDeletedCheckBatchInterval ) == 0 ) ){
-                if($this->helperService->isScheduleDeleted($this->schedule)){
+        while ($offset <= ( $totalCount - 1)) {
+            if (($batchIndex === 1) || ( ($batchIndex % $isScheduleDeletedCheckBatchInterval ) === 0 )) {
+                if ($this->helperService->isScheduleDeleted($this->schedule)) {
                     $msg = "Schedule has been deleted while running export process.";
                     $this->log($msg, DHubLogger::INFO, true);
                     return;
@@ -372,29 +379,28 @@ class ExportCommand extends Command
             }
             $resultListObj->setOffset($offset);
             $resultListObj->setLimit($this->batchSize);
-            try{
+            try {
                 $resultListObj->load();
-                $exportData = $this->exportService->getAssetDataForExport($resultListObj, $fields,$this->channel->getLanguage(), false);
-                
-                if(empty($exportData)){
+                $exportData = $this->exportService->getAssetDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
+
+                if (empty($exportData)) {
                     $msg = "Prepared export data in empty";
                     $this->handleProcessFailure($msg);
                     return;
                 }
-                
+
                 $writer->addToZipFolder($exportData);
-                
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
-            
+
             $offset = $offset + $this->batchSize;
             $batchIndex++;
         }
-        try{
+        try {
             $writer->postWrite();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $msg = "Error while writing to export file. msg: ".$exception->getMessage();
             $this->handleProcessFailure($msg);
         }
@@ -402,18 +408,16 @@ class ExportCommand extends Command
         /**
          * committing the export file to the location selected by user in export location in schedule
          */
-        if(file_exists($writer->getTmpFilePath())){
+        if (file_exists($writer->getTmpFilePath())) {
             try {
                 $isZip = true;
                 $this->exportService->sendExportFileToDesiredLocation($this->channel, $this->schedule, $writer->getTmpFilePath(), $isZip);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
             }
             $this->helperService->updateScheduleParams($this->schedule);
-            
-        }else{
-            
+        } else {
             $msg = "Export file could not be created due to some unexpected error.";
             $this->handleProcessFailure($msg);
             return;
@@ -424,12 +428,13 @@ class ExportCommand extends Command
     /**
      * @param string $msg
      */
-    private function handleProcessFailure(string $msg){
+    private function handleProcessFailure(string $msg)
+    {
         $this->helperService->updateScheduleStatusToFailure($this->schedule);
-        $this->log($msg,DHubLogger::CRITICAL, true);
-        try{
+        $this->log($msg, DHubLogger::CRITICAL, true);
+        try {
             $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_FAILED);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }
     }
@@ -441,22 +446,23 @@ class ExportCommand extends Command
      */
     private function log(string $message, $level, $terminatingJob = false)
     {
-        if($this->channel && $this->schedule){
+        if ($this->channel && $this->schedule) {
             $message .= "\n [ Channel '".$this->channel->getName()."', Schedule '".$this->schedule->getName()."' ]";
         }
-        if($terminatingJob){
+        if ($terminatingJob) {
             $message .= "\n TERMINATING THE EXPORT JOB";
         }
-        DHubLogger::log(" [EXPORT JOB] ".$message,$level);
+        DHubLogger::log(" [EXPORT JOB] ".$message, $level);
     }
 
-    private function sendNotification(){
-        try{
+    private function sendNotification()
+    {
+        try {
             $this->mailNotificationService->sendNotification($this->schedule, $this->channel, Constants::SCHEDULE_STATUS_COMPLETED);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->log($exception->getMessage(), DHubLogger::CRITICAL);
         }
-        
+
         $msg = "COMPLETED export process for the schedule - ".$this->schedule->getName();
         $this->log($msg, DHubLogger::INFO);
     }

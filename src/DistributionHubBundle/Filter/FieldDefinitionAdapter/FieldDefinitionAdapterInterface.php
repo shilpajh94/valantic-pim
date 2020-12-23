@@ -7,12 +7,14 @@ use DistributionHubBundle\Services\FilterService;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\Concrete;
 
-interface FieldDefinitionAdapterInterface {
+interface FieldDefinitionAdapterInterface
+{
 
     const DHUB_MAPPING_PROPERTY_STANDARD = "standard";
     const DHUB_MAPPING_PROPERTY_NOT_INHERITED = "notInherited";
     const DHUB_OPERATOR_TRUE = true;
     const DHUB_OPERATOR_FALSE = false;
+    const DHUB_OPERATOR_EMPTY = "empty";
     const DHUB_OPERATOR_MUST = "must";
     const DHUB_OPERATOR_SHOULD = "should";
     const DHUB_OPERATOR_NOT = "must_not";
@@ -31,6 +33,10 @@ interface FieldDefinitionAdapterInterface {
         "manyToOneRelation",
         "advancedManyToManyRelation",
         "advancedManyToManyObjectRelation"];
+    const DHUB_OBJECT_ID = "Object ID's";
+    const DHUB_DOCUMENT_ID = "Document ID's";
+    const DHUB_ASSET_ID = "Asset ID's";
+    const DHUB_OBJECT_FILTER = "Filter Object";
 
     /**
      * FieldDefinitionAdapterInterface constructor.

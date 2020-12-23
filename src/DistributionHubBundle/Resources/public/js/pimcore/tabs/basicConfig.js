@@ -560,9 +560,7 @@ pimcore.plugin.distributionhub.tabs.basicConfig = Class.create(pimcore.element.a
             collapsed: true,
             defaults: {
                 labelWidth: 220
-                        // width: 300
             },
-            // labelWidth: 100,
 
             items: [this.ftpNameField, this.serverAddressField, this.serverPort, this.userNameField, this.passwordField]
 

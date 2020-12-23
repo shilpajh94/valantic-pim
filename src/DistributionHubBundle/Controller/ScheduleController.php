@@ -28,26 +28,26 @@ class ScheduleController extends AdminController
      * @param ScheduleService $scheduleService
      * @return mixed
      */
-    public function getAddFormDataAction(Request $request,ScheduleService $scheduleService){
+    public function getAddFormDataAction(Request $request, ScheduleService $scheduleService)
+    {
 
         $channelId  = $request->get('channelId');
         $channel = Channel::getById($channelId);
 
         // checking if required configs are complete
-//        $filter = $channel->getFilter();
         $attributeMapping = json_decode($channel->getColumnAttributeMapping(), true);
         $selectedGridColumns = $attributeMapping['selectedGridColumns'];
-        if(!$channel->getPimcoreClassId() || count($selectedGridColumns) == 0){
+        if (!$channel->getPimcoreClassId() || count($selectedGridColumns) == 0) {
             return $this->json(['success' => true,'requiredConfigComplete' => false]);
         }
 
-        if($channel){
+        if ($channel) {
             $ftpName = $scheduleService->getFTPNameForChannel($channel);
             $exportFormats = $scheduleService->getAvailableExportFormats();
             $exportLocations = $scheduleService->getAvailableExportLocations();
 
             $ftpNames = array();
-            if($ftpName){
+            if ($ftpName) {
                 $ftpNames[] = $ftpName;
             }
 
@@ -63,7 +63,6 @@ class ScheduleController extends AdminController
 
         $msg = $this->trans('dHub_channel_not_found_relaod_admin');
         return $this->json(['success' => false,'msg' => $msg]);
-
     }
 
     /**
@@ -73,38 +72,38 @@ class ScheduleController extends AdminController
      * @param ScheduleService $scheduleService
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function saveScheduleAction(Request $request,ScheduleService $scheduleService)
+    public function saveScheduleAction(Request $request, ScheduleService $scheduleService)
     {
 
         $name = $request->get('name');
         $exportDate = $request->get('exportDate');
         $exportTime = $request->get('exportTime');
         $exportFormat = $request->get('exportFormat') ? $request->get('exportFormat') : "Csv";
-        $exportLocation = empty($request->get('exportLocation')) ? "Pimcore" : $request->get('exportLocation');
+        $exportLocation = empty($request->get('exportLocation')) ? "Pimcore" : "FTP";
         $exportFtp = $request->get('exportFtp');
         $channelId = $request->get('channelId');
         $downloadFileName = $request->get('downloadFileName');
         $exportResource = $request->get('exportResource');
         $exportImageCols = $request->get('exportImageCols');
 
-        if(is_array($exportImageCols)){
-            $exportImageCols = implode(',',$exportImageCols);
+        if (is_array($exportImageCols)) {
+            $exportImageCols = implode(',', $exportImageCols);
         }
 
         /**
          * checking if the channel exist
          */
         $channel = null;
-        if($channelId){
+        if ($channelId) {
             $channel = Channel::getById($channelId);
         }
-        if(!$channel){
+        if (!$channel) {
             DHubLogger::log("Requested channel ($channelId) not found in ScheduleController saveScheduleAction .", DHubLogger::INFO);
             $msg = $this->trans('dHub_channel_not_found_relaod_admin');
             return $this->json(['success' => false,'msg' => $msg]);
         }
 
-        if(!$exportTime){
+        if (!$exportTime) {
             $exportTime = "00:00";
         }
         $completeDateString = $exportDate.' '.$exportTime;
@@ -120,13 +119,13 @@ class ScheduleController extends AdminController
         $schedule->setExportImageCols($exportImageCols);
         $schedule->setCreationDate(new \DateTime());
 
-        if($downloadFileName){
+        if ($downloadFileName) {
             $schedule->setDownloadFileName($downloadFileName);
         }
 
-        if($exportFtp){
+        if ($exportFtp) {
             $ftp = FTPDetail::getById($exportFtp);
-            if($ftp){
+            if ($ftp) {
                 $schedule->setFTPDetail($ftp);
             }
         }
@@ -136,14 +135,14 @@ class ScheduleController extends AdminController
         $user = \Pimcore\Tool\Admin::getCurrentUser();
         $schedule->setUserOwner($user->getId());
 
-        try{
+        try {
             $schedule->save();
-        }catch (NotNullConstraintViolationException $exception) {
+        } catch (NotNullConstraintViolationException $exception) {
             DHubLogger::log("Error saving schedule: ".$exception->getMessage(), DHubLogger::CRITICAL);
 
             $msg = $this->trans('mandatory_field_check_failed-check application logger for more details.');
             return $this->json(['success' => false, 'msg' => $msg]);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             DHubLogger::log("Error saving schedule: ".$exception->getMessage(), DHubLogger::CRITICAL);
             return $this->json(['success' => false, 'msg' => $exception->getMessage()]);
         }
@@ -152,7 +151,6 @@ class ScheduleController extends AdminController
         $data['success'] = true;
 
         return $this->json($data);
-
     }
 
     /**
@@ -175,7 +173,7 @@ class ScheduleController extends AdminController
         $list->load();
 
         $data = [];
-        foreach($list->getItems() as $schedule ){
+        foreach ($list->getItems() as $schedule) {
             $tmp = $scheduleService->buildScheduleForGrid($schedule);
             $data[] = $tmp;
         }
@@ -194,10 +192,10 @@ class ScheduleController extends AdminController
         $id = $request->get('scheduleId');
 
         $schedule = Schedule::getById($id);
-        if($schedule){
-            try{
+        if ($schedule) {
+            try {
                 $schedule->delete();
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 return $this->json(['success' => false,'msg' => $exception->getMessage()]);
             }
             return $this->json(['success' => true]);
@@ -212,16 +210,16 @@ class ScheduleController extends AdminController
      *
      * @param Request $request
      */
-    public function getExportImageCols(Request $request){
+    public function getExportImageCols(Request $request)
+    {
         $channelId = (int)$request->get('channelId');
         $channel = Channel::getById($channelId);
-        $colAttrMapping = json_decode($channel->getColumnAttributeMapping(),true);
+        $colAttrMapping = json_decode($channel->getColumnAttributeMapping(), true);
         $exportImageCols = $colAttrMapping['exportImageCols'];
         $storeData = [];
-        foreach($exportImageCols as $column){
+        foreach ($exportImageCols as $column) {
             $storeData[] =  [ 'id' => $column['definitionKey'], 'name' =>  $column['templateHeader'] ] ;
         }
         return $this->json(['success' => true, 'data' => $storeData]);
     }
-
 }

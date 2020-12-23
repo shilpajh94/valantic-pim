@@ -9,7 +9,7 @@ Ext.define('pimcore.plugin.dHub', {
     DHUB_OBJECT: 'object',
     DHUB_FOLDER: 'folder',
     DHUB_FILTER_BY_CONDITIONS: 'Filter Conditions',
-    DHUB_FILTER_BY_LIST: 'Uploaded List of Selected Attribute',
+    DHUB_FILTER_BY_LIST: 'Upload List of Selected SKUs',
 
     // collective way for using constants
     getAllObjectTypes: function () {

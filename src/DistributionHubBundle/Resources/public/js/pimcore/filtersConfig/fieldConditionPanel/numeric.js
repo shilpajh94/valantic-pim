@@ -1,4 +1,4 @@
-    pimcore.registerNS("pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric");
+pimcore.registerNS("pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric");
 pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric = Class.create(pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.default, {
 
     getConditionPanel: function() {
@@ -24,11 +24,13 @@ pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric = Class
                 style: "margin-left: 40px",
                 labelWidth: 40,
                 fieldLabel:  t("dHub_term"),
+                allowDecimals:true,
+                decimalPrecision: 4,
                 value: termFieldValue
             }
         );
  
-        if(this.data.operator === "exists" || this.data.operator == "not_exists"){
+        if(this.data.operator === "exists" || this.data.operator === "not_exists"){
             this.termField.setDisabled(true);
         }
         
@@ -47,16 +49,16 @@ pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric = Class
             operator = "must",
             operatorFieldValue = this.operatorField.getValue();
 
-        if(operatorFieldValue == "eq") {
-            filterEntryData = this.termField.getValue()
+        if(operatorFieldValue === "eq") {
+            filterEntryData = this.termField.getValue();
         } else {
             filterEntryData[operatorFieldValue] = this.termField.getValue();
         }
 
-        if(operatorFieldValue == "exists" || operatorFieldValue == "not_exists") {
+        if(operatorFieldValue === "exists" || operatorFieldValue === "not_exists") {
             operator = operatorFieldValue;
         }
-
+        console.log(filterEntryData);
         return {
             fieldname: this.fieldSelectionInformation.fieldName,
             filterEntryData: filterEntryData,

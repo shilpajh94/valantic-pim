@@ -20,7 +20,7 @@ class Dao extends AbstractDao
      */
     public function getChannelBySharedWithId($sharedWithUserId)
     {
-        $data = $this->db->fetchCol("SELECT channelId FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE sharedWithUserId = ?",[$sharedWithUserId]);
+        $data = $this->db->fetchCol("SELECT channelId FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE sharedWithUserId = ?", [$sharedWithUserId]);
         if (!$data) {
             return null;
             //throw new \Exception('channel shared with ' . $sharedWithUserId . ' not found');
@@ -34,7 +34,7 @@ class Dao extends AbstractDao
      */
     public function getUserByChannelId($channelId)
     {
-        $data = $this->db->fetchCol("SELECT sharedWithUserId FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE channelId = ?",[$channelId]);
+        $data = $this->db->fetchCol("SELECT sharedWithUserId FROM " . $this->db->quoteIdentifier(self::TABLE_NAME) . " WHERE channelId = ?", [$channelId]);
         if (!$data) {
             return null;
             //throw new \Exception('user with ' . $channelId . ' not found');

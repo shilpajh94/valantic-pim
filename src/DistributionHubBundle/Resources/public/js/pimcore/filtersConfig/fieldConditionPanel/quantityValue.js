@@ -38,6 +38,7 @@ pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.quantityValue =
             {
                 width: 110, 
                 labelWidth: 40,
+                allowDecimals:true,
                 value: termFieldValue
             }
         );
