@@ -68,60 +68,65 @@ class IndustrialHoseController extends AbstractController
 
             $headers = (array) json_decode($template->getHeaderData());
 
-            $headerKeys = array_keys($headers);
-            $headerKeys[] = 'ConstructionType';
-
             $productPageColumns = $inhSectionPageConfig[$tableName];
-            foreach ($productPageColumns['dispColumns'] as $key => $value) {
-                $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
-            }
-            $brandsList = $this->getBrandsList();
-            $data = array();
 
-            // Getting all siop level 4
-            $query = "select oo_id, ConstructionType from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
-            $constructionTypeList = $this->db->fetchPairs($query);
-
-            if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
-                foreach ($template->getProductsData() as $k => $row) {
-                    $row[]= '';
-                    $newRow = array_combine($headerKeys, $row);
-                    
-                    $query = "select TRIM( BOTH ',' FROM SIOPLevel4)  from object_query_1 where oo_id IN (".$newRow['id'].") ";
-                    $SIOPLevel4Id = $this->db->fetchColumn($query);
-
-                    if(isset($constructionTypeList[$SIOPLevel4Id]))
-                        $newRow['ConstructionType'] = $constructionTypeList[$SIOPLevel4Id];
-
-                    $productsData[] = $newRow;
-                    
+            if($headers && $productPageColumns)
+            {
+                foreach ($productPageColumns['dispColumns'] as $key => $value) {
+                    $productPageColumns['dispColumns'][$key]['title'] = $this->get('translator')->trans($key);
                 }
-                $i = 0;
 
-                foreach ($productsData as $k => $row) {
+                $headerKeys = array_keys($headers);
+                $headerKeys[] = 'ConstructionType';
+                
+                $brandsList = $this->getBrandsList();
+                $data = array();
 
-                    if (isset($row['brandName']) && !empty($row['brandName'])) {
-                        $uniqueId = $configTableName;
-                        $brandName = $row['brandName'][0];
-                        if (!isset($data[$uniqueId])) {
-                            $data[$uniqueId]['columns'] = $productPageColumns['columns'];
-                            $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];
-                        }
+                // Getting all siop level 4
+                $query = "select oo_id, ConstructionType from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
+                $constructionTypeList = $this->db->fetchPairs($query);
 
-                        foreach($productPageColumns['columns'] as $col) {
-                            if(isset($row[$col])) {
-                                if(!isset($data[$uniqueId]['data'][$brandName][$col])) {
-                                    $data[$uniqueId]['data'][$brandName][$col] = "";
-                                }
-                                if(empty($data[$uniqueId]['data'][$brandName][$col])) {
-                                    $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
-                                }
+                if (is_array($template->getProductsData()) && !empty($template->getProductsData())) {
+                    foreach ($template->getProductsData() as $k => $row) {
+                        $row[]= '';
+                        $newRow = array_combine($headerKeys, $row);
+                        
+                        $query = "select TRIM( BOTH ',' FROM SIOPLevel4)  from object_query_1 where oo_id IN (".$newRow['id'].") ";
+                        $SIOPLevel4Id = $this->db->fetchColumn($query);
 
+                        if(isset($constructionTypeList[$SIOPLevel4Id]))
+                            $newRow['ConstructionType'] = $constructionTypeList[$SIOPLevel4Id];
+
+                        $productsData[] = $newRow;
+                        
+                    }
+                    $i = 0;
+
+                    foreach ($productsData as $k => $row) {
+
+                        if (isset($row['brandName']) && !empty($row['brandName'])) {
+                            $uniqueId = $configTableName;
+                            $brandName = $row['brandName'][0];
+                            if (!isset($data[$uniqueId])) {
+                                $data[$uniqueId]['columns'] = $productPageColumns['columns'];
+                                $data[$uniqueId]['dispColumns'] = $productPageColumns['dispColumns'];
                             }
-                        }
 
-                        $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
-                        array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                            foreach($productPageColumns['columns'] as $col) {
+                                if(isset($row[$col])) {
+                                    if(!isset($data[$uniqueId]['data'][$brandName][$col])) {
+                                        $data[$uniqueId]['data'][$brandName][$col] = "";
+                                    }
+                                    if(empty($data[$uniqueId]['data'][$brandName][$col])) {
+                                        $data[$uniqueId]['data'][$brandName][$col] = $row[$col];
+                                    }
+
+                                }
+                            }
+
+                            $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
+                            array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                        }
                     }
                 }
             }
@@ -780,12 +785,13 @@ class IndustrialHoseController extends AbstractController
                     'SortOrder' => $category->getSortOrder()
                 );
                 if(!isset($categories[$fullCode])) {
-                    $categories[$fullCode][] = array(
+                    $categories[$fullCode]['mainCategory'][] = array(
                         'name' => ($category->getParent()->getPrintedCatalogDescription($language)) ? $category->getParent()->getPrintedCatalogDescription($language) : $category->getParent()->getDescription($language),
                         'level' => $category->getParent()->getLevel(),
                         'printable' => 0,
                         'SortOrder' => $category->getSortOrder()
                     );
+                    $categories[$fullCode]['SortOrder']=$category->getSortOrder();      
                 }
                 $categories[$fullCode]['subCategory'][] = $cat;
             }
