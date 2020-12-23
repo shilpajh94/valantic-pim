@@ -119,22 +119,22 @@ if (isset($info['brandsData'])) {
                                     <?php
                                     if (is_array($info['categories'])) {
                                         foreach ($info['categories'] as $category) {
-                                            $catNames = array_column($category, 'name');
                                             $first = "";
-                                            foreach ($catNames as $cn) {
-                                                if ($info['selectedCategory'] == $cn) {
-                                                    $first = "first";
-                                                }
+                                            if ($info['selectedCategory'] == $category['mainCategory'][0]['name']) {
+                                                $first = "first";
                                             }
+                                            
                                             echo "<li class='$first'>";
-                                            if (is_array($category) && !empty($category)) {
-                                                foreach ($category as $k => $cat) {
-                                                    if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                        echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                    } else {
-                                                        if ($cat['printable'] == 1) {
-                                                            echo "<p>" . $cat['name'] . "</p>";
-                                                        }
+
+                                            if(isset($category['mainCategory'][0]['name']))
+                                                echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                            else
+                                                echo "<p</p>";
+
+                                            if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                                foreach ($category['subCategory'] as $k => $cat) {
+                                                    if ($cat['printable'] == 1) {
+                                                        echo "<p>" . $cat['name'] . "</p>";
                                                     }
                                                 }
                                             }
@@ -227,17 +227,17 @@ if (isset($info['brandsData'])) {
                                                     <div class="col-6">
                                                         
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Packaging') ?></b>
                                                                 <?= $brand['brandData']['Packaging'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Coupling') ?></b>
                                                                 <?= $brand['brandData']['Coupling'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
                                                         
                                                     </div>
@@ -283,10 +283,8 @@ if (isset($info['brandsData'])) {
                                             $tableKey = md5($key.$gkey);
                                         ?>
 
-                                            <?php if($key): ?>
-<aside class="borders">
+                                            <aside class="borders">
                                             <h5 class="marginTop "><?= $brandKey. " ". $key ?> </h5>
-                                            <?php endif; ?>
                                             <?php if($fittingTableName['orderCodes']): ?>
                                             <div class="flex alignCenter orderCode">Order Codes : 
                                             

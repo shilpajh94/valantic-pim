@@ -236,6 +236,9 @@ class IndustrialHoseController extends AbstractController
                 unset($productsData);
             }
 
+            $SIOP4Description = '';
+            $SIOP3Description = '';
+
             $newBrandArray = array();
             if($brandsData)
             {
@@ -253,8 +256,6 @@ class IndustrialHoseController extends AbstractController
 
                     $tubeMaterialStr = '';
                     $coverMaterialStr = '';
-                    $SIOP4Description = '';
-                    $SIOP3Description = '';
                     $BrandingLayline = '';
                     $VirtualCatalogReinforcement = '';
                     $VirtualCatalogTubeMaterial = '';
@@ -444,7 +445,6 @@ class IndustrialHoseController extends AbstractController
             array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
             $categories = $this->getSIOP($CatalogLanguage);
-
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
 
@@ -490,177 +490,179 @@ class IndustrialHoseController extends AbstractController
             $footerBgColor = $template->getColor();
             $productsData = $template->getProductsData();
             $headerData = json_decode($template->getHeaderData(), true);
-
-            $headerKeys = array_keys($headerData);
-            $headerKeysIndex = array_flip($headerKeys);
-
-            $objColumnsData = $template->getColumns();
-            $this->columnsData = json_decode($objColumnsData, true);
-
-            $menuCategories = $this->getSIOP($CatalogLanguage);
-
-            $this->get('translator')->setLocale($CatalogLanguage);
-
-            $this->iconRequired = 'YES';
-            $this->subHeaderRequired = 'NO';
-
-            $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
             
-            unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
-
-            // Getting order of the keys
-            $orderKeys = array();
-            foreach ($columnsDataWithImages as $skey => $svalue) {
-                foreach ($svalue as $vkey => $vvalue) {
-                        $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
-                }
-            }
-
-            $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
-
-            $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
-            $categories = $this->db->fetchAll($query);
-
-            $categoriesList = array();
-
-            foreach ($categories as $key => $value) {
-                $categoriesList[$value['oo_id']] = $value;
-            }
-            unset($categories);
-
-            $brandName = '';
-            $pressureRating = '';
-            $catagoryDescription = array();
-            $mainImageObj = '';
-            $LeftPrintCatalogImageObj = '';
-            $RightPrintCatalogImageObj = '';
-            $ProfileDimensionImageObj = '';
-            $material = array();
-            $longDescription = '';
-            $BrandingLayline = '';
-            $safetyFeatures = array();
-            $orderCode = array();
-
-            if($productsData)
+            if($headerData)
             {
-                foreach ($productsData as $key => $item)
-                {
-                    if($item[$headerKeysIndex['brandName']])
-                    {
-                        $query = "select oldMaterialCode, SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
+                $headerKeys = array_keys($headerData);
+                $headerKeysIndex = array_flip($headerKeys);
 
-                        $record = $this->db->fetchRow($query);
-                        $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
-                        $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
+                $objColumnsData = $template->getColumns();
+                $this->columnsData = json_decode($objColumnsData, true);
 
-                        if(!$brandName && $item[$headerKeysIndex['brandName']])
-                        {
-                            $brandName = $item[$headerKeysIndex['brandName']][0];
-                        }
+                $menuCategories = $this->getSIOP($CatalogLanguage);
 
-                        if(isset($record['oldMaterialCode']) && !empty($record['oldMaterialCode']) && $record['oldMaterialCode']!=='N/A') {
-                            $orderCode[] = substr($record['oldMaterialCode'],0,6);
-                        }
+                $this->get('translator')->setLocale($CatalogLanguage);
 
-                        if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
-                        {
-                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
-                        }
+                $this->iconRequired = 'YES';
+                $this->subHeaderRequired = 'NO';
 
-                        if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
-                        {
-                            $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
-                        }
+                $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
+                
+                unset($objColumnsData);
+                unset($this->columnsData);
+                unset($this->attributeImages);
 
-                        if(!$pressureRating && $item[$headerKeysIndex['PressureRatingPSI']])
-                        {
-                            $pressureRating = $item[$headerKeysIndex['PressureRatingPSI']];
-                        }
-
-                        if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
-                        {
-                            $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
-                        }
-
-                        if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
-                        {
-                            $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
-                        }
-
-                        if($item[$headerKeysIndex['FittingMaterial']])
-                            $material[] = $item[$headerKeysIndex['FittingMaterial']];
-
-                        if($item[$headerKeysIndex['BrandingLayline']] && empty($BrandingLayline))
-                            $BrandingLayline = $item[$headerKeysIndex['BrandingLayline']];
-
-                        if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
-                            $longDescription = $item[$headerKeysIndex['longDescription']];
-
-                        if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
-                        {
-                            foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
-                                array_push($safetyFeatures,$feature);
-                            }
-                        }
-
-                        foreach ($orderKeys as $ckey => $cvalue) {
-                            $articlesData[] = $item[$cvalue];
-                        }
-
-                        $brandsData[] = $articlesData;
-                        unset($articlesData);
+                // Getting order of the keys
+                $orderKeys = array();
+                foreach ($columnsDataWithImages as $skey => $svalue) {
+                    foreach ($svalue as $vkey => $vvalue) {
+                            $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                     }
                 }
 
-                $brandingStr = $BrandingLayline;
+                $this->featuresList = $this->getFeaturesList('', $CatalogLanguage);
 
-                $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+                $query = "select oo_id, Level, description, PrintedCatalogDescription from object_localized_2_{$CatalogLanguage} where level IN (3,4) ";
+                $categories = $this->db->fetchAll($query);
 
-                unset($safetyFeatures);
-                unset($this->featuresList);
+                $categoriesList = array();
 
-                $material = array_unique($material);
-                $orderCodeArr = array_unique($orderCode);
+                foreach ($categories as $key => $value) {
+                    $categoriesList[$value['oo_id']] = $value;
+                }
+                unset($categories);
 
-                $materialStr = implode(', ', $material);
-                $orderCodeStr = implode(', ', $orderCodeArr);
+                $brandName = '';
+                $pressureRating = '';
+                $catagoryDescription = array();
+                $mainImageObj = '';
+                $LeftPrintCatalogImageObj = '';
+                $RightPrintCatalogImageObj = '';
+                $ProfileDimensionImageObj = '';
+                $material = array();
+                $longDescription = '';
+                $BrandingLayline = '';
+                $safetyFeatures = array();
+                $orderCode = array();
 
-                unset($material);
-                unset($orderCodeArr);
-                unset($safetyFeatures);
+                if($productsData)
+                {
+                    foreach ($productsData as $key => $item)
+                    {
+                        if($item[$headerKeysIndex['brandName']])
+                        {
+                            $query = "select oldMaterialCode, SIOPLevel3, SIOPLevel4 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
 
-                $groupData = array();
-                $groupData['subHeaderRequired'] = $this->subHeaderRequired;
-                $groupData['iconRequired'] = $this->iconRequired;
-                $groupData['material'] = $materialStr;
-                $groupData['pressureRating'] = $pressureRating;
-                $groupData['brandingLayline'] = $brandingStr;
-                $groupData['orderCodes'] = $orderCodeStr;
-                $groupData['safetyFeatures'] = $safetyFeaturesList;
-                $groupData['mainImageObj'] = $mainImageObj;
-                $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
-                $groupData['longDescription'] = $longDescription;
-                $groupData['data'] = $brandsData;
-                $groupData['columnsDataWithImages'] = $columnsDataWithImages;
-                $groupData['brandName'] = $brandName;
-                $groupData['categories'] = $menuCategories;
-                $groupData['selectedCategory'] = $catagoryDescription['SIOP3Description'];
-                $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
-                $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
-                unset($menuCategories);
-                unset($brandsData);
-                unset($mainImageObj);
-                unset($ProfileDimensionImageObj);
+                            $record = $this->db->fetchRow($query);
+                            $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+                            $SIOPLevel4 = trim($record['SIOPLevel4'], ',');
 
-                $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
-                $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+                            if(!$brandName && $item[$headerKeysIndex['brandName']])
+                            {
+                                $brandName = $item[$headerKeysIndex['brandName']][0];
+                            }
 
-                $this->view['groupData'] = $groupData;
-                $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
-                $this->view['footer_logo_src'] = $footer_logo_src;
+                            if(isset($record['oldMaterialCode']) && !empty($record['oldMaterialCode']) && $record['oldMaterialCode']!=='N/A') {
+                                $orderCode[] = substr($record['oldMaterialCode'],0,6);
+                            }
+
+                            if(!isset($catagoryDescription['SIOP3Description']) && $SIOPLevel3)
+                            {
+                                $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                            }
+
+                            if(!isset($catagoryDescription['SIOP4Description']) && $record['SIOPLevel4'])
+                            {
+                                $catagoryDescription['SIOP4Description'] = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
+                            }
+
+                            if(!$pressureRating && $item[$headerKeysIndex['PressureRatingPSI']])
+                            {
+                                $pressureRating = $item[$headerKeysIndex['PressureRatingPSI']];
+                            }
+
+                            if(!$mainImageObj && $item[$headerKeysIndex['mainImage']])
+                            {
+                                $mainImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['mainImage']]);
+                            }
+
+                            if(!$ProfileDimensionImageObj && $item[$headerKeysIndex['ProfileDimensionImage']])
+                            {
+                                $ProfileDimensionImageObj = \Pimcore\Model\Asset::getByPath($item[$headerKeysIndex['ProfileDimensionImage']]);
+                            }
+
+                            if($item[$headerKeysIndex['FittingMaterial']])
+                                $material[] = $item[$headerKeysIndex['FittingMaterial']];
+
+                            if($item[$headerKeysIndex['BrandingLayline']] && empty($BrandingLayline))
+                                $BrandingLayline = $item[$headerKeysIndex['BrandingLayline']];
+
+                            if($item[$headerKeysIndex['longDescription']] && empty($longDescription))
+                                $longDescription = $item[$headerKeysIndex['longDescription']];
+
+                            if($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']])
+                            {
+                                foreach ($item[$headerKeysIndex['FeaturesBenefitsBulletPoint']] as $fkey => $feature) {
+                                    array_push($safetyFeatures,$feature);
+                                }
+                            }
+
+                            foreach ($orderKeys as $ckey => $cvalue) {
+                                $articlesData[] = $item[$cvalue];
+                            }
+
+                            $brandsData[] = $articlesData;
+                            unset($articlesData);
+                        }
+                    }
+
+                    $brandingStr = $BrandingLayline;
+
+                    $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
+
+                    unset($safetyFeatures);
+                    unset($this->featuresList);
+
+                    $material = array_unique($material);
+                    $orderCodeArr = array_unique($orderCode);
+
+                    $materialStr = implode(', ', $material);
+                    $orderCodeStr = implode(', ', $orderCodeArr);
+
+                    unset($material);
+                    unset($orderCodeArr);
+                    unset($safetyFeatures);
+
+                    $groupData = array();
+                    $groupData['subHeaderRequired'] = $this->subHeaderRequired;
+                    $groupData['iconRequired'] = $this->iconRequired;
+                    $groupData['material'] = $materialStr;
+                    $groupData['pressureRating'] = $pressureRating;
+                    $groupData['brandingLayline'] = $brandingStr;
+                    $groupData['orderCodes'] = $orderCodeStr;
+                    $groupData['safetyFeatures'] = $safetyFeaturesList;
+                    $groupData['mainImageObj'] = $mainImageObj;
+                    $groupData['ProfileDimensionImageObj'] = $ProfileDimensionImageObj;
+                    $groupData['longDescription'] = $longDescription;
+                    $groupData['data'] = $brandsData;
+                    $groupData['columnsDataWithImages'] = $columnsDataWithImages;
+                    $groupData['brandName'] = $brandName;
+                    $groupData['categories'] = $menuCategories;
+                    $groupData['selectedCategory'] = $catagoryDescription['SIOP3Description'];
+                    $groupData['siop4Category'] = $catagoryDescription['SIOP4Description'];
+                    $groupData['siop3Category'] = $catagoryDescription['SIOP3Description'];
+                    unset($menuCategories);
+                    unset($brandsData);
+                    unset($mainImageObj);
+                    unset($ProfileDimensionImageObj);
+
+                    $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
+                    $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
+                }
             }
+            $this->view['groupData'] = $groupData;
+            $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
+            $this->view['footer_logo_src'] = $footer_logo_src;
         }
     }
 
@@ -708,28 +710,32 @@ class IndustrialHoseController extends AbstractController
 
                 $productsData = $template->getProductsData();
                 $headerData = json_decode($template->getHeaderData(), true);
-                $headerKeys = array_keys($headerData);
-                $headerKeysIndex = array_flip($headerKeys);
+                
+                if($headerData)
+                {
+                    $headerKeys = array_keys($headerData);
+                    $headerKeysIndex = array_flip($headerKeys);
 
-                $materialKeys = array_fill_keys($featuresMaterials, '');
-                foreach ($productsData as $key => $item) {
+                    $materialKeys = array_fill_keys($featuresMaterials, '');
+                    foreach ($productsData as $key => $item) {
 
-                    if($item[$headerKeysIndex['brandName']][0])
-                    {
-                        if(!isset($catagoryDescription['SIOP3Description']))
+                        if($item[$headerKeysIndex['brandName']][0])
                         {
-                            $query = "select SIOPLevel3 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
+                            if(!isset($catagoryDescription['SIOP3Description']))
+                            {
+                                $query = "select SIOPLevel3 from object_query_1 where oo_id = '".$item[$headerKeysIndex['id']]."'";
 
-                            $record = $this->db->fetchRow($query);
-                            $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
-                            $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                                $record = $this->db->fetchRow($query);
+                                $SIOPLevel3 = trim($record['SIOPLevel3'], ',');
+                                $catagoryDescription['SIOP3Description'] = !empty($categoriesList[$SIOPLevel3]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel3]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel3]['description'];
+                            }
+                            foreach($featuresMaterials as $fkey => $material)
+                            {
+                                if($material == $item[$headerKeysIndex['FittingMaterial']])
+                                    $materialKeys[$material] = 'Yes';
+                            }
+                            $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]]= $materialKeys;
                         }
-                        foreach($featuresMaterials as $fkey => $material)
-                        {
-                            if($material == $item[$headerKeysIndex['FittingMaterial']])
-                                $materialKeys[$material] = 'Yes';
-                        }
-                        $templateBrandDtata[$item[$headerKeysIndex['brandName']][0]]= $materialKeys;
                     }
                 }
             }
@@ -757,30 +763,44 @@ class IndustrialHoseController extends AbstractController
         $categories = array();
         foreach($listing as $category) {
             if($category->getLevel()==3) {
-                $categories[$category->getFullCode()][] = array(
+                $categories[$category->getFullCode()]['mainCategory'][] = array(
                     'name' => ($category->getPrintedCatalogDescription($language)) ? $category->getPrintedCatalogDescription($language) : $category->getDescription($language),
                     'level' => $category->getLevel(),
-                    'printable' => 1
+                    'printable' => 1,
+                    'SortOrder' => $category->getSortOrder()
                 );
+                $categories[$category->getFullCode()]['SortOrder']=$category->getSortOrder();
                 // $categories[$category->getId()] = $category->getDescription();
             } else {
                 $fullCode = $category->getParent()->getFullCode();
                 $cat = array(
                     'name' => ($category->getPrintedCatalogDescription($language)) ? $category->getPrintedCatalogDescription($language) : $category->getDescription($language),
                     'level' => $category->getLevel(),
-                    'printable' => 1
+                    'printable' => 1,
+                    'SortOrder' => $category->getSortOrder()
                 );
                 if(!isset($categories[$fullCode])) {
                     $categories[$fullCode][] = array(
                         'name' => ($category->getParent()->getPrintedCatalogDescription($language)) ? $category->getParent()->getPrintedCatalogDescription($language) : $category->getParent()->getDescription($language),
                         'level' => $category->getParent()->getLevel(),
-                        'printable' => 0
+                        'printable' => 0,
+                        'SortOrder' => $category->getSortOrder()
                     );
                 }
-                $categories[$fullCode][] = $cat;
+                $categories[$fullCode]['subCategory'][] = $cat;
             }
 
         }
+
+        array_multisort (array_column($categories, 'SortOrder'), SORT_ASC, $categories);
+
+        foreach ($categories as $catKey => $catValue) {
+            array_multisort (array_column($categories[$catKey]['subCategory'], 'SortOrder'), SORT_ASC, $categories[$catKey]['subCategory']);
+            // unset($categories[$catKey]['SortOrder']);
+            // $categories[$catKey] = $categories[$catKey]['subCategory'];
+            // unset($categories[$catKey]['subCategory']);
+        }
+
         return $categories;
     }
 
