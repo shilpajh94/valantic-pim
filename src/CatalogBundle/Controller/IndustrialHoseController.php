@@ -125,7 +125,9 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             $data[$uniqueId]['data'][$brandName]['SortOrder'] = $brandsList[$brandName]['SortOrder'];
-                            array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
+                            
+                            if(isset($data[$uniqueId]['data']))
+                                array_multisort (array_column($data[$uniqueId]['data'], 'SortOrder'), SORT_ASC, $data[$uniqueId]['data']);
                         }
                     }
                 }
@@ -250,7 +252,8 @@ class IndustrialHoseController extends AbstractController
                 // Sorting Array by HoseIDMm
                 foreach ($brandsData as $sortKey => $sortBrand)
                 {
-                    array_multisort (array_column($brandsData[$sortKey], $headerKeysIndex['hoseIdMM']), SORT_ASC, array_column($brandsData[$sortKey], $headerKeysIndex['hoseLengthFT']), SORT_ASC, $brandsData[$sortKey]);
+                    if(isset($brandsData[$sortKey]))
+                        array_multisort (array_column($brandsData[$sortKey], $headerKeysIndex['hoseIdMM']), SORT_ASC, array_column($brandsData[$sortKey], $headerKeysIndex['hoseLengthFT']), SORT_ASC, $brandsData[$sortKey]);
                 }
 
                 foreach ($brandsData as $key => $brand)
@@ -447,7 +450,8 @@ class IndustrialHoseController extends AbstractController
 
             unset($this->featuresList);
 
-            array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
+            if($newBrandArray)
+                array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
 
             $categories = $this->getSIOP($CatalogLanguage);
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesINHFooter['Black']:$CatalogImagesINHFooter['Orange'];
@@ -798,15 +802,15 @@ class IndustrialHoseController extends AbstractController
 
         }
 
-        array_multisort (array_column($categories, 'SortOrder'), SORT_ASC, $categories);
+        if($categories)
+        {
+            array_multisort (array_column($categories, 'SortOrder'), SORT_ASC, $categories);
+            foreach ($categories as $catKey => $catValue) {
+                if(isset($categories[$catKey]['subCategory']))
+                    array_multisort (array_column($categories[$catKey]['subCategory'], 'SortOrder'), SORT_ASC, $categories[$catKey]['subCategory']);
+            }
 
-        foreach ($categories as $catKey => $catValue) {
-            array_multisort (array_column($categories[$catKey]['subCategory'], 'SortOrder'), SORT_ASC, $categories[$catKey]['subCategory']);
-            // unset($categories[$catKey]['SortOrder']);
-            // $categories[$catKey] = $categories[$catKey]['subCategory'];
-            // unset($categories[$catKey]['subCategory']);
         }
-
         return $categories;
     }
 

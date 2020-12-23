@@ -851,7 +851,8 @@ if(isset($data[$baseId])) {
                 // p_r($data);
                 // p_r($images);die;
 
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
 
                 // p_r($data);die;
 
@@ -1102,13 +1103,17 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                         $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
-                        array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
+                        if($articlesData)
+                            array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
+                        
                         $data[$uniqueId]['articlesData'] = $articlesData;
                         $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                     }
 
-                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                    if($data)
+                        array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
                     $catalogGroupData[$catalogKey] = $data;
                 }
                 
@@ -1262,13 +1267,17 @@ if(isset($data[$baseId])) {
                     $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                     $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
 
-                    array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    if($articlesData)
+                        array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    
                     $data[$uniqueId]['articlesData'] = $articlesData;
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
 
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
             }
 
             unset($this->featuresList);
@@ -1694,7 +1703,9 @@ if(isset($data[$baseId])) {
 
                 }
 
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
                 $catalogGroupData[$catalogKey] = $data;
             }
 
@@ -1793,7 +1804,9 @@ if(isset($data[$baseId])) {
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
