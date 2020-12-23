@@ -9,12 +9,11 @@ if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod"){
     $s3ConfigSettings = [
         'version' => 'latest',
         'region' => S3_REGION,
-    ];
-
-    $s3ConfigSettings['http'] = [
-        'proxy' => [
-            'http' => 'cias.geoaws.com:8080',
-            'https' => 'cias.geoaws.com:8080'
+        'http' => [
+            'proxy' => [
+                'http' => 'cias.geoaws.com:8080',
+                'https' => 'cias.geoaws.com:8080'
+            ]
         ]
     ];
 
@@ -30,8 +29,9 @@ if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod"){
     ];
 }
 
+define("S3_CONFIG_SETTINGS", $s3ConfigSettings);
 
-$s3Client = new S3Client($s3ConfigSettings);
+$s3Client = new S3Client(S3_CONFIG_SETTINGS);
 if(class_exists('\S3CustomizationBundle\Lib\CustomStreamWrapper')){
     /**
      * to customize the default behaviour of wrapper,all the file and directory operations
@@ -41,7 +41,6 @@ if(class_exists('\S3CustomizationBundle\Lib\CustomStreamWrapper')){
 }else{
     $s3Client->registerStreamWrapper();
 }
-
 
 // set default file context
 \Pimcore\File::setContext(stream_context_create([
