@@ -1083,6 +1083,18 @@ parameters:
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            staticWire:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire
+                fieldType: Select
+                parent:
+                    name: HoseBase
+            numberOfPlies:
+                fieldLevel: objectBrick
+                fieldLabel: Number of Plies
+                fieldType: Number
+                parent:
+                    name: HoseBase
             Packaging:
                 fieldLevel: objectBrick
                 fieldLabel: Packaging

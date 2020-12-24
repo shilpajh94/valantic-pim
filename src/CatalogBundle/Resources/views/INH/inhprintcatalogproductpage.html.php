@@ -189,8 +189,9 @@ if (isset($info['brandsData'])) {
                                     </aside>
                                 </header>
                                 <section class="content">
-                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['orderCodes'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
+                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                         <menu class="flex">
+                                        <?php if(!empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                             <div class="specs">
                                                 <h6><?= $this->translate('specs') ?></h6>
                                                 <div class="spec-requirement flex">
@@ -245,6 +246,7 @@ if (isset($info['brandsData'])) {
                                                 </div>
                                                 
                                             </div>
+                                            <?php endif; ?>
 
                                             <?php if ($brand['brandData']['safetyFeatures']): ?>
                                                 <div class="feature">
