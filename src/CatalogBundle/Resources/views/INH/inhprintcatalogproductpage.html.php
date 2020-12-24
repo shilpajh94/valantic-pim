@@ -285,7 +285,18 @@ if (isset($info['brandsData'])) {
                                         ?>
 
                                             <aside class="borders">
-                                            <h5 class="marginTop "><?= $brandKey. " ". $key ?> </h5>
+                                            <h5 class="marginTop ">
+                                            <?php if($this->editmode): ?>
+                                                <?php if($this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"])->isEmpty()): ?>
+                                                        <?= $this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"])->setDataFromResource($brandKey. " ". $key) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"]); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"]) ?>
+                                            <?php endif; ?>
+                                            
+                                            </h5>
                                             <?php if($fittingTableName['orderCodes']): ?>
                                             <div class="flex alignCenter orderCode">Order Codes : 
                                             
