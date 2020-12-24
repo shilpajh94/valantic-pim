@@ -240,11 +240,10 @@ if (isset($info['brandsData'])) {
                                                             </div>
                                                         <?php endif; ?>
                                                         
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
+                                                   </div>
 
                                                 </div>
+                                                
                                             </div>
 
                                             <?php if ($brand['brandData']['safetyFeatures']): ?>
