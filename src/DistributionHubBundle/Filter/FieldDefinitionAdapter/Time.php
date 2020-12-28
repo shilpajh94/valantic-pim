@@ -5,7 +5,8 @@ namespace DistributionHubBundle\Filter\FieldDefinitionAdapter;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Concrete;
 
-class Time extends Datetime implements FieldDefinitionAdapterInterface {
+class Time extends Datetime implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
@@ -17,7 +18,8 @@ class Time extends Datetime implements FieldDefinitionAdapterInterface {
      * @param Concrete $object
      * @param bool $ignoreInheritance
      */
-    protected function getDataValue($object, $ignoreInheritance = false) {
+    protected function getDataValue($object, $ignoreInheritance = false)
+    {
         $inheritanceBackup = null;
         if ($ignoreInheritance) {
             $inheritanceBackup = AbstractObject::getGetInheritedValues();
@@ -39,5 +41,4 @@ class Time extends Datetime implements FieldDefinitionAdapterInterface {
 
         return $value;
     }
-
 }

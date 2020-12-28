@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 class Statistics extends AbstractModel
 {
     public $scheduleOwnerUserId;
@@ -36,7 +35,7 @@ class Statistics extends AbstractModel
      */
     public function getExportTime()
     {
-        if($this->exportTime){
+        if ($this->exportTime) {
             return $this->getDateFromTimestamp($this->exportTime);
         }
         return $this->exportTime;
@@ -47,7 +46,7 @@ class Statistics extends AbstractModel
      */
     public function setExportTime($exportTime): void
     {
-        if($exportTime instanceof \DateTime){
+        if ($exportTime instanceof \DateTime) {
             $exportTime = $exportTime->getTimestamp();
         }
         $this->exportTime = $exportTime;
@@ -100,6 +99,4 @@ class Statistics extends AbstractModel
     {
         $this->exportLocation = $exportLocation;
     }
-
-
 }

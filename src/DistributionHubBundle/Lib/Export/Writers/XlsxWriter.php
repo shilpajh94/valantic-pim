@@ -1,4 +1,5 @@
 <?php
+
 namespace DistributionHubBundle\Lib\Export\Writers;
 
 use DistributionHubBundle\Lib\Constants;
@@ -19,28 +20,27 @@ class XlsxWriter implements Writer
     public function __construct(Channel $channel, Schedule $schedule, string $tmpFilePathFolder)
     {
         $downloadFileName = $schedule->getDownloadFileName();
-        if(!$downloadFileName){
+        if (!$downloadFileName) {
             $downloadFileName = $channel->getName().'-'.$schedule->getName();
         }
         $this->downloadFileName = $downloadFileName.'-'.time();
         $this->tmpFilePath = $tmpFilePathFolder.$this->downloadFileName.'.xlsx';
 
         $originalHeaderMappingFileId = $channel->getHeaderMappingFileAssetId();
-        if($fileAsset = \Pimcore\Model\Asset::getById($originalHeaderMappingFileId)){
+        if ($fileAsset = \Pimcore\Model\Asset::getById($originalHeaderMappingFileId)) {
             $assetFilePath = $fileAsset->getFileSystemPath();
             $copy = copy($assetFilePath, $this->tmpFilePath);
-
-        }else{
+        } else {
             throw new \Exception("Header mapping template asset ($originalHeaderMappingFileId) not found.");
         }
 
         $headerMappingFileType = $channel->getHeaderMappingFileType();
-        if($headerMappingFileType == Constants::FILE_TYPE_EXCEL){
+        if ($headerMappingFileType == Constants::FILE_TYPE_EXCEL) {
             $this->headerRowNumber = $channel->getHeaderRowNumberInMappingFile();
             $this->sheetNumberInMappingFile = $channel->getSheetNumberInMappingFile();
             $this->rowNumberToWriteFrom = $this->headerRowNumber + 1;
             $this->spreadSheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($this->tmpFilePath);
-        }else{
+        } else {
             $this->headerRowNumber = 1;
             $this->sheetNumberInMappingFile = 0;
             $this->rowNumberToWriteFrom = $this->headerRowNumber + 1;
@@ -49,13 +49,11 @@ class XlsxWriter implements Writer
             $columnAttrMapping = json_decode($channel->getColumnAttributeMapping(), true);
             $this->writeHeaders($columnAttrMapping['templateAttribute']);
         }
-
-
     }
 
     private function writeHeaders($headers)
     {
-        for($i = 0; $i < count($headers); $i++){
+        for ($i = 0; $i < count($headers); $i++) {
             $this->getWorkSheet()->setCellValueByColumnAndRow(($i + 1), 1, $headers[$i]);
         }
     }
@@ -67,10 +65,10 @@ class XlsxWriter implements Writer
 
     public function write(array $data)
     {
-        for($i = 0; $i < count($data); $i++){
+        for ($i = 0; $i < count($data); $i++) {
             $row = $data[$i];
             $j = 1;
-            foreach($row as $key => $value){
+            foreach ($row as $key => $value) {
                 $this->getWorkSheet()->setCellValueByColumnAndRow($j, $this->rowNumberToWriteFrom, $value);
                 $j++;
             }

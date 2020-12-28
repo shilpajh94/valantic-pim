@@ -7,16 +7,17 @@ use DistributionHubBundle\Filter\FilterEntry;
 use Pimcore\Db;
 use DistributionHubBundle\Lib\DHubLogger;
 
-class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
      * @var string
      */
     protected $fieldType = "numeric";
-    
+
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -27,7 +28,8 @@ class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface 
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
 
         if (is_array($fieldFilter->getFilterEntryData())) {
             $operator = array_keys($fieldFilter->getFilterEntryData())['0'];
@@ -40,155 +42,157 @@ class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface 
         $conditionParams = array();
 
         switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
-                $conditionParams['key'] = " `" . $fieldName . "` LIKE ? ";
-                $conditionParams['value'] = $fieldFilter->getFilterEntryData();
+            case $operator === self::DHUB_OPERATOR_MUST:
+                $conditionParams['key'] = "`" . $fieldName . "` = '" . $fieldFilter->getFilterEntryData() . "' ";
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_LOWERTHAN:
+            case $operator === self::DHUB_OPERATOR_LOWERTHAN:
                 $conditionParams['key'] = " `" . $fieldName . "`  < ? ";
                 $conditionParams['value'] = $value;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_GREATERTHAN:
+            case $operator === self::DHUB_OPERATOR_GREATERTHAN:
                 $conditionParams['key'] = " `" . $fieldName . "`  > ? ";
                 $conditionParams['value'] = $value;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_LOWER_EQUAL_TO:
+            case $operator === self::DHUB_OPERATOR_LOWER_EQUAL_TO:
                 $conditionParams['key'] = " `" . $fieldName . "`  <= ? ";
                 $conditionParams['value'] = $value;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_GREATER_EQUAL_TO:
+            case $operator === self::DHUB_OPERATOR_GREATER_EQUAL_TO:
                 $conditionParams['key'] = " `" . $fieldName . "`  >= ? ";
                 $conditionParams['value'] = $value;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
+            case $operator === self::DHUB_OPERATOR_EXISTS:
                 $conditionParams['key'] = " `" . $fieldName . "`  IS NOT NULL";
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
+            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditionParams['key'] = " `" . $fieldName . "`  IS NULL";
-                $conditionParams['value'] = NULL;
+                $conditionParams['value'] = null;
                 $conditionParams['concatenator'] = "AND";
                 break;
         }
 
         return $conditionParams;
     }
-    
+
     /**
-     * Get localized query based on applied filter, 
-     * use queryBuilder prepared statements 
+     * Get localized query based on applied filter,
+     * use queryBuilder prepared statements
      *
      * @param array [$fieldName, $value, $lang]
-     * @param tableName for queryBuilder 
+     * @param tableName for queryBuilder
      *
      * @return $conditonParams
      *
      * @throws Exception
      */
-    public function getQueryForLocalized(array $details, $tableName) {
+    public function getQueryForLocalized(array $details, $tableName)
+    {
 
         $db = Db::get();
         // Use of queryBuilder for prepared statements
-        $queryBuilder = $db->createQueryBuilder();
-
-        $fieldName = $details['0'];
-        $operator = $details['1'];
-        $value = $details['2'];
-        $lang = $details['3'];
-        switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->eq($fieldName, '"' . $value . '"'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-            case $operator == self::DHUB_OPERATOR_LOWERTHAN:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->lt($fieldName, '"' . $value . '"'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-            case $operator == self::DHUB_OPERATOR_GREATERTHAN:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->gt($fieldName, '"' . $value . '"'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-            case $operator == self::DHUB_OPERATOR_LOWER_EQUAL_TO:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->lte($fieldName, '"' . $value . '"'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-            case $operator == self::DHUB_OPERATOR_GREATER_EQUAL_TO:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->gte($fieldName, '"' . $value . '"'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->isNotNull($fieldName, '?'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
-                $queryBuilder
-                        ->select('ooo_id')
-                        ->from($tableName)
-                        ->where(
-                                $queryBuilder->expr()->andX(
-                                        $queryBuilder->expr()->isNull($fieldName, '?'),
-                                        $queryBuilder->expr()->eq('language', '"' . $lang . '"')
-                                )
-                );
-                break;
-        }
-
         try {
+            $queryBuilder = $db->createQueryBuilder();
+
+            $fieldName = $details['0'];
+            $operator = $details['1'];
+            $value = $details['2'];
+            $lang = $details['3'];
+            switch ($operator) {
+                case $operator === self::DHUB_OPERATOR_MUST:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->eq($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_LOWERTHAN:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->lt($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_GREATERTHAN:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->gt($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_LOWER_EQUAL_TO:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->lte($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_GREATER_EQUAL_TO:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->gte($fieldName, '"' . $value . '"'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNotNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+                case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
+                    $queryBuilder
+                            ->select('ooo_id')
+                            ->from($tableName)
+                            ->where(
+                                $queryBuilder->expr()->andX(
+                                    $queryBuilder->expr()->isNull($fieldName, '?'),
+                                    $queryBuilder->expr()->eq('language', '"' . $lang . '"')
+                                )
+                            );
+                    break;
+            }
+
             return $queryBuilder->execute()->fetchAll();
         } catch (Exception $ex) {
-            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+            DHubLogger::log("Issue in " . __METHOD__ . " Exception - " . $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for - CheckBox is currently not supported. Please contact the administrator");
         }
     }
 
-    public function getRelatedFilterData($fieldFilter) {
+    public function getRelatedFilterData($fieldFilter)
+    {
 
 
         if (is_array($fieldFilter['filterEntryData'])) {
@@ -203,25 +207,25 @@ class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface 
 
         $conditons = array();
         switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
+            case $operator === self::DHUB_OPERATOR_MUST:
                 $conditons[] = " `" . $fieldName . "`  =  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_LOWERTHAN:
+            case $operator === self::DHUB_OPERATOR_LOWERTHAN:
                 $conditons[] = " `" . $fieldName . "`  <  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_GREATERTHAN:
+            case $operator === self::DHUB_OPERATOR_GREATERTHAN:
                 $conditons[] = " `" . $fieldName . "`  >  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_LOWER_EQUAL_TO:
+            case $operator === self::DHUB_OPERATOR_LOWER_EQUAL_TO:
                 $conditons[] = " `" . $fieldName . "`  <=  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_GREATER_EQUAL_TO:
+            case $operator === self::DHUB_OPERATOR_GREATER_EQUAL_TO:
                 $conditons[] = " `" . $fieldName . "`  >=  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
+            case $operator === self::DHUB_OPERATOR_EXISTS:
                 $conditons[] = " `" . $fieldName . "`  IS NOT NULL ";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
+            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditons[] = " `" . $fieldName . "`  IS NULL ";
                 break;
         }
@@ -229,7 +233,8 @@ class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface 
         return $conditons;
     }
 
-    public function getCollectionsData($fieldFilter) {
+    public function getCollectionsData($fieldFilter)
+    {
 
         $filterConditon = $fieldFilter['filterCondition'];
 
@@ -244,25 +249,25 @@ class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface 
         $fieldName = $filterConditon["fieldname"];
 
         switch ($operator) {
-            case $operator == self::DHUB_OPERATOR_MUST:
+            case $operator === self::DHUB_OPERATOR_MUST:
                 $conditon = " `" . $fieldName . "`  =  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_LOWERTHAN:
+            case $operator === self::DHUB_OPERATOR_LOWERTHAN:
                 $conditon = " `" . $fieldName . "`  <  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_GREATERTHAN:
+            case $operator === self::DHUB_OPERATOR_GREATERTHAN:
                 $conditon = " `" . $fieldName . "`  >  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_LOWER_EQUAL_TO:
+            case $operator === self::DHUB_OPERATOR_LOWER_EQUAL_TO:
                 $conditon = " `" . $fieldName . "`  <=  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_GREATER_EQUAL_TO:
+            case $operator === self::DHUB_OPERATOR_GREATER_EQUAL_TO:
                 $conditon = " `" . $fieldName . "`  >=  '" . $value . "' ";
                 break;
-            case $operator == self::DHUB_OPERATOR_EXISTS:
+            case $operator === self::DHUB_OPERATOR_EXISTS:
                 $conditon = " `" . $fieldName . "`  IS NOT NULL ";
                 break;
-            case $operator == self::DHUB_OPERATOR_NOT_EXISTS:
+            case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditon = " `" . $fieldName . "`  IS NULL ";
                 break;
         }
@@ -275,13 +280,16 @@ class Numeric extends DefaultAdapter implements FieldDefinitionAdapterInterface 
      *
      * @return FieldSelectionInformation[]
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'operators' => ['lt', 'lte', 'eq', 'gte', 'gt', FilterEntry::EXISTS, FilterEntry::NOT_EXISTS],
                 'classInheritanceEnabled' => $this->considerInheritance
                     ]
         )];
     }
-
 }

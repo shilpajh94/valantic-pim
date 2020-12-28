@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace DistributionHubBundle\Filter;
- 
 
-class FilterEntry {
+class FilterEntry
+{
 
     const MUST = "must";
     const SELECTED = "true";
@@ -12,6 +12,7 @@ class FilterEntry {
     const MUST_NOT = "must_not";
     const EXISTS = "exists";
     const NOT_EXISTS = "not_exists";
+    const NOT_AVAILABLE = "empty";
 
     const FIELDNAME_GROUP = "~~group~~";
 
@@ -42,7 +43,7 @@ class FilterEntry {
      *
      * @var bool
      */
-//    protected $ignoreInheritance;
+    //protected $ignoreInheritance;
 
     /**
      * FilterEntry constructor.
@@ -53,12 +54,11 @@ class FilterEntry {
      */
     public function __construct($fieldname, $filterEntryData, $operator = self::MUST, $ignoreInheritance = false)
     {
-        if($operator) {
+        if ($operator) {
             $this->operator = $operator;
         }
         $this->fieldname = $fieldname;
         $this->filterEntryData = $filterEntryData;
-//        $this->ignoreInheritance = $ignoreInheritance;
     }
 
     /**
@@ -69,10 +69,11 @@ class FilterEntry {
         return $this->operator;
     }
 
-    public function getOuterOperator() {
-        if($this->operator == self::EXISTS) {
+    public function getOuterOperator()
+    {
+        if ($this->operator === self::EXISTS) {
             return self::MUST;
-        } else if($this->operator == self::NOT_EXISTS) {
+        } elseif ($this->operator === self::NOT_EXISTS) {
             return self::MUST_NOT;
         } else {
             return $this->operator;
@@ -122,8 +123,9 @@ class FilterEntry {
     /**
      * @return bool
      */
-    public function isGroup() {
-        return $this->fieldname == self::FIELDNAME_GROUP;
+    public function isGroup()
+    {
+        return $this->fieldname === self::FIELDNAME_GROUP;
     }
 
 //    /**
@@ -133,5 +135,4 @@ class FilterEntry {
 //    {
 //        return $this->ignoreInheritance;
 //    }
-
 }

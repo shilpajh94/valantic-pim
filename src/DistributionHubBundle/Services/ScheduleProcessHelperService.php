@@ -43,7 +43,7 @@ class ScheduleProcessHelperService
     public function isScheduleDeleted(Schedule $schedule): bool
     {
         $sch = Schedule::getById($schedule->getId());
-        if($sch instanceof Schedule){
+        if ($sch instanceof Schedule) {
             return false;
         }
         return true;
@@ -72,7 +72,8 @@ class ScheduleProcessHelperService
     /**
      * @param Schedule $schedule
      */
-    public function updateScheduleStatusToComplete(Schedule $schedule) {
+    public function updateScheduleStatusToComplete(Schedule $schedule)
+    {
         $schedule->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
         $schedule->save();
     }
@@ -91,12 +92,10 @@ class ScheduleProcessHelperService
         $schedule->setExpiryTime($this->getExpiryDate($currentTime));
         $exportLocation = $schedule->getExportLocation();
  
-        if (strtolower($exportLocation) == 'ftp'){
-            // ToDo : status mismatch in case of both assets and dataFile 
+        if (strtolower($exportLocation) === 'ftp') {
             $schedule->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
             $schedule->save();
         }
-
     }
 
     /**
@@ -113,7 +112,7 @@ class ScheduleProcessHelperService
         $inProgressProcessCount = $this->updateStatusForDeadProcesses($inProgressProcesses);
 
         $maxActiveParallelProcessCount = $this->bundleService->getMaxActiveParallelProcessCount();
-        if($inProgressProcessCount < $maxActiveParallelProcessCount ){
+        if ($inProgressProcessCount < $maxActiveParallelProcessCount) {
             return array('canNewProcessStart' => true,'inProgressProcessCount' => $inProgressProcessCount);
         }
         return array('canNewProcessStart' => false,'inProgressProcessCount' => $inProgressProcessCount);
@@ -141,9 +140,9 @@ class ScheduleProcessHelperService
                 $msg .= " The process took longer than expected time (".$this->bundleService->getInProgressProcessLife()." minutes).";
                 $this->log($msg, DHubLogger::ALERT);
 
-                try{
+                try {
                     $this->mailNotificationService->sendNotification($schedule, $channel, Constants::SCHEDULE_STATUS_KILLED);
-                }catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     $this->log($exception->getMessage(), DHubLogger::CRITICAL);
                 }
             }
@@ -181,7 +180,7 @@ class ScheduleProcessHelperService
     {
         $startTime = $schedule->getExportProcessStartTime();
 
-        if($startTime){
+        if ($startTime) {
             $thresholdMinutes = $this->bundleService->getInProgressProcessLife();
             $intervalString = "PT".$thresholdMinutes."M";
             $thresholdInterval = new \DateInterval($intervalString);
@@ -189,7 +188,7 @@ class ScheduleProcessHelperService
             $thresholdTime = clone($startTime);
             $thresholdTime->add($thresholdInterval);
             $currentTime = new \DateTime('NOW');
-            if($currentTime > $thresholdTime){
+            if ($currentTime > $thresholdTime) {
                 return true;
             }
         }
@@ -222,9 +221,9 @@ class ScheduleProcessHelperService
         $listing->setCondition($condition);
         $listing->load();
 
-        foreach($listing->getItems()  as $schedule){
+        foreach ($listing->getItems() as $schedule) {
             $exportedAssetId = $schedule->getExportFilePimcoreAssetId();
-            if($exportedAssetId && ($asset = Asset::getById($exportedAssetId)) ){
+            if ($exportedAssetId && ($asset = Asset::getById($exportedAssetId))) {
                 $asset->delete();
             }
             $schedule->setExportFilePimcoreAssetId(null);
@@ -234,14 +233,13 @@ class ScheduleProcessHelperService
             $channel = $schedule->getChannel();
 
             $msg = "Schedule ".$schedule->getName()." of channel ".$channel->getName()." EXPIRED.";
-            $this->log($msg,DHubLogger::ALERT);
+            $this->log($msg, DHubLogger::ALERT);
 
-            try{
+            try {
                 $this->mailNotificationService->sendNotification($schedule, $channel, Constants::SCHEDULE_STATUS_EXPIRED);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->log($exception->getMessage(), DHubLogger::CRITICAL);
             }
-
         }
     }
 
@@ -251,7 +249,6 @@ class ScheduleProcessHelperService
      */
     private function log(string $message, $level)
     {
-        DHubLogger::log($message,$level);
+        DHubLogger::log($message, $level);
     }
-
 }

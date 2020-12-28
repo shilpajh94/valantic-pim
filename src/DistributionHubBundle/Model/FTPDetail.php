@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Model;
 
-
 class FTPDetail extends AbstractModel
 {
     public $name;
@@ -95,7 +94,4 @@ class FTPDetail extends AbstractModel
     {
         $this->password = $password;
     }
-
-
-
 }

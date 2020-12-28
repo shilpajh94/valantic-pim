@@ -46,7 +46,7 @@ class ExportService
      * @param LocaleServiceInterface $localeService
      * @param BundleService $bundleService
      */
-    public function __construct(LocaleServiceInterface $localeService,BundleService $bundleService)
+    public function __construct(LocaleServiceInterface $localeService, BundleService $bundleService)
     {
         $this->localeService = $localeService;
         $this->bundleService = $bundleService;
@@ -68,7 +68,7 @@ class ExportService
         $schList->setOrder("ASC");
         $schList->setLimit(1);
         $schList->load();
-        if(count($schList->getItems()) > 0){
+        if (count($schList->getItems()) > 0) {
             $sch = $schList->getItems()[0];
         }
         return $sch;
@@ -86,13 +86,28 @@ class ExportService
         $channel  = $schedule->getChannel();
         $filter = $channel->getFilter();
         $filterConfig = null;
-        if($filter){
+        if ($filter) {
             $filterConfig = $filter->getFilterConfig();
+            $filterConfig = json_decode($filterConfig, true);
+//            if(!is_array($filterConfig)){
+//                $filterConfig = [];
+//            }
+
+            $filterByList = $filter->getFilterByList();
+            $listFileAssetId = $filter->getListFileAssetId();
+            $filterByAttribute = $filter->getFilterByAttribute();
+
+            $filterConfig["filterByListAttributes"]  = array(
+                "filterByList" => $filterByList,
+                "listFileAssetId" => $listFileAssetId,
+                "filterByAttribute" => $filterByAttribute
+            );
+
         }
 
         return array(
-            "filterConfig" => json_decode($filterConfig, true),
-            "channel" => $channel
+            "filterConfig" => $filterConfig,
+            "channel" => $channel,
         );
     }
 
@@ -109,16 +124,14 @@ class ExportService
         $templateColumns = $columnAttributeMapping['templateAttribute'];
         $fields = [];
         $helperDefinition = [];
-        foreach($selectedGridColumnAssoc as $key => $selectedGridColumn){
-            
+        foreach ($selectedGridColumnAssoc as $key => $selectedGridColumn) {
             foreach ($templateColumns as $index => $templateColumn) {
-                if($key === $index){
+                if ($key === $index) {
                     $fields[trim($templateColumn)] = $selectedGridColumn['key'];
                 }
-
             }
-            
-            if($selectedGridColumn['isOperator']){
+
+            if ($selectedGridColumn['isOperator']) {
                 $helperDefinition[$selectedGridColumn['key']] = json_decode(json_encode($selectedGridColumn));
             }
         }
@@ -145,20 +158,18 @@ class ExportService
             $index = substr($assetCol['definitionKey'], strpos($assetCol['definitionKey'], "_") + 1);
 
             foreach ($selectedGridColumnAssoc as $key => $selectedGridColumn) {
- 
-                if($key == $index){
+                if ($key == $index) {
                     $fields['templateColumn'] = $assetCol['templateHeader'];
-                    if($selectedGridColumn['isOperator']){
+                    if ($selectedGridColumn['isOperator']) {
                         $fields['thumbnail'] = $selectedGridColumn['attributes']['thumbnail'];
-                        if($selectedGridColumn['attributes']['childs']){
+                        if ($selectedGridColumn['attributes']['childs']) {
                             $fields['attributeName'] =  $selectedGridColumn['attributes']['childs']['0']['attribute'];
                         } else {
                             //handle field collection operator
                             $fields['attributeName'] =  $selectedGridColumn['attributes']['fcAttribute'];
-                            $fields['fcFieldInBaseClass'] =  $selectedGridColumn['attributes']['fcFieldInBaseClass'];   
-                            $fields['fcIndex'] =  $selectedGridColumn['attributes']['fcIndex'];   
+                            $fields['fcFieldInBaseClass'] =  $selectedGridColumn['attributes']['fcFieldInBaseClass'];
+                            $fields['fcIndex'] =  $selectedGridColumn['attributes']['fcIndex'];
                         }
-                        
                     } else {
                         $fields['attributeName'] =  $selectedGridColumn['attributes']['attribute'];
                     }
@@ -235,30 +246,30 @@ class ExportService
      * @return array
      * @throws \Exception
      */
-    public function sendExportFileToDesiredLocation(Channel $channel, Schedule $schedule,string $exportFilePath, bool $isZip)
+    public function sendExportFileToDesiredLocation(Channel $channel, Schedule $schedule, string $exportFilePath, bool $isZip)
     {
 
         $exportLocation = $schedule->getExportLocation();
-        if(strtolower($exportLocation) == 'pimcore'){
+        if (strtolower($exportLocation) == 'pimcore') {
             $asset = $this->addExportFileInAsset($channel, $exportFilePath);
 
-            if($isZip === true){
+            if ($isZip === true) {
                 $schedule->setExportAssetFilePimcoreAssetId($asset->getId());
-            } elseif($isZip === false) {
+            } elseif ($isZip === false) {
                 $schedule->setExportFilePimcoreAssetId($asset->getId());
             }
             $schedule->save();
-        }elseif (strtolower($exportLocation) == 'ftp'){
+        } elseif (strtolower($exportLocation) == 'ftp') {
             $ftpDetail = $channel->getFTPDetails();
             $ftpDetail = $ftpDetail[0];
-            if(!$ftpDetail){
+            if (!$ftpDetail) {
                 $msg = "FTP not configured for channel";
                 $msg .= "So file can not be pushed to FTP.";
                 throw new \Exception($msg);
             }
             try {
                 $this->sendExportFileToFTP($ftpDetail, $exportFilePath);
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $msg = $exception->getMessage();
                 throw new \Exception($msg);
             }
@@ -274,9 +285,9 @@ class ExportService
     public function addExportFileInAsset(Channel $channel, string $exportFilePath): Asset
     {
         $exportFileSavePath = $channel->getExportFilePath();
-        if($exportFileSavePath && Asset::getByPath($exportFileSavePath) ){
+        if ($exportFileSavePath && Asset::getByPath($exportFileSavePath)) {
             $parentFolder = Asset::getByPath($exportFileSavePath);
-        }else{
+        } else {
             $parentFolder = $this->bundleService->getDefaultAssetFolderForExportedFiles();
         }
         $asset = new Asset();
@@ -299,27 +310,27 @@ class ExportService
         $port = $FTPDetail->getServerPort() ?? 21;
         $ftpServer = $FTPDetail->getServerAddress();
 
-        try{
+        try {
             $ftpConn = ftp_connect($ftpServer, $port);
-            if(!$ftpConn){
+            if (!$ftpConn) {
                 throw new \Exception();
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             throw new \Exception("Could not connect to FTP server ".$FTPDetail->getName().", msg: ". $exception->getMessage());
         }
 
-        try{
+        try {
             $login = ftp_login($ftpConn, $FTPDetail->getUserName(), $FTPDetail->getPassword());
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             throw new \Exception("Could not log in to FTP server ".$FTPDetail->getName().", msg: ". $exception->getMessage());
         }
 
-        try{
+        try {
             $result = ftp_put($ftpConn, basename($exportFilePath), $exportFilePath, FTP_BINARY);
-            if(!$result){
+            if (!$result) {
                 throw new \Exception();
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             throw new \Exception("Could not put file on FTP server ".$FTPDetail->getName().", msg: ". $exception->getMessage());
         }
 
@@ -331,7 +342,7 @@ class ExportService
      */
     public function setHostURLInSession(string $hostURL): void
     {
-        $hostURL = rtrim($hostURL,'/');
+        $hostURL = rtrim($hostURL, '/');
         $_SESSION[Constants::HOST_NAME_KEY_IN_SESSION] = $hostURL;
     }
 
@@ -344,22 +355,22 @@ class ExportService
         $port = $FTPDetail->getServerPort() ?? 21;
         $ftpServer = $FTPDetail->getServerAddress();
 
-        try{
+        try {
             $ftpConn = ftp_connect($ftpServer, $port);
-            if(!$ftpConn){
+
+            if (!$ftpConn) {
                 throw new \Exception();
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             throw new \Exception("Could not connect to FTP server '".$FTPDetail->getName()."'");
         }
 
-        try{
-             ftp_login($ftpConn, $FTPDetail->getUserName(), $FTPDetail->getPassword());
-        }catch (\Exception $exception){
+        try {
+            ftp_login($ftpConn, $FTPDetail->getUserName(), $FTPDetail->getPassword());
+        } catch (\Exception $exception) {
             throw new \Exception("Could not log in to FTP server '".$FTPDetail->getName()."'");
         }
 
         ftp_close($ftpConn);
     }
-
 }

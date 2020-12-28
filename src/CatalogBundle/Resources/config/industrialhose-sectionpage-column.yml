@@ -47,11 +47,6 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-      lightweightConstruction:
-        title: LW Const.
-        type: feature
-        fieldName: FeaturesBenefitsBulletPoint
-        feature: Lightweight Construction
   Chemical:
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
@@ -353,11 +348,6 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-      lightweightConstruction:
-        title: LW Const.
-        type: feature
-        fieldName: FeaturesBenefitsBulletPoint
-        feature: Lightweight Construction
   Steam:
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:

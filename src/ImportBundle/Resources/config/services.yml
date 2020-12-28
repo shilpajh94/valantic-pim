@@ -103,6 +103,10 @@ services:
     ImportBundle\OneTimeImportCommand\AssociateFittingCategorySubCategoryForFittingAndThreadNameCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:assoc-fitting-category-subcategory-for-fitting-and-thread' }
+
+    ImportBundle\OneTimeImportCommand\ImportPTGSynchronousCorrectedDataCommand:
+        tags:
+            - { name: 'console.command', command: 'onetime-import:import_ptg_synchronous_corrected_data' }
             
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel

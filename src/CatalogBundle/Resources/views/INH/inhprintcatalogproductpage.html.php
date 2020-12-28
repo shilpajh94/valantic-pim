@@ -2,7 +2,7 @@
 $this->extend('CatalogBundle:Layouts:layout.html.php');
 ?>
 <?php if ($this->editmode) { ?>
-    <?= $this->relation("inh-printcatalog"); ?>
+    <?= $this->relation("inh-printcatalogproduct"); ?>
 <?php } ?>
 <?php
 if (isset($info['brandsData'])) {
@@ -28,7 +28,7 @@ if (isset($info['brandsData'])) {
                                 <img src="<?= $info['footer_logo_src']; ?>">
                             </span>
                             <div class="flex aligned">
-                                <h5>
+                                <h5 class="marginTop2">
                                     <?php if($this->editmode): ?>
                                         <?php if($this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"])->isEmpty()): ?>
                                                 <?= $this->input("INH_PP_FOOTER_BRAND_" . $uniqueId, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
@@ -82,7 +82,7 @@ if (isset($info['brandsData'])) {
                                             <?= $this->wysiwyg("INH_PP_FOOTER_COMP_FITTING1_" . $uniqueId, ["placeholder" => "eg: Enter Product Category"]) ?>
                                     <?php endif; ?>
                                 </div>
-                                <h5>
+                                <h5 class="marginTop2">
                                     <?php if($this->editmode): ?>
                                         <?php if($this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"])->isEmpty()): ?>
                                                 <?= $this->input("INH_PP_FOOTER_BRAND1_" . $uniqueId, ["placeholder" => "Brand"])->setDataFromResource($brandKey) ?>
@@ -196,52 +196,50 @@ if (isset($info['brandsData'])) {
                                                 <div class="spec-requirement flex">
                                                     <div class="col-6">
                                                         <?php if (!empty(trim($brand['brandData']['tubeMaterial']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Tube Material') ?></b>
                                                                 <?= $brand['brandData']['tubeMaterial'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['coverMaterial']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Cover Material') ?></b>
                                                                 <?= $brand['brandData']['coverMaterial'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
-
-                                                        <?php if (!empty(trim($brand['brandData']['orderCodes']))): ?>
-                                                            <p>
-                                                                <b><?= $this->translate('Order Codes') ?></b>
-                                                                <?= $brand['brandData']['orderCodes'] ?>
-                                                            </p>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div class="col-6">
                                                         <?php if (!empty(trim($brand['brandData']['reinforcement']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Reinforcement') ?></b>
                                                                 <?= $brand['brandData']['reinforcement'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
+
                                                         <?php if (!empty(trim($brand['brandData']['temperatureRangeFAndC']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Temperature Range') ?></b>
                                                                 <?= $brand['brandData']['temperatureRangeFAndC'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
-                                                        <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <p>
-                                                                <b><?= $this->translate('Coupling') ?></b>
-                                                                <?= $brand['brandData']['Coupling'] ?>
-                                                            </p>
-                                                        <?php endif; ?>
+                                                        
+                                                    </div>
+                                                    <div class="col-6">
+                                                        
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
                                                             <p>
                                                                 <b><?= $this->translate('Packaging') ?></b>
                                                                 <?= $brand['brandData']['Packaging'] ?>
                                                             </p>
                                                         <?php endif; ?>
+
+                                                        <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
+                                                            <p>
+                                                                <b><?= $this->translate('Coupling') ?></b>
+                                                                <?= $brand['brandData']['Coupling'] ?>
+                                                            </p>
+                                                        <?php endif; ?>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -280,9 +278,31 @@ if (isset($info['brandsData'])) {
 
                                     if(isset($brand['articleData']) && is_array($brand['articleData'])):
 
-                                        foreach ($brand['articleData'] as $key => $fittingTableName):
-                                            $tableKey = md5($key);
+                                        foreach ($brand['articleData'] as $key => $GroupingFields):
+                                            foreach ($GroupingFields as $gkey => $fittingTableName):
+                                            $tableKey = md5($key.$gkey);
                                         ?>
+
+                                            <?php if($key): ?>
+<aside class="flex borders">
+                                            <h5 class="marginTop "><?= $brandKey. " ". $key ?> </h5>
+                                            <?php endif; ?>
+                                            <?php if($fittingTableName['orderCodes']): ?>
+                                            <div class="flex alignCenter"><b>Order Codes :</b> 
+                                            
+                                            <?php if($this->editmode): ?>
+                                                <?php if($this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->isEmpty()): ?>
+                                                        <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->setDataFromResource($fittingTableName['orderCodes']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"]); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"]) ?>
+                                            <?php endif; ?>
+                                            </div>
+</aside>
+                                            <?php endif; ?>
+
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
                                             <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
                                                 <thead>
@@ -291,10 +311,13 @@ if (isset($info['brandsData'])) {
                                                         <tr class="sub-head">
                                                             <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c1data): ?>
                                                                 <?php
+                                                                $columnWidth = '';
                                                                 $g1count = count($c1data);
                                                                 $firstArray = array_shift($c1data);
+                                                                if($firstArray['columnWidth'])
+                                                                            $columnWidth = "width=".$firstArray['columnWidth']
                                                                 ?>
-                                                                <td colspan="<?= $g1count; ?>">
+                                                                <td colspan="<?= $g1count; ?>" <?php echo $columnWidth; ?>>
                                                                     <?php if ($firstArray['columnIcon']): ?>
                                                                         <img src="<?= $firstArray['columnIcon'] ?>" width="45" height="45" />
                                                                     <?php endif; ?>
@@ -305,10 +328,13 @@ if (isset($info['brandsData'])) {
                                                     <tr class="head">
                                                         <?php foreach ($fittingTableName['columnsDataWithImages'] as $key => $c2data): ?>
                                                             <?php
+                                                            $columnWidth = '';
                                                             $g2count = count($c2data);
                                                             $first2Array = array_shift($c2data);
+                                                            if($first2Array['columnWidth'])
+                                                                            $columnWidth = "width=".$first2Array['columnWidth']
                                                             ?>
-                                                            <td colspan="<?= $g2count; ?>"><?= $first2Array['columnLabel'] ?></td>
+                                                            <td colspan="<?= $g2count; ?>" <?php echo $columnWidth; ?>><?= $first2Array['columnLabel'] ?></td>
                                                         <?php endforeach; ?>
                                                     </tr>
 
@@ -355,6 +381,7 @@ if (isset($info['brandsData'])) {
                                             <p class="small"><?= $this->input('INH_PP_Note_' . $uniqueId.'_'.$tableKey, ['placeholder' => 'Enter comment']); ?></p>
                                         <?php
                                         $noterow++;
+                                        endforeach;
                                         endforeach;
                                     endif;
                                     ?>

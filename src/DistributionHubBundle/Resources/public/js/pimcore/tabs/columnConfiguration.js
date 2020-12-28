@@ -224,15 +224,12 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
     updatePreviewArea: function () {
         var rootNode = this.selectionPanel.getRootNode();
 
-        //var dataApplyFilter = this.config.dataApplyFilter;
         var dataShowInGrid = this.config.showInGrid;
         var dataPreview = this.config.dataPreview;
         if (dataPreview) {
             dataPreview = dataPreview[0];
         }
-        /*if (dataApplyFilter) {
-            dataApplyFilter = dataApplyFilter[0];
-        }*/
+
         if (dataShowInGrid) {
             dataShowInGrid = dataShowInGrid[0];
         }
@@ -260,13 +257,6 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     value: showInGrid,
                     name: 'showInGrid[]'
                 });
-                /*  let applyFilter = 0;
-                  if (dataApplyFilter && dataApplyFilter["applyfilterfield_" + i]) {
-                      applyFilter = dataApplyFilter["applyfilterfield_" + i];
-                  }
-                  c.set("applyFilter", applyFilter, {
-                      dirty: false
-                  });*/
             }
         }
     },
@@ -388,7 +378,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                         editor: {
                             xtype: 'checkbox',
                             cls: 'x-grid-checkheader-editor',
-                            name: 'dataShowInGrid[]',
+                            name: 'dataShowInGrid[]'
                         },
                         sortable: false,
                         listeners: {
@@ -403,18 +393,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                                 }
                             }
                         }
-                    },
-                    /*{
-                        text: t('dHub_apply_filter'),
-                        dataIndex: 'applyFilter',
-                        xtype: 'checkcolumn',
-                        width: 100,
-                        editor: {
-                            xtype: 'checkbox',
-                            cls: 'x-grid-checkheader-editor'
-                        },
-                        sortable: false
-                    }*/
+                    }
                 ],
                 viewConfig: {
                     plugins: {
@@ -452,17 +431,6 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                                 var copy = element.getCopyNode(record);
                                 copy.data.allowDrop = false;
                                 copy.data.allowDrop = record.data.isOperator;
-
-                                // if (record.data.brickDescriptor && record.data.brickDescriptor.insideBrick) {
-                                //     var brickOperator = new pimcore.object.gridcolumn.operator.objectbrickgetter();
-                                //     var brickNode = brickOperator.getConfigTreeNode();
-                                //     brickNode.expanded = true;
-                                //     brickNode.configAttributes.attr = record.data.brickDescriptor.brickField;
-                                //     brickNode.configAttributes.brickType = record.data.brickDescriptor.brickType;
-                                //     brickNode = realOverModel.createNode(brickNode);
-                                //     brickNode.appendChild(copy);
-                                //     copy = brickNode;
-                                // }
 
                                 if (isOverwrite) {
                                     if(!copy.hasOwnProperty('key')){
@@ -685,7 +653,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                        }
                     },
                     failure: function(response){
-                        alert("Error in classification store " );
+                        Ext.MessageBox.alert(t('dHub_error_loading_attr'), response.msg);
                     }
                 });
             }
@@ -808,7 +776,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         }
 
         var operatorGroupKeys = [];
-        for (k in operatorGroups) {
+        for (let k in operatorGroups) {
             if (operatorGroups.hasOwnProperty(k)) {
                 operatorGroupKeys.push(k);
             }
@@ -816,7 +784,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
         operatorGroupKeys.sort();
         var result = [];
         var len = operatorGroupKeys.length;
-        for (i = 0; i < len; i++) {
+        for (let i = 0; i < len; i++) {
             var operatorGroupName = operatorGroupKeys[i];
             var groupNodes = operatorGroups[operatorGroupName];
             result.push(this.getOperatorTree(operatorGroupName, groupNodes));
@@ -987,8 +955,6 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
                     pimcore.helpers.loadingHide();
                     if (rdata && rdata.success) {
                         pimcore.helpers.showNotification(t("success"), t("dHub_mapping_save_success"), "success");
-                        //this.modificationDate = rdata.modificationDate;
-                        //this.resetChanges();
                     } else {
                         pimcore.helpers.showNotification(t("error"), t("dHub_mapping_saveerror"), "error", t(rdata.message));
                     }

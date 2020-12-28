@@ -10,7 +10,8 @@ use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Fieldcollection;
 use Pimcore\Db;
 
-class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterInterface {
+class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterInterface
+{
 
     /**
      * field type for filter frontEnd
@@ -24,7 +25,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
     protected $fieldDefinition;
     
     /**
-     * Get query based on applied filter, use pimcore addConditionParams() method 
+     * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
      *
      * @param ClassDefinition\Listing
@@ -35,7 +36,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
      *
      * @throws Exception
      */
-    public function getQueryPart($fieldFilter, $fieldDefinition, $listing) {
+    public function getQueryPart($fieldFilter, $fieldDefinition, $listing)
+    {
         $db = Db::get();
         $fieldCollectionType = $fieldFilter->getFilterEntryData()['type'];
         $filterCondition = $fieldFilter->getFilterEntryData()['filterCondition'];
@@ -46,49 +48,52 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
 
         $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($collFieldDefinition, false);
         $conditionParams = array();
+        try {
+            if ($collFieldDefinition->getFieldtype() === "localizedfields") {
+                $filteredResults = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData(), $listing->getClassId(), $collFieldDefinition, $fieldDefinition->getFieldType());
 
-        if ($collFieldDefinition->getFieldtype() === "localizedfields") {
-            $filteredResults = $fieldDefinitionAdapter->getDataForLocalized($fieldFilter->getFilterEntryData(), $listing->getClassId(), $collFieldDefinition, $fieldDefinition->getFieldType());
+                if (!empty($filteredResults)) {
+                    $resultsIds = array();
 
-            if (!empty($filteredResults)) {
-                $resultsIds = array();
+                    foreach ($filteredResults as $val) {
+                        $val = array_key_exists("src_id", $val) ? $val['src_id'] : $val = $val['ooo_id'];
+                        $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    }
+                    $conditonPrepare = implode(' OR ', $resultsIds);
+                    $conditionParams['key'] = $conditonPrepare;
+                    $conditionParams['value'] = null;
+                    $conditionParams['concatenator'] = "OR";
 
-                foreach ($filteredResults as $val) {
-                    $val = array_key_exists("src_id", $val) ? $val['src_id'] : $val = $val['ooo_id'];
-                    $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    return $conditionParams;
                 }
-                $conditonPrepare = implode(' OR ', $resultsIds);
-                $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
-                $conditionParams['concatenator'] = "AND";
+            } else {
+                $filteredResults = $fieldDefinitionAdapter->getCollectionsData($fieldFilter->getFilterEntryData());
 
-                return $conditionParams;
-            }
-        } else {
+                $tableName = "object_collection_" . $fieldCollectionType . "_" . $listing->getClassId();
 
-            $filteredResults = $fieldDefinitionAdapter->getCollectionsData($fieldFilter->getFilterEntryData());
+                $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
 
-            $tableName = "object_collection_" . $fieldCollectionType . "_" . $listing->getClassId();
+                $results = $db->fetchAll($query);
 
-            $query = "SELECT `o_id` FROM `" . $tableName . "` WHERE     " . $filteredResults;
+                if (!empty($results)) {
+                    $resultsIds = array();
 
-            $results = $db->fetchAll($query);
+                    foreach ($results as $val) {
+                        $val = $val['o_id'];
+                        $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    }
 
-            if (!empty($results)) {
-                $resultsIds = array();
+                    $conditonPrepare = implode(' OR ', $resultsIds);
+                    $conditionParams['key'] = $conditonPrepare;
+                    $conditionParams['value'] = null;
+                    $conditionParams['concatenator'] = "OR";
 
-                foreach ($results as $val) {
-                    $val = $val['o_id'];
-                    $resultsIds[] = " `o_id` = '" . $val . "' ";
+                    return $conditionParams;
                 }
-
-                $conditonPrepare = implode(' OR ', $resultsIds);
-                $conditionParams['key'] = $conditonPrepare;
-                $conditionParams['value'] = NULL;
-                $conditionParams['concatenator'] = "AND";
-
-                return $conditionParams;
             }
+        } catch (\Exception $ex) {
+            DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
+            throw new \Exception("Applied Filter for FieldCollections is currently not supported. Please contact the administrator");
         }
     }
 
@@ -96,7 +101,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
      * @param Concrete $object
      * @return array
      */
-    public function getDataValue($object) {
+    public function getDataValue($object)
+    {
 
         $data = [];
 
@@ -104,7 +110,6 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
         $fieldCollectionItems = $object->$getter();
 
         if ($fieldCollectionItems) {
-
             //deactivate inheritance since within field collections there is no inheritance
             $inheritanceBackup = AbstractObject::getGetInheritedValues();
             AbstractObject::setGetInheritedValues(false);
@@ -135,7 +140,8 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
     /**
      * @inheritdoc
      */
-    public function getFieldSelectionInformation() {
+    public function getFieldSelectionInformation()
+    {
 
         $allowedTypes = [];
         foreach ($this->fieldDefinition->getAllowedTypes() as $allowedType) {
@@ -143,10 +149,12 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
         }
 
         return [new FieldSelectionInformation(
-                    $this->fieldDefinition->getName(), $this->fieldDefinition->getTitle(), $this->fieldType, [
+            $this->fieldDefinition->getName(),
+            $this->fieldDefinition->getTitle(),
+            $this->fieldType,
+            [
                 'allowedTypes' => $allowedTypes,
                     ]
         )];
     }
-
 }

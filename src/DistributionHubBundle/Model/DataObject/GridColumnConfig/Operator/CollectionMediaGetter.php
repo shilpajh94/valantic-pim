@@ -14,7 +14,8 @@ class CollectionMediaGetter extends AbstractOperator
     private $fcIndex;
     private $fcAttribute;
 
-    public function __construct(\stdClass $config, $context = null) {
+    public function __construct(\stdClass $config, $context = null)
+    {
 
         $this->thumbnail = $config->thumbnail;
         $this->fcFieldInBaseClass = $config->fcFieldInBaseClass;
@@ -44,18 +45,17 @@ class CollectionMediaGetter extends AbstractOperator
     {
         $asset = null;
         $getter = "get".ucfirst($this->fcFieldInBaseClass);
-        if(method_exists($element, $getter)){
+        if (method_exists($element, $getter)) {
             $fc = $element->$getter();
-            if($fc){
+            if ($fc) {
                 $item = $fc->get($this->fcIndex);
-                if($item){
+                if ($item) {
                     $attrGetter = "get".ucfirst($this->fcAttribute);
-                    if(method_exists($item, $attrGetter)){
+                    if (method_exists($item, $attrGetter)) {
                         $asset = $item->$attrGetter();
                     }
                 }
             }
-
         }
         return $asset;
     }

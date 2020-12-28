@@ -2,7 +2,6 @@
 
 namespace DistributionHubBundle\Services;
 
-
 use DistributionHubBundle\Model\Channel;
 use DistributionHubBundle\Model\FTPDetail;
 use DistributionHubBundle\Model\Schedule;
@@ -47,15 +46,15 @@ class ScheduleService
         $dateFormat = $this->getDateFormat();
 
         $processStartTime = $schedule->getExportProcessStartTime();
-        if($processStartTime instanceof \DateTime){
+        if ($processStartTime instanceof \DateTime) {
             $processStartTime = $processStartTime->format($dateFormat);
         }
         $processEndTime = $schedule->getExportProcessEndTime();
-        if($processEndTime){
+        if ($processEndTime) {
             $processEndTime = $processEndTime->format($dateFormat);
         }
         $expiryTime = $schedule->getExpiryTime();
-        if($expiryTime){
+        if ($expiryTime) {
             $expiryTime = $expiryTime->format($dateFormat);
         }
 
@@ -75,9 +74,5 @@ class ScheduleService
             'process_start_time' => $processStartTime,
             'process_end_time' => $processEndTime
         ];
-
     }
-
-
-
 }
