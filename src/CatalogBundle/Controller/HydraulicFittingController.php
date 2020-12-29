@@ -114,10 +114,6 @@ class HydraulicFittingController extends AbstractController
                 foreach ($brandsData as $brandKey => $brand)
                 {
 
-                    $reinforcementArr = array();
-                    $tubeMaterialArr = array();
-                    $coverMaterialArr = array();
-
                     $shortDescription = '';
                     // $BrandShortText1 = '';
                     $LeftPrintCatalogImageObj = '';
@@ -232,8 +228,8 @@ class HydraulicFittingController extends AbstractController
             }
 
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);

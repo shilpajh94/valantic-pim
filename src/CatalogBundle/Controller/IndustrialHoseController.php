@@ -410,15 +410,15 @@ class IndustrialHoseController extends AbstractController
                         ksort($newBrandArray[$key]['articleData']);
                     }
 
-                    $reinforcementStr = $VirtualCatalogReinforcement;
+                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
                     if(empty($reinforcementStr) && $reinforcementArr)
                         $reinforcementStr = implode(', ', array_unique($reinforcementArr));
 
-                    $tubeMaterialStr = $VirtualCatalogTubeMaterial;
+                    $tubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial);
                     if(empty($tubeMaterialStr) && $tubeMaterialArr)
                         $tubeMaterialStr = implode(', ', array_unique($tubeMaterialArr));
 
-                    $coverMaterialStr = $VirtualCatalogCoverMaterial;
+                    $coverMaterialStr = strip_tags($VirtualCatalogCoverMaterial);
                     if(empty($coverMaterialStr) && $coverMaterialArr)
                         $coverMaterialStr = implode(', ', array_unique($coverMaterialArr));
 
@@ -448,7 +448,7 @@ class IndustrialHoseController extends AbstractController
                 }
             }
 
-            unset($this->featuresList);
+            //unset($this->featuresList);
 
             if($newBrandArray)
                 array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
@@ -461,8 +461,8 @@ class IndustrialHoseController extends AbstractController
             $BrandingImageSrc = $this->getS3ImageSrc($BrandingImageSrc);
 
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             $this->view['info'] = array(
                 'iconRequired' => $this->iconRequired,
@@ -518,8 +518,8 @@ class IndustrialHoseController extends AbstractController
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
                 
                 unset($objColumnsData);
-                unset($this->columnsData);
-                unset($this->attributeImages);
+                //unset($this->columnsData);
+                //unset($this->attributeImages);
 
                 // Getting order of the keys
                 $orderKeys = array();
@@ -630,7 +630,7 @@ class IndustrialHoseController extends AbstractController
                     $safetyFeaturesList = $this->getFiveSortedFeaturesWithIconList($safetyFeatures);
 
                     unset($safetyFeatures);
-                    unset($this->featuresList);
+                    //unset($this->featuresList);
 
                     $material = array_unique($material);
                     $orderCodeArr = array_unique($orderCode);
