@@ -181,7 +181,7 @@ class IndustrialHoseController extends AbstractController
             $objColumnsData = $template->getColumns();
             $this->columnsData = json_decode($objColumnsData, true);
 
-            $this->iconRequired = 'NO';
+            $this->iconRequired = 'YES';
             // $subHeaderRequired = 'NO';
             
 
