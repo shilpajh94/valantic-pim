@@ -134,6 +134,7 @@ class ProductSQLModel
                 'startRow'  =>  $this->startRow
             );
             $csvInfo = Import::getCSVData($this->filePath);
+            
             $this->csvHeader = array_flip($csvInfo['header']);
             /**
              * Setting up import table
@@ -160,8 +161,8 @@ class ProductSQLModel
         
         $this->tblImpHelper->updateMaster();
         if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
-            echo "Object Saving started for completeness.";
-            $this->appService->saveProductsWithArticleNumbers($this->updatedArticlesArray, true);
+            echo "Object Saving started for completeness.";         
+            $this->saveProducts($this->updatedArticlesArray);
             echo "Object Saving completed for completeness.";
         }
     }
@@ -178,6 +179,16 @@ class ProductSQLModel
         }
     }
     
+    public function saveProducts($updatedArticlesArray) {
+        foreach ($updatedArticlesArray as $objectId) {
+            if (!empty($objectId)) {
+                $object = DataObject\Product::getById($objectId, true);
+                if (!empty($object) && $object instanceof \Pimcore\Model\DataObject\Product) {
+                    $object->save();
+                }
+            }
+        }
+    }
     public function processDeletedProducts() {
         $deletedProducts = $this->tblImpHelper->getDeletedProducts();
         if (!empty($deletedProducts) && count($deletedProducts)>0) {
@@ -376,7 +387,7 @@ class ProductSQLModel
         $currentLevelPath = $parentPath.'/'.$objectKey;
         if (!array_key_exists($currentLevelPath, $this->products)) {
             if ($type == 'fert') {
-		    $articleNumber = $record[$this->getRecordIndexByKey('material')];
+                $articleNumber = $record[$this->getRecordIndexByKey('material')];
 		$data = $this->tblImpHelper->checkIfArticleExists($articleNumber);
 		if (!empty($data) && count($data)>0) {
                     $objId = $data[0]['oo_id'];
@@ -384,12 +395,17 @@ class ProductSQLModel
                     //if ($oldMaterialCode != $data[0]['oldMaterialCode']) {
 		    $distributionFlag = $this->tblImpHelper->getDistributionChainFlagByMaterial($objId);
 		    $fittingFamilyFlag = $this->tblImpHelper->getFittingFamilyFlagByMaterial($objId);
+                    var_dump($distributionFlag);
+                    var_dump($fittingFamilyFlag);
                     if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
                         $objectArr['parentId'] = $data[0]['o_parentId'];
+                        $objectArr['path'] = $data[0]['o_path'];
                     }
 			//}
                 }
+                print_r($objectArr);
             }
+            
             
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
@@ -497,7 +513,7 @@ class ProductSQLModel
                     );
                     $levelInfo = $this->productHelper->getLevels($record['code'], $record);
                     if ($levelInfo['status']) {
-                        $this->updatedArticlesArray[] = $recData[$this->getRecordIndexByKey('material')];
+                        
                         if (strtolower($bu) == 'ifs') {
                             $oldMaterialCode = trim($recData[6]);
                             if ($oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
@@ -526,7 +542,7 @@ class ProductSQLModel
                                 }
                                 
                                 if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
-                                    $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
+                                    $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
                                 } else {
                                     $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
                                     $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
@@ -554,6 +570,7 @@ class ProductSQLModel
                             $status = 'Success';
                             $msg = 'Object Id is: '.$levelArray[0];
                         }
+                        $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
                     }
                     unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
                 } else {
