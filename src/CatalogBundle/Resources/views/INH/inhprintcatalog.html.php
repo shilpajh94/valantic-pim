@@ -4,6 +4,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php if ($this->editmode) { ?>
     <?= $this->relation("inh-printcatalog"); ?>
 <?php } ?>
+
+<?php if (isset($info['data']) && !empty($info['data'])) { ?>
 <div class="template">
 <div class="segregate inhSettingN">
 
@@ -52,7 +54,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
         <article class="fullcontainer single">
             <?php
-            if (isset($info['data']) && !empty($info['data'])) {
+            
                 foreach ($info['data'] as $tableName => $data) {
             ?>
 
@@ -205,8 +207,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </div>
 
                     </div>
-            <?php }
-            } ?>
+            <?php } ?>
 
        </article>
 
@@ -223,3 +224,5 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
     });
 </script>
+
+<?php } ?>
