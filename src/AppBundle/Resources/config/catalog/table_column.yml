@@ -6,7 +6,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: 'Part Number'
                 fieldType: Input
-                columnWidth: 150
+                columnWidth: 100
                 parent:
                     name: HoseFert  
             articleNumber:
@@ -1040,7 +1040,7 @@ parameters:
                 fieldLevel: class
                 fieldLabel: 'SAP #'
                 fieldType: Input
-                columnWidth: 150
+                columnWidth: 100
                 parent:
                     name: Product
             temperatureRangeFAndC:
@@ -1078,6 +1078,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Cover Color
                 fieldType: Relation
+                columnWidth: 100
                 parent:
                     name: HoseBase
                     class:
