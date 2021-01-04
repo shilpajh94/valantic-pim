@@ -64,22 +64,22 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                                 <?php
                                 if (is_array($info['categories'])) {
                                     foreach ($info['categories'] as $category) {
-                                        $catNames = array_column($category, 'name');
                                         $first = "";
-                                        foreach($catNames as $cn) {
-                                            if($tableName==$cn) {
-                                                $first = "first";
-                                            }
+                                        if ($tableName == $category['mainCategory'][0]['name']) {
+                                            $first = "first";
                                         }
+                                        
                                         echo "<li class='$first'>";
-                                        if (is_array($category) && !empty($category)) {
-                                            foreach ($category as $k=> $cat) {
-                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                    echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                } else {
-                                                    if ($cat['printable'] == 1) {
-                                                        echo "<p>" . $cat['name'] . "</p>";
-                                                    }
+
+                                        if(isset($category['mainCategory'][0]['name']))
+                                            echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                        else
+                                            echo "<p</p>";
+
+                                        if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                            foreach ($category['subCategory'] as $k => $cat) {
+                                                if ($cat['printable'] == 1) {
+                                                    echo "<p>" . $cat['name'] . "</p>";
                                                 }
                                             }
                                         }

@@ -851,7 +851,8 @@ if(isset($data[$baseId])) {
                 // p_r($data);
                 // p_r($images);die;
 
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
 
                 // p_r($data);die;
 
@@ -912,8 +913,8 @@ if(isset($data[$baseId])) {
                 $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
                 
                 unset($objColumnsData);
-                unset($this->columnsData);
-                unset($this->attributeImages);
+                //unset($this->columnsData);
+                //unset($this->attributeImages);
             
                 // Getting order of the keys
                 $orderKeys = array();
@@ -1067,15 +1068,15 @@ if(isset($data[$baseId])) {
 
                         $reinforcement = implode(', ', $reinforcement);
 
-                        $VirtualCatalogTubeMaterialStr = $VirtualCatalogTubeMaterial;
+                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial);
                         if(empty($VirtualCatalogTubeMaterialStr))
                             $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
 
-                        $VirtualCatalogCoverMaterialStr = $VirtualCatalogCoverMaterial;
+                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial);
                             if(empty($VirtualCatalogCoverMaterialStr))
                                 $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
-                        $reinforcementStr = $VirtualCatalogReinforcement;
+                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
                         if(empty($reinforcementStr))
                             $reinforcementStr = $reinforcement;
 
@@ -1102,17 +1103,21 @@ if(isset($data[$baseId])) {
                         $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                         $data[$uniqueId]['columnsDataWithImages'] = $columnsDataWithImages;
 
-                        array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
+                        if($articlesData)
+                            array_multisort (array_column($articlesData, $headerKeysIndex['hoseOdIn']), SORT_ASC, $articlesData);
+                        
                         $data[$uniqueId]['articlesData'] = $articlesData;
                         $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                     }
 
-                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                    if($data)
+                        array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
                     $catalogGroupData[$catalogKey] = $data;
                 }
                 
-                unset($this->featuresList);
+                //unset($this->featuresList);
 
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -1163,8 +1168,8 @@ if(isset($data[$baseId])) {
             $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
             
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -1262,16 +1267,20 @@ if(isset($data[$baseId])) {
                     $data[$uniqueId]['subHeaderRequired'] = $this->subHeaderRequired;
                     $data[$uniqueId]['safetyFeatures'] = $safetyFeaturesList;
 
-                    array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    if($articlesData)
+                        array_multisort (array_column($articlesData, 'SleevingIDInDecimal'), SORT_ASC, $articlesData);
+                    
                     $data[$uniqueId]['articlesData'] = $articlesData;
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
 
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
             }
 
-            unset($this->featuresList);
+            //unset($this->featuresList);
             
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -1315,8 +1324,8 @@ if(isset($data[$baseId])) {
             $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
             
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -1417,8 +1426,8 @@ if(isset($data[$baseId])) {
             $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
 
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
@@ -1669,15 +1678,15 @@ if(isset($data[$baseId])) {
                     $reinforcement = implode(', ', $reinforcement);
                     $fittingFamily = implode(', ', $fittingFamily);
 
-                    $VirtualCatalogTubeMaterialStr = $VirtualCatalogTubeMaterial;
+                    $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial);
                     if(empty($VirtualCatalogTubeMaterialStr))
                         $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
 
-                    $VirtualCatalogCoverMaterialStr = $VirtualCatalogCoverMaterial;
+                    $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial);
                         if(empty($VirtualCatalogCoverMaterialStr))
                             $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
-                    $reinforcementStr = $VirtualCatalogReinforcement;
+                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
                             if(empty($reinforcementStr))
                                 $reinforcementStr = $reinforcement;
 
@@ -1694,7 +1703,9 @@ if(isset($data[$baseId])) {
 
                 }
 
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
                 $catalogGroupData[$catalogKey] = $data;
             }
 
@@ -1740,8 +1751,8 @@ if(isset($data[$baseId])) {
             $this->get('translator')->setLocale($CatalogLanguage);
 
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             $orderKeys = array();
             foreach ($columnsDataWithImages as $skey => $svalue) {
@@ -1793,7 +1804,9 @@ if(isset($data[$baseId])) {
                     $data[$uniqueId]['SortOrder'] = $brandsList[$brandName];
 
                 }
-                array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
+
+                if($data)
+                    array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
             }
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
@@ -1914,8 +1927,8 @@ if(isset($data[$baseId])) {
             $columnsDataWithImages = $this->getColumnHeadersForCatalog(FALSE, []);
             
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             // Getting order of the keys
             $orderKeys = array();
@@ -2091,7 +2104,7 @@ if(isset($data[$baseId])) {
                 unset($safetyFeatures);
                 unset($materialArray);
 
-                $reinforcementStr = $VirtualCatalogReinforcement;
+                $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
                 if(empty($reinforcementStr))
                     $reinforcementStr = $reinforcement;
 
@@ -2115,7 +2128,7 @@ if(isset($data[$baseId])) {
                 unset($brandsData);
                 unset($mainImageObj);
                 unset($ProfileDimensionImageObj);
-                unset($this->featuresList);
+                //unset($this->featuresList);
 
                 $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesPTGFooter['Black']:$CatalogImagesPTGFooter['Orange'];
                 $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);

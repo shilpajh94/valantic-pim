@@ -75,22 +75,22 @@ if (!isset($this->parentContainer)) {
                                 <?php
                                 if (is_array($categories)) {
                                     foreach ($categories as $category) {
-                                        $catNames = array_column($category, 'name');
                                         $first = "";
-                                        foreach ($catNames as $cn) {
-                                            if ($selectedCategory == $cn) {
-                                                $first = "first";
-                                            }
+                                        if ($selectedCategory == $category['mainCategory'][0]['name']) {
+                                            $first = "first";
                                         }
+                                        
                                         echo "<li class='$first'>";
-                                        if (is_array($category) && !empty($category)) {
-                                            foreach ($category as $k => $cat) {
-                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                    echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                } else {
-                                                    if ($cat['printable'] == 1) {
-                                                        echo "<p>" . $cat['name'] . "</p>";
-                                                    }
+
+                                        if(isset($category['mainCategory'][0]['name']))
+                                            echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                        else
+                                            echo "<p</p>";
+
+                                        if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                            foreach ($category['subCategory'] as $k => $cat) {
+                                                if ($cat['printable'] == 1) {
+                                                    echo "<p>" . $cat['name'] . "</p>";
                                                 }
                                             }
                                         }
