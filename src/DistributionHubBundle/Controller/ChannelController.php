@@ -271,6 +271,9 @@ class ChannelController extends AdminController
                 $newObject->setHeaderRowNumberInMappingFile($channel->getHeaderRowNumberInMappingFile());
                 $newObject->setMappingFileCSVDelimiter($channel->getMappingFileCSVDelimiter());
                 $newObject->setPimcoreClassId($channel->getPimcoreClassId());
+                $newObject->setLanguage($channel->getLanguage());
+                $newObject->setExportFileCSVDelimiter($channel->getExportFileCSVDelimiter());
+                $newObject->setShowInGridMapping($channel->getShowInGridMapping());
                 $newObject->setSheetNumberInMappingFile($channel->getSheetNumberInMappingFile());
                 $newObject->setUserOwner($userOwner);
                 if ($filter) {
