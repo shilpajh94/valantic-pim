@@ -13,7 +13,7 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_EXPORT_SFTP_USERNAME", "pimuser");
     define("B2B_EXPORT_SFTP_PASSWORD", "userpim");
     define("B2B_EXPORT_SFTP_PATH", "/opt/PIM/B2b");
-    
+
     define("BW_SAP_IMPORT_SFTP_HOST", "v5ftp001.tiretech2.contiwan.com");
     define("BW_SAP_IMPORT_SFTP_PORT", 22);
     define("BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
@@ -27,7 +27,10 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
-    
+
+    // this is being used by workflow reminder cron
+    // setting this in 'settings' - > 'domain name' breaks the redirect set for admin
+    define("APPLICATION_HOST","https://pim.conti.de");
 
 } elseif (CUSTOM_ENV == "stage") {
 
@@ -42,7 +45,7 @@ if (CUSTOM_ENV == "prod") {
     define("B2B_EXPORT_SFTP_USERNAME", "pimuser");
     define("B2B_EXPORT_SFTP_PASSWORD", "userpim");
     define("B2B_EXPORT_SFTP_PATH", "/opt/PIM/B2b");
-    
+
     define("BW_SAP_IMPORT_SFTP_HOST", "v5ftp001.tiretech2.contiwan.com");
     define("BW_SAP_IMPORT_SFTP_PORT", 22);
     define("BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
@@ -56,6 +59,9 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+
+    // this is being used by workflow reminder cron
+    define("APPLICATION_HOST","http://stage.pim.conti.de");
 
 } elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc") {
 
@@ -87,7 +93,6 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
 
-
-    // /home/syncrasy/Desktop/Contitech/Latest DOC/used/
-
+    // this is being used by workflow reminder cron
+    define("APPLICATION_HOST","localhost");
 }
