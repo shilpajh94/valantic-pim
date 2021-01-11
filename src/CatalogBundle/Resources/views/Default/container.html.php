@@ -19,4 +19,4 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     <?= $this->inc($child, array('containerRequest' =>TRUE)) ?>
    <!-- <div class="break-before"></div>-->
 <?php } ?>
-<script type="text/javascript" src="/js/tableContinueLable.js"></script>
+<script type="text/javascript" src="/static/js/tableContinueLable.js"></script>

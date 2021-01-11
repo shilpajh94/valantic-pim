@@ -419,10 +419,7 @@ if (isset($info['brandsData'])) {
         }
     </style>
     <?php if (!$info['containerRequest']): ?>
-            <script type="text/javascript" src="/js/tableContinueLable.js"></script>
+            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
     <?php endif; ?>
 
 <?php } ?>
-
-
-

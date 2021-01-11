@@ -382,7 +382,7 @@ if ($data):
     if (!$containerRequest):
     
     ?>
-    <script type="text/javascript" src="/js/tableContinueLable.js"></script>
+    <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 
     <?php
     
