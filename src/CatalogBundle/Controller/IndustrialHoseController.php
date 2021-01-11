@@ -39,6 +39,7 @@ class IndustrialHoseController extends AbstractController
     */
     public function inhPrintCatalogAction(Request $request)
     {
+        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $inhSectionPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHSectionPageConfig()['parameters'];
         $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
         $CatalogImagesINHProduct = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHProduct'];
@@ -144,7 +145,8 @@ class IndustrialHoseController extends AbstractController
                 'categories' => $categories,
                 // 'defaultPageImage' => \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']),
                 'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
-                'footer_logo_src' => $footer_logo_src
+                'footer_logo_src' => $footer_logo_src,
+                'containerRequest' => $containerRequest
             );
         }
     }
@@ -154,6 +156,7 @@ class IndustrialHoseController extends AbstractController
      *
      */
     public function inhPrintCatalogProductPageAction(Request $request) {
+        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $inhProductPageConfig = \Pimcore::getContainer()->get('app.config_provider_service')->getINHProductPageConfig()['parameters'];
         $this->attributeImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $CatalogImagesINHFooter = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['CatalogImagesINHFooter'];
@@ -471,7 +474,8 @@ class IndustrialHoseController extends AbstractController
                 'selectedCategory' => $SIOP3Description,
                 'branding_image_src' => $BrandingImageSrc,
                 'footer_class' => (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'',
-                'footer_logo_src' => $footer_logo_src
+                'footer_logo_src' => $footer_logo_src,
+                'containerRequest' => $containerRequest
             );
         }
     }
@@ -482,6 +486,7 @@ class IndustrialHoseController extends AbstractController
      *
      */
     public function inhFittingPageAction(Request $request) {
+        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $template = $this->getDocumentTag('relation', 'inh_fitting_page')->getElement();
         if($template)
         {
@@ -672,10 +677,12 @@ class IndustrialHoseController extends AbstractController
             $this->view['groupData'] = $groupData;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
+            $this->view['containerRequest'] = $containerRequest;
         }
     }
 
-    public function inhFittingCoverAction(){
+    public function inhFittingCoverAction(Request $request){
+        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $templates = $this->getDocumentTag('relations', 'inh_fitting_cover_page')->getElements();
 
         if($templates)
@@ -761,6 +768,7 @@ class IndustrialHoseController extends AbstractController
             // $this->view['defaultPageImage'] = \Pimcore\Model\Asset::getByPath($CatalogImagesINHProduct['DefaultCoverImage']);
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
+            $this->view['containerRequest'] = $containerRequest;
         }
     }
 

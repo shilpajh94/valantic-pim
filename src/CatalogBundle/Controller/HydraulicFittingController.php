@@ -36,6 +36,7 @@ class HydraulicFittingController extends AbstractController
 
     public function fittingPageAction(Request $request)
     {
+        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $fittingTableColumn = \Pimcore::getContainer()->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
         // $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $common = \Pimcore::getContainer()->get('app.common_helper');
@@ -239,6 +240,7 @@ class HydraulicFittingController extends AbstractController
             $this->view['brandsData'] = $newBrandArray;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
+            $this->view['containerRequest'] = $containerRequest;
         }
     }
 

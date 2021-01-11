@@ -1,9 +1,16 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <?php if ($this->editmode) { ?>
     <?= $this->relation("fitting-straight"); ?>
 <?php } ?>
+
+<?php
+if (is_array($brandsData) && !empty($brandsData)) {
+?>
+
 <div class="template">
 <section class="segregate">
 
@@ -163,8 +170,6 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <div class="wrapper padding">
 
     <?php
-
-    if (is_array($brandsData) && !empty($brandsData)) {
       //  $incr = 1;
     // $dispColumns = array_keys($info['dataTableColumn']);
         foreach ($brandsData as $uniqueId => $tableData) {
@@ -233,7 +238,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         if(isset($tableRows['articleData']) && is_array($tableRows['articleData'])):
 
                         ?>
-                        <table class="grid inh fitting" cellspacing="0" cellpadding="0">
+                        <table class="grid inh fitting continueLable" cellspacing="0" cellpadding="0">
                             <thead>
                                 <?php if ($iconRequired == 'YES'): ?>
                                     <tr class="sub-head">
@@ -315,28 +320,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                // $incr++;
             }
         }
-
-    }
     ?>
 
 </div>
-
-
-
 
     <!-- Footer -->
     <!-- End Footer-->
 </section>
 </div>
-<style>
 
-</style>
-<script>
-var rows = document.querySelectorAll(".headingSection");
-        rows.forEach(function (row) {
-            var rowDescriptions = ro.layout.getBoxDescriptions(row);
-            var rowDescription = rowDescriptions[0];
-            const onLeftPage = rowDescription.pageLeft;
-            row.className = onLeftPage ? "leftHeadingSection" : "rightHeadingSection";
-        });
-</script>
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/js/tableContinueLable.js"></script>
+<?php endif; ?>
+
+<?php } ?>

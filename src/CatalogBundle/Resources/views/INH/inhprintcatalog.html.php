@@ -1,5 +1,7 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <?php if ($this->editmode) { ?>
     <?= $this->relation("inh-printcatalog"); ?>
@@ -214,15 +216,8 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
     </div>
 </div>
 
-
-<script>
-    var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });
-</script>
+<?php if (!$info['containerRequest']): ?>
+    <script type="text/javascript" src="/js/tableContinueLable.js"></script>
+<?php endif; ?>
 
 <?php } ?>
