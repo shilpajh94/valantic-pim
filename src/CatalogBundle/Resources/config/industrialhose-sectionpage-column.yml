@@ -36,11 +36,11 @@ parameters:
       ConstructionType:
         title: Tube Material
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -127,11 +127,11 @@ parameters:
       ConstructionType:
         title: Tube Material
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -294,11 +294,11 @@ parameters:
       ConstructionType:
         title: Tube Material
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -324,11 +324,11 @@ parameters:
       ConstructionType:
         title: Tube Material
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       ulandOrCULCertified:
         title: UL and/or CUL Certified
         type: feature
@@ -367,11 +367,11 @@ parameters:
       ConstructionType:
         title: Tube Material
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -410,11 +410,11 @@ parameters:
       LayFlatHoseYN:
         title: LFH (YN)
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -455,11 +455,11 @@ parameters:
       tubeMaterial:
         title: Tube Material
         type: attr
-      coupledAssembliesAvailable:
+      coupledAssemblyAvailable:
         title: CAA
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
-        feature: Coupled Assemblies Available
+        feature: Coupled Assembly Available
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
