@@ -46,10 +46,11 @@ class OptionProviderCacheService
         if($optionProviderClassCache)
         {
             $indexId = array_search($valueId, array_column($optionProviderClassCache, 'value')); 
-            if($indexId === FALSE)
-                $optionProviderClassCache[] = array("key"=>$valueName, "value" => $valueId);
-            else
+            if($indexId !== false)
                 $optionProviderClassCache[$indexId] = array("key"=>$valueName, "value" => $valueId);
+            else
+                $optionProviderClassCache[] = array("key"=>$valueName, "value" => $valueId);
+                
         }
         else
         {
@@ -64,12 +65,15 @@ class OptionProviderCacheService
     public function clearOptionProviderMapCache($classKey, $valueId)
     {
         $optionProviderClassCache = $this->getCachedKeyData($classKey);
-        
         if($optionProviderClassCache)
         {
             $indexId = array_search($valueId, array_column($optionProviderClassCache, 'value')); 
-            unset($optionProviderClassCache[$indexId]);
-            $this->setAllOptionsInCacheForClass($classKey, $optionProviderClassCache);
+            if($indexId !== false)
+            {
+                unset($optionProviderClassCache[$indexId]);
+                $optionProviderClassCache = array_values($optionProviderClassCache);
+                $this->setAllOptionsInCacheForClass($classKey, $optionProviderClassCache);
+            }
         }
     }
 
@@ -128,8 +132,13 @@ class OptionProviderCacheService
             if($optionProvidersKeys)
             {
                 $indexId = array_search($cacheKey, $optionProvidersKeys); 
-                unset($optionProvidersKeys[$indexId]);
-                $this->setCachedOptionProvidersKeys($optionProvidersKeys);
+                
+                if($indexId !== false)
+                {
+                    unset($optionProvidersKeys[$indexId]);
+                    $optionProvidersKeys = array_values($optionProvidersKeys);
+                    $this->setCachedOptionProvidersKeys($optionProvidersKeys);
+                }
             }
 
             $this->removeCacheData($cacheKey);
