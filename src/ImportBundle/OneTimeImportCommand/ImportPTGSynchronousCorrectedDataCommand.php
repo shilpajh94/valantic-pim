@@ -43,6 +43,7 @@ class ImportPTGSynchronousCorrectedDataCommand extends AbstractCommand
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
             "Import Sheet Row Number",
+            "Sap Material Code",
             "Import Status",
             "Comment",
             "Failure Message"
@@ -111,11 +112,12 @@ class ImportPTGSynchronousCorrectedDataCommand extends AbstractCommand
                 }else{
                     $importComment = "Proudct was not found with sap number: " . $sapCode;
                 }
-
+                echo $sapCode.PHP_EOL;
                 $this->consoleLog("[".$currentRow."] Status: " . $importStatus . " Comment: " .$importComment . " FAILURE MSG: " .$importFailureMsg);
 
                 $this->csvLog($csvLogFileHandle, array(
                     $currentRow,
+                    $sapCode,
                     $importStatus,
                     $importComment,
                     $importFailureMsg

@@ -58,49 +58,9 @@ class S3Listener
                 $this->s3TmpUrlPrefix = $this->s3BaseUrl . str_replace("s3:/", "", PIMCORE_TEMPORARY_DIRECTORY);
             }
 
-            $this->s3Client = $this->getS3Client();
+            $this->s3Client =  Utils::getS3Client();
         }
     }
-
-    /**
-     * Create a new s3 client object
-     *
-     * @return S3Client
-     */
-    protected function getS3Client()
-    {
-        $env = CUSTOM_ENV;
-
-        if ($env == "stage" || $env == "prod"){
-
-            $s3ConfigSettings = [
-                'version' => 'latest',
-                'region' => S3_REGION,
-            ];
-
-            $s3ConfigSettings['http'] = [
-                'proxy' => [
-                    'http' => 'cias.geoaws.com:8080',
-                    'https' => 'cias.geoaws.com:8080'
-                ]
-            ];
-
-        }elseif ($env == "dev" || $env == "qc"){
-
-            $s3ConfigSettings = [
-                'version' => 'latest',
-                'region' => S3_REGION,
-                'credentials' => [
-                    'key' => S3_KEY,
-                    'secret' => S3_SECRET
-                ],
-            ];
-
-        }
-
-        return new S3Client($s3ConfigSettings);
-    }
-
 
     /**
      * Make s3 bucket asset publicly available

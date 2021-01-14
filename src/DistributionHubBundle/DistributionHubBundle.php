@@ -21,7 +21,6 @@ class DistributionHubBundle extends AbstractPimcoreBundle
     {
         return [
             '/bundles/distributionhub/js/pimcore/startup.js',
-            '/bundles/distributionhub/js/pimcore/toolbar.js',
             '/bundles/distributionhub/js/pimcore/mappingPanel.js',
             '/bundles/distributionhub/js/pimcore/mappingLeftPanel.js',
             '/bundles/distributionhub/js/pimcore/configItem.js',

@@ -19,8 +19,7 @@ class PimcoreS3FolderMappingDao
     public function getS3PathForPimcorePath($pimcorePath){
         $sql = "SELECT s3_path FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_path =".$this->db->quote($pimcorePath);
-        $result = $this->db->fetchOne($sql);
-        return $result;
+        return $this->db->fetchOne($sql);
     }
 
 
@@ -34,8 +33,7 @@ class PimcoreS3FolderMappingDao
             $sql .= " VALUES(".$this->db->quote($pimcorePath).",".$this->db->quote($s3Path)."".") ";
         }
 
-        $result = $this->db->exec($sql);
-        return $result;
+        return $this->db->exec($sql);
     }
 
     public function doesS3PathExist($s3Path){
@@ -54,15 +52,36 @@ class PimcoreS3FolderMappingDao
 
         $oldFolderPathLen = strlen($oldFolderPath);
 
-        $sql = "UPDATE ".self::MAPPING_TABLE_NAME;
+//        $sql = "UPDATE ".self::MAPPING_TABLE_NAME;
 //        $sql .= " SET pimcore_path = REPLACE(pimcore_path,"."'".$oldFolderPath."','".$newFolderPath."')";
 //        this is because we don't want to replace all occurrences of $oldFolderPathLen in pimcore_path
 //        we just want to replace the first occurrence
-        $sql .= " SET pimcore_path = CONCAT(" . $this->db->quote($newFolderPath) . ",SUBSTRING(pimcore_path,".($oldFolderPathLen + 1)."))";
-        $sql .= " WHERE pimcore_path LIKE ".$this->db->quote($oldFolderPath."%");
+//        $sql .= " SET pimcore_path = CONCAT(" . $this->db->quote($newFolderPath) . ",SUBSTRING(pimcore_path,".($oldFolderPathLen + 1)."))";
+//        $sql .= " WHERE pimcore_path LIKE ".$this->db->quote($oldFolderPath."%");
 
-        $result = $this->db->executeUpdate($sql);
-        return $result;
+        /**
+         * changing the path of the renamed folder
+         */
+        $sql = "UPDATE ".self::MAPPING_TABLE_NAME;
+        $sql .= " SET pimcore_path = " . $this->db->quote($newFolderPath);
+        $sql .= " WHERE pimcore_path = ".$this->db->quote($oldFolderPath);
+
+        $this->db->executeUpdate($sql);
+
+        /**
+         * changing the path of all the children
+         * making the dependency on the slash in path so that
+         * only children are updated not the siblings
+         */
+        $slashesCountInOldPath = substr_count($oldFolderPath,"/");
+
+        $sql = "UPDATE ".self::MAPPING_TABLE_NAME;
+        $sql .= " SET pimcore_path = CONCAT(" . $this->db->quote($newFolderPath) . ",SUBSTRING(pimcore_path,".($oldFolderPathLen + 1)."))";
+        $sql .= " WHERE pimcore_path LIKE ".$this->db->quote($oldFolderPath."/%");
+//        $sql .= " AND (LENGTH(`pimcore_path`) - LENGTH(REPLACE(`pimcore_path`, '/', ''))) > " . $slashesCountInOldPath;
+
+        $this->db->executeUpdate($sql);
+        return true;
     }
 
     public function addPimcoreIdForPimcorePath($pimcoreFolderPath,$folderId){
@@ -70,16 +89,14 @@ class PimcoreS3FolderMappingDao
         $sql .= " SET pimcore_object_id=".$folderId;
         $sql .= " WHERE pimcore_path = ". $this->db->quote($pimcoreFolderPath);
 
-        $result = $this->db->executeUpdate($sql);
-        return $result;
+        return $this->db->executeUpdate($sql);
     }
 
     public function getPimcorePathForPimcoreFolderId($pimcoreFolderId){
         $sql = "SELECT pimcore_path from ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_object_id =  ".$pimcoreFolderId;
 
-        $result = $this->db->fetchOne($sql);
-        return $result;
+        return $this->db->fetchOne($sql);
     }
 
     public function deleteOldEntriesForGivenPimcoreObjectIdAndNewPath($pimcoreObjectId,$newPath){
@@ -87,39 +104,51 @@ class PimcoreS3FolderMappingDao
         $sql .= " WHERE pimcore_object_id = ".$pimcoreObjectId;
         $sql .= " AND pimcore_path != ". $this->db->quote($newPath);
 
-        $result = $this->db->executeUpdate($sql);
-        return $result;
+        return $this->db->executeUpdate($sql);
     }
 
     public function deleteEntriesForPimcoreObjectId($pimcoreObjectId){
         $sql = "DELETE FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_object_id = ".$pimcoreObjectId;
 
-        $result = $this->db->executeUpdate($sql);
-        return $result;
+        return $this->db->executeUpdate($sql);
     }
 
     public function deleteEntryForPimcorePath($pimcorePath){
         $sql = "DELETE FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_path = ". $this->db->quote($pimcorePath);
 
-        $result = $this->db->executeUpdate($sql);
-        return $result;
+        return $this->db->executeUpdate($sql);
     }
 
     public function deleteParentChildEntriesForParentPimcorePath($pimcorePath){
         $sql = "DELETE FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE pimcore_path LIKE ".$this->db->quote($pimcorePath."%");
 
-        $result = $this->db->executeUpdate($sql);
-        return $result;
+        return $this->db->executeUpdate($sql);
     }
 
     public function getPimcorePathForS3Path($s3_path){
         $sql = "SELECT  pimcore_path  FROM ".self::MAPPING_TABLE_NAME;
         $sql .= " WHERE s3_path=".$this->db->quote($s3_path);
 
-        $result = $this->db->fetchOne($sql);
-        return $result;
+        return $this->db->fetchOne($sql);
+    }
+
+    public function getEntryByObjectId(int $objectId)
+    {
+        $sql = "SELECT pimcore_object_id,pimcore_path,s3_path FROM " . self::MAPPING_TABLE_NAME;
+        $sql .= " WHERE pimcore_object_id = " . $objectId;
+
+        return $this->db->fetchRow($sql);
+    }
+
+    public function getEntriesWithOlderPimcorePathsByObjectId(int $objectId, string $currentPimcorePath)
+    {
+        $sql = "SELECT pimcore_object_id,pimcore_path,s3_path FROM " . self::MAPPING_TABLE_NAME;
+        $sql .= " WHERE pimcore_object_id = " . $objectId;
+        $sql .= " AND pimcore_path != " . $this->db->quote($currentPimcorePath);
+
+        return $this->db->fetchAll($sql);
     }
 }

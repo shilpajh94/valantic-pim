@@ -11,6 +11,10 @@ namespace S3CustomizationBundle\EventListeners;
 
 use Pimcore\Event\Model\AssetEvent;
 use Pimcore\Event\Model\ElementEventInterface;
+use S3CustomizationBundle\Lib\Constants;
+use S3CustomizationBundle\Lib\LogLevel;
+use S3CustomizationBundle\Lib\Utils;
+use S3CustomizationBundle\Services\PimcoreDeletedAssetsService;
 use  S3CustomizationBundle\Services\S3CustomizationService;
 
 /**
@@ -24,9 +28,12 @@ class AssetEventsListener
 {
     private $s3CustomizationService;
 
-    public function __construct(S3CustomizationService $service)
+    private $pimcoreDeletedAssetsService;
+
+    public function __construct(S3CustomizationService $service,PimcoreDeletedAssetsService $pimcoreDeletedAssetsService)
     {
         $this->s3CustomizationService = $service;
+        $this->pimcoreDeletedAssetsService = $pimcoreDeletedAssetsService;
     }
 
     /**
@@ -39,7 +46,13 @@ class AssetEventsListener
         if($e instanceof AssetEvent) {
             $asset = $e->getAsset();
 
-            $this->s3CustomizationService->addPimcoreIdForPimcorePath($asset->getRealFullPath(),$asset->getId());
+            try{
+                $this->s3CustomizationService->addPimcoreIdForPimcorePath($asset->getRealFullPath(),$asset->getId());
+            }catch (\Exception $exception){
+                $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
+                Utils::log(Constants::S3_CUSTOMIZATION_LOG_FILE,$msg,LogLevel::ERROR());
+                throw new \Exception("An exception occurred while performing the operation.");
+            }
 
         }
     }
@@ -52,29 +65,47 @@ class AssetEventsListener
     {
         if($e instanceof AssetEvent) {
             $asset = $e->getAsset();
-            if($asset->getType() == "folder") {
-                /**
-                 * updating the entry in table to update all the paths
-                 * corresponding to this folder, this needs to be done only in case if the folder is renamed,
-                 * but it is not possible here to identify this condition. So doing this in all cases when a folder is updated
-                 * assuming that this is a very rare case to update the folder in any other way except rename
-                 */
-                $this->s3CustomizationService->updatePathsForFolder($asset->getId(),$asset->getRealFullPath());
-            }else{
+            try{
+                if($asset->getType() == "folder") {
+                    /**
+                     * updating the entry in table to update all the paths
+                     * corresponding to this folder, this needs to be done only in case if the folder is renamed,
+                     * but it is not possible here to identify this condition. So doing this in all cases when a folder is updated
+                     * assuming that this is a very rare case to update the folder in any other way except rename
+                     */
 
-                /**
-                 * delete the entry for this file with old path
-                 *
-                 * we just need one entry for each file and that too with the new path
-                 * we are not doing this for folders because an entry with new path is added in
-                 * preUpdate for files only, so at this moment there should be two entries for same
-                 * pimcore id of file, one with old path and one with new path
-                 * we can not check here if the renamed operation took place, so we are doing this in all cases,
-                 * but entry with old path exists only in two cases: 1. file renamed, 2.file moved
-                 */
-                $this->s3CustomizationService->deleteOldEntriesForGivenPimcoreObjectIdAndNewPath($asset->getId(),$asset->getRealFullPath());
+                    $this->s3CustomizationService->updatePathsForFolder($asset->getId(),$asset->getRealFullPath());
+                }else{
 
+                    $olderEntries = $this->s3CustomizationService->getEntriesWithOlderPimcorePathsByObjectId($asset->getId(),$asset->getRealFullPath());
+                    if(is_array($olderEntries)){
+                        foreach($olderEntries as $olderEntry){
+                            $id = $olderEntry["pimcore_object_id"];
+                            $pimcorePath = $olderEntry["pimcore_path"];
+                            $s3Path = $olderEntry["s3_path"];
+                            $this->pimcoreDeletedAssetsService->addEntryInTable($id,$pimcorePath,$s3Path,$asset->getType());
+                        }
+                    }
+
+                    /**
+                     * delete the entry for this file with old path
+                     *
+                     * we just need one entry for each file and that too with the new path
+                     * we are not doing this for folders because an entry with new path is added in
+                     * preUpdate for files only, so at this moment there should be two entries for same
+                     * pimcore id of file, one with old path and one with new path
+                     * we can not check here if the renamed operation took place, so we are doing this in all cases,
+                     * but entry with old path exists only in two cases: 1. file renamed, 2.file moved
+                     */
+                    $this->s3CustomizationService->deleteOldEntriesForGivenPimcoreObjectIdAndNewPath($asset->getId(),$asset->getRealFullPath());
+
+                }
+            }catch (\Exception $exception){
+                $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
+                Utils::log(Constants::S3_CUSTOMIZATION_LOG_FILE,$msg,LogLevel::ERROR());
+                throw new \Exception("An exception occurred while performing the operation.");
             }
+
         }
     }
 
@@ -92,22 +123,29 @@ class AssetEventsListener
             $parentFullPath = $assetParent->getPath().$assetParent->getFilename();
             $assetFullPath = $parentFullPath."/".$asset->getFilename();
             $assetFullPath = str_replace("//","/",$assetFullPath);
-            $s3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($assetFullPath,$asset->getFilename());
+            try{
+                $s3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($assetFullPath,$asset->getFilename());
 
-            /**
-             * if a folder is going to be added than we need to check whether the created folder S3 path
-             * already exist at S3, if so than add the timestamp to the current folder S3 name
-             *
-             * this needs not to be checked for file because file with same path can not exist at S3 ( only folder renaming
-             *  is skipped at S3 )
-             */
-            if($asset->getType() == 'folder'){
-                if($this->s3CustomizationService->doesS3PathExist($s3Path)){
-                    $s3Path = $s3Path."_".time();
+                /**
+                 * if a folder is going to be added than we need to check whether the created follder S3 path
+                 * already exist at S3, if so than add the timestamp to the current folder S3 name
+                 *
+                 * this needs not to be checked for file because file with same path can not exist at S3 ( only folder renaming
+                 *  is skipped at S3 )
+                 */
+                if($asset->getType() == 'folder'){
+                    if($this->s3CustomizationService->doesS3PathExist($s3Path) || $this->pimcoreDeletedAssetsService->doesS3PathExist($s3Path)){
+                        $s3Path = $s3Path."_".time();
+                    }
                 }
+
+                $this->s3CustomizationService->addMappingInCustomTable($assetFullPath,$s3Path);
+            }catch (\Exception $exception){
+                $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
+                Utils::log(Constants::S3_CUSTOMIZATION_LOG_FILE,$msg,LogLevel::ERROR());
+                throw new \Exception("Unable to perform operation, an exception occurred in system.");
             }
 
-            $this->s3CustomizationService->addMappingInCustomTable($assetFullPath,$s3Path);
         }
     }
 
@@ -127,22 +165,31 @@ class AssetEventsListener
                 $oldPath = $asset->getDao()->getCurrentFullPath();
                 $newParentId = $asset->getParentId();
                 // get the parent id from database
-                $oldParentId = $this->s3CustomizationService->getCurrentParentIdForObjectById($asset->getId());
 
-                if($oldPath != $assetFullPath){
-                    // if file is renamed
-                    $newS3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($assetFullPath,$assetKey);
-                    $this->s3CustomizationService->addMappingInCustomTable($assetFullPath,$newS3Path,$asset->getId());
-                }elseif ($newParentId != $oldParentId){
-                    // if file is moved
-                    // in this case only parent id changes in object before save
-                    $assetKey = $asset->getKey();
-                    $newParentPath = $this->s3CustomizationService->getPimcorePathByPimcoreId($newParentId);
-                    $newAssetPath = $newParentPath."/".$assetKey;
+                try{
+                    $oldParentId = $this->s3CustomizationService->getCurrentParentIdForObjectById($asset->getId());
 
-                    $newS3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($newAssetPath,$assetKey);
-                    $this->s3CustomizationService->addMappingInCustomTable($newAssetPath,$newS3Path,$asset->getId());
+                    if($oldPath != $assetFullPath){
+                        // if file is renamed
+                        $newS3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($assetFullPath,$assetKey);
+                        $this->s3CustomizationService->addMappingInCustomTable($assetFullPath,$newS3Path,$asset->getId());
+                    }elseif ($newParentId != $oldParentId){
+                        // if file is moved
+                        // in this case only parent id changes in object before save
+                        $assetKey = $asset->getKey();
+                        $newParentPath = $this->s3CustomizationService->getPimcorePathByPimcoreId($newParentId);
+
+                        $newAssetPath = ( $newParentPath === "/" ? "/".$assetKey : $newParentPath."/".$assetKey );
+
+                        $newS3Path = $this->s3CustomizationService->getS3PathForNotMappedPimcorePath($newAssetPath,$assetKey);
+                        $this->s3CustomizationService->addMappingInCustomTable($newAssetPath,$newS3Path,$asset->getId());
+                    }
+                }catch (\Exception $exception){
+                    $msg = "||" . __METHOD__ . "||" . $exception->getMessage();
+                    Utils::log(Constants::S3_CUSTOMIZATION_LOG_FILE,$msg,LogLevel::ERROR());
+                    throw new \Exception("Unable to perform operation, an exception occured in system.");
                 }
+
 
             }
         }
@@ -156,6 +203,13 @@ class AssetEventsListener
     public function onPostDelete(ElementEventInterface $e){
         if($e instanceof AssetEvent) {
             $asset = $e->getAsset();
+            $entryInCustomTable = $this->s3CustomizationService->getCustomTableEntryById($asset->getId());
+            $this->pimcoreDeletedAssetsService->addEntryInTable(
+                                                                $entryInCustomTable["pimcore_object_id"],
+                                                                $entryInCustomTable["pimcore_path"],
+                                                                $entryInCustomTable["s3_path"],
+                                                                $asset->getType()
+                                                                );
             $this->s3CustomizationService->deleteEntriesForPimcoreObjectId($asset->getId());
         }
     }

@@ -344,11 +344,11 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(!$Coupling && $bvalue[$headerKeysIndex['Coupling']]) {
-                                $Coupling = $bvalue[$headerKeysIndex['Coupling']];
+                                $Coupling = nl2br($bvalue[$headerKeysIndex['Coupling']]);
                             }
 
                             if(!$Packaging && $bvalue[$headerKeysIndex['Packaging']]) {
-                                $Packaging = $bvalue[$headerKeysIndex['Packaging']];
+                                $Packaging = nl2br($bvalue[$headerKeysIndex['Packaging']]);
                             }
 
                             if(!$longDescription && $bvalue[$headerKeysIndex['longDescription']]) {
@@ -410,7 +410,7 @@ class IndustrialHoseController extends AbstractController
                         ksort($newBrandArray[$key]['articleData']);
                     }
 
-                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
+                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
                     if(empty($reinforcementStr) && $reinforcementArr)
                         $reinforcementStr = implode(', ', array_unique($reinforcementArr));
 

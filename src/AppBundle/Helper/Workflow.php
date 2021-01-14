@@ -20,7 +20,7 @@ class Workflow
      */
     public function getActionRemarksById($id)
     {
-        $sql = "SELECT n.description, nd.name optionname, nd.data prioritytype FROM notes n LEFT JOIN notes_data nd ON(nd.id=n.id) 
+        $sql = "SELECT n.description, nd.name optionname, nd.data prioritytype FROM notes n LEFT JOIN notes_data nd ON(nd.id=n.id)
         WHERE n.cid=$id ORDER BY n.`date` DESC LIMIT 1";
         $results = $this->db->fetchAll($sql);
         if (count($results)) {
@@ -51,14 +51,14 @@ class Workflow
     {
         $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
-        return $reminder['places'][$placeName]['templatePath'];        
+        return $reminder['places'][$placeName]['templatePath'];
     }
 
     public function getBUAdminTemplatePath()
     {
         $wfConfigData = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters'];
         $reminder = isset($wfConfigData['reminder']) ? $wfConfigData['reminder'] : false;
-        return $reminder['places']['buAdminTemplatePath'];        
+        return $reminder['places']['buAdminTemplatePath'];
     }
 
     public function getReminderInterval($placeName) {
@@ -102,12 +102,13 @@ class Workflow
      */
     public function getDeepLinkByCommandLine($id, $type = "object")
     {
-        $config = \Pimcore\Config::getSystemConfig()->toArray();
-        if(!empty($config['general']['domain'])) {
-            $host = $config['general']['domain'];
-        } else {
-            $host = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters']['host'];
-        }
+//        $config = \Pimcore\Config::getSystemConfig()->toArray();
+//        if(!empty($config['general']['domain'])) {
+//            $host = $config['general']['domain'];
+//        } else {
+//            $host = \Pimcore::getContainer()->get('app.config_provider_service')->getWorkFlowConfig()['parameters']['host'];
+//        }
+        $host = APPLICATION_HOST;
         $link = $host. "/admin/login/deeplink?";
         if ($type == 'object') {
             $link .= 'object_' . $id . '_object';

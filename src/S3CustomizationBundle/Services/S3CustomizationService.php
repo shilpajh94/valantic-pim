@@ -86,6 +86,10 @@ class S3CustomizationService
 
         $parentS3Path = $this->dao->getS3PathForPimcorePath($parentPath);
 
+        if($parentS3Path === false || $parentS3Path === null || trim($parentS3Path) === ""){
+            throw new \Exception("Entry for pimcore path " . $parentPath . " was not found in mapping table.");
+        }
+
         $relativePath = $parentS3Path . "/" . $fileName;
 
         if (strpos($pimcorePath, PIMCORE_ASSET_DIRECTORY) !== false) {
@@ -111,7 +115,12 @@ class S3CustomizationService
     public function updatePathsForFolder($folderId, $newFolderPath)
     {
         $oldFolderPath = $this->dao->getPimcorePathForPimcoreFolderId($folderId);
-        return $this->dao->updatePathsForFolderAndChilds($oldFolderPath, $newFolderPath);
+        if($oldFolderPath === null || $oldFolderPath === "" || $oldFolderPath === false){
+            throw new \Exception("Entry for folder id " . $folderId . " was not found in mapping table.");
+        }
+
+        $this->dao->updatePathsForFolderAndChilds($oldFolderPath, $newFolderPath);
+        return true;
     }
 
     /**
@@ -184,7 +193,7 @@ class S3CustomizationService
     public function getPimcorePathByPimcoreId($pimcoreId){
         return $this->assetsDao->getPimcorePathByPimcoreId($pimcoreId);
     }
-    
+
     public function getPimPathForS3Path($s3Path)
     {
         $s3Path = implode('/', array_map('rawurldecode', explode('/', $s3Path)));
@@ -206,6 +215,16 @@ class S3CustomizationService
             return "s3://" . $bucket ."/". $assetS3Path;
         }
         return $fileSystemPath;
+    }
+
+    public function getCustomTableEntryById(int $objectId)
+    {
+        return $this->dao->getEntryByObjectId($objectId);
+    }
+
+    public function getEntriesWithOlderPimcorePathsByObjectId(int $objectId, string $currentPimcorePath)
+    {
+        return $this->dao->getEntriesWithOlderPimcorePathsByObjectId($objectId, $currentPimcorePath);
     }
 
 }
