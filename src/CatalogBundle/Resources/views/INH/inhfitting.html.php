@@ -20,7 +20,7 @@ if (!isset($this->parentContainer)) {
 if($groupData):
 ?>
 <div class="template">
-        <div class="segregate inh inhSettingN">
+        <div class="segregate inh inhSettingFitting">
 
                 <div id="pageHeader"></div>
                 <span class="pageName">
@@ -92,7 +92,7 @@ if($groupData):
 
                 <article class="fullcontainer single">
                         <div class="inhsetting1">
- <div class="inhsetting-sidebar">
+ <div class="inhsetting-sidebar40">
                             <div class=" sidebar">
                                         <ul>
                                                 <?php
@@ -326,11 +326,11 @@ if($groupData):
 <?php endif; ?>
 
 <script>
-    var rows = document.querySelectorAll(".inhsetting1");
+   /* var rows = document.querySelectorAll(".inhsetting1");
     rows.forEach(function (row) {
         var rowDescriptions = ro.layout.getBoxDescriptions(row);
         var rowDescription = rowDescriptions[0];
         const onLeftPage = rowDescription.pageLeft;
         row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });
+    });*/
 </script>

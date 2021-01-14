@@ -1305,29 +1305,171 @@ footer .flex > * {
        position: running(inhsetting-sidebar);
 }
 
+.inhsetting-sidebar20{
+ position:relative;
 
+ display: block;
+       position: running(inhsetting-sidebar20);
+}
 
-.inhSettingN{
+.inhsetting-sidebar30{
+ position:relative;
 
+ display: block;
+       position: running(inhsetting-sidebar30);
+}
+
+.inhsetting-sidebar40{
+ position:relative;
+
+ display: block;
+       position: running(inhsetting-sidebar40);
+}
+
+.inhSettingProductPage{
 page: title10;
 }
 
-@page title10{
-@top-center{
-content: element(inhsetting-sidebar);
-position: relative;
+.inhSettingSectionPage{
+page: title20;
+}
+
+.inhSettingCover{
+page: title30;
+}
+.inhSettingFitting{
+page: title40;
+}
+
+
+
+@page title10:right {
+    padding-left: 130px;
+
+    @left-middle{
+        content: element(inhsetting-sidebar);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
 top:125px;
-font-size:10px;
-z-index: 10;
-width:130px;
+    }
+    @top-center{
+        content: none !important;
+    }
+}
+@page title10:left {
+    padding-right: 130px;
+
+    @right-middle{
+        content: element(inhsetting-sidebar);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
 }
 
+
+@page title20:right {
+    padding-left: 130px;
+
+    @left-middle{
+        content: element(inhsetting-sidebar20);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
+}
+@page title20:left {
+    padding-right: 130px;
+
+    @right-middle{
+        content: element(inhsetting-sidebar20);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
+}
+
+@page title30:right {
+    padding-left: 130px;
+
+    @left-middle{
+        content: element(inhsetting-sidebar30);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
+}
+@page title30:left {
+    padding-right: 130px;
+
+    @right-middle{
+        content: element(inhsetting-sidebar30);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
 }
 
 
+@page title40:right {
+    padding-left: 130px;
 
+    @left-middle{
+        content: element(inhsetting-sidebar40);
+position: absolute;
 
-.inhRight{ width:85%; }
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
+}
+@page title40:left {
+    padding-right: 130px;
+
+    @right-middle{
+        content: element(inhsetting-sidebar40);
+position: absolute;
+
+        z-index: 10;
+        width:130px;
+top:125px;
+    }
+    @top-center{
+        content: none !important;
+    }
+}
+
+.inhRight{ width:100%; }
 .inh .grid{  margin-bottom: 0px;}
 
 .inhRight h1{ font-size: 30px; padding-left: 15px !important;}

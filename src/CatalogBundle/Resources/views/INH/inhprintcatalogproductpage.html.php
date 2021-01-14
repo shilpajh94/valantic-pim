@@ -15,7 +15,7 @@ if (isset($info['brandsData'])) {
             $uniqueId = md5($brandKey);
             ?>
             <div class="template">
-                <div class="segregate inh  inhSettingN">
+                <div class="segregate inh  inhSettingProductPage">
 
                     <div id="pageHeader"></div>
                     <span class="pageName">
@@ -421,16 +421,23 @@ if (isset($info['brandsData'])) {
 </style>
 <script>
 //    var rows = document.querySelectorAll(".inhsetting1");
-
+/* 
  var rows = document.querySelectorAll(".inhsetting1");
     rows.forEach(function (row) {
         var rowDescriptions = ro.layout.getBoxDescriptions(row);
 
        // rowDescriptions.forEach(function (rowDescription) {
-        var rowDescription = rowDescriptions[0];
+        var rowDescription = rowDescriptions;
+        if (rowDescriptions.length > 0) {
+            var rowDescription = rowDescriptions[0];
+        }
+var lineDescriptions = rowDescription.lineDescriptions;
+console.log("============");
+console.log(lineDescriptions); 
+console.log("============");
             const onLeftPage = rowDescription.pageLeft;
 //console.log(rowDescription.parentNode);
             row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
         //});
-    });
+    });   */ 
 </script>

@@ -18,7 +18,7 @@ if (!isset($this->parentContainer)) {
 
 
 <div class="template">
-<div class="segregate inhSettingN">
+<div class="segregate inhSettingCover">
 
    <div id="pageHeader"></div>
     <span  class="pageName">
@@ -69,7 +69,7 @@ if (!isset($this->parentContainer)) {
 
 
                     <div class="inhsetting1">
- <div class="inhsetting-sidebar">
+ <div class="inhsetting-sidebar30">
                         <div class="sidebar">
                             <ul>
                                 <?php
@@ -187,11 +187,11 @@ if (!isset($this->parentContainer)) {
 </div>
 
 <script>
-    var rows = document.querySelectorAll(".inhsetting1");
+  /*  var rows = document.querySelectorAll(".inhsetting1");
     rows.forEach(function (row) {
         var rowDescriptions = ro.layout.getBoxDescriptions(row);
         var rowDescription = rowDescriptions[0];
         const onLeftPage = rowDescription.pageLeft;
         row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });
+    });*/
 </script>
