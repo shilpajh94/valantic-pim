@@ -1,5 +1,7 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <?php if ($this->editmode) { ?>
     <?= $this->relation("inh-printcatalogproduct"); ?>
@@ -314,7 +316,7 @@ if (isset($info['brandsData'])) {
                                             <?php endif; ?>
 
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
-                                            <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
+                                            <table class="grid special inh marginBottom5 continueLable" cellspacing="0" cellpadding="0">
                                                 <thead>
 
                                                     <?php if ($info['iconRequired'] == 'YES'): ?>
@@ -407,37 +409,17 @@ if (isset($info['brandsData'])) {
         }
     }
     ?>
-
+    
+    <style>
+        .inhsetting-sidebar.inhsettingLeft {
+            border: solid 2px blue !important;
+        }
+        .inhsetting-sidebar.inhsettingRight {
+            border: solid 2px red !important;
+        }
+    </style>
+    <?php if (!$info['containerRequest']): ?>
+            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+    <?php endif; ?>
 
 <?php } ?>
-
-<style>
-    .inhsetting-sidebar.inhsettingLeft {
-        border: solid 2px blue !important;
-    }
-    .inhsetting-sidebar.inhsettingRight {
-        border: solid 2px red !important;
-    }
-</style>
-<script>
-//    var rows = document.querySelectorAll(".inhsetting1");
-/* 
- var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-
-       // rowDescriptions.forEach(function (rowDescription) {
-        var rowDescription = rowDescriptions;
-        if (rowDescriptions.length > 0) {
-            var rowDescription = rowDescriptions[0];
-        }
-var lineDescriptions = rowDescription.lineDescriptions;
-console.log("============");
-console.log(lineDescriptions); 
-console.log("============");
-            const onLeftPage = rowDescription.pageLeft;
-//console.log(rowDescription.parentNode);
-            row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-        //});
-    });   */ 
-</script>

@@ -247,7 +247,7 @@ if($groupData):
                                         <?php endif; ?>
                                         <?php if($groupData['data']): ?>
                                         <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
-                                        <table class="grid special inh" cellspacing="0" cellpadding="0">
+                                        <table class="grid special inh continueLable" cellspacing="0" cellpadding="0">
                                                 <thead>
                                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
                                                                 <tr class="sub-head">
@@ -323,14 +323,10 @@ if($groupData):
                 </article>
         </div>
 </div>
+
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 <?php endif; ?>
 
-<script>
-   /* var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });*/
-</script>
+<?php endif; ?>
+

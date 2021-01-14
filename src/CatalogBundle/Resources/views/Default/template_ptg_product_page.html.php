@@ -1,5 +1,7 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 
 <?php if($this->editmode): ?>
@@ -248,7 +250,7 @@ if($groupData):
                                 foreach($groupData['data'] as $articleGroupKey => $articleGroupData):
 
                                 ?>
-                                <table class="grid" cellpadding="0" cellspacing="0">
+                                <table class="grid continueLable" cellpadding="0" cellspacing="0">
                                 <thead>
 
                                 <?php if($groupData['iconRequired'] == 'YES'): ?>
@@ -324,4 +326,9 @@ if($groupData):
 
         </section>
 </div>
+
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+<?php endif; ?>
+
 <?php endif; ?>
