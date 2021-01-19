@@ -103,6 +103,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
+            - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: preSendData }
 
     AppBundle\EventListener\OptionProviderCacheListener:
         tags:
@@ -154,3 +155,6 @@ services:
 
     AppBundle\Services\MultiselectMasterService:
         public: true
+
+    Pimcore\Bundle\AdminBundle\Helper\GridHelperService:
+        class: AppBundle\Services\CustomGridHelperService
