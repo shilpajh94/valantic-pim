@@ -1242,11 +1242,11 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
-            VacuumMM:
+            tubeGaugeIN:
                 fieldLevel: objectBrick
-                fieldLabel: Vacuum (mm)
-                groupName: Vacuum
-                unitName: mm
+                fieldLabel: Tube Gauge (in)
+                groupName: tubeGauge
+                unitName: in
                 numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:

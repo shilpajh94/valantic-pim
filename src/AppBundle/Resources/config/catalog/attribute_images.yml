@@ -118,6 +118,7 @@ parameters:
     'GasketODInches': '/CatalogImages/Icons/GasketODInches.png'
     'SizeEnd1Inches': '/CatalogImages/Icons/SizeEnd1Inches.png'
     'SizeEnd2Inches': '/CatalogImages/Icons/SizeEnd2Inches.png'
+    'tubeGauge': '/CatalogImages/Icons/tubeGauge.png'
   CatalogImagesHYDFooter: 
     'Black': '/CatalogImages/HYD/Footer/Continental_Logo_Master_Black.png'
     'Orange': '/CatalogImages/HYD/Footer/Continental_Logo_Master_yellow.png'
