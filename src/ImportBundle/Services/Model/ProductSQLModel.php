@@ -53,7 +53,11 @@ class ProductSQLModel
     private $products;
     private $materialGroup;
     private $baseSIOPMapping;
+    private $baseSIOPArticleMapping;
+    private $baseSiopMismatchLog;
+    private $baseSiopMismatchEmailTemplate;
     private $updatedArticlesArray;
+    private $allBaseProducts;
     private $appService;
     
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
@@ -76,6 +80,8 @@ class ProductSQLModel
 //        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
         $this->baseSIOPMapping = [];
+        $this->baseSIOPArticleMapping = [];
+        $this->baseSiopMismatchLog = [];
     }
     
     /**
@@ -88,6 +94,8 @@ class ProductSQLModel
         $tables['fileColumns'] = $this->csvHeader;
         $tables['mappingCsvColumn'] = $this->columnName;
         $tables['keyColumns'] = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'keyColumns');
+        $this->baseSiopMismatchEmailTemplate = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'baseSIOPMismatchEmailTemplate');
+        
         $this->tblImpHelper->init($tables);
         $allBricksList = new \Pimcore\Model\DataObject\Objectbrick\Definition\Listing();
         $allBricksList = $allBricksList->load();
@@ -165,6 +173,42 @@ class ProductSQLModel
             $this->saveProducts($this->updatedArticlesArray);
             echo "Object Saving completed for completeness.";
         }
+        if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
+            $this->tblImpHelper->removeArticlesFromMaster($this->baseSiopMismatchLog);
+            $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
+        }
+    }
+    public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
+        try {
+            if (!empty($skippedArticles) && count($skippedArticles)>0) {
+                $fileName = "SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
+                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+                $fp = fopen($logFilePath, 'wb');
+                fputcsv($fp, ['articleNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedArticleNumber']);
+                foreach ($skippedArticles as $article) {
+                    fputcsv($fp, $article);
+                }
+                fclose($fp);
+                if (!empty($emailTemplate)) {                
+                    $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
+                    if (!empty($doc)) {
+                        // Sending the mail
+                        $emailParams = [
+                            'templateName' => $emailTemplate,
+                            'attachment' => $logFilePath
+                        ];
+                        $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
+                        $this->emailService->sendNotificationsEmail($emailParams);
+                    }else {
+                        throw \Exception("Base SIOP mismatch email template not found.");
+                    }
+                } else {
+                    throw \Exception("Base SIOP mismatch email template not configured.");
+                }
+            }
+        } catch (\Throwable $th) {
+            Logger::error("sap_import_log", $th);
+        }
     }
     
     /* This function will override the default configuration */
@@ -206,15 +250,32 @@ class ProductSQLModel
             }
         }
     }
+    public function getBaseSiopMapping() {
+        $ifsData = $this->tblImpHelper->getIFSLoad();
+        $mappingArray = [];
+        $logArray = [];
+        foreach ($ifsData as $row) {
+            $recData =  (array) json_decode($row['record']);
+            $oldMaterialCode = trim($recData[6]);
+            if (!empty($oldMaterialCode) && $oldMaterialCode != 'NA' && $oldMaterialCode != 'N/A' && strlen($oldMaterialCode) == 14 && (!strstr($oldMaterialCode,' ')) && (!strstr($oldMaterialCode,'-'))) {
+                $sixDigitCode = substr($oldMaterialCode, 0, 6); 
+                if (empty($this->baseSIOPMapping[$sixDigitCode])) {
+                    $this->baseSIOPMapping[$sixDigitCode] = $row['siopfullcode'];
+                    $this->baseSIOPArticleMapping[$sixDigitCode] = $row['id'];
+                }
+            }
+        }
+    }
+    
     
     public function initiateIFSProductsProcess() {
         $a = time();
         $delta = $this->tblImpHelper->getDelta('ifs');
         $this->setVariablesToEmpty();
-        echo "Delta count: ".$deltaCount = count($delta);
+        echo "Delta count: ".$deltaCount = count($delta).PHP_EOL; 
         $j = 1;
-        
-        $this->baseSIOPMapping = $this->tblImpHelper->getBaseSiopMapping();
+        $this->getBaseSiopMapping();
+        $this->allBaseProducts = $this->tblImpHelper->getAllBaseProducts();
         $this->logArray = [];
         $i = 0;
         
@@ -239,6 +300,8 @@ class ProductSQLModel
             $a = time();
             $j++;
         }
+        
+//        print_r($this->baseSiopMismatchLog); die;
     }
     
     public function initiatePTGProductsProcess() {
@@ -404,6 +467,10 @@ class ProductSQLModel
 			//}
                 }
                 print_r($objectArr);
+            } else {
+                if (array_key_exists($objectKey, $this->allBaseProducts)) {
+                    $objectArr['o_id'] = $this->allBaseProducts[$objectKey];
+                }
             }
             
             
@@ -499,8 +566,9 @@ class ProductSQLModel
         return [$objId, $currentLevelPath];
     }
     public function processSingleRecord($siopCode, $row, $bu) {
-	    $recData =  (array) json_decode($row['record']);
-	    $status = 'Failed';
+        $recData =  (array) json_decode($row['record']);
+        $status = 'Failed';
+        $errorFlag = false;
         if (array_key_exists($siopCode, $this->categories)) {
             $buCatCode = substr($siopCode, 2, 4);
             if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
@@ -523,7 +591,15 @@ class ProductSQLModel
                                 $sixDigitCode = substr($oldMaterialCode, 0, 6); 
                             }
                             if (!empty($sixDigitCode) && !empty($this->baseSIOPMapping[$sixDigitCode]) && $this->baseSIOPMapping[$sixDigitCode] != $siopCode) {
-                                $msg = 'SIOP Code does not match with previous records of same Six digit code.';
+                                $msg = 'SIOP Code does not match with previous records of same Six digit code. (Article Number: '.$this->baseSIOPArticleMapping[$sixDigitCode].' )';
+                                $this->baseSiopMismatchLog[$recData['0']] = [
+                                    'articleNumber' => $recData['0'],
+                                    'siop' => $siopCode,
+                                    '6digit' => $sixDigitCode,
+                                    'mismatchedSiopCode' => $this->baseSIOPMapping[$sixDigitCode],
+                                    'mismatchedArticleNumber' => $this->baseSIOPArticleMapping[$sixDigitCode]
+                                ]; 
+                                $errorFlag = true;
                             } else {
                                 $this->baseSIOPMapping[$sixDigitCode] = $siopCode;
                                 $folderIndex = count($levelInfo['levels']);
@@ -531,9 +607,6 @@ class ProductSQLModel
                                 $folderPath = $this->categories[$folderCode]['fullPath'];
                                 $folderPath = $this->convertCategoryPathToProduct($folderPath);
                                 $folderId = $this->getFolderByPath($folderPath);
-//                                echo $folderId;
-//                                echo $folderPath;
-//                                echo strlen($oldMaterialCode); die;
                                 if (!array_key_exists($folderPath, $this->products)) {
                                     $folderId = $this->getFolderByPath($folderPath);
                                     $this->products[$folderPath] = $folderId;
@@ -570,7 +643,9 @@ class ProductSQLModel
                             $status = 'Success';
                             $msg = 'Object Id is: '.$levelArray[0];
                         }
-                        $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
+                        if (!$errorFlag) {
+                            $this->updatedArticlesArray[] = $levelArray[0]; //$recData[$this->getRecordIndexByKey('material')];
+                        }
                     }
                     unset($buCatCode, $record, $levelInfo, $folderIndex, $folderCode, $folderId, $folderPath, $levelArray);
                 } else {

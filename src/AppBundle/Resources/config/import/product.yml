@@ -45,6 +45,7 @@ parameters:
     startRow: 1
     readFrom: 2
     keyColumns: ['material']
+    baseSIOPMismatchEmailTemplate: "/EmailTemplate/SIOPMismatchReport"
   
   # Root information
   root:
