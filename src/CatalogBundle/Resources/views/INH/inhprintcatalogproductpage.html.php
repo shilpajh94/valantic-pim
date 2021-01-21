@@ -283,7 +283,7 @@ if (isset($info['brandsData'])) {
                                             foreach ($GroupingFields as $gkey => $fittingTableName):
                                             $tableKey = md5($key.$gkey);
                                         ?>
-
+<div class="inh-section-break">
                                             <aside class="borders">
                                             <h5 class="marginTop ">
                                             <?php if($this->editmode): ?>
@@ -389,6 +389,7 @@ if (isset($info['brandsData'])) {
 
                                             </table>
                                             <p class="small"><?= $this->input('INH_PP_Note_' . $uniqueId.'_'.$tableKey, ['placeholder' => 'Enter comment']); ?></p>
+</div>
                                         <?php
                                         $noterow++;
                                         endforeach;
