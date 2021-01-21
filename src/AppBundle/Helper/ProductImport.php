@@ -223,6 +223,21 @@ class ProductImport
             echo $ex->getMessage();
         }
     }
+    /**
+     * Function to find the Delta record(s)
+     *
+     * @return array
+     */
+    public function getIFSLoad()
+    {
+        try {
+            
+            $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) = '13' AND (t.siopfullcode like '041000%' OR t.siopfullcode like '041500%')";
+            return $this->db->fetchAll($sql);
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
     
     public function getBaseSiopMapping() {
         $sql = "SELECT Substring(`oldMaterialCode`,1,6) as materialCode, siopFullCode from object_query_1 where oldMaterialCode != '' AND oldMaterialCode != 'NA' AND oldMaterialCode != 'N/A' AND (siopFullCode like '041000%' OR siopFullCode like '041500%')";
@@ -282,6 +297,36 @@ class ProductImport
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
+    }
+    
+    public function removeArticlesFromMaster($articles) {
+        try {
+            if (!empty($articles) && count($articles)>0) {
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";
+                $artNoArray = array_keys($articles);
+                if (count($artNoArray)>0) {
+                    $query = $sql.implode(", ", $artNoArray)." )";
+                    $this->db->query($query);
+                }
+            }
+        }  catch (\Exception $ex) {
+            
+        }
+    }
+    
+    public function getAllBaseProducts() {
+        try {
+            $sql   = "SELECT * FROM `object_1` WHERE `BusinessUnit` = 'IFS' AND  (`ProductType` = 'base' OR `ProductType` = 'skeleton') AND (`siopfullcode` like '041000%' OR `siopfullcode` like '041500%') ";
+            $data = $this->db->fetchAll($sql);
+            $recordArray = [];
+            foreach ($data as $record) {
+                $recordArray[$record['o_key']] = $record['o_id'];
+            }
+            return $recordArray;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+        
     }
 
     /**
