@@ -13,7 +13,7 @@ schedule_expiry_days: 14
 schedule_date_format: 'm/d/Y H:i'
 default_mapping_file_csv_delimiter: ;
 default_export_file_csv_delimiter: ;
-batch_size_of_records_for_export_file_generation: 500
+batch_size_of_records_for_export_file_generation: 100
 in_progress_process_life: 360
 max_parallel_active_process_count: 2
 is_schedule_deleted_check_batch_interval: 3
