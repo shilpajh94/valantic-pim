@@ -1076,7 +1076,7 @@ if(isset($data[$baseId])) {
                             if(empty($VirtualCatalogCoverMaterialStr))
                                 $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
-                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
+                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
                         if(empty($reinforcementStr))
                             $reinforcementStr = $reinforcement;
 
@@ -1686,7 +1686,7 @@ if(isset($data[$baseId])) {
                         if(empty($VirtualCatalogCoverMaterialStr))
                             $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
-                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
+                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
                             if(empty($reinforcementStr))
                                 $reinforcementStr = $reinforcement;
 
@@ -2104,7 +2104,7 @@ if(isset($data[$baseId])) {
                 unset($safetyFeatures);
                 unset($materialArray);
 
-                $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
+                $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
                 if(empty($reinforcementStr))
                     $reinforcementStr = $reinforcement;
 
