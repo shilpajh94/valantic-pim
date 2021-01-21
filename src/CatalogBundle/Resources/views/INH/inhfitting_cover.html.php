@@ -16,6 +16,7 @@ if (!isset($this->parentContainer)) {
     ?>
 <?php endif; ?>
 
+<?php if($templateBrandDtata): ?>
 
 <div class="template">
 <div class="segregate inhSettingCover">
@@ -186,12 +187,8 @@ if (!isset($this->parentContainer)) {
     </div>
 </div>
 
-<script>
-  /*  var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });*/
-</script>
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+<?php endif; ?>
+
+<?php endif; ?>

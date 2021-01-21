@@ -303,7 +303,7 @@ if ($data):
                                 </menu>
                             <?php endif; ?>
 
-                            <table cellpadding="0" cellspacing="0" class="grid">
+                            <table cellpadding="0" cellspacing="0" class="grid continueLable">
                                 <thead>
                                         <?php if($brandData['iconRequired'] == 'YES'): ?>
                                                 <tr class="sub-head">
@@ -366,7 +366,6 @@ if ($data):
                                     </tr>
                                     <?php $incrRow++ ?>
                                 <?php endforeach; ?>
-
                             </table>
                             <p class="small"><?= $this->input("customer_data_{$md5key}", ['placeholder' => 'Enter comment']); ?></p>
                         </section>
@@ -379,16 +378,16 @@ if ($data):
         endforeach;
 
     endforeach;
+    
+    if (!$containerRequest):
+    
+    ?>
+    <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+
+    <?php
+    
+    endif;
+
 endif;
 ?>
-
-<script>
-    var rows = document.querySelectorAll(".productHeadingProductPage");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = onLeftPage ? "leftpHeadingSection" : "rightpHeadingSection";
-    });
-</script>
 
