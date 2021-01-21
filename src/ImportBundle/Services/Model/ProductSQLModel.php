@@ -180,18 +180,18 @@ class ProductSQLModel
     }
     public function sendSkippedArticlesEmailNotification($skippedArticles, $emailTemplate) {
         try {
-            if (!empty($emailTemplate)) {
-                $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
-                if (!empty($doc)) {
-                    if (!empty($skippedArticles) && count($skippedArticles)>0) {
-                        $fileName = "SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
-                        $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
-                        $fp = fopen($logFilePath, 'wb');
-                        fputcsv($fp, ['articleNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedArticleNumber']);
-                        foreach ($skippedArticles as $article) {
-                            fputcsv($fp, $article);
-                        }
-                        fclose($fp);
+            if (!empty($skippedArticles) && count($skippedArticles)>0) {
+                $fileName = "SAP_import_skipped_articles_" . '-' . date('YmdHis') . '.csv';
+                $logFilePath = PIMCORE_TEMPORARY_DIRECTORY."/".$fileName;
+                $fp = fopen($logFilePath, 'wb');
+                fputcsv($fp, ['articleNumber', 'siop', '6digit', 'mismatchedSiopCode', 'mismatchedArticleNumber']);
+                foreach ($skippedArticles as $article) {
+                    fputcsv($fp, $article);
+                }
+                fclose($fp);
+                if (!empty($emailTemplate)) {                
+                    $doc = \Pimcore\Model\Document::getByPath($emailTemplate);
+                    if (!empty($doc)) {
                         // Sending the mail
                         $emailParams = [
                             'templateName' => $emailTemplate,
@@ -199,12 +199,12 @@ class ProductSQLModel
                         ];
                         $this->emailService = \Pimcore::getContainer()->get('email.email_notification_service');
                         $this->emailService->sendNotificationsEmail($emailParams);
+                    }else {
+                        throw \Exception("Base SIOP mismatch email template not found.");
                     }
                 } else {
-                    throw \Exception("Base SIOP mismatch email template not found.");
+                    throw \Exception("Base SIOP mismatch email template not configured.");
                 }
-            } else {
-                throw \Exception("Base SIOP mismatch email template not configured.");
             }
         } catch (\Throwable $th) {
             Logger::error("sap_import_log", $th);

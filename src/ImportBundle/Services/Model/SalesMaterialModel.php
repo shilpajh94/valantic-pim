@@ -581,13 +581,13 @@ class SalesMaterialModel
                 $keyArray = explode('$',$value['id']);
                 $material = $keyArray[0];
                 $key = str_replace('$','-',$value['id']);
-                $objDelete = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
+                $objDelete = DataObject\SalesMaterialMaster::getByPath("/".ImportConstants::MATERIAL_MASTER_SALES_MATERIAL_MASTER_FOLDER."/".$material."/".$key, true);
 
                 if($objDelete)
                 {
                     $deleteCount++;
                     $objDelete->setDeletedFlagAtSalesLevel(1);
-                    $objDelete->setPublished(FALSE);
+                    $objDelete->setPublished(false);
                     $objDelete->save();
                 }
             }
