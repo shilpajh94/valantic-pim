@@ -25,7 +25,7 @@ export_formats_for_schedule: ['Xlsx','Csv']
 
 export_locations_for_schedule: ['FTP','Pimcore']
 
-schedule_expiry_days: 14
+schedule_expiry_days: 365
 
 # php format of the date being shown in the shedule grid
 schedule_date_format: 'm/d/Y H:i'
