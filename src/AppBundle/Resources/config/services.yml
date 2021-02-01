@@ -104,6 +104,7 @@ services:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
             - { name: kernel.event_listener, event: pimcore.admin.dataobject.get.preSendData, method: preSendData }
+            - { name: kernel.event_listener, event: pimcore.document.print.processor.modifyProcessingOptions, method: modifyProcessingOptions }
 
     AppBundle\EventListener\OptionProviderCacheListener:
         tags:

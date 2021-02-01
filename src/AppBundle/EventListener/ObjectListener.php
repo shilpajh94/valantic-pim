@@ -53,6 +53,22 @@ class ObjectListener
         $this->customGridHelperService = $customGridHelperService;
     }
 
+    public function modifyProcessingOptions(\Pimcore\Event\Model\PrintConfigEvent $event) {
+
+        $arguments = $event->getArguments();
+        $options = $arguments['options'];
+
+        $processor = $event->getProcessor();
+        if($processor instanceof \Pimcore\Web2Print\Processor\PdfReactor8) {
+
+            //add option disableBackgroundExecution into pdf generation process (pdf reactor functionality)
+            $options[] = ['name' => 'disableBackgroundExecution', 'type' => 'bool', 'default' => true];
+        }
+
+        $arguments['options'] = $options;
+        $event->setArguments($arguments);
+    }
+
 
     /**
      * --
