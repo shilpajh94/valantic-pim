@@ -13,6 +13,7 @@ use Pimcore\Model\DataObject;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * RUN : conti:onetimeimport:update_missed_unit_conversion_attributes
@@ -33,12 +34,8 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     private $appService;
     const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
 
-    const GROSS_WEIGHT_UNITS = [
-        "LB" => Unit::LBS,
-        "KG" => Unit::KG,
-        "G" => Unit::G
-    ];
-    const BATCH_SIZE = 100;
+
+    const BATCH_SIZE = 500;
 
     public function __construct(UnitConverterService $unitConverterService,AppService $appService)
     {
@@ -49,13 +46,8 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $scriptStartTime = time();
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
-        $csvLogFileHandle = fopen($csvLogFilePath, "w");
-        $this->csvLog($csvLogFileHandle, array(
-            "Id",
-            "Status",
-            "Comment"
-        ));
 
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
@@ -65,135 +57,58 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
         $productListing->setOrder("ASC");
 
         $totalCount = $productListing->getTotalCount();
-        $updateCount = 0;
-        $processedCount = 0;
+        $noOfBatches = $totalCount / self::BATCH_SIZE;
 
         $offset = 0;
         $batchIndex = 1;
 
         while ($offset <= ( $totalCount - 1)) {
-
-            $productListing->setOffset($offset);
-            $productListing->setLimit(self::BATCH_SIZE);
-
-            $productListing->load();
-            $products = $productListing->getObjects();
-
-            foreach($products as $product){
-                $status = "NA";
-                $msg = "";
-
-                $productWeightResult = $this->updateProductWeight($product);
-                $hoseResult = $this->updateHoseSkeleton($product);
-                $inhResult = $this->updateINHFittingFert($product);
-
-                if($inhResult || $hoseResult || $productWeightResult){
-                    try {
-                        $product->save();
-                        $updateCount++;
-                        $status = "SUCCESS";
-                    }catch (\Exception $exception){
-                        $status = "FAILURE";
-                        $msg = $exception->getMessage();
-                        $this->consoleLog("Product " . $product->getId() . ", Exception: " .  $msg,"ERROR");
-                    }
-
-                }
-                $processedCount++;
-
-                echo $processedCount . " ";
-                if($processedCount % 30 === 0){
-                    echo PHP_EOL;
-                    if($processedCount % 300 === 0){
-                        echo "Last updated product: " . $product->getId();
-                        echo PHP_EOL . "Total count --- " . $totalCount . PHP_EOL;
-                    }
-                }
-
-                $this->csvLog($csvLogFileHandle, array(
-                    $product->getId(),
-                    $status,
-                    $msg
-                ));
-
-                unset($product);
-            }
-            $offset = $offset + self::BATCH_SIZE;
+            $batchStartTime = time();
+            $this->initializeChildProcess($offset,self::BATCH_SIZE,$csvLogFilePath);
+            $offset = ($offset + self::BATCH_SIZE);
             $batchIndex++;
+            $batchEndTime = time();
 
-            unset($products);
-            \Pimcore::collectGarbage();
+            $singlebatchSpentTime = $batchEndTime - $batchStartTime;
+
+            $this->consoleLog("-------------------------------------------");
+            $this->consoleLog("Processed Records: " . ($offset)  . "/" . $totalCount);
+            $this->consoleLog("Time taken for this batch : " . ( $singlebatchSpentTime )/60 . " minutes" );
+            $this->consoleLog("ETA : " . ( $noOfBatches * $singlebatchSpentTime )/60 . " minutes" );
+            $this->consoleLog("-------------------------------------------");
+//            \Pimcore::collectGarbage();
         }
+        $scriptEndTime = time();
+        $totalExecTime = ($scriptEndTime - $scriptStartTime) / 60 ;
+        $this->consoleLog("Total Execution Time: " . $totalExecTime . " minutes" );
 
-        fclose($csvLogFileHandle);
     }
 
-    private function updateINHFittingFert(DataObject\Product $product)
+    private function initializeChildProcess(int $offset,int $limit,string $logFile)
     {
-        $isProductUpdated = false;
-        if($product->getFert() && $product->getFert()->getINHFittingsFert()){
-            $inhFittingsFert = $product->getFert()->getINHFittingsFert();
-            $maxODIN = $inhFittingsFert->getMaximumODIN();
-            $this->appService->updateAttributeGroup($inhFittingsFert,'MaximumODIN',$maxODIN);
+        $command = implode(' ',array(
+            PIMCORE_PROJECT_ROOT."/bin/console ",
+            "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
+            $offset,
+            $limit,
+            $logFile
+        ));
 
-            $overAllLengthIN = $inhFittingsFert->getOverallLengthInches();
-            $this->appService->updateAttributeGroup($inhFittingsFert,'OverallLengthInches',$overAllLengthIN);
-            $isProductUpdated = true;
-        }
-        return $isProductUpdated;
+        $process = new Process($command);
+        $process->setTimeout(1800);
+        $process->run();
+
+        $output = $process->getOutput();
+        $errorOutput = $process->getErrorOutput();
+
+        $this->consoleLog("[OUTPUT] :" . $output);
+        $this->consoleLog("[ERROR OUTPUT] :" . $errorOutput);
     }
 
-    private function updateHoseSkeleton(DataObject\Product $product)
-    {
-        $isProductUpdated = false;
-        if($product->getSkeleton() && $product->getSkeleton()->getHoseSkeleton()){
-            $hoseSkeleton = $product->getSkeleton()->getHoseSkeleton();
-            $workingPressurePSI = $hoseSkeleton->getWorkingPressurePSI();
-            $this->appService->updateAttributeGroup($hoseSkeleton,'WorkingPressurePSI',$workingPressurePSI);
-            $isProductUpdated = true;
-        }
-        return $isProductUpdated;
-    }
-
-    private function updateProductWeight(DataObject\Product $product)
-    {
-        $isProductUpdated = false;
-        $grossWeight = $product->getGrossWeight();
-        $grossWeightUnit = $product->getWeightUnit();
-
-        if(
-            ($grossWeight === null || is_numeric($grossWeight)) &&
-            ($grossWeightUnit !== null && $grossWeightUnit !== "" )
-        ){
-            if($grossWeight === null){
-                $product->setWeightKg(null);
-                $product->setWeightg(null);
-            }else{
-                $sourceUnit = new Unit(self::GROSS_WEIGHT_UNITS[$grossWeightUnit]);
-                $converter = ConverterFactory::getConverterByUnit($grossWeight,$sourceUnit);
-                $valueInKG = $converter->getValue(new Unit(Unit::KG));
-                $valueInG = $converter->getValue(new Unit(Unit::G));
-
-                // rounding off to 5 because that is the expected from unit conversion service
-                // can not use unit conversion service functions here because these attributes are
-                // not part of the unit conversion config
-                $product->setWeightKg(round($valueInKG,5));
-                $product->setWeightg(round($valueInG,5));
-            }
-
-            $isProductUpdated = true;
-        }
-        return $isProductUpdated;
-    }
 
     private function consoleLog($message, $level = "INFO")
     {
-        echo "[ " . $level . " ] " . $message . PHP_EOL;
+        echo $message . PHP_EOL;
     }
 
-    private function csvLog($logHandler, array $dataRow)
-    {
-        $csvDelimiter = ",";
-        fputcsv($logHandler, $dataRow, $csvDelimiter);
-    }
 }
