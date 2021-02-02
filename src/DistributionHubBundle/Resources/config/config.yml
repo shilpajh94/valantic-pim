@@ -9,7 +9,7 @@ export_formats_for_schedule:
 export_locations_for_schedule:
     - FTP
     - Pimcore
-schedule_expiry_days: 14
+schedule_expiry_days: 365
 schedule_date_format: 'm/d/Y H:i'
 default_mapping_file_csv_delimiter: ;
 default_export_file_csv_delimiter: ;
