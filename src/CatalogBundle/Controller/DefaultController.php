@@ -1069,15 +1069,15 @@ if(isset($data[$baseId])) {
 
                         $reinforcement = implode(', ', $reinforcement);
 
-                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial);
+                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                         if(empty($VirtualCatalogTubeMaterialStr))
                             $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
 
-                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial);
+                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
                             if(empty($VirtualCatalogCoverMaterialStr))
                                 $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
-                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
+                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
                         if(empty($reinforcementStr))
                             $reinforcementStr = $reinforcement;
 
@@ -1686,15 +1686,15 @@ if(isset($data[$baseId])) {
                         $reinforcement = implode(', ', $reinforcement);
                         $fittingFamily = implode(', ', $fittingFamily);
 
-                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial);
+                        $VirtualCatalogTubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                         if(empty($VirtualCatalogTubeMaterialStr))
                             $VirtualCatalogTubeMaterialStr = $tubeMaterialAtrributeString;
 
-                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial);
+                        $VirtualCatalogCoverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
                             if(empty($VirtualCatalogCoverMaterialStr))
                                 $VirtualCatalogCoverMaterialStr = $coverMaterialattributeString;
 
-                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement);
+                        $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
                                 if(empty($reinforcementStr))
                                     $reinforcementStr = $reinforcement;
 
@@ -2116,7 +2116,7 @@ if(isset($data[$baseId])) {
                 unset($safetyFeatures);
                 unset($materialArray);
 
-                $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
+                $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
                 if(empty($reinforcementStr))
                     $reinforcementStr = $reinforcement;
 
