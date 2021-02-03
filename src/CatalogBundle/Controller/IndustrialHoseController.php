@@ -413,15 +413,15 @@ class IndustrialHoseController extends AbstractController
                         ksort($newBrandArray[$key]['articleData']);
                     }
 
-                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li>");
+                    $reinforcementStr = strip_tags($VirtualCatalogReinforcement, "<ul><li><span><strong>");
                     if(empty($reinforcementStr) && $reinforcementArr)
                         $reinforcementStr = implode(', ', array_unique($reinforcementArr));
 
-                    $tubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial);
+                    $tubeMaterialStr = strip_tags($VirtualCatalogTubeMaterial, "<ul><li><span><strong>");
                     if(empty($tubeMaterialStr) && $tubeMaterialArr)
                         $tubeMaterialStr = implode(', ', array_unique($tubeMaterialArr));
 
-                    $coverMaterialStr = strip_tags($VirtualCatalogCoverMaterial);
+                    $coverMaterialStr = strip_tags($VirtualCatalogCoverMaterial, "<ul><li><span><strong>");
                     if(empty($coverMaterialStr) && $coverMaterialArr)
                         $coverMaterialStr = implode(', ', array_unique($coverMaterialArr));
 
