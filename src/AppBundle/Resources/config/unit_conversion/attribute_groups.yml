@@ -54,6 +54,10 @@ Length__group:
 HoseIdDec__group:
     HoseIdDecIN: 'IN'
     HoseIdDecMM: 'MM'
+AccessoriesWorkingPressure__group:
+    AccessoriesWorkingPressureMPA: 'MPA'
+    AccessoriesWorkingPressurePSI: 'PSI'
+    AccessoriesWorkingPressureBAR: 'BAR'
 
 #    BeltsFert
 insideLength__group:
