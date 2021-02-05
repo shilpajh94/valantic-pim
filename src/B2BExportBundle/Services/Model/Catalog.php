@@ -27,10 +27,10 @@ class Catalog {
 		try {
 			// Querying product category from database
 			$productCategories = Db::get()->fetchAll('SELECT
-				*	from object_localized_2_en
+				*	from object_localized_2_en where o_published = 1
 			');
 			return $productCategories;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             \B2BExportBundle\Lib\Utils::log("CatalogGroup Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
@@ -52,7 +52,7 @@ class Catalog {
 				ParentCategoryCode ,
 				BusinessUnit
 				FROM object_2
-				WHERE BusinessUnit != ""
+				WHERE BusinessUnit != "" AND o_published = 1
 			');
 			$data = [];
 			$count = 0;
@@ -64,7 +64,7 @@ class Catalog {
 			}
 
 	    	return $data;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             \B2BExportBundle\Lib\Utils::log("Catalog Group Description Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
@@ -78,18 +78,18 @@ class Catalog {
 
         try{
             $categorySql = "
-                SELECT oo_id,name FROM object_query_". $categoryClassId ."
+                SELECT oo_id,Name FROM object_". $categoryClassId ." where o_published = 1
                 UNION
-                SELECT oo_id,name FROM object_query_". $subCategoryClassId ."
+                SELECT oo_id,Name FROM object_". $subCategoryClassId ." where o_published = 1
                 UNION
-                SELECT oo_id,name FROM object_query_". $fittingCategoryClassId ."
+                SELECT oo_id,Name FROM object_". $fittingCategoryClassId ." where o_published = 1
                 UNION
-                SELECT oo_id,name FROM object_query_". $fittingSubCategoryClassId ."
+                SELECT oo_id,Name FROM object_". $fittingSubCategoryClassId ." where o_published = 1
 		    ";
 
             $result = Db::get()->fetchAll($categorySql);
             return $result;
-        }catch (Exception $e) {
+        }catch (\Exception $e) {
             \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
         }
     }
@@ -103,22 +103,22 @@ class Catalog {
 
         try{
             $categorySql = "
-                SELECT oo_id,name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_query_". $categoryClassId ."
+                SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $categoryClassId ." where o_published = 1
 		    ";
 
             $categoryData = Db::get()->fetchAll($categorySql);
 
-            $subCategoriesSQL = "SELECT oo_id,name, 'FALSE' as top_group,'2' as sequence,category FROM object_query_". $subCategoryClassId;
+            $subCategoriesSQL = "SELECT oo_id,Name, 'FALSE' as top_group,'2' as sequence,category FROM object_". $subCategoryClassId . " where o_published = 1";
             $subCategories = Db::get()->fetchAll($subCategoriesSQL);
             $subCategoryData = [];
             foreach($subCategories as $subCategory){
 
-                $categoriesString = trim($subCategory['category'],',');
+                $categoriesString = trim($subCategory['Category'],',');
                 $categoriesArray = explode(",",$categoriesString);
                 foreach($categoriesArray as $categoryId){
                     $row = [];
                     $row['oo_id'] = $subCategory['oo_id'];
-                    $row['name'] = $subCategory['name'];
+                    $row['Name'] = $subCategory['Name'];
                     $row['top_group'] = $subCategory['top_group'];
                     $row['sequence'] = $subCategory['sequence'];
                     $row['parent_group_identifier'] = $categoryId;
@@ -127,15 +127,15 @@ class Catalog {
             }
 
             $fittingCategorySql = "
-                SELECT oo_id,name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_query_". $fittingCategoryClassId ."
+                SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $fittingCategoryClassId ." where o_published = 1
                 UNION
-                SELECT oo_id,name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_query_". $fittingSubCategoryClassId ."
+                SELECT oo_id,Name,'TRUE' as top_group,'1' as sequence,'0' as parent_group_identifier FROM object_". $fittingSubCategoryClassId ." where o_published = 1
 		    ";
 
             $fittingCategoryData = Db::get()->fetchAll($fittingCategorySql);
 
             return array_merge($categoryData,$subCategoryData, $fittingCategoryData);
-        }catch (Exception $e) {
+        }catch (\Exception $e) {
 
             \B2BExportBundle\Lib\Utils::log("Catalog Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
         }
@@ -225,11 +225,12 @@ class Catalog {
                             SUBSTRING(product.category, 2, LOCATE(',', product.category, 2) - 2) as categoryId,
                             SUBSTRING(product.fittingCategory, 2, LOCATE(',', product.fittingCategory, 2) - 2) as fittingCategoryId
                         FROM
-                            object_query_1 product
+                            object_1 product
                                 JOIN
                             object_localized_query_1_en objld1 ON product.oo_id = objld1.ooo_id
                                 AND objld1.sapDescription != ''
                         WHERE
+                            product.o_published = 1 AND
                             product.oo_id IN (SELECT DISTINCT
                                     SUBSTRING(TRIM(material),
                                             2,
@@ -248,7 +249,7 @@ class Catalog {
             $productMaster = Db::get()->fetchAll($newSQL);
 
 	    	return $productMaster;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             \B2BExportBundle\Lib\Utils::log("Catalog Entries Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
@@ -335,11 +336,12 @@ class Catalog {
                             oCommaSaperated.weightUnit,
                             objld1.language
                         FROM
-                            object_query_1 oCommaSaperated
+                            object_1 oCommaSaperated
                                 JOIN
                             object_localized_data_1 objld1 ON oCommaSaperated.oo_id = objld1.ooo_id
                                 AND objld1.sapDescription != ''
                         WHERE
+                            oCommaSaperated.o_published = 1 AND
                             oCommaSaperated.oo_id IN (SELECT DISTINCT
                                     SUBSTRING(TRIM(material),
                                             2,
@@ -356,7 +358,7 @@ class Catalog {
 
 	    	// returning product master and language master data
 	    	return ['productMaster' => $productMaster, 'languageMaster' => self::languageMaster()];
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             \B2BExportBundle\Lib\Utils::log("Catalog Entries Description Model Exception :: " .$e->getMessage(),LogLevel::CRITICAL());
 		}
 	}
