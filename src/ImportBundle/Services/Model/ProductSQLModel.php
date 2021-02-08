@@ -279,7 +279,7 @@ class ProductSQLModel
         $this->logArray = [];
         $i = 0;
         
-        $length = 2000;
+        $length = 1000;
         while ($i<$deltaCount) {
             $offset = $i;
             $diff = $deltaCount-$i;
@@ -314,7 +314,7 @@ class ProductSQLModel
         
         $this->logArray = [];
         $i = 0;
-        $length = 2000;
+        $length = 1000;
         while ($i<$deltaCount) {
             $offset = $i;
             $diff = $deltaCount-$i;
@@ -348,6 +348,7 @@ class ProductSQLModel
         $this->localisedQueryTableDataArray = [];
         $this->localisedDataTableDataArray = [];
         $this->relationTableDataArray = [];
+        $this->relationTableDataDeleteArray = [];
         $this->dependencyTableDataArray = [];
         $this->bricksDataArray = [];
         foreach ($this->langArr as $lang) {
@@ -400,6 +401,7 @@ class ProductSQLModel
             $this->tblImpHelper->insertIntoProductTable($this->storeTableDataArray, 'object_store_1');
         }
         if (!empty($this->relationTableDataArray)) {
+            $this->tblImpHelper->deleteRelationTableRecords($this->relationTableDataDeleteArray);
             $this->tblImpHelper->insertIntoProductTable($this->relationTableDataArray, 'object_relations_1');
         }
         
@@ -809,12 +811,16 @@ class ProductSQLModel
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
+            $this->relationTableDataDeleteArray[$index][] = $objId;
             $this->relationTableDataArray[] = [
                 'src_id' => $objId,
                 'dest_id' => $targetId,
                 'type' => 'object',
                 'fieldname' => $index,
-                'ownertype' => 'object'
+                'ownertype' => 'object',
+                'index' => 0,
+                'ownername' => '',
+                'position' => 0
             ];
         }
         if (strtolower($productType) == 'fert') {
@@ -826,7 +832,10 @@ class ProductSQLModel
                     'dest_id' => $materialGroupId,
                     'type' => 'object',
                     'fieldname' => "materialGroup",
-                    'ownertype' => 'object'
+                    'ownertype' => 'object',
+                    'index' => 0,
+                    'ownername' => '',
+                    'position' => 0
                 ];
             }
         }
