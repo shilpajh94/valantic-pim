@@ -193,6 +193,10 @@ OrificeTubeLength__group:
 ValveSize2InDec__group:
     ValveSize2InDec: 'IN'
     ValveSize2MM: 'MM'
+ORingIDInDec__group:
+    ORingIDInDec: 'IN'
+    ORingIDMM: 'MM'
+
 
 #      MetalFert
 overallThickness__group:
