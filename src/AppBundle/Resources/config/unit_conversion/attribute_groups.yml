@@ -48,6 +48,16 @@ ORingIdIn__group:
 ClampingDiameterIn__group:
     ClampingDiameterInDec: 'IN'
     ClampingDiameterMM: 'MM'
+Length__group:
+    LengthIN: 'IN'
+    LengthMM: 'MM'
+HoseIdDec__group:
+    HoseIdDecIN: 'IN'
+    HoseIdDecMM: 'MM'
+AccessoriesWorkingPressure__group:
+    AccessoriesWorkingPressureMPA: 'MPA'
+    AccessoriesWorkingPressurePSI: 'PSI'
+    AccessoriesWorkingPressureBAR: 'BAR'
 
 #    BeltsFert
 insideLength__group:
@@ -97,6 +107,13 @@ Vacuum__group:
 tubeGauge__group:
     tubeGaugeIN: 'IN'
     tubeGaugeMM: 'MM'
+InnerHoseIdDec__group:
+    InnerHoseIdDec: 'IN'
+    InnerHoseIdMM: 'MM'
+InnerHoseOdInDec__group:
+    InnerHoseOdInDec: 'IN'
+    InnerHoseOdMM: 'MM'
+
 
 #     HoseFert
 hoseLength__group:
@@ -173,6 +190,13 @@ OrificeTubeOD__group:
 OrificeTubeLength__group:
     OrificeTubeLengthInDecimal: 'IN'
     OrificeTubeLengthMMDecimal: 'MM'
+ValveSize2InDec__group:
+    ValveSize2InDec: 'IN'
+    ValveSize2MM: 'MM'
+ORingIDInDec__group:
+    ORingIDInDec: 'IN'
+    ORingIDMM: 'MM'
+
 
 #      MetalFert
 overallThickness__group:
@@ -211,6 +235,12 @@ stockThickness__group:
 boreIN__group:
     BoreIN: 'IN'
     BoreMM: 'MM'
+pulleyDiameter__group:
+    pulleyDiameterIN: 'IN'
+    pulleyDiameterMM: 'MM'
+DatumDiameter__group:
+    DatumDiameterIN: 'IN'
+    DatumDiameterMM: 'MM'
 
 #    PTGBase
 #minimumTemperature__group:
@@ -237,3 +267,28 @@ pitch__group:
 pitchLength__group:
     pitchLengthIN: 'IN'
     pitchLengthMM: 'MM'
+
+#   InhFittingFert
+GasketID__group:
+    GasketIDInches: 'IN'
+    GasketIDMM: 'MM'
+GasketOD__group:
+    GasketODInches: 'IN'
+    GasketODMM: 'MM'
+OverallLengthInches__group:
+    OverallLengthInches: 'IN'
+    OverallLengthMM: 'MM'
+MaximumOD__group:
+    MaximumODIN: 'IN'
+    MaximumODMM: 'MM'
+GasketThickness__group:
+    GasketThicknessInches: 'IN'
+    GasketThicknessMM: 'MM'
+DistanceChainLugExtendsfromBody__group:
+    DistanceChainLugExtendsfromBodyIN: 'IN'
+    DistanceChainLugExtendsfromBodyMM: 'MM'
+ODWithCamArmsExtended__group:
+    ODWithCamArmsExtendedIN: 'IN'
+    ODWithCamArmsExtendedMM: 'MM'
+
+
