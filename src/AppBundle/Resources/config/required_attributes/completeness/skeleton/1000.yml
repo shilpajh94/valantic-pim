@@ -1,0 +1,327 @@
+non_localized:
+#    brandName:
+#        type: 'select'
+#        label: 'Brand Name'
+#    shelfLife:
+#        type: 'input'
+#        label: 'Shelf Life'
+#    nitrosamines:
+#        type: 'input'
+#        label: 'Nitrosamines'
+#    rohs:
+#        type: 'input'
+#        label: 'Rohs'
+#    reach:
+#        type: 'input'
+#        label: 'Reach'
+#    prop65Message:
+#        type: 'textarea'
+#        label: 'Prop 65 Message'
+#    fittingFamily:
+#        type: 'multiselect'
+#        label: 'Fitting Family'
+#    reinforcement:
+#        type: 'multiselect'
+#        label: 'Reinforcement'
+    # panel break here
+    #    numeratorForConversionToBaseUnitsOfMeasure:
+    #        type: 'textarea'
+    #        label: 'Numerator for Conversion to Base Units of Measure'
+    #    alternativeUnitOfMeasureForStockkeepingUnit:
+    #        type: 'input'
+    #        label: 'Alternative Unit of Measure for Stockkeeping Unit'
+    #    denominatorForConversionToBaseUnitsOfMeasure:
+    #        type: 'input'
+    #        label: 'Denominator for conversion to base units of measure'
+#    californiaProposition65ChemicalName1:
+#        type: 'input'
+#        label: 'California Proposition65 Chemical Name1'
+#    californiaProposition65ChemicalName2:
+#        type: 'input'
+#        label: 'California Proposition 65 Chemical Name2'
+#    californiaProposition65ChemicalName3:
+#        type: 'input'
+#        label: 'California Proposition 65 Chemical Name3'
+#    searchKeywords:
+#        type: 'input'
+#        label: 'Search Keywords'
+#    webDiscription:
+#        type: 'input'
+#        label: 'Web Description'
+#    proposition65WarningAttributesRequired:
+#        type: 'booleanSelect'
+#        label: 'Proposition 65 warning attributes required'
+    # panel break here
+    BrandingLayline:
+        type: 'textarea'
+        label: 'Branding / Layline'
+#    VirtualCatalogBrandingLayline:
+#        type: 'input'
+#        label: 'Virtual Catalog Branding / Layline'
+    # panel break here
+    packageLengthIN:
+        type: 'numeric'
+        label: 'Package Length (in)'
+    packageWidthIN:
+        type: 'numeric'
+        label: 'Package Width (in)'
+    packageWeightLBS:
+        type: 'numeric'
+        label: 'Package Weight (lbs)'
+    packageHeightIN:
+        type: 'numeric'
+        label: 'Package Height (in)'
+    caseLengthIN:
+        type: 'numeric'
+        label: 'Case Length (in)'
+    caseHeightIN:
+        type: 'numeric'
+        label: 'Case Height (in)'
+    caseWidthIN:
+        type: 'numeric'
+        label: 'Case Width (in)'
+    caseWeightLBS:
+        type: 'numeric'
+        label: 'Case Weight (lbs)'
+    palletLengthIN:
+        type: 'numeric'
+        label: 'Pallet Length (in)'
+    palletHeightIN:
+        type: 'numeric'
+        label: 'Pallet Height (in)'
+    palletWidthIN:
+        type: 'numeric'
+        label: 'Pallet Width (in)'
+    palletWeightLBS:
+        type: 'numeric'
+        label: 'Pallet Weight (lbs)'
+    # panel break here
+    numberOfItems:
+        type: 'numeric'
+        label: 'Number of Items'
+    casePackQuantity:
+        type: 'numeric'
+        label: 'Case Pack Quantity'
+    numberOfCoils:
+        type: 'numeric'
+        label: 'Number of Coils'
+    tieBundles:
+        type: 'numeric'
+        label: 'Tie Bundles '
+    bundlesOfQuantity:
+        type: 'numeric'
+        label: 'Bundles of Quantity'
+    # panel break here
+    minimumTemperatureF:
+        type: 'numeric'
+        label: 'Min Temp °F'
+    maximumTemperatureF:
+        type: 'numeric'
+        label: 'Max temp °F'
+    rangeTemperatureF:
+        type: 'input'
+        label: 'Temperature Range (°F)'
+    temperatureRangeFAndC:
+        type: 'input'
+        label: 'Temperature Range (°F & C°)'
+    VirtualCatalogHoseTemperatureRangeFAndC:
+        type: 'textarea'
+        label: 'Virtual Catalog Temperature Range (°F & C°)'
+    # panel break here
+    minimumTemperatureC:
+        type: 'numeric'
+        label: 'Min Temp °C'
+    maximumTemperatureC:
+        type: 'numeric'
+        label: 'Max temp °C'
+    rangeTemperatureC:
+        type: 'input'
+        label: 'Temperature Range (°C)'
+    temperatureRangeApplication:
+        type: 'input'
+        label: 'Temperature Range Application'
+    # panel break here
+    succesorFlag:
+        type: 'booleanSelect'
+        label: 'Succesor / Supercession Flag'
+    B2CStoreFlag:
+        type: 'booleanSelect'
+        label: 'B2C Store Flag'
+    printedCatalogFlag:
+        type: 'booleanSelect'
+        label: 'Printed Catalog Flag'
+    virtualCatalogFlag:
+        type: 'booleanSelect'
+        label: 'Virtual Catalog Flag'
+    # panel break here
+    returnFlag:
+        type: 'booleanSelect'
+        label: 'Return Flag'
+    rebateFlag:
+        type: 'booleanSelect'
+        label: 'Rebate Flag'
+    newItemFlagForCatalog:
+        type: 'booleanSelect'
+        label: 'New Item Flag for Catalog'
+    # panel break here
+    mainImage:
+        type: 'image'
+        label: 'MainImage'
+    frontView:
+        type: 'image'
+        label: 'Front view'
+    sideView:
+        type: 'image'
+        label: 'Side view'
+    cutView:
+        type: 'image'
+        label: 'Cut view'
+    # panel break here
+    LeftPrintCatalogImage:
+        type: 'image'
+        label: 'Left Print Catalog Image'
+    RightPrintCatalogImage:
+        type: 'image'
+        label: 'Right Print Catalog Image'
+
+localized:
+    FeaturesBenefitsBulletPoint:
+        type: 'multiselect'
+        label: 'Features & Benefits Bullet Points'
+    legalText:
+        type: 'input'
+        label: 'Legal Text'
+    BrandShortText1:
+        type: 'input'
+        label: 'Brand Short Text 1'
+    BrandShortText2:
+        type: 'input'
+        label: 'Brand Short Text 2'
+    BrandShortText3:
+        type: 'input'
+        label: 'Brand Short Text 3'
+    BrandShortText4:
+        type: 'input'
+        label: 'Brand Short Text 4'
+    BrandShortText5:
+        type: 'input'
+        label: 'Brand Short Text 5'
+    # panel break here
+    shortDescription:
+        type: 'wysiwyg'
+        label: 'Marketing / Short Description'
+    longDescription:
+        type: 'wysiwyg'
+        label: 'Marketing / Long Description'
+
+
+object_bricks:
+    Base:
+        label: 'Base Data'
+        brick_items:
+            HoseBase:
+                label: 'Hose (6 Digit)'
+                non_localized:
+                    staticWire:
+                        type: 'input'
+                        label: 'Static Wire'
+                    numberOfHelixWires:
+                        type: 'numeric'
+                        label: 'Number of Helix Wires'
+                    numberOfPlies:
+                        type: 'numeric'
+                        label: 'Number of Plies'
+                    tubeMaterial:
+                        type: 'multiselect'
+                        label: 'Tube Material'
+                    tubeCharacteristic:
+                        type: 'multiselect'
+                        label: 'Tube Characteristic'
+                    tubeColor:
+                        type: 'multiselect'
+                        label: 'Tube Color'
+                    StandardMetTube:
+                        type: 'multiselect'
+                        label: 'Standard Met- Tube'
+                    coverMaterial:
+                        type: 'multiselect'
+                        label: 'Cover Material'
+                    coverCharacteristic:
+                        type: 'multiselect'
+                        label: 'Cover Characteristic'
+                    coverColor:
+                        type: 'multiselect'
+                        label: 'Cover Color'
+                    agencyCompliance:
+                        type: 'multiselect'
+                        label: 'Agency Compliance'
+                    safetyFactor:
+                        type: 'multiselect'
+                        label: 'Safety Factor (ARPM Standard)'
+                    Packaging:
+                        type: 'input'
+                        label: 'Packaging'
+    Skeleton:
+        label: 'Skeleton Data'
+        brick_items:
+            HoseSkeleton:
+                label: 'Hose (9 Digit)'
+                non_localized:
+                    hoseIdMM:
+                        type: 'numeric'
+                        label: 'Hose ID (mm) Actual ID'
+                    hoseOdmm:
+                        type: 'numeric'
+                        label: 'Hose OD (mm)'
+                    workingPressurePSI:
+                        type: 'numeric'
+                        label: 'Working Pressure (psi)'
+                    minBurstPressurePSI:
+                        type: 'numeric'
+                        label: 'Min. Burst Pressure (psi)'
+                    BendRadiusIN:
+                        type: 'numeric'
+                        label: 'BendRadius (in)'
+                    VacuumIN:
+                        type: 'numeric'
+                        label: 'Vacuum (in)'
+                    HoseIDNominalIDFrac:
+                        type: 'input'
+                        label: 'Hose ID (in Fract) Nominal ID'
+                    tubeGaugeMM:
+                        type: 'numeric'
+                        label: 'Tube Gauge (mm)'
+
+
+#    Fert:
+#        label: 'Fert Data'
+#        brick_items:
+#            HoseFert:
+#                label: 'Hose (14 Digit)'
+#                non_localized:
+#                    hoseLengthFT:
+#                        type: 'numeric'
+#                        label: 'Hose Length (ft)'
+#                    assembly:
+#                        type: 'booleanSelect'
+#                        label: 'Assembly / Not Assembly'
+#                    fitting1Type:
+#                        type: 'input'
+#                        label: 'Fitting 1 Type'
+#                    fitting1Size:
+#                        type: 'input'
+#                        label: 'Fitting 1 Size (in)'
+#                    fitting1Material:
+#                        type: 'input'
+#                        label: 'Fitting 1 Material'
+#                    fitting2Type:
+#                        type: 'input'
+#                        label: 'Fitting 2 Type'
+#                    fitting2Size:
+#                        type: 'input'
+#                        label: 'Fitting 2 Size (in)'
+#                    fitting2Material:
+#                        type: 'input'
+#                        label: 'fitting2Material'
+
+
