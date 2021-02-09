@@ -61,11 +61,11 @@ class Export {
             $this->files[] = $fileName;
 //			 Generating CSV for Catalog Entries
 			$fileName = Config::catalogEntriesFileName();
-			$this->saveCatalogEntriesCSV($fileName);        // taking too long
+			$this->saveCatalogEntriesCSV($fileName);
             $this->files[] = $fileName;
 //			// Generating CSV for Catalog Entries Description
 			$fileName = Config::catalogEntriesDescFileName();
-			$this->saveCatalogEntriesDescCSV($fileName);    // taking too long
+			$this->saveCatalogEntriesDescCSV($fileName);
             $this->files[] = $fileName;
 			// Generating CSV for Attribute Values
 			$fileName = Config::attrValsFileName();
@@ -73,7 +73,7 @@ class Export {
             $this->files[] = $fileName;
 			// Generating CSV for Attribute Value Category Entry
 			$fileName = Config::attrValCatEntryFileName();
-			$this->saveAttrValCatEntryCSV($fileName);       // taking too long
+			$this->saveAttrValCatEntryCSV($fileName);
             $this->files[] = $fileName;
 			// Generating CSV for Attribute Facets
 			$fileName = Config::attributeFacetsFileName();
@@ -85,7 +85,7 @@ class Export {
             $this->files[] = $fileName;
 //			 Generating CSV for Catalog Entries
 			$fileName = Config::attrValCatEntryFacetsFileName();
-			$this->saveAttrValCatEntryFacetsCSV($fileName); // taking too long
+			$this->saveAttrValCatEntryFacetsCSV($fileName);
             $this->files[] = $fileName;
 			// Generating CSV for Catalog Entries
 			$fileName = Config::xMaterialPlantFileName();
@@ -132,7 +132,7 @@ class Export {
                     $datum["oo_id"],
                     $datum["top_group"],
                     $datum["parent_group_identifier"],
-                    $datum["name"],
+                    $datum["Name"],
                     $datum["sequence"]
             ), ',');
 
@@ -237,7 +237,7 @@ class Export {
         $data = $catObject->getAllManualCategories();
 
         foreach($data as $datum){
-            fputcsv($fileResource, array($datum['oo_id'], $datum['name'], '-1'));
+            fputcsv($fileResource, array($datum['oo_id'], $datum['Name'], '-1'));
         }
 
         $data = Catalog::getGroupsDescription();
