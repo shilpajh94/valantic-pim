@@ -21,6 +21,16 @@ class OptionProviderCacheService
      */
     public function setAllOptionsInCacheForClass(string $classKey, $data): bool
     {
+        if($data)
+        {
+            $dataKeyArr =  array_column($data, 'key');
+            $dataKeyArr = array_map('strtolower', $dataKeyArr);
+
+            array_multisort ($dataKeyArr, SORT_ASC, SORT_STRING, $data);
+        }
+        
+        $data = array_values($data);
+        
         return \Pimcore\Cache::save($data, self::CACHE_KEY.$classKey, [], null, 0, true);
     }
 
@@ -71,7 +81,7 @@ class OptionProviderCacheService
             if($indexId !== false)
             {
                 unset($optionProviderClassCache[$indexId]);
-                $optionProviderClassCache = array_values($optionProviderClassCache);
+                // $optionProviderClassCache = array_values($optionProviderClassCache);
                 $this->setAllOptionsInCacheForClass($classKey, $optionProviderClassCache);
             }
         }
