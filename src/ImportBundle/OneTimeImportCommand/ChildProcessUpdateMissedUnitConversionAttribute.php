@@ -61,7 +61,7 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
 
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-//        $productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684)");
+//        $productListing->setCondition("o_id IN (1842326)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
@@ -125,10 +125,10 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
     private function updateHoseSkeleton(DataObject\Product $product)
     {
         $isProductUpdated = false;
-        if ($product->getSkeleton() && $product->getSkeleton()->getHoseSkeleton()) {
+        if ($product->getType() === "skeleton" && $product->getSkeleton() && $product->getSkeleton()->getHoseSkeleton()) {
             $hoseSkeleton = $product->getSkeleton()->getHoseSkeleton();
             $workingPressurePSI = $hoseSkeleton->getWorkingPressurePSI();
-            $this->appService->updateAttributeGroup($hoseSkeleton, 'WorkingPressurePSI', $workingPressurePSI);
+            $this->appService->updateAttributeGroup($hoseSkeleton, 'workingPressurePSI', $workingPressurePSI);
             $isProductUpdated = true;
         }
         return $isProductUpdated;
