@@ -70,9 +70,10 @@ class CustomStreamWrapper extends StreamWrapper
 
     public function unlink($path)
     {
-        $path = $this->getS3PathForPimcorePath($path);
-
-        return parent::unlink($path);
+        // files will be deleted by RemovePimcoreDeletedAssetsFromS3Command
+//        $path = $this->getS3PathForPimcorePath($path);
+//
+//        return parent::unlink($path);
     }
 
     /**
@@ -111,9 +112,10 @@ class CustomStreamWrapper extends StreamWrapper
 
     public function rmdir($path, $options)
     {
-        $path = $this->getS3PathForPimcorePath($path);
-
-        return parent::rmdir($path, $options);
+        // files will be deleted by RemovePimcoreDeletedAssetsFromS3Command
+//        $path = $this->getS3PathForPimcorePath($path);
+//
+//        return parent::rmdir($path, $options);
     }
 
     /**

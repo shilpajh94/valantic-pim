@@ -58,7 +58,6 @@ pimcore.bundle.distributionhub.filtersConfig.fieldConditionPanel.numeric = Class
         if(operatorFieldValue === "exists" || operatorFieldValue === "not_exists") {
             operator = operatorFieldValue;
         }
-        console.log(filterEntryData);
         return {
             fieldname: this.fieldSelectionInformation.fieldName,
             filterEntryData: filterEntryData,

@@ -107,6 +107,14 @@ services:
     ImportBundle\OneTimeImportCommand\ImportPTGSynchronousCorrectedDataCommand:
         tags:
             - { name: 'console.command', command: 'onetime-import:import_ptg_synchronous_corrected_data' }
+
+    ImportBundle\OneTimeImportCommand\UpdateMissedUnitConversionAttributes:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:update_missed_unit_conversion_attributes' }
+
+    ImportBundle\OneTimeImportCommand\ChildProcessUpdateMissedUnitConversionAttribute:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:child_process_update_missed_unit_conversion_attributes' }
             
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel

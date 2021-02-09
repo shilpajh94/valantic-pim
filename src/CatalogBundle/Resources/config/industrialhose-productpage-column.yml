@@ -4,14 +4,20 @@ parameters:
   Hose Attribute Table 2:
     columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN]
   Hose Attribute Table 3:
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN, VacuumMM]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN]
   Hose Attribute Table 4:
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, VacuumIN, VacuumMM]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, VacuumIN]
   Hose Attribute Table 5:
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN, VacuumMM]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]
   Hose Attribute Table 6:
-    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, VacuumIN, VacuumMM]
+    columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, tubeGaugeIN]
   Hose Attribute Table 7:
     columns: [articleNumber, HoseIDNominalIDFrac, hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, grossWeight, weightKg, BendRadiusIN]
   Hose Attribute Table 8:
     columns: [articleNumber, HoseIDNominalIDFrac,  hoseLengthFT, coverColor, workingPressurePSI, workingPressureBAR, grossWeight, weightKg, InnerHoseIDFractional, InnerHoseOdInDec, InnerHoseWeightLbs]
+  Hose Attribute Table 9:
+    columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, workingPressurePSI, workingPressureBAR, grossWeight, weightKg]
+  Hose Attribute Table 10:
+    columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, hoseLengthFT, coverColor, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]
+  Hose Attribute Table 11:
+    columns: [articleNumber, HoseIDNominalIDFrac,  hoseIdMM, hoseOdIn, hoseOdmm, coverColor, grossWeight, weightKg, BendRadiusIN, VacuumIN, tubeGaugeIN]

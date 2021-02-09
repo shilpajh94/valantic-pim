@@ -18,6 +18,7 @@ use AppBundle\Services\AppService;
 use AppBundle\Services\CategoryBrickMappingService;
 use AppBundle\Services\ConfigProviderService;
 use AppBundle\Services\UnitConverterService;
+use Pimcore\Bundle\AdminBundle\Helper\GridHelperService;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject\ProductLine;
 use Pimcore\Model\DataObject;
@@ -37,12 +38,35 @@ class ObjectListener
 
     private $appService;
 
-    public function __construct(RequestStack $requestStack, CategoryBrickMappingService $categoryBrickMappingService, UnitConverterService $unitConverterService,AppService $appService)
+    private $customGridHelperService;
+
+    public function __construct(RequestStack $requestStack,
+                                CategoryBrickMappingService $categoryBrickMappingService,
+                                UnitConverterService $unitConverterService,
+                                AppService $appService,
+                                GridHelperService $customGridHelperService)
     {
         $this->requestStack = $requestStack;
         $this->categoryBrickMappingService = $categoryBrickMappingService;
         $this->unitConversionService = $unitConverterService;
         $this->appService = $appService;
+        $this->customGridHelperService = $customGridHelperService;
+    }
+
+    public function modifyProcessingOptions(\Pimcore\Event\Model\PrintConfigEvent $event) {
+
+        $arguments = $event->getArguments();
+        $options = $arguments['options'];
+
+        $processor = $event->getProcessor();
+        if($processor instanceof \Pimcore\Web2Print\Processor\PdfReactor8) {
+
+            //add option disableBackgroundExecution into pdf generation process (pdf reactor functionality)
+            $options[] = ['name' => 'disableBackgroundExecution', 'type' => 'bool', 'default' => true];
+        }
+
+        $arguments['options'] = $options;
+        $event->setArguments($arguments);
     }
 
 
@@ -243,6 +267,21 @@ class ObjectListener
             }
         }
 
+    }
+
+    public function preSendData(GenericEvent $event)
+    {
+        $data = $event->getArgument('data');
+        $object = $event->getArgument('object');
+
+        if($object->getType() === 'folder'){
+            $data['isAllowedSQLEditor'] = 0;
+            $currentUser = \Pimcore\Tool\Admin::getCurrentUser();
+            if($this->customGridHelperService->isAllowSQLEditor($currentUser)){
+                $data['isAllowedSQLEditor'] = 1;
+            }
+                $event->setArgument('data',$data);
+        }
     }
 
 

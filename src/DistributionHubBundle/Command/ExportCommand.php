@@ -276,6 +276,7 @@ class ExportCommand extends Command
                 }
 
                 $writer->write($exportData);
+                unset($exportData);
             } catch (\Exception $exception) {
                 $this->handleProcessFailure($exception->getMessage());
                 return;
@@ -283,6 +284,8 @@ class ExportCommand extends Command
 
             $offset = $offset + $this->batchSize;
             $batchIndex++;
+
+            \Pimcore::collectGarbage();
         }
         try {
             $writer->postWrite();

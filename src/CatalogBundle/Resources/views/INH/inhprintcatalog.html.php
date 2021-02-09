@@ -1,11 +1,15 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <?php if ($this->editmode) { ?>
     <?= $this->relation("inh-printcatalog"); ?>
 <?php } ?>
+
+<?php if (isset($info['data']) && !empty($info['data'])) { ?>
 <div class="template">
-<div class="segregate inhSettingN">
+<div class="segregate inhSettingSectionPage">
 
    <div id="pageHeader"></div>
     <span  class="pageName"><?= $info['configTableName']." - ". $info['siop4Description'] ?></span>
@@ -52,34 +56,34 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 
         <article class="fullcontainer single">
             <?php
-            if (isset($info['data']) && !empty($info['data'])) {
+            
                 foreach ($info['data'] as $tableName => $data) {
             ?>
 
                         <div class="inhsetting1">
- <div class="inhsetting-sidebar">
+ <div class="inhsetting-sidebar20">
                             <div class=" sidebar">
                             <ul>
 
                                 <?php
                                 if (is_array($info['categories'])) {
                                     foreach ($info['categories'] as $category) {
-                                        $catNames = array_column($category, 'name');
                                         $first = "";
-                                        foreach($catNames as $cn) {
-                                            if($tableName==$cn) {
-                                                $first = "first";
-                                            }
+                                        if ($tableName == $category['mainCategory'][0]['name']) {
+                                            $first = "first";
                                         }
+                                        
                                         echo "<li class='$first'>";
-                                        if (is_array($category) && !empty($category)) {
-                                            foreach ($category as $k=> $cat) {
-                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                    echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                } else {
-                                                    if ($cat['printable'] == 1) {
-                                                        echo "<p>" . $cat['name'] . "</p>";
-                                                    }
+
+                                        if(isset($category['mainCategory'][0]['name']))
+                                            echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                        else
+                                            echo "<p</p>";
+
+                                        if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                            foreach ($category['subCategory'] as $k => $cat) {
+                                                if ($cat['printable'] == 1) {
+                                                    echo "<p>" . $cat['name'] . "</p>";
                                                 }
                                             }
                                         }
@@ -205,21 +209,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         </div>
 
                     </div>
-            <?php }
-            } ?>
+            <?php } ?>
 
        </article>
 
     </div>
 </div>
 
+<?php if (!$info['containerRequest']): ?>
+    <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+<?php endif; ?>
 
-<script>
-    var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });
-</script>
+<?php } ?>

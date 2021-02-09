@@ -36,6 +36,7 @@ class HydraulicFittingController extends AbstractController
 
     public function fittingPageAction(Request $request)
     {
+        $containerRequest = $request->get('containerRequest') ? $request->get('containerRequest') : FALSE;
         $fittingTableColumn = \Pimcore::getContainer()->get('app.config_provider_service')->getFittingTableConfig()['parameters'];
         // $attrImages = \Pimcore::getContainer()->get('app.config_provider_service')->getAttributeImagesConfig()['parameters']['attributeImages'];
         $common = \Pimcore::getContainer()->get('app.common_helper');
@@ -113,10 +114,6 @@ class HydraulicFittingController extends AbstractController
             {
                 foreach ($brandsData as $brandKey => $brand)
                 {
-
-                    $reinforcementArr = array();
-                    $tubeMaterialArr = array();
-                    $coverMaterialArr = array();
 
                     $shortDescription = '';
                     // $BrandShortText1 = '';
@@ -226,12 +223,14 @@ class HydraulicFittingController extends AbstractController
                     $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandName];
                     unset($brandsData[$brandKey]);
                 }
-                array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
+                
+                if($newBrandArray)
+                    array_multisort (array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
             }
 
             unset($objColumnsData);
-            unset($this->columnsData);
-            unset($this->attributeImages);
+            //unset($this->columnsData);
+            //unset($this->attributeImages);
 
             $footer_logo_src = (strtolower($footerBgColor)== 'orange') ? $CatalogImagesHYDFooter['Black']:$CatalogImagesHYDFooter['Orange'];
             $footer_logo_src = $this->getS3ImageSrc($footer_logo_src);
@@ -241,6 +240,7 @@ class HydraulicFittingController extends AbstractController
             $this->view['brandsData'] = $newBrandArray;
             $this->view['footer_class'] = (strtolower($footerBgColor)== 'orange') ? 'reverseColor':'';
             $this->view['footer_logo_src'] = $footer_logo_src;
+            $this->view['containerRequest'] = $containerRequest;
         }
     }
 

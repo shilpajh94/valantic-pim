@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-12-15T12:06:05+01:00
+* Generated at: 2021-01-19T19:06:55+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -24,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1608030364,
+   'modificationDate' => 1611079615,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -228,6 +228,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   array (
+                    'key' => 'Tube Gauge',
+                    'value' => 'tubeGaugeIN',
+                  ),
+                  1 => 
+                  array (
+                    'key' => 'Number of Plies',
+                    'value' => 'numberOfPlies',
+                  ),
+                  2 => 
+                  array (
+                    'key' => 'Static Wire',
+                    'value' => 'staticWire',
+                  ),
+                  3 => 
+                  array (
+                    'key' => 'Tube Material',
+                    'value' => 'tubeMaterial',
+                  ),
+                  4 => 
+                  array (
+                    'key' => 'Cover Material',
+                    'value' => 'coverMaterial',
+                  ),
+                  5 => 
+                  array (
                     'key' => 'Working Pressure (psi)',
                     'value' => 'workingPressurePSI',
                   ),
@@ -247,7 +272,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',

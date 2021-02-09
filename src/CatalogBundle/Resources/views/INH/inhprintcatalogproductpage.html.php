@@ -1,5 +1,7 @@
 <?php
-$this->extend('CatalogBundle:Layouts:layout.html.php');
+if (!isset($this->parentContainer)) {
+    $this->extend('CatalogBundle:Layouts:layout.html.php');
+}
 ?>
 <?php if ($this->editmode) { ?>
     <?= $this->relation("inh-printcatalogproduct"); ?>
@@ -15,7 +17,7 @@ if (isset($info['brandsData'])) {
             $uniqueId = md5($brandKey);
             ?>
             <div class="template">
-                <div class="segregate inh  inhSettingN">
+                <div class="segregate inh  inhSettingProductPage">
 
                     <div id="pageHeader"></div>
                     <span class="pageName">
@@ -119,22 +121,22 @@ if (isset($info['brandsData'])) {
                                     <?php
                                     if (is_array($info['categories'])) {
                                         foreach ($info['categories'] as $category) {
-                                            $catNames = array_column($category, 'name');
                                             $first = "";
-                                            foreach ($catNames as $cn) {
-                                                if ($info['selectedCategory'] == $cn) {
-                                                    $first = "first";
-                                                }
+                                            if ($info['selectedCategory'] == $category['mainCategory'][0]['name']) {
+                                                $first = "first";
                                             }
+                                            
                                             echo "<li class='$first'>";
-                                            if (is_array($category) && !empty($category)) {
-                                                foreach ($category as $k => $cat) {
-                                                    if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                        echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                    } else {
-                                                        if ($cat['printable'] == 1) {
-                                                            echo "<p>" . $cat['name'] . "</p>";
-                                                        }
+
+                                            if(isset($category['mainCategory'][0]['name']))
+                                                echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                            else
+                                                echo "<p</p>";
+
+                                            if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                                foreach ($category['subCategory'] as $k => $cat) {
+                                                    if ($cat['printable'] == 1) {
+                                                        echo "<p>" . $cat['name'] . "</p>";
                                                     }
                                                 }
                                             }
@@ -189,8 +191,9 @@ if (isset($info['brandsData'])) {
                                     </aside>
                                 </header>
                                 <section class="content">
-                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['orderCodes'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
+                                    <?php if($brand['brandData']['safetyFeatures'] || !empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                         <menu class="flex">
+                                        <?php if(!empty(trim($brand['brandData']['tubeMaterial'])) || !empty(trim($brand['brandData']['coverMaterial'])) || !empty(trim($brand['brandData']['reinforcement'])) || !empty(trim($brand['brandData']['temperatureRangeFAndC'])) || !empty(trim($brand['brandData']['Coupling'])) || !empty(trim($brand['brandData']['Packaging']))): ?>
                                             <div class="specs">
                                                 <h6><?= $this->translate('specs') ?></h6>
                                                 <div class="spec-requirement flex">
@@ -227,25 +230,25 @@ if (isset($info['brandsData'])) {
                                                     <div class="col-6">
                                                         
                                                         <?php if (!empty(trim($brand['brandData']['Packaging']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Packaging') ?></b>
                                                                 <?= $brand['brandData']['Packaging'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
 
                                                         <?php if (!empty(trim($brand['brandData']['Coupling']))): ?>
-                                                            <p>
+                                                            <div class="full">
                                                                 <b><?= $this->translate('Coupling') ?></b>
                                                                 <?= $brand['brandData']['Coupling'] ?>
-                                                            </p>
+                                                            </div>
                                                         <?php endif; ?>
                                                         
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
+                                                   </div>
 
                                                 </div>
+                                                
                                             </div>
+                                            <?php endif; ?>
 
                                             <?php if ($brand['brandData']['safetyFeatures']): ?>
                                                 <div class="feature">
@@ -282,13 +285,22 @@ if (isset($info['brandsData'])) {
                                             foreach ($GroupingFields as $gkey => $fittingTableName):
                                             $tableKey = md5($key.$gkey);
                                         ?>
-
-                                            <?php if($key): ?>
-<aside class="flex borders">
-                                            <h5 class="marginTop "><?= $brandKey. " ". $key ?> </h5>
+<div class="inh-section-break">
+                                            <aside class="borders">
+                                            <h5 class="marginTop ">
+                                            <?php if($this->editmode): ?>
+                                                <?php if($this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"])->isEmpty()): ?>
+                                                        <?= $this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"])->setDataFromResource($brandKey. " ". $key) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"]); ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                    <?= $this->input('INH_PP_BrandNameGroupKey_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Brand Name Group Text"]) ?>
                                             <?php endif; ?>
+                                            
+                                            </h5>
                                             <?php if($fittingTableName['orderCodes']): ?>
-                                            <div class="flex alignCenter"><b>Order Codes :</b> 
+                                            <div class="flex alignCenter orderCode">Order Codes : 
                                             
                                             <?php if($this->editmode): ?>
                                                 <?php if($this->input('INH_PP_OrderCodes_' . $uniqueId.'_'.$tableKey, ["placeholder" => "eg: Enter Order Codes"])->isEmpty()): ?>
@@ -304,7 +316,7 @@ if (isset($info['brandsData'])) {
                                             <?php endif; ?>
 
                                             <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
-                                            <table class="grid special inh marginBottom5" cellspacing="0" cellpadding="0">
+                                            <table class="grid special inh marginBottom5 continueLable" cellspacing="0" cellpadding="0">
                                                 <thead>
 
                                                     <?php if ($info['iconRequired'] == 'YES'): ?>
@@ -379,6 +391,7 @@ if (isset($info['brandsData'])) {
 
                                             </table>
                                             <p class="small"><?= $this->input('INH_PP_Note_' . $uniqueId.'_'.$tableKey, ['placeholder' => 'Enter comment']); ?></p>
+</div>
                                         <?php
                                         $noterow++;
                                         endforeach;
@@ -397,17 +410,17 @@ if (isset($info['brandsData'])) {
         }
     }
     ?>
-
+    
+    <style>
+        .inhsetting-sidebar.inhsettingLeft {
+            border: solid 2px blue !important;
+        }
+        .inhsetting-sidebar.inhsettingRight {
+            border: solid 2px red !important;
+        }
+    </style>
+    <?php if (!$info['containerRequest']): ?>
+            <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
+    <?php endif; ?>
 
 <?php } ?>
-
-
-<script>
-    var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });
-</script>

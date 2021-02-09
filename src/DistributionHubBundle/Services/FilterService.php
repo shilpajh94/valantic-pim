@@ -124,7 +124,7 @@ class FilterService
             $templateColumns = $columnsMapping->templateAttribute;
             if (!empty($showInGrid) && !empty($selectedGridColumns)) {
                 $showInGridCols = self::showInGridCols($showInGrid['0'], $selectedGridColumns, $templateColumns);
-                
+
                 return self::createGridConfig($showInGridCols, $classId);
             }
         } else {
@@ -485,10 +485,11 @@ class FilterService
             throw new \Exception('Filter by List : Only csv file type supported');
         }
 
-        //$fullPath = PIMCORE_ASSET_DIRECTORY . $assetObject->getPath() . $assetObject->getFilename();
-        // path with s3 protocol
         $fullPath = $assetObject->getFileSystemPath();
+
+        ini_set('auto_detect_line_endings', true);
         $csvData = array_map('str_getcsv', file($fullPath));
+        ini_set('auto_detect_line_endings', false);
 
         // Remove header info from csv data
         unset($csvData['0']);
@@ -496,7 +497,10 @@ class FilterService
         $conditonForList = [];
         if (!empty($csvData)) {
             foreach ($csvData as $val) {
-                $conditonForList[] = " `" . $attribute . "` LIKE '%" . $val['0'] . "%' ";
+                if(trim($val['0']) !== ''){
+                    $conditonForList[] = " `" . $attribute . "` = '" . $val['0'] . "' ";
+                }
+
             }
         }
 

@@ -20,7 +20,7 @@ if (!isset($this->parentContainer)) {
 if($groupData):
 ?>
 <div class="template">
-        <div class="segregate inh inhSettingN">
+        <div class="segregate inh inhSettingFitting">
 
                 <div id="pageHeader"></div>
                 <span class="pageName">
@@ -92,34 +92,34 @@ if($groupData):
 
                 <article class="fullcontainer single">
                         <div class="inhsetting1">
- <div class="inhsetting-sidebar">
+ <div class="inhsetting-sidebar40">
                             <div class=" sidebar">
                                         <ul>
                                                 <?php
                                                 if (is_array($groupData['categories'])) {
                                                         foreach ($groupData['categories'] as $category) {
-                                                        $catNames = array_column($category, 'name');
-                                                        $first = "";
-                                                        foreach ($catNames as $cn) {
-                                                                if ($groupData['selectedCategory'] == $cn) {
+                                                            $first = "";
+                                                            if ($groupData['selectedCategory'] == $category['mainCategory'][0]['name']) {
                                                                 $first = "first";
-                                                                }
-                                                        }
-                                                        echo "<li class='$first'>";
-                                                        if (is_array($category) && !empty($category)) {
-                                                                foreach ($category as $k => $cat) {
-                                                                if ($cat['printable'] == 1 && $cat['level'] == 3) {
-                                                                        echo "<p><b>" . $cat['name'] . "</b></p>";
-                                                                } else {
-                                                                        if ($cat['printable'] == 1) {
+                                                            }
+                                                            
+                                                            echo "<li class='$first'>";
+                
+                                                            if(isset($category['mainCategory'][0]['name']))
+                                                                echo "<p><b>" . $category['mainCategory'][0]['name'] . "</b></p>";
+                                                            else
+                                                                echo "<p</p>";
+                
+                                                            if (is_array($category['subCategory']) && !empty($category['subCategory'])) {
+                                                                foreach ($category['subCategory'] as $k => $cat) {
+                                                                    if ($cat['printable'] == 1) {
                                                                         echo "<p>" . $cat['name'] . "</p>";
-                                                                        }
+                                                                    }
                                                                 }
-                                                                }
+                                                            }
+                                                            echo "</li>";
                                                         }
-                                                        echo "</li>";
-                                                        }
-                                                }
+                                                    }
                                                 ?>
                                         </ul>
                                 </div>
@@ -247,7 +247,7 @@ if($groupData):
                                         <?php endif; ?>
                                         <?php if($groupData['data']): ?>
                                         <!-- <table class="grid" cellpadding="0" cellspacing="0"> -->
-                                        <table class="grid special inh" cellspacing="0" cellpadding="0">
+                                        <table class="grid special inh continueLable" cellspacing="0" cellpadding="0">
                                                 <thead>
                                                         <?php if($groupData['iconRequired'] == 'YES'): ?>
                                                                 <tr class="sub-head">
@@ -323,14 +323,10 @@ if($groupData):
                 </article>
         </div>
 </div>
+
+<?php if (!$containerRequest): ?>
+        <script type="text/javascript" src="/static/js/tableContinueLable.js"></script>
 <?php endif; ?>
 
-<script>
-    var rows = document.querySelectorAll(".inhsetting1");
-    rows.forEach(function (row) {
-        var rowDescriptions = ro.layout.getBoxDescriptions(row);
-        var rowDescription = rowDescriptions[0];
-        const onLeftPage = rowDescription.pageLeft;
-        row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-    });
-</script>
+<?php endif; ?>
+

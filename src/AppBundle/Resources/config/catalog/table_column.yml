@@ -6,7 +6,7 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: 'Part Number'
                 fieldType: Input
-                columnWidth: 150
+                columnWidth: 100
                 parent:
                     name: HoseFert  
             articleNumber:
@@ -1040,7 +1040,7 @@ parameters:
                 fieldLevel: class
                 fieldLabel: 'SAP #'
                 fieldType: Input
-                columnWidth: 150
+                columnWidth: 100
                 parent:
                     name: Product
             temperatureRangeFAndC:
@@ -1078,11 +1078,24 @@ parameters:
                 fieldLevel: objectBrick
                 fieldLabel: Cover Color
                 fieldType: Relation
+                columnWidth: 100
                 parent:
                     name: HoseBase
                     class:
                         name: MultiselectMaster
                         fieldName: Name
+            staticWire:
+                fieldLevel: objectBrick
+                fieldLabel: Static Wire
+                fieldType: Select
+                parent:
+                    name: HoseBase
+            numberOfPlies:
+                fieldLevel: objectBrick
+                fieldLabel: Number of Plies
+                fieldType: Number
+                parent:
+                    name: HoseBase
             Packaging:
                 fieldLevel: objectBrick
                 fieldLabel: Packaging
@@ -1229,11 +1242,11 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
-            VacuumMM:
+            tubeGaugeIN:
                 fieldLevel: objectBrick
-                fieldLabel: Vacuum (mm)
-                groupName: Vacuum
-                unitName: mm
+                fieldLabel: Tube Gauge (in)
+                groupName: tubeGauge
+                unitName: in
                 numberOfDecimalPoints: 2
                 fieldType: Input
                 parent:

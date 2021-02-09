@@ -43,7 +43,7 @@ class S3WrongPathsCommand extends Command
         $count = 0;
         $failCount = 0;
         foreach($result as $row){
-            $id = $row['id'];
+            $id = $row['pimcore_object_id'];
             $pimPath = $row['pimcore_path'];
             $s3Path = $row['s3_path'];
 

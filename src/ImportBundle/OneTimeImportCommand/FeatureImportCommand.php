@@ -1,9 +1,7 @@
 <?php
 
 /**
- * File Path: /home/praganosis/Working/CSV/hosesflag.csv (Your File path on system)
- * Command: bin/console conti:onetimeimport:hosesflag /home/praganosis/Working/CSV/hosesflag.csv
- * Des: This command will set the flat value of industrial hoses.
+ * This command will set the Features in brand level
  */
 
 namespace ImportBundle\OneTimeImportCommand;
@@ -33,7 +31,7 @@ class FeatureImportCommand extends AbstractCommand
     {
         $filePath = $input->getArgument('filePath');
         $needToCreateMaster = $input->getArgument('needToCreateMaster');
-        $needToMergeExistingFeature = $input->getArgument('needToCreateMaster');
+        $needToMergeExistingFeature = $input->getArgument('needToMergeExistingFeature');
 
         $this->t = time();
         if (is_file($filePath)) {
@@ -107,12 +105,12 @@ class FeatureImportCommand extends AbstractCommand
                                 $product->setFeaturesBenefitsBulletPoint($FeatureToUpdate);
                                 $product->save();
                                 unset($FeatureToUpdate);
-                                echo "6 Digit - ".$result['6 Digts']." updated successfully \n";
+                                echo "6 Digit - ".$single6Digit." updated successfully \n";
 
                             }
                             else
                             {
-                                echo "6 Digit - ".$result['6 Digts']." not found \n";
+                                echo "6 Digit - ".$single6Digit." not found \n";
                             }
                         }
                     }
