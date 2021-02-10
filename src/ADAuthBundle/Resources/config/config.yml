@@ -11,7 +11,7 @@ parameters:
 
     ldap_config:
         ldap_host:
-            [U0AUS2C211A.tiretech2.contiwan.com]
+            [qh2c202a.tiretech2.contiwan.com]
         ldap_user: 
             tiretech2\s-pimcore_PO
         ldap_pass:
