@@ -63,7 +63,7 @@ class ProductModelService
         if ($products) {
             $productDetail['apikey'] = $parameterArray['apiKey'];
             $productData =   $this->getProductDetail($products, $langCode);
-            $productDetail['total'] = count($productData);
+            $productDetail['total'] = strval(count($productData));
             $productDetail['products'] = $this->formatProducts($productData);
         }
         return $productDetail;
