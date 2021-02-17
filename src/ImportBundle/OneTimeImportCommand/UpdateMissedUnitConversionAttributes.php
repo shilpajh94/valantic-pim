@@ -35,7 +35,7 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
 
 
-    const BATCH_SIZE = 500;
+    const BATCH_SIZE = 1000;
 
     public function __construct(UnitConverterService $unitConverterService,AppService $appService)
     {

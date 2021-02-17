@@ -8,13 +8,7 @@ if (CUSTOM_ENV == "stage" || CUSTOM_ENV == "prod"){
 
     $s3ConfigSettings = [
         'version' => 'latest',
-        'region' => S3_REGION,
-        'http' => [
-            'proxy' => [
-                'http' => 'cias.geoaws.com:8080',
-                'https' => 'cias.geoaws.com:8080'
-            ]
-        ]
+        'region' => S3_REGION
     ];
 
 }elseif (CUSTOM_ENV == "dev" || CUSTOM_ENV == "qc"){

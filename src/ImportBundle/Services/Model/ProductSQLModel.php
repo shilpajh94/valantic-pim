@@ -8,6 +8,7 @@ use AppBundle\Logger\AppLogger as Logger;
 use Pimcore\Model\DataObject;
 use ImportBundle\Services\Import;
 use ImportBundle\Services\ImportConstants;
+use AppBundle\Lib\UnitConversion;
 
 class ProductSQLModel
 {
@@ -64,6 +65,11 @@ class ProductSQLModel
     const FILE_LAST_COL = 'D';
     const MAX_TOP_CAT_LVL = 6;
     const MIN_TOP_CAT_LVL = 4;
+    const GROSS_WEIGHT_UNITS = [
+        "LB" => UnitConversion\Unit::LBS,
+        "KG" => UnitConversion\Unit::KG,
+        "G" => UnitConversion\Unit::G
+    ];
     
     public function __construct()
     {
@@ -279,7 +285,7 @@ class ProductSQLModel
         $this->logArray = [];
         $i = 0;
         
-        $length = 2000;
+        $length = 1000;
         while ($i<$deltaCount) {
             $offset = $i;
             $diff = $deltaCount-$i;
@@ -314,7 +320,7 @@ class ProductSQLModel
         
         $this->logArray = [];
         $i = 0;
-        $length = 2000;
+        $length = 1000;
         while ($i<$deltaCount) {
             $offset = $i;
             $diff = $deltaCount-$i;
@@ -348,6 +354,7 @@ class ProductSQLModel
         $this->localisedQueryTableDataArray = [];
         $this->localisedDataTableDataArray = [];
         $this->relationTableDataArray = [];
+        $this->relationTableDataDeleteArray = [];
         $this->dependencyTableDataArray = [];
         $this->bricksDataArray = [];
         foreach ($this->langArr as $lang) {
@@ -400,6 +407,7 @@ class ProductSQLModel
             $this->tblImpHelper->insertIntoProductTable($this->storeTableDataArray, 'object_store_1');
         }
         if (!empty($this->relationTableDataArray)) {
+            $this->tblImpHelper->deleteRelationTableRecords($this->relationTableDataDeleteArray);
             $this->tblImpHelper->insertIntoProductTable($this->relationTableDataArray, 'object_relations_1');
         }
         
@@ -735,7 +743,9 @@ class ProductSQLModel
             'stccCode' => null,
             'grossWeight' => null,
             'netWeight' => null,
-            'weightUnit' => null
+            'weightUnit' => null,
+            'weightKg' => null,
+            'weightg' => null
         ];
         if (strtolower($productType) == 'fert') {
             $queryTableData['articleNumber'] = trim($record['0']);
@@ -750,9 +760,23 @@ class ProductSQLModel
                 $queryTableData['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
             }
             $queryTableData['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
-            $queryTableData['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $queryTableData['grossWeight'] = $grossWeight;
             $queryTableData['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $queryTableData['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $queryTableData['weightUnit'] = $weightUnit;
+            if (!empty($grossWeight)) {
+                if (!empty($weightUnit)) {
+                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
+                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
+                    $queryTableData['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
+                    $queryTableData['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
+                }
+            } else {
+                $queryTableData['weightKg'] = null;
+                $queryTableData['weightg'] = null;
+            }
+            
             $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
             if(!empty($materialGrpId)) {
                 $queryTableData['materialGroup__id'] = $materialGrpId;
@@ -782,7 +806,9 @@ class ProductSQLModel
             'stccCode' => null,
             'grossWeight' => null,
             'netWeight' => null,
-            'weightUnit' => null
+            'weightUnit' => null,
+            'weightKg' => null,
+            'weightg' => null
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['articleNumber'] = trim($record['0']);
@@ -797,9 +823,22 @@ class ProductSQLModel
                 $storeTableDataArray['eanUpc'] = trim($record[$this->getRecordIndexByKey('eanUPC')]);
             }
             $storeTableDataArray['stccCode'] = trim($record[$this->getRecordIndexByKey('stccCode')]);
-            $storeTableDataArray['grossWeight'] = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $grossWeight = trim($record[$this->getRecordIndexByKey('grossWeight')]);
+            $weightUnit = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $storeTableDataArray['grossWeight'] = $grossWeight;
             $storeTableDataArray['netWeight'] = trim($record[$this->getRecordIndexByKey('netWeight')]);
-            $storeTableDataArray['weightUnit'] = trim($record[$this->getRecordIndexByKey('weightUnit')]);
+            $storeTableDataArray['weightUnit'] = $weightUnit;
+            if (!empty($grossWeight)) {
+                if (!empty($weightUnit)) {
+                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
+                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
+                    $storeTableDataArray['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
+                    $storeTableDataArray['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
+                }
+            } else {
+                $storeTableDataArray['weightKg'] = null;
+                $storeTableDataArray['weightg'] = null;
+            }
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
     }
@@ -809,12 +848,16 @@ class ProductSQLModel
             $index = 'SIOPLevel'.$k;
             $catCode = $levelInfo[$k]['levelFullCode'];
             $targetId = $this->categories[$catCode]['id'];
+            $this->relationTableDataDeleteArray[$index][] = $objId;
             $this->relationTableDataArray[] = [
                 'src_id' => $objId,
                 'dest_id' => $targetId,
                 'type' => 'object',
                 'fieldname' => $index,
-                'ownertype' => 'object'
+                'ownertype' => 'object',
+                'index' => 0,
+                'ownername' => '',
+                'position' => 0
             ];
         }
         if (strtolower($productType) == 'fert') {
@@ -826,7 +869,10 @@ class ProductSQLModel
                     'dest_id' => $materialGroupId,
                     'type' => 'object',
                     'fieldname' => "materialGroup",
-                    'ownertype' => 'object'
+                    'ownertype' => 'object',
+                    'index' => 0,
+                    'ownername' => '',
+                    'position' => 0
                 ];
             }
         }

@@ -223,6 +223,20 @@ class ProductImport
             echo $ex->getMessage();
         }
     }
+    
+    public function deleteRelationTableRecords($dataArray) {
+        if (count($dataArray)>0) {
+            foreach ($dataArray as $fieldName => $objectIds) {
+                $ids = implode(", ", $objectIds);
+                $sql = "Delete from `object_relations_1` where `fieldname` = ".$this->db->quote($fieldName)." AND `src_id` IN (".$ids.")";
+                try {
+                    $this->db->query($sql);
+                } catch (\Exception $e) {
+                    
+                }
+            }
+        }
+    }
     /**
      * Function to find the Delta record(s)
      *

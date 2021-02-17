@@ -31,11 +31,11 @@ use AppBundle\Tool\Utils;
 
 class ProductModelService
 {
-    
+
     private $model;
-    
+
     private $vCatalog = [];
-    
+
     /**
      * @var Pimcore\Model\DataObject
      */
@@ -60,14 +60,15 @@ class ProductModelService
         $productDetail = array();
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
-        if ($products) {            
+        if ($products) {
             $productDetail['apikey'] = $parameterArray['apiKey'];
             $productData =   $this->getProductDetail($products, $langCode);
+            $productDetail['total'] = count($productData);
             $productDetail['products'] = $this->formatProducts($productData);
         }
         return $productDetail;
     }
-    
+
     /**
      * Method to get product details
      *
@@ -81,11 +82,11 @@ class ProductModelService
     private function getProductDetail($products, $langCode)
     {
         $finalProductArray  =   [];
-        
+
         if(empty($products)){ return $finalProductArray; }
-        
+
         foreach($products as $key=>$value){
-            $value  =   array_filter($value); 
+            $value  =   array_filter($value);
             $nineDigitData  =   $this->getSkeletonData($value['o_parentId']);
             $sixDigitData = [];
             if (!empty($nineDigitData)) {
@@ -101,9 +102,9 @@ class ProductModelService
                 $siopData = $this->getSoipDetails($sixDigitData);
                 foreach ($siopData as $key => $data) {
                     if($key == "ProductCategory") {
-                        $sixDigitData['SIOP Categories'] = $data;   
+                        $sixDigitData['SIOP Categories'] = $data;
                     } else {
-                        $sixDigitData[$key] = $data;   
+                        $sixDigitData[$key] = $data;
                     }
                 }
 
@@ -113,7 +114,7 @@ class ProductModelService
                     $baseObjectBrickData = $this->getProductObjectBrickData($nineDigitData['o_parentId'],'base');
                 }
                 if(!empty($baseObjectBrickData)){
-                    $resultArrBase = array_merge($sixDigitData,$baseObjectBrickData);    
+                    $resultArrBase = array_merge($sixDigitData,$baseObjectBrickData);
                 }else{
                     $resultArrBase = $sixDigitData;
                 }
@@ -139,7 +140,7 @@ class ProductModelService
                 }
                 $resultArrSkeleton1['id'] = $nineDigit;
                 if(!empty($skeletonObjectBrickData)){
-                    $resultArrSkeleton = array_merge($resultArrSkeleton1,$skeletonObjectBrickData, $nineDigitData);    
+                    $resultArrSkeleton = array_merge($resultArrSkeleton1,$skeletonObjectBrickData, $nineDigitData);
                 }else{
                     $resultArrSkeleton = array_merge($resultArrSkeleton1,$nineDigitData);
                 }
@@ -149,7 +150,7 @@ class ProductModelService
                 unset($resultArrSkeleton['frontView']);
                 unset($resultArrSkeleton['sideView']);
                 unset($resultArrSkeleton['cutView']);
-                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['id']= $nineDigit; 
+                $finalProductArray[$sixDigit]['9digit'][$nineDigit]['id']= $nineDigit;
                 $finalProductArray[$sixDigit]['9digit'][$nineDigit]= $resultArrSkeleton;
             }
 
@@ -159,7 +160,7 @@ class ProductModelService
                 $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
                 $resultArrFert1['sap_id']    =   $value['articleNumber'];
                 if(!empty($fertObjectBrickData)){
-                    $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);    
+                    $resultArrFert = array_merge($resultArrFert1,$fertObjectBrickData, $value);
                 }else{
                     $resultArrFert = array_merge($resultArrFert1,$value);
                 }
@@ -178,7 +179,7 @@ class ProductModelService
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
             $imageDataArray['base'] = $sixDigitData;
-            $finalProductArray[$sixDigit]['images']= $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);                
+            $finalProductArray[$sixDigit]['images']= $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
         }
 
         return $finalProductArray;
@@ -190,7 +191,7 @@ class ProductModelService
      * @param array $product product data
      * @return array $soipDetail product category details array
      * @throws
-     */ 
+     */
     private function getSoipDetails($product){
         $siopDetail = [];
         if(empty($product)){ return $siopDetail;}
@@ -227,10 +228,10 @@ class ProductModelService
      * @param int $skeltonParentId Object Id
      * @return array $skeltonDetail Skeleton data array
      * @throws
-     */    
+     */
     private function getSkeletonData($skeltonParentId){
         $skeltonDetail = [];
-        $skeltonDetail  =   $this->model->getProductTypeData($skeltonParentId,'skeleton',$this->vCatalog);        
+        $skeltonDetail  =   $this->model->getProductTypeData($skeltonParentId,'skeleton',$this->vCatalog);
         return $skeltonDetail;
     }
 
@@ -240,10 +241,10 @@ class ProductModelService
      * @param int $baseParentId Object Id
      * @return array $baseDetail Base data array
      * @throws
-     */    
+     */
     private function getBaseData($baseParentId){
         $baseDetail = [];
-        $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);        
+        $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);
         return $baseDetail;
     }
 
@@ -254,9 +255,9 @@ class ProductModelService
      * @param string $oldMaterialValue Old Material Value
      * @return array $imageDetail Image array.
      * @throws
-     */    
+     */
     private function getImagesData($existingImageArray,$imageDataArray,$oldMaterialValue){
-        
+
         $imageDetail = [];
         if(!empty($existingImageArray)){
             $imageDetail =   $existingImageArray;
@@ -270,12 +271,12 @@ class ProductModelService
                 if(isset($value[$ivalue]) && !empty($value[$ivalue])){
                     if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
                         $imageDetail[$value[$ivalue]] = $this->getPropertyAssetData($value[$ivalue]);
-                    }                   
+                    }
                     $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
                     $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
                 }
             }
-        }        
+        }
         return $imageDetail;
     }
 
@@ -286,22 +287,22 @@ class ProductModelService
      * @param string $productType Product Type (Fert/Skeleton/Base)
      * @return array $productObjectBricksData objectBrick Data.
      * @throws
-     */    
+     */
     private function getProductObjectBrickData($objId,$productType){
-        
+
         $productObjectBricksData = [];
         $productBrickField = "get".ucfirst($productType);
-        
+
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
-        
+
         foreach($objectBricksMap as $bkey=>$bvalue){
             if(isset($bvalue['Fields']) && !empty($bvalue['Fields'])){
                 foreach($bvalue['Fields'] as $fkey=>$fvalue){
-                    
+
                     $brickText = "get".ucfirst($bkey).ucfirst($productType);
                     $fieldText = "get".ucfirst($fvalue);
-                    
+
                     //receiving data of a Objectbrick
                     $product = DataObject\Product::getById($objId);
                     $bData  =   '';
@@ -316,7 +317,7 @@ class ProductModelService
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
                                    if($fvalue==='brandName'){
-                                    $bData[] =  $mvalue;     
+                                    $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
                                     $bData[] = $objectIndv->getName();
@@ -336,7 +337,7 @@ class ProductModelService
         }
        return  $productObjectBricksData;
     }
-    
+
     /**
      * Method to get Asset property detail
      *
@@ -348,11 +349,11 @@ class ProductModelService
     private function getPropertyAssetData($assetIdPath,$assetIdflag=true)
     {   $assetId ='';
         if($assetIdflag){
-            $asset = Asset::getById($assetIdPath); 
-            $assetId= $assetIdPath;  
+            $asset = Asset::getById($assetIdPath);
+            $assetId= $assetIdPath;
         }else{
             $asset = Asset::getByPath($assetIdPath);
-            $assetId= $asset->getId(); 
+            $assetId= $asset->getId();
         }
         $assetType = $asset->getType();
         $assetForThumb = ['image', 'document'];
@@ -395,7 +396,7 @@ class ProductModelService
      *
      * @param array $productData
      * @return array $productDetail Product Details array
-     */    
+     */
     private function formatProducts($productData){
         $formattedArray =   array();
         $i=0;
@@ -406,7 +407,7 @@ class ProductModelService
             $i++;
         }
         return $formattedArray;
-    }    
+    }
 
     /**
      * Method to get Virtual Catalog Field Mapping.
@@ -417,9 +418,9 @@ class ProductModelService
     {
         $vcFieldMapping = array();
         $yamlFilePath = PIMCORE_PROJECT_ROOT . "/src/RestApiBundle/Resources/config/virtualCatalogFieldMapping.yml";
-        
+
         $vcFieldMapping = Utils::getYmlConfig($yamlFilePath);
-        
-        return $vcFieldMapping;        
+
+        return $vcFieldMapping;
     }
 }
