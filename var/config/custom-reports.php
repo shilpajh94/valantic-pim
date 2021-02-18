@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
     "ItemCount" => [
@@ -1306,5 +1306,62 @@ return [
 
         ],
         "id" => "WorkflowPendingProducts"
+    ],
+    "ChartBrandProduct" => [
+        "name" => "ChartBrandProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT o3.`name` AS `Brand`,  count(o1.`o_id`) AS `# of SKUs`",
+                "from" => "FROM\nobject_1 o1\nLEFT JOIN object_3 o3 \n\tON o3.`oo_id` = o1.brandName",
+                "where" => "WHERE (o1.`o_published` =1) ",
+                "groupby" => "GROUP BY  o3.`name`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 150,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel605-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel605-4"
+            ]
+        ],
+        "niceName" => "Chart - Brand Product",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Brand",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1613625582,
+        "creationDate" => 1606812138,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartBrandProduct"
     ]
 ];
