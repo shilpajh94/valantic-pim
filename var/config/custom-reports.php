@@ -1312,10 +1312,10 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT o3.`name` AS `Brand`,  count(o1.`o_id`) AS `# of SKUs`",
-                "from" => "FROM\nobject_1 o1\nLEFT JOIN object_3 o3 \n\tON o3.`oo_id` = o1.brandName",
+                "sql" => "SELECT CONCAT(cat4.`description`, \" - \", o3.`name`) AS `Brand`,  \ncount(o1.`o_id`) AS `# of SKUs`",
+                "from" => "FROM\nobject_1 o1\nLEFT JOIN object_3 o3 \n\tON o3.`oo_id` = o1.brandName\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))",
                 "where" => "WHERE (o1.`o_published` =1) ",
-                "groupby" => "GROUP BY  o3.`name`",
+                "groupby" => "GROUP BY cat4.`description`,  o3.`name`",
                 "type" => "sql"
             ]
         ],
@@ -1325,10 +1325,10 @@ return [
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => 150,
+                "width" => 600,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel605-3"
+                "id" => "extModel1784-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -1337,7 +1337,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel605-4"
+                "id" => "extModel1784-4"
             ]
         ],
         "niceName" => "Chart - Brand Product",
@@ -1353,7 +1353,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1613625582,
+        "modificationDate" => 1613726396,
         "creationDate" => 1606812138,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -1363,5 +1363,287 @@ return [
 
         ],
         "id" => "ChartBrandProduct"
+    ],
+    "ChartProductsWithNoImage" => [
+        "name" => "ChartProductsWithNoImage",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
+                "from" => "FROM (SELECT\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nWHERE (o1.`o_published` =1)\nGROUP BY o1.`mainImage`)  AS temp",
+                "where" => "",
+                "groupby" => "temp.`images`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel366-11"
+            ],
+            [
+                "name" => "Main Image",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel366-13"
+            ]
+        ],
+        "niceName" => "Chart - Products with No Images - Main Image",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Main Image",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1613640984,
+        "creationDate" => 1606817832,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartProductsWithNoImage"
+    ],
+    "ChartDataCompleteness" => [
+        "name" => "ChartDataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \ncount(o1.`o_key`) as `# of SKUs`,\n(sum(en.CompletenessPercentage)/count(o1.`o_key`))  AS \"COMPLETED (%)\",\ncat3.`description` AS `SIOP Level 3`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))",
+                "where" => "(o1.`o_published` =1)",
+                "groupby" => "cat3.`description`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel402-9"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel402-16"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel402-18"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "line",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP Level 3",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1613672556,
+        "creationDate" => 1606822831,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartDataCompleteness"
+    ],
+    "ChartProductAttributeIncomplete" => [
+        "name" => "ChartProductAttributeIncomplete",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\no1.`o_key` as `Key`,\no1.`articleNumber` AS `Article Number`, `en`.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id` ",
+                "from" => "FROM object_1 o1 \nLEFT JOIN `object_localized_query_1_en` `en` \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_2_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_2_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_2_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) ",
+                "where" => "WHERE (o1.`o_published` =1) AND\n(o1.`SIOPLevel2` IS NULL\nOR o1.`SIOPLevel2` = \"\"\nOR o1.`SIOPLevel3` IS NULL\nOR o1.`SIOPLevel3` = \"\"\nOR o1.`SIOPLevel4` IS NULL\nOR o1.`SIOPLevel4` = \"\"\nOR o1.`eanUpc` IS NULL\nOR o1.`eanUpc` = \"\"\nOR o1.`webDiscription` IS NULL\nOR o1.`webDiscription` = \"\"\nOR o1.`searchKeywords` IS NULL\nOR o1.`searchKeywords` = \"\"\nOR `en`.`longDescription` IS NULL\nOR `en`.`longDescription` = \"\"\nOR `en`.`FeaturesBenefitsBulletPoint` = \"\"\nOR `en`.`FeaturesBenefitsBulletPoint` IS NULL\nOR o1.`proposition65WarningAttributesRequired` IS NULL\nOR o1.`proposition65WarningAttributesRequired` = \"\"\nOR o1.`packageLengthIN` IS NULL\nOR o1.`packageLengthIN` = \"\"\nOR o1.`packageWidthIN` IS NULL\nOR o1.`packageWidthIN` = \"\"\nOR o1.`packageHeightIN` IS NULL\nOR o1.`packageHeightIN` = \"\"\nOR o1.`packageWeightLBS` IS NULL\nOR o1.`packageWeightLBS` = \"\"\nOR o1.`caseLengthIN` IS NULL\nOR o1.`caseLengthIN` = \"\"\nOR o1.`caseHeightIN` IS NULL\nOR o1.`caseHeightIN` = \"\"\nOR o1.`caseWidthIN` IS NULL\nOR o1.`caseWidthIN` = \"\"\nOR o1.`caseWeightLBS` IS NULL\nOR o1.`caseWeightLBS` = \"\"\n)",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Key",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 300,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-1"
+            ],
+            [
+                "name" => "Article Number",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-2"
+            ],
+            [
+                "name" => "SAP Description",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 250,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-3"
+            ],
+            [
+                "name" => "SIOP Full Code",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 130,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-4"
+            ],
+            [
+                "name" => "Product Type",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 100,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-5"
+            ],
+            [
+                "name" => "SIOP Level 1",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-6"
+            ],
+            [
+                "name" => "SIOP Level 2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-7"
+            ],
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-8"
+            ],
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-9"
+            ],
+            [
+                "name" => "SIOP Level 5",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-10"
+            ],
+            [
+                "name" => "SIOP Level 6",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 180,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel399-11"
+            ],
+            [
+                "name" => "o_id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "Object ID",
+                "filter" => "string",
+                "columnAction" => "openObject",
+                "id" => "extModel399-12"
+            ]
+        ],
+        "niceName" => "Chart - Product Attribute Incompleteness",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1613621780,
+        "creationDate" => 1606824473,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartProductAttributeIncomplete"
     ]
 ];
