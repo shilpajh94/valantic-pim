@@ -194,31 +194,31 @@ if($groupData):
                                                                                 <div>
 
                                                                                         <?php if(!empty(trim($groupData['material']))): ?>
-                                                                                        <p>
+                                                                                        <div class="full">
                                                                                                 <b><?= $this->translate('Materials') ?></b>
                                                                                                 <?= $groupData['material'] ?>
-                                                                                        </p>
+                                                                                        </div>
                                                                                         <?php endif; ?>
 
                                                                                         <?php if(!empty(trim($groupData['pressureRating']))): ?>
-                                                                                        <p>
+                                                                                        <div class="full">
                                                                                                 <b><?= $this->translate('Pressure Rating') ?></b>
                                                                                                 <?= $groupData['pressureRating'] ?>
-                                                                                        </p>
+                                                                                        </div>
                                                                                         <?php endif; ?>
 
                                                                                         <?php if(!empty(trim($groupData['brandingLayline']))): ?>
-                                                                                        <p>
+                                                                                        <div class="full">
                                                                                                 <b><?= $this->translate('Branding') ?></b>
                                                                                                 <?= $groupData['brandingLayline']; ?>
-                                                                                        </p>
+                                                                                        </div>
                                                                                         <?php endif; ?>
 
                                                                                         <?php if(!empty(trim($groupData['orderCodes']))): ?>
-                                                                                        <p>
+                                                                                        <div class="full">
                                                                                                 <b><?= $this->translate('Order Codes') ?></b>
                                                                                                 <?= $groupData['orderCodes']; ?>
-                                                                                        </p>
+                                                                                        </div>
                                                                                         <?php endif; ?>
                                                                                 </div>
                                                                         </div>

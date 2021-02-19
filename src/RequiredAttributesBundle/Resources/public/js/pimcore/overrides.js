@@ -3,15 +3,72 @@ pimcore.registerNS("pimcore.plugin.RequiredAttributesBundle.overrides");
 
 pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
 
-    allowSQLEditorOnObjectGrid: function(object,type){
-        if(type === "folder"){
-            if(object.data.isAllowedSQLEditor){
-                setTimeout(function(){
-                    let sqlButton = object.search.sqlButton;
-                    sqlButton.setHidden(false);
-                },2000)
-            }
-        }
+    allowSQLEditorOnObjectGrid: function(){
+        Ext.override(pimcore.object.helpers.gridTabAbstract, {
+            createSqlEditor: function () {
+
+                this.sqlEditor = new Ext.form.TextField({
+                    xtype: "textfield",
+                    width: 500,
+                    name: "condition",
+                    hidden: true,
+                    enableKeyEvents: true,
+                    listeners: {
+                        "keydown": function (field, key) {
+                            if (key.getKey() == key.ENTER) {
+                                var proxy = this.store.getProxy();
+                                proxy.setExtraParams(
+                                    {
+                                        class: proxy.extraParams.class,
+                                        objectId: proxy.extraParams.objectId,
+                                        "fields[]": proxy.extraParams["fields[]"],
+                                        language: proxy.extraParams.language
+                                    }
+                                );
+                                proxy.setExtraParam("condition", field.getValue());
+                                this.grid.filters.clearFilters();
+
+                                this.pagingtoolbar.moveFirst();
+                            }
+                        }.bind(this)
+                    }
+                });
+
+                this.sqlButton = new Ext.Button({
+                    iconCls: "pimcore_icon_sql",
+                    enableToggle: true,
+                    tooltip: t("direct_sql_query"),
+                    // hidden: !pimcore.currentuser.admin,
+                    hidden: !this.object.data.isAllowedSQLEditor,
+                    handler: function (button) {
+
+                        this.sqlEditor.setValue("");
+                        this.searchField.setValue("");
+
+                        // reset base params, because of the condition
+                        var proxy = this.store.getProxy();
+                        proxy.setExtraParams(
+                            {
+                                class: proxy.extraParams.class,
+                                objectId: proxy.extraParams.objectId,
+                                "fields[]": proxy.extraParams["fields[]"],
+                                language: proxy.extraParams.language
+                            }
+                        );
+
+                        this.grid.filters.clearFilters();
+
+                        this.pagingtoolbar.moveFirst();
+
+                        if (button.pressed) {
+                            this.sqlEditor.show();
+                        } else {
+                            this.sqlEditor.hide();
+                        }
+                    }.bind(this)
+                });
+            },
+        });
     },
 
     showNomenclatureCustomPanel: function(){
