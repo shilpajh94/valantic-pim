@@ -219,23 +219,23 @@ if($groupData):
                                                         <div class="spec-requirement">
                                                         <div>
                                                                         <?php if(!empty(trim($groupData['material']))): ?>
-                                                                        <p>
+                                                                        <div class="full">
                                                                                 <b><?= $this->translate('Material') ?></b>
                                                                                 <?= $groupData['material'] ?>
-                                                                        </p>
+                                                                        </div>
                                                                         <?php endif; ?>
                                                                 <?php if(!empty(trim($groupData['reinforcement']))): ?>
-                                                                <p>
+                                                               <div class="full">
                                                                         <b><?= $this->translate('Reinforcement') ?></b>
                                                                         <?= $groupData['reinforcement'] ?>
-                                                                </p>
+                                                                </div>
                                                                 <?php endif; ?>
 
                                                                 <?php if(!empty(trim($groupData['temperatureRange']))): ?>
-                                                                <p>
+                                                               <div class="full">
                                                                         <b><?= $this->translate('Temperature Range') ?></b>
                                                                         <?= $groupData['temperatureRange']; ?>
-                                                                </p>
+                                                                </div>
                                                                 <?php endif; ?>
                                                                 </div>
                                                         </div>

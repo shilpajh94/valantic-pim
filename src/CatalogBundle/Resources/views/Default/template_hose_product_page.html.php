@@ -240,31 +240,31 @@ if ($data):
                                                 <?php endif; ?>
                                                 <div class="col-6">
                                                     <?php if (!empty(trim($brandData['tubeMaterialAtrributeString']))): ?>
-                                                        <p>
+                                                        <div class="full">
                                                             <b><?= $this->translate('Inner Tube') ?></b>
                                                             <?= $brandData['tubeMaterialAtrributeString'] ?>
-                                                        </p>
+                                                        </div>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty(trim($brandData['reinforcement']))): ?>
-                                                        <p>
+                                                        <div class="full">
                                                             <b><?= $this->translate('Reinforcement') ?></b>
                                                             <?= $brandData['reinforcement'] ?>
-                                                        </p>
+                                                        </div>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty(trim($brandData['coverMaterialattributeString']))): ?>
-                                                        <p>
+                                                        <div class="full">
                                                             <b><?= $this->translate('Cover') ?></b>
                                                             <?= $brandData['coverMaterialattributeString'] ?>
-                                                        </p>
+                                                        </div>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty(trim($brandData['temperatureRangeFAndC']))): ?>
-                                                        <p>
+                                                       <div class="full">
                                                             <b><?= $this->translate('Temperature Range') ?></b>
                                                             <?= $brandData['temperatureRangeFAndC'] ?>
-                                                        </p>
+                                                        </div>
                                                     <?php endif; ?>
                                                 </div>
 
