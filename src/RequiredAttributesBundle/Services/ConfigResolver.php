@@ -29,6 +29,7 @@ class ConfigResolver
      *
      * @param string $categoryCode: SIOP code of the category
      * @param string $requiredAttributeConfigType: one of the values from REQUIRED_ATTRIBUTE_CONFIG_TYPES_TO_DIR_MAPPING
+     * @param string $productType: base|skeleton|fert
      * @return array|null
      * @throws \Exception
      */
