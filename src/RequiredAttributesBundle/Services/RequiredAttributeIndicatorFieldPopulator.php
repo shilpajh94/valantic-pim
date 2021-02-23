@@ -34,38 +34,39 @@ class RequiredAttributeIndicatorFieldPopulator
      * @param Product $product
      * @param string $categorySiopCode
      */
-    public function populateEmptyFieldAndPercentage(Product $product,string $categorySiopCode)
+    public function populateEmptyFieldAndPercentage(Product $product, string $categorySiopCode)
     {
-        foreach(REQUIRED_ATTRIBUTE_CONFIG_TYPES_TO_PRODUCT_FIELDS_MAPPING as $configType => $productFields){
-	   try{
-		try {
-                    $config = $this->configResolver->getConfig($categorySiopCode, $configType);
+        $productType = $product->getProductType();
+        if (!in_array($productType, ["base", "skeleton", "fert"])) {
+            return;
+        }
+        foreach (REQUIRED_ATTRIBUTE_CONFIG_TYPES_TO_PRODUCT_FIELDS_MAPPING as $configType => $productFields) {
+            try {
+                try {
+                    $config = $this->configResolver->getConfig($categorySiopCode, $configType, $productType);
                 } catch (\Exception $exception) {
                     Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception->getMessage(), LogLevel::CRITICAL());
                     return;
                 }
-                $manager = new RequiredAttributeManager($config,$product);
-
+                $manager = new RequiredAttributeManager($config, $product);
                 $langs = \Pimcore\Tool::getValidLanguages();
+                $nonLocEmptyAttributesArray = $manager->getNonLocalizedEmptyAttributes();
 
-                foreach($langs as $lang){
+                foreach ($langs as $lang) {
 
-                    $nonLocEmptyAttributesArray = $manager->getNonLocalizedEmptyAttributes();
                     $locEmptyAttributesArray = $manager->getLocalizedEmptyAttributes($lang);
-
-                    $emptyAttributes = $this->getEmptyAttributeAsString($nonLocEmptyAttributesArray,$locEmptyAttributesArray);
-
+                    $emptyAttributes = $this->getEmptyAttributeAsString($nonLocEmptyAttributesArray, $locEmptyAttributesArray);
                     $completenessPercentage = $manager->getPopulatedPercentageForLanguage($lang);
 
                     // write setters
-                    $emptyFieldsTextareaSetter = 'set'.ucfirst($productFields['emptyFieldTextarea']);
-                    $percentageInputSetter = 'set'.ucfirst($productFields['percentageInput']);
+                    $emptyFieldsTextareaSetter = 'set' . ucfirst($productFields['emptyFieldTextarea']);
+                    $percentageInputSetter = 'set' . ucfirst($productFields['percentageInput']);
 
-                    $product->$emptyFieldsTextareaSetter($emptyAttributes,$lang);
-                    $product->$percentageInputSetter($completenessPercentage,$lang);
+                    $product->$emptyFieldsTextareaSetter($emptyAttributes, $lang);
+                    $product->$percentageInputSetter($completenessPercentage, $lang);
                 }
 
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 Utils::log(REQUIRED_ATTRIBUTES_LOG_FILE, $exception->getMessage(), LogLevel::CRITICAL());
                 throw $exception;
             }
