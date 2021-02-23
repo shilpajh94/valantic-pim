@@ -40,20 +40,25 @@ class Material
                     salesMaster.SalesUOM AS SalesUOM,
                     salesMaster.pricePageFlag
             FROM
-                    object_query_10 salesMaster
+                    object_10 salesMaster
                         JOIN
-                    object_query_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
+                    object_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
                         JOIN
-                    object_query_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
+                    object_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
                         JOIN
-                    object_query_8 distChannel ON distChannel.oo_id = salesMaster.DistributionChannel__id
+                    object_8 distChannel ON distChannel.oo_id = salesMaster.DistributionChannel__id
                         JOIN
-                    object_query_5 plant ON plant.oo_id = salesMaster.DeliveringPlant__id
+                    object_5 plant ON plant.oo_id = salesMaster.DeliveringPlant__id
             WHERE
-                    salesMaster.epixFlag = '001';
+                    salesMaster.epixFlag = '001' AND
+                    salesMaster.o_published = 1 AND
+                    product.o_published = 1 AND
+                    salesOrg.o_published = 1 AND
+                    distChannel.o_published = 1 AND
+                    plant.o_published = 1;
     ");
     return $salesMaterialMaster;
-      } catch (Exception $ex) {
+      } catch (\Exception $ex) {
             \B2BExportBundle\Lib\Utils::log("Material Model Exception :: " .$ex->getMessage(),LogLevel::CRITICAL());
       }
     }
