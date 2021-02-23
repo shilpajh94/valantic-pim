@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
     "ItemCount" => [
@@ -1306,5 +1306,141 @@ return [
 
         ],
         "id" => "WorkflowPendingProducts"
+    ],
+    "ChartBrandProduct" => [
+        "name" => "ChartBrandProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`,  \ncount(`o1`.`o_id`) AS `# of SKUs`",
+                "from" => "FROM\nobject_1 o1\nLEFT JOIN object_3 o3 \n\tON o3.`oo_id` = o1.brandName\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))",
+                "where" => "WHERE (o1.`o_published` =1) ",
+                "groupby" => "GROUP BY cat4.`description`,  o3.`name`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "id" => "extModel8961-6",
+                "filter" => "string"
+            ],
+            [
+                "name" => "Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8961-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel8961-5"
+            ]
+        ],
+        "niceName" => "Chart - Brand Product",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Brand",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1614075082,
+        "creationDate" => 1606812138,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartBrandProduct"
+    ],
+    "ChartProductsWithNoImage" => [
+        "name" => "ChartProductsWithNoImage",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
+                "from" => "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nWHERE (o1.`o_published` =1)\nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp",
+                "where" => "",
+                "groupby" => "temp.`SIOP3`, temp.`images`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "id" => "extModel9130-11",
+                "filter" => "string"
+            ],
+            [
+                "name" => "Main Image",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel9130-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel9130-5"
+            ]
+        ],
+        "niceName" => "Chart - Products with No Images - Main Image",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Main Image",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1614075246,
+        "creationDate" => 1606817832,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartProductsWithNoImage"
     ]
 ];
