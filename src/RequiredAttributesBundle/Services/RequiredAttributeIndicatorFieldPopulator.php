@@ -95,7 +95,8 @@ class RequiredAttributeIndicatorFieldPopulator
      */
     private function getEmptyAttributeAsString(array $nonLocEmptyAttributesArray,array $locEmptyAttributesArray): string
     {
-        $emptyAttributesString = '';
+        // initializing as space otherwise the if this is empty, the child starts inheriting this value from parent
+        $emptyAttributesString = ' ';
 
         if(count($nonLocEmptyAttributesArray) > 0 ){
             $emptyAttributesString .= "[ NON LOCALIZED ATTRIBUTES ]";
