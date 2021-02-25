@@ -60,15 +60,16 @@ class ProductSQLModel
     private $updatedArticlesArray;
     private $allBaseProducts;
     private $appService;
+    private $weightConversionService;
     
     const LOGGER_MODULE = 'SIOP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
     const MAX_TOP_CAT_LVL = 6;
     const MIN_TOP_CAT_LVL = 4;
     const GROSS_WEIGHT_UNITS = [
-        "LB" => UnitConversion\Unit::LBS,
-        "KG" => UnitConversion\Unit::KG,
-        "G" => UnitConversion\Unit::G
+        "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
+        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
+        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M
     ];
     
     public function __construct()
@@ -85,6 +86,7 @@ class ProductSQLModel
         $this->brickMappingService = \Pimcore::getContainer()->get('AppBundle\Services\CategoryBrickMappingService');
 //        $this->startRow = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'startRow');
         $this->columnName = $this->common->getParameterItem($this->prdConfigData, 'sheet', 'columnName');
+        $this->weightConversionService = new UnitConversion\WeightPerLengthConverter();
         $this->baseSIOPMapping = [];
         $this->baseSIOPArticleMapping = [];
         $this->baseSiopMismatchLog = [];
@@ -767,10 +769,12 @@ class ProductSQLModel
             $queryTableData['weightUnit'] = $weightUnit;
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
-                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
-                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
-                    $queryTableData['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
-                    $queryTableData['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
+                    $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['KG'], $grossWeight);
+                    $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['G'], $grossWeight);
+//                    $sourceUnit = new UnitConversion\WeightPerLengthConverter(self::GROSS_WEIGHT_UNITS[$weightUnit]);
+//                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
+//                    $queryTableData['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
+//                    $queryTableData['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
                 }
             } else {
                 $queryTableData['weightKg'] = null;
@@ -830,10 +834,12 @@ class ProductSQLModel
             $storeTableDataArray['weightUnit'] = $weightUnit;
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
-                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
-                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
-                    $storeTableDataArray['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
-                    $storeTableDataArray['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
+                    $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['KG'], $grossWeight);
+                    $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['G'], $grossWeight);
+//                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
+//                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
+//                    $storeTableDataArray['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
+//                    $storeTableDataArray['weightg'] = round($converter->getValue(new Unit(Unit::G)), 5);
                 }
             } else {
                 $storeTableDataArray['weightKg'] = null;
