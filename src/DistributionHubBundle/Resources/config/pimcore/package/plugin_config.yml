@@ -35,7 +35,7 @@ default_mapping_file_csv_delimiter: ';'
 default_export_file_csv_delimiter: ';'
 
 # records of this batch size will be written in the export file one by one
-batch_size_of_records_for_export_file_generation: 100
+batch_size_of_records_for_export_file_generation: 2000
 
 # in progress export process will be killed after this much minutes
 in_progress_process_life: 360
