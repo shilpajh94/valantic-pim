@@ -404,7 +404,7 @@ class Export {
 						$row[] = $partNo;
 						$row[] = $sapDescription . '%' . $netWeight . $weightUnit;
 						$row[] = $languageMaster[$language];
-						$row[] = preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription));
+                        $row[] = str_replace("\n","",preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', html_entity_decode($longDescription)));
 //						if($object != ''){
 //							$row[] = \Pimcore\Tool::getHostUrl(). ltrim($object,'/');
 //						} else {
