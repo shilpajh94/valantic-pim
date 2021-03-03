@@ -6,6 +6,7 @@ namespace ImportBundle\OneTimeImportCommand;
 
 use AppBundle\Lib\UnitConversion\ConverterFactory;
 use AppBundle\Lib\UnitConversion\Unit;
+use AppBundle\Lib\UnitConversion\WeightPerLengthConverter;
 use AppBundle\Services\AppService;
 use AppBundle\Services\UnitConverterService;
 use Pimcore\Console\AbstractCommand;
@@ -27,6 +28,13 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
         "G" => Unit::G
     ];
 
+    // WeightPerLengthConverter handles conversion only from these source units
+    const GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP = array(
+        Unit::LBS => WeightPerLengthConverter::UNIT_LBS_PER_FT,
+        Unit::KG => WeightPerLengthConverter::UNIT_KG_PER_FT,
+        Unit::G => WeightPerLengthConverter::UNIT_G_PER_FT
+    );
+
     public function __construct(UnitConverterService $unitConverterService, AppService $appService)
     {
         $this->unitConverterService = $unitConverterService;
@@ -44,6 +52,7 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        \Pimcore\Model\Version::disable();
         $offset = $input->getArgument('offset');
         $limit = $input->getArgument('limit');
         $logfile = $input->getArgument('logfile');
@@ -61,7 +70,7 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
 
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-//        $productListing->setCondition("o_id IN (1842326)");
+//        $productListing->setCondition("o_id IN (3833090)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
@@ -76,10 +85,11 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
             $msg = "";
 
             $productWeightResult = $this->updateProductWeight($product);
-            $hoseResult = $this->updateHoseSkeleton($product);
-            $inhResult = $this->updateINHFittingFert($product);
+//            $hoseResult = $this->updateHoseSkeleton($product);
+//            $inhResult = $this->updateINHFittingFert($product);
+//            $hydFittingFertResult = $this->updateHydFittingFert($product);
 
-            if ($inhResult || $hoseResult || $productWeightResult) {
+            if ($productWeightResult) {
                 try {
                     $product->save();
                     $updateCount++;
@@ -122,14 +132,45 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
         return $isProductUpdated;
     }
 
+    private function updateHydFittingFert(DataObject\Product $product)
+    {
+        $isProductUpdated = false;
+
+        if($product->getFert() && $product->getFert()->getHydFittingsFert()){
+            $hydFittingFert = $product->getFert()->getHydFittingsFert();
+
+            $hex1WrenchSizeIN = $hydFittingFert->getHex1WrenchSizeIN();
+            $hex1WrenchSizeMM = $hydFittingFert->getHex1WrenchSizeMM();
+            if( ($hex1WrenchSizeIN != null && $hex1WrenchSizeIN != "") && ( $hex1WrenchSizeMM == null || $hex1WrenchSizeMM == "" ) ){
+                $this->appService->updateAttributeGroup($hydFittingFert, 'Hex1WrenchSizeIN', $hex1WrenchSizeIN);
+            }
+
+            $hex2WrenchSizeIN = $hydFittingFert->getHex2WrenchSizeIN();
+            $hex2WrenchSizeMM = $hydFittingFert->getHex2WrenchSizeMM();
+            if(  ($hex2WrenchSizeIN != null && $hex2WrenchSizeIN != "") && ( $hex2WrenchSizeMM == null || $hex2WrenchSizeMM == "" ) ){
+                $this->appService->updateAttributeGroup($hydFittingFert, 'Hex2WrenchSizeIN', $hex2WrenchSizeIN);
+            }
+            $isProductUpdated = true;
+        }
+        return $isProductUpdated;
+    }
+
     private function updateHoseSkeleton(DataObject\Product $product)
     {
         $isProductUpdated = false;
-        if ($product->getType() === "skeleton" && $product->getSkeleton() && $product->getSkeleton()->getHoseSkeleton()) {
+        if ($product->getProductType() === "skeleton" && $product->getSkeleton() && $product->getSkeleton()->getHoseSkeleton()) {
             $hoseSkeleton = $product->getSkeleton()->getHoseSkeleton();
-            $workingPressurePSI = $hoseSkeleton->getWorkingPressurePSI();
-            $this->appService->updateAttributeGroup($hoseSkeleton, 'workingPressurePSI', $workingPressurePSI);
-            $isProductUpdated = true;
+//            $workingPressurePSI = $hoseSkeleton->getWorkingPressurePSI();
+//            $this->appService->updateAttributeGroup($hoseSkeleton, 'workingPressurePSI', $workingPressurePSI);
+
+            $tubeGaugeIN = $hoseSkeleton->getTubeGaugeIN();
+            $tubeGaugeMM = $hoseSkeleton->getTubeGaugeMM();
+
+            if( ($tubeGaugeIN != null && $tubeGaugeIN != "") && ( $tubeGaugeMM == null || $tubeGaugeMM == "" ) ){
+                $this->appService->updateAttributeGroup($hoseSkeleton, 'tubeGaugeIN', $tubeGaugeIN);
+                $isProductUpdated = true;
+            }
+
         }
         return $isProductUpdated;
     }
@@ -144,27 +185,29 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
             ($grossWeight === null || is_numeric($grossWeight)) &&
             ($grossWeightUnit !== null && $grossWeightUnit !== "")
         ) {
-            if ($grossWeight === null) {
-                $product->setWeightKg(null);
-                $product->setWeightg(null);
-            } else {
-                $sourceUnit = new Unit(self::GROSS_WEIGHT_UNITS[$grossWeightUnit]);
-                $converter = ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
-                $valueInKG = $converter->getValue(new Unit(Unit::KG));
-                $valueInG = $converter->getValue(new Unit(Unit::G));
+            $weightPerLengthConverter = new WeightPerLengthConverter();
+            // for example, we are converting from LBSperFT to KGperM, where LBSperFT is the
+            // $grossWeightUnit (actually it is KG but per FT is implicit for $grossWeight,this is why a map is maintained)
+            if(array_key_exists(self::GROSS_WEIGHT_UNITS[$grossWeightUnit], self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP)){
+                $product->setWeightKg(
+                    $weightPerLengthConverter->convert(
+                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
+                        WeightPerLengthConverter::UNIT_KG_PER_M,
+                        $grossWeight)
+                );
 
-                // rounding off to 5 because that is the expected from unit conversion service
-                // can not use unit conversion service functions here because these attributes are
-                // not part of the unit conversion config
-                $product->setWeightKg(round($valueInKG, 5));
-                $product->setWeightg(round($valueInG, 5));
+                $product->setWeightg(
+                    $weightPerLengthConverter->convert(
+                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
+                    WeightPerLengthConverter::UNIT_G_PER_M,
+                    $grossWeight)
+                );
             }
 
             $isProductUpdated = true;
         }
         return $isProductUpdated;
     }
-
 
     private function csvLog($logHandler, array $dataRow)
     {

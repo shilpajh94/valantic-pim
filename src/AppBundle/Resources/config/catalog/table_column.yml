@@ -84,12 +84,12 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseFert
-            HydFittingFamily:
+            HoseFittingFamily:
                 fieldLevel: objectBrick
                 fieldType: Relation
                 fieldLabel: Fitting Family
                 parent:
-                    name: HydFittingsFert
+                    name: HoseSkeleton
                     class:
                         name : FittingFamily
                         fieldName: Name
@@ -106,7 +106,7 @@ parameters:
                 fieldType: Input
                 groupName: Pitch
                 unitName: mm
-                numberOfDecimalPoints: 2
+                numberOfDecimalPoints: 0
                 fieldLabel: Pitch (mm)
                 parent:
                     name: SynchronousFert
@@ -124,7 +124,7 @@ parameters:
                 fieldType: Input
                 groupName: pitchLength
                 unitName: mm
-                numberOfDecimalPoints: 2
+                numberOfDecimalPoints: 0
                 fieldLabel: Pitch Length (MM)
                 parent:
                     name: SynchronousFert
@@ -139,7 +139,7 @@ parameters:
                 fieldType: Input
                 groupName: width
                 unitName: mm
-                numberOfDecimalPoints: 2
+                numberOfDecimalPoints: 0
                 fieldLabel: Width (mm)
                 parent:
                     name: PTGFert
@@ -265,7 +265,7 @@ parameters:
                 fieldType: Input
                 groupName: Pitch
                 unitName: mm
-                numberOfDecimalPoints: 2
+                numberOfDecimalPoints: 0
                 fieldLabel: Pitch (mm)
                 parent:
                     name: SynchronousFert
