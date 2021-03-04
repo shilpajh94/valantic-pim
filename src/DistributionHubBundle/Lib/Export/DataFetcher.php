@@ -37,7 +37,7 @@ class DataFetcher
                                 if (!isset($mappedFieldnames[$localizedFieldKey])) {
                                     $mappedFieldnames[$localizedFieldKey] = $mappedFieldnameBase . '-' . $validLanguage;
                                 }
-                                $objectData[$localizedFieldKey] = $fieldData;
+                                $objectData[$localizedFieldKey] = str_replace("\n","",$fieldData);
                             }
 
                             $localeService->setLocale($currentLocale);
@@ -47,7 +47,7 @@ class DataFetcher
                             if (!isset($mappedFieldnames[$field])) {
                                 $mappedFieldnames[$field] = $this->mapFieldname($field, $helperDefinitions);
                             }
-                            $objectData[$field] = $fieldData;
+                            $objectData[$field] = str_replace("\n","",$fieldData);
                         }
                     }
                     $objects[] = $objectData;
