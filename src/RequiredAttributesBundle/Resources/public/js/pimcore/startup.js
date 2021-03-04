@@ -51,8 +51,8 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         });
 
         new pimcore.plugin.RequiredAttributesBundle.overrides().showNomenclatureCustomPanel();
-        // new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
-        // new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
+        new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
+        new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
     },
     postOpenObject: function (object, type) {
 
