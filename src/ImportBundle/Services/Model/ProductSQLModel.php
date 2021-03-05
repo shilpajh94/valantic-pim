@@ -471,8 +471,31 @@ class ProductSQLModel
                     var_dump($distributionFlag);
                     var_dump($fittingFamilyFlag);
                     if (!empty($distributionFlag) || !empty($fittingFamilyFlag)) {
-                        $objectArr['parentId'] = $data[0]['o_parentId'];
-                        $objectArr['path'] = $data[0]['o_path'];
+                        if (!empty($distributionFlag)) {
+                            $catCode = $levelInfo[3]['levelFullCode'];
+                            $catFullPath = $this->categories[$catCode]['fullPath'];
+                            $productPath = $this->convertCategoryPathToProduct($catFullPath);
+                            $quoteFolderPath = $productPath."/Quote/";
+                            $quoteFolderId = $this->getFolderByPath($quoteFolderPath);
+                            $objectArr['parentId'] = $quoteFolderId;
+                            $objectArr['path'] = $quoteFolderPath;
+                        } else {
+                            $pathArray = explode("/", $data[0]['o_path']); 
+                            if (count($pathArray)>=6) {
+                                $fittingFamilyPathArray = array_slice($pathArray, 6);
+                                $subPath = '';
+                                if (!empty($fittingFamilyPathArray[0])) {
+                                    $subPath = implode("/", $fittingFamilyPathArray);
+                                }
+                                $catCode = $levelInfo[4]['levelFullCode'];
+                                $catFullPath = $this->categories[$catCode]['fullPath'];
+                                $productPath = $this->convertCategoryPathToProduct($catFullPath);
+                                $fittingFamilyFolderPath = $productPath."/".$subPath;
+                                $fittingFamilyFolderId = $this->getFolderByPath($fittingFamilyFolderPath);
+                                $objectArr['parentId'] = $fittingFamilyFolderId;
+                                $objectArr['path'] = $fittingFamilyFolderPath;
+                            }
+                        }
                     }
 			//}
                 }
