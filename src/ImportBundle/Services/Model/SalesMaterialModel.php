@@ -44,6 +44,7 @@ class SalesMaterialModel
     private $productUpdateArray = array();
     
     private $privateMaterialGroup = array();
+    private $failedIDs = [];
 
     const LOGGER_MODULE = 'SALES MATERIAL MASTER';
 
@@ -194,6 +195,8 @@ class SalesMaterialModel
             $this->tableImportHelper->updateMaster();
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
+            
+            $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
             
         }
         else
@@ -415,6 +418,7 @@ class SalesMaterialModel
                     }
                     else{
                         $errorsData[] = "Material ".$material. " not found in system.";
+                        $this->failedIDs[] = $rowvalueRecord['id'];
                     }
                 } 
                 catch (\Exception $e) {

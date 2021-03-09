@@ -211,6 +211,20 @@ class SalesMaterialImport
         }
     }
     
+    public function deleteFailedRecordsFromMaster($failedRecords) {
+        try {
+            if (!empty($failedRecords) && count($failedRecords)>0) {
+                $sql = "DELETE FROM {$this->masterTable} WHERE `id` IN (";                
+                if (count($failedRecords)>0) {
+                    $str = "'" . implode ( "', '", $failedRecords ) . "'";
+                    $query = $sql.$str." )";
+                    $this->db->query($query);
+                }
+            }
+        }  catch (\Exception $ex) {
+            
+        }
+    }
     /**
      * Function to find the Delta record(s)
      *
