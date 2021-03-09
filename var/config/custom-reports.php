@@ -1442,5 +1442,247 @@ return [
 
         ],
         "id" => "ChartProductsWithNoImage"
+    ],
+    "ChartNewProducts" => [
+        "name" => "ChartNewProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 8 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 8 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION \n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 7 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 7 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 6 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 6 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 5 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 5 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 4 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 4 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 3 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 3 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 2 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 2 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 1 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 1 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE())AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE()) \nGROUP BY o1.`BusinessUnit`, cat2.`description`",
+                "from" => "",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "BusinessUnit",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "id" => "extModel537-5",
+                "filter" => "string"
+            ],
+            [
+                "name" => "SIOP Level 2",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "id" => "extModel537-7",
+                "filter" => "string"
+            ],
+            [
+                "name" => "month",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel537-3"
+            ],
+            [
+                "name" => "count",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel537-4"
+            ]
+        ],
+        "niceName" => "Chart - New Products",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "month",
+        "yAxis" => [
+            "count"
+        ],
+        "modificationDate" => 1615242018,
+        "creationDate" => 1614589190,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartNewProducts"
+    ],
+    "ChartDataCompleteness" => [
+        "name" => "ChartDataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \ncount(o1.`o_key`) as `# of SKUs`, if(sum(en.CompletenessPercentage),ROUND((sum(en.CompletenessPercentage)/count(o1.`o_key`)),3) ,0) AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))",
+                "where" => "(o1.`o_published` =1)",
+                "groupby" => "cat3.`description`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+
+        ],
+        "niceName" => "Chart - Data Completeness",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "COMPLETED (%)",
+        "pieLabelColumn" => "SIOP Level 3",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1615181076,
+        "creationDate" => 1614589821,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartDataCompleteness"
+    ],
+    "ChartSKUsUnderReview" => [
+        "name" => "ChartSKUsUnderReview",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "count(o1.`o_id`) AS `# of SKUs`, w.`place` AS `Status`",
+                "from" => "object_1 o1\nINNER JOIN element_workflow_state w ON o1.oo_id = w.cid ",
+                "where" => "(o1.`o_published` =1)",
+                "groupby" => "w.`place`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel390-3"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel390-4"
+            ]
+        ],
+        "niceName" => "Chart - SKUs Under Review",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Status",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1614630262,
+        "creationDate" => 1614630048,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartSKUsUnderReview"
+    ],
+    "ChartProductAtrributrIncomplete" => [
+        "name" => "ChartProductAtrributrIncomplete",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT t.SIOPLevel4, count(t.`Key`) AS `# of SKUs`,\ncase \n   when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20'\n   when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40'\n   when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60'\nwhen t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80'\n   else '81-100' \n   end as IncompleteRange",
+                "from" => "FROM (SELECT \no1.`o_id`,\no1.`o_key` as `Key`,\ncat4.`description` AS `SIOPLevel4`,\n((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+\nIF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+\nIF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) +\nIF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) +\nIF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) +\nIF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) +\nIF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) +\nIF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) +\nIF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) +\nIF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) +\nIF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) +\nIF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+\nIF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) +\nIF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) +\nIF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+\nIF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+\nIF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) +\nIF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) +\nIF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) +\nIF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage\n\n\nFROM object_1 o1 \n\nLEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\n\nWHERE (o1.`o_published` =1) \nAND (\no1.`SIOPLevel2` IS NULL \nOR o1.`SIOPLevel2` = \"\" \nOR o1.`SIOPLevel3` IS NULL \nOR o1.`SIOPLevel3` = \"\" \nOR o1.`SIOPLevel4` IS NULL \nOR o1.`SIOPLevel4` = \"\" \nOR o1.`eanUpc` IS NULL \nOR o1.`eanUpc` = \"\" \nOR o1.`webDiscription` IS NULL \nOR o1.`webDiscription` = \"\" \nOR o1.`searchKeywords` IS NULL \nOR o1.`searchKeywords` = \"\" \nOR `en`.`longDescription` IS NULL \nOR `en`.`longDescription` = \"\" \nOR `en`.`FeaturesBenefitsBulletPoint` = \"\" \nOR `en`.`FeaturesBenefitsBulletPoint` IS NULL\nOR o1.`proposition65WarningAttributesRequired` IS NULL \nOR o1.`proposition65WarningAttributesRequired` = \"\" \nOR o1.`packageLengthIN` IS NULL \nOR o1.`packageLengthIN` = \"\" \nOR o1.`packageWidthIN` IS NULL \nOR o1.`packageWidthIN` = \"\" \nOR o1.`packageHeightIN` IS NULL \nOR o1.`packageHeightIN` = \"\" \nOR o1.`packageWeightLBS` IS NULL \nOR o1.`packageWeightLBS` = \"\" \nOR o1.`caseLengthIN` IS NULL \nOR o1.`caseLengthIN` = \"\" \nOR o1.`caseHeightIN` IS NULL \nOR o1.`caseHeightIN` = \"\" \nOR o1.`caseWidthIN` IS NULL \nOR o1.`caseWidthIN` = \"\" \nOR o1.`caseWeightLBS` IS NULL \nOR o1.`caseWeightLBS` = \"\" )) AS t",
+                "where" => "",
+                "groupby" => "t.SIOPLevel4, IncompleteRange",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOPLevel4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel572-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel572-4"
+            ],
+            [
+                "name" => "IncompleteRange",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel572-5"
+            ]
+        ],
+        "niceName" => "Chart - Product Attribute Incompleteness",
+        "group" => "",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "IncompleteRange",
+        "xAxis" => "IncompleteRange",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1615240353,
+        "creationDate" => 1606824473,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ChartProductAtrributrIncomplete"
     ]
 ];
