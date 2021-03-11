@@ -19,6 +19,7 @@ use DistributionHubBundle\Services\ScheduleProcessHelperService;
 use DistributionHubBundle\Services\MailNotificationService;
 use DistributionHubBundle\Lib\Export\Writers\ZipWriter;
 use Pimcore\Tool;
+use Symfony\Component\Process\Process;
 
 /**
  * Class ExportCommand
@@ -178,21 +179,38 @@ class ExportCommand extends Command
             case $resourceType === Constants::EXPORT_ONLY_DATA:
                 $this->helperService->updateScheduleStatusToInProgress($this->schedule);
                 $this->processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId);
-                $this->helperService->updateScheduleStatusToComplete($this->schedule);
-                $this->sendNotification();
+
+                $this->refreshSchedule();
+                if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
+                    $this->helperService->updateScheduleStatusToComplete($this->schedule);
+                    $this->sendNotification();
+                }
                 break;
             case $resourceType === Constants::EXPORT_ONLY_ASSETS:
                 $this->helperService->updateScheduleStatusToInProgress($this->schedule);
                 $this->processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId);
-                $this->helperService->updateScheduleStatusToComplete($this->schedule);
-                $this->sendNotification();
+
+                $this->refreshSchedule();
+                if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
+                    $this->helperService->updateScheduleStatusToComplete($this->schedule);
+                    $this->sendNotification();
+                }
+
                 break;
             case $resourceType === Constants::EXPORT_DATA_ASSETS_BOTH:
                 $this->helperService->updateScheduleStatusToInProgress($this->schedule);
                 $this->processOnlyDataFile($filterConfig, $columnAttributeMapping, $pimcoreClassId);
-                $this->processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId);
-                $this->helperService->updateScheduleStatusToComplete($this->schedule);
-                $this->sendNotification();
+
+                $this->refreshSchedule();
+                if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
+                    $this->processOnlyAssets($filterConfig, $columnAttributeMapping, $pimcoreClassId);
+                    $this->refreshSchedule();
+                    if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
+                        $this->helperService->updateScheduleStatusToComplete($this->schedule);
+                        $this->sendNotification();
+                    }
+
+                }
                 break;
         }
     }
@@ -202,25 +220,17 @@ class ExportCommand extends Command
 
         $msg = "STARTED DataFile Export Process.";
         $this->log($msg, DHubLogger::INFO);
-        /**
-         * preparing fields array (name of all the fields in column configuration) and
-         * helperDefinition array (definition of operators in the column configuration)
-         * which would be used to fetch the data
-         */
-        $this->exportService->prepareFieldsAndHelperDefinition($columnAttributeMapping);
-        $fields = $this->exportService->getFieldsForExport();
 
         /**
          * creating the file writer according to the export format selected by user in schedule
          */
         $tmpFilePathFolder = PIMCORE_PROJECT_ROOT . '/'.$this->bundleService->getConfig('tmp_template_upload_pimcore_dir');
-
-        try {
-            $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePathFolder);
-        } catch (\Exception $exception) {
-            $this->handleProcessFailure($exception->getMessage());
-            return;
+        $downloadFileName = $this->schedule->getDownloadFileName();
+        if (!$downloadFileName) {
+            $downloadFileName = $this->channel->getName().'-'.$this->schedule->getName();
         }
+        $downloadFileName = $downloadFileName.'-'.time();
+        $tmpFilePath = $tmpFilePathFolder.$downloadFileName.'.csv';
 
         /**
          * creating the list object and filtering the records using filterService
@@ -247,6 +257,16 @@ class ExportCommand extends Command
             return;
         }
 
+        try {
+            $writer = Factory::getWriter($this->channel, $this->schedule, $tmpFilePath);
+            $columnAttrMapping = json_decode($this->channel->getColumnAttributeMapping(), true);
+            $writer->writeHeaders($columnAttrMapping['templateAttribute']);
+            $writer->postWrite();
+        } catch (\Exception $exception) {
+            $this->handleProcessFailure($exception->getMessage());
+            return;
+        }
+
         /**
          * fetching records in the batches of size $this->batchSize
          * writing the fetched batch to the export file
@@ -256,6 +276,7 @@ class ExportCommand extends Command
         $offset = 0;
         $batchIndex = 1;
         while ($offset <= ( $totalCount - 1)) {
+            $this->refreshSchedule();
             if (($batchIndex === 1) || ( ($batchIndex % $isScheduleDeletedCheckBatchInterval ) === 0 )) {
                 if ($this->helperService->isScheduleDeleted($this->schedule)) {
                     $msg = "Schedule has been deleted while running export process.";
@@ -263,54 +284,65 @@ class ExportCommand extends Command
                     return;
                 }
             }
-            $resultListObj->setOffset($offset);
-            $resultListObj->setLimit($this->batchSize);
-            try {
-                $resultListObj->load();
-                $exportData = $this->exportService->getCsvDataForExport($resultListObj, $fields, $this->channel->getLanguage(), false);
 
-                if (empty($exportData)) {
-                    $msg = "Prepared export data in empty";
-                    $this->handleProcessFailure($msg);
-                    return;
+            if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
+                $command = implode(' ',array(
+                    PIMCORE_PROJECT_ROOT."/bin/console ",
+                    "distributionhub:child_process_export",
+                    $offset,
+                    $this->batchSize,
+                    $pimcoreClassId,
+                    $this->schedule->getId(),
+                    $tmpFilePath
+                ));
+
+                $process = new Process($command);
+                $process->setTimeout(3600);
+                $process->run();
+
+                $output = $process->getOutput();
+                $errorOutput = $process->getErrorOutput();
+
+                if($errorOutput !== null && trim($errorOutput) != ""){
+                    $msg = "[Child Script Error Output] " . $errorOutput;
+                    $this->log($msg,DHubLogger::CRITICAL);
                 }
 
-                $writer->write($exportData);
-                unset($exportData);
-            } catch (\Exception $exception) {
-                $this->handleProcessFailure($exception->getMessage());
-                return;
+            }else{
+                // schedule was failed in the child process
+                break;
             }
 
             $offset = $offset + $this->batchSize;
             $batchIndex++;
-
-            \Pimcore::collectGarbage();
-        }
-        try {
-            $writer->postWrite();
-        } catch (\Exception $exception) {
-            $msg = "Error while writing to export file. msg: ".$exception->getMessage();
-            $this->handleProcessFailure($msg);
         }
 
         /**
          * committing the export file to the location selected by user in export location in schedule
          */
-        if (file_exists($writer->getTmpFilePath())) {
-            try {
-                $isZip = false;
-                $this->exportService->sendExportFileToDesiredLocation($this->channel, $this->schedule, $writer->getTmpFilePath(), $isZip);
-            } catch (\Exception $exception) {
-                $this->handleProcessFailure($exception->getMessage());
+        $this->refreshSchedule();
+        if($this->schedule->getStatus() === Constants::SCHEDULE_STATUS_INPROGRESS){
+            if (file_exists($tmpFilePath)) {
+                try {
+                    $isZip = false;
+                    $this->exportService->sendExportFileToDesiredLocation($this->channel, $this->schedule, $tmpFilePath, $isZip);
+                } catch (\Exception $exception) {
+                    $this->handleProcessFailure($exception->getMessage());
+                    return;
+                }
+                $this->helperService->updateScheduleParams($this->schedule);
+            } else {
+                $msg = "Export file could not be created due to some unexpected error.";
+                $this->handleProcessFailure($msg);
                 return;
             }
-            $this->helperService->updateScheduleParams($this->schedule);
-        } else {
-            $msg = "Export file could not be created due to some unexpected error.";
-            $this->handleProcessFailure($msg);
-            return;
         }
+
+    }
+
+    private function refreshSchedule()
+    {
+        $this->schedule = Schedule::getById($this->schedule->getId());
     }
 
 

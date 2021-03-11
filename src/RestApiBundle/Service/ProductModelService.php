@@ -59,10 +59,12 @@ class ProductModelService
 
         $productDetail = array();
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
+        /*
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
         $conArray['fields']   = ['oo_id'];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
+        */
 
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
@@ -70,7 +72,7 @@ class ProductModelService
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData =   $this->getProductDetail($products, $langCode);
-            $productDetail['total'] = strval($totalCount);
+//            $productDetail['total'] = strval($totalCount);
             $productDetail['products'] = $this->formatProducts($productData);
         }
         return $productDetail;

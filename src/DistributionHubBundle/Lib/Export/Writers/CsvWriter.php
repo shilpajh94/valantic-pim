@@ -14,21 +14,12 @@ class CsvWriter implements Writer
     private $delimiter;
     private $filePointer;
 
-    public function __construct(Channel $channel, Schedule $schedule, string $tmpFilePathFolder)
+    public function __construct(Channel $channel, Schedule $schedule, string $tmpFilePath)
     {
-        $downloadFileName = $schedule->getDownloadFileName();
-        if (!$downloadFileName) {
-            $downloadFileName = $channel->getName().'-'.$schedule->getName();
-        }
-        $this->downloadFileName = $downloadFileName.'-'.time();
-        $this->tmpFilePath = $tmpFilePathFolder.$this->downloadFileName.'.csv';
-
-        $headerMappingFileType = $channel->getHeaderMappingFileType();
+        $this->tmpFilePath = $tmpFilePath;
 
         $this->delimiter = $channel->getExportFileCSVDelimiter();
         $this->initializeFilePointer();
-        $columnAttrMapping = json_decode($channel->getColumnAttributeMapping(), true);
-        $this->writeHeaders($columnAttrMapping['templateAttribute']);
     }
 
     public function write(array $data)
@@ -52,7 +43,7 @@ class CsvWriter implements Writer
         }
     }
 
-    private function writeHeaders(array $headers)
+    public function writeHeaders(array $headers)
     {
         try {
             $this->writeArrayToFile($headers);

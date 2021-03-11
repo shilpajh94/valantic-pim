@@ -1299,7 +1299,7 @@ footer .flex > * {
 
 .inh section.content{ display: block;}
 
-.inhsetting1{ display: flex;}
+.inhsetting1{ /* display: flex; */ }
 
 
 .inhsetting-sidebar{
@@ -1345,8 +1345,6 @@ footer .flex > * {
     page: title40;
 }
 
-
-
 @page title10:right {
     padding-left: 130px;
 
@@ -1377,7 +1375,6 @@ footer .flex > * {
         content: none !important;
     }
 }
-
 
 @page title20:right {
     padding-left: 130px;
@@ -1480,7 +1477,7 @@ footer .flex > * {
 .inhRight aside p{  padding-left: 15px !important;}
 
 .inhsettingRight, .inhsettingLeft{ display: flex; }
-.inhsettingRight{ flex-direction: row-reverse; }
+.inhsettingRight{ /* flex-direction: row-reverse; */ }
 
 .sidebar {
     width: 100%;
@@ -1488,17 +1485,17 @@ footer .flex > * {
 
 }
 .inhsettingRight .inhsetting-sidebar{
-    text-align: right;
+    /* text-align: right;
     margin-left: -330px;
     width:130px;
-
+ */
 }
 
 .inhsettingLeft .inhsetting-sidebar{
-    width:130px;
+    /* width:130px;
     text-align: left;
     margin-left:330px;
-
+*/
 }
 @media print{
     .inhRight .grid{
@@ -1998,7 +1995,7 @@ div.content_double {
 
 .pageName, #pageHeader{ opacity: 0; height: 0;}
 
-#pimcore-pdf img{  max-width:100%; height:auto;}
+/*#pimcore-pdf img{  max-width:100%; height:auto;}*/
 
 @page {
     margin-left: 0;

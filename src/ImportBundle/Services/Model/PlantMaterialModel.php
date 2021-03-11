@@ -44,6 +44,7 @@ class PlantMaterialModel
     private $countryArray = array();
     private $materialUpdateArray = array();
     private $materialReturnFlagUpdateArray = array();
+    private $failedIDs = [];
 
 
     const LOGGER_MODULE = 'PLANT MATERIAL MASTER';
@@ -196,7 +197,8 @@ class PlantMaterialModel
             $this->tableImportHelper->updateMaster();
             $timediff4 = $time4->diff(new \DateTime());
             echo $timediff4->format("Total {$deltaCount} replaced in master table takes %h hour %i minute %s second").PHP_EOL;
-
+            
+            $this->tableImportHelper->deleteFailedRecordsFromMaster($this->failedIDs);
         }
         else
         {
@@ -497,6 +499,7 @@ class PlantMaterialModel
                     }
                     else{
                         $errorsData[] = "Material ".$material. " not found in system.";
+                        $this->failedIDs[] = $rowvalueRecord['id'];
                     }
                 }
                 catch (\Exception $e) {
