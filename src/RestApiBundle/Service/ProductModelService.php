@@ -59,10 +59,12 @@ class ProductModelService
 
         $productDetail = array();
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
-//        $conditionString = $this->model->getConditionString($parameterArray,'fert');
-//        $conArray['condition']= $conditionString;
-//        $conArray['fields']   = ['oo_id'];
-//        $totalCount = $this->model->getTotalCount($langCode,$conArray);
+        /*
+        $conditionString = $this->model->getConditionString($parameterArray,'fert');
+        $conArray['condition']= $conditionString;
+        $conArray['fields']   = ['oo_id'];
+        $totalCount = $this->model->getTotalCount($langCode,$conArray);
+        */
 
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);

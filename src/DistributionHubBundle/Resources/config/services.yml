@@ -197,3 +197,7 @@ services:
 
     DistributionHubBundle\Services\ClassificationStoreService:
         public: true
+
+    DistributionHubBundle\Command\ChildProcessExportCommand:
+        tags:
+            - { name: 'console.command', command: 'distributionhub:child_process_export' }

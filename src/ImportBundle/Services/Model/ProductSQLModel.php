@@ -617,7 +617,7 @@ class ProductSQLModel
                         
                         if (strtolower($bu) == 'ifs') {
                             $oldMaterialCode = trim($recData[6]);
-                            if ($oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A') {
+                            if (empty($oldMaterialCode) || $oldMaterialCode == 'NA' || $oldMaterialCode == 'N/A' || (strlen($oldMaterialCode)!= 14) || strstr($oldMaterialCode,' ') || strstr($oldMaterialCode,'-')) {
                                 $recData[6] = '';
                                 $sixDigitCode = '';
                             } else {
