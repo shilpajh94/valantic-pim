@@ -199,6 +199,7 @@ pimcore.plugin.RequiredAttributesBundle.pdf_preview_override = Class.create({
                     url: "/admin/printpage/start-pdf-generation",
                     method: 'POST',
                     jsonData: params,
+                    timeout: 2400000,
                     success: function(response) {
                         result = Ext.decode(response.responseText);
                         if(result.success) {
