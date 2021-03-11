@@ -957,6 +957,7 @@ if(isset($data[$baseId])) {
                         $BrandingLayline = '';
                         $temperatureRangeFAndC = '';
                         $VirtualCatalogTubeMaterial = '';
+                        $VirtualCatalogCoverMaterial = '';
                         $VirtualCatalogReinforcement = '';
                         $brandName = '';
 
@@ -1610,6 +1611,9 @@ if(isset($data[$baseId])) {
                     foreach ($brandsData as $brandKey => $brandArray)
                     {
                         $uniqueId = md5($brandKey);
+                        $VirtualCatalogTubeMaterialStr = '';
+                        $VirtualCatalogCoverMaterialStr = '';
+                        $reinforcementStr = '';
                         $VirtualCatalogTubeMaterial = '';
                         $VirtualCatalogCoverMaterial = '';
                         $VirtualCatalogReinforcement = '';
