@@ -495,13 +495,28 @@ class FilterService
         unset($csvData['0']);
 
         $conditonForList = [];
+//        if (!empty($csvData)) {
+//            foreach ($csvData as $val) {
+//                if(trim($val['0']) !== ''){
+//                    $conditonForList[] = " `" . $attribute . "` = '" . $val['0'] . "' ";
+//                }
+//
+//            }
+//        }
+
+        $values = [];
+
         if (!empty($csvData)) {
             foreach ($csvData as $val) {
                 if(trim($val['0']) !== ''){
-                    $conditonForList[] = " `" . $attribute . "` = '" . $val['0'] . "' ";
+//                    $conditonForList[] = " `" . $attribute . "` = '" . $val['0'] . "' ";
+                    $values[] = "'" . $val['0'] . "'";
                 }
 
             }
+        }
+        if(count($values) > 0){
+            $conditonForList[0] = " `" . $attribute . "` " . "IN" . "(" . implode(',',$values) .  ")" ;
         }
 
         return $conditonForList;
