@@ -110,7 +110,7 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         $value = $fieldFilter["filterEntryData"];

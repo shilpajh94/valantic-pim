@@ -15,7 +15,7 @@ class BooleanSelect extends DefaultAdapter implements FieldDefinitionAdapterInte
      * @var string
      */
     protected $fieldType = "booleanSelect";
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -32,7 +32,7 @@ class BooleanSelect extends DefaultAdapter implements FieldDefinitionAdapterInte
     {
 
         $fieldName = $fieldDefinition->getName();
-        
+
         $conditionParams = array();
         if ($fieldName === "o_published") {
             if ($fieldFilter->getFilterEntryData() === self::DHUB_OPERATOR_TRUE) {
@@ -58,7 +58,7 @@ class BooleanSelect extends DefaultAdapter implements FieldDefinitionAdapterInte
 
         return $conditionParams;
     }
-    
+
     /**
      * Get localized query based on applied filter,
      * use queryBuilder prepared statements
@@ -108,7 +108,7 @@ class BooleanSelect extends DefaultAdapter implements FieldDefinitionAdapterInte
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         $value = $fieldFilter["filterEntryData"];

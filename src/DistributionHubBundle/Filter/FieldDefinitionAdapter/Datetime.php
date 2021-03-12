@@ -203,7 +203,7 @@ class Datetime extends Numeric implements FieldDefinitionAdapterInterface
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         if (is_array($fieldFilter['filterEntryData'])) {
