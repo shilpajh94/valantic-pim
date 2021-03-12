@@ -18,6 +18,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
 <?php
 if($data):
 foreach($data as $catalogGroupKey => $catalogGroupData):
+        $md5Key = md5($catalogGroupKey);
 ?>
 <div class="template">
 <div class="segregate " id="subCover">
@@ -29,13 +30,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <span class="logo">
                         <b>
                         <?php if($this->editmode): ?>
-                                <?php if($this->input("HHSC_Logo_Text1")->isEmpty()): ?>
-                                        <?= $this->input("HHSC_Logo_Text1")->setDataFromResource('Hose') ?>
+                                <?php if($this->input("HHSC_Logo_Text1_{$md5Key}")->isEmpty()): ?>
+                                        <?= $this->input("HHSC_Logo_Text1_{$md5Key}")->setDataFromResource('Hose') ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHSC_Logo_Text1"); ?>
+                                        <?= $this->input("HHSC_Logo_Text1_{$md5Key}"); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("HHSC_Logo_Text1") ?>
+                                <?= $this->input("HHSC_Logo_Text1_{$md5Key}") ?>
                         <?php endif; ?>
                         </b>
 
@@ -45,9 +46,9 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 <h5>
                                         <?php
                                         if($this->editmode)
-                                                echo $this->image("HHSC_Footer_Image", ["width" => 40]);
+                                                echo $this->image("HHSC_Footer_Image_{$md5Key}", ["width" => 40]);
                                         else{
-                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image");
+                                                $imgSrcObj4 =  $this->image("HHSC_Footer_Image_{$md5Key}");
                                                 if($imgSrcObj4)
                                                 {
                                                 ?>
@@ -58,13 +59,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                         ?>
                                         <font>
                                         <?php if($this->editmode): ?>
-                                                <?php if($this->input("HHSC_Footer")->isEmpty()): ?>
-                                                        <?= $this->input("HHSC_Footer")->setDataFromResource($catalogGroupKey) ?>
+                                                <?php if($this->input("HHSC_Footer_{$md5Key}")->isEmpty()): ?>
+                                                        <?= $this->input("HHSC_Footer_{$md5Key}")->setDataFromResource($catalogGroupKey) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("HHSC_Footer"); ?>
+                                                        <?= $this->input("HHSC_Footer_{$md5Key}"); ?>
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHSC_Footer") ?>
+                                                <?= $this->input("HHSC_Footer_{$md5Key}") ?>
                                         <?php endif; ?>
                                         </font>
                                 </h5>
@@ -79,9 +80,9 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 <h5>
                                         <?php
                                         if($this->editmode)
-                                                echo $this->image("HHSC_Footer_Image1", ["width" => 40]);
+                                                echo $this->image("HHSC_Footer_Image1_{$md5Key}", ["width" => 40]);
                                         else{
-                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1");
+                                                $imgSrcObj3 =  $this->image("HHSC_Footer_Image1_{$md5Key}");
                                                 if($imgSrcObj3)
                                                 {
                                                 ?>
@@ -92,13 +93,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                         ?>
                                         <font>
                                         <?php if($this->editmode): ?>
-                                                <?php if($this->input("HHSC_Footer1")->isEmpty()): ?>
-                                                        <?= $this->input("HHSC_Footer1")->setDataFromResource($catalogGroupKey) ?>
+                                                <?php if($this->input("HHSC_Footer1_{$md5Key}")->isEmpty()): ?>
+                                                        <?= $this->input("HHSC_Footer1_{$md5Key}")->setDataFromResource($catalogGroupKey) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("HHSC_Footer1"); ?>
+                                                        <?= $this->input("HHSC_Footer1_{$md5Key}"); ?>
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHSC_Footer1") ?>
+                                                <?= $this->input("HHSC_Footer1_{$md5Key}") ?>
                                         <?php endif; ?>
                                         </font>
                                 </h5>
@@ -106,13 +107,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <span class="logo">
                                 <b>
                                 <?php if($this->editmode): ?>
-                                        <?php if($this->input("HHSC_Logo_Text2")->isEmpty()): ?>
-                                                <?= $this->input("HHSC_Logo_Text2")->setDataFromResource('Hose') ?>
+                                        <?php if($this->input("HHSC_Logo_Text2_{$md5Key}")->isEmpty()): ?>
+                                                <?= $this->input("HHSC_Logo_Text2_{$md5Key}")->setDataFromResource('Hose') ?>
                                         <?php else: ?>
-                                                <?= $this->input("HHSC_Logo_Text2"); ?>
+                                                <?= $this->input("HHSC_Logo_Text2_{$md5Key}"); ?>
                                         <?php endif; ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHSC_Logo_Text2") ?>
+                                        <?= $this->input("HHSC_Logo_Text2_{$md5Key}") ?>
                                 <?php endif; ?>
                                 </b>
                                 <img src="<?= $footer_logo_src; ?>">
@@ -124,9 +125,9 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         <header class="dark ">
                 <?php
                 if($this->editmode)
-                        echo $this->image("HHSC_Image");
+                        echo $this->image("HHSC_Image_{$md5Key}");
                 else{
-                        $imgSrcObj =  $this->image("HHSC_Image");
+                        $imgSrcObj =  $this->image("HHSC_Image_{$md5Key}");
                         if($imgSrcObj)
                         {
                         ?>
@@ -137,20 +138,20 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
         </header>
 
         <nav class="marginBottom30">
-            <h4><?= $this->input("HHSC_Heading"); ?></h4>
+            <h4><?= $this->input("HHSC_Heading_{$md5Key}"); ?></h4>
         </nav>
         <div class="fullcontainer single">
             <p class="marginBottom30">
-            <?= $this->wysiwyg("HHSC_Description",["class"=>"marginBottom30"]); ?>
+            <?= $this->wysiwyg("HHSC_Description_{$md5Key}",["class"=>"marginBottom30"]); ?>
             </p>
 
             <div class="bg marginTop30">
                         <span>
                         <?php
                         if($this->editmode)
-                                echo $this->image("HHSC_Title_Image", ["width" => 50]);
+                                echo $this->image("HHSC_Title_Image_{$md5Key}", ["width" => 50]);
                         else{
-                                $imgSrcObj2 =  $this->image("HHSC_Title_Image");
+                                $imgSrcObj2 =  $this->image("HHSC_Title_Image_{$md5Key}");
                                 if($imgSrcObj2)
                                 {
                                 ?>
@@ -162,13 +163,13 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         </span>
                         <h3>
                         <?php if($this->editmode): ?>
-                                <?php if($this->input("HHSC_Title")->isEmpty()): ?>
-                                        <?= $this->input("HHSC_Title")->setDataFromResource($catalogGroupKey) ?>
+                                <?php if($this->input("HHSC_Title_{$md5Key}")->isEmpty()): ?>
+                                        <?= $this->input("HHSC_Title_{$md5Key}")->setDataFromResource($catalogGroupKey) ?>
                                 <?php else: ?>
-                                        <?= $this->input("HHSC_Title"); ?>
+                                        <?= $this->input("HHSC_Title_{$md5Key}"); ?>
                                 <?php endif; ?>
                         <?php else: ?>
-                                <?= $this->input("HHSC_Title") ?>
+                                <?= $this->input("HHSC_Title_{$md5Key}") ?>
                         <?php endif; ?>
                         </h3>
             </div>
@@ -189,7 +190,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                     <?php
                         if($data):
                         $incr = 1;
-                        foreach($catalogGroupData as $md5key => $brandData):
+                        foreach($catalogGroupData as $md5brandKey => $brandData):
                         ?>
 
                         <?php if($incr%2==0): ?>
@@ -199,7 +200,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         <?php endif; ?>
 
                                 <td><b><?= $brandData['brandName']; ?></b></td>
-                                <td><?= $this->input("HHSC_Page_{$md5key}") ?></td>
+                                <td><?= $this->input("HHSC_Page_{$md5brandKey}") ?></td>
                                 <td><?= $brandData['reinforcement']; ?></td>
                                 <td><?= $brandData['tubeMaterialAtrributeString']; ?></td>
                                 <td><?= $brandData['workingPressurePSIString']; ?></td>

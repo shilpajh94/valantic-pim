@@ -32,13 +32,20 @@ if (!isset($this->parentContainer)) {
                         <?= $this->pdf("pdf", ["placeholder" => 'PDF drop' ]); ?>
                     <?php } else { 
                         $element = $this->pdf("pdf")->getElement(); 
-                        $path = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($element); ?>
+
+                        if($element)
+                        {
+                        $path = \S3CustomizationBundle\Lib\Utils::getAssetFullPathCompatibleToS3($element); 
+                        
+                        ?>
                         <div id="pimcore-pdf" class="pimcore-pdfViewer">
                             <a href="<?php echo $path; ?>" target="_blank">
                                 <img alt="" src="<?php echo $path; ?>">
                             </a>
                         </div>
-                <?php } 
+                    <?php   
+                        }
+                    } 
                 } ?>
             </div>
     </div>
