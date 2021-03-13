@@ -102,13 +102,21 @@ class CustomAnyGetter extends AbstractOperator
                         foreach ($value as $o) {
                             if ($this->attribute && method_exists($o, $getter)) {
                                 $targetValue = $o->$getter($this->getParam1());
-                                if(method_exists($o,'getClass')){
-                                }
+                                $def = null;
                                 if($o instanceof Concrete){
-                                    $result->def = $o->getClass()->getFieldDefinition($this->attribute);
+                                    $def = $o->getClass()->getFieldDefinition($this->attribute);
+                                    if($def === null){
+                                        $locDef = $o->getClass()->getFieldDefinition('localizedfields');
+                                        $def = $locDef->getFieldDefinition($this->attribute);
+                                    }
                                 }elseif ($o instanceof AbstractData){
-                                    $result->def = $o->getDefinition()->getFieldDefinition($this->attribute);
+                                    $def = $o->getDefinition()->getFieldDefinition($this->attribute);
+                                    if($def === null){
+                                        $locDef = $o->getDefinition()->getFieldDefinition('localizedfields');
+                                        $def = $locDef->getFieldDefinition($this->attribute);
+                                    }
                                 }
+                                $result->def = $def;
                                 $newValues[] = $targetValue;
                             }
                         }
