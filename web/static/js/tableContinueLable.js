@@ -2,14 +2,14 @@
  *  INH Template left right code
  */
 
-// var INHTablerows = document.querySelectorAll(".inhsetting1");
+var INHTablerows = document.querySelectorAll(".inhsetting1");
 
-// INHTablerows.forEach(function (row) {
-//     var rowDescriptions = ro.layout.getBoxDescriptions(row);
-//     var rowDescription = rowDescriptions[0];
-//     const onLeftPage = rowDescription.pageLeft;
-//     row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
-// });
+INHTablerows.forEach(function (row) {
+     var rowDescriptions = ro.layout.getBoxDescriptions(row);
+     var rowDescription = rowDescriptions[0];
+     const onLeftPage = rowDescription.pageLeft;
+     row.className = row.className +" "+  (onLeftPage ? "inhsettingLeft" : "inhsettingRight");
+ });
 
 /**
  *  End - HYD Hose left right code

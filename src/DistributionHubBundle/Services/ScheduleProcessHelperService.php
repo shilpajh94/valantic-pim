@@ -68,7 +68,7 @@ class ScheduleProcessHelperService
         $schedule->setStatus(Constants::SCHEDULE_STATUS_FAILED);
         $schedule->save();
     }
-    
+
     /**
      * @param Schedule $schedule
      */
@@ -91,11 +91,11 @@ class ScheduleProcessHelperService
         $schedule->setExportProcessEndTime($currentTime);
         $schedule->setExpiryTime($this->getExpiryDate($currentTime));
         $exportLocation = $schedule->getExportLocation();
- 
-        if (strtolower($exportLocation) === 'ftp') {
-            $schedule->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
-            $schedule->save();
-        }
+
+//        if (strtolower($exportLocation) === 'ftp') {
+//            $schedule->setStatus(Constants::SCHEDULE_STATUS_COMPLETED);
+//        }
+        $schedule->save();
     }
 
     /**
