@@ -4,6 +4,7 @@ namespace AppBundle\Services;
 
 use phpDocumentor\Reflection\Types\Self_;
 use Pimcore\Logger;
+use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\Folder;
 use Pimcore\Model\DataObject\Product;
@@ -28,6 +29,17 @@ class AppService
      * @var int
      */
     private  $productClassId = 1;
+
+    /**
+     * @var int
+     */
+    private  $batchSize = 500;
+
+    /**
+     * @var int
+     */
+    private $startHour = 22;
+
 
     /**
      * AppService constructor.
@@ -520,39 +532,71 @@ class AppService
     }
 
     /**
-     * Update all products for data completeness based on parent product modification
+     * Get all products for data completeness based on parent product modification
+     * @param $date
      */
-    public function updateProductDataCompleteness(){
-        echo "Completeness command start- " .date('m/d/Y h:i:s') . PHP_EOL;
-        $currentDate = strtotime(date('m/d/Y'));
-        $maxTime = $currentDate + (86400 - 1);
-        $batchSize = 500;
-        $baseSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='base' AND o_modificationDate BETWEEN ". $this->db->quote($currentDate) . " AND " .$this->db->quote($maxTime);
+    public function updateProductDataCompleteness($date){
         try{
-            $totalCount = count($this->db->fetchCol($baseSql));
-            echo "total base products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
-            $offset = 0;
-            while($offset <= ( $totalCount - 1) ){
-                $limit = " LIMIT ".$offset.", ".$batchSize;
-                $baseProductSql = $baseSql.$limit;
-                $baseProducts = $this->db->fetchCol($baseProductSql);
-                $skeletonSql = " SELECT oo_id as id FROM object_" . $this->productClassId ." WHERE productType='skeleton' AND o_parentId IN (" . implode(",",$baseProducts) . ")";
-                if(count($baseProducts)){
-                    $skeletonProducts = $this->db->fetchCol($skeletonSql);
-                    echo "total skeleton products in this batch- (".count($skeletonProducts). ") ".date('m/d/Y h:i:s') . PHP_EOL;
-                    $this->saveProducts($baseProducts, $skeletonProducts, 'skeleton');
-                    if(count($skeletonProducts)){
-                        $fertSql = " SELECT oo_id as id FROM object_" . $this->productClassId ." WHERE productType='fert' AND o_parentId IN (" . implode(",",$skeletonProducts) . ")";
-                        $fertProducts = $this->db->fetchCol($fertSql);
-                        echo "total fert products in this batch- (".count($fertProducts). ") ".date('m/d/Y h:i:s') . PHP_EOL;
-                        $this->saveProducts($skeletonProducts, $fertProducts, 'fert');
-                    }
-                }
-                $offset = $offset + $batchSize;
-            }
+            echo "Completeness command start- " .date('m/d/Y h:i:s') . PHP_EOL;
+            $hour = '-'.$this->startHour.' hours';
+            $currentDate = (empty($date))?strtotime($hour, time()):strtotime($date);
+            $this->productClassId = (int) ClassDefinition::getByName('product')->getId();
+            $this->skeletonProductUpdate($currentDate);
+            $this->fertProductUpdate($currentDate);
             echo "End completeness command - " .date('m/d/Y h:i:s') . PHP_EOL;
         }catch (\Exception $exception){
             Logger::error("Exception: " . $exception->getMessage());
+        }
+    }
+
+
+    /**
+     * Update all skeleton products based on base product modification
+     * @param $currentDate
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function skeletonProductUpdate($currentDate){
+        $batchSize = $this->batchSize;
+        $baseSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='base' AND o_modificationDate >= ". $this->db->quote($currentDate);
+        $totalCount = count($this->db->fetchCol($baseSql));
+        echo "total base products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
+        $offset = 0;
+        while($offset <= ( $totalCount - 1) ) {
+            $limit = " LIMIT " . $offset . ", " . $batchSize;
+            $baseProductSql = $baseSql . $limit;
+            $baseProducts = $this->db->fetchCol($baseProductSql);
+            $skeletonSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='skeleton' AND o_parentId IN (" . implode(",", $baseProducts) . ")";
+            if (count($baseProducts)) {
+                $skeletonProducts = $this->db->fetchCol($skeletonSql);
+                echo "total skeleton products in this batch- (" . count($skeletonProducts) . ") " . date('m/d/Y h:i:s') . PHP_EOL;
+                $this->saveProducts($baseProducts, $skeletonProducts, 'skeleton');
+            }
+            $offset = $offset + $batchSize;
+        }
+    }
+
+    /**
+     * Update all fert products based on skeleton product modification
+     * @param $currentDate
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function fertProductUpdate($currentDate){
+        $batchSize = $this->batchSize;
+        $skeletonSql = " SELECT * FROM object_".$this->productClassId ." WHERE productType='skeleton' AND o_modificationDate >= ". $this->db->quote($currentDate);
+        $totalCount = count($this->db->fetchCol($skeletonSql));
+        echo "Total skeleton products- (".$totalCount. ") ".date('m/d/Y h:i:s') . PHP_EOL;
+        $offset = 0;
+        while($offset <= ( $totalCount - 1) ) {
+            $limit = " LIMIT " . $offset . ", " . $batchSize;
+            $skeletonProductSql = $skeletonSql . $limit;
+            $skeletonProducts = $this->db->fetchCol($skeletonProductSql);
+            if (count($skeletonProducts)) {
+                $fertSql = " SELECT oo_id as id FROM object_" . $this->productClassId . " WHERE productType='fert' AND o_parentId IN (" . implode(",", $skeletonProducts) . ")";
+                $fertProducts = $this->db->fetchCol($fertSql);
+                echo "total fert products in this batch- (" . count($fertProducts) . ") " . date('m/d/Y h:i:s') . PHP_EOL;
+                $this->saveProducts($skeletonProducts, $fertProducts, 'fert');
+            }
+            $offset = $offset + $batchSize;
         }
     }
 
@@ -565,20 +609,20 @@ class AppService
      */
     private function saveProducts(array $parentProducts, array $products, string $type){
         $offset = 0;
-        $batchSize =500;
+        $batchSize =$this->batchSize;
         $totalCount = count($products);
         while($offset <= ( $totalCount - 1) ){
             $sql = " SELECT oo_id as id FROM object_" . $this->productClassId ." WHERE productType=".$this->db->quote($type)." AND o_parentId IN (" . implode(",",$parentProducts) . ") LIMIT ".$offset.", ".$batchSize;
-                $results = $this->db->fetchCol($sql);
-                foreach ($results as $product){
-                    $cp =  Product::getById($product);
-                    try {
-                        $cp->save();
-                        echo "Product($type) saved for Id - $product " .date('h:i:s') . PHP_EOL;
-                    } catch (\Exception $e) {
-                        Logger::error("Exception: " . $e->getMessage());
-                    }
+            $results = $this->db->fetchCol($sql);
+            foreach ($results as $product){
+                $cp =  Product::getById($product);
+                try {
+                    $cp->save();
+                    echo "Product($type) saved for Id - $product " .date('h:i:s') . PHP_EOL;
+                } catch (\Exception $e) {
+                    Logger::error("Exception: " . $e->getMessage());
                 }
+            }
             $offset = $offset + $batchSize;
         }
     }

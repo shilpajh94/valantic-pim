@@ -6,6 +6,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Services\AppService;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -32,7 +33,8 @@ class ProductCompletenessCommand extends Command
     {
         $this
             ->setName('contitech:product_completeness')
-            ->setDescription('Get all modified base or skeleton products within-day and update their child products(fert) for data completeness.');
+            ->setDescription('Get all modified base or skeleton products within-day and update their child products(fert) for data completeness.')
+            ->addArgument('startDate', InputArgument::OPTIONAL, 'Enter Date(mm/dd/yyyy) if you want to execute command from specific date.');
     }
 
     /**
@@ -42,7 +44,8 @@ class ProductCompletenessCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->appService->updateProductDataCompleteness();
+        $date = $input->getArgument('startDate');
+        $this->appService->updateProductDataCompleteness($date);
     }
 
 }
