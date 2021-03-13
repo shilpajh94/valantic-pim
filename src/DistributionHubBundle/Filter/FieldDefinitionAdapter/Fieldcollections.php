@@ -9,6 +9,7 @@ use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Fieldcollection;
 use Pimcore\Db;
+use DistributionHubBundle\Lib\DHubLogger;
 
 class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterInterface
 {
@@ -23,7 +24,7 @@ class Fieldcollections extends DefaultAdapter implements FieldDefinitionAdapterI
      * @var Data\Fieldcollections
      */
     protected $fieldDefinition;
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'

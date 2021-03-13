@@ -160,7 +160,7 @@ class Multiselect extends Select implements FieldDefinitionAdapterInterface
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         $operator = $fieldFilter["operator"];
