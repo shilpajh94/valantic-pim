@@ -6,6 +6,8 @@ namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 use DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use Pimcore\DataObject\GridColumnConfig\Operator\AnyGetter;
+use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
 
@@ -30,13 +32,20 @@ class SelectTypeMasterGetter extends AbstractOperator
             return $result;
         } else {
             $c = $childs[0];
+            $fieldDefinition = null;
+            $value = null;
 
-            $customDefaultValue = new CustomDefaultValue($c);
-
-            $childResult = $customDefaultValue->getLabeledValue($element);
-
-            $fieldDefinition = $childResult->def;
-            $value = $childResult->value;
+            if($c instanceof DefaultValue){
+                $customDefaultValue = new CustomDefaultValue($c);
+                $childResult = $customDefaultValue->getLabeledValue($element);
+                $value = $childResult->value;
+                $fieldDefinition = $childResult->def;
+            }elseif ($c instanceof AnyGetter){
+                $customDefaultValue = $this->getCustomAnyGetter($c);
+                $childResult = $customDefaultValue->getLabeledValue($element);
+                $value = $childResult->value[0];
+                $fieldDefinition = $childResult->def;
+            }
 
             if($value !== null ){
                 if($fieldDefinition instanceof Select){
@@ -51,6 +60,25 @@ class SelectTypeMasterGetter extends AbstractOperator
         }
         $result->value = $value;
         return $result;
+    }
+
+    private function getCustomAnyGetter(AnyGetter $anyGetter)
+    {
+        $config = new \stdClass();
+
+        $refletionObject = new \ReflectionObject($anyGetter);
+        $anyGetterProperties = ['label','childs','attribute','param1','isArrayType','forwardAttribute',
+            'forwardParam1','returnLastResult'];
+        foreach ($anyGetterProperties as $property) {
+            $reflectionProperty = $refletionObject->getProperty($property);
+            $reflectionProperty->setAccessible(true);
+            $config->$property = $reflectionProperty->getValue($anyGetter);
+        }
+        $reflectionProperty = $refletionObject->getProperty('context');
+        $reflectionProperty->setAccessible(true);
+        $context = $reflectionProperty->getValue($anyGetter);
+
+        return new CustomAnyGetter($config,$context);
     }
 
     private function getValueForSelect($fieldDefinition, $value){
