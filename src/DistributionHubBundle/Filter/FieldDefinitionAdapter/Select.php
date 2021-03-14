@@ -158,7 +158,7 @@ class Select extends DefaultAdapter implements FieldDefinitionAdapterInterface
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         $operator = $fieldFilter["operator"];
