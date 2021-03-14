@@ -1124,9 +1124,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nn.title AS `Last Action Name`, \nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
+                "sql" => "SELECT\no1.`o_key` as `Key`,o1.`articleNumber` AS `Article Number`,\nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code`,\nn.title AS `Last Action Note`, \nCONCAT(DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)), ' DAYS') AS 'Pending Since',\nFROM_UNIXTIME(n.`date`) AS `Last Action Date`, \no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
                 "from" => "FROM notes n\nINNER JOIN\n(\n    SELECT `cid`, MAX(id) AS noteId\n    FROM notes\n    GROUP BY `cid`\n) n1 ON n.`cid` = n1.`cid` AND n.id = n1.noteId\nJOIN element_workflow_state e ON e.cid = n.cid \nLEFT JOIN object_1 o1 ON o1.oo_id = n.cid \nLEFT JOIN `object_localized_query_1_en` `en` ON `en`.`ooo_id` = `o1`.`o_id` \nLEFT JOIN object_localized_query_2_en cat1 ON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2)) \nLEFT JOIN object_localized_query_2_en cat2 ON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2)) \nLEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \nLEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) \nLEFT JOIN object_localized_query_2_en cat5 ON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2)) \nLEFT JOIN object_localized_query_2_en cat6 ON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) ",
-                "where" => "WHERE (o1.`o_published` =1) AND ((e.place = 'review_content' ) OR (e.place = 'enrich' ))\nAND DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) > 5",
+                "where" => "WHERE (o1.`o_published` =1) AND (e.place = 'review_content' )\nAND DATEDIFF(NOW(), FROM_UNIXTIME(n.`date`)) > 5",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -1139,8 +1139,8 @@ return [
                 "order" => TRUE,
                 "width" => 300,
                 "label" => "",
-                "id" => "extModel2607-12",
-                "filter" => "string"
+                "filter" => "string",
+                "id" => "extModel408-1"
             ],
             [
                 "name" => "Article Number",
@@ -1150,7 +1150,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-1"
+                "id" => "extModel408-2"
             ],
             [
                 "name" => "SAP Description",
@@ -1160,7 +1160,7 @@ return [
                 "width" => 250,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-2"
+                "id" => "extModel408-3"
             ],
             [
                 "name" => "SIOP Full Code",
@@ -1170,7 +1170,7 @@ return [
                 "width" => 130,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-3"
+                "id" => "extModel408-4"
             ],
             [
                 "name" => "Last Action Date",
@@ -1179,17 +1179,17 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel2522-4"
+                "id" => "extModel408-5"
             ],
             [
-                "name" => "Last Action Name",
+                "name" => "Last Action Note",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => 150,
+                "width" => "",
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel2522-5"
+                "id" => "extModel408-16",
+                "filter" => "string"
             ],
             [
                 "name" => "Pending Since",
@@ -1199,7 +1199,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-6"
+                "id" => "extModel408-7"
             ],
             [
                 "name" => "Product Type",
@@ -1209,7 +1209,7 @@ return [
                 "width" => 100,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-7"
+                "id" => "extModel408-8"
             ],
             [
                 "name" => "SIOP Level 1",
@@ -1219,7 +1219,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-8"
+                "id" => "extModel408-9"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1229,7 +1229,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-9"
+                "id" => "extModel408-10"
             ],
             [
                 "name" => "SIOP Level 3",
@@ -1239,7 +1239,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-10"
+                "id" => "extModel408-11"
             ],
             [
                 "name" => "SIOP Level 4",
@@ -1249,7 +1249,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-11"
+                "id" => "extModel408-12"
             ],
             [
                 "name" => "SIOP Level 5",
@@ -1259,7 +1259,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-12"
+                "id" => "extModel408-13"
             ],
             [
                 "name" => "SIOP Level 6",
@@ -1269,7 +1269,7 @@ return [
                 "width" => 180,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2522-13"
+                "id" => "extModel408-14"
             ],
             [
                 "name" => "o_id",
@@ -1280,7 +1280,7 @@ return [
                 "label" => "Object ID",
                 "filter" => "string",
                 "columnAction" => "openObject",
-                "id" => "extModel2522-14"
+                "id" => "extModel408-15"
             ]
         ],
         "niceName" => "Workflow Pending Products",
@@ -1296,7 +1296,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1607404224,
+        "modificationDate" => 1615715453,
         "creationDate" => 1606838413,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -1448,7 +1448,7 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 8 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 8 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION \n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 7 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 7 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 6 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 6 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 5 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 5 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 4 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 4 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 3 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 3 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 2 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 2 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 1 Month)AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 1 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE())AS `month`, IF(Count(*),Count(*),0) AS `count`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE()) \nGROUP BY o1.`BusinessUnit`, cat2.`description`",
+                "sql" => "SELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 8 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 8 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION \n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 7 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 7 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 6 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 6 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 5 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 5 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 4 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 4 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 3 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 3 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 2 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 2 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE() - INTERVAL 1 Month)AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE() - INTERVAL 1 Month) \nGROUP BY o1.`BusinessUnit`,cat2.`description`\n\nUNION\n\nSELECT o1.`BusinessUnit`,cat2.`description` AS `SIOP Level 2`,MONTHNAME(CURDATE())AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`\nFROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat2 \nON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nWHERE MONTH(FROM_UNIXTIME(o1.`o_creationDate`)) = MONTH(CURDATE()) \nGROUP BY o1.`BusinessUnit`, cat2.`description`",
                 "from" => "",
                 "where" => "",
                 "groupby" => "",
@@ -1461,10 +1461,10 @@ return [
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => 400,
+                "width" => 200,
                 "label" => "",
-                "id" => "extModel537-5",
-                "filter" => "string"
+                "filter" => "string",
+                "id" => "extModel414-3"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1473,28 +1473,28 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "id" => "extModel537-7",
-                "filter" => "string"
+                "filter" => "string",
+                "id" => "extModel414-4"
             ],
             [
-                "name" => "month",
+                "name" => "Month",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => 400,
+                "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel537-3"
+                "id" => "extModel414-5"
             ],
             [
-                "name" => "count",
+                "name" => "# of SKUs",
                 "display" => TRUE,
                 "export" => TRUE,
                 "order" => TRUE,
-                "width" => "",
+                "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel537-4"
+                "id" => "extModel414-6"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -1506,11 +1506,11 @@ return [
         "chartType" => "bar",
         "pieColumn" => NULL,
         "pieLabelColumn" => NULL,
-        "xAxis" => "month",
+        "xAxis" => "Month",
         "yAxis" => [
-            "count"
+            "# of SKUs"
         ],
-        "modificationDate" => 1615242018,
+        "modificationDate" => 1615487332,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
