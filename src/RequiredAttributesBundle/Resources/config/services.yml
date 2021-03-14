@@ -32,7 +32,7 @@ services:
 
     RequiredAttributesBundle\EventListeners\ProductListener:
         tags:
-            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate , priority: -10}
 
     RequiredAttributesBundle\Services\CustomizationService:
         public: true
