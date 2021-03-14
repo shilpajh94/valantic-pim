@@ -214,68 +214,79 @@ localized:
         type: 'wysiwyg'
         label: 'Marketing / Long Description'
 
-
 object_bricks:
     Base:
         label: 'Base Data'
         brick_items:
-            HoseBase:
-                label: 'Hose (6 Digit)'
+            PTGBase:
+                label: 'PTG Base'
                 non_localized:
-                    tubeMaterial:
+                    material:
                         type: 'multiselect'
-                        label: 'Tube Material'
-                    tubeCharacteristic:
-                        type: 'multiselect'
-                        label: 'Tube Characteristic'
-                    tubeColor:
-                        type: 'multiselect'
-                        label: 'Tube Color'
-                    coverMaterial:
-                        type: 'multiselect'
-                        label: 'Cover Material'
-                    coverCharacteristic:
-                        type: 'multiselect'
-                        label: 'Cover Characteristic'
-                    coverColor:
-                        type: 'multiselect'
-                        label: 'Cover Color'
-                    Packaging:
-                        type: 'input'
-                        label: 'Packaging'
+                        label: 'Material'
 
     Skeleton:
         label: 'Skeleton Data'
         brick_items:
-            HoseSkeleton:
-                label: 'Hose (9 Digit)'
+            PTGSkeleton:
+                label: 'PTG Skeleton'
                 non_localized:
-                    hoseIdMM:
-                        type: 'numeric'
-                        label: 'Hose ID (mm) Actual ID'
-                    hoseOdmm:
-                        type: 'numeric'
-                        label: 'Hose OD (mm)'
-                    BendRadiusIN:
-                        type: 'numeric'
-                        label: 'BendRadius (in)'
-                    HoseIDNominalIDFrac:
+                    profile:
                         type: 'input'
-                        label: 'Hose ID (in Fract) Nominal ID'
-                    hoseDashSize:
-                        type: 'numeric'
-                        label: 'Hose Dash Size'
+                        label: 'Profile'
+                    staticConductive:
+                        type: 'input'
+                        label: 'Static Conductive'
+                    heatOilResistant:
+                        type: 'input'
+                        label: 'Heat & Oil Resistant'
+
 
     Fert:
         label: 'Fert Data'
         brick_items:
-            HoseFert:
-                label: 'Hose (14 Digit)'
+            PTGFert:
+                label: 'PTG Fert'
                 non_localized:
-                    hoseLengthFT:
+                    widthmm:
                         type: 'numeric'
-                        label: 'Hose Length (ft)'
-                    descriptive:
-                        type: 'input'
-                        label: 'Descriptive #'
-
+                        label: 'Width (mm)'
+                    widthIn:
+                        type: 'numeric'
+                        label: 'Width (in)'
+            BeltsFert:
+                label: 'Belts Fert'
+                non_localized:
+                    effectiveLengthUOM:
+                        type: 'select'
+                        label: 'Effective Length UOM'
+                    numberOfBands:
+                        type: 'numeric'
+                        label: 'Number of Bands'
+                    productEffectiveLengthIn:
+                        type: 'numeric'
+                        label: 'Product Effective Length (In)'
+                    productEffectiveLengthMM:
+                        type: 'numeric'
+                        label: 'Product Effective Length (MM)'
+            SynchronousFert:
+                label: 'Synchronous Fert'
+                non_localized:
+                    pitchUOM:
+                        type: 'select'
+                        label: 'Pitch UOM'
+                    pitchIN:
+                        type: 'numeric'
+                        label: 'Pitch (in)'
+                    pitchMM:
+                        type: 'numeric'
+                        label: 'Pitch (MM)'
+                    pitchLengthUOM:
+                        type: 'select'
+                        label: 'Pitch Length UOM'
+                    pitchLengthIN:
+                        type: 'numeric'
+                        label: 'Pitch Length (in)'
+                    pitchLengthMM:
+                        type: 'numeric'
+                        label: 'Pitch Length (MM)'
