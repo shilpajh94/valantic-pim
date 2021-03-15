@@ -1610,7 +1610,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1450-3"
+                "id" => "extModel294-3"
             ],
             [
                 "name" => "Status",
@@ -1620,10 +1620,10 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1450-4"
+                "id" => "extModel294-4"
             ]
         ],
-        "niceName" => "Chart - SKUs Under Review",
+        "niceName" => "Chart - SKUs Workflow Status",
         "group" => "",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -1636,7 +1636,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1615441276,
+        "modificationDate" => 1615792328,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
