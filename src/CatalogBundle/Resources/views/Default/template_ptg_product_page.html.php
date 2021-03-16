@@ -159,10 +159,13 @@ if($groupData):
                                 <span class="imageHolder">
                                 <?php
                                 if($this->editmode){
-                                        echo $this->image("HHPP_Image_Left", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
-                                }else{
                                         if(!$this->image("HHPP_Image_Left")->isEmpty())
-                                                $imgSrcObj1 = $this->image("HHPP_Image_Left");
+                                                echo $this->image("HHPP_Image_Left", ["width" => 400, "height" => 200]);
+                                        else
+                                                echo $this->image("HHPP_Image_Left", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
+                                }else{
+                                        // if(!$this->image("HHPP_Image_Left")->isEmpty())
+                                        $imgSrcObj1 = $this->image("HHPP_Image_Left");
 
                                         if($imgSrcObj1)
                                         {
@@ -175,10 +178,13 @@ if($groupData):
 
                                 <?php
                                 if($this->editmode){
+                                        if(!$this->image("Drawing_Picture")->isEmpty())
+                                                echo $this->image("Drawing_Picture",["width" => 400, "height" => 200]);
+                                        else
                                         echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                 }else{
-                                        if(!$this->image("Drawing_Picture")->isEmpty())
-                                                $imgSrcObj2 = $this->image("Drawing_Picture");
+                                        // if(!$this->image("Drawing_Picture")->isEmpty())
+                                        $imgSrcObj2 = $this->image("Drawing_Picture");
 
                                         if($imgSrcObj2)
                                         {
