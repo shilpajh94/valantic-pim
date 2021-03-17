@@ -1117,6 +1117,7 @@ if(isset($data[$baseId])) {
                         array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
 
                     $catalogGroupData[$catalogKey] = $data;
+                    unset($data);
                 }
                 
                 //unset($this->featuresList);
@@ -1719,6 +1720,7 @@ if(isset($data[$baseId])) {
                         array_multisort (array_column($data, 'SortOrder'), SORT_ASC, $data);
 
                     $catalogGroupData[$catalogKey] = $data;
+                    unset($data);
                 }
 
             }

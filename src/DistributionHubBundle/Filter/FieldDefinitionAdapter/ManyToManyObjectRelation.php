@@ -5,6 +5,7 @@ namespace DistributionHubBundle\Filter\FieldDefinitionAdapter;
 use DistributionHubBundle\Filter\FieldSelectionInformation;
 use DistributionHubBundle\Filter\FilterEntry;
 use Pimcore\Model\DataObject\AbstractObject;
+use DistributionHubBundle\Lib\DHubLogger;
 
 class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinitionAdapterInterface
 {
@@ -86,15 +87,17 @@ class ManyToManyObjectRelation extends ManyToOneRelation implements FieldDefinit
                     $relatedConditions = array();
                     if (!empty($relationFieldConditions)) {
                         foreach ($relationFieldConditions as $cond) {
-                            if ($cond['0'] && isset($cond['0']['ooo_id'])) {
-                                $relatedConditions[] = $cond['0']['ooo_id'];
-                                $relObjects = null;
-                            } else {
-                                $relatedConditions[] = $cond['0'];
-                                $relClassList->setCondition(implode(" OR ", $relatedConditions));
+                            if($cond['0'] !== null){
+                                if ($cond['0'] && isset($cond['0']['ooo_id'])) {
+                                    $relatedConditions[] = $cond['0']['ooo_id'];
+                                    $relObjects = null;
+                                } else {
+                                    $relatedConditions[] = $cond['0'];
+                                    $relClassList->setCondition(implode(" OR ", $relatedConditions));
 
-                                $relClassList->load();
-                                $relObjects = $relClassList->getObjects();
+                                    $relClassList->load();
+                                    $relObjects = $relClassList->getObjects();
+                                }
                             }
                         }
                     }

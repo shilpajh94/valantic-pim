@@ -5,6 +5,7 @@ namespace DistributionHubBundle\Filter\FieldDefinitionAdapter;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Concrete;
 use Carbon\Carbon;
+use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\Db;
 
 class Datetime extends Numeric implements FieldDefinitionAdapterInterface
@@ -203,7 +204,7 @@ class Datetime extends Numeric implements FieldDefinitionAdapterInterface
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         if (is_array($fieldFilter['filterEntryData'])) {

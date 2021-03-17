@@ -23,7 +23,7 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
      * @var Data\Objectbricks
      */
     protected $fieldDefinition;
-    
+
     /**
      * Get query based on applied filter, use pimcore addConditionParams() method
      * $key, $value = null, $concatenator = 'AND'
@@ -45,9 +45,9 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
         $fieldName = $filterCondition['fieldname'];
         $collectionDefinition = \Pimcore\Model\DataObject\Objectbrick\Definition::getByKey($fieldCollectionType);
         $conditionParams = array();
-        
+
         $collFieldDefinition = $collectionDefinition->getFieldDefinition($fieldName);
-        
+
         $fieldDefinitionAdapter = $this->service->getFieldDefinitionAdapter($collFieldDefinition, false);
         try {
             if ($collFieldDefinition->getFieldtype() === "localizedfields") {
@@ -96,6 +96,20 @@ class Objectbricks extends DefaultAdapter implements FieldDefinitionAdapterInter
             DHubLogger::log("Issue in ".__METHOD__." Exception - ". $ex->getMessage(), DHubLogger::ERROR);
             throw new \Exception("Applied Filter for - ObjectBrick is currently not supported. Please contact the administrator");
         }
+    }
+
+    /**
+     * Get Relational data query based on applied filter
+     *
+     * @param array [$fieldName, $value, $lang, $operator]
+     *
+     * @return $conditonParams
+     */
+    public function getRelatedFilterData($fieldFilter,$selectedFieldType, $relClassList)
+    {
+        $filterEntryObject = $this->service->buildFilterEntryObject($fieldFilter);
+        $queryPart =  $this->getQueryPart($filterEntryObject,$selectedFieldType,$relClassList);
+        return [$queryPart['key']];
     }
 
     /**
