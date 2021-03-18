@@ -1652,10 +1652,10 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT t.SIOPLevel3, t.SIOPLevel4, count(t.`Key`) AS `# of SKUs`,\ncase \n   when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20'\n   when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40'\n   when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60'\nwhen t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80'\n   else '81-100' \n   end as `Incompleteness Percentage`",
-                "from" => "FROM (SELECT \no1.`o_id`,\no1.`o_key` as `Key`,\ncat3.`description` AS `SIOPLevel3`,\ncat4.`description` AS `SIOPLevel4`,\n((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+\nIF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+\nIF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) +\nIF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) +\nIF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) +\nIF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) +\nIF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) +\nIF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) +\nIF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) +\nIF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) +\nIF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) +\nIF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+\nIF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) +\nIF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) +\nIF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+\nIF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+\nIF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) +\nIF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) +\nIF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) +\nIF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage\n\n\nFROM object_1 o1 \n\nLEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\n\nWHERE (o1.`o_published` =1) \nAND (\no1.`SIOPLevel2` IS NULL \nOR o1.`SIOPLevel2` = \"\" \nOR o1.`SIOPLevel3` IS NULL \nOR o1.`SIOPLevel3` = \"\" \nOR o1.`SIOPLevel4` IS NULL \nOR o1.`SIOPLevel4` = \"\" \nOR o1.`eanUpc` IS NULL \nOR o1.`eanUpc` = \"\" \nOR o1.`webDiscription` IS NULL \nOR o1.`webDiscription` = \"\" \nOR o1.`searchKeywords` IS NULL \nOR o1.`searchKeywords` = \"\" \nOR `en`.`longDescription` IS NULL \nOR `en`.`longDescription` = \"\" \nOR `en`.`FeaturesBenefitsBulletPoint` = \"\" \nOR `en`.`FeaturesBenefitsBulletPoint` IS NULL\nOR o1.`proposition65WarningAttributesRequired` IS NULL \nOR o1.`proposition65WarningAttributesRequired` = \"\" \nOR o1.`packageLengthIN` IS NULL \nOR o1.`packageLengthIN` = \"\" \nOR o1.`packageWidthIN` IS NULL \nOR o1.`packageWidthIN` = \"\" \nOR o1.`packageHeightIN` IS NULL \nOR o1.`packageHeightIN` = \"\" \nOR o1.`packageWeightLBS` IS NULL \nOR o1.`packageWeightLBS` = \"\" \nOR o1.`caseLengthIN` IS NULL \nOR o1.`caseLengthIN` = \"\" \nOR o1.`caseHeightIN` IS NULL \nOR o1.`caseHeightIN` = \"\" \nOR o1.`caseWidthIN` IS NULL \nOR o1.`caseWidthIN` = \"\" \nOR o1.`caseWeightLBS` IS NULL \nOR o1.`caseWeightLBS` = \"\" )) AS t",
+                "sql" => "SELECT t2.SIOPLevel3, t2.SIOPLevel4, SUM(t2.SKUsCount) AS `# of SKUs`, t2.healthCheck as `Incompleteness Percentage` ",
+                "from" => "FROM (SELECT t.SIOPLevel3, t.SIOPLevel4, count(t.`Key`) AS `SKUsCount`, case when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20' when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40' when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60' when t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80' else '81-100' end AS healthCheck FROM (SELECT o1.`o_id`, o1.`o_key` as `Key`, cat3.`description` AS `SIOPLevel3`, cat4.`description` AS `SIOPLevel4`, ((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+ IF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+ IF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) + IF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) + IF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) + IF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) + IF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) + IF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) + IF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) + IF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) + IF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) + IF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+ IF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) + IF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) + IF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+ IF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+ IF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) + IF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) + IF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) + IF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage FROM object_1 o1 LEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id` LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) WHERE (o1.`o_published` =1) AND ( o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\" OR o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\" OR o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\" OR o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\" OR o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\" OR o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\" OR `en`.`longDescription` IS NULL OR `en`.`longDescription` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` IS NULL OR o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\" OR o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\" OR o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\" OR o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\" OR o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\" OR o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\" OR o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\" OR o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\" OR o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\" )) AS t GROUP BY t.SIOPLevel3, t.SIOPLevel4, t.healthCheckPercentage) AS t2",
                 "where" => "",
-                "groupby" => "t.SIOPLevel3, t.SIOPLevel4, t.healthCheckPercentage",
+                "groupby" => " \nGROUP BY t2.SIOPLevel3, t2.SIOPLevel4, t2.healthCheck",
                 "type" => "sql"
             ]
         ],
@@ -1667,8 +1667,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "id" => "extModel316-8",
-                "filter" => "string"
+                "filter" => "string",
+                "id" => "extModel316-5"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -1678,7 +1678,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel316-5"
+                "id" => "extModel316-6"
             ],
             [
                 "name" => "# of SKUs",
@@ -1688,7 +1688,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel316-6"
+                "id" => "extModel316-7"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -1697,8 +1697,8 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "id" => "extModel316-9",
-                "filter" => "string"
+                "filter" => "string",
+                "id" => "extModel316-8"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -1714,7 +1714,7 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1615436789,
+        "modificationDate" => 1615956937,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
