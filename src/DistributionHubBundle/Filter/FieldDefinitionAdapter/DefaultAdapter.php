@@ -211,7 +211,7 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface
      *
      * @return $conditonParams
      */
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         $operator = $fieldFilter["operator"];
@@ -270,6 +270,12 @@ class DefaultAdapter implements FieldDefinitionAdapterInterface
                 break;
             case $operator === self::DHUB_OPERATOR_NOT_EXISTS:
                 $conditon = " `" . $fieldName . "`  IS NULL ";
+                break;
+            case $operator === "true":
+                $conditon = " `" . $fieldName . "`  = 1 ";
+                break;
+            case $operator === "false":
+                $conditon = " `" . $fieldName . "`  = -1 ";
                 break;
         }
 

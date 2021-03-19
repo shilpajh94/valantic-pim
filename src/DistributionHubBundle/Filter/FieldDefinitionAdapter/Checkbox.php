@@ -6,6 +6,7 @@ use DistributionHubBundle\Filter\FieldSelectionInformation;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Concrete;
 use DistributionHubBundle\Filter\FilterEntry;
+use DistributionHubBundle\Lib\DHubLogger;
 use Pimcore\Db;
 
 class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
@@ -110,7 +111,7 @@ class Checkbox extends DefaultAdapter implements FieldDefinitionAdapterInterface
         }
     }
 
-    public function getRelatedFilterData($fieldFilter)
+    public function getRelatedFilterData($fieldFilter, $selectedFieldType, $relClassList)
     {
 
         $value = $fieldFilter["filterEntryData"];
