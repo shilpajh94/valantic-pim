@@ -13,69 +13,69 @@ class ClearChildBrickDataWhenEqualToParentCommand extends Command
     const HoseSkeleton_BRICK_ATTRIBUTES = [
         'tubeGaugeMM',
         'hoseDashSize',
-//        'hoseIdDec',
-//        'hoseIdMM',
-//        'hoseOdIn',
-//        'hoseOdmm',
-//        'workingPressurePSI',
-//        'workingPressureMPA',
-//        'workingPressureBAR',
-//        'minBurstPressurePSI',
-//        'minBurstPressurempa',
-//        'BendRadiusIN',
-//        'BendRadiusMM',
-//        'VacuumIN',
-//        'VacuumMM',
-//        'tubeGaugeIN',
-//        'HoseIDNominalIDFrac',
-//        'InnerHoseIdDec',
-//        'InnerHoseOdInDec',
-//        'InnerHoseIDFractional',
-//        'InnerHoseIdMM',
-//        'InnerHoseOdMM',
-//        'HoseFittingFamily'
+        'hoseIdDec',
+        'hoseIdMM',
+        'hoseOdIn',
+        'hoseOdmm',
+        'workingPressurePSI',
+        'workingPressureMPA',
+        'workingPressureBAR',
+        'minBurstPressurePSI',
+        'minBurstPressurempa',
+        'BendRadiusIN',
+        'BendRadiusMM',
+        'VacuumIN',
+        'VacuumMM',
+        'tubeGaugeIN',
+        'HoseIDNominalIDFrac',
+        'InnerHoseIdDec',
+        'InnerHoseOdInDec',
+        'InnerHoseIDFractional',
+        'InnerHoseIdMM',
+        'InnerHoseOdMM',
+        'HoseFittingFamily'
     ];
 
     const PTGSkeleton_BRICK_ATTRIBUTES = [
         'profile',
-//        'beltAngle',
-//        'staticConductive',
-//        'heatOilResistant',
-//        'heightIn',
-//        'heightMm'
+        'beltAngle',
+        'staticConductive',
+        'heatOilResistant',
+        'heightIn',
+        'heightMm'
     ];
 
     const HoseBase_BRICK_ATTRIBUTES = [
-//        'staticWire',
-//        'numberOfHelixWires',
-//        'numberOfPlies',
-//        'tubeMaterial',
-//        'tubeCharacteristic',
-//        'tubeColor',
-//        'StandardMetCover',
-//        'standardMetHose',
-//        'coverMaterial',
-//        'coverCharacteristic',
-//        'coverColor',
-//        'agencyCompliance',
-//        'safetyFactor',
-//        'acceptableHoseMedia',
-//        'StandardMetTube',
-//        'Coupling',
-//        'Packaging',
-//        'VirtualCatalogTubeMaterial',
-//        'VirtualCatalogCoverMaterial',
-//        'standardMetHoseComment',
-//        'LayFlatHoseYN',
-//        'NonStockSizes',
-//        'HelicalWireYN',
+        'staticWire',
+        'numberOfHelixWires',
+        'numberOfPlies',
+        'tubeMaterial',
+        'tubeCharacteristic',
+        'tubeColor',
+        'StandardMetCover',
+        'standardMetHose',
+        'coverMaterial',
+        'coverCharacteristic',
+        'coverColor',
+        'agencyCompliance',
+        'safetyFactor',
+        'acceptableHoseMedia',
+        'StandardMetTube',
+        'Coupling',
+        'Packaging',
+        'VirtualCatalogTubeMaterial',
+        'VirtualCatalogCoverMaterial',
+        'standardMetHoseComment',
+        'LayFlatHoseYN',
+        'NonStockSizes',
+        'HelicalWireYN',
         'IFSApplications',
-//        'staticWireType',
+        'staticWireType',
     ];
 
     const PTGBase_BRICK_ATTRIBUTES = [
         'material',
-//        'PTGApplications'
+        'PTGApplications'
     ];
 
     private $db;
@@ -95,17 +95,17 @@ class ClearChildBrickDataWhenEqualToParentCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-//        $this->requestToClearData("HoseSkeleton", self::HoseSkeleton_BRICK_ATTRIBUTES, 'fert');
-//
-//        $this->requestToClearData("PTGSkeleton",self::PTGSkeleton_BRICK_ATTRIBUTES,'fert');
-//
+        $this->requestToClearData("HoseSkeleton", self::HoseSkeleton_BRICK_ATTRIBUTES, 'fert');
+
+        $this->requestToClearData("PTGSkeleton",self::PTGSkeleton_BRICK_ATTRIBUTES,'fert');
+
         $this->requestToClearData("HoseBase",self::HoseBase_BRICK_ATTRIBUTES,'fert');
-//
+
         $this->requestToClearData("HoseBase",self::HoseBase_BRICK_ATTRIBUTES,'skeleton');
-//
-//        $this->requestToClearData("PTGBase",self::PTGBase_BRICK_ATTRIBUTES,'fert');
-//
-//        $this->requestToClearData("PTGBase",self::PTGBase_BRICK_ATTRIBUTES,'skeleton');
+
+        $this->requestToClearData("PTGBase",self::PTGBase_BRICK_ATTRIBUTES,'fert');
+
+        $this->requestToClearData("PTGBase",self::PTGBase_BRICK_ATTRIBUTES,'skeleton');
 
     }
 
