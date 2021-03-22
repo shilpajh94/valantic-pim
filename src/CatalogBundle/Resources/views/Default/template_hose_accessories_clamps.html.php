@@ -217,10 +217,10 @@ foreach($data as $md5Key => $brand):
 
                 <?php
                 if ($this->editmode) {
-                        if(!$this->image("HHAC_Image_{$md5key}")->isEmpty())
-                                echo $this->image("HHAC_Image_{$md5key}",["width" => 200, "height" => 200]);
+                        if(!$this->image("HHAC_Image_{$md5Key}")->isEmpty())
+                                echo $this->image("HHAC_Image_{$md5Key}",["width" => 200, "height" => 200]);
                         else
-                                echo $this->image("HHAC_Image_{$md5key}", ["width" => 200, "height" => 200])->brand($brandData['imageObj']);
+                                echo $this->image("HHAC_Image_{$md5Key}", ["width" => 200, "height" => 200])->setImage($brand['imageObj']);
                 } else {
                         // if(!$this->image("HHAC_Image_{$md5Key}")->isEmpty())
                         $imgSrcObj =  $this->image("HHAC_Image_{$md5Key}");
