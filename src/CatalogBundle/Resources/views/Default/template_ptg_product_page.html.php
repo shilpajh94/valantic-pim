@@ -227,7 +227,7 @@ if($groupData):
                                         if(!$this->image("Drawing_Picture")->isEmpty())
                                                 echo $this->image("Drawing_Picture",["width" => 400, "height" => 200]);
                                         else
-                                        echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
+                                                echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                 }else{
                                         // if(!$this->image("Drawing_Picture")->isEmpty())
                                         $imgSrcObj2 = $this->image("Drawing_Picture");

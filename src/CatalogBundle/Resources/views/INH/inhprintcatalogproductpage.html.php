@@ -175,7 +175,10 @@ if (isset($info['brandsData'])) {
                                         </div>
                                         <?php
                                         if ($this->editmode) {
-                                            echo $this->image("INH_MAIN_IMAGE_{$uniqueId}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
+                                            if(!$this->image("INH_MAIN_IMAGE_{$uniqueId}")->isEmpty())
+                                                    echo $this->image("INH_MAIN_IMAGE_{$uniqueId}",['width' => 1067, 'height' => 128]);
+                                            else
+                                                    echo $this->image("INH_MAIN_IMAGE_{$uniqueId}", ['width' => 1067, 'height' => 128])->setImage($brand['brandData']['mainImage']);
                                         } else {
                                             if(!$this->image("INH_MAIN_IMAGE_{$uniqueId}")->isEmpty())
                                                 $imgSrcObj = $this->image("INH_MAIN_IMAGE_{$uniqueId}");

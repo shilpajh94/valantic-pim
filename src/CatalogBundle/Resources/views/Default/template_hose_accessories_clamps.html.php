@@ -145,11 +145,17 @@ foreach($data as $md5Key => $brand):
            <?php if(!$onlyOneTitle): ?>
                 <h2>
                 <?php
-                if ($this->input("HHAC_Heading")->isEmpty()) {
-                        echo $this->input("HHAC_Heading")->setDataFromResource("Hose Accessories");
-                } else {
+
+                if($this->editmode): 
+                        if($this->input("HHAC_Heading")->isEmpty()): 
+                        echo $this->input("HHAC_Heading")->setDataFromResource("Hose Accessories"); 
+                        else: 
+                        echo $this->input("HHAC_Heading"); 
+                        endif; 
+                else:
                         echo $this->input("HHAC_Heading");
-                }
+                endif; 
+
                 ?>
                 </h2>
 
@@ -160,13 +166,33 @@ foreach($data as $md5Key => $brand):
 
                 <h3 class="contitech-yellow">
                 <?php
-                        echo $this->input("HHAC_BrandName_{$md5Key}")->setDataFromResource($brand['brandName']);
+
+                        if($this->editmode): 
+                                if($this->input("HHAC_BrandName_{$md5Key}")->isEmpty()): 
+                                echo $this->input("HHAC_BrandName_{$md5Key}")->setDataFromResource($brand['brandName']); 
+                                else: 
+                                echo $this->input("HHAC_BrandName_{$md5Key}"); 
+                                endif; 
+                        else:
+                                echo $this->input("HHAC_BrandName_{$md5Key}");
+                        endif; 
+
                 ?>
                 </h3>
 
                 <span>
                 <?php
-                        echo $this->wysiwyg("HHAC_LongDescription_{$md5Key}")->setDataFromResource($brand['longDescription']);
+                       
+                if($this->editmode): 
+                        if($this->wysiwyg("HHAC_LongDescription_{$md5Key}")->isEmpty()): 
+                        echo $this->wysiwyg("HHAC_LongDescription_{$md5Key}")->setDataFromResource($brand['longDescription']); 
+                        else: 
+                        echo $this->wysiwyg("HHAC_LongDescription_{$md5Key}"); 
+                        endif; 
+                else:
+                        echo $this->wysiwyg("HHAC_LongDescription_{$md5Key}");
+                endif; 
+
                 ?>
                 </span>
                 <?php if(!empty(trim($brand['materialString']))): ?>
@@ -191,10 +217,13 @@ foreach($data as $md5Key => $brand):
 
                 <?php
                 if ($this->editmode) {
-                echo $this->image("HHAC_Image_{$md5Key}", ["width" => 200, "height" => 200])->setImage($brand['imageObj']);
+                        if(!$this->image("HHAC_Image_{$md5key}")->isEmpty())
+                                echo $this->image("HHAC_Image_{$md5key}",["width" => 200, "height" => 200]);
+                        else
+                                echo $this->image("HHAC_Image_{$md5key}", ["width" => 200, "height" => 200])->brand($brandData['imageObj']);
                 } else {
-                        if(!$this->image("HHAC_Image_{$md5Key}")->isEmpty())
-                                $imgSrcObj =  $this->image("HHAC_Image_{$md5Key}");
+                        // if(!$this->image("HHAC_Image_{$md5Key}")->isEmpty())
+                        $imgSrcObj =  $this->image("HHAC_Image_{$md5Key}");
 
                         if($imgSrcObj)
                         {
