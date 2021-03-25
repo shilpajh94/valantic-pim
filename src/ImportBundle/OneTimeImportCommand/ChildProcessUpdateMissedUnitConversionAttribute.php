@@ -70,7 +70,7 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
 
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-//        $productListing->setCondition("o_id IN (3833090)");
+        $productListing->setCondition("o_id IN (1840426)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
@@ -84,12 +84,14 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
             $status = "NA";
             $msg = "";
 
-            $productWeightResult = $this->updateProductWeight($product);
-//            $hoseResult = $this->updateHoseSkeleton($product);
-//            $inhResult = $this->updateINHFittingFert($product);
-//            $hydFittingFertResult = $this->updateHydFittingFert($product);
+            $productUpdated = false;
 
-            if ($productWeightResult) {
+            $productUpdated = ($this->updateAccessoriesFert($product) || $productUpdated);
+            $productUpdated = ($this->updateHoseFert($product) || $productUpdated);
+            $productUpdated = ($this->updateHoseSkeleton($product) || $productUpdated);
+            $productUpdated = ($this->updateHydFittingFert($product) || $productUpdated);
+
+            if ($productUpdated) {
                 try {
                     $product->save();
                     $updateCount++;
@@ -117,17 +119,34 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
         fclose($csvLogFileHandle);
     }
 
-    private function updateINHFittingFert(DataObject\Product $product)
+    private function updateHoseFert(DataObject\Product $product)
     {
         $isProductUpdated = false;
-        if ($product->getFert() && $product->getFert()->getINHFittingsFert()) {
-            $inhFittingsFert = $product->getFert()->getINHFittingsFert();
-            $maxODIN = $inhFittingsFert->getMaximumODIN();
-            $this->appService->updateAttributeGroup($inhFittingsFert, 'MaximumODIN', $maxODIN);
+        if($product->getProductType() === "fert" && $product->getFert() && $product->getFert()->getHoseFert() ){
+            $hoseFert = $product->getFert()->getHoseFert();
 
-            $overAllLengthIN = $inhFittingsFert->getOverallLengthInches();
-            $this->appService->updateAttributeGroup($inhFittingsFert, 'OverallLengthInches', $overAllLengthIN);
-            $isProductUpdated = true;
+            $isProductUpdated =  $this->updateUnitFor2Attributes($hoseFert, 'hoseLengthFT','hoseLengthM');
+        }
+        return $isProductUpdated;
+    }
+
+    private function updateAccessoriesFert(DataObject\Product $product)
+    {
+        $isProductUpdated = false;
+        if($product->getProductType() === "fert" && $product->getFert() && $product->getFert()->getAccessoriesFert() ){
+            $accFert = $product->getFert()->getAccessoriesFert();
+            $workingPressurePSI = $accFert->getAccessoriesWorkingPressurePSI();
+            $workingPressureBAR = $accFert->getAccessoriesWorkingPressureBAR();
+            $workingPressureMPA = $accFert->getAccessoriesWorkingPressureMPA();
+
+            if(
+                $this->isEmpty($workingPressureBAR) &&
+                $this->isEmpty($workingPressureMPA) &&
+                !$this->isEmpty($workingPressurePSI)
+            ){
+                $this->appService->updateAttributeGroup($accFert, 'AccessoriesWorkingPressurePSI', $workingPressurePSI);
+                $isProductUpdated = true;
+            }
         }
         return $isProductUpdated;
     }
@@ -136,21 +155,27 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
     {
         $isProductUpdated = false;
 
-        if($product->getFert() && $product->getFert()->getHydFittingsFert()){
+        if($product->getProductType() === "fert" && $product->getFert() && $product->getFert()->getHydFittingsFert()){
             $hydFittingFert = $product->getFert()->getHydFittingsFert();
+            // Hex1WrenchSizeIN and Hex2WrenchSizeIN were run befofre
 
-            $hex1WrenchSizeIN = $hydFittingFert->getHex1WrenchSizeIN();
-            $hex1WrenchSizeMM = $hydFittingFert->getHex1WrenchSizeMM();
-            if( ($hex1WrenchSizeIN != null && $hex1WrenchSizeIN != "") && ( $hex1WrenchSizeMM == null || $hex1WrenchSizeMM == "" ) ){
-                $this->appService->updateAttributeGroup($hydFittingFert, 'Hex1WrenchSizeIN', $hex1WrenchSizeIN);
-            }
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'Hex1WrenchSizeIN','Hex1WrenchSizeMM') || $isProductUpdated );
 
-            $hex2WrenchSizeIN = $hydFittingFert->getHex2WrenchSizeIN();
-            $hex2WrenchSizeMM = $hydFittingFert->getHex2WrenchSizeMM();
-            if(  ($hex2WrenchSizeIN != null && $hex2WrenchSizeIN != "") && ( $hex2WrenchSizeMM == null || $hex2WrenchSizeMM == "" ) ){
-                $this->appService->updateAttributeGroup($hydFittingFert, 'Hex2WrenchSizeIN', $hex2WrenchSizeIN);
-            }
-            $isProductUpdated = true;
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'Hex2WrenchSizeIN','Hex2WrenchSizeMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'OverallLengthIN','OverallLengthMm') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'CutOffLengthIN','CutOffLengthMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'FlangeIDInDec','FlangeIDMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'FlangeODInDec','FlangeODMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'StemHexinchDecimal','StemHexMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'FerruleIDInDec','FerruleIDMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hydFittingFert, 'FerruleODInDec','FerruleODMM') || $isProductUpdated );
         }
         return $isProductUpdated;
     }
@@ -160,53 +185,57 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
         $isProductUpdated = false;
         if ($product->getProductType() === "skeleton" && $product->getSkeleton() && $product->getSkeleton()->getHoseSkeleton()) {
             $hoseSkeleton = $product->getSkeleton()->getHoseSkeleton();
-//            $workingPressurePSI = $hoseSkeleton->getWorkingPressurePSI();
-//            $this->appService->updateAttributeGroup($hoseSkeleton, 'workingPressurePSI', $workingPressurePSI);
+            // workingPressurePSI and $tubeGaugeIN groups were run before this
+            $workingPressurePSI = $hoseSkeleton->getWorkingPressurePSI();
+            $workingPressureMPA = $hoseSkeleton->getWorkingPressureMPA();
+            $workingPressureBAR = $hoseSkeleton->getWorkingPressureBAR();
 
-            $tubeGaugeIN = $hoseSkeleton->getTubeGaugeIN();
-            $tubeGaugeMM = $hoseSkeleton->getTubeGaugeMM();
-
-            if( ($tubeGaugeIN != null && $tubeGaugeIN != "") && ( $tubeGaugeMM == null || $tubeGaugeMM == "" ) ){
-                $this->appService->updateAttributeGroup($hoseSkeleton, 'tubeGaugeIN', $tubeGaugeIN);
+            if(
+                !$this->isEmpty($workingPressurePSI) &&
+                ( $this->isEmpty($workingPressureMPA) || $this->isEmpty($workingPressureBAR) )
+            ){
+                $this->appService->updateAttributeGroup($hoseSkeleton, 'workingPressurePSI', $workingPressurePSI);
                 $isProductUpdated = true;
             }
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hoseSkeleton, 'hoseIdDec','hoseIdMM') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hoseSkeleton, 'hoseOdIn','hoseOdmm') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hoseSkeleton, 'minBurstPressurePSI','minBurstPressurempa') || $isProductUpdated );
+
+            $isProductUpdated = ( $this->updateUnitFor2Attributes($hoseSkeleton, 'BendRadiusIN','BendRadiusMM') || $isProductUpdated );
 
         }
         return $isProductUpdated;
     }
 
-    private function updateProductWeight(DataObject\Product $product)
+    private function updateUnitFor2Attributes($object, $attr1, $attr2)
     {
         $isProductUpdated = false;
-        $grossWeight = $product->getGrossWeight();
-        $grossWeightUnit = $product->getWeightUnit();
 
-        if (
-            ($grossWeight === null || is_numeric($grossWeight)) &&
-            ($grossWeightUnit !== null && $grossWeightUnit !== "")
-        ) {
-            $weightPerLengthConverter = new WeightPerLengthConverter();
-            // for example, we are converting from LBSperFT to KGperM, where LBSperFT is the
-            // $grossWeightUnit (actually it is KG but per FT is implicit for $grossWeight,this is why a map is maintained)
-            if(array_key_exists(self::GROSS_WEIGHT_UNITS[$grossWeightUnit], self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP)){
-                $product->setWeightKg(
-                    $weightPerLengthConverter->convert(
-                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
-                        WeightPerLengthConverter::UNIT_KG_PER_M,
-                        $grossWeight)
-                );
+        $attr1Getter = "get".ucfirst($attr1);
+        $attr2Getter = "get".ucfirst($attr2);
 
-                $product->setWeightg(
-                    $weightPerLengthConverter->convert(
-                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
-                    WeightPerLengthConverter::UNIT_G_PER_M,
-                    $grossWeight)
-                );
-            }
+        $attr1Value = $object->$attr1Getter();
+        $attr2Value = $object->$attr2Getter();
 
+        if(!$this->isEmpty($attr1Value) && $this->isEmpty($attr2Value) ){
+            $this->appService->updateAttributeGroup($object, $attr1, trim($attr1Value));
+            $isProductUpdated = true;
+        }elseif($this->isEmpty($attr1Value) && !$this->isEmpty($attr2Value)){
+            $this->appService->updateAttributeGroup($object, $attr2, trim($attr2Value));
             $isProductUpdated = true;
         }
+
         return $isProductUpdated;
+    }
+
+    private function isEmpty($value)
+    {
+        if($value === null || trim($value) === "")
+            return true;
+        return false;
     }
 
     private function csvLog($logHandler, array $dataRow)
@@ -220,4 +249,53 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand
         echo "[ " . $level . " ] " . $message . PHP_EOL;
     }
 
+
+    //    private function updateProductWeight(DataObject\Product $product)
+//    {
+//        $isProductUpdated = false;
+//        $grossWeight = $product->getGrossWeight();
+//        $grossWeightUnit = $product->getWeightUnit();
+//
+//        if (
+//            ($grossWeight === null || is_numeric($grossWeight)) &&
+//            ($grossWeightUnit !== null && $grossWeightUnit !== "")
+//        ) {
+//            $weightPerLengthConverter = new WeightPerLengthConverter();
+//            // for example, we are converting from LBSperFT to KGperM, where LBSperFT is the
+//            // $grossWeightUnit (actually it is KG but per FT is implicit for $grossWeight,this is why a map is maintained)
+//            if(array_key_exists(self::GROSS_WEIGHT_UNITS[$grossWeightUnit], self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP)){
+//                $product->setWeightKg(
+//                    $weightPerLengthConverter->convert(
+//                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
+//                        WeightPerLengthConverter::UNIT_KG_PER_M,
+//                        $grossWeight)
+//                );
+//
+//                $product->setWeightg(
+//                    $weightPerLengthConverter->convert(
+//                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
+//                    WeightPerLengthConverter::UNIT_G_PER_M,
+//                    $grossWeight)
+//                );
+//            }
+//
+//            $isProductUpdated = true;
+//        }
+//        return $isProductUpdated;
+//    }
+
+    //    private function updateINHFittingFert(DataObject\Product $product)
+//    {
+//        $isProductUpdated = false;
+//        if ($product->getFert() && $product->getFert()->getINHFittingsFert()) {
+//            $inhFittingsFert = $product->getFert()->getINHFittingsFert();
+//            $maxODIN = $inhFittingsFert->getMaximumODIN();
+//            $this->appService->updateAttributeGroup($inhFittingsFert, 'MaximumODIN', $maxODIN);
+//
+//            $overAllLengthIN = $inhFittingsFert->getOverallLengthInches();
+//            $this->appService->updateAttributeGroup($inhFittingsFert, 'OverallLengthInches', $overAllLengthIN);
+//            $isProductUpdated = true;
+//        }
+//        return $isProductUpdated;
+//    }
 }
