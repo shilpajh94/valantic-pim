@@ -79,8 +79,6 @@ class ChildProcessUpdateMissedUnitConversionAttribute extends AbstractCommand {
         
 
         foreach ($products as $product) {
-            echo $product->getId();
-            echo PHP_EOL;
             $status = "NA";
             $msg = "";
 
