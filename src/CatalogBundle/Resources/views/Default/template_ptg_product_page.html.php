@@ -35,7 +35,10 @@ if($groupData):
                                 <h5>
                                         <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_BrandName")->setDataFromResource($groupData['brandName']);
+                                                if(!$this->input("PTG_Footer_BrandName")->isEmpty())
+                                                        echo $this->input("PTG_Footer_BrandName");
+                                                else
+                                                        echo $this->input("PTG_Footer_BrandName")->setDataFromResource($groupData['brandName']);
                                         }else{
                                                 echo $this->input("PTG_Footer_BrandName");
                                         }
@@ -45,7 +48,17 @@ if($groupData):
 
                                         <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_HoseType")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop4Category']);
+                                                if(!$this->input("PTG_Footer_HoseType")->isEmpty())
+                                                        echo $this->input("PTG_Footer_HoseType");
+                                                else
+                                                        echo $this->input("PTG_Footer_HoseType")->setDataFromResource($groupData['siop3Category']);
+
+                                                echo "/";
+                                                
+                                                if(!$this->input("PTG_Footer_HoseType2")->isEmpty())
+                                                        echo $this->input("PTG_Footer_HoseType2");
+                                                else
+                                                        echo $this->input("PTG_Footer_HoseType2")->setDataFromResource($groupData['siop4Category']);
                                         }else{
                                                 echo $this->input("PTG_Footer_HoseType")."/".$this->input("PTG_Footer_HoseType2");
                                         }
@@ -58,7 +71,10 @@ if($groupData):
                                                 <b>
                                                 <?php
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility")->setDataFromResource('Compatible fittings');
+                                                        if(!$this->input("PTG_Footer_Compatibility")->isEmpty())
+                                                                echo $this->input("PTG_Footer_Compatibility");
+                                                        else
+                                                                echo $this->input("PTG_Footer_Compatibility")->setDataFromResource('Compatible fittings');
                                                 }else{
                                                         echo $this->input("PTG_Footer_Compatibility");
                                                 }
@@ -68,7 +84,10 @@ if($groupData):
                                                 <?php
                                                 $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility_Description")->setDataFromResource($compatibility_description);
+                                                        if(!$this->input("PTG_Footer_Compatibility_Description")->isEmpty())
+                                                                echo $this->input("PTG_Footer_Compatibility_Description");
+                                                        else
+                                                                echo $this->input("PTG_Footer_Compatibility_Description")->setDataFromResource($compatibility_description);
                                                 }else{
                                                         echo $this->input("PTG_Footer_Compatibility_Description");
                                                 }
@@ -88,7 +107,10 @@ if($groupData):
                                                                                 <b>
                                                 <?php
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility1")->setDataFromResource('Compatible fittings');
+                                                        if(!$this->input("PTG_Footer_Compatibility1")->isEmpty())
+                                                                echo $this->input("PTG_Footer_Compatibility1");
+                                                        else
+                                                                echo $this->input("PTG_Footer_Compatibility1")->setDataFromResource('Compatible fittings');
                                                 }else{
                                                         echo $this->input("PTG_Footer_Compatibility1");
                                                 }
@@ -98,7 +120,10 @@ if($groupData):
                                                 <?php
                                                 $compatibility_description = "All fittings compatible with ".$groupData['brandName']." are listed in Section 1 (starting on page 131).";
                                                 if($this->editmode){
-                                                        echo $this->input("PTG_Footer_Compatibility1_Description")->setDataFromResource($compatibility_description);
+                                                        if(!$this->input("PTG_Footer_Compatibility1_Description")->isEmpty())
+                                                                echo $this->input("PTG_Footer_Compatibility1_Description");
+                                                        else
+                                                                echo $this->input("PTG_Footer_Compatibility1_Description")->setDataFromResource($compatibility_description);
                                                 }else{
                                                         echo $this->input("PTG_Footer_Compatibility1_Description");
                                                 }
@@ -108,7 +133,10 @@ if($groupData):
 
                                         <?php
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_BrandName1")->setDataFromResource($groupData['brandName']);
+                                                if(!$this->input("PTG_Footer_BrandName1")->isEmpty())
+                                                        echo $this->input("PTG_Footer_BrandName1");
+                                                else
+                                                        echo $this->input("PTG_Footer_BrandName1")->setDataFromResource($groupData['brandName']);
                                         }else{
                                                 echo $this->input("PTG_Footer_BrandName1");
                                         }
@@ -117,11 +145,23 @@ if($groupData):
                                         <span>
 
                                         <?php
+
                                         if($this->editmode){
-                                                echo $this->input("PTG_Footer_HoseType1")->setDataFromResource($groupData['siop3Category'])."/".$this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop4Category']);
+                                                if(!$this->input("PTG_Footer_HoseType1")->isEmpty())
+                                                        echo $this->input("PTG_Footer_HoseType1");
+                                                else
+                                                        echo $this->input("PTG_Footer_HoseType1")->setDataFromResource($groupData['siop3Category']);
+
+                                                echo "/";
+                                                
+                                                if(!$this->input("PTG_Footer_HoseType3")->isEmpty())
+                                                        echo $this->input("PTG_Footer_HoseType3");
+                                                else
+                                                        echo $this->input("PTG_Footer_HoseType3")->setDataFromResource($groupData['siop4Category']);
                                         }else{
                                                 echo $this->input("PTG_Footer_HoseType1")."/".$this->input("PTG_Footer_HoseType3");
                                         }
+
                                         ?>
 
                                         </span>
@@ -140,7 +180,10 @@ if($groupData):
                         <h1>
                         <?php
                                 if($this->editmode){
-                                        echo $this->input("PTG_Heading")->setDataFromResource($groupData['brandName']);
+                                        if(!$this->input("PTG_Heading")->isEmpty())
+                                                echo $this->input("PTG_Heading");
+                                        else
+                                                echo $this->input("PTG_Heading")->setDataFromResource($groupData['brandName']);
                                 }else{
                                         echo $this->input("PTG_Heading");
                                 }
@@ -150,7 +193,10 @@ if($groupData):
                                 <div>
                                 <?php
                                 if($this->editmode){
-                                        echo $this->wysiwyg("PTG_LongDescription")->setDataFromResource($groupData['longDescription']);
+                                        if(!$this->wysiwyg("PTG_LongDescription")->isEmpty())
+                                                echo $this->wysiwyg("PTG_LongDescription");
+                                        else
+                                                echo $this->wysiwyg("PTG_LongDescription")->setDataFromResource($groupData['longDescription']);
                                 }else{
                                         echo $this->wysiwyg("PTG_LongDescription");
                                 }
@@ -181,7 +227,7 @@ if($groupData):
                                         if(!$this->image("Drawing_Picture")->isEmpty())
                                                 echo $this->image("Drawing_Picture",["width" => 400, "height" => 200]);
                                         else
-                                        echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
+                                                echo $this->image("Drawing_Picture", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                 }else{
                                         // if(!$this->image("Drawing_Picture")->isEmpty())
                                         $imgSrcObj2 = $this->image("Drawing_Picture");

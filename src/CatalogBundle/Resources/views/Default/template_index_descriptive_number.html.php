@@ -22,8 +22,31 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         <div id="amortizationTable" class="content_double single">
             <?php if($this->editmode): ?>
                 <div class="flex">
-                    <div class="upper"> <?= $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"])->setDataFromResource('Descriptive #'); ?></div>
-                    <div class="upper"> <?= $this->input("HHIDN_th_col_2",['placeholder'=>"Column 2"])->setDataFromResource('Page #'); ?> </div>
+                    <div class="upper"> 
+                    <?php
+                        if($this->editmode){
+                                if(!$this->input("HHIDN_th_col_1")->isEmpty())
+                                    echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"]);
+                                else
+                                    echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"])->setDataFromResource('Descriptive #');
+                        }else{
+                                echo $this->input("HHIDN_th_col_1",['placeholder'=>"Column 1"]);
+                        }
+                    ?>
+                    </div>
+                    <div class="upper"> 
+                    
+                    <?php
+                        if($this->editmode){
+                                if(!$this->input("HHIDN_th_col_2")->isEmpty())
+                                    echo $this->input("HHIDN_th_col_2",['placeholder'=>"Column 2"]);
+                                else
+                                    echo $this->input("HHIDN_th_col_2",['placeholder'=>"Column 2"])->setDataFromResource('Page #');
+                        }else{
+                                echo $this->input("HHIDN_th_col_2",['placeholder'=>"Column 2"]);
+                        }
+                    ?>
+                    </div>
                 </div>
                     
                 <?php 
