@@ -51,7 +51,7 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-        $productListing->setCondition("o_id IN (1849201)");
+//        $productListing->setCondition("o_id IN (1851293,1933158,1978560,1851294,1948405)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
