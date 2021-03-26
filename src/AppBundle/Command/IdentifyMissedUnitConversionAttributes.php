@@ -44,6 +44,8 @@ class IdentifyMissedUnitConversionAttributes extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->initializeChildProcess();
+        return;
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
@@ -232,7 +234,7 @@ class IdentifyMissedUnitConversionAttributes extends Command
      * @param int $limit
      * @param string $logFile
      */
-    private function initializeChildProcess(int $offset, int $limit, string $logFile)
+    private function initializeChildProcess()
     {
 
         $map = \Pimcore\Cache::load('attribute_to_attribute_group_map');
@@ -259,15 +261,18 @@ class IdentifyMissedUnitConversionAttributes extends Command
 
                                 if($this->getIfColumnExistInTable($brickTableName,$attr1) && $this->getIfColumnExistInTable($brickTableName,$attr2) )
                                 {
-                                    $query = "select count(*) from ".$brickTableName."
+                                    $query = "select o_id from ".$brickTableName."
                                             where (".$attr1." is not null and  ".$attr2." is null) OR
                                             (".$attr1." is null and  ".$attr2." is not null)";
-                                    $count = $this->db->fetchOne($query);
+                                    $result = $this->db->fetchCol($query);
+                                    $count = count($result);
                                     if($count > 0){
                                         if(!array_key_exists($groupName,$this->groups)){
                                             $this->groups[$groupName] = 1;
                                             echo "Counts found: " . $count. ",  Table : " .$brickTableName . PHP_EOL;
                                             p_r($groupConfig);
+                                            echo "Example: " . $result[0] . "-" . $result[1] . "-" . $result[2];
+                                            echo PHP_EOL . PHP_EOL;
                                         }
 
                                     }
@@ -284,7 +289,7 @@ class IdentifyMissedUnitConversionAttributes extends Command
                                     $this->getIfColumnExistInTable($brickTableName,$attr2) &&
                                     $this->getIfColumnExistInTable($brickTableName,$attr3) )
                                 {
-                                    $query = "select count(*) from ".$brickTableName."
+                                    $query = "select o_id from ".$brickTableName."
                                             where (".$attr1." is not null and  ".$attr2." is null) OR
                                             (".$attr1." is null and  ".$attr2." is not null) OR
                                              (".$attr1." is not null and  ".$attr3." is null) OR
@@ -293,23 +298,22 @@ class IdentifyMissedUnitConversionAttributes extends Command
                                              (".$attr2." is null and  ".$attr3." is not null)
                                              ";
 
-                                    $count = $this->db->fetchOne($query);
+                                    $result = $this->db->fetchCol($query);
+                                    $count = count($result);
                                     if($count > 0){
                                         if(!array_key_exists($groupName,$this->groups)){
                                             $this->groups[$groupName] = 1;
                                             echo "Counts found: " . $count. ",  Table : " .$brickTableName . PHP_EOL;
                                             p_r($groupConfig);
+                                            echo "Example: " . $result[0] . "-" . $result[1] . "-" . $result[2];
+                                            echo PHP_EOL . PHP_EOL;
                                         }
 
                                     }
                                     break;
                                 }
 
-
-
                             }
-                            // handle the count 3 wala case
-
                     }
                 }
 
