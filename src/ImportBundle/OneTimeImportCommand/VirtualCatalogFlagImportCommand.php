@@ -48,7 +48,7 @@ class VirtualCatalogFlagImportCommand extends AbstractCommand
             
             if (isset($data) && is_array($data)) {
                 foreach ($data as $key => $result) {
-                    
+                    $excelKey = $key + 2;
                     $product = $this->getProductObject($result['SAP']);
                     if($product)
                     {
@@ -56,20 +56,20 @@ class VirtualCatalogFlagImportCommand extends AbstractCommand
                         {
                             $product->setVirtualCatalogFlag(true);
                             $product->save();
-                            echo "{$key} - SAP ".$result['SAP']." updated successfully \n";
+                            echo "{$excelKey} - SAP ".$result['SAP']." updated successfully \n";
                         }else if(strtoupper($result['Virtual Catalog Flag']) == 'N'){
                             $product->setVirtualCatalogFlag(false);
                             $product->save();
-                            echo "{$key} - SAP ".$result['SAP']." updated successfully \n";
+                            echo "{$excelKey} - SAP ".$result['SAP']." updated successfully \n";
                         }
                         else{
-                            echo "{$key} - SAP ".$result['SAP']." not found \n";
+                            echo "{$excelKey} - SAP ".$result['SAP']." not found \n";
                         }
                         
                     }
                     else
                     {
-                        echo "{$key} - SAP ".$result['SAP']." not found \n";
+                        echo "{$excelKey} - SAP ".$result['SAP']." not found \n";
                     }
 
                     // if($key == 500)
