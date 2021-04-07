@@ -142,6 +142,9 @@ services:
     ImportBundle\OneTimeImportCommand\VirtualCatalogImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:virtialcatalog' }
+    ImportBundle\OneTimeImportCommand\VirtualCatalogFlagImportCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:virtual-catalog-flag' }
     ImportBundle\OneTimeImportCommand\TableNameImportCommand:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:table-name-import' }
