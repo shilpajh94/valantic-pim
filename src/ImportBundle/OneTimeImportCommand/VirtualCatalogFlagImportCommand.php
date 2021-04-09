@@ -21,59 +21,66 @@ class VirtualCatalogFlagImportCommand extends AbstractCommand
     {
         $this->setName('conti:onetimeimport:virtual-catalog-flag')
             ->setDescription('Virtual Catalog Flage Import')
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ')
+            ->addArgument('startFrom', InputArgument::OPTIONAL, 'Provide the index key from where execution will start');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $filePath = $input->getArgument('filePath');
+        $startFrom = $input->getArgument('startFrom');
         $this->t = time();
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            $this->import($filePath, $startFrom);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
 
-    private function import($filePath)
+    private function import($filePath, $startFrom)
     {
         try {
 
             $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
+
+            if($startFrom >= 2)
+            {
+                $startFrom -= 2;
+                $data = array_slice($data, $startFrom,null,true);
+            }
             
             if (isset($data) && is_array($data)) {
                 foreach ($data as $key => $result) {
                     $excelKey = $key + 2;
-                    $product = $this->getProductObject($result['SAP']);
+                    $product = $this->getProductObject(trim($result['SAP']));
+
+                    echo "{$excelKey} - SAP ".$result['SAP'];
                     if($product)
                     {
                         if(strtoupper($result['Virtual Catalog Flag']) == 'Y') 
                         {
                             $product->setVirtualCatalogFlag(true);
                             $product->save();
-                            echo "{$excelKey} - SAP ".$result['SAP']." updated successfully \n";
+                            echo " updated successfully \n";
                         }else if(strtoupper($result['Virtual Catalog Flag']) == 'N'){
                             $product->setVirtualCatalogFlag(false);
                             $product->save();
-                            echo "{$excelKey} - SAP ".$result['SAP']." updated successfully \n";
+                            echo " updated successfully \n";
                         }
                         else{
-                            echo "{$excelKey} - SAP ".$result['SAP']." not found \n";
+                            echo " not updated successfully \n";
                         }
                         
                     }
                     else
                     {
-                        echo "{$excelKey} - SAP ".$result['SAP']." not found \n";
+                        echo " not found \n";
                     }
-
-                    // if($key == 500)
-                    //     break;
                 }
             }
 
@@ -88,6 +95,7 @@ class VirtualCatalogFlagImportCommand extends AbstractCommand
         $entries->setCondition("articleNumber ='$articleNumber'");
         // $entries->setCondition("o_key =", "{$digit6code}");
         $entries->setLimit(1);
+        $entries->setUnpublished(true);
         $entries->load();
         if($entries) {
             foreach ($entries as $entry) {
