@@ -253,7 +253,12 @@ class ProductModelService
      */
     private function getBaseData($baseParentId){
         $baseDetail = [];
+        $brandName = '';
         $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);
+        $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
+        if(!empty($brandName)){
+            $baseDetail['brandName'] = $brandName;
+        }
         return $baseDetail;
     }
 

@@ -205,7 +205,6 @@ class ProductModel
      */
     private function createProductSql($lang,$conArray,$offsetLimit=array())
     {
-
         if(empty($conArray['fields']) || empty($conArray['fields'])){
             return false;
         }
@@ -240,6 +239,20 @@ class ProductModel
         }
 
         return $pTypeData;
+    }
+
+    /**
+     * Method to create and set sql query array based on language code.
+     *
+     * @param int $id object Id
+     * @param string $productType product type('base','skeleton','fert')
+     * @param array $vCatalogMap virtual catalog fields mapping array
+     * @return array $pTypeData product data array.
+     */
+    public function getBrandName($id){
+        $query = 'SELECT name as BrandName FROM object_query_3 WHERE oo_id = '.$id;
+        $a = $this->db->fetchAll($query);
+        return ($a[0]['BrandName']);
     }
 
 }
