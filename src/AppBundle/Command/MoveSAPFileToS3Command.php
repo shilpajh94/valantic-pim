@@ -87,16 +87,16 @@ class MoveSAPFileToS3Command extends Command
                                 //     ),
                                 // ),
                                 'Owner' => array(
-                                    'DisplayName' => S3_BUCKET_ARCHIVE,
+                                    'DisplayName' => S3_BUCKET_BW_SAP_ARCHIVE,
                                 ),
-                                'Bucket' => S3_BUCKET_ARCHIVE,
-                                'Key' => S3_ARCHIVE_DIRECTORY.$file,
+                                'Bucket' => S3_BUCKET_BW_SAP_ARCHIVE,
+                                'Key' => S3_BW_SAP_ARCHIVE_DIRECTORY.$file,
                                 'SourceFile' => $tmpFilePath,
                                 // 'RequestPayer' => S3_BUCKET,
                             ))
                             ){
                                 $movedfileCount++;
-                                echo "{$file} - File uploaded in ".S3_BUCKET_ARCHIVE. " Bucket \n";
+                                echo "{$file} - File uploaded in ".S3_BUCKET_BW_SAP_ARCHIVE. " Bucket \n";
 
                                 // Now remove from temp 
                                 \unlink($tmpFilePath);
@@ -133,10 +133,10 @@ class MoveSAPFileToS3Command extends Command
     {
         $s3ArchiveConfigSettings = [
             'version' => 'latest',
-            'region' => S3_REGION_ARCHIVE,
+            'region' => S3_REGION_BW_SAP_ARCHIVE,
             'credentials' => [
-                'key' => S3_KEY_ARCHIVE,
-                'secret' => S3_SECRET_ARCHIVE
+                'key' => S3_KEY_BW_SAP_ARCHIVE,
+                'secret' => S3_SECRET_BW_SAP_ARCHIVE
             ],
         ];
 
