@@ -68,11 +68,6 @@ class MoveSAPFileToS3Command extends Command
 
                         $modify_date = "{$year}-{$month}-{$date}";
 
-                        // $modify_date = $SFTPConObj->getFileModifiedData(BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH, $file);
-                        // $modify_date = date('Y-m-d', $modify_date);
-                        
-                        // $modify_date = date('Y-m-d', $modify_date);
-
                         $modify_date = new \DateTime($modify_date);
 
                         if ($date7daybefore > $modify_date)
@@ -92,22 +87,22 @@ class MoveSAPFileToS3Command extends Command
                                 //     ),
                                 // ),
                                 'Owner' => array(
-                                    'DisplayName' => S3_BUCKET_ARCHIVE,
+                                    'DisplayName' => S3_BUCKET_BW_SAP_ARCHIVE,
                                 ),
-                                'Bucket' => S3_BUCKET_ARCHIVE,
-                                'Key' => S3_ARCHIVE_DIRECTORY.$file,
+                                'Bucket' => S3_BUCKET_BW_SAP_ARCHIVE,
+                                'Key' => S3_BW_SAP_ARCHIVE_DIRECTORY.$file,
                                 'SourceFile' => $tmpFilePath,
                                 // 'RequestPayer' => S3_BUCKET,
                             ))
                             ){
                                 $movedfileCount++;
-                                echo "{$file} - File uploaded in ".S3_BUCKET_ARCHIVE. " Bucket \n";
+                                echo "{$file} - File uploaded in ".S3_BUCKET_BW_SAP_ARCHIVE. " Bucket \n";
 
                                 // Now remove from temp 
                                 \unlink($tmpFilePath);
 
                                 // Now remove from SFTP
-                                $SFTPConObj->deleteRemoteFile(BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH, $file);
+                                $SFTPConObj->deleteRemoteFile(BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$file);
                             }
                             else{
                                 echo "{$file} - File not uploaded in S3 \n";
@@ -138,10 +133,10 @@ class MoveSAPFileToS3Command extends Command
     {
         $s3ArchiveConfigSettings = [
             'version' => 'latest',
-            'region' => S3_REGION_ARCHIVE,
+            'region' => S3_REGION_BW_SAP_ARCHIVE,
             'credentials' => [
-                'key' => S3_KEY_ARCHIVE,
-                'secret' => S3_SECRET_ARCHIVE
+                'key' => S3_KEY_BW_SAP_ARCHIVE,
+                'secret' => S3_SECRET_BW_SAP_ARCHIVE
             ],
         ];
 
