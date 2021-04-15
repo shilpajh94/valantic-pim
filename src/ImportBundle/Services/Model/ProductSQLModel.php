@@ -770,7 +770,8 @@ class ProductSQLModel
             'netWeight' => null,
             'weightUnit' => null,
             'weightKg' => null,
-            'weightg' => null
+            'weightg' => null,
+            'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
             $queryTableData['articleNumber'] = trim($record['0']);
@@ -794,6 +795,7 @@ class ProductSQLModel
                 if (!empty($weightUnit)) {
                     $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['KG'], $grossWeight);
                     $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['G'], $grossWeight);
+                    $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['LB'], $grossWeight);
 //                    $sourceUnit = new UnitConversion\WeightPerLengthConverter(self::GROSS_WEIGHT_UNITS[$weightUnit]);
 //                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
 //                    $queryTableData['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
@@ -802,6 +804,7 @@ class ProductSQLModel
             } else {
                 $queryTableData['weightKg'] = null;
                 $queryTableData['weightg'] = null;
+                $queryTableData['WeightLbsPerFTUOM'] = null;
             }
             
             $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
@@ -835,7 +838,8 @@ class ProductSQLModel
             'netWeight' => null,
             'weightUnit' => null,
             'weightKg' => null,
-            'weightg' => null
+            'weightg' => null,
+            'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['articleNumber'] = trim($record['0']);
@@ -859,6 +863,7 @@ class ProductSQLModel
                 if (!empty($weightUnit)) {
                     $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['KG'], $grossWeight);
                     $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['G'], $grossWeight);
+                    $storeTableDataArray['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['LB'], $grossWeight);
 //                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
 //                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
 //                    $storeTableDataArray['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
@@ -867,6 +872,7 @@ class ProductSQLModel
             } else {
                 $storeTableDataArray['weightKg'] = null;
                 $storeTableDataArray['weightg'] = null;
+                $storeTableDataArray['WeightLbsPerFTUOM'] = null;
             }
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
