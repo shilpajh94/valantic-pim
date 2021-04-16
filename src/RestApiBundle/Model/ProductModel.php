@@ -247,10 +247,10 @@ class ProductModel
      *
      * @param int $id object Id
      */
-    public function getBrandName($id){
+    public function getBrandName(int $id) : ?string {
         $query = 'SELECT name as BrandName FROM object_query_3 WHERE oo_id = '.$id;
-        $brandName = $this->db->fetchAll($query);
-        return ($brandName[0]['BrandName']);
+        $brandName = $this->db->fetchOne($query);
+        return $brandName;
     }
 
     /**
@@ -258,11 +258,11 @@ class ProductModel
      *
      * @param int $oo_id object Id
      */
-    public function getDocumentId($oo_id){
+    public function getDocumentId(int $oo_id) : ?int {
         $query = 'SELECT dest_id FROM object_metadata_1 WHERE `column` = "CertificationDocument"
         and `data` = 1 and `o_id` = '.$oo_id;
-        $documentId = $this->db->fetchAll($query);
-        return ($documentId[0]['dest_id']);
+        $documentId = $this->db->fetchOne($query);
+        return $documentId;
     }
 
 }
