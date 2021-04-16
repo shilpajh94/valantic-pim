@@ -35,6 +35,7 @@ class ProductModel
     {
         // Get Condition String.
         $conditionString = $this->getConditionString($conditionArray,$productType);
+        
         // Get Field String.
         $fieldString = $vCatalogMap['VirtualCatalog'][ucfirst($productType)]['Fields'];
 
@@ -217,7 +218,7 @@ class ProductModel
         $this->sqlArr [$this->fallbackLangCode] = '
             SELECT  '.implode(",",$conArray['fields']).'
             FROM object_localized_' . $this->classId. '_' . $this->langCode . '
-            WHERE '.$conArray['condition'].' '.$limitText;
+            WHERE '.$conArray['condition'].' '.$limitText."\n\n";
         \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr [$this->fallbackLangCode],true));
         return true;
     }
@@ -242,17 +243,26 @@ class ProductModel
     }
 
     /**
-     * Method to create and set sql query array based on language code.
+     * Method to get the brand name based on id
      *
      * @param int $id object Id
-     * @param string $productType product type('base','skeleton','fert')
-     * @param array $vCatalogMap virtual catalog fields mapping array
-     * @return array $pTypeData product data array.
      */
     public function getBrandName($id){
         $query = 'SELECT name as BrandName FROM object_query_3 WHERE oo_id = '.$id;
-        $a = $this->db->fetchAll($query);
-        return ($a[0]['BrandName']);
+        $brandName = $this->db->fetchAll($query);
+        return ($brandName[0]['BrandName']);
+    }
+
+    /**
+     * Method to get the document id based on product oo_id
+     *
+     * @param int $oo_id object Id
+     */
+    public function getDocumentId($oo_id){
+        $query = 'SELECT dest_id FROM object_metadata_1 WHERE `column` = "CertificationDocument"
+        and `data` = 1 and `o_id` = '.$oo_id;
+        $documentId = $this->db->fetchAll($query);
+        return ($documentId[0]['dest_id']);
     }
 
 }
