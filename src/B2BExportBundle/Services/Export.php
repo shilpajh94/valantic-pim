@@ -55,15 +55,15 @@ class Export {
 			$fileName = Config::catalogGroupFileName();
 			$this->saveCatalogGroupsCSV($fileName);
             $this->files[] = $fileName;
-//			 Generating CSV for Catalog Group
+			//  Generating CSV for Catalog Group
 			$fileName = Config::catalogGroupDescFileName();
 			$this->saveCatalogGroupsDescCSV($fileName);
             $this->files[] = $fileName;
-//			 Generating CSV for Catalog Entries
+			//  Generating CSV for Catalog Entries
 			$fileName = Config::catalogEntriesFileName();
 			$this->saveCatalogEntriesCSV($fileName);
             $this->files[] = $fileName;
-//			// Generating CSV for Catalog Entries Description
+			// Generating CSV for Catalog Entries Description
 			$fileName = Config::catalogEntriesDescFileName();
 			$this->saveCatalogEntriesDescCSV($fileName);
             $this->files[] = $fileName;
@@ -122,21 +122,21 @@ class Export {
         $columns = array('GroupIdentifier', 'TopGroup', 'ParentGroupIdentifier', 'Name', 'Sequence');
         fputcsv($fileResource, $columns, ',');
 
-        $cateObject = new Catalog();
-        $data = $cateObject->getAllManualCategoriesWithLevel();
+        // $cateObject = new Catalog();
+        // $data = $cateObject->getAllManualCategoriesWithLevel();
 
-        foreach($data as $datum){
+        // foreach($data as $datum){
 
-            fputcsv($fileResource,
-                array(
-                    $datum["oo_id"],
-                    $datum["top_group"],
-                    $datum["parent_group_identifier"],
-                    $datum["Name"],
-                    $datum["sequence"]
-            ), ',');
+        //     fputcsv($fileResource,
+        //         array(
+        //             $datum["oo_id"],
+        //             $datum["top_group"],
+        //             $datum["parent_group_identifier"],
+        //             $datum["Name"],
+        //             $datum["sequence"]
+        //     ), ',');
 
-        }
+        // }
 
 
 		$data = Catalog::getGroups();
@@ -233,12 +233,12 @@ class Export {
         $columns = array('GroupIdentifier', 'Name', 'LanguageId');
         fputcsv($fileResource, $columns, ',');
 
-        $catObject = new Catalog();
-        $data = $catObject->getAllManualCategories();
+        // $catObject = new Catalog();
+        // $data = $catObject->getAllManualCategories();
 
-        foreach($data as $datum){
-            fputcsv($fileResource, array($datum['oo_id'], $datum['Name'], '-1'));
-        }
+        // foreach($data as $datum){
+        //     fputcsv($fileResource, array($datum['oo_id'], $datum['Name'], '-1'));
+        // }
 
         $data = Catalog::getGroupsDescription();
 		if (count($data) > 0) {
@@ -336,11 +336,11 @@ class Export {
                     $level4SIOPCode = substr($siopFullCode, 0, 13);
                     $parentGroupIdentifier = ltrim($siopFullCode, '04');
 
-                    if(in_array($level4SIOPCode, self::HYDRAULIC_HOSE_CATEGORY_SAP_IDS)){
-                        $parentGroupIdentifier = $categoryId;
-                    }elseif (in_array($level4SIOPCode, self::FITTINGS_CATEGORY_SAP_IDS)){
-                        $parentGroupIdentifier = $fittingCategoryId;
-                    }
+                    // if(in_array($level4SIOPCode, self::HYDRAULIC_HOSE_CATEGORY_SAP_IDS)){
+                    //     $parentGroupIdentifier = $categoryId;
+                    // }elseif (in_array($level4SIOPCode, self::FITTINGS_CATEGORY_SAP_IDS)){
+                    //     $parentGroupIdentifier = $fittingCategoryId;
+                    // }
 
                     if($parentGroupIdentifier !== null && trim($parentGroupIdentifier) !== ''){
                         $row[] = $partNo;
