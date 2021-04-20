@@ -15,9 +15,6 @@ use Pimcore\Model\DataObject;
 
 class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends AbstractCommand
 {
-    private $appService;
-    const LOG_FILE_NAME = "update_missed_unit_conversion_attributes_wightlbsperftuom";
-
     const GROSS_WEIGHT_UNITS = [
         "LB" => Unit::LBS,
         "KG" => Unit::KG,
@@ -48,7 +45,7 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        \Pimcore\Model\Version::disable();
+        //\Pimcore\Model\Version::disable();
         $offset = $input->getArgument('offset');
         $limit = $input->getArgument('limit');
         $logfile = $input->getArgument('logfile');
@@ -109,7 +106,7 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
         fclose($csvLogFileHandle);
     }
 
-    private function updateProductWeight(DataObject\Product $product)
+    private function updateProductWeight(DataObject\Product $product) : float
     {
         $isProductUpdated = false;
         $grossWeight = $product->getGrossWeight();
@@ -121,7 +118,7 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
         ) {
             $weightPerLengthConverter = new WeightPerLengthConverter();
             
-            // As per client we are assuming the GROSS_WEIGHT_UNITS = FT
+            // As per client we are assuming the GROSS_WEIGHT_UNITS = Feet
             if(array_key_exists(self::GROSS_WEIGHT_UNITS[$grossWeightUnit], self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP)){
                 // No need to convert the value if LBS is given in UNIT
                 if(self::GROSS_WEIGHT_UNITS[$grossWeightUnit] == "LBS"){
@@ -134,9 +131,8 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
                             $grossWeight)
                     );
                 }
+                $isProductUpdated = true;
             }
-
-            $isProductUpdated = true;
         }
         return $isProductUpdated;
     }

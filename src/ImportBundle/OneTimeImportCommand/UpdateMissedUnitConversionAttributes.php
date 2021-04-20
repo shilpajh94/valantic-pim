@@ -33,10 +33,21 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     private $unitConverterService;
     private $appService;
     
-    const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
-    const WEIGHT_LBS_LOG_FILE_NAME = "update_missed_unit_conversion_attributes_weightlbsperftuom";
+    // const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
+     const WEIGHT_LBS_LOG_FILE_NAME = "update_missed_unit_conversion_attributes_weightlbsperftuom";
     
-    const BATCH_SIZE = 1000;
+    private $commands = array(
+        "command1" => array(
+            "logFile" => "update_missed_unit_conversion_attributes",
+            "missedUnitConversion" => "missedUnitConversion"
+        ),
+        "command2" => array(
+            "logFile" => "update_missed_unit_conversion_attributes_weightlbsperftuom",
+            "missedUnitConversionLBS" => "missedUnitConversionLBS"
+        )
+    );
+
+    const BATCH_SIZE = 10;
 
     public function __construct(UnitConverterService $unitConverterService,AppService $appService)
     {
@@ -47,19 +58,25 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     protected function configure()
     {
-        $this->setName('conti:onetimeimport:update_missed_unit_conversion_attributes')
-            ->addArgument('weightlbsperftuom', InputArgument::OPTIONAL, 'weightlbsperftuom');
+        $this->addArgument('identifier', InputArgument::REQUIRED, 'identifier for differentiate');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $weightlbsperftuom = $input->getArgument('weightlbsperftuom');
-        $scriptStartTime = time();
-        if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)){
-            $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::WEIGHT_LBS_LOG_FILE_NAME . ".csv";
-        } else {
-            $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
+        $identifier = $input->getArgument('identifier');
+        foreach($this->commands as $command){
+            if(array_key_exists($identifier, $command)) {
+                echo "I am here";
+            } else {
+                echo "I am in else part";
+            }
         }
+        $scriptStartTime = time();
+        // if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)){
+             $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::WEIGHT_LBS_LOG_FILE_NAME . ".csv";
+        // } else {
+        //     $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
+        // }
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
         //$productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684,1840172)");
@@ -96,7 +113,7 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     private function initializeChildProcess(int $offset,int $limit,string $logFile)
     {
-        if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)) {
+        //if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)) {
             $command = implode(' ',array(
                 PIMCORE_PROJECT_ROOT."/bin/console ",
                 "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom",
@@ -104,15 +121,15 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
                 $limit,
                 $logFile
             ));
-        } else {
-            $command = implode(' ',array(
-                PIMCORE_PROJECT_ROOT."/bin/console ",
-                "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
-                $offset,
-                $limit,
-                $logFile
-            ));
-        }
+        // } else {
+        //     $command = implode(' ',array(
+        //         PIMCORE_PROJECT_ROOT."/bin/console ",
+        //         "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
+        //         $offset,
+        //         $limit,
+        //         $logFile
+        //     ));
+        // }
 
         $process = new Process($command);
         $process->setTimeout(1800);
