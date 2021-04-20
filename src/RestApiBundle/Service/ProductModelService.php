@@ -28,12 +28,12 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use RestApiBundle\Model\ProductModel;
 use AppBundle\Tool\Utils;
-
+use AppBundle\Services\AppService;
 class ProductModelService
 {
 
     private $model;
-
+    private $appService;
     private $vCatalog = [];
 
     /**
@@ -41,9 +41,10 @@ class ProductModelService
      */
     private $mainClass = "\\Pimcore\\Model\\DataObject\\";
 
-    public function __construct()
+    public function __construct(AppService $appService)
     {
         $this->model = new ProductModel();
+        $this->appService = $appService;
     }
 
     /**
@@ -127,6 +128,11 @@ class ProductModelService
                 }else{
                     $resultArrBase = $sixDigitData;
                 }
+                // We need these 2 ids to get the path of assets
+                // Then we are unseting it to hide the ids
+                $certificationImageID = $resultArrBase['certificationImage'];
+                $certificationDocumentID = $resultArrBase['document'];
+
                 unset($resultArrBase['oo_id']);
                 unset($resultArrBase['o_parentId']);
                 unset($resultArrBase['mainImage']);
@@ -195,11 +201,11 @@ class ProductModelService
             $imageDataArray['base'] = $sixDigitData;
             $finalProductArray[$sixDigit]['images'] = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
             // To get the base alt image & document URL
-            if(isset($finalProductArray[$sixDigit]['certificationImage']) && !empty($finalProductArray[$sixDigit]['certificationImage'])) {
-                $finalProductArray[$sixDigit]['CertificationImage'] = $this->getPropertyAssetData($finalProductArray[$sixDigit]['certificationImage']);
+            if(isset($certificationImageID) && !empty($certificationImageID)) {
+                $finalProductArray[$sixDigit]['CertificationImage'] = $this->getPropertyAssetData($certificationImageID);
             }
-            if(isset($finalProductArray[$sixDigit]['document']) && !empty($finalProductArray[$sixDigit]['document'])) {
-                $finalProductArray[$sixDigit]['CertificationDocument'] = $this->getPropertyAssetData($finalProductArray[$sixDigit]['document']);
+            if(isset($certificationDocumentID) && !empty($certificationDocumentID)) {
+                $finalProductArray[$sixDigit]['CertificationDocument'] = $this->getPropertyAssetData($certificationDocumentID);
             }
         }
         
@@ -279,7 +285,8 @@ class ProductModelService
         }
         // Getting all features from object_localized_29_en table
         if(isset($baseDetail['FeaturesBenefitsBulletPoint']) && !empty($baseDetail['FeaturesBenefitsBulletPoint'])) {
-            $featureList  =   $this->model->getFeatures($baseDetail['FeaturesBenefitsBulletPoint']);
+            $classId = $this->appService->getPimcoreClassIdbyName('Features');
+            $featureList  =   $this->model->getFeatures($baseDetail['FeaturesBenefitsBulletPoint'], $classId);
             if(!empty($featureList)){
                 $baseDetail['FeaturesBenefitsBulletPoint'] = $featureList;
             }

@@ -266,24 +266,18 @@ class ProductModel
     }
 
     /**
-     * Method to get the Features based on object_localized_29_en oo_id
+     * Method to get the Features from object_localized_29_en table based on oo_id
      *
-     * @param int $oo_id object Id
+     * @param string $oo_id object Id
+     * 
+     * @param int $classId object Id
      */
-    public function getFeatures(string $oo_id) : ?string {
+    public function getFeatures(string $oo_id, int $classId) : ?string {
         //Removing comma from begining and end
         $oo_id = substr($oo_id,1,-1);
-        $query = 'SELECT o_key FROM object_localized_29_en WHERE `oo_id` IN ('.$oo_id.')';
-        $features = $this->db->fetchAll($query);
-        if($features) {
-            $featureList = '';
-            foreach($features as $feature){
-                if($featureList != '') {
-                    $comma = ", ";
-                }
-                $featureList = $featureList.$comma.$feature['o_key'];
-            }
-        }
+        $query = 'SELECT o_key FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
+        $features = $this->db->fetchCol($query);
+        $featureList = implode(", ",$features);
         return $featureList;
     }
 
