@@ -265,4 +265,20 @@ class ProductModel
         return $documentId;
     }
 
+    /**
+     * Method to get the Features from object_localized_29_en table based on oo_id
+     *
+     * @param string $oo_id object Id
+     * 
+     * @param int $classId object Id
+     */
+    public function getFeatures(string $oo_id, int $classId) : ?string {
+        //Removing comma from begining and end
+        $oo_id = substr($oo_id,1,-1);
+        $query = 'SELECT o_key FROM object_localized_'.$classId.'_en WHERE `oo_id` IN ('.$oo_id.')';
+        $features = $this->db->fetchCol($query);
+        $featureList = implode(", ",$features);
+        return $featureList;
+    }
+
 }

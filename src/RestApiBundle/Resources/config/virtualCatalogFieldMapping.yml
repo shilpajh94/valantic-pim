@@ -24,8 +24,6 @@ VirtualCatalog:
             - rangeTemperatureC
             - o_published
             - FeaturesBenefitsBulletPoint
-            - weightKg
-            - WeightLbsPerFTUOM
             - certificationImage
             - document
         Images:
@@ -133,6 +131,8 @@ VirtualCatalog:
             - cutView
             - articleNumber
             - oldMaterialCode
+            - weightKg
+            - WeightLbsPerFTUOM
         Images:
             - mainImage
             - frontView
