@@ -136,6 +136,8 @@ class ProductModelService
                 unset($resultArrBase['SIOPLevel2']);
                 unset($resultArrBase['SIOPLevel3']);
                 unset($resultArrBase['SIOPLevel4']);
+                unset($resultArrBase['certificationImage']);
+                unset($resultArrBase['document']);
                 $finalProductArray[$sixDigit] = $resultArrBase;
                 // To display the 6 Digit code with "sixDigitVirtualCatalogDescription" field
                 if(isset($resultArrBase['sixDigitVirtualCatalogDescription']) && $resultArrBase['sixDigitVirtualCatalogDescription'] != '') {
@@ -275,6 +277,14 @@ class ProductModelService
         if(!empty($documentID)){
             $baseDetail['document'] = $documentID;
         }
+        // Getting all features from object_localized_29_en table
+        if(isset($baseDetail['FeaturesBenefitsBulletPoint']) && !empty($baseDetail['FeaturesBenefitsBulletPoint'])) {
+            $featureList  =   $this->model->getFeatures($baseDetail['FeaturesBenefitsBulletPoint']);
+            if(!empty($featureList)){
+                $baseDetail['FeaturesBenefitsBulletPoint'] = $featureList;
+            }
+        }
+
         return $baseDetail;
     }
 
