@@ -31,10 +31,12 @@ class WeightPerLengthConverter
         self::UNIT_KG_PER_FT => array(
             self::UNIT_KG_PER_M => 3.28084,
             self::UNIT_G_PER_M => 3280.84,
+            self::UNIT_LBS_PER_FT => 2.20462,
         ),
         self::UNIT_G_PER_FT => array(
             self::UNIT_KG_PER_M => 0.00328084,
-            self::UNIT_G_PER_M => 3.28084
+            self::UNIT_G_PER_M => 3.28084,
+            self::UNIT_LBS_PER_FT => 0.00220462,
         )
     );
 

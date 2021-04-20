@@ -32,9 +32,10 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 {
     private $unitConverterService;
     private $appService;
+    
     const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
-
-
+    const WEIGHT_LBS_LOG_FILE_NAME = "update_missed_unit_conversion_attributes_weightlbsperftuom";
+    
     const BATCH_SIZE = 1000;
 
     public function __construct(UnitConverterService $unitConverterService,AppService $appService)
@@ -44,14 +45,25 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
         parent::__construct();
     }
 
+    protected function configure()
+    {
+        $this->setName('conti:onetimeimport:update_missed_unit_conversion_attributes')
+            ->addArgument('weightlbsperftuom', InputArgument::OPTIONAL, 'weightlbsperftuom');
+    }
+
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $weightlbsperftuom = $input->getArgument('weightlbsperftuom');
         $scriptStartTime = time();
-        $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
-
+        if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)){
+            $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::WEIGHT_LBS_LOG_FILE_NAME . ".csv";
+        } else {
+            $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
+        }
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-//        $productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684)");
+        //$productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684,1840172)");
+        $productListing->setCondition("o_id IN (1840172)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
@@ -61,7 +73,6 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
         $offset = 0;
         $batchIndex = 1;
-
         while ($offset <= ( $totalCount - 1)) {
             $batchStartTime = time();
             $this->initializeChildProcess($offset,self::BATCH_SIZE,$csvLogFilePath);
@@ -86,13 +97,23 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     private function initializeChildProcess(int $offset,int $limit,string $logFile)
     {
-        $command = implode(' ',array(
-            PIMCORE_PROJECT_ROOT."/bin/console ",
-            "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
-            $offset,
-            $limit,
-            $logFile
-        ));
+        if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)) {
+            $command = implode(' ',array(
+                PIMCORE_PROJECT_ROOT."/bin/console ",
+                "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom",
+                $offset,
+                $limit,
+                $logFile
+            ));
+        } else {
+            $command = implode(' ',array(
+                PIMCORE_PROJECT_ROOT."/bin/console ",
+                "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
+                $offset,
+                $limit,
+                $logFile
+            ));
+        }
 
         $process = new Process($command);
         $process->setTimeout(1800);
