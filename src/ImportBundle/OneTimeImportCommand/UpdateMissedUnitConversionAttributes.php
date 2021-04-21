@@ -30,24 +30,22 @@ use Symfony\Component\Process\Process;
  */
 class UpdateMissedUnitConversionAttributes extends AbstractCommand
 {
-    private $unitConverterService;
-    private $appService;
+    private $identifier;
     
-    // const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
-     const WEIGHT_LBS_LOG_FILE_NAME = "update_missed_unit_conversion_attributes_weightlbsperftuom";
-    
+    // Using an array to run the appropriate command
+    // on the basis of argument passed by User
     private $commands = array(
-        "command1" => array(
+        "missedUnitConversion" => array(
             "logFile" => "update_missed_unit_conversion_attributes",
-            "missedUnitConversion" => "missedUnitConversion"
+            "command" => "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes"
         ),
-        "command2" => array(
+        "missedUnitConversionLBSPerFTUOM" => array(
             "logFile" => "update_missed_unit_conversion_attributes_weightlbsperftuom",
-            "missedUnitConversionLBS" => "missedUnitConversionLBS"
+            "command" => "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom"
         )
     );
 
-    const BATCH_SIZE = 10;
+    const BATCH_SIZE = 1000;
 
     public function __construct(UnitConverterService $unitConverterService,AppService $appService)
     {
@@ -63,20 +61,17 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $identifier = $input->getArgument('identifier');
-        foreach($this->commands as $command){
-            if(array_key_exists($identifier, $command)) {
-                echo "I am here";
-            } else {
-                echo "I am in else part";
-            }
+        $this->identifier = $input->getArgument('identifier');
+        if(array_key_exists($this->identifier, $this->commands)) {
+            //print_r($this->commands[$this->identifier]['command']);
+        } else {
+            $this->consoleLog("Enter Required Parameter");
+            return;
         }
+        
         $scriptStartTime = time();
-        // if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)){
-             $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::WEIGHT_LBS_LOG_FILE_NAME . ".csv";
-        // } else {
-        //     $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
-        // }
+        $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . $this->commands[$this->identifier]['logFile'] . ".csv";
+        
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
         //$productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684,1840172)");
@@ -103,7 +98,6 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
             $this->consoleLog("Time taken for this batch : " . ( $singlebatchSpentTime )/60 . " minutes" );
             $this->consoleLog("ETA : " . ( $noOfBatches * $singlebatchSpentTime )/60 . " minutes" );
             $this->consoleLog("-------------------------------------------");
-//            \Pimcore::collectGarbage();
         }
         $scriptEndTime = time();
         $totalExecTime = ($scriptEndTime - $scriptStartTime) / 60 ;
@@ -113,23 +107,13 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
     private function initializeChildProcess(int $offset,int $limit,string $logFile)
     {
-        //if(isset($weightlbsperftuom) && !empty($weightlbsperftuom)) {
-            $command = implode(' ',array(
-                PIMCORE_PROJECT_ROOT."/bin/console ",
-                "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom",
-                $offset,
-                $limit,
-                $logFile
-            ));
-        // } else {
-        //     $command = implode(' ',array(
-        //         PIMCORE_PROJECT_ROOT."/bin/console ",
-        //         "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
-        //         $offset,
-        //         $limit,
-        //         $logFile
-        //     ));
-        // }
+        $command = implode(' ',array(
+            PIMCORE_PROJECT_ROOT."/bin/console ",
+            $this->commands[$this->identifier]['command'],
+            $offset,
+            $limit,
+            $logFile
+        ));
 
         $process = new Process($command);
         $process->setTimeout(1800);
@@ -143,7 +127,7 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     }
 
 
-    private function consoleLog($message, $level = "INFO")
+    private function consoleLog($message)
     {
         echo $message . PHP_EOL;
     }
