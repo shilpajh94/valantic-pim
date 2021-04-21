@@ -62,10 +62,8 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->identifier = $input->getArgument('identifier');
-        if(array_key_exists($this->identifier, $this->commands)) {
-            //print_r($this->commands[$this->identifier]['command']);
-        } else {
-            $this->consoleLog("Enter Required Parameter");
+        if(!array_key_exists($this->identifier, $this->commands)) {
+            $this->consoleLog("Enter Required Parameter: i.e [missedUnitConversion or missedUnitConversionLBSPerFTUOM]");
             return;
         }
         

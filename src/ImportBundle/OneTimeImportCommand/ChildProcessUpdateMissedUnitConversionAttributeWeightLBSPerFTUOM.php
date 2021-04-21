@@ -37,8 +37,7 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
 
     protected function configure()
     {
-        $this->setName('conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom')
-            ->addArgument('offset', InputArgument::REQUIRED, 'offset for product listing')
+        $this->addArgument('offset', InputArgument::REQUIRED, 'offset for product listing')
             ->addArgument('limit', InputArgument::REQUIRED, 'limit for product listing')
             ->addArgument('logfile', InputArgument::REQUIRED, 'logfile path');
     }
