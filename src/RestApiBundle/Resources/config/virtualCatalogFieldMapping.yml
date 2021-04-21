@@ -95,6 +95,7 @@ VirtualCatalog:
             - longDescription
             - VirtualCatalogReinforcement
             - grossWeight
+            - o_published
         Images:
             - mainImage
             - frontView
@@ -133,6 +134,7 @@ VirtualCatalog:
             - oldMaterialCode
             - weightKg
             - WeightLbsPerFTUOM
+            - o_published
         Images:
             - mainImage
             - frontView
