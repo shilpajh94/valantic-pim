@@ -129,5 +129,4 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     {
         echo $message . PHP_EOL;
     }
-
 }

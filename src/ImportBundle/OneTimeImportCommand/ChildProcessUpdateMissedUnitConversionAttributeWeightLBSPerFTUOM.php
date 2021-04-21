@@ -146,5 +146,4 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
     {
         echo "[ " . $level . " ] " . $message . PHP_EOL;
     }
-
 }
