@@ -112,7 +112,7 @@ class MoveSAPFileToS3Command extends Command
                                     'SourceFile' => $tmpFilePath,
                                 ));
                             } catch (\S3Exception $e) {
-                                    $this->logMessage($e->getState(), LogLevel::CRITICAL());
+                                    $this->logMessage($e->getMessage(), LogLevel::CRITICAL());
                             }
                             if (isset($result["@metadata"]["statusCode"]) && ($result["@metadata"]["statusCode"] == '200')) {
                                 $movedfileCount++;
