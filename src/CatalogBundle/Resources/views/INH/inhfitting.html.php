@@ -152,7 +152,10 @@ if($groupData):
                                                         <span class="imageHolder">
                                                         <?php
                                                         if($this->editmode){
-                                                                echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
+                                                                if(!$this->image("INH_Fitting_MainImage")->isEmpty())
+                                                                        echo $this->image("INH_Fitting_MainImage",["width" => 400, "height" => 200]);
+                                                                else
+                                                                        echo $this->image("INH_Fitting_MainImage", ["width" => 400, "height" => 200])->setImage($groupData['mainImageObj']);
                                                         }else{
                                                                 if(!$this->image("INH_Fitting_MainImage")->isEmpty())
                                                                         $imgSrcObj1 = $this->image("INH_Fitting_MainImage");
@@ -168,7 +171,10 @@ if($groupData):
 
                                                         <?php
                                                         if($this->editmode){
-                                                                echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
+                                                                if(!$this->image("INH_Fitting_ProfileDimension")->isEmpty())
+                                                                        echo $this->image("INH_Fitting_ProfileDimension",["width" => 400, "height" => 200]);
+                                                                else
+                                                                        echo $this->image("INH_Fitting_ProfileDimension", ["width" => 400, "height" => 200])->setImage($groupData['ProfileDimensionImageObj']);
                                                         }else{
                                                                 if(!$this->image("INH_Fitting_ProfileDimension")->isEmpty())
                                                                         $imgSrcObj2 = $this->image("INH_Fitting_ProfileDimension");

@@ -22,6 +22,10 @@ VirtualCatalog:
             - maximumTemperatureC
             - rangeTemperatureF
             - rangeTemperatureC
+            - o_published
+            - FeaturesBenefitsBulletPoint
+            - certificationImage
+            - document
         Images:
             - mainImage
             - frontView
@@ -38,12 +42,12 @@ VirtualCatalog:
                     Fields:
                         - Level
                         - Code
-                        - Description
+                        - PrintedCatalogDescription
                 SIOPLevel4:
                     Fields:
                         - Level
                         - Code
-                        - Description
+                        - PrintedCatalogDescription
             Category:
                 category:
                     Fields:
@@ -73,7 +77,10 @@ VirtualCatalog:
                     - standardMetHose
                     - safetyFactor
                     - Coupling
-                    - Packaging 
+                    - Packaging
+                    - NonStockSizes
+                    - IFSApplications
+                    - sixDigitVirtualCatalogDescription
             PTG:
     Skeleton:
         Fields:
@@ -86,8 +93,9 @@ VirtualCatalog:
             - prop65Message
             - BrandingLayline
             - longDescription
-            - reinforcement
+            - VirtualCatalogReinforcement
             - grossWeight
+            - o_published
         Images:
             - mainImage
             - frontView
@@ -97,17 +105,17 @@ VirtualCatalog:
         ObjectBricks:
             Hose:
                 Fields:
-                    - tubeGaugeIn
+                    - tubeGaugeIN
                     - tubeGaugeMM
                     - BendRadiusIN
                     - BendRadiusMM
-                    - VacuumIn
+                    - VacuumIN
                     - VacuumMM
                     - workingPressureMPA
                     - workingPressurePSI
                     - minBurstPressurePSI
                     - minBurstPressurempa
-                    - hoseIdDec
+                    - HoseIDNominalIDFrac
                     - hoseIdMM
                     - hoseOdIn
                     - hoseOdmm
@@ -124,6 +132,9 @@ VirtualCatalog:
             - cutView
             - articleNumber
             - oldMaterialCode
+            - weightKg
+            - WeightLbsPerFTUOM
+            - o_published
         Images:
             - mainImage
             - frontView
@@ -139,6 +150,10 @@ VirtualCatalog:
                 Fields:
                 - hoseLengthFT
                 - CompleteFittingText
+                - fitting1Type
+                - descriptive
+                - InnerHoseWeightLbs
+                - InnerHoseWeightKg
             HydFittings:
                 Fields:
             INHFittings:
