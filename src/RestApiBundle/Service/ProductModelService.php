@@ -144,6 +144,7 @@ class ProductModelService
                 unset($resultArrBase['SIOPLevel4']);
                 unset($resultArrBase['certificationImage']);
                 unset($resultArrBase['document']);
+                unset($resultArrBase['Document']);
                 $finalProductArray[$sixDigit] = $resultArrBase;
                 // To display the 6 Digit code with "sixDigitVirtualCatalogDescription" field
                 if(isset($resultArrBase['sixDigitVirtualCatalogDescription']) && $resultArrBase['sixDigitVirtualCatalogDescription'] != '') {
