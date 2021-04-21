@@ -60,12 +60,12 @@ class ProductModelService
 
         $productDetail = array();
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
-        /*
+        
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
         $conArray['fields']   = ['oo_id'];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
-        */
+        
 
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
@@ -73,7 +73,7 @@ class ProductModelService
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData =   $this->getProductDetail($products, $langCode);
-//            $productDetail['total'] = strval($totalCount);
+            $productDetail['total'] = strval($totalCount);
             $productDetail['products'] = $this->formatProducts($productData);
         }
         return $productDetail;
@@ -89,14 +89,17 @@ class ProductModelService
      *
      * @throws \Exception
      */
-    private function getProductDetail($products, $langCode)
+    private function getProductDetail($products)
     {
         $finalProductArray  =   [];
 
         if(empty($products)){ return $finalProductArray; }
 
         foreach($products as $key=>$value){
-            $value  =   array_filter($value);
+
+            // Using strlen as callback to preserve 0 Zero for unpublished records
+            // Removing Null, Empty and False value
+            $value  =   array_filter($value, 'strlen');
             $nineDigitData  =   $this->getSkeletonData($value['o_parentId']);
             $sixDigitData = [];
             if (!empty($nineDigitData)) {
@@ -176,6 +179,7 @@ class ProductModelService
             }
 
             // Set Options(14Digit) data.
+            
             if(isset($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
                 // Get Fert Object Bricks Data.
                 $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
@@ -195,7 +199,6 @@ class ProductModelService
                 unset($resultArrFert['oldMaterialCode']);
                 $finalProductArray[$sixDigit]['9digit'][$nineDigit]['options'][]=$resultArrFert;
             }
-
             // Set Images.
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
@@ -275,9 +278,11 @@ class ProductModelService
         $brandName = '';
         $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);
         // Getting brand name from object_query_3 table
-        $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
-        if(!empty($brandName)){
-            $baseDetail['brandName'] = $brandName;
+        if(isset($baseDetail['brandName']) && !empty($baseDetail['brandName'])) {
+            $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
+            if(!empty($brandName)){
+                $baseDetail['brandName'] = $brandName;
+            }
         }
         // Getting document URL from object_metadata_1 table
         $documentID  =   $this->model->getDocumentId($baseDetail['oo_id']);

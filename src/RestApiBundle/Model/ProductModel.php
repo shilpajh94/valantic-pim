@@ -9,12 +9,10 @@ class ProductModel
     private $classId = 1;
     private $langCode;
     private $fallbackLangCode = 'en';
-    private $product;
     private $db;
     private $sqlArr = [];
     private $limit  = 50;
     private $maxLimit = 250;
-    private $service;
 
     public function __construct()
     {
