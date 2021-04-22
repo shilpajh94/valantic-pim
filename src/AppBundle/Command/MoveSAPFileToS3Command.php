@@ -1,8 +1,5 @@
 <?php
-
-
 namespace AppBundle\Command;
-
 
 use Aws\S3\S3Client;
 use Symfony\Component\Console\Command\Command;
@@ -23,6 +20,8 @@ use AppBundle\Logger\LogLevel;
 class MoveSAPFileToS3Command extends Command
 {
 
+    private $s3Client;
+    private $movedfileCount = 0;
     /**
      * Function to set the command configurations
      *
@@ -32,8 +31,6 @@ class MoveSAPFileToS3Command extends Command
         $this->setName('contitech:move_sap_file_to_s3')
             ->setDescription('Move SAP files to s3');
     }
-
-
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -45,7 +42,6 @@ class MoveSAPFileToS3Command extends Command
         $fileValidationDate = new \DateTime($fileValidationDate);
 
         try{
-            
             
             $this->logMessage('Checking Connection', LogLevel::INFO());
             $SFTPConObj = new SFTPConnection(BW_SAP_IMPORT_SFTP_HOST, BW_SAP_IMPORT_SFTP_PORT);
@@ -62,10 +58,7 @@ class MoveSAPFileToS3Command extends Command
             if($filesInDir)
             {
                 $this->logMessage('Getting the S3 Archive Client Object', LogLevel::INFO());
-                $s3Client = $this->getS3ArchiveClient();
-
-                $movedfileCount = 0;
-
+                
                 foreach ($filesInDir as $key => $file) {
 
                     $this->logMessage("Starting to process file $file", LogLevel::INFO());
@@ -84,55 +77,13 @@ class MoveSAPFileToS3Command extends Command
                         $year =  substr($modify_date, 4, 4);
 
                         $modify_date = "{$year}-{$month}-{$date}";
-
                         $modify_date = new \DateTime($modify_date);
 
                         $this->logMessage("Validating if the file is older than ".BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS." days", LogLevel::INFO());
                         if ($fileValidationDate > $modify_date)
                         {
-                            $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$file;
-
-                            $this->logMessage("Going to start the file download", LogLevel::INFO());
-                            $SFTPConObj->downloadFile($tmpFilePath, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH."/".$file);
-                            $this->logMessage("{$file} downloaded from SFTP to tmp folder", LogLevel::INFO());
-
-
-                            $this->logMessage("{$file} is moving now to S3", LogLevel::INFO());
-                            
-                            $result = array();
-
-                            try {
-                                $result = $s3Client->putObject(array(
-                                    // 'ACL' => 'private',
-                                    'Owner' => array(
-                                        'DisplayName' => S3_BUCKET_BW_SAP_ARCHIVE,
-                                    ),
-                                    'Bucket' => S3_BUCKET_BW_SAP_ARCHIVE,
-                                    'Key' => S3_BW_SAP_ARCHIVE_DIRECTORY.$file,
-                                    'SourceFile' => $tmpFilePath,
-                                ));
-                            } catch (\S3Exception $e) {
-                                    $this->logMessage($e->getMessage(), LogLevel::CRITICAL());
-                            }
-                            if (isset($result["@metadata"]["statusCode"]) && ($result["@metadata"]["statusCode"] == '200')) {
-                                $movedfileCount++;
-                                $this->logMessage("{$file} - File moved in ".S3_BUCKET_BW_SAP_ARCHIVE. " Bucket", LogLevel::INFO());
-
-
-                                $this->logMessage("{$file} - File is deleting now from tmp folder", LogLevel::INFO());
-                                // Now remove from temp 
-                                \unlink($tmpFilePath);
-
-                                $this->logMessage("{$file} - File is deleting now from ".BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$file." folder", LogLevel::INFO());
-                                // Now remove from SFTP
-                                $SFTPConObj->deleteRemoteFile(BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$file);
-                            }
-                            else{
-                                // echo "{$file} - File not uploaded in S3 \n";
-                                $this->logMessage("{$file} File not moved in S3", LogLevel::CRITICAL());
-                                $this->logMessage("@metadata -> statusCode -".$result["@metadata"]["statusCode"] , LogLevel::CRITICAL());
-                            }
-                            
+                            // if file is older than the specified days it will move to S3
+                            $this->moveSFTPFileToS3($file, $SFTPConObj);
                         }
                         else{
                             $this->logMessage(BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS." Days older file validation Failed. File - {$file} has not been processed", LogLevel::INFO());
@@ -143,8 +94,8 @@ class MoveSAPFileToS3Command extends Command
                     }
                 }
 
-                if($movedfileCount)
-                    $this->logMessage("Number of files - ".$movedfileCount." Moved from SFTP to S3", LogLevel::INFO());
+                if($this->movedfileCount)
+                    $this->logMessage("Number of files - ".$this->movedfileCount." Moved from SFTP to S3", LogLevel::INFO());
                 else
                     $this->logMessage("No file found which is older than ".BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS." days", LogLevel::INFO());
             }
@@ -157,7 +108,54 @@ class MoveSAPFileToS3Command extends Command
             $this->logMessage($message, LogLevel::CRITICAL());
         }
         
-        $this->logMessage('Script Execution Stopped!', LogLevel::DEBUG());
+        $this->logMessage('Script Execution Stopped!', LogLevel::INFO());
+    }
+
+    public function moveSFTPFileToS3(String $file, SFTPConnection $SFTPConObj)
+    {
+        if(!isset($this->s3Client))
+            $this->s3Client = $this->getS3ArchiveClient();
+
+        $tmpFilePath = BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR.$file;
+
+        $this->logMessage("Going to start the file download", LogLevel::INFO());
+        $SFTPConObj->downloadFile($tmpFilePath, BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH."/".$file);
+        $this->logMessage("{$file} downloaded from SFTP to tmp folder", LogLevel::INFO());
+
+        $this->logMessage("{$file} is moving now to S3", LogLevel::INFO());
+        
+        $result = array();
+
+        try {
+            $result = $this->s3Client->putObject(array(
+                // 'ACL' => 'private',
+                'Owner' => array(
+                    'DisplayName' => S3_BUCKET_BW_SAP_ARCHIVE,
+                ),
+                'Bucket' => S3_BUCKET_BW_SAP_ARCHIVE,
+                'Key' => S3_BW_SAP_ARCHIVE_DIRECTORY.$file,
+                'SourceFile' => $tmpFilePath,
+            ));
+        } catch (\S3Exception $e) {
+                $this->logMessage($e->getMessage(), LogLevel::CRITICAL());
+        }
+        if (isset($result["@metadata"]["statusCode"]) && ($result["@metadata"]["statusCode"] == '200')) {
+            $this->movedfileCount++;
+            $this->logMessage("{$file} - File moved in ".S3_BUCKET_BW_SAP_ARCHIVE. " Bucket", LogLevel::INFO());
+
+            $this->logMessage("{$file} - File is deleting now from tmp folder", LogLevel::INFO());
+            // Now remove from temp 
+            \unlink($tmpFilePath);
+
+            $this->logMessage("{$file} - File is deleting now from ".BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$file." folder", LogLevel::INFO());
+            // Now remove from SFTP
+            $SFTPConObj->deleteRemoteFile(BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH.$file);
+        }
+        else{
+            // echo "{$file} - File not uploaded in S3 \n";
+            $this->logMessage("{$file} File not moved in S3", LogLevel::CRITICAL());
+            $this->logMessage("@metadata -> statusCode -".$result["@metadata"]["statusCode"] , LogLevel::CRITICAL());
+        }
     }
 
     public function getS3ArchiveClient(): S3Client
@@ -184,7 +182,7 @@ class MoveSAPFileToS3Command extends Command
         return new S3Client($s3ArchiveConfigSettings);
     }
 
-    public function logMessage($msg, $logLevel)
+    public function logMessage(String $msg, LogLevel $logLevel)
     {
         Utils::log(SAP_ARCHIVE_FILE_TO_S3_MOVEMENT_LOG_FILE, $msg, $logLevel);
     }
