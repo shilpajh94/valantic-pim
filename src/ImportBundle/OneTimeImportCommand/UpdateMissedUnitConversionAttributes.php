@@ -30,10 +30,20 @@ use Symfony\Component\Process\Process;
  */
 class UpdateMissedUnitConversionAttributes extends AbstractCommand
 {
-    private $unitConverterService;
-    private $appService;
-    const LOG_FILE_NAME = "update_missed_unit_conversion_attributes";
-
+    private $identifier;
+    
+    // Using an array to run the appropriate command
+    // on the basis of argument passed by User
+    private $commands = array(
+        "missedUnitConversion" => array(
+            "logFile" => "update_missed_unit_conversion_attributes",
+            "command" => "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes"
+        ),
+        "missedUnitConversionLBSPerFTUOM" => array(
+            "logFile" => "update_missed_unit_conversion_attributes_weightlbsperftuom",
+            "command" => "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom"
+        )
+    );
 
     const BATCH_SIZE = 1000;
 
@@ -44,14 +54,25 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
         parent::__construct();
     }
 
+    protected function configure()
+    {
+        $this->addArgument('identifier', InputArgument::REQUIRED, 'identifier for differentiate');
+    }
+
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->identifier = $input->getArgument('identifier');
+        if(!array_key_exists($this->identifier, $this->commands)) {
+            $this->consoleLog("Enter Required Parameter: i.e [missedUnitConversion or missedUnitConversionLBSPerFTUOM]");
+            return;
+        }
+        
         $scriptStartTime = time();
-        $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
-
+        $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . $this->commands[$this->identifier]['logFile'] . ".csv";
+        
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-//        $productListing->setCondition("o_id IN (1851293,1933158,1978560,1851294,1948405)");
+        //$productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684,1840172)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
@@ -61,7 +82,6 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
 
         $offset = 0;
         $batchIndex = 1;
-
         while ($offset <= ( $totalCount - 1)) {
             $batchStartTime = time();
             $this->initializeChildProcess($offset,self::BATCH_SIZE,$csvLogFilePath);
@@ -76,7 +96,6 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
             $this->consoleLog("Time taken for this batch : " . ( $singlebatchSpentTime )/60 . " minutes" );
             $this->consoleLog("ETA : " . ( $noOfBatches * $singlebatchSpentTime )/60 . " minutes" );
             $this->consoleLog("-------------------------------------------");
-//            \Pimcore::collectGarbage();
         }
         $scriptEndTime = time();
         $totalExecTime = ($scriptEndTime - $scriptStartTime) / 60 ;
@@ -88,7 +107,7 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     {
         $command = implode(' ',array(
             PIMCORE_PROJECT_ROOT."/bin/console ",
-            "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes",
+            $this->commands[$this->identifier]['command'],
             $offset,
             $limit,
             $logFile
@@ -106,9 +125,8 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
     }
 
 
-    private function consoleLog($message, $level = "INFO")
+    private function consoleLog($message)
     {
         echo $message . PHP_EOL;
     }
-
 }
