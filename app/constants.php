@@ -74,3 +74,7 @@ define('INH_FITTING_COVER_PAGE_FILE_PATH', CATALOGBUNDLE_CONFIG_DIRECTORY."/INH_
 define('OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY."/option_provider_cache_config.yml");
 define('FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC', 50);
 define('GRID_SQL_EDITOR_ALLOWED_ROLES',['ApplicationAdmin']);
+
+
+// Files older than these many days will be moved to S3 from archive folder
+define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
