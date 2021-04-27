@@ -68,8 +68,8 @@ class ProductSQLModel
     const MIN_TOP_CAT_LVL = 4;
     const GROSS_WEIGHT_UNITS = [
         "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
-        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
-        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M
+        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_FT,
+        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
     public function __construct()
