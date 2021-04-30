@@ -75,4 +75,22 @@ class SFTPConnection
         return (bool) file_exists('ssh2.sftp://' . $this->sftp . $filePath );
     }
 
+    public function deleteRemoteFile($filePath) {
+        return ssh2_sftp_unlink($this->sftp, $filePath);
+    }
+    
+    public function getFilesList($dir) {
+
+        
+        $files = array();
+        $dirHandle = opendir("ssh2.sftp://{$this->sftp}{$dir}");
+
+        while (false !== ($file = readdir($dirHandle))) {
+            if ($file != '.' && $file != '..') {
+                $files[] = $file;
+            }
+        }
+
+        return $files;
+    }
 }
