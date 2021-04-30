@@ -25,15 +25,6 @@ class StripTagGetter extends AbstractOperator
             $childResult = $c->getLabeledValue($element);
             if ($childResult && $childResult->value) {
                 $childValue = strip_tags($childResult->value);
-
-        //         $image = $childResult->value;
-		// // for contitech
-        //         if ($image instanceof \Pimcore\Model\Asset\Image) {
-        //             $result->value = \DistributionHubBundle\Lib\Utils::getImageOrThumbnailPublicPath($image, $this->thumbnail);
-        //         }
-        //         if($result->value && $this->getContext()['purpose'] == "gridview"){
-        //             $result->value = '<a href="'.$result->value.'" target="_blank">'.$result->value.'</a>';
-        //         }
             }
             $result->value = $childValue;
         }
