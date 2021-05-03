@@ -8,6 +8,8 @@ use Pimcore\Event\Admin\Login\LoginCredentialsEvent;
 // use Pimcore\Event\Admin\Login\LoginFailedEvent;
 //use Pimcore\Log\ApplicationLogger as Logger;
 //use AppBundle\Logger\FBBLogger;
+use AppBundle\Logger\LogLevel;
+use AppBundle\Tool\Utils;
 
 /**
  * Authenticate Listner for AD Implementation
@@ -23,14 +25,12 @@ class AuthenticateListner
 
     private $username;
     private $password;
-    private $logger;
 
     /**
      * default role id in string format.
      * @var string
      */
     private $default_role_id;
-
 
     public function __construct()
     {
@@ -58,7 +58,7 @@ class AuthenticateListner
 
             $userObj = User::getByName($this->username);
 
-            if (!empty($userObj)) {
+            if (!empty($userObj) && $userObj->isAdmin()) {
                 if ($userObj->isAdmin()) {
                     return; // do default authentication for admin users
                 }
@@ -78,6 +78,7 @@ class AuthenticateListner
             }
         } catch (\Exception $ex) {
             //$this->logger->addError($ex->getMessage());
+            Utils::log('LDAP_AUTHENTICATE_LOG_FILE',"Test error message",Loglevel::ERROR());
         }
     }
 

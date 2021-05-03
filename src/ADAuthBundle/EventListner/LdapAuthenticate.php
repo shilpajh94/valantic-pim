@@ -14,7 +14,8 @@ use Symfony\Component\Ldap\Ldap;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\Config\FileLocator;
-//use AppBundle\Logger\FBBLogger;
+use AppBundle\Tool\Utils;
+use AppBundle\Logger\LogLevel;
 
 /**
  * LdapAuthenticate class for AD Implementation
@@ -59,6 +60,15 @@ class LdapAuthenticate
     }
 
     /**
+     * @Functional Description: This function is used to log the error message in log file.
+     * @param: $logMessage, $logLevel
+     * 
+     */
+    public function customErrorLog ($logMessage, $logLevel) {
+        Utils::log('LDAP_AUTHENTICATE_LOG_FILE', $logMessage, $logLevel);
+    }
+
+    /**
      * @Functional Description: This function is used to assign variable.
      *
      * @param
@@ -67,12 +77,10 @@ class LdapAuthenticate
     public function setLdapConfig($container)
     {
         $ldapLogger = $container->getParameter('ldap_logger');
-        //$logLevel = FBBLogger::$logLevels[$ldapLogger['log_level']];
         $logConfig = [
             'rotate_file' => $ldapLogger['rotate_file'],
             'max_files' => $ldapLogger['max_files']
         ];
-        //$this->logger = FBBLogger::getMonoLogger($ldapLogger['log_name'], $logLevel, $logConfig);
         $ldapConfig = $container->getParameter('ldap_config');
         $this->ldapHost = $ldapConfig['ldap_host'];
         $this->ldapUser = $ldapConfig['ldap_user'];
@@ -103,7 +111,7 @@ class LdapAuthenticate
             }
             return FALSE;
         } catch (\Exception $e) {
-            //$this->logger->addError($e->getMessage());
+            $this->customErrorLog("Exception while connecting to host: ".$e->getMessage(),Loglevel::ERROR());
             return FALSE;
         }
     }
@@ -121,12 +129,15 @@ class LdapAuthenticate
         try {
 
             foreach ($this->ldapHost as $host) {
-                if ($this->checkHostService($host, $this->ldapPort, $this->ldapConnTimeOut) == true)
+                if ($this->checkHostService($host, $this->ldapPort, $this->ldapConnTimeOut) == true) {
                     break;
-                else
+                } else {
                     $host = 0;
+                }
             }
+            $host = true; //Rajesh
             if ($host) {
+                throw new \Exception("Throwing exception manually"); // Rajesh
                 $this->ldapCreateConnection($host, $this->ldapPort);
                 //$filter = "(&(memberOf=" . $this->ldapUserGroup . ")(" . $this->ldapUserFilter . "=$userName))";
                 $filter = "(" . $this->ldapUserFilter . "=$userName)";
@@ -141,28 +152,28 @@ class LdapAuthenticate
                             'message' => 'success ok'
                         );
                     } else {
-                        //$this->logger->error("Failed to bind " . $userName . "with password");
+                        //$this->customErrorLog("Failed to bind", LogLevel::ERROR());
                         return array(
                             'success' => false,
                             'message' => "Failed to bind " . $userName . "with password"
                         );
                     }
                 } else {
-                    //$this->logger->error($this->ldapNoUser);
+                    //$this->customErrorLog("User not found", LogLevel::ERROR());
                     return array(
                         'success' => false,
                         'message' => $this->ldapNoUser
                     );
                 }
             } else {
-                //$this->logger->error($this->ldapNoDomainHost);
+                $this->customErrorLog("No domain host found ".$this->ldapNoDomainHost, LogLevel::ERROR());
                 return array(
                     'success' => false,
                     'message' => $this->ldapNoDomainHost
                 );
             }
         } catch (\Exception $e) {
-            //$this->logger->addError($e->getMessage());
+            $this->customErrorLog("Exception caught: ".$e->getMessage(), LogLevel::ERROR());
             return array(
                 'success' => false,
                 'errorCode' => $e->getCode(),
@@ -197,7 +208,7 @@ class LdapAuthenticate
             $this->ldapObj = Ldap::create('ext_ldap', $config);
             return $this->ldapBindConnection($this->ldapUser, $this->ldapPass);
         } catch (\Exception $e) {
-            //$this->logger->addError($e->getMessage());
+            $this->customErrorLog("Ldap Connection couldn't establish: ".$e->getMessage(),Loglevel::ERROR());
             throw new \Exception($e->getMessage());
         }
     }
@@ -218,8 +229,7 @@ class LdapAuthenticate
                 'success' => true
             );
         } catch (\Exception $e) {
-
-            //$this->logger->addError($e->getMessage());
+            $this->customErrorLog("Failed to bind Ldap connection: ".$e->getMessage(),Loglevel::ERROR());
             throw new \Exception($e->getMessage());
         }
     }
@@ -240,7 +250,7 @@ class LdapAuthenticate
                 'success' => true
             );
         } catch (\Exception $e) {
-            //$this->logger->addError("Failed to bind user=" . $user . "--" . $e->getMessage());
+            $this->customErrorLog("Failed to bind Ldap user: ".$e->getMessage(),Loglevel::ERROR());
             throw new \Exception($e->getMessage());
         }
     }
@@ -257,10 +267,9 @@ class LdapAuthenticate
     {
         try {
             $query = $this->ldapObj->query($rdns, $filter);
-            $results = $query->execute()->toArray();
-            return $results;
+            return($query->execute()->toArray());
         } catch (\Exception $e) {
-            //$this->logger->addError($e->getMessage());
+            $this->customErrorLog("Failed to excute query: ".$e->getMessage(),Loglevel::ERROR());
             throw new \Exception($e->getMessage());
         }
     }
