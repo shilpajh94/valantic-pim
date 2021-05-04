@@ -166,8 +166,10 @@ class Attribute
                 FROM
                     object_10 salesMaster
                         JOIN
+                    object_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
+                        JOIN
                     object_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
-                WHERE salesMaster.o_published = 1 AND product.o_published = 1
+                WHERE salesMaster.o_published = 1 AND product.o_published = 1 AND salesMaster.deletedFlagAtSalesLevel = -1 AND salesMaster.epixFlag = '001' AND salesOrg.code <> '0450'
             ";
 
             $productLineMaster = Db::get()->fetchAll($newSql1);
