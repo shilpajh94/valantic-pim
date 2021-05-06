@@ -33,10 +33,10 @@ class Material
                     salesOrg.code AS salesOrgCode,
                     distChannel.code AS dcCode,
                     plant.Plant AS plantCode,
-                    0 AS leadTime,
-                    0 as minOrdQty,
+                    plantMaterialMaster.TotalReplenismentLeadTime AS leadTime,
+                    plantMaterialMaster.MinOrderQuantity AS minOrdQty,
                     0 AS maxOrdQty,
-                    0 as ordIncrementQty,
+                    plantMaterialMaster.OrderingQuantityIncrements as ordIncrementQty,
                     salesMaster.SalesUOM AS SalesUOM,
                     salesMaster.pricePageFlag
             FROM
@@ -49,12 +49,18 @@ class Material
                     object_8 distChannel ON distChannel.oo_id = salesMaster.DistributionChannel__id
                         JOIN
                     object_5 plant ON plant.oo_id = salesMaster.DeliveringPlant__id
+                        JOIN
+                    object_12 plantMaterialMaster ON (plantMaterialMaster.Plant__id = salesMaster.DeliveringPlant__id
+                    AND SUBSTRING(plantMaterialMaster.Material, 2, (length(plantMaterialMaster.Material) - 2 ) ) = product.oo_id
+                    AND plantMaterialMaster.SalesOrganization__id = salesOrg.oo_id
+                    AND plantMaterialMaster.DistributionChannel__id = distChannel.oo_id)
             WHERE
                     salesMaster.epixFlag = '001' AND
                     salesMaster.o_published = 1 AND
                     product.o_published = 1 AND
                     salesOrg.o_published = 1 AND
                     distChannel.o_published = 1 AND
+                    plantMaterialMaster.o_published = 1 AND
                     plant.o_published = 1;
     ");
     return $salesMaterialMaster;
