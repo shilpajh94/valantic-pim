@@ -35,7 +35,7 @@ pimcore.plugin.distributionhub.tabs.columnConfiguration = Class.create({
             "LocaleSwitcher",
             "CollectionMediaGetter",
             "SelectTypeMasterGetter",
-            "StripTagGetter"
+            "StripTag"
         ];
         this.configPanel = new Ext.Panel({
             layout: "border",

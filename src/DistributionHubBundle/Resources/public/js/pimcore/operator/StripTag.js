@@ -1,9 +1,9 @@
-pimcore.registerNS("pimcore.object.gridcolumn.operator.striptaggetter");
+pimcore.registerNS("pimcore.object.gridcolumn.operator.striptag");
 
-pimcore.object.gridcolumn.operator.striptaggetter = Class.create(pimcore.object.gridcolumn.Abstract, {
+pimcore.object.gridcolumn.operator.striptag = Class.create(pimcore.object.gridcolumn.Abstract, {
     operatorGroup: "transformer",
     type: "operator",
-    class: "StripTagGetter",
+    class: "StripTag",
     iconCls: "pimcore_icon_operator_stringreplace",
     defaultText: "Strip HTML Tag",
     group: "string",
@@ -107,5 +107,12 @@ pimcore.object.gridcolumn.operator.striptaggetter = Class.create(pimcore.object.
         if (params && params.callback) {
             params.callback();
         }
+    },
+
+    allowChild: function (targetNode, dropNode) {
+        if (targetNode.childNodes.length > 0) {
+            return false;
+        }
+        return true;
     },
 });
