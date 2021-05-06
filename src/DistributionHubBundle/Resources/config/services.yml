@@ -195,12 +195,12 @@ services:
         tags:
             - { name: pimcore.data_object.grid_column_config.operator_factory, id: SelectTypeMasterGetter }
     
-    pimcore.data_object.grid_column_config.operator.factory.striptaggetter:
+    pimcore.data_object.grid_column_config.operator.factory.striptag:
         class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory
         arguments:
-            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\StripTagGetter
+            $className: DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\StripTag
         tags:
-            - { name: pimcore.data_object.grid_column_config.operator_factory, id: StripTagGetter }
+            - { name: pimcore.data_object.grid_column_config.operator_factory, id: StripTag }
 
     pimcore.data_object.grid_column_config.operator.factory.any_getter:
         class: Pimcore\DataObject\GridColumnConfig\Operator\Factory\DefaultOperatorFactory

@@ -3,8 +3,10 @@
 namespace DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator;
 
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
+use DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
+use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
 
-class StripTagGetter extends AbstractOperator
+class StripTag extends AbstractOperator
 {
     public function __construct(\stdClass $config, $context = null)
     {
@@ -22,12 +24,16 @@ class StripTagGetter extends AbstractOperator
             return $result;
         } else {
             $c = $childs[0];
-            $childResult = $c->getLabeledValue($element);
-            if ($childResult && $childResult->value) {
-                $childValue = strip_tags($childResult->value);
+            $value = null;
+
+            if($c instanceof DefaultValue){
+                $customDefaultValue = new CustomDefaultValue($c);
+                $childResult = $customDefaultValue->getLabeledValue($element);
+                $value = strip_tags($childResult->value);
             }
-            $result->value = $childValue;
         }
+        $result->value = $value;
         return $result;
     }
+    
 }
