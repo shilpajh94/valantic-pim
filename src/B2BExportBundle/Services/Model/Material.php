@@ -37,8 +37,11 @@ class Material
                     plantMaterialMaster.MinOrderQuantity AS minOrdQty,
                     0 AS maxOrdQty,
                     plantMaterialMaster.OrderingQuantityIncrements as ordIncrementQty,
-                    salesMaster.SalesUOM AS SalesUOM,
-                    salesMaster.pricePageFlag
+                    salesMaster.pricePageFlag,
+                    CASE
+                        WHEN plantMaterialMaster.AvailabilityCheckCode = '<NA>' THEN ''
+                        ELSE plantMaterialMaster.AvailabilityCheckCode
+                    END as SalesUOM
             FROM
                     object_10 salesMaster
                         JOIN
