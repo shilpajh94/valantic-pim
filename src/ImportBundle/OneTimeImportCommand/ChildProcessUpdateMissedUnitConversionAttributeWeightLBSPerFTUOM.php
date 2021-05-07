@@ -130,6 +130,21 @@ class ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM extends A
                             $grossWeight)
                     );
                 }
+
+
+                $product->setWeightKg(
+                $weightPerLengthConverter->convert(
+                    self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
+                    WeightPerLengthConverter::UNIT_KG_PER_M,
+                    $grossWeight)
+                );
+
+                $product->setWeightg(
+                    $weightPerLengthConverter->convert(
+                        self::GROSS_WEIGHT_UNIT_TO_WEIGHT_PER_LENGTH_UNIT_MAP[self::GROSS_WEIGHT_UNITS[$grossWeightUnit]],
+                    WeightPerLengthConverter::UNIT_G_PER_M,
+                    $grossWeight)
+                );
                 $isProductUpdated = true;
             }
         }
