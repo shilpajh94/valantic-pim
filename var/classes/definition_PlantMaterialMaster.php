@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-09-25T13:10:04+02:00
+* Generated at: 2021-05-06T13:15:03+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -19,6 +19,7 @@ Fields Summary:
 - StandardPackQuantity [numeric]
 - StandardPackQuantityUOM [input]
 - OutsidePurchaseIdentifierOrProcurementType [select]
+- AvailabilityCheckCode [input]
 - SalesOrganization [manyToOneRelation]
 - DistributionChannel [manyToOneRelation]
 - PlantProfitCenter [input]
@@ -36,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1601032204,
+   'modificationDate' => 1620299702,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -490,6 +491,34 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'noteditable' => true,
                      'index' => false,
                      'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  9 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 350,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'AvailabilityCheckCode',
+                     'title' => 'Availability Check Code',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
