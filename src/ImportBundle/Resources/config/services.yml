@@ -116,6 +116,10 @@ services:
         tags:
             - { name: 'console.command', command: 'conti:onetimeimport:child_process_update_missed_unit_conversion_attributes' }
             
+    ImportBundle\OneTimeImportCommand\ChildProcessUpdateMissedUnitConversionAttributeWeightLBSPerFTUOM:
+        tags:
+            - { name: 'console.command', command: 'conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom' } 
+    
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
         public: true

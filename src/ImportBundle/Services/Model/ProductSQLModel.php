@@ -68,8 +68,8 @@ class ProductSQLModel
     const MIN_TOP_CAT_LVL = 4;
     const GROSS_WEIGHT_UNITS = [
         "LB" => UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT,
-        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M,
-        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M
+        "KG" => UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_FT,
+        "G" => UnitConversion\WeightPerLengthConverter::UNIT_G_PER_FT
     ];
     
     public function __construct()
@@ -770,7 +770,8 @@ class ProductSQLModel
             'netWeight' => null,
             'weightUnit' => null,
             'weightKg' => null,
-            'weightg' => null
+            'weightg' => null,
+            'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
             $queryTableData['articleNumber'] = trim($record['0']);
@@ -792,8 +793,9 @@ class ProductSQLModel
             $queryTableData['weightUnit'] = $weightUnit;
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
-                    $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['KG'], $grossWeight);
-                    $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['G'], $grossWeight);
+                    $queryTableData['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
+                    $queryTableData['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
+                    $queryTableData['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
 //                    $sourceUnit = new UnitConversion\WeightPerLengthConverter(self::GROSS_WEIGHT_UNITS[$weightUnit]);
 //                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
 //                    $queryTableData['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
@@ -802,6 +804,7 @@ class ProductSQLModel
             } else {
                 $queryTableData['weightKg'] = null;
                 $queryTableData['weightg'] = null;
+                $queryTableData['WeightLbsPerFTUOM'] = null;
             }
             
             $materialGrpId = $this->getOrCreateMaterialGroupCodeId(trim($record['3']));
@@ -835,7 +838,8 @@ class ProductSQLModel
             'netWeight' => null,
             'weightUnit' => null,
             'weightKg' => null,
-            'weightg' => null
+            'weightg' => null,
+            'WeightLbsPerFTUOM' => null
         ];
         if (strtolower($productType) == 'fert') {
             $storeTableDataArray['articleNumber'] = trim($record['0']);
@@ -857,8 +861,9 @@ class ProductSQLModel
             $storeTableDataArray['weightUnit'] = $weightUnit;
             if (!empty($grossWeight)) {
                 if (!empty($weightUnit)) {
-                    $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['KG'], $grossWeight);
-                    $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], self::GROSS_WEIGHT_UNITS['G'], $grossWeight);
+                    $storeTableDataArray['weightKg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_KG_PER_M, $grossWeight);
+                    $storeTableDataArray['weightg'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_G_PER_M, $grossWeight);
+                    $storeTableDataArray['WeightLbsPerFTUOM'] = $this->weightConversionService->convert(self::GROSS_WEIGHT_UNITS[$weightUnit], UnitConversion\WeightPerLengthConverter::UNIT_LBS_PER_FT, $grossWeight);
 //                    $sourceUnit = new UnitConversion\Unit(self::GROSS_WEIGHT_UNITS[$weightUnit]);
 //                    $converter = UnitConversion\ConverterFactory::getConverterByUnit($grossWeight, $sourceUnit);
 //                    $storeTableDataArray['weightKg'] = round($converter->getValue(new Unit(Unit::KG)), 5);
@@ -867,6 +872,7 @@ class ProductSQLModel
             } else {
                 $storeTableDataArray['weightKg'] = null;
                 $storeTableDataArray['weightg'] = null;
+                $storeTableDataArray['WeightLbsPerFTUOM'] = null;
             }
         }
         $this->storeTableDataArray[] = $storeTableDataArray;
