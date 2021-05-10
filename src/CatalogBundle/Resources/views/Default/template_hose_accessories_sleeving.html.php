@@ -132,11 +132,17 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <?php if(!$onlyOneTitle): ?>
                 <h2>
                 <?php
-                if ($this->input("HHAS_HeadingRight_{$md5key}")->isEmpty()) {
+
+                if($this->editmode): 
+                        if($this->input("HHAS_HeadingRight_{$md5key}")->isEmpty()): 
                         echo $this->input("HHAS_HeadingRight_{$md5key}")->setDataFromResource("Hose Accessories");
-                } else {
+                        else: 
+                        echo $this->input("HHAS_HeadingRight_{$md5key}"); 
+                        endif; 
+                else:
                         echo $this->input("HHAS_HeadingRight_{$md5key}");
-                }
+                endif; 
+                
                 ?>
                 </h2>
                 <?php
@@ -147,13 +153,33 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                 <h4 class="contitech-yellow">
 
                 <?php
-                        echo $this->input("HHAS_BrandNameRight_{$md5key}")->setDataFromResource($brand['brandName']);
+
+                        if($this->editmode): 
+                                if($this->input("HHAS_BrandNameRight_{$md5key}")->isEmpty()): 
+                                echo $this->input("HHAS_BrandNameRight_{$md5key}")->setDataFromResource($brand['brandName']);
+                                else: 
+                                echo $this->input("HHAS_BrandNameRight_{$md5key}"); 
+                                endif; 
+                        else:
+                                echo $this->input("HHAS_BrandNameRight_{$md5key}");
+                        endif; 
+
                 ?>
                 </h4>
 
                 <span>
                 <?php
-                        echo $this->wysiwyg("HHAS_LongDescriptionRight_{$md5key}")->setDataFromResource($brand['longDescription']);
+
+                        if($this->editmode): 
+                                if($this->wysiwyg("HHAS_LongDescriptionRight_{$md5key}")->isEmpty()): 
+                                echo $this->wysiwyg("HHAS_LongDescriptionRight_{$md5key}")->setDataFromResource($brand['longDescription']);
+                                else: 
+                                echo $this->wysiwyg("HHAS_LongDescriptionRight_{$md5key}"); 
+                                endif; 
+                        else:
+                                echo $this->wysiwyg("HHAS_LongDescriptionRight_{$md5key}");
+                        endif; 
+                        
                 ?>
                 </span>
 
@@ -217,10 +243,15 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
            </figcaption>
                 <?php
                 if ($this->editmode) {
-                echo $this->image("HHAS_Image_{$md5key}", ["width" => 200, "height" => 200])->setImage($brand['imageObj']);
-                } else {
+
                         if(!$this->image("HHAS_Image_{$md5key}")->isEmpty())
-                                $imgSrcObj = $this->image("HHAS_Image_{$md5key}");
+                        echo $this->image("HHAS_Image_{$md5key}",["width" => 200, "height" => 200]);
+                        else
+                        echo $this->image("HHAS_Image_{$md5key}", ["width" => 200, "height" => 200])->setImage($brand['imageObj']);
+                
+                } else {
+                        // if(!$this->image("HHAS_Image_{$md5key}")->isEmpty())
+                        $imgSrcObj = $this->image("HHAS_Image_{$md5key}");
 
                         if($imgSrcObj)
                         {

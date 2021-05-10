@@ -18,11 +18,7 @@ $featuresFooter = false;
         <header class="dark ">
             <h1>
                 <?php
-                if ($this->editmode) {
                     echo $this->input("header");
-                } else {
-                    echo $this->input("header");
-                }
                 ?>
             </h1>
         </header>
@@ -49,11 +45,7 @@ $featuresFooter = false;
 
                 <h4>
                     <?php
-                    if ($this->editmode) {
                         echo $this->input('footerContent', ['width' => 826, 'height' => 34]);
-                    } else {
-                        echo $this->input('footerContent', ['width' => 826, 'height' => 34]);
-                    }
                     ?>
                 </h4>
 
@@ -69,11 +61,7 @@ $featuresFooter = false;
 
                 <h4>
                     <?php
-                    if ($this->editmode) {
                         echo $this->input('footerContent1', ['width' => 826, 'height' => 34]);
-                    } else {
-                        echo $this->input('footerContent1', ['width' => 826, 'height' => 34]);
-                    }
                     ?>
                 </h4>
 
