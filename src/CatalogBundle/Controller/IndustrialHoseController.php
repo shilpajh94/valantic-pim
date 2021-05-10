@@ -58,11 +58,11 @@ class IndustrialHoseController extends AbstractController
 
             $siop = $template->getSiopLevel4();
             $siopObj = $this->getSiopObject($siop);
-            $configTableName = $tableName = "AIR & MULTIPURPOSE";
+            $configTableName = $tableName = "0410001010";
             $constructionType = '';
             if($siopObj != null) {
                 $constructionType = $siopObj->getConstructionType($lang);
-                $tableName = $siopObj->getParent()->getDescription($lang);
+                $tableName = $siopObj->getParent()->getFullCode();
                 $siop4Description = ($siopObj->getPrintedCatalogDescription($lang)) ? $siopObj->getPrintedCatalogDescription($lang) : $siopObj->getDescription($lang);
                 $configTableName = ($siopObj->getParent()->getPrintedCatalogDescription($lang)) ? $siopObj->getParent()->getPrintedCatalogDescription($lang) : $siopObj->getParent()->getDescription($lang);
             }
