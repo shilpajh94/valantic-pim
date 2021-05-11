@@ -1,6 +1,7 @@
 <?php 
 
 /** 
+* Generated at: 2021-05-06T13:15:03+02:00
 * Inheritance: no
 * Variants: no
 
@@ -34,7 +35,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'PlantMaterialMaster',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1620301255,
+   'modificationDate' => 1620299702,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -510,10 +511,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'unique' => false,
                      'showCharCount' => false,
                      'name' => 'AvailabilityCheckCode',
-                     'title' => 'AvailabilityCheckCode',
+                     'title' => 'Availability Check Code',
                      'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => NULL,
                      'style' => '',
