@@ -37,20 +37,30 @@ if (is_array($brandsData) && !empty($brandsData)) {
 
          <h5>
                 <?php
-                    if($this->editmode) {
-                        echo $this->input('section_11')->setDataFromResource('Section 1');
-                    } else {
-                        echo $this->input('section_11');
-                    }
+
+                    if($this->editmode): 
+                        if($this->input("section_11")->isEmpty()): 
+                        echo $this->input("section_11")->setDataFromResource('Section 1');
+                        else: 
+                        echo $this->input("section_11"); 
+                        endif; 
+                    else:
+                        echo $this->input("section_11");
+                    endif; 
 
                 ?>
                 <span>
                 <?php
-                    if($this->editmode) {
+
+                    if($this->editmode): 
+                        if($this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->isEmpty()): 
                         echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"])->setDataFromResource($HydFittingFamily. ' Fittings');
-                    } else {
-                        echo $this->input('fittingFamily_11');
-                    }
+                        else: 
+                        echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"]); 
+                        endif; 
+                    else:
+                        echo $this->input('fittingFamily_11',["placeholder"=>"Fitting Type"]);
+                    endif; 
 
                 ?>
                 </span>
@@ -58,20 +68,12 @@ if (is_array($brandsData) && !empty($brandsData)) {
             <div class="compatible">
                                     <b>
                                         <?php
-                                        if ($this->editmode) {
                                             echo $this->input("HHF_Footer_Compatibility11", ["placeholder"=>'Compatible Hose:']);
-                                        } else {
-                                            echo $this->input("HHF_Footer_Compatibility11");
-                                        }
                                         ?>
                                     </b>
 
                                     <?php
-                                    if ($this->editmode) {
                                         echo $this->input("HHF_Footer_Compatibility_Description11", ["placeholder"=>'SR1SN SR2SN SR3SN']);
-                                    } else {
-                                        echo $this->input("HHF_Footer_Compatibility_Description11", ["placeholder"=>'SR1SN SR2SN SR3SN']);
-                                    }
                                     ?>
                                 </div>
  
@@ -126,20 +128,30 @@ if (is_array($brandsData) && !empty($brandsData)) {
             
              <h5>
                 <?php
-                    if($this->editmode) {
-                        echo $this->input('section_1')->setDataFromResource('Section 1');
-                    } else {
-                        echo $this->input('section_1');
-                    }
+
+                    if($this->editmode): 
+                        if($this->input("section_1")->isEmpty()): 
+                        echo $this->input("section_1")->setDataFromResource('Section 1');
+                        else: 
+                        echo $this->input("section_1"); 
+                        endif; 
+                    else:
+                        echo $this->input("section_1");
+                    endif; 
 
                 ?>
                 <span>
                 <?php
-                    if($this->editmode) {
-                        echo $this->input('fittingFamily_1')->setDataFromResource($HydFittingFamily. ' Fittings');
-                    } else {
-                        echo $this->input('fittingFamily_1');
-                    }
+
+                    if($this->editmode): 
+                        if($this->input('fittingFamily_1',["placeholder"=>"Fitting Type"])->isEmpty()): 
+                        echo $this->input('fittingFamily_1',["placeholder"=>"Fitting Type"])->setDataFromResource($HydFittingFamily. ' Fittings');
+                        else: 
+                        echo $this->input('fittingFamily_1',["placeholder"=>"Fitting Type"]); 
+                        endif; 
+                    else:
+                        echo $this->input('fittingFamily_1',["placeholder"=>"Fitting Type"]);
+                    endif; 
 
                 ?>
                 </span>
@@ -187,7 +199,10 @@ if (is_array($brandsData) && !empty($brandsData)) {
                             <span>
                                 <?php
                                 if ($this->editmode) {
-                                    echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
+                                    if(!$this->image('catLeftImage' . $uniqueId)->isEmpty())
+                                        echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150]);
+                                    else
+                                        echo $this->image('catLeftImage' . $uniqueId, ["class" => "leftImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['LeftPrintCatalogImageObj']);
                                 } else {
                                     $imgSrcObj1 =  $this->image('catLeftImage' . $uniqueId);
                                     if($imgSrcObj1)
@@ -198,7 +213,10 @@ if (is_array($brandsData) && !empty($brandsData)) {
                                     }
                                 }
                                 if ($this->editmode) {
-                                    echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
+                                    if(!$this->image('catRightImage' . $uniqueId)->isEmpty())
+                                        echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150]);
+                                    else
+                                        echo $this->image('catRightImage' . $uniqueId, ["class" => "rightImg", "width" => 226, "height" => 150])->setImage($tableRows['brandData']['RightPrintCatalogImageObj']);
                                 } else {
                                     $imgSrcObj2 = $this->image('catRightImage' . $uniqueId);
                                     if($imgSrcObj2)
@@ -213,20 +231,32 @@ if (is_array($brandsData) && !empty($brandsData)) {
                             <figcaption class="highlight">
                                 <h3>
                                     <?php
-                                    if ($this->input('brandName' . $uniqueId)->isEmpty()) {
+
+                                    if($this->editmode): 
+                                        if($this->input('brandName' . $uniqueId)->isEmpty()): 
                                         echo $this->input('brandName' . $uniqueId)->setDataFromResource($tableRows['brandData']['brandName']);
-                                    } else {
+                                        else: 
+                                        echo $this->input('brandName' . $uniqueId); 
+                                        endif; 
+                                    else:
                                         echo $this->input('brandName' . $uniqueId);
-                                    }
+                                    endif; 
+
                                     ?>
                                 </h3>
                                 <p>
                                     <?php
-                                    if ($this->input('shortDescription' . $uniqueId)->isEmpty()) {
+
+                                    if($this->editmode): 
+                                        if($this->input('shortDescription' . $uniqueId)->isEmpty()): 
                                         echo $this->input('shortDescription' . $uniqueId)->setDataFromResource($tableRows['brandData']['shortDescription']);
-                                    } else {
+                                        else: 
+                                        echo $this->input('shortDescription' . $uniqueId); 
+                                        endif; 
+                                    else:
                                         echo $this->input('shortDescription' . $uniqueId);
-                                    }
+                                    endif; 
+
                                     ?>
                                 </p>
                             </figcaption>

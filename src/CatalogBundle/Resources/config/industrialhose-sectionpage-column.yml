@@ -215,7 +215,7 @@ parameters:
         title: Standard MetHose Comment
         type: attr
   '0410001030':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
       #   title: Brand Name
@@ -238,14 +238,14 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
-      ConstructionType:
-        title: Tube Material
-        type: attr
-      visibilityofFlow:
-        title: Visibility of Flow
-        type: feature
-        fieldName: FeaturesBenefitsBulletPoint
-        feature: Visibility of Flow
+      # ConstructionType:
+      #   title: Tube Material
+      #   type: attr
+      # visibilityofFlow:
+      #   title: Visibility of Flow
+      #   type: feature
+      #   fieldName: FeaturesBenefitsBulletPoint
+      #   feature: Visibility of Flow
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr

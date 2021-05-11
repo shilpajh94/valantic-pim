@@ -143,8 +143,36 @@ if (!isset($this->parentContainer)) {
                                         <?php else: ?>
                                         <tr class="row">
                                         <?php endif; ?>
-                                        <td><?= $this->input("PND_FamilyName_{$incr}_{$rowcount}")->setDataFromResource($bkey); ?></td>   
-                                        <td><?= $this->input("PND_IndustryStandard_{$incr}_{$rowcount}")->setDataFromResource($brand[0]); ?></td>     
+                                        <td>
+                                        
+                                        <?php 
+                                            if($this->editmode): 
+                                                if($this->input("PND_FamilyName_{$incr}_{$rowcount}")->isEmpty()): 
+                                                    echo $this->input("PND_FamilyName_{$incr}_{$rowcount}")->setDataFromResource($bkey);
+                                                else: 
+                                                    echo $this->input("PND_FamilyName_{$incr}_{$rowcount}"); 
+                                                endif; 
+                                            else:
+                                                echo $this->input("PND_FamilyName_{$incr}_{$rowcount}");
+                                            endif; 
+                                        ?>
+                                        
+                                        </td>   
+                                        <td>
+
+                                        <?php 
+                                            if($this->editmode): 
+                                                if($this->input("PND_IndustryStandard_{$incr}_{$rowcount}")->isEmpty()): 
+                                                    echo $this->input("PND_IndustryStandard_{$incr}_{$rowcount}")->setDataFromResource($brand[0]);
+                                                else: 
+                                                    echo $this->input("PND_IndustryStandard_{$incr}_{$rowcount}"); 
+                                                endif; 
+                                            else:
+                                                echo $this->input("PND_IndustryStandard_{$incr}_{$rowcount}");
+                                            endif; 
+                                        ?>
+
+                                        </td>     
                                         <td><?= $this->input("PND_PageNumber_{$incr}_{$rowcount}"); ?></td>     
                                     </tr>
 
