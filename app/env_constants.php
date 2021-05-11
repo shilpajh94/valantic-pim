@@ -8,9 +8,9 @@ if (CUSTOM_ENV == "prod") {
     define("S3_BUCKET", "contitech-assets-prod");
     define("S3_REGION", "us-east-1");
 
-    define("S3_BUCKET_BW_SAP_ARCHIVE", "");
-    define("S3_REGION_BW_SAP_ARCHIVE", "");
-    define("S3_BW_SAP_ARCHIVE_DIRECTORY", "");
+    define("S3_BUCKET_BW_SAP_ARCHIVE", "sap-import-archive-prod");
+    define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
+    define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_files");
     
     define("B2B_EXPORT_SFTP_HOST", "vey1epxnds01");
     define("B2B_EXPORT_SFTP_PORT", 22);
