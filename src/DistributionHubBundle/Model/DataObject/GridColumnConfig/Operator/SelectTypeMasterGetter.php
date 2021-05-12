@@ -40,7 +40,7 @@ class SelectTypeMasterGetter extends AbstractOperator
                 $childResult = $customDefaultValue->getLabeledValue($element);
                 $value = $childResult->value;
                 $fieldDefinition = $childResult->def;
-            }elseif ($c instanceof AnyGetter){
+            }elseif ($c instanceof AnyGetter || $c instanceof \DistributionHubBundle\Model\DataObject\GridColumnConfig\Operator\AnyGetter){
                 $customDefaultValue = $this->getCustomAnyGetter($c);
                 $childResult = $customDefaultValue->getLabeledValue($element);
                 $value = $childResult->value[0];
@@ -62,7 +62,7 @@ class SelectTypeMasterGetter extends AbstractOperator
         return $result;
     }
 
-    private function getCustomAnyGetter(AnyGetter $anyGetter)
+    private function getCustomAnyGetter(AbstractOperator $anyGetter)
     {
         $config = new \stdClass();
 
