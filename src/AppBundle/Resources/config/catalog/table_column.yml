@@ -75,15 +75,24 @@ parameters:
                 fieldType: Input
                 parent:
                     name: HoseSkeleton
-            InnerHoseWeightLbs:
-                fieldLevel: objectBrick
+            # InnerHoseWeightLbs:
+            #     fieldLevel: objectBrick
+            #     fieldLabel: 'Weight (lbs per ft)'
+            #     groupName: InnerHoseWeightLbs
+            #     unitName: lbs per ft
+            #     numberOfDecimalPoints: 2
+            #     fieldType: Input
+            #     parent:
+            #         name: HoseFert
+            WeightLbsPerFTUOM:
+                fieldLevel: class
                 fieldLabel: 'Weight (lbs per ft)'
-                groupName: InnerHoseWeightLbs
-                unitName: lbs per ft
-                numberOfDecimalPoints: 2
                 fieldType: Input
+                groupName: WeightLbsPerFTUOM
+                unitName: lbs/ft
+                numberOfDecimalPoints: 2
                 parent:
-                    name: HoseFert
+                    name: Product
             HoseFittingFamily:
                 fieldLevel: objectBrick
                 fieldType: Relation
@@ -1437,8 +1446,4 @@ parameters:
                 fieldType: Number
                 fieldLabel: Gasket Thickness (inches)
                 parent: 
-                    name: INHFittingsFert
-
-            
-
-            
+                    name: INHFittingsFert          

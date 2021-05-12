@@ -1,5 +1,5 @@
 parameters:
-  Air & Multipurpose:
+  '0410001010':
     columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'ConstructionType', 'FeaturesBenefitsBulletPoint', 'temperatureRangeFAndC', 'workingPressurePSI']
     dispColumns:
       # brandName:
@@ -42,7 +42,7 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-  Chemical:
+  '0410001305':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -85,7 +85,7 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Superior Flexibility
-  Cleaning:
+  '0410001306':
     columns: ['brandName', 'StandardMetCover', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -128,7 +128,7 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-  Food:
+  '0410001020':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -181,7 +181,7 @@ parameters:
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
-  Marine:
+  '0410001300':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'standardMetHoseComment', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -214,7 +214,7 @@ parameters:
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
-  Material Handling:
+  '0410001030':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -252,7 +252,7 @@ parameters:
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
-  Mining:
+  '0410001060':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -290,7 +290,7 @@ parameters:
       workingPressurePSI:
         title: Standard MetHose Comment
         type: attr
-  Petroleum:
+  '0410001040':
     columns: ['brandName', 'coverCharacteristic', 'staticWire', 'standardMetHose', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -328,7 +328,7 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-  Steam:
+  '0410001302':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -353,7 +353,7 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-  Water:
+  '0410001050':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'LayFlatHoseYN', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
@@ -391,7 +391,7 @@ parameters:
       workingPressurePSI:
         title: WP (PSI)
         type: attr
-  Welding:
+  '0410001304':
     columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'temperatureRangeFAndC', 'workingPressurePSI', 'acceptableHoseMedia', 'FeaturesBenefitsBulletPoint']
     dispColumns:
       # brandName:
