@@ -161,8 +161,36 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
         foreach($data as $md5key => $brand):
         ?>
                <div class="marginBottom30 margin15" >
-                    <h3 class="contitech-yellow paddingNo"><?php echo $this->input("HHAFC_BrandName_{$md5key}")->setDataFromResource($brand['brandName']); ?></h3>
-                    <h3 class="light paddingNo borderBottom"><?php echo $this->wysiwyg("HHAFC_BrandName_Description_{$md5key}")->setDataFromResource($brand['shortDescription']); ?></h3>
+                    <h3 class="contitech-yellow paddingNo">
+                    <?php 
+
+                        if($this->editmode): 
+                                if($this->input("HHAFC_BrandName_{$md5key}")->isEmpty()): 
+                                echo $this->input("HHAFC_BrandName_{$md5key}")->setDataFromResource($brand['brandName']); 
+                                else: 
+                                echo $this->input("HHAFC_BrandName_{$md5key}"); 
+                                endif; 
+                        else:
+                                echo $this->input("HHAFC_BrandName_{$md5key}");
+                        endif; 
+                        
+                    ?>
+                    </h3>
+                    <h3 class="light paddingNo borderBottom">
+                    <?php 
+                    
+                        if($this->editmode): 
+                                if($this->wysiwyg("HHAFC_BrandName_Description_{$md5key}")->isEmpty()): 
+                                echo $this->wysiwyg("HHAFC_BrandName_Description_{$md5key}")->setDataFromResource($brand['shortDescription']);
+                                else: 
+                                echo $this->wysiwyg("HHAFC_BrandName_Description_{$md5key}"); 
+                                endif; 
+                        else:
+                                echo $this->wysiwyg("HHAFC_BrandName_Description_{$md5key}");
+                        endif; 
+                    
+                    ?>
+                    </h3>
                     <table class="grid special" cellspacing="0" cellpadding="0">
                         <thead>
                                 <?php if($iconRequired == 'YES'): ?>

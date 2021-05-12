@@ -118,11 +118,17 @@ if ($data):
                 <header>
                     <h1 class="oRing">
                         <?php
-                        if ($this->input("HHAO_Heading")->isEmpty()) {
-                            echo $this->input("HHAO_Heading")->setDataFromResource("Fitting Accessories: O-Rings");
-                        } else {
+
+                        if($this->editmode): 
+                            if($this->input("HHAO_Heading")->isEmpty()): 
+                            echo $this->input("HHAO_Heading")->setDataFromResource("Fitting Accessories: O-Rings"); 
+                            else: 
+                            echo $this->input("HHAO_Heading"); 
+                            endif; 
+                        else:
                             echo $this->input("HHAO_Heading");
-                        }
+                        endif;
+
                         ?>
                     </h1>
                 </header>
@@ -134,10 +140,14 @@ if ($data):
                         <div class="description">
                         <?php
                         if ($this->editmode) {
-                        echo $this->image("HHAO_Image", ["width" => 200])->setImage($data['imageObj']);
-                        } else {
+
                             if(!$this->image("HHAO_Image")->isEmpty())
-                                $imgSrcObj = $this->image("HHAO_Image");
+                                    echo $this->image("HHAO_Image",["width" => 200]);
+                            else
+                                    echo $this->image("HHAO_Image", ["width" => 200])->brand($data['imageObj']);
+                        } else {
+                            // if(!$this->image("HHAO_Image")->isEmpty())
+                            $imgSrcObj = $this->image("HHAO_Image");
 
                             if($imgSrcObj)
                             {
@@ -183,7 +193,19 @@ if ($data):
                                 foreach ($data['brandData'] as $md5key => $brand): ?>
                                     <div class="marginBottom50">
                                         <h3 class="contitech-yellow">
-                                            <?php echo $this->input("HHAO_BrandName_{$md5key}")->setDataFromResource($brand['brandName']); ?>
+                                            <?php
+                                            
+                                            if($this->editmode): 
+                                                    if($this->input("HHAO_BrandName_{$md5key}")->isEmpty()): 
+                                                        echo $this->input("HHAO_BrandName_{$md5key}")->setDataFromResource($brand['brandName']);
+                                                    else: 
+                                                    echo $this->input("HHAO_BrandName_{$md5key}"); 
+                                                    endif; 
+                                            else:
+                                                    echo $this->input("HHAO_BrandName_{$md5key}");
+                                            endif; 
+                                            
+                                            ?>
                                         </h3>
                                         <table class="grid inh" cellspacing="0" cellpadding="0">
                                             <thead>
