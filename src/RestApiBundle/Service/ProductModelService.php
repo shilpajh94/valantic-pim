@@ -28,12 +28,12 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use RestApiBundle\Model\ProductModel;
 use AppBundle\Tool\Utils;
-
+use AppBundle\Services\AppService;
 class ProductModelService
 {
 
     private $model;
-
+    private $appService;
     private $vCatalog = [];
 
     /**
@@ -41,9 +41,10 @@ class ProductModelService
      */
     private $mainClass = "\\Pimcore\\Model\\DataObject\\";
 
-    public function __construct()
+    public function __construct(AppService $appService)
     {
         $this->model = new ProductModel();
+        $this->appService = $appService;
     }
 
     /**
@@ -59,12 +60,12 @@ class ProductModelService
 
         $productDetail = array();
         $this->vCatalog = $this->getVirtualCatalogFieldMapping();
-        /*
+        
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
         $conArray['fields']   = ['oo_id'];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
-        */
+        
 
         // these are all ferts with offset, limit and conditions
         $products = $this->model->fetchProduct($langCode, $parameterArray,'fert',$this->vCatalog);
@@ -72,7 +73,7 @@ class ProductModelService
             $productDetail['apikey'] = $parameterArray['apiKey'];
             // iterating all the ferts and fetching their 9 digit and 6 digit data
             $productData =   $this->getProductDetail($products, $langCode);
-//            $productDetail['total'] = strval($totalCount);
+            $productDetail['total'] = strval($totalCount);
             $productDetail['products'] = $this->formatProducts($productData);
         }
         return $productDetail;
@@ -88,14 +89,17 @@ class ProductModelService
      *
      * @throws \Exception
      */
-    private function getProductDetail($products, $langCode)
+    private function getProductDetail($products)
     {
         $finalProductArray  =   [];
 
         if(empty($products)){ return $finalProductArray; }
 
         foreach($products as $key=>$value){
-            $value  =   array_filter($value);
+
+            // Using strlen as callback to preserve 0 Zero for unpublished records
+            // Removing Null, Empty and False value
+            $value  =   array_filter($value, 'strlen');
             $nineDigitData  =   $this->getSkeletonData($value['o_parentId']);
             $sixDigitData = [];
             if (!empty($nineDigitData)) {
@@ -127,6 +131,11 @@ class ProductModelService
                 }else{
                     $resultArrBase = $sixDigitData;
                 }
+                // We need these 2 ids to get the path of assets
+                // Then we are unseting it to hide the ids
+                $certificationImageID = $resultArrBase['certificationImage'];
+                $certificationDocumentID = $resultArrBase['document'];
+
                 unset($resultArrBase['oo_id']);
                 unset($resultArrBase['o_parentId']);
                 unset($resultArrBase['mainImage']);
@@ -136,9 +145,15 @@ class ProductModelService
                 unset($resultArrBase['SIOPLevel2']);
                 unset($resultArrBase['SIOPLevel3']);
                 unset($resultArrBase['SIOPLevel4']);
+                unset($resultArrBase['certificationImage']);
+                unset($resultArrBase['document']);
+                unset($resultArrBase['Document']);
                 $finalProductArray[$sixDigit] = $resultArrBase;
+                // To display the 6 Digit code with "sixDigitVirtualCatalogDescription" field
+                if(isset($resultArrBase['sixDigitVirtualCatalogDescription']) && $resultArrBase['sixDigitVirtualCatalogDescription'] != '') {
+                    $finalProductArray[$sixDigit]['sixDigitVirtualCatalogDescription'] = $sixDigitData['6digit']."-".$resultArrBase['sixDigitVirtualCatalogDescription'];
+                }
             }
-
             // Set Skeleton(9Digit) data only if it is not set.
             if(!isset($finalProductArray[$sixDigit]['9digit'][$nineDigit]) || empty($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
 
@@ -164,6 +179,7 @@ class ProductModelService
             }
 
             // Set Options(14Digit) data.
+            
             if(isset($finalProductArray[$sixDigit]['9digit'][$nineDigit])){
                 // Get Fert Object Bricks Data.
                 $fertObjectBrickData = $this->getProductObjectBrickData($value['oo_id'],'fert');
@@ -183,14 +199,20 @@ class ProductModelService
                 unset($resultArrFert['oldMaterialCode']);
                 $finalProductArray[$sixDigit]['9digit'][$nineDigit]['options'][]=$resultArrFert;
             }
-
             // Set Images.
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
             $imageDataArray['base'] = $sixDigitData;
-            $finalProductArray[$sixDigit]['images']= $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            $finalProductArray[$sixDigit]['images'] = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            // To get the base alt image & document URL
+            if(isset($certificationImageID) && !empty($certificationImageID)) {
+                $finalProductArray[$sixDigit]['CertificationImage'] = $this->getPropertyAssetData($certificationImageID);
+            }
+            if(isset($certificationDocumentID) && !empty($certificationDocumentID)) {
+                $finalProductArray[$sixDigit]['CertificationDocument'] = $this->getPropertyAssetData($certificationDocumentID);
+            }
         }
-
+        
         return $finalProductArray;
     }
 
@@ -253,7 +275,29 @@ class ProductModelService
      */
     private function getBaseData($baseParentId){
         $baseDetail = [];
+        $brandName = '';
         $baseDetail  =   $this->model->getProductTypeData($baseParentId,'base',$this->vCatalog);
+        // Getting brand name from object_query_3 table
+        if(isset($baseDetail['brandName']) && !empty($baseDetail['brandName'])) {
+            $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
+            if(!empty($brandName)){
+                $baseDetail['brandName'] = $brandName;
+            }
+        }
+        // Getting document URL from object_metadata_1 table
+        $documentID  =   $this->model->getDocumentId($baseDetail['oo_id']);
+        if(!empty($documentID)){
+            $baseDetail['document'] = $documentID;
+        }
+        // Getting all features from object_localized_29_en table
+        if(isset($baseDetail['FeaturesBenefitsBulletPoint']) && !empty($baseDetail['FeaturesBenefitsBulletPoint'])) {
+            $classId = $this->appService->getPimcoreClassIdbyName('Features');
+            $featureList  =   $this->model->getFeatures($baseDetail['FeaturesBenefitsBulletPoint'], $classId);
+            if(!empty($featureList)){
+                $baseDetail['FeaturesBenefitsBulletPoint'] = $featureList;
+            }
+        }
+
         return $baseDetail;
     }
 
@@ -271,7 +315,6 @@ class ProductModelService
         if(!empty($existingImageArray)){
             $imageDetail =   $existingImageArray;
         }
-        //p_r($imageDataArray);die;
         foreach($imageDataArray as $key=>$value){
             $imagesFields = $this->vCatalog['VirtualCatalog'][ucfirst($key)]['Images'];
             $variantId = '';
@@ -298,13 +341,11 @@ class ProductModelService
      * @throws
      */
     private function getProductObjectBrickData($objId,$productType){
-
         $productObjectBricksData = [];
         $productBrickField = "get".ucfirst($productType);
 
         // Get Product Object Brick Config Details.
         $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
-
         foreach($objectBricksMap as $bkey=>$bvalue){
             if(isset($bvalue['Fields']) && !empty($bvalue['Fields'])){
                 foreach($bvalue['Fields'] as $fkey=>$fvalue){
@@ -356,7 +397,8 @@ class ProductModelService
      * @throws
      */
     private function getPropertyAssetData($assetIdPath,$assetIdflag=true)
-    {   $assetId ='';
+    {   
+        $assetId ='';
         if($assetIdflag){
             $asset = Asset::getById($assetIdPath);
             $assetId= $assetIdPath;
