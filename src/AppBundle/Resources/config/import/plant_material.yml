@@ -26,4 +26,5 @@ parameters:
     'deleteFlag': 'Delete Flag'
     'procurementType': 'Procurement Type'
     'outsidePurchaseIdentifier': ''
+    'AvailabilityCheckCode': 'Availability Check'
   keyColumns: ['material','plant','salesOrg','distributionChannel']

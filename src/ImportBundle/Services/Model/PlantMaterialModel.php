@@ -259,6 +259,7 @@ class PlantMaterialModel
         $columnStockIndicator = $this->mappingCsvColumn['stockIndicator'];
         $columnDeleteFlag = $this->mappingCsvColumn['deleteFlag'];
         $columnSiopCode =  $this->mappingCsvColumn['productHier'];
+        $columnAvailabilityCheckCode =  $this->mappingCsvColumn['AvailabilityCheckCode'];
 
 	    $dataCount = count($data);
         foreach ($data as $rowCount => $rowvalueRecord)
@@ -399,6 +400,8 @@ class PlantMaterialModel
                         $safetyStock = $rowvalue[$columnSafetyStock];
                         $orderQtyInc = $rowvalue[$columnOrderQtyInc];
                         $siopCode = $rowvalue[$columnSiopCode];
+                        $availabilityCheckCode = $rowvalue[$columnAvailabilityCheckCode];
+                        
                         $stockIndicatorDescription = '';
                         if (strtolower($stockIndicator) == 's') {
                             $stockIndicatorDescription = 'Stock';
@@ -434,6 +437,7 @@ class PlantMaterialModel
                             'DistributionChannel__id' => $distributionChannelCode,
                             'DistributionChannel__type' => 'object',
                             'OrderingQuantityIncrements' => $orderQtyInc,
+                            'AvailabilityCheckCode' => $availabilityCheckCode,
                             'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1
                         ];
 
@@ -452,6 +456,7 @@ class PlantMaterialModel
                             'StockIndicatorDescription' => $stockIndicatorDescription,
                             'SafetyStock' => $safetyStock,
                             'OrderingQuantityIncrements' => $orderQtyInc,
+                            'AvailabilityCheckCode' => $availabilityCheckCode,
                             'deletedFlagAtPlantLevel' => (strtoupper(trim($deleteFlag)) == 'X') ? 1 : -1
                         ];
                         if (substr($siopCode, 0, 6) == '041500' && (empty($columnOutsidePurchaseIdentifier) || strtolower($columnOutsidePurchaseIdentifier) == 'f')) {
