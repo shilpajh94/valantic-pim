@@ -8,6 +8,8 @@ use Pimcore\Event\Admin\Login\LoginCredentialsEvent;
 // use Pimcore\Event\Admin\Login\LoginFailedEvent;
 //use Pimcore\Log\ApplicationLogger as Logger;
 //use AppBundle\Logger\FBBLogger;
+use AppBundle\Logger\LogLevel;
+use AppBundle\Tool\Utils;
 
 /**
  * Authenticate Listner for AD Implementation
@@ -23,14 +25,12 @@ class AuthenticateListner
 
     private $username;
     private $password;
-    private $logger;
 
     /**
      * default role id in string format.
      * @var string
      */
     private $default_role_id;
-
 
     public function __construct()
     {
@@ -58,26 +58,22 @@ class AuthenticateListner
 
             $userObj = User::getByName($this->username);
 
-            if (!empty($userObj)) {
-                if ($userObj->isAdmin()) {
-                    return; // do default authentication for admin users
-                }
+            if (!empty($userObj) && $userObj->isAdmin()) {
+                return; // do default authentication for admin users
             }
             
             $objLdapAuth = new LdapAuthenticate();
 
             $retUser = $objLdapAuth->getLdapAuthenticate($this->username, $this->password);
             
-            // if (isset($retUser['success']) && 1 == $retUser['success'] && isset($retUser['data'][0]) && is_object($retUser['data'][0])) {
             if (isset($retUser['success']) && 1 == $retUser['success']) {
-                $obj = $retUser['data'][0];                
-                // $obj = $retUser['data'];
+                $obj = $retUser['data'][0];
                 return $this->createUser($obj, $userObj);
             } else {
                 $event->setCredentials(array());
             }
         } catch (\Exception $ex) {
-            //$this->logger->addError($ex->getMessage());
+            Utils::log('LDAP_AUTHENTICATE_LOG_FILE',$ex->getMessage(),Loglevel::ERROR());
         }
     }
 
@@ -131,7 +127,7 @@ class AuthenticateListner
     private function createMember($userObj, $roleObj)
     {
         if ($userObj) {
-            $folderName = '/' . MEMBER; //$roleObj->getWorkspacesObject()[0]->getCpath();
+            $folderName = '/' . MEMBER;
             
             $class = "\\Pimcore\\Model\\DataObject\\Users";
             $memberObj = $class::getByAdminReference($userObj->getId(), ['limit' => 1, 'unpublished' => true]);
