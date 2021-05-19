@@ -8,6 +8,10 @@ if (CUSTOM_ENV == "prod") {
     define("S3_BUCKET", "contitech-assets-prod");
     define("S3_REGION", "us-east-1");
 
+    define("S3_BUCKET_BW_SAP_ARCHIVE", "sap-import-archive-prod");
+    define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
+    define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_files");
+    
     define("B2B_EXPORT_SFTP_HOST", "vey1epxnds01");
     define("B2B_EXPORT_SFTP_PORT", 22);
     define("B2B_EXPORT_SFTP_USERNAME", "pimuser");
@@ -39,6 +43,10 @@ if (CUSTOM_ENV == "prod") {
     define("S3_HOST", "https://s3.us-east-1.amazonaws.com");
     define("S3_BUCKET", "contitech-assets-stage");
     define("S3_REGION", "us-east-1");
+
+    define("S3_BUCKET_BW_SAP_ARCHIVE", "");
+    define("S3_REGION_BW_SAP_ARCHIVE", "");
+    define("S3_BW_SAP_ARCHIVE_DIRECTORY", "");
 
     define("B2B_EXPORT_SFTP_HOST", "vey1epxnds01");
     define("B2B_EXPORT_SFTP_PORT", 22);
@@ -72,6 +80,12 @@ if (CUSTOM_ENV == "prod") {
     define("S3_KEY", "AKIAZ6MFIGPTWVTS2K6D");
     define("S3_SECRET", "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");
     define("S3_REGION", "us-east-1");
+
+    define("S3_BUCKET_BW_SAP_ARCHIVE", "megha-pim");
+    define("S3_KEY_BW_SAP_ARCHIVE", "AKIAZ6MFIGPTWVTS2K6D");
+    define("S3_SECRET_BW_SAP_ARCHIVE", "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");
+    define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
+    define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_archived_files/");
 
     define("B2B_EXPORT_SFTP_HOST", "upload.pimcoreclients.com");
     define("B2B_EXPORT_SFTP_PORT", 22);

@@ -26,15 +26,18 @@ class WeightPerLengthConverter
     const CONVERSION_RATIOS = array(
         self::UNIT_LBS_PER_FT => array(
             self::UNIT_KG_PER_M => 1.48816,
-            self::UNIT_G_PER_M => 1488.16
+            self::UNIT_G_PER_M => 1488.16,
+            self::UNIT_LBS_PER_FT => 1,
         ),
         self::UNIT_KG_PER_FT => array(
             self::UNIT_KG_PER_M => 3.28084,
             self::UNIT_G_PER_M => 3280.84,
+            self::UNIT_LBS_PER_FT => 2.20462,
         ),
         self::UNIT_G_PER_FT => array(
             self::UNIT_KG_PER_M => 0.00328084,
-            self::UNIT_G_PER_M => 3.28084
+            self::UNIT_G_PER_M => 3.28084,
+            self::UNIT_LBS_PER_FT => 0.00220462,
         )
     );
 

@@ -1,10 +1,6 @@
 <?php 
 
 /** 
-* Generated at: 2020-11-20T12:39:46+01:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
 - staticWire [booleanSelect]
 - staticWireType [select]
@@ -31,6 +27,7 @@ Fields Summary:
 - NonStockSizes [input]
 - coverMaterial [multiselect]
 - VirtualCatalogCoverMaterial [wysiwyg]
+- sixDigitVirtualCatalogDescription [input]
 */ 
 
 
@@ -160,7 +157,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -200,7 +197,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -291,93 +288,33 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'Smooth',
-                        'value' => 2632,
-                      ),
-                      1 => 
-                      array (
                         'key' => 'Corrugated',
                         'value' => 2633,
                       ),
-                      2 => 
-                      array (
-                        'key' => 'Standard',
-                        'value' => 2634,
-                      ),
-                      3 => 
+                      1 => 
                       array (
                         'key' => 'Rough Bore',
                         'value' => 2635,
                       ),
+                      2 => 
+                      array (
+                        'key' => 'Smooth',
+                        'value' => 2632,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Smooth2',
+                        'value' => 1831354,
+                      ),
                       4 => 
                       array (
-                        'key' => 'Conductive',
-                        'value' => 2636,
+                        'key' => 'Standard',
+                        'value' => 2634,
                       ),
                       5 => 
                       array (
-                        'key' => 'Non-conductive',
-                        'value' => 2637,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'ARPM Class A oil resistance',
-                        'value' => 2638,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'ARPM Class B oil resistance',
-                        'value' => 2639,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'ARPM Class C oil resistance',
-                        'value' => 2640,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'Low Temperature',
-                        'value' => 2641,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'Heat Resistant',
-                        'value' => 2642,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'Silicone Free',
-                        'value' => 2643,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'Chemical Resistant',
-                        'value' => 2644,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'Fuel-Resistant',
-                        'value' => 2645,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'Flame-Resistant',
-                        'value' => 2646,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'WRAPPED',
+                        'key' => 'Wrapped',
                         'value' => 1829690,
-                      ),
-                      16 => 
-                      array (
-                        'key' => 'FLUOROTHERMOPLASTIC BARRIER',
-                        'value' => 1831316,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'SMOOTH',
-                        'value' => 1831354,
                       ),
                     ),
                      'width' => 300,
@@ -412,233 +349,243 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'Black',
-                        'value' => 2648,
+                        'key' => '(NBR) Nitrile',
+                        'value' => 1830039,
                       ),
                       1 => 
                       array (
-                        'key' => 'White',
-                        'value' => 2649,
+                        'key' => 'Black',
+                        'value' => 2648,
                       ),
                       2 => 
-                      array (
-                        'key' => 'Blue',
-                        'value' => 2650,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'Red',
-                        'value' => 2651,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'Yellow',
-                        'value' => 2652,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'Green',
-                        'value' => 2653,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'Purple',
-                        'value' => 2654,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'Orange',
-                        'value' => 2655,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'Clear',
-                        'value' => 2656,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'CLEAR / BLACK',
-                        'value' => 1829659,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'RED / CLEAR',
-                        'value' => 1829660,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'TAN / CLEAR',
-                        'value' => 1829661,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'GREEN / BLACK',
-                        'value' => 1829662,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'CLEAR / WHITE',
-                        'value' => 1829663,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'RED / YELLOW',
-                        'value' => 1829664,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'BLACK / ORANGE',
-                        'value' => 1829665,
-                      ),
-                      16 => 
-                      array (
-                        'key' => 'SAND / LIME',
-                        'value' => 1829666,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'CLEAR / BLUE',
-                        'value' => 1829667,
-                      ),
-                      18 => 
-                      array (
-                        'key' => 'BLACK / GREEN',
-                        'value' => 1829668,
-                      ),
-                      19 => 
-                      array (
-                        'key' => 'RED / GREEN',
-                        'value' => 1829669,
-                      ),
-                      20 => 
-                      array (
-                        'key' => 'ORANGE / CLEAR',
-                        'value' => 1829670,
-                      ),
-                      21 => 
-                      array (
-                        'key' => 'YELLOW / GREEN',
-                        'value' => 1829671,
-                      ),
-                      22 => 
-                      array (
-                        'key' => 'GREEN / CLEAR',
-                        'value' => 1829672,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'CLEAR / ORANGE',
-                        'value' => 1829673,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'BLACK / CLEAR',
-                        'value' => 1829674,
-                      ),
-                      25 => 
-                      array (
-                        'key' => 'BROWN / BLUE',
-                        'value' => 1829675,
-                      ),
-                      26 => 
-                      array (
-                        'key' => 'WHITE / CLEAR',
-                        'value' => 1829676,
-                      ),
-                      27 => 
-                      array (
-                        'key' => 'YELLOW / YELLOW',
-                        'value' => 1829677,
-                      ),
-                      28 => 
-                      array (
-                        'key' => 'GREEN / BLUE',
-                        'value' => 1829678,
-                      ),
-                      29 => 
-                      array (
-                        'key' => 'YELLOW / GRAY',
-                        'value' => 1829679,
-                      ),
-                      30 => 
-                      array (
-                        'key' => 'YELLOW / BLACK',
-                        'value' => 1829680,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'YELLOW / STRIPE',
-                        'value' => 1829681,
-                      ),
-                      32 => 
-                      array (
-                        'key' => 'BLUE / CLEAR',
-                        'value' => 1829682,
-                      ),
-                      33 => 
-                      array (
-                        'key' => 'GRAY / CLEAR',
-                        'value' => 1829683,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'CLEAR / CLEAR',
-                        'value' => 1829684,
-                      ),
-                      35 => 
-                      array (
-                        'key' => 'GRAY / GREEN',
-                        'value' => 1829685,
-                      ),
-                      36 => 
-                      array (
-                        'key' => 'ORANGE / RED',
-                        'value' => 1829686,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'BLACK / BROWN',
-                        'value' => 1829687,
-                      ),
-                      38 => 
                       array (
                         'key' => 'BLACK / BLUE',
                         'value' => 1829688,
                       ),
-                      39 => 
+                      3 => 
+                      array (
+                        'key' => 'BLACK / BROWN',
+                        'value' => 1829687,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Black / Clear',
+                        'value' => 1829674,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Black / Green',
+                        'value' => 1829668,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Black / Orange',
+                        'value' => 1829665,
+                      ),
+                      7 => 
                       array (
                         'key' => 'Black nitrile synthetic rubber',
                         'value' => 1830023,
                       ),
-                      40 => 
+                      8 => 
                       array (
-                        'key' => 'NBR (Nitrile)',
-                        'value' => 1830026,
+                        'key' => 'Blue',
+                        'value' => 2650,
                       ),
-                      41 => 
+                      9 => 
                       array (
-                        'key' => 'CR (Polychloroprene)',
-                        'value' => 1830028,
+                        'key' => 'BLUE / CLEAR',
+                        'value' => 1829682,
                       ),
-                      42 => 
+                      10 => 
+                      array (
+                        'key' => 'BROWN / BLUE',
+                        'value' => 1829675,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'Clear',
+                        'value' => 2656,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'Clear / Black',
+                        'value' => 1829659,
+                      ),
+                      13 => 
+                      array (
+                        'key' => 'Clear / Blue',
+                        'value' => 1829667,
+                      ),
+                      14 => 
+                      array (
+                        'key' => 'CLEAR / CLEAR',
+                        'value' => 1829684,
+                      ),
+                      15 => 
+                      array (
+                        'key' => 'Clear / Gray',
+                        'value' => 5550461,
+                      ),
+                      16 => 
+                      array (
+                        'key' => 'Clear / Orange',
+                        'value' => 1829673,
+                      ),
+                      17 => 
+                      array (
+                        'key' => 'Clear / White',
+                        'value' => 1829663,
+                      ),
+                      18 => 
                       array (
                         'key' => 'CPE (Chlorinated Polyethylene)',
                         'value' => 1830030,
                       ),
-                      43 => 
+                      19 => 
+                      array (
+                        'key' => 'CR (Polychloroprene)',
+                        'value' => 1830028,
+                      ),
+                      20 => 
+                      array (
+                        'key' => 'GRAY / CLEAR',
+                        'value' => 1829683,
+                      ),
+                      21 => 
+                      array (
+                        'key' => 'GRAY / GREEN',
+                        'value' => 1829685,
+                      ),
+                      22 => 
+                      array (
+                        'key' => 'Green',
+                        'value' => 2653,
+                      ),
+                      23 => 
+                      array (
+                        'key' => 'Green / Black',
+                        'value' => 1829662,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'GREEN / BLUE',
+                        'value' => 1829678,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'Green / Clear',
+                        'value' => 1829672,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'NBR (Nitrile)',
+                        'value' => 1830026,
+                      ),
+                      27 => 
                       array (
                         'key' => 'Oil-resistant synthetic rubber',
                         'value' => 1830036,
                       ),
-                      44 => 
+                      28 => 
                       array (
-                        'key' => '(NBR) Nitrile',
-                        'value' => 1830039,
+                        'key' => 'Orange',
+                        'value' => 2655,
                       ),
-                      45 => 
+                      29 => 
+                      array (
+                        'key' => 'Orange / Clear',
+                        'value' => 1829670,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'ORANGE / RED',
+                        'value' => 1829686,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'Purple',
+                        'value' => 2654,
+                      ),
+                      32 => 
+                      array (
+                        'key' => 'Red',
+                        'value' => 2651,
+                      ),
+                      33 => 
+                      array (
+                        'key' => 'Red / Clear',
+                        'value' => 1829660,
+                      ),
+                      34 => 
+                      array (
+                        'key' => 'Red / Green',
+                        'value' => 1829669,
+                      ),
+                      35 => 
+                      array (
+                        'key' => 'Red / Yellow',
+                        'value' => 1829664,
+                      ),
+                      36 => 
+                      array (
+                        'key' => 'Sand / Lime',
+                        'value' => 1829666,
+                      ),
+                      37 => 
                       array (
                         'key' => 'Synthetic Rubber',
                         'value' => 1830040,
+                      ),
+                      38 => 
+                      array (
+                        'key' => 'Tan',
+                        'value' => 3947662,
+                      ),
+                      39 => 
+                      array (
+                        'key' => 'Tan / Clear',
+                        'value' => 1829661,
+                      ),
+                      40 => 
+                      array (
+                        'key' => 'White',
+                        'value' => 2649,
+                      ),
+                      41 => 
+                      array (
+                        'key' => 'WHITE / CLEAR',
+                        'value' => 1829676,
+                      ),
+                      42 => 
+                      array (
+                        'key' => 'Yellow',
+                        'value' => 2652,
+                      ),
+                      43 => 
+                      array (
+                        'key' => 'YELLOW / BLACK',
+                        'value' => 1829680,
+                      ),
+                      44 => 
+                      array (
+                        'key' => 'YELLOW / GRAY',
+                        'value' => 1829679,
+                      ),
+                      45 => 
+                      array (
+                        'key' => 'Yellow / Green',
+                        'value' => 1829671,
+                      ),
+                      46 => 
+                      array (
+                        'key' => 'YELLOW / STRIPE',
+                        'value' => 1829681,
+                      ),
+                      47 => 
+                      array (
+                        'key' => 'YELLOW / YELLOW',
+                        'value' => 1829677,
                       ),
                     ),
                      'width' => 300,
@@ -674,503 +621,503 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'ISO7840',
-                        'value' => 2952,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'ISO8031',
-                        'value' => 2953,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'MIL -AA59565',
-                        'value' => 2954,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'MIL-370',
-                        'value' => 2955,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'MIL-DTL-13444H Type I',
-                        'value' => 2956,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'MIL-DTL-13444H Type III',
-                        'value' => 2957,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'MIL-DTL-13531 Type II Class A',
-                        'value' => 2958,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'MIL-DTL-20176G',
-                        'value' => 2959,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'MIL-DTL-29210E',
-                        'value' => 2960,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'MIL-DTL-39921',
-                        'value' => 2961,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'MIL-DTL-8788',
-                        'value' => 2962,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'MPAPS F-30',
-                        'value' => 2963,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'MPAPS F-6032',
-                        'value' => 2964,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'MPAPS F-6042',
-                        'value' => 2965,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'MS-EA122',
-                        'value' => 2966,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'MSHA 2G',
-                        'value' => 2967,
-                      ),
-                      16 => 
-                      array (
-                        'key' => 'MSHA FLAME RESISTANT',
-                        'value' => 2968,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'NIOSH',
-                        'value' => 2969,
-                      ),
-                      18 => 
-                      array (
-                        'key' => 'NMMA',
-                        'value' => 2970,
-                      ),
-                      19 => 
-                      array (
-                        'key' => 'NSF-61',
-                        'value' => 2971,
-                      ),
-                      20 => 
-                      array (
-                        'key' => 'PLEWS RETAIL AIR HOSE',
-                        'value' => 2972,
-                      ),
-                      21 => 
-                      array (
-                        'key' => 'SAE 100R12',
-                        'value' => 2973,
-                      ),
-                      22 => 
-                      array (
-                        'key' => 'SAE 100R13',
-                        'value' => 2974,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'SAE 100R14A',
-                        'value' => 2975,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'SAE 100R15',
-                        'value' => 2976,
-                      ),
-                      25 => 
-                      array (
-                        'key' => 'SAE 100R16',
-                        'value' => 2977,
-                      ),
-                      26 => 
-                      array (
-                        'key' => 'SAE 100R17',
-                        'value' => 2978,
-                      ),
-                      27 => 
-                      array (
-                        'key' => 'SAE 100R18',
-                        'value' => 2979,
-                      ),
-                      28 => 
-                      array (
-                        'key' => 'SAE 100R19',
-                        'value' => 2980,
-                      ),
-                      29 => 
-                      array (
-                        'key' => 'SAE 100R1AT',
-                        'value' => 2981,
-                      ),
-                      30 => 
-                      array (
-                        'key' => 'SAE 100R2AT',
-                        'value' => 2982,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'SAE 100R3',
-                        'value' => 2983,
-                      ),
-                      32 => 
-                      array (
-                        'key' => 'SAE 100R4',
-                        'value' => 2984,
-                      ),
-                      33 => 
-                      array (
-                        'key' => 'SAE 100R4AT',
-                        'value' => 2985,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'SAE 100R5',
-                        'value' => 2986,
-                      ),
-                      35 => 
-                      array (
-                        'key' => 'SAE 100R6',
-                        'value' => 2987,
-                      ),
-                      36 => 
-                      array (
-                        'key' => 'SAE 100R7',
-                        'value' => 2988,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'SAE 100R8',
-                        'value' => 2989,
-                      ),
-                      38 => 
-                      array (
-                        'key' => 'SAE 1684',
-                        'value' => 2990,
-                      ),
-                      39 => 
-                      array (
-                        'key' => 'SAE J1037',
-                        'value' => 2991,
-                      ),
-                      40 => 
-                      array (
-                        'key' => 'SAE J1402',
-                        'value' => 2992,
-                      ),
-                      41 => 
-                      array (
-                        'key' => 'SAE J1402 Type (AII)',
-                        'value' => 2993,
-                      ),
-                      42 => 
-                      array (
-                        'key' => 'SAE J1403',
-                        'value' => 2994,
-                      ),
-                      43 => 
-                      array (
-                        'key' => 'SAE J1527',
-                        'value' => 2995,
-                      ),
-                      44 => 
-                      array (
-                        'key' => 'SAE J189',
-                        'value' => 2996,
-                      ),
-                      45 => 
-                      array (
-                        'key' => 'SAE J1942 / U.S. Coast Guard',
-                        'value' => 2997,
-                      ),
-                      46 => 
-                      array (
-                        'key' => 'SAE J20',
-                        'value' => 2998,
-                      ),
-                      47 => 
-                      array (
-                        'key' => 'SAE J2064 Type C, Class I',
-                        'value' => 2999,
-                      ),
-                      48 => 
-                      array (
-                        'key' => 'SAE J2064 Type C, Class II',
-                        'value' => 3000,
-                      ),
-                      49 => 
-                      array (
-                        'key' => 'SAE J2076',
-                        'value' => 3001,
-                      ),
-                      50 => 
-                      array (
-                        'key' => 'SAE J20R3 D1',
-                        'value' => 3002,
-                      ),
-                      51 => 
-                      array (
-                        'key' => 'SAE J20R3 D2',
-                        'value' => 3003,
-                      ),
-                      52 => 
-                      array (
-                        'key' => 'SAE J20R3 D3 HT EC',
-                        'value' => 3004,
-                      ),
-                      53 => 
-                      array (
-                        'key' => 'SAE J30',
-                        'value' => 3005,
-                      ),
-                      54 => 
-                      array (
-                        'key' => 'SAE J30 R6',
-                        'value' => 3006,
-                      ),
-                      55 => 
-                      array (
-                        'key' => 'SAE J30 R7',
-                        'value' => 3007,
-                      ),
-                      56 => 
-                      array (
-                        'key' => 'UL 21',
-                        'value' => 3008,
-                      ),
-                      57 => 
-                      array (
-                        'key' => 'UL 330',
-                        'value' => 3009,
-                      ),
-                      58 => 
-                      array (
-                        'key' => 'UL 92',
-                        'value' => 3010,
-                      ),
-                      59 => 
-                      array (
-                        'key' => 'UL 94 HB',
-                        'value' => 3011,
-                      ),
-                      60 => 
-                      array (
-                        'key' => 'UL330A',
-                        'value' => 3012,
-                      ),
-                      61 => 
-                      array (
-                        'key' => 'UL330B',
-                        'value' => 3013,
-                      ),
-                      62 => 
-                      array (
-                        'key' => 'WSE-M96D34',
-                        'value' => 3014,
-                      ),
-                      63 => 
-                      array (
                         'key' => ' DIN 20023 4SH',
                         'value' => 3015,
                       ),
-                      64 => 
+                      1 => 
                       array (
                         'key' => ' DIN 20023 4SP',
                         'value' => 3016,
                       ),
-                      65 => 
+                      2 => 
                       array (
                         'key' => ' EN 853',
                         'value' => 3017,
                       ),
-                      66 => 
+                      3 => 
                       array (
                         'key' => ' EN 853 1SN',
                         'value' => 3018,
                       ),
-                      67 => 
+                      4 => 
                       array (
                         'key' => ' EN 853 2SN',
                         'value' => 3019,
                       ),
-                      68 => 
+                      5 => 
                       array (
                         'key' => ' EN 854 R3',
                         'value' => 3020,
                       ),
-                      69 => 
+                      6 => 
                       array (
                         'key' => ' EN 854 R6',
                         'value' => 3021,
                       ),
-                      70 => 
+                      7 => 
                       array (
                         'key' => ' EN 855 R8',
                         'value' => 3022,
                       ),
-                      71 => 
-                      array (
-                        'key' => 'EN 856 4SH',
-                        'value' => 3023,
-                      ),
-                      72 => 
-                      array (
-                        'key' => 'EN 856 4SP',
-                        'value' => 3024,
-                      ),
-                      73 => 
-                      array (
-                        'key' => 'EN 856 R12',
-                        'value' => 3025,
-                      ),
-                      74 => 
-                      array (
-                        'key' => 'EN 856 R13',
-                        'value' => 3026,
-                      ),
-                      75 => 
-                      array (
-                        'key' => 'EN 857 2SC',
-                        'value' => 3027,
-                      ),
-                      76 => 
+                      8 => 
                       array (
                         'key' => ' EN 857 R7',
                         'value' => 3028,
                       ),
-                      77 => 
+                      9 => 
                       array (
                         'key' => ' FDA 21 CFR 177',
                         'value' => 3029,
                       ),
-                      78 => 
+                      10 => 
                       array (
                         'key' => '100 microamps/ft. at 75 KV',
                         'value' => 3030,
                       ),
-                      79 => 
+                      11 => 
                       array (
                         'key' => '1500 Specifications',
                         'value' => 3031,
                       ),
-                      80 => 
+                      12 => 
                       array (
                         'key' => '3-A 18-03 CERTIFIED',
                         'value' => 3032,
                       ),
-                      81 => 
+                      13 => 
                       array (
                         'key' => '3-A COMPLIANT',
                         'value' => 3033,
                       ),
-                      82 => 
+                      14 => 
                       array (
                         'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
                         'value' => 3034,
                       ),
-                      83 => 
+                      15 => 
                       array (
                         'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
                         'value' => 3035,
                       ),
-                      84 => 
+                      16 => 
                       array (
                         'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
                         'value' => 3036,
                       ),
-                      85 => 
+                      17 => 
                       array (
                         'key' => 'ARPM GRADE R WELDING HOSE',
                         'value' => 3037,
                       ),
-                      86 => 
+                      18 => 
                       array (
                         'key' => 'ARPM GRADE RM WELDING HOSE',
                         'value' => 3038,
                       ),
-                      87 => 
+                      19 => 
                       array (
                         'key' => 'ARPM GRADE T WELDING HOSE',
                         'value' => 3039,
                       ),
-                      88 => 
+                      20 => 
                       array (
                         'key' => 'CARB',
                         'value' => 3040,
                       ),
-                      89 => 
+                      21 => 
                       array (
                         'key' => 'CGA E-1',
                         'value' => 3041,
                       ),
-                      90 => 
+                      22 => 
                       array (
                         'key' => 'CNH FZG20305',
                         'value' => 3042,
                       ),
-                      91 => 
+                      23 => 
                       array (
                         'key' => 'CSA 8.1-M86',
                         'value' => 3043,
                       ),
-                      92 => 
+                      24 => 
                       array (
                         'key' => 'DIN 74310',
                         'value' => 3044,
                       ),
-                      93 => 
+                      25 => 
                       array (
                         'key' => 'DOT FMVSS 106 Type (AII)',
                         'value' => 3045,
                       ),
-                      94 => 
+                      26 => 
+                      array (
+                        'key' => 'EN 856 4SH',
+                        'value' => 3023,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'EN 856 4SP',
+                        'value' => 3024,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'EN 856 R12',
+                        'value' => 3025,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'EN 856 R13',
+                        'value' => 3026,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'EN 857 2SC',
+                        'value' => 3027,
+                      ),
+                      31 => 
                       array (
                         'key' => 'FDA/USDA CERTIFIED',
                         'value' => 3046,
                       ),
-                      95 => 
+                      32 => 
                       array (
                         'key' => 'FDA/USDA COMPLIANT',
                         'value' => 3047,
                       ),
-                      96 => 
+                      33 => 
                       array (
                         'key' => 'FMVSS106 49 CFR 571 106',
                         'value' => 3048,
                       ),
-                      97 => 
+                      34 => 
                       array (
                         'key' => 'GM 6278M',
                         'value' => 3049,
                       ),
-                      98 => 
+                      35 => 
                       array (
                         'key' => 'ISO 11237',
                         'value' => 3050,
                       ),
-                      99 => 
+                      36 => 
                       array (
                         'key' => 'ISO3821',
                         'value' => 3051,
+                      ),
+                      37 => 
+                      array (
+                        'key' => 'ISO7840',
+                        'value' => 2952,
+                      ),
+                      38 => 
+                      array (
+                        'key' => 'ISO8031',
+                        'value' => 2953,
+                      ),
+                      39 => 
+                      array (
+                        'key' => 'MIL -AA59565',
+                        'value' => 2954,
+                      ),
+                      40 => 
+                      array (
+                        'key' => 'MIL-370',
+                        'value' => 2955,
+                      ),
+                      41 => 
+                      array (
+                        'key' => 'MIL-DTL-13444H Type I',
+                        'value' => 2956,
+                      ),
+                      42 => 
+                      array (
+                        'key' => 'MIL-DTL-13444H Type III',
+                        'value' => 2957,
+                      ),
+                      43 => 
+                      array (
+                        'key' => 'MIL-DTL-13531 Type II Class A',
+                        'value' => 2958,
+                      ),
+                      44 => 
+                      array (
+                        'key' => 'MIL-DTL-20176G',
+                        'value' => 2959,
+                      ),
+                      45 => 
+                      array (
+                        'key' => 'MIL-DTL-29210E',
+                        'value' => 2960,
+                      ),
+                      46 => 
+                      array (
+                        'key' => 'MIL-DTL-39921',
+                        'value' => 2961,
+                      ),
+                      47 => 
+                      array (
+                        'key' => 'MIL-DTL-8788',
+                        'value' => 2962,
+                      ),
+                      48 => 
+                      array (
+                        'key' => 'MPAPS F-30',
+                        'value' => 2963,
+                      ),
+                      49 => 
+                      array (
+                        'key' => 'MPAPS F-6032',
+                        'value' => 2964,
+                      ),
+                      50 => 
+                      array (
+                        'key' => 'MPAPS F-6042',
+                        'value' => 2965,
+                      ),
+                      51 => 
+                      array (
+                        'key' => 'MS-EA122',
+                        'value' => 2966,
+                      ),
+                      52 => 
+                      array (
+                        'key' => 'MSHA 2G',
+                        'value' => 2967,
+                      ),
+                      53 => 
+                      array (
+                        'key' => 'MSHA FLAME RESISTANT',
+                        'value' => 2968,
+                      ),
+                      54 => 
+                      array (
+                        'key' => 'NIOSH',
+                        'value' => 2969,
+                      ),
+                      55 => 
+                      array (
+                        'key' => 'NMMA',
+                        'value' => 2970,
+                      ),
+                      56 => 
+                      array (
+                        'key' => 'NSF-61',
+                        'value' => 2971,
+                      ),
+                      57 => 
+                      array (
+                        'key' => 'PLEWS RETAIL AIR HOSE',
+                        'value' => 2972,
+                      ),
+                      58 => 
+                      array (
+                        'key' => 'SAE 100R12',
+                        'value' => 2973,
+                      ),
+                      59 => 
+                      array (
+                        'key' => 'SAE 100R13',
+                        'value' => 2974,
+                      ),
+                      60 => 
+                      array (
+                        'key' => 'SAE 100R14A',
+                        'value' => 2975,
+                      ),
+                      61 => 
+                      array (
+                        'key' => 'SAE 100R15',
+                        'value' => 2976,
+                      ),
+                      62 => 
+                      array (
+                        'key' => 'SAE 100R16',
+                        'value' => 2977,
+                      ),
+                      63 => 
+                      array (
+                        'key' => 'SAE 100R17',
+                        'value' => 2978,
+                      ),
+                      64 => 
+                      array (
+                        'key' => 'SAE 100R18',
+                        'value' => 2979,
+                      ),
+                      65 => 
+                      array (
+                        'key' => 'SAE 100R19',
+                        'value' => 2980,
+                      ),
+                      66 => 
+                      array (
+                        'key' => 'SAE 100R1AT',
+                        'value' => 2981,
+                      ),
+                      67 => 
+                      array (
+                        'key' => 'SAE 100R2AT',
+                        'value' => 2982,
+                      ),
+                      68 => 
+                      array (
+                        'key' => 'SAE 100R3',
+                        'value' => 2983,
+                      ),
+                      69 => 
+                      array (
+                        'key' => 'SAE 100R4',
+                        'value' => 2984,
+                      ),
+                      70 => 
+                      array (
+                        'key' => 'SAE 100R4AT',
+                        'value' => 2985,
+                      ),
+                      71 => 
+                      array (
+                        'key' => 'SAE 100R5',
+                        'value' => 2986,
+                      ),
+                      72 => 
+                      array (
+                        'key' => 'SAE 100R6',
+                        'value' => 2987,
+                      ),
+                      73 => 
+                      array (
+                        'key' => 'SAE 100R7',
+                        'value' => 2988,
+                      ),
+                      74 => 
+                      array (
+                        'key' => 'SAE 100R8',
+                        'value' => 2989,
+                      ),
+                      75 => 
+                      array (
+                        'key' => 'SAE 1684',
+                        'value' => 2990,
+                      ),
+                      76 => 
+                      array (
+                        'key' => 'SAE J1037',
+                        'value' => 2991,
+                      ),
+                      77 => 
+                      array (
+                        'key' => 'SAE J1402',
+                        'value' => 2992,
+                      ),
+                      78 => 
+                      array (
+                        'key' => 'SAE J1402 Type (AII)',
+                        'value' => 2993,
+                      ),
+                      79 => 
+                      array (
+                        'key' => 'SAE J1403',
+                        'value' => 2994,
+                      ),
+                      80 => 
+                      array (
+                        'key' => 'SAE J1527',
+                        'value' => 2995,
+                      ),
+                      81 => 
+                      array (
+                        'key' => 'SAE J189',
+                        'value' => 2996,
+                      ),
+                      82 => 
+                      array (
+                        'key' => 'SAE J1942 / U.S. Coast Guard',
+                        'value' => 2997,
+                      ),
+                      83 => 
+                      array (
+                        'key' => 'SAE J20',
+                        'value' => 2998,
+                      ),
+                      84 => 
+                      array (
+                        'key' => 'SAE J2064 Type C, Class I',
+                        'value' => 2999,
+                      ),
+                      85 => 
+                      array (
+                        'key' => 'SAE J2064 Type C, Class II',
+                        'value' => 3000,
+                      ),
+                      86 => 
+                      array (
+                        'key' => 'SAE J2076',
+                        'value' => 3001,
+                      ),
+                      87 => 
+                      array (
+                        'key' => 'SAE J20R3 D1',
+                        'value' => 3002,
+                      ),
+                      88 => 
+                      array (
+                        'key' => 'SAE J20R3 D2',
+                        'value' => 3003,
+                      ),
+                      89 => 
+                      array (
+                        'key' => 'SAE J20R3 D3 HT EC',
+                        'value' => 3004,
+                      ),
+                      90 => 
+                      array (
+                        'key' => 'SAE J30',
+                        'value' => 3005,
+                      ),
+                      91 => 
+                      array (
+                        'key' => 'SAE J30 R6',
+                        'value' => 3006,
+                      ),
+                      92 => 
+                      array (
+                        'key' => 'SAE J30 R7',
+                        'value' => 3007,
+                      ),
+                      93 => 
+                      array (
+                        'key' => 'UL 21',
+                        'value' => 3008,
+                      ),
+                      94 => 
+                      array (
+                        'key' => 'UL 330',
+                        'value' => 3009,
+                      ),
+                      95 => 
+                      array (
+                        'key' => 'UL 92',
+                        'value' => 3010,
+                      ),
+                      96 => 
+                      array (
+                        'key' => 'UL 94 HB',
+                        'value' => 3011,
+                      ),
+                      97 => 
+                      array (
+                        'key' => 'UL330A',
+                        'value' => 3012,
+                      ),
+                      98 => 
+                      array (
+                        'key' => 'UL330B',
+                        'value' => 3013,
+                      ),
+                      99 => 
+                      array (
+                        'key' => 'WSE-M96D34',
+                        'value' => 3014,
                       ),
                     ),
                      'width' => 300,
@@ -1233,203 +1180,203 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'EPDM',
-                        'value' => 2658,
+                        'key' => 'Alphasyn',
+                        'value' => 1829632,
                       ),
                       1 => 
                       array (
-                        'key' => 'SBR',
-                        'value' => 2659,
+                        'key' => 'Chemituf®',
+                        'value' => 3947661,
                       ),
                       2 => 
-                      array (
-                        'key' => 'Nitrile',
-                        'value' => 2660,
-                      ),
-                      3 => 
                       array (
                         'key' => 'Chemivic (NBR/PVC)',
                         'value' => 2661,
                       ),
+                      3 => 
+                      array (
+                        'key' => 'Chemivic (NBR/PVC)',
+                        'value' => 1829658,
+                      ),
                       4 => 
                       array (
-                        'key' => 'CPE',
-                        'value' => 2662,
+                        'key' => 'Chlorobutyl (CIIR)',
+                        'value' => 2666,
                       ),
                       5 => 
+                      array (
+                        'key' => 'Chlorobutyl (CIIR)',
+                        'value' => 1829622,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Chlorobutyl (CIIR)',
+                        'value' => 1829651,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'Chloroprene (CR)',
+                        'value' => 1829623,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'Chloroprene (CR)',
+                        'value' => 1829637,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'CPE (Chlorinated Polyethylene)',
+                        'value' => 2662,
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'CPE (Chlorinated Polyethylene)',
+                        'value' => 1829633,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'CPE (Chlorinated Polyethylene)',
+                        'value' => 1829642,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'CPE (Chlorinated Polyethylene)',
+                        'value' => 1830029,
+                      ),
+                      13 => 
                       array (
                         'key' => 'CR (Chloroprene)',
                         'value' => 2663,
                       ),
-                      6 => 
-                      array (
-                        'key' => 'Synthetic Rubber',
-                        'value' => 2664,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'Nylon',
-                        'value' => 2665,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'Chlorobutyl',
-                        'value' => 2666,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'PVC',
-                        'value' => 2667,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'TPV',
-                        'value' => 2668,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'TPU',
-                        'value' => 2669,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'PE',
-                        'value' => 2670,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'PP',
-                        'value' => 2671,
-                      ),
                       14 => 
                       array (
-                        'key' => 'EPDM SYNTHETIC RUBBER',
-                        'value' => 1829615,
+                        'key' => 'CR (Chloroprene)',
+                        'value' => 1830027,
                       ),
                       15 => 
                       array (
-                        'key' => 'PYROSYN® SYNTHETIC RUBBER',
-                        'value' => 1829616,
+                        'key' => 'EPDM',
+                        'value' => 2658,
                       ),
                       16 => 
                       array (
-                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER',
-                        'value' => 1829617,
+                        'key' => 'EPDM',
+                        'value' => 1829615,
                       ),
                       17 => 
                       array (
-                        'key' => 'TUFSYN SYNTHETIC RUBBER',
-                        'value' => 1829618,
+                        'key' => 'Flosyn®',
+                        'value' => 1829650,
                       ),
                       18 => 
                       array (
-                        'key' => 'PLIOSYN (UHMWPE)',
-                        'value' => 1829619,
+                        'key' => 'FLUORINATED ETHYLENE PROPYLENE',
+                        'value' => 1829649,
                       ),
                       19 => 
                       array (
-                        'key' => 'SBR SYNTHETIC RUBBER',
-                        'value' => 1829620,
+                        'key' => 'FLUOROPLASTIC',
+                        'value' => 1829654,
                       ),
                       20 => 
                       array (
-                        'key' => 'POLYCHLOROPRENE SYNTHETIC RUBBER',
-                        'value' => 1829621,
+                        'key' => 'Natural Rubber (NR)',
+                        'value' => 1829643,
                       ),
                       21 => 
                       array (
-                        'key' => 'CHLOROBUTYL SYNTHETIC RUBBER',
-                        'value' => 1829622,
+                        'key' => 'Natural Rubber (NR)',
+                        'value' => 5300787,
                       ),
                       22 => 
-                      array (
-                        'key' => 'CHLOROPRENE SYNTHETIC RUBBER',
-                        'value' => 1829623,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'SYNTHETIC RUBBER',
-                        'value' => 1829624,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'NYLON SILICONE-FREE',
-                        'value' => 1829625,
-                      ),
-                      25 => 
                       array (
                         'key' => 'NBR SYNTHETIC RUBBER',
                         'value' => 1829626,
                       ),
+                      23 => 
+                      array (
+                        'key' => 'Nitrile',
+                        'value' => 2660,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'NITRILE (NBR)',
+                        'value' => 1830025,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'Nitrile (NBR)',
+                        'value' => 1829617,
+                      ),
                       26 => 
                       array (
-                        'key' => 'PURETEN NATURAL RUBBER',
-                        'value' => 1829627,
+                        'key' => 'Nitrile (NBR)',
+                        'value' => 1830022,
                       ),
                       27 => 
                       array (
-                        'key' => 'TEFLON',
-                        'value' => 1829628,
+                        'key' => 'Nitrile (NBR)',
+                        'value' => 1830038,
                       ),
                       28 => 
                       array (
-                        'key' => 'TPE',
-                        'value' => 1829629,
+                        'key' => 'Nitrile (NBR), Fluorothermoplastic Barrier',
+                        'value' => 1829636,
                       ),
                       29 => 
+                      array (
+                        'key' => 'NITRILE/PVC',
+                        'value' => 1829657,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'NYLON',
+                        'value' => 1829647,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'Nylon',
+                        'value' => 2665,
+                      ),
+                      32 => 
+                      array (
+                        'key' => 'NYLON SILICONE-FREE',
+                        'value' => 1829625,
+                      ),
+                      33 => 
+                      array (
+                        'key' => 'Oil-resistant synthetic rubber',
+                        'value' => 1830035,
+                      ),
+                      34 => 
+                      array (
+                        'key' => 'PE',
+                        'value' => 2670,
+                      ),
+                      35 => 
+                      array (
+                        'key' => 'PLIOSYN (UHMWPE)',
+                        'value' => 1829619,
+                      ),
+                      36 => 
                       array (
                         'key' => 'PLIOVIC',
                         'value' => 1829630,
                       ),
-                      30 => 
-                      array (
-                        'key' => 'PTFE (POLYTETRAFLUOROETHYLENE)',
-                        'value' => 1829631,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'ALPHASYN',
-                        'value' => 1829632,
-                      ),
-                      32 => 
-                      array (
-                        'key' => '(CPE) CHEMRIN SYNTHETIC RUBBER',
-                        'value' => 1829633,
-                      ),
-                      33 => 
-                      array (
-                        'key' => 'SPECLAR (XLPE)',
-                        'value' => 1829634,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'SUPER THERMO-FLO EPDM',
-                        'value' => 1829635,
-                      ),
-                      35 => 
-                      array (
-                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER; FLUOROTHERMOPLASTIC BARRIER',
-                        'value' => 1829636,
-                      ),
-                      36 => 
-                      array (
-                        'key' => '(CR) NEOPRENE SYNTHETIC RUBBER',
-                        'value' => 1829637,
-                      ),
                       37 => 
                       array (
-                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
-                        'value' => 1829638,
+                        'key' => 'POLYCHLOROPRENE',
+                        'value' => 1829652,
                       ),
                       38 => 
                       array (
-                        'key' => 'THERMOPLASTIC',
-                        'value' => 1829639,
+                        'key' => 'POLYCHLOROPRENE SYNTHETIC RUBBER',
+                        'value' => 1829621,
                       ),
                       39 => 
                       array (
-                        'key' => 'URETHANE',
-                        'value' => 1829640,
+                        'key' => 'POLYESTER',
+                        'value' => 1829648,
                       ),
                       40 => 
                       array (
@@ -1438,118 +1385,143 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       41 => 
                       array (
-                        'key' => '(CPE) CHLORINATED POLYETHYLENE',
-                        'value' => 1829642,
+                        'key' => 'PP',
+                        'value' => 2671,
                       ),
                       42 => 
                       array (
-                        'key' => '(NR) NATURAL RUBBER',
-                        'value' => 1829643,
+                        'key' => 'PTFE (POLYTETRAFLUOROETHYLENE)',
+                        'value' => 1829631,
                       ),
                       43 => 
                       array (
-                        'key' => 'SURVIVOR SYNTHETIC RUBBER',
-                        'value' => 1829644,
+                        'key' => 'Pureten™',
+                        'value' => 1829627,
                       ),
                       44 => 
                       array (
-                        'key' => 'UHMWPE',
-                        'value' => 1829645,
+                        'key' => 'PVC',
+                        'value' => 2667,
                       ),
                       45 => 
                       array (
-                        'key' => 'UHMWPE RUBBER',
-                        'value' => 1829646,
+                        'key' => 'PYROSYN®',
+                        'value' => 1829616,
                       ),
                       46 => 
                       array (
-                        'key' => 'NYLON',
-                        'value' => 1829647,
+                        'key' => 'Recycled TPV (Thermoplastic Vulcanizate)',
+                        'value' => 6949791,
                       ),
                       47 => 
                       array (
-                        'key' => 'POLYESTER',
-                        'value' => 1829648,
+                        'key' => 'SBR',
+                        'value' => 2659,
                       ),
                       48 => 
                       array (
-                        'key' => 'FLUORINATED ETHYLENE PROPYLENE',
-                        'value' => 1829649,
+                        'key' => 'SBR SYNTHETIC RUBBER',
+                        'value' => 1829620,
                       ),
                       49 => 
-                      array (
-                        'key' => 'FLOSYN SYNTHETIC RUBBER',
-                        'value' => 1829650,
-                      ),
-                      50 => 
-                      array (
-                        'key' => 'CHLORBUTYL SYNTHETIC RUBBER',
-                        'value' => 1829651,
-                      ),
-                      51 => 
-                      array (
-                        'key' => 'POLYCHLOROPRENE',
-                        'value' => 1829652,
-                      ),
-                      52 => 
-                      array (
-                        'key' => 'TRANSPARENT PLASTOMER',
-                        'value' => 1829653,
-                      ),
-                      53 => 
-                      array (
-                        'key' => 'FLUOROPLASTIC',
-                        'value' => 1829654,
-                      ),
-                      54 => 
-                      array (
-                        'key' => 'UPE LINER',
-                        'value' => 1829655,
-                      ),
-                      55 => 
                       array (
                         'key' => 'SBR/EPDM',
                         'value' => 1829656,
                       ),
+                      50 => 
+                      array (
+                        'key' => 'Special Transparent Plastomer Coating',
+                        'value' => 5580055,
+                      ),
+                      51 => 
+                      array (
+                        'key' => 'SPECLAR (XLPE)',
+                        'value' => 1829634,
+                      ),
+                      52 => 
+                      array (
+                        'key' => 'SUGAR CAIN BASED EPDM',
+                        'value' => 3831422,
+                      ),
+                      53 => 
+                      array (
+                        'key' => 'SUPER THERMO-FLO EPDM',
+                        'value' => 1829635,
+                      ),
+                      54 => 
+                      array (
+                        'key' => 'Survivor®',
+                        'value' => 1829644,
+                      ),
+                      55 => 
+                      array (
+                        'key' => 'SYNTHETIC RUBBER',
+                        'value' => 1829624,
+                      ),
                       56 => 
                       array (
-                        'key' => 'NITRILE/PVC',
-                        'value' => 1829657,
+                        'key' => 'Synthetic Rubber',
+                        'value' => 2664,
                       ),
                       57 => 
                       array (
-                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1829658,
+                        'key' => 'TEFLON',
+                        'value' => 1829628,
                       ),
                       58 => 
                       array (
-                        'key' => 'Black nitrile synthetic rubber',
-                        'value' => 1830022,
+                        'key' => 'THERMOPLASTIC',
+                        'value' => 1829639,
                       ),
                       59 => 
                       array (
-                        'key' => 'NBR (Nitrile)',
-                        'value' => 1830025,
+                        'key' => 'TPE',
+                        'value' => 1829629,
                       ),
                       60 => 
                       array (
-                        'key' => 'CR (Polychloroprene)',
-                        'value' => 1830027,
+                        'key' => 'TPU',
+                        'value' => 2669,
                       ),
                       61 => 
                       array (
-                        'key' => 'CPE (Chlorinated Polyethylene)',
-                        'value' => 1830029,
+                        'key' => 'TPV',
+                        'value' => 2668,
                       ),
                       62 => 
                       array (
-                        'key' => 'Oil-resistant synthetic rubber',
-                        'value' => 1830035,
+                        'key' => 'TRANSPARENT PLASTOMER',
+                        'value' => 1829653,
                       ),
                       63 => 
                       array (
-                        'key' => '(NBR) Nitrile',
-                        'value' => 1830038,
+                        'key' => 'TUFSYN SYNTHETIC RUBBER',
+                        'value' => 1829618,
+                      ),
+                      64 => 
+                      array (
+                        'key' => 'UHMWPE',
+                        'value' => 1829645,
+                      ),
+                      65 => 
+                      array (
+                        'key' => 'UHMWPE RUBBER',
+                        'value' => 1829646,
+                      ),
+                      66 => 
+                      array (
+                        'key' => 'UPE LINER',
+                        'value' => 1829655,
+                      ),
+                      67 => 
+                      array (
+                        'key' => 'URETHANE',
+                        'value' => 1829640,
+                      ),
+                      68 => 
+                      array (
+                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
+                        'value' => 1829638,
                       ),
                     ),
                      'width' => 300,
@@ -1649,118 +1621,118 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       8 => 
                       array (
-                        'key' => 'EN 856 4SH',
-                        'value' => 2686,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'EN 856 4SP',
-                        'value' => 2687,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'EN 856 R12',
-                        'value' => 2688,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'EN 856 R13',
-                        'value' => 2689,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'EN 857 2SC',
-                        'value' => 2690,
-                      ),
-                      13 => 
-                      array (
                         'key' => ' EN 857 R7',
                         'value' => 2691,
                       ),
-                      14 => 
+                      9 => 
                       array (
                         'key' => ' FDA 21 CFR 177',
                         'value' => 2692,
                       ),
-                      15 => 
+                      10 => 
                       array (
                         'key' => '100 microamps/ft. at 75 KV',
                         'value' => 2693,
                       ),
-                      16 => 
+                      11 => 
                       array (
                         'key' => '1500 Specifications',
                         'value' => 2694,
                       ),
-                      17 => 
+                      12 => 
                       array (
                         'key' => '3-A 18-03 CERTIFIED',
                         'value' => 2695,
                       ),
-                      18 => 
+                      13 => 
                       array (
                         'key' => '3-A COMPLIANT',
                         'value' => 2696,
                       ),
-                      19 => 
+                      14 => 
                       array (
                         'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
                         'value' => 2697,
                       ),
-                      20 => 
+                      15 => 
                       array (
                         'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
                         'value' => 2698,
                       ),
-                      21 => 
+                      16 => 
                       array (
                         'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
                         'value' => 2699,
                       ),
-                      22 => 
+                      17 => 
                       array (
                         'key' => 'ARPM GRADE R WELDING HOSE',
                         'value' => 2700,
                       ),
-                      23 => 
+                      18 => 
                       array (
                         'key' => 'ARPM GRADE RM WELDING HOSE',
                         'value' => 2701,
                       ),
-                      24 => 
+                      19 => 
                       array (
                         'key' => 'ARPM GRADE T WELDING HOSE',
                         'value' => 2702,
                       ),
-                      25 => 
+                      20 => 
                       array (
                         'key' => 'CARB',
                         'value' => 2703,
                       ),
-                      26 => 
+                      21 => 
                       array (
                         'key' => 'CGA E-1',
                         'value' => 2704,
                       ),
-                      27 => 
+                      22 => 
                       array (
                         'key' => 'CNH FZG20305',
                         'value' => 2705,
                       ),
-                      28 => 
+                      23 => 
                       array (
                         'key' => 'CSA 8.1-M86',
                         'value' => 2706,
                       ),
-                      29 => 
+                      24 => 
                       array (
                         'key' => 'DIN 74310',
                         'value' => 2707,
                       ),
-                      30 => 
+                      25 => 
                       array (
                         'key' => 'DOT FMVSS 106 Type (AII)',
                         'value' => 2708,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'EN 856 4SH',
+                        'value' => 2686,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'EN 856 4SP',
+                        'value' => 2687,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'EN 856 R12',
+                        'value' => 2688,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'EN 856 R13',
+                        'value' => 2689,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'EN 857 2SC',
+                        'value' => 2690,
                       ),
                       31 => 
                       array (
@@ -2165,8 +2137,158 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
+                        'key' => 'Aggregate',
+                        'value' => 5887032,
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Agriculture',
+                        'value' => 6951286,
+                      ),
+                      2 => 
+                      array (
+                        'key' => 'Aircraft Refueling',
+                        'value' => 6951287,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Auto / Truck Manufacturing',
+                        'value' => 6951288,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Beverage',
+                        'value' => 6951289,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Bulk Transport',
+                        'value' => 6951290,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Chemical',
+                        'value' => 6951291,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'Cleaning',
+                        'value' => 6951292,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'Computer Microchip',
+                        'value' => 6951293,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'Construction',
+                        'value' => 6951294,
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'Contractors / Rental Houses',
+                        'value' => 6951295,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'Food Processing',
+                        'value' => 6951296,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'Food Transport',
+                        'value' => 6951297,
+                      ),
+                      13 => 
+                      array (
+                        'key' => 'Fuel Dispensing',
+                        'value' => 6951298,
+                      ),
+                      14 => 
+                      array (
+                        'key' => 'General Trade - Manufacturing',
+                        'value' => 6951299,
+                      ),
+                      15 => 
+                      array (
                         'key' => 'IFS',
                         'value' => 1840105,
+                      ),
+                      16 => 
+                      array (
+                        'key' => 'Industrial Machinery',
+                        'value' => 6951300,
+                      ),
+                      17 => 
+                      array (
+                        'key' => 'Lawn and Garden',
+                        'value' => 6951301,
+                      ),
+                      18 => 
+                      array (
+                        'key' => 'Marine',
+                        'value' => 6951302,
+                      ),
+                      19 => 
+                      array (
+                        'key' => 'Metal Processing',
+                        'value' => 6951303,
+                      ),
+                      20 => 
+                      array (
+                        'key' => 'Mining',
+                        'value' => 6951304,
+                      ),
+                      21 => 
+                      array (
+                        'key' => 'Oil and Gas',
+                        'value' => 6951305,
+                      ),
+                      22 => 
+                      array (
+                        'key' => 'Petrochem',
+                        'value' => 6951306,
+                      ),
+                      23 => 
+                      array (
+                        'key' => 'Pharmaceutical and Cosmetics',
+                        'value' => 6951307,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'Refinery',
+                        'value' => 6951308,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'Service Industries',
+                        'value' => 6951309,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'Transportation Equipment',
+                        'value' => 6951310,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'Utilities and Communication',
+                        'value' => 6951311,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'Warehouse Transport Logistics',
+                        'value' => 6951312,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'Waste Water Treatment',
+                        'value' => 6951313,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'Wood Processing',
+                        'value' => 6951314,
                       ),
                     ),
                      'width' => 300,
@@ -2297,33 +2419,33 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'CORRUGATED',
+                        'key' => 'Corrugated',
                         'value' => 2673,
                       ),
                       1 => 
                       array (
-                        'key' => 'RIBBED',
-                        'value' => 2674,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'SMOOTH',
-                        'value' => 2675,
-                      ),
-                      3 => 
-                      array (
-                        'key' => 'WRAPPED',
-                        'value' => 2676,
-                      ),
-                      4 => 
-                      array (
                         'key' => 'FUTURIN™ SYNTHETIC RUBBER',
                         'value' => 1831329,
                       ),
-                      5 => 
+                      2 => 
+                      array (
+                        'key' => 'RIBBED',
+                        'value' => 2674,
+                      ),
+                      3 => 
+                      array (
+                        'key' => 'Smooth',
+                        'value' => 2675,
+                      ),
+                      4 => 
                       array (
                         'key' => 'UHMWPE FILM',
                         'value' => 1831330,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Wrapped',
+                        'value' => 2676,
                       ),
                     ),
                      'width' => 300,
@@ -2363,263 +2485,298 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       1 => 
                       array (
-                        'key' => 'White',
-                        'value' => 2600,
+                        'key' => 'Black / Blue',
+                        'value' => 1829614,
                       ),
                       2 => 
                       array (
-                        'key' => 'Gray',
-                        'value' => 2601,
+                        'key' => 'Black / Brown',
+                        'value' => 1829613,
                       ),
                       3 => 
+                      array (
+                        'key' => 'Black / Clear',
+                        'value' => 1829600,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Black / Green',
+                        'value' => 1829594,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Black / Orange',
+                        'value' => 1829591,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'Black / Yellow',
+                        'value' => 1829563,
+                      ),
+                      7 => 
                       array (
                         'key' => 'Blue',
                         'value' => 2602,
                       ),
-                      4 => 
+                      8 => 
                       array (
-                        'key' => 'Red',
-                        'value' => 2603,
+                        'key' => 'Blue / Blue',
+                        'value' => 3913767,
                       ),
-                      5 => 
+                      9 => 
+                      array (
+                        'key' => 'Blue / Clear',
+                        'value' => 1829608,
+                      ),
+                      10 => 
                       array (
                         'key' => 'Brick Red',
                         'value' => 2604,
                       ),
-                      6 => 
+                      11 => 
                       array (
-                        'key' => 'Green',
-                        'value' => 2605,
+                        'key' => 'Brick Red',
+                        'value' => 1829552,
                       ),
-                      7 => 
-                      array (
-                        'key' => 'Dark Green',
-                        'value' => 2606,
-                      ),
-                      8 => 
+                      12 => 
                       array (
                         'key' => 'Brown',
                         'value' => 2607,
                       ),
-                      9 => 
+                      13 => 
                       array (
-                        'key' => 'Purple',
-                        'value' => 2608,
+                        'key' => 'Brown / Blue',
+                        'value' => 1829601,
                       ),
-                      10 => 
-                      array (
-                        'key' => 'Orange',
-                        'value' => 2609,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'Yellow',
-                        'value' => 2610,
-                      ),
-                      12 => 
+                      14 => 
                       array (
                         'key' => 'Clear',
                         'value' => 2611,
                       ),
-                      13 => 
-                      array (
-                        'key' => 'TAN',
-                        'value' => 1829444,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'PINK',
-                        'value' => 1829449,
-                      ),
                       15 => 
                       array (
-                        'key' => 'GOLD',
-                        'value' => 1829450,
+                        'key' => 'Clear / Black',
+                        'value' => 1829554,
                       ),
                       16 => 
                       array (
-                        'key' => 'SAND',
-                        'value' => 1829451,
+                        'key' => 'Clear / Blue',
+                        'value' => 1829593,
                       ),
                       17 => 
                       array (
-                        'key' => 'LIME',
-                        'value' => 1829452,
+                        'key' => 'Clear / Clear',
+                        'value' => 1829610,
                       ),
                       18 => 
                       array (
-                        'key' => 'TAN#3',
-                        'value' => 1829453,
+                        'key' => 'Clear / Gray',
+                        'value' => 5550462,
                       ),
                       19 => 
                       array (
-                        'key' => 'BRICK RED',
-                        'value' => 1829552,
+                        'key' => 'Clear / Orange',
+                        'value' => 1829599,
                       ),
                       20 => 
                       array (
-                        'key' => 'RED / ORANGE',
-                        'value' => 1829553,
+                        'key' => 'Clear / White',
+                        'value' => 1829589,
                       ),
                       21 => 
                       array (
-                        'key' => 'CLEAR / BLACK',
-                        'value' => 1829554,
+                        'key' => 'Dark Green',
+                        'value' => 2606,
                       ),
                       22 => 
                       array (
-                        'key' => 'BLACK / YELLOW',
-                        'value' => 1829563,
+                        'key' => 'Gold',
+                        'value' => 1829450,
                       ),
                       23 => 
                       array (
-                        'key' => 'RED / CLEAR',
-                        'value' => 1829586,
+                        'key' => 'Gray',
+                        'value' => 2601,
                       ),
                       24 => 
                       array (
-                        'key' => 'TAN / CLEAR',
-                        'value' => 1829587,
+                        'key' => 'Gray / Clear',
+                        'value' => 1829609,
                       ),
                       25 => 
                       array (
-                        'key' => 'GREEN / BLACK',
-                        'value' => 1829588,
+                        'key' => 'Gray / Green',
+                        'value' => 1829611,
                       ),
                       26 => 
                       array (
-                        'key' => 'CLEAR / WHITE',
-                        'value' => 1829589,
+                        'key' => 'Gray / Green',
+                        'value' => 5356964,
                       ),
                       27 => 
                       array (
-                        'key' => 'RED / YELLOW',
-                        'value' => 1829590,
+                        'key' => 'Gray / Orange',
+                        'value' => 5356963,
                       ),
                       28 => 
                       array (
-                        'key' => 'BLACK / ORANGE',
-                        'value' => 1829591,
+                        'key' => 'Green',
+                        'value' => 2605,
                       ),
                       29 => 
+                      array (
+                        'key' => 'Green / Black',
+                        'value' => 1829588,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'Green / Blue',
+                        'value' => 1829604,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'Green / Clear',
+                        'value' => 1829598,
+                      ),
+                      32 => 
+                      array (
+                        'key' => 'Green / Yellow',
+                        'value' => 3946849,
+                      ),
+                      33 => 
+                      array (
+                        'key' => 'Lime',
+                        'value' => 1829452,
+                      ),
+                      34 => 
+                      array (
+                        'key' => 'Orange',
+                        'value' => 2609,
+                      ),
+                      35 => 
+                      array (
+                        'key' => 'Orange / Clear',
+                        'value' => 1829596,
+                      ),
+                      36 => 
+                      array (
+                        'key' => 'Orange / Red',
+                        'value' => 1829612,
+                      ),
+                      37 => 
+                      array (
+                        'key' => 'Pink',
+                        'value' => 1829449,
+                      ),
+                      38 => 
+                      array (
+                        'key' => 'Pink',
+                        'value' => 1830034,
+                      ),
+                      39 => 
+                      array (
+                        'key' => 'Purple',
+                        'value' => 2608,
+                      ),
+                      40 => 
+                      array (
+                        'key' => 'Red',
+                        'value' => 2603,
+                      ),
+                      41 => 
+                      array (
+                        'key' => 'Red / Black',
+                        'value' => 3913768,
+                      ),
+                      42 => 
+                      array (
+                        'key' => 'Red / Clear',
+                        'value' => 1829586,
+                      ),
+                      43 => 
+                      array (
+                        'key' => 'Red / Green',
+                        'value' => 1829595,
+                      ),
+                      44 => 
+                      array (
+                        'key' => 'Red / Orange',
+                        'value' => 1829553,
+                      ),
+                      45 => 
+                      array (
+                        'key' => 'Red / Yellow',
+                        'value' => 1829590,
+                      ),
+                      46 => 
+                      array (
+                        'key' => 'Sand',
+                        'value' => 1829451,
+                      ),
+                      47 => 
                       array (
                         'key' => 'SAND / LIME',
                         'value' => 1829592,
                       ),
-                      30 => 
-                      array (
-                        'key' => 'CLEAR / BLUE',
-                        'value' => 1829593,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'BLACK / GREEN',
-                        'value' => 1829594,
-                      ),
-                      32 => 
-                      array (
-                        'key' => 'RED / GREEN',
-                        'value' => 1829595,
-                      ),
-                      33 => 
-                      array (
-                        'key' => 'ORANGE / CLEAR',
-                        'value' => 1829596,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'YELLOW / GREEN',
-                        'value' => 1829597,
-                      ),
-                      35 => 
-                      array (
-                        'key' => 'GREEN / CLEAR',
-                        'value' => 1829598,
-                      ),
-                      36 => 
-                      array (
-                        'key' => 'CLEAR / ORANGE',
-                        'value' => 1829599,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'BLACK / CLEAR',
-                        'value' => 1829600,
-                      ),
-                      38 => 
-                      array (
-                        'key' => 'BROWN / BLUE',
-                        'value' => 1829601,
-                      ),
-                      39 => 
-                      array (
-                        'key' => 'WHITE / CLEAR',
-                        'value' => 1829602,
-                      ),
-                      40 => 
-                      array (
-                        'key' => 'YELLOW / YELLOW',
-                        'value' => 1829603,
-                      ),
-                      41 => 
-                      array (
-                        'key' => 'GREEN / BLUE',
-                        'value' => 1829604,
-                      ),
-                      42 => 
-                      array (
-                        'key' => 'YELLOW / GRAY',
-                        'value' => 1829605,
-                      ),
-                      43 => 
-                      array (
-                        'key' => 'YELLOW / BLACK',
-                        'value' => 1829606,
-                      ),
-                      44 => 
-                      array (
-                        'key' => 'YELLOW / STRIPE',
-                        'value' => 1829607,
-                      ),
-                      45 => 
-                      array (
-                        'key' => 'BLUE / CLEAR',
-                        'value' => 1829608,
-                      ),
-                      46 => 
-                      array (
-                        'key' => 'GRAY / CLEAR',
-                        'value' => 1829609,
-                      ),
-                      47 => 
-                      array (
-                        'key' => 'CLEAR / CLEAR',
-                        'value' => 1829610,
-                      ),
                       48 => 
                       array (
-                        'key' => 'GRAY / GREEN',
-                        'value' => 1829611,
+                        'key' => 'Tan',
+                        'value' => 1829444,
                       ),
                       49 => 
                       array (
-                        'key' => 'ORANGE / RED',
-                        'value' => 1829612,
+                        'key' => 'Tan',
+                        'value' => 1829453,
                       ),
                       50 => 
                       array (
-                        'key' => 'BLACK / BROWN',
-                        'value' => 1829613,
+                        'key' => 'Tan / Clear',
+                        'value' => 1829587,
                       ),
                       51 => 
                       array (
-                        'key' => 'BLACK / BLUE',
-                        'value' => 1829614,
+                        'key' => 'White',
+                        'value' => 2600,
                       ),
                       52 => 
                       array (
-                        'key' => 'Pink',
-                        'value' => 1830034,
+                        'key' => 'White / Clear',
+                        'value' => 1829602,
+                      ),
+                      53 => 
+                      array (
+                        'key' => 'Yellow',
+                        'value' => 2610,
+                      ),
+                      54 => 
+                      array (
+                        'key' => 'Yellow / Black',
+                        'value' => 1829606,
+                      ),
+                      55 => 
+                      array (
+                        'key' => 'Yellow / Gray',
+                        'value' => 1829605,
+                      ),
+                      56 => 
+                      array (
+                        'key' => 'Yellow / Green',
+                        'value' => 1829597,
+                      ),
+                      57 => 
+                      array (
+                        'key' => 'Yellow / Green Helix',
+                        'value' => 5288866,
+                      ),
+                      58 => 
+                      array (
+                        'key' => 'Yellow / Stripe',
+                        'value' => 1829607,
+                      ),
+                      59 => 
+                      array (
+                        'key' => 'Yellow / Yellow',
+                        'value' => 1829603,
                       ),
                     ),
                      'width' => 300,
@@ -2655,68 +2812,68 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'FDA',
-                        'value' => 2585,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'USDA',
-                        'value' => 2586,
-                      ),
-                      2 => 
-                      array (
                         'key' => '3-A 18-03',
                         'value' => 2587,
                       ),
-                      3 => 
-                      array (
-                        'key' => 'UL',
-                        'value' => 2588,
-                      ),
-                      4 => 
-                      array (
-                        'key' => 'FMVSS',
-                        'value' => 2589,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'MSHA',
-                        'value' => 2590,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'NMMA (Marine Hose)',
-                        'value' => 2591,
-                      ),
-                      7 => 
-                      array (
-                        'key' => 'NIOSH (Air Breathing)',
-                        'value' => 2592,
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'MIL -AA59565 (compressed air)',
-                        'value' => 2593,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'CSA',
-                        'value' => 2594,
-                      ),
-                      10 => 
+                      1 => 
                       array (
                         'key' => 'CARB',
                         'value' => 2595,
                       ),
-                      11 => 
+                      2 => 
+                      array (
+                        'key' => 'CSA',
+                        'value' => 2594,
+                      ),
+                      3 => 
                       array (
                         'key' => 'CUL',
                         'value' => 2596,
                       ),
-                      12 => 
+                      4 => 
+                      array (
+                        'key' => 'FDA',
+                        'value' => 2585,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'FMVSS',
+                        'value' => 2589,
+                      ),
+                      6 => 
+                      array (
+                        'key' => 'MIL -AA59565 (compressed air)',
+                        'value' => 2593,
+                      ),
+                      7 => 
+                      array (
+                        'key' => 'MSHA',
+                        'value' => 2590,
+                      ),
+                      8 => 
+                      array (
+                        'key' => 'NIOSH (Air Breathing)',
+                        'value' => 2592,
+                      ),
+                      9 => 
+                      array (
+                        'key' => 'NMMA (Marine Hose)',
+                        'value' => 2591,
+                      ),
+                      10 => 
                       array (
                         'key' => 'NSF',
                         'value' => 2597,
+                      ),
+                      11 => 
+                      array (
+                        'key' => 'UL',
+                        'value' => 2588,
+                      ),
+                      12 => 
+                      array (
+                        'key' => 'USDA',
+                        'value' => 2586,
                       ),
                     ),
                      'width' => 300,
@@ -2751,33 +2908,43 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => '2:1',
-                        'value' => 3831191,
+                        'key' => '10:1',
+                        'value' => 3831290,
                       ),
                       1 => 
                       array (
-                        'key' => '3:1',
-                        'value' => 3831192,
+                        'key' => '2.5:1',
+                        'value' => 5891661,
                       ),
                       2 => 
                       array (
-                        'key' => '4:1',
-                        'value' => 3831193,
+                        'key' => '20:1',
+                        'value' => 3831291,
                       ),
                       3 => 
                       array (
-                        'key' => '5:1',
-                        'value' => 3831194,
+                        'key' => '2:1',
+                        'value' => 3831286,
                       ),
                       4 => 
                       array (
-                        'key' => '10:1',
-                        'value' => 3831195,
+                        'key' => '3:1',
+                        'value' => 3831287,
                       ),
                       5 => 
                       array (
-                        'key' => '20:1',
-                        'value' => 3831196,
+                        'key' => '4:1',
+                        'value' => 3831288,
+                      ),
+                      6 => 
+                      array (
+                        'key' => '5:1',
+                        'value' => 3831289,
+                      ),
+                      7 => 
+                      array (
+                        'key' => '6:1',
+                        'value' => 4620648,
                       ),
                     ),
                      'width' => 300,
@@ -2852,118 +3019,118 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       8 => 
                       array (
-                        'key' => 'EN 856 4SH',
-                        'value' => 2787,
-                      ),
-                      9 => 
-                      array (
-                        'key' => 'EN 856 4SP',
-                        'value' => 2788,
-                      ),
-                      10 => 
-                      array (
-                        'key' => 'EN 856 R12',
-                        'value' => 2789,
-                      ),
-                      11 => 
-                      array (
-                        'key' => 'EN 856 R13',
-                        'value' => 2790,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'EN 857 2SC',
-                        'value' => 2791,
-                      ),
-                      13 => 
-                      array (
                         'key' => ' EN 857 R7',
                         'value' => 2792,
                       ),
-                      14 => 
+                      9 => 
                       array (
                         'key' => ' FDA 21 CFR 177',
                         'value' => 2793,
                       ),
-                      15 => 
+                      10 => 
                       array (
                         'key' => '100 microamps/ft. at 75 KV',
                         'value' => 2794,
                       ),
-                      16 => 
+                      11 => 
                       array (
                         'key' => '1500 Specifications',
                         'value' => 2795,
                       ),
-                      17 => 
+                      12 => 
                       array (
                         'key' => '3-A 18-03 CERTIFIED',
                         'value' => 2796,
                       ),
-                      18 => 
+                      13 => 
                       array (
                         'key' => '3-A COMPLIANT',
                         'value' => 2797,
                       ),
-                      19 => 
+                      14 => 
                       array (
                         'key' => 'ARPM CLASS A (HIGH OIL RESISTANCE)',
                         'value' => 2798,
                       ),
-                      20 => 
+                      15 => 
                       array (
                         'key' => 'ARPM CLASS B (MEDIUM OIL RESISTANCE)',
                         'value' => 2799,
                       ),
-                      21 => 
+                      16 => 
                       array (
                         'key' => 'ARPM CLASS C (LIMITED OIL RESISTANCE)',
                         'value' => 2800,
                       ),
-                      22 => 
+                      17 => 
                       array (
                         'key' => 'ARPM GRADE R WELDING HOSE',
                         'value' => 2801,
                       ),
-                      23 => 
+                      18 => 
                       array (
                         'key' => 'ARPM GRADE RM WELDING HOSE',
                         'value' => 2802,
                       ),
-                      24 => 
+                      19 => 
                       array (
                         'key' => 'ARPM GRADE T WELDING HOSE',
                         'value' => 2803,
                       ),
-                      25 => 
+                      20 => 
                       array (
                         'key' => 'CARB',
                         'value' => 2804,
                       ),
-                      26 => 
+                      21 => 
                       array (
                         'key' => 'CGA E-1',
                         'value' => 2805,
                       ),
-                      27 => 
+                      22 => 
                       array (
                         'key' => 'CNH FZG20305',
                         'value' => 2806,
                       ),
-                      28 => 
+                      23 => 
                       array (
                         'key' => 'CSA 8.1-M86',
                         'value' => 2807,
                       ),
-                      29 => 
+                      24 => 
                       array (
                         'key' => 'DIN 74310',
                         'value' => 2808,
                       ),
-                      30 => 
+                      25 => 
                       array (
                         'key' => 'DOT FMVSS 106 Type (AII)',
                         'value' => 2809,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'EN 856 4SH',
+                        'value' => 2787,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'EN 856 4SP',
+                        'value' => 2788,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'EN 856 R12',
+                        'value' => 2789,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'EN 856 R13',
+                        'value' => 2790,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'EN 857 2SC',
+                        'value' => 2791,
                       ),
                       31 => 
                       array (
@@ -3344,187 +3511,187 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       array (
                         'key' => 'ABRASIVE MATERIALS',
-                        'value' => 3831198,
+                        'value' => 3831293,
                       ),
                       1 => 
                       array (
                         'key' => 'ACID',
-                        'value' => 3831199,
+                        'value' => 3831294,
                       ),
                       2 => 
                       array (
                         'key' => 'AGRICULTURAL CHEMICALS',
-                        'value' => 3831200,
+                        'value' => 3831295,
                       ),
                       3 => 
                       array (
                         'key' => 'AIR',
-                        'value' => 3831201,
+                        'value' => 3831296,
                       ),
                       4 => 
                       array (
                         'key' => 'B100',
-                        'value' => 3831202,
+                        'value' => 3831297,
                       ),
                       5 => 
                       array (
                         'key' => 'B20',
-                        'value' => 3831203,
+                        'value' => 3831298,
                       ),
                       6 => 
                       array (
                         'key' => 'B5',
-                        'value' => 3831204,
+                        'value' => 3831299,
                       ),
                       7 => 
                       array (
                         'key' => 'BARK',
-                        'value' => 3831205,
+                        'value' => 3831300,
                       ),
                       8 => 
                       array (
                         'key' => 'BASE',
-                        'value' => 3831206,
+                        'value' => 3831301,
                       ),
                       9 => 
                       array (
                         'key' => 'BEER',
-                        'value' => 3831207,
+                        'value' => 3831302,
                       ),
                       10 => 
                       array (
                         'key' => 'CEMENT',
-                        'value' => 3831208,
+                        'value' => 3831303,
                       ),
                       11 => 
                       array (
                         'key' => 'CONCRETE',
-                        'value' => 3831209,
+                        'value' => 3831304,
                       ),
                       12 => 
                       array (
                         'key' => 'DEF',
-                        'value' => 3831210,
+                        'value' => 3831305,
                       ),
                       13 => 
                       array (
                         'key' => 'DIESEL',
-                        'value' => 3831211,
+                        'value' => 3831306,
                       ),
                       14 => 
                       array (
                         'key' => 'E10',
-                        'value' => 3831212,
+                        'value' => 3831307,
                       ),
                       15 => 
                       array (
                         'key' => 'E100',
-                        'value' => 3831213,
+                        'value' => 3831308,
                       ),
                       16 => 
                       array (
                         'key' => 'E25',
-                        'value' => 3831214,
+                        'value' => 3831309,
                       ),
                       17 => 
                       array (
                         'key' => 'E85',
-                        'value' => 3831215,
+                        'value' => 3831310,
                       ),
                       18 => 
                       array (
                         'key' => 'FUEL OIL',
-                        'value' => 3831216,
+                        'value' => 3831311,
                       ),
                       19 => 
                       array (
                         'key' => 'GASOLINE',
-                        'value' => 3831217,
+                        'value' => 3831312,
                       ),
                       20 => 
                       array (
                         'key' => 'GRASS',
-                        'value' => 3831218,
+                        'value' => 3831313,
                       ),
                       21 => 
                       array (
                         'key' => 'HYDROCARBON',
-                        'value' => 3831219,
+                        'value' => 3831314,
                       ),
                       22 => 
                       array (
                         'key' => 'KEROSENE',
-                        'value' => 3831220,
+                        'value' => 3831315,
                       ),
                       23 => 
                       array (
                         'key' => 'LACQUERS',
-                        'value' => 3831221,
+                        'value' => 3831316,
                       ),
                       24 => 
                       array (
                         'key' => 'LPG',
-                        'value' => 3831222,
+                        'value' => 3831317,
                       ),
                       25 => 
                       array (
                         'key' => 'M100',
-                        'value' => 3831223,
+                        'value' => 3831318,
                       ),
                       26 => 
                       array (
                         'key' => 'MULCH',
-                        'value' => 3831224,
+                        'value' => 3831319,
                       ),
                       27 => 
                       array (
                         'key' => 'NATURAL GAS',
-                        'value' => 3831225,
+                        'value' => 3831320,
                       ),
                       28 => 
                       array (
                         'key' => 'OIL',
-                        'value' => 3831226,
+                        'value' => 3831321,
                       ),
                       29 => 
                       array (
                         'key' => 'PAINT',
-                        'value' => 3831227,
+                        'value' => 3831322,
                       ),
                       30 => 
                       array (
                         'key' => 'SALT WATER',
-                        'value' => 3831228,
+                        'value' => 3831323,
                       ),
                       31 => 
                       array (
                         'key' => 'SEWAGE',
-                        'value' => 3831229,
+                        'value' => 3831324,
                       ),
                       32 => 
                       array (
                         'key' => 'STEAM',
-                        'value' => 3831230,
+                        'value' => 3831325,
                       ),
                       33 => 
                       array (
                         'key' => 'THINNERS',
-                        'value' => 3831231,
+                        'value' => 3831326,
                       ),
                       34 => 
                       array (
                         'key' => 'TURPENTINE',
-                        'value' => 3831232,
+                        'value' => 3831327,
                       ),
                       35 => 
                       array (
                         'key' => 'WATER',
-                        'value' => 3831233,
+                        'value' => 3831328,
                       ),
                       36 => 
                       array (
                         'key' => 'WINE',
-                        'value' => 3831234,
+                        'value' => 3831329,
                       ),
                     ),
                      'width' => 300,
@@ -3613,323 +3780,358 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'EPDM',
-                        'value' => 2613,
+                        'key' => '304 Stainless Steel Wire Braid',
+                        'value' => 1829469,
                       ),
                       1 => 
                       array (
-                        'key' => 'SBR',
-                        'value' => 2614,
+                        'key' => 'ARC Synthetic Rubber',
+                        'value' => 1829458,
                       ),
                       2 => 
                       array (
-                        'key' => 'Nitrile',
-                        'value' => 2615,
+                        'key' => 'Black',
+                        'value' => 1831327,
                       ),
                       3 => 
+                      array (
+                        'key' => 'Carboxylated nitrile (XNBR)',
+                        'value' => 2622,
+                      ),
+                      4 => 
+                      array (
+                        'key' => 'Carbryn™',
+                        'value' => 2623,
+                      ),
+                      5 => 
+                      array (
+                        'key' => 'Carbryn™',
+                        'value' => 1829456,
+                      ),
+                      6 => 
                       array (
                         'key' => 'Chemivic (NBR/PVC)',
                         'value' => 2616,
                       ),
-                      4 => 
-                      array (
-                        'key' => 'CPE',
-                        'value' => 2617,
-                      ),
-                      5 => 
-                      array (
-                        'key' => 'CR (Chloroprene)',
-                        'value' => 2618,
-                      ),
-                      6 => 
-                      array (
-                        'key' => 'CSM',
-                        'value' => 2619,
-                      ),
                       7 => 
                       array (
-                        'key' => 'ECO',
-                        'value' => 2620,
+                        'key' => 'Chemivic (NBR/PVC)',
+                        'value' => 1829485,
                       ),
                       8 => 
                       array (
-                        'key' => 'Synthetic Rubber',
-                        'value' => 2621,
+                        'key' => 'Chemivic (NBR/PVC)',
+                        'value' => 1829490,
                       ),
                       9 => 
                       array (
-                        'key' => 'XNBR',
-                        'value' => 2622,
+                        'key' => 'Chemivic (NBR/PVC)',
+                        'value' => 1831328,
                       ),
                       10 => 
                       array (
-                        'key' => 'Carbryn',
-                        'value' => 2623,
+                        'key' => 'Chemivic (NBR/PVC); w/ Microban',
+                        'value' => 5288867,
                       ),
                       11 => 
-                      array (
-                        'key' => 'Textile',
-                        'value' => 2624,
-                      ),
-                      12 => 
-                      array (
-                        'key' => 'Futurin Synthetic Rubber',
-                        'value' => 2625,
-                      ),
-                      13 => 
-                      array (
-                        'key' => 'PVC',
-                        'value' => 2626,
-                      ),
-                      14 => 
-                      array (
-                        'key' => 'TPV',
-                        'value' => 2627,
-                      ),
-                      15 => 
-                      array (
-                        'key' => 'TPU',
-                        'value' => 2628,
-                      ),
-                      16 => 
-                      array (
-                        'key' => 'PE',
-                        'value' => 2629,
-                      ),
-                      17 => 
-                      array (
-                        'key' => 'PP',
-                        'value' => 2630,
-                      ),
-                      18 => 
-                      array (
-                        'key' => 'EPDM SYNTHETIC RUBBER',
-                        'value' => 1829454,
-                      ),
-                      19 => 
-                      array (
-                        'key' => 'PYROSYN® SYNTHETIC RUBBER',
-                        'value' => 1829455,
-                      ),
-                      20 => 
-                      array (
-                        'key' => '(XNBR) CARBRYN SYNTHETIC RUBBER',
-                        'value' => 1829456,
-                      ),
-                      21 => 
-                      array (
-                        'key' => '(NBR) NITRILE SYNTHETIC RUBBER',
-                        'value' => 1829457,
-                      ),
-                      22 => 
-                      array (
-                        'key' => 'ARC SYNTHETIC RUBBER',
-                        'value' => 1829458,
-                      ),
-                      23 => 
-                      array (
-                        'key' => 'SYNTHETIC RUBBER',
-                        'value' => 1829459,
-                      ),
-                      24 => 
-                      array (
-                        'key' => 'SBR SYNTHETIC RUBBER',
-                        'value' => 1829460,
-                      ),
-                      25 => 
-                      array (
-                        'key' => 'FUTURIN™ SYNTHETIC RUBBER',
-                        'value' => 1829461,
-                      ),
-                      26 => 
-                      array (
-                        'key' => '(CR) NEOPRENE SYNTHETIC RUBBER',
-                        'value' => 1829462,
-                      ),
-                      27 => 
-                      array (
-                        'key' => 'WINGPRENE SYNTHETIC RUBBER',
-                        'value' => 1829463,
-                      ),
-                      28 => 
-                      array (
-                        'key' => 'SYNTHETIC FABRIC PLIES',
-                        'value' => 1829464,
-                      ),
-                      29 => 
-                      array (
-                        'key' => 'CHLOROSULFONATED POLYETHYLENE',
-                        'value' => 1829465,
-                      ),
-                      30 => 
-                      array (
-                        'key' => 'POLYCHLOROPRENE',
-                        'value' => 1829466,
-                      ),
-                      31 => 
-                      array (
-                        'key' => 'TPE',
-                        'value' => 1829467,
-                      ),
-                      32 => 
-                      array (
-                        'key' => 'PLIOVIC',
-                        'value' => 1829468,
-                      ),
-                      33 => 
-                      array (
-                        'key' => '304 STAINLESS STEEL WIRE BRAID',
-                        'value' => 1829469,
-                      ),
-                      34 => 
-                      array (
-                        'key' => 'OMEGASYN RUBBER',
-                        'value' => 1829470,
-                      ),
-                      35 => 
-                      array (
-                        'key' => 'SUPER THERMO-FLO EPDM',
-                        'value' => 1829471,
-                      ),
-                      36 => 
-                      array (
-                        'key' => 'TEXTILE BRAID',
-                        'value' => 1829472,
-                      ),
-                      37 => 
-                      array (
-                        'key' => 'THERMOPLASTIC',
-                        'value' => 1829473,
-                      ),
-                      38 => 
-                      array (
-                        'key' => 'IMPREGNATED TEXTILE BRAID',
-                        'value' => 1829474,
-                      ),
-                      39 => 
-                      array (
-                        'key' => 'UHMWPE RUBBER',
-                        'value' => 1829475,
-                      ),
-                      40 => 
-                      array (
-                        'key' => 'CHLOROPRENE SYNTHETIC RUBBER',
-                        'value' => 1829476,
-                      ),
-                      41 => 
-                      array (
-                        'key' => 'SYNTHETIC RUBBER; UHMWPE FILM',
-                        'value' => 1829477,
-                      ),
-                      42 => 
-                      array (
-                        'key' => '(CPE) CHLORINATED POLYETHYLENE',
-                        'value' => 1829478,
-                      ),
-                      43 => 
-                      array (
-                        'key' => 'PURETEN NATURAL RUBBER',
-                        'value' => 1829479,
-                      ),
-                      44 => 
-                      array (
-                        'key' => 'POLYURETHANE',
-                        'value' => 1829480,
-                      ),
-                      45 => 
-                      array (
-                        'key' => 'URETHANE',
-                        'value' => 1829481,
-                      ),
-                      46 => 
-                      array (
-                        'key' => 'POLYESTER',
-                        'value' => 1829482,
-                      ),
-                      47 => 
-                      array (
-                        'key' => 'FIBERGLASS FABRIC OVER RUBBER',
-                        'value' => 1829483,
-                      ),
-                      48 => 
-                      array (
-                        'key' => 'SYNTHETIC FIBER',
-                        'value' => 1829484,
-                      ),
-                      49 => 
-                      array (
-                        'key' => 'CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1829485,
-                      ),
-                      50 => 
-                      array (
-                        'key' => 'FLEXIBLE VINYL',
-                        'value' => 1829486,
-                      ),
-                      51 => 
-                      array (
-                        'key' => 'CHLOROBUTYL SYNTHETIC RUBBER',
-                        'value' => 1829487,
-                      ),
-                      52 => 
-                      array (
-                        'key' => 'NBR SYNTHETIC RUBBER',
-                        'value' => 1829488,
-                      ),
-                      53 => 
-                      array (
-                        'key' => '(NR) NATURAL RUBBER',
-                        'value' => 1829489,
-                      ),
-                      54 => 
-                      array (
-                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1829490,
-                      ),
-                      55 => 
-                      array (
-                        'key' => 'CR/EPDM',
-                        'value' => 1829491,
-                      ),
-                      56 => 
-                      array (
-                        'key' => 'SBR/EPDM',
-                        'value' => 1829492,
-                      ),
-                      57 => 
-                      array (
-                        'key' => 'Polychloroprene',
-                        'value' => 1830024,
-                      ),
-                      58 => 
                       array (
                         'key' => 'Chlorinated Polyethylene',
                         'value' => 1830031,
                       ),
-                      59 => 
+                      12 => 
+                      array (
+                        'key' => 'Chlorobutyl (CIIR)',
+                        'value' => 1829487,
+                      ),
+                      13 => 
+                      array (
+                        'key' => 'Chloroprene (CR)',
+                        'value' => 2618,
+                      ),
+                      14 => 
+                      array (
+                        'key' => 'Chloroprene (CR)',
+                        'value' => 1829462,
+                      ),
+                      15 => 
+                      array (
+                        'key' => 'Chloroprene (CR)',
+                        'value' => 1829476,
+                      ),
+                      16 => 
+                      array (
+                        'key' => 'Chloroprene (CR)',
+                        'value' => 3831425,
+                      ),
+                      17 => 
+                      array (
+                        'key' => 'Chlorosulfonated Polyethylene (CSM)',
+                        'value' => 2619,
+                      ),
+                      18 => 
+                      array (
+                        'key' => 'Chlorosulfonated Polyethylene (CSM)',
+                        'value' => 1829465,
+                      ),
+                      19 => 
+                      array (
+                        'key' => 'Chlorosulfonated Polyethylene (CSM)',
+                        'value' => 1830033,
+                      ),
+                      20 => 
+                      array (
+                        'key' => 'CPE',
+                        'value' => 2617,
+                      ),
+                      21 => 
+                      array (
+                        'key' => 'CPE',
+                        'value' => 1829478,
+                      ),
+                      22 => 
+                      array (
+                        'key' => 'CR/EPDM',
+                        'value' => 1829491,
+                      ),
+                      23 => 
+                      array (
+                        'key' => 'EPDM',
+                        'value' => 2613,
+                      ),
+                      24 => 
+                      array (
+                        'key' => 'EPDM SYNTHETIC RUBBER',
+                        'value' => 1829454,
+                      ),
+                      25 => 
+                      array (
+                        'key' => 'Epichlorohydrin (ECO)',
+                        'value' => 2620,
+                      ),
+                      26 => 
+                      array (
+                        'key' => 'Epichlorohydrin (ECO)',
+                        'value' => 3831429,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'FIBERGLASS FABRIC OVER RUBBER',
+                        'value' => 1829483,
+                      ),
+                      28 => 
+                      array (
+                        'key' => 'FLEXIBLE VINYL',
+                        'value' => 1829486,
+                      ),
+                      29 => 
+                      array (
+                        'key' => 'Futurin™ Synthetic Rubber',
+                        'value' => 2625,
+                      ),
+                      30 => 
+                      array (
+                        'key' => 'Futurin™ Synthetic Rubber',
+                        'value' => 1829461,
+                      ),
+                      31 => 
+                      array (
+                        'key' => 'Impregnated Textile Braid',
+                        'value' => 1829474,
+                      ),
+                      32 => 
                       array (
                         'key' => 'Impregnated Textile Braid',
                         'value' => 1830032,
                       ),
-                      60 => 
+                      33 => 
                       array (
-                        'key' => 'Chlorosulfonated Polyethylene',
-                        'value' => 1830033,
+                        'key' => 'Natural Rubber (NR)',
+                        'value' => 1829489,
                       ),
-                      61 => 
+                      34 => 
+                      array (
+                        'key' => 'Natural Rubber (NR)',
+                        'value' => 5300788,
+                      ),
+                      35 => 
+                      array (
+                        'key' => 'Nitrile (NBR)',
+                        'value' => 2615,
+                      ),
+                      36 => 
+                      array (
+                        'key' => 'Nitrile (NBR)',
+                        'value' => 1829457,
+                      ),
+                      37 => 
+                      array (
+                        'key' => 'Nitrile (NBR)',
+                        'value' => 1829488,
+                      ),
+                      38 => 
                       array (
                         'key' => 'Nitrile / PVC',
                         'value' => 1830037,
                       ),
+                      39 => 
+                      array (
+                        'key' => 'Omegasyn',
+                        'value' => 1829470,
+                      ),
+                      40 => 
+                      array (
+                        'key' => 'PE',
+                        'value' => 2629,
+                      ),
+                      41 => 
+                      array (
+                        'key' => 'Polychloroprene',
+                        'value' => 1829466,
+                      ),
+                      42 => 
+                      array (
+                        'key' => 'Polychloroprene',
+                        'value' => 1830024,
+                      ),
+                      43 => 
+                      array (
+                        'key' => 'Polyester',
+                        'value' => 1829482,
+                      ),
+                      44 => 
+                      array (
+                        'key' => 'Polyurethane',
+                        'value' => 1829480,
+                      ),
+                      45 => 
+                      array (
+                        'key' => 'PP',
+                        'value' => 2630,
+                      ),
+                      46 => 
+                      array (
+                        'key' => 'Pureten',
+                        'value' => 1829479,
+                      ),
+                      47 => 
+                      array (
+                        'key' => 'PVC',
+                        'value' => 2626,
+                      ),
+                      48 => 
+                      array (
+                        'key' => 'PVC',
+                        'value' => 1829468,
+                      ),
+                      49 => 
+                      array (
+                        'key' => 'Pyrosyn®',
+                        'value' => 1829455,
+                      ),
+                      50 => 
+                      array (
+                        'key' => 'Recycled TPV (Thermoplastic Vulcanizate)',
+                        'value' => 6949792,
+                      ),
+                      51 => 
+                      array (
+                        'key' => 'SBR',
+                        'value' => 2614,
+                      ),
+                      52 => 
+                      array (
+                        'key' => 'SBR',
+                        'value' => 1829460,
+                      ),
+                      53 => 
+                      array (
+                        'key' => 'SBR / EPDM',
+                        'value' => 1829492,
+                      ),
+                      54 => 
+                      array (
+                        'key' => 'Sugar Cane Based EPDM',
+                        'value' => 3831421,
+                      ),
+                      55 => 
+                      array (
+                        'key' => 'Super Thermo-Flo EPDM',
+                        'value' => 1829471,
+                      ),
+                      56 => 
+                      array (
+                        'key' => 'SYNTHETIC FABRIC PLIES',
+                        'value' => 1829464,
+                      ),
+                      57 => 
+                      array (
+                        'key' => 'Synthetic Fiber',
+                        'value' => 1829484,
+                      ),
+                      58 => 
+                      array (
+                        'key' => 'Synthetic Rubber',
+                        'value' => 2621,
+                      ),
+                      59 => 
+                      array (
+                        'key' => 'Synthetic Rubber',
+                        'value' => 1829459,
+                      ),
+                      60 => 
+                      array (
+                        'key' => 'Synthetic Rubber, UHMWPE Film',
+                        'value' => 1829477,
+                      ),
+                      61 => 
+                      array (
+                        'key' => 'Textile',
+                        'value' => 2624,
+                      ),
                       62 => 
                       array (
-                        'key' => 'BLACK',
-                        'value' => 1831327,
+                        'key' => 'TEXTILE BRAID',
+                        'value' => 1829472,
                       ),
                       63 => 
                       array (
-                        'key' => '(NBR/PVC) CHEMIVIC SYNTHETIC RUBBER',
-                        'value' => 1831328,
+                        'key' => 'Thermoplastic',
+                        'value' => 1829473,
+                      ),
+                      64 => 
+                      array (
+                        'key' => 'TPE',
+                        'value' => 1829467,
+                      ),
+                      65 => 
+                      array (
+                        'key' => 'TPU',
+                        'value' => 2628,
+                      ),
+                      66 => 
+                      array (
+                        'key' => 'TPV',
+                        'value' => 2627,
+                      ),
+                      67 => 
+                      array (
+                        'key' => 'UHMWPE',
+                        'value' => 1829475,
+                      ),
+                      68 => 
+                      array (
+                        'key' => 'UHMWPE; EZ Clean',
+                        'value' => 5288868,
+                      ),
+                      69 => 
+                      array (
+                        'key' => 'Urethane',
+                        'value' => 1829481,
+                      ),
+                      70 => 
+                      array (
+                        'key' => 'Wingprene Synthetic Rubber',
+                        'value' => 1829463,
                       ),
                     ),
                      'width' => 300,
@@ -3981,6 +4183,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                  )),
+                  12 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 300,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 150,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'sixDigitVirtualCatalogDescription',
+                     'title' => 'Six Digit Virtual Catalog Description',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left: 20px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
