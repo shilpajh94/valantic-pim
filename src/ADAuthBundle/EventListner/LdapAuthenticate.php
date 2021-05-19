@@ -111,7 +111,7 @@ class LdapAuthenticate
             }
             return FALSE;
         } catch (\Exception $e) {
-            $this->customErrorLog("Exception while connecting to host: ".$e->getMessage(),Loglevel::ERROR());
+            $this->customErrorLog("Exception while connecting to host: $host and port: $port. ".$e->getMessage(),Loglevel::ERROR());
             return FALSE;
         }
     }
@@ -135,11 +135,8 @@ class LdapAuthenticate
                     $host = 0;
                 }
             }
-            $host = true; //Rajesh
             if ($host) {
-                throw new \Exception("Throwing exception manually"); // Rajesh
                 $this->ldapCreateConnection($host, $this->ldapPort);
-                //$filter = "(&(memberOf=" . $this->ldapUserGroup . ")(" . $this->ldapUserFilter . "=$userName))";
                 $filter = "(" . $this->ldapUserFilter . "=$userName)";
                 $resultRes = $this->ldapQuery($this->ldapDn, $filter);
                 if (! empty($resultRes)) {
@@ -152,21 +149,21 @@ class LdapAuthenticate
                             'message' => 'success ok'
                         );
                     } else {
-                        //$this->customErrorLog("Failed to bind", LogLevel::ERROR());
+                        $this->customErrorLog("Failed to bind " . $userName, LogLevel::ERROR());
                         return array(
                             'success' => false,
                             'message' => "Failed to bind " . $userName . "with password"
                         );
                     }
                 } else {
-                    //$this->customErrorLog("User not found", LogLevel::ERROR());
+                    $this->customErrorLog("User not found " . $userName, LogLevel::ERROR());
                     return array(
                         'success' => false,
                         'message' => $this->ldapNoUser
                     );
                 }
             } else {
-                $this->customErrorLog("No domain host found ".$this->ldapNoDomainHost, LogLevel::ERROR());
+                $this->customErrorLog("No domain host found or no domain host is available at present, please try again later ".$this->ldapNoDomainHost, LogLevel::ERROR());
                 return array(
                     'success' => false,
                     'message' => $this->ldapNoDomainHost
@@ -208,7 +205,6 @@ class LdapAuthenticate
             $this->ldapObj = Ldap::create('ext_ldap', $config);
             return $this->ldapBindConnection($this->ldapUser, $this->ldapPass);
         } catch (\Exception $e) {
-            $this->customErrorLog("Ldap Connection couldn't establish: ".$e->getMessage(),Loglevel::ERROR());
             throw new \Exception($e->getMessage());
         }
     }
@@ -229,8 +225,7 @@ class LdapAuthenticate
                 'success' => true
             );
         } catch (\Exception $e) {
-            $this->customErrorLog("Failed to bind Ldap connection: ".$e->getMessage(),Loglevel::ERROR());
-            throw new \Exception($e->getMessage());
+            throw new \Exception("Failed to bind Ldap connection with user: ".$ldapUser.". ".$e->getMessage());
         }
     }
 
@@ -250,8 +245,8 @@ class LdapAuthenticate
                 'success' => true
             );
         } catch (\Exception $e) {
-            $this->customErrorLog("Failed to bind Ldap user: ".$e->getMessage(),Loglevel::ERROR());
-            throw new \Exception($e->getMessage());
+            //$this->customErrorLog("Failed to bind Ldap user: ".$e->getMessage(),Loglevel::ERROR());
+            throw new \Exception("Failed to bind Ldap user: ".$user .". ".$e->getMessage());
         }
     }
 
@@ -269,8 +264,7 @@ class LdapAuthenticate
             $query = $this->ldapObj->query($rdns, $filter);
             return($query->execute()->toArray());
         } catch (\Exception $e) {
-            $this->customErrorLog("Failed to excute query: ".$e->getMessage(),Loglevel::ERROR());
-            throw new \Exception($e->getMessage());
+            throw new \Exception("Failed to excute query: ".$e->getMessage());
         }
     }
 
