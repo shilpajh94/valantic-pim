@@ -1464,7 +1464,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1184-3"
+                "id" => "extModel414-3"
             ],
             [
                 "name" => "SIOP Level 2",
@@ -1474,7 +1474,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1184-4"
+                "id" => "extModel414-4"
             ],
             [
                 "name" => "Month",
@@ -1484,7 +1484,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel1184-5"
+                "id" => "extModel414-5"
             ],
             [
                 "name" => "# of SKUs",
@@ -1494,7 +1494,7 @@ return [
                 "width" => 200,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel1184-6"
+                "id" => "extModel414-6"
             ]
         ],
         "niceName" => "Chart - New Products",
@@ -1510,7 +1510,7 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1616753235,
+        "modificationDate" => 1615487332,
         "creationDate" => 1614589190,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -1610,7 +1610,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2260-3"
+                "id" => "extModel1450-3"
             ],
             [
                 "name" => "Status",
@@ -1620,7 +1620,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2260-4"
+                "id" => "extModel1450-4"
             ]
         ],
         "niceName" => "Chart - SKUs Workflow Status",
@@ -1636,7 +1636,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1616753474,
+        "modificationDate" => 1615441276,
         "creationDate" => 1614630048,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -1667,8 +1667,8 @@ return [
                 "order" => TRUE,
                 "width" => 400,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel899-5"
+                "id" => "extModel316-8",
+                "filter" => "string"
             ],
             [
                 "name" => "SIOPLevel4",
@@ -1678,7 +1678,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel899-6"
+                "id" => "extModel316-5"
             ],
             [
                 "name" => "# of SKUs",
@@ -1688,7 +1688,7 @@ return [
                 "width" => NULL,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel899-8"
+                "id" => "extModel316-6"
             ],
             [
                 "name" => "Incompleteness Percentage",
@@ -1697,8 +1697,8 @@ return [
                 "order" => TRUE,
                 "width" => 200,
                 "label" => "",
-                "filter" => "string",
-                "id" => "extModel899-7"
+                "id" => "extModel316-9",
+                "filter" => "string"
             ]
         ],
         "niceName" => "Chart - Product Attribute Incompleteness",
@@ -1714,7 +1714,7 @@ return [
         "yAxis" => [
             "# of SKUs"
         ],
-        "modificationDate" => 1616752067,
+        "modificationDate" => 1615436789,
         "creationDate" => 1606824473,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -1724,5 +1724,1585 @@ return [
 
         ],
         "id" => "ChartProductAtrributrIncomplete"
+    ],
+    "IndustrialHoseChartBrandProduct" => [
+        "name" => "IndustrialHoseChartBrandProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`, count(`o1`.`o_id`) AS `# of SKUs`",
+                "from" => "FROM object_1 o1 LEFT JOIN object_3 o3 ON o3.`oo_id` = o1.brandName LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))  ",
+                "where" => "WHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '041000%') ",
+                "groupby" => "GROUP BY cat4.`description`,  o3.`name`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel4266-3"
+            ],
+            [
+                "name" => "Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel4266-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel4266-5"
+            ]
+        ],
+        "niceName" => "Chart - Brand Product",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Brand",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807442,
+        "creationDate" => 1620661797,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartBrandProduct"
+    ],
+    "HydraulicHoseChartBrandProduct" => [
+        "name" => "HydraulicHoseChartBrandProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`, count(`o1`.`o_id`) AS `# of SKUs`",
+                "from" => "FROM object_1 o1 LEFT JOIN object_3 o3 ON o3.`oo_id` = o1.brandName LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) ",
+                "where" => "WHERE (o1.`o_published` =1 AND (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%'))  ",
+                "groupby" => "GROUP BY cat4.`description`,  o3.`name`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2502-3"
+            ],
+            [
+                "name" => "Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2502-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2502-5"
+            ]
+        ],
+        "niceName" => "Chart - Brand Product",
+        "group" => "Hydraulic Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Brand",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807118,
+        "creationDate" => 1620661797,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicHoseChartBrandProduct"
+    ],
+    "HydraulicFittingsChartBrandProduct" => [
+        "name" => "HydraulicFittingsChartBrandProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`, count(`o1`.`o_id`) AS `# of SKUs` ",
+                "from" => "FROM object_1 o1 LEFT JOIN object_3 o3 ON o3.`oo_id` = o1.brandName LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))  ",
+                "where" => "WHERE (o1.`o_published` =1 AND (o1.siopFullCode LIKE '0415001570%' OR o1.siopFullCode LIKE  '0415001580%' OR o1.siopFullCode LIKE '0415001530100%' OR o1.siopFullCode LIKE '0415001510100%')) ",
+                "groupby" => "GROUP BY cat4.`description`, o3.`name`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2978-3"
+            ],
+            [
+                "name" => "Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2978-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2978-5"
+            ]
+        ],
+        "niceName" => "Chart - Brand Product",
+        "group" => "Hydraulic Fittings",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Brand",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807090,
+        "creationDate" => 1620661797,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicFittingsChartBrandProduct"
+    ],
+    "PTGChartBrandProduct" => [
+        "name" => "PTGChartBrandProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT cat4.`description` AS `SIOP Level 4`, o3.`name` AS `Brand`, count(`o1`.`o_id`) AS `# of SKUs`",
+                "from" => "FROM object_1 o1 LEFT JOIN object_3 o3 ON o3.`oo_id` = o1.brandName LEFT JOIN object_localized_query_2_en cat4 ON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2)) ",
+                "where" => "WHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '043000%') ",
+                "groupby" => "GROUP BY cat4.`description`,  o3.`name`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2196-3"
+            ],
+            [
+                "name" => "Brand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2196-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel2196-5"
+            ]
+        ],
+        "niceName" => "Chart - Brand Product",
+        "group" => "PTG",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Brand",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807136,
+        "creationDate" => 1620661797,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGChartBrandProduct"
+    ],
+    "IndustrialHoseChartProductsWithNoImage" => [
+        "name" => "IndustrialHoseChartProductsWithNoImage",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
+                "from" => "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \nWHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '041000%')\nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp",
+                "where" => "",
+                "groupby" => "temp.`SIOP3`, temp.`images`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2043-3"
+            ],
+            [
+                "name" => "Main Image",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2043-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel2043-5"
+            ]
+        ],
+        "niceName" => "Chart - Products with No Images - Main Image",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Main Image",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807146,
+        "creationDate" => 1606817832,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartProductsWithNoImage"
+    ],
+    "HydraulicHoseChartProductsWithNoImage" => [
+        "name" => "HydraulicHoseChartProductsWithNoImage",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
+                "from" => "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \nWHERE (o1.`o_published` =1 AND (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%')) \nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp",
+                "where" => "",
+                "groupby" => "temp.`SIOP3`, temp.`images`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2349-3"
+            ],
+            [
+                "name" => "Main Image",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2349-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel2349-5"
+            ]
+        ],
+        "niceName" => "Chart - Products with No Images - Main Image",
+        "group" => "Hydraulic Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Main Image",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807128,
+        "creationDate" => 1606817832,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicHoseChartProductsWithNoImage"
+    ],
+    "PTGChartProductsWithNoImage" => [
+        "name" => "PTGChartProductsWithNoImage",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
+                "from" => "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \nWHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '043000%')\nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp",
+                "where" => "",
+                "groupby" => "temp.`SIOP3`, temp.`images`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2655-3"
+            ],
+            [
+                "name" => "Main Image",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2655-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel2655-5"
+            ]
+        ],
+        "niceName" => "Chart - Products with No Images - Main Image",
+        "group" => "PTG",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Main Image",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807108,
+        "creationDate" => 1606817832,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGChartProductsWithNoImage"
+    ],
+    "IndustrialHoseChartNewProducts" => [
+        "name" => "IndustrialHoseChartNewProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`  ",
+                "from" => "FROM object_1 o1 \n",
+                "where" => "WHERE (o1.siopFullCode LIKE '041000%') AND (o1.`o_creationDate` >= MONTH(CURDATE() - Interval 9 month))  ",
+                "groupby" => "GROUP BY MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) order by o1.`o_creationDate` ",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Month",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel4994-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel4994-4"
+            ]
+        ],
+        "niceName" => "Chart - New Products",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "Month",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620810328,
+        "creationDate" => 1614589190,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartNewProducts"
+    ],
+    "HydraulicHoseChartNewProduct" => [
+        "name" => "HydraulicHoseChartNewProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`  ",
+                "from" => "FROM object_1 o1 \n",
+                "where" => "WHERE (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%') AND (o1.`o_creationDate` >= MONTH(CURDATE() - Interval 9 month))  ",
+                "groupby" => "GROUP BY MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) order by o1.`o_creationDate` ",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Month",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel4741-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel4741-4"
+            ]
+        ],
+        "niceName" => "Chart - New Products",
+        "group" => "Hydraulic Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "Month",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620807567,
+        "creationDate" => 1614589190,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicHoseChartNewProduct"
+    ],
+    "PTGChartNewProducts" => [
+        "name" => "PTGChartNewProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`  ",
+                "from" => "FROM object_1 o1 ",
+                "where" => "WHERE (o1.siopFullCode LIKE '043000%') AND (o1.`o_creationDate` >= MONTH(CURDATE() - Interval 9 month))  ",
+                "groupby" => "GROUP BY MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) order by o1.`o_creationDate` ",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Month",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel5055-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel5055-4"
+            ]
+        ],
+        "niceName" => "Chart - New Products",
+        "group" => "PTG",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "Month",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620807641,
+        "creationDate" => 1614589190,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGChartNewProducts"
+    ],
+    "IndustrialHoseChartDataCompleteness" => [
+        "name" => "IndustrialHoseChartDataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \ncount(o1.`o_key`) as `# of SKUs`, ROUND((sum(en.CompletenessPercentage)/count(o1.`o_key`)),3)  AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) ",
+                "where" => "WHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '041000%') ",
+                "groupby" => "cat3.`description`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel5694-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel5694-4"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel5694-5"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "COMPLETED (%)",
+        "pieLabelColumn" => "SIOP Level 3",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807960,
+        "creationDate" => 1614589821,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartDataCompleteness"
+    ],
+    "HydraulicHoseChartDataCompleteness" => [
+        "name" => "HydraulicHoseChartDataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \ncount(o1.`o_key`) as `# of SKUs`, ROUND((sum(en.CompletenessPercentage)/count(o1.`o_key`)),3)  AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) ",
+                "where" => "(o1.`o_published` =1 AND (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%'))  ",
+                "groupby" => "cat3.`description`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel6008-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel6008-4"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel6008-5"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness",
+        "group" => "Hydraulic Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "COMPLETED (%)",
+        "pieLabelColumn" => "SIOP Level 3",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808055,
+        "creationDate" => 1614589821,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicHoseChartDataCompleteness"
+    ],
+    "PTGChartDataCompleteness" => [
+        "name" => "PTGChartDataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \ncount(o1.`o_key`) as `# of SKUs`, ROUND((sum(en.CompletenessPercentage)/count(o1.`o_key`)),3)  AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) ",
+                "where" => "(o1.`o_published` =1 AND o1.siopFullCode LIKE '043000%' )",
+                "groupby" => "cat3.`description`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel6322-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel6322-4"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel6322-5"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness",
+        "group" => "PTG",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "COMPLETED (%)",
+        "pieLabelColumn" => "SIOP Level 3",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808147,
+        "creationDate" => 1614589821,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGChartDataCompleteness"
+    ],
+    "IndustrialHoseChartSKUsUnderReview" => [
+        "name" => "IndustrialHoseChartSKUsUnderReview",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT count(o1.`o_id`) AS `# of SKUs`, \nCASE\n    WHEN  w.`place` = 'enrich' OR w.`place` is null  THEN 'Enrich Product'\n    WHEN  w.`place` = 'review_content' THEN 'Review Enriched Data'\n    WHEN  w.`place` = 'unpublished' THEN 'Product Unpublished'\n    WHEN  w.`place` = 'accepted' THEN 'Product Published'\n    ELSE \"\"\nEND AS `Status` ",
+                "from" => "FROM object_1 o1 \nleft JOIN element_workflow_state w ON o1.oo_id = w.cid ",
+                "where" => "WHERE o1.siopFullCode LIKE '041000%'",
+                "groupby" => "GROUP BY `Status`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel6806-3"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel6806-4"
+            ]
+        ],
+        "niceName" => "Chart - SKUs Workflow Status",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Status",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808419,
+        "creationDate" => 1614630048,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartSKUsUnderReview"
+    ],
+    "HydrualicHoseChartSKUsUnderReview" => [
+        "name" => "HydrualicHoseChartSKUsUnderReview",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT count(o1.`o_id`) AS `# of SKUs`, \nCASE\n    WHEN  w.`place` = 'enrich' OR w.`place` is null  THEN 'Enrich Product'\n    WHEN  w.`place` = 'review_content' THEN 'Review Enriched Data'\n    WHEN  w.`place` = 'unpublished' THEN 'Product Unpublished'\n    WHEN  w.`place` = 'accepted' THEN 'Product Published'\n    ELSE \"\"\nEND AS `Status` ",
+                "from" => "FROM object_1 o1 \nleft JOIN element_workflow_state w ON o1.oo_id = w.cid ",
+                "where" => "WHERE (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%') ",
+                "groupby" => "GROUP BY `Status`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel7120-3"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel7120-4"
+            ]
+        ],
+        "niceName" => "Chart - SKUs Workflow Status",
+        "group" => "Hydraulic Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Status",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808538,
+        "creationDate" => 1614630048,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydrualicHoseChartSKUsUnderReview"
+    ],
+    "PTGChartSKUsUnderReview" => [
+        "name" => "PTGChartSKUsUnderReview",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT count(o1.`o_id`) AS `# of SKUs`, \nCASE\n    WHEN  w.`place` = 'enrich' OR w.`place` is null  THEN 'Enrich Product'\n    WHEN  w.`place` = 'review_content' THEN 'Review Enriched Data'\n    WHEN  w.`place` = 'unpublished' THEN 'Product Unpublished'\n    WHEN  w.`place` = 'accepted' THEN 'Product Published'\n    ELSE \"\"\nEND AS `Status` ",
+                "from" => "FROM object_1 o1 \nleft JOIN element_workflow_state w ON o1.oo_id = w.cid ",
+                "where" => "WHERE o1.siopFullCode LIKE '043000%'",
+                "groupby" => "GROUP BY `Status`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel7434-3"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel7434-4"
+            ]
+        ],
+        "niceName" => "Chart - SKUs Workflow Status",
+        "group" => "PTG",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Status",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808598,
+        "creationDate" => 1614630048,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGChartSKUsUnderReview"
+    ],
+    "IndustrialHoseChartProductAttributeIncomplete" => [
+        "name" => "IndustrialHoseChartProductAttributeIncomplete",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT t2.SIOPLevel3, t2.SIOPLevel4, SUM(t2.SKUsCount) AS `# of SKUs`, t2.healthCheck as `Incompleteness Percentage` ",
+                "from" => "FROM (SELECT t.SIOPLevel3, t.SIOPLevel4, count(t.`Key`) AS `SKUsCount`, case when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20' when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40' when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60' when t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80' else '81-100' end AS healthCheck FROM (SELECT o1.`o_id`, o1.`o_key` as `Key`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))) AS `SIOPLevel3`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))) AS `SIOPLevel4`, ((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+ IF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+ IF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) + IF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) + IF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) + IF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) + IF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) + IF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) + IF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) + IF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) + IF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) + IF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+ IF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) + IF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) + IF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+ IF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+ IF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) + IF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) + IF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) + IF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage FROM object_1 o1 LEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id`\n WHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '041000%')  AND ( o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\" OR o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\" OR o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\" OR o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\" OR o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\" OR o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\" OR `en`.`longDescription` IS NULL OR `en`.`longDescription` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` IS NULL OR o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\" OR o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\" OR o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\" OR o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\" OR o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\" OR o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\" OR o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\" OR o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\" OR o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\" )) AS t GROUP BY t.SIOPLevel3, t.SIOPLevel4, t.healthCheckPercentage) AS t2 ",
+                "where" => "",
+                "groupby" => "GROUP BY t2.SIOPLevel3, t2.SIOPLevel4, t2.healthCheck",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOPLevel3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8067-5"
+            ],
+            [
+                "name" => "SIOPLevel4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8067-6"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => NULL,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel8067-7"
+            ],
+            [
+                "name" => "Incompleteness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8067-8"
+            ]
+        ],
+        "niceName" => "Chart - Product Attribute Incompleteness",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "IncompleteRange",
+        "xAxis" => "Incompleteness Percentage",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620808864,
+        "creationDate" => 1606824473,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartProductAttributeIncomplete"
+    ],
+    "HydraulicHoseChartProductAttributeIncomplete" => [
+        "name" => "HydraulicHoseChartProductAttributeIncomplete",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT t2.SIOPLevel3, t2.SIOPLevel4, SUM(t2.SKUsCount) AS `# of SKUs`, t2.healthCheck as `Incompleteness Percentage` ",
+                "from" => "FROM (SELECT t.SIOPLevel3, t.SIOPLevel4, count(t.`Key`) AS `SKUsCount`, case when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20' when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40' when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60' when t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80' else '81-100' end AS healthCheck FROM (SELECT o1.`o_id`, o1.`o_key` as `Key`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))) AS `SIOPLevel3`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))) AS `SIOPLevel4`, ((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+ IF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+ IF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) + IF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) + IF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) + IF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) + IF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) + IF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) + IF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) + IF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) + IF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) + IF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+ IF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) + IF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) + IF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+ IF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+ IF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) + IF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) + IF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) + IF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage FROM object_1 o1 LEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id` \n WHERE (o1.`o_published` =1 AND (o1.siopFullCode LIKE '0415001540%' OR o1.siopFullCode LIKE '0415001550%' OR o1.siopFullCode LIKE '0415001560%' OR o1.siopFullCode LIKE '0415001530000%' OR o1.siopFullCode LIKE '0415001510000%')) AND ( o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\" OR o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\" OR o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\" OR o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\" OR o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\" OR o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\" OR `en`.`longDescription` IS NULL OR `en`.`longDescription` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` IS NULL OR o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\" OR o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\" OR o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\" OR o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\" OR o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\" OR o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\" OR o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\" OR o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\" OR o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\" )) AS t GROUP BY t.SIOPLevel3, t.SIOPLevel4, t.healthCheckPercentage) AS t2 ",
+                "where" => "",
+                "groupby" => "GROUP BY t2.SIOPLevel3, t2.SIOPLevel4, t2.healthCheck",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOPLevel3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8381-5"
+            ],
+            [
+                "name" => "SIOPLevel4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8381-6"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => NULL,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel8381-7"
+            ],
+            [
+                "name" => "Incompleteness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8381-8"
+            ]
+        ],
+        "niceName" => "Chart - Product Attribute Incompleteness",
+        "group" => "Hydraulic Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "IncompleteRange",
+        "xAxis" => "Incompleteness Percentage",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620809052,
+        "creationDate" => 1606824473,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicHoseChartProductAttributeIncomplete"
+    ],
+    "PTGChartProductAttributeIncomplete" => [
+        "name" => "PTGChartProductAttributeIncomplete",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT t2.SIOPLevel3, t2.SIOPLevel4, SUM(t2.SKUsCount) AS `# of SKUs`, t2.healthCheck as `Incompleteness Percentage` ",
+                "from" => "FROM (SELECT t.SIOPLevel3, t.SIOPLevel4, count(t.`Key`) AS `SKUsCount`, case when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20' when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40' when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60' when t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80' else '81-100' end AS healthCheck FROM (SELECT o1.`o_id`, o1.`o_key` as `Key`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))) AS `SIOPLevel3`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))) AS `SIOPLevel4`, ((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+ IF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+ IF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) + IF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) + IF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) + IF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) + IF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) + IF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) + IF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) + IF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) + IF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) + IF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+ IF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) + IF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) + IF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+ IF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+ IF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) + IF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) + IF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) + IF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage FROM object_1 o1 LEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id` \n WHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '043000%') AND ( o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\" OR o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\" OR o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\" OR o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\" OR o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\" OR o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\" OR `en`.`longDescription` IS NULL OR `en`.`longDescription` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` IS NULL OR o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\" OR o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\" OR o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\" OR o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\" OR o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\" OR o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\" OR o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\" OR o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\" OR o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\" )) AS t GROUP BY t.SIOPLevel3, t.SIOPLevel4, t.healthCheckPercentage) AS t2 ",
+                "where" => "",
+                "groupby" => "GROUP BY t2.SIOPLevel3, t2.SIOPLevel4, t2.healthCheck",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOPLevel3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8695-5"
+            ],
+            [
+                "name" => "SIOPLevel4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8695-6"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => NULL,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel8695-7"
+            ],
+            [
+                "name" => "Incompleteness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel8695-8"
+            ]
+        ],
+        "niceName" => "Chart - Product Attribute Incompleteness",
+        "group" => "PTG",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "IncompleteRange",
+        "xAxis" => "Incompleteness Percentage",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620809115,
+        "creationDate" => 1606824473,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "PTGChartProductAttributeIncomplete"
+    ],
+    "HydraulicFittingsChartProductsWithNoImage" => [
+        "name" => "HydraulicFittingsChartProductsWithNoImage",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
+                "from" => "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \nWHERE (o1.`o_published` =1 AND (o1.siopFullCode LIKE '0415001570%' OR o1.siopFullCode LIKE  '0415001580%' OR o1.siopFullCode LIKE '0415001530100%' OR o1.siopFullCode LIKE '0415001510100%')) \nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp",
+                "where" => "",
+                "groupby" => "temp.`SIOP3`, temp.`images`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2825-3"
+            ],
+            [
+                "name" => "Main Image",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel2825-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel2825-5"
+            ]
+        ],
+        "niceName" => "Chart - Products with No Images - Main Image",
+        "group" => "Hydraulic Fittings",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Main Image",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620807097,
+        "creationDate" => 1606817832,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicFittingsChartProductsWithNoImage"
+    ],
+    "HydraulicFittingsChartNewProducts" => [
+        "name" => "HydraulicFittingsChartNewProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) AS `Month`, IF(Count(*),Count(*),0) AS `# of SKUs`  ",
+                "from" => "FROM object_1 o1 ",
+                "where" => "WHERE  (o1.siopFullCode LIKE '0415001570%' OR o1.siopFullCode LIKE  '0415001580%' OR o1.siopFullCode LIKE '0415001530100%' OR o1.siopFullCode LIKE '0415001510100%') AND (o1.`o_creationDate` >= MONTH(CURDATE() - Interval 9 month))  ",
+                "groupby" => "GROUP BY MONTHNAME(FROM_UNIXTIME(o1.`o_creationDate`)) order by o1.`o_creationDate` ",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Month",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel5374-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel5374-4"
+            ]
+        ],
+        "niceName" => "Chart - New Products",
+        "group" => "Hydraulic Fittings",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "Month",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620807816,
+        "creationDate" => 1614589190,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicFittingsChartNewProducts"
+    ],
+    "HydraulicFittingsChartDataCompleteness" => [
+        "name" => "HydraulicFittingsChartDataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \ncount(o1.`o_key`) as `# of SKUs`, ROUND((sum(en.CompletenessPercentage)/count(o1.`o_key`)),3)  AS `COMPLETED (%)`,\ncat3.`description` AS `SIOP Level 3`",
+                "from" => "object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \nON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat3 \nON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) ",
+                "where" => "(o1.`o_published` =1 AND o1.siopFullCode LIKE '0415001570%' OR o1.siopFullCode LIKE  '0415001580%' OR o1.siopFullCode LIKE '0415001530100%' OR o1.siopFullCode LIKE '0415001510100%')",
+                "groupby" => "cat3.`description`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP Level 3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel6488-3"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel6488-4"
+            ],
+            [
+                "name" => "COMPLETED (%)",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel6488-5"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness",
+        "group" => "Hydraulic Fittings",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "COMPLETED (%)",
+        "pieLabelColumn" => "SIOP Level 3",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808313,
+        "creationDate" => 1614589821,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicFittingsChartDataCompleteness"
+    ],
+    "HydraulicFittingsChartSKUsUnderReview" => [
+        "name" => "HydraulicFittingsChartSKUsUnderReview",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT count(o1.`o_id`) AS `# of SKUs`, \nCASE\n    WHEN  w.`place` = 'enrich' OR w.`place` is null  THEN 'Enrich Product'\n    WHEN  w.`place` = 'review_content' THEN 'Review Enriched Data'\n    WHEN  w.`place` = 'unpublished' THEN 'Product Unpublished'\n    WHEN  w.`place` = 'accepted' THEN 'Product Published'\n    ELSE \"\"\nEND AS `Status` ",
+                "from" => "FROM object_1 o1 \nleft JOIN element_workflow_state w ON o1.oo_id = w.cid ",
+                "where" => "WHERE o1.siopFullCode LIKE '0415001570%' OR o1.siopFullCode LIKE  '0415001580%' OR o1.siopFullCode LIKE '0415001530100%' OR o1.siopFullCode LIKE '0415001510100%'",
+                "groupby" => "GROUP BY `Status`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel7600-3"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel7600-4"
+            ]
+        ],
+        "niceName" => "Chart - SKUs Workflow Status",
+        "group" => "Hydraulic Fittings",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "pie",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "Status",
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1620808742,
+        "creationDate" => 1614630048,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicFittingsChartSKUsUnderReview"
+    ],
+    "HydraulicFittingsChartProductAttributeIncomplete" => [
+        "name" => "HydraulicFittingsChartProductAttributeIncomplete",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT t2.SIOPLevel3, t2.SIOPLevel4, SUM(t2.SKUsCount) AS `# of SKUs`, t2.healthCheck as `Incompleteness Percentage` ",
+                "from" => "FROM (SELECT t.SIOPLevel3, t.SIOPLevel4, count(t.`Key`) AS `SKUsCount`, case when t.healthCheckPercentage >= 0 and t.healthCheckPercentage<= 20 then '0-20' when t.healthCheckPercentage >= 21 and t.healthCheckPercentage<=40 then '21-40' when t.healthCheckPercentage >= 41 and t.healthCheckPercentage<=60 then '41-60' when t.healthCheckPercentage >= 61 and t.healthCheckPercentage<=80 then '61-80' else '81-100' end AS healthCheck FROM (SELECT o1.`o_id`, o1.`o_key` as `Key`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))) AS `SIOPLevel3`, (select description from object_localized_query_2_en where ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))) AS `SIOPLevel4`, ((IF(o1.`SIOPLevel1` IS NULL OR o1.`SIOPLevel1` = \"\", 1, 0)+ IF(o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\", 1, 0)+ IF(o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\", 1, 0) + IF(o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\", 1, 0) + IF(o1.`SIOPLevel5` IS NULL OR o1.`SIOPLevel5` = \"\", 1, 0) + IF(o1.`SIOPLevel6` IS NULL OR o1.`SIOPLevel6` = \"\", 1, 0) + IF(o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\", 1, 0) + IF(o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\", 1, 0) + IF(o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\", 1, 0) + IF(en.`longDescription` IS NULL OR en.`longDescription` = \"\", 1, 0) + IF(en.`FeaturesBenefitsBulletPoint` IS NULL OR en.`FeaturesBenefitsBulletPoint` = \"\", 1, 0) + IF(o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\", 1, 0)+ IF(o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\", 1, 0) + IF(o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\", 1, 0) + IF(o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\", 1, 0)+ IF(o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\", 1, 0)+ IF(o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\", 1, 0) + IF(o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\", 1, 0) + IF(o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\", 1, 0) + IF(o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\", 1, 0) )/20)*100 AS healthCheckPercentage FROM object_1 o1 LEFT JOIN `object_localized_query_1_en` `en`ON `en`.`ooo_id` = `o1`.`o_id` \n WHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '0415001570%' OR o1.siopFullCode LIKE  '0415001580%' OR o1.siopFullCode LIKE '0415001530100%' OR o1.siopFullCode LIKE '0415001510100%') AND ( o1.`SIOPLevel2` IS NULL OR o1.`SIOPLevel2` = \"\" OR o1.`SIOPLevel3` IS NULL OR o1.`SIOPLevel3` = \"\" OR o1.`SIOPLevel4` IS NULL OR o1.`SIOPLevel4` = \"\" OR o1.`eanUpc` IS NULL OR o1.`eanUpc` = \"\" OR o1.`webDiscription` IS NULL OR o1.`webDiscription` = \"\" OR o1.`searchKeywords` IS NULL OR o1.`searchKeywords` = \"\" OR `en`.`longDescription` IS NULL OR `en`.`longDescription` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` = \"\" OR `en`.`FeaturesBenefitsBulletPoint` IS NULL OR o1.`proposition65WarningAttributesRequired` IS NULL OR o1.`proposition65WarningAttributesRequired` = \"\" OR o1.`packageLengthIN` IS NULL OR o1.`packageLengthIN` = \"\" OR o1.`packageWidthIN` IS NULL OR o1.`packageWidthIN` = \"\" OR o1.`packageHeightIN` IS NULL OR o1.`packageHeightIN` = \"\" OR o1.`packageWeightLBS` IS NULL OR o1.`packageWeightLBS` = \"\" OR o1.`caseLengthIN` IS NULL OR o1.`caseLengthIN` = \"\" OR o1.`caseHeightIN` IS NULL OR o1.`caseHeightIN` = \"\" OR o1.`caseWidthIN` IS NULL OR o1.`caseWidthIN` = \"\" OR o1.`caseWeightLBS` IS NULL OR o1.`caseWeightLBS` = \"\" )) AS t GROUP BY t.SIOPLevel3, t.SIOPLevel4, t.healthCheckPercentage) AS t2 ",
+                "where" => "",
+                "groupby" => "GROUP BY t2.SIOPLevel3, t2.SIOPLevel4, t2.healthCheck",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOPLevel3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel9483-5"
+            ],
+            [
+                "name" => "SIOPLevel4",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 400,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel9483-6"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => NULL,
+                "label" => "",
+                "filter" => "numeric",
+                "id" => "extModel9483-7"
+            ],
+            [
+                "name" => "Incompleteness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "filter" => "string",
+                "id" => "extModel9483-8"
+            ]
+        ],
+        "niceName" => "Chart - Product Attribute Incompleteness",
+        "group" => "Hydraulic Fittings",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => "# of SKUs",
+        "pieLabelColumn" => "IncompleteRange",
+        "xAxis" => "Incompleteness Percentage",
+        "yAxis" => [
+            "# of SKUs"
+        ],
+        "modificationDate" => 1620809370,
+        "creationDate" => 1606824473,
+        "shareGlobally" => TRUE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "HydraulicFittingsChartProductAttributeIncomplete"
     ]
 ];
