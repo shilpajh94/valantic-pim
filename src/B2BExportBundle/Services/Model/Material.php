@@ -42,6 +42,7 @@ class Material
                     product.articleNumber as partNo,
                     salesOrg.code AS salesOrgCode,
                     distChannel.code AS dcCode,
+                    salesMaster.SalesUOM as SalesUOM,
                     plant.Plant AS plantCode,
                     plantMaterialMaster.TotalReplenismentLeadTime AS leadTime,
                     plantMaterialMaster.MinOrderQuantity AS minOrdQty,
@@ -51,7 +52,7 @@ class Material
                     CASE
                         WHEN plantMaterialMaster.AvailabilityCheckCode = '<NA>' THEN ''
                         ELSE plantMaterialMaster.AvailabilityCheckCode
-                    END as SalesUOM
+                    END as AvailabilityCheckCode
                 FROM
                     ".self::OBJECT_10_CUSTOM_FOR_B2BEXPORT." salesMaster
                         JOIN
@@ -119,6 +120,7 @@ class Material
                 o_published tinyint(1) unsigned DEFAULT '1',
                 o_key varchar(255),
                 Material text,
+                SalesUOM varchar(255) NULL,
                 pricePageFlag varchar(255) NULL,
                 SalesOrganization__id int(11) NULL,
                 DistributionChannel__id int(11) NULL,
@@ -163,6 +165,7 @@ class Material
                 salesMaster.o_published,
                 CONCAT(product.articleNumber,'-',plant.Plant,'-',salesOrg.code,'-',distChannel.code),
                 REPLACE(salesMaster.Material,',',''),
+                salesMaster.SalesUOM,
                 salesMaster.pricePageFlag,
                 salesMaster.SalesOrganization__id,
                 salesMaster.DistributionChannel__id,
