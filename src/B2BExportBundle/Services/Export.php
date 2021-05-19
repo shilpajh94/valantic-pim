@@ -806,7 +806,7 @@ class Export {
 				$row[] = (string) sprintf('%.20f', $minOrdQty);
 				$row[] = (string) sprintf('%.20f', $maxOrdQty);
 				$row[] = (string) sprintf('%.20f', $ordIncrementQty);
-				$row[] = $SalesUOM ?: "<NA>";
+				$row[] = $AvailabilityCheckCode;
 				$row[] = $pricePageFlag ?: 'NA';
 				fputcsv($fileResource, $row, ',');
 				unset($row, $key_array);
