@@ -333,7 +333,7 @@ class DefaultController extends AbstractController {
         }
         if ($fitting != null && !empty($fitting) && $fitting != '1') {
             $productList->setObjectbricks(['HoseSkeleton', 'HydFittingsFert']);
-            $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.INHFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
+            $conditionArray[] = " ((HydFittingsFert.HydFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ") OR (HoseSkeleton.HoseFittingFamily LIKE ".$productList->quote('%,' . $fitting . ',%'). ")) ";
             //$productList->addConditionParam('fittingFamily LIKE :fitting', ['fitting' => '%,' . $fitting . ',%'], 'AND');
         }
         if ($baseProduct !== null && count($baseProduct) > 0) {
