@@ -509,7 +509,7 @@ class Export {
 			// Opening file resource to write content
 			$fileResource = fopen($fileName, 'w');
 			// Filling CSV columns
-			$columns = array('PartNumber', 'Identifier', 'ValueId', 'Value', 'LanguageId');
+			$columns = array('PartNumber', 'AttributeIdentifier', 'ValueId', 'Value', 'LanguageId');
 			fputcsv($fileResource, $columns, ',');
 			$c = 0;
 			foreach ($salesMaterialMaster as $item) {
