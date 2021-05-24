@@ -163,7 +163,7 @@ class LdapAuthenticate
                     );
                 }
             } else {
-                $this->customErrorLog("No domain host found or no domain host is available at present, please try again later ".$this->ldapNoDomainHost, LogLevel::ERROR());
+                $this->customErrorLog("None of the configured hosts is reachable.", LogLevel::ERROR());
                 return array(
                     'success' => false,
                     'message' => $this->ldapNoDomainHost
@@ -225,7 +225,7 @@ class LdapAuthenticate
                 'success' => true
             );
         } catch (\Exception $e) {
-            throw new \Exception("Failed to bind Ldap connection with user: ".$ldapUser.". ".$e->getMessage());
+            throw new \Exception("Failed to bind Ldap connection with configured Ldap user: ".$ldapUser.". ".$e->getMessage());
         }
     }
 
