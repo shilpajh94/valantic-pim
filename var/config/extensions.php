@@ -7,7 +7,6 @@ return [
         "ImportBundle\\ImportBundle" => TRUE,
         "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,
         "S3CustomizationBundle\\S3CustomizationBundle" => TRUE,
-        "CatalogBundle\\CatalogBundle" => TRUE,
-        "B2BExportBundle\\B2BExportBundle" => TRUE
+        "CatalogBundle\\CatalogBundle" => TRUE
     ]
 ];
