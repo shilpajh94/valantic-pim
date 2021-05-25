@@ -262,17 +262,22 @@ class Attribute
 
 
             $newSql = "
-                SELECT DISTINCT
-                    SUBSTRING(TRIM(material),
-                        2,
-                        (LENGTH(TRIM(material)) - 2)) AS oo_id
+            SELECT DISTINCT
+            SUBSTRING(TRIM(material),
+                2,
+                (LENGTH(TRIM(material)) - 2)) AS oo_id
                 FROM
-                    object_10
-                WHERE
-                    epixFlag = '001'
-                        AND material IS NOT NULL
-                        AND material != ''
-                        AND o_published = 1
+                object_10 salesMaster
+                    JOIN
+                object_6 salesOrg ON salesOrg.oo_id = salesMaster.SalesOrganization__id
+                    JOIN
+                object_1 product ON product.oo_id = SUBSTRING(salesMaster.Material, 2, (length(salesMaster.Material) - 2 ) )
+            WHERE 
+                salesMaster.o_published = 1 AND 
+                product.o_published = 1 AND 
+                salesMaster.deletedFlagAtSalesLevel <> 1 AND 
+                salesMaster.epixFlag = '001' AND 
+                salesOrg.code <> '0450'
 		    ";
 
             $productsMaster = Db::get()->fetchAll($newSql);
