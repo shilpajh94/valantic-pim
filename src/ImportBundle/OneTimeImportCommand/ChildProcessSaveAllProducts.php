@@ -18,7 +18,7 @@ class ChildProcessSaveAllProducts extends AbstractCommand {
 
     public function execute(InputInterface $input, OutputInterface $output) {
 
-        // \Pimcore\Model\Version::disable();
+        \Pimcore\Model\Version::disable();
         $offset = $input->getArgument('offset');
         $limit = $input->getArgument('limit');
         $logfile = $input->getArgument('logfile');
