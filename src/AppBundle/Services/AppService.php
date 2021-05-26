@@ -171,7 +171,7 @@ class AppService
 
                 try{
                     if (!empty($hoseLengthFT) && !empty($netWeight)) {
-                        $totalWeightPerPackage = $netWeight / $hoseLengthFT ;
+                        $totalWeightPerPackage = $netWeight * $hoseLengthFT ;
                         $hoseFert->setTotalWeightPerPackage(round($totalWeightPerPackage, 5));
                     } else {
                         $hoseFert->setTotalWeightPerPackage(null);

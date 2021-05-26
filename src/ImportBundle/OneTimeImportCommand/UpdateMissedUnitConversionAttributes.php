@@ -42,10 +42,14 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
         "missedUnitConversionLBSPerFTUOM" => array(
             "logFile" => "update_missed_unit_conversion_attributes_weightlbsperftuom",
             "command" => "conti:onetimeimport:child_process_update_missed_unit_conversion_attributes_weightlbsperftuom"
+        ),
+        "saveAllProducts" => array(
+            "logFile" => "save_all_products",
+            "command" => "conti:save_all_products"
         )
     );
 
-    const BATCH_SIZE = 1000;
+    const BATCH_SIZE = 400;
 
     public function __construct(UnitConverterService $unitConverterService,AppService $appService)
     {
@@ -72,7 +76,7 @@ class UpdateMissedUnitConversionAttributes extends AbstractCommand
         
         $productListing = new DataObject\Product\Listing();
         $productListing->setUnpublished(true);
-        //$productListing->setCondition("o_id IN (1846678,1846680,1846682,1846684,1840172)");
+        // $productListing->setCondition("o_id IN (1904015)");
 
         $productListing->setOrderKey("o_id");
         $productListing->setOrder("ASC");
