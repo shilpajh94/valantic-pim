@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-01-19T19:06:55+01:00
+* Generated at: 2021-05-28T08:04:21+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -24,7 +24,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Brand',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1611079615,
+   'modificationDate' => 1622169260,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '',
@@ -207,7 +207,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'decimalPrecision' => NULL,
                  'name' => 'SortOrder',
                  'title' => 'Sort Order',
-                 'tooltip' => '',
+                 'tooltip' => 'Attribute for sorting brands in catalog.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
@@ -268,7 +268,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => false,
                  'name' => 'GroupingFieldNameForInhHoseProductTemplate',
                  'title' => 'Grouping Field Name For INH Hose Product Template',
-                 'tooltip' => '',
+                 'tooltip' => 'Select attribute to group Industrial hose product catalog tables.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
