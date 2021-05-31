@@ -126,7 +126,12 @@ services:
 
     ImportBundle\OneTimeImportCommand\AvailabilityCheckCodePlantImportMasterUpdateCommand:
         tags:
-            - { name: 'console.command', command: 'conti:onetimeimport:availability-check-code-plant-import-master-update' } 
+            - { name: 'console.command', command: 'conti:onetimeimport:availability-check-code-plant-import-master-update' }
+
+
+    ImportBundle\OneTimeImportCommand\ChildProcessSaveAllProducts:
+        tags:
+            - { name: 'console.command', command: 'conti:save_all_products' }
     
     import.asset_import_service:
         class: ImportBundle\Services\Model\AssetImportModel
