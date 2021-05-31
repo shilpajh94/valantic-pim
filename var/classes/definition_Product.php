@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-28T08:55:47+05:30
+* Generated at: 2021-05-31T12:03:28+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -160,7 +160,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1622172343,
+   'modificationDate' => 1622442803,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -8186,7 +8186,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     ),
                                      'width' => 220,
                                      'height' => '',
-                                     'maxItems' => '',
+                                     'maxItems' => 1,
                                      'renderType' => 'tags',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
                                      'optionsProviderData' => 'ProductClass',
