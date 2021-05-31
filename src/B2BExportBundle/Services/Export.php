@@ -710,9 +710,8 @@ class Export {
 				$productData = Db::get()->fetchAll('SELECT
 					*
 					FROM object_1 o1
-					LEFT JOIN object_localized_data_1 old1
+					LEFT JOIN object_localized_query_1_en old1
 					ON old1.ooo_id = o1.oo_id
-					AND old1.language = "en"
 					LEFT JOIN object_brick_query_PTGBase_1 OBSPTGBase_1
 					ON OBSPTGBase_1.o_id = o1.oo_id
 					LEFT JOIN object_brick_query_HoseBase_1 OBSHoseBase_1
