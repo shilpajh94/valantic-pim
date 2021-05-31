@@ -92,7 +92,7 @@ class Export {
 			$this->saveXMaterialPlantCSV($fileName);
             $this->files[] = $fileName;
 
-            $this->sendFilesToSFTP();
+           $this->sendFilesToSFTP();
 			// Returning Void
 			return;
 		} catch (Exception $e) {
@@ -509,7 +509,7 @@ class Export {
 			// Opening file resource to write content
 			$fileResource = fopen($fileName, 'w');
 			// Filling CSV columns
-			$columns = array('PartNumber', 'Identifier', 'ValueId', 'Value', 'LanguageId');
+			$columns = array('PartNumber', 'AttributeIdentifier', 'ValueId', 'Value', 'LanguageId');
 			fputcsv($fileResource, $columns, ',');
 			$c = 0;
 			foreach ($salesMaterialMaster as $item) {
@@ -710,32 +710,31 @@ class Export {
 				$productData = Db::get()->fetchAll('SELECT
 					*
 					FROM object_1 o1
-					LEFT JOIN object_localized_data_1 old1
+					LEFT JOIN object_localized_query_1_en old1
 					ON old1.ooo_id = o1.oo_id
-					AND old1.language = "en"
-					LEFT JOIN object_brick_store_PTGBase_1 OBSPTGBase_1
+					LEFT JOIN object_brick_query_PTGBase_1 OBSPTGBase_1
 					ON OBSPTGBase_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_HoseBase_1 OBSHoseBase_1
+					LEFT JOIN object_brick_query_HoseBase_1 OBSHoseBase_1
 					ON OBSHoseBase_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_PTGSkeleton_1 OBSPTGSkeleton_1
+					LEFT JOIN object_brick_query_PTGSkeleton_1 OBSPTGSkeleton_1
 					ON OBSPTGSkeleton_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_HoseSkeleton_1 OBSHoseSkeleton_1
+					LEFT JOIN object_brick_query_HoseSkeleton_1 OBSHoseSkeleton_1
 					ON OBSHoseSkeleton_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_BeltsFert_1 OBSBeltsFert_1
+					LEFT JOIN object_brick_query_BeltsFert_1 OBSBeltsFert_1
 					ON OBSBeltsFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_PTGFert_1 OBSPTGFert_1
+					LEFT JOIN object_brick_query_PTGFert_1 OBSPTGFert_1
 					ON OBSPTGFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_MetalFert_1 OBSMetalFert_1
+					LEFT JOIN object_brick_query_MetalFert_1 OBSMetalFert_1
 					ON OBSMetalFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_SynchronousFert_1 OBSSynchronousFert_1
+					LEFT JOIN object_brick_query_SynchronousFert_1 OBSSynchronousFert_1
 					ON OBSSynchronousFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_HydFittingsFert_1 OBSHydFittingsFert_1
+					LEFT JOIN object_brick_query_HydFittingsFert_1 OBSHydFittingsFert_1
 					ON OBSHydFittingsFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_INHFittingsFert_1 OBSINHFittingsFert_1
+					LEFT JOIN object_brick_query_INHFittingsFert_1 OBSINHFittingsFert_1
 					ON OBSINHFittingsFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_HoseFert_1 OBSHoseFert_1
+					LEFT JOIN object_brick_query_HoseFert_1 OBSHoseFert_1
 					ON OBSHoseFert_1.o_id = o1.oo_id
-					LEFT JOIN object_brick_store_AccessoriesFert_1 OBSAccessoriesFert_1
+					LEFT JOIN object_brick_query_AccessoriesFert_1 OBSAccessoriesFert_1
 					ON OBSAccessoriesFert_1.o_id = o1.oo_id
 					WHERE o1.oo_id = ' . $productID['oo_id'] . '
 				')[0];

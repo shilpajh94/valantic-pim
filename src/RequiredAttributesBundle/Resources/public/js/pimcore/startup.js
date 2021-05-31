@@ -36,6 +36,8 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
 
     pimcoreReady: function (params, broker) {
 
+        new pimcore.plugin.RequiredAttributesBundle.overrides().quicksearchOverride();
+
         /**
          * screen was moving up and down when setTitle was running to set dirty mark on the tab
          */

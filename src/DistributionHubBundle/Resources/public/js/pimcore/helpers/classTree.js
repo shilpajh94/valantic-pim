@@ -74,6 +74,7 @@ pimcore.plugin.distributionhub.helpers.classTree = Class.create({
             autoScroll: true,
             rootVisible: false,
             bufferedRenderer: false,
+            tbar: headerConfig,
             animate: false,
             expanded: false,
             width: 500,
