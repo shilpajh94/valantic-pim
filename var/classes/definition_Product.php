@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-31T12:03:28+05:30
+* Generated at: 2021-06-02T10:47:58+02:00
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -160,7 +160,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1622442803,
+   'modificationDate' => 1622623672,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -638,7045 +638,6990 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                       57 => 
                                       array (
-                                        'key' => 'AIRGAS',
-                                        'value' => 7079916,
-                                      ),
-                                      58 => 
-                                      array (
                                         'key' => 'AIRGAS FRONTIER',
                                         'value' => 1679,
                                       ),
-                                      59 => 
+                                      58 => 
                                       array (
                                         'key' => 'AIRGAS GRADE R',
                                         'value' => 1680,
                                       ),
-                                      60 => 
+                                      59 => 
                                       array (
                                         'key' => 'AIRGAS GRADE RM',
                                         'value' => 1681,
                                       ),
-                                      61 => 
+                                      60 => 
                                       array (
                                         'key' => 'AIRGAS GRADE T',
                                         'value' => 1682,
                                       ),
-                                      62 => 
+                                      61 => 
                                       array (
                                         'key' => 'AIRMAX FLEXIMAX',
                                         'value' => 1683,
                                       ),
-                                      63 => 
+                                      62 => 
                                       array (
                                         'key' => 'AIRMAX PROMAX',
                                         'value' => 1684,
                                       ),
-                                      64 => 
+                                      63 => 
                                       array (
                                         'key' => 'AIRMAX SUPERMAX',
                                         'value' => 1685,
                                       ),
-                                      65 => 
+                                      64 => 
                                       array (
                                         'key' => 'AIRSER',
                                         'value' => 1829328,
                                       ),
-                                      66 => 
-                                      array (
-                                        'key' => 'AIRSTAR',
-                                        'value' => 7079918,
-                                      ),
-                                      67 => 
+                                      65 => 
                                       array (
                                         'key' => 'AJAX',
                                         'value' => 1687,
                                       ),
-                                      68 => 
+                                      66 => 
                                       array (
                                         'key' => 'ALASKA RUBBER',
                                         'value' => 1688,
                                       ),
-                                      69 => 
+                                      67 => 
                                       array (
                                         'key' => 'ALCAN MUD STACKING',
                                         'value' => 1689,
                                       ),
-                                      70 => 
+                                      68 => 
                                       array (
                                         'key' => 'ALCOA POTROOM',
                                         'value' => 1690,
                                       ),
-                                      71 => 
+                                      69 => 
                                       array (
                                         'key' => 'ALEMITE',
                                         'value' => 5759833,
                                       ),
-                                      72 => 
+                                      70 => 
                                       array (
                                         'key' => 'ALLCRETE TEXTILE',
                                         'value' => 1691,
                                       ),
-                                      73 => 
+                                      71 => 
                                       array (
                                         'key' => 'ALLCRETE WIRE',
                                         'value' => 1692,
                                       ),
-                                      74 => 
+                                      72 => 
                                       array (
                                         'key' => 'ALLENT GUNITE',
                                         'value' => 1693,
                                       ),
-                                      75 => 
+                                      73 => 
                                       array (
                                         'key' => 'ALLENT REFRACTORY',
                                         'value' => 1694,
                                       ),
-                                      76 => 
+                                      74 => 
                                       array (
                                         'key' => 'AMEREX 07648 FIREXB',
                                         'value' => 1829096,
                                       ),
-                                      77 => 
+                                      75 => 
                                       array (
                                         'key' => 'AMFLO 702-610',
                                         'value' => 1695,
                                       ),
-                                      78 => 
+                                      76 => 
                                       array (
                                         'key' => 'AMMONIUM NITRATE BLAST',
                                         'value' => 1696,
                                       ),
-                                      79 => 
+                                      77 => 
                                       array (
                                         'key' => 'AMMONIUM NITRATE HD',
                                         'value' => 1697,
                                       ),
-                                      80 => 
+                                      78 => 
                                       array (
                                         'key' => 'AMMONIUM NITRATE PELLET',
                                         'value' => 1698,
                                       ),
-                                      81 => 
+                                      79 => 
                                       array (
                                         'key' => 'ANSUL 423267',
                                         'value' => 1829236,
                                       ),
-                                      82 => 
+                                      80 => 
                                       array (
                                         'key' => 'ANSUL 423581',
                                         'value' => 1829215,
                                       ),
-                                      83 => 
+                                      81 => 
                                       array (
                                         'key' => 'ANSUL 426809',
                                         'value' => 1829103,
                                       ),
-                                      84 => 
+                                      82 => 
                                       array (
                                         'key' => 'ANSUL 429196',
                                         'value' => 1829158,
                                       ),
-                                      85 => 
+                                      83 => 
                                       array (
                                         'key' => 'ANSUL 431352',
                                         'value' => 1829112,
                                       ),
-                                      86 => 
+                                      84 => 
                                       array (
                                         'key' => 'ANSUL 518518',
                                         'value' => 1829141,
                                       ),
-                                      87 => 
+                                      85 => 
                                       array (
                                         'key' => 'ANSUL 535688',
                                         'value' => 1829187,
                                       ),
-                                      88 => 
+                                      86 => 
                                       array (
                                         'key' => 'ANSUL 7083',
                                         'value' => 1829173,
                                       ),
-                                      89 => 
+                                      87 => 
                                       array (
                                         'key' => 'ANSUL 7091',
                                         'value' => 1829166,
                                       ),
-                                      90 => 
+                                      88 => 
                                       array (
                                         'key' => 'ANSUL 71976',
                                         'value' => 1829122,
                                       ),
-                                      91 => 
+                                      89 => 
                                       array (
                                         'key' => 'ANSUL 71980',
                                         'value' => 1829234,
                                       ),
-                                      92 => 
+                                      90 => 
                                       array (
                                         'key' => 'ANSUL 79007',
                                         'value' => 1829131,
                                       ),
-                                      93 => 
+                                      91 => 
                                       array (
                                         'key' => 'APACHE',
                                         'value' => 1699,
                                       ),
-                                      94 => 
+                                      92 => 
                                       array (
                                         'key' => 'APOLLO',
                                         'value' => 1700,
                                       ),
-                                      95 => 
+                                      93 => 
                                       array (
                                         'key' => 'APOLLO FLEXDOCK',
                                         'value' => 1701,
                                       ),
-                                      96 => 
+                                      94 => 
                                       array (
                                         'key' => 'APPION MEGAFLOW CT5',
                                         'value' => 1829128,
                                       ),
-                                      97 => 
+                                      95 => 
                                       array (
                                         'key' => 'APPLIED INDUSTRIAL TECH',
                                         'value' => 1702,
                                       ),
-                                      98 => 
+                                      96 => 
                                       array (
                                         'key' => 'APPLIED JETTING',
                                         'value' => 1703,
                                       ),
-                                      99 => 
+                                      97 => 
                                       array (
                                         'key' => 'AQUAHAMMER',
                                         'value' => 1704,
                                       ),
-                                      100 => 
+                                      98 => 
                                       array (
                                         'key' => 'AQUAPAL',
                                         'value' => 1705,
                                       ),
-                                      101 => 
+                                      99 => 
                                       array (
                                         'key' => 'AR THOMSON',
                                         'value' => 1829384,
                                       ),
-                                      102 => 
+                                      100 => 
                                       array (
                                         'key' => 'AR THOMSON EXTREME CRIMP',
                                         'value' => 1706,
                                       ),
-                                      103 => 
+                                      101 => 
                                       array (
                                         'key' => 'ARCAIR 5077MP',
                                         'value' => 1829172,
                                       ),
-                                      104 => 
+                                      102 => 
                                       array (
                                         'key' => 'ARCAIR INSULATOR',
                                         'value' => 1707,
                                       ),
-                                      105 => 
+                                      103 => 
                                       array (
                                         'key' => 'ARCHON',
                                         'value' => 1708,
                                       ),
-                                      106 => 
+                                      104 => 
                                       array (
                                         'key' => 'ARCO BLAST XF',
                                         'value' => 1709,
                                       ),
-                                      107 => 
+                                      105 => 
                                       array (
                                         'key' => 'ARCTIC EXTREMEFLEX',
                                         'value' => 1710,
                                       ),
-                                      108 => 
+                                      106 => 
                                       array (
                                         'key' => 'ARCTIC FLEXTRA',
                                         'value' => 1711,
                                       ),
-                                      109 => 
+                                      107 => 
                                       array (
                                         'key' => 'ARCTIC FLEXWING',
                                         'value' => 1712,
                                       ),
-                                      110 => 
+                                      108 => 
                                       array (
                                         'key' => 'ARCTIC FUEL DISCHARGE',
                                         'value' => 1713,
                                       ),
-                                      111 => 
+                                      109 => 
                                       array (
                                         'key' => 'ARCTIC LCP3',
                                         'value' => 1714,
                                       ),
-                                      112 => 
+                                      110 => 
                                       array (
                                         'key' => 'ARCTIC LCP4S',
                                         'value' => 1715,
                                       ),
-                                      113 => 
+                                      111 => 
                                       array (
                                         'key' => 'ARCTIC LCP6S',
                                         'value' => 1716,
                                       ),
-                                      114 => 
+                                      112 => 
                                       array (
                                         'key' => 'ARCTIC LR16SC',
                                         'value' => 1717,
                                       ),
-                                      115 => 
+                                      113 => 
                                       array (
                                         'key' => 'ARCTIC LR2SN',
                                         'value' => 1718,
                                       ),
-                                      116 => 
+                                      114 => 
                                       array (
                                         'key' => 'ARCTIC ORTAC',
                                         'value' => 1719,
                                       ),
-                                      117 => 
+                                      115 => 
                                       array (
                                         'key' => 'ARCTIC ORTAC PLUS',
                                         'value' => 1720,
                                       ),
-                                      118 => 
+                                      116 => 
                                       array (
                                         'key' => 'ARCTIC RIG SUPPLY',
                                         'value' => 1721,
                                       ),
-                                      119 => 
+                                      117 => 
                                       array (
                                         'key' => 'ARMOR-FLEX PRO',
                                         'value' => 1728,
                                       ),
-                                      120 => 
+                                      118 => 
                                       array (
                                         'key' => 'ARMORCOAT ACP3',
                                         'value' => 1722,
                                       ),
-                                      121 => 
+                                      119 => 
                                       array (
                                         'key' => 'ARMORCOAT ACP4',
                                         'value' => 1723,
                                       ),
-                                      122 => 
+                                      120 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC12',
                                         'value' => 1724,
                                       ),
-                                      123 => 
+                                      121 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC13',
                                         'value' => 1725,
                                       ),
-                                      124 => 
+                                      122 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC15',
                                         'value' => 1726,
                                       ),
-                                      125 => 
+                                      123 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC16SC',
                                         'value' => 1727,
                                       ),
-                                      126 => 
+                                      124 => 
                                       array (
                                         'key' => 'ARONSON',
                                         'value' => 1729,
                                       ),
-                                      127 => 
+                                      125 => 
                                       array (
                                         'key' => 'ARPHSE',
                                         'value' => 1730,
                                       ),
-                                      128 => 
+                                      126 => 
                                       array (
                                         'key' => 'ARTRAC',
                                         'value' => 1731,
                                       ),
-                                      129 => 
+                                      127 => 
                                       array (
                                         'key' => 'ARVAC SW',
                                         'value' => 1732,
                                       ),
-                                      130 => 
+                                      128 => 
                                       array (
                                         'key' => 'AS1335 TWIN-LINE',
                                         'value' => 1733,
                                       ),
-                                      131 => 
+                                      129 => 
                                       array (
                                         'key' => 'AS2435 TYPE 1 AIRBRAKE',
                                         'value' => 1734,
                                       ),
-                                      132 => 
+                                      130 => 
                                       array (
                                         'key' => 'ASJ',
                                         'value' => 1735,
                                       ),
-                                      133 => 
+                                      131 => 
                                       array (
                                         'key' => 'ASJ VERSACRETE',
                                         'value' => 1736,
                                       ),
-                                      134 => 
+                                      132 => 
                                       array (
                                         'key' => 'ASTARAS INSULATER',
                                         'value' => 1829229,
                                       ),
-                                      135 => 
+                                      133 => 
                                       array (
                                         'key' => 'ATLANT WATER',
                                         'value' => 1737,
                                       ),
-                                      136 => 
+                                      134 => 
                                       array (
                                         'key' => 'ATLAS',
                                         'value' => 1738,
                                       ),
-                                      137 => 
+                                      135 => 
                                       array (
                                         'key' => 'ATRUBB NR SPRAY',
                                         'value' => 1739,
                                       ),
-                                      138 => 
+                                      136 => 
                                       array (
                                         'key' => 'AUGER ARC PILING',
                                         'value' => 1740,
                                       ),
-                                      139 => 
+                                      137 => 
                                       array (
                                         'key' => 'AUSTIN',
                                         'value' => 1741,
                                       ),
-                                      140 => 
+                                      138 => 
                                       array (
                                         'key' => 'AUSTIN RUBBER',
                                         'value' => 1742,
                                       ),
-                                      141 => 
+                                      139 => 
                                       array (
                                         'key' => 'AUTOGRIP',
                                         'value' => 1743,
                                       ),
-                                      142 => 
+                                      140 => 
                                       array (
                                         'key' => 'AXIAL FAN HAWK PD',
                                         'value' => 1829526,
                                       ),
-                                      143 => 
+                                      141 => 
                                       array (
                                         'key' => 'BAHCAL',
                                         'value' => 1744,
                                       ),
-                                      144 => 
+                                      142 => 
                                       array (
                                         'key' => 'BANDING COIL',
                                         'value' => 1745,
                                       ),
-                                      145 => 
+                                      143 => 
                                       array (
                                         'key' => 'BC COLD FLEX',
                                         'value' => 1746,
                                       ),
-                                      146 => 
+                                      144 => 
                                       array (
                                         'key' => 'BC GASOLINE',
                                         'value' => 1747,
                                       ),
-                                      147 => 
+                                      145 => 
                                       array (
                                         'key' => 'BC MARINA',
                                         'value' => 1748,
                                       ),
-                                      148 => 
+                                      146 => 
                                       array (
                                         'key' => 'BEDFORD',
                                         'value' => 1749,
                                       ),
-                                      149 => 
+                                      147 => 
                                       array (
                                         'key' => 'BLACK FLEXTRA II',
                                         'value' => 1750,
                                       ),
-                                      150 => 
+                                      148 => 
                                       array (
                                         'key' => 'BLACK FLEXTRA II 150',
                                         'value' => 1829333,
                                       ),
-                                      151 => 
+                                      149 => 
                                       array (
                                         'key' => 'BLACK FLEXWING',
                                         'value' => 1751,
                                       ),
-                                      152 => 
+                                      150 => 
                                       array (
                                         'key' => 'BLACK JACK',
                                         'value' => 5355084,
                                       ),
-                                      153 => 
+                                      151 => 
                                       array (
                                         'key' => 'BLACK SOFTWALL',
                                         'value' => 5354194,
                                       ),
-                                      154 => 
+                                      152 => 
                                       array (
                                         'key' => 'BLACKHAWK PD',
                                         'value' => 1829520,
                                       ),
-                                      155 => 
+                                      153 => 
                                       array (
                                         'key' => 'BLAST',
                                         'value' => 1752,
                                       ),
-                                      156 => 
+                                      154 => 
                                       array (
                                         'key' => 'BLASTHOLE SLURRY & DEWATERING',
                                         'value' => 1753,
                                       ),
-                                      157 => 
+                                      155 => 
                                       array (
                                         'key' => 'BLASTHOSE SLURRY',
                                         'value' => 1829297,
                                       ),
-                                      158 => 
+                                      156 => 
                                       array (
                                         'key' => 'BLASTMASTER HD',
                                         'value' => 1754,
                                       ),
-                                      159 => 
+                                      157 => 
                                       array (
                                         'key' => 'BLAUDIECK',
                                         'value' => 1755,
                                       ),
-                                      160 => 
+                                      158 => 
                                       array (
                                         'key' => 'BLAUSTRAHL',
                                         'value' => 1829415,
                                       ),
-                                      161 => 
+                                      159 => 
                                       array (
                                         'key' => 'BLISSFUL FISHERMAN',
                                         'value' => 1756,
                                       ),
-                                      162 => 
+                                      160 => 
                                       array (
                                         'key' => 'BLUCOR',
                                         'value' => 1757,
                                       ),
-                                      163 => 
+                                      161 => 
                                       array (
                                         'key' => 'BLUCOR FLANGE',
                                         'value' => 1758,
                                       ),
-                                      164 => 
+                                      162 => 
                                       array (
                                         'key' => 'BLUE FLEXWING',
                                         'value' => 1759,
                                       ),
-                                      165 => 
+                                      163 => 
                                       array (
                                         'key' => 'BLUE FLOUR',
                                         'value' => 1760,
                                       ),
-                                      166 => 
+                                      164 => 
                                       array (
                                         'key' => 'BLUE XTREME STRAIGH RAD HOSE',
                                         'value' => 1761,
                                       ),
-                                      167 => 
+                                      165 => 
                                       array (
                                         'key' => 'BOOTMOR',
                                         'value' => 1762,
                                       ),
-                                      168 => 
+                                      166 => 
                                       array (
                                         'key' => 'BOP SLEEVE',
                                         'value' => 1763,
                                       ),
-                                      169 => 
+                                      167 => 
                                       array (
                                         'key' => 'BOP WRAP',
                                         'value' => 1764,
                                       ),
-                                      170 => 
+                                      168 => 
                                       array (
                                         'key' => 'BOTTOM LOADING',
                                         'value' => 1765,
                                       ),
-                                      171 => 
+                                      169 => 
                                       array (
                                         'key' => 'BOWLING',
                                         'value' => 1829514,
                                       ),
-                                      172 => 
+                                      170 => 
                                       array (
                                         'key' => 'BR7',
                                         'value' => 1766,
                                       ),
-                                      173 => 
+                                      171 => 
                                       array (
                                         'key' => 'BRAIDAIR',
                                         'value' => 1767,
                                       ),
-                                      174 => 
+                                      172 => 
                                       array (
                                         'key' => 'BRANHAM AIR',
                                         'value' => 1829343,
                                       ),
-                                      175 => 
+                                      173 => 
                                       array (
                                         'key' => 'BRANHAM CHEMONE SUPERIOR',
                                         'value' => 1768,
                                       ),
-                                      176 => 
+                                      174 => 
                                       array (
                                         'key' => 'BREATHING AIR',
                                         'value' => 1769,
                                       ),
-                                      177 => 
+                                      175 => 
                                       array (
                                         'key' => 'BREATHING AIR HOSE',
                                         'value' => 1829260,
                                       ),
-                                      178 => 
+                                      176 => 
                                       array (
                                         'key' => 'BREATHING AIR PLUS',
                                         'value' => 1770,
                                       ),
-                                      179 => 
+                                      177 => 
                                       array (
                                         'key' => 'BRENNTAG',
                                         'value' => 1771,
                                       ),
-                                      180 => 
+                                      178 => 
                                       array (
                                         'key' => 'BREWERS HOSE',
                                         'value' => 1772,
                                       ),
-                                      181 => 
+                                      179 => 
                                       array (
                                         'key' => 'BREWLINE',
                                         'value' => 1773,
                                       ),
-                                      182 => 
+                                      180 => 
                                       array (
                                         'key' => 'BRICK RED AIR',
                                         'value' => 1774,
                                       ),
-                                      183 => 
+                                      181 => 
                                       array (
                                         'key' => 'BRIDGEPOINT',
                                         'value' => 1775,
                                       ),
-                                      184 => 
+                                      182 => 
                                       array (
                                         'key' => 'BRIGADE MINE',
                                         'value' => 1776,
                                       ),
-                                      185 => 
+                                      183 => 
                                       array (
                                         'key' => 'BRINE HOSE',
                                         'value' => 1777,
                                       ),
-                                      186 => 
+                                      184 => 
                                       array (
                                         'key' => 'BROOM SWEEPER',
                                         'value' => 1778,
                                       ),
-                                      187 => 
+                                      185 => 
                                       array (
                                         'key' => 'BROWN FLEXWING',
                                         'value' => 1779,
                                       ),
-                                      188 => 
+                                      186 => 
                                       array (
                                         'key' => 'BROWN/BLU FLEX',
                                         'value' => 1829430,
                                       ),
-                                      189 => 
+                                      187 => 
                                       array (
                                         'key' => 'BSP Flat Seat (British Standard Pipe)',
                                         'value' => 1829966,
                                       ),
-                                      190 => 
+                                      188 => 
                                       array (
                                         'key' => 'BSPP (British Standard Pipe Parallel)',
                                         'value' => 1829964,
                                       ),
-                                      191 => 
+                                      189 => 
                                       array (
                                         'key' => 'BSPP (British Standard Pipe Parallel) O-Rings',
                                         'value' => 3831015,
                                       ),
-                                      192 => 
+                                      190 => 
                                       array (
                                         'key' => 'BSPT (British Standard Pipe Tapered)',
                                         'value' => 1829965,
                                       ),
-                                      193 => 
+                                      191 => 
                                       array (
                                         'key' => 'BUHLER MIAG',
                                         'value' => 1780,
                                       ),
-                                      194 => 
+                                      192 => 
                                       array (
                                         'key' => 'BULLARD',
                                         'value' => 1829140,
                                       ),
-                                      195 => 
+                                      193 => 
                                       array (
                                         'key' => 'BUTTERWORTH',
                                         'value' => 1781,
                                       ),
-                                      196 => 
+                                      194 => 
                                       array (
                                         'key' => 'BUTYL 200',
                                         'value' => 1782,
                                       ),
-                                      197 => 
+                                      195 => 
                                       array (
                                         'key' => 'C&J WATER S&D',
                                         'value' => 1783,
                                       ),
-                                      198 => 
+                                      196 => 
                                       array (
                                         'key' => 'C&T MIL-DTL-13444H-1-6',
                                         'value' => 1829200,
                                       ),
-                                      199 => 
+                                      197 => 
                                       array (
                                         'key' => 'CABLE CONDUIT',
                                         'value' => 1784,
                                       ),
-                                      200 => 
+                                      198 => 
                                       array (
                                         'key' => 'CABLE COOLING HOSE',
                                         'value' => 1785,
                                       ),
-                                      201 => 
+                                      199 => 
                                       array (
                                         'key' => 'CABLE COVER',
                                         'value' => 1786,
                                       ),
-                                      202 => 
+                                      200 => 
                                       array (
                                         'key' => 'CAMBRG HEALY PII',
                                         'value' => 1787,
                                       ),
-                                      203 => 
+                                      201 => 
                                       array (
                                         'key' => 'CAMLOK',
                                         'value' => 1788,
                                       ),
-                                      204 => 
+                                      202 => 
                                       array (
                                         'key' => 'CARON ARCTIC FLEX',
                                         'value' => 1789,
                                       ),
-                                      205 => 
+                                      203 => 
                                       array (
                                         'key' => 'CARON BLACK SOFTWALL',
                                         'value' => 1790,
                                       ),
-                                      206 => 
+                                      204 => 
                                       array (
                                         'key' => 'CARON FABCHEM',
                                         'value' => 1791,
                                       ),
-                                      207 => 
+                                      205 => 
                                       array (
                                         'key' => 'CASCADE DRY CEMENT',
                                         'value' => 1792,
                                       ),
-                                      208 => 
+                                      206 => 
                                       array (
                                         'key' => 'Catepillar Flange',
                                         'value' => 1829977,
                                       ),
-                                      209 => 
+                                      207 => 
                                       array (
                                         'key' => 'Caterpillar Flange',
                                         'value' => 1829961,
                                       ),
-                                      210 => 
+                                      208 => 
                                       array (
                                         'key' => 'Caterpillar Flange O-Rings Code 61 and Code 62 Flange O-Rings (SAE J518)',
                                         'value' => 1831352,
                                       ),
-                                      211 => 
+                                      209 => 
                                       array (
                                         'key' => 'CENEX',
                                         'value' => 1793,
                                       ),
-                                      212 => 
+                                      210 => 
                                       array (
                                         'key' => 'CENEX OT',
                                         'value' => 1794,
                                       ),
-                                      213 => 
+                                      211 => 
                                       array (
                                         'key' => 'CENTRAL ROCK DRILL',
                                         'value' => 1795,
                                       ),
-                                      214 => 
+                                      212 => 
                                       array (
                                         'key' => 'CHANGED TO FORTRESS WHITE',
                                         'value' => 1829316,
                                       ),
-                                      215 => 
+                                      213 => 
                                       array (
                                         'key' => 'CHEMICAL ACID DISCHARGE',
                                         'value' => 1796,
                                       ),
-                                      216 => 
+                                      214 => 
                                       array (
                                         'key' => 'CHEMONE',
                                         'value' => 1797,
                                       ),
-                                      217 => 
+                                      215 => 
                                       array (
                                         'key' => 'CHEMSTREAM',
                                         'value' => 1798,
                                       ),
-                                      218 => 
+                                      216 => 
                                       array (
                                         'key' => 'CHLO GARLOK',
                                         'value' => 1799,
                                       ),
-                                      219 => 
+                                      217 => 
                                       array (
                                         'key' => 'CITGO',
                                         'value' => 6422706,
                                       ),
-                                      220 => 
+                                      218 => 
                                       array (
                                         'key' => 'CITGO HYDROCARBON DRAIN',
                                         'value' => 1829202,
                                       ),
-                                      221 => 
+                                      219 => 
                                       array (
                                         'key' => 'CLAM JETTING',
                                         'value' => 1829434,
                                       ),
-                                      222 => 
+                                      220 => 
                                       array (
                                         'key' => 'CLEANJET',
                                         'value' => 1800,
                                       ),
-                                      223 => 
+                                      221 => 
                                       array (
                                         'key' => 'CLEANJET FDA',
                                         'value' => 1801,
                                       ),
-                                      224 => 
+                                      222 => 
                                       array (
                                         'key' => 'CLEAR PVC TUBING',
                                         'value' => 1802,
                                       ),
-                                      225 => 
+                                      223 => 
                                       array (
                                         'key' => 'CLEARWATER',
                                         'value' => 1803,
                                       ),
-                                      226 => 
+                                      224 => 
                                       array (
                                         'key' => 'CLEARWATER FLEXTRA NSF',
                                         'value' => 4683628,
                                       ),
-                                      227 => 
+                                      225 => 
                                       array (
                                         'key' => 'CLEARWATER SOFTWALL NSF',
                                         'value' => 4683629,
                                       ),
-                                      228 => 
+                                      226 => 
                                       array (
                                         'key' => 'Clip Pliers',
                                         'value' => 1830006,
                                       ),
-                                      229 => 
+                                      227 => 
                                       array (
                                         'key' => 'CO2 HOSE',
                                         'value' => 1804,
                                       ),
-                                      230 => 
+                                      228 => 
                                       array (
                                         'key' => 'COAST GUARD',
                                         'value' => 1805,
                                       ),
-                                      231 => 
+                                      229 => 
                                       array (
                                         'key' => 'Code 61 Flange (SAE  J518)',
                                         'value' => 1829976,
                                       ),
-                                      232 => 
+                                      230 => 
                                       array (
                                         'key' => 'Code 61 Flange (SAE J518)',
                                         'value' => 1829959,
                                       ),
-                                      233 => 
+                                      231 => 
                                       array (
                                         'key' => 'Code 61 Split Flange Clamp Kits ',
                                         'value' => 1831353,
                                       ),
-                                      234 => 
+                                      232 => 
                                       array (
                                         'key' => 'Code 62 Flange (SAE J518)',
                                         'value' => 1829960,
                                       ),
-                                      235 => 
+                                      233 => 
                                       array (
                                         'key' => 'Code 62 Split Flange Clamp Kits',
                                         'value' => 3831018,
                                       ),
-                                      236 => 
+                                      234 => 
                                       array (
                                         'key' => 'COLD BLUE',
                                         'value' => 1806,
                                       ),
-                                      237 => 
+                                      235 => 
                                       array (
                                         'key' => 'COLLECTOR',
                                         'value' => 1807,
                                       ),
-                                      238 => 
+                                      236 => 
                                       array (
                                         'key' => 'COLLECTOR FLEX',
                                         'value' => 1808,
                                       ),
-                                      239 => 
+                                      237 => 
                                       array (
                                         'key' => 'COLORITE',
                                         'value' => 1809,
                                       ),
-                                      240 => 
+                                      238 => 
                                       array (
                                         'key' => 'Compressor O-Ring Tube',
                                         'value' => 1829980,
                                       ),
-                                      241 => 
+                                      239 => 
                                       array (
                                         'key' => 'Compressor Pad Block',
                                         'value' => 1829988,
                                       ),
-                                      242 => 
+                                      240 => 
                                       array (
                                         'key' => 'CON FORM SUPER FLEX',
                                         'value' => 1810,
                                       ),
-                                      243 => 
+                                      241 => 
                                       array (
                                         'key' => 'CON-TECH',
                                         'value' => 1829228,
                                       ),
-                                      244 => 
+                                      242 => 
                                       array (
                                         'key' => 'CONAG ECO',
                                         'value' => 6951845,
                                       ),
-                                      245 => 
+                                      243 => 
                                       array (
                                         'key' => 'CONAG WATER S&D',
                                         'value' => 1811,
                                       ),
-                                      246 => 
+                                      244 => 
                                       array (
                                         'key' => 'CONCRETE G820',
                                         'value' => 1812,
                                       ),
-                                      247 => 
+                                      245 => 
                                       array (
                                         'key' => 'CONCRETE VIBRATOR',
                                         'value' => 1813,
                                       ),
-                                      248 => 
+                                      246 => 
                                       array (
                                         'key' => 'CONTI A&M',
                                         'value' => 1829426,
                                       ),
-                                      249 => 
+                                      247 => 
                                       array (
                                         'key' => 'CONTI BLUE STEAM FDA',
                                         'value' => 5554379,
                                       ),
-                                      250 => 
-                                      array (
-                                        'key' => 'CONTI CHEM EXTRA',
-                                        'value' => 7085031,
-                                      ),
-                                      251 => 
+                                      248 => 
                                       array (
                                         'key' => 'CONTI CHEM OIL',
                                         'value' => 1814,
                                       ),
-                                      252 => 
+                                      249 => 
                                       array (
                                         'key' => 'CONTI CHEM PHARMA',
                                         'value' => 1815,
                                       ),
-                                      253 => 
+                                      250 => 
                                       array (
                                         'key' => 'CONTI CHEM STANDARD',
                                         'value' => 1816,
                                       ),
-                                      254 => 
+                                      251 => 
                                       array (
                                         'key' => 'CONTI CHEM SUPERIOR FEP',
                                         'value' => 1817,
                                       ),
-                                      255 => 
-                                      array (
-                                        'key' => 'CONTI FEP',
-                                        'value' => 7092828,
-                                      ),
-                                      256 => 
+                                      252 => 
                                       array (
                                         'key' => 'CONTI PAINT SPRAY',
                                         'value' => 1818,
                                       ),
-                                      257 => 
+                                      253 => 
                                       array (
                                         'key' => 'CONTI POTABLE WATER',
                                         'value' => 1819,
                                       ),
-                                      258 => 
+                                      254 => 
                                       array (
                                         'key' => 'CONTI WASTE WATER',
                                         'value' => 1820,
                                       ),
-                                      259 => 
+                                      255 => 
                                       array (
                                         'key' => 'CONTICHEM',
                                         'value' => 1829407,
                                       ),
-                                      260 => 
-                                      array (
-                                        'key' => 'CONTINENTAL / COX REEL',
-                                        'value' => 7082340,
-                                      ),
-                                      261 => 
+                                      256 => 
                                       array (
                                         'key' => 'CONTINENTAL MATTE GREEN',
                                         'value' => 1829282,
                                       ),
-                                      262 => 
+                                      257 => 
                                       array (
                                         'key' => 'CONTINENTAL STEEL STEAM 250',
                                         'value' => 1821,
                                       ),
-                                      263 => 
+                                      258 => 
                                       array (
                                         'key' => 'CONTRACTOR 4001',
                                         'value' => 1822,
                                       ),
-                                      264 => 
+                                      259 => 
                                       array (
                                         'key' => 'CONTRACTOR WATER S&D',
                                         'value' => 1823,
                                       ),
-                                      265 => 
+                                      260 => 
                                       array (
                                         'key' => 'CONTRACTOR\'S WATER',
                                         'value' => 1824,
                                       ),
-                                      266 => 
+                                      261 => 
                                       array (
                                         'key' => 'COOLING WATER',
                                         'value' => 1825,
                                       ),
-                                      267 => 
+                                      262 => 
                                       array (
                                         'key' => 'COOLING WATER 2.0',
                                         'value' => 1826,
                                       ),
-                                      268 => 
+                                      263 => 
                                       array (
                                         'key' => 'COTTON CLEANER',
                                         'value' => 1829519,
                                       ),
-                                      269 => 
+                                      264 => 
                                       array (
                                         'key' => 'COUPLING MALE SWIVEL',
                                         'value' => 1829191,
                                       ),
-                                      270 => 
+                                      265 => 
                                       array (
                                         'key' => 'CPE DISCHARGE',
                                         'value' => 1827,
                                       ),
-                                      271 => 
+                                      266 => 
                                       array (
                                         'key' => 'CPLAIR AIRCRAFT',
                                         'value' => 1829348,
                                       ),
-                                      272 => 
+                                      267 => 
                                       array (
                                         'key' => 'CREE BREWERS HOSE',
                                         'value' => 1828,
                                       ),
-                                      273 => 
+                                      268 => 
                                       array (
                                         'key' => 'CTI',
                                         'value' => 5355080,
                                       ),
-                                      274 => 
+                                      269 => 
                                       array (
                                         'key' => 'CULVERT',
                                         'value' => 1829,
                                       ),
-                                      275 => 
+                                      270 => 
                                       array (
                                         'key' => 'DAMPF TRIX 5000',
                                         'value' => 1830,
                                       ),
-                                      276 => 
+                                      271 => 
                                       array (
                                         'key' => 'DAMPF TRIX 6000',
                                         'value' => 1831,
                                       ),
-                                      277 => 
+                                      272 => 
                                       array (
                                         'key' => 'DAMPFTRIX 6000',
                                         'value' => 1829406,
                                       ),
-                                      278 => 
+                                      273 => 
                                       array (
                                         'key' => 'DARCOR RED',
                                         'value' => 1829318,
                                       ),
-                                      279 => 
+                                      274 => 
                                       array (
                                         'key' => 'DARCY REDWING FUEL OIL',
                                         'value' => 1832,
                                       ),
-                                      280 => 
+                                      275 => 
                                       array (
                                         'key' => 'DEADMAN AIRCRAFT REFUELING',
                                         'value' => 1833,
                                       ),
-                                      281 => 
+                                      276 => 
                                       array (
                                         'key' => 'DEADMAN SANDBLAST',
                                         'value' => 1834,
                                       ),
-                                      282 => 
+                                      277 => 
                                       array (
                                         'key' => 'DEEP BLUE',
                                         'value' => 1829431,
                                       ),
-                                      283 => 
+                                      278 => 
                                       array (
                                         'key' => 'DEERE',
                                         'value' => 1835,
                                       ),
-                                      284 => 
+                                      279 => 
                                       array (
                                         'key' => 'DEF DISPENSING',
                                         'value' => 1836,
                                       ),
-                                      285 => 
+                                      280 => 
                                       array (
                                         'key' => 'DEF TRANSFER',
                                         'value' => 1837,
                                       ),
-                                      286 => 
+                                      281 => 
                                       array (
                                         'key' => 'DEL TWIN-LINE GRADE R',
                                         'value' => 1838,
                                       ),
-                                      287 => 
+                                      282 => 
                                       array (
                                         'key' => 'DEL TWIN-LINE GRADE RM',
                                         'value' => 1839,
                                       ),
-                                      288 => 
+                                      283 => 
                                       array (
                                         'key' => 'DENVER',
                                         'value' => 1840,
                                       ),
-                                      289 => 
+                                      284 => 
                                       array (
                                         'key' => 'DENVER CONC VIBR',
                                         'value' => 1841,
                                       ),
-                                      290 => 
+                                      285 => 
                                       array (
                                         'key' => 'DESERT DR16SC',
                                         'value' => 1842,
                                       ),
-                                      291 => 
+                                      286 => 
                                       array (
                                         'key' => 'DESERT DR1SN',
                                         'value' => 1843,
                                       ),
-                                      292 => 
+                                      287 => 
                                       array (
                                         'key' => 'DESERT DR2SN',
                                         'value' => 1844,
                                       ),
-                                      293 => 
+                                      288 => 
                                       array (
                                         'key' => 'DESERT DR5',
                                         'value' => 1845,
                                       ),
-                                      294 => 
+                                      289 => 
                                       array (
                                         'key' => 'DESERT DUT',
                                         'value' => 1846,
                                       ),
-                                      295 => 
+                                      290 => 
                                       array (
                                         'key' => 'DEVILBISS',
                                         'value' => 1829178,
                                       ),
-                                      296 => 
+                                      291 => 
                                       array (
                                         'key' => 'DEWATERING',
                                         'value' => 1847,
                                       ),
-                                      297 => 
+                                      292 => 
                                       array (
                                         'key' => 'DIAMOND',
                                         'value' => 1829370,
                                       ),
-                                      298 => 
+                                      293 => 
                                       array (
                                         'key' => 'DIESEL OIL HARDWALL',
                                         'value' => 1848,
                                       ),
-                                      299 => 
+                                      294 => 
                                       array (
                                         'key' => 'DIESEL OIL SOFTWALL',
                                         'value' => 1849,
                                       ),
-                                      300 => 
+                                      295 => 
                                       array (
                                         'key' => 'DIGESTER',
                                         'value' => 1850,
                                       ),
-                                      301 => 
+                                      296 => 
                                       array (
                                         'key' => 'DIISOCYANATE',
                                         'value' => 1851,
                                       ),
-                                      302 => 
+                                      297 => 
                                       array (
                                         'key' => 'DIN 24 Heavy',
                                         'value' => 1829968,
                                       ),
-                                      303 => 
+                                      298 => 
                                       array (
                                         'key' => 'DIN 24 Heavy O-Rings',
                                         'value' => 3831017,
                                       ),
-                                      304 => 
+                                      299 => 
                                       array (
                                         'key' => 'DIN 24 Light',
                                         'value' => 1829967,
                                       ),
-                                      305 => 
+                                      300 => 
                                       array (
                                         'key' => 'DIN 24 Light O-Rings',
                                         'value' => 3831016,
                                       ),
-                                      306 => 
+                                      301 => 
                                       array (
                                         'key' => 'DIN 60',
                                         'value' => 1829969,
                                       ),
-                                      307 => 
+                                      302 => 
                                       array (
                                         'key' => 'DINGA HOT WATER GUN',
                                         'value' => 1852,
                                       ),
-                                      308 => 
+                                      303 => 
                                       array (
                                         'key' => 'DINGA NOZZLE',
                                         'value' => 5356966,
                                       ),
-                                      309 => 
+                                      304 => 
                                       array (
                                         'key' => 'DISCHARGE',
                                         'value' => 1853,
                                       ),
-                                      310 => 
+                                      305 => 
                                       array (
                                         'key' => 'DISHWASHER DRAIN',
                                         'value' => 1854,
                                       ),
-                                      311 => 
+                                      306 => 
                                       array (
                                         'key' => 'DISTILLERY 150',
                                         'value' => 1855,
                                       ),
-                                      312 => 
+                                      307 => 
                                       array (
                                         'key' => 'DISTRB ACID',
                                         'value' => 1856,
                                       ),
-                                      313 => 
+                                      308 => 
                                       array (
                                         'key' => 'DISTRB ARCTIC ORTAC',
                                         'value' => 1857,
                                       ),
-                                      314 => 
+                                      309 => 
                                       array (
                                         'key' => 'DISTRB STEEL AIR',
                                         'value' => 1858,
                                       ),
-                                      315 => 
+                                      310 => 
                                       array (
                                         'key' => 'DISTRB WATER S&D',
                                         'value' => 1859,
                                       ),
-                                      316 => 
+                                      311 => 
                                       array (
                                         'key' => 'DIVERSIFLEX',
                                         'value' => 1860,
                                       ),
-                                      317 => 
+                                      312 => 
                                       array (
                                         'key' => 'DIVERSIPIPE',
                                         'value' => 1861,
                                       ),
-                                      318 => 
+                                      313 => 
                                       array (
                                         'key' => 'DIVING HOSE',
                                         'value' => 1862,
                                       ),
-                                      319 => 
+                                      314 => 
                                       array (
                                         'key' => 'DMC CAUSTIC',
                                         'value' => 1863,
                                       ),
-                                      320 => 
+                                      315 => 
                                       array (
                                         'key' => 'DOCK',
                                         'value' => 1864,
                                       ),
-                                      321 => 
+                                      316 => 
                                       array (
                                         'key' => 'DOCK EN1765 L15',
                                         'value' => 1865,
                                       ),
-                                      322 => 
+                                      317 => 
                                       array (
                                         'key' => 'DOCK EN1765 S15',
                                         'value' => 1866,
                                       ),
-                                      323 => 
+                                      318 => 
                                       array (
                                         'key' => 'DOCK FDA',
                                         'value' => 1867,
                                       ),
-                                      324 => 
+                                      319 => 
                                       array (
                                         'key' => 'DOCK SMOOTH BORE HOT SULFUR',
                                         'value' => 1868,
                                       ),
-                                      325 => 
+                                      320 => 
                                       array (
                                         'key' => 'DOCK SUPPLY SW',
                                         'value' => 1869,
                                       ),
-                                      326 => 
+                                      321 => 
                                       array (
                                         'key' => 'DR16SC',
                                         'value' => 1830041,
                                       ),
-                                      327 => 
+                                      322 => 
                                       array (
                                         'key' => 'DREDGE SLEEVE',
                                         'value' => 1870,
                                       ),
-                                      328 => 
+                                      323 => 
                                       array (
                                         'key' => 'DRILL WATER',
                                         'value' => 1871,
                                       ),
-                                      329 => 
+                                      324 => 
                                       array (
                                         'key' => 'DRINK FLEX',
                                         'value' => 5300789,
                                       ),
-                                      330 => 
+                                      325 => 
                                       array (
                                         'key' => 'DRINKLINE',
                                         'value' => 1872,
                                       ),
-                                      331 => 
+                                      326 => 
                                       array (
                                         'key' => 'DRY CEMENT HD HARDWALL',
                                         'value' => 1873,
                                       ),
-                                      332 => 
+                                      327 => 
                                       array (
                                         'key' => 'DRY CEMENT SOFTWALL',
                                         'value' => 1874,
                                       ),
-                                      333 => 
+                                      328 => 
                                       array (
                                         'key' => 'DRY ICE HOSE',
                                         'value' => 1875,
                                       ),
-                                      334 => 
+                                      329 => 
                                       array (
                                         'key' => 'DUAL HI-PERFORMANCE PD',
                                         'value' => 1829530,
                                       ),
-                                      335 => 
+                                      330 => 
                                       array (
                                         'key' => 'DUAL POSITIVE DRIVE PD',
                                         'value' => 1829510,
                                       ),
-                                      336 => 
+                                      331 => 
                                       array (
                                         'key' => 'Dual-Grip DGF1 Ferrule',
                                         'value' => 1830020,
                                       ),
-                                      337 => 
+                                      332 => 
                                       array (
                                         'key' => 'Dual-Grip DGF2 Ferrule',
                                         'value' => 1830021,
                                       ),
-                                      338 => 
+                                      333 => 
                                       array (
                                         'key' => 'DUDLEY WATER',
                                         'value' => 1876,
                                       ),
-                                      339 => 
+                                      334 => 
                                       array (
                                         'key' => 'DUNLOP BOOSTER',
                                         'value' => 1877,
                                       ),
-                                      340 => 
+                                      335 => 
                                       array (
                                         'key' => 'DURACO',
                                         'value' => 1878,
                                       ),
-                                      341 => 
+                                      336 => 
                                       array (
                                         'key' => 'DURACO ROADPATCH',
                                         'value' => 1879,
                                       ),
-                                      342 => 
+                                      337 => 
                                       array (
                                         'key' => 'DWE',
                                         'value' => 1829161,
                                       ),
-                                      343 => 
+                                      338 => 
                                       array (
                                         'key' => 'DYNACRAFT',
                                         'value' => 1880,
                                       ),
-                                      344 => 
+                                      339 => 
                                       array (
                                         'key' => 'DYNACRAFT D1045-2000',
                                         'value' => 1829127,
                                       ),
-                                      345 => 
+                                      340 => 
                                       array (
                                         'key' => 'DYNO',
                                         'value' => 1881,
                                       ),
-                                      346 => 
+                                      341 => 
                                       array (
                                         'key' => 'DYNO HOSE',
                                         'value' => 1882,
                                       ),
-                                      347 => 
+                                      342 => 
                                       array (
                                         'key' => 'DYNO HOSEINHOSE',
                                         'value' => 1829231,
                                       ),
-                                      348 => 
+                                      343 => 
                                       array (
                                         'key' => 'DYNO NOBEL',
                                         'value' => 1829125,
                                       ),
-                                      349 => 
+                                      344 => 
                                       array (
                                         'key' => 'E 1-1',
                                         'value' => 1883,
                                       ),
-                                      350 => 
+                                      345 => 
                                       array (
                                         'key' => 'E 3-1',
                                         'value' => 1884,
                                       ),
-                                      351 => 
+                                      346 => 
                                       array (
                                         'key' => 'E 3-2',
                                         'value' => 1885,
                                       ),
-                                      352 => 
+                                      347 => 
                                       array (
                                         'key' => 'EAGLE AIR & WATER',
                                         'value' => 1886,
                                       ),
-                                      353 => 
+                                      348 => 
                                       array (
                                         'key' => 'EAGLE FLUID POWER',
                                         'value' => 1829160,
                                       ),
-                                      354 => 
+                                      349 => 
                                       array (
                                         'key' => 'ECO LITE',
                                         'value' => 3831424,
                                       ),
-                                      355 => 
+                                      350 => 
                                       array (
                                         'key' => 'ECO RUBBER',
                                         'value' => 3831423,
                                       ),
-                                      356 => 
+                                      351 => 
                                       array (
                                         'key' => 'ECOLAB',
                                         'value' => 3831426,
                                       ),
-                                      357 => 
+                                      352 => 
                                       array (
                                         'key' => 'ECOLAB BLUE',
                                         'value' => 1829110,
                                       ),
-                                      358 => 
+                                      353 => 
                                       array (
                                         'key' => 'ECOLAB WASHDOWN',
                                         'value' => 1829193,
                                       ),
-                                      359 => 
+                                      354 => 
                                       array (
                                         'key' => 'EDPM DISCHARGE',
                                         'value' => 1829263,
                                       ),
-                                      360 => 
+                                      355 => 
                                       array (
                                         'key' => 'EHLYNN',
                                         'value' => 1887,
                                       ),
-                                      361 => 
+                                      356 => 
                                       array (
                                         'key' => 'EHLYNN FLOUR TEC',
                                         'value' => 1888,
                                       ),
-                                      362 => 
+                                      357 => 
                                       array (
                                         'key' => 'EHLYNN FOOD DISCHARGE',
                                         'value' => 1889,
                                       ),
-                                      363 => 
+                                      358 => 
                                       array (
                                         'key' => 'EHLYNN HOT AIR',
                                         'value' => 1890,
                                       ),
-                                      364 => 
+                                      359 => 
                                       array (
                                         'key' => 'EHLYNN PIPE CONNECTOR',
                                         'value' => 1891,
                                       ),
-                                      365 => 
+                                      360 => 
                                       array (
                                         'key' => 'EHLYNN TPG',
                                         'value' => 1892,
                                       ),
-                                      366 => 
+                                      361 => 
                                       array (
                                         'key' => 'ELAFLEX LAY FLAT',
                                         'value' => 1893,
                                       ),
-                                      367 => 
+                                      362 => 
                                       array (
                                         'key' => 'ELITE HOT WATER',
                                         'value' => 5680554,
                                       ),
-                                      368 => 
+                                      363 => 
                                       array (
                                         'key' => 'ELITE POLY-V',
                                         'value' => 1829495,
                                       ),
-                                      369 => 
+                                      364 => 
                                       array (
                                         'key' => 'ELITE POLY-V STRETCH',
                                         'value' => 1829529,
                                       ),
-                                      370 => 
+                                      365 => 
                                       array (
                                         'key' => 'ELITE STANDARD RADIATOR',
                                         'value' => 1894,
                                       ),
-                                      371 => 
+                                      366 => 
                                       array (
                                         'key' => 'ELITE SW MARINE WET EXHAUST',
                                         'value' => 1895,
                                       ),
-                                      372 => 
+                                      367 => 
                                       array (
                                         'key' => 'EMERALD',
                                         'value' => 5759836,
                                       ),
-                                      373 => 
+                                      368 => 
                                       array (
                                         'key' => 'EN12115 PETROLEUM',
                                         'value' => 1896,
                                       ),
-                                      374 => 
+                                      369 => 
                                       array (
                                         'key' => 'EPDM 200',
                                         'value' => 1897,
                                       ),
-                                      375 => 
+                                      370 => 
                                       array (
                                         'key' => 'EPDM 200 (ECONOMY)',
                                         'value' => 1898,
                                       ),
-                                      376 => 
+                                      371 => 
                                       array (
                                         'key' => 'EPDM 200 (NON CON)',
                                         'value' => 1899,
                                       ),
-                                      377 => 
+                                      372 => 
                                       array (
                                         'key' => 'EPDM ACID',
                                         'value' => 1900,
                                       ),
-                                      378 => 
+                                      373 => 
                                       array (
                                         'key' => 'EPDM DISCHARGE',
                                         'value' => 1901,
                                       ),
-                                      379 => 
+                                      374 => 
                                       array (
                                         'key' => 'EPDM S&D',
                                         'value' => 1902,
                                       ),
-                                      380 => 
+                                      375 => 
                                       array (
                                         'key' => 'EPDM SD HD WATER',
                                         'value' => 1903,
                                       ),
-                                      381 => 
+                                      376 => 
                                       array (
                                         'key' => 'EPDM SD WATER',
                                         'value' => 1904,
                                       ),
-                                      382 => 
+                                      377 => 
                                       array (
                                         'key' => 'ERGON',
                                         'value' => 1905,
                                       ),
-                                      383 => 
+                                      378 => 
                                       array (
                                         'key' => 'ERIKS',
                                         'value' => 1906,
                                       ),
-                                      384 => 
+                                      379 => 
                                       array (
                                         'key' => 'ESTABROOK',
                                         'value' => 1829163,
                                       ),
-                                      385 => 
+                                      380 => 
                                       array (
                                         'key' => 'EURO TRIX',
                                         'value' => 1907,
                                       ),
-                                      386 => 
+                                      381 => 
                                       array (
                                         'key' => 'EXIMCO',
                                         'value' => 1908,
                                       ),
-                                      387 => 
+                                      382 => 
                                       array (
                                         'key' => 'EXIMCO FLOATER',
                                         'value' => 1829227,
                                       ),
-                                      388 => 
+                                      383 => 
                                       array (
                                         'key' => 'EXIMCO HYD',
                                         'value' => 1829402,
                                       ),
-                                      389 => 
+                                      384 => 
                                       array (
                                         'key' => 'EXON GP DOCK',
                                         'value' => 1909,
                                       ),
-                                      390 => 
+                                      385 => 
                                       array (
                                         'key' => 'EXPRESS BLOWER',
                                         'value' => 1910,
                                       ),
-                                      391 => 
+                                      386 => 
                                       array (
                                         'key' => 'EXSTATIC',
                                         'value' => 1911,
                                       ),
-                                      392 => 
+                                      387 => 
                                       array (
                                         'key' => 'EXTREME CRIMP CB STEAM',
                                         'value' => 1829118,
                                       ),
-                                      393 => 
+                                      388 => 
                                       array (
                                         'key' => 'EXTREMEBLAST LOAD',
                                         'value' => 1912,
                                       ),
-                                      394 => 
+                                      389 => 
                                       array (
                                         'key' => 'EXTREMEFLEX BEVERAGE',
                                         'value' => 1913,
                                       ),
-                                      395 => 
+                                      390 => 
                                       array (
                                         'key' => 'EXTREMEFLEX CHEMICAL BROWN',
                                         'value' => 1914,
                                       ),
-                                      396 => 
+                                      391 => 
                                       array (
                                         'key' => 'EXTREMEFLEX CHEMICAL PURPLE',
                                         'value' => 1915,
                                       ),
-                                      397 => 
+                                      392 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD',
                                         'value' => 1829369,
                                       ),
-                                      398 => 
+                                      393 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD BLUE',
                                         'value' => 1916,
                                       ),
-                                      399 => 
+                                      394 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD GRAY',
                                         'value' => 1917,
                                       ),
-                                      400 => 
+                                      395 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD RED',
                                         'value' => 1829382,
                                       ),
-                                      401 => 
+                                      396 => 
                                       array (
                                         'key' => 'EXTREMEFLEX PETROLEUM',
                                         'value' => 1918,
                                       ),
-                                      402 => 
+                                      397 => 
                                       array (
                                         'key' => 'EXTREMEFLEX POTABLE WATER',
                                         'value' => 1919,
                                       ),
-                                      403 => 
+                                      398 => 
                                       array (
                                         'key' => 'EXTREMEFLEX VERSIFLO',
                                         'value' => 1920,
                                       ),
-                                      404 => 
+                                      399 => 
                                       array (
                                         'key' => 'EXTREMEFLEX WATER SLURRY',
                                         'value' => 1921,
                                       ),
-                                      405 => 
+                                      400 => 
                                       array (
                                         'key' => 'EZ GLIDE WINE',
                                         'value' => 1922,
                                       ),
-                                      406 => 
+                                      401 => 
                                       array (
                                         'key' => 'F5 AIR',
                                         'value' => 1923,
                                       ),
-                                      407 => 
+                                      402 => 
                                       array (
                                         'key' => 'FABCHEM',
                                         'value' => 1924,
                                       ),
-                                      408 => 
+                                      403 => 
                                       array (
                                         'key' => 'FABCHEM ARC',
                                         'value' => 1925,
                                       ),
-                                      409 => 
+                                      404 => 
                                       array (
                                         'key' => 'FABCHEM EN12115',
                                         'value' => 1926,
                                       ),
-                                      410 => 
+                                      405 => 
                                       array (
                                         'key' => 'FABCHEM-C',
                                         'value' => 1927,
                                       ),
-                                      411 => 
+                                      406 => 
                                       array (
                                         'key' => 'FALCON PD',
                                         'value' => 1829521,
                                       ),
-                                      412 => 
+                                      407 => 
                                       array (
                                         'key' => 'Ferrules',
                                         'value' => 1830012,
                                       ),
-                                      413 => 
+                                      408 => 
                                       array (
                                         'key' => 'FHP',
                                         'value' => 1829507,
                                       ),
-                                      414 => 
+                                      409 => 
                                       array (
                                         'key' => 'FIBERG CRUCIBLE GASK',
                                         'value' => 1928,
                                       ),
-                                      415 => 
+                                      410 => 
                                       array (
                                         'key' => 'FINISHING BRANDS',
                                         'value' => 1929,
                                       ),
-                                      416 => 
+                                      411 => 
                                       array (
                                         'key' => 'FINN',
                                         'value' => 1829171,
                                       ),
-                                      417 => 
+                                      412 => 
                                       array (
                                         'key' => 'FIRE ENGINE BOOSTER',
                                         'value' => 1930,
                                       ),
-                                      418 => 
+                                      413 => 
                                       array (
                                         'key' => 'FIRE ENGINE SUCTION',
                                         'value' => 1931,
                                       ),
-                                      419 => 
+                                      414 => 
                                       array (
                                         'key' => 'FIRE ENGINER BOOSTER',
                                         'value' => 1932,
                                       ),
-                                      420 => 
+                                      415 => 
                                       array (
                                         'key' => 'FIRE EXTINGUISHER UL92',
                                         'value' => 5679576,
                                       ),
-                                      421 => 
+                                      416 => 
                                       array (
                                         'key' => 'FIRE SUCTION & DISCHARGE',
                                         'value' => 1829433,
                                       ),
-                                      422 => 
+                                      417 => 
                                       array (
                                         'key' => 'FISH HOSE',
                                         'value' => 1933,
                                       ),
-                                      423 => 
+                                      418 => 
                                       array (
                                         'key' => 'FISH SUCTION',
                                         'value' => 1829238,
                                       ),
-                                      424 => 
+                                      419 => 
                                       array (
                                         'key' => 'FISH TRANSFER',
                                         'value' => 1934,
                                       ),
-                                      425 => 
+                                      420 => 
                                       array (
                                         'key' => 'Flange Engine Oil Connection (Two Bolt)',
                                         'value' => 1830007,
                                       ),
-                                      426 => 
+                                      421 => 
                                       array (
                                         'key' => 'Flareless Tube',
                                         'value' => 1829981,
                                       ),
-                                      427 => 
+                                      422 => 
                                       array (
                                         'key' => 'Flareless Tube Nuts',
                                         'value' => 1829994,
                                       ),
-                                      428 => 
+                                      423 => 
                                       array (
                                         'key' => 'Flareless Tube Sleeves',
                                         'value' => 1829995,
                                       ),
-                                      429 => 
+                                      424 => 
                                       array (
                                         'key' => 'FLASH',
                                         'value' => 5355083,
                                       ),
-                                      430 => 
+                                      425 => 
                                       array (
                                         'key' => 'FLDCON',
                                         'value' => 1935,
                                       ),
-                                      431 => 
+                                      426 => 
                                       array (
                                         'key' => 'FLEX-ING FLEX AQUA WATER S&D',
                                         'value' => 1943,
                                       ),
-                                      432 => 
+                                      427 => 
                                       array (
                                         'key' => 'FLEX-ING FLEX-ON',
                                         'value' => 1944,
                                       ),
-                                      433 => 
+                                      428 => 
                                       array (
                                         'key' => 'FLEX-PULSE FPII',
                                         'value' => 1946,
                                       ),
-                                      434 => 
+                                      429 => 
                                       array (
                                         'key' => 'FLEXAGRIP',
                                         'value' => 1936,
                                       ),
-                                      435 => 
+                                      430 => 
                                       array (
                                         'key' => 'FLEXCHEM 225',
                                         'value' => 1937,
                                       ),
-                                      436 => 
+                                      431 => 
                                       array (
                                         'key' => 'FLEXDOCK',
                                         'value' => 1938,
                                       ),
-                                      437 => 
+                                      432 => 
                                       array (
                                         'key' => 'FLEXDOCK VERSAFUEL',
                                         'value' => 1939,
                                       ),
-                                      438 => 
+                                      433 => 
                                       array (
                                         'key' => 'FLEXIBLE DOWNSPOUT',
                                         'value' => 1940,
                                       ),
-                                      439 => 
+                                      434 => 
                                       array (
                                         'key' => 'FLEXIBLE TEFLON',
                                         'value' => 1941,
                                       ),
-                                      440 => 
+                                      435 => 
                                       array (
                                         'key' => 'FLEXICORE',
                                         'value' => 1942,
                                       ),
-                                      441 => 
+                                      436 => 
                                       array (
                                         'key' => 'FLEXILLA',
                                         'value' => 1829099,
                                       ),
-                                      442 => 
+                                      437 => 
                                       array (
                                         'key' => 'FLEXING FLEX-ON',
                                         'value' => 1829124,
                                       ),
-                                      443 => 
+                                      438 => 
                                       array (
                                         'key' => 'FLEXJET',
                                         'value' => 1945,
                                       ),
-                                      444 => 
+                                      439 => 
                                       array (
                                         'key' => 'FLEXON',
                                         'value' => 1829094,
                                       ),
-                                      445 => 
+                                      440 => 
                                       array (
                                         'key' => 'FLEXRITE',
                                         'value' => 1947,
                                       ),
-                                      446 => 
+                                      441 => 
                                       array (
                                         'key' => 'FLEXSHIELD SAE J1527 A1-15',
                                         'value' => 1829362,
                                       ),
-                                      447 => 
+                                      442 => 
                                       array (
                                         'key' => 'FLEXSHIELD SAE J1527 TYPE A1-15',
                                         'value' => 1948,
                                       ),
-                                      448 => 
+                                      443 => 
                                       array (
                                         'key' => 'FLEXSTEEL 250 ORS STEAM',
                                         'value' => 1952,
                                       ),
-                                      449 => 
+                                      444 => 
                                       array (
                                         'key' => 'FLEXSTEEL 250 STEAM',
                                         'value' => 1953,
                                       ),
-                                      450 => 
+                                      445 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA',
                                         'value' => 1954,
                                       ),
-                                      451 => 
+                                      446 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA B20',
                                         'value' => 1955,
                                       ),
-                                      452 => 
+                                      447 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA E25',
                                         'value' => 1956,
                                       ),
-                                      453 => 
+                                      448 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA ETHAN-ALL',
                                         'value' => 1957,
                                       ),
-                                      454 => 
+                                      449 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA HVR',
                                         'value' => 1958,
                                       ),
-                                      455 => 
+                                      450 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA HVR LOW PERM',
                                         'value' => 1959,
                                       ),
-                                      456 => 
+                                      451 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA LOW PERM',
                                         'value' => 1960,
                                       ),
-                                      457 => 
+                                      452 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA VAPOR ASSIST',
                                         'value' => 1961,
                                       ),
-                                      458 => 
+                                      453 => 
                                       array (
                                         'key' => 'FLEXSTEEL HW',
                                         'value' => 1829212,
                                       ),
-                                      459 => 
+                                      454 => 
                                       array (
                                         'key' => 'FLEXSTEEL MINE SPRAY',
                                         'value' => 1962,
                                       ),
-                                      460 => 
+                                      455 => 
                                       array (
                                         'key' => 'FLEXSTEEL MINESPRAY',
                                         'value' => 1963,
                                       ),
-                                      461 => 
+                                      456 => 
                                       array (
                                         'key' => 'FLEXSTEEL SERVICE STATION AIR',
                                         'value' => 1964,
                                       ),
-                                      462 => 
+                                      457 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 CB EXTREME CRIMP',
                                         'value' => 1949,
                                       ),
-                                      463 => 
+                                      458 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 CB STEAM',
                                         'value' => 1950,
                                       ),
-                                      464 => 
+                                      459 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 EPDM',
                                         'value' => 1829327,
                                       ),
-                                      465 => 
+                                      460 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 EPDM-20',
                                         'value' => 1951,
                                       ),
-                                      466 => 
+                                      461 => 
                                       array (
                                         'key' => 'FLEXTRA DRY MATERIAL',
                                         'value' => 1965,
                                       ),
-                                      467 => 
+                                      462 => 
                                       array (
                                         'key' => 'FLEXTRA LT',
                                         'value' => 1966,
                                       ),
-                                      468 => 
+                                      463 => 
                                       array (
                                         'key' => 'FLEXTRA LT BLUE',
                                         'value' => 1829367,
                                       ),
-                                      469 => 
+                                      464 => 
                                       array (
                                         'key' => 'FLEXTRA OILFIELD',
                                         'value' => 1967,
                                       ),
-                                      470 => 
+                                      465 => 
                                       array (
                                         'key' => 'FLEXTRA ROCK DUST',
                                         'value' => 1968,
                                       ),
-                                      471 => 
+                                      466 => 
                                       array (
                                         'key' => 'FLEXTRAL',
                                         'value' => 5764904,
                                       ),
-                                      472 => 
+                                      467 => 
                                       array (
                                         'key' => 'FLEXTRAL GRIP-LOC',
                                         'value' => 1829179,
                                       ),
-                                      473 => 
+                                      468 => 
                                       array (
                                         'key' => 'FLEXTRAL J2',
                                         'value' => 1829399,
                                       ),
-                                      474 => 
+                                      469 => 
                                       array (
                                         'key' => 'FLEXWAC',
                                         'value' => 1969,
                                       ),
-                                      475 => 
+                                      470 => 
                                       array (
                                         'key' => 'FLEXWING FOOD',
                                         'value' => 3947663,
                                       ),
-                                      476 => 
+                                      471 => 
                                       array (
                                         'key' => 'FLEXWING FOOD BLUE',
                                         'value' => 1970,
                                       ),
-                                      477 => 
+                                      472 => 
                                       array (
                                         'key' => 'FLEXWING OILFIELD',
                                         'value' => 1971,
                                       ),
-                                      478 => 
+                                      473 => 
                                       array (
                                         'key' => 'FLEXWING PETROLEUM',
                                         'value' => 1972,
                                       ),
-                                      479 => 
+                                      474 => 
                                       array (
                                         'key' => 'FLEXWING VERSAFUEL',
                                         'value' => 1973,
                                       ),
-                                      480 => 
+                                      475 => 
                                       array (
                                         'key' => 'FLEXWING WATER S&D',
                                         'value' => 1974,
                                       ),
-                                      481 => 
+                                      476 => 
                                       array (
                                         'key' => 'FLOATER',
                                         'value' => 1975,
                                       ),
-                                      482 => 
+                                      477 => 
                                       array (
                                         'key' => 'FLOATING HOSES',
                                         'value' => 1976,
                                       ),
-                                      483 => 
+                                      478 => 
                                       array (
                                         'key' => 'FLOUR DISCHARGE',
                                         'value' => 1977,
                                       ),
-                                      484 => 
+                                      479 => 
                                       array (
                                         'key' => 'FLUOROPAL',
                                         'value' => 1978,
                                       ),
-                                      485 => 
+                                      480 => 
                                       array (
                                         'key' => 'FOAM',
                                         'value' => 1979,
                                       ),
-                                      486 => 
+                                      481 => 
                                       array (
                                         'key' => 'FOOD 2720',
                                         'value' => 1980,
                                       ),
-                                      487 => 
+                                      482 => 
                                       array (
                                         'key' => 'FOOD DISCHARGE',
                                         'value' => 1981,
                                       ),
-                                      488 => 
+                                      483 => 
                                       array (
                                         'key' => 'FOOD FLEX',
                                         'value' => 1982,
                                       ),
-                                      489 => 
+                                      484 => 
                                       array (
                                         'key' => 'FOOD SUCTION & DISCHARGE',
                                         'value' => 1983,
                                       ),
-                                      490 => 
+                                      485 => 
                                       array (
                                         'key' => 'FOODCLEAN',
                                         'value' => 1984,
                                       ),
-                                      491 => 
+                                      486 => 
                                       array (
                                         'key' => 'FOODLINER',
                                         'value' => 1985,
                                       ),
-                                      492 => 
+                                      487 => 
                                       array (
                                         'key' => 'Ford Spring Lock',
                                         'value' => 1829989,
                                       ),
-                                      493 => 
+                                      488 => 
                                       array (
                                         'key' => 'FORECAST BLAST',
                                         'value' => 1986,
                                       ),
-                                      494 => 
+                                      489 => 
                                       array (
                                         'key' => 'FORECAST BLAST XF',
                                         'value' => 1987,
                                       ),
-                                      495 => 
+                                      490 => 
                                       array (
                                         'key' => 'FORECAST SUCTION',
                                         'value' => 1988,
                                       ),
-                                      496 => 
+                                      491 => 
                                       array (
                                         'key' => 'FORESTRY',
                                         'value' => 1989,
                                       ),
-                                      497 => 
+                                      492 => 
                                       array (
                                         'key' => 'FORMADRAIN INFLATABLE HOSE',
                                         'value' => 1990,
                                       ),
-                                      498 => 
+                                      493 => 
                                       array (
                                         'key' => 'FORTRESS',
                                         'value' => 1991,
                                       ),
-                                      499 => 
+                                      494 => 
                                       array (
                                         'key' => 'FOSTER',
                                         'value' => 1992,
                                       ),
-                                      500 => 
+                                      495 => 
                                       array (
                                         'key' => 'FRAC',
                                         'value' => 1993,
                                       ),
-                                      501 => 
+                                      496 => 
                                       array (
                                         'key' => 'FRAC ACID S&D',
                                         'value' => 1994,
                                       ),
-                                      502 => 
+                                      497 => 
                                       array (
                                         'key' => 'FRAC ACID S&D 400',
                                         'value' => 1829354,
                                       ),
-                                      503 => 
+                                      498 => 
                                       array (
                                         'key' => 'FRAC BLENDING 500SD',
                                         'value' => 1829374,
                                       ),
-                                      504 => 
+                                      499 => 
                                       array (
                                         'key' => 'FRAC BLENDING S&D',
                                         'value' => 1995,
                                       ),
-                                      505 => 
+                                      500 => 
                                       array (
                                         'key' => 'FRACO',
                                         'value' => 1996,
                                       ),
-                                      506 => 
+                                      501 => 
                                       array (
                                         'key' => 'FREON CHARGING',
                                         'value' => 1997,
                                       ),
-                                      507 => 
+                                      502 => 
                                       array (
                                         'key' => 'FRIG SEA',
                                         'value' => 1998,
                                       ),
-                                      508 => 
+                                      503 => 
                                       array (
                                         'key' => 'FRONTIER',
                                         'value' => 1999,
                                       ),
-                                      509 => 
+                                      504 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE',
                                         'value' => 2000,
                                       ),
-                                      510 => 
+                                      505 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 150',
                                         'value' => 1829337,
                                       ),
-                                      511 => 
+                                      506 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 200',
                                         'value' => 1829405,
                                       ),
-                                      512 => 
+                                      507 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 250',
                                         'value' => 1829237,
                                       ),
-                                      513 => 
+                                      508 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 300',
                                         'value' => 1829373,
                                       ),
-                                      514 => 
+                                      509 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE HD',
                                         'value' => 2001,
                                       ),
-                                      515 => 
+                                      510 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE HD 300',
                                         'value' => 1829422,
                                       ),
-                                      516 => 
+                                      511 => 
                                       array (
                                         'key' => 'FUEL FILL SAE J1527 TYPE A2',
                                         'value' => 2002,
                                       ),
-                                      517 => 
+                                      512 => 
                                       array (
                                         'key' => 'FUEL RIG SW',
                                         'value' => 2003,
                                       ),
-                                      518 => 
+                                      513 => 
                                       array (
                                         'key' => 'FUELGRIP COUPLING',
                                         'value' => 2004,
                                       ),
-                                      519 => 
+                                      514 => 
                                       array (
                                         'key' => 'FUGGITT',
                                         'value' => 2005,
                                       ),
-                                      520 => 
+                                      515 => 
                                       array (
                                         'key' => 'FUJI',
                                         'value' => 2006,
                                       ),
-                                      521 => 
+                                      516 => 
                                       array (
                                         'key' => 'FURNACE DOOR',
                                         'value' => 2007,
                                       ),
-                                      522 => 
+                                      517 => 
                                       array (
                                         'key' => 'FUTURA O-RING KIT',
                                         'value' => 2008,
                                       ),
-                                      523 => 
+                                      518 => 
                                       array (
                                         'key' => 'FUTURA RET RING INST. TOOL',
                                         'value' => 2009,
                                       ),
-                                      524 => 
+                                      519 => 
                                       array (
                                         'key' => 'GALAXY G4826',
                                         'value' => 2010,
                                       ),
-                                      525 => 
+                                      520 => 
                                       array (
                                         'key' => 'GALAXY G4867',
                                         'value' => 2011,
                                       ),
-                                      526 => 
+                                      521 => 
                                       array (
                                         'key' => 'GALAXY G4890',
                                         'value' => 2012,
                                       ),
-                                      527 => 
+                                      522 => 
                                       array (
                                         'key' => 'GALVANATOR',
                                         'value' => 2013,
                                       ),
-                                      528 => 
+                                      523 => 
                                       array (
                                         'key' => 'GAMMON',
                                         'value' => 2014,
                                       ),
-                                      529 => 
+                                      524 => 
                                       array (
                                         'key' => 'GARDEN HOSE',
                                         'value' => 1829286,
                                       ),
-                                      530 => 
+                                      525 => 
                                       array (
                                         'key' => 'GARRISON GAUNTLET',
                                         'value' => 1829424,
                                       ),
-                                      531 => 
+                                      526 => 
                                       array (
                                         'key' => 'GATES',
                                         'value' => 1829135,
                                       ),
-                                      532 => 
+                                      527 => 
                                       array (
                                         'key' => 'GATES 32000002',
                                         'value' => 1829418,
                                       ),
-                                      533 => 
+                                      528 => 
                                       array (
                                         'key' => 'GATES 32000003',
                                         'value' => 1829305,
                                       ),
-                                      534 => 
+                                      529 => 
                                       array (
                                         'key' => 'GATES 32000006',
                                         'value' => 1829245,
                                       ),
-                                      535 => 
+                                      530 => 
                                       array (
                                         'key' => 'GATES 32000007',
                                         'value' => 1829294,
                                       ),
-                                      536 => 
+                                      531 => 
                                       array (
                                         'key' => 'GATES 32000008',
                                         'value' => 1829247,
                                       ),
-                                      537 => 
+                                      532 => 
                                       array (
                                         'key' => 'GATES 32000009',
                                         'value' => 1829209,
                                       ),
-                                      538 => 
+                                      533 => 
                                       array (
                                         'key' => 'GATES 32000011',
                                         'value' => 1829265,
                                       ),
-                                      539 => 
+                                      534 => 
                                       array (
                                         'key' => 'GATES 32000012',
                                         'value' => 1829276,
                                       ),
-                                      540 => 
+                                      535 => 
                                       array (
                                         'key' => 'GATES 32000013',
                                         'value' => 1829254,
                                       ),
-                                      541 => 
+                                      536 => 
                                       array (
                                         'key' => 'GATES 32000014',
                                         'value' => 1829213,
                                       ),
-                                      542 => 
+                                      537 => 
                                       array (
                                         'key' => 'GATES 32000015',
                                         'value' => 1829419,
                                       ),
-                                      543 => 
+                                      538 => 
                                       array (
                                         'key' => 'GATES 32000016',
                                         'value' => 1829235,
                                       ),
-                                      544 => 
+                                      539 => 
                                       array (
                                         'key' => 'GATES 32000213',
                                         'value' => 1829420,
                                       ),
-                                      545 => 
+                                      540 => 
                                       array (
                                         'key' => 'GATES 32020011',
                                         'value' => 1829185,
                                       ),
-                                      546 => 
+                                      541 => 
                                       array (
                                         'key' => 'GATES 32020016',
                                         'value' => 1829390,
                                       ),
-                                      547 => 
+                                      542 => 
                                       array (
                                         'key' => 'GATES 32020021',
                                         'value' => 1829391,
                                       ),
-                                      548 => 
+                                      543 => 
                                       array (
                                         'key' => 'GATES 32020027',
                                         'value' => 1829392,
                                       ),
-                                      549 => 
+                                      544 => 
                                       array (
                                         'key' => 'GATES 32041328',
                                         'value' => 1829151,
                                       ),
-                                      550 => 
+                                      545 => 
                                       array (
                                         'key' => 'GATES 32041346',
                                         'value' => 1829126,
                                       ),
-                                      551 => 
+                                      546 => 
                                       array (
                                         'key' => 'GATES 32041349',
                                         'value' => 1829194,
                                       ),
-                                      552 => 
+                                      547 => 
                                       array (
                                         'key' => 'GATES 32041355',
                                         'value' => 1829136,
                                       ),
-                                      553 => 
+                                      548 => 
                                       array (
                                         'key' => 'GATES 32041364',
                                         'value' => 1829148,
                                       ),
-                                      554 => 
+                                      549 => 
                                       array (
                                         'key' => 'GATES 32041425',
                                         'value' => 1829267,
                                       ),
-                                      555 => 
+                                      550 => 
                                       array (
                                         'key' => 'GATES 32041437',
                                         'value' => 1829394,
                                       ),
-                                      556 => 
+                                      551 => 
                                       array (
                                         'key' => 'GATES 32050016',
                                         'value' => 1829284,
                                       ),
-                                      557 => 
+                                      552 => 
                                       array (
                                         'key' => 'GATES 32050026',
                                         'value' => 1829250,
                                       ),
-                                      558 => 
+                                      553 => 
                                       array (
                                         'key' => 'GATES 32050031',
                                         'value' => 1829259,
                                       ),
-                                      559 => 
+                                      554 => 
                                       array (
                                         'key' => 'GATES 32050036',
                                         'value' => 1829240,
                                       ),
-                                      560 => 
+                                      555 => 
                                       array (
                                         'key' => 'GATES 32050040',
                                         'value' => 1829208,
                                       ),
-                                      561 => 
+                                      556 => 
                                       array (
                                         'key' => 'GATES 32050041',
                                         'value' => 1829177,
                                       ),
-                                      562 => 
+                                      557 => 
                                       array (
                                         'key' => 'GATES 32050046',
                                         'value' => 1829146,
                                       ),
-                                      563 => 
+                                      558 => 
                                       array (
                                         'key' => 'GATES 32050049',
                                         'value' => 1829244,
                                       ),
-                                      564 => 
+                                      559 => 
                                       array (
                                         'key' => 'GATES 32050055',
                                         'value' => 1829181,
                                       ),
-                                      565 => 
+                                      560 => 
                                       array (
                                         'key' => 'GATES 32050226',
                                         'value' => 1829308,
                                       ),
-                                      566 => 
+                                      561 => 
                                       array (
                                         'key' => 'GATES 32050231',
                                         'value' => 1829310,
                                       ),
-                                      567 => 
+                                      562 => 
                                       array (
                                         'key' => 'GATES 32050236',
                                         'value' => 1829421,
                                       ),
-                                      568 => 
+                                      563 => 
                                       array (
                                         'key' => 'GATES 32050241',
                                         'value' => 1829303,
                                       ),
-                                      569 => 
+                                      564 => 
                                       array (
                                         'key' => 'GATES 32714397',
                                         'value' => 1829425,
                                       ),
-                                      570 => 
+                                      565 => 
                                       array (
                                         'key' => 'GATES 3624-0145',
                                         'value' => 1829261,
                                       ),
-                                      571 => 
+                                      566 => 
                                       array (
                                         'key' => 'GATES GASFLEX',
                                         'value' => 1829331,
                                       ),
-                                      572 => 
+                                      567 => 
                                       array (
                                         'key' => 'GATES STEAMKING',
                                         'value' => 1829107,
                                       ),
-                                      573 => 
+                                      568 => 
                                       array (
                                         'key' => 'GAUNTLET',
                                         'value' => 2015,
                                       ),
-                                      574 => 
+                                      569 => 
                                       array (
                                         'key' => 'GENERIC',
                                         'value' => 2016,
                                       ),
-                                      575 => 
+                                      570 => 
                                       array (
                                         'key' => 'GENERIC AIR',
                                         'value' => 1829359,
                                       ),
-                                      576 => 
+                                      571 => 
                                       array (
                                         'key' => 'GENERIC AIR 250',
                                         'value' => 1829312,
                                       ),
-                                      577 => 
+                                      572 => 
                                       array (
                                         'key' => 'GENERIC LOW TEMP TANK TRUCK',
                                         'value' => 2017,
                                       ),
-                                      578 => 
+                                      573 => 
                                       array (
                                         'key' => 'GENERIC PETRO TANK TRUCK',
                                         'value' => 1829253,
                                       ),
-                                      579 => 
+                                      574 => 
                                       array (
                                         'key' => 'GENERIC PL & GR',
                                         'value' => 1829332,
                                       ),
-                                      580 => 
+                                      575 => 
                                       array (
                                         'key' => 'GENERIC PLASTER & GROUT',
                                         'value' => 2018,
                                       ),
-                                      581 => 
+                                      576 => 
                                       array (
                                         'key' => 'GENERIC PUSH-ON',
                                         'value' => 5299956,
                                       ),
-                                      582 => 
+                                      577 => 
                                       array (
                                         'key' => 'GENERIC VACUUM',
                                         'value' => 2019,
                                       ),
-                                      583 => 
+                                      578 => 
                                       array (
                                         'key' => 'GENERIC WATER 100D',
                                         'value' => 1829299,
                                       ),
-                                      584 => 
+                                      579 => 
                                       array (
                                         'key' => 'GENERIC WATER DISCHARGE',
                                         'value' => 2020,
                                       ),
-                                      585 => 
+                                      580 => 
                                       array (
                                         'key' => 'GENERIC WATER S&D',
                                         'value' => 2021,
                                       ),
-                                      586 => 
+                                      581 => 
                                       array (
                                         'key' => 'GENLINE',
                                         'value' => 2022,
                                       ),
-                                      587 => 
+                                      582 => 
                                       array (
                                         'key' => 'GENLINE GL',
                                         'value' => 2023,
                                       ),
-                                      588 => 
+                                      583 => 
                                       array (
                                         'key' => 'GENLINE GL-802',
                                         'value' => 2024,
                                       ),
-                                      589 => 
+                                      584 => 
                                       array (
                                         'key' => 'GENLINE GL-803',
                                         'value' => 2025,
                                       ),
-                                      590 => 
+                                      585 => 
                                       array (
                                         'key' => 'GHX',
                                         'value' => 2026,
                                       ),
-                                      591 => 
+                                      586 => 
                                       array (
                                         'key' => 'GHX OILFIELD',
                                         'value' => 1829398,
                                       ),
-                                      592 => 
+                                      587 => 
                                       array (
                                         'key' => 'GHX OILFIELD S&D',
                                         'value' => 1829395,
                                       ),
-                                      593 => 
+                                      588 => 
                                       array (
                                         'key' => 'GHX PETRO XPOWER',
                                         'value' => 1829123,
                                       ),
-                                      594 => 
+                                      589 => 
                                       array (
                                         'key' => 'GHX WATER S&D',
                                         'value' => 1829397,
                                       ),
-                                      595 => 
+                                      590 => 
                                       array (
                                         'key' => 'GHX XPOWER OILFIELD FRAC TANK',
                                         'value' => 1829186,
                                       ),
-                                      596 => 
+                                      591 => 
                                       array (
                                         'key' => 'GILBARCO',
                                         'value' => 2027,
                                       ),
-                                      597 => 
+                                      592 => 
                                       array (
                                         'key' => 'GLOBAL',
                                         'value' => 2028,
                                       ),
-                                      598 => 
+                                      593 => 
                                       array (
                                         'key' => 'GLOBAL M24565-70-H',
                                         'value' => 1829204,
                                       ),
-                                      599 => 
+                                      594 => 
                                       array (
                                         'key' => 'GNSPEC',
                                         'value' => 2029,
                                       ),
-                                      600 => 
+                                      595 => 
                                       array (
                                         'key' => 'GNSPEC 100R12',
                                         'value' => 2030,
                                       ),
-                                      601 => 
+                                      596 => 
                                       array (
                                         'key' => 'GNSPEC 100R16',
                                         'value' => 2031,
                                       ),
-                                      602 => 
+                                      597 => 
                                       array (
                                         'key' => 'GNSPEC 100R17',
                                         'value' => 1829224,
                                       ),
-                                      603 => 
+                                      598 => 
                                       array (
                                         'key' => 'GNSPEC 100R2',
                                         'value' => 2032,
                                       ),
-                                      604 => 
+                                      599 => 
                                       array (
                                         'key' => 'GNSPEC 100R6',
                                         'value' => 2033,
                                       ),
-                                      605 => 
+                                      600 => 
                                       array (
                                         'key' => 'GNSPEC 200 AIR',
                                         'value' => 2034,
                                       ),
-                                      606 => 
+                                      601 => 
                                       array (
                                         'key' => 'GNSPEC 250 AIR',
                                         'value' => 2035,
                                       ),
-                                      607 => 
+                                      602 => 
                                       array (
                                         'key' => 'GNSPEC 300 AIR',
                                         'value' => 2036,
                                       ),
-                                      608 => 
+                                      603 => 
                                       array (
                                         'key' => 'GNSPEC 4001 PRESSURE WASHER',
                                         'value' => 2037,
                                       ),
-                                      609 => 
+                                      604 => 
                                       array (
                                         'key' => 'GNSPEC 4500 PRESSURE WASHER',
                                         'value' => 2038,
                                       ),
-                                      610 => 
+                                      605 => 
                                       array (
                                         'key' => 'GNSPEC NR SPRAY',
                                         'value' => 2039,
                                       ),
-                                      611 => 
+                                      606 => 
                                       array (
                                         'key' => 'GNSPEC PUSH ON 250',
                                         'value' => 2040,
                                       ),
-                                      612 => 
+                                      607 => 
                                       array (
                                         'key' => 'GOLD SNAKE',
                                         'value' => 2041,
                                       ),
-                                      613 => 
+                                      608 => 
                                       array (
                                         'key' => 'GOOD FLEX',
                                         'value' => 2042,
                                       ),
-                                      614 => 
+                                      609 => 
                                       array (
                                         'key' => 'GOODAL',
                                         'value' => 1829176,
                                       ),
-                                      615 => 
+                                      610 => 
                                       array (
                                         'key' => 'GOODALL',
                                         'value' => 2043,
                                       ),
-                                      616 => 
+                                      611 => 
                                       array (
                                         'key' => 'GOODALL CHEMICAL',
                                         'value' => 1829400,
                                       ),
-                                      617 => 
+                                      612 => 
                                       array (
                                         'key' => 'GORILLA',
                                         'value' => 2044,
                                       ),
-                                      618 => 
+                                      613 => 
                                       array (
                                         'key' => 'GRACO',
                                         'value' => 2045,
                                       ),
-                                      619 => 
+                                      614 => 
                                       array (
                                         'key' => 'GRACO 079055',
                                         'value' => 1829134,
                                       ),
-                                      620 => 
+                                      615 => 
                                       array (
                                         'key' => 'GRAINGER',
                                         'value' => 2046,
                                       ),
-                                      621 => 
+                                      616 => 
                                       array (
                                         'key' => 'GRAY DUCTING',
                                         'value' => 1829388,
                                       ),
-                                      622 => 
+                                      617 => 
                                       array (
                                         'key' => 'GRAY FLEXTRA LT',
                                         'value' => 2047,
                                       ),
-                                      623 => 
+                                      618 => 
                                       array (
                                         'key' => 'GRAY FLEXWING',
                                         'value' => 2048,
                                       ),
-                                      624 => 
+                                      619 => 
                                       array (
                                         'key' => 'GRAY FOOD',
                                         'value' => 2049,
                                       ),
-                                      625 => 
+                                      620 => 
                                       array (
                                         'key' => 'GRAY SUCTION',
                                         'value' => 2050,
                                       ),
-                                      626 => 
+                                      621 => 
                                       array (
                                         'key' => 'GREASE GUN HOSE',
                                         'value' => 2051,
                                       ),
-                                      627 => 
+                                      622 => 
                                       array (
                                         'key' => 'GREAT NECK',
                                         'value' => 2052,
                                       ),
-                                      628 => 
+                                      623 => 
                                       array (
                                         'key' => 'GREAT PLAINS',
                                         'value' => 2053,
                                       ),
-                                      629 => 
+                                      624 => 
                                       array (
                                         'key' => 'GREEN HORNET XF',
                                         'value' => 2054,
                                       ),
-                                      630 => 
+                                      625 => 
                                       array (
                                         'key' => 'GREEN XLPE 150',
                                         'value' => 1829325,
                                       ),
-                                      631 => 
+                                      626 => 
                                       array (
                                         'key' => 'GRINUS',
                                         'value' => 1829389,
                                       ),
-                                      632 => 
+                                      627 => 
                                       array (
                                         'key' => 'GTF',
                                         'value' => 1829954,
                                       ),
-                                      633 => 
+                                      628 => 
                                       array (
                                         'key' => 'GUNITE',
                                         'value' => 2055,
                                       ),
-                                      634 => 
+                                      629 => 
                                       array (
                                         'key' => 'GUNITE (TAN)',
                                         'value' => 1829353,
                                       ),
-                                      635 => 
+                                      630 => 
                                       array (
                                         'key' => 'HAMILON BLAST',
                                         'value' => 1829365,
                                       ),
-                                      636 => 
+                                      631 => 
                                       array (
                                         'key' => 'HAMILTON',
                                         'value' => 5756819,
                                       ),
-                                      637 => 
+                                      632 => 
                                       array (
                                         'key' => 'HAMILTON BLAST',
                                         'value' => 2056,
                                       ),
-                                      638 => 
+                                      633 => 
                                       array (
                                         'key' => 'HAMILTON HYDROCARBON DRAIN',
                                         'value' => 2057,
                                       ),
-                                      639 => 
+                                      634 => 
                                       array (
                                         'key' => 'Hammer Union',
                                         'value' => 1829962,
                                       ),
-                                      640 => 
+                                      635 => 
                                       array (
                                         'key' => 'HANLIO TWIN-LINE (GRADE R)',
                                         'value' => 1829417,
                                       ),
-                                      641 => 
+                                      636 => 
                                       array (
                                         'key' => 'HANLIO TWIN-LINE GRADE R',
                                         'value' => 2058,
                                       ),
-                                      642 => 
+                                      637 => 
                                       array (
                                         'key' => 'HART',
                                         'value' => 2059,
                                       ),
-                                      643 => 
+                                      638 => 
                                       array (
                                         'key' => 'HART BLACK SOFTWALL',
                                         'value' => 2060,
                                       ),
-                                      644 => 
+                                      639 => 
                                       array (
                                         'key' => 'HART FABCHEM',
                                         'value' => 2061,
                                       ),
-                                      645 => 
+                                      640 => 
                                       array (
                                         'key' => 'HART FLOUR DISCHARGE',
                                         'value' => 2062,
                                       ),
-                                      646 => 
+                                      641 => 
                                       array (
                                         'key' => 'HART HOT AIR',
                                         'value' => 2063,
                                       ),
-                                      647 => 
+                                      642 => 
                                       array (
                                         'key' => 'HARVEST',
                                         'value' => 2064,
                                       ),
-                                      648 => 
+                                      643 => 
                                       array (
                                         'key' => 'HAWAII MARINE',
                                         'value' => 1829377,
                                       ),
-                                      649 => 
+                                      644 => 
                                       array (
                                         'key' => 'HAWK PD',
                                         'value' => 1829522,
                                       ),
-                                      650 => 
+                                      645 => 
                                       array (
                                         'key' => 'HD AIR',
                                         'value' => 2065,
                                       ),
-                                      651 => 
+                                      646 => 
                                       array (
                                         'key' => 'HD AIR & WATER',
                                         'value' => 2066,
                                       ),
-                                      652 => 
+                                      647 => 
                                       array (
                                         'key' => 'HD AIR 300',
                                         'value' => 1829289,
                                       ),
-                                      653 => 
+                                      648 => 
                                       array (
                                         'key' => 'HD INDUSTRIAL VACUUM',
                                         'value' => 2067,
                                       ),
-                                      654 => 
+                                      649 => 
                                       array (
                                         'key' => 'HD PETRO TRANSFER',
                                         'value' => 2068,
                                       ),
-                                      655 => 
+                                      650 => 
                                       array (
                                         'key' => 'HD VACUUM',
                                         'value' => 2069,
                                       ),
-                                      656 => 
+                                      651 => 
                                       array (
                                         'key' => 'HD WATER DISCHARGE',
                                         'value' => 2070,
                                       ),
-                                      657 => 
+                                      652 => 
                                       array (
                                         'key' => 'HD WATER SD',
                                         'value' => 2071,
                                       ),
-                                      658 => 
+                                      653 => 
                                       array (
                                         'key' => 'HEALY LOW PERM',
                                         'value' => 1829101,
                                       ),
-                                      659 => 
+                                      654 => 
                                       array (
                                         'key' => 'HEATER HOSE 20R3D2',
                                         'value' => 2072,
                                       ),
-                                      660 => 
+                                      655 => 
                                       array (
                                         'key' => 'HEATER WATER',
                                         'value' => 2073,
                                       ),
-                                      661 => 
+                                      656 => 
                                       array (
                                         'key' => 'HEAVY DUTY STEAM PILE DRIVER',
                                         'value' => 2074,
                                       ),
-                                      662 => 
+                                      657 => 
                                       array (
                                         'key' => 'HEWITT',
                                         'value' => 2075,
                                       ),
-                                      663 => 
+                                      658 => 
                                       array (
                                         'key' => 'HEWITT AIRCRAFT',
                                         'value' => 2076,
                                       ),
-                                      664 => 
+                                      659 => 
                                       array (
                                         'key' => 'HEX',
                                         'value' => 1829505,
                                       ),
-                                      665 => 
+                                      660 => 
                                       array (
                                         'key' => 'HI-MINER II',
                                         'value' => 2077,
                                       ),
-                                      666 => 
+                                      661 => 
                                       array (
                                         'key' => 'HI-PER',
                                         'value' => 2078,
                                       ),
-                                      667 => 
+                                      662 => 
                                       array (
                                         'key' => 'HIGHLAND BRINE WATER S&D',
                                         'value' => 1829287,
                                       ),
-                                      668 => 
+                                      663 => 
                                       array (
                                         'key' => 'HIGHLAND POTABLE WATER S&D',
                                         'value' => 1829262,
                                       ),
-                                      669 => 
+                                      664 => 
                                       array (
                                         'key' => 'HIGHLAND RAW WATER S&D',
                                         'value' => 1829268,
                                       ),
-                                      670 => 
+                                      665 => 
                                       array (
                                         'key' => 'HIGHLAND WASTE WATER S&D',
                                         'value' => 1829315,
                                       ),
-                                      671 => 
+                                      666 => 
                                       array (
                                         'key' => 'HIPER WATER',
                                         'value' => 2079,
                                       ),
-                                      672 => 
+                                      667 => 
                                       array (
                                         'key' => 'HITECH WASHDOWN',
                                         'value' => 1829301,
                                       ),
-                                      673 => 
+                                      668 => 
                                       array (
                                         'key' => 'HOOSIER FOOD TL',
                                         'value' => 2080,
                                       ),
-                                      674 => 
+                                      669 => 
                                       array (
                                         'key' => 'HOSCO',
                                         'value' => 2081,
                                       ),
-                                      675 => 
+                                      670 => 
                                       array (
                                         'key' => 'HOSE ASSEMBLY COLD',
                                         'value' => 1829095,
                                       ),
-                                      676 => 
+                                      671 => 
                                       array (
                                         'key' => 'HOSE ASSEMBLY HOT',
                                         'value' => 1829097,
                                       ),
-                                      677 => 
+                                      672 => 
                                       array (
                                         'key' => 'HOSE GUYS',
                                         'value' => 1829344,
                                       ),
-                                      678 => 
+                                      673 => 
                                       array (
                                         'key' => 'Hose Joiner',
                                         'value' => 1829972,
                                       ),
-                                      679 => 
+                                      674 => 
                                       array (
                                         'key' => 'Hose Medner with Sight Glass',
                                         'value' => 1829990,
                                       ),
-                                      680 => 
+                                      675 => 
                                       array (
                                         'key' => 'Hose Mender',
                                         'value' => 1829982,
                                       ),
-                                      681 => 
+                                      676 => 
                                       array (
                                         'key' => 'Hose Mender with Sight Glass',
                                         'value' => 1829983,
                                       ),
-                                      682 => 
+                                      677 => 
                                       array (
                                         'key' => 'Hose Mender, Tee',
                                         'value' => 1829984,
                                       ),
-                                      683 => 
+                                      678 => 
                                       array (
                                         'key' => 'HOSE POWER',
                                         'value' => 2082,
                                       ),
-                                      684 => 
+                                      679 => 
                                       array (
                                         'key' => 'HOSEPOWER',
                                         'value' => 2083,
                                       ),
-                                      685 => 
+                                      680 => 
                                       array (
                                         'key' => 'HOSEPOWER PLASTER & GROUT',
                                         'value' => 1829401,
                                       ),
-                                      686 => 
+                                      681 => 
                                       array (
                                         'key' => 'HOSINC',
                                         'value' => 5759835,
                                       ),
-                                      687 => 
+                                      682 => 
                                       array (
                                         'key' => 'HOT AIR',
                                         'value' => 1829319,
                                       ),
-                                      688 => 
+                                      683 => 
                                       array (
                                         'key' => 'HOT TAR & ASPHALT EN13482',
                                         'value' => 2084,
                                       ),
-                                      689 => 
+                                      684 => 
                                       array (
                                         'key' => 'HOT TAR & ASPHALT ROUGH BORE',
                                         'value' => 2085,
                                       ),
-                                      690 => 
+                                      685 => 
                                       array (
                                         'key' => 'HOT WATER ELITE',
                                         'value' => 2086,
                                       ),
-                                      691 => 
+                                      686 => 
                                       array (
                                         'key' => 'HR4',
                                         'value' => 2087,
                                       ),
-                                      692 => 
+                                      687 => 
                                       array (
                                         'key' => 'HR6',
                                         'value' => 2088,
                                       ),
-                                      693 => 
+                                      688 => 
                                       array (
                                         'key' => 'HSS WATER JETTING',
                                         'value' => 1829385,
                                       ),
-                                      694 => 
+                                      689 => 
                                       array (
                                         'key' => 'HUDSON',
                                         'value' => 2089,
                                       ),
-                                      695 => 
+                                      690 => 
                                       array (
                                         'key' => 'HUMIDIFIER HOSE',
                                         'value' => 2090,
                                       ),
-                                      696 => 
+                                      691 => 
                                       array (
                                         'key' => 'HUSKY',
                                         'value' => 2091,
                                       ),
-                                      697 => 
+                                      692 => 
                                       array (
                                         'key' => 'HVLP NON-CONDUCTIVE',
                                         'value' => 2092,
                                       ),
-                                      698 => 
+                                      693 => 
                                       array (
                                         'key' => 'HW DRY CEMENT & BARITES',
                                         'value' => 2093,
                                       ),
-                                      699 => 
+                                      694 => 
                                       array (
                                         'key' => 'HY-T HEATER HOSE',
                                         'value' => 1829350,
                                       ),
-                                      700 => 
+                                      695 => 
                                       array (
                                         'key' => 'HY-T PLUS',
                                         'value' => 1829503,
                                       ),
-                                      701 => 
+                                      696 => 
                                       array (
                                         'key' => 'HY-T TORQUE TEAM',
                                         'value' => 1829494,
                                       ),
-                                      702 => 
+                                      697 => 
                                       array (
                                         'key' => 'HY-T TORQUE TEAM LAMINATED',
                                         'value' => 1829502,
                                       ),
-                                      703 => 
+                                      698 => 
                                       array (
                                         'key' => 'HY-T TORQUE TEAM PLUS',
                                         'value' => 1829499,
                                       ),
-                                      704 => 
+                                      699 => 
                                       array (
                                         'key' => 'HY-T WEDGE',
                                         'value' => 1829506,
                                       ),
-                                      705 => 
+                                      700 => 
                                       array (
                                         'key' => 'HY-T WEDGE TORQUE TEAM',
                                         'value' => 1829501,
                                       ),
-                                      706 => 
+                                      701 => 
                                       array (
                                         'key' => 'HYDROCARBON DRAIN',
                                         'value' => 2094,
                                       ),
-                                      707 => 
+                                      702 => 
                                       array (
                                         'key' => 'HYDROVATOR',
                                         'value' => 2095,
                                       ),
-                                      708 => 
+                                      703 => 
                                       array (
                                         'key' => 'HYDROVATOR PLUS',
                                         'value' => 2096,
                                       ),
-                                      709 => 
+                                      704 => 
                                       array (
                                         'key' => 'I.R.F.',
                                         'value' => 2097,
                                       ),
-                                      710 => 
+                                      705 => 
                                       array (
                                         'key' => 'IBM COOLING WATER',
                                         'value' => 2098,
                                       ),
-                                      711 => 
+                                      706 => 
                                       array (
                                         'key' => 'IBRS',
                                         'value' => 2099,
                                       ),
-                                      712 => 
+                                      707 => 
                                       array (
                                         'key' => 'IBRS FISH HOSE',
                                         'value' => 1829113,
                                       ),
-                                      713 => 
+                                      708 => 
                                       array (
                                         'key' => 'IBRS FISH S&D',
                                         'value' => 1829195,
                                       ),
-                                      714 => 
+                                      709 => 
                                       array (
                                         'key' => 'IBRS SANITARY',
                                         'value' => 2100,
                                       ),
-                                      715 => 
+                                      710 => 
                                       array (
                                         'key' => 'ICE CUTTER HOSE',
                                         'value' => 2101,
                                       ),
-                                      716 => 
+                                      711 => 
                                       array (
                                         'key' => 'ICS GROUP AIR',
                                         'value' => 1829356,
                                       ),
-                                      717 => 
+                                      712 => 
                                       array (
                                         'key' => 'IMPERL POLARSHIELD',
                                         'value' => 1829216,
                                       ),
-                                      718 => 
+                                      713 => 
                                       array (
                                         'key' => 'INERT GAS',
                                         'value' => 2102,
                                       ),
-                                      719 => 
+                                      714 => 
                                       array (
                                         'key' => 'INET COOLING',
                                         'value' => 2103,
                                       ),
-                                      720 => 
+                                      715 => 
                                       array (
                                         'key' => 'INFINITY CHEM',
                                         'value' => 1829288,
                                       ),
-                                      721 => 
+                                      716 => 
                                       array (
                                         'key' => 'INFINITY CHEMICAL',
                                         'value' => 2104,
                                       ),
-                                      722 => 
+                                      717 => 
                                       array (
                                         'key' => 'INFINITY FOOD',
                                         'value' => 2105,
                                       ),
-                                      723 => 
+                                      718 => 
                                       array (
                                         'key' => 'INFINITY FUEL DROP',
                                         'value' => 2106,
                                       ),
-                                      724 => 
+                                      719 => 
                                       array (
                                         'key' => 'INFINITY FUEL DROP HD',
                                         'value' => 2107,
                                       ),
-                                      725 => 
+                                      720 => 
                                       array (
                                         'key' => 'INFINITY MILK',
                                         'value' => 2108,
                                       ),
-                                      726 => 
+                                      721 => 
                                       array (
                                         'key' => 'INJECTION COOLANT',
                                         'value' => 2109,
                                       ),
-                                      727 => 
+                                      722 => 
                                       array (
                                         'key' => 'INLET HOSE',
                                         'value' => 2110,
                                       ),
-                                      728 => 
+                                      723 => 
                                       array (
                                         'key' => 'Inline Orifice Tubes',
                                         'value' => 1829996,
                                       ),
-                                      729 => 
+                                      724 => 
                                       array (
                                         'key' => 'INSTA-GRIP',
                                         'value' => 1829109,
                                       ),
-                                      730 => 
+                                      725 => 
                                       array (
                                         'key' => 'INSTA-GRIP 250',
                                         'value' => 2111,
                                       ),
-                                      731 => 
+                                      726 => 
                                       array (
                                         'key' => 'INSTA-GRIP 300',
                                         'value' => 2112,
                                       ),
-                                      732 => 
+                                      727 => 
                                       array (
                                         'key' => 'INSTA-GRIP HT',
                                         'value' => 2113,
                                       ),
-                                      733 => 
+                                      728 => 
                                       array (
                                         'key' => 'INSTA-GRIP SP',
                                         'value' => 2114,
                                       ),
-                                      734 => 
+                                      729 => 
                                       array (
                                         'key' => 'INSTA-GRIP TC',
                                         'value' => 2115,
                                       ),
-                                      735 => 
+                                      730 => 
                                       array (
                                         'key' => 'INSTA-LOCK',
                                         'value' => 2116,
                                       ),
-                                      736 => 
+                                      731 => 
                                       array (
                                         'key' => 'INSTA-LOCK ADAPTER',
                                         'value' => 1829281,
                                       ),
-                                      737 => 
+                                      732 => 
                                       array (
                                         'key' => 'INSTA-LOCK COUPLER',
                                         'value' => 1829269,
                                       ),
-                                      738 => 
+                                      733 => 
                                       array (
                                         'key' => 'INSTA-LOCK CRIMP SLEEVE',
                                         'value' => 1829290,
                                       ),
-                                      739 => 
+                                      734 => 
                                       array (
                                         'key' => 'INSTA-LOCK DUST CAP',
                                         'value' => 1829167,
                                       ),
-                                      740 => 
+                                      735 => 
                                       array (
                                         'key' => 'INSTA-LOCK DUST PLUG',
                                         'value' => 1829295,
                                       ),
-                                      741 => 
+                                      736 => 
                                       array (
                                         'key' => 'INSTA-LOCK FERRULE',
                                         'value' => 1829278,
                                       ),
-                                      742 => 
+                                      737 => 
                                       array (
                                         'key' => 'INSTA-LOCK GASKET',
                                         'value' => 1829302,
                                       ),
-                                      743 => 
+                                      738 => 
                                       array (
                                         'key' => 'INSTA-LOCK HOSE STEM',
                                         'value' => 1829277,
                                       ),
-                                      744 => 
+                                      739 => 
                                       array (
                                         'key' => 'INSTA-LOCK JUMP SIZE',
                                         'value' => 1829251,
                                       ),
-                                      745 => 
+                                      740 => 
                                       array (
                                         'key' => 'INSTA-LOCK SPOOL ADAPTER',
                                         'value' => 1829314,
                                       ),
-                                      746 => 
+                                      741 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE A',
                                         'value' => 1829243,
                                       ),
-                                      747 => 
+                                      742 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE B',
                                         'value' => 1829248,
                                       ),
-                                      748 => 
+                                      743 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE C',
                                         'value' => 1829119,
                                       ),
-                                      749 => 
+                                      744 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE D',
                                         'value' => 1829115,
                                       ),
-                                      750 => 
+                                      745 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE E',
                                         'value' => 1829223,
                                       ),
-                                      751 => 
+                                      746 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE F',
                                         'value' => 1829285,
                                       ),
-                                      752 => 
+                                      747 => 
                                       array (
                                         'key' => 'INSTA-POWER',
                                         'value' => 1829496,
                                       ),
-                                      753 => 
+                                      748 => 
                                       array (
                                         'key' => 'INTERCHANGE',
                                         'value' => 5764902,
                                       ),
-                                      754 => 
+                                      749 => 
                                       array (
                                         'key' => 'INTERCHEM',
                                         'value' => 2117,
                                       ),
-                                      755 => 
+                                      750 => 
                                       array (
                                         'key' => 'INTERM',
                                         'value' => 2118,
                                       ),
-                                      756 => 
+                                      751 => 
                                       array (
                                         'key' => 'INTERNATIONAL BELT',
                                         'value' => 2119,
                                       ),
-                                      757 => 
+                                      752 => 
                                       array (
                                         'key' => 'INTERNATIONAL BELT VERSIFLO S&D',
                                         'value' => 1829393,
                                       ),
-                                      758 => 
+                                      753 => 
                                       array (
                                         'key' => 'IRC DRILL WATER',
                                         'value' => 2120,
                                       ),
-                                      759 => 
+                                      754 => 
                                       array (
                                         'key' => 'IRPCO',
                                         'value' => 2121,
                                       ),
-                                      760 => 
+                                      755 => 
                                       array (
                                         'key' => 'IRPCO RED FUEL OIL',
                                         'value' => 1829155,
                                       ),
-                                      761 => 
+                                      756 => 
                                       array (
                                         'key' => 'IRR',
                                         'value' => 2122,
                                       ),
-                                      762 => 
+                                      757 => 
                                       array (
                                         'key' => 'IRR FLEX JET',
                                         'value' => 2123,
                                       ),
-                                      763 => 
+                                      758 => 
                                       array (
                                         'key' => 'IRRIGATION BOOT',
                                         'value' => 2124,
                                       ),
-                                      764 => 
+                                      759 => 
                                       array (
                                         'key' => 'ISO 3821',
                                         'value' => 2125,
                                       ),
-                                      765 => 
+                                      760 => 
                                       array (
                                         'key' => 'ISO 8031',
                                         'value' => 2126,
                                       ),
-                                      766 => 
+                                      761 => 
                                       array (
                                         'key' => 'ITALPR',
                                         'value' => 2127,
                                       ),
-                                      767 => 
+                                      762 => 
                                       array (
                                         'key' => 'ITALPR TEFLON',
                                         'value' => 2128,
                                       ),
-                                      768 => 
+                                      763 => 
                                       array (
                                         'key' => 'JACKHAMMER',
                                         'value' => 2129,
                                       ),
-                                      769 => 
+                                      764 => 
                                       array (
                                         'key' => 'JB INDUSTRIES',
                                         'value' => 2130,
                                       ),
-                                      770 => 
+                                      765 => 
                                       array (
                                         'key' => 'JET RANGER',
                                         'value' => 2131,
                                       ),
-                                      771 => 
+                                      766 => 
                                       array (
                                         'key' => 'JETTING',
                                         'value' => 2132,
                                       ),
-                                      772 => 
+                                      767 => 
                                       array (
                                         'key' => 'JETTING AND UTILITY',
                                         'value' => 2133,
                                       ),
-                                      773 => 
+                                      768 => 
                                       array (
                                         'key' => 'JETTING UTILITY',
                                         'value' => 1829339,
                                       ),
-                                      774 => 
+                                      769 => 
                                       array (
                                         'key' => 'JGB INDUSTRIES',
                                         'value' => 2134,
                                       ),
-                                      775 => 
+                                      770 => 
                                       array (
                                         'key' => 'JIC 37 Flare',
                                         'value' => 1830011,
                                       ),
-                                      776 => 
+                                      771 => 
                                       array (
                                         'key' => 'JIC 37 Flare (SAE J514)',
                                         'value' => 1829945,
                                       ),
-                                      777 => 
+                                      772 => 
                                       array (
                                         'key' => 'JIS 30 (Paralled Pipe Threads)',
                                         'value' => 1829971,
                                       ),
-                                      778 => 
+                                      773 => 
                                       array (
                                         'key' => 'JIS 30 (Parallel Pipe Threads)',
                                         'value' => 1829978,
                                       ),
-                                      779 => 
+                                      774 => 
                                       array (
                                         'key' => 'JOHN DEERE',
                                         'value' => 2135,
                                       ),
-                                      780 => 
+                                      775 => 
                                       array (
                                         'key' => 'JOHN DEERE WATER S&D',
                                         'value' => 1829271,
                                       ),
-                                      781 => 
+                                      776 => 
                                       array (
                                         'key' => 'KAPTEC ULTRAFLEX',
                                         'value' => 2136,
                                       ),
-                                      782 => 
+                                      777 => 
                                       array (
                                         'key' => 'KAPTECH FOOD DICHARGE',
                                         'value' => 2137,
                                       ),
-                                      783 => 
+                                      778 => 
                                       array (
                                         'key' => 'KCRUBBER AUGER ARC PILING',
                                         'value' => 1829175,
                                       ),
-                                      784 => 
+                                      779 => 
                                       array (
                                         'key' => 'KELCO BLAST',
                                         'value' => 2138,
                                       ),
-                                      785 => 
+                                      780 => 
                                       array (
                                         'key' => 'KETEK FLEX PETROLEUM',
                                         'value' => 2139,
                                       ),
-                                      786 => 
+                                      781 => 
                                       array (
                                         'key' => 'KH DIVERS HOSE',
                                         'value' => 5580054,
                                       ),
-                                      787 => 
+                                      782 => 
                                       array (
                                         'key' => 'KIDDE 20079 FIRE EX UL92',
                                         'value' => 1829219,
                                       ),
-                                      788 => 
-                                      array (
-                                        'key' => 'KIMBALL',
-                                        'value' => 7079915,
-                                      ),
-                                      789 => 
+                                      783 => 
                                       array (
                                         'key' => 'KINK GUARD',
                                         'value' => 1829280,
                                       ),
-                                      790 => 
+                                      784 => 
                                       array (
                                         'key' => 'KINKGUARD',
                                         'value' => 2140,
                                       ),
-                                      791 => 
+                                      785 => 
                                       array (
                                         'key' => 'KINKGUARD GARDEN HOSE',
                                         'value' => 1829372,
                                       ),
-                                      792 => 
+                                      786 => 
                                       array (
                                         'key' => 'Komatsu 30 Flare with Metric Threads',
                                         'value' => 1829970,
                                       ),
-                                      793 => 
+                                      787 => 
                                       array (
                                         'key' => 'Komatsu Flange',
                                         'value' => 1829963,
                                       ),
-                                      794 => 
+                                      788 => 
                                       array (
                                         'key' => 'L&G GE SANDER HOSE',
                                         'value' => 1829139,
                                       ),
-                                      795 => 
+                                      789 => 
                                       array (
                                         'key' => 'L&G ROCK DUST SW HD',
                                         'value' => 1829121,
                                       ),
-                                      796 => 
+                                      790 => 
                                       array (
                                         'key' => 'LABOUR BLUCOR COUPLING',
                                         'value' => 2141,
                                       ),
-                                      797 => 
+                                      791 => 
                                       array (
                                         'key' => 'LACTOPAL',
                                         'value' => 2142,
                                       ),
-                                      798 => 
+                                      792 => 
                                       array (
                                         'key' => 'LACTOPAL L',
                                         'value' => 1829414,
                                       ),
-                                      799 => 
+                                      793 => 
                                       array (
                                         'key' => 'LAKECHARLES',
                                         'value' => 2143,
                                       ),
-                                      800 => 
+                                      794 => 
                                       array (
                                         'key' => 'LEGACY TPU',
                                         'value' => 2144,
                                       ),
-                                      801 => 
+                                      795 => 
                                       array (
                                         'key' => 'LG NITRILE',
                                         'value' => 2145,
                                       ),
-                                      802 => 
+                                      796 => 
                                       array (
                                         'key' => 'LIGHTRAC',
                                         'value' => 2146,
                                       ),
-                                      803 => 
+                                      797 => 
                                       array (
                                         'key' => 'LIGHTWEIGHT VACUUM',
                                         'value' => 2147,
                                       ),
-                                      804 => 
+                                      798 => 
                                       array (
                                         'key' => 'LINECRETE',
                                         'value' => 2148,
                                       ),
-                                      805 => 
+                                      799 => 
                                       array (
                                         'key' => 'LIQUID MUD',
                                         'value' => 2149,
                                       ),
-                                      806 => 
+                                      800 => 
                                       array (
                                         'key' => 'LIQUID MUD YS',
                                         'value' => 2150,
                                       ),
-                                      807 => 
+                                      801 => 
                                       array (
                                         'key' => 'LIQUIFORCE',
                                         'value' => 2151,
                                       ),
-                                      808 => 
+                                      802 => 
                                       array (
                                         'key' => 'LPG DELIVERY PRO',
                                         'value' => 2152,
                                       ),
-                                      809 => 
+                                      803 => 
                                       array (
                                         'key' => 'LUMPKIN',
                                         'value' => 1829203,
                                       ),
-                                      810 => 
+                                      804 => 
                                       array (
                                         'key' => 'LW ARCTIC TANK TRUCK',
                                         'value' => 2153,
                                       ),
-                                      811 => 
+                                      805 => 
                                       array (
                                         'key' => 'LW BLACK FLEXTRA II',
                                         'value' => 2154,
                                       ),
-                                      812 => 
+                                      806 => 
                                       array (
                                         'key' => 'LW INDUSTRIAL VACUUM',
                                         'value' => 2155,
                                       ),
-                                      813 => 
+                                      807 => 
                                       array (
                                         'key' => 'M&P MINE CONDUIT',
                                         'value' => 2156,
                                       ),
-                                      814 => 
+                                      808 => 
                                       array (
                                         'key' => 'M13531J-B3A',
                                         'value' => 1829133,
                                       ),
-                                      815 => 
+                                      809 => 
                                       array (
                                         'key' => 'MADE IN USA GARDEN',
                                         'value' => 1829273,
                                       ),
-                                      816 => 
+                                      810 => 
                                       array (
                                         'key' => 'MANUS BLAST',
                                         'value' => 2157,
                                       ),
-                                      817 => 
+                                      811 => 
                                       array (
                                         'key' => 'MANUS BLAST WHIP',
                                         'value' => 2158,
                                       ),
-                                      818 => 
+                                      812 => 
                                       array (
                                         'key' => 'MARIAN',
                                         'value' => 2159,
                                       ),
-                                      819 => 
+                                      813 => 
                                       array (
                                         'key' => 'MARINE BILGE',
                                         'value' => 2160,
                                       ),
-                                      820 => 
+                                      814 => 
                                       array (
                                         'key' => 'MARINE EXHAUST HOSE',
                                         'value' => 2161,
                                       ),
-                                      821 => 
+                                      815 => 
                                       array (
                                         'key' => 'MARINE FUEL FEED VENT J1527 B2',
                                         'value' => 2162,
                                       ),
-                                      822 => 
+                                      816 => 
                                       array (
                                         'key' => 'MARINE FUEL FILL',
                                         'value' => 2163,
                                       ),
-                                      823 => 
+                                      817 => 
                                       array (
                                         'key' => 'MARINE FUEL LINE',
                                         'value' => 2164,
                                       ),
-                                      824 => 
+                                      818 => 
                                       array (
                                         'key' => 'MARINE HARDWALL WET EXHAUST',
                                         'value' => 2165,
                                       ),
-                                      825 => 
+                                      819 => 
                                       array (
                                         'key' => 'MARINE LIVEWELL',
                                         'value' => 2166,
                                       ),
-                                      826 => 
+                                      820 => 
                                       array (
                                         'key' => 'MARINE OIL FILL',
                                         'value' => 2167,
                                       ),
-                                      827 => 
+                                      821 => 
                                       array (
                                         'key' => 'MARINE SANITATION',
                                         'value' => 2168,
                                       ),
-                                      828 => 
+                                      822 => 
                                       array (
                                         'key' => 'MARINE SOFTWALL WET EXHAUST',
                                         'value' => 2169,
                                       ),
-                                      829 => 
+                                      823 => 
                                       array (
                                         'key' => 'MARINE VACUUM',
                                         'value' => 2170,
                                       ),
-                                      830 => 
+                                      824 => 
                                       array (
                                         'key' => 'MAST-AIR',
                                         'value' => 2171,
                                       ),
-                                      831 => 
+                                      825 => 
                                       array (
                                         'key' => 'MASTERCOOL',
                                         'value' => 2172,
                                       ),
-                                      832 => 
+                                      826 => 
                                       array (
                                         'key' => 'MASTHD',
                                         'value' => 2173,
                                       ),
-                                      833 => 
+                                      827 => 
                                       array (
                                         'key' => 'MASTHEAD',
                                         'value' => 1829258,
                                       ),
-                                      834 => 
+                                      828 => 
                                       array (
                                         'key' => 'MASTHEAD CONTRACTOR\'S WATER',
                                         'value' => 1829352,
                                       ),
-                                      835 => 
+                                      829 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING',
                                         'value' => 2174,
                                       ),
-                                      836 => 
+                                      830 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING 150',
                                         'value' => 1829351,
                                       ),
-                                      837 => 
+                                      831 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING DISCHARGE',
                                         'value' => 2175,
                                       ),
-                                      838 => 
+                                      832 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING DISCHARGE 75',
                                         'value' => 1829334,
                                       ),
-                                      839 => 
+                                      833 => 
                                       array (
                                         'key' => 'MAXXIM PREMIER ULTRA',
                                         'value' => 2176,
                                       ),
-                                      840 => 
+                                      834 => 
                                       array (
                                         'key' => 'MCCARTY WATER S&D',
                                         'value' => 2177,
                                       ),
-                                      841 => 
+                                      835 => 
                                       array (
                                         'key' => 'MCGILL',
                                         'value' => 2178,
                                       ),
-                                      842 => 
+                                      836 => 
                                       array (
                                         'key' => 'MECR&S',
                                         'value' => 2179,
                                       ),
-                                      843 => 
+                                      837 => 
                                       array (
                                         'key' => 'MECR&S PAINT SPRAY',
                                         'value' => 2180,
                                       ),
-                                      844 => 
+                                      838 => 
                                       array (
                                         'key' => 'MER OILFIELD SUCTION',
                                         'value' => 2181,
                                       ),
-                                      845 => 
+                                      839 => 
                                       array (
                                         'key' => 'MERCURY',
                                         'value' => 5759837,
                                       ),
-                                      846 => 
+                                      840 => 
                                       array (
                                         'key' => 'MERLETT ARMORVIN HNA',
                                         'value' => 5347027,
                                       ),
-                                      847 => 
+                                      841 => 
                                       array (
                                         'key' => 'MERLETT RAGNO CA',
                                         'value' => 5347026,
                                       ),
-                                      848 => 
+                                      842 => 
                                       array (
                                         'key' => 'MERLETT VACUPRESS CRISTAL',
                                         'value' => 5347028,
                                       ),
-                                      849 => 
+                                      843 => 
                                       array (
                                         'key' => 'MERMAR',
                                         'value' => 2182,
                                       ),
-                                      850 => 
+                                      844 => 
                                       array (
                                         'key' => 'MESA',
                                         'value' => 2183,
                                       ),
-                                      851 => 
+                                      845 => 
                                       array (
                                         'key' => 'MESA AMMONIUM NITRATE PELLET',
                                         'value' => 2184,
                                       ),
-                                      852 => 
+                                      846 => 
                                       array (
                                         'key' => 'MESA DRAIN',
                                         'value' => 2185,
                                       ),
-                                      853 => 
+                                      847 => 
                                       array (
                                         'key' => 'MESA GUNITE',
                                         'value' => 2186,
                                       ),
-                                      854 => 
+                                      848 => 
                                       array (
                                         'key' => 'MESA PLASTER & GROUT',
                                         'value' => 2187,
                                       ),
-                                      855 => 
+                                      849 => 
                                       array (
                                         'key' => 'MESA REFRACTORY GUNITE',
                                         'value' => 2188,
                                       ),
-                                      856 => 
+                                      850 => 
                                       array (
                                         'key' => 'MESA ROOF DRAIN',
                                         'value' => 2189,
                                       ),
-                                      857 => 
+                                      851 => 
                                       array (
                                         'key' => 'MESA ROOF DRAIN CHEMICAL',
                                         'value' => 2190,
                                       ),
-                                      858 => 
+                                      852 => 
                                       array (
                                         'key' => 'Metal Clips',
                                         'value' => 1830004,
                                       ),
-                                      859 => 
+                                      853 => 
                                       array (
                                         'key' => 'METRIC',
                                         'value' => 1829524,
                                       ),
-                                      860 => 
+                                      854 => 
                                       array (
                                         'key' => 'MH 500',
                                         'value' => 1829296,
                                       ),
-                                      861 => 
+                                      855 => 
                                       array (
                                         'key' => 'MH 75',
                                         'value' => 1829321,
                                       ),
-                                      862 => 
+                                      856 => 
                                       array (
                                         'key' => 'MHPRF 11588G II ST',
                                         'value' => 2191,
                                       ),
-                                      863 => 
+                                      857 => 
                                       array (
                                         'key' => 'MIDWEST',
                                         'value' => 2192,
                                       ),
-                                      864 => 
+                                      858 => 
                                       array (
                                         'key' => 'MIDWEST BELTING',
                                         'value' => 1829336,
                                       ),
-                                      865 => 
+                                      859 => 
                                       array (
                                         'key' => 'MIL 3992F',
                                         'value' => 1829222,
                                       ),
-                                      866 => 
+                                      860 => 
                                       array (
                                         'key' => 'MIL A-A-59566',
                                         'value' => 2193,
                                       ),
-                                      867 => 
+                                      861 => 
                                       array (
                                         'key' => 'MIL A-A-59567',
                                         'value' => 2194,
                                       ),
-                                      868 => 
+                                      862 => 
                                       array (
                                         'key' => 'MIL AA-59567 3-1',
                                         'value' => 1829292,
                                       ),
-                                      869 => 
+                                      863 => 
                                       array (
                                         'key' => 'MIL-A-A-59565',
                                         'value' => 2195,
                                       ),
-                                      870 => 
+                                      864 => 
                                       array (
                                         'key' => 'MIL-DTL-13444-I',
                                         'value' => 2196,
                                       ),
-                                      871 => 
+                                      865 => 
                                       array (
                                         'key' => 'MIL-DTL-13444-III',
                                         'value' => 2197,
                                       ),
-                                      872 => 
+                                      866 => 
                                       array (
                                         'key' => 'MIL-DTL-13531 TYPE II, CL A',
                                         'value' => 2198,
                                       ),
-                                      873 => 
+                                      867 => 
                                       array (
                                         'key' => 'MIL-DTL-17505',
                                         'value' => 2199,
                                       ),
-                                      874 => 
+                                      868 => 
                                       array (
                                         'key' => 'MIL-DTL-20176',
                                         'value' => 2200,
                                       ),
-                                      875 => 
+                                      869 => 
                                       array (
                                         'key' => 'MIL-DTL-22240',
                                         'value' => 2201,
                                       ),
-                                      876 => 
+                                      870 => 
                                       array (
                                         'key' => 'MIL-DTL-27516',
                                         'value' => 2202,
                                       ),
-                                      877 => 
+                                      871 => 
                                       array (
                                         'key' => 'MIL-DTL-29210',
                                         'value' => 2203,
                                       ),
-                                      878 => 
+                                      872 => 
                                       array (
                                         'key' => 'MIL-DTL-6615',
                                         'value' => 2204,
                                       ),
-                                      879 => 
+                                      873 => 
                                       array (
                                         'key' => 'MIL-DTL-8788',
                                         'value' => 1830042,
                                       ),
-                                      880 => 
+                                      874 => 
                                       array (
                                         'key' => 'MIL-H-24136/4',
                                         'value' => 1829435,
                                       ),
-                                      881 => 
+                                      875 => 
                                       array (
                                         'key' => 'MIL-H-24580',
                                         'value' => 2205,
                                       ),
-                                      882 => 
+                                      876 => 
                                       array (
                                         'key' => 'MIL-H-82127',
                                         'value' => 2206,
                                       ),
-                                      883 => 
+                                      877 => 
                                       array (
                                         'key' => 'MIL-PRF-11588 TYPE I',
                                         'value' => 2207,
                                       ),
-                                      884 => 
+                                      878 => 
                                       array (
                                         'key' => 'MIL-PRF-11588 TYPE III',
                                         'value' => 2208,
                                       ),
-                                      885 => 
+                                      879 => 
                                       array (
                                         'key' => 'MIL-PRF-370 TYPE A',
                                         'value' => 2209,
                                       ),
-                                      886 => 
+                                      880 => 
                                       array (
                                         'key' => 'MIL-PRF-370 TYPE B',
                                         'value' => 2210,
                                       ),
-                                      887 => 
+                                      881 => 
                                       array (
                                         'key' => 'MILTARY',
                                         'value' => 2211,
                                       ),
-                                      888 => 
+                                      882 => 
                                       array (
                                         'key' => 'MILTON',
                                         'value' => 2212,
                                       ),
-                                      889 => 
+                                      883 => 
                                       array (
                                         'key' => 'MINE CONDUIT',
                                         'value' => 2213,
                                       ),
-                                      890 => 
+                                      884 => 
                                       array (
                                         'key' => 'MINNICH WATER HD',
                                         'value' => 1829157,
                                       ),
-                                      891 => 
+                                      885 => 
                                       array (
                                         'key' => 'MISC',
                                         'value' => 1829256,
                                       ),
-                                      892 => 
+                                      886 => 
                                       array (
                                         'key' => 'MIT TEKTON',
                                         'value' => 1829142,
                                       ),
-                                      893 => 
+                                      887 => 
                                       array (
                                         'key' => 'MOCCASIN',
                                         'value' => 2214,
                                       ),
-                                      894 => 
+                                      888 => 
                                       array (
                                         'key' => 'MORRIS AIR SEEDER',
                                         'value' => 2215,
                                       ),
-                                      895 => 
+                                      889 => 
                                       array (
                                         'key' => 'MORRIS AIR SEEDER LT',
                                         'value' => 2216,
                                       ),
-                                      896 => 
+                                      890 => 
                                       array (
                                         'key' => 'MPI',
                                         'value' => 2217,
                                       ),
-                                      897 => 
+                                      891 => 
                                       array (
                                         'key' => 'MPI 132-0580',
                                         'value' => 1829159,
                                       ),
-                                      898 => 
+                                      892 => 
                                       array (
                                         'key' => 'MPI 350-0380',
                                         'value' => 1829230,
                                       ),
-                                      899 => 
+                                      893 => 
                                       array (
                                         'key' => 'MPI 350-0560',
                                         'value' => 1829153,
                                       ),
-                                      900 => 
+                                      894 => 
                                       array (
                                         'key' => 'MPI 350-0580',
                                         'value' => 1829093,
                                       ),
-                                      901 => 
+                                      895 => 
                                       array (
                                         'key' => 'MPI HW EXHAUST',
                                         'value' => 1829300,
                                       ),
-                                      902 => 
+                                      896 => 
                                       array (
                                         'key' => 'MPI HW FUEL FILL',
                                         'value' => 1829137,
                                       ),
-                                      903 => 
+                                      897 => 
                                       array (
                                         'key' => 'MPI PREMIUM-GUARD MARINE',
                                         'value' => 2218,
                                       ),
-                                      904 => 
+                                      898 => 
                                       array (
                                         'key' => 'MRS',
                                         'value' => 1829338,
                                       ),
-                                      905 => 
+                                      899 => 
                                       array (
                                         'key' => 'MSA AIR BREATHING',
                                         'value' => 1829117,
                                       ),
-                                      906 => 
+                                      900 => 
                                       array (
                                         'key' => 'MSC',
                                         'value' => 6422707,
                                       ),
-                                      907 => 
+                                      901 => 
                                       array (
                                         'key' => 'MUD CUTTING HW',
                                         'value' => 2219,
                                       ),
-                                      908 => 
+                                      902 => 
                                       array (
                                         'key' => 'MUD RETURN LINE',
                                         'value' => 2220,
                                       ),
-                                      909 => 
+                                      903 => 
                                       array (
                                         'key' => 'MUD STACKING',
                                         'value' => 2221,
                                       ),
-                                      910 => 
+                                      904 => 
                                       array (
                                         'key' => 'MULTISTREAM HW',
                                         'value' => 2222,
                                       ),
-                                      911 => 
+                                      905 => 
                                       array (
                                         'key' => 'MULTISTREAM SW',
                                         'value' => 2223,
                                       ),
-                                      912 => 
+                                      906 => 
                                       array (
                                         'key' => 'NAFIRE',
                                         'value' => 2224,
                                       ),
-                                      913 => 
+                                      907 => 
                                       array (
                                         'key' => 'NAVISTAR',
                                         'value' => 2225,
                                       ),
-                                      914 => 
+                                      908 => 
                                       array (
                                         'key' => 'NELSON DUNN',
                                         'value' => 2226,
                                       ),
-                                      915 => 
+                                      909 => 
                                       array (
                                         'key' => 'NELSON DUNN CABLE COVER',
                                         'value' => 1829183,
                                       ),
-                                      916 => 
+                                      910 => 
                                       array (
                                         'key' => 'NEOTHANE',
                                         'value' => 1829508,
                                       ),
-                                      917 => 
+                                      911 => 
                                       array (
                                         'key' => 'NEPTUNE',
                                         'value' => 2227,
                                       ),
-                                      918 => 
+                                      912 => 
                                       array (
                                         'key' => 'NESI OILFIELD',
                                         'value' => 2228,
                                       ),
-                                      919 => 
+                                      913 => 
                                       array (
                                         'key' => 'NEWLINE',
                                         'value' => 2229,
                                       ),
-                                      920 => 
+                                      914 => 
                                       array (
                                         'key' => 'NEWLINE VINTNER RESERVE',
                                         'value' => 1829255,
                                       ),
-                                      921 => 
+                                      915 => 
                                       array (
                                         'key' => 'NEWLINE WALKWAY WATER',
                                         'value' => 1829403,
                                       ),
-                                      922 => 
+                                      916 => 
                                       array (
                                         'key' => 'NISHIN',
                                         'value' => 2230,
                                       ),
-                                      923 => 
+                                      917 => 
                                       array (
                                         'key' => 'NISSHIN',
                                         'value' => 2231,
                                       ),
-                                      924 => 
+                                      918 => 
                                       array (
                                         'key' => 'NITRO FLOOD WATER S&D',
                                         'value' => 2232,
                                       ),
-                                      925 => 
+                                      919 => 
                                       array (
                                         'key' => 'NITRO R&C WATER S&D',
                                         'value' => 2233,
                                       ),
-                                      926 => 
+                                      920 => 
                                       array (
                                         'key' => 'NITROGEN SERVICE',
                                         'value' => 2234,
                                       ),
-                                      927 => 
+                                      921 => 
                                       array (
                                         'key' => 'NOTRAX T43S5050RD',
                                         'value' => 1829207,
                                       ),
-                                      928 => 
+                                      922 => 
                                       array (
                                         'key' => 'NOV',
                                         'value' => 2235,
                                       ),
-                                      929 => 
+                                      923 => 
                                       array (
                                         'key' => 'NPETRO LW',
                                         'value' => 2236,
                                       ),
-                                      930 => 
+                                      924 => 
                                       array (
                                         'key' => 'NPM API',
                                         'value' => 1829979,
                                       ),
-                                      931 => 
+                                      925 => 
                                       array (
                                         'key' => 'NPSM',
                                         'value' => 1829953,
                                       ),
-                                      932 => 
+                                      926 => 
                                       array (
                                         'key' => 'NPT API',
                                         'value' => 1829974,
                                       ),
-                                      933 => 
+                                      927 => 
                                       array (
                                         'key' => 'NPT API Hammer Union ',
                                         'value' => 1830010,
                                       ),
-                                      934 => 
+                                      928 => 
                                       array (
                                         'key' => 'NPTF',
                                         'value' => 1829952,
                                       ),
-                                      935 => 
+                                      929 => 
                                       array (
                                         'key' => 'NR SPRAY',
                                         'value' => 2237,
                                       ),
-                                      936 => 
+                                      930 => 
                                       array (
                                         'key' => 'NR7',
                                         'value' => 2238,
                                       ),
-                                      937 => 
+                                      931 => 
                                       array (
                                         'key' => 'NR8',
                                         'value' => 2239,
                                       ),
-                                      938 => 
+                                      932 => 
                                       array (
                                         'key' => 'NRP JONES CT5',
                                         'value' => 1829196,
                                       ),
-                                      939 => 
+                                      933 => 
                                       array (
                                         'key' => 'NRP JONES NON-UL CT5',
                                         'value' => 1829120,
                                       ),
-                                      940 => 
+                                      934 => 
                                       array (
                                         'key' => 'NSH',
                                         'value' => 2240,
                                       ),
-                                      941 => 
+                                      935 => 
                                       array (
                                         'key' => 'NUTRIFLEX',
                                         'value' => 2241,
                                       ),
-                                      942 => 
+                                      936 => 
                                       array (
                                         'key' => 'NUTRIFLEX STATIC WIRE',
                                         'value' => 2242,
                                       ),
-                                      943 => 
+                                      937 => 
                                       array (
                                         'key' => 'NUTRIFLEX SUCTION & DISCHARGE',
                                         'value' => 2243,
                                       ),
-                                      944 => 
+                                      938 => 
                                       array (
                                         'key' => 'NUTRIFLO SUCTION & DISCHARGE',
                                         'value' => 2244,
                                       ),
-                                      945 => 
+                                      939 => 
                                       array (
                                         'key' => 'O-Ring Boss ',
                                         'value' => 1830009,
                                       ),
-                                      946 => 
+                                      940 => 
                                       array (
                                         'key' => 'O-Ring Boss Straight Thread (SAE J1453)',
                                         'value' => 1829975,
                                       ),
-                                      947 => 
+                                      941 => 
                                       array (
                                         'key' => 'O-Ring Boss Straight Thread (SAE J514)',
                                         'value' => 1829958,
                                       ),
-                                      948 => 
+                                      942 => 
                                       array (
                                         'key' => 'O-Ring Boss Straight Thread O-Rings (SAE J514)',
                                         'value' => 1831351,
                                       ),
-                                      949 => 
+                                      943 => 
                                       array (
                                         'key' => 'O-Ring Face Seal',
                                         'value' => 1829991,
                                       ),
-                                      950 => 
+                                      944 => 
                                       array (
                                         'key' => 'O-Ring Face Seal (SAE J1453 ORS/ORFS)',
                                         'value' => 1829957,
                                       ),
-                                      951 => 
+                                      945 => 
                                       array (
                                         'key' => 'O-Ring Face Seal O-Rings (SAE J1453 ORS/ORFS)',
                                         'value' => 1831350,
                                       ),
-                                      952 => 
+                                      946 => 
                                       array (
                                         'key' => 'O-Ring for Ford Spring Lock',
                                         'value' => 1829997,
                                       ),
-                                      953 => 
+                                      947 => 
                                       array (
                                         'key' => 'O-Ring for Switch',
                                         'value' => 1829998,
                                       ),
-                                      954 => 
+                                      948 => 
                                       array (
                                         'key' => 'O-Ring for Tube Fittings',
                                         'value' => 1829999,
                                       ),
-                                      955 => 
+                                      949 => 
                                       array (
                                         'key' => 'O-Ring Insert',
                                         'value' => 1829985,
                                       ),
-                                      956 => 
+                                      950 => 
                                       array (
                                         'key' => 'O-Ring Tube',
                                         'value' => 1829986,
                                       ),
-                                      957 => 
+                                      951 => 
                                       array (
                                         'key' => 'O-Ring Tube (Female to O-Ring Insert)',
                                         'value' => 1829993,
                                       ),
-                                      958 => 
+                                      952 => 
                                       array (
                                         'key' => 'O-Ring Tube Compressor (Female to O-Ring Insert) ',
                                         'value' => 1829992,
                                       ),
-                                      959 => 
+                                      953 => 
                                       array (
                                         'key' => 'OAKLEY',
                                         'value' => 2245,
                                       ),
-                                      960 => 
+                                      954 => 
                                       array (
                                         'key' => 'OFFSHORE FUEL',
                                         'value' => 2246,
                                       ),
-                                      961 => 
+                                      955 => 
                                       array (
                                         'key' => 'OFFSHORE FUEL 500',
                                         'value' => 1829275,
                                       ),
-                                      962 => 
+                                      956 => 
                                       array (
                                         'key' => 'OFFSHORE FUEL 750',
                                         'value' => 1829364,
                                       ),
-                                      963 => 
+                                      957 => 
                                       array (
                                         'key' => 'OFFSHORE VIPER',
                                         'value' => 2247,
                                       ),
-                                      964 => 
+                                      958 => 
                                       array (
                                         'key' => 'OIL DISCHARGE',
                                         'value' => 2248,
                                       ),
-                                      965 => 
+                                      959 => 
                                       array (
                                         'key' => 'OIL RIG HARDWALL',
                                         'value' => 2249,
                                       ),
-                                      966 => 
+                                      960 => 
                                       array (
                                         'key' => 'OIL RIG HARDWALL BIOFUEL',
                                         'value' => 2250,
                                       ),
-                                      967 => 
+                                      961 => 
                                       array (
                                         'key' => 'OIL RIG SOFTWALL',
                                         'value' => 2251,
                                       ),
-                                      968 => 
+                                      962 => 
                                       array (
                                         'key' => 'OIL RIG SW',
                                         'value' => 1829329,
                                       ),
-                                      969 => 
+                                      963 => 
                                       array (
                                         'key' => 'OIL TREAT & BLENDER',
                                         'value' => 2252,
                                       ),
-                                      970 => 
+                                      964 => 
                                       array (
                                         'key' => 'OILFIELD DISCHARGE',
                                         'value' => 2253,
                                       ),
-                                      971 => 
+                                      965 => 
                                       array (
                                         'key' => 'OILFIELD FRAC',
                                         'value' => 2254,
                                       ),
-                                      972 => 
+                                      966 => 
                                       array (
                                         'key' => 'OMNI',
                                         'value' => 2255,
                                       ),
-                                      973 => 
+                                      967 => 
                                       array (
                                         'key' => 'OMNI WATER S&D',
                                         'value' => 2256,
                                       ),
-                                      974 => 
+                                      968 => 
                                       array (
                                         'key' => 'OPEN END FALCON',
                                         'value' => 1829523,
                                       ),
-                                      975 => 
+                                      969 => 
                                       array (
                                         'key' => 'OPEN END HAWK',
                                         'value' => 1829517,
                                       ),
-                                      976 => 
+                                      970 => 
                                       array (
                                         'key' => 'OPEN END HY-T PLUS',
                                         'value' => 1829504,
                                       ),
-                                      977 => 
+                                      971 => 
                                       array (
                                         'key' => 'OPEN END METRIC T PD',
                                         'value' => 1829518,
                                       ),
-                                      978 => 
+                                      972 => 
                                       array (
                                         'key' => 'OPEN END POSITIVE DRIVE',
                                         'value' => 1829511,
                                       ),
-                                      979 => 
+                                      973 => 
                                       array (
                                         'key' => 'OPEN END SUPER TORQUE',
                                         'value' => 1829515,
                                       ),
-                                      980 => 
+                                      974 => 
                                       array (
                                         'key' => 'ORANGE FLEXWING',
                                         'value' => 2257,
                                       ),
-                                      981 => 
+                                      975 => 
                                       array (
                                         'key' => 'ORTAC',
                                         'value' => 2258,
                                       ),
-                                      982 => 
+                                      976 => 
                                       array (
                                         'key' => 'ORTAC II',
                                         'value' => 2259,
                                       ),
-                                      983 => 
+                                      977 => 
                                       array (
                                         'key' => 'PACER',
                                         'value' => 2260,
                                       ),
-                                      984 => 
+                                      978 => 
                                       array (
                                         'key' => 'PACIFIC RUBBER',
                                         'value' => 5764901,
                                       ),
-                                      985 => 
+                                      979 => 
                                       array (
                                         'key' => 'PACIFIC RUBBER MULCHBLOWER',
                                         'value' => 1829232,
                                       ),
-                                      986 => 
+                                      980 => 
                                       array (
                                         'key' => 'PAGUFIX',
                                         'value' => 2261,
                                       ),
-                                      987 => 
+                                      981 => 
                                       array (
                                         'key' => 'PALADIN',
                                         'value' => 2262,
                                       ),
-                                      988 => 
+                                      982 => 
                                       array (
                                         'key' => 'PALADIN DROP',
                                         'value' => 1829164,
                                       ),
-                                      989 => 
+                                      983 => 
                                       array (
                                         'key' => 'PANGBORN PA BLAST',
                                         'value' => 2263,
                                       ),
-                                      990 => 
+                                      984 => 
                                       array (
                                         'key' => 'PARKING',
                                         'value' => 2264,
                                       ),
-                                      991 => 
+                                      985 => 
                                       array (
                                         'key' => 'PATHFINDER ECO',
                                         'value' => 3831419,
                                       ),
-                                      992 => 
+                                      986 => 
                                       array (
                                         'key' => 'PATHFINDER GARDEN',
                                         'value' => 1829283,
                                       ),
-                                      993 => 
+                                      987 => 
                                       array (
                                         'key' => 'PBE',
                                         'value' => 5355082,
                                       ),
-                                      994 => 
+                                      988 => 
                                       array (
                                         'key' => 'PEAK ENERGY FRONTIER',
                                         'value' => 1829371,
                                       ),
-                                      995 => 
+                                      989 => 
                                       array (
                                         'key' => 'PERFECT GARDEN HOSE',
                                         'value' => 2265,
                                       ),
-                                      996 => 
+                                      990 => 
                                       array (
                                         'key' => 'PERLAPAL',
                                         'value' => 2266,
                                       ),
-                                      997 => 
+                                      991 => 
                                       array (
                                         'key' => 'PETERS LIQUID MUD',
                                         'value' => 2267,
                                       ),
-                                      998 => 
+                                      992 => 
                                       array (
                                         'key' => 'PETRO OIL S&D',
                                         'value' => 2268,
                                       ),
-                                      999 => 
+                                      993 => 
                                       array (
                                         'key' => 'PETRO OIL S&D 200',
                                         'value' => 1829416,
                                       ),
-                                      1000 => 
+                                      994 => 
                                       array (
                                         'key' => 'PETROHOSE',
                                         'value' => 5759832,
                                       ),
-                                      1001 => 
+                                      995 => 
                                       array (
                                         'key' => 'PETROL 400 HARDWALL',
                                         'value' => 1829355,
                                       ),
-                                      1002 => 
+                                      996 => 
                                       array (
                                         'key' => 'PETROL HARDWALL',
                                         'value' => 2269,
                                       ),
-                                      1003 => 
+                                      997 => 
                                       array (
                                         'key' => 'PGC PLACEMENT TEXTILE',
                                         'value' => 2270,
                                       ),
-                                      1004 => 
+                                      998 => 
                                       array (
                                         'key' => 'PHILLIPS 66 HYDROCARBON DRAIN',
                                         'value' => 1829218,
                                       ),
-                                      1005 => 
+                                      999 => 
                                       array (
                                         'key' => 'PHX FUEL GAS',
                                         'value' => 2271,
                                       ),
-                                      1006 => 
+                                      1000 => 
                                       array (
                                         'key' => 'PHX OXYGEN',
                                         'value' => 2272,
                                       ),
-                                      1007 => 
+                                      1001 => 
                                       array (
                                         'key' => 'PIONEER HOT AIR II SP',
                                         'value' => 1829220,
                                       ),
-                                      1008 => 
+                                      1002 => 
                                       array (
                                         'key' => 'PIONEER PETRO TANK TRUCK',
                                         'value' => 1829386,
                                       ),
-                                      1009 => 
+                                      1003 => 
                                       array (
                                         'key' => 'PIONEER XF BLAST',
                                         'value' => 1829379,
                                       ),
-                                      1010 => 
+                                      1004 => 
                                       array (
                                         'key' => 'PLASTER & GROUT',
                                         'value' => 2273,
                                       ),
-                                      1011 => 
+                                      1005 => 
                                       array (
                                         'key' => 'Plastic Clip Holder',
                                         'value' => 1830005,
                                       ),
-                                      1012 => 
+                                      1006 => 
                                       array (
                                         'key' => 'Plastic Process Equipment',
                                         'value' => 6951846,
                                       ),
-                                      1013 => 
+                                      1007 => 
                                       array (
                                         'key' => 'PLATINUM JAC RISER',
                                         'value' => 2274,
                                       ),
-                                      1014 => 
+                                      1008 => 
                                       array (
                                         'key' => 'PLIOVIC AG SPRAY',
                                         'value' => 1829274,
                                       ),
-                                      1015 => 
+                                      1009 => 
                                       array (
                                         'key' => 'PLIOVIC FG',
                                         'value' => 2275,
                                       ),
-                                      1016 => 
+                                      1010 => 
                                       array (
                                         'key' => 'PLIOVIC GS',
                                         'value' => 2276,
                                       ),
-                                      1017 => 
+                                      1011 => 
                                       array (
                                         'key' => 'PLIOVIC PLUS',
                                         'value' => 2277,
                                       ),
-                                      1018 => 
+                                      1012 => 
                                       array (
                                         'key' => 'PLIOVIC PVC TUBING',
                                         'value' => 2278,
                                       ),
-                                      1019 => 
+                                      1013 => 
                                       array (
                                         'key' => 'POLY-V',
                                         'value' => 1829493,
                                       ),
-                                      1020 => 
+                                      1014 => 
                                       array (
                                         'key' => 'POSEIDON UL94-HB',
                                         'value' => 2279,
                                       ),
-                                      1021 => 
+                                      1015 => 
                                       array (
                                         'key' => 'POSITIVE DRIVE PD',
                                         'value' => 1829509,
                                       ),
-                                      1022 => 
+                                      1016 => 
                                       array (
                                         'key' => 'POT LINE',
                                         'value' => 2280,
                                       ),
-                                      1023 => 
+                                      1017 => 
                                       array (
                                         'key' => 'POT LINE HD',
                                         'value' => 2281,
                                       ),
-                                      1024 => 
+                                      1018 => 
                                       array (
                                         'key' => 'POTABLE STOCK TANK',
                                         'value' => 2282,
                                       ),
-                                      1025 => 
+                                      1019 => 
                                       array (
                                         'key' => 'POTABLE WATER',
                                         'value' => 2283,
                                       ),
-                                      1026 => 
+                                      1020 => 
                                       array (
                                         'key' => 'POTABLE WATER HW',
                                         'value' => 2284,
                                       ),
-                                      1027 => 
+                                      1021 => 
                                       array (
                                         'key' => 'POTABLE WATER S&D',
                                         'value' => 1829346,
                                       ),
-                                      1028 => 
+                                      1022 => 
                                       array (
                                         'key' => 'POTABLE WATER SW',
                                         'value' => 2285,
                                       ),
-                                      1029 => 
+                                      1023 => 
                                       array (
                                         'key' => 'POWER PORT',
                                         'value' => 3831236,
                                       ),
-                                      1030 => 
+                                      1024 => 
                                       array (
                                         'key' => 'POWERSPAN CL',
                                         'value' => 1829528,
                                       ),
-                                      1031 => 
+                                      1025 => 
                                       array (
                                         'key' => 'PRAIRIE GOLDFLEX',
                                         'value' => 2286,
                                       ),
-                                      1032 => 
+                                      1026 => 
                                       array (
                                         'key' => 'PRAIRIE GOLDFLEX PETRO',
                                         'value' => 1829174,
                                       ),
-                                      1033 => 
+                                      1027 => 
                                       array (
                                         'key' => 'PREM MARINE WET EXHAUST COR',
                                         'value' => 2287,
                                       ),
-                                      1034 => 
+                                      1028 => 
                                       array (
                                         'key' => 'PREMIER',
                                         'value' => 1829311,
                                       ),
-                                      1035 => 
+                                      1029 => 
                                       array (
                                         'key' => 'PREMIER AIR 1000',
                                         'value' => 1829361,
                                       ),
-                                      1036 => 
+                                      1030 => 
                                       array (
                                         'key' => 'PREMIER REFRACTORY CLAMP',
                                         'value' => 2288,
                                       ),
-                                      1037 => 
+                                      1031 => 
                                       array (
                                         'key' => 'PREMIER VINTNER',
                                         'value' => 1829266,
                                       ),
-                                      1038 => 
+                                      1032 => 
                                       array (
                                         'key' => 'PREMIUM GARDEN',
                                         'value' => 2289,
                                       ),
-                                      1039 => 
+                                      1033 => 
                                       array (
                                         'key' => 'PREMIUM MARINE WET EXHAUST',
                                         'value' => 2290,
                                       ),
-                                      1040 => 
+                                      1034 => 
                                       array (
                                         'key' => 'PROFESSIONAL AIR',
                                         'value' => 3831234,
                                       ),
-                                      1041 => 
+                                      1035 => 
                                       array (
                                         'key' => 'PROSPECTOR AIR',
                                         'value' => 2291,
                                       ),
-                                      1042 => 
+                                      1036 => 
                                       array (
                                         'key' => 'PROSPECTOR BOP 3000',
                                         'value' => 2292,
                                       ),
-                                      1043 => 
+                                      1037 => 
                                       array (
                                         'key' => 'PROSPECTOR BOP 5000',
                                         'value' => 2293,
                                       ),
-                                      1044 => 
+                                      1038 => 
                                       array (
                                         'key' => 'PROSPECTOR FLEX',
                                         'value' => 2294,
                                       ),
-                                      1045 => 
+                                      1039 => 
                                       array (
                                         'key' => 'PROSPECTOR FLEX OILFIELD',
                                         'value' => 2295,
                                       ),
-                                      1046 => 
+                                      1040 => 
                                       array (
                                         'key' => 'PROSPECTOR FLEX PETRO',
                                         'value' => 2296,
                                       ),
-                                      1047 => 
+                                      1041 => 
                                       array (
                                         'key' => 'PROSPECTOR FRAC 400 DISCHARGE',
                                         'value' => 1829404,
                                       ),
-                                      1048 => 
+                                      1042 => 
                                       array (
                                         'key' => 'PROSPECTOR FRAC DISCHARGE',
                                         'value' => 2297,
                                       ),
-                                      1049 => 
+                                      1043 => 
                                       array (
                                         'key' => 'PROSPECTOR FRAC TANK HOSE',
                                         'value' => 2298,
                                       ),
-                                      1050 => 
+                                      1044 => 
                                       array (
                                         'key' => 'PROSPECTOR HOT OILER',
                                         'value' => 2299,
                                       ),
-                                      1051 => 
+                                      1045 => 
                                       array (
                                         'key' => 'PROSPECTOR MINESPRAY',
                                         'value' => 2300,
                                       ),
-                                      1052 => 
+                                      1046 => 
                                       array (
                                         'key' => 'PROSPECTOR OIL RIG HARDWALL',
                                         'value' => 1829396,
                                       ),
-                                      1053 => 
+                                      1047 => 
                                       array (
                                         'key' => 'PROSPECTOR OIL RIG HW',
                                         'value' => 2301,
                                       ),
-                                      1054 => 
+                                      1048 => 
                                       array (
                                         'key' => 'PROSPECTOR OIL RIG SW',
                                         'value' => 2302,
                                       ),
-                                      1055 => 
+                                      1049 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD',
                                         'value' => 2303,
                                       ),
-                                      1056 => 
+                                      1050 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD S&D',
                                         'value' => 2304,
                                       ),
-                                      1057 => 
+                                      1051 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD S&D 150',
                                         'value' => 1829375,
                                       ),
-                                      1058 => 
+                                      1052 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD S&D 300',
                                         'value' => 1829241,
                                       ),
-                                      1059 => 
+                                      1053 => 
                                       array (
                                         'key' => 'PROSPECTOR PETRO',
                                         'value' => 2305,
                                       ),
-                                      1060 => 
+                                      1054 => 
                                       array (
                                         'key' => 'PROSPECTOR PLUS AIR',
                                         'value' => 2306,
                                       ),
-                                      1061 => 
+                                      1055 => 
                                       array (
                                         'key' => 'PROSPECTOR SHR',
                                         'value' => 2307,
                                       ),
-                                      1062 => 
+                                      1056 => 
                                       array (
                                         'key' => 'PROSPECTOR WATER DISCHARGE',
                                         'value' => 2308,
                                       ),
-                                      1063 => 
+                                      1057 => 
                                       array (
                                         'key' => 'PROSPECTOR WATER DISCHARGE 150',
                                         'value' => 1829169,
                                       ),
-                                      1064 => 
+                                      1058 => 
                                       array (
                                         'key' => 'PROSPECTOR WATER S&D',
                                         'value' => 2309,
                                       ),
-                                      1065 => 
+                                      1059 => 
                                       array (
                                         'key' => 'PROSPECTORFLEX BLUE UHMWPE',
                                         'value' => 1829272,
                                       ),
-                                      1066 => 
+                                      1060 => 
                                       array (
                                         'key' => 'PROTECTION RING',
                                         'value' => 2310,
                                       ),
-                                      1067 => 
+                                      1061 => 
                                       array (
                                         'key' => 'PSC CHEMICAL',
                                         'value' => 2311,
                                       ),
-                                      1068 => 
+                                      1062 => 
                                       array (
                                         'key' => 'PTT 30',
                                         'value' => 1830008,
                                       ),
-                                      1069 => 
+                                      1063 => 
                                       array (
                                         'key' => 'PULP & PAPER WASHDOWN',
                                         'value' => 2312,
                                       ),
-                                      1070 => 
+                                      1064 => 
                                       array (
                                         'key' => 'PUMPTEC PULSE',
                                         'value' => 1829211,
                                       ),
-                                      1071 => 
+                                      1065 => 
                                       array (
                                         'key' => 'PUREONE',
                                         'value' => 2313,
                                       ),
-                                      1072 => 
+                                      1066 => 
                                       array (
                                         'key' => 'PURFIT',
                                         'value' => 2314,
                                       ),
-                                      1073 => 
+                                      1067 => 
                                       array (
                                         'key' => 'PURFIT BREWLINE',
                                         'value' => 2315,
                                       ),
-                                      1074 => 
+                                      1068 => 
                                       array (
                                         'key' => 'PURPLE FLEXWING',
                                         'value' => 2316,
                                       ),
-                                      1075 => 
+                                      1069 => 
                                       array (
                                         'key' => 'PURPLE SNAKE',
                                         'value' => 2317,
                                       ),
-                                      1076 => 
+                                      1070 => 
                                       array (
                                         'key' => 'PURPLE SNAKE PLUS',
                                         'value' => 2318,
                                       ),
-                                      1077 => 
+                                      1071 => 
                                       array (
                                         'key' => 'PYROFLEX HOT AIR',
                                         'value' => 2319,
                                       ),
-                                      1078 => 
+                                      1072 => 
                                       array (
                                         'key' => 'PYROFLEX HOT AIR II',
                                         'value' => 1829132,
                                       ),
-                                      1079 => 
+                                      1073 => 
                                       array (
                                         'key' => 'PYROFLEX HOT AIR III FDA',
                                         'value' => 2320,
                                       ),
-                                      1080 => 
+                                      1074 => 
                                       array (
                                         'key' => 'PYROFLEX HOT TAR & ASPHALT II',
                                         'value' => 1829129,
                                       ),
-                                      1081 => 
+                                      1075 => 
                                       array (
                                         'key' => 'PYROFLEX HOT TAR WAND',
                                         'value' => 2321,
                                       ),
-                                      1082 => 
+                                      1076 => 
                                       array (
                                         'key' => 'PYROFLEX II HOT AIR',
                                         'value' => 2322,
                                       ),
-                                      1083 => 
+                                      1077 => 
                                       array (
                                         'key' => 'PYROFLEX II HOT TAR & ASPHALT',
                                         'value' => 2323,
                                       ),
-                                      1084 => 
+                                      1078 => 
                                       array (
                                         'key' => 'PYROFLEX III HOT AIR',
                                         'value' => 2324,
                                       ),
-                                      1085 => 
+                                      1079 => 
                                       array (
                                         'key' => 'PYROFLEX III HOT AIR FDA',
                                         'value' => 2325,
                                       ),
-                                      1086 => 
+                                      1080 => 
                                       array (
                                         'key' => 'QR048',
                                         'value' => 2326,
                                       ),
-                                      1087 => 
+                                      1081 => 
                                       array (
                                         'key' => 'QR48',
                                         'value' => 2327,
                                       ),
-                                      1088 => 
+                                      1082 => 
                                       array (
                                         'key' => 'QUIKSTIR',
                                         'value' => 2328,
                                       ),
-                                      1089 => 
+                                      1083 => 
                                       array (
                                         'key' => 'QUIKSTIR PUMP 2P',
                                         'value' => 2329,
                                       ),
-                                      1090 => 
+                                      1084 => 
                                       array (
                                         'key' => 'R/W',
                                         'value' => 1829432,
                                       ),
-                                      1091 => 
+                                      1085 => 
                                       array (
                                         'key' => 'RADIATOR',
                                         'value' => 2330,
                                       ),
-                                      1092 => 
+                                      1086 => 
                                       array (
                                         'key' => 'RADIATOR HOSE',
                                         'value' => 1829347,
                                       ),
-                                      1093 => 
+                                      1087 => 
                                       array (
                                         'key' => 'RAGCO',
                                         'value' => 2331,
                                       ),
-                                      1094 => 
+                                      1088 => 
                                       array (
                                         'key' => 'RAGCO FABCHEM',
                                         'value' => 1829242,
                                       ),
-                                      1095 => 
+                                      1089 => 
                                       array (
                                         'key' => 'RAGCO FLEX KENT',
                                         'value' => 1829387,
                                       ),
-                                      1096 => 
+                                      1090 => 
                                       array (
                                         'key' => 'RAIL',
                                         'value' => 2332,
                                       ),
-                                      1097 => 
+                                      1091 => 
                                       array (
                                         'key' => 'RANSBG NR SPRAY',
                                         'value' => 2333,
                                       ),
-                                      1098 => 
+                                      1092 => 
                                       array (
                                         'key' => 'RAWHID FIRE ENGINE BOOSTER',
                                         'value' => 2334,
                                       ),
-                                      1099 => 
+                                      1093 => 
                                       array (
                                         'key' => 'RCT FLEXRITE',
                                         'value' => 2335,
                                       ),
-                                      1100 => 
+                                      1094 => 
                                       array (
                                         'key' => 'RDC',
                                         'value' => 2336,
                                       ),
-                                      1101 => 
+                                      1095 => 
                                       array (
                                         'key' => 'REAL RUBBER',
                                         'value' => 2337,
                                       ),
-                                      1102 => 
+                                      1096 => 
                                       array (
                                         'key' => 'RED FLEXTRA',
                                         'value' => 2338,
                                       ),
-                                      1103 => 
+                                      1097 => 
                                       array (
                                         'key' => 'RED FLEXTRA 100',
                                         'value' => 1829324,
                                       ),
-                                      1104 => 
+                                      1098 => 
                                       array (
                                         'key' => 'RED FLEXTRA 150',
                                         'value' => 1829304,
                                       ),
-                                      1105 => 
+                                      1099 => 
                                       array (
                                         'key' => 'RED ORTAC II',
                                         'value' => 1829326,
                                       ),
-                                      1106 => 
+                                      1100 => 
                                       array (
                                         'key' => 'RED-L GOLDFLEX-C',
                                         'value' => 2339,
                                       ),
-                                      1107 => 
+                                      1101 => 
                                       array (
                                         'key' => 'RED-L PLANT STEAM',
                                         'value' => 1829210,
                                       ),
-                                      1108 => 
+                                      1102 => 
                                       array (
                                         'key' => 'RED-L WATER',
                                         'value' => 2340,
                                       ),
-                                      1109 => 
+                                      1103 => 
                                       array (
                                         'key' => 'REDWING BLUE LOW TEMP',
                                         'value' => 2341,
                                       ),
-                                      1110 => 
+                                      1104 => 
                                       array (
                                         'key' => 'REDWING BLUE LOW TEMP FUEL OIL',
                                         'value' => 1829205,
                                       ),
-                                      1111 => 
+                                      1105 => 
                                       array (
                                         'key' => 'REDWING FUEL OIL',
                                         'value' => 2342,
                                       ),
-                                      1112 => 
+                                      1106 => 
                                       array (
                                         'key' => 'REDWING FUEL OIL HD',
                                         'value' => 2343,
                                       ),
-                                      1113 => 
+                                      1107 => 
                                       array (
                                         'key' => 'REDWING HIGH DURO FUEL OIL',
                                         'value' => 1829342,
                                       ),
-                                      1114 => 
+                                      1108 => 
                                       array (
                                         'key' => 'REDWING VERSABRAID',
                                         'value' => 2344,
                                       ),
-                                      1115 => 
+                                      1109 => 
                                       array (
                                         'key' => 'REFRACTORY GUNITE',
                                         'value' => 2345,
                                       ),
-                                      1116 => 
+                                      1110 => 
                                       array (
                                         'key' => 'REFRACTORY HOSE',
                                         'value' => 2346,
                                       ),
-                                      1117 => 
+                                      1111 => 
                                       array (
                                         'key' => 'REFRIGERANT CHARGING',
                                         'value' => 2347,
                                       ),
-                                      1118 => 
+                                      1112 => 
                                       array (
                                         'key' => 'REINFLEX',
                                         'value' => 1829154,
                                       ),
-                                      1119 => 
+                                      1113 => 
                                       array (
                                         'key' => 'RELIANCE PROSPECTOR WATER S&D',
                                         'value' => 2348,
                                       ),
-                                      1120 => 
+                                      1114 => 
                                       array (
                                         'key' => 'RELIANCE WATER S&D',
                                         'value' => 2349,
                                       ),
-                                      1121 => 
+                                      1115 => 
                                       array (
                                         'key' => 'RES',
                                         'value' => 2350,
                                       ),
-                                      1122 => 
+                                      1116 => 
                                       array (
                                         'key' => 'REVERSE CIRCULATION',
                                         'value' => 2351,
                                       ),
-                                      1123 => 
+                                      1117 => 
                                       array (
                                         'key' => 'RIG SUPPLY',
                                         'value' => 2352,
                                       ),
-                                      1124 => 
+                                      1118 => 
                                       array (
                                         'key' => 'RIG SUPPLY SW',
                                         'value' => 2353,
                                       ),
-                                      1125 => 
+                                      1119 => 
                                       array (
                                         'key' => 'RITCHIE CT5',
                                         'value' => 1829098,
                                       ),
-                                      1126 => 
+                                      1120 => 
                                       array (
                                         'key' => 'RIVERB',
                                         'value' => 2354,
                                       ),
-                                      1127 => 
+                                      1121 => 
                                       array (
                                         'key' => 'RL1131 TWIN-LINE GRADE R',
                                         'value' => 2355,
                                       ),
-                                      1128 => 
+                                      1122 => 
                                       array (
                                         'key' => 'ROADPATCH',
                                         'value' => 2356,
                                       ),
-                                      1129 => 
+                                      1123 => 
                                       array (
                                         'key' => 'ROBIN FREON CHARGING',
                                         'value' => 2357,
                                       ),
-                                      1130 => 
+                                      1124 => 
                                       array (
                                         'key' => 'ROBIN NEW',
                                         'value' => 1829138,
                                       ),
-                                      1131 => 
+                                      1125 => 
                                       array (
                                         'key' => 'ROCK DRILL',
                                         'value' => 2358,
                                       ),
-                                      1132 => 
+                                      1126 => 
                                       array (
                                         'key' => 'ROCK DRILL RED',
                                         'value' => 1829340,
                                       ),
-                                      1133 => 
+                                      1127 => 
                                       array (
                                         'key' => 'ROCK DUST',
                                         'value' => 1829104,
                                       ),
-                                      1134 => 
+                                      1128 => 
                                       array (
                                         'key' => 'ROOF DRAIN',
                                         'value' => 2359,
                                       ),
-                                      1135 => 
+                                      1129 => 
                                       array (
                                         'key' => 'ROUGH BORE (HOT TAR & ASPHALT)',
                                         'value' => 2360,
                                       ),
-                                      1136 => 
+                                      1130 => 
                                       array (
                                         'key' => 'ROUGH BORE DOCK',
                                         'value' => 2361,
                                       ),
-                                      1137 => 
+                                      1131 => 
                                       array (
                                         'key' => 'ROUGH BORE DOCK 200',
                                         'value' => 1829323,
                                       ),
-                                      1138 => 
+                                      1132 => 
                                       array (
                                         'key' => 'ROUGH BORE DOCK 300',
                                         'value' => 1829221,
                                       ),
-                                      1139 => 
+                                      1133 => 
                                       array (
                                         'key' => 'ROYAL BRASS PLIOVIC',
                                         'value' => 2362,
                                       ),
-                                      1140 => 
+                                      1134 => 
                                       array (
                                         'key' => 'ROYAL BRASS VERSIFLO S&D',
                                         'value' => 1829214,
                                       ),
-                                      1141 => 
+                                      1135 => 
                                       array (
                                         'key' => 'RSD',
                                         'value' => 2363,
                                       ),
-                                      1142 => 
+                                      1136 => 
                                       array (
                                         'key' => 'RUB & GASK WATER DISCHARGE',
                                         'value' => 1829358,
                                       ),
-                                      1143 => 
+                                      1137 => 
                                       array (
                                         'key' => 'RX',
                                         'value' => 2364,
                                       ),
-                                      1144 => 
+                                      1138 => 
                                       array (
                                         'key' => 'S4SH',
                                         'value' => 2365,
                                       ),
-                                      1145 => 
+                                      1139 => 
                                       array (
                                         'key' => 'S4SP',
                                         'value' => 2366,
                                       ),
-                                      1146 => 
+                                      1140 => 
                                       array (
                                         'key' => 'SAE 100R4',
                                         'value' => 2367,
                                       ),
-                                      1147 => 
+                                      1141 => 
                                       array (
                                         'key' => 'SAE 20R1',
                                         'value' => 2368,
                                       ),
-                                      1148 => 
+                                      1142 => 
                                       array (
                                         'key' => 'SAE 20R1 SB/SC',
                                         'value' => 1829428,
                                       ),
-                                      1149 => 
+                                      1143 => 
                                       array (
                                         'key' => 'SAE 20R1 SB/SC HARDWALL',
                                         'value' => 1829429,
                                       ),
-                                      1150 => 
+                                      1144 => 
                                       array (
                                         'key' => 'SAE 20R2 D1',
                                         'value' => 2369,
                                       ),
-                                      1151 => 
+                                      1145 => 
                                       array (
                                         'key' => 'SAE 20R2D1',
                                         'value' => 2370,
                                       ),
-                                      1152 => 
+                                      1146 => 
                                       array (
                                         'key' => 'SAE 45 Flare',
                                         'value' => 1829987,
                                       ),
-                                      1153 => 
+                                      1147 => 
                                       array (
                                         'key' => 'SAE 45 Inverted Flare',
                                         'value' => 1829951,
                                       ),
-                                      1154 => 
+                                      1148 => 
                                       array (
                                         'key' => 'SAE 45 J512 Flare',
                                         'value' => 1829950,
                                       ),
-                                      1155 => 
+                                      1149 => 
                                       array (
                                         'key' => 'SAE J1527 A2 R1 ISO 7840 A2',
                                         'value' => 2371,
                                       ),
-                                      1156 => 
+                                      1150 => 
                                       array (
                                         'key' => 'SAE J1527 TYPE A2 FUEL FILL',
                                         'value' => 2372,
                                       ),
-                                      1157 => 
+                                      1151 => 
                                       array (
                                         'key' => 'SAE J514 Flareless Tube Fittings',
                                         'value' => 1829955,
                                       ),
-                                      1158 => 
+                                      1152 => 
                                       array (
                                         'key' => 'SAE-20R2 D1',
                                         'value' => 2373,
                                       ),
-                                      1159 => 
+                                      1153 => 
                                       array (
                                         'key' => 'SAFEFLEX',
                                         'value' => 1830043,
                                       ),
-                                      1160 => 
+                                      1154 => 
                                       array (
                                         'key' => 'SAFLEX NSFX',
                                         'value' => 1829189,
                                       ),
-                                      1161 => 
+                                      1155 => 
                                       array (
                                         'key' => 'SAND RECOVERY S&D',
                                         'value' => 2374,
                                       ),
-                                      1162 => 
+                                      1156 => 
                                       array (
                                         'key' => 'SAND SUCTION',
                                         'value' => 2375,
                                       ),
-                                      1163 => 
+                                      1157 => 
                                       array (
                                         'key' => 'SANDBLAST 400',
                                         'value' => 2376,
                                       ),
-                                      1164 => 
+                                      1158 => 
                                       array (
                                         'key' => 'SANDBLAST DEADMAN',
                                         'value' => 1829239,
                                       ),
-                                      1165 => 
+                                      1159 => 
                                       array (
                                         'key' => 'SANDER',
                                         'value' => 2377,
                                       ),
-                                      1166 => 
+                                      1160 => 
                                       array (
                                         'key' => 'SANI-WASH',
                                         'value' => 2378,
                                       ),
-                                      1167 => 
+                                      1161 => 
                                       array (
                                         'key' => 'SANI-WASH PLUS',
                                         'value' => 2379,
                                       ),
-                                      1168 => 
+                                      1162 => 
                                       array (
                                         'key' => 'SANI-WASH SUPREME',
                                         'value' => 2380,
                                       ),
-                                      1169 => 
+                                      1163 => 
                                       array (
                                         'key' => 'SBQ FLOATER',
                                         'value' => 1829147,
                                       ),
-                                      1170 => 
+                                      1164 => 
                                       array (
                                         'key' => 'SBQ PETRO',
                                         'value' => 1829313,
                                       ),
-                                      1171 => 
+                                      1165 => 
                                       array (
                                         'key' => 'SCOMI LIQUID MUD',
                                         'value' => 2381,
                                       ),
-                                      1172 => 
+                                      1166 => 
                                       array (
                                         'key' => 'SCOTT',
                                         'value' => 1829100,
                                       ),
-                                      1173 => 
+                                      1167 => 
                                       array (
                                         'key' => 'SCP3',
                                         'value' => 2382,
                                       ),
-                                      1174 => 
+                                      1168 => 
                                       array (
                                         'key' => 'SCRMAC KURB KING',
                                         'value' => 2383,
                                       ),
-                                      1175 => 
+                                      1169 => 
                                       array (
                                         'key' => 'SEAL-RITE',
                                         'value' => 5759831,
                                       ),
-                                      1176 => 
+                                      1170 => 
                                       array (
                                         'key' => 'SEALFS',
                                         'value' => 2384,
                                       ),
-                                      1177 => 
+                                      1171 => 
                                       array (
                                         'key' => 'Sealing Washers',
                                         'value' => 1830000,
                                       ),
-                                      1178 => 
+                                      1172 => 
                                       array (
                                         'key' => 'SEMLER FDA',
                                         'value' => 1829170,
                                       ),
-                                      1179 => 
+                                      1173 => 
                                       array (
                                         'key' => 'SERVICE STATION AIR',
                                         'value' => 2385,
                                       ),
-                                      1180 => 
+                                      1174 => 
                                       array (
                                         'key' => 'SFS',
                                         'value' => 1830044,
                                       ),
-                                      1181 => 
+                                      1175 => 
                                       array (
                                         'key' => 'SFS (FIRE SUPPRESSION)',
                                         'value' => 2386,
                                       ),
-                                      1182 => 
+                                      1176 => 
                                       array (
                                         'key' => 'SGOBAIN',
                                         'value' => 2387,
                                       ),
-                                      1183 => 
+                                      1177 => 
                                       array (
                                         'key' => 'SGOBAIN FOOD DISCHARGE',
                                         'value' => 2388,
                                       ),
-                                      1184 => 
+                                      1178 => 
                                       array (
                                         'key' => 'SGOBAIN FOOD S&D',
                                         'value' => 2389,
                                       ),
-                                      1185 => 
+                                      1179 => 
                                       array (
                                         'key' => 'SGUN',
                                         'value' => 1830045,
                                       ),
-                                      1186 => 
+                                      1180 => 
                                       array (
                                         'key' => 'SHELLFLEX',
                                         'value' => 2390,
                                       ),
-                                      1187 => 
+                                      1181 => 
                                       array (
                                         'key' => 'SHIELD',
                                         'value' => 2391,
                                       ),
-                                      1188 => 
+                                      1182 => 
                                       array (
                                         'key' => 'SHJ',
                                         'value' => 1830046,
                                       ),
-                                      1189 => 
+                                      1183 => 
                                       array (
                                         'key' => 'SIGNAL CALL',
                                         'value' => 1829298,
                                       ),
-                                      1190 => 
+                                      1184 => 
                                       array (
                                         'key' => 'SILENTSYNC',
                                         'value' => 1829497,
                                       ),
-                                      1191 => 
+                                      1185 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE R)',
                                         'value' => 2392,
                                       ),
-                                      1192 => 
+                                      1186 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE R)',
                                         'value' => 1829246,
                                       ),
-                                      1193 => 
+                                      1187 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE R)',
                                         'value' => 1829383,
                                       ),
-                                      1194 => 
+                                      1188 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE RM)',
                                         'value' => 2393,
                                       ),
-                                      1195 => 
+                                      1189 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE T)',
                                         'value' => 2394,
                                       ),
-                                      1196 => 
+                                      1190 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE T)',
                                         'value' => 1829270,
                                       ),
-                                      1197 => 
+                                      1191 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE T)',
                                         'value' => 1829309,
                                       ),
-                                      1198 => 
+                                      1192 => 
                                       array (
                                         'key' => 'SK CARBOV',
                                         'value' => 2395,
                                       ),
-                                      1199 => 
+                                      1193 => 
                                       array (
                                         'key' => 'SLURRY',
                                         'value' => 2396,
                                       ),
-                                      1200 => 
+                                      1194 => 
                                       array (
                                         'key' => 'SMOOTH BORE DOCK',
                                         'value' => 2397,
                                       ),
-                                      1201 => 
+                                      1195 => 
                                       array (
                                         'key' => 'SMOOTH BORE HOT TAR & ASPHALT',
                                         'value' => 2398,
                                       ),
-                                      1202 => 
+                                      1196 => 
                                       array (
                                         'key' => 'SMOOTH BORE MOLTEN SULPHUR',
                                         'value' => 2399,
                                       ),
-                                      1203 => 
+                                      1197 => 
                                       array (
                                         'key' => 'SNAPON',
                                         'value' => 2400,
                                       ),
-                                      1204 => 
+                                      1198 => 
                                       array (
                                         'key' => 'SOFTUB WATER',
                                         'value' => 2401,
                                       ),
-                                      1205 => 
+                                      1199 => 
                                       array (
                                         'key' => 'SOFTWALL',
                                         'value' => 2402,
                                       ),
-                                      1206 => 
+                                      1200 => 
                                       array (
                                         'key' => 'SOFTWALL FDA',
                                         'value' => 5355079,
                                       ),
-                                      1207 => 
+                                      1201 => 
                                       array (
                                         'key' => 'SOHO PROSPECTOR WATER S&D',
                                         'value' => 2403,
                                       ),
-                                      1208 => 
+                                      1202 => 
                                       array (
                                         'key' => 'SOURCE DISPENSING',
                                         'value' => 1829108,
                                       ),
-                                      1209 => 
+                                      1203 => 
                                       array (
                                         'key' => 'SOUTH PNEUMATICS SW',
                                         'value' => 1829198,
                                       ),
-                                      1210 => 
+                                      1204 => 
                                       array (
                                         'key' => 'SOUTHERN',
                                         'value' => 2404,
                                       ),
-                                      1211 => 
-                                      array (
-                                        'key' => 'SOUTHWEST RUBBER',
-                                        'value' => 7082341,
-                                      ),
-                                      1212 => 
-                                      array (
-                                        'key' => 'SPARTAN',
-                                        'value' => 7082427,
-                                      ),
-                                      1213 => 
+                                      1205 => 
                                       array (
                                         'key' => 'SPARTAN PRESSURE WASHER',
                                         'value' => 2405,
                                       ),
-                                      1214 => 
+                                      1206 => 
                                       array (
                                         'key' => 'Spartan Pressure Washer',
                                         'value' => 1829156,
                                       ),
-                                      1215 => 
+                                      1207 => 
                                       array (
                                         'key' => 'SPECIAL PD',
                                         'value' => 1829512,
                                       ),
-                                      1216 => 
+                                      1208 => 
                                       array (
                                         'key' => 'SPEEDAIRE',
                                         'value' => 2406,
                                       ),
-                                      1217 => 
+                                      1209 => 
                                       array (
                                         'key' => 'SPIR SEP',
                                         'value' => 2407,
                                       ),
-                                      1218 => 
+                                      1210 => 
                                       array (
                                         'key' => 'SPIR SEP TPG',
                                         'value' => 2408,
                                       ),
-                                      1219 => 
+                                      1211 => 
                                       array (
                                         'key' => 'SPIRAFLEX 1500',
                                         'value' => 2409,
                                       ),
-                                      1220 => 
+                                      1212 => 
                                       array (
                                         'key' => 'SPIRAFLEX 1600',
                                         'value' => 2410,
                                       ),
-                                      1221 => 
+                                      1213 => 
                                       array (
                                         'key' => 'SPIRAFLEX 2500',
                                         'value' => 1829307,
                                       ),
-                                      1222 => 
+                                      1214 => 
                                       array (
                                         'key' => 'SPIRAFLEX ACTION F.E.S',
                                         'value' => 2411,
                                       ),
-                                      1223 => 
+                                      1215 => 
                                       array (
                                         'key' => 'SPIRAFLEX AGFLEX',
                                         'value' => 2412,
                                       ),
-                                      1224 => 
+                                      1216 => 
                                       array (
                                         'key' => 'SPIRAFLEX AGGIE',
                                         'value' => 2413,
                                       ),
-                                      1225 => 
+                                      1217 => 
                                       array (
                                         'key' => 'SPIRAFLEX AGGIE PVC',
                                         'value' => 1829366,
                                       ),
-                                      1226 => 
+                                      1218 => 
                                       array (
                                         'key' => 'SPIRAFLEX AIR SEEDER',
                                         'value' => 2414,
                                       ),
-                                      1227 => 
+                                      1219 => 
                                       array (
                                         'key' => 'SPIRAFLEX BARKBLOWER',
                                         'value' => 2415,
                                       ),
-                                      1228 => 
+                                      1220 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLACK SUPER-DUTY',
                                         'value' => 1829363,
                                       ),
-                                      1229 => 
+                                      1221 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLACK SUPER-DUTY LAYFLAT',
                                         'value' => 2416,
                                       ),
-                                      1230 => 
+                                      1222 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLUE EXTRA LIGHT DUTY LAYFLAT',
                                         'value' => 2417,
                                       ),
-                                      1231 => 
+                                      1223 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLUE EXTRALIGHT DUTY',
                                         'value' => 1829357,
                                       ),
-                                      1232 => 
+                                      1224 => 
                                       array (
                                         'key' => 'SPIRAFLEX CABLE GUARD',
                                         'value' => 2418,
                                       ),
-                                      1233 => 
+                                      1225 => 
                                       array (
                                         'key' => 'SPIRAFLEX DUCTING',
                                         'value' => 2419,
                                       ),
-                                      1234 => 
+                                      1226 => 
                                       array (
                                         'key' => 'SPIRAFLEX EXTRA LIGHT DUTY',
                                         'value' => 1829188,
                                       ),
-                                      1235 => 
+                                      1227 => 
                                       array (
                                         'key' => 'SPIRAFLEX FGVAC',
                                         'value' => 2420,
                                       ),
-                                      1236 => 
+                                      1228 => 
                                       array (
                                         'key' => 'SPIRAFLEX FISH SUCTION',
                                         'value' => 2421,
                                       ),
-                                      1237 => 
+                                      1229 => 
                                       array (
                                         'key' => 'SPIRAFLEX FOODVAC',
                                         'value' => 2422,
                                       ),
-                                      1238 => 
+                                      1230 => 
                                       array (
                                         'key' => 'SPIRAFLEX GRASSVAC',
                                         'value' => 2423,
                                       ),
-                                      1239 => 
+                                      1231 => 
                                       array (
                                         'key' => 'SPIRAFLEX GRAY LIGHT DUTY LAYFLAT',
                                         'value' => 2424,
                                       ),
-                                      1240 => 
+                                      1232 => 
                                       array (
                                         'key' => 'SPIRAFLEX GREEN',
                                         'value' => 1829335,
                                       ),
-                                      1241 => 
+                                      1233 => 
                                       array (
                                         'key' => 'SPIRAFLEX GREEN LAYFLAT',
                                         'value' => 2425,
                                       ),
-                                      1242 => 
+                                      1234 => 
                                       array (
                                         'key' => 'SPIRAFLEX HEAVY DUTY',
                                         'value' => 1829199,
                                       ),
-                                      1243 => 
+                                      1235 => 
                                       array (
                                         'key' => 'SPIRAFLEX HT',
                                         'value' => 2426,
                                       ),
-                                      1244 => 
+                                      1236 => 
                                       array (
                                         'key' => 'SPIRAFLEX LIGHT DUTY',
                                         'value' => 1829190,
                                       ),
-                                      1245 => 
+                                      1237 => 
                                       array (
                                         'key' => 'SPIRAFLEX LW ROCK DUST',
                                         'value' => 2427,
                                       ),
-                                      1246 => 
+                                      1238 => 
                                       array (
                                         'key' => 'SPIRAFLEX MEDIUM DUTY',
                                         'value' => 1829182,
                                       ),
-                                      1247 => 
+                                      1239 => 
                                       array (
                                         'key' => 'SPIRAFLEX MULCH BLOWER',
                                         'value' => 2428,
                                       ),
-                                      1248 => 
+                                      1240 => 
                                       array (
                                         'key' => 'SPIRAFLEX MULCHBLOWER',
                                         'value' => 2429,
                                       ),
-                                      1249 => 
+                                      1241 => 
                                       array (
                                         'key' => 'SPIRAFLEX RED MEDIUM DUTY',
                                         'value' => 1829317,
                                       ),
-                                      1250 => 
+                                      1242 => 
                                       array (
                                         'key' => 'SPIRAFLEX RED MEDIUM DUTY LAYFLAT',
                                         'value' => 2430,
                                       ),
-                                      1251 => 
+                                      1243 => 
                                       array (
                                         'key' => 'SPIRAFLEX ROCK DUST',
                                         'value' => 2431,
                                       ),
-                                      1252 => 
+                                      1244 => 
                                       array (
                                         'key' => 'SPIRAFLEX VACUUM',
                                         'value' => 2432,
                                       ),
-                                      1253 => 
+                                      1245 => 
                                       array (
                                         'key' => 'SPIRAFLEX VAPOR RECOVERY',
                                         'value' => 2433,
                                       ),
-                                      1254 => 
+                                      1246 => 
                                       array (
                                         'key' => 'SPIRAFLEX YELLOW HEAVY DUTY',
                                         'value' => 1829381,
                                       ),
-                                      1255 => 
+                                      1247 => 
                                       array (
                                         'key' => 'SPIRAFLEX YELLOW HEAVY DUTY LAYFLAT',
                                         'value' => 2434,
                                       ),
-                                      1256 => 
+                                      1248 => 
                                       array (
                                         'key' => 'SPIRAFLOW',
                                         'value' => 2435,
                                       ),
-                                      1257 => 
+                                      1249 => 
                                       array (
                                         'key' => 'SPIRATHANE HD',
                                         'value' => 2436,
                                       ),
-                                      1258 => 
+                                      1250 => 
                                       array (
                                         'key' => 'SPIRATHANE LD',
                                         'value' => 2437,
                                       ),
-                                      1259 => 
+                                      1251 => 
                                       array (
                                         'key' => 'SPIRATHANE PT',
                                         'value' => 2438,
                                       ),
-                                      1260 => 
+                                      1252 => 
                                       array (
                                         'key' => 'SPIRIT',
                                         'value' => 5355081,
                                       ),
-                                      1261 => 
+                                      1253 => 
                                       array (
                                         'key' => 'SR12',
                                         'value' => 2439,
                                       ),
-                                      1262 => 
+                                      1254 => 
                                       array (
                                         'key' => 'SR13',
                                         'value' => 2440,
                                       ),
-                                      1263 => 
+                                      1255 => 
                                       array (
                                         'key' => 'SR14',
                                         'value' => 2441,
                                       ),
-                                      1264 => 
+                                      1256 => 
                                       array (
                                         'key' => 'SR14A',
                                         'value' => 2442,
                                       ),
-                                      1265 => 
+                                      1257 => 
                                       array (
                                         'key' => 'SR14B',
                                         'value' => 2443,
                                       ),
-                                      1266 => 
+                                      1258 => 
                                       array (
                                         'key' => 'SR15',
                                         'value' => 2444,
                                       ),
-                                      1267 => 
+                                      1259 => 
                                       array (
                                         'key' => 'SR16SC',
                                         'value' => 2445,
                                       ),
-                                      1268 => 
+                                      1260 => 
                                       array (
                                         'key' => 'SR18',
                                         'value' => 2446,
                                       ),
-                                      1269 => 
+                                      1261 => 
                                       array (
                                         'key' => 'SR1SN',
                                         'value' => 2447,
                                       ),
-                                      1270 => 
+                                      1262 => 
                                       array (
                                         'key' => 'SR2SN',
                                         'value' => 2448,
                                       ),
-                                      1271 => 
+                                      1263 => 
                                       array (
                                         'key' => 'SR3',
                                         'value' => 2449,
                                       ),
-                                      1272 => 
+                                      1264 => 
                                       array (
                                         'key' => 'SR5',
                                         'value' => 2450,
                                       ),
-                                      1273 => 
+                                      1265 => 
                                       array (
                                         'key' => 'SR6',
                                         'value' => 2451,
                                       ),
-                                      1274 => 
+                                      1266 => 
                                       array (
                                         'key' => 'SR7',
                                         'value' => 2452,
                                       ),
-                                      1275 => 
+                                      1267 => 
                                       array (
                                         'key' => 'SR8',
                                         'value' => 2453,
                                       ),
-                                      1276 => 
+                                      1268 => 
                                       array (
                                         'key' => 'SRS',
                                         'value' => 2454,
                                       ),
-                                      1277 => 
+                                      1269 => 
                                       array (
                                         'key' => 'STANDARD STRAIGHT RAD',
                                         'value' => 2455,
                                       ),
-                                      1278 => 
+                                      1270 => 
                                       array (
                                         'key' => 'Standpipe',
                                         'value' => 1829956,
                                       ),
-                                      1279 => 
+                                      1271 => 
                                       array (
                                         'key' => 'STANLEY',
                                         'value' => 1829192,
                                       ),
-                                      1280 => 
+                                      1272 => 
                                       array (
                                         'key' => 'STANLEY N298402',
                                         'value' => 1829197,
                                       ),
-                                      1281 => 
+                                      1273 => 
                                       array (
                                         'key' => 'STEAM 250',
                                         'value' => 2456,
                                       ),
-                                      1282 => 
+                                      1274 => 
                                       array (
                                         'key' => 'STEAM HOSE',
                                         'value' => 1829165,
                                       ),
-                                      1283 => 
+                                      1275 => 
                                       array (
                                         'key' => 'STEAM PILE DRIVER',
                                         'value' => 1829345,
                                       ),
-                                      1284 => 
+                                      1276 => 
                                       array (
                                         'key' => 'STEEL AIR',
                                         'value' => 2457,
                                       ),
-                                      1285 => 
+                                      1277 => 
                                       array (
                                         'key' => 'STEEL AIR BOOTSTRAP',
                                         'value' => 2458,
                                       ),
-                                      1286 => 
+                                      1278 => 
                                       array (
                                         'key' => 'STEEL AIR MSHA',
                                         'value' => 1829249,
                                       ),
-                                      1287 => 
+                                      1279 => 
                                       array (
                                         'key' => 'SUBSEA CABLE',
                                         'value' => 2459,
                                       ),
-                                      1288 => 
+                                      1280 => 
                                       array (
                                         'key' => 'SULBANA GAUNTLET',
                                         'value' => 2460,
                                       ),
-                                      1289 => 
+                                      1281 => 
                                       array (
                                         'key' => 'SUMMERS',
                                         'value' => 1829368,
                                       ),
-                                      1290 => 
+                                      1282 => 
                                       array (
                                         'key' => 'SUNSDEA MUD',
                                         'value' => 2461,
                                       ),
-                                      1291 => 
+                                      1283 => 
                                       array (
                                         'key' => 'SUNSET WATER S&D FIRE SERVICE',
                                         'value' => 2462,
                                       ),
-                                      1292 => 
+                                      1284 => 
                                       array (
                                         'key' => 'SUPER AIR 400',
                                         'value' => 2463,
                                       ),
-                                      1293 => 
+                                      1285 => 
                                       array (
                                         'key' => 'SUPER BLACK FLEXWING',
                                         'value' => 2464,
                                       ),
-                                      1294 => 
+                                      1286 => 
                                       array (
                                         'key' => 'SUPER ORTAC',
                                         'value' => 1829130,
                                       ),
-                                      1295 => 
+                                      1287 => 
                                       array (
                                         'key' => 'SUPER ORTAC®',
                                         'value' => 2465,
                                       ),
-                                      1296 => 
+                                      1288 => 
                                       array (
                                         'key' => 'SUPER ROCK DRILL',
                                         'value' => 2466,
                                       ),
-                                      1297 => 
+                                      1289 => 
                                       array (
                                         'key' => 'SUPER ROCK DRILL HT',
                                         'value' => 2467,
                                       ),
-                                      1298 => 
+                                      1290 => 
                                       array (
                                         'key' => 'SUPER SANI-WASH',
                                         'value' => 2468,
                                       ),
-                                      1299 => 
+                                      1291 => 
                                       array (
                                         'key' => 'SUPER SANI-WASH 300',
                                         'value' => 1829152,
                                       ),
-                                      1300 => 
+                                      1292 => 
                                       array (
                                         'key' => 'SUPER TORQUE',
                                         'value' => 1829525,
                                       ),
-                                      1301 => 
-                                      array (
-                                        'key' => 'SUPER YC AIR',
-                                        'value' => 7082890,
-                                      ),
-                                      1302 => 
+                                      1293 => 
                                       array (
                                         'key' => 'SUPERIOR',
                                         'value' => 2469,
                                       ),
-                                      1303 => 
+                                      1294 => 
                                       array (
                                         'key' => 'SUPERIOR PETRO TANK TRUCK',
                                         'value' => 1829380,
                                       ),
-                                      1304 => 
+                                      1295 => 
                                       array (
                                         'key' => 'SUPFLOW',
                                         'value' => 2470,
                                       ),
-                                      1305 => 
+                                      1296 => 
                                       array (
                                         'key' => 'SUPVAC',
                                         'value' => 2471,
                                       ),
-                                      1306 => 
+                                      1297 => 
                                       array (
                                         'key' => 'SURELINE',
                                         'value' => 2472,
                                       ),
-                                      1307 => 
+                                      1298 => 
                                       array (
                                         'key' => 'SURELINE BLACK',
                                         'value' => 1829306,
                                       ),
-                                      1308 => 
+                                      1299 => 
                                       array (
                                         'key' => 'SW DRY CEMENT & BARYTES',
                                         'value' => 2473,
                                       ),
-                                      1309 => 
+                                      1300 => 
                                       array (
                                         'key' => 'SWAGELOK',
                                         'value' => 2474,
                                       ),
-                                      1310 => 
+                                      1301 => 
                                       array (
                                         'key' => 'SYNCHROCHAIN CARBON',
                                         'value' => 1829531,
                                       ),
-                                      1311 => 
+                                      1302 => 
                                       array (
                                         'key' => 'TAMARACK',
                                         'value' => 1829143,
                                       ),
-                                      1312 => 
+                                      1303 => 
                                       array (
                                         'key' => 'TAN FLEXTRA',
                                         'value' => 2475,
                                       ),
-                                      1313 => 
+                                      1304 => 
                                       array (
                                         'key' => 'TAN FLEXTRA FDA',
                                         'value' => 2476,
                                       ),
-                                      1314 => 
+                                      1305 => 
                                       array (
                                         'key' => 'TAN FLEXWING',
                                         'value' => 2477,
                                       ),
-                                      1315 => 
+                                      1306 => 
                                       array (
                                         'key' => 'TAN FLEXWING FDA',
                                         'value' => 2478,
                                       ),
-                                      1316 => 
+                                      1307 => 
                                       array (
                                         'key' => 'TANK CLEANING',
                                         'value' => 2479,
                                       ),
-                                      1317 => 
+                                      1308 => 
                                       array (
                                         'key' => 'TANKER BARGE DISCHARGE',
                                         'value' => 2480,
                                       ),
-                                      1318 => 
-                                      array (
-                                        'key' => 'TECHNIWELD',
-                                        'value' => 7079917,
-                                      ),
-                                      1319 => 
+                                      1309 => 
                                       array (
                                         'key' => 'TEFLON',
                                         'value' => 2481,
                                       ),
-                                      1320 => 
+                                      1310 => 
                                       array (
                                         'key' => 'TEFPASS',
                                         'value' => 1829162,
                                       ),
-                                      1321 => 
+                                      1311 => 
                                       array (
                                         'key' => 'TEKNOR',
                                         'value' => 1829106,
                                       ),
-                                      1322 => 
+                                      1312 => 
                                       array (
                                         'key' => 'TEKNOR 8650GT',
                                         'value' => 1829201,
                                       ),
-                                      1323 => 
+                                      1313 => 
                                       array (
                                         'key' => 'TEKNOR 8696-27',
                                         'value' => 1829217,
                                       ),
-                                      1324 => 
+                                      1314 => 
                                       array (
                                         'key' => 'TEKNOR 969RR',
                                         'value' => 1829226,
                                       ),
-                                      1325 => 
+                                      1315 => 
                                       array (
                                         'key' => 'TETRA',
                                         'value' => 2482,
                                       ),
-                                      1326 => 
+                                      1316 => 
                                       array (
                                         'key' => 'THERMIDOR',
                                         'value' => 2483,
                                       ),
-                                      1327 => 
+                                      1317 => 
                                       array (
                                         'key' => 'THESE ARE TIED TO NORFOLK SPECS...',
                                         'value' => 1829257,
                                       ),
-                                      1328 => 
+                                      1318 => 
                                       array (
                                         'key' => 'THOMPSON FLEX XLPE',
                                         'value' => 2484,
                                       ),
-                                      1329 => 
+                                      1319 => 
                                       array (
                                         'key' => 'THUNDER INSTA-GRIP',
                                         'value' => 2485,
                                       ),
-                                      1330 => 
+                                      1320 => 
                                       array (
                                         'key' => 'TIG WELDING',
                                         'value' => 2486,
                                       ),
-                                      1331 => 
+                                      1321 => 
                                       array (
                                         'key' => 'TIMCO',
                                         'value' => 2487,
                                       ),
-                                      1332 => 
+                                      1322 => 
                                       array (
                                         'key' => 'TIPCO PREMIUM GARDEN',
                                         'value' => 2488,
                                       ),
-                                      1333 => 
+                                      1323 => 
                                       array (
                                         'key' => 'TIPO',
                                         'value' => 1829427,
                                       ),
-                                      1334 => 
+                                      1324 => 
                                       array (
                                         'key' => 'TORQUE TEAM LAMINATED',
                                         'value' => 1829516,
                                       ),
-                                      1335 => 
+                                      1325 => 
                                       array (
                                         'key' => 'TORQUE TEAM PLUS',
                                         'value' => 1829500,
                                       ),
-                                      1336 => 
+                                      1326 => 
                                       array (
                                         'key' => 'TORQUE-FLEX',
                                         'value' => 1829498,
                                       ),
-                                      1337 => 
+                                      1327 => 
                                       array (
                                         'key' => 'TORRIDAIR',
                                         'value' => 2489,
                                       ),
-                                      1338 => 
+                                      1328 => 
                                       array (
                                         'key' => 'TOW CABLE',
                                         'value' => 2490,
                                       ),
-                                      1339 => 
+                                      1329 => 
                                       array (
                                         'key' => 'TR7',
                                         'value' => 2491,
                                       ),
-                                      1340 => 
+                                      1330 => 
                                       array (
                                         'key' => 'TR8',
                                         'value' => 2492,
                                       ),
-                                      1341 => 
+                                      1331 => 
                                       array (
                                         'key' => 'TRANSPLY',
                                         'value' => 2493,
                                       ),
-                                      1342 => 
+                                      1332 => 
                                       array (
                                         'key' => 'TRI-STATE',
                                         'value' => 1829330,
                                       ),
-                                      1343 => 
+                                      1333 => 
                                       array (
                                         'key' => 'TRIDENT',
                                         'value' => 2494,
                                       ),
-                                      1344 => 
+                                      1334 => 
                                       array (
                                         'key' => 'TRIDENT SER',
                                         'value' => 2495,
                                       ),
-                                      1345 => 
+                                      1335 => 
                                       array (
                                         'key' => 'TRINCO BLAST',
                                         'value' => 2496,
                                       ),
-                                      1346 => 
+                                      1336 => 
                                       array (
                                         'key' => 'TRIPLX',
                                         'value' => 2497,
                                       ),
-                                      1347 => 
+                                      1337 => 
                                       array (
                                         'key' => 'TRIX ACETYLENE',
                                         'value' => 2498,
                                       ),
-                                      1348 => 
+                                      1338 => 
                                       array (
                                         'key' => 'TRIX BLAUSTRAHL',
                                         'value' => 2499,
                                       ),
-                                      1349 => 
+                                      1339 => 
                                       array (
                                         'key' => 'TRIX BRAKE',
                                         'value' => 2500,
                                       ),
-                                      1350 => 
+                                      1340 => 
                                       array (
                                         'key' => 'TRIX FUEL',
                                         'value' => 2501,
                                       ),
-                                      1351 => 
-                                      array (
-                                        'key' => 'TRIX HP',
-                                        'value' => 7082339,
-                                      ),
-                                      1352 => 
+                                      1341 => 
                                       array (
                                         'key' => 'TRIX MULTIFOOD',
                                         'value' => 2502,
                                       ),
-                                      1353 => 
+                                      1342 => 
                                       array (
                                         'key' => 'TRIX NITRO',
                                         'value' => 2503,
                                       ),
-                                      1354 => 
+                                      1343 => 
                                       array (
                                         'key' => 'TRIX OXYGEN',
                                         'value' => 2504,
                                       ),
-                                      1355 => 
+                                      1344 => 
                                       array (
                                         'key' => 'TRIX PAINT SPRAY',
                                         'value' => 2505,
                                       ),
-                                      1356 => 
+                                      1345 => 
                                       array (
                                         'key' => 'TRIX RESPIRATION',
                                         'value' => 2506,
                                       ),
-                                      1357 => 
+                                      1346 => 
                                       array (
                                         'key' => 'TRIX ROSTRAHL',
                                         'value' => 2507,
                                       ),
-                                      1358 => 
+                                      1347 => 
                                       array (
                                         'key' => 'TRIX SUPER',
                                         'value' => 2508,
                                       ),
-                                      1359 => 
+                                      1348 => 
                                       array (
                                         'key' => 'TUNNELCOTE ROCK DUST FLEXTRA',
                                         'value' => 2509,
                                       ),
-                                      1360 => 
+                                      1349 => 
                                       array (
                                         'key' => 'TUNNELCOTE ROCK DUST FLEXWING',
                                         'value' => 2510,
                                       ),
-                                      1361 => 
+                                      1350 => 
                                       array (
                                         'key' => 'TWIN-LINE (GRADE R)',
                                         'value' => 2511,
                                       ),
-                                      1362 => 
+                                      1351 => 
                                       array (
                                         'key' => 'TWIN-LINE (GRADE RM)',
                                         'value' => 2512,
                                       ),
-                                      1363 => 
+                                      1352 => 
                                       array (
                                         'key' => 'TWIN-LINE (GRADE T)',
                                         'value' => 2513,
                                       ),
-                                      1364 => 
+                                      1353 => 
                                       array (
                                         'key' => 'TWIN-LINE ISO 3821',
                                         'value' => 2514,
                                       ),
-                                      1365 => 
+                                      1354 => 
                                       array (
                                         'key' => 'UL 92 FIRE EXTINGUISHER',
                                         'value' => 2515,
                                       ),
-                                      1366 => 
+                                      1355 => 
                                       array (
                                         'key' => 'ULTRABRAID BULL',
                                         'value' => 2516,
                                       ),
-                                      1367 => 
+                                      1356 => 
                                       array (
                                         'key' => 'ULTRAFLEX',
                                         'value' => 2517,
                                       ),
-                                      1368 => 
+                                      1357 => 
                                       array (
                                         'key' => 'ULTRAMAR',
                                         'value' => 2518,
                                       ),
-                                      1369 => 
+                                      1358 => 
                                       array (
                                         'key' => 'ULTRAMAX',
                                         'value' => 5764905,
                                       ),
-                                      1370 => 
+                                      1359 => 
                                       array (
                                         'key' => 'UNDERHILL',
                                         'value' => 2519,
                                       ),
-                                      1371 => 
+                                      1360 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF10 Ferrule',
                                         'value' => 1830018,
                                       ),
-                                      1372 => 
+                                      1361 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF11 Ferrule',
                                         'value' => 1830019,
                                       ),
-                                      1373 => 
+                                      1362 => 
                                       array (
                                         'key' => 'UNI-Crimp UCF2 Ferrule',
                                         'value' => 1830013,
                                       ),
-                                      1374 => 
+                                      1363 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF3 Ferrule',
                                         'value' => 1830014,
                                       ),
-                                      1375 => 
+                                      1364 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF6 Ferrule',
                                         'value' => 1830015,
                                       ),
-                                      1376 => 
+                                      1365 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF8 Ferrule',
                                         'value' => 1830016,
                                       ),
-                                      1377 => 
+                                      1366 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF9 Ferrule',
                                         'value' => 1830017,
                                       ),
-                                      1378 => 
+                                      1367 => 
                                       array (
                                         'key' => 'UNISOURCE',
                                         'value' => 2520,
                                       ),
-                                      1379 => 
+                                      1368 => 
                                       array (
                                         'key' => 'UNITED CENTRAL',
                                         'value' => 5764906,
                                       ),
-                                      1380 => 
+                                      1369 => 
                                       array (
                                         'key' => 'UNITED RUBBER CONTRACTOR\'S WATER',
                                         'value' => 1829291,
                                       ),
-                                      1381 => 
+                                      1370 => 
                                       array (
                                         'key' => 'UNITRIX 60',
                                         'value' => 2521,
                                       ),
-                                      1382 => 
+                                      1371 => 
                                       array (
                                         'key' => 'UNITRIX 80',
                                         'value' => 2522,
                                       ),
-                                      1383 => 
+                                      1372 => 
                                       array (
                                         'key' => 'UNIWELD',
                                         'value' => 1829184,
                                       ),
-                                      1384 => 
+                                      1373 => 
                                       array (
                                         'key' => 'UNPRINTED SPRAY SALVAGE',
                                         'value' => 2523,
                                       ),
-                                      1385 => 
+                                      1374 => 
                                       array (
                                         'key' => 'V-50 S&D',
                                         'value' => 2524,
                                       ),
-                                      1386 => 
+                                      1375 => 
                                       array (
                                         'key' => 'VACUUM',
                                         'value' => 2525,
                                       ),
-                                      1387 => 
+                                      1376 => 
                                       array (
                                         'key' => 'VACUWORX XR16SC',
                                         'value' => 3831418,
                                       ),
-                                      1388 => 
+                                      1377 => 
                                       array (
                                         'key' => 'Valve Adapter',
                                         'value' => 1830001,
                                       ),
-                                      1389 => 
+                                      1378 => 
                                       array (
                                         'key' => 'Valve Caps',
                                         'value' => 1830002,
                                       ),
-                                      1390 => 
+                                      1379 => 
                                       array (
                                         'key' => 'Valve Core',
                                         'value' => 1830003,
                                       ),
-                                      1391 => 
+                                      1380 => 
                                       array (
                                         'key' => 'VAPOR RECOVERY',
                                         'value' => 2526,
                                       ),
-                                      1392 => 
+                                      1381 => 
                                       array (
                                         'key' => 'VAPOR RECOVERY DOCK',
                                         'value' => 2527,
                                       ),
-                                      1393 => 
+                                      1382 => 
                                       array (
                                         'key' => 'VARIABLE SPEED',
                                         'value' => 1829513,
                                       ),
-                                      1394 => 
+                                      1383 => 
                                       array (
                                         'key' => 'VARIFLEX',
                                         'value' => 2528,
                                       ),
-                                      1395 => 
+                                      1384 => 
                                       array (
                                         'key' => 'VELOCITY BANDING COIL',
                                         'value' => 2529,
                                       ),
-                                      1396 => 
+                                      1385 => 
                                       array (
                                         'key' => 'VELOCITY BEVERAGE TRANSFER',
                                         'value' => 2530,
                                       ),
-                                      1397 => 
+                                      1386 => 
                                       array (
                                         'key' => 'VELOCITY PETROLEUM TRANSFER',
                                         'value' => 2531,
                                       ),
-                                      1398 => 
+                                      1387 => 
                                       array (
                                         'key' => 'VELOCITY WATER TRANSFER',
                                         'value' => 2532,
                                       ),
-                                      1399 => 
+                                      1388 => 
                                       array (
                                         'key' => 'VERSACHEM',
                                         'value' => 2533,
                                       ),
-                                      1400 => 
+                                      1389 => 
                                       array (
                                         'key' => 'VERSACRETE',
                                         'value' => 2534,
                                       ),
-                                      1401 => 
+                                      1390 => 
                                       array (
                                         'key' => 'VERSAFUEL EN1765 S15',
                                         'value' => 2535,
                                       ),
-                                      1402 => 
+                                      1391 => 
                                       array (
                                         'key' => 'VERSAFUEL FLEX',
                                         'value' => 2536,
                                       ),
-                                      1403 => 
+                                      1392 => 
                                       array (
                                         'key' => 'VERSIFLO DISCHARGE',
                                         'value' => 2537,
                                       ),
-                                      1404 => 
+                                      1393 => 
                                       array (
                                         'key' => 'VERSIFLO S&D',
                                         'value' => 2538,
                                       ),
-                                      1405 => 
+                                      1394 => 
                                       array (
                                         'key' => 'VICTOR',
                                         'value' => 2539,
                                       ),
-                                      1406 => 
+                                      1395 => 
                                       array (
                                         'key' => 'VICTOR GRADE RM',
                                         'value' => 1829341,
                                       ),
-                                      1407 => 
+                                      1396 => 
                                       array (
                                         'key' => 'VICTOR GRADE T',
                                         'value' => 1829114,
                                       ),
-                                      1408 => 
+                                      1397 => 
                                       array (
                                         'key' => 'VINTNER',
                                         'value' => 2540,
                                       ),
-                                      1409 => 
+                                      1398 => 
                                       array (
                                         'key' => 'VINTNER MICROBAN',
                                         'value' => 2541,
                                       ),
-                                      1410 => 
+                                      1399 => 
                                       array (
                                         'key' => 'VINTNER RESERVE',
                                         'value' => 2542,
                                       ),
-                                      1411 => 
+                                      1400 => 
                                       array (
                                         'key' => 'VIPER',
                                         'value' => 2543,
                                       ),
-                                      1412 => 
+                                      1401 => 
                                       array (
                                         'key' => 'WAB SLURRY',
                                         'value' => 2544,
                                       ),
-                                      1413 => 
+                                      1402 => 
                                       array (
                                         'key' => 'WASHDOWN',
                                         'value' => 2545,
                                       ),
-                                      1414 => 
+                                      1403 => 
                                       array (
                                         'key' => 'WASTE MATE',
                                         'value' => 2546,
                                       ),
-                                      1415 => 
+                                      1404 => 
                                       array (
                                         'key' => 'WATER',
                                         'value' => 1829360,
                                       ),
-                                      1416 => 
+                                      1405 => 
                                       array (
                                         'key' => 'WATER & AIR HD',
                                         'value' => 2547,
                                       ),
-                                      1417 => 
+                                      1406 => 
                                       array (
                                         'key' => 'WATER 150 HD',
                                         'value' => 1829322,
                                       ),
-                                      1418 => 
+                                      1407 => 
                                       array (
                                         'key' => 'WATER DISCHARGE',
                                         'value' => 2548,
                                       ),
-                                      1419 => 
+                                      1408 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 100',
                                         'value' => 1829320,
                                       ),
-                                      1420 => 
+                                      1409 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 150',
                                         'value' => 1829233,
                                       ),
-                                      1421 => 
+                                      1410 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 250',
                                         'value' => 1829376,
                                       ),
-                                      1422 => 
+                                      1411 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD',
                                         'value' => 2549,
                                       ),
-                                      1423 => 
+                                      1412 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD 600',
                                         'value' => 1829264,
                                       ),
-                                      1424 => 
+                                      1413 => 
                                       array (
                                         'key' => 'WATER HD',
                                         'value' => 2550,
                                       ),
-                                      1425 => 
+                                      1414 => 
                                       array (
                                         'key' => 'WATER JETTING',
                                         'value' => 1829279,
                                       ),
-                                      1426 => 
+                                      1415 => 
                                       array (
                                         'key' => 'WATER JETTING 1000',
                                         'value' => 2551,
                                       ),
-                                      1427 => 
+                                      1416 => 
                                       array (
                                         'key' => 'WATER JETTING 500',
                                         'value' => 2552,
                                       ),
-                                      1428 => 
+                                      1417 => 
                                       array (
                                         'key' => 'WATER REHAB',
                                         'value' => 2553,
                                       ),
-                                      1429 => 
+                                      1418 => 
                                       array (
                                         'key' => 'WATER S&D',
                                         'value' => 1829252,
                                       ),
-                                      1430 => 
+                                      1419 => 
                                       array (
                                         'key' => 'WATER SUCTION & DISCHARGE',
                                         'value' => 2554,
                                       ),
-                                      1431 => 
+                                      1420 => 
                                       array (
                                         'key' => 'WEDGE TLP',
                                         'value' => 1829527,
                                       ),
-                                      1432 => 
+                                      1421 => 
                                       array (
                                         'key' => 'WEST MICH',
                                         'value' => 1829111,
                                       ),
-                                      1433 => 
+                                      1422 => 
                                       array (
                                         'key' => 'WESTERN',
                                         'value' => 2555,
                                       ),
-                                      1434 => 
+                                      1423 => 
                                       array (
                                         'key' => 'WESTFLEX',
                                         'value' => 5764907,
                                       ),
-                                      1435 => 
+                                      1424 => 
                                       array (
                                         'key' => 'WHALE OIL',
                                         'value' => 2556,
                                       ),
-                                      1436 => 
+                                      1425 => 
                                       array (
                                         'key' => 'WHALE WATER',
                                         'value' => 2557,
                                       ),
-                                      1437 => 
+                                      1426 => 
                                       array (
                                         'key' => 'WHIPEND BLAST',
                                         'value' => 2558,
                                       ),
-                                      1438 => 
+                                      1427 => 
                                       array (
                                         'key' => 'WHITE FLEXTRA',
                                         'value' => 2559,
                                       ),
-                                      1439 => 
+                                      1428 => 
                                       array (
                                         'key' => 'WHITE FLEXWING',
                                         'value' => 2560,
                                       ),
-                                      1440 => 
+                                      1429 => 
                                       array (
                                         'key' => 'WHITEWATER',
                                         'value' => 2561,
                                       ),
-                                      1441 => 
+                                      1430 => 
                                       array (
                                         'key' => 'WHW GAUNTLET',
                                         'value' => 1829423,
                                       ),
-                                      1442 => 
+                                      1431 => 
                                       array (
                                         'key' => 'WILD HOG',
                                         'value' => 1829225,
                                       ),
-                                      1443 => 
+                                      1432 => 
                                       array (
                                         'key' => 'WINGCRAFT',
                                         'value' => 2562,
                                       ),
-                                      1444 => 
+                                      1433 => 
                                       array (
                                         'key' => 'WIRE INSERTED RADIATOR HOSE',
                                         'value' => 2563,
                                       ),
-                                      1445 => 
+                                      1434 => 
                                       array (
                                         'key' => 'WOODMI SAWDUST',
                                         'value' => 2564,
                                       ),
-                                      1446 => 
+                                      1435 => 
                                       array (
                                         'key' => 'X-LIFE XCP3',
                                         'value' => 2566,
                                       ),
-                                      1447 => 
+                                      1436 => 
                                       array (
                                         'key' => 'X-LIFE XCP3S',
                                         'value' => 2567,
                                       ),
-                                      1448 => 
+                                      1437 => 
                                       array (
                                         'key' => 'X-LIFE XCP4',
                                         'value' => 2568,
                                       ),
-                                      1449 => 
+                                      1438 => 
                                       array (
                                         'key' => 'X-LIFE XCP4S',
                                         'value' => 2569,
                                       ),
-                                      1450 => 
+                                      1439 => 
                                       array (
                                         'key' => 'X-LIFE XCP5S',
                                         'value' => 2570,
                                       ),
-                                      1451 => 
+                                      1440 => 
                                       array (
                                         'key' => 'X-LIFE XCP6S',
                                         'value' => 2571,
                                       ),
-                                      1452 => 
+                                      1441 => 
                                       array (
                                         'key' => 'X-LIFE XR16SC',
                                         'value' => 2572,
                                       ),
-                                      1453 => 
+                                      1442 => 
                                       array (
                                         'key' => 'XF BLAST',
                                         'value' => 2565,
                                       ),
-                                      1454 => 
+                                      1443 => 
                                       array (
                                         'key' => 'XLPE CHEMICAL TRANSFER',
                                         'value' => 2573,
                                       ),
-                                      1455 => 
+                                      1444 => 
                                       array (
                                         'key' => 'XPOWER',
                                         'value' => 2574,
                                       ),
-                                      1456 => 
+                                      1445 => 
                                       array (
                                         'key' => 'XPOWER OILFIELD FRAC HW',
                                         'value' => 1829105,
                                       ),
-                                      1457 => 
+                                      1446 => 
                                       array (
                                         'key' => 'YARDMASTER ECO',
                                         'value' => 3831420,
                                       ),
-                                      1458 => 
+                                      1447 => 
                                       array (
                                         'key' => 'YARDMASTER GARDEN HOSE',
                                         'value' => 2575,
                                       ),
-                                      1459 => 
+                                      1448 => 
                                       array (
                                         'key' => 'YELLOW FLEXWING',
                                         'value' => 2576,
                                       ),
-                                      1460 => 
+                                      1449 => 
                                       array (
                                         'key' => 'YUKON',
                                         'value' => 2577,
                                       ),
-                                      1461 => 
+                                      1450 => 
                                       array (
                                         'key' => 'YUKON BLUE',
                                         'value' => 1829293,
                                       ),
-                                      1462 => 
+                                      1451 => 
                                       array (
                                         'key' => 'YUKON SPIRAFLEX',
                                         'value' => 2578,
                                       ),
-                                      1463 => 
+                                      1452 => 
                                       array (
                                         'key' => 'ZZH561K-AA2',
                                         'value' => 2579,
                                       ),
-                                      1464 => 
+                                      1453 => 
                                       array (
                                         'key' => 'ZZH561K-BA2',
                                         'value' => 2580,
                                       ),
-                                      1465 => 
+                                      1454 => 
                                       array (
                                         'key' => 'ZZH601 3-2',
                                         'value' => 2581,
@@ -8548,7045 +8493,6990 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       ),
                                       57 => 
                                       array (
-                                        'key' => 'AIRGAS',
-                                        'value' => 7079916,
-                                      ),
-                                      58 => 
-                                      array (
                                         'key' => 'AIRGAS FRONTIER',
                                         'value' => 1679,
                                       ),
-                                      59 => 
+                                      58 => 
                                       array (
                                         'key' => 'AIRGAS GRADE R',
                                         'value' => 1680,
                                       ),
-                                      60 => 
+                                      59 => 
                                       array (
                                         'key' => 'AIRGAS GRADE RM',
                                         'value' => 1681,
                                       ),
-                                      61 => 
+                                      60 => 
                                       array (
                                         'key' => 'AIRGAS GRADE T',
                                         'value' => 1682,
                                       ),
-                                      62 => 
+                                      61 => 
                                       array (
                                         'key' => 'AIRMAX FLEXIMAX',
                                         'value' => 1683,
                                       ),
-                                      63 => 
+                                      62 => 
                                       array (
                                         'key' => 'AIRMAX PROMAX',
                                         'value' => 1684,
                                       ),
-                                      64 => 
+                                      63 => 
                                       array (
                                         'key' => 'AIRMAX SUPERMAX',
                                         'value' => 1685,
                                       ),
-                                      65 => 
+                                      64 => 
                                       array (
                                         'key' => 'AIRSER',
                                         'value' => 1829328,
                                       ),
-                                      66 => 
-                                      array (
-                                        'key' => 'AIRSTAR',
-                                        'value' => 7079918,
-                                      ),
-                                      67 => 
+                                      65 => 
                                       array (
                                         'key' => 'AJAX',
                                         'value' => 1687,
                                       ),
-                                      68 => 
+                                      66 => 
                                       array (
                                         'key' => 'ALASKA RUBBER',
                                         'value' => 1688,
                                       ),
-                                      69 => 
+                                      67 => 
                                       array (
                                         'key' => 'ALCAN MUD STACKING',
                                         'value' => 1689,
                                       ),
-                                      70 => 
+                                      68 => 
                                       array (
                                         'key' => 'ALCOA POTROOM',
                                         'value' => 1690,
                                       ),
-                                      71 => 
+                                      69 => 
                                       array (
                                         'key' => 'ALEMITE',
                                         'value' => 5759833,
                                       ),
-                                      72 => 
+                                      70 => 
                                       array (
                                         'key' => 'ALLCRETE TEXTILE',
                                         'value' => 1691,
                                       ),
-                                      73 => 
+                                      71 => 
                                       array (
                                         'key' => 'ALLCRETE WIRE',
                                         'value' => 1692,
                                       ),
-                                      74 => 
+                                      72 => 
                                       array (
                                         'key' => 'ALLENT GUNITE',
                                         'value' => 1693,
                                       ),
-                                      75 => 
+                                      73 => 
                                       array (
                                         'key' => 'ALLENT REFRACTORY',
                                         'value' => 1694,
                                       ),
-                                      76 => 
+                                      74 => 
                                       array (
                                         'key' => 'AMEREX 07648 FIREXB',
                                         'value' => 1829096,
                                       ),
-                                      77 => 
+                                      75 => 
                                       array (
                                         'key' => 'AMFLO 702-610',
                                         'value' => 1695,
                                       ),
-                                      78 => 
+                                      76 => 
                                       array (
                                         'key' => 'AMMONIUM NITRATE BLAST',
                                         'value' => 1696,
                                       ),
-                                      79 => 
+                                      77 => 
                                       array (
                                         'key' => 'AMMONIUM NITRATE HD',
                                         'value' => 1697,
                                       ),
-                                      80 => 
+                                      78 => 
                                       array (
                                         'key' => 'AMMONIUM NITRATE PELLET',
                                         'value' => 1698,
                                       ),
-                                      81 => 
+                                      79 => 
                                       array (
                                         'key' => 'ANSUL 423267',
                                         'value' => 1829236,
                                       ),
-                                      82 => 
+                                      80 => 
                                       array (
                                         'key' => 'ANSUL 423581',
                                         'value' => 1829215,
                                       ),
-                                      83 => 
+                                      81 => 
                                       array (
                                         'key' => 'ANSUL 426809',
                                         'value' => 1829103,
                                       ),
-                                      84 => 
+                                      82 => 
                                       array (
                                         'key' => 'ANSUL 429196',
                                         'value' => 1829158,
                                       ),
-                                      85 => 
+                                      83 => 
                                       array (
                                         'key' => 'ANSUL 431352',
                                         'value' => 1829112,
                                       ),
-                                      86 => 
+                                      84 => 
                                       array (
                                         'key' => 'ANSUL 518518',
                                         'value' => 1829141,
                                       ),
-                                      87 => 
+                                      85 => 
                                       array (
                                         'key' => 'ANSUL 535688',
                                         'value' => 1829187,
                                       ),
-                                      88 => 
+                                      86 => 
                                       array (
                                         'key' => 'ANSUL 7083',
                                         'value' => 1829173,
                                       ),
-                                      89 => 
+                                      87 => 
                                       array (
                                         'key' => 'ANSUL 7091',
                                         'value' => 1829166,
                                       ),
-                                      90 => 
+                                      88 => 
                                       array (
                                         'key' => 'ANSUL 71976',
                                         'value' => 1829122,
                                       ),
-                                      91 => 
+                                      89 => 
                                       array (
                                         'key' => 'ANSUL 71980',
                                         'value' => 1829234,
                                       ),
-                                      92 => 
+                                      90 => 
                                       array (
                                         'key' => 'ANSUL 79007',
                                         'value' => 1829131,
                                       ),
-                                      93 => 
+                                      91 => 
                                       array (
                                         'key' => 'APACHE',
                                         'value' => 1699,
                                       ),
-                                      94 => 
+                                      92 => 
                                       array (
                                         'key' => 'APOLLO',
                                         'value' => 1700,
                                       ),
-                                      95 => 
+                                      93 => 
                                       array (
                                         'key' => 'APOLLO FLEXDOCK',
                                         'value' => 1701,
                                       ),
-                                      96 => 
+                                      94 => 
                                       array (
                                         'key' => 'APPION MEGAFLOW CT5',
                                         'value' => 1829128,
                                       ),
-                                      97 => 
+                                      95 => 
                                       array (
                                         'key' => 'APPLIED INDUSTRIAL TECH',
                                         'value' => 1702,
                                       ),
-                                      98 => 
+                                      96 => 
                                       array (
                                         'key' => 'APPLIED JETTING',
                                         'value' => 1703,
                                       ),
-                                      99 => 
+                                      97 => 
                                       array (
                                         'key' => 'AQUAHAMMER',
                                         'value' => 1704,
                                       ),
-                                      100 => 
+                                      98 => 
                                       array (
                                         'key' => 'AQUAPAL',
                                         'value' => 1705,
                                       ),
-                                      101 => 
+                                      99 => 
                                       array (
                                         'key' => 'AR THOMSON',
                                         'value' => 1829384,
                                       ),
-                                      102 => 
+                                      100 => 
                                       array (
                                         'key' => 'AR THOMSON EXTREME CRIMP',
                                         'value' => 1706,
                                       ),
-                                      103 => 
+                                      101 => 
                                       array (
                                         'key' => 'ARCAIR 5077MP',
                                         'value' => 1829172,
                                       ),
-                                      104 => 
+                                      102 => 
                                       array (
                                         'key' => 'ARCAIR INSULATOR',
                                         'value' => 1707,
                                       ),
-                                      105 => 
+                                      103 => 
                                       array (
                                         'key' => 'ARCHON',
                                         'value' => 1708,
                                       ),
-                                      106 => 
+                                      104 => 
                                       array (
                                         'key' => 'ARCO BLAST XF',
                                         'value' => 1709,
                                       ),
-                                      107 => 
+                                      105 => 
                                       array (
                                         'key' => 'ARCTIC EXTREMEFLEX',
                                         'value' => 1710,
                                       ),
-                                      108 => 
+                                      106 => 
                                       array (
                                         'key' => 'ARCTIC FLEXTRA',
                                         'value' => 1711,
                                       ),
-                                      109 => 
+                                      107 => 
                                       array (
                                         'key' => 'ARCTIC FLEXWING',
                                         'value' => 1712,
                                       ),
-                                      110 => 
+                                      108 => 
                                       array (
                                         'key' => 'ARCTIC FUEL DISCHARGE',
                                         'value' => 1713,
                                       ),
-                                      111 => 
+                                      109 => 
                                       array (
                                         'key' => 'ARCTIC LCP3',
                                         'value' => 1714,
                                       ),
-                                      112 => 
+                                      110 => 
                                       array (
                                         'key' => 'ARCTIC LCP4S',
                                         'value' => 1715,
                                       ),
-                                      113 => 
+                                      111 => 
                                       array (
                                         'key' => 'ARCTIC LCP6S',
                                         'value' => 1716,
                                       ),
-                                      114 => 
+                                      112 => 
                                       array (
                                         'key' => 'ARCTIC LR16SC',
                                         'value' => 1717,
                                       ),
-                                      115 => 
+                                      113 => 
                                       array (
                                         'key' => 'ARCTIC LR2SN',
                                         'value' => 1718,
                                       ),
-                                      116 => 
+                                      114 => 
                                       array (
                                         'key' => 'ARCTIC ORTAC',
                                         'value' => 1719,
                                       ),
-                                      117 => 
+                                      115 => 
                                       array (
                                         'key' => 'ARCTIC ORTAC PLUS',
                                         'value' => 1720,
                                       ),
-                                      118 => 
+                                      116 => 
                                       array (
                                         'key' => 'ARCTIC RIG SUPPLY',
                                         'value' => 1721,
                                       ),
-                                      119 => 
+                                      117 => 
                                       array (
                                         'key' => 'ARMOR-FLEX PRO',
                                         'value' => 1728,
                                       ),
-                                      120 => 
+                                      118 => 
                                       array (
                                         'key' => 'ARMORCOAT ACP3',
                                         'value' => 1722,
                                       ),
-                                      121 => 
+                                      119 => 
                                       array (
                                         'key' => 'ARMORCOAT ACP4',
                                         'value' => 1723,
                                       ),
-                                      122 => 
+                                      120 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC12',
                                         'value' => 1724,
                                       ),
-                                      123 => 
+                                      121 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC13',
                                         'value' => 1725,
                                       ),
-                                      124 => 
+                                      122 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC15',
                                         'value' => 1726,
                                       ),
-                                      125 => 
+                                      123 => 
                                       array (
                                         'key' => 'ARMORCOAT ARC16SC',
                                         'value' => 1727,
                                       ),
-                                      126 => 
+                                      124 => 
                                       array (
                                         'key' => 'ARONSON',
                                         'value' => 1729,
                                       ),
-                                      127 => 
+                                      125 => 
                                       array (
                                         'key' => 'ARPHSE',
                                         'value' => 1730,
                                       ),
-                                      128 => 
+                                      126 => 
                                       array (
                                         'key' => 'ARTRAC',
                                         'value' => 1731,
                                       ),
-                                      129 => 
+                                      127 => 
                                       array (
                                         'key' => 'ARVAC SW',
                                         'value' => 1732,
                                       ),
-                                      130 => 
+                                      128 => 
                                       array (
                                         'key' => 'AS1335 TWIN-LINE',
                                         'value' => 1733,
                                       ),
-                                      131 => 
+                                      129 => 
                                       array (
                                         'key' => 'AS2435 TYPE 1 AIRBRAKE',
                                         'value' => 1734,
                                       ),
-                                      132 => 
+                                      130 => 
                                       array (
                                         'key' => 'ASJ',
                                         'value' => 1735,
                                       ),
-                                      133 => 
+                                      131 => 
                                       array (
                                         'key' => 'ASJ VERSACRETE',
                                         'value' => 1736,
                                       ),
-                                      134 => 
+                                      132 => 
                                       array (
                                         'key' => 'ASTARAS INSULATER',
                                         'value' => 1829229,
                                       ),
-                                      135 => 
+                                      133 => 
                                       array (
                                         'key' => 'ATLANT WATER',
                                         'value' => 1737,
                                       ),
-                                      136 => 
+                                      134 => 
                                       array (
                                         'key' => 'ATLAS',
                                         'value' => 1738,
                                       ),
-                                      137 => 
+                                      135 => 
                                       array (
                                         'key' => 'ATRUBB NR SPRAY',
                                         'value' => 1739,
                                       ),
-                                      138 => 
+                                      136 => 
                                       array (
                                         'key' => 'AUGER ARC PILING',
                                         'value' => 1740,
                                       ),
-                                      139 => 
+                                      137 => 
                                       array (
                                         'key' => 'AUSTIN',
                                         'value' => 1741,
                                       ),
-                                      140 => 
+                                      138 => 
                                       array (
                                         'key' => 'AUSTIN RUBBER',
                                         'value' => 1742,
                                       ),
-                                      141 => 
+                                      139 => 
                                       array (
                                         'key' => 'AUTOGRIP',
                                         'value' => 1743,
                                       ),
-                                      142 => 
+                                      140 => 
                                       array (
                                         'key' => 'AXIAL FAN HAWK PD',
                                         'value' => 1829526,
                                       ),
-                                      143 => 
+                                      141 => 
                                       array (
                                         'key' => 'BAHCAL',
                                         'value' => 1744,
                                       ),
-                                      144 => 
+                                      142 => 
                                       array (
                                         'key' => 'BANDING COIL',
                                         'value' => 1745,
                                       ),
-                                      145 => 
+                                      143 => 
                                       array (
                                         'key' => 'BC COLD FLEX',
                                         'value' => 1746,
                                       ),
-                                      146 => 
+                                      144 => 
                                       array (
                                         'key' => 'BC GASOLINE',
                                         'value' => 1747,
                                       ),
-                                      147 => 
+                                      145 => 
                                       array (
                                         'key' => 'BC MARINA',
                                         'value' => 1748,
                                       ),
-                                      148 => 
+                                      146 => 
                                       array (
                                         'key' => 'BEDFORD',
                                         'value' => 1749,
                                       ),
-                                      149 => 
+                                      147 => 
                                       array (
                                         'key' => 'BLACK FLEXTRA II',
                                         'value' => 1750,
                                       ),
-                                      150 => 
+                                      148 => 
                                       array (
                                         'key' => 'BLACK FLEXTRA II 150',
                                         'value' => 1829333,
                                       ),
-                                      151 => 
+                                      149 => 
                                       array (
                                         'key' => 'BLACK FLEXWING',
                                         'value' => 1751,
                                       ),
-                                      152 => 
+                                      150 => 
                                       array (
                                         'key' => 'BLACK JACK',
                                         'value' => 5355084,
                                       ),
-                                      153 => 
+                                      151 => 
                                       array (
                                         'key' => 'BLACK SOFTWALL',
                                         'value' => 5354194,
                                       ),
-                                      154 => 
+                                      152 => 
                                       array (
                                         'key' => 'BLACKHAWK PD',
                                         'value' => 1829520,
                                       ),
-                                      155 => 
+                                      153 => 
                                       array (
                                         'key' => 'BLAST',
                                         'value' => 1752,
                                       ),
-                                      156 => 
+                                      154 => 
                                       array (
                                         'key' => 'BLASTHOLE SLURRY & DEWATERING',
                                         'value' => 1753,
                                       ),
-                                      157 => 
+                                      155 => 
                                       array (
                                         'key' => 'BLASTHOSE SLURRY',
                                         'value' => 1829297,
                                       ),
-                                      158 => 
+                                      156 => 
                                       array (
                                         'key' => 'BLASTMASTER HD',
                                         'value' => 1754,
                                       ),
-                                      159 => 
+                                      157 => 
                                       array (
                                         'key' => 'BLAUDIECK',
                                         'value' => 1755,
                                       ),
-                                      160 => 
+                                      158 => 
                                       array (
                                         'key' => 'BLAUSTRAHL',
                                         'value' => 1829415,
                                       ),
-                                      161 => 
+                                      159 => 
                                       array (
                                         'key' => 'BLISSFUL FISHERMAN',
                                         'value' => 1756,
                                       ),
-                                      162 => 
+                                      160 => 
                                       array (
                                         'key' => 'BLUCOR',
                                         'value' => 1757,
                                       ),
-                                      163 => 
+                                      161 => 
                                       array (
                                         'key' => 'BLUCOR FLANGE',
                                         'value' => 1758,
                                       ),
-                                      164 => 
+                                      162 => 
                                       array (
                                         'key' => 'BLUE FLEXWING',
                                         'value' => 1759,
                                       ),
-                                      165 => 
+                                      163 => 
                                       array (
                                         'key' => 'BLUE FLOUR',
                                         'value' => 1760,
                                       ),
-                                      166 => 
+                                      164 => 
                                       array (
                                         'key' => 'BLUE XTREME STRAIGH RAD HOSE',
                                         'value' => 1761,
                                       ),
-                                      167 => 
+                                      165 => 
                                       array (
                                         'key' => 'BOOTMOR',
                                         'value' => 1762,
                                       ),
-                                      168 => 
+                                      166 => 
                                       array (
                                         'key' => 'BOP SLEEVE',
                                         'value' => 1763,
                                       ),
-                                      169 => 
+                                      167 => 
                                       array (
                                         'key' => 'BOP WRAP',
                                         'value' => 1764,
                                       ),
-                                      170 => 
+                                      168 => 
                                       array (
                                         'key' => 'BOTTOM LOADING',
                                         'value' => 1765,
                                       ),
-                                      171 => 
+                                      169 => 
                                       array (
                                         'key' => 'BOWLING',
                                         'value' => 1829514,
                                       ),
-                                      172 => 
+                                      170 => 
                                       array (
                                         'key' => 'BR7',
                                         'value' => 1766,
                                       ),
-                                      173 => 
+                                      171 => 
                                       array (
                                         'key' => 'BRAIDAIR',
                                         'value' => 1767,
                                       ),
-                                      174 => 
+                                      172 => 
                                       array (
                                         'key' => 'BRANHAM AIR',
                                         'value' => 1829343,
                                       ),
-                                      175 => 
+                                      173 => 
                                       array (
                                         'key' => 'BRANHAM CHEMONE SUPERIOR',
                                         'value' => 1768,
                                       ),
-                                      176 => 
+                                      174 => 
                                       array (
                                         'key' => 'BREATHING AIR',
                                         'value' => 1769,
                                       ),
-                                      177 => 
+                                      175 => 
                                       array (
                                         'key' => 'BREATHING AIR HOSE',
                                         'value' => 1829260,
                                       ),
-                                      178 => 
+                                      176 => 
                                       array (
                                         'key' => 'BREATHING AIR PLUS',
                                         'value' => 1770,
                                       ),
-                                      179 => 
+                                      177 => 
                                       array (
                                         'key' => 'BRENNTAG',
                                         'value' => 1771,
                                       ),
-                                      180 => 
+                                      178 => 
                                       array (
                                         'key' => 'BREWERS HOSE',
                                         'value' => 1772,
                                       ),
-                                      181 => 
+                                      179 => 
                                       array (
                                         'key' => 'BREWLINE',
                                         'value' => 1773,
                                       ),
-                                      182 => 
+                                      180 => 
                                       array (
                                         'key' => 'BRICK RED AIR',
                                         'value' => 1774,
                                       ),
-                                      183 => 
+                                      181 => 
                                       array (
                                         'key' => 'BRIDGEPOINT',
                                         'value' => 1775,
                                       ),
-                                      184 => 
+                                      182 => 
                                       array (
                                         'key' => 'BRIGADE MINE',
                                         'value' => 1776,
                                       ),
-                                      185 => 
+                                      183 => 
                                       array (
                                         'key' => 'BRINE HOSE',
                                         'value' => 1777,
                                       ),
-                                      186 => 
+                                      184 => 
                                       array (
                                         'key' => 'BROOM SWEEPER',
                                         'value' => 1778,
                                       ),
-                                      187 => 
+                                      185 => 
                                       array (
                                         'key' => 'BROWN FLEXWING',
                                         'value' => 1779,
                                       ),
-                                      188 => 
+                                      186 => 
                                       array (
                                         'key' => 'BROWN/BLU FLEX',
                                         'value' => 1829430,
                                       ),
-                                      189 => 
+                                      187 => 
                                       array (
                                         'key' => 'BSP Flat Seat (British Standard Pipe)',
                                         'value' => 1829966,
                                       ),
-                                      190 => 
+                                      188 => 
                                       array (
                                         'key' => 'BSPP (British Standard Pipe Parallel)',
                                         'value' => 1829964,
                                       ),
-                                      191 => 
+                                      189 => 
                                       array (
                                         'key' => 'BSPP (British Standard Pipe Parallel) O-Rings',
                                         'value' => 3831015,
                                       ),
-                                      192 => 
+                                      190 => 
                                       array (
                                         'key' => 'BSPT (British Standard Pipe Tapered)',
                                         'value' => 1829965,
                                       ),
-                                      193 => 
+                                      191 => 
                                       array (
                                         'key' => 'BUHLER MIAG',
                                         'value' => 1780,
                                       ),
-                                      194 => 
+                                      192 => 
                                       array (
                                         'key' => 'BULLARD',
                                         'value' => 1829140,
                                       ),
-                                      195 => 
+                                      193 => 
                                       array (
                                         'key' => 'BUTTERWORTH',
                                         'value' => 1781,
                                       ),
-                                      196 => 
+                                      194 => 
                                       array (
                                         'key' => 'BUTYL 200',
                                         'value' => 1782,
                                       ),
-                                      197 => 
+                                      195 => 
                                       array (
                                         'key' => 'C&J WATER S&D',
                                         'value' => 1783,
                                       ),
-                                      198 => 
+                                      196 => 
                                       array (
                                         'key' => 'C&T MIL-DTL-13444H-1-6',
                                         'value' => 1829200,
                                       ),
-                                      199 => 
+                                      197 => 
                                       array (
                                         'key' => 'CABLE CONDUIT',
                                         'value' => 1784,
                                       ),
-                                      200 => 
+                                      198 => 
                                       array (
                                         'key' => 'CABLE COOLING HOSE',
                                         'value' => 1785,
                                       ),
-                                      201 => 
+                                      199 => 
                                       array (
                                         'key' => 'CABLE COVER',
                                         'value' => 1786,
                                       ),
-                                      202 => 
+                                      200 => 
                                       array (
                                         'key' => 'CAMBRG HEALY PII',
                                         'value' => 1787,
                                       ),
-                                      203 => 
+                                      201 => 
                                       array (
                                         'key' => 'CAMLOK',
                                         'value' => 1788,
                                       ),
-                                      204 => 
+                                      202 => 
                                       array (
                                         'key' => 'CARON ARCTIC FLEX',
                                         'value' => 1789,
                                       ),
-                                      205 => 
+                                      203 => 
                                       array (
                                         'key' => 'CARON BLACK SOFTWALL',
                                         'value' => 1790,
                                       ),
-                                      206 => 
+                                      204 => 
                                       array (
                                         'key' => 'CARON FABCHEM',
                                         'value' => 1791,
                                       ),
-                                      207 => 
+                                      205 => 
                                       array (
                                         'key' => 'CASCADE DRY CEMENT',
                                         'value' => 1792,
                                       ),
-                                      208 => 
+                                      206 => 
                                       array (
                                         'key' => 'Catepillar Flange',
                                         'value' => 1829977,
                                       ),
-                                      209 => 
+                                      207 => 
                                       array (
                                         'key' => 'Caterpillar Flange',
                                         'value' => 1829961,
                                       ),
-                                      210 => 
+                                      208 => 
                                       array (
                                         'key' => 'Caterpillar Flange O-Rings Code 61 and Code 62 Flange O-Rings (SAE J518)',
                                         'value' => 1831352,
                                       ),
-                                      211 => 
+                                      209 => 
                                       array (
                                         'key' => 'CENEX',
                                         'value' => 1793,
                                       ),
-                                      212 => 
+                                      210 => 
                                       array (
                                         'key' => 'CENEX OT',
                                         'value' => 1794,
                                       ),
-                                      213 => 
+                                      211 => 
                                       array (
                                         'key' => 'CENTRAL ROCK DRILL',
                                         'value' => 1795,
                                       ),
-                                      214 => 
+                                      212 => 
                                       array (
                                         'key' => 'CHANGED TO FORTRESS WHITE',
                                         'value' => 1829316,
                                       ),
-                                      215 => 
+                                      213 => 
                                       array (
                                         'key' => 'CHEMICAL ACID DISCHARGE',
                                         'value' => 1796,
                                       ),
-                                      216 => 
+                                      214 => 
                                       array (
                                         'key' => 'CHEMONE',
                                         'value' => 1797,
                                       ),
-                                      217 => 
+                                      215 => 
                                       array (
                                         'key' => 'CHEMSTREAM',
                                         'value' => 1798,
                                       ),
-                                      218 => 
+                                      216 => 
                                       array (
                                         'key' => 'CHLO GARLOK',
                                         'value' => 1799,
                                       ),
-                                      219 => 
+                                      217 => 
                                       array (
                                         'key' => 'CITGO',
                                         'value' => 6422706,
                                       ),
-                                      220 => 
+                                      218 => 
                                       array (
                                         'key' => 'CITGO HYDROCARBON DRAIN',
                                         'value' => 1829202,
                                       ),
-                                      221 => 
+                                      219 => 
                                       array (
                                         'key' => 'CLAM JETTING',
                                         'value' => 1829434,
                                       ),
-                                      222 => 
+                                      220 => 
                                       array (
                                         'key' => 'CLEANJET',
                                         'value' => 1800,
                                       ),
-                                      223 => 
+                                      221 => 
                                       array (
                                         'key' => 'CLEANJET FDA',
                                         'value' => 1801,
                                       ),
-                                      224 => 
+                                      222 => 
                                       array (
                                         'key' => 'CLEAR PVC TUBING',
                                         'value' => 1802,
                                       ),
-                                      225 => 
+                                      223 => 
                                       array (
                                         'key' => 'CLEARWATER',
                                         'value' => 1803,
                                       ),
-                                      226 => 
+                                      224 => 
                                       array (
                                         'key' => 'CLEARWATER FLEXTRA NSF',
                                         'value' => 4683628,
                                       ),
-                                      227 => 
+                                      225 => 
                                       array (
                                         'key' => 'CLEARWATER SOFTWALL NSF',
                                         'value' => 4683629,
                                       ),
-                                      228 => 
+                                      226 => 
                                       array (
                                         'key' => 'Clip Pliers',
                                         'value' => 1830006,
                                       ),
-                                      229 => 
+                                      227 => 
                                       array (
                                         'key' => 'CO2 HOSE',
                                         'value' => 1804,
                                       ),
-                                      230 => 
+                                      228 => 
                                       array (
                                         'key' => 'COAST GUARD',
                                         'value' => 1805,
                                       ),
-                                      231 => 
+                                      229 => 
                                       array (
                                         'key' => 'Code 61 Flange (SAE  J518)',
                                         'value' => 1829976,
                                       ),
-                                      232 => 
+                                      230 => 
                                       array (
                                         'key' => 'Code 61 Flange (SAE J518)',
                                         'value' => 1829959,
                                       ),
-                                      233 => 
+                                      231 => 
                                       array (
                                         'key' => 'Code 61 Split Flange Clamp Kits ',
                                         'value' => 1831353,
                                       ),
-                                      234 => 
+                                      232 => 
                                       array (
                                         'key' => 'Code 62 Flange (SAE J518)',
                                         'value' => 1829960,
                                       ),
-                                      235 => 
+                                      233 => 
                                       array (
                                         'key' => 'Code 62 Split Flange Clamp Kits',
                                         'value' => 3831018,
                                       ),
-                                      236 => 
+                                      234 => 
                                       array (
                                         'key' => 'COLD BLUE',
                                         'value' => 1806,
                                       ),
-                                      237 => 
+                                      235 => 
                                       array (
                                         'key' => 'COLLECTOR',
                                         'value' => 1807,
                                       ),
-                                      238 => 
+                                      236 => 
                                       array (
                                         'key' => 'COLLECTOR FLEX',
                                         'value' => 1808,
                                       ),
-                                      239 => 
+                                      237 => 
                                       array (
                                         'key' => 'COLORITE',
                                         'value' => 1809,
                                       ),
-                                      240 => 
+                                      238 => 
                                       array (
                                         'key' => 'Compressor O-Ring Tube',
                                         'value' => 1829980,
                                       ),
-                                      241 => 
+                                      239 => 
                                       array (
                                         'key' => 'Compressor Pad Block',
                                         'value' => 1829988,
                                       ),
-                                      242 => 
+                                      240 => 
                                       array (
                                         'key' => 'CON FORM SUPER FLEX',
                                         'value' => 1810,
                                       ),
-                                      243 => 
+                                      241 => 
                                       array (
                                         'key' => 'CON-TECH',
                                         'value' => 1829228,
                                       ),
-                                      244 => 
+                                      242 => 
                                       array (
                                         'key' => 'CONAG ECO',
                                         'value' => 6951845,
                                       ),
-                                      245 => 
+                                      243 => 
                                       array (
                                         'key' => 'CONAG WATER S&D',
                                         'value' => 1811,
                                       ),
-                                      246 => 
+                                      244 => 
                                       array (
                                         'key' => 'CONCRETE G820',
                                         'value' => 1812,
                                       ),
-                                      247 => 
+                                      245 => 
                                       array (
                                         'key' => 'CONCRETE VIBRATOR',
                                         'value' => 1813,
                                       ),
-                                      248 => 
+                                      246 => 
                                       array (
                                         'key' => 'CONTI A&M',
                                         'value' => 1829426,
                                       ),
-                                      249 => 
+                                      247 => 
                                       array (
                                         'key' => 'CONTI BLUE STEAM FDA',
                                         'value' => 5554379,
                                       ),
-                                      250 => 
-                                      array (
-                                        'key' => 'CONTI CHEM EXTRA',
-                                        'value' => 7085031,
-                                      ),
-                                      251 => 
+                                      248 => 
                                       array (
                                         'key' => 'CONTI CHEM OIL',
                                         'value' => 1814,
                                       ),
-                                      252 => 
+                                      249 => 
                                       array (
                                         'key' => 'CONTI CHEM PHARMA',
                                         'value' => 1815,
                                       ),
-                                      253 => 
+                                      250 => 
                                       array (
                                         'key' => 'CONTI CHEM STANDARD',
                                         'value' => 1816,
                                       ),
-                                      254 => 
+                                      251 => 
                                       array (
                                         'key' => 'CONTI CHEM SUPERIOR FEP',
                                         'value' => 1817,
                                       ),
-                                      255 => 
-                                      array (
-                                        'key' => 'CONTI FEP',
-                                        'value' => 7092828,
-                                      ),
-                                      256 => 
+                                      252 => 
                                       array (
                                         'key' => 'CONTI PAINT SPRAY',
                                         'value' => 1818,
                                       ),
-                                      257 => 
+                                      253 => 
                                       array (
                                         'key' => 'CONTI POTABLE WATER',
                                         'value' => 1819,
                                       ),
-                                      258 => 
+                                      254 => 
                                       array (
                                         'key' => 'CONTI WASTE WATER',
                                         'value' => 1820,
                                       ),
-                                      259 => 
+                                      255 => 
                                       array (
                                         'key' => 'CONTICHEM',
                                         'value' => 1829407,
                                       ),
-                                      260 => 
-                                      array (
-                                        'key' => 'CONTINENTAL / COX REEL',
-                                        'value' => 7082340,
-                                      ),
-                                      261 => 
+                                      256 => 
                                       array (
                                         'key' => 'CONTINENTAL MATTE GREEN',
                                         'value' => 1829282,
                                       ),
-                                      262 => 
+                                      257 => 
                                       array (
                                         'key' => 'CONTINENTAL STEEL STEAM 250',
                                         'value' => 1821,
                                       ),
-                                      263 => 
+                                      258 => 
                                       array (
                                         'key' => 'CONTRACTOR 4001',
                                         'value' => 1822,
                                       ),
-                                      264 => 
+                                      259 => 
                                       array (
                                         'key' => 'CONTRACTOR WATER S&D',
                                         'value' => 1823,
                                       ),
-                                      265 => 
+                                      260 => 
                                       array (
                                         'key' => 'CONTRACTOR\'S WATER',
                                         'value' => 1824,
                                       ),
-                                      266 => 
+                                      261 => 
                                       array (
                                         'key' => 'COOLING WATER',
                                         'value' => 1825,
                                       ),
-                                      267 => 
+                                      262 => 
                                       array (
                                         'key' => 'COOLING WATER 2.0',
                                         'value' => 1826,
                                       ),
-                                      268 => 
+                                      263 => 
                                       array (
                                         'key' => 'COTTON CLEANER',
                                         'value' => 1829519,
                                       ),
-                                      269 => 
+                                      264 => 
                                       array (
                                         'key' => 'COUPLING MALE SWIVEL',
                                         'value' => 1829191,
                                       ),
-                                      270 => 
+                                      265 => 
                                       array (
                                         'key' => 'CPE DISCHARGE',
                                         'value' => 1827,
                                       ),
-                                      271 => 
+                                      266 => 
                                       array (
                                         'key' => 'CPLAIR AIRCRAFT',
                                         'value' => 1829348,
                                       ),
-                                      272 => 
+                                      267 => 
                                       array (
                                         'key' => 'CREE BREWERS HOSE',
                                         'value' => 1828,
                                       ),
-                                      273 => 
+                                      268 => 
                                       array (
                                         'key' => 'CTI',
                                         'value' => 5355080,
                                       ),
-                                      274 => 
+                                      269 => 
                                       array (
                                         'key' => 'CULVERT',
                                         'value' => 1829,
                                       ),
-                                      275 => 
+                                      270 => 
                                       array (
                                         'key' => 'DAMPF TRIX 5000',
                                         'value' => 1830,
                                       ),
-                                      276 => 
+                                      271 => 
                                       array (
                                         'key' => 'DAMPF TRIX 6000',
                                         'value' => 1831,
                                       ),
-                                      277 => 
+                                      272 => 
                                       array (
                                         'key' => 'DAMPFTRIX 6000',
                                         'value' => 1829406,
                                       ),
-                                      278 => 
+                                      273 => 
                                       array (
                                         'key' => 'DARCOR RED',
                                         'value' => 1829318,
                                       ),
-                                      279 => 
+                                      274 => 
                                       array (
                                         'key' => 'DARCY REDWING FUEL OIL',
                                         'value' => 1832,
                                       ),
-                                      280 => 
+                                      275 => 
                                       array (
                                         'key' => 'DEADMAN AIRCRAFT REFUELING',
                                         'value' => 1833,
                                       ),
-                                      281 => 
+                                      276 => 
                                       array (
                                         'key' => 'DEADMAN SANDBLAST',
                                         'value' => 1834,
                                       ),
-                                      282 => 
+                                      277 => 
                                       array (
                                         'key' => 'DEEP BLUE',
                                         'value' => 1829431,
                                       ),
-                                      283 => 
+                                      278 => 
                                       array (
                                         'key' => 'DEERE',
                                         'value' => 1835,
                                       ),
-                                      284 => 
+                                      279 => 
                                       array (
                                         'key' => 'DEF DISPENSING',
                                         'value' => 1836,
                                       ),
-                                      285 => 
+                                      280 => 
                                       array (
                                         'key' => 'DEF TRANSFER',
                                         'value' => 1837,
                                       ),
-                                      286 => 
+                                      281 => 
                                       array (
                                         'key' => 'DEL TWIN-LINE GRADE R',
                                         'value' => 1838,
                                       ),
-                                      287 => 
+                                      282 => 
                                       array (
                                         'key' => 'DEL TWIN-LINE GRADE RM',
                                         'value' => 1839,
                                       ),
-                                      288 => 
+                                      283 => 
                                       array (
                                         'key' => 'DENVER',
                                         'value' => 1840,
                                       ),
-                                      289 => 
+                                      284 => 
                                       array (
                                         'key' => 'DENVER CONC VIBR',
                                         'value' => 1841,
                                       ),
-                                      290 => 
+                                      285 => 
                                       array (
                                         'key' => 'DESERT DR16SC',
                                         'value' => 1842,
                                       ),
-                                      291 => 
+                                      286 => 
                                       array (
                                         'key' => 'DESERT DR1SN',
                                         'value' => 1843,
                                       ),
-                                      292 => 
+                                      287 => 
                                       array (
                                         'key' => 'DESERT DR2SN',
                                         'value' => 1844,
                                       ),
-                                      293 => 
+                                      288 => 
                                       array (
                                         'key' => 'DESERT DR5',
                                         'value' => 1845,
                                       ),
-                                      294 => 
+                                      289 => 
                                       array (
                                         'key' => 'DESERT DUT',
                                         'value' => 1846,
                                       ),
-                                      295 => 
+                                      290 => 
                                       array (
                                         'key' => 'DEVILBISS',
                                         'value' => 1829178,
                                       ),
-                                      296 => 
+                                      291 => 
                                       array (
                                         'key' => 'DEWATERING',
                                         'value' => 1847,
                                       ),
-                                      297 => 
+                                      292 => 
                                       array (
                                         'key' => 'DIAMOND',
                                         'value' => 1829370,
                                       ),
-                                      298 => 
+                                      293 => 
                                       array (
                                         'key' => 'DIESEL OIL HARDWALL',
                                         'value' => 1848,
                                       ),
-                                      299 => 
+                                      294 => 
                                       array (
                                         'key' => 'DIESEL OIL SOFTWALL',
                                         'value' => 1849,
                                       ),
-                                      300 => 
+                                      295 => 
                                       array (
                                         'key' => 'DIGESTER',
                                         'value' => 1850,
                                       ),
-                                      301 => 
+                                      296 => 
                                       array (
                                         'key' => 'DIISOCYANATE',
                                         'value' => 1851,
                                       ),
-                                      302 => 
+                                      297 => 
                                       array (
                                         'key' => 'DIN 24 Heavy',
                                         'value' => 1829968,
                                       ),
-                                      303 => 
+                                      298 => 
                                       array (
                                         'key' => 'DIN 24 Heavy O-Rings',
                                         'value' => 3831017,
                                       ),
-                                      304 => 
+                                      299 => 
                                       array (
                                         'key' => 'DIN 24 Light',
                                         'value' => 1829967,
                                       ),
-                                      305 => 
+                                      300 => 
                                       array (
                                         'key' => 'DIN 24 Light O-Rings',
                                         'value' => 3831016,
                                       ),
-                                      306 => 
+                                      301 => 
                                       array (
                                         'key' => 'DIN 60',
                                         'value' => 1829969,
                                       ),
-                                      307 => 
+                                      302 => 
                                       array (
                                         'key' => 'DINGA HOT WATER GUN',
                                         'value' => 1852,
                                       ),
-                                      308 => 
+                                      303 => 
                                       array (
                                         'key' => 'DINGA NOZZLE',
                                         'value' => 5356966,
                                       ),
-                                      309 => 
+                                      304 => 
                                       array (
                                         'key' => 'DISCHARGE',
                                         'value' => 1853,
                                       ),
-                                      310 => 
+                                      305 => 
                                       array (
                                         'key' => 'DISHWASHER DRAIN',
                                         'value' => 1854,
                                       ),
-                                      311 => 
+                                      306 => 
                                       array (
                                         'key' => 'DISTILLERY 150',
                                         'value' => 1855,
                                       ),
-                                      312 => 
+                                      307 => 
                                       array (
                                         'key' => 'DISTRB ACID',
                                         'value' => 1856,
                                       ),
-                                      313 => 
+                                      308 => 
                                       array (
                                         'key' => 'DISTRB ARCTIC ORTAC',
                                         'value' => 1857,
                                       ),
-                                      314 => 
+                                      309 => 
                                       array (
                                         'key' => 'DISTRB STEEL AIR',
                                         'value' => 1858,
                                       ),
-                                      315 => 
+                                      310 => 
                                       array (
                                         'key' => 'DISTRB WATER S&D',
                                         'value' => 1859,
                                       ),
-                                      316 => 
+                                      311 => 
                                       array (
                                         'key' => 'DIVERSIFLEX',
                                         'value' => 1860,
                                       ),
-                                      317 => 
+                                      312 => 
                                       array (
                                         'key' => 'DIVERSIPIPE',
                                         'value' => 1861,
                                       ),
-                                      318 => 
+                                      313 => 
                                       array (
                                         'key' => 'DIVING HOSE',
                                         'value' => 1862,
                                       ),
-                                      319 => 
+                                      314 => 
                                       array (
                                         'key' => 'DMC CAUSTIC',
                                         'value' => 1863,
                                       ),
-                                      320 => 
+                                      315 => 
                                       array (
                                         'key' => 'DOCK',
                                         'value' => 1864,
                                       ),
-                                      321 => 
+                                      316 => 
                                       array (
                                         'key' => 'DOCK EN1765 L15',
                                         'value' => 1865,
                                       ),
-                                      322 => 
+                                      317 => 
                                       array (
                                         'key' => 'DOCK EN1765 S15',
                                         'value' => 1866,
                                       ),
-                                      323 => 
+                                      318 => 
                                       array (
                                         'key' => 'DOCK FDA',
                                         'value' => 1867,
                                       ),
-                                      324 => 
+                                      319 => 
                                       array (
                                         'key' => 'DOCK SMOOTH BORE HOT SULFUR',
                                         'value' => 1868,
                                       ),
-                                      325 => 
+                                      320 => 
                                       array (
                                         'key' => 'DOCK SUPPLY SW',
                                         'value' => 1869,
                                       ),
-                                      326 => 
+                                      321 => 
                                       array (
                                         'key' => 'DR16SC',
                                         'value' => 1830041,
                                       ),
-                                      327 => 
+                                      322 => 
                                       array (
                                         'key' => 'DREDGE SLEEVE',
                                         'value' => 1870,
                                       ),
-                                      328 => 
+                                      323 => 
                                       array (
                                         'key' => 'DRILL WATER',
                                         'value' => 1871,
                                       ),
-                                      329 => 
+                                      324 => 
                                       array (
                                         'key' => 'DRINK FLEX',
                                         'value' => 5300789,
                                       ),
-                                      330 => 
+                                      325 => 
                                       array (
                                         'key' => 'DRINKLINE',
                                         'value' => 1872,
                                       ),
-                                      331 => 
+                                      326 => 
                                       array (
                                         'key' => 'DRY CEMENT HD HARDWALL',
                                         'value' => 1873,
                                       ),
-                                      332 => 
+                                      327 => 
                                       array (
                                         'key' => 'DRY CEMENT SOFTWALL',
                                         'value' => 1874,
                                       ),
-                                      333 => 
+                                      328 => 
                                       array (
                                         'key' => 'DRY ICE HOSE',
                                         'value' => 1875,
                                       ),
-                                      334 => 
+                                      329 => 
                                       array (
                                         'key' => 'DUAL HI-PERFORMANCE PD',
                                         'value' => 1829530,
                                       ),
-                                      335 => 
+                                      330 => 
                                       array (
                                         'key' => 'DUAL POSITIVE DRIVE PD',
                                         'value' => 1829510,
                                       ),
-                                      336 => 
+                                      331 => 
                                       array (
                                         'key' => 'Dual-Grip DGF1 Ferrule',
                                         'value' => 1830020,
                                       ),
-                                      337 => 
+                                      332 => 
                                       array (
                                         'key' => 'Dual-Grip DGF2 Ferrule',
                                         'value' => 1830021,
                                       ),
-                                      338 => 
+                                      333 => 
                                       array (
                                         'key' => 'DUDLEY WATER',
                                         'value' => 1876,
                                       ),
-                                      339 => 
+                                      334 => 
                                       array (
                                         'key' => 'DUNLOP BOOSTER',
                                         'value' => 1877,
                                       ),
-                                      340 => 
+                                      335 => 
                                       array (
                                         'key' => 'DURACO',
                                         'value' => 1878,
                                       ),
-                                      341 => 
+                                      336 => 
                                       array (
                                         'key' => 'DURACO ROADPATCH',
                                         'value' => 1879,
                                       ),
-                                      342 => 
+                                      337 => 
                                       array (
                                         'key' => 'DWE',
                                         'value' => 1829161,
                                       ),
-                                      343 => 
+                                      338 => 
                                       array (
                                         'key' => 'DYNACRAFT',
                                         'value' => 1880,
                                       ),
-                                      344 => 
+                                      339 => 
                                       array (
                                         'key' => 'DYNACRAFT D1045-2000',
                                         'value' => 1829127,
                                       ),
-                                      345 => 
+                                      340 => 
                                       array (
                                         'key' => 'DYNO',
                                         'value' => 1881,
                                       ),
-                                      346 => 
+                                      341 => 
                                       array (
                                         'key' => 'DYNO HOSE',
                                         'value' => 1882,
                                       ),
-                                      347 => 
+                                      342 => 
                                       array (
                                         'key' => 'DYNO HOSEINHOSE',
                                         'value' => 1829231,
                                       ),
-                                      348 => 
+                                      343 => 
                                       array (
                                         'key' => 'DYNO NOBEL',
                                         'value' => 1829125,
                                       ),
-                                      349 => 
+                                      344 => 
                                       array (
                                         'key' => 'E 1-1',
                                         'value' => 1883,
                                       ),
-                                      350 => 
+                                      345 => 
                                       array (
                                         'key' => 'E 3-1',
                                         'value' => 1884,
                                       ),
-                                      351 => 
+                                      346 => 
                                       array (
                                         'key' => 'E 3-2',
                                         'value' => 1885,
                                       ),
-                                      352 => 
+                                      347 => 
                                       array (
                                         'key' => 'EAGLE AIR & WATER',
                                         'value' => 1886,
                                       ),
-                                      353 => 
+                                      348 => 
                                       array (
                                         'key' => 'EAGLE FLUID POWER',
                                         'value' => 1829160,
                                       ),
-                                      354 => 
+                                      349 => 
                                       array (
                                         'key' => 'ECO LITE',
                                         'value' => 3831424,
                                       ),
-                                      355 => 
+                                      350 => 
                                       array (
                                         'key' => 'ECO RUBBER',
                                         'value' => 3831423,
                                       ),
-                                      356 => 
+                                      351 => 
                                       array (
                                         'key' => 'ECOLAB',
                                         'value' => 3831426,
                                       ),
-                                      357 => 
+                                      352 => 
                                       array (
                                         'key' => 'ECOLAB BLUE',
                                         'value' => 1829110,
                                       ),
-                                      358 => 
+                                      353 => 
                                       array (
                                         'key' => 'ECOLAB WASHDOWN',
                                         'value' => 1829193,
                                       ),
-                                      359 => 
+                                      354 => 
                                       array (
                                         'key' => 'EDPM DISCHARGE',
                                         'value' => 1829263,
                                       ),
-                                      360 => 
+                                      355 => 
                                       array (
                                         'key' => 'EHLYNN',
                                         'value' => 1887,
                                       ),
-                                      361 => 
+                                      356 => 
                                       array (
                                         'key' => 'EHLYNN FLOUR TEC',
                                         'value' => 1888,
                                       ),
-                                      362 => 
+                                      357 => 
                                       array (
                                         'key' => 'EHLYNN FOOD DISCHARGE',
                                         'value' => 1889,
                                       ),
-                                      363 => 
+                                      358 => 
                                       array (
                                         'key' => 'EHLYNN HOT AIR',
                                         'value' => 1890,
                                       ),
-                                      364 => 
+                                      359 => 
                                       array (
                                         'key' => 'EHLYNN PIPE CONNECTOR',
                                         'value' => 1891,
                                       ),
-                                      365 => 
+                                      360 => 
                                       array (
                                         'key' => 'EHLYNN TPG',
                                         'value' => 1892,
                                       ),
-                                      366 => 
+                                      361 => 
                                       array (
                                         'key' => 'ELAFLEX LAY FLAT',
                                         'value' => 1893,
                                       ),
-                                      367 => 
+                                      362 => 
                                       array (
                                         'key' => 'ELITE HOT WATER',
                                         'value' => 5680554,
                                       ),
-                                      368 => 
+                                      363 => 
                                       array (
                                         'key' => 'ELITE POLY-V',
                                         'value' => 1829495,
                                       ),
-                                      369 => 
+                                      364 => 
                                       array (
                                         'key' => 'ELITE POLY-V STRETCH',
                                         'value' => 1829529,
                                       ),
-                                      370 => 
+                                      365 => 
                                       array (
                                         'key' => 'ELITE STANDARD RADIATOR',
                                         'value' => 1894,
                                       ),
-                                      371 => 
+                                      366 => 
                                       array (
                                         'key' => 'ELITE SW MARINE WET EXHAUST',
                                         'value' => 1895,
                                       ),
-                                      372 => 
+                                      367 => 
                                       array (
                                         'key' => 'EMERALD',
                                         'value' => 5759836,
                                       ),
-                                      373 => 
+                                      368 => 
                                       array (
                                         'key' => 'EN12115 PETROLEUM',
                                         'value' => 1896,
                                       ),
-                                      374 => 
+                                      369 => 
                                       array (
                                         'key' => 'EPDM 200',
                                         'value' => 1897,
                                       ),
-                                      375 => 
+                                      370 => 
                                       array (
                                         'key' => 'EPDM 200 (ECONOMY)',
                                         'value' => 1898,
                                       ),
-                                      376 => 
+                                      371 => 
                                       array (
                                         'key' => 'EPDM 200 (NON CON)',
                                         'value' => 1899,
                                       ),
-                                      377 => 
+                                      372 => 
                                       array (
                                         'key' => 'EPDM ACID',
                                         'value' => 1900,
                                       ),
-                                      378 => 
+                                      373 => 
                                       array (
                                         'key' => 'EPDM DISCHARGE',
                                         'value' => 1901,
                                       ),
-                                      379 => 
+                                      374 => 
                                       array (
                                         'key' => 'EPDM S&D',
                                         'value' => 1902,
                                       ),
-                                      380 => 
+                                      375 => 
                                       array (
                                         'key' => 'EPDM SD HD WATER',
                                         'value' => 1903,
                                       ),
-                                      381 => 
+                                      376 => 
                                       array (
                                         'key' => 'EPDM SD WATER',
                                         'value' => 1904,
                                       ),
-                                      382 => 
+                                      377 => 
                                       array (
                                         'key' => 'ERGON',
                                         'value' => 1905,
                                       ),
-                                      383 => 
+                                      378 => 
                                       array (
                                         'key' => 'ERIKS',
                                         'value' => 1906,
                                       ),
-                                      384 => 
+                                      379 => 
                                       array (
                                         'key' => 'ESTABROOK',
                                         'value' => 1829163,
                                       ),
-                                      385 => 
+                                      380 => 
                                       array (
                                         'key' => 'EURO TRIX',
                                         'value' => 1907,
                                       ),
-                                      386 => 
+                                      381 => 
                                       array (
                                         'key' => 'EXIMCO',
                                         'value' => 1908,
                                       ),
-                                      387 => 
+                                      382 => 
                                       array (
                                         'key' => 'EXIMCO FLOATER',
                                         'value' => 1829227,
                                       ),
-                                      388 => 
+                                      383 => 
                                       array (
                                         'key' => 'EXIMCO HYD',
                                         'value' => 1829402,
                                       ),
-                                      389 => 
+                                      384 => 
                                       array (
                                         'key' => 'EXON GP DOCK',
                                         'value' => 1909,
                                       ),
-                                      390 => 
+                                      385 => 
                                       array (
                                         'key' => 'EXPRESS BLOWER',
                                         'value' => 1910,
                                       ),
-                                      391 => 
+                                      386 => 
                                       array (
                                         'key' => 'EXSTATIC',
                                         'value' => 1911,
                                       ),
-                                      392 => 
+                                      387 => 
                                       array (
                                         'key' => 'EXTREME CRIMP CB STEAM',
                                         'value' => 1829118,
                                       ),
-                                      393 => 
+                                      388 => 
                                       array (
                                         'key' => 'EXTREMEBLAST LOAD',
                                         'value' => 1912,
                                       ),
-                                      394 => 
+                                      389 => 
                                       array (
                                         'key' => 'EXTREMEFLEX BEVERAGE',
                                         'value' => 1913,
                                       ),
-                                      395 => 
+                                      390 => 
                                       array (
                                         'key' => 'EXTREMEFLEX CHEMICAL BROWN',
                                         'value' => 1914,
                                       ),
-                                      396 => 
+                                      391 => 
                                       array (
                                         'key' => 'EXTREMEFLEX CHEMICAL PURPLE',
                                         'value' => 1915,
                                       ),
-                                      397 => 
+                                      392 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD',
                                         'value' => 1829369,
                                       ),
-                                      398 => 
+                                      393 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD BLUE',
                                         'value' => 1916,
                                       ),
-                                      399 => 
+                                      394 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD GRAY',
                                         'value' => 1917,
                                       ),
-                                      400 => 
+                                      395 => 
                                       array (
                                         'key' => 'EXTREMEFLEX FOOD RED',
                                         'value' => 1829382,
                                       ),
-                                      401 => 
+                                      396 => 
                                       array (
                                         'key' => 'EXTREMEFLEX PETROLEUM',
                                         'value' => 1918,
                                       ),
-                                      402 => 
+                                      397 => 
                                       array (
                                         'key' => 'EXTREMEFLEX POTABLE WATER',
                                         'value' => 1919,
                                       ),
-                                      403 => 
+                                      398 => 
                                       array (
                                         'key' => 'EXTREMEFLEX VERSIFLO',
                                         'value' => 1920,
                                       ),
-                                      404 => 
+                                      399 => 
                                       array (
                                         'key' => 'EXTREMEFLEX WATER SLURRY',
                                         'value' => 1921,
                                       ),
-                                      405 => 
+                                      400 => 
                                       array (
                                         'key' => 'EZ GLIDE WINE',
                                         'value' => 1922,
                                       ),
-                                      406 => 
+                                      401 => 
                                       array (
                                         'key' => 'F5 AIR',
                                         'value' => 1923,
                                       ),
-                                      407 => 
+                                      402 => 
                                       array (
                                         'key' => 'FABCHEM',
                                         'value' => 1924,
                                       ),
-                                      408 => 
+                                      403 => 
                                       array (
                                         'key' => 'FABCHEM ARC',
                                         'value' => 1925,
                                       ),
-                                      409 => 
+                                      404 => 
                                       array (
                                         'key' => 'FABCHEM EN12115',
                                         'value' => 1926,
                                       ),
-                                      410 => 
+                                      405 => 
                                       array (
                                         'key' => 'FABCHEM-C',
                                         'value' => 1927,
                                       ),
-                                      411 => 
+                                      406 => 
                                       array (
                                         'key' => 'FALCON PD',
                                         'value' => 1829521,
                                       ),
-                                      412 => 
+                                      407 => 
                                       array (
                                         'key' => 'Ferrules',
                                         'value' => 1830012,
                                       ),
-                                      413 => 
+                                      408 => 
                                       array (
                                         'key' => 'FHP',
                                         'value' => 1829507,
                                       ),
-                                      414 => 
+                                      409 => 
                                       array (
                                         'key' => 'FIBERG CRUCIBLE GASK',
                                         'value' => 1928,
                                       ),
-                                      415 => 
+                                      410 => 
                                       array (
                                         'key' => 'FINISHING BRANDS',
                                         'value' => 1929,
                                       ),
-                                      416 => 
+                                      411 => 
                                       array (
                                         'key' => 'FINN',
                                         'value' => 1829171,
                                       ),
-                                      417 => 
+                                      412 => 
                                       array (
                                         'key' => 'FIRE ENGINE BOOSTER',
                                         'value' => 1930,
                                       ),
-                                      418 => 
+                                      413 => 
                                       array (
                                         'key' => 'FIRE ENGINE SUCTION',
                                         'value' => 1931,
                                       ),
-                                      419 => 
+                                      414 => 
                                       array (
                                         'key' => 'FIRE ENGINER BOOSTER',
                                         'value' => 1932,
                                       ),
-                                      420 => 
+                                      415 => 
                                       array (
                                         'key' => 'FIRE EXTINGUISHER UL92',
                                         'value' => 5679576,
                                       ),
-                                      421 => 
+                                      416 => 
                                       array (
                                         'key' => 'FIRE SUCTION & DISCHARGE',
                                         'value' => 1829433,
                                       ),
-                                      422 => 
+                                      417 => 
                                       array (
                                         'key' => 'FISH HOSE',
                                         'value' => 1933,
                                       ),
-                                      423 => 
+                                      418 => 
                                       array (
                                         'key' => 'FISH SUCTION',
                                         'value' => 1829238,
                                       ),
-                                      424 => 
+                                      419 => 
                                       array (
                                         'key' => 'FISH TRANSFER',
                                         'value' => 1934,
                                       ),
-                                      425 => 
+                                      420 => 
                                       array (
                                         'key' => 'Flange Engine Oil Connection (Two Bolt)',
                                         'value' => 1830007,
                                       ),
-                                      426 => 
+                                      421 => 
                                       array (
                                         'key' => 'Flareless Tube',
                                         'value' => 1829981,
                                       ),
-                                      427 => 
+                                      422 => 
                                       array (
                                         'key' => 'Flareless Tube Nuts',
                                         'value' => 1829994,
                                       ),
-                                      428 => 
+                                      423 => 
                                       array (
                                         'key' => 'Flareless Tube Sleeves',
                                         'value' => 1829995,
                                       ),
-                                      429 => 
+                                      424 => 
                                       array (
                                         'key' => 'FLASH',
                                         'value' => 5355083,
                                       ),
-                                      430 => 
+                                      425 => 
                                       array (
                                         'key' => 'FLDCON',
                                         'value' => 1935,
                                       ),
-                                      431 => 
+                                      426 => 
                                       array (
                                         'key' => 'FLEX-ING FLEX AQUA WATER S&D',
                                         'value' => 1943,
                                       ),
-                                      432 => 
+                                      427 => 
                                       array (
                                         'key' => 'FLEX-ING FLEX-ON',
                                         'value' => 1944,
                                       ),
-                                      433 => 
+                                      428 => 
                                       array (
                                         'key' => 'FLEX-PULSE FPII',
                                         'value' => 1946,
                                       ),
-                                      434 => 
+                                      429 => 
                                       array (
                                         'key' => 'FLEXAGRIP',
                                         'value' => 1936,
                                       ),
-                                      435 => 
+                                      430 => 
                                       array (
                                         'key' => 'FLEXCHEM 225',
                                         'value' => 1937,
                                       ),
-                                      436 => 
+                                      431 => 
                                       array (
                                         'key' => 'FLEXDOCK',
                                         'value' => 1938,
                                       ),
-                                      437 => 
+                                      432 => 
                                       array (
                                         'key' => 'FLEXDOCK VERSAFUEL',
                                         'value' => 1939,
                                       ),
-                                      438 => 
+                                      433 => 
                                       array (
                                         'key' => 'FLEXIBLE DOWNSPOUT',
                                         'value' => 1940,
                                       ),
-                                      439 => 
+                                      434 => 
                                       array (
                                         'key' => 'FLEXIBLE TEFLON',
                                         'value' => 1941,
                                       ),
-                                      440 => 
+                                      435 => 
                                       array (
                                         'key' => 'FLEXICORE',
                                         'value' => 1942,
                                       ),
-                                      441 => 
+                                      436 => 
                                       array (
                                         'key' => 'FLEXILLA',
                                         'value' => 1829099,
                                       ),
-                                      442 => 
+                                      437 => 
                                       array (
                                         'key' => 'FLEXING FLEX-ON',
                                         'value' => 1829124,
                                       ),
-                                      443 => 
+                                      438 => 
                                       array (
                                         'key' => 'FLEXJET',
                                         'value' => 1945,
                                       ),
-                                      444 => 
+                                      439 => 
                                       array (
                                         'key' => 'FLEXON',
                                         'value' => 1829094,
                                       ),
-                                      445 => 
+                                      440 => 
                                       array (
                                         'key' => 'FLEXRITE',
                                         'value' => 1947,
                                       ),
-                                      446 => 
+                                      441 => 
                                       array (
                                         'key' => 'FLEXSHIELD SAE J1527 A1-15',
                                         'value' => 1829362,
                                       ),
-                                      447 => 
+                                      442 => 
                                       array (
                                         'key' => 'FLEXSHIELD SAE J1527 TYPE A1-15',
                                         'value' => 1948,
                                       ),
-                                      448 => 
+                                      443 => 
                                       array (
                                         'key' => 'FLEXSTEEL 250 ORS STEAM',
                                         'value' => 1952,
                                       ),
-                                      449 => 
+                                      444 => 
                                       array (
                                         'key' => 'FLEXSTEEL 250 STEAM',
                                         'value' => 1953,
                                       ),
-                                      450 => 
+                                      445 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA',
                                         'value' => 1954,
                                       ),
-                                      451 => 
+                                      446 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA B20',
                                         'value' => 1955,
                                       ),
-                                      452 => 
+                                      447 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA E25',
                                         'value' => 1956,
                                       ),
-                                      453 => 
+                                      448 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA ETHAN-ALL',
                                         'value' => 1957,
                                       ),
-                                      454 => 
+                                      449 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA HVR',
                                         'value' => 1958,
                                       ),
-                                      455 => 
+                                      450 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA HVR LOW PERM',
                                         'value' => 1959,
                                       ),
-                                      456 => 
+                                      451 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA LOW PERM',
                                         'value' => 1960,
                                       ),
-                                      457 => 
+                                      452 => 
                                       array (
                                         'key' => 'FLEXSTEEL FUTURA VAPOR ASSIST',
                                         'value' => 1961,
                                       ),
-                                      458 => 
+                                      453 => 
                                       array (
                                         'key' => 'FLEXSTEEL HW',
                                         'value' => 1829212,
                                       ),
-                                      459 => 
+                                      454 => 
                                       array (
                                         'key' => 'FLEXSTEEL MINE SPRAY',
                                         'value' => 1962,
                                       ),
-                                      460 => 
+                                      455 => 
                                       array (
                                         'key' => 'FLEXSTEEL MINESPRAY',
                                         'value' => 1963,
                                       ),
-                                      461 => 
+                                      456 => 
                                       array (
                                         'key' => 'FLEXSTEEL SERVICE STATION AIR',
                                         'value' => 1964,
                                       ),
-                                      462 => 
+                                      457 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 CB EXTREME CRIMP',
                                         'value' => 1949,
                                       ),
-                                      463 => 
+                                      458 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 CB STEAM',
                                         'value' => 1950,
                                       ),
-                                      464 => 
+                                      459 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 EPDM',
                                         'value' => 1829327,
                                       ),
-                                      465 => 
+                                      460 => 
                                       array (
                                         'key' => 'FLEXSTEEL® 250 EPDM-20',
                                         'value' => 1951,
                                       ),
-                                      466 => 
+                                      461 => 
                                       array (
                                         'key' => 'FLEXTRA DRY MATERIAL',
                                         'value' => 1965,
                                       ),
-                                      467 => 
+                                      462 => 
                                       array (
                                         'key' => 'FLEXTRA LT',
                                         'value' => 1966,
                                       ),
-                                      468 => 
+                                      463 => 
                                       array (
                                         'key' => 'FLEXTRA LT BLUE',
                                         'value' => 1829367,
                                       ),
-                                      469 => 
+                                      464 => 
                                       array (
                                         'key' => 'FLEXTRA OILFIELD',
                                         'value' => 1967,
                                       ),
-                                      470 => 
+                                      465 => 
                                       array (
                                         'key' => 'FLEXTRA ROCK DUST',
                                         'value' => 1968,
                                       ),
-                                      471 => 
+                                      466 => 
                                       array (
                                         'key' => 'FLEXTRAL',
                                         'value' => 5764904,
                                       ),
-                                      472 => 
+                                      467 => 
                                       array (
                                         'key' => 'FLEXTRAL GRIP-LOC',
                                         'value' => 1829179,
                                       ),
-                                      473 => 
+                                      468 => 
                                       array (
                                         'key' => 'FLEXTRAL J2',
                                         'value' => 1829399,
                                       ),
-                                      474 => 
+                                      469 => 
                                       array (
                                         'key' => 'FLEXWAC',
                                         'value' => 1969,
                                       ),
-                                      475 => 
+                                      470 => 
                                       array (
                                         'key' => 'FLEXWING FOOD',
                                         'value' => 3947663,
                                       ),
-                                      476 => 
+                                      471 => 
                                       array (
                                         'key' => 'FLEXWING FOOD BLUE',
                                         'value' => 1970,
                                       ),
-                                      477 => 
+                                      472 => 
                                       array (
                                         'key' => 'FLEXWING OILFIELD',
                                         'value' => 1971,
                                       ),
-                                      478 => 
+                                      473 => 
                                       array (
                                         'key' => 'FLEXWING PETROLEUM',
                                         'value' => 1972,
                                       ),
-                                      479 => 
+                                      474 => 
                                       array (
                                         'key' => 'FLEXWING VERSAFUEL',
                                         'value' => 1973,
                                       ),
-                                      480 => 
+                                      475 => 
                                       array (
                                         'key' => 'FLEXWING WATER S&D',
                                         'value' => 1974,
                                       ),
-                                      481 => 
+                                      476 => 
                                       array (
                                         'key' => 'FLOATER',
                                         'value' => 1975,
                                       ),
-                                      482 => 
+                                      477 => 
                                       array (
                                         'key' => 'FLOATING HOSES',
                                         'value' => 1976,
                                       ),
-                                      483 => 
+                                      478 => 
                                       array (
                                         'key' => 'FLOUR DISCHARGE',
                                         'value' => 1977,
                                       ),
-                                      484 => 
+                                      479 => 
                                       array (
                                         'key' => 'FLUOROPAL',
                                         'value' => 1978,
                                       ),
-                                      485 => 
+                                      480 => 
                                       array (
                                         'key' => 'FOAM',
                                         'value' => 1979,
                                       ),
-                                      486 => 
+                                      481 => 
                                       array (
                                         'key' => 'FOOD 2720',
                                         'value' => 1980,
                                       ),
-                                      487 => 
+                                      482 => 
                                       array (
                                         'key' => 'FOOD DISCHARGE',
                                         'value' => 1981,
                                       ),
-                                      488 => 
+                                      483 => 
                                       array (
                                         'key' => 'FOOD FLEX',
                                         'value' => 1982,
                                       ),
-                                      489 => 
+                                      484 => 
                                       array (
                                         'key' => 'FOOD SUCTION & DISCHARGE',
                                         'value' => 1983,
                                       ),
-                                      490 => 
+                                      485 => 
                                       array (
                                         'key' => 'FOODCLEAN',
                                         'value' => 1984,
                                       ),
-                                      491 => 
+                                      486 => 
                                       array (
                                         'key' => 'FOODLINER',
                                         'value' => 1985,
                                       ),
-                                      492 => 
+                                      487 => 
                                       array (
                                         'key' => 'Ford Spring Lock',
                                         'value' => 1829989,
                                       ),
-                                      493 => 
+                                      488 => 
                                       array (
                                         'key' => 'FORECAST BLAST',
                                         'value' => 1986,
                                       ),
-                                      494 => 
+                                      489 => 
                                       array (
                                         'key' => 'FORECAST BLAST XF',
                                         'value' => 1987,
                                       ),
-                                      495 => 
+                                      490 => 
                                       array (
                                         'key' => 'FORECAST SUCTION',
                                         'value' => 1988,
                                       ),
-                                      496 => 
+                                      491 => 
                                       array (
                                         'key' => 'FORESTRY',
                                         'value' => 1989,
                                       ),
-                                      497 => 
+                                      492 => 
                                       array (
                                         'key' => 'FORMADRAIN INFLATABLE HOSE',
                                         'value' => 1990,
                                       ),
-                                      498 => 
+                                      493 => 
                                       array (
                                         'key' => 'FORTRESS',
                                         'value' => 1991,
                                       ),
-                                      499 => 
+                                      494 => 
                                       array (
                                         'key' => 'FOSTER',
                                         'value' => 1992,
                                       ),
-                                      500 => 
+                                      495 => 
                                       array (
                                         'key' => 'FRAC',
                                         'value' => 1993,
                                       ),
-                                      501 => 
+                                      496 => 
                                       array (
                                         'key' => 'FRAC ACID S&D',
                                         'value' => 1994,
                                       ),
-                                      502 => 
+                                      497 => 
                                       array (
                                         'key' => 'FRAC ACID S&D 400',
                                         'value' => 1829354,
                                       ),
-                                      503 => 
+                                      498 => 
                                       array (
                                         'key' => 'FRAC BLENDING 500SD',
                                         'value' => 1829374,
                                       ),
-                                      504 => 
+                                      499 => 
                                       array (
                                         'key' => 'FRAC BLENDING S&D',
                                         'value' => 1995,
                                       ),
-                                      505 => 
+                                      500 => 
                                       array (
                                         'key' => 'FRACO',
                                         'value' => 1996,
                                       ),
-                                      506 => 
+                                      501 => 
                                       array (
                                         'key' => 'FREON CHARGING',
                                         'value' => 1997,
                                       ),
-                                      507 => 
+                                      502 => 
                                       array (
                                         'key' => 'FRIG SEA',
                                         'value' => 1998,
                                       ),
-                                      508 => 
+                                      503 => 
                                       array (
                                         'key' => 'FRONTIER',
                                         'value' => 1999,
                                       ),
-                                      509 => 
+                                      504 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE',
                                         'value' => 2000,
                                       ),
-                                      510 => 
+                                      505 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 150',
                                         'value' => 1829337,
                                       ),
-                                      511 => 
+                                      506 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 200',
                                         'value' => 1829405,
                                       ),
-                                      512 => 
+                                      507 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 250',
                                         'value' => 1829237,
                                       ),
-                                      513 => 
+                                      508 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE 300',
                                         'value' => 1829373,
                                       ),
-                                      514 => 
+                                      509 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE HD',
                                         'value' => 2001,
                                       ),
-                                      515 => 
+                                      510 => 
                                       array (
                                         'key' => 'FUEL DISCHARGE HD 300',
                                         'value' => 1829422,
                                       ),
-                                      516 => 
+                                      511 => 
                                       array (
                                         'key' => 'FUEL FILL SAE J1527 TYPE A2',
                                         'value' => 2002,
                                       ),
-                                      517 => 
+                                      512 => 
                                       array (
                                         'key' => 'FUEL RIG SW',
                                         'value' => 2003,
                                       ),
-                                      518 => 
+                                      513 => 
                                       array (
                                         'key' => 'FUELGRIP COUPLING',
                                         'value' => 2004,
                                       ),
-                                      519 => 
+                                      514 => 
                                       array (
                                         'key' => 'FUGGITT',
                                         'value' => 2005,
                                       ),
-                                      520 => 
+                                      515 => 
                                       array (
                                         'key' => 'FUJI',
                                         'value' => 2006,
                                       ),
-                                      521 => 
+                                      516 => 
                                       array (
                                         'key' => 'FURNACE DOOR',
                                         'value' => 2007,
                                       ),
-                                      522 => 
+                                      517 => 
                                       array (
                                         'key' => 'FUTURA O-RING KIT',
                                         'value' => 2008,
                                       ),
-                                      523 => 
+                                      518 => 
                                       array (
                                         'key' => 'FUTURA RET RING INST. TOOL',
                                         'value' => 2009,
                                       ),
-                                      524 => 
+                                      519 => 
                                       array (
                                         'key' => 'GALAXY G4826',
                                         'value' => 2010,
                                       ),
-                                      525 => 
+                                      520 => 
                                       array (
                                         'key' => 'GALAXY G4867',
                                         'value' => 2011,
                                       ),
-                                      526 => 
+                                      521 => 
                                       array (
                                         'key' => 'GALAXY G4890',
                                         'value' => 2012,
                                       ),
-                                      527 => 
+                                      522 => 
                                       array (
                                         'key' => 'GALVANATOR',
                                         'value' => 2013,
                                       ),
-                                      528 => 
+                                      523 => 
                                       array (
                                         'key' => 'GAMMON',
                                         'value' => 2014,
                                       ),
-                                      529 => 
+                                      524 => 
                                       array (
                                         'key' => 'GARDEN HOSE',
                                         'value' => 1829286,
                                       ),
-                                      530 => 
+                                      525 => 
                                       array (
                                         'key' => 'GARRISON GAUNTLET',
                                         'value' => 1829424,
                                       ),
-                                      531 => 
+                                      526 => 
                                       array (
                                         'key' => 'GATES',
                                         'value' => 1829135,
                                       ),
-                                      532 => 
+                                      527 => 
                                       array (
                                         'key' => 'GATES 32000002',
                                         'value' => 1829418,
                                       ),
-                                      533 => 
+                                      528 => 
                                       array (
                                         'key' => 'GATES 32000003',
                                         'value' => 1829305,
                                       ),
-                                      534 => 
+                                      529 => 
                                       array (
                                         'key' => 'GATES 32000006',
                                         'value' => 1829245,
                                       ),
-                                      535 => 
+                                      530 => 
                                       array (
                                         'key' => 'GATES 32000007',
                                         'value' => 1829294,
                                       ),
-                                      536 => 
+                                      531 => 
                                       array (
                                         'key' => 'GATES 32000008',
                                         'value' => 1829247,
                                       ),
-                                      537 => 
+                                      532 => 
                                       array (
                                         'key' => 'GATES 32000009',
                                         'value' => 1829209,
                                       ),
-                                      538 => 
+                                      533 => 
                                       array (
                                         'key' => 'GATES 32000011',
                                         'value' => 1829265,
                                       ),
-                                      539 => 
+                                      534 => 
                                       array (
                                         'key' => 'GATES 32000012',
                                         'value' => 1829276,
                                       ),
-                                      540 => 
+                                      535 => 
                                       array (
                                         'key' => 'GATES 32000013',
                                         'value' => 1829254,
                                       ),
-                                      541 => 
+                                      536 => 
                                       array (
                                         'key' => 'GATES 32000014',
                                         'value' => 1829213,
                                       ),
-                                      542 => 
+                                      537 => 
                                       array (
                                         'key' => 'GATES 32000015',
                                         'value' => 1829419,
                                       ),
-                                      543 => 
+                                      538 => 
                                       array (
                                         'key' => 'GATES 32000016',
                                         'value' => 1829235,
                                       ),
-                                      544 => 
+                                      539 => 
                                       array (
                                         'key' => 'GATES 32000213',
                                         'value' => 1829420,
                                       ),
-                                      545 => 
+                                      540 => 
                                       array (
                                         'key' => 'GATES 32020011',
                                         'value' => 1829185,
                                       ),
-                                      546 => 
+                                      541 => 
                                       array (
                                         'key' => 'GATES 32020016',
                                         'value' => 1829390,
                                       ),
-                                      547 => 
+                                      542 => 
                                       array (
                                         'key' => 'GATES 32020021',
                                         'value' => 1829391,
                                       ),
-                                      548 => 
+                                      543 => 
                                       array (
                                         'key' => 'GATES 32020027',
                                         'value' => 1829392,
                                       ),
-                                      549 => 
+                                      544 => 
                                       array (
                                         'key' => 'GATES 32041328',
                                         'value' => 1829151,
                                       ),
-                                      550 => 
+                                      545 => 
                                       array (
                                         'key' => 'GATES 32041346',
                                         'value' => 1829126,
                                       ),
-                                      551 => 
+                                      546 => 
                                       array (
                                         'key' => 'GATES 32041349',
                                         'value' => 1829194,
                                       ),
-                                      552 => 
+                                      547 => 
                                       array (
                                         'key' => 'GATES 32041355',
                                         'value' => 1829136,
                                       ),
-                                      553 => 
+                                      548 => 
                                       array (
                                         'key' => 'GATES 32041364',
                                         'value' => 1829148,
                                       ),
-                                      554 => 
+                                      549 => 
                                       array (
                                         'key' => 'GATES 32041425',
                                         'value' => 1829267,
                                       ),
-                                      555 => 
+                                      550 => 
                                       array (
                                         'key' => 'GATES 32041437',
                                         'value' => 1829394,
                                       ),
-                                      556 => 
+                                      551 => 
                                       array (
                                         'key' => 'GATES 32050016',
                                         'value' => 1829284,
                                       ),
-                                      557 => 
+                                      552 => 
                                       array (
                                         'key' => 'GATES 32050026',
                                         'value' => 1829250,
                                       ),
-                                      558 => 
+                                      553 => 
                                       array (
                                         'key' => 'GATES 32050031',
                                         'value' => 1829259,
                                       ),
-                                      559 => 
+                                      554 => 
                                       array (
                                         'key' => 'GATES 32050036',
                                         'value' => 1829240,
                                       ),
-                                      560 => 
+                                      555 => 
                                       array (
                                         'key' => 'GATES 32050040',
                                         'value' => 1829208,
                                       ),
-                                      561 => 
+                                      556 => 
                                       array (
                                         'key' => 'GATES 32050041',
                                         'value' => 1829177,
                                       ),
-                                      562 => 
+                                      557 => 
                                       array (
                                         'key' => 'GATES 32050046',
                                         'value' => 1829146,
                                       ),
-                                      563 => 
+                                      558 => 
                                       array (
                                         'key' => 'GATES 32050049',
                                         'value' => 1829244,
                                       ),
-                                      564 => 
+                                      559 => 
                                       array (
                                         'key' => 'GATES 32050055',
                                         'value' => 1829181,
                                       ),
-                                      565 => 
+                                      560 => 
                                       array (
                                         'key' => 'GATES 32050226',
                                         'value' => 1829308,
                                       ),
-                                      566 => 
+                                      561 => 
                                       array (
                                         'key' => 'GATES 32050231',
                                         'value' => 1829310,
                                       ),
-                                      567 => 
+                                      562 => 
                                       array (
                                         'key' => 'GATES 32050236',
                                         'value' => 1829421,
                                       ),
-                                      568 => 
+                                      563 => 
                                       array (
                                         'key' => 'GATES 32050241',
                                         'value' => 1829303,
                                       ),
-                                      569 => 
+                                      564 => 
                                       array (
                                         'key' => 'GATES 32714397',
                                         'value' => 1829425,
                                       ),
-                                      570 => 
+                                      565 => 
                                       array (
                                         'key' => 'GATES 3624-0145',
                                         'value' => 1829261,
                                       ),
-                                      571 => 
+                                      566 => 
                                       array (
                                         'key' => 'GATES GASFLEX',
                                         'value' => 1829331,
                                       ),
-                                      572 => 
+                                      567 => 
                                       array (
                                         'key' => 'GATES STEAMKING',
                                         'value' => 1829107,
                                       ),
-                                      573 => 
+                                      568 => 
                                       array (
                                         'key' => 'GAUNTLET',
                                         'value' => 2015,
                                       ),
-                                      574 => 
+                                      569 => 
                                       array (
                                         'key' => 'GENERIC',
                                         'value' => 2016,
                                       ),
-                                      575 => 
+                                      570 => 
                                       array (
                                         'key' => 'GENERIC AIR',
                                         'value' => 1829359,
                                       ),
-                                      576 => 
+                                      571 => 
                                       array (
                                         'key' => 'GENERIC AIR 250',
                                         'value' => 1829312,
                                       ),
-                                      577 => 
+                                      572 => 
                                       array (
                                         'key' => 'GENERIC LOW TEMP TANK TRUCK',
                                         'value' => 2017,
                                       ),
-                                      578 => 
+                                      573 => 
                                       array (
                                         'key' => 'GENERIC PETRO TANK TRUCK',
                                         'value' => 1829253,
                                       ),
-                                      579 => 
+                                      574 => 
                                       array (
                                         'key' => 'GENERIC PL & GR',
                                         'value' => 1829332,
                                       ),
-                                      580 => 
+                                      575 => 
                                       array (
                                         'key' => 'GENERIC PLASTER & GROUT',
                                         'value' => 2018,
                                       ),
-                                      581 => 
+                                      576 => 
                                       array (
                                         'key' => 'GENERIC PUSH-ON',
                                         'value' => 5299956,
                                       ),
-                                      582 => 
+                                      577 => 
                                       array (
                                         'key' => 'GENERIC VACUUM',
                                         'value' => 2019,
                                       ),
-                                      583 => 
+                                      578 => 
                                       array (
                                         'key' => 'GENERIC WATER 100D',
                                         'value' => 1829299,
                                       ),
-                                      584 => 
+                                      579 => 
                                       array (
                                         'key' => 'GENERIC WATER DISCHARGE',
                                         'value' => 2020,
                                       ),
-                                      585 => 
+                                      580 => 
                                       array (
                                         'key' => 'GENERIC WATER S&D',
                                         'value' => 2021,
                                       ),
-                                      586 => 
+                                      581 => 
                                       array (
                                         'key' => 'GENLINE',
                                         'value' => 2022,
                                       ),
-                                      587 => 
+                                      582 => 
                                       array (
                                         'key' => 'GENLINE GL',
                                         'value' => 2023,
                                       ),
-                                      588 => 
+                                      583 => 
                                       array (
                                         'key' => 'GENLINE GL-802',
                                         'value' => 2024,
                                       ),
-                                      589 => 
+                                      584 => 
                                       array (
                                         'key' => 'GENLINE GL-803',
                                         'value' => 2025,
                                       ),
-                                      590 => 
+                                      585 => 
                                       array (
                                         'key' => 'GHX',
                                         'value' => 2026,
                                       ),
-                                      591 => 
+                                      586 => 
                                       array (
                                         'key' => 'GHX OILFIELD',
                                         'value' => 1829398,
                                       ),
-                                      592 => 
+                                      587 => 
                                       array (
                                         'key' => 'GHX OILFIELD S&D',
                                         'value' => 1829395,
                                       ),
-                                      593 => 
+                                      588 => 
                                       array (
                                         'key' => 'GHX PETRO XPOWER',
                                         'value' => 1829123,
                                       ),
-                                      594 => 
+                                      589 => 
                                       array (
                                         'key' => 'GHX WATER S&D',
                                         'value' => 1829397,
                                       ),
-                                      595 => 
+                                      590 => 
                                       array (
                                         'key' => 'GHX XPOWER OILFIELD FRAC TANK',
                                         'value' => 1829186,
                                       ),
-                                      596 => 
+                                      591 => 
                                       array (
                                         'key' => 'GILBARCO',
                                         'value' => 2027,
                                       ),
-                                      597 => 
+                                      592 => 
                                       array (
                                         'key' => 'GLOBAL',
                                         'value' => 2028,
                                       ),
-                                      598 => 
+                                      593 => 
                                       array (
                                         'key' => 'GLOBAL M24565-70-H',
                                         'value' => 1829204,
                                       ),
-                                      599 => 
+                                      594 => 
                                       array (
                                         'key' => 'GNSPEC',
                                         'value' => 2029,
                                       ),
-                                      600 => 
+                                      595 => 
                                       array (
                                         'key' => 'GNSPEC 100R12',
                                         'value' => 2030,
                                       ),
-                                      601 => 
+                                      596 => 
                                       array (
                                         'key' => 'GNSPEC 100R16',
                                         'value' => 2031,
                                       ),
-                                      602 => 
+                                      597 => 
                                       array (
                                         'key' => 'GNSPEC 100R17',
                                         'value' => 1829224,
                                       ),
-                                      603 => 
+                                      598 => 
                                       array (
                                         'key' => 'GNSPEC 100R2',
                                         'value' => 2032,
                                       ),
-                                      604 => 
+                                      599 => 
                                       array (
                                         'key' => 'GNSPEC 100R6',
                                         'value' => 2033,
                                       ),
-                                      605 => 
+                                      600 => 
                                       array (
                                         'key' => 'GNSPEC 200 AIR',
                                         'value' => 2034,
                                       ),
-                                      606 => 
+                                      601 => 
                                       array (
                                         'key' => 'GNSPEC 250 AIR',
                                         'value' => 2035,
                                       ),
-                                      607 => 
+                                      602 => 
                                       array (
                                         'key' => 'GNSPEC 300 AIR',
                                         'value' => 2036,
                                       ),
-                                      608 => 
+                                      603 => 
                                       array (
                                         'key' => 'GNSPEC 4001 PRESSURE WASHER',
                                         'value' => 2037,
                                       ),
-                                      609 => 
+                                      604 => 
                                       array (
                                         'key' => 'GNSPEC 4500 PRESSURE WASHER',
                                         'value' => 2038,
                                       ),
-                                      610 => 
+                                      605 => 
                                       array (
                                         'key' => 'GNSPEC NR SPRAY',
                                         'value' => 2039,
                                       ),
-                                      611 => 
+                                      606 => 
                                       array (
                                         'key' => 'GNSPEC PUSH ON 250',
                                         'value' => 2040,
                                       ),
-                                      612 => 
+                                      607 => 
                                       array (
                                         'key' => 'GOLD SNAKE',
                                         'value' => 2041,
                                       ),
-                                      613 => 
+                                      608 => 
                                       array (
                                         'key' => 'GOOD FLEX',
                                         'value' => 2042,
                                       ),
-                                      614 => 
+                                      609 => 
                                       array (
                                         'key' => 'GOODAL',
                                         'value' => 1829176,
                                       ),
-                                      615 => 
+                                      610 => 
                                       array (
                                         'key' => 'GOODALL',
                                         'value' => 2043,
                                       ),
-                                      616 => 
+                                      611 => 
                                       array (
                                         'key' => 'GOODALL CHEMICAL',
                                         'value' => 1829400,
                                       ),
-                                      617 => 
+                                      612 => 
                                       array (
                                         'key' => 'GORILLA',
                                         'value' => 2044,
                                       ),
-                                      618 => 
+                                      613 => 
                                       array (
                                         'key' => 'GRACO',
                                         'value' => 2045,
                                       ),
-                                      619 => 
+                                      614 => 
                                       array (
                                         'key' => 'GRACO 079055',
                                         'value' => 1829134,
                                       ),
-                                      620 => 
+                                      615 => 
                                       array (
                                         'key' => 'GRAINGER',
                                         'value' => 2046,
                                       ),
-                                      621 => 
+                                      616 => 
                                       array (
                                         'key' => 'GRAY DUCTING',
                                         'value' => 1829388,
                                       ),
-                                      622 => 
+                                      617 => 
                                       array (
                                         'key' => 'GRAY FLEXTRA LT',
                                         'value' => 2047,
                                       ),
-                                      623 => 
+                                      618 => 
                                       array (
                                         'key' => 'GRAY FLEXWING',
                                         'value' => 2048,
                                       ),
-                                      624 => 
+                                      619 => 
                                       array (
                                         'key' => 'GRAY FOOD',
                                         'value' => 2049,
                                       ),
-                                      625 => 
+                                      620 => 
                                       array (
                                         'key' => 'GRAY SUCTION',
                                         'value' => 2050,
                                       ),
-                                      626 => 
+                                      621 => 
                                       array (
                                         'key' => 'GREASE GUN HOSE',
                                         'value' => 2051,
                                       ),
-                                      627 => 
+                                      622 => 
                                       array (
                                         'key' => 'GREAT NECK',
                                         'value' => 2052,
                                       ),
-                                      628 => 
+                                      623 => 
                                       array (
                                         'key' => 'GREAT PLAINS',
                                         'value' => 2053,
                                       ),
-                                      629 => 
+                                      624 => 
                                       array (
                                         'key' => 'GREEN HORNET XF',
                                         'value' => 2054,
                                       ),
-                                      630 => 
+                                      625 => 
                                       array (
                                         'key' => 'GREEN XLPE 150',
                                         'value' => 1829325,
                                       ),
-                                      631 => 
+                                      626 => 
                                       array (
                                         'key' => 'GRINUS',
                                         'value' => 1829389,
                                       ),
-                                      632 => 
+                                      627 => 
                                       array (
                                         'key' => 'GTF',
                                         'value' => 1829954,
                                       ),
-                                      633 => 
+                                      628 => 
                                       array (
                                         'key' => 'GUNITE',
                                         'value' => 2055,
                                       ),
-                                      634 => 
+                                      629 => 
                                       array (
                                         'key' => 'GUNITE (TAN)',
                                         'value' => 1829353,
                                       ),
-                                      635 => 
+                                      630 => 
                                       array (
                                         'key' => 'HAMILON BLAST',
                                         'value' => 1829365,
                                       ),
-                                      636 => 
+                                      631 => 
                                       array (
                                         'key' => 'HAMILTON',
                                         'value' => 5756819,
                                       ),
-                                      637 => 
+                                      632 => 
                                       array (
                                         'key' => 'HAMILTON BLAST',
                                         'value' => 2056,
                                       ),
-                                      638 => 
+                                      633 => 
                                       array (
                                         'key' => 'HAMILTON HYDROCARBON DRAIN',
                                         'value' => 2057,
                                       ),
-                                      639 => 
+                                      634 => 
                                       array (
                                         'key' => 'Hammer Union',
                                         'value' => 1829962,
                                       ),
-                                      640 => 
+                                      635 => 
                                       array (
                                         'key' => 'HANLIO TWIN-LINE (GRADE R)',
                                         'value' => 1829417,
                                       ),
-                                      641 => 
+                                      636 => 
                                       array (
                                         'key' => 'HANLIO TWIN-LINE GRADE R',
                                         'value' => 2058,
                                       ),
-                                      642 => 
+                                      637 => 
                                       array (
                                         'key' => 'HART',
                                         'value' => 2059,
                                       ),
-                                      643 => 
+                                      638 => 
                                       array (
                                         'key' => 'HART BLACK SOFTWALL',
                                         'value' => 2060,
                                       ),
-                                      644 => 
+                                      639 => 
                                       array (
                                         'key' => 'HART FABCHEM',
                                         'value' => 2061,
                                       ),
-                                      645 => 
+                                      640 => 
                                       array (
                                         'key' => 'HART FLOUR DISCHARGE',
                                         'value' => 2062,
                                       ),
-                                      646 => 
+                                      641 => 
                                       array (
                                         'key' => 'HART HOT AIR',
                                         'value' => 2063,
                                       ),
-                                      647 => 
+                                      642 => 
                                       array (
                                         'key' => 'HARVEST',
                                         'value' => 2064,
                                       ),
-                                      648 => 
+                                      643 => 
                                       array (
                                         'key' => 'HAWAII MARINE',
                                         'value' => 1829377,
                                       ),
-                                      649 => 
+                                      644 => 
                                       array (
                                         'key' => 'HAWK PD',
                                         'value' => 1829522,
                                       ),
-                                      650 => 
+                                      645 => 
                                       array (
                                         'key' => 'HD AIR',
                                         'value' => 2065,
                                       ),
-                                      651 => 
+                                      646 => 
                                       array (
                                         'key' => 'HD AIR & WATER',
                                         'value' => 2066,
                                       ),
-                                      652 => 
+                                      647 => 
                                       array (
                                         'key' => 'HD AIR 300',
                                         'value' => 1829289,
                                       ),
-                                      653 => 
+                                      648 => 
                                       array (
                                         'key' => 'HD INDUSTRIAL VACUUM',
                                         'value' => 2067,
                                       ),
-                                      654 => 
+                                      649 => 
                                       array (
                                         'key' => 'HD PETRO TRANSFER',
                                         'value' => 2068,
                                       ),
-                                      655 => 
+                                      650 => 
                                       array (
                                         'key' => 'HD VACUUM',
                                         'value' => 2069,
                                       ),
-                                      656 => 
+                                      651 => 
                                       array (
                                         'key' => 'HD WATER DISCHARGE',
                                         'value' => 2070,
                                       ),
-                                      657 => 
+                                      652 => 
                                       array (
                                         'key' => 'HD WATER SD',
                                         'value' => 2071,
                                       ),
-                                      658 => 
+                                      653 => 
                                       array (
                                         'key' => 'HEALY LOW PERM',
                                         'value' => 1829101,
                                       ),
-                                      659 => 
+                                      654 => 
                                       array (
                                         'key' => 'HEATER HOSE 20R3D2',
                                         'value' => 2072,
                                       ),
-                                      660 => 
+                                      655 => 
                                       array (
                                         'key' => 'HEATER WATER',
                                         'value' => 2073,
                                       ),
-                                      661 => 
+                                      656 => 
                                       array (
                                         'key' => 'HEAVY DUTY STEAM PILE DRIVER',
                                         'value' => 2074,
                                       ),
-                                      662 => 
+                                      657 => 
                                       array (
                                         'key' => 'HEWITT',
                                         'value' => 2075,
                                       ),
-                                      663 => 
+                                      658 => 
                                       array (
                                         'key' => 'HEWITT AIRCRAFT',
                                         'value' => 2076,
                                       ),
-                                      664 => 
+                                      659 => 
                                       array (
                                         'key' => 'HEX',
                                         'value' => 1829505,
                                       ),
-                                      665 => 
+                                      660 => 
                                       array (
                                         'key' => 'HI-MINER II',
                                         'value' => 2077,
                                       ),
-                                      666 => 
+                                      661 => 
                                       array (
                                         'key' => 'HI-PER',
                                         'value' => 2078,
                                       ),
-                                      667 => 
+                                      662 => 
                                       array (
                                         'key' => 'HIGHLAND BRINE WATER S&D',
                                         'value' => 1829287,
                                       ),
-                                      668 => 
+                                      663 => 
                                       array (
                                         'key' => 'HIGHLAND POTABLE WATER S&D',
                                         'value' => 1829262,
                                       ),
-                                      669 => 
+                                      664 => 
                                       array (
                                         'key' => 'HIGHLAND RAW WATER S&D',
                                         'value' => 1829268,
                                       ),
-                                      670 => 
+                                      665 => 
                                       array (
                                         'key' => 'HIGHLAND WASTE WATER S&D',
                                         'value' => 1829315,
                                       ),
-                                      671 => 
+                                      666 => 
                                       array (
                                         'key' => 'HIPER WATER',
                                         'value' => 2079,
                                       ),
-                                      672 => 
+                                      667 => 
                                       array (
                                         'key' => 'HITECH WASHDOWN',
                                         'value' => 1829301,
                                       ),
-                                      673 => 
+                                      668 => 
                                       array (
                                         'key' => 'HOOSIER FOOD TL',
                                         'value' => 2080,
                                       ),
-                                      674 => 
+                                      669 => 
                                       array (
                                         'key' => 'HOSCO',
                                         'value' => 2081,
                                       ),
-                                      675 => 
+                                      670 => 
                                       array (
                                         'key' => 'HOSE ASSEMBLY COLD',
                                         'value' => 1829095,
                                       ),
-                                      676 => 
+                                      671 => 
                                       array (
                                         'key' => 'HOSE ASSEMBLY HOT',
                                         'value' => 1829097,
                                       ),
-                                      677 => 
+                                      672 => 
                                       array (
                                         'key' => 'HOSE GUYS',
                                         'value' => 1829344,
                                       ),
-                                      678 => 
+                                      673 => 
                                       array (
                                         'key' => 'Hose Joiner',
                                         'value' => 1829972,
                                       ),
-                                      679 => 
+                                      674 => 
                                       array (
                                         'key' => 'Hose Medner with Sight Glass',
                                         'value' => 1829990,
                                       ),
-                                      680 => 
+                                      675 => 
                                       array (
                                         'key' => 'Hose Mender',
                                         'value' => 1829982,
                                       ),
-                                      681 => 
+                                      676 => 
                                       array (
                                         'key' => 'Hose Mender with Sight Glass',
                                         'value' => 1829983,
                                       ),
-                                      682 => 
+                                      677 => 
                                       array (
                                         'key' => 'Hose Mender, Tee',
                                         'value' => 1829984,
                                       ),
-                                      683 => 
+                                      678 => 
                                       array (
                                         'key' => 'HOSE POWER',
                                         'value' => 2082,
                                       ),
-                                      684 => 
+                                      679 => 
                                       array (
                                         'key' => 'HOSEPOWER',
                                         'value' => 2083,
                                       ),
-                                      685 => 
+                                      680 => 
                                       array (
                                         'key' => 'HOSEPOWER PLASTER & GROUT',
                                         'value' => 1829401,
                                       ),
-                                      686 => 
+                                      681 => 
                                       array (
                                         'key' => 'HOSINC',
                                         'value' => 5759835,
                                       ),
-                                      687 => 
+                                      682 => 
                                       array (
                                         'key' => 'HOT AIR',
                                         'value' => 1829319,
                                       ),
-                                      688 => 
+                                      683 => 
                                       array (
                                         'key' => 'HOT TAR & ASPHALT EN13482',
                                         'value' => 2084,
                                       ),
-                                      689 => 
+                                      684 => 
                                       array (
                                         'key' => 'HOT TAR & ASPHALT ROUGH BORE',
                                         'value' => 2085,
                                       ),
-                                      690 => 
+                                      685 => 
                                       array (
                                         'key' => 'HOT WATER ELITE',
                                         'value' => 2086,
                                       ),
-                                      691 => 
+                                      686 => 
                                       array (
                                         'key' => 'HR4',
                                         'value' => 2087,
                                       ),
-                                      692 => 
+                                      687 => 
                                       array (
                                         'key' => 'HR6',
                                         'value' => 2088,
                                       ),
-                                      693 => 
+                                      688 => 
                                       array (
                                         'key' => 'HSS WATER JETTING',
                                         'value' => 1829385,
                                       ),
-                                      694 => 
+                                      689 => 
                                       array (
                                         'key' => 'HUDSON',
                                         'value' => 2089,
                                       ),
-                                      695 => 
+                                      690 => 
                                       array (
                                         'key' => 'HUMIDIFIER HOSE',
                                         'value' => 2090,
                                       ),
-                                      696 => 
+                                      691 => 
                                       array (
                                         'key' => 'HUSKY',
                                         'value' => 2091,
                                       ),
-                                      697 => 
+                                      692 => 
                                       array (
                                         'key' => 'HVLP NON-CONDUCTIVE',
                                         'value' => 2092,
                                       ),
-                                      698 => 
+                                      693 => 
                                       array (
                                         'key' => 'HW DRY CEMENT & BARITES',
                                         'value' => 2093,
                                       ),
-                                      699 => 
+                                      694 => 
                                       array (
                                         'key' => 'HY-T HEATER HOSE',
                                         'value' => 1829350,
                                       ),
-                                      700 => 
+                                      695 => 
                                       array (
                                         'key' => 'HY-T PLUS',
                                         'value' => 1829503,
                                       ),
-                                      701 => 
+                                      696 => 
                                       array (
                                         'key' => 'HY-T TORQUE TEAM',
                                         'value' => 1829494,
                                       ),
-                                      702 => 
+                                      697 => 
                                       array (
                                         'key' => 'HY-T TORQUE TEAM LAMINATED',
                                         'value' => 1829502,
                                       ),
-                                      703 => 
+                                      698 => 
                                       array (
                                         'key' => 'HY-T TORQUE TEAM PLUS',
                                         'value' => 1829499,
                                       ),
-                                      704 => 
+                                      699 => 
                                       array (
                                         'key' => 'HY-T WEDGE',
                                         'value' => 1829506,
                                       ),
-                                      705 => 
+                                      700 => 
                                       array (
                                         'key' => 'HY-T WEDGE TORQUE TEAM',
                                         'value' => 1829501,
                                       ),
-                                      706 => 
+                                      701 => 
                                       array (
                                         'key' => 'HYDROCARBON DRAIN',
                                         'value' => 2094,
                                       ),
-                                      707 => 
+                                      702 => 
                                       array (
                                         'key' => 'HYDROVATOR',
                                         'value' => 2095,
                                       ),
-                                      708 => 
+                                      703 => 
                                       array (
                                         'key' => 'HYDROVATOR PLUS',
                                         'value' => 2096,
                                       ),
-                                      709 => 
+                                      704 => 
                                       array (
                                         'key' => 'I.R.F.',
                                         'value' => 2097,
                                       ),
-                                      710 => 
+                                      705 => 
                                       array (
                                         'key' => 'IBM COOLING WATER',
                                         'value' => 2098,
                                       ),
-                                      711 => 
+                                      706 => 
                                       array (
                                         'key' => 'IBRS',
                                         'value' => 2099,
                                       ),
-                                      712 => 
+                                      707 => 
                                       array (
                                         'key' => 'IBRS FISH HOSE',
                                         'value' => 1829113,
                                       ),
-                                      713 => 
+                                      708 => 
                                       array (
                                         'key' => 'IBRS FISH S&D',
                                         'value' => 1829195,
                                       ),
-                                      714 => 
+                                      709 => 
                                       array (
                                         'key' => 'IBRS SANITARY',
                                         'value' => 2100,
                                       ),
-                                      715 => 
+                                      710 => 
                                       array (
                                         'key' => 'ICE CUTTER HOSE',
                                         'value' => 2101,
                                       ),
-                                      716 => 
+                                      711 => 
                                       array (
                                         'key' => 'ICS GROUP AIR',
                                         'value' => 1829356,
                                       ),
-                                      717 => 
+                                      712 => 
                                       array (
                                         'key' => 'IMPERL POLARSHIELD',
                                         'value' => 1829216,
                                       ),
-                                      718 => 
+                                      713 => 
                                       array (
                                         'key' => 'INERT GAS',
                                         'value' => 2102,
                                       ),
-                                      719 => 
+                                      714 => 
                                       array (
                                         'key' => 'INET COOLING',
                                         'value' => 2103,
                                       ),
-                                      720 => 
+                                      715 => 
                                       array (
                                         'key' => 'INFINITY CHEM',
                                         'value' => 1829288,
                                       ),
-                                      721 => 
+                                      716 => 
                                       array (
                                         'key' => 'INFINITY CHEMICAL',
                                         'value' => 2104,
                                       ),
-                                      722 => 
+                                      717 => 
                                       array (
                                         'key' => 'INFINITY FOOD',
                                         'value' => 2105,
                                       ),
-                                      723 => 
+                                      718 => 
                                       array (
                                         'key' => 'INFINITY FUEL DROP',
                                         'value' => 2106,
                                       ),
-                                      724 => 
+                                      719 => 
                                       array (
                                         'key' => 'INFINITY FUEL DROP HD',
                                         'value' => 2107,
                                       ),
-                                      725 => 
+                                      720 => 
                                       array (
                                         'key' => 'INFINITY MILK',
                                         'value' => 2108,
                                       ),
-                                      726 => 
+                                      721 => 
                                       array (
                                         'key' => 'INJECTION COOLANT',
                                         'value' => 2109,
                                       ),
-                                      727 => 
+                                      722 => 
                                       array (
                                         'key' => 'INLET HOSE',
                                         'value' => 2110,
                                       ),
-                                      728 => 
+                                      723 => 
                                       array (
                                         'key' => 'Inline Orifice Tubes',
                                         'value' => 1829996,
                                       ),
-                                      729 => 
+                                      724 => 
                                       array (
                                         'key' => 'INSTA-GRIP',
                                         'value' => 1829109,
                                       ),
-                                      730 => 
+                                      725 => 
                                       array (
                                         'key' => 'INSTA-GRIP 250',
                                         'value' => 2111,
                                       ),
-                                      731 => 
+                                      726 => 
                                       array (
                                         'key' => 'INSTA-GRIP 300',
                                         'value' => 2112,
                                       ),
-                                      732 => 
+                                      727 => 
                                       array (
                                         'key' => 'INSTA-GRIP HT',
                                         'value' => 2113,
                                       ),
-                                      733 => 
+                                      728 => 
                                       array (
                                         'key' => 'INSTA-GRIP SP',
                                         'value' => 2114,
                                       ),
-                                      734 => 
+                                      729 => 
                                       array (
                                         'key' => 'INSTA-GRIP TC',
                                         'value' => 2115,
                                       ),
-                                      735 => 
+                                      730 => 
                                       array (
                                         'key' => 'INSTA-LOCK',
                                         'value' => 2116,
                                       ),
-                                      736 => 
+                                      731 => 
                                       array (
                                         'key' => 'INSTA-LOCK ADAPTER',
                                         'value' => 1829281,
                                       ),
-                                      737 => 
+                                      732 => 
                                       array (
                                         'key' => 'INSTA-LOCK COUPLER',
                                         'value' => 1829269,
                                       ),
-                                      738 => 
+                                      733 => 
                                       array (
                                         'key' => 'INSTA-LOCK CRIMP SLEEVE',
                                         'value' => 1829290,
                                       ),
-                                      739 => 
+                                      734 => 
                                       array (
                                         'key' => 'INSTA-LOCK DUST CAP',
                                         'value' => 1829167,
                                       ),
-                                      740 => 
+                                      735 => 
                                       array (
                                         'key' => 'INSTA-LOCK DUST PLUG',
                                         'value' => 1829295,
                                       ),
-                                      741 => 
+                                      736 => 
                                       array (
                                         'key' => 'INSTA-LOCK FERRULE',
                                         'value' => 1829278,
                                       ),
-                                      742 => 
+                                      737 => 
                                       array (
                                         'key' => 'INSTA-LOCK GASKET',
                                         'value' => 1829302,
                                       ),
-                                      743 => 
+                                      738 => 
                                       array (
                                         'key' => 'INSTA-LOCK HOSE STEM',
                                         'value' => 1829277,
                                       ),
-                                      744 => 
+                                      739 => 
                                       array (
                                         'key' => 'INSTA-LOCK JUMP SIZE',
                                         'value' => 1829251,
                                       ),
-                                      745 => 
+                                      740 => 
                                       array (
                                         'key' => 'INSTA-LOCK SPOOL ADAPTER',
                                         'value' => 1829314,
                                       ),
-                                      746 => 
+                                      741 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE A',
                                         'value' => 1829243,
                                       ),
-                                      747 => 
+                                      742 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE B',
                                         'value' => 1829248,
                                       ),
-                                      748 => 
+                                      743 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE C',
                                         'value' => 1829119,
                                       ),
-                                      749 => 
+                                      744 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE D',
                                         'value' => 1829115,
                                       ),
-                                      750 => 
+                                      745 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE E',
                                         'value' => 1829223,
                                       ),
-                                      751 => 
+                                      746 => 
                                       array (
                                         'key' => 'INSTA-LOCK TYPE F',
                                         'value' => 1829285,
                                       ),
-                                      752 => 
+                                      747 => 
                                       array (
                                         'key' => 'INSTA-POWER',
                                         'value' => 1829496,
                                       ),
-                                      753 => 
+                                      748 => 
                                       array (
                                         'key' => 'INTERCHANGE',
                                         'value' => 5764902,
                                       ),
-                                      754 => 
+                                      749 => 
                                       array (
                                         'key' => 'INTERCHEM',
                                         'value' => 2117,
                                       ),
-                                      755 => 
+                                      750 => 
                                       array (
                                         'key' => 'INTERM',
                                         'value' => 2118,
                                       ),
-                                      756 => 
+                                      751 => 
                                       array (
                                         'key' => 'INTERNATIONAL BELT',
                                         'value' => 2119,
                                       ),
-                                      757 => 
+                                      752 => 
                                       array (
                                         'key' => 'INTERNATIONAL BELT VERSIFLO S&D',
                                         'value' => 1829393,
                                       ),
-                                      758 => 
+                                      753 => 
                                       array (
                                         'key' => 'IRC DRILL WATER',
                                         'value' => 2120,
                                       ),
-                                      759 => 
+                                      754 => 
                                       array (
                                         'key' => 'IRPCO',
                                         'value' => 2121,
                                       ),
-                                      760 => 
+                                      755 => 
                                       array (
                                         'key' => 'IRPCO RED FUEL OIL',
                                         'value' => 1829155,
                                       ),
-                                      761 => 
+                                      756 => 
                                       array (
                                         'key' => 'IRR',
                                         'value' => 2122,
                                       ),
-                                      762 => 
+                                      757 => 
                                       array (
                                         'key' => 'IRR FLEX JET',
                                         'value' => 2123,
                                       ),
-                                      763 => 
+                                      758 => 
                                       array (
                                         'key' => 'IRRIGATION BOOT',
                                         'value' => 2124,
                                       ),
-                                      764 => 
+                                      759 => 
                                       array (
                                         'key' => 'ISO 3821',
                                         'value' => 2125,
                                       ),
-                                      765 => 
+                                      760 => 
                                       array (
                                         'key' => 'ISO 8031',
                                         'value' => 2126,
                                       ),
-                                      766 => 
+                                      761 => 
                                       array (
                                         'key' => 'ITALPR',
                                         'value' => 2127,
                                       ),
-                                      767 => 
+                                      762 => 
                                       array (
                                         'key' => 'ITALPR TEFLON',
                                         'value' => 2128,
                                       ),
-                                      768 => 
+                                      763 => 
                                       array (
                                         'key' => 'JACKHAMMER',
                                         'value' => 2129,
                                       ),
-                                      769 => 
+                                      764 => 
                                       array (
                                         'key' => 'JB INDUSTRIES',
                                         'value' => 2130,
                                       ),
-                                      770 => 
+                                      765 => 
                                       array (
                                         'key' => 'JET RANGER',
                                         'value' => 2131,
                                       ),
-                                      771 => 
+                                      766 => 
                                       array (
                                         'key' => 'JETTING',
                                         'value' => 2132,
                                       ),
-                                      772 => 
+                                      767 => 
                                       array (
                                         'key' => 'JETTING AND UTILITY',
                                         'value' => 2133,
                                       ),
-                                      773 => 
+                                      768 => 
                                       array (
                                         'key' => 'JETTING UTILITY',
                                         'value' => 1829339,
                                       ),
-                                      774 => 
+                                      769 => 
                                       array (
                                         'key' => 'JGB INDUSTRIES',
                                         'value' => 2134,
                                       ),
-                                      775 => 
+                                      770 => 
                                       array (
                                         'key' => 'JIC 37 Flare',
                                         'value' => 1830011,
                                       ),
-                                      776 => 
+                                      771 => 
                                       array (
                                         'key' => 'JIC 37 Flare (SAE J514)',
                                         'value' => 1829945,
                                       ),
-                                      777 => 
+                                      772 => 
                                       array (
                                         'key' => 'JIS 30 (Paralled Pipe Threads)',
                                         'value' => 1829971,
                                       ),
-                                      778 => 
+                                      773 => 
                                       array (
                                         'key' => 'JIS 30 (Parallel Pipe Threads)',
                                         'value' => 1829978,
                                       ),
-                                      779 => 
+                                      774 => 
                                       array (
                                         'key' => 'JOHN DEERE',
                                         'value' => 2135,
                                       ),
-                                      780 => 
+                                      775 => 
                                       array (
                                         'key' => 'JOHN DEERE WATER S&D',
                                         'value' => 1829271,
                                       ),
-                                      781 => 
+                                      776 => 
                                       array (
                                         'key' => 'KAPTEC ULTRAFLEX',
                                         'value' => 2136,
                                       ),
-                                      782 => 
+                                      777 => 
                                       array (
                                         'key' => 'KAPTECH FOOD DICHARGE',
                                         'value' => 2137,
                                       ),
-                                      783 => 
+                                      778 => 
                                       array (
                                         'key' => 'KCRUBBER AUGER ARC PILING',
                                         'value' => 1829175,
                                       ),
-                                      784 => 
+                                      779 => 
                                       array (
                                         'key' => 'KELCO BLAST',
                                         'value' => 2138,
                                       ),
-                                      785 => 
+                                      780 => 
                                       array (
                                         'key' => 'KETEK FLEX PETROLEUM',
                                         'value' => 2139,
                                       ),
-                                      786 => 
+                                      781 => 
                                       array (
                                         'key' => 'KH DIVERS HOSE',
                                         'value' => 5580054,
                                       ),
-                                      787 => 
+                                      782 => 
                                       array (
                                         'key' => 'KIDDE 20079 FIRE EX UL92',
                                         'value' => 1829219,
                                       ),
-                                      788 => 
-                                      array (
-                                        'key' => 'KIMBALL',
-                                        'value' => 7079915,
-                                      ),
-                                      789 => 
+                                      783 => 
                                       array (
                                         'key' => 'KINK GUARD',
                                         'value' => 1829280,
                                       ),
-                                      790 => 
+                                      784 => 
                                       array (
                                         'key' => 'KINKGUARD',
                                         'value' => 2140,
                                       ),
-                                      791 => 
+                                      785 => 
                                       array (
                                         'key' => 'KINKGUARD GARDEN HOSE',
                                         'value' => 1829372,
                                       ),
-                                      792 => 
+                                      786 => 
                                       array (
                                         'key' => 'Komatsu 30 Flare with Metric Threads',
                                         'value' => 1829970,
                                       ),
-                                      793 => 
+                                      787 => 
                                       array (
                                         'key' => 'Komatsu Flange',
                                         'value' => 1829963,
                                       ),
-                                      794 => 
+                                      788 => 
                                       array (
                                         'key' => 'L&G GE SANDER HOSE',
                                         'value' => 1829139,
                                       ),
-                                      795 => 
+                                      789 => 
                                       array (
                                         'key' => 'L&G ROCK DUST SW HD',
                                         'value' => 1829121,
                                       ),
-                                      796 => 
+                                      790 => 
                                       array (
                                         'key' => 'LABOUR BLUCOR COUPLING',
                                         'value' => 2141,
                                       ),
-                                      797 => 
+                                      791 => 
                                       array (
                                         'key' => 'LACTOPAL',
                                         'value' => 2142,
                                       ),
-                                      798 => 
+                                      792 => 
                                       array (
                                         'key' => 'LACTOPAL L',
                                         'value' => 1829414,
                                       ),
-                                      799 => 
+                                      793 => 
                                       array (
                                         'key' => 'LAKECHARLES',
                                         'value' => 2143,
                                       ),
-                                      800 => 
+                                      794 => 
                                       array (
                                         'key' => 'LEGACY TPU',
                                         'value' => 2144,
                                       ),
-                                      801 => 
+                                      795 => 
                                       array (
                                         'key' => 'LG NITRILE',
                                         'value' => 2145,
                                       ),
-                                      802 => 
+                                      796 => 
                                       array (
                                         'key' => 'LIGHTRAC',
                                         'value' => 2146,
                                       ),
-                                      803 => 
+                                      797 => 
                                       array (
                                         'key' => 'LIGHTWEIGHT VACUUM',
                                         'value' => 2147,
                                       ),
-                                      804 => 
+                                      798 => 
                                       array (
                                         'key' => 'LINECRETE',
                                         'value' => 2148,
                                       ),
-                                      805 => 
+                                      799 => 
                                       array (
                                         'key' => 'LIQUID MUD',
                                         'value' => 2149,
                                       ),
-                                      806 => 
+                                      800 => 
                                       array (
                                         'key' => 'LIQUID MUD YS',
                                         'value' => 2150,
                                       ),
-                                      807 => 
+                                      801 => 
                                       array (
                                         'key' => 'LIQUIFORCE',
                                         'value' => 2151,
                                       ),
-                                      808 => 
+                                      802 => 
                                       array (
                                         'key' => 'LPG DELIVERY PRO',
                                         'value' => 2152,
                                       ),
-                                      809 => 
+                                      803 => 
                                       array (
                                         'key' => 'LUMPKIN',
                                         'value' => 1829203,
                                       ),
-                                      810 => 
+                                      804 => 
                                       array (
                                         'key' => 'LW ARCTIC TANK TRUCK',
                                         'value' => 2153,
                                       ),
-                                      811 => 
+                                      805 => 
                                       array (
                                         'key' => 'LW BLACK FLEXTRA II',
                                         'value' => 2154,
                                       ),
-                                      812 => 
+                                      806 => 
                                       array (
                                         'key' => 'LW INDUSTRIAL VACUUM',
                                         'value' => 2155,
                                       ),
-                                      813 => 
+                                      807 => 
                                       array (
                                         'key' => 'M&P MINE CONDUIT',
                                         'value' => 2156,
                                       ),
-                                      814 => 
+                                      808 => 
                                       array (
                                         'key' => 'M13531J-B3A',
                                         'value' => 1829133,
                                       ),
-                                      815 => 
+                                      809 => 
                                       array (
                                         'key' => 'MADE IN USA GARDEN',
                                         'value' => 1829273,
                                       ),
-                                      816 => 
+                                      810 => 
                                       array (
                                         'key' => 'MANUS BLAST',
                                         'value' => 2157,
                                       ),
-                                      817 => 
+                                      811 => 
                                       array (
                                         'key' => 'MANUS BLAST WHIP',
                                         'value' => 2158,
                                       ),
-                                      818 => 
+                                      812 => 
                                       array (
                                         'key' => 'MARIAN',
                                         'value' => 2159,
                                       ),
-                                      819 => 
+                                      813 => 
                                       array (
                                         'key' => 'MARINE BILGE',
                                         'value' => 2160,
                                       ),
-                                      820 => 
+                                      814 => 
                                       array (
                                         'key' => 'MARINE EXHAUST HOSE',
                                         'value' => 2161,
                                       ),
-                                      821 => 
+                                      815 => 
                                       array (
                                         'key' => 'MARINE FUEL FEED VENT J1527 B2',
                                         'value' => 2162,
                                       ),
-                                      822 => 
+                                      816 => 
                                       array (
                                         'key' => 'MARINE FUEL FILL',
                                         'value' => 2163,
                                       ),
-                                      823 => 
+                                      817 => 
                                       array (
                                         'key' => 'MARINE FUEL LINE',
                                         'value' => 2164,
                                       ),
-                                      824 => 
+                                      818 => 
                                       array (
                                         'key' => 'MARINE HARDWALL WET EXHAUST',
                                         'value' => 2165,
                                       ),
-                                      825 => 
+                                      819 => 
                                       array (
                                         'key' => 'MARINE LIVEWELL',
                                         'value' => 2166,
                                       ),
-                                      826 => 
+                                      820 => 
                                       array (
                                         'key' => 'MARINE OIL FILL',
                                         'value' => 2167,
                                       ),
-                                      827 => 
+                                      821 => 
                                       array (
                                         'key' => 'MARINE SANITATION',
                                         'value' => 2168,
                                       ),
-                                      828 => 
+                                      822 => 
                                       array (
                                         'key' => 'MARINE SOFTWALL WET EXHAUST',
                                         'value' => 2169,
                                       ),
-                                      829 => 
+                                      823 => 
                                       array (
                                         'key' => 'MARINE VACUUM',
                                         'value' => 2170,
                                       ),
-                                      830 => 
+                                      824 => 
                                       array (
                                         'key' => 'MAST-AIR',
                                         'value' => 2171,
                                       ),
-                                      831 => 
+                                      825 => 
                                       array (
                                         'key' => 'MASTERCOOL',
                                         'value' => 2172,
                                       ),
-                                      832 => 
+                                      826 => 
                                       array (
                                         'key' => 'MASTHD',
                                         'value' => 2173,
                                       ),
-                                      833 => 
+                                      827 => 
                                       array (
                                         'key' => 'MASTHEAD',
                                         'value' => 1829258,
                                       ),
-                                      834 => 
+                                      828 => 
                                       array (
                                         'key' => 'MASTHEAD CONTRACTOR\'S WATER',
                                         'value' => 1829352,
                                       ),
-                                      835 => 
+                                      829 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING',
                                         'value' => 2174,
                                       ),
-                                      836 => 
+                                      830 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING 150',
                                         'value' => 1829351,
                                       ),
-                                      837 => 
+                                      831 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING DISCHARGE',
                                         'value' => 2175,
                                       ),
-                                      838 => 
+                                      832 => 
                                       array (
                                         'key' => 'MATERIAL HANDLING DISCHARGE 75',
                                         'value' => 1829334,
                                       ),
-                                      839 => 
+                                      833 => 
                                       array (
                                         'key' => 'MAXXIM PREMIER ULTRA',
                                         'value' => 2176,
                                       ),
-                                      840 => 
+                                      834 => 
                                       array (
                                         'key' => 'MCCARTY WATER S&D',
                                         'value' => 2177,
                                       ),
-                                      841 => 
+                                      835 => 
                                       array (
                                         'key' => 'MCGILL',
                                         'value' => 2178,
                                       ),
-                                      842 => 
+                                      836 => 
                                       array (
                                         'key' => 'MECR&S',
                                         'value' => 2179,
                                       ),
-                                      843 => 
+                                      837 => 
                                       array (
                                         'key' => 'MECR&S PAINT SPRAY',
                                         'value' => 2180,
                                       ),
-                                      844 => 
+                                      838 => 
                                       array (
                                         'key' => 'MER OILFIELD SUCTION',
                                         'value' => 2181,
                                       ),
-                                      845 => 
+                                      839 => 
                                       array (
                                         'key' => 'MERCURY',
                                         'value' => 5759837,
                                       ),
-                                      846 => 
+                                      840 => 
                                       array (
                                         'key' => 'MERLETT ARMORVIN HNA',
                                         'value' => 5347027,
                                       ),
-                                      847 => 
+                                      841 => 
                                       array (
                                         'key' => 'MERLETT RAGNO CA',
                                         'value' => 5347026,
                                       ),
-                                      848 => 
+                                      842 => 
                                       array (
                                         'key' => 'MERLETT VACUPRESS CRISTAL',
                                         'value' => 5347028,
                                       ),
-                                      849 => 
+                                      843 => 
                                       array (
                                         'key' => 'MERMAR',
                                         'value' => 2182,
                                       ),
-                                      850 => 
+                                      844 => 
                                       array (
                                         'key' => 'MESA',
                                         'value' => 2183,
                                       ),
-                                      851 => 
+                                      845 => 
                                       array (
                                         'key' => 'MESA AMMONIUM NITRATE PELLET',
                                         'value' => 2184,
                                       ),
-                                      852 => 
+                                      846 => 
                                       array (
                                         'key' => 'MESA DRAIN',
                                         'value' => 2185,
                                       ),
-                                      853 => 
+                                      847 => 
                                       array (
                                         'key' => 'MESA GUNITE',
                                         'value' => 2186,
                                       ),
-                                      854 => 
+                                      848 => 
                                       array (
                                         'key' => 'MESA PLASTER & GROUT',
                                         'value' => 2187,
                                       ),
-                                      855 => 
+                                      849 => 
                                       array (
                                         'key' => 'MESA REFRACTORY GUNITE',
                                         'value' => 2188,
                                       ),
-                                      856 => 
+                                      850 => 
                                       array (
                                         'key' => 'MESA ROOF DRAIN',
                                         'value' => 2189,
                                       ),
-                                      857 => 
+                                      851 => 
                                       array (
                                         'key' => 'MESA ROOF DRAIN CHEMICAL',
                                         'value' => 2190,
                                       ),
-                                      858 => 
+                                      852 => 
                                       array (
                                         'key' => 'Metal Clips',
                                         'value' => 1830004,
                                       ),
-                                      859 => 
+                                      853 => 
                                       array (
                                         'key' => 'METRIC',
                                         'value' => 1829524,
                                       ),
-                                      860 => 
+                                      854 => 
                                       array (
                                         'key' => 'MH 500',
                                         'value' => 1829296,
                                       ),
-                                      861 => 
+                                      855 => 
                                       array (
                                         'key' => 'MH 75',
                                         'value' => 1829321,
                                       ),
-                                      862 => 
+                                      856 => 
                                       array (
                                         'key' => 'MHPRF 11588G II ST',
                                         'value' => 2191,
                                       ),
-                                      863 => 
+                                      857 => 
                                       array (
                                         'key' => 'MIDWEST',
                                         'value' => 2192,
                                       ),
-                                      864 => 
+                                      858 => 
                                       array (
                                         'key' => 'MIDWEST BELTING',
                                         'value' => 1829336,
                                       ),
-                                      865 => 
+                                      859 => 
                                       array (
                                         'key' => 'MIL 3992F',
                                         'value' => 1829222,
                                       ),
-                                      866 => 
+                                      860 => 
                                       array (
                                         'key' => 'MIL A-A-59566',
                                         'value' => 2193,
                                       ),
-                                      867 => 
+                                      861 => 
                                       array (
                                         'key' => 'MIL A-A-59567',
                                         'value' => 2194,
                                       ),
-                                      868 => 
+                                      862 => 
                                       array (
                                         'key' => 'MIL AA-59567 3-1',
                                         'value' => 1829292,
                                       ),
-                                      869 => 
+                                      863 => 
                                       array (
                                         'key' => 'MIL-A-A-59565',
                                         'value' => 2195,
                                       ),
-                                      870 => 
+                                      864 => 
                                       array (
                                         'key' => 'MIL-DTL-13444-I',
                                         'value' => 2196,
                                       ),
-                                      871 => 
+                                      865 => 
                                       array (
                                         'key' => 'MIL-DTL-13444-III',
                                         'value' => 2197,
                                       ),
-                                      872 => 
+                                      866 => 
                                       array (
                                         'key' => 'MIL-DTL-13531 TYPE II, CL A',
                                         'value' => 2198,
                                       ),
-                                      873 => 
+                                      867 => 
                                       array (
                                         'key' => 'MIL-DTL-17505',
                                         'value' => 2199,
                                       ),
-                                      874 => 
+                                      868 => 
                                       array (
                                         'key' => 'MIL-DTL-20176',
                                         'value' => 2200,
                                       ),
-                                      875 => 
+                                      869 => 
                                       array (
                                         'key' => 'MIL-DTL-22240',
                                         'value' => 2201,
                                       ),
-                                      876 => 
+                                      870 => 
                                       array (
                                         'key' => 'MIL-DTL-27516',
                                         'value' => 2202,
                                       ),
-                                      877 => 
+                                      871 => 
                                       array (
                                         'key' => 'MIL-DTL-29210',
                                         'value' => 2203,
                                       ),
-                                      878 => 
+                                      872 => 
                                       array (
                                         'key' => 'MIL-DTL-6615',
                                         'value' => 2204,
                                       ),
-                                      879 => 
+                                      873 => 
                                       array (
                                         'key' => 'MIL-DTL-8788',
                                         'value' => 1830042,
                                       ),
-                                      880 => 
+                                      874 => 
                                       array (
                                         'key' => 'MIL-H-24136/4',
                                         'value' => 1829435,
                                       ),
-                                      881 => 
+                                      875 => 
                                       array (
                                         'key' => 'MIL-H-24580',
                                         'value' => 2205,
                                       ),
-                                      882 => 
+                                      876 => 
                                       array (
                                         'key' => 'MIL-H-82127',
                                         'value' => 2206,
                                       ),
-                                      883 => 
+                                      877 => 
                                       array (
                                         'key' => 'MIL-PRF-11588 TYPE I',
                                         'value' => 2207,
                                       ),
-                                      884 => 
+                                      878 => 
                                       array (
                                         'key' => 'MIL-PRF-11588 TYPE III',
                                         'value' => 2208,
                                       ),
-                                      885 => 
+                                      879 => 
                                       array (
                                         'key' => 'MIL-PRF-370 TYPE A',
                                         'value' => 2209,
                                       ),
-                                      886 => 
+                                      880 => 
                                       array (
                                         'key' => 'MIL-PRF-370 TYPE B',
                                         'value' => 2210,
                                       ),
-                                      887 => 
+                                      881 => 
                                       array (
                                         'key' => 'MILTARY',
                                         'value' => 2211,
                                       ),
-                                      888 => 
+                                      882 => 
                                       array (
                                         'key' => 'MILTON',
                                         'value' => 2212,
                                       ),
-                                      889 => 
+                                      883 => 
                                       array (
                                         'key' => 'MINE CONDUIT',
                                         'value' => 2213,
                                       ),
-                                      890 => 
+                                      884 => 
                                       array (
                                         'key' => 'MINNICH WATER HD',
                                         'value' => 1829157,
                                       ),
-                                      891 => 
+                                      885 => 
                                       array (
                                         'key' => 'MISC',
                                         'value' => 1829256,
                                       ),
-                                      892 => 
+                                      886 => 
                                       array (
                                         'key' => 'MIT TEKTON',
                                         'value' => 1829142,
                                       ),
-                                      893 => 
+                                      887 => 
                                       array (
                                         'key' => 'MOCCASIN',
                                         'value' => 2214,
                                       ),
-                                      894 => 
+                                      888 => 
                                       array (
                                         'key' => 'MORRIS AIR SEEDER',
                                         'value' => 2215,
                                       ),
-                                      895 => 
+                                      889 => 
                                       array (
                                         'key' => 'MORRIS AIR SEEDER LT',
                                         'value' => 2216,
                                       ),
-                                      896 => 
+                                      890 => 
                                       array (
                                         'key' => 'MPI',
                                         'value' => 2217,
                                       ),
-                                      897 => 
+                                      891 => 
                                       array (
                                         'key' => 'MPI 132-0580',
                                         'value' => 1829159,
                                       ),
-                                      898 => 
+                                      892 => 
                                       array (
                                         'key' => 'MPI 350-0380',
                                         'value' => 1829230,
                                       ),
-                                      899 => 
+                                      893 => 
                                       array (
                                         'key' => 'MPI 350-0560',
                                         'value' => 1829153,
                                       ),
-                                      900 => 
+                                      894 => 
                                       array (
                                         'key' => 'MPI 350-0580',
                                         'value' => 1829093,
                                       ),
-                                      901 => 
+                                      895 => 
                                       array (
                                         'key' => 'MPI HW EXHAUST',
                                         'value' => 1829300,
                                       ),
-                                      902 => 
+                                      896 => 
                                       array (
                                         'key' => 'MPI HW FUEL FILL',
                                         'value' => 1829137,
                                       ),
-                                      903 => 
+                                      897 => 
                                       array (
                                         'key' => 'MPI PREMIUM-GUARD MARINE',
                                         'value' => 2218,
                                       ),
-                                      904 => 
+                                      898 => 
                                       array (
                                         'key' => 'MRS',
                                         'value' => 1829338,
                                       ),
-                                      905 => 
+                                      899 => 
                                       array (
                                         'key' => 'MSA AIR BREATHING',
                                         'value' => 1829117,
                                       ),
-                                      906 => 
+                                      900 => 
                                       array (
                                         'key' => 'MSC',
                                         'value' => 6422707,
                                       ),
-                                      907 => 
+                                      901 => 
                                       array (
                                         'key' => 'MUD CUTTING HW',
                                         'value' => 2219,
                                       ),
-                                      908 => 
+                                      902 => 
                                       array (
                                         'key' => 'MUD RETURN LINE',
                                         'value' => 2220,
                                       ),
-                                      909 => 
+                                      903 => 
                                       array (
                                         'key' => 'MUD STACKING',
                                         'value' => 2221,
                                       ),
-                                      910 => 
+                                      904 => 
                                       array (
                                         'key' => 'MULTISTREAM HW',
                                         'value' => 2222,
                                       ),
-                                      911 => 
+                                      905 => 
                                       array (
                                         'key' => 'MULTISTREAM SW',
                                         'value' => 2223,
                                       ),
-                                      912 => 
+                                      906 => 
                                       array (
                                         'key' => 'NAFIRE',
                                         'value' => 2224,
                                       ),
-                                      913 => 
+                                      907 => 
                                       array (
                                         'key' => 'NAVISTAR',
                                         'value' => 2225,
                                       ),
-                                      914 => 
+                                      908 => 
                                       array (
                                         'key' => 'NELSON DUNN',
                                         'value' => 2226,
                                       ),
-                                      915 => 
+                                      909 => 
                                       array (
                                         'key' => 'NELSON DUNN CABLE COVER',
                                         'value' => 1829183,
                                       ),
-                                      916 => 
+                                      910 => 
                                       array (
                                         'key' => 'NEOTHANE',
                                         'value' => 1829508,
                                       ),
-                                      917 => 
+                                      911 => 
                                       array (
                                         'key' => 'NEPTUNE',
                                         'value' => 2227,
                                       ),
-                                      918 => 
+                                      912 => 
                                       array (
                                         'key' => 'NESI OILFIELD',
                                         'value' => 2228,
                                       ),
-                                      919 => 
+                                      913 => 
                                       array (
                                         'key' => 'NEWLINE',
                                         'value' => 2229,
                                       ),
-                                      920 => 
+                                      914 => 
                                       array (
                                         'key' => 'NEWLINE VINTNER RESERVE',
                                         'value' => 1829255,
                                       ),
-                                      921 => 
+                                      915 => 
                                       array (
                                         'key' => 'NEWLINE WALKWAY WATER',
                                         'value' => 1829403,
                                       ),
-                                      922 => 
+                                      916 => 
                                       array (
                                         'key' => 'NISHIN',
                                         'value' => 2230,
                                       ),
-                                      923 => 
+                                      917 => 
                                       array (
                                         'key' => 'NISSHIN',
                                         'value' => 2231,
                                       ),
-                                      924 => 
+                                      918 => 
                                       array (
                                         'key' => 'NITRO FLOOD WATER S&D',
                                         'value' => 2232,
                                       ),
-                                      925 => 
+                                      919 => 
                                       array (
                                         'key' => 'NITRO R&C WATER S&D',
                                         'value' => 2233,
                                       ),
-                                      926 => 
+                                      920 => 
                                       array (
                                         'key' => 'NITROGEN SERVICE',
                                         'value' => 2234,
                                       ),
-                                      927 => 
+                                      921 => 
                                       array (
                                         'key' => 'NOTRAX T43S5050RD',
                                         'value' => 1829207,
                                       ),
-                                      928 => 
+                                      922 => 
                                       array (
                                         'key' => 'NOV',
                                         'value' => 2235,
                                       ),
-                                      929 => 
+                                      923 => 
                                       array (
                                         'key' => 'NPETRO LW',
                                         'value' => 2236,
                                       ),
-                                      930 => 
+                                      924 => 
                                       array (
                                         'key' => 'NPM API',
                                         'value' => 1829979,
                                       ),
-                                      931 => 
+                                      925 => 
                                       array (
                                         'key' => 'NPSM',
                                         'value' => 1829953,
                                       ),
-                                      932 => 
+                                      926 => 
                                       array (
                                         'key' => 'NPT API',
                                         'value' => 1829974,
                                       ),
-                                      933 => 
+                                      927 => 
                                       array (
                                         'key' => 'NPT API Hammer Union ',
                                         'value' => 1830010,
                                       ),
-                                      934 => 
+                                      928 => 
                                       array (
                                         'key' => 'NPTF',
                                         'value' => 1829952,
                                       ),
-                                      935 => 
+                                      929 => 
                                       array (
                                         'key' => 'NR SPRAY',
                                         'value' => 2237,
                                       ),
-                                      936 => 
+                                      930 => 
                                       array (
                                         'key' => 'NR7',
                                         'value' => 2238,
                                       ),
-                                      937 => 
+                                      931 => 
                                       array (
                                         'key' => 'NR8',
                                         'value' => 2239,
                                       ),
-                                      938 => 
+                                      932 => 
                                       array (
                                         'key' => 'NRP JONES CT5',
                                         'value' => 1829196,
                                       ),
-                                      939 => 
+                                      933 => 
                                       array (
                                         'key' => 'NRP JONES NON-UL CT5',
                                         'value' => 1829120,
                                       ),
-                                      940 => 
+                                      934 => 
                                       array (
                                         'key' => 'NSH',
                                         'value' => 2240,
                                       ),
-                                      941 => 
+                                      935 => 
                                       array (
                                         'key' => 'NUTRIFLEX',
                                         'value' => 2241,
                                       ),
-                                      942 => 
+                                      936 => 
                                       array (
                                         'key' => 'NUTRIFLEX STATIC WIRE',
                                         'value' => 2242,
                                       ),
-                                      943 => 
+                                      937 => 
                                       array (
                                         'key' => 'NUTRIFLEX SUCTION & DISCHARGE',
                                         'value' => 2243,
                                       ),
-                                      944 => 
+                                      938 => 
                                       array (
                                         'key' => 'NUTRIFLO SUCTION & DISCHARGE',
                                         'value' => 2244,
                                       ),
-                                      945 => 
+                                      939 => 
                                       array (
                                         'key' => 'O-Ring Boss ',
                                         'value' => 1830009,
                                       ),
-                                      946 => 
+                                      940 => 
                                       array (
                                         'key' => 'O-Ring Boss Straight Thread (SAE J1453)',
                                         'value' => 1829975,
                                       ),
-                                      947 => 
+                                      941 => 
                                       array (
                                         'key' => 'O-Ring Boss Straight Thread (SAE J514)',
                                         'value' => 1829958,
                                       ),
-                                      948 => 
+                                      942 => 
                                       array (
                                         'key' => 'O-Ring Boss Straight Thread O-Rings (SAE J514)',
                                         'value' => 1831351,
                                       ),
-                                      949 => 
+                                      943 => 
                                       array (
                                         'key' => 'O-Ring Face Seal',
                                         'value' => 1829991,
                                       ),
-                                      950 => 
+                                      944 => 
                                       array (
                                         'key' => 'O-Ring Face Seal (SAE J1453 ORS/ORFS)',
                                         'value' => 1829957,
                                       ),
-                                      951 => 
+                                      945 => 
                                       array (
                                         'key' => 'O-Ring Face Seal O-Rings (SAE J1453 ORS/ORFS)',
                                         'value' => 1831350,
                                       ),
-                                      952 => 
+                                      946 => 
                                       array (
                                         'key' => 'O-Ring for Ford Spring Lock',
                                         'value' => 1829997,
                                       ),
-                                      953 => 
+                                      947 => 
                                       array (
                                         'key' => 'O-Ring for Switch',
                                         'value' => 1829998,
                                       ),
-                                      954 => 
+                                      948 => 
                                       array (
                                         'key' => 'O-Ring for Tube Fittings',
                                         'value' => 1829999,
                                       ),
-                                      955 => 
+                                      949 => 
                                       array (
                                         'key' => 'O-Ring Insert',
                                         'value' => 1829985,
                                       ),
-                                      956 => 
+                                      950 => 
                                       array (
                                         'key' => 'O-Ring Tube',
                                         'value' => 1829986,
                                       ),
-                                      957 => 
+                                      951 => 
                                       array (
                                         'key' => 'O-Ring Tube (Female to O-Ring Insert)',
                                         'value' => 1829993,
                                       ),
-                                      958 => 
+                                      952 => 
                                       array (
                                         'key' => 'O-Ring Tube Compressor (Female to O-Ring Insert) ',
                                         'value' => 1829992,
                                       ),
-                                      959 => 
+                                      953 => 
                                       array (
                                         'key' => 'OAKLEY',
                                         'value' => 2245,
                                       ),
-                                      960 => 
+                                      954 => 
                                       array (
                                         'key' => 'OFFSHORE FUEL',
                                         'value' => 2246,
                                       ),
-                                      961 => 
+                                      955 => 
                                       array (
                                         'key' => 'OFFSHORE FUEL 500',
                                         'value' => 1829275,
                                       ),
-                                      962 => 
+                                      956 => 
                                       array (
                                         'key' => 'OFFSHORE FUEL 750',
                                         'value' => 1829364,
                                       ),
-                                      963 => 
+                                      957 => 
                                       array (
                                         'key' => 'OFFSHORE VIPER',
                                         'value' => 2247,
                                       ),
-                                      964 => 
+                                      958 => 
                                       array (
                                         'key' => 'OIL DISCHARGE',
                                         'value' => 2248,
                                       ),
-                                      965 => 
+                                      959 => 
                                       array (
                                         'key' => 'OIL RIG HARDWALL',
                                         'value' => 2249,
                                       ),
-                                      966 => 
+                                      960 => 
                                       array (
                                         'key' => 'OIL RIG HARDWALL BIOFUEL',
                                         'value' => 2250,
                                       ),
-                                      967 => 
+                                      961 => 
                                       array (
                                         'key' => 'OIL RIG SOFTWALL',
                                         'value' => 2251,
                                       ),
-                                      968 => 
+                                      962 => 
                                       array (
                                         'key' => 'OIL RIG SW',
                                         'value' => 1829329,
                                       ),
-                                      969 => 
+                                      963 => 
                                       array (
                                         'key' => 'OIL TREAT & BLENDER',
                                         'value' => 2252,
                                       ),
-                                      970 => 
+                                      964 => 
                                       array (
                                         'key' => 'OILFIELD DISCHARGE',
                                         'value' => 2253,
                                       ),
-                                      971 => 
+                                      965 => 
                                       array (
                                         'key' => 'OILFIELD FRAC',
                                         'value' => 2254,
                                       ),
-                                      972 => 
+                                      966 => 
                                       array (
                                         'key' => 'OMNI',
                                         'value' => 2255,
                                       ),
-                                      973 => 
+                                      967 => 
                                       array (
                                         'key' => 'OMNI WATER S&D',
                                         'value' => 2256,
                                       ),
-                                      974 => 
+                                      968 => 
                                       array (
                                         'key' => 'OPEN END FALCON',
                                         'value' => 1829523,
                                       ),
-                                      975 => 
+                                      969 => 
                                       array (
                                         'key' => 'OPEN END HAWK',
                                         'value' => 1829517,
                                       ),
-                                      976 => 
+                                      970 => 
                                       array (
                                         'key' => 'OPEN END HY-T PLUS',
                                         'value' => 1829504,
                                       ),
-                                      977 => 
+                                      971 => 
                                       array (
                                         'key' => 'OPEN END METRIC T PD',
                                         'value' => 1829518,
                                       ),
-                                      978 => 
+                                      972 => 
                                       array (
                                         'key' => 'OPEN END POSITIVE DRIVE',
                                         'value' => 1829511,
                                       ),
-                                      979 => 
+                                      973 => 
                                       array (
                                         'key' => 'OPEN END SUPER TORQUE',
                                         'value' => 1829515,
                                       ),
-                                      980 => 
+                                      974 => 
                                       array (
                                         'key' => 'ORANGE FLEXWING',
                                         'value' => 2257,
                                       ),
-                                      981 => 
+                                      975 => 
                                       array (
                                         'key' => 'ORTAC',
                                         'value' => 2258,
                                       ),
-                                      982 => 
+                                      976 => 
                                       array (
                                         'key' => 'ORTAC II',
                                         'value' => 2259,
                                       ),
-                                      983 => 
+                                      977 => 
                                       array (
                                         'key' => 'PACER',
                                         'value' => 2260,
                                       ),
-                                      984 => 
+                                      978 => 
                                       array (
                                         'key' => 'PACIFIC RUBBER',
                                         'value' => 5764901,
                                       ),
-                                      985 => 
+                                      979 => 
                                       array (
                                         'key' => 'PACIFIC RUBBER MULCHBLOWER',
                                         'value' => 1829232,
                                       ),
-                                      986 => 
+                                      980 => 
                                       array (
                                         'key' => 'PAGUFIX',
                                         'value' => 2261,
                                       ),
-                                      987 => 
+                                      981 => 
                                       array (
                                         'key' => 'PALADIN',
                                         'value' => 2262,
                                       ),
-                                      988 => 
+                                      982 => 
                                       array (
                                         'key' => 'PALADIN DROP',
                                         'value' => 1829164,
                                       ),
-                                      989 => 
+                                      983 => 
                                       array (
                                         'key' => 'PANGBORN PA BLAST',
                                         'value' => 2263,
                                       ),
-                                      990 => 
+                                      984 => 
                                       array (
                                         'key' => 'PARKING',
                                         'value' => 2264,
                                       ),
-                                      991 => 
+                                      985 => 
                                       array (
                                         'key' => 'PATHFINDER ECO',
                                         'value' => 3831419,
                                       ),
-                                      992 => 
+                                      986 => 
                                       array (
                                         'key' => 'PATHFINDER GARDEN',
                                         'value' => 1829283,
                                       ),
-                                      993 => 
+                                      987 => 
                                       array (
                                         'key' => 'PBE',
                                         'value' => 5355082,
                                       ),
-                                      994 => 
+                                      988 => 
                                       array (
                                         'key' => 'PEAK ENERGY FRONTIER',
                                         'value' => 1829371,
                                       ),
-                                      995 => 
+                                      989 => 
                                       array (
                                         'key' => 'PERFECT GARDEN HOSE',
                                         'value' => 2265,
                                       ),
-                                      996 => 
+                                      990 => 
                                       array (
                                         'key' => 'PERLAPAL',
                                         'value' => 2266,
                                       ),
-                                      997 => 
+                                      991 => 
                                       array (
                                         'key' => 'PETERS LIQUID MUD',
                                         'value' => 2267,
                                       ),
-                                      998 => 
+                                      992 => 
                                       array (
                                         'key' => 'PETRO OIL S&D',
                                         'value' => 2268,
                                       ),
-                                      999 => 
+                                      993 => 
                                       array (
                                         'key' => 'PETRO OIL S&D 200',
                                         'value' => 1829416,
                                       ),
-                                      1000 => 
+                                      994 => 
                                       array (
                                         'key' => 'PETROHOSE',
                                         'value' => 5759832,
                                       ),
-                                      1001 => 
+                                      995 => 
                                       array (
                                         'key' => 'PETROL 400 HARDWALL',
                                         'value' => 1829355,
                                       ),
-                                      1002 => 
+                                      996 => 
                                       array (
                                         'key' => 'PETROL HARDWALL',
                                         'value' => 2269,
                                       ),
-                                      1003 => 
+                                      997 => 
                                       array (
                                         'key' => 'PGC PLACEMENT TEXTILE',
                                         'value' => 2270,
                                       ),
-                                      1004 => 
+                                      998 => 
                                       array (
                                         'key' => 'PHILLIPS 66 HYDROCARBON DRAIN',
                                         'value' => 1829218,
                                       ),
-                                      1005 => 
+                                      999 => 
                                       array (
                                         'key' => 'PHX FUEL GAS',
                                         'value' => 2271,
                                       ),
-                                      1006 => 
+                                      1000 => 
                                       array (
                                         'key' => 'PHX OXYGEN',
                                         'value' => 2272,
                                       ),
-                                      1007 => 
+                                      1001 => 
                                       array (
                                         'key' => 'PIONEER HOT AIR II SP',
                                         'value' => 1829220,
                                       ),
-                                      1008 => 
+                                      1002 => 
                                       array (
                                         'key' => 'PIONEER PETRO TANK TRUCK',
                                         'value' => 1829386,
                                       ),
-                                      1009 => 
+                                      1003 => 
                                       array (
                                         'key' => 'PIONEER XF BLAST',
                                         'value' => 1829379,
                                       ),
-                                      1010 => 
+                                      1004 => 
                                       array (
                                         'key' => 'PLASTER & GROUT',
                                         'value' => 2273,
                                       ),
-                                      1011 => 
+                                      1005 => 
                                       array (
                                         'key' => 'Plastic Clip Holder',
                                         'value' => 1830005,
                                       ),
-                                      1012 => 
+                                      1006 => 
                                       array (
                                         'key' => 'Plastic Process Equipment',
                                         'value' => 6951846,
                                       ),
-                                      1013 => 
+                                      1007 => 
                                       array (
                                         'key' => 'PLATINUM JAC RISER',
                                         'value' => 2274,
                                       ),
-                                      1014 => 
+                                      1008 => 
                                       array (
                                         'key' => 'PLIOVIC AG SPRAY',
                                         'value' => 1829274,
                                       ),
-                                      1015 => 
+                                      1009 => 
                                       array (
                                         'key' => 'PLIOVIC FG',
                                         'value' => 2275,
                                       ),
-                                      1016 => 
+                                      1010 => 
                                       array (
                                         'key' => 'PLIOVIC GS',
                                         'value' => 2276,
                                       ),
-                                      1017 => 
+                                      1011 => 
                                       array (
                                         'key' => 'PLIOVIC PLUS',
                                         'value' => 2277,
                                       ),
-                                      1018 => 
+                                      1012 => 
                                       array (
                                         'key' => 'PLIOVIC PVC TUBING',
                                         'value' => 2278,
                                       ),
-                                      1019 => 
+                                      1013 => 
                                       array (
                                         'key' => 'POLY-V',
                                         'value' => 1829493,
                                       ),
-                                      1020 => 
+                                      1014 => 
                                       array (
                                         'key' => 'POSEIDON UL94-HB',
                                         'value' => 2279,
                                       ),
-                                      1021 => 
+                                      1015 => 
                                       array (
                                         'key' => 'POSITIVE DRIVE PD',
                                         'value' => 1829509,
                                       ),
-                                      1022 => 
+                                      1016 => 
                                       array (
                                         'key' => 'POT LINE',
                                         'value' => 2280,
                                       ),
-                                      1023 => 
+                                      1017 => 
                                       array (
                                         'key' => 'POT LINE HD',
                                         'value' => 2281,
                                       ),
-                                      1024 => 
+                                      1018 => 
                                       array (
                                         'key' => 'POTABLE STOCK TANK',
                                         'value' => 2282,
                                       ),
-                                      1025 => 
+                                      1019 => 
                                       array (
                                         'key' => 'POTABLE WATER',
                                         'value' => 2283,
                                       ),
-                                      1026 => 
+                                      1020 => 
                                       array (
                                         'key' => 'POTABLE WATER HW',
                                         'value' => 2284,
                                       ),
-                                      1027 => 
+                                      1021 => 
                                       array (
                                         'key' => 'POTABLE WATER S&D',
                                         'value' => 1829346,
                                       ),
-                                      1028 => 
+                                      1022 => 
                                       array (
                                         'key' => 'POTABLE WATER SW',
                                         'value' => 2285,
                                       ),
-                                      1029 => 
+                                      1023 => 
                                       array (
                                         'key' => 'POWER PORT',
                                         'value' => 3831236,
                                       ),
-                                      1030 => 
+                                      1024 => 
                                       array (
                                         'key' => 'POWERSPAN CL',
                                         'value' => 1829528,
                                       ),
-                                      1031 => 
+                                      1025 => 
                                       array (
                                         'key' => 'PRAIRIE GOLDFLEX',
                                         'value' => 2286,
                                       ),
-                                      1032 => 
+                                      1026 => 
                                       array (
                                         'key' => 'PRAIRIE GOLDFLEX PETRO',
                                         'value' => 1829174,
                                       ),
-                                      1033 => 
+                                      1027 => 
                                       array (
                                         'key' => 'PREM MARINE WET EXHAUST COR',
                                         'value' => 2287,
                                       ),
-                                      1034 => 
+                                      1028 => 
                                       array (
                                         'key' => 'PREMIER',
                                         'value' => 1829311,
                                       ),
-                                      1035 => 
+                                      1029 => 
                                       array (
                                         'key' => 'PREMIER AIR 1000',
                                         'value' => 1829361,
                                       ),
-                                      1036 => 
+                                      1030 => 
                                       array (
                                         'key' => 'PREMIER REFRACTORY CLAMP',
                                         'value' => 2288,
                                       ),
-                                      1037 => 
+                                      1031 => 
                                       array (
                                         'key' => 'PREMIER VINTNER',
                                         'value' => 1829266,
                                       ),
-                                      1038 => 
+                                      1032 => 
                                       array (
                                         'key' => 'PREMIUM GARDEN',
                                         'value' => 2289,
                                       ),
-                                      1039 => 
+                                      1033 => 
                                       array (
                                         'key' => 'PREMIUM MARINE WET EXHAUST',
                                         'value' => 2290,
                                       ),
-                                      1040 => 
+                                      1034 => 
                                       array (
                                         'key' => 'PROFESSIONAL AIR',
                                         'value' => 3831234,
                                       ),
-                                      1041 => 
+                                      1035 => 
                                       array (
                                         'key' => 'PROSPECTOR AIR',
                                         'value' => 2291,
                                       ),
-                                      1042 => 
+                                      1036 => 
                                       array (
                                         'key' => 'PROSPECTOR BOP 3000',
                                         'value' => 2292,
                                       ),
-                                      1043 => 
+                                      1037 => 
                                       array (
                                         'key' => 'PROSPECTOR BOP 5000',
                                         'value' => 2293,
                                       ),
-                                      1044 => 
+                                      1038 => 
                                       array (
                                         'key' => 'PROSPECTOR FLEX',
                                         'value' => 2294,
                                       ),
-                                      1045 => 
+                                      1039 => 
                                       array (
                                         'key' => 'PROSPECTOR FLEX OILFIELD',
                                         'value' => 2295,
                                       ),
-                                      1046 => 
+                                      1040 => 
                                       array (
                                         'key' => 'PROSPECTOR FLEX PETRO',
                                         'value' => 2296,
                                       ),
-                                      1047 => 
+                                      1041 => 
                                       array (
                                         'key' => 'PROSPECTOR FRAC 400 DISCHARGE',
                                         'value' => 1829404,
                                       ),
-                                      1048 => 
+                                      1042 => 
                                       array (
                                         'key' => 'PROSPECTOR FRAC DISCHARGE',
                                         'value' => 2297,
                                       ),
-                                      1049 => 
+                                      1043 => 
                                       array (
                                         'key' => 'PROSPECTOR FRAC TANK HOSE',
                                         'value' => 2298,
                                       ),
-                                      1050 => 
+                                      1044 => 
                                       array (
                                         'key' => 'PROSPECTOR HOT OILER',
                                         'value' => 2299,
                                       ),
-                                      1051 => 
+                                      1045 => 
                                       array (
                                         'key' => 'PROSPECTOR MINESPRAY',
                                         'value' => 2300,
                                       ),
-                                      1052 => 
+                                      1046 => 
                                       array (
                                         'key' => 'PROSPECTOR OIL RIG HARDWALL',
                                         'value' => 1829396,
                                       ),
-                                      1053 => 
+                                      1047 => 
                                       array (
                                         'key' => 'PROSPECTOR OIL RIG HW',
                                         'value' => 2301,
                                       ),
-                                      1054 => 
+                                      1048 => 
                                       array (
                                         'key' => 'PROSPECTOR OIL RIG SW',
                                         'value' => 2302,
                                       ),
-                                      1055 => 
+                                      1049 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD',
                                         'value' => 2303,
                                       ),
-                                      1056 => 
+                                      1050 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD S&D',
                                         'value' => 2304,
                                       ),
-                                      1057 => 
+                                      1051 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD S&D 150',
                                         'value' => 1829375,
                                       ),
-                                      1058 => 
+                                      1052 => 
                                       array (
                                         'key' => 'PROSPECTOR OILFIELD S&D 300',
                                         'value' => 1829241,
                                       ),
-                                      1059 => 
+                                      1053 => 
                                       array (
                                         'key' => 'PROSPECTOR PETRO',
                                         'value' => 2305,
                                       ),
-                                      1060 => 
+                                      1054 => 
                                       array (
                                         'key' => 'PROSPECTOR PLUS AIR',
                                         'value' => 2306,
                                       ),
-                                      1061 => 
+                                      1055 => 
                                       array (
                                         'key' => 'PROSPECTOR SHR',
                                         'value' => 2307,
                                       ),
-                                      1062 => 
+                                      1056 => 
                                       array (
                                         'key' => 'PROSPECTOR WATER DISCHARGE',
                                         'value' => 2308,
                                       ),
-                                      1063 => 
+                                      1057 => 
                                       array (
                                         'key' => 'PROSPECTOR WATER DISCHARGE 150',
                                         'value' => 1829169,
                                       ),
-                                      1064 => 
+                                      1058 => 
                                       array (
                                         'key' => 'PROSPECTOR WATER S&D',
                                         'value' => 2309,
                                       ),
-                                      1065 => 
+                                      1059 => 
                                       array (
                                         'key' => 'PROSPECTORFLEX BLUE UHMWPE',
                                         'value' => 1829272,
                                       ),
-                                      1066 => 
+                                      1060 => 
                                       array (
                                         'key' => 'PROTECTION RING',
                                         'value' => 2310,
                                       ),
-                                      1067 => 
+                                      1061 => 
                                       array (
                                         'key' => 'PSC CHEMICAL',
                                         'value' => 2311,
                                       ),
-                                      1068 => 
+                                      1062 => 
                                       array (
                                         'key' => 'PTT 30',
                                         'value' => 1830008,
                                       ),
-                                      1069 => 
+                                      1063 => 
                                       array (
                                         'key' => 'PULP & PAPER WASHDOWN',
                                         'value' => 2312,
                                       ),
-                                      1070 => 
+                                      1064 => 
                                       array (
                                         'key' => 'PUMPTEC PULSE',
                                         'value' => 1829211,
                                       ),
-                                      1071 => 
+                                      1065 => 
                                       array (
                                         'key' => 'PUREONE',
                                         'value' => 2313,
                                       ),
-                                      1072 => 
+                                      1066 => 
                                       array (
                                         'key' => 'PURFIT',
                                         'value' => 2314,
                                       ),
-                                      1073 => 
+                                      1067 => 
                                       array (
                                         'key' => 'PURFIT BREWLINE',
                                         'value' => 2315,
                                       ),
-                                      1074 => 
+                                      1068 => 
                                       array (
                                         'key' => 'PURPLE FLEXWING',
                                         'value' => 2316,
                                       ),
-                                      1075 => 
+                                      1069 => 
                                       array (
                                         'key' => 'PURPLE SNAKE',
                                         'value' => 2317,
                                       ),
-                                      1076 => 
+                                      1070 => 
                                       array (
                                         'key' => 'PURPLE SNAKE PLUS',
                                         'value' => 2318,
                                       ),
-                                      1077 => 
+                                      1071 => 
                                       array (
                                         'key' => 'PYROFLEX HOT AIR',
                                         'value' => 2319,
                                       ),
-                                      1078 => 
+                                      1072 => 
                                       array (
                                         'key' => 'PYROFLEX HOT AIR II',
                                         'value' => 1829132,
                                       ),
-                                      1079 => 
+                                      1073 => 
                                       array (
                                         'key' => 'PYROFLEX HOT AIR III FDA',
                                         'value' => 2320,
                                       ),
-                                      1080 => 
+                                      1074 => 
                                       array (
                                         'key' => 'PYROFLEX HOT TAR & ASPHALT II',
                                         'value' => 1829129,
                                       ),
-                                      1081 => 
+                                      1075 => 
                                       array (
                                         'key' => 'PYROFLEX HOT TAR WAND',
                                         'value' => 2321,
                                       ),
-                                      1082 => 
+                                      1076 => 
                                       array (
                                         'key' => 'PYROFLEX II HOT AIR',
                                         'value' => 2322,
                                       ),
-                                      1083 => 
+                                      1077 => 
                                       array (
                                         'key' => 'PYROFLEX II HOT TAR & ASPHALT',
                                         'value' => 2323,
                                       ),
-                                      1084 => 
+                                      1078 => 
                                       array (
                                         'key' => 'PYROFLEX III HOT AIR',
                                         'value' => 2324,
                                       ),
-                                      1085 => 
+                                      1079 => 
                                       array (
                                         'key' => 'PYROFLEX III HOT AIR FDA',
                                         'value' => 2325,
                                       ),
-                                      1086 => 
+                                      1080 => 
                                       array (
                                         'key' => 'QR048',
                                         'value' => 2326,
                                       ),
-                                      1087 => 
+                                      1081 => 
                                       array (
                                         'key' => 'QR48',
                                         'value' => 2327,
                                       ),
-                                      1088 => 
+                                      1082 => 
                                       array (
                                         'key' => 'QUIKSTIR',
                                         'value' => 2328,
                                       ),
-                                      1089 => 
+                                      1083 => 
                                       array (
                                         'key' => 'QUIKSTIR PUMP 2P',
                                         'value' => 2329,
                                       ),
-                                      1090 => 
+                                      1084 => 
                                       array (
                                         'key' => 'R/W',
                                         'value' => 1829432,
                                       ),
-                                      1091 => 
+                                      1085 => 
                                       array (
                                         'key' => 'RADIATOR',
                                         'value' => 2330,
                                       ),
-                                      1092 => 
+                                      1086 => 
                                       array (
                                         'key' => 'RADIATOR HOSE',
                                         'value' => 1829347,
                                       ),
-                                      1093 => 
+                                      1087 => 
                                       array (
                                         'key' => 'RAGCO',
                                         'value' => 2331,
                                       ),
-                                      1094 => 
+                                      1088 => 
                                       array (
                                         'key' => 'RAGCO FABCHEM',
                                         'value' => 1829242,
                                       ),
-                                      1095 => 
+                                      1089 => 
                                       array (
                                         'key' => 'RAGCO FLEX KENT',
                                         'value' => 1829387,
                                       ),
-                                      1096 => 
+                                      1090 => 
                                       array (
                                         'key' => 'RAIL',
                                         'value' => 2332,
                                       ),
-                                      1097 => 
+                                      1091 => 
                                       array (
                                         'key' => 'RANSBG NR SPRAY',
                                         'value' => 2333,
                                       ),
-                                      1098 => 
+                                      1092 => 
                                       array (
                                         'key' => 'RAWHID FIRE ENGINE BOOSTER',
                                         'value' => 2334,
                                       ),
-                                      1099 => 
+                                      1093 => 
                                       array (
                                         'key' => 'RCT FLEXRITE',
                                         'value' => 2335,
                                       ),
-                                      1100 => 
+                                      1094 => 
                                       array (
                                         'key' => 'RDC',
                                         'value' => 2336,
                                       ),
-                                      1101 => 
+                                      1095 => 
                                       array (
                                         'key' => 'REAL RUBBER',
                                         'value' => 2337,
                                       ),
-                                      1102 => 
+                                      1096 => 
                                       array (
                                         'key' => 'RED FLEXTRA',
                                         'value' => 2338,
                                       ),
-                                      1103 => 
+                                      1097 => 
                                       array (
                                         'key' => 'RED FLEXTRA 100',
                                         'value' => 1829324,
                                       ),
-                                      1104 => 
+                                      1098 => 
                                       array (
                                         'key' => 'RED FLEXTRA 150',
                                         'value' => 1829304,
                                       ),
-                                      1105 => 
+                                      1099 => 
                                       array (
                                         'key' => 'RED ORTAC II',
                                         'value' => 1829326,
                                       ),
-                                      1106 => 
+                                      1100 => 
                                       array (
                                         'key' => 'RED-L GOLDFLEX-C',
                                         'value' => 2339,
                                       ),
-                                      1107 => 
+                                      1101 => 
                                       array (
                                         'key' => 'RED-L PLANT STEAM',
                                         'value' => 1829210,
                                       ),
-                                      1108 => 
+                                      1102 => 
                                       array (
                                         'key' => 'RED-L WATER',
                                         'value' => 2340,
                                       ),
-                                      1109 => 
+                                      1103 => 
                                       array (
                                         'key' => 'REDWING BLUE LOW TEMP',
                                         'value' => 2341,
                                       ),
-                                      1110 => 
+                                      1104 => 
                                       array (
                                         'key' => 'REDWING BLUE LOW TEMP FUEL OIL',
                                         'value' => 1829205,
                                       ),
-                                      1111 => 
+                                      1105 => 
                                       array (
                                         'key' => 'REDWING FUEL OIL',
                                         'value' => 2342,
                                       ),
-                                      1112 => 
+                                      1106 => 
                                       array (
                                         'key' => 'REDWING FUEL OIL HD',
                                         'value' => 2343,
                                       ),
-                                      1113 => 
+                                      1107 => 
                                       array (
                                         'key' => 'REDWING HIGH DURO FUEL OIL',
                                         'value' => 1829342,
                                       ),
-                                      1114 => 
+                                      1108 => 
                                       array (
                                         'key' => 'REDWING VERSABRAID',
                                         'value' => 2344,
                                       ),
-                                      1115 => 
+                                      1109 => 
                                       array (
                                         'key' => 'REFRACTORY GUNITE',
                                         'value' => 2345,
                                       ),
-                                      1116 => 
+                                      1110 => 
                                       array (
                                         'key' => 'REFRACTORY HOSE',
                                         'value' => 2346,
                                       ),
-                                      1117 => 
+                                      1111 => 
                                       array (
                                         'key' => 'REFRIGERANT CHARGING',
                                         'value' => 2347,
                                       ),
-                                      1118 => 
+                                      1112 => 
                                       array (
                                         'key' => 'REINFLEX',
                                         'value' => 1829154,
                                       ),
-                                      1119 => 
+                                      1113 => 
                                       array (
                                         'key' => 'RELIANCE PROSPECTOR WATER S&D',
                                         'value' => 2348,
                                       ),
-                                      1120 => 
+                                      1114 => 
                                       array (
                                         'key' => 'RELIANCE WATER S&D',
                                         'value' => 2349,
                                       ),
-                                      1121 => 
+                                      1115 => 
                                       array (
                                         'key' => 'RES',
                                         'value' => 2350,
                                       ),
-                                      1122 => 
+                                      1116 => 
                                       array (
                                         'key' => 'REVERSE CIRCULATION',
                                         'value' => 2351,
                                       ),
-                                      1123 => 
+                                      1117 => 
                                       array (
                                         'key' => 'RIG SUPPLY',
                                         'value' => 2352,
                                       ),
-                                      1124 => 
+                                      1118 => 
                                       array (
                                         'key' => 'RIG SUPPLY SW',
                                         'value' => 2353,
                                       ),
-                                      1125 => 
+                                      1119 => 
                                       array (
                                         'key' => 'RITCHIE CT5',
                                         'value' => 1829098,
                                       ),
-                                      1126 => 
+                                      1120 => 
                                       array (
                                         'key' => 'RIVERB',
                                         'value' => 2354,
                                       ),
-                                      1127 => 
+                                      1121 => 
                                       array (
                                         'key' => 'RL1131 TWIN-LINE GRADE R',
                                         'value' => 2355,
                                       ),
-                                      1128 => 
+                                      1122 => 
                                       array (
                                         'key' => 'ROADPATCH',
                                         'value' => 2356,
                                       ),
-                                      1129 => 
+                                      1123 => 
                                       array (
                                         'key' => 'ROBIN FREON CHARGING',
                                         'value' => 2357,
                                       ),
-                                      1130 => 
+                                      1124 => 
                                       array (
                                         'key' => 'ROBIN NEW',
                                         'value' => 1829138,
                                       ),
-                                      1131 => 
+                                      1125 => 
                                       array (
                                         'key' => 'ROCK DRILL',
                                         'value' => 2358,
                                       ),
-                                      1132 => 
+                                      1126 => 
                                       array (
                                         'key' => 'ROCK DRILL RED',
                                         'value' => 1829340,
                                       ),
-                                      1133 => 
+                                      1127 => 
                                       array (
                                         'key' => 'ROCK DUST',
                                         'value' => 1829104,
                                       ),
-                                      1134 => 
+                                      1128 => 
                                       array (
                                         'key' => 'ROOF DRAIN',
                                         'value' => 2359,
                                       ),
-                                      1135 => 
+                                      1129 => 
                                       array (
                                         'key' => 'ROUGH BORE (HOT TAR & ASPHALT)',
                                         'value' => 2360,
                                       ),
-                                      1136 => 
+                                      1130 => 
                                       array (
                                         'key' => 'ROUGH BORE DOCK',
                                         'value' => 2361,
                                       ),
-                                      1137 => 
+                                      1131 => 
                                       array (
                                         'key' => 'ROUGH BORE DOCK 200',
                                         'value' => 1829323,
                                       ),
-                                      1138 => 
+                                      1132 => 
                                       array (
                                         'key' => 'ROUGH BORE DOCK 300',
                                         'value' => 1829221,
                                       ),
-                                      1139 => 
+                                      1133 => 
                                       array (
                                         'key' => 'ROYAL BRASS PLIOVIC',
                                         'value' => 2362,
                                       ),
-                                      1140 => 
+                                      1134 => 
                                       array (
                                         'key' => 'ROYAL BRASS VERSIFLO S&D',
                                         'value' => 1829214,
                                       ),
-                                      1141 => 
+                                      1135 => 
                                       array (
                                         'key' => 'RSD',
                                         'value' => 2363,
                                       ),
-                                      1142 => 
+                                      1136 => 
                                       array (
                                         'key' => 'RUB & GASK WATER DISCHARGE',
                                         'value' => 1829358,
                                       ),
-                                      1143 => 
+                                      1137 => 
                                       array (
                                         'key' => 'RX',
                                         'value' => 2364,
                                       ),
-                                      1144 => 
+                                      1138 => 
                                       array (
                                         'key' => 'S4SH',
                                         'value' => 2365,
                                       ),
-                                      1145 => 
+                                      1139 => 
                                       array (
                                         'key' => 'S4SP',
                                         'value' => 2366,
                                       ),
-                                      1146 => 
+                                      1140 => 
                                       array (
                                         'key' => 'SAE 100R4',
                                         'value' => 2367,
                                       ),
-                                      1147 => 
+                                      1141 => 
                                       array (
                                         'key' => 'SAE 20R1',
                                         'value' => 2368,
                                       ),
-                                      1148 => 
+                                      1142 => 
                                       array (
                                         'key' => 'SAE 20R1 SB/SC',
                                         'value' => 1829428,
                                       ),
-                                      1149 => 
+                                      1143 => 
                                       array (
                                         'key' => 'SAE 20R1 SB/SC HARDWALL',
                                         'value' => 1829429,
                                       ),
-                                      1150 => 
+                                      1144 => 
                                       array (
                                         'key' => 'SAE 20R2 D1',
                                         'value' => 2369,
                                       ),
-                                      1151 => 
+                                      1145 => 
                                       array (
                                         'key' => 'SAE 20R2D1',
                                         'value' => 2370,
                                       ),
-                                      1152 => 
+                                      1146 => 
                                       array (
                                         'key' => 'SAE 45 Flare',
                                         'value' => 1829987,
                                       ),
-                                      1153 => 
+                                      1147 => 
                                       array (
                                         'key' => 'SAE 45 Inverted Flare',
                                         'value' => 1829951,
                                       ),
-                                      1154 => 
+                                      1148 => 
                                       array (
                                         'key' => 'SAE 45 J512 Flare',
                                         'value' => 1829950,
                                       ),
-                                      1155 => 
+                                      1149 => 
                                       array (
                                         'key' => 'SAE J1527 A2 R1 ISO 7840 A2',
                                         'value' => 2371,
                                       ),
-                                      1156 => 
+                                      1150 => 
                                       array (
                                         'key' => 'SAE J1527 TYPE A2 FUEL FILL',
                                         'value' => 2372,
                                       ),
-                                      1157 => 
+                                      1151 => 
                                       array (
                                         'key' => 'SAE J514 Flareless Tube Fittings',
                                         'value' => 1829955,
                                       ),
-                                      1158 => 
+                                      1152 => 
                                       array (
                                         'key' => 'SAE-20R2 D1',
                                         'value' => 2373,
                                       ),
-                                      1159 => 
+                                      1153 => 
                                       array (
                                         'key' => 'SAFEFLEX',
                                         'value' => 1830043,
                                       ),
-                                      1160 => 
+                                      1154 => 
                                       array (
                                         'key' => 'SAFLEX NSFX',
                                         'value' => 1829189,
                                       ),
-                                      1161 => 
+                                      1155 => 
                                       array (
                                         'key' => 'SAND RECOVERY S&D',
                                         'value' => 2374,
                                       ),
-                                      1162 => 
+                                      1156 => 
                                       array (
                                         'key' => 'SAND SUCTION',
                                         'value' => 2375,
                                       ),
-                                      1163 => 
+                                      1157 => 
                                       array (
                                         'key' => 'SANDBLAST 400',
                                         'value' => 2376,
                                       ),
-                                      1164 => 
+                                      1158 => 
                                       array (
                                         'key' => 'SANDBLAST DEADMAN',
                                         'value' => 1829239,
                                       ),
-                                      1165 => 
+                                      1159 => 
                                       array (
                                         'key' => 'SANDER',
                                         'value' => 2377,
                                       ),
-                                      1166 => 
+                                      1160 => 
                                       array (
                                         'key' => 'SANI-WASH',
                                         'value' => 2378,
                                       ),
-                                      1167 => 
+                                      1161 => 
                                       array (
                                         'key' => 'SANI-WASH PLUS',
                                         'value' => 2379,
                                       ),
-                                      1168 => 
+                                      1162 => 
                                       array (
                                         'key' => 'SANI-WASH SUPREME',
                                         'value' => 2380,
                                       ),
-                                      1169 => 
+                                      1163 => 
                                       array (
                                         'key' => 'SBQ FLOATER',
                                         'value' => 1829147,
                                       ),
-                                      1170 => 
+                                      1164 => 
                                       array (
                                         'key' => 'SBQ PETRO',
                                         'value' => 1829313,
                                       ),
-                                      1171 => 
+                                      1165 => 
                                       array (
                                         'key' => 'SCOMI LIQUID MUD',
                                         'value' => 2381,
                                       ),
-                                      1172 => 
+                                      1166 => 
                                       array (
                                         'key' => 'SCOTT',
                                         'value' => 1829100,
                                       ),
-                                      1173 => 
+                                      1167 => 
                                       array (
                                         'key' => 'SCP3',
                                         'value' => 2382,
                                       ),
-                                      1174 => 
+                                      1168 => 
                                       array (
                                         'key' => 'SCRMAC KURB KING',
                                         'value' => 2383,
                                       ),
-                                      1175 => 
+                                      1169 => 
                                       array (
                                         'key' => 'SEAL-RITE',
                                         'value' => 5759831,
                                       ),
-                                      1176 => 
+                                      1170 => 
                                       array (
                                         'key' => 'SEALFS',
                                         'value' => 2384,
                                       ),
-                                      1177 => 
+                                      1171 => 
                                       array (
                                         'key' => 'Sealing Washers',
                                         'value' => 1830000,
                                       ),
-                                      1178 => 
+                                      1172 => 
                                       array (
                                         'key' => 'SEMLER FDA',
                                         'value' => 1829170,
                                       ),
-                                      1179 => 
+                                      1173 => 
                                       array (
                                         'key' => 'SERVICE STATION AIR',
                                         'value' => 2385,
                                       ),
-                                      1180 => 
+                                      1174 => 
                                       array (
                                         'key' => 'SFS',
                                         'value' => 1830044,
                                       ),
-                                      1181 => 
+                                      1175 => 
                                       array (
                                         'key' => 'SFS (FIRE SUPPRESSION)',
                                         'value' => 2386,
                                       ),
-                                      1182 => 
+                                      1176 => 
                                       array (
                                         'key' => 'SGOBAIN',
                                         'value' => 2387,
                                       ),
-                                      1183 => 
+                                      1177 => 
                                       array (
                                         'key' => 'SGOBAIN FOOD DISCHARGE',
                                         'value' => 2388,
                                       ),
-                                      1184 => 
+                                      1178 => 
                                       array (
                                         'key' => 'SGOBAIN FOOD S&D',
                                         'value' => 2389,
                                       ),
-                                      1185 => 
+                                      1179 => 
                                       array (
                                         'key' => 'SGUN',
                                         'value' => 1830045,
                                       ),
-                                      1186 => 
+                                      1180 => 
                                       array (
                                         'key' => 'SHELLFLEX',
                                         'value' => 2390,
                                       ),
-                                      1187 => 
+                                      1181 => 
                                       array (
                                         'key' => 'SHIELD',
                                         'value' => 2391,
                                       ),
-                                      1188 => 
+                                      1182 => 
                                       array (
                                         'key' => 'SHJ',
                                         'value' => 1830046,
                                       ),
-                                      1189 => 
+                                      1183 => 
                                       array (
                                         'key' => 'SIGNAL CALL',
                                         'value' => 1829298,
                                       ),
-                                      1190 => 
+                                      1184 => 
                                       array (
                                         'key' => 'SILENTSYNC',
                                         'value' => 1829497,
                                       ),
-                                      1191 => 
+                                      1185 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE R)',
                                         'value' => 2392,
                                       ),
-                                      1192 => 
+                                      1186 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE R)',
                                         'value' => 1829246,
                                       ),
-                                      1193 => 
+                                      1187 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE R)',
                                         'value' => 1829383,
                                       ),
-                                      1194 => 
+                                      1188 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE RM)',
                                         'value' => 2393,
                                       ),
-                                      1195 => 
+                                      1189 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE T)',
                                         'value' => 2394,
                                       ),
-                                      1196 => 
+                                      1190 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE T)',
                                         'value' => 1829270,
                                       ),
-                                      1197 => 
+                                      1191 => 
                                       array (
                                         'key' => 'SINGLE-LINE (GRADE T)',
                                         'value' => 1829309,
                                       ),
-                                      1198 => 
+                                      1192 => 
                                       array (
                                         'key' => 'SK CARBOV',
                                         'value' => 2395,
                                       ),
-                                      1199 => 
+                                      1193 => 
                                       array (
                                         'key' => 'SLURRY',
                                         'value' => 2396,
                                       ),
-                                      1200 => 
+                                      1194 => 
                                       array (
                                         'key' => 'SMOOTH BORE DOCK',
                                         'value' => 2397,
                                       ),
-                                      1201 => 
+                                      1195 => 
                                       array (
                                         'key' => 'SMOOTH BORE HOT TAR & ASPHALT',
                                         'value' => 2398,
                                       ),
-                                      1202 => 
+                                      1196 => 
                                       array (
                                         'key' => 'SMOOTH BORE MOLTEN SULPHUR',
                                         'value' => 2399,
                                       ),
-                                      1203 => 
+                                      1197 => 
                                       array (
                                         'key' => 'SNAPON',
                                         'value' => 2400,
                                       ),
-                                      1204 => 
+                                      1198 => 
                                       array (
                                         'key' => 'SOFTUB WATER',
                                         'value' => 2401,
                                       ),
-                                      1205 => 
+                                      1199 => 
                                       array (
                                         'key' => 'SOFTWALL',
                                         'value' => 2402,
                                       ),
-                                      1206 => 
+                                      1200 => 
                                       array (
                                         'key' => 'SOFTWALL FDA',
                                         'value' => 5355079,
                                       ),
-                                      1207 => 
+                                      1201 => 
                                       array (
                                         'key' => 'SOHO PROSPECTOR WATER S&D',
                                         'value' => 2403,
                                       ),
-                                      1208 => 
+                                      1202 => 
                                       array (
                                         'key' => 'SOURCE DISPENSING',
                                         'value' => 1829108,
                                       ),
-                                      1209 => 
+                                      1203 => 
                                       array (
                                         'key' => 'SOUTH PNEUMATICS SW',
                                         'value' => 1829198,
                                       ),
-                                      1210 => 
+                                      1204 => 
                                       array (
                                         'key' => 'SOUTHERN',
                                         'value' => 2404,
                                       ),
-                                      1211 => 
-                                      array (
-                                        'key' => 'SOUTHWEST RUBBER',
-                                        'value' => 7082341,
-                                      ),
-                                      1212 => 
-                                      array (
-                                        'key' => 'SPARTAN',
-                                        'value' => 7082427,
-                                      ),
-                                      1213 => 
+                                      1205 => 
                                       array (
                                         'key' => 'SPARTAN PRESSURE WASHER',
                                         'value' => 2405,
                                       ),
-                                      1214 => 
+                                      1206 => 
                                       array (
                                         'key' => 'Spartan Pressure Washer',
                                         'value' => 1829156,
                                       ),
-                                      1215 => 
+                                      1207 => 
                                       array (
                                         'key' => 'SPECIAL PD',
                                         'value' => 1829512,
                                       ),
-                                      1216 => 
+                                      1208 => 
                                       array (
                                         'key' => 'SPEEDAIRE',
                                         'value' => 2406,
                                       ),
-                                      1217 => 
+                                      1209 => 
                                       array (
                                         'key' => 'SPIR SEP',
                                         'value' => 2407,
                                       ),
-                                      1218 => 
+                                      1210 => 
                                       array (
                                         'key' => 'SPIR SEP TPG',
                                         'value' => 2408,
                                       ),
-                                      1219 => 
+                                      1211 => 
                                       array (
                                         'key' => 'SPIRAFLEX 1500',
                                         'value' => 2409,
                                       ),
-                                      1220 => 
+                                      1212 => 
                                       array (
                                         'key' => 'SPIRAFLEX 1600',
                                         'value' => 2410,
                                       ),
-                                      1221 => 
+                                      1213 => 
                                       array (
                                         'key' => 'SPIRAFLEX 2500',
                                         'value' => 1829307,
                                       ),
-                                      1222 => 
+                                      1214 => 
                                       array (
                                         'key' => 'SPIRAFLEX ACTION F.E.S',
                                         'value' => 2411,
                                       ),
-                                      1223 => 
+                                      1215 => 
                                       array (
                                         'key' => 'SPIRAFLEX AGFLEX',
                                         'value' => 2412,
                                       ),
-                                      1224 => 
+                                      1216 => 
                                       array (
                                         'key' => 'SPIRAFLEX AGGIE',
                                         'value' => 2413,
                                       ),
-                                      1225 => 
+                                      1217 => 
                                       array (
                                         'key' => 'SPIRAFLEX AGGIE PVC',
                                         'value' => 1829366,
                                       ),
-                                      1226 => 
+                                      1218 => 
                                       array (
                                         'key' => 'SPIRAFLEX AIR SEEDER',
                                         'value' => 2414,
                                       ),
-                                      1227 => 
+                                      1219 => 
                                       array (
                                         'key' => 'SPIRAFLEX BARKBLOWER',
                                         'value' => 2415,
                                       ),
-                                      1228 => 
+                                      1220 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLACK SUPER-DUTY',
                                         'value' => 1829363,
                                       ),
-                                      1229 => 
+                                      1221 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLACK SUPER-DUTY LAYFLAT',
                                         'value' => 2416,
                                       ),
-                                      1230 => 
+                                      1222 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLUE EXTRA LIGHT DUTY LAYFLAT',
                                         'value' => 2417,
                                       ),
-                                      1231 => 
+                                      1223 => 
                                       array (
                                         'key' => 'SPIRAFLEX BLUE EXTRALIGHT DUTY',
                                         'value' => 1829357,
                                       ),
-                                      1232 => 
+                                      1224 => 
                                       array (
                                         'key' => 'SPIRAFLEX CABLE GUARD',
                                         'value' => 2418,
                                       ),
-                                      1233 => 
+                                      1225 => 
                                       array (
                                         'key' => 'SPIRAFLEX DUCTING',
                                         'value' => 2419,
                                       ),
-                                      1234 => 
+                                      1226 => 
                                       array (
                                         'key' => 'SPIRAFLEX EXTRA LIGHT DUTY',
                                         'value' => 1829188,
                                       ),
-                                      1235 => 
+                                      1227 => 
                                       array (
                                         'key' => 'SPIRAFLEX FGVAC',
                                         'value' => 2420,
                                       ),
-                                      1236 => 
+                                      1228 => 
                                       array (
                                         'key' => 'SPIRAFLEX FISH SUCTION',
                                         'value' => 2421,
                                       ),
-                                      1237 => 
+                                      1229 => 
                                       array (
                                         'key' => 'SPIRAFLEX FOODVAC',
                                         'value' => 2422,
                                       ),
-                                      1238 => 
+                                      1230 => 
                                       array (
                                         'key' => 'SPIRAFLEX GRASSVAC',
                                         'value' => 2423,
                                       ),
-                                      1239 => 
+                                      1231 => 
                                       array (
                                         'key' => 'SPIRAFLEX GRAY LIGHT DUTY LAYFLAT',
                                         'value' => 2424,
                                       ),
-                                      1240 => 
+                                      1232 => 
                                       array (
                                         'key' => 'SPIRAFLEX GREEN',
                                         'value' => 1829335,
                                       ),
-                                      1241 => 
+                                      1233 => 
                                       array (
                                         'key' => 'SPIRAFLEX GREEN LAYFLAT',
                                         'value' => 2425,
                                       ),
-                                      1242 => 
+                                      1234 => 
                                       array (
                                         'key' => 'SPIRAFLEX HEAVY DUTY',
                                         'value' => 1829199,
                                       ),
-                                      1243 => 
+                                      1235 => 
                                       array (
                                         'key' => 'SPIRAFLEX HT',
                                         'value' => 2426,
                                       ),
-                                      1244 => 
+                                      1236 => 
                                       array (
                                         'key' => 'SPIRAFLEX LIGHT DUTY',
                                         'value' => 1829190,
                                       ),
-                                      1245 => 
+                                      1237 => 
                                       array (
                                         'key' => 'SPIRAFLEX LW ROCK DUST',
                                         'value' => 2427,
                                       ),
-                                      1246 => 
+                                      1238 => 
                                       array (
                                         'key' => 'SPIRAFLEX MEDIUM DUTY',
                                         'value' => 1829182,
                                       ),
-                                      1247 => 
+                                      1239 => 
                                       array (
                                         'key' => 'SPIRAFLEX MULCH BLOWER',
                                         'value' => 2428,
                                       ),
-                                      1248 => 
+                                      1240 => 
                                       array (
                                         'key' => 'SPIRAFLEX MULCHBLOWER',
                                         'value' => 2429,
                                       ),
-                                      1249 => 
+                                      1241 => 
                                       array (
                                         'key' => 'SPIRAFLEX RED MEDIUM DUTY',
                                         'value' => 1829317,
                                       ),
-                                      1250 => 
+                                      1242 => 
                                       array (
                                         'key' => 'SPIRAFLEX RED MEDIUM DUTY LAYFLAT',
                                         'value' => 2430,
                                       ),
-                                      1251 => 
+                                      1243 => 
                                       array (
                                         'key' => 'SPIRAFLEX ROCK DUST',
                                         'value' => 2431,
                                       ),
-                                      1252 => 
+                                      1244 => 
                                       array (
                                         'key' => 'SPIRAFLEX VACUUM',
                                         'value' => 2432,
                                       ),
-                                      1253 => 
+                                      1245 => 
                                       array (
                                         'key' => 'SPIRAFLEX VAPOR RECOVERY',
                                         'value' => 2433,
                                       ),
-                                      1254 => 
+                                      1246 => 
                                       array (
                                         'key' => 'SPIRAFLEX YELLOW HEAVY DUTY',
                                         'value' => 1829381,
                                       ),
-                                      1255 => 
+                                      1247 => 
                                       array (
                                         'key' => 'SPIRAFLEX YELLOW HEAVY DUTY LAYFLAT',
                                         'value' => 2434,
                                       ),
-                                      1256 => 
+                                      1248 => 
                                       array (
                                         'key' => 'SPIRAFLOW',
                                         'value' => 2435,
                                       ),
-                                      1257 => 
+                                      1249 => 
                                       array (
                                         'key' => 'SPIRATHANE HD',
                                         'value' => 2436,
                                       ),
-                                      1258 => 
+                                      1250 => 
                                       array (
                                         'key' => 'SPIRATHANE LD',
                                         'value' => 2437,
                                       ),
-                                      1259 => 
+                                      1251 => 
                                       array (
                                         'key' => 'SPIRATHANE PT',
                                         'value' => 2438,
                                       ),
-                                      1260 => 
+                                      1252 => 
                                       array (
                                         'key' => 'SPIRIT',
                                         'value' => 5355081,
                                       ),
-                                      1261 => 
+                                      1253 => 
                                       array (
                                         'key' => 'SR12',
                                         'value' => 2439,
                                       ),
-                                      1262 => 
+                                      1254 => 
                                       array (
                                         'key' => 'SR13',
                                         'value' => 2440,
                                       ),
-                                      1263 => 
+                                      1255 => 
                                       array (
                                         'key' => 'SR14',
                                         'value' => 2441,
                                       ),
-                                      1264 => 
+                                      1256 => 
                                       array (
                                         'key' => 'SR14A',
                                         'value' => 2442,
                                       ),
-                                      1265 => 
+                                      1257 => 
                                       array (
                                         'key' => 'SR14B',
                                         'value' => 2443,
                                       ),
-                                      1266 => 
+                                      1258 => 
                                       array (
                                         'key' => 'SR15',
                                         'value' => 2444,
                                       ),
-                                      1267 => 
+                                      1259 => 
                                       array (
                                         'key' => 'SR16SC',
                                         'value' => 2445,
                                       ),
-                                      1268 => 
+                                      1260 => 
                                       array (
                                         'key' => 'SR18',
                                         'value' => 2446,
                                       ),
-                                      1269 => 
+                                      1261 => 
                                       array (
                                         'key' => 'SR1SN',
                                         'value' => 2447,
                                       ),
-                                      1270 => 
+                                      1262 => 
                                       array (
                                         'key' => 'SR2SN',
                                         'value' => 2448,
                                       ),
-                                      1271 => 
+                                      1263 => 
                                       array (
                                         'key' => 'SR3',
                                         'value' => 2449,
                                       ),
-                                      1272 => 
+                                      1264 => 
                                       array (
                                         'key' => 'SR5',
                                         'value' => 2450,
                                       ),
-                                      1273 => 
+                                      1265 => 
                                       array (
                                         'key' => 'SR6',
                                         'value' => 2451,
                                       ),
-                                      1274 => 
+                                      1266 => 
                                       array (
                                         'key' => 'SR7',
                                         'value' => 2452,
                                       ),
-                                      1275 => 
+                                      1267 => 
                                       array (
                                         'key' => 'SR8',
                                         'value' => 2453,
                                       ),
-                                      1276 => 
+                                      1268 => 
                                       array (
                                         'key' => 'SRS',
                                         'value' => 2454,
                                       ),
-                                      1277 => 
+                                      1269 => 
                                       array (
                                         'key' => 'STANDARD STRAIGHT RAD',
                                         'value' => 2455,
                                       ),
-                                      1278 => 
+                                      1270 => 
                                       array (
                                         'key' => 'Standpipe',
                                         'value' => 1829956,
                                       ),
-                                      1279 => 
+                                      1271 => 
                                       array (
                                         'key' => 'STANLEY',
                                         'value' => 1829192,
                                       ),
-                                      1280 => 
+                                      1272 => 
                                       array (
                                         'key' => 'STANLEY N298402',
                                         'value' => 1829197,
                                       ),
-                                      1281 => 
+                                      1273 => 
                                       array (
                                         'key' => 'STEAM 250',
                                         'value' => 2456,
                                       ),
-                                      1282 => 
+                                      1274 => 
                                       array (
                                         'key' => 'STEAM HOSE',
                                         'value' => 1829165,
                                       ),
-                                      1283 => 
+                                      1275 => 
                                       array (
                                         'key' => 'STEAM PILE DRIVER',
                                         'value' => 1829345,
                                       ),
-                                      1284 => 
+                                      1276 => 
                                       array (
                                         'key' => 'STEEL AIR',
                                         'value' => 2457,
                                       ),
-                                      1285 => 
+                                      1277 => 
                                       array (
                                         'key' => 'STEEL AIR BOOTSTRAP',
                                         'value' => 2458,
                                       ),
-                                      1286 => 
+                                      1278 => 
                                       array (
                                         'key' => 'STEEL AIR MSHA',
                                         'value' => 1829249,
                                       ),
-                                      1287 => 
+                                      1279 => 
                                       array (
                                         'key' => 'SUBSEA CABLE',
                                         'value' => 2459,
                                       ),
-                                      1288 => 
+                                      1280 => 
                                       array (
                                         'key' => 'SULBANA GAUNTLET',
                                         'value' => 2460,
                                       ),
-                                      1289 => 
+                                      1281 => 
                                       array (
                                         'key' => 'SUMMERS',
                                         'value' => 1829368,
                                       ),
-                                      1290 => 
+                                      1282 => 
                                       array (
                                         'key' => 'SUNSDEA MUD',
                                         'value' => 2461,
                                       ),
-                                      1291 => 
+                                      1283 => 
                                       array (
                                         'key' => 'SUNSET WATER S&D FIRE SERVICE',
                                         'value' => 2462,
                                       ),
-                                      1292 => 
+                                      1284 => 
                                       array (
                                         'key' => 'SUPER AIR 400',
                                         'value' => 2463,
                                       ),
-                                      1293 => 
+                                      1285 => 
                                       array (
                                         'key' => 'SUPER BLACK FLEXWING',
                                         'value' => 2464,
                                       ),
-                                      1294 => 
+                                      1286 => 
                                       array (
                                         'key' => 'SUPER ORTAC',
                                         'value' => 1829130,
                                       ),
-                                      1295 => 
+                                      1287 => 
                                       array (
                                         'key' => 'SUPER ORTAC®',
                                         'value' => 2465,
                                       ),
-                                      1296 => 
+                                      1288 => 
                                       array (
                                         'key' => 'SUPER ROCK DRILL',
                                         'value' => 2466,
                                       ),
-                                      1297 => 
+                                      1289 => 
                                       array (
                                         'key' => 'SUPER ROCK DRILL HT',
                                         'value' => 2467,
                                       ),
-                                      1298 => 
+                                      1290 => 
                                       array (
                                         'key' => 'SUPER SANI-WASH',
                                         'value' => 2468,
                                       ),
-                                      1299 => 
+                                      1291 => 
                                       array (
                                         'key' => 'SUPER SANI-WASH 300',
                                         'value' => 1829152,
                                       ),
-                                      1300 => 
+                                      1292 => 
                                       array (
                                         'key' => 'SUPER TORQUE',
                                         'value' => 1829525,
                                       ),
-                                      1301 => 
-                                      array (
-                                        'key' => 'SUPER YC AIR',
-                                        'value' => 7082890,
-                                      ),
-                                      1302 => 
+                                      1293 => 
                                       array (
                                         'key' => 'SUPERIOR',
                                         'value' => 2469,
                                       ),
-                                      1303 => 
+                                      1294 => 
                                       array (
                                         'key' => 'SUPERIOR PETRO TANK TRUCK',
                                         'value' => 1829380,
                                       ),
-                                      1304 => 
+                                      1295 => 
                                       array (
                                         'key' => 'SUPFLOW',
                                         'value' => 2470,
                                       ),
-                                      1305 => 
+                                      1296 => 
                                       array (
                                         'key' => 'SUPVAC',
                                         'value' => 2471,
                                       ),
-                                      1306 => 
+                                      1297 => 
                                       array (
                                         'key' => 'SURELINE',
                                         'value' => 2472,
                                       ),
-                                      1307 => 
+                                      1298 => 
                                       array (
                                         'key' => 'SURELINE BLACK',
                                         'value' => 1829306,
                                       ),
-                                      1308 => 
+                                      1299 => 
                                       array (
                                         'key' => 'SW DRY CEMENT & BARYTES',
                                         'value' => 2473,
                                       ),
-                                      1309 => 
+                                      1300 => 
                                       array (
                                         'key' => 'SWAGELOK',
                                         'value' => 2474,
                                       ),
-                                      1310 => 
+                                      1301 => 
                                       array (
                                         'key' => 'SYNCHROCHAIN CARBON',
                                         'value' => 1829531,
                                       ),
-                                      1311 => 
+                                      1302 => 
                                       array (
                                         'key' => 'TAMARACK',
                                         'value' => 1829143,
                                       ),
-                                      1312 => 
+                                      1303 => 
                                       array (
                                         'key' => 'TAN FLEXTRA',
                                         'value' => 2475,
                                       ),
-                                      1313 => 
+                                      1304 => 
                                       array (
                                         'key' => 'TAN FLEXTRA FDA',
                                         'value' => 2476,
                                       ),
-                                      1314 => 
+                                      1305 => 
                                       array (
                                         'key' => 'TAN FLEXWING',
                                         'value' => 2477,
                                       ),
-                                      1315 => 
+                                      1306 => 
                                       array (
                                         'key' => 'TAN FLEXWING FDA',
                                         'value' => 2478,
                                       ),
-                                      1316 => 
+                                      1307 => 
                                       array (
                                         'key' => 'TANK CLEANING',
                                         'value' => 2479,
                                       ),
-                                      1317 => 
+                                      1308 => 
                                       array (
                                         'key' => 'TANKER BARGE DISCHARGE',
                                         'value' => 2480,
                                       ),
-                                      1318 => 
-                                      array (
-                                        'key' => 'TECHNIWELD',
-                                        'value' => 7079917,
-                                      ),
-                                      1319 => 
+                                      1309 => 
                                       array (
                                         'key' => 'TEFLON',
                                         'value' => 2481,
                                       ),
-                                      1320 => 
+                                      1310 => 
                                       array (
                                         'key' => 'TEFPASS',
                                         'value' => 1829162,
                                       ),
-                                      1321 => 
+                                      1311 => 
                                       array (
                                         'key' => 'TEKNOR',
                                         'value' => 1829106,
                                       ),
-                                      1322 => 
+                                      1312 => 
                                       array (
                                         'key' => 'TEKNOR 8650GT',
                                         'value' => 1829201,
                                       ),
-                                      1323 => 
+                                      1313 => 
                                       array (
                                         'key' => 'TEKNOR 8696-27',
                                         'value' => 1829217,
                                       ),
-                                      1324 => 
+                                      1314 => 
                                       array (
                                         'key' => 'TEKNOR 969RR',
                                         'value' => 1829226,
                                       ),
-                                      1325 => 
+                                      1315 => 
                                       array (
                                         'key' => 'TETRA',
                                         'value' => 2482,
                                       ),
-                                      1326 => 
+                                      1316 => 
                                       array (
                                         'key' => 'THERMIDOR',
                                         'value' => 2483,
                                       ),
-                                      1327 => 
+                                      1317 => 
                                       array (
                                         'key' => 'THESE ARE TIED TO NORFOLK SPECS...',
                                         'value' => 1829257,
                                       ),
-                                      1328 => 
+                                      1318 => 
                                       array (
                                         'key' => 'THOMPSON FLEX XLPE',
                                         'value' => 2484,
                                       ),
-                                      1329 => 
+                                      1319 => 
                                       array (
                                         'key' => 'THUNDER INSTA-GRIP',
                                         'value' => 2485,
                                       ),
-                                      1330 => 
+                                      1320 => 
                                       array (
                                         'key' => 'TIG WELDING',
                                         'value' => 2486,
                                       ),
-                                      1331 => 
+                                      1321 => 
                                       array (
                                         'key' => 'TIMCO',
                                         'value' => 2487,
                                       ),
-                                      1332 => 
+                                      1322 => 
                                       array (
                                         'key' => 'TIPCO PREMIUM GARDEN',
                                         'value' => 2488,
                                       ),
-                                      1333 => 
+                                      1323 => 
                                       array (
                                         'key' => 'TIPO',
                                         'value' => 1829427,
                                       ),
-                                      1334 => 
+                                      1324 => 
                                       array (
                                         'key' => 'TORQUE TEAM LAMINATED',
                                         'value' => 1829516,
                                       ),
-                                      1335 => 
+                                      1325 => 
                                       array (
                                         'key' => 'TORQUE TEAM PLUS',
                                         'value' => 1829500,
                                       ),
-                                      1336 => 
+                                      1326 => 
                                       array (
                                         'key' => 'TORQUE-FLEX',
                                         'value' => 1829498,
                                       ),
-                                      1337 => 
+                                      1327 => 
                                       array (
                                         'key' => 'TORRIDAIR',
                                         'value' => 2489,
                                       ),
-                                      1338 => 
+                                      1328 => 
                                       array (
                                         'key' => 'TOW CABLE',
                                         'value' => 2490,
                                       ),
-                                      1339 => 
+                                      1329 => 
                                       array (
                                         'key' => 'TR7',
                                         'value' => 2491,
                                       ),
-                                      1340 => 
+                                      1330 => 
                                       array (
                                         'key' => 'TR8',
                                         'value' => 2492,
                                       ),
-                                      1341 => 
+                                      1331 => 
                                       array (
                                         'key' => 'TRANSPLY',
                                         'value' => 2493,
                                       ),
-                                      1342 => 
+                                      1332 => 
                                       array (
                                         'key' => 'TRI-STATE',
                                         'value' => 1829330,
                                       ),
-                                      1343 => 
+                                      1333 => 
                                       array (
                                         'key' => 'TRIDENT',
                                         'value' => 2494,
                                       ),
-                                      1344 => 
+                                      1334 => 
                                       array (
                                         'key' => 'TRIDENT SER',
                                         'value' => 2495,
                                       ),
-                                      1345 => 
+                                      1335 => 
                                       array (
                                         'key' => 'TRINCO BLAST',
                                         'value' => 2496,
                                       ),
-                                      1346 => 
+                                      1336 => 
                                       array (
                                         'key' => 'TRIPLX',
                                         'value' => 2497,
                                       ),
-                                      1347 => 
+                                      1337 => 
                                       array (
                                         'key' => 'TRIX ACETYLENE',
                                         'value' => 2498,
                                       ),
-                                      1348 => 
+                                      1338 => 
                                       array (
                                         'key' => 'TRIX BLAUSTRAHL',
                                         'value' => 2499,
                                       ),
-                                      1349 => 
+                                      1339 => 
                                       array (
                                         'key' => 'TRIX BRAKE',
                                         'value' => 2500,
                                       ),
-                                      1350 => 
+                                      1340 => 
                                       array (
                                         'key' => 'TRIX FUEL',
                                         'value' => 2501,
                                       ),
-                                      1351 => 
-                                      array (
-                                        'key' => 'TRIX HP',
-                                        'value' => 7082339,
-                                      ),
-                                      1352 => 
+                                      1341 => 
                                       array (
                                         'key' => 'TRIX MULTIFOOD',
                                         'value' => 2502,
                                       ),
-                                      1353 => 
+                                      1342 => 
                                       array (
                                         'key' => 'TRIX NITRO',
                                         'value' => 2503,
                                       ),
-                                      1354 => 
+                                      1343 => 
                                       array (
                                         'key' => 'TRIX OXYGEN',
                                         'value' => 2504,
                                       ),
-                                      1355 => 
+                                      1344 => 
                                       array (
                                         'key' => 'TRIX PAINT SPRAY',
                                         'value' => 2505,
                                       ),
-                                      1356 => 
+                                      1345 => 
                                       array (
                                         'key' => 'TRIX RESPIRATION',
                                         'value' => 2506,
                                       ),
-                                      1357 => 
+                                      1346 => 
                                       array (
                                         'key' => 'TRIX ROSTRAHL',
                                         'value' => 2507,
                                       ),
-                                      1358 => 
+                                      1347 => 
                                       array (
                                         'key' => 'TRIX SUPER',
                                         'value' => 2508,
                                       ),
-                                      1359 => 
+                                      1348 => 
                                       array (
                                         'key' => 'TUNNELCOTE ROCK DUST FLEXTRA',
                                         'value' => 2509,
                                       ),
-                                      1360 => 
+                                      1349 => 
                                       array (
                                         'key' => 'TUNNELCOTE ROCK DUST FLEXWING',
                                         'value' => 2510,
                                       ),
-                                      1361 => 
+                                      1350 => 
                                       array (
                                         'key' => 'TWIN-LINE (GRADE R)',
                                         'value' => 2511,
                                       ),
-                                      1362 => 
+                                      1351 => 
                                       array (
                                         'key' => 'TWIN-LINE (GRADE RM)',
                                         'value' => 2512,
                                       ),
-                                      1363 => 
+                                      1352 => 
                                       array (
                                         'key' => 'TWIN-LINE (GRADE T)',
                                         'value' => 2513,
                                       ),
-                                      1364 => 
+                                      1353 => 
                                       array (
                                         'key' => 'TWIN-LINE ISO 3821',
                                         'value' => 2514,
                                       ),
-                                      1365 => 
+                                      1354 => 
                                       array (
                                         'key' => 'UL 92 FIRE EXTINGUISHER',
                                         'value' => 2515,
                                       ),
-                                      1366 => 
+                                      1355 => 
                                       array (
                                         'key' => 'ULTRABRAID BULL',
                                         'value' => 2516,
                                       ),
-                                      1367 => 
+                                      1356 => 
                                       array (
                                         'key' => 'ULTRAFLEX',
                                         'value' => 2517,
                                       ),
-                                      1368 => 
+                                      1357 => 
                                       array (
                                         'key' => 'ULTRAMAR',
                                         'value' => 2518,
                                       ),
-                                      1369 => 
+                                      1358 => 
                                       array (
                                         'key' => 'ULTRAMAX',
                                         'value' => 5764905,
                                       ),
-                                      1370 => 
+                                      1359 => 
                                       array (
                                         'key' => 'UNDERHILL',
                                         'value' => 2519,
                                       ),
-                                      1371 => 
+                                      1360 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF10 Ferrule',
                                         'value' => 1830018,
                                       ),
-                                      1372 => 
+                                      1361 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF11 Ferrule',
                                         'value' => 1830019,
                                       ),
-                                      1373 => 
+                                      1362 => 
                                       array (
                                         'key' => 'UNI-Crimp UCF2 Ferrule',
                                         'value' => 1830013,
                                       ),
-                                      1374 => 
+                                      1363 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF3 Ferrule',
                                         'value' => 1830014,
                                       ),
-                                      1375 => 
+                                      1364 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF6 Ferrule',
                                         'value' => 1830015,
                                       ),
-                                      1376 => 
+                                      1365 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF8 Ferrule',
                                         'value' => 1830016,
                                       ),
-                                      1377 => 
+                                      1366 => 
                                       array (
                                         'key' => 'Uni-Crimp UCF9 Ferrule',
                                         'value' => 1830017,
                                       ),
-                                      1378 => 
+                                      1367 => 
                                       array (
                                         'key' => 'UNISOURCE',
                                         'value' => 2520,
                                       ),
-                                      1379 => 
+                                      1368 => 
                                       array (
                                         'key' => 'UNITED CENTRAL',
                                         'value' => 5764906,
                                       ),
-                                      1380 => 
+                                      1369 => 
                                       array (
                                         'key' => 'UNITED RUBBER CONTRACTOR\'S WATER',
                                         'value' => 1829291,
                                       ),
-                                      1381 => 
+                                      1370 => 
                                       array (
                                         'key' => 'UNITRIX 60',
                                         'value' => 2521,
                                       ),
-                                      1382 => 
+                                      1371 => 
                                       array (
                                         'key' => 'UNITRIX 80',
                                         'value' => 2522,
                                       ),
-                                      1383 => 
+                                      1372 => 
                                       array (
                                         'key' => 'UNIWELD',
                                         'value' => 1829184,
                                       ),
-                                      1384 => 
+                                      1373 => 
                                       array (
                                         'key' => 'UNPRINTED SPRAY SALVAGE',
                                         'value' => 2523,
                                       ),
-                                      1385 => 
+                                      1374 => 
                                       array (
                                         'key' => 'V-50 S&D',
                                         'value' => 2524,
                                       ),
-                                      1386 => 
+                                      1375 => 
                                       array (
                                         'key' => 'VACUUM',
                                         'value' => 2525,
                                       ),
-                                      1387 => 
+                                      1376 => 
                                       array (
                                         'key' => 'VACUWORX XR16SC',
                                         'value' => 3831418,
                                       ),
-                                      1388 => 
+                                      1377 => 
                                       array (
                                         'key' => 'Valve Adapter',
                                         'value' => 1830001,
                                       ),
-                                      1389 => 
+                                      1378 => 
                                       array (
                                         'key' => 'Valve Caps',
                                         'value' => 1830002,
                                       ),
-                                      1390 => 
+                                      1379 => 
                                       array (
                                         'key' => 'Valve Core',
                                         'value' => 1830003,
                                       ),
-                                      1391 => 
+                                      1380 => 
                                       array (
                                         'key' => 'VAPOR RECOVERY',
                                         'value' => 2526,
                                       ),
-                                      1392 => 
+                                      1381 => 
                                       array (
                                         'key' => 'VAPOR RECOVERY DOCK',
                                         'value' => 2527,
                                       ),
-                                      1393 => 
+                                      1382 => 
                                       array (
                                         'key' => 'VARIABLE SPEED',
                                         'value' => 1829513,
                                       ),
-                                      1394 => 
+                                      1383 => 
                                       array (
                                         'key' => 'VARIFLEX',
                                         'value' => 2528,
                                       ),
-                                      1395 => 
+                                      1384 => 
                                       array (
                                         'key' => 'VELOCITY BANDING COIL',
                                         'value' => 2529,
                                       ),
-                                      1396 => 
+                                      1385 => 
                                       array (
                                         'key' => 'VELOCITY BEVERAGE TRANSFER',
                                         'value' => 2530,
                                       ),
-                                      1397 => 
+                                      1386 => 
                                       array (
                                         'key' => 'VELOCITY PETROLEUM TRANSFER',
                                         'value' => 2531,
                                       ),
-                                      1398 => 
+                                      1387 => 
                                       array (
                                         'key' => 'VELOCITY WATER TRANSFER',
                                         'value' => 2532,
                                       ),
-                                      1399 => 
+                                      1388 => 
                                       array (
                                         'key' => 'VERSACHEM',
                                         'value' => 2533,
                                       ),
-                                      1400 => 
+                                      1389 => 
                                       array (
                                         'key' => 'VERSACRETE',
                                         'value' => 2534,
                                       ),
-                                      1401 => 
+                                      1390 => 
                                       array (
                                         'key' => 'VERSAFUEL EN1765 S15',
                                         'value' => 2535,
                                       ),
-                                      1402 => 
+                                      1391 => 
                                       array (
                                         'key' => 'VERSAFUEL FLEX',
                                         'value' => 2536,
                                       ),
-                                      1403 => 
+                                      1392 => 
                                       array (
                                         'key' => 'VERSIFLO DISCHARGE',
                                         'value' => 2537,
                                       ),
-                                      1404 => 
+                                      1393 => 
                                       array (
                                         'key' => 'VERSIFLO S&D',
                                         'value' => 2538,
                                       ),
-                                      1405 => 
+                                      1394 => 
                                       array (
                                         'key' => 'VICTOR',
                                         'value' => 2539,
                                       ),
-                                      1406 => 
+                                      1395 => 
                                       array (
                                         'key' => 'VICTOR GRADE RM',
                                         'value' => 1829341,
                                       ),
-                                      1407 => 
+                                      1396 => 
                                       array (
                                         'key' => 'VICTOR GRADE T',
                                         'value' => 1829114,
                                       ),
-                                      1408 => 
+                                      1397 => 
                                       array (
                                         'key' => 'VINTNER',
                                         'value' => 2540,
                                       ),
-                                      1409 => 
+                                      1398 => 
                                       array (
                                         'key' => 'VINTNER MICROBAN',
                                         'value' => 2541,
                                       ),
-                                      1410 => 
+                                      1399 => 
                                       array (
                                         'key' => 'VINTNER RESERVE',
                                         'value' => 2542,
                                       ),
-                                      1411 => 
+                                      1400 => 
                                       array (
                                         'key' => 'VIPER',
                                         'value' => 2543,
                                       ),
-                                      1412 => 
+                                      1401 => 
                                       array (
                                         'key' => 'WAB SLURRY',
                                         'value' => 2544,
                                       ),
-                                      1413 => 
+                                      1402 => 
                                       array (
                                         'key' => 'WASHDOWN',
                                         'value' => 2545,
                                       ),
-                                      1414 => 
+                                      1403 => 
                                       array (
                                         'key' => 'WASTE MATE',
                                         'value' => 2546,
                                       ),
-                                      1415 => 
+                                      1404 => 
                                       array (
                                         'key' => 'WATER',
                                         'value' => 1829360,
                                       ),
-                                      1416 => 
+                                      1405 => 
                                       array (
                                         'key' => 'WATER & AIR HD',
                                         'value' => 2547,
                                       ),
-                                      1417 => 
+                                      1406 => 
                                       array (
                                         'key' => 'WATER 150 HD',
                                         'value' => 1829322,
                                       ),
-                                      1418 => 
+                                      1407 => 
                                       array (
                                         'key' => 'WATER DISCHARGE',
                                         'value' => 2548,
                                       ),
-                                      1419 => 
+                                      1408 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 100',
                                         'value' => 1829320,
                                       ),
-                                      1420 => 
+                                      1409 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 150',
                                         'value' => 1829233,
                                       ),
-                                      1421 => 
+                                      1410 => 
                                       array (
                                         'key' => 'WATER DISCHARGE 250',
                                         'value' => 1829376,
                                       ),
-                                      1422 => 
+                                      1411 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD',
                                         'value' => 2549,
                                       ),
-                                      1423 => 
+                                      1412 => 
                                       array (
                                         'key' => 'WATER DISCHARGE HD 600',
                                         'value' => 1829264,
                                       ),
-                                      1424 => 
+                                      1413 => 
                                       array (
                                         'key' => 'WATER HD',
                                         'value' => 2550,
                                       ),
-                                      1425 => 
+                                      1414 => 
                                       array (
                                         'key' => 'WATER JETTING',
                                         'value' => 1829279,
                                       ),
-                                      1426 => 
+                                      1415 => 
                                       array (
                                         'key' => 'WATER JETTING 1000',
                                         'value' => 2551,
                                       ),
-                                      1427 => 
+                                      1416 => 
                                       array (
                                         'key' => 'WATER JETTING 500',
                                         'value' => 2552,
                                       ),
-                                      1428 => 
+                                      1417 => 
                                       array (
                                         'key' => 'WATER REHAB',
                                         'value' => 2553,
                                       ),
-                                      1429 => 
+                                      1418 => 
                                       array (
                                         'key' => 'WATER S&D',
                                         'value' => 1829252,
                                       ),
-                                      1430 => 
+                                      1419 => 
                                       array (
                                         'key' => 'WATER SUCTION & DISCHARGE',
                                         'value' => 2554,
                                       ),
-                                      1431 => 
+                                      1420 => 
                                       array (
                                         'key' => 'WEDGE TLP',
                                         'value' => 1829527,
                                       ),
-                                      1432 => 
+                                      1421 => 
                                       array (
                                         'key' => 'WEST MICH',
                                         'value' => 1829111,
                                       ),
-                                      1433 => 
+                                      1422 => 
                                       array (
                                         'key' => 'WESTERN',
                                         'value' => 2555,
                                       ),
-                                      1434 => 
+                                      1423 => 
                                       array (
                                         'key' => 'WESTFLEX',
                                         'value' => 5764907,
                                       ),
-                                      1435 => 
+                                      1424 => 
                                       array (
                                         'key' => 'WHALE OIL',
                                         'value' => 2556,
                                       ),
-                                      1436 => 
+                                      1425 => 
                                       array (
                                         'key' => 'WHALE WATER',
                                         'value' => 2557,
                                       ),
-                                      1437 => 
+                                      1426 => 
                                       array (
                                         'key' => 'WHIPEND BLAST',
                                         'value' => 2558,
                                       ),
-                                      1438 => 
+                                      1427 => 
                                       array (
                                         'key' => 'WHITE FLEXTRA',
                                         'value' => 2559,
                                       ),
-                                      1439 => 
+                                      1428 => 
                                       array (
                                         'key' => 'WHITE FLEXWING',
                                         'value' => 2560,
                                       ),
-                                      1440 => 
+                                      1429 => 
                                       array (
                                         'key' => 'WHITEWATER',
                                         'value' => 2561,
                                       ),
-                                      1441 => 
+                                      1430 => 
                                       array (
                                         'key' => 'WHW GAUNTLET',
                                         'value' => 1829423,
                                       ),
-                                      1442 => 
+                                      1431 => 
                                       array (
                                         'key' => 'WILD HOG',
                                         'value' => 1829225,
                                       ),
-                                      1443 => 
+                                      1432 => 
                                       array (
                                         'key' => 'WINGCRAFT',
                                         'value' => 2562,
                                       ),
-                                      1444 => 
+                                      1433 => 
                                       array (
                                         'key' => 'WIRE INSERTED RADIATOR HOSE',
                                         'value' => 2563,
                                       ),
-                                      1445 => 
+                                      1434 => 
                                       array (
                                         'key' => 'WOODMI SAWDUST',
                                         'value' => 2564,
                                       ),
-                                      1446 => 
+                                      1435 => 
                                       array (
                                         'key' => 'X-LIFE XCP3',
                                         'value' => 2566,
                                       ),
-                                      1447 => 
+                                      1436 => 
                                       array (
                                         'key' => 'X-LIFE XCP3S',
                                         'value' => 2567,
                                       ),
-                                      1448 => 
+                                      1437 => 
                                       array (
                                         'key' => 'X-LIFE XCP4',
                                         'value' => 2568,
                                       ),
-                                      1449 => 
+                                      1438 => 
                                       array (
                                         'key' => 'X-LIFE XCP4S',
                                         'value' => 2569,
                                       ),
-                                      1450 => 
+                                      1439 => 
                                       array (
                                         'key' => 'X-LIFE XCP5S',
                                         'value' => 2570,
                                       ),
-                                      1451 => 
+                                      1440 => 
                                       array (
                                         'key' => 'X-LIFE XCP6S',
                                         'value' => 2571,
                                       ),
-                                      1452 => 
+                                      1441 => 
                                       array (
                                         'key' => 'X-LIFE XR16SC',
                                         'value' => 2572,
                                       ),
-                                      1453 => 
+                                      1442 => 
                                       array (
                                         'key' => 'XF BLAST',
                                         'value' => 2565,
                                       ),
-                                      1454 => 
+                                      1443 => 
                                       array (
                                         'key' => 'XLPE CHEMICAL TRANSFER',
                                         'value' => 2573,
                                       ),
-                                      1455 => 
+                                      1444 => 
                                       array (
                                         'key' => 'XPOWER',
                                         'value' => 2574,
                                       ),
-                                      1456 => 
+                                      1445 => 
                                       array (
                                         'key' => 'XPOWER OILFIELD FRAC HW',
                                         'value' => 1829105,
                                       ),
-                                      1457 => 
+                                      1446 => 
                                       array (
                                         'key' => 'YARDMASTER ECO',
                                         'value' => 3831420,
                                       ),
-                                      1458 => 
+                                      1447 => 
                                       array (
                                         'key' => 'YARDMASTER GARDEN HOSE',
                                         'value' => 2575,
                                       ),
-                                      1459 => 
+                                      1448 => 
                                       array (
                                         'key' => 'YELLOW FLEXWING',
                                         'value' => 2576,
                                       ),
-                                      1460 => 
+                                      1449 => 
                                       array (
                                         'key' => 'YUKON',
                                         'value' => 2577,
                                       ),
-                                      1461 => 
+                                      1450 => 
                                       array (
                                         'key' => 'YUKON BLUE',
                                         'value' => 1829293,
                                       ),
-                                      1462 => 
+                                      1451 => 
                                       array (
                                         'key' => 'YUKON SPIRAFLEX',
                                         'value' => 2578,
                                       ),
-                                      1463 => 
+                                      1452 => 
                                       array (
                                         'key' => 'ZZH561K-AA2',
                                         'value' => 2579,
                                       ),
-                                      1464 => 
+                                      1453 => 
                                       array (
                                         'key' => 'ZZH561K-BA2',
                                         'value' => 2580,
                                       ),
-                                      1465 => 
+                                      1454 => 
                                       array (
                                         'key' => 'ZZH601 3-2',
                                         'value' => 2581,
@@ -15740,7 +15630,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'type' => NULL,
                                      'region' => NULL,
                                      'title' => '',
-                                     'width' => NULL,
+                                     'width' => 600,
                                      'height' => NULL,
                                      'collapsible' => false,
                                      'collapsed' => false,
@@ -17100,8 +16990,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                             'value' => 3186,
                                           ),
                                         ),
-                                         'width' => 220,
-                                         'height' => '',
+                                         'width' => 300,
+                                         'height' => 270,
                                          'maxItems' => '',
                                          'renderType' => 'tags',
                                          'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
@@ -17128,7 +17018,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17156,7 +17046,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17184,7 +17074,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       3 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17212,7 +17102,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       4 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17240,7 +17130,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       5 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17268,7 +17158,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       6 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17319,7 +17209,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
                                          'width' => 400,
-                                         'height' => 150,
+                                         'height' => 210,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
@@ -17344,7 +17234,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
                                          'width' => 400,
-                                         'height' => 200,
+                                         'height' => 300,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
@@ -17377,7 +17267,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'layout' => NULL,
                              'title' => '',
                              'width' => '',
-                             'height' => '',
+                             'height' => 650,
                              'maxTabs' => NULL,
                              'labelWidth' => 100,
                              'border' => false,

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-31T12:04:50+05:30
+* Generated at: 2021-06-02T10:44:00+02:00
 * IP: 127.0.0.1
 
 
@@ -118,7 +118,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'region' => NULL,
                  'title' => '',
                  'width' => NULL,
-                 'height' => NULL,
+                 'height' => 1502,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
@@ -186,7 +186,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         'value' => 'Copper',
                       ),
                     ),
-                     'width' => '',
+                     'width' => 300,
                      'defaultValue' => '',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
@@ -307,10 +307,15 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                       3 => 
                       array (
+                        'key' => 'Smooth2',
+                        'value' => 1831354,
+                      ),
+                      4 => 
+                      array (
                         'key' => 'Standard',
                         'value' => 2634,
                       ),
-                      4 => 
+                      5 => 
                       array (
                         'key' => 'Wrapped',
                         'value' => 1829690,
@@ -348,210 +353,240 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
-                        'key' => 'Black',
-                        'value' => 2648,
+                        'key' => '(NBR) Nitrile',
+                        'value' => 1830039,
                       ),
                       1 => 
                       array (
-                        'key' => 'Black / Blue',
-                        'value' => 1829688,
+                        'key' => 'Black',
+                        'value' => 2648,
                       ),
                       2 => 
                       array (
-                        'key' => 'Black / Brown',
-                        'value' => 1829687,
+                        'key' => 'BLACK / BLUE',
+                        'value' => 1829688,
                       ),
                       3 => 
+                      array (
+                        'key' => 'BLACK / BROWN',
+                        'value' => 1829687,
+                      ),
+                      4 => 
                       array (
                         'key' => 'Black / Clear',
                         'value' => 1829674,
                       ),
-                      4 => 
+                      5 => 
                       array (
                         'key' => 'Black / Green',
                         'value' => 1829668,
                       ),
-                      5 => 
+                      6 => 
                       array (
                         'key' => 'Black / Orange',
                         'value' => 1829665,
                       ),
-                      6 => 
+                      7 => 
+                      array (
+                        'key' => 'Black nitrile synthetic rubber',
+                        'value' => 1830023,
+                      ),
+                      8 => 
                       array (
                         'key' => 'Blue',
                         'value' => 2650,
                       ),
-                      7 => 
+                      9 => 
                       array (
                         'key' => 'BLUE / CLEAR',
                         'value' => 1829682,
                       ),
-                      8 => 
+                      10 => 
                       array (
                         'key' => 'BROWN / BLUE',
                         'value' => 1829675,
                       ),
-                      9 => 
+                      11 => 
                       array (
                         'key' => 'Clear',
                         'value' => 2656,
                       ),
-                      10 => 
+                      12 => 
                       array (
                         'key' => 'Clear / Black',
                         'value' => 1829659,
                       ),
-                      11 => 
+                      13 => 
                       array (
                         'key' => 'Clear / Blue',
                         'value' => 1829667,
                       ),
-                      12 => 
+                      14 => 
                       array (
                         'key' => 'CLEAR / CLEAR',
                         'value' => 1829684,
                       ),
-                      13 => 
+                      15 => 
                       array (
                         'key' => 'Clear / Gray',
                         'value' => 5550461,
                       ),
-                      14 => 
+                      16 => 
                       array (
                         'key' => 'Clear / Orange',
                         'value' => 1829673,
                       ),
-                      15 => 
+                      17 => 
                       array (
                         'key' => 'Clear / White',
                         'value' => 1829663,
                       ),
-                      16 => 
+                      18 => 
+                      array (
+                        'key' => 'CPE (Chlorinated Polyethylene)',
+                        'value' => 1830030,
+                      ),
+                      19 => 
+                      array (
+                        'key' => 'CR (Polychloroprene)',
+                        'value' => 1830028,
+                      ),
+                      20 => 
                       array (
                         'key' => 'GRAY / CLEAR',
                         'value' => 1829683,
                       ),
-                      17 => 
+                      21 => 
                       array (
                         'key' => 'GRAY / GREEN',
                         'value' => 1829685,
                       ),
-                      18 => 
+                      22 => 
                       array (
                         'key' => 'Green',
                         'value' => 2653,
                       ),
-                      19 => 
+                      23 => 
                       array (
                         'key' => 'Green / Black',
                         'value' => 1829662,
                       ),
-                      20 => 
+                      24 => 
                       array (
                         'key' => 'GREEN / BLUE',
                         'value' => 1829678,
                       ),
-                      21 => 
+                      25 => 
                       array (
                         'key' => 'Green / Clear',
                         'value' => 1829672,
                       ),
-                      22 => 
+                      26 => 
+                      array (
+                        'key' => 'NBR (Nitrile)',
+                        'value' => 1830026,
+                      ),
+                      27 => 
+                      array (
+                        'key' => 'Oil-resistant synthetic rubber',
+                        'value' => 1830036,
+                      ),
+                      28 => 
                       array (
                         'key' => 'Orange',
                         'value' => 2655,
                       ),
-                      23 => 
+                      29 => 
                       array (
                         'key' => 'Orange / Clear',
                         'value' => 1829670,
                       ),
-                      24 => 
+                      30 => 
                       array (
                         'key' => 'ORANGE / RED',
                         'value' => 1829686,
                       ),
-                      25 => 
+                      31 => 
                       array (
                         'key' => 'Purple',
                         'value' => 2654,
                       ),
-                      26 => 
+                      32 => 
                       array (
                         'key' => 'Red',
                         'value' => 2651,
                       ),
-                      27 => 
+                      33 => 
                       array (
                         'key' => 'Red / Clear',
                         'value' => 1829660,
                       ),
-                      28 => 
+                      34 => 
                       array (
                         'key' => 'Red / Green',
                         'value' => 1829669,
                       ),
-                      29 => 
+                      35 => 
                       array (
                         'key' => 'Red / Yellow',
                         'value' => 1829664,
                       ),
-                      30 => 
+                      36 => 
                       array (
                         'key' => 'Sand / Lime',
                         'value' => 1829666,
                       ),
-                      31 => 
+                      37 => 
                       array (
                         'key' => 'Synthetic Rubber',
                         'value' => 1830040,
                       ),
-                      32 => 
+                      38 => 
                       array (
                         'key' => 'Tan',
                         'value' => 3947662,
                       ),
-                      33 => 
+                      39 => 
                       array (
                         'key' => 'Tan / Clear',
                         'value' => 1829661,
                       ),
-                      34 => 
+                      40 => 
                       array (
                         'key' => 'White',
                         'value' => 2649,
                       ),
-                      35 => 
+                      41 => 
                       array (
                         'key' => 'WHITE / CLEAR',
                         'value' => 1829676,
                       ),
-                      36 => 
+                      42 => 
                       array (
                         'key' => 'Yellow',
                         'value' => 2652,
                       ),
-                      37 => 
+                      43 => 
                       array (
                         'key' => 'YELLOW / BLACK',
                         'value' => 1829680,
                       ),
-                      38 => 
+                      44 => 
                       array (
                         'key' => 'YELLOW / GRAY',
                         'value' => 1829679,
                       ),
-                      39 => 
+                      45 => 
                       array (
                         'key' => 'Yellow / Green',
                         'value' => 1829671,
                       ),
-                      40 => 
+                      46 => 
                       array (
                         'key' => 'YELLOW / STRIPE',
                         'value' => 1829681,
                       ),
-                      41 => 
+                      47 => 
                       array (
                         'key' => 'YELLOW / YELLOW',
                         'value' => 1829677,
@@ -1090,7 +1125,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 250,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
@@ -2050,7 +2085,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 250,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
@@ -2261,7 +2296,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 250,
                      'maxItems' => 20,
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\ApplicationOptionsProvider',
@@ -2299,7 +2334,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'region' => NULL,
                  'title' => '',
                  'width' => NULL,
-                 'height' => NULL,
+                 'height' => 1502,
                  'collapsible' => false,
                  'collapsed' => false,
                  'bodyStyle' => '',
@@ -2846,7 +2881,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 200,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
@@ -3448,7 +3483,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 265,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
@@ -3664,7 +3699,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 300,
-                     'height' => '',
+                     'height' => 265,
                      'maxItems' => '',
                      'renderType' => 'tags',
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\OptionProviderForBrickMultiselects',
