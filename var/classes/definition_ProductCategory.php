@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-11-18T13:05:26+05:30
+* Generated at: 2021-05-28T09:03:27+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -34,7 +34,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'ProductCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1605684926,
+   'modificationDate' => 1622172806,
    'userOwner' => 0,
    'userModification' => 2,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractCategory',
@@ -321,7 +321,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'decimalPrecision' => NULL,
                          'name' => 'SortOrder',
                          'title' => 'Sort Order',
-                         'tooltip' => '',
+                         'tooltip' => 'Attribute to sort this category in industrial hose catalog menu.',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -552,7 +552,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => 'boolean',
                          'name' => 'CatalogFlag',
                          'title' => 'Catalog Flag',
-                         'tooltip' => '',
+                         'tooltip' => 'Check to show this category in industrial hose catalog menu.',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
@@ -674,7 +674,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

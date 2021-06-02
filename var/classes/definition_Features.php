@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2020-10-08T12:43:58+02:00
+* Generated at: 2021-05-28T08:05:31+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Features',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1602153838,
+   'modificationDate' => 1622169331,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -212,11 +212,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'decimalPrecision' => NULL,
                  'name' => 'SortOrder',
                  'title' => 'Sort Order',
-                 'tooltip' => '',
+                 'tooltip' => 'Attribute to sort features in catalog.',
                  'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
-                 'locked' => NULL,
+                 'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
                  'datatype' => 'data',
