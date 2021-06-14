@@ -3,8 +3,8 @@
 .pimcore_class_Product .x-fieldset legend .x-fieldset-header-text {font-size:17px; color:#ffa100;}
 .pimcore_class_Product .x-fieldset-header-tool-default > .x-tool-toggle {color:#000 !important;}
 
-.pimcore_body .x-tab-default-top.x-tab-active {border-top: 2px solid #ffa100 !important;}
-.x-tab.x-tab-active.x-tab-default .x-tab-inner-default {color:#000 !important;}
+.pimcore_body .x-tab-default-top.x-tab-active {border-top: 2px solid #f32d18 !important;background-color:#fff; !important;}
+.x-tab.x-tab-active.x-tab-default .x-tab-inner-default {color:#000000; !important;}
 .pimcore_class_Product .object_localizedfields_panel .x-toolbar-default {background-color:#fff;} 
 .pimcore_class_Product .x-panel-header-default {background-color:#fff !important;}
 .pimcore_class_Product .x-panel-header-title-default {color:#ec9603 !important; font-size:13px !important;  text-transform: none; padding: 0; background-color:#fff !important; } 
