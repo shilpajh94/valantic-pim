@@ -278,7 +278,7 @@ class IndustrialHoseController extends AbstractController
                     $longDescription = '';
                     $FeaturesBenefitsBulletPointArr = array();
                     $oldMaterialCodeArr = array();
-
+                    
                     foreach ($brand as $bkey => $bvalue) {
                         $GroupingFieldName = $brandsList[$key]['GroupingFieldName'];
                         $GroupingFieldNameValue = $bvalue[$headerKeysIndex[$GroupingFieldName]];
@@ -307,8 +307,13 @@ class IndustrialHoseController extends AbstractController
                                 $SIOP4Description = !empty($categoriesList[$SIOPLevel4]['PrintedCatalogDescription']) ? $categoriesList[$SIOPLevel4]['PrintedCatalogDescription'] : $categoriesList[$SIOPLevel4]['description'];
                             }
 
+                            $sixDigitVirtualCatalogDescription = '';
+                            if($bvalue[$headerKeysIndex['sixDigitVirtualCatalogDescription']]) {
+                                $sixDigitVirtualCatalogDescription = $bvalue[$headerKeysIndex['sixDigitVirtualCatalogDescription']];
+                            }
+
                             if(isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']]!=='N/A') {
-                                $oldMaterialCodeArr[$GroupingFieldNameValue][] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
+                                $oldMaterialCodeArr[$GroupingFieldNameValue][] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6)." ".$sixDigitVirtualCatalogDescription;
                             }
 
                             if($bvalue[$headerKeysIndex['reinforcement']]) {

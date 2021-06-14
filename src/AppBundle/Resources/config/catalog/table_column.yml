@@ -1036,6 +1036,12 @@ parameters:
                 fieldLevel: class
                 fieldLabel: Old Material Code
                 fieldType: Input
+            sixDigitVirtualCatalogDescription:
+                fieldLevel: objectBrick
+                fieldLabel: Six Digit Virtual Catalog Description
+                fieldType: Number
+                parent:
+                    name: HoseBase
             brandName:
                 fieldLevel: class
                 fieldLabel: Brand ID
