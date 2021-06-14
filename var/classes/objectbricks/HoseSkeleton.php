@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-02-19T14:36:00+05:30
+* Generated at: 2021-06-14T12:01:16+05:30
 * IP: 127.0.0.1
 
 
@@ -26,9 +26,10 @@ Fields Summary:
 - BendRadiusMM [numeric]
 - tubeGaugeIN [numeric]
 - tubeGaugeMM [numeric]
+- tubeGaugeFractional [input]
+- hoseDashSize [numeric]
 - VacuumIN [numeric]
 - VacuumMM [numeric]
-- hoseDashSize [numeric]
 */ 
 
 
@@ -1292,6 +1293,65 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'defaultValueGenerator' => '',
               )),
               6 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'fieldtype' => 'input',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'varchar',
+                 'columnType' => 'varchar',
+                 'columnLength' => 190,
+                 'phpdocType' => 'string',
+                 'regex' => '',
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'name' => 'tubeGaugeFractional',
+                 'title' => 'Tube Gauge (Fractional)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => NULL,
+                 'style' => 'float:left; margin-right: 20px; clear:left;',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              7 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => 300,
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => true,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => 0,
+                 'name' => 'hoseDashSize',
+                 'title' => 'Hose Dash Size',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => 'float:left; ',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'defaultValueGenerator' => '',
+              )),
+              8 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
                  'width' => 300,
@@ -1322,7 +1382,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'visibleSearch' => false,
                  'defaultValueGenerator' => '',
               )),
-              7 => 
+              9 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'fieldtype' => 'numeric',
                  'width' => 300,
@@ -1345,37 +1405,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'index' => false,
                  'locked' => false,
                  'style' => 'float:left;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-                 'defaultValueGenerator' => '',
-              )),
-              8 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                 'fieldtype' => 'numeric',
-                 'width' => 300,
-                 'defaultValue' => NULL,
-                 'queryColumnType' => 'double',
-                 'columnType' => 'double',
-                 'phpdocType' => 'float',
-                 'integer' => false,
-                 'unsigned' => true,
-                 'minValue' => NULL,
-                 'maxValue' => NULL,
-                 'unique' => false,
-                 'decimalSize' => NULL,
-                 'decimalPrecision' => 0,
-                 'name' => 'hoseDashSize',
-                 'title' => 'Hose Dash Size',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'float:left; margin-right: 20px; clear:left;',
                  'permissions' => NULL,
                  'datatype' => 'data',
                  'relationType' => false,
