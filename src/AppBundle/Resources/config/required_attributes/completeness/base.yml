@@ -272,7 +272,7 @@ object_bricks:
                         label: 'Agency Compliance'
                     safetyFactor:
                         type: 'multiselect'
-                        label: 'Safety Factor (ARPM Standard)'
+                        label: 'Design Factor'
                     Packaging:
                         type: 'input'
                         label: 'Packaging'

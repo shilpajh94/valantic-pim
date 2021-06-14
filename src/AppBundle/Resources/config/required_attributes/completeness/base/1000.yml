@@ -74,7 +74,7 @@ object_bricks:
                         label: 'Cover Color'
                     safetyFactor:
                         type: 'multiselect'
-                        label: 'Safety Factor (ARPM Standard)'
+                        label: 'Design Factor'
                     Packaging:
                         type: 'input'
                         label: 'Catalog Packaging'
