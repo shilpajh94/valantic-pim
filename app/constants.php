@@ -78,3 +78,9 @@ define('GRID_SQL_EDITOR_ALLOWED_ROLES',['ApplicationAdmin']);
 
 // Files older than these many days will be moved to S3 from archive folder
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
+
+//  Retrieving new product import data for particular interval of $time
+define('SIOP_NEW_PRODUCT_IMPORT_DATE','7');
+
+//Email Template for sending report for new Products
+define('NEW_PRODUCT_EMAIL_TEMPLATE','/Email/NewProductReportEmail');
