@@ -89,7 +89,7 @@ class ProductModel
         }
 
         if($productType=='fert'){
-            $conditionString .= " virtualCatalogFlag=1  AND ";
+            $conditionString .= " virtualCatalogFlag=1  AND oldMaterialCode <> '' AND ";
         }
 
         switch($productType){
