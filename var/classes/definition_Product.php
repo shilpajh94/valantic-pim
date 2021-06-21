@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-05-31T12:03:28+05:30
+* Generated at: 2021-06-08T11:21:50+05:30
 * Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
@@ -160,7 +160,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1622442803,
+   'modificationDate' => 1623131503,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -330,7 +330,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               0 => 
                               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'fieldtype' => 'fieldcontainer',
-                                 'labelWidth' => 220,
+                                 'labelWidth' => 200,
                                  'layout' => 'vbox',
                                  'fieldLabel' => '',
                                  'name' => 'Field Container',
@@ -7682,7 +7682,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 2581,
                                       ),
                                     ),
-                                     'width' => 220,
+                                     'width' => 300,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Brand|Name',
@@ -8184,7 +8184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 2950,
                                       ),
                                     ),
-                                     'width' => 220,
+                                     'width' => 300,
                                      'height' => '',
                                      'maxItems' => 1,
                                      'renderType' => 'tags',
@@ -8212,7 +8212,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                      'fieldtype' => 'wysiwyg',
-                                     'width' => 255,
+                                     'width' => 295,
                                      'height' => 150,
                                      'queryColumnType' => 'longtext',
                                      'columnType' => 'longtext',
@@ -8226,7 +8226,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
-                                     'style' => 'margin-left:200px;',
+                                     'style' => 'margin-left:215px;',
                                      'permissions' => NULL,
                                      'datatype' => 'data',
                                      'relationType' => false,
@@ -8240,7 +8240,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                               1 => 
                               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                                  'fieldtype' => 'fieldcontainer',
-                                 'labelWidth' => 220,
+                                 'labelWidth' => 200,
                                  'layout' => 'vbox',
                                  'fieldLabel' => '',
                                  'name' => 'Field Container',
@@ -15592,7 +15592,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                         'value' => 2581,
                                       ),
                                     ),
-                                     'width' => 220,
+                                     'width' => 300,
                                      'defaultValue' => '',
                                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                                      'optionsProviderData' => 'Brand|Name',
@@ -15620,7 +15620,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 300,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -15648,7 +15648,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                      'fieldtype' => 'input',
-                                     'width' => 220,
+                                     'width' => 300,
                                      'defaultValue' => NULL,
                                      'queryColumnType' => 'varchar',
                                      'columnType' => 'varchar',
@@ -15740,7 +15740,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'type' => NULL,
                                      'region' => NULL,
                                      'title' => '',
-                                     'width' => NULL,
+                                     'width' => 600,
                                      'height' => NULL,
                                      'collapsible' => false,
                                      'collapsed' => false,
@@ -17100,8 +17100,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                             'value' => 3186,
                                           ),
                                         ),
-                                         'width' => 220,
-                                         'height' => '',
+                                         'width' => 300,
+                                         'height' => 270,
                                          'maxItems' => '',
                                          'renderType' => 'tags',
                                          'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
@@ -17128,7 +17128,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       1 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17156,7 +17156,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       2 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17184,7 +17184,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       3 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17212,7 +17212,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       4 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17240,7 +17240,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       5 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17268,7 +17268,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       6 => 
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                                          'fieldtype' => 'input',
-                                         'width' => 220,
+                                         'width' => 300,
                                          'defaultValue' => NULL,
                                          'queryColumnType' => 'varchar',
                                          'columnType' => 'varchar',
@@ -17319,7 +17319,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
                                          'width' => 400,
-                                         'height' => 150,
+                                         'height' => 210,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
@@ -17344,7 +17344,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                       Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
                                          'fieldtype' => 'wysiwyg',
                                          'width' => 400,
-                                         'height' => 200,
+                                         'height' => 300,
                                          'queryColumnType' => 'longtext',
                                          'columnType' => 'longtext',
                                          'phpdocType' => 'string',
@@ -17377,7 +17377,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'layout' => NULL,
                              'title' => '',
                              'width' => '',
-                             'height' => '',
+                             'height' => 650,
                              'maxTabs' => NULL,
                              'labelWidth' => 100,
                              'border' => false,

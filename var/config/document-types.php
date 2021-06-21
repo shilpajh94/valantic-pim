@@ -4,7 +4,7 @@ return [
     1 => [
         "id" => 1,
         "name" => "Hose Product Page",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateHoseProductPage",
@@ -12,12 +12,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1592302856,
-        "modificationDate" => 1592306600
+        "modificationDate" => 1622125474
     ],
     2 => [
         "id" => 2,
         "name" => "Hose Line Page",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateHoseLineTileTemplate",
@@ -25,12 +25,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1592304980,
-        "modificationDate" => 1592306611
+        "modificationDate" => 1622125481
     ],
     3 => [
         "id" => 3,
         "name" => "Hose Accessories Sleeving",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateHoseAccessoriesSleeving",
@@ -38,12 +38,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1592306937,
-        "modificationDate" => 1594040085
+        "modificationDate" => 1622125798
     ],
     4 => [
         "id" => 4,
         "name" => "Hose Sub Cover Page",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateHoseSubCover",
@@ -51,12 +51,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1594109414,
-        "modificationDate" => 1594109464
+        "modificationDate" => 1622125801
     ],
     5 => [
         "id" => 5,
         "name" => "Hose Accessories Clamps",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateHoseAccessoriesClamps",
@@ -64,12 +64,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1594109477,
-        "modificationDate" => 1594109525
+        "modificationDate" => 1622125804
     ],
     6 => [
         "id" => 6,
         "name" => "Hydraulic Fitting",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\HydraulicFittingController",
         "action" => "fittingPage",
@@ -77,12 +77,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1594629614,
-        "modificationDate" => 1594629665
+        "modificationDate" => 1622125809
     ],
     7 => [
         "id" => 7,
         "name" => "Industrial Hose Section Page",
-        "group" => "Catalog",
+        "group" => "Industrial Hose Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\IndustrialHoseController",
         "action" => "inhPrintCatalog",
@@ -90,12 +90,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1595508987,
-        "modificationDate" => 1595509085
+        "modificationDate" => 1622125871
     ],
     8 => [
         "id" => 8,
         "name" => "Industrial Hose Product Page",
-        "group" => "Catalog",
+        "group" => "Industrial Hose Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\IndustrialHoseController",
         "action" => "inhPrintCatalogProductPage",
@@ -103,12 +103,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1595509090,
-        "modificationDate" => 1595509143
+        "modificationDate" => 1622125882
     ],
     9 => [
         "id" => 9,
         "name" => "Hose Accessories Orings",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundl",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateHoseAccessoriesOring",
@@ -116,12 +116,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1596703306,
-        "modificationDate" => 1596703518
+        "modificationDate" => 1622125815
     ],
     10 => [
         "id" => 10,
         "name" => "PTG Product Page",
-        "group" => "Catalog",
+        "group" => "PTG Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templatePtgProductPage",
@@ -129,12 +129,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1596707232,
-        "modificationDate" => 1596707352
+        "modificationDate" => 1622125915
     ],
     11 => [
         "id" => 11,
         "name" => "Hose Accessories Flanges",
-        "group" => "Catalog",
+        "group" => "Hydraulic Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "templateFittingSplitFlanges",
@@ -142,12 +142,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1596707873,
-        "modificationDate" => 1596708025
+        "modificationDate" => 1622125822
     ],
     12 => [
         "id" => 12,
         "name" => "Container Page",
-        "group" => "Catalog",
+        "group" => "Common Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\DefaultController",
         "action" => "container",
@@ -155,12 +155,12 @@ return [
         "type" => "printcontainer",
         "priority" => 0,
         "creationDate" => 1597168061,
-        "modificationDate" => 1597749785
+        "modificationDate" => 1622125924
     ],
     13 => [
         "id" => 13,
         "name" => "PDF Page",
-        "group" => "Catalog",
+        "group" => "Common Template",
         "module" => "CatalogBundle",
         "controller" => "Content",
         "action" => "pdf",
@@ -168,12 +168,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1597380677,
-        "modificationDate" => 1597380711
+        "modificationDate" => 1622125927
     ],
     14 => [
         "id" => 14,
         "name" => "Industrial Hose Fitting Page",
-        "group" => "Catalog",
+        "group" => "Industrial Hose Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\IndustrialHoseController",
         "action" => "inhFittingPage",
@@ -181,12 +181,12 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1598342778,
-        "modificationDate" => 1598342862
+        "modificationDate" => 1622125883
     ],
     15 => [
         "id" => 15,
         "name" => "Industrial Hose Fitting Cover Page",
-        "group" => "Catalog",
+        "group" => "Industrial Hose Template",
         "module" => "CatalogBundle",
         "controller" => "@CatalogBundle\\Controller\\IndustrialHoseController",
         "action" => "inhFittingCover",
@@ -194,6 +194,71 @@ return [
         "type" => "printpage",
         "priority" => 0,
         "creationDate" => 1598599123,
-        "modificationDate" => 1598599204
+        "modificationDate" => 1622125892
+    ],
+    16 => [
+        "id" => 16,
+        "name" => "PDF Page with footer",
+        "group" => "Common Template",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\ContentController",
+        "action" => "pdf",
+        "template" => "CatalogBundle:Content:pdfWithFooter.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1615803999,
+        "modificationDate" => 1622125931
+    ],
+    17 => [
+        "id" => 17,
+        "name" => "Index By Descriptive Number",
+        "group" => "Common Template",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateIndexDescriptiveNumber",
+        "template" => "CatalogBundle:Default:template_index_descriptive_number.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1622125986,
+        "modificationDate" => 1622448970
+    ],
+    18 => [
+        "id" => 18,
+        "name" => "Table of Content",
+        "group" => "Common Template",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateTableOfContents",
+        "template" => "CatalogBundle:Default:template_table_of_contents.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1622126062,
+        "modificationDate" => 1622126184
+    ],
+    19 => [
+        "id" => 19,
+        "name" => "Part Number Designations",
+        "group" => "Hydraulic Template",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templatePartNumberDesignations",
+        "template" => "CatalogBundle:Default:template_part_number_designations.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1622126280,
+        "modificationDate" => 1622126418
+    ],
+    20 => [
+        "id" => 20,
+        "name" => "Index By Product Number",
+        "group" => "Common Template",
+        "module" => "CatalogBundle",
+        "controller" => "@CatalogBundle\\Controller\\DefaultController",
+        "action" => "templateIndexProductNumber",
+        "template" => "CatalogBundle:Default:template_index_product_number.html.php",
+        "type" => "printpage",
+        "priority" => 0,
+        "creationDate" => 1622448962,
+        "modificationDate" => 1622449043
     ]
 ];

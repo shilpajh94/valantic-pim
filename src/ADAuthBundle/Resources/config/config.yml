@@ -11,16 +11,20 @@ parameters:
 
     ldap_config:
         ldap_host:
-            [qh2c202a.tiretech2.contiwan.com]
+            [qh2c202a.tiretech2.contiwan.com,qh2c301a.tiretech.contiwan.com]
         ldap_user: 
-            tiretech2\s-pimcore_PO
+            s-pimcore_PO@contiwan.com
         ldap_pass:
             P1mC0r32020
         ldap_dn:
-            DC=tiretech2,DC=contiwan,DC=com
+            DC=contiwan,DC=com
         ldap_user_filter:
             sAMAccountName
         ldap_filter_group:
             #DC=contiwan,DC=com
         ldap_port:
-            389
+            3269
+        ldap_ssl:
+            1
+        ldap_ignore_cert:
+            1
