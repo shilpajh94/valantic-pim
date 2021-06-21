@@ -42,6 +42,10 @@ class LdapAuthenticate
 
     protected $ldapUserGroup;
 
+    protected $ldapUseSSL;
+
+    protected $ldapIgnoreCert;
+
     protected $ldapConnTimeOut = 1;
 
     protected $ldapNoDomainHost = "No domain host is available at present, please try again later!";
@@ -89,6 +93,8 @@ class LdapAuthenticate
         $this->ldapDn = $ldapConfig['ldap_dn'];
         $this->ldapUserFilter = $ldapConfig['ldap_user_filter'];
         $this->ldapUserGroup = $ldapConfig['ldap_filter_group'];
+        $this->ldapUseSSL = $ldapConfig['ldap_ssl'] === 1 ? true : false;
+        $this->ldapIgnoreCert = $ldapConfig['ldap_ignore_cert'] === 1 ? true : false;
     }
 
     /**
@@ -126,6 +132,11 @@ class LdapAuthenticate
      */
     public function getLdapAuthenticate($userName = '', $password = '')
     {
+        if($this->ldapIgnoreCert){
+            // ignore SSL certificate
+            putenv('LDAPTLS_REQCERT=never');
+        }
+
         try {
 
             foreach ($this->ldapHost as $host) {
@@ -197,9 +208,9 @@ class LdapAuthenticate
      * @param
      *            :$optReferrals
      */
-    public function ldapCreateConnection($host = null, $port = 389, $version = 3, $useSsl = false, $useStartTls = false, $optReferrals = false)
+    public function ldapCreateConnection($host = null, $port = 389, $version = 3, $useStartTls = false, $optReferrals = false)
     {
-        $config = $this->normalizeConfig($host, $port, $version, $useSsl, $useStartTls, $optReferrals);
+        $config = $this->normalizeConfig($host, $port, $version, $this->ldapUseSSL , $useStartTls, $optReferrals);
 
         try {
             $this->ldapObj = Ldap::create('ext_ldap', $config);
