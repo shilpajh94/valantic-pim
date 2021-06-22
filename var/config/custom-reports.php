@@ -1985,74 +1985,6 @@ return [
         ],
         "id" => "PTGChartBrandProduct"
     ],
-    "IndustrialHoseChartProductsWithNoImage" => [
-        "name" => "IndustrialHoseChartProductsWithNoImage",
-        "sql" => "",
-        "dataSourceConfig" => [
-            [
-                "sql" => "SELECT temp.`SIOP3` AS `SIOP Level 3`, SUM(temp.`skus`) AS `# of SKUs`, temp.`images` AS `Main Image`",
-                "from" => "FROM (SELECT\ncat3.`description` AS `SIOP3`,\ncount(o1.`o_id`) AS `skus`,\nIF(o1.`mainImage` IS NOT NULL, \"YES\", \"NO\") AS `images` FROM object_1 o1 \nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2)) \nWHERE (o1.`o_published` =1 AND o1.siopFullCode LIKE '041000%')\nGROUP BY cat3.`description`, o1.`mainImage`)  AS temp",
-                "where" => "",
-                "groupby" => "temp.`SIOP3`, temp.`images`",
-                "type" => "sql"
-            ]
-        ],
-        "columnConfiguration" => [
-            [
-                "name" => "SIOP Level 3",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => 400,
-                "label" => "",
-                "filter" => "string",
-                "id" => "extModel2043-3"
-            ],
-            [
-                "name" => "Main Image",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => 400,
-                "label" => "",
-                "filter" => "string",
-                "id" => "extModel2043-4"
-            ],
-            [
-                "name" => "# of SKUs",
-                "display" => TRUE,
-                "export" => TRUE,
-                "order" => TRUE,
-                "width" => "",
-                "label" => "",
-                "filter" => "numeric",
-                "id" => "extModel2043-5"
-            ]
-        ],
-        "niceName" => "Chart - Products with No Images - Main Image",
-        "group" => "Industrial Hose",
-        "groupIconClass" => "",
-        "iconClass" => "",
-        "menuShortcut" => FALSE,
-        "reportClass" => "",
-        "chartType" => "pie",
-        "pieColumn" => "# of SKUs",
-        "pieLabelColumn" => "Main Image",
-        "xAxis" => NULL,
-        "yAxis" => [
-
-        ],
-        "modificationDate" => 1620807146,
-        "creationDate" => 1606817832,
-        "shareGlobally" => TRUE,
-        "sharedUserNames" => [
-
-        ],
-        "sharedRoleNames" => [
-
-        ],
-        "id" => "IndustrialHoseChartProductsWithNoImage"
-    ],
     "HydraulicHoseChartProductsWithNoImage" => [
         "name" => "HydraulicHoseChartProductsWithNoImage",
         "sql" => "",
@@ -2074,7 +2006,8 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2349-3"
+                "filter_drilldown" => "filter_and_show",
+                "id" => "extModel594-3"
             ],
             [
                 "name" => "Main Image",
@@ -2084,7 +2017,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel2349-4"
+                "id" => "extModel594-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -2094,7 +2027,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel2349-5"
+                "id" => "extModel594-5"
             ]
         ],
         "niceName" => "Chart - Products with No Images - Main Image",
@@ -2110,7 +2043,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1620807128,
+        "modificationDate" => 1623825673,
         "creationDate" => 1606817832,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -2384,7 +2317,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "string",
-                "id" => "extModel5694-3"
+                "id" => "extModel294-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -2394,7 +2327,7 @@ return [
                 "width" => 400,
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5694-4"
+                "id" => "extModel294-4"
             ],
             [
                 "name" => "COMPLETED (%)",
@@ -2404,7 +2337,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter" => "numeric",
-                "id" => "extModel5694-5"
+                "id" => "extModel294-5"
             ]
         ],
         "niceName" => "Chart - Data Completeness",
@@ -2420,7 +2353,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1620807960,
+        "modificationDate" => 1623916067,
         "creationDate" => 1614589821,
         "shareGlobally" => TRUE,
         "sharedUserNames" => [
@@ -3304,5 +3237,260 @@ return [
 
         ],
         "id" => "HydraulicFittingsChartProductAttributeIncomplete"
+    ],
+    "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter" => [
+        "name" => "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\n temp.`SIOP3`,\n SUM(temp.`skus`)  AS `# of SKUs`,\n temp.`Virtualflag`,\n ROUND(\n (SUM(temp.`images` = \"YES\") * 100.0) / Sum(temp.`skus`),\n 2\n )  AS `Yes Percentage`,\n ROUND(\n (SUM(temp.`images` = \"NO\") * 100.0) / Sum(temp.`skus`),\n 2\n ) AS ` No Percentage`",
+                "from" => "FROM\n (\n SELECT\n cat3.`description` AS `SIOP3`,\n count(o1.`o_id`) AS `skus`,\n IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`,\n IF(o1.`virtualCatalogFlag` = 1 , 'True', 'False' ) AS `Virtualflag`\n FROM\n object_1 o1\n LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n WHERE\n (\n o1.`o_published` = 1\n AND o1.siopFullCode LIKE '041000%'\n )\n GROUP BY\n cat3.`description`,\n o1.`o_id`,\n o1.`mainImage`\n \n ) AS temp",
+                "where" => "",
+                "groupby" => "GROUP BY\n temp.`SIOP3`,\n temp.`skus`,\n temp.`Virtualflag`\n ORDER BY temp.`SIOP3`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel892-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel892-5"
+            ],
+            [
+                "name" => "Yes Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel892-6"
+            ],
+            [
+                "name" => "No Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel892-7"
+            ],
+            [
+                "name" => "Virtualflag",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter_drilldown" => "filter_and_show",
+                "id" => "extModel892-8"
+            ]
+        ],
+        "niceName" => "Chart-Products With No Image- Virtual Catalog Filter",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP3",
+        "yAxis" => [
+            "Yes Percentage",
+            "No Percentage"
+        ],
+        "modificationDate" => 1624356296,
+        "creationDate" => 1624292432,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartProductsWithNoImage-VirtualCatalogFilter"
+    ],
+    "IndustrialHoseChartProductsWithNoImage-BrandFilter" => [
+        "name" => "IndustrialHoseChartProductsWithNoImage-BrandFilter",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\n  temp.`SIOP3`,\n  SUM(temp.`skus`) AS `# of SKUs`,\n  ROUND(\n    (SUM(temp.`images` = \"YES\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS `Yes Percentage`,\n  ROUND(\n    (SUM(temp.`images` = \"NO\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS ` No Percentage`,\n  temp.`BrandType`",
+                "from" => "FROM\n  (\n    SELECT\n      cat3.`description` AS `SIOP3`,\n      count(o1.`o_id`) AS `skus`,\n      brand.`BrandType` AS `BrandType`,\n      IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`\n    FROM\n      object_1 o1\n      JOIN object_3 brand on brand.oo_id=o1.brandConstruction\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n    WHERE\n      (\n        o1.`o_published` = 1\n        AND o1.siopFullCode LIKE '041000%'\n        AND (brand.`BrandType`='Private' || brand.`BrandType`='Generic') \n      )\n    GROUP BY\n      cat3.`description`,\n      o1.`o_id`,\n      o1.`mainImage`,\n      brand.`BrandType`\n  ) AS temp",
+                "where" => "",
+                "groupby" => "GROUP BY\n  temp.`SIOP3`,\n  temp.`skus`,\n  temp.`BrandType`\nORDER BY\n  temp.`SIOP3`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-5"
+            ],
+            [
+                "name" => "Yes Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-6"
+            ],
+            [
+                "name" => "No Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel317-7"
+            ],
+            [
+                "name" => "BrandType",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter_drilldown" => "filter_and_show",
+                "id" => "extModel317-8"
+            ]
+        ],
+        "niceName" => "Chart-Products With No Image - Brand Filter",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP3",
+        "yAxis" => [
+            "Yes Percentage",
+            "No Percentage"
+        ],
+        "modificationDate" => 1624356352,
+        "creationDate" => 1624293275,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartProductsWithNoImage-BrandFilter"
+    ],
+    "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFilter" => [
+        "name" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFilter",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\n temp.`SIOP3`,\n SUM(temp.`skus`)  AS `# of SKUs`,\n temp.`PrintedFlag`,\n ROUND(\n (SUM(temp.`images` = \"YES\") * 100.0) / Sum(temp.`skus`),\n 2\n )  AS `Yes Percentage`,\n ROUND(\n (SUM(temp.`images` = \"NO\") * 100.0) / Sum(temp.`skus`),\n 2\n ) AS ` No Percentage`",
+                "from" => "FROM\n (\n SELECT\n cat3.`description` AS `SIOP3`,\n count(o1.`o_id`) AS `skus`,\n IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`,\n IF(o1.`printedCatalogFlag` = 1 , 'True', 'False' ) AS `PrintedFlag`\n FROM\n object_1 o1\n LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n WHERE\n (\n o1.`o_published` = 1\n AND o1.siopFullCode LIKE '041000%'\n )\n GROUP BY\n cat3.`description`,\n o1.`o_id`,\n o1.`mainImage`\n \n ) AS temp",
+                "where" => "",
+                "groupby" => "GROUP BY\n temp.`SIOP3`,\n temp.`skus`,\n temp.`printedflag`\n ORDER BY temp.`SIOP3`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel295-4"
+            ],
+            [
+                "name" => "# of SKUs",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel295-5"
+            ],
+            [
+                "name" => "Yes Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel295-6"
+            ],
+            [
+                "name" => "No Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel295-7"
+            ],
+            [
+                "name" => "PrintedFlag",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter_drilldown" => "filter_and_show",
+                "id" => "extModel295-8"
+            ]
+        ],
+        "niceName" => "Chart-Products With No Image - Printed Catalog Filter",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP3",
+        "yAxis" => [
+            "Yes Percentage",
+            "No Percentage"
+        ],
+        "modificationDate" => 1624356377,
+        "creationDate" => 1624355927,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFilter"
     ]
 ];
