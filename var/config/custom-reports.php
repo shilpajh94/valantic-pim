@@ -493,9 +493,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT\no1.`o_key` as `Key`,\n o1.`articleNumber` AS `Article Number`, \nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code` ,\nIF(o1.`mainImage` IS NOT NULL, \"True\", \"False\") AS `Main Image`, \nIF(o1.`frontView` IS NOT NULL, \"True\", \"False\") AS `Front View Image`,\nIF(o1.`sideView` IS NOT NULL, \"True\", \"False\") AS `Side View Image`,\nIF(o1.`cutView` IS NOT NULL, \"True\", \"False\") AS `Cut View Image`,\nIF(o1.`epixImage` IS NOT NULL, \"True\", \"False\") AS `Epix Image`,\nIF(o1.`altImage1` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 1`,\nIF(o1.`altImage2` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 2`,\nIF(o1.`altImage3` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 3`,\nIF(o1.`altImage4` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 4`,\nIF(o1.`altImage5` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 5`,\nIF(o1.`altImage6` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 6`,\nIF(o1.`altImage7` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 7`,\nIF(o1.`altImage8` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 8`,\nIF(o1.`altImage9` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 9`,\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
+                "sql" => "SELECT\no1.`o_key` as `Key`,\n o1.`articleNumber` AS `Article Number`, \nen.`sapDescription` AS `SAP Description`,\no1.`siopFullCode` AS `SIOP Full Code` ,\nIF(o1.`mainImage` IS NOT NULL, \"True\", \"False\") AS `Main Image`, \nIF(o1.`frontView` IS NOT NULL, \"True\", \"False\") AS `Front View Image`,\nIF(o1.`sideView` IS NOT NULL, \"True\", \"False\") AS `Side View Image`,\nIF(o1.`cutView` IS NOT NULL, \"True\", \"False\") AS `Cut View Image`,\nIF(o1.`epixImage` IS NOT NULL, \"True\", \"False\") AS `Epix Image`,\nIF(o1.`altImage1` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 1`,\nIF(o1.`altImage2` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 2`,\nIF(o1.`altImage3` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 3`,\nIF(o1.`altImage4` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 4`,\nIF(o1.`altImage5` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 5`,\nIF(o1.`altImage6` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 6`,\nIF(o1.`altImage7` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 7`,\nIF(o1.`altImage8` IS NOT NULL, \"True\", \"False\") AS `Alternate Image 8`,\nIF(o1.`certificationImage` IS NOT NULL, \"True\", \"False\") AS `Certification Image`,\no1.`ProductType` AS `Product Type`,\ncat1.`description` AS `SIOP Level 1`,\ncat2.`description` AS `SIOP Level 2`,\ncat3.`description` AS `SIOP Level 3`,\ncat4.`description` AS `SIOP Level 4`,\ncat5.`description` AS `SIOP Level 5`,\ncat6.`description` AS `SIOP Level 6`,\no1.`o_id`",
                 "from" => "FROM object_1 o1 \nLEFT JOIN `object_localized_query_1_en` en \n\tON `en`.`ooo_id` = `o1`.`o_id`\nLEFT JOIN object_localized_query_2_en cat1 \n\tON cat1.ooo_id = SUBSTRING(o1.SIOPLevel1,2,(LENGTH(o1.SIOPLevel1) - 2))\nLEFT JOIN object_localized_query_2_en cat2 \n\tON cat2.ooo_id = SUBSTRING(o1.SIOPLevel2,2,(LENGTH(o1.SIOPLevel2) - 2))\nLEFT JOIN object_localized_query_2_en cat3 \n\tON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3,2,(LENGTH(o1.SIOPLevel3) - 2))\nLEFT JOIN object_localized_query_2_en cat4 \n\tON cat4.ooo_id = SUBSTRING(o1.SIOPLevel4,2,(LENGTH(o1.SIOPLevel4) - 2))\nLEFT JOIN object_localized_query_2_en cat5 \n\tON cat5.ooo_id = SUBSTRING(o1.SIOPLevel5,2,(LENGTH(o1.SIOPLevel5) - 2))\nLEFT JOIN object_localized_query_2_en cat6 \n\tON cat6.ooo_id = SUBSTRING(o1.SIOPLevel6,2,(LENGTH(o1.SIOPLevel6) - 2)) ",
-                "where" => "WHERE (o1.`mainImage` IS NULL OR o1.`frontView` IS NULL OR o1.`sideView` IS NULL OR o1.`cutView` IS NULL OR o1.`epixImage` IS NULL OR o1.`altImage1` IS NULL OR o1.`altImage2` IS NULL OR o1.`altImage3` IS NULL OR o1.`altImage4` IS NULL OR o1.`altImage5` IS NULL OR o1.`altImage6` IS NULL OR o1.`altImage7` IS NULL OR o1.`altImage8` IS NULL OR o1.`altImage9` IS NULL) AND (o1.`o_published` =1)",
+                "where" => "WHERE (o1.`mainImage` IS NULL OR o1.`frontView` IS NULL OR o1.`sideView` IS NULL OR o1.`cutView` IS NULL OR o1.`epixImage` IS NULL OR o1.`altImage1` IS NULL OR o1.`altImage2` IS NULL OR o1.`altImage3` IS NULL OR o1.`altImage4` IS NULL OR o1.`altImage5` IS NULL OR o1.`altImage6` IS NULL OR o1.`altImage7` IS NULL OR o1.`altImage8` IS NULL OR o1.`certificationImage` IS NULL) AND (o1.`o_published` =1)",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -3258,7 +3258,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel892-4"
+                "id" => "extModel1464-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3267,7 +3267,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel892-5"
+                "id" => "extModel1464-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3276,7 +3276,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel892-6"
+                "id" => "extModel1464-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3285,7 +3285,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel892-7"
+                "id" => "extModel1464-7"
             ],
             [
                 "name" => "Virtualflag",
@@ -3295,10 +3295,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel892-8"
+                "id" => "extModel1464-8"
             ]
         ],
-        "niceName" => "Chart-Products With No Image- Virtual Catalog Filter",
+        "niceName" => "IndustrialHoseChartProductsWithNoImage-Virtual Catalog Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3312,7 +3312,7 @@ return [
             "Yes Percentage",
             "No Percentage"
         ],
-        "modificationDate" => 1624356296,
+        "modificationDate" => 1624351494,
         "creationDate" => 1624292432,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3343,7 +3343,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-4"
+                "id" => "extModel1397-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3352,7 +3352,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-5"
+                "id" => "extModel1397-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3361,7 +3361,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-6"
+                "id" => "extModel1397-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3370,7 +3370,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel317-7"
+                "id" => "extModel1397-7"
             ],
             [
                 "name" => "BrandType",
@@ -3380,10 +3380,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel317-8"
+                "id" => "extModel1397-8"
             ]
         ],
-        "niceName" => "Chart-Products With No Image - Brand Filter",
+        "niceName" => "IndustrialHoseChartProductsWithNoImage-Brand Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3397,7 +3397,7 @@ return [
             "Yes Percentage",
             "No Percentage"
         ],
-        "modificationDate" => 1624356352,
+        "modificationDate" => 1624351545,
         "creationDate" => 1624293275,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3408,8 +3408,8 @@ return [
         ],
         "id" => "IndustrialHoseChartProductsWithNoImage-BrandFilter"
     ],
-    "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFilter" => [
-        "name" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFilter",
+    "IndustrialHoseChartProductsWithNoImage-PrivateCatalogFilter" => [
+        "name" => "IndustrialHoseChartProductsWithNoImage-PrivateCatalogFilter",
         "sql" => "",
         "dataSourceConfig" => [
             [
@@ -3428,7 +3428,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel295-4"
+                "id" => "extModel1397-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3437,7 +3437,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel295-5"
+                "id" => "extModel1397-9"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3446,7 +3446,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel295-6"
+                "id" => "extModel1397-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3455,7 +3455,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel295-7"
+                "id" => "extModel1397-7"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3465,10 +3465,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel295-8"
+                "id" => "extModel1397-8"
             ]
         ],
-        "niceName" => "Chart-Products With No Image - Printed Catalog Filter",
+        "niceName" => "IndustrialHoseChartProductsWithNoImage-Private Catalog Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3482,8 +3482,8 @@ return [
             "Yes Percentage",
             "No Percentage"
         ],
-        "modificationDate" => 1624356377,
-        "creationDate" => 1624355927,
+        "modificationDate" => 1624351237,
+        "creationDate" => 1624350632,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
 
@@ -3491,6 +3491,6 @@ return [
         "sharedRoleNames" => [
 
         ],
-        "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFilter"
+        "id" => "IndustrialHoseChartProductsWithNoImage-PrivateCatalogFilter"
     ]
 ];
