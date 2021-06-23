@@ -3258,7 +3258,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1464-4"
+                "id" => "extModel339-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3267,7 +3267,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1464-5"
+                "id" => "extModel339-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3276,7 +3276,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1464-6"
+                "id" => "extModel339-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3285,7 +3285,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1464-7"
+                "id" => "extModel339-7"
             ],
             [
                 "name" => "Virtualflag",
@@ -3295,10 +3295,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel1464-8"
+                "id" => "extModel339-8"
             ]
         ],
-        "niceName" => "IndustrialHoseChartProductsWithNoImage-Virtual Catalog Filter",
+        "niceName" => "Chart-Products With No Image-Virtual Catalog Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3312,7 +3312,7 @@ return [
             "Yes Percentage",
             "No Percentage"
         ],
-        "modificationDate" => 1624351494,
+        "modificationDate" => 1624450522,
         "creationDate" => 1624292432,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3343,7 +3343,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-4"
+                "id" => "extModel452-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3352,7 +3352,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-5"
+                "id" => "extModel452-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3361,7 +3361,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-6"
+                "id" => "extModel452-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3370,7 +3370,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-7"
+                "id" => "extModel452-7"
             ],
             [
                 "name" => "BrandType",
@@ -3380,10 +3380,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel1397-8"
+                "id" => "extModel452-8"
             ]
         ],
-        "niceName" => "IndustrialHoseChartProductsWithNoImage-Brand Filter",
+        "niceName" => "Chart-Products With No Image-Brand Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3397,7 +3397,7 @@ return [
             "Yes Percentage",
             "No Percentage"
         ],
-        "modificationDate" => 1624351545,
+        "modificationDate" => 1624450602,
         "creationDate" => 1624293275,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3408,8 +3408,8 @@ return [
         ],
         "id" => "IndustrialHoseChartProductsWithNoImage-BrandFilter"
     ],
-    "IndustrialHoseChartProductsWithNoImage-PrivateCatalogFilter" => [
-        "name" => "IndustrialHoseChartProductsWithNoImage-PrivateCatalogFilter",
+    "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag" => [
+        "name" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag",
         "sql" => "",
         "dataSourceConfig" => [
             [
@@ -3428,7 +3428,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-4"
+                "id" => "extModel722-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3437,7 +3437,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-9"
+                "id" => "extModel722-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3446,7 +3446,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-6"
+                "id" => "extModel722-7"
             ],
             [
                 "name" => "No Percentage",
@@ -3455,7 +3455,8 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1397-7"
+                "filter_drilldown" => "",
+                "id" => "extModel722-8"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3465,10 +3466,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel1397-8"
+                "id" => "extModel722-6"
             ]
         ],
-        "niceName" => "IndustrialHoseChartProductsWithNoImage-Private Catalog Filter",
+        "niceName" => "Chart-Products With No Image-Printed Catalog Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3482,8 +3483,8 @@ return [
             "Yes Percentage",
             "No Percentage"
         ],
-        "modificationDate" => 1624351237,
-        "creationDate" => 1624350632,
+        "modificationDate" => 1624450942,
+        "creationDate" => 1624450664,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
 
@@ -3491,6 +3492,6 @@ return [
         "sharedRoleNames" => [
 
         ],
-        "id" => "IndustrialHoseChartProductsWithNoImage-PrivateCatalogFilter"
+        "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag"
     ]
 ];
