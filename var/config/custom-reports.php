@@ -3258,7 +3258,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel339-4"
+                "id" => "extModel1639-4"
             ],
             [
                 "name" => "# of SKUs",
@@ -3267,7 +3267,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel339-5"
+                "id" => "extModel1639-5"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3276,7 +3276,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel339-6"
+                "id" => "extModel1639-6"
             ],
             [
                 "name" => "No Percentage",
@@ -3285,7 +3285,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel339-7"
+                "id" => "extModel1639-7"
             ],
             [
                 "name" => "Virtualflag",
@@ -3295,10 +3295,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel339-8"
+                "id" => "extModel1639-8"
             ]
         ],
-        "niceName" => "Chart-Products With No Image-Virtual Catalog Filter",
+        "niceName" => "Chart - Products With No Image - Virtual Catalog Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3309,10 +3309,9 @@ return [
         "pieLabelColumn" => NULL,
         "xAxis" => "SIOP3",
         "yAxis" => [
-            "Yes Percentage",
-            "No Percentage"
+            "Yes Percentage"
         ],
-        "modificationDate" => 1624450522,
+        "modificationDate" => 1624513192,
         "creationDate" => 1624292432,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3329,7 +3328,7 @@ return [
         "dataSourceConfig" => [
             [
                 "sql" => "SELECT\n  temp.`SIOP3`,\n  SUM(temp.`skus`) AS `# of SKUs`,\n  ROUND(\n    (SUM(temp.`images` = \"YES\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS `Yes Percentage`,\n  ROUND(\n    (SUM(temp.`images` = \"NO\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS ` No Percentage`,\n  temp.`BrandType`",
-                "from" => "FROM\n  (\n    SELECT\n      cat3.`description` AS `SIOP3`,\n      count(o1.`o_id`) AS `skus`,\n      brand.`BrandType` AS `BrandType`,\n      IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`\n    FROM\n      object_1 o1\n      JOIN object_3 brand on brand.oo_id=o1.brandConstruction\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n    WHERE\n      (\n        o1.`o_published` = 1\n        AND o1.siopFullCode LIKE '041000%'\n        AND (brand.`BrandType`='Private' || brand.`BrandType`='Generic') \n      )\n    GROUP BY\n      cat3.`description`,\n      o1.`o_id`,\n      o1.`mainImage`,\n      brand.`BrandType`\n  ) AS temp",
+                "from" => "FROM\n  (\n    SELECT\n      cat3.`description` AS `SIOP3`,\n      count(o1.`o_id`) AS `skus`,\n      brand.`BrandType` AS `BrandType`,\n      IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`\n    FROM\n      object_1 o1\n      LEFT JOIN object_3 brand on brand.oo_id=o1.brandName\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n    WHERE\n      (\n        o1.`o_published` = 1\n        AND o1.siopFullCode LIKE '041000%'  AND (brand.`BrandType`='Private' ||  brand.`BrandType`='General' ||  brand.`BrandType`='Generic' ))\n    GROUP BY\n      cat3.`description`,\n      o1.`o_id`,\n      o1.`mainImage`,\n      brand.`BrandType`\n  ) AS temp",
                 "where" => "",
                 "groupby" => "GROUP BY\n  temp.`SIOP3`,\n  temp.`skus`,\n  temp.`BrandType`\nORDER BY\n  temp.`SIOP3`",
                 "type" => "sql"
@@ -3343,7 +3342,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel452-4"
+                "id" => "extModel1111-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3352,7 +3351,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel452-5"
+                "id" => "extModel1111-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3361,7 +3360,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel452-6"
+                "id" => "extModel1111-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3370,7 +3369,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel452-7"
+                "id" => "extModel1111-6"
             ],
             [
                 "name" => "BrandType",
@@ -3380,10 +3379,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel452-8"
+                "id" => "extModel1111-7"
             ]
         ],
-        "niceName" => "Chart-Products With No Image-Brand Filter",
+        "niceName" => "Chart - Products With No Image - BrandType  Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3394,10 +3393,9 @@ return [
         "pieLabelColumn" => NULL,
         "xAxis" => "SIOP3",
         "yAxis" => [
-            "Yes Percentage",
-            "No Percentage"
+            "Yes Percentage"
         ],
-        "modificationDate" => 1624450602,
+        "modificationDate" => 1624522240,
         "creationDate" => 1624293275,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3428,7 +3426,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel722-4"
+                "id" => "extModel2187-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3437,7 +3435,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel722-5"
+                "id" => "extModel2187-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3446,7 +3444,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel722-7"
+                "id" => "extModel2187-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3456,7 +3454,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "",
-                "id" => "extModel722-8"
+                "id" => "extModel2187-6"
             ],
             [
                 "name" => "PrintedFlag",
@@ -3466,10 +3464,10 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel722-6"
+                "id" => "extModel2187-7"
             ]
         ],
-        "niceName" => "Chart-Products With No Image-Printed Catalog Filter",
+        "niceName" => "Chart - Products With No Image - Printed Catalog Filter",
         "group" => "Industrial Hose",
         "groupIconClass" => "",
         "iconClass" => "",
@@ -3480,10 +3478,9 @@ return [
         "pieLabelColumn" => NULL,
         "xAxis" => "SIOP3",
         "yAxis" => [
-            "Yes Percentage",
-            "No Percentage"
+            "Yes Percentage"
         ],
-        "modificationDate" => 1624450942,
+        "modificationDate" => 1624514078,
         "creationDate" => 1624450664,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
