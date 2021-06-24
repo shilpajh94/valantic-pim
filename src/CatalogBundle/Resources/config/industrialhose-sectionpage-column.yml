@@ -1,10 +1,7 @@
 parameters:
   '0410001010':
-    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'ConstructionType', 'FeaturesBenefitsBulletPoint', 'temperatureRangeFAndC', 'workingPressurePSI']
+    columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'FeaturesBenefitsBulletPoint', 'temperatureRangeFAndC', 'workingPressurePSI']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -33,9 +30,6 @@ parameters:
         type: feature
         fieldName: FeaturesBenefitsBulletPoint
         feature: Non-Conductive Tube & Cover
-      ConstructionType:
-        title: Tube Material
-        type: attr
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -43,11 +37,8 @@ parameters:
         title: WP (PSI)
         type: attr
   '0410001305':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -71,9 +62,6 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
-      ConstructionType:
-        title: Tube Material
-        type: attr
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -86,11 +74,8 @@ parameters:
         fieldName: FeaturesBenefitsBulletPoint
         feature: Superior Flexibility
   '0410001306':
-    columns: ['brandName', 'StandardMetCover', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'StandardMetCover', 'coverCharacteristic', 'tubeMaterial', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -119,9 +104,6 @@ parameters:
       tubeMaterial:
         title: Tube Material
         type: attr
-      ConstructionType:
-        title: Tube Material
-        type: attr
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -129,11 +111,8 @@ parameters:
         title: WP (PSI)
         type: attr
   '0410001020':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -157,9 +136,6 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
-      ConstructionType:
-        title: Tube Material
-        type: attr
       3A1803CertifiedTube:
         title: 3-A 18-03 Certified Tube
         type: feature
@@ -182,11 +158,8 @@ parameters:
         title: Standard MetHose Comment
         type: attr
   '0410001300':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'standardMetHoseComment', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'standardMetHoseComment', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -195,9 +168,6 @@ parameters:
         title: Cover Characteristic
         type: attr
       tubeMaterial:
-        title: Tube Material
-        type: attr
-      ConstructionType:
         title: Tube Material
         type: attr
       standardMetHoseComment:
@@ -217,9 +187,6 @@ parameters:
   '0410001030':
     columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -238,14 +205,6 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
-      # ConstructionType:
-      #   title: Tube Material
-      #   type: attr
-      # visibilityofFlow:
-      #   title: Visibility of Flow
-      #   type: feature
-      #   fieldName: FeaturesBenefitsBulletPoint
-      #   feature: Visibility of Flow
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -253,11 +212,8 @@ parameters:
         title: Standard MetHose Comment
         type: attr
   '0410001060':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'staticWire', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -281,9 +237,6 @@ parameters:
       staticWire:
         title: Static Wire
         type: attr
-      ConstructionType:
-        title: Tube Material
-        type: attr
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -291,11 +244,8 @@ parameters:
         title: Standard MetHose Comment
         type: attr
   '0410001040':
-    columns: ['brandName', 'coverCharacteristic', 'staticWire', 'standardMetHose', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'staticWire', 'standardMetHose', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -305,9 +255,6 @@ parameters:
         type: attr
       staticWire:
         title: Static Wire
-        type: attr
-      ConstructionType:
-        title: Tube Material
         type: attr
       ulandOrCULCertified:
         title: UL and/or CUL Certified
@@ -329,11 +276,8 @@ parameters:
         title: WP (PSI)
         type: attr
   '0410001302':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -344,9 +288,6 @@ parameters:
       tubeMaterial:
         title: Cover Characteristic
         type: attr
-      ConstructionType:
-        title: Tube Material
-        type: attr
       temperatureRangeFAndC:
         title: Temperature Range (°F & C°)
         type: attr
@@ -354,11 +295,8 @@ parameters:
         title: WP (PSI)
         type: attr
   '0410001050':
-    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'LayFlatHoseYN', 'ConstructionType', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
+    columns: ['brandName', 'coverCharacteristic', 'tubeMaterial', 'LayFlatHoseYN', 'temperatureRangeFAndC', 'workingPressurePSI', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
@@ -372,9 +310,6 @@ parameters:
         fieldName: FeaturesBenefitsBulletPoint
         feature: MSHA Flame Resistant Cover
       tubeMaterial:
-        title: Tube Material
-        type: attr
-      ConstructionType:
         title: Tube Material
         type: attr
       visibilityofFlow:
@@ -394,9 +329,6 @@ parameters:
   '0410001304':
     columns: ['brandName', 'StandardMetCover', 'StandardMetTube', 'tubeMaterial', 'temperatureRangeFAndC', 'workingPressurePSI', 'acceptableHoseMedia', 'FeaturesBenefitsBulletPoint']
     dispColumns:
-      # brandName:
-      #   title: Brand Name
-      #   type: attr
       pageNumber:
         title: Page Number
         type: attr
