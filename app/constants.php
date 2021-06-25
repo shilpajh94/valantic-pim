@@ -80,7 +80,7 @@ define('GRID_SQL_EDITOR_ALLOWED_ROLES',['ApplicationAdmin']);
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
 
 //  Retrieving new product import data for particular interval of $time
-define('SIOP_NEW_PRODUCT_IMPORT_DATE','7');
+define('SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS','7');
 
 //Email Template for sending report for new Products
-define('NEW_PRODUCT_EMAIL_TEMPLATE','/Email/NewProductReportEmail');
+define('NEW_PRODUCT_EMAIL_DOCUMENT','/Email/NewProductReportEmail');
