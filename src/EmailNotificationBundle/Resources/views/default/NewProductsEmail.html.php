@@ -25,6 +25,7 @@
         <h1><?= $this->input('headline'); ?></h1>
         <?= $this->wysiwyg('content'); ?>
         %Text(tableContent);
+        <?= $this->wysiwyg('signature'); ?>
     </div>
 </body>
 </html>

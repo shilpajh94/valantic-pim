@@ -23,7 +23,7 @@ class NewProductImportEmailCommand extends AbstractCommand
     {
         $this
             ->setName('conti:newproducts-importreport')
-            ->setDescription('This command is responsible for creating report of  Contitech product Data.');
+            ->setDescription('This command is responsible for sending mail to the product managers for the newly imported products within given number of days');
     }
 
     /**
@@ -41,9 +41,6 @@ class NewProductImportEmailCommand extends AbstractCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $time = time();
-        p_r('<<<<<<<===================================>>>>>>>');
-        p_r('New Products import script started: ' . date('h:i:s', $time));
         $this->db = \Pimcore\Db::get();
         $engine = \Pimcore::getContainer()->get('templating');
         $userRole =  \Pimcore\Model\User\Role::getByName("ProductManager");
@@ -65,16 +62,17 @@ class NewProductImportEmailCommand extends AbstractCommand
                         $siopLevel = $siopValue->getLevel();
                         $siopName = $siopValue->getDescription();
                         $siopId = $siopValue->getId();
-                        $SIOPLevelToQuery = 'SIOPLevel' . strval($siopLevel);
-                        $sql = "select oo_id,articleNumber from object_1 WHERE date(FROM_UNIXTIME(o_creationDate)) >= now() - INTERVAL " . SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS . " DAY AND ProductType = 'fert' AND {$SIOPLevelToQuery} LIKE '%" . $siopId . "%'";
+                        $siopLevelToQuery = 'SIOPLevel' . strval($siopLevel);
+                        $sql = "select oo_id,articleNumber from object_1 WHERE date(FROM_UNIXTIME(o_creationDate)) >= now() - INTERVAL " . SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS . " DAY AND ProductType = 'fert' AND {$siopLevelToQuery} LIKE '%" . $siopId . "%'";
                         $records = $this->db->fetchAll($sql);
                         if ($records)
                             $siopNewProducts[$siopId] = ['siopName' => $siopName, 'newProducts' => $records];
                     }
                     if ($siopNewProducts) {
                         // Render records to a template
+                        $noofdays = SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS;
                         $content = $engine->render('EmailNotificationBundle::default/NewProductTableContent.html.php', ['content' => $siopNewProducts]);
-                        $params = array('firstName' => $firstName, 'lastName' => $lastName, 'tableContent' => $content);
+                        $params = array('firstName' => $firstName, 'lastName' => $lastName, 'tableContent' => $content, 'numberofdays' => $noofdays);
                         //sending the email
                         if ($userEmail) {
                             $mail = new \Pimcore\Mail();
