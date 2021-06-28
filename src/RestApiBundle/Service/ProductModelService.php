@@ -370,7 +370,9 @@ class ProductModelService
                                     $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
-                                    $bData[] = $objectIndv->getName();
+                                    if($objectIndv) {
+                                        $bData[] = $objectIndv->getName();
+                                    }
                                    }
                                 }
                              }
