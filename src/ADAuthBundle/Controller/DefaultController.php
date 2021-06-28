@@ -14,8 +14,6 @@ class DefaultController extends FrontendController
      */
     public function indexAction(Request $request)
     {
-        
         return new Response('Hello world from ad_auth');
     }
-    
 }
