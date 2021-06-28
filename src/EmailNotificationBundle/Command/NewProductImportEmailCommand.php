@@ -15,6 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class NewProductImportEmailCommand extends AbstractCommand
 {
+    const LOGGER_MODULE = "New_Created_Product_Email";
+
     /**
      * Function to set the command configurations
      *
@@ -80,7 +82,11 @@ class NewProductImportEmailCommand extends AbstractCommand
                             $mail->setSubject("New Products Report");
                             $mail->setDocument(NEW_PRODUCT_EMAIL_DOCUMENT);
                             $mail->setParams($params);
-                            $mail->send();
+                            try{
+                                $mail->send();
+                            }catch(\Exception $exception){
+                                \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Exception sending mail: " . $exception->getMessage());
+                            }
                         }
                     }
                 }

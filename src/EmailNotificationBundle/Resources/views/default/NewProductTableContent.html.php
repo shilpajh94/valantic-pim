@@ -5,7 +5,7 @@
         <tr>
             <th style="font-weight: bold;text-align: left;border-collapse: collapse;padding: 6px;border: 2px solid black;font-family: Lucida Sans Unicode, Arial;">#</th>
             <th style="font-weight: bold;text-align: left;border-collapse: collapse;padding: 6px;border: 2px solid black;font-family: Lucida Sans Unicode, Arial;">SIOP NAME</th>
-            <th style="font-weight: bold;text-align: left;border-collapse: collapse;padding: 6px;border: 2px solid black;font-family: Lucida Sans Unicode, Arial;">PRODUCT ID</th>
+            <th style="font-weight: bold;text-align: left;border-collapse: collapse;padding: 6px;border: 2px solid black;font-family: Lucida Sans Unicode, Arial;">PIMCORE PRODUCT ID</th>
             <th style="font-weight: bold;text-align: left;border-collapse: collapse;padding: 6px;border: 2px solid black;font-family: Lucida Sans Unicode, Arial;">ARTICLE NUMBER</th>
         </tr>
         <?php
