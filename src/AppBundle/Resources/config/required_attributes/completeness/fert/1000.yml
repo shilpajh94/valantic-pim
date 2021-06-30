@@ -26,6 +26,9 @@ non_localized:
     maximumTemperatureC:
         type: 'numeric'
         label: 'Max temp °C'
+    mainImage:
+        type: 'image'
+        label: 'Main Image'
 
 localized:
     FeaturesBenefitsBulletPoint:

@@ -3328,9 +3328,9 @@ return [
         "dataSourceConfig" => [
             [
                 "sql" => "SELECT\n  temp.`SIOP3`,\n  SUM(temp.`skus`) AS `# of SKUs`,\n  ROUND(\n    (SUM(temp.`images` = \"YES\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS `Yes Percentage`,\n  ROUND(\n    (SUM(temp.`images` = \"NO\") * 100.0) / Sum(temp.`skus`),\n    2\n  ) AS ` No Percentage`,\n  temp.`BrandType`",
-                "from" => "FROM\n  (\n    SELECT\n      cat3.`description` AS `SIOP3`,\n      count(o1.`o_id`) AS `skus`,\n      brand.`BrandType` AS `BrandType`,\n      IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`\n    FROM\n      object_1 o1\n      LEFT JOIN object_3 brand on brand.oo_id=o1.brandName\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n    WHERE\n      (\n        o1.`o_published` = 1\n        AND o1.siopFullCode LIKE '041000%'  AND (brand.`BrandType`='Private' ||  brand.`BrandType`='General' ||  brand.`BrandType`='Generic' ))\n    GROUP BY\n      cat3.`description`,\n      o1.`o_id`,\n      o1.`mainImage`,\n      brand.`BrandType`\n  ) AS temp",
+                "from" => "FROM\n  (\n    SELECT\n      cat3.`description` AS `SIOP3`,\n      count(o1.`o_id`) AS `skus`,\n      CASE WHEN brand.`BrandType` IS NULL THEN 'Empty' WHEN brand.`BrandType` =\"\" THEN 'Empty' WHEN brand.`BrandType` = \"General\" THEN 'General' WHEN brand.`BrandType` = \"Generic\" THEN 'Generic' WHEN brand.`BrandType` = \"Private\" THEN 'Private' END AS `BrandType`,\n      IF(o1.`mainImage` IS Not NULL, \"YES\", \"NO\") AS `images`\n    FROM\n      object_1 o1\n      LEFT JOIN object_3 brand on brand.oo_id = o1.brandName\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2,(LENGTH(o1.SIOPLevel3) - 2))\n    WHERE\n      (\n        o1.`o_published` = 1\n        AND o1.siopFullCode LIKE '041000%'\n      )\n    GROUP BY\n      cat3.`description`,\n      o1.`o_id`,\n      o1.`mainImage`,\n      brand.`BrandType`\n  ) AS temp ",
                 "where" => "",
-                "groupby" => "GROUP BY\n  temp.`SIOP3`,\n  temp.`skus`,\n  temp.`BrandType`\nORDER BY\n  temp.`SIOP3`",
+                "groupby" => "GROUP BY temp.`SIOP3`,\n  temp.`skus`,\n  temp.`BrandType`\nORDER BY\n  temp.`SIOP3`",
                 "type" => "sql"
             ]
         ],
@@ -3342,7 +3342,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1111-3"
+                "id" => "extModel473-3"
             ],
             [
                 "name" => "# of SKUs",
@@ -3351,7 +3351,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1111-4"
+                "id" => "extModel473-4"
             ],
             [
                 "name" => "Yes Percentage",
@@ -3360,7 +3360,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1111-5"
+                "id" => "extModel473-5"
             ],
             [
                 "name" => "No Percentage",
@@ -3369,7 +3369,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel1111-6"
+                "id" => "extModel473-6"
             ],
             [
                 "name" => "BrandType",
@@ -3379,7 +3379,7 @@ return [
                 "width" => "",
                 "label" => "",
                 "filter_drilldown" => "filter_and_show",
-                "id" => "extModel1111-7"
+                "id" => "extModel473-7"
             ]
         ],
         "niceName" => "Chart - Products With No Image - BrandType  Filter",
@@ -3395,7 +3395,7 @@ return [
         "yAxis" => [
             "Yes Percentage"
         ],
-        "modificationDate" => 1624522240,
+        "modificationDate" => 1625038555,
         "creationDate" => 1624293275,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
@@ -3490,5 +3490,230 @@ return [
 
         ],
         "id" => "IndustrialHoseChartProductsWithNoImage-PrintedCatalogFlag"
+    ],
+    "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter" => [
+        "name" => "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \n  temp.nSKU AS `# of Sku's`, \n  temp.percentage AS `Completeness Percentage`, \n  temp.SIOP3 AS `SIOP3`, \n  temp.PrintedFlag ",
+                "from" => "FROM \n  (\n    SELECT \n      COUNT(o1.`o_key`) AS `nSKU`, \n      (\n        ROUND(\n          (\n            SUM(en.CompletenessPercentage) / COUNT(o1.`o_key`)\n          ), \n          3\n        )\n      ) AS `percentage`, \n      cat3.`description` AS `SIOP3`, \n      CASE WHEN o1.`printedCatalogFlag` IS NULL THEN 'False' WHEN o1.`printedCatalogFlag` = -1 THEN 'False' WHEN o1.`printedCatalogFlag` = 1 THEN 'True' END AS PrintedFlag \n    FROM \n      object_1 o1 \n      LEFT JOIN `object_localized_query_1_en` en ON `en`.`ooo_id` = `o1`.`o_id` \n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(\n        o1.SIOPLevel3, \n        2, \n        (\n          LENGTH(o1.SIOPLevel3) -2\n        )\n      ) \n    WHERE \n      (\n        o1.`o_published` = 1 \n        AND o1.siopFullCode LIKE '041000%'\n      ) \n    GROUP BY \n      cat3.`description`, \n      `PrintedFlag` \n    ORDER BY \n      cat3.`description`\n  ) temp\n",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel931-3"
+            ],
+            [
+                "name" => "# of Sku's",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel931-1"
+            ],
+            [
+                "name" => "Completeness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "id" => "extModel931-2"
+            ],
+            [
+                "name" => "PrintedFlag",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel931-4",
+                "filter_drilldown" => "filter_and_show"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness - Printed Catalog Filter",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP3",
+        "yAxis" => [
+            "Completeness Percentage"
+        ],
+        "modificationDate" => 1625039364,
+        "creationDate" => 1625039156,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartDataCompleteness-PrintedCatalogFilter"
+    ],
+    "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter" => [
+        "name" => "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \n  temp.nSKU AS `# of Sku's`, \n  temp.percentage AS `Completeness Percentage`, \n  temp.SIOP3 AS `SIOP3`, \n  temp.VirtualFlag ",
+                "from" => "FROM \n  (\n    SELECT \n      COUNT(o1.`o_key`) AS `nSKU`, \n      (\n        ROUND(\n          (\n            SUM(en.CompletenessPercentage) / COUNT(o1.`o_key`)\n          ), \n          3\n        )\n      ) AS `percentage`, \n      cat3.`description` AS `SIOP3`, \n      CASE WHEN o1.`virtualCatalogFlag` IS NULL THEN 'False' WHEN o1.`virtualCatalogFlag` = -1 THEN 'False' WHEN o1.`virtualCatalogFlag` = 1 THEN 'True' END AS VirtualFlag \n    FROM \n      object_1 o1 \n      LEFT JOIN `object_localized_query_1_en` en ON `en`.`ooo_id` = `o1`.`o_id` \n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(\n        o1.SIOPLevel3, \n        2, \n        (\n          LENGTH(o1.SIOPLevel3) -2\n        )\n      ) \n    WHERE \n      (\n        o1.`o_published` = 1 \n        AND o1.siopFullCode LIKE '041000%'\n      ) \n    GROUP BY \n      cat3.`description`, \n      `VirtualFlag` \n    ORDER BY \n      cat3.`description`\n  ) temp\n",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel583-3"
+            ],
+            [
+                "name" => "# of Sku's",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel583-1"
+            ],
+            [
+                "name" => "Completeness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "id" => "extModel583-2"
+            ],
+            [
+                "name" => "VirtualFlag",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel583-4",
+                "filter_drilldown" => "filter_and_show"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness - Virtual Catalog Filter",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP3",
+        "yAxis" => [
+            "Completeness Percentage"
+        ],
+        "modificationDate" => 1625039940,
+        "creationDate" => 1625039584,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartDataCompleteness-VirtualCatalogFilter"
+    ],
+    "IndustrialHoseChartDataCompleteness-BrandFilter" => [
+        "name" => "IndustrialHoseChartDataCompleteness-BrandFilter",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\n  sum(temp.nSKU) AS `# of Sku's`,\n  Round(sum(temp.percentage),2) AS `Completeness Percentage`,\n  temp.SIOP3 AS `SIOP3`,\n  temp.`BrandType`",
+                "from" => "FROM\n  (\n    SELECT\n      CASE WHEN brand.`BrandType` IS NULL THEN 'Empty' WHEN brand.`BrandType` =\"\" THEN 'Empty' WHEN brand.`BrandType` = \"General\" THEN 'General' WHEN brand.`BrandType` = \"Generic\" THEN 'Generic' WHEN brand.`BrandType` = \"Private\" THEN 'Private' END AS `BrandType`,\n      COUNT(o1.`o_key`) AS `nSKU`,\n      (\n        ROUND(\n          (\n            SUM(en.CompletenessPercentage) / COUNT(o1.`o_key`)\n          ),\n          3\n        )\n      ) AS `percentage`,\n      cat3.`description` AS `SIOP3`\n    FROM\n      object_1 o1\n      LEFT JOIN object_3 brand on brand.oo_id = o1.brandName\n      LEFT JOIN `object_localized_query_1_en` en ON `en`.`ooo_id` = `o1`.`o_id`\n      LEFT JOIN object_localized_query_2_en cat3 ON cat3.ooo_id = SUBSTRING(o1.SIOPLevel3, 2, (LENGTH(o1.SIOPLevel3) -2))\n    WHERE\n      (\n        o1.`o_published` = 1\n        AND o1.siopFullCode LIKE '041000%'\n      ) GROUP BY\n      cat3.`description`,\n      brand.`BrandType`\n    ORDER BY\n      cat3.`description`\n  ) temp",
+                "where" => "",
+                "groupby" => "Group BY temp.BrandType,\ntemp.`SIOP3`",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "SIOP3",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel440-3"
+            ],
+            [
+                "name" => "# of Sku's",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel440-4"
+            ],
+            [
+                "name" => "Completeness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => 200,
+                "label" => "",
+                "id" => "extModel440-5"
+            ],
+            [
+                "name" => "BrandType",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "filter_drilldown" => "filter_and_show",
+                "id" => "extModel440-6"
+            ]
+        ],
+        "niceName" => "Chart - Data Completeness - BrandType Filter",
+        "group" => "Industrial Hose",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "bar",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => "SIOP3",
+        "yAxis" => [
+            "Completeness Percentage"
+        ],
+        "modificationDate" => 1625041855,
+        "creationDate" => 1625040174,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "IndustrialHoseChartDataCompleteness-BrandFilter"
     ]
 ];
