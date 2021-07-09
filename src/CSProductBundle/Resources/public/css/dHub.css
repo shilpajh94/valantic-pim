@@ -1,0 +1,48 @@
+.dHub_filter {
+    background: url("/bundles/distributionhub/icons/filter.svg") center center no-repeat !important;
+}
+
+.dHub_preview_grid {
+    background: url("/bundles/distributionhub/icons/preview.svg") center center no-repeat !important;
+}
+
+.dHub_basic_config {
+    background: url("/bundles/distributionhub/icons/basic.svg") center center no-repeat !important;
+}
+
+.dHub_schedule {
+    background: url("/bundles/distributionhub/icons/schedule.svg") center center no-repeat !important;
+}
+
+.dHub_share {
+    background: url("/bundles/distributionhub/icons/share.svg") center center no-repeat !important;
+}
+
+.dHub_mono {
+    background: url("/bundles/distributionhub/icons/dHub1.svg") center center no-repeat !important;
+}
+
+.dHub_flat {
+    background: url("/bundles/distributionhub/icons/dHub_flat.svg") center center no-repeat !important;
+}
+
+.dHub_column_mapping {
+    background: url("/bundles/distributionhub/icons/mapping.svg") center center no-repeat !important;
+}
+
+.dHub_fc_media_getter {
+    background: url("/bundles/pimcoreadmin/img/flat-color-icons/night_landscape.svg") center center no-repeat !important;
+}
+
+.info_ftp {
+/*    clear:left;
+    float:left;*/
+    margin-right:50px;
+}
+ 
+.x-btn-icon-el.x-tbar-page-refresh:before {
+    content: "\f021";
+    font: 24px/16px FontAwesome;
+    font-size: 17px;
+    color: #919191;
+}

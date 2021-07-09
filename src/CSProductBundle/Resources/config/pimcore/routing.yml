@@ -1,0 +1,5 @@
+cs_product:
+    resource: "@CSProductBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
