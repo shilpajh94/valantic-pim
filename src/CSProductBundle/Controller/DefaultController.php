@@ -31,19 +31,54 @@ class DefaultController extends FrontendController
      */
     public function saveProduct(Request $request)
     {
-        $product = new \Pimcore\Model\DataObject\CSProducts;
-        $parentId = $request->get('productCategoryId');
-        $parentIdPath = DataObject\Service::getIdPath($parentId);
-        //echo $parentIdPath;
-        $productName = $request->get('productName');
-        $product->setKey($productName, 'object');
-        $product->setName($productName, 'en');
-        $product->setParentId($parentId);
-        $product->setPublished(TRUE);
-        $product->save();
+        $success = true;
+        $msg = "";
+        $parentId = '';
+        $objectId = '';
 
-        // echo $request->get('productName');
-        // echo "\n\n";
-        // echo $request->get('productCategory');
+        $productName = $request->get('productName');
+        if(trim($productName))
+        {
+            $productCategoryId = $request->get('categoryId');
+            $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
+            $CSHierarchyPath = $CSHierarchyObj->getPath();
+            $CSHierarchyName = $CSHierarchyObj->getName();
+
+            $productPath = \str_replace("Master Data/Product Hierarchy/", "Products/", $CSHierarchyPath.$CSHierarchyName);
+
+            $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+
+            
+            if($CSProductObj)
+            {
+                $parentId = $CSProductObj->getId();
+                try {
+                    $product = new DataObject\CSProducts();
+                    $product->setKey($productName);
+                    $product->setName($productName, 'en');
+                    $product->setParentId($parentId);
+                    $product->setPublished(TRUE);
+                    $result = $product->save();
+                    $objectId = $result->getId();
+
+                    $msg =  "Product added successfully";
+
+                } catch (\Throwable $th) {
+                    $success = false;
+                    $msg =  $th->getMessage();
+                }
+            }
+            else{
+                $success = false;
+                $msg =  "Path not exist - ". $productPath;
+            }
+        }
+        else{
+            $success = false;
+            $msg =  "Product name should not be empty.";
+        }
+        
+        echo json_encode(array('success'=>$success, 'objectId'=> $objectId ,"msg"=> $msg));
+        die;
     }
 }

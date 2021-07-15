@@ -8,10 +8,7 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
     initialize: function (data, productName) {
         pimcore.plugin.broker.registerPlugin(this);
         this.data = data;
-        //console.log(this.data);
         this.productName = productName;
-        
-        //this.categoryId = this.data[0].categoryId ? this.data[0].categoryId : null;
     },
 
     pimcoreReady: function (params, broker) {
@@ -34,7 +31,6 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
         li.appendChild(svg);
         ulElement.appendChild(li);
         pimcore.helpers.initMenuTooltips();
-        var toolbar = pimcore.globalmanager.get("layout_toolbar");
         
         Ext.get('cs_product').on('click', function (e, el) {
             this.addNewProductForm();
@@ -43,14 +39,20 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
 
     addNewProductForm: function () {
         let classCombo = this.getClassCombo();
-        this.basicForm = new Ext.create("Ext.Window", {
-            title: 'Add Product',
+        this.basicForm = new Ext.create("Ext.form.Panel", {
             width: 600,
-            height: 400,
+            height: 300,
             html: '',
-            modal : true,
-            maskOnDisable: false,
-            items: [{
+            url: '/admin/csproduct/default/save_product',
+            async: false,
+            items: [
+                    {
+                    xtype: 'label',
+                    html: '',
+                    name: 'addProductError',
+                    itemId:'addProductError'
+                    },
+                    {
                         xtype: 'textfield',
                         name: 'productName',
                         style: {
@@ -78,17 +80,50 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
                     items: [
                         {
                             xtype: 'button',
-                            text: 'Save',
-                            itemId: 'save',
+                            text: 'Submit',
                             cls: 'pimcore_save_button',
                             iconCls: 'pimcore_icon_apply',
-                            handler: this.saveCallBack.bind(this)
+                            handler: function() {
+                                var form = this.up('form');
+                                if (form.isValid()) 
+                                {
+                                    form.submit({
+                                        success: function(form, response) {
+
+                                            var win = Ext.WindowManager.getActive();
+                                            if (win) {
+                                                win.close();
+                                            }
+                                            pimcore.helpers.openElement(response.result.objectId, 'object');
+                                            pimcore.treenodelocator.showInTree(response.result.objectId, "object");
+                                            
+                                        },
+                                        failure: function(form, response) {
+                                            var label = Ext.ComponentQuery.query('label');
+                                            label[0].setHtml('<div class="alert alert-danger alert-dismissible"><a href="#" onclick="this.hideErrorLabel()" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error : </strong> '+response.result.msg+'</div>');
+                                        }
+                                    });
+                                }
+                                else{
+                                    console.log('form validation failed');
+                                }   
+                            }
                         }
                     ]
                 }
-            ],
+            ]
+        });
+        
+        this.basicFormWin = new Ext.create("Ext.Window", {
+            title: 'Add Product',
+            modal : true,
+            maskOnDisable: false,
+            items: [this.basicForm]
         }).show();
-        return this.basicForm;
+    },
+
+    hideErrorLabel: function(){
+        alert('close');
     },
 
     /**
@@ -136,26 +171,6 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
 
         });
         return combo;
-    },
-
-    saveCallBack: function (saveCall) {
-        //console.log(this.basicForm.getComponent(1).getValue());
-        this.saveCall = saveCall;
-        Ext.Ajax.request({
-            url: '/admin/csproduct/default/save_product',
-            async: false,
-            params: {
-                productName: this.basicForm.getComponent(0).getValue(),
-                productCategoryId: this.basicForm.getComponent(1).getValue()
-            },
-            success: function (response) {
-                var res = Ext.decode(response.responseText);
-            },
-
-            failure: function (response) {
-                console.log('server-side failure with status code ' + response.status);
-            }
-        });
     },
 });
 

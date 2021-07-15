@@ -12,4 +12,9 @@ class CSProductBundle extends AbstractPimcoreBundle
             '/bundles/csproduct/js/pimcore/startup.js'
         ];
     }
+    public function getCssPaths() {
+        return [
+            '/bundles/csproduct/css/csproduct.css'
+        ];
+    }
 }
