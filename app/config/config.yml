@@ -2,39 +2,38 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: 'local/' }
+    - { resource: "local/" }
     - { resource: product_workflow.yml }
+    - { resource: cs_product_workflow.yml }
 
 pimcore:
-# IMPORTANT Notice!
-# Following there are only some examples listed, for a full list of possible options, please run the following command:
-# ./bin/console debug:config pimcore
-# you can also filter them by path, eg.
-# ./bin/console debug:config pimcore assets
-# or even more specific:
-# ./bin/console debug:config pimcore assets.image
+    # IMPORTANT Notice!
+    # Following there are only some examples listed, for a full list of possible options, please run the following command:
+    # ./bin/console debug:config pimcore
+    # you can also filter them by path, eg.
+    # ./bin/console debug:config pimcore assets
+    # or even more specific:
+    # ./bin/console debug:config pimcore assets.image
 
+    #### TRANSLATIONS
+    #    translations:
+    #        case_insensitive: true
 
-#### TRANSLATIONS
-#    translations:
-#        case_insensitive: true
+    #### REDIS CACHE
+    #    cache:
+    #        pools:
+    #            redis:
+    #                enabled: true
+    #                connection:
+    #                    server: localhost
+    #                    database: 14
 
-#### REDIS CACHE
-#    cache:
-#        pools:
-#            redis:
-#                enabled: true
-#                connection:
-#                    server: localhost
-#                    database: 14
-
-#### FEATURE FLAGS
-#    flags:
-#        zend_date: true
+    #### FEATURE FLAGS
+    #    flags:
+    #        zend_date: true
     models:
         class_overrides:
             'Pimcore\Model\DataObject\Product': 'AppBundle\Model\DataObject\Products'
-            
 
 #### CLASS OVERRIDES EXAMPLES
 #    models:
@@ -48,13 +47,11 @@ pimcore:
 #            'Pimcore\Model\Document\Link': 'AppBundle\Model\Document\Link'
 #            'Pimcore\Model\Document\Listing': 'AppBundle\Model\Document\Listing'
 
-
 #### CUSTOM DOCUMENT EDITABLES
 #    documents:
 #        tags:
 #            map:
 #                markdown: \AppBundle\Model\Document\Tag\Markdown
-
 
 #### CUSTOM OBJECT DATA TYPES
 #    objects:
@@ -62,7 +59,6 @@ pimcore:
 #            data:
 #                map:
 #                  myDataType: \AppBundle\Model\DataObject\Data\MyDataType
-
 
 #### ASSET CUSTOM SETTINGS
 #    assets:
@@ -75,10 +71,8 @@ pimcore:
 #            thumbnails:
 #                webp_auto_support: false
 
-
 #### SYMFONY OVERRIDES
 framework:
-
 #### USE SESSION HANDLER CONFIGURED IN php.ini
 #    session:
 #        handler_id: null
