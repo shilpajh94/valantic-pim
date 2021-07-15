@@ -100,7 +100,7 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
                                         },
                                         failure: function(form, response) {
                                             var label = Ext.ComponentQuery.query('label');
-                                            label[0].setHtml('<div class="alert alert-danger alert-dismissible"><a href="#" onclick="this.hideErrorLabel()" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error : </strong> '+response.result.msg+'</div>');
+                                            label[0].setHtml('<div class="alert alert-danger alert-dismissible"><strong>Error : </strong> '+response.result.msg+'</div>');
                                         }
                                     });
                                 }

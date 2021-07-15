@@ -43,7 +43,8 @@ class DefaultController extends FrontendController
             $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
             $CSHierarchyPath = $CSHierarchyObj->getPath();
             $CSHierarchyName = $CSHierarchyObj->getName();
-
+            $CSHierarchyRelatedBricks = $CSHierarchyObj->getRelatedBricks();
+            
             $productPath = \str_replace("Master Data/Product Hierarchy/", "Products/", $CSHierarchyPath.$CSHierarchyName);
 
             $CSProductObj = DataObject\CSProducts::getByPath($productPath);
@@ -57,7 +58,15 @@ class DefaultController extends FrontendController
                     $product->setKey($productName);
                     $product->setName($productName, 'en');
                     $product->setParentId($parentId);
-                    $product->setPublished(TRUE);
+                    $product->setPublished(true);
+
+                    foreach ($CSHierarchyRelatedBricks as $brick) {
+                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                        $brickObject = new $class($product); 
+                        $method = 'set'.$brick;
+                        $product->getobjectBrickProduct()->$method($brickObject);
+                    }
+
                     $result = $product->save();
                     $objectId = $result->getId();
 
@@ -77,7 +86,7 @@ class DefaultController extends FrontendController
             $success = false;
             $msg =  "Product name should not be empty.";
         }
-        
+
         echo json_encode(array('success'=>$success, 'objectId'=> $objectId ,"msg"=> $msg));
         die;
     }
