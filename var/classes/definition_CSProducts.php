@@ -19,6 +19,7 @@ Fields Summary:
 -- ProductDescription [textarea]
 -- ShortText [textarea]
 -- LongText [textarea]
+- ProductAttributes [objectbricks]
 */ 
 
 
@@ -27,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1625203649,
+   'modificationDate' => 1626413263,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -255,7 +256,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left:10px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -283,7 +284,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left:10px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -417,7 +418,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                              'mandatory' => false,
                              'noteditable' => false,
                              'index' => false,
-                             'locked' => NULL,
+                             'locked' => false,
                              'style' => 'margin-left:10px;',
                              'permissions' => NULL,
                              'datatype' => 'data',
@@ -562,7 +563,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'Product Specific Data',
              'type' => NULL,
              'region' => NULL,
-             'title' => '',
+             'title' => 'Product Specific Data',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => false,
@@ -572,6 +573,33 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'permissions' => NULL,
              'childs' => 
             array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+                 'fieldtype' => 'objectbricks',
+                 'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
+                 'allowedTypes' => 
+                array (
+                  0 => 'ProdAttrSetA',
+                  1 => 'ProdAttrSetB',
+                  2 => 'ProdAttrSetC',
+                ),
+                 'maxItems' => '',
+                 'border' => false,
+                 'name' => 'ProductAttributes',
+                 'title' => 'Product Attributes',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
             ),
              'locked' => false,
              'icon' => '',
