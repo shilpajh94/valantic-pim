@@ -32,6 +32,16 @@ if (CUSTOM_ENV == "prod") {
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
 
+    define("CS_BW_SAP_IMPORT_SFTP_HOST", "v5ftp001.tiretech2.contiwan.com");
+    define("CS_BW_SAP_IMPORT_SFTP_PORT", 22);
+    define("CS_BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
+    define("CS_BW_SAP_IMPORT_SFTP_PASSWORD", "D3duct!0n");
+    define("CS_BW_SAP_IMPORT_SFTP_PATH", "/P9A/PIMCORE/OUTBOUND");
+
+    define("CS_BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH", CS_BW_SAP_IMPORT_SFTP_PATH."/PIM_ListPrice.csv");
+    define("CS_BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", CS_BW_SAP_IMPORT_SFTP_PATH."/archive/");
+    define("CS_BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+
     // this is being used by workflow reminder cron
     // setting this in 'settings' - > 'domain name' breaks the redirect set for admin
     define("APPLICATION_HOST","https://pim.conti.de");
@@ -67,6 +77,16 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+
+    define("CS_BW_SAP_IMPORT_SFTP_HOST", "v5ftp001.tiretech2.contiwan.com");
+    define("CS_BW_SAP_IMPORT_SFTP_PORT", 22);
+    define("CS_BW_SAP_IMPORT_SFTP_USERNAME", "pimcore");
+    define("CS_BW_SAP_IMPORT_SFTP_PASSWORD", "D3duct!0n");
+    define("CS_BW_SAP_IMPORT_SFTP_PATH", "/P9A/PIMCORE/OUTBOUND");
+
+    define("CS_BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH", CS_BW_SAP_IMPORT_SFTP_PATH."/PIM_ListPrice.csv");
+    define("CS_BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", CS_BW_SAP_IMPORT_SFTP_PATH."/archive/");
+    define("CS_BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
 
     // this is being used by workflow reminder cron
     define("APPLICATION_HOST","http://stage.pim.conti.de");
@@ -106,6 +126,16 @@ if (CUSTOM_ENV == "prod") {
 //    define("BW_SAP_IMPORT_SFTP_SIOP_FILE_PATH", BW_SAP_IMPORT_SFTP_PATH."/siop.csv");
     define("BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", BW_SAP_IMPORT_SFTP_PATH."/archive/");
     define("BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
+
+    define("CS_BW_SAP_IMPORT_SFTP_HOST", "upload.pimcoreclients.com");
+    define("CS_BW_SAP_IMPORT_SFTP_PORT", 22);
+    define("CS_BW_SAP_IMPORT_SFTP_USERNAME", "rohit.sriwastva");
+    define("CS_BW_SAP_IMPORT_SFTP_PASSWORD", "R@H!T@4321");
+    define("CS_BW_SAP_IMPORT_SFTP_PATH", "/vsftpd/rohit.sriwastva/bw");
+
+    define("CS_BW_SAP_IMPORT_SFTP_PRICE_FILE_PATH", CS_BW_SAP_IMPORT_SFTP_PATH."/PIM_ListPrice.csv");
+    define("CS_BW_SAP_IMPORT_SFTP_ARCHIVE_FOLDER_PATH", CS_BW_SAP_IMPORT_SFTP_PATH."/archive/");
+    define("CS_BW_SAP_IMPORT_SFTP_DOWNLOAD_TEMP_DIR",PIMCORE_PROJECT_ROOT."/var/tmp/");
 
     // this is being used by workflow reminder cron
     define("APPLICATION_HOST","localhost");
