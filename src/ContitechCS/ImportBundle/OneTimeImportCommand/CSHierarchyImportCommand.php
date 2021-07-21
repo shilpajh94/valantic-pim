@@ -51,6 +51,8 @@ class CSHierarchyImportCommand extends AbstractCommand
             $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
+
+            unset($result);
             
             $ProductHierarchyFolderId= DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();
 
@@ -64,6 +66,11 @@ class CSHierarchyImportCommand extends AbstractCommand
                     }
                 }
             }
+
+            unset($data);
+            unset($this->Level1Hierarchy);
+            unset($this->Level2Hierarchy);
+            unset($this->Level3Hierarchy);
 
         } catch (\Throwable $th) {
             p_r($th->getMessage());
