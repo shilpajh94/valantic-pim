@@ -1,8 +1,8 @@
-pimcore.registerNS("pimcore.plugin.CSProductBundle");
+pimcore.registerNS("pimcore.plugin.ContitechCSProductBundle");
 
-pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
+pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
     getClassName: function () {
-        return "pimcore.plugin.CSProductBundle";
+        return "pimcore.plugin.ContitechCSProductBundle";
     },
 
     initialize: function (data, productName) {
@@ -43,7 +43,7 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
             width: 600,
             height: 300,
             html: '',
-            url: '/admin/csproduct/default/save_product',
+            url: '/contitech_cs_product/default/save_product',
             async: false,
             items: [
                     {
@@ -136,7 +136,7 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
         let categories = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
-                url: '/admin/csproduct/category/get_categories',
+                url: '/contitech_cs_product/default/get_categories',
                 reader: {
                     type: 'json',
                     rootProperty: 'categoryList'
@@ -174,4 +174,4 @@ pimcore.plugin.CSProductBundle = Class.create(pimcore.plugin.admin, {
     },
 });
 
-var CSProductBundlePlugin = new pimcore.plugin.CSProductBundle();
+var ContitechCSProductBundlePlugin = new pimcore.plugin.ContitechCSProductBundle();

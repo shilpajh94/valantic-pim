@@ -1,6 +1,6 @@
 <?php
 
-namespace CSProductBundle\Controller;
+namespace ContitechCS\ProductBundle\Controller;
 
 use Pimcore\Controller\FrontendController;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,18 +9,40 @@ use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 
 /**
- * @package CSProductBundle\Controller
- * @Route("/admin/csproduct/default")
+ * @package ContitechCS\ProductBundle\Controller
+ * @Route("/contitech_cs_product/default")
  */
 
 class DefaultController extends FrontendController
 {
     /**
-     * @Route("/cs_product")
+     * @Route("/contitech_cs_product")
      */
     public function indexAction(Request $request)
     {
-        return new Response('Hello world from cs_product');
+        return new Response('Hello world from contitech_cs_product');
+    }
+
+    /**
+     * @Route("/get_categories")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCategories(Request $request)
+    {
+        $categoryList = new \Pimcore\Model\DataObject\CSHierarchy\Listing();
+        $categoryList->load();
+        //print_r($categoryList);die;
+
+        $fieldArray = array();
+        foreach ($categoryList as $list) {
+            $fieldArrayTemp = array();
+            $fieldArrayTemp['id'] = $list->getId();
+            $fieldArrayTemp['name'] = $list->getName();
+            $fieldArray[] = $fieldArrayTemp;
+        }
+        return $this->json(["categoryList" => $fieldArray]);
     }
 
     /**
