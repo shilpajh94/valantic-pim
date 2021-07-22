@@ -1,10 +1,6 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-15T10:37:25+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
 - MachineModel [input]
 - VehicleManufacturer [input]
@@ -16,11 +12,6 @@ Fields Summary:
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
-    0 => 
-    array (
-      'classname' => 'Test1',
-      'fieldname' => 'Test1',
-    ),
   ),
    'dao' => NULL,
    'key' => 'ProdAttrSetU',
@@ -139,7 +130,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -167,7 +158,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -248,7 +239,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left:60px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
