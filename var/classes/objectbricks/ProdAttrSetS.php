@@ -1,6 +1,10 @@
 <?php 
 
 /** 
+* Generated at: 2021-07-23T08:14:45+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - IndustrialServiceTensionCapacityinKNM [numeric]
 - SpacedIndustrialMaxBucketProjectionMM [numeric]
@@ -22,8 +26,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'TestClass',
-      'fieldname' => 'objbrick',
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
     ),
   ),
    'dao' => NULL,

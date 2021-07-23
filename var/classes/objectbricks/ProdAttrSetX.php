@@ -1,6 +1,10 @@
 <?php 
 
 /** 
+* Generated at: 2021-07-23T08:27:39+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - CleatWidth [numeric]
 - Features [input]
@@ -15,6 +19,11 @@ Fields Summary:
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'classDefinitions' => 
   array (
+    0 => 
+    array (
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
+    ),
   ),
    'dao' => NULL,
    'key' => 'ProdAttrSetX',

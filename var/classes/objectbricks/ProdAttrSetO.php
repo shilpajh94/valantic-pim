@@ -1,6 +1,10 @@
 <?php 
 
 /** 
+* Generated at: 2021-07-23T08:10:31+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - ElongationatBreak [numeric]
 - MaximumTemperature [numeric]
@@ -26,8 +30,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'TestClass',
-      'fieldname' => 'objbrick',
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
     ),
   ),
    'dao' => NULL,
