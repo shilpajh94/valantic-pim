@@ -1,13 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:01:15+02:00
+* Generated at: 2021-07-26T09:46:56+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - Price [numeric]
-- TechnicalKeyData [input]
+- TechnicalKeyData [textarea]
 - Functionality [textarea]
 - PriceUnit [input]
 */ 
@@ -153,24 +153,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
                          'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
+                         'height' => '',
+                         'maxLength' => NULL,
                          'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
                          'name' => 'TechnicalKeyData',
                          'title' => 'Technical Key Data',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'float:left; margin-right: 20px; clear:left;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -178,7 +177,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(

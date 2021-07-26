@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:25:41+02:00
+* Generated at: 2021-07-26T09:42:22+02:00
 * IP: 127.0.0.1
 
 
@@ -12,7 +12,7 @@ Fields Summary:
 - FastenerorBulk [input]
 - ManufactureMakeandModel [input]
 - ManufacturerPart [input]
-- Description [input]
+- Description [textarea]
 */ 
 
 
@@ -315,17 +315,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
                          'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
+                         'height' => '',
+                         'maxLength' => NULL,
                          'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
                          'name' => 'Description',
                          'title' => 'Description',
                          'tooltip' => '',
@@ -340,7 +339,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
