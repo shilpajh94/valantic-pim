@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:11:39+02:00
+* Generated at: 2021-07-26T09:49:01+02:00
 * IP: 127.0.0.1
 
 
@@ -32,7 +32,7 @@ Fields Summary:
 - Resistance [numeric]
 - NumberofLayers [numeric]
 - SpecialServiceConstruction [input]
-- MinimumTransitionLength [input]
+- MinimumTransitionLength [textarea]
 - MaxVolumetricFlowRate4 [textarea]
 - MinimumRadiusofCurveforHorizontalandVerticalCurves [textarea]
 - PNBeltConstruction [textarea]
@@ -960,24 +960,23 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                         'fieldtype' => 'textarea',
                          'width' => 310,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
+                         'height' => '',
+                         'maxLength' => NULL,
                          'showCharCount' => false,
+                         'excludeFromSearchIndex' => false,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
                          'name' => 'MinimumTransitionLength',
                          'title' => 'Minimum transition length',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'padding-left:60px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -985,7 +984,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       8 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
