@@ -766,6 +766,88 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
                 });
             }
         });
+    },
+
+    /**
+     * so that the search string is enclosed withing double quotes by default
+     * so that mysql full text indexing provides more relevent results
+     */
+    dataObjectSearchOverride: function(){
+
+        Ext.override(pimcore.element.selector.object, {
+            applyExtraParamsToStore: function () {
+                var formValues = this.formPanel.getForm().getFieldValues();
+        
+                var proxy = this.store.getProxy();
+        
+                proxy.setExtraParam("type", "object");
+                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                proxy.setExtraParam("subtype", formValues.subtype);
+                proxy.setExtraParam("class", formValues.class);
+        
+                if (this.gridLanguage) {
+                    proxy.setExtraParam("language", this.gridLanguage);
+                }
+        
+                if (this.parent.config && this.parent.config.context) {
+                    proxy.setExtraParam("context", Ext.encode(this.parent.config.context));
+                }
+        
+                this.updateTabTitle(formValues.query);
+            },
+        })
+    },
+
+    /**
+     * so that the search string is enclosed withing double quotes by default
+     * so that mysql full text indexing provides more relevent results
+     */
+    assetSearchOverride: function(){
+
+        Ext.override(pimcore.element.selector.asset, {
+            search: function () {
+                var formValues = this.formPanel.getForm().getFieldValues();
+        
+                var proxy = this.store.getProxy();
+                proxy.setExtraParam("type", "asset");
+                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                proxy.setExtraParam("subtype", formValues.subtype);
+        
+                if (this.parent.config && this.parent.config.context) {
+                    proxy.setExtraParam("context", Ext.encode(this.parent.config.context));
+                }
+        
+                this.pagingtoolbar.moveFirst();
+                this.updateTabTitle(formValues.query);
+            }
+        })
+
+    },
+
+    /**
+     * so that the search string is enclosed withing double quotes by default
+     * so that mysql full text indexing provides more relevent results
+     */
+    documentSearchOverride: function(){
+
+        Ext.override(pimcore.element.selector.document, {
+            search: function () {
+                var formValues = this.formPanel.getForm().getFieldValues();
+        
+                var proxy = this.store.getProxy();
+                proxy.setExtraParam("type", "document");
+                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                proxy.setExtraParam("subtype", formValues.subtype);
+        
+                if (this.parent.config && this.parent.config.context) {
+                    proxy.setExtraParam("context", Ext.encode(this.parent.config.context));
+                }
+        
+                this.pagingtoolbar.moveFirst();
+                this.updateTabTitle(formValues.query);
+            }
+        })
+
     }
 
 });
