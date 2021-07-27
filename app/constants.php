@@ -21,6 +21,7 @@ require_once('log_file_name_constants.php');
 
 define("APPBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/AppBundle/Resources/config");
 define("CATALOGBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/CatalogBundle/Resources/config");
+define("CS_PRODUCTBUNDLE_CONFIG_DIRECTORY",PIMCORE_PROJECT_ROOT."/src/ContitechCS/ProductBundle/Resources/config");
 
 /**
  * to include the constants of the required attributes module
@@ -78,3 +79,9 @@ define('GRID_SQL_EDITOR_ALLOWED_ROLES',['ApplicationAdmin']);
 
 // Files older than these many days will be moved to S3 from archive folder
 define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
+
+// CS Constants
+define("CS_BRICK_MAPPING_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/brick_mapping_config.yml");
+define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/unit_conversion/attribute_groups.yml");
+
+

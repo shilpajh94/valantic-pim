@@ -22,3 +22,23 @@ services:
 #            - "@service_id"
 #            - "plain_value"
 #            - "%parameter%"
+
+    # auto-register all commands as services
+    # app.config_provider_service:
+    #     class: ContitechCS\ProductBundle\Services\ConfigProviderService
+    #     public: true
+
+    ContitechCS\ProductBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+
+    ContitechCS\ProductBundle\Services\AppService:
+        public: true
+
+    ContitechCS\ProductBundle\Services\UnitConverterService:
+        public: true
+
+    ContitechCS\ProductBundle\Services\ConfigProviderService:
+        public: true
+
+    
