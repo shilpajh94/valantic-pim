@@ -1,8 +1,11 @@
 <?php 
 
 /** 
+* Generated at: 2021-07-26T11:06:39+02:00
 * Inheritance: no
 * Variants: no
+* Changed by: admin (2)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -17,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1625144991,
+   'modificationDate' => 1627290398,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -254,12 +257,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 'key' => 'ProdAttrSetS',
                 'value' => 'ProdAttrSetS',
               ),
+              19 => 
+              array (
+                'key' => 'ProdAttrSetT',
+                'value' => 'ProdAttrSetT',
+              ),
+              20 => 
+              array (
+                'key' => 'ProdAttrSetU',
+                'value' => 'ProdAttrSetU',
+              ),
+              21 => 
+              array (
+                'key' => 'ProdAttrSetV',
+                'value' => 'ProdAttrSetV',
+              ),
+              22 => 
+              array (
+                'key' => 'ProdAttrSetW',
+                'value' => 'ProdAttrSetW',
+              ),
+              23 => 
+              array (
+                'key' => 'ProdAttrSetX',
+                'value' => 'ProdAttrSetX',
+              ),
+              24 => 
+              array (
+                'key' => 'ProdAttrSetY',
+                'value' => 'ProdAttrSetY',
+              ),
             ),
              'width' => '',
              'height' => 200,
              'maxItems' => '',
              'renderType' => 'list',
-             'optionsProviderClass' => 'AppBundle\\CSOptionProvider\\CSObjectBricks',
+             'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSObjectBricks',
              'optionsProviderData' => '',
              'queryColumnType' => 'text',
              'columnType' => 'text',

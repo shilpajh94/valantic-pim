@@ -13,7 +13,7 @@
  * @license Pimcore global services GPLv3 and PEL
  */
 
-namespace AppBundle\CSOptionProvider;
+namespace ContitechCS\ProductBundle\OptionProvider;
 
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
@@ -41,7 +41,6 @@ class CSObjectBricks implements SelectOptionsProviderInterface
      */
     public function getOptions($context, $fieldDefinition)
     {
-
         $result = [];
         $list = new DataObject\Objectbrick\Definition\Listing();
         $list = $list->load();
@@ -51,7 +50,6 @@ class CSObjectBricks implements SelectOptionsProviderInterface
                 $result[] = array('key' => $object->getKey(), 'value' => $object->getKey());
             }
         }
-
         return $result;
     }
 
