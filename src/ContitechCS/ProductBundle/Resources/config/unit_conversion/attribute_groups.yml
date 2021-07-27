@@ -1,0 +1,12 @@
+# for all valid units refer ContitechCS\ProductBundle\Lib\UnitConversion\Unit.php
+
+
+#     Product Class
+minimumTemperature__group:
+    minimumTemperatureF: 'F'
+    minimumTemperatureC: 'C'
+
+#    ProdAttrSetR
+CarcassGauge__group:
+    CarcassGaugeinMM: 'MM'
+    CarcassGaugeinInch: 'IN'
