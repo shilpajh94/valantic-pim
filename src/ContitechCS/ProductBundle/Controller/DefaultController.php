@@ -80,11 +80,13 @@ class DefaultController extends FrontendController
                     $product->setParentId($parentId);
                     $product->setPublished(true);
 
-                    foreach ($CSHierarchyRelatedBricks as $brick) {
-                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
-                        $brickObject = new $class($product);
-                        $method = 'set' . $brick;
-                        $product->getProductAttributes()->$method($brickObject);
+                    if($CSHierarchyRelatedBricks) {
+                        foreach ($CSHierarchyRelatedBricks as $brick) {
+                            $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                            $brickObject = new $class($product);
+                            $method = 'set' . $brick;
+                            $product->getProductAttributes()->$method($brickObject);
+                        }
                     }
 
                     $result = $product->save();
