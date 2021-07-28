@@ -22,6 +22,7 @@ class CSHierarchyImportCommand extends AbstractCommand
     private $Level2Hierarchy = array();
     private $Level3Hierarchy = array();
     private $Level4Hierarchy = array();
+    private $RelatedBricksName = array();
 
     protected function configure()
     {
@@ -72,6 +73,8 @@ class CSHierarchyImportCommand extends AbstractCommand
             unset($this->Level1Hierarchy);		
             unset($this->Level2Hierarchy);
             unset($this->Level3Hierarchy);
+            unset($this->Level4Hierarchy);
+            unset($this->RelatedBricksName);
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
@@ -83,6 +86,7 @@ class CSHierarchyImportCommand extends AbstractCommand
         $Level2HierarchyName =  trim(array_values($result)[1]);	
         $Level3HierarchyName =  trim(array_values($result)[2]);	
         $Level4HierarchyName =  trim(array_values($result)[3]);
+        $RelatedBricksName   =  trim(array_values($result)[4]);
 
 
 
@@ -100,25 +104,33 @@ class CSHierarchyImportCommand extends AbstractCommand
         if ($processedLevel == 1) {
             $hierarchy = $Level1HierarchyName;   
             $hierarchyName = $Level1HierarchyName;	
-            $level = array_keys($result)[0];         
+            $level = array_keys($result)[0];  
+            $bricks =  $RelatedBricksName; 
+        
         }
 
         if ($processedLevel == 2) {
             $hierarchy = $Level1HierarchyName . '/' . $Level2HierarchyName;       	
             $hierarchyName = $Level2HierarchyName;		  		
-            $level = array_keys($result)[1];			
+            $level = array_keys($result)[1];
+            $bricks =  $RelatedBricksName; 
+      			
         }
 
         if ($processedLevel == 3) {
             $hierarchy = $Level1HierarchyName . '/' . $Level2HierarchyName . '/' . $Level3HierarchyName;
             $hierarchyName = $Level3HierarchyName;
             $level = array_keys($result)[2];
+            $bricks =  $RelatedBricksName;  
+         
         }
 
         if ($processedLevel == 4) {
             $hierarchy = $Level1HierarchyName . '/' . $Level2HierarchyName . '/' . $Level3HierarchyName . '/' . $Level4HierarchyName;
             $hierarchyName = $Level4HierarchyName;
             $level = array_keys($result)[3];
+            $bricks =  $RelatedBricksName; 
+
         }
 
         if(!empty($hierarchyName))
@@ -135,6 +147,7 @@ class CSHierarchyImportCommand extends AbstractCommand
                     $obj->setKey($hierarchyName);
                     $obj->setName($hierarchyName);
                     $obj->setLevel($level);
+                    $obj->setRelatedBricks([$bricks]);
                     $obj->setParentId($parentId);
                     $obj->setPublished(true);
 
@@ -179,18 +192,36 @@ class CSHierarchyImportCommand extends AbstractCommand
                     }
                 }
 
-                switch($processedLevel){
-                    case 1:
-                        $Level2HierarchyName ? $this->createCSHierarchy($objectId, $result, $processedLevel = 2) : null;
-                        break;
-                    case 2:
-                        $Level3HierarchyName ? $this->createCSHierarchy($objectId, $result, $processedLevel = 3) : null;
-                        break;  
-                    default :
+                if ($processedLevel === 1) {
+                    if($Level2HierarchyName)
+                    {
+                        $this->createCSHierarchy($objectId, $result, $processedLevel = 2);
+                    }
+                    else{
                         return;
-                        break;
+                    }
+                    
+                }else if ($processedLevel === 2) {
+                    if($Level3HierarchyName)
+                    {
+                        $this->createCSHierarchy($objectId, $result, $processedLevel = 3);
+                    }
+                    else{
+                        return;
+                    }
+                    
+                }else if ($processedLevel === 3) {
+                    if($Level4HierarchyName)
+                    {
+                        $this->createCSHierarchy($objectId, $result, $processedLevel = 4);
+                    }
+                    else{
+                        return;
+                    }
+                    
+                }else {
+                    return;
                 }
-                return;
 
             } catch (\Throwable $th) {
                 echo $th->getMessage();
