@@ -67,8 +67,8 @@ class DefaultController extends FrontendController
             $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
             $CSHierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, "", $CSHierarchyPath);
-            $CSHierarchyPath = trim($CSHierarchyPath,'/');
-            $productHier = explode('/',$CSHierarchyPath);
+            $CSHierarchyPath = trim($CSHierarchyPath, '/');
+            $productHier = explode('/', $CSHierarchyPath);
             $productHier[] = $CSHierarchyName;
             $productHier[] = $productName;
 
@@ -76,26 +76,26 @@ class DefaultController extends FrontendController
 
             foreach ($productHier as $key => $hierarchy) {
 
-                $hierarchyArr = array_slice($productHier, 0, $key+1);
+                $hierarchyArr = array_slice($productHier, 0, $key + 1);
                 $hierarchyString = implode('/', $hierarchyArr);
 
-                $productPath = "/".ImportConstants::CONTITECH_CS_PRODUCT_FOLDER .'/'.$hierarchyString;
+                $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
 
                 $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
 
                 $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
 
-                if($hierarchyPathObj)
-                {
+                if ($hierarchyPathObj) {
                     $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
-                    $allObjectBricks = array_merge($allObjectBricks,$CSHierarchyRelatedBricks);
-                    
+                    if ($CSHierarchyRelatedBricks) {
+                        $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
+                    }
                 }
 
                 $allObjectBricks = array_unique($allObjectBricks);
 
                 $CSProductObj = DataObject\CSProducts::getByPath($productPath);
-                
+
                 if (!$CSProductObj) {
 
                     try {
@@ -106,7 +106,7 @@ class DefaultController extends FrontendController
                         $product->setParentId($parentId);
                         $product->setPublished(true);
 
-                        if($allObjectBricks) {
+                        if ($allObjectBricks) {
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                 $brickObject = new $class($product);
@@ -119,18 +119,14 @@ class DefaultController extends FrontendController
                         $parentId = $result->getId();
 
                         $msg =  "Product added successfully";
-
                     } catch (\Throwable $th) {
                         $success = false;
                         $msg =  $th->getMessage();
                     }
-
-                }
-                else{
+                } else {
                     $parentId = $CSProductObj->getId();
                 }
             }
-
         } else {
             $success = false;
             $msg =  "Product name should not be empty.";
