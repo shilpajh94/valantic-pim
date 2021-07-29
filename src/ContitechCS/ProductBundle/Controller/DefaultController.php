@@ -33,7 +33,7 @@ class DefaultController extends FrontendController
     {
         $categoryList = new \Pimcore\Model\DataObject\CSHierarchy\Listing();
         $categoryList->load();
-        //print_r($categoryList);die;
+        
 
         $fieldArray = array();
         foreach ($categoryList as $list) {
