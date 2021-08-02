@@ -21,9 +21,9 @@ class CSHierarchyImportCommand extends AbstractCommand
 
     protected function configure()
     {
-        $this->setName('cs:one-time-import:product-hierarchy-import')	
-            ->setDescription('Product hierarchy data import script')		
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');	     
+        $this->setName('cs:one-time-import:product-hierarchy-import')
+            ->setDescription('Product hierarchy data import script')
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -45,14 +45,13 @@ class CSHierarchyImportCommand extends AbstractCommand
     {
         try {
 
-            $results = $this->getCSVData($filePath);			
+            $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
 
-            unset($result);						
+            unset($result);
 
-            $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();   
-    
+            $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();
 
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
@@ -60,40 +59,40 @@ class CSHierarchyImportCommand extends AbstractCommand
                     unset($result['Bricks']);
                     $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();
                     if (isset($result) && is_array($result)) {
-                        $hierarchy = '';
-                       foreach($result as $key => $value){
-                                $hierarchyName = $value;
-                                $level = $key;
-                                $hierarchy = $hierarchy . '/' . $hierarchyName;
-                                if(!empty($hierarchyName)){
-                                    $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/" . $hierarchy;
-                                        $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath);
-                                        if (!$CSHierarchyObj) {
-                                            $obj = new DataObject\CSHierarchy();
-                                            $obj->setKey($hierarchyName);
-                                            $obj->setName($hierarchyName);
-                                            $obj->setLevel($level);
-                                            $obj->setRelatedBricks([$brick]);
-                                            $obj->setParentId($parentId);
-                                            $obj->setPublished(true);
-                                            $output = $obj->save();
-                        
-                                            $parentId = $output->getId();
-                                        }
-                                        else 
-                                        {
-                                            $parentId = $CSHierarchyObj->getId();
-                                        }
-                                }
-
-                           
-                        }
+                        $this->createHierarchy($result, $brick, $parentId);
                     }
                 }
             }
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             p_r($th->getMessage());
+        }
+    }
+
+    public function createHierarchy($result, $brick, $parentId)
+    {
+        $hierarchy = '';
+        foreach ($result as $key => $value) {
+            $hierarchyName = $value;
+            $level = $key;
+            $hierarchy = $hierarchy . '/' . $hierarchyName;
+            if (!empty($hierarchyName)) {
+                $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/" . $hierarchy;
+                $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath);
+                if (!$CSHierarchyObj) {
+                    $obj = new DataObject\CSHierarchy();
+                    $obj->setKey($hierarchyName);
+                    $obj->setName($hierarchyName);
+                    $obj->setLevel($level);
+                    $obj->setRelatedBricks([$brick]);
+                    $obj->setParentId($parentId);
+                    $obj->setPublished(true);
+                    $output = $obj->save();
+
+                    $parentId = $output->getId();
+                } else {
+                    $parentId = $CSHierarchyObj->getId();
+                }
+            }
         }
     }
 
