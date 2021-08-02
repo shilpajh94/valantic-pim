@@ -18,11 +18,6 @@ use ContitechCS\ImportBundle\Services\ImportConstants;
 class CSHierarchyImportCommand extends AbstractCommand
 {
     private $t;
-    private $Level1Hierarchy = array();	
-    private $Level2Hierarchy = array();
-    private $Level3Hierarchy = array();
-    private $Level4Hierarchy = array();
-    private $RelatedBricks = array();
 
     protected function configure()
     {
@@ -56,162 +51,50 @@ class CSHierarchyImportCommand extends AbstractCommand
 
             unset($result);						
 
-            $ProductHierarchyFolderId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
+            $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();   
     
 
             if (isset($data) && is_array($data)) {
                 foreach ($data  as $result) {
-
+                    $brick = $result['Bricks'];
+                    unset($result['Bricks']);
+                    $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();
                     if (isset($result) && is_array($result)) {
+                        $hierarchy = '';
+                       foreach($result as $key => $value){
+                                $hierarchyName = $value;
+                                $level = $key;
+                                $hierarchy = $hierarchy . '/' . $hierarchyName;
+                                if(!empty($hierarchyName)){
+                                    $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/" . $hierarchy;
+                                        $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath);
+                                        if (!$CSHierarchyObj) {
+                                            $obj = new DataObject\CSHierarchy();
+                                            $obj->setKey($hierarchyName);
+                                            $obj->setName($hierarchyName);
+                                            $obj->setLevel($level);
+                                            $obj->setRelatedBricks([$brick]);
+                                            $obj->setParentId($parentId);
+                                            $obj->setPublished(true);
+                                            $output = $obj->save();
+                        
+                                            $parentId = $output->getId();
+                                        }
+                                        else 
+                                        {
+                                            $parentId = $CSHierarchyObj->getId();
+                                        }
+                                }
 
-                        $this->createCSHierarchy($ProductHierarchyFolderId, $result, 1);	
+                           
+                        }
                     }
                 }
             }
-
-            unset($data);
-            unset($this->Level1Hierarchy);		
-            unset($this->Level2Hierarchy);
-            unset($this->Level3Hierarchy);
-            unset($this->Level4Hierarchy);
-            unset($this->RelatedBricks);
-        } catch (\Throwable $th) {
+        }
+        catch (\Throwable $th) {
             p_r($th->getMessage());
         }
-    }
-
-    public function createCSHierarchy($parentId, $result, $processedLevel = 1)			
-    {
-        $Level1HierarchyName =  trim(array_values($result)[0]);	
-        $Level2HierarchyName =  trim(array_values($result)[1]);	
-        $Level3HierarchyName =  trim(array_values($result)[2]);	
-        $Level4HierarchyName =  trim(array_values($result)[3]);
-        $RelatedBricksName   =  trim(array_values($result)[4]);
-
-
-
-        if (isset($this->Level1Hierarchy[$Level1HierarchyName]) && $processedLevel === 1) {			
-            $this->createCSHierarchy($this->Level1Hierarchy[$Level1HierarchyName], $result, $processedLevel = 2);
-        }else if (isset($this->Level2Hierarchy[$Level2HierarchyName]) && $processedLevel === 2) {
-            $this->createCSHierarchy($this->Level2Hierarchy[$Level2HierarchyName], $result, $processedLevel = 3);
-        }else if (isset($this->Level3Hierarchy[$Level3HierarchyName]) && $processedLevel === 3) {
-            $this->createCSHierarchy($this->Level3Hierarchy[$Level3HierarchyName], $result, $processedLevel = 4);
-        }else if (isset($this->Level4Hierarchy[$Level4HierarchyName]) && $processedLevel === 4) {
-            return;
-        }
-        
-        $hierarchy = '';
-        if ($processedLevel == 1) {
-            $hierarchy = $Level1HierarchyName;   
-            $hierarchyName = $Level1HierarchyName;	
-            $level = array_keys($result)[0];  
-            $bricks =  $RelatedBricksName; 
-        
-        }
-
-        if ($processedLevel == 2) {
-            $hierarchy = $Level1HierarchyName . '/' . $Level2HierarchyName;       	
-            $hierarchyName = $Level2HierarchyName;		  		
-            $level = array_keys($result)[1];
-            $bricks =  $RelatedBricksName; 
-      			
-        }
-
-        if ($processedLevel == 3) {
-            $hierarchy = $Level1HierarchyName . '/' . $Level2HierarchyName . '/' . $Level3HierarchyName;
-            $hierarchyName = $Level3HierarchyName;
-            $level = array_keys($result)[2];
-            $bricks =  $RelatedBricksName;  
-         
-        }
-
-        if ($processedLevel == 4) {
-            $hierarchy = $Level1HierarchyName . '/' . $Level2HierarchyName . '/' . $Level3HierarchyName . '/' . $Level4HierarchyName;
-            $hierarchyName = $Level4HierarchyName;
-            $level = array_keys($result)[3];
-            $bricks =  $RelatedBricksName; 
-
-        }
-
-        if(!empty($hierarchyName))
-        {
-            $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/" . $hierarchy;
-
-            try {
-
-                $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath);
-
-                if (!$CSHierarchyObj) {
-                    $obj = new DataObject\CSHierarchy();
-
-                    $obj->setKey($hierarchyName);
-                    $obj->setName($hierarchyName);
-                    $obj->setLevel($level);
-                    $obj->setRelatedBricks([$bricks]);
-                    $obj->setParentId($parentId);
-                    $obj->setPublished(true);
-
-                    $output = $obj->save();
-
-                    $objectId = $output->getId();
-
-                    if (!isset($this->Level1Hierarchy[$Level1HierarchyName]) && $processedLevel === 1) {
-                        $this->Level1Hierarchy[$Level1HierarchyName] = $objectId;
-                    }
-
-                    if (!isset($this->Level2Hierarchy[$Level2HierarchyName]) && $processedLevel === 2) {
-                        $this->Level2Hierarchy[$Level2HierarchyName] = $objectId;
-                    }
-
-                    if (!isset($this->Level3Hierarchy[$Level3HierarchyName]) && $processedLevel === 3) {
-                        $this->Level3Hierarchy[$Level3HierarchyName] = $objectId;
-                    }
-
-                    if (!isset($this->Level4Hierarchy[$Level4HierarchyName]) && $processedLevel === 4) {
-                        $this->Level4Hierarchy[$Level4HierarchyName] = $objectId;
-                    }
-                } else {
-                    if (!isset($this->Level1Hierarchy[$Level1HierarchyName]) && $processedLevel === 1) {
-                        $objectId = $CSHierarchyObj->getId();
-                        $this->Level1Hierarchy[$Level1HierarchyName] = $CSHierarchyObj->getId();
-                    }
-
-                    if (!isset($this->Level2Hierarchy[$Level2HierarchyName]) && $processedLevel === 2) {
-                        $objectId = $CSHierarchyObj->getId();
-                        $this->Level2Hierarchy[$Level2HierarchyName] = $CSHierarchyObj->getId();
-                    }
-
-                    if (!isset($this->Level3Hierarchy[$Level3HierarchyName]) && $processedLevel === 3) {
-                        $objectId = $CSHierarchyObj->getId();
-                        $this->Level3Hierarchy[$Level3HierarchyName] = $CSHierarchyObj->getId();
-                    }
-
-                    if (!isset($this->Level4Hierarchy[$Level4HierarchyName]) && $processedLevel === 4) {
-                        $objectId = $CSHierarchyObj->getId();
-                        $this->Level4Hierarchy[$Level4HierarchyName] = $CSHierarchyObj->getId();
-                    }
-                }
-
-                switch($processedLevel){
-                    case 1:
-                        $Level2HierarchyName ? $this->createCSHierarchy($objectId, $result, $processedLevel = 2) : null;
-                        break;
-                    case 2:
-                        $Level3HierarchyName ? $this->createCSHierarchy($objectId, $result, $processedLevel = 3) : null;
-                        break;  
-                    default :
-                        return;
-                        break;
-                }
-                return;
-
-            } catch (\Throwable $th) {
-                echo $th->getMessage();
-            }
-        }
-        // else{
-        //     return;
-        // }
     }
 
     public function getCSVData($fileName)
