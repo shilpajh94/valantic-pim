@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:14:20+02:00
+* Generated at: 2021-08-02T11:06:13+02:00
 * IP: 127.0.0.1
 
 
@@ -29,7 +29,6 @@ Fields Summary:
 - VulcanizedAndFastenerRatinginNMM [numeric]
 - CarcassGaugeinMM [numeric]
 - StepLengthinMM [numeric]
-- NumberofPlies [numeric]
 - AveragePermanentElongationPercentage [numeric]
 - FabricType [input]
 - SpliceType [input]
@@ -943,37 +942,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'NumberofPlies',
-                         'title' => 'Number of plies',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      24 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
                          'name' => 'AveragePermanentElongationPercentage',
                          'title' => 'Average permanent elongation in %',
                          'tooltip' => '',
@@ -990,7 +958,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      25 => 
+                      24 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 200,
@@ -1018,7 +986,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      26 => 
+                      25 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
                          'width' => 200,
