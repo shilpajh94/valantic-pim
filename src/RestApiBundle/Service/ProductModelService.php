@@ -295,6 +295,8 @@ class ProductModelService
             $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
             if(!empty($brandName)){
                 $baseDetail['brandName'] = $brandName;
+            }else{
+                unset($baseDetail['brandName']);
             }
         }
         // Getting document URL from object_metadata_1 table
