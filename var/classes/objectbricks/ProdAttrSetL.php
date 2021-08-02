@@ -1,16 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:08:08+02:00
+* Generated at: 2021-08-02T10:42:24+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - Salesunit [select]
-- FeaturesandBenefitsText [textarea]
-- FeaturesandBenefitsImage [image]
 - Identifier [numeric]
-- ProductClaimSlogan [textarea]
 */ 
 
 
@@ -153,56 +150,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 200,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'FeaturesandBenefitsText',
-                         'title' => 'Features and Benefits (text)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-                         'fieldtype' => 'image',
-                         'width' => 300,
-                         'height' => 200,
-                         'uploadPath' => '',
-                         'queryColumnType' => 'int(11)',
-                         'columnType' => 'int(11)',
-                         'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                         'name' => 'FeaturesandBenefitsImage',
-                         'title' => 'Features and Benefits (image)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
                     ),
                      'locked' => false,
                   )),
@@ -255,32 +202,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 200,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'ProductClaimSlogan',
-                         'title' => 'Product Claim/Slogan',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'padding-left:60px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
                       )),
                     ),
                      'locked' => false,

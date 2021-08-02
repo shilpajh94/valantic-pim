@@ -1,14 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-26T09:46:56+02:00
+* Generated at: 2021-08-02T10:18:56+02:00
 * IP: 127.0.0.1
 
 
 Fields Summary: 
 - Price [numeric]
 - TechnicalKeyData [textarea]
-- Functionality [textarea]
 - PriceUnit [input]
 */ 
 
@@ -169,34 +168,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
-                         'style' => 'float:left; margin-right: 20px; clear:left;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => 200,
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'Functionality',
-                         'title' => 'Functionality',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; margin-right: 20px; clear:left; ',
+                         'style' => 'float:left; margin-right: 20px; clear:left;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
