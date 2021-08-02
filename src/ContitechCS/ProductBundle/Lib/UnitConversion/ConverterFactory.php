@@ -5,6 +5,7 @@ namespace ContitechCS\ProductBundle\Lib\UnitConversion;
 
 use ContitechCS\ProductBundle\Lib\UnitConversion\Converters\IConverter;
 use ContitechCS\ProductBundle\Lib\UnitConversion\Converters\LengthConverter;
+use ContitechCS\ProductBundle\Lib\UnitConversion\Converters\WeightConverter;
 
 /**
  * to return the converter instance based on the Unit passed
@@ -22,6 +23,10 @@ class ConverterFactory
         if($unit->getType() == Unit::UNIT_TYPE_LENGTH)
         {
             $converter = new LengthConverter($value,$unit);
+        }
+        else if($unit->getType() == Unit::UNIT_TYPE_WEIGHT)
+        {
+            $converter = new WeightConverter($value,$unit);
         }
         else{
             throw new \Exception("No converter exist for unit type '".$unit->getType()."'" );

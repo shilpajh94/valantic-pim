@@ -19,6 +19,8 @@ class Unit
      * unit types
      */
     CONST UNIT_TYPE_LENGTH = 'LENGTH';
+    CONST UNIT_TYPE_WEIGHT = 'WEIGHT';
+    
 
     /**
      * length units
@@ -34,10 +36,33 @@ class Unit
     CONST M = 'M';
 
     /**
+     * length units
+     */
+
+    /**
+     * weight units
+     */
+    CONST KG = 'KG';
+
+    CONST G = 'G';
+
+    CONST LBS = 'LBS';
+    
+    CONST KN_M = 'KN_M';
+
+    CONST PIW = 'PIW';
+
+    CONST KG_M_SQR = 'KG_M_SQR';
+
+    CONST LBS_FOOT_SQR = 'LBS_FOOT_SQR';
+
+    
+    /**
      * unit type to unit map
      */
     CONST VALID_UNITS = array(
-        self::UNIT_TYPE_LENGTH => array(self::MM, self::FT, self::IN, self::DEC, self::M)
+        self::UNIT_TYPE_LENGTH => array(self::MM, self::FT, self::IN, self::DEC, self::M),
+        self::UNIT_TYPE_WEIGHT => array(self::KG, self::G, self::LBS, self::KN_M, self::PIW, self::KG_M_SQR, self::LBS_FOOT_SQR)
     );
     /**
      * unit name
