@@ -3304,5 +3304,160 @@ return [
 
         ],
         "id" => "HydraulicFittingsChartProductAttributeIncomplete"
+    ],
+    "ProductLocalization" => [
+        "name" => "ProductLocalization",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT `object_localized_CSProducts_en`.`oo_id`, \n`object_localized_CSProducts_en`.`oo_className`, \n`object_localized_CSProducts_en`.`Name`,\n`object_localized_CSProducts_en`.`o_parentId`,\n`object_localized_CSProducts_en`.`CorporateBrand`,\n`object_localized_CSProducts_en`.`ProductBrand`,\n`object_localized_CSProducts_en`.`RelatedProducts`,\n`object_localized_CSProducts_en`.`Industries`,\n`object_localized_CSProducts_en`.`Benefits`,\n`object_localized_CSProducts_en`.`ProductOptions`,\n`object_localized_CSProducts_en`.`Features`,\n`object_localized_CSProducts_en`.`Applications`,\n`object_localized_CSProducts_en`.`o_path`",
+                "from" => "FROM `object_localized_CSProducts_en` \nINNER JOIN `object_localized_CSProducts_de`\nON `object_localized_CSProducts_en`.`oo_id`= `object_localized_CSProducts_de`.`oo_id` \nINNER JOIN `object_localized_CSProducts_pt_BR` \nON `object_localized_CSProducts_en`.`oo_id`= `object_localized_CSProducts_pt_BR`.`oo_id` \nINNER JOIN`object_localized_CSProducts_fr` \nON `object_localized_CSProducts_en`.`oo_id`= `object_localized_CSProducts_fr`.`oo_id` \nINNER JOIN `object_localized_CSProducts_zh_Hans` \nON `object_localized_CSProducts_en`.`oo_id`= `object_localized_CSProducts_zh_Hans`.`oo_id` ",
+                "where" => "WHERE `object_localized_CSProducts_en`.`Name` IS NOT NULL  \nAND `object_localized_CSProducts_de`.`ProductDescription` IS NULL \nAND `object_localized_CSProducts_fr`.`ProductDescription` IS NULL \nAND `object_localized_CSProducts_pt_BR`.`ProductDescription` IS NULL \nAND `object_localized_CSProducts_zh_Hans`.`ProductDescription` IS NULL",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "oo_id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-1"
+            ],
+            [
+                "name" => "oo_className",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-2"
+            ],
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-3"
+            ],
+            [
+                "name" => "o_parentId",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-4"
+            ],
+            [
+                "name" => "CorporateBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-5"
+            ],
+            [
+                "name" => "ProductBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-6"
+            ],
+            [
+                "name" => "RelatedProducts",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-7"
+            ],
+            [
+                "name" => "Industries",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-8"
+            ],
+            [
+                "name" => "Benefits",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-9"
+            ],
+            [
+                "name" => "ProductOptions",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-10"
+            ],
+            [
+                "name" => "Features",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-11"
+            ],
+            [
+                "name" => "Applications",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-12"
+            ],
+            [
+                "name" => "o_path",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel3398-13"
+            ]
+        ],
+        "niceName" => "Product Localization",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1627880688,
+        "creationDate" => 1627880490,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "ProductLocalization"
     ]
 ];
