@@ -37,6 +37,13 @@ class CustomDefaultValue extends DefaultValue
      */
     private function getValueForObject($object, $key, $brickType = null, $brickKey = null, $fieldDefinition = null)
     {
+        /**
+         * this is done so that the runtime does not enter the second if condition of getFieldDefinition in ClassDefinition class
+         * this enables the system to load the select and multiselect options at runtime ignoring the pre-set options
+         * for select and multiselect
+         */
+        \Pimcore::setAdminMode();
+        
         if (!$key) {
             return;
         }
@@ -97,6 +104,8 @@ class CustomDefaultValue extends DefaultValue
         $result->def = $fieldDefinition;
         $result->empty = $fieldDefinition->isEmpty($value);
         $result->objectid = $object->getId();
+
+        \Pimcore::unsetAdminMode();
 
         return $result;
     }
