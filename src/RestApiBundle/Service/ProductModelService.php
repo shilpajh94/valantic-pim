@@ -203,14 +203,27 @@ class ProductModelService
             $imageDataArray['fert'] = $value;
             $imageDataArray['skeleton'] = $nineDigitData;
             $imageDataArray['base'] = $sixDigitData;
-            $finalProductArray[$sixDigit]['images'] = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            $images = $this->getImagesData($finalProductArray[$sixDigit]['images'],$imageDataArray,$value['oldMaterialCode']);
+            if(count($images) > 0){
+                $finalProductArray[$sixDigit]['images'] = $images;
+            }
             // To get the base alt image & document URL
-            if(isset($certificationImageID) && !empty($certificationImageID)) {
-                $finalProductArray[$sixDigit]['CertificationImage'] = $this->getPropertyAssetData($certificationImageID);
+            if(
+                isset($certificationImageID) && 
+                !empty($certificationImageID) && 
+                ($propertyAssetData = $this->getPropertyAssetData($certificationImageID) )
+            ) {
+                    $finalProductArray[$sixDigit]['CertificationImage'] = $propertyAssetData;
             }
-            if(isset($certificationDocumentID) && !empty($certificationDocumentID)) {
-                $finalProductArray[$sixDigit]['CertificationDocument'] = $this->getPropertyAssetData($certificationDocumentID);
+
+            if(
+                isset($certificationDocumentID) && 
+                !empty($certificationDocumentID) && 
+                ( $propertyAssetData = $this->getPropertyAssetData($certificationDocumentID) ) 
+            ) {
+                    $finalProductArray[$sixDigit]['CertificationDocument'] = $propertyAssetData;
             }
+
         }
         
         return $finalProductArray;
@@ -282,6 +295,8 @@ class ProductModelService
             $brandName  =   $this->model->getBrandName($baseDetail['brandName']);
             if(!empty($brandName)){
                 $baseDetail['brandName'] = $brandName;
+            }else{
+                unset($baseDetail['brandName']);
             }
         }
         // Getting document URL from object_metadata_1 table
@@ -322,10 +337,15 @@ class ProductModelService
             foreach($imagesFields as $ikey=>$ivalue){
                 if(isset($value[$ivalue]) && !empty($value[$ivalue])){
                     if(!isset($imageDetail[$value[$ivalue]]) || empty($imageDetail[$value[$ivalue]])){
-                        $imageDetail[$value[$ivalue]] = $this->getPropertyAssetData($value[$ivalue]);
+                        if( $propertyAssetData = $this->getPropertyAssetData($value[$ivalue])){
+                            $imageDetail[$value[$ivalue]] = $propertyAssetData;  
+                        }
                     }
-                    $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
-                    $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
+                    if( $this->getPropertyAssetData($value[$ivalue])){
+                        $imageDetail[$value[$ivalue]]['variant_ids'][] = $variantId;
+                        $imageDetail[$value[$ivalue]]['variant_ids']   = array_unique($imageDetail[$value[$ivalue]]['variant_ids']);
+                    }
+                    
                 }
             }
         }
@@ -403,9 +423,15 @@ class ProductModelService
         $assetId ='';
         if($assetIdflag){
             $asset = Asset::getById($assetIdPath);
+            if(!$asset){
+                return null;
+            }
             $assetId= $assetIdPath;
         }else{
             $asset = Asset::getByPath($assetIdPath);
+            if(!$asset){
+                return null;
+            }
             $assetId= $asset->getId();
         }
         $assetType = $asset->getType();
@@ -456,7 +482,9 @@ class ProductModelService
         foreach($productData as $key=>$value){
             $formattedArray[$i] =$value;
             $formattedArray[$i]['9digit'] =array_values($value['9digit']);
-            $formattedArray[$i]['images'] =array_values($value['images']);
+            if(is_array($value['images'])){
+                $formattedArray[$i]['images'] =array_values($value['images']);
+            }
             $i++;
         }
         return $formattedArray;

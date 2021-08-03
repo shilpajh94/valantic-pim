@@ -161,7 +161,7 @@ class ProductModel
         $page  = 1;
         // Set page Limit.
         if(isset($conditionArray['limit']) && !empty($conditionArray['limit'])){
-            if($conditionArray['limit']>=$this->limit && $conditionArray['limit']<=$this->maxLimit){
+            if( intval($conditionArray['limit']) > 0 && $conditionArray['limit'] <= $this->maxLimit){
                 $limit  =   $conditionArray['limit'];
             }else if($conditionArray['limit']>$this->maxLimit){
                 $limit  =   $this->maxLimit;
