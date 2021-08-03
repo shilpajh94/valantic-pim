@@ -116,9 +116,9 @@ object_bricks:
                     hoseLengthFT:
                         type: 'numeric'
                         label: 'Hose Length (ft)'
-                    assembly:
-                        type: 'booleanSelect'
-                        label: 'Assembly / Not Assembly'
+                    # assembly:
+                    #     type: 'booleanSelect'
+                    #     label: 'Assembly / Not Assembly'
                     fitting1Type:
                         type: 'input'
                         label: 'Fitting 1 Type'
