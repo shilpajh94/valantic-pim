@@ -1,0 +1,18 @@
+Product Name:
+  fieldName: Name
+  fieldType: Input
+  objectType: class 
+Corporate Brand:
+  fieldName: CorporateBrand
+  fieldType: Input
+  objectType: class 
+Product Brand:
+  fieldName: ProductBrand
+  fieldType: Input
+  objectType: class 
+Belt rating:
+  fieldName: beltRatingNMM
+  fieldType: Input
+  objectType: ProdAttrSetC 
+
+

@@ -14,9 +14,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use ContitechCS\ImportBundle\Services\ImportConstants;
+use ContitechCS\ProductBundle\Services\ConfigProviderService;
 
 class CSProductDataImportCommand extends AbstractCommand
 {
+    private $configProviderService;
     private $t;
 
     protected function configure()
@@ -45,12 +47,21 @@ class CSProductDataImportCommand extends AbstractCommand
     {
         try {
 
+            $this->configProviderService = new ConfigProviderService();
+            $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
+
+            
+
             $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
 
+            // p_r($data);
+            // p_r($productDataImportConfig);
+            // die;
 
-            p_r($data);
+
+            
 
             foreach ($data as $key => $productData) {
 
@@ -61,6 +72,13 @@ class CSProductDataImportCommand extends AbstractCommand
                 $productHier = explode('/', $productData['Product Hierarchy']);
 
                 $productHier[] = $productData['Product Name'];
+
+                $productData = array_slice($productData, 2);
+
+                
+
+                // p_r($productData);
+                // die;
 
                 foreach ($productHier as $key => $hierarchy) {
 
@@ -92,14 +110,43 @@ class CSProductDataImportCommand extends AbstractCommand
                             $product->setName($hierarchy, 'en');
                             $product->setParentId($parentId);
                             $product->setPublished(true);
+
+                            $bricksData = [];
+                            foreach ($productData as $fieldCVSKey => $fieldValue) {
+                                if(isset($productDataImportConfig[$fieldCVSKey]))
+                                {
+                                    $fieldConfig = $productDataImportConfig[$fieldCVSKey];
+                                    $fieldName = ucfirst($fieldConfig['fieldName']);
+                                    if($fieldConfig['objectType'] == 'class')
+                                    {
+                                        $method = 'set' . $fieldName;
+                                        $product->$method($fieldValue);
+                                    }
+                                    else{
+                                        $bricksData[$fieldConfig['objectType']][$fieldName] = $fieldValue;
+                                    }
+                                }
+                            }
+                            p_r($allObjectBricks);
+                            // die;
     
                             if ($allObjectBricks) {
                                 foreach ($allObjectBricks as $brick) {
-                                    $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
-                                    $brickObject = new $class($product);
-                                    $brickObject->setBeltRatingNMM(1);
-                                    $method = 'set' . $brick;
-                                    $product->getProductAttributes()->$method($brickObject);
+
+                                    if(isset($bricksData[$brick]))
+                                    {
+                                        $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
+                                        $brickObject = new $class($product);
+
+                                        foreach ($bricksData[$brick] as $fieldKey => $fieldValue) {
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+                                            $brickObject->$objectBrickFieldMethod($fieldValue);
+                                            # code...
+                                        }
+                                        // $brickObject->setBeltRatingNMM(1);
+                                        $method = 'set' . $brick;
+                                        $product->getProductAttributes()->$method($brickObject);
+                                    }
                                 }
                             }
     
