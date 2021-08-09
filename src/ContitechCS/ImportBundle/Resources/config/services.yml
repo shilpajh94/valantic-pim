@@ -38,4 +38,6 @@ services:
     ContitechCS\ImportBundle\OneTimeImportCommand\CSHierarchyImportCommand:
         tags:
             - { name: 'console.command', command: 'cs:one-time-import:product-hierarchy-import' }
-    
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSProductDataImportCommand:
+        tags:
+            - { name: 'console.command', command: 'cs:one-time-import:product-data-import' }

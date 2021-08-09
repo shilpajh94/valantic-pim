@@ -26,6 +26,11 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_BRICK_MAPPING_CONFIG_FILE_PATH);
     }
+
+    public function getProductDataImportConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH);
+    }
     
     /**
      * get yml config for the given file
