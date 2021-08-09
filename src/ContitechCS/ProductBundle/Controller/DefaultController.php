@@ -71,6 +71,8 @@ class DefaultController extends FrontendController
             $productHier = explode('/', $CSHierarchyPath);
             $productHier[] = $CSHierarchyName;
             $productHier[] = $productName;
+            $productHier = array_filter($productHier);
+            $productHier = array_values($productHier);
 
             $allObjectBricks = [];
 
