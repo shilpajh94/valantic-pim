@@ -9,10 +9,192 @@ Corporate Brand:
 Product Brand:
   fieldName: ProductBrand
   fieldType: Input
-  objectType: class 
+  objectType: class
+Related Products:
+  fieldName: RelatedProducts
+  fieldType: Input
+  objectType: class
+Industries:
+  fieldName: Industries
+  fieldType: Input
+  objectType: class
+Benefits:
+  fieldName: Benefits
+  fieldType: Input
+  objectType: class
+Applications:
+  fieldName: Applications
+  fieldType: Input
+  objectType: class
+Features:
+  fieldName: Features
+  fieldType: Input
+  objectType: class
+Product Options:
+  fieldName: ProductOptions
+  fieldType: Input
+  objectType: class
+Product description:
+  fieldName: ProductDescription
+  fieldType: TextArea
+  objectType: class
+Short Text:
+  fieldName: ShortText
+  fieldType: TextArea
+  objectType: class
+Long Text:
+  fieldName: LongText
+  fieldType: TextArea
+  objectType: class
+Shore hardness:
+  fieldName: ShoreHardness
+  fieldType: Number
+  objectType: ProdAttrSetAA
+Shore Hardness Unit:
+  fieldName: ShoreHardnessUnit
+  fieldType: Input
+  objectType: ProdAttrSetAA
+# Product Brand:
+#   fieldName: ProductBrand
+#   fieldType: Input
+#   objectType: ProdAttrSetAB
+Belt Width:
+  fieldName: BeltWidth
+  fieldType: Select
+  objectType: ProdAttrSetAC
+Belt Speed:
+  fieldName: BeltSpeed
+  fieldType: Number
+  objectType: ProdAttrSetAD
+Belt Speed Unit:
+  fieldName: BeltSpeedUnit
+  fieldType: Input
+  objectType: ProdAttrSetAD
+Features and Benefits Text:
+  fieldName: FeaturesandBenefitsText
+  fieldType: TextArea
+  objectType: ProdAttrSetAE
+Features and Benefits Image:
+  fieldName: FeaturesandBenefitsImage
+  fieldType: Image
+  objectType: ProdAttrSetAE
+Product Claim/Slogan:
+  fieldName: ProductClaimSlogan
+  fieldType: TextArea
+  objectType: ProdAttrSetAF
+Length:
+  fieldName: Length
+  fieldType: Number
+  objectType: ProdAttrSetAG
+Width:
+  fieldName: Width
+  fieldType: Number
+  objectType: ProdAttrSetAG
+Length Unit:
+  fieldName: LengthUnit
+  fieldType: Input
+  objectType: ProdAttrSetAG
+Width Unit:
+  fieldName: WidthUnit
+  fieldType: Input
+  objectType: ProdAttrSetAG
+number of plies:
+  fieldName: NumberofPlies
+  fieldType: Number
+  objectType: ProdAttrSetAH
+# Product description:
+#   fieldName: ProductDescription
+#   fieldType: TextArea
+#   objectType: ProdAttrSetAI
+Abrasion Rotating:
+   fieldName: AbrasionRotating
+   fieldType: Number
+   objectType: ProdAttrSetA
+Abrasion Non-Rotating:
+   fieldName: AbrasionNonRotating
+   fieldType: Number
+   objectType: ProdAttrSetA
+Abrasion Rotating Unit:
+   fieldName: AbrasionRotatingUnit
+   fieldType: Number
+   objectType: ProdAttrSetA
+Abrasion Non-Rotating Unit:
+   fieldName: AbrasionNonRotatingUnit
+   fieldType: Number
+   objectType: ProdAttrSetA
+Price:
+  fieldName: Price
+  fieldType: Number
+  objectType: ProdAttrSetB
+Price Unit:
+  fieldName: PriceUnit
+  fieldType: Input
+  objectType: ProdAttrSetB
+Technical Key Data:
+  fieldName: TechnicalKeyData
+  fieldType: TextArea
+  objectType: ProdAttrSetB
 Belt rating:
   fieldName: beltRatingNMM
   fieldType: Input
-  objectType: ProdAttrSetC 
-
-
+  objectType: ProdAttrSetC
+carcass weight in (kg/m²):
+  fieldName: CarcassWeightKGM
+  fieldType: Number
+  objectType: ProdAttrSetC
+Belt rating Unit:
+  fieldName: beltRatingNMMUnit
+  fieldType: Input
+  objectType: ProdAttrSetC
+carcass weight Unit:
+  fieldName: CarcassWeightKGMUnit
+  fieldType: Number
+  objectType: ProdAttrSetC
+Belt Rating:
+  fieldName: beltRatingPIW
+  fieldType: Number
+  objectType: ProdAttrSetC
+Carcass Weight LBS:
+  fieldName: CarcassWeightLBS
+  fieldType: Number
+  objectType: ProdAttrSetC
+Belt Rating PIW Unit:
+  fieldName: beltRatingPIWUnit
+  fieldType: Input
+  objectType: ProdAttrSetC
+Carcass Weight LBS Unit:
+  fieldName: CarcassWeightLBSUnit
+  fieldType: Input
+  objectType: ProdAttrSetC
+Top Cover Options:
+  fieldName: TopCoverOptions
+  fieldType: Select
+  objectType: ProdAttrSetD
+Bottom Cover Options:
+  fieldName: BottomCoverOptions
+  fieldType: Select
+  objectType: ProdAttrSetD
+Elongation (%):
+  fieldName: ElongationPercentage
+  fieldType: Select
+  objectType: ProdAttrSetG
+Cut & Gouge Resistance:
+  fieldName: CutGougeResistance
+  fieldType: Input
+  objectType: ProdAttrSetG
+Flame Resistance:
+  fieldName: FlameResistance
+  fieldType: TextArea
+  objectType: ProdAttrSetG
+(109) Specific Weight:
+  fieldName: SpecificWeight
+  fieldType: Number
+  objectType: ProdAttrSetH
+Thickness:
+  fieldName: Thickness
+  fieldType: Number
+  objectType: ProdAttrSetO
+SAP:
+  fieldName: SapCode
+  fieldType: Number
+  objectType: ProdAttrSetI
