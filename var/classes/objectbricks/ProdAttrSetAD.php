@@ -1,10 +1,6 @@
 <?php 
 
 /** 
-* Generated at: 2021-08-02T10:34:35+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
 - BeltSpeed [numeric]
 - BeltSpeedUnit [input]
@@ -16,8 +12,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'Test1',
-      'fieldname' => 'Test1',
+      'classname' => 'CSProducts',
+      'fieldname' => 'ProductAttributes',
     ),
   ),
    'dao' => NULL,

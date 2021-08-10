@@ -1,15 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:24:47+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
-- MachineModel [input]
-- VehicleManufacturer [input]
-- SAPName [numeric]
-- ProductCode [input]
+- Size [numeric]
 */ 
 
 
@@ -122,84 +115,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'MachineModel',
-                         'title' => 'Machine Model',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'VehicleManufacturer',
-                         'title' => 'Vehicle Manufacturer',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 200,
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'name' => 'Field Container',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'permissions' => NULL,
-                     'childs' => 
-                    array (
-                      0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
                          'width' => 200,
@@ -214,42 +129,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'SAPName',
-                         'title' => 'SAP #',
+                         'name' => 'Size',
+                         'title' => 'Size',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:60px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'ProductCode',
-                         'title' => 'Product Code',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:60px;',
+                         'locked' => NULL,
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

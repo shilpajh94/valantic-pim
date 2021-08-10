@@ -1,17 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:29:58+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
-- Thickness [numeric]
-- TopCoverSurfaceImpression [input]
-- BottomCoverSurfaceImpression [input]
-- ThicknessUnit [input]
-- CompoundType [input]
-- NumberofHoles [input]
+- DiameterMM [numeric]
+- DiameterMMUOM [input]
+- DiameterInch [numeric]
+- DiameterInchUOM [input]
 */ 
 
 
@@ -75,7 +69,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => '',
-             'title' => 'Set - S',
+             'title' => 'Set - W',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
@@ -138,66 +132,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'Thickness',
-                         'title' => 'Thickness ',
+                         'name' => 'DiameterMM',
+                         'title' => 'Diameter',
                          'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'TopCoverSurfaceImpression',
-                         'title' => 'Top Cover Surface Impression',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'BottomCoverSurfaceImpression',
-                         'title' => 'Bottom Cover Surface Impression',
-                         'tooltip' => '',
-                         'mandatory' => false,
+                         'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -244,7 +182,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'ThicknessUnit',
+                         'name' => 'DiameterMMUOM',
                          'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -283,21 +221,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
                          'width' => 200,
                          'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'CompoundType',
-                         'title' => 'Compound Type',
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'DiameterInch',
+                         'title' => 'Diameter',
                          'tooltip' => '',
-                         'mandatory' => false,
+                         'mandatory' => true,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -310,10 +251,32 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
+                    ),
+                     'locked' => false,
+                  )),
+                  3 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 40,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 200,
+                         'width' => 50,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -322,14 +285,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'NumberofHoles',
-                         'title' => 'Number of Holes',
+                         'name' => 'DiameterInchUOM',
+                         'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left:60px;',
+                         'style' => 'padding-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
