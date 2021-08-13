@@ -60,9 +60,6 @@ class CSProductDataImportCommand extends AbstractCommand
             // p_r($productDataImportConfig);
             // die;
 
-
-            
-
             foreach ($data as $key => $productData) {
 
                 $allObjectBricks = [];
@@ -73,16 +70,20 @@ class CSProductDataImportCommand extends AbstractCommand
 
                 $productHier[] = $productData['Product Name'];
 
+                $productHier = array_filter($productHier);
+                $productHier = array_values($productHier);
+
                 $productData = array_slice($productData, 2);
-
-                
-
-                // p_r($productData);
-                // die;
 
                 foreach ($productHier as $key => $hierarchy) {
 
                     $hierarchyArr = array_slice($productHier, 0, $key + 1);
+
+                    $func = function($value) {
+                        return DataObject\Service::getValidKey($value,"obejct");;
+                    };
+                    $hierarchyArr = array_map($func,$hierarchyArr);
+
                     $hierarchyString = implode('/', $hierarchyArr);
     
                     echo "\n". $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
@@ -127,7 +128,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                             }
-                            p_r($allObjectBricks);
+                            // p_r($allObjectBricks);
                             // die;
     
                             if ($allObjectBricks) {
@@ -153,35 +154,17 @@ class CSProductDataImportCommand extends AbstractCommand
                             $result = $product->save();
                             $parentId = $result->getId();
     
-                            echo $msg =  "Product added successfully";
+                            echo "\n" .$msg =  "Product added successfully";
                         } catch (\Throwable $th) {
                             $success = false;
-                            echo $msg =  $th->getMessage();
+                            echo "\n" .$msg =  $th->getMessage();
                         }
                     } else {
                         $parentId = $CSProductObj->getId();
                     }
                 }
-
-                // $allObjectBricks = [];
             }
-
-            die;
-
-            // unset($result);
-
-            // $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();
-
-            // if (isset($data) && is_array($data)) {
-            //     foreach ($data  as $result) {
-            //         $brick = $result['Bricks'];
-            //         unset($result['Bricks']);
-            //         $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER)->getId();
-            //         if (isset($result) && is_array($result)) {
-            //             $this->createHierarchy($result, $brick, $parentId);
-            //         }
-            //     }
-            // }
+            
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
