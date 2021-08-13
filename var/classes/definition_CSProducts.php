@@ -1,11 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:28:12+02:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -31,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1627021691,
+   'modificationDate' => 1628571951,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -607,6 +604,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   22 => 'ProdAttrSetY',
                   23 => 'ProdAttrSetX',
                   24 => 'ProdAttrSetW',
+                  25 => 'ProdAttrSetAA',
+                  26 => 'ProdAttrSetAB',
+                  27 => 'ProdAttrSetAC',
+                  28 => 'ProdAttrSetAD',
+                  29 => 'ProdAttrSetAE',
+                  30 => 'ProdAttrSetAF',
+                  31 => 'ProdAttrSetAG',
+                  32 => 'ProdAttrSetAH',
+                  33 => 'ProdAttrSetAI',
+                  34 => 'ProdSetAttrAJ',
+                  35 => 'ProdAttrSetZ',
                 ),
                  'maxItems' => '',
                  'border' => false,
