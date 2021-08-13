@@ -1,6 +1,10 @@
 <?php 
 
 /** 
+* Generated at: 2021-07-23T08:03:35+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - FlameResistance [textarea]
 - CutGougeResistance [input]
@@ -197,11 +201,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'fieldtype' => 'select',
                          'options' => 
                         array (
-                          0 => 
-                          array (
-                            'key' => '585570',
-                            'value' => '585570',
-                          ),
                         ),
                          'width' => 300,
                          'defaultValue' => '',
