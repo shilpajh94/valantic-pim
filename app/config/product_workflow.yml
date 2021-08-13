@@ -83,7 +83,7 @@ pimcore:
                 publish:
                     from: [review_content, unpublished]
                     to: [accepted]
-                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
+                    guard: "is_fully_authenticated() and (has_role('ROLE_PRODUCTMANAGER') or has_role('ROLE_APPLICATIONADMIN'))"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_PRODUCTMANAGER']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
