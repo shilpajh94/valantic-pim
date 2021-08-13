@@ -27,7 +27,7 @@ pimcore:
                 enrich_again:
                     from: [review_content]
                     to: enrich
-                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
+                    guard: "is_fully_authenticated() and (has_role('ROLE_PRODUCTMANAGER') or has_role('ROLE_APPLICATIONADMIN'))"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_EDITOR']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
@@ -97,7 +97,7 @@ pimcore:
                 unpublish:
                     from: [enrich, review_content, accepted]
                     to: unpublished
-                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
+                    guard: "is_fully_authenticated() and (has_role('ROLE_PRODUCTMANAGER') or has_role('ROLE_APPLICATIONADMIN'))"
                     # notificationSettings:
                     #     notifyRoles: ['ROLE_PRODUCTMANAGER']
                     #     mailPath: '@PimcoreCore/Workflow/NotificationEmail/notificationEmail.html.twig'
@@ -111,7 +111,7 @@ pimcore:
                 reopen:
                     from: [accepted]
                     to: enrich
-                    guard: "is_fully_authenticated() and has_role('ROLE_PRODUCTMANAGER')"
+                    guard: "is_fully_authenticated() and (has_role('ROLE_PRODUCTMANAGER') or has_role('ROLE_APPLICATIONADMIN'))"
                     options:
                         changePublishedState: "no_change"
                         label: 'Product open to enrich'
