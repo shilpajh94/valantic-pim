@@ -159,7 +159,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             },
             store: categories,
             queryMode: 'local',
-            editable: false,
+            editable: true,
             allowBlank: false,
             blankText: 'Field is required',
             msgTarget: 'under',
