@@ -6,7 +6,7 @@
  */
 ?>
 <?php
-$this->extend('ContitechCS:CatalogBundle:Layouts:layout.html.php');
+$this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 ?>
 <?php foreach($this->allChildren as $child) { ?>
 

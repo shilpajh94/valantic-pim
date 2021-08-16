@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Template</title>
-    <!--
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" />
-    -->
-    <link href="/static/cbs/css/print_style.css" rel="stylesheet"  type="text/css"/>
+    <title>Continental</title>
+    <link rel="icon" type="image/png" href="/static/cbs/images/favicon.ico" />
+    <link rel="stylesheet" href="/static/cbs/css/global.css" />
+    <link rel="stylesheet" href="/static/cbs/css/style.css" />
     <?php if ($this->printermarks) { ?>
             <link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css" />
     <?php } ?>

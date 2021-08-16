@@ -1,0 +1,154 @@
+.features-benefit-sec .media{
+    padding-top: 22px;
+}
+.features-benefit-sec h2{
+    margin-bottom: 0px;
+}
+.orange{
+    color: rgb(250, 162, 27);
+}
+.orange-bg{
+    background: rgb(250, 162, 27);
+    color: #fff;
+    -webkit-print-color-adjust: exact; 
+}
+.grey-bg{
+    background: #e6e7e8;
+    -webkit-print-color-adjust: exact; 
+}
+
+.features-benefit-sec h1{
+    font-size: 24px;
+}
+.features-benefit-sec .media h2{
+    font-size: 18px;
+}
+.features-benefit-sec .media p{
+    font-size: 11px;
+}
+.features-benefit-sec .features-images{
+    margin-right: 20px;
+}
+.features-benefit-sec .media{
+    align-items: center;
+}
+.features-benefit-sec .media-body{
+    flex: 1;
+}
+
+.fortressxp-belts .media-body{
+    flex:80%;
+    padding-right:20px;
+    max-width: 80%;
+}
+.fortressxp-belts .media p{
+    font-size: 13px;
+}
+.fortressxp-belts .seal-image img{
+    max-height: 80px;
+}
+.grid{
+    display: flex;
+}
+.table{
+    padding: 40px 0px;
+}
+.table ul{
+    list-style: none;
+}
+.table th, .table td{
+    text-align: left;
+}
+.table thead, .table tbody{
+    border-bottom:2px solid rgb(250, 162, 27);
+}
+.table th, .labels table th{
+    font-size: 12px;
+}
+.table td{
+    font-size: 10px;
+}
+.table .details{
+    padding-top: 25px;
+}
+.labels table tr{
+    border:2px solid rgb(250, 162, 27);
+    border-left: 0px;
+}
+.note{
+    font-size: 8px;
+}
+.components-sec{
+    padding-bottom: 30px;
+}
+.components-sec .media{
+    align-items: flex-end;
+}
+.components-sec .media-body{
+    max-width: 40%;
+    flex: 40%;
+}
+.components-sec .media-img{
+    max-width: 60%;
+}
+.components{
+    padding: 1em 0 0.5em 1.5em;
+}
+.components li{
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 10px;
+    line-height: normal;
+}
+.components li:last-child{
+    padding-bottom: 0px;
+}
+.components li::before{
+    display:inline-block;
+    content: '›';
+    color: #efa41d;
+    font-size: 16px;
+    display: inline-block;
+    width: 0.7em;
+    margin-left: -0.7em;
+    margin-top: -5px;
+    vertical-align: middle;
+}
+.belts-information h3{
+    padding-top: 30px;
+}
+.table-data{
+    margin-bottom: 5px;
+}
+.table-data thead tr{
+    border-top: 2px solid #000;
+}
+.table-data thead tr:last-child, .table-data{
+    border-bottom: 2px solid #000;
+}
+.table-data tbody tr{
+    border-bottom: 1px solid #000;
+}
+
+.table-data tbody tr:last-child{
+    border-bottom: 0px;
+}
+.table-data tbody tr:nth-child(even){
+    background:#ffedcc;
+    -webkit-print-color-adjust: exact; 
+}
+.table-data tbody td:first-child{
+    border-right: 1px solid #000 !important;
+}
+.table-data tbody tr:nth-child(even) td{
+    border-right: 5px solid #fff;
+}
+.table-data tbody tr:nth-child(even) td:last-child{
+    border-right: 0px;
+}
+.table-data tbody tr:last-child td{
+    border-bottom: 0px;
+}
+.table-data .orange-bg{
+    color: #000;
+}
