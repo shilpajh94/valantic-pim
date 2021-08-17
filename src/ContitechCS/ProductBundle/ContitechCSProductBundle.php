@@ -10,7 +10,7 @@ class ContitechCSProductBundle extends AbstractPimcoreBundle
     {
         return [
             '/bundles/contitechcsproduct/js/pimcore/startup.js',
-            '/bundles/contitechcsproduct/js/pimcore/object.js'
+            // '/bundles/contitechcsproduct/js/pimcore/object.js'
         ];
     }
     public function getCssPaths() {
