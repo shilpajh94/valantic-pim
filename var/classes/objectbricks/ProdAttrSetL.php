@@ -1,13 +1,9 @@
 <?php 
 
 /** 
-* Generated at: 2021-08-02T10:42:24+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
 - Salesunit [select]
-- Identifier [numeric]
+- SapCode [numeric]
 */ 
 
 
@@ -175,7 +171,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -187,14 +183,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'Identifier',
-                         'title' => 'Identifier',
+                         'name' => 'SapCode',
+                         'title' => 'SAP Code',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'padding-left:60px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

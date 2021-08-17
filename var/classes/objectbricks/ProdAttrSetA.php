@@ -1,15 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:00:53+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
-- AbrasionRotating [numeric]
-- AbrasionNonRotating [numeric]
-- AbrasionRotatingUnit [input]
-- AbrasionNonRotatingUnit [input]
+- IndustrialServiceTensionCapacityinPIW [numeric]
+- SpacedIndustrialMaxBucketProjection [numeric]
+- ContinuousIndustrialMaxBucketProjection [numeric]
+- IndustrialServiceTensionCapacityinPIWUnit [input]
+- SpacedIndustrialMaxBucketProjectionUnit [input]
+- ContinuousIndustrialMaxBucketProjectionUnit [input]
 */ 
 
 
@@ -73,7 +71,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => NULL,
-             'title' => 'Set - A',
+             'title' => 'Set - J',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
@@ -105,7 +103,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 200,
+                     'labelWidth' => 150,
                      'layout' => 'vbox',
                      'fieldLabel' => '',
                      'name' => 'Field Container',
@@ -124,7 +122,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => 250,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -136,8 +134,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'AbrasionRotating',
-                         'title' => 'Abrasion Rotating',
+                         'name' => 'IndustrialServiceTensionCapacityinPIW',
+                         'title' => 'Industrial Service Tension Capacity in PIW',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -155,7 +153,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => 250,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -167,8 +165,39 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                         'name' => 'AbrasionNonRotating',
-                         'title' => 'Abrasion Non Rotating',
+                         'name' => 'SpacedIndustrialMaxBucketProjection',
+                         'title' => 'Spaced Industrial Max Bucket Projection',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 200,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'ContinuousIndustrialMaxBucketProjection',
+                         'title' => 'Continuous Industrial Max Bucket Projection',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -208,7 +237,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 50,
+                         'width' => 80,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -217,7 +246,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'AbrasionRotatingUnit',
+                         'name' => 'IndustrialServiceTensionCapacityinPIWUnit',
                          'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
@@ -236,7 +265,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 50,
+                         'width' => 80,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -245,7 +274,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'regex' => '',
                          'unique' => false,
                          'showCharCount' => false,
-                         'name' => 'AbrasionNonRotatingUnit',
+                         'name' => 'SpacedIndustrialMaxBucketProjectionUnit',
+                         'title' => '',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'padding-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 80,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'ContinuousIndustrialMaxBucketProjectionUnit',
                          'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
