@@ -766,6 +766,275 @@ pimcore.plugin.RequiredAttributesBundle.overrides = Class.create({
                 });
             }
         });
+    },
+
+    /**
+     * to add anyMatch: true for the select fields so that the search in field work as str_contains
+     */
+    overrideSelect: function(){
+
+        Ext.override(pimcore.object.tags.select,{
+
+            getLayoutEdit: function () {
+                // generate store
+                var validValues = [];
+                var storeData = [];
+                var hasHTMLContent = false;
+        
+                if(!this.fieldConfig.mandatory) {
+                    storeData.push({'value': '', 'key': "(" + t("empty") + ")"});
+                }
+        
+                var restrictTo = null;
+                if (this.fieldConfig.restrictTo && this.fieldConfig.restrictTo.length > 0) {
+                    restrictTo = this.fieldConfig.restrictTo.split(",");
+                }
+        
+                if (this.fieldConfig.options) {
+                    for (var i = 0; i < this.fieldConfig.options.length; i++) {
+                        var value = this.fieldConfig.options[i].value;
+                        if (restrictTo) {
+                            if (!in_array(value, restrictTo)) {
+                                continue;
+                            }
+                        }
+        
+                        var label = t(this.fieldConfig.options[i].key);
+                        if(label.indexOf('<') >= 0) {
+                            hasHTMLContent = true;
+                            label = replace_html_event_attributes(strip_tags(label, "div,span,b,strong,em,i,small,sup,sub2"));
+                        }
+        
+                        storeData.push({'value': value, 'key': label});
+        
+                        validValues.push(value);
+                    }
+                }
+        
+                var store = Ext.create('Ext.data.Store', {
+                    fields: ['value', 'key'],
+                    data : storeData
+                });
+        
+        
+                var options = {
+                    name: this.fieldConfig.name,
+                    triggerAction: "all",
+                    editable: true,
+                    queryMode: 'local',
+                    autoComplete: false,
+                    forceSelection: true,
+                    selectOnFocus: true,
+                    fieldLabel: this.fieldConfig.title,
+                    store: store,
+                    componentCls: "object_field",
+                    width: 250,
+                    displayField: 'key',
+                    valueField: 'value',
+                    labelWidth: 100,
+                    anyMatch: true
+                };
+        
+                if(hasHTMLContent) {
+                    options.displayTpl = Ext.create('Ext.XTemplate',
+                        '<tpl for=".">',
+                        '{[Ext.util.Format.stripTags(values.key)]}',
+                        '</tpl>'
+                    );
+                }
+        
+                if (this.fieldConfig.labelWidth) {
+                    options.labelWidth = this.fieldConfig.labelWidth;
+                }
+        
+                if (this.fieldConfig.width) {
+                    options.width = this.fieldConfig.width;
+                }
+        
+                options.width += options.labelWidth;
+        
+                if (typeof this.data == "string" || typeof this.data == "number") {
+                    if (in_array(this.data, validValues)) {
+                        options.value = this.data;
+                    } else {
+                        options.value = "";
+                    }
+                } else {
+                    options.value = "";
+                }
+        
+                this.component = new Ext.form.ComboBox(options);
+        
+                return this.component;
+            },
+        }) 
+    },
+
+    /**
+     * to add anyMatch: true for the multiselect fields so that the search in field work as str_contains
+     */
+    overrideMultiselect: function(){
+
+        Ext.override(pimcore.object.tags.multiselect,{
+
+            getLayoutEdit: function () {
+
+                // generate store
+                var validValues = [];
+                var hasHTMLContent = false;
+                var storeData = this.prepareStoreDataAndFilterLabels(this.fieldConfig);
+                for (var i = 0; i < storeData.length; i++) {
+                    validValues.push(storeData[i].text);
+                    if(storeData[i].text.indexOf('<') >= 0) {
+                        hasHTMLContent = true;
+                    }
+                }
+        
+                var store = Ext.create('Ext.data.Store', {
+                    fields: ['id', 'text'],
+                    data: storeData
+                });
+        
+        
+                var options = {
+                    name: this.fieldConfig.name,
+                    triggerAction: "all",
+                    editable: false,
+                    fieldLabel: this.fieldConfig.title,
+                    store: store,
+                    componentCls: "object_field",
+                    valueField: 'id',
+                    labelWidth: this.fieldConfig.labelWidth ? this.fieldConfig.labelWidth : 100,
+                    listeners: {
+                        change : function  ( multiselect , newValue , oldValue , eOpts ) {
+                            if (this.fieldConfig.maxItems && multiselect.getValue().length > this.fieldConfig.maxItems) {
+                                // we need to set a timeout so setValue is applied when change event is totally finished
+                                // without this, multiselect wont be updated visually with oldValue (but internal value will be oldValue)
+                                setTimeout(function(multiselect, oldValue){
+                                    multiselect.setValue(oldValue);
+                                }, 100, multiselect, oldValue);
+        
+                                Ext.Msg.alert(t("error"),t("limit_reached"));
+                            }
+                            return true;
+                        }.bind(this)
+                    },
+                    anyMatch: true
+                };
+        
+                if (this.fieldConfig.width) {
+                    options.width = this.fieldConfig.width;
+                } else {
+                    options.width = 300;
+                }
+        
+                options.width += options.labelWidth;
+        
+                if (this.fieldConfig.height) {
+                    options.height = this.fieldConfig.height;
+                } else if (this.fieldConfig.renderType != "tags") {
+                    options.height = 100;
+                }
+        
+                if (typeof this.data == "string" || typeof this.data == "number") {
+                    options.value = this.data;
+                }
+        
+                if (this.fieldConfig.renderType == "tags") {
+                    options.queryMode = 'local';
+                    options.editable = true;
+                    if(hasHTMLContent) {
+                        options.labelTpl = '{[Ext.util.Format.stripTags(values.text)]}';
+                    }
+                    this.component = Ext.create('Ext.form.field.Tag', options);
+                } else {
+                    this.component = Ext.create('Ext.ux.form.MultiSelect', options);
+                }
+        
+                return this.component;
+            },
+        })
+    },
+    /** 
+     * so that the search string is enclosed withing double quotes by default
+     * so that mysql full text indexing provides more relevent results
+     */
+    dataObjectSearchOverride: function(){
+
+        Ext.override(pimcore.element.selector.object, {
+            applyExtraParamsToStore: function () {
+                var formValues = this.formPanel.getForm().getFieldValues();
+        
+                var proxy = this.store.getProxy();
+        
+                proxy.setExtraParam("type", "object");
+                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                proxy.setExtraParam("subtype", formValues.subtype);
+                proxy.setExtraParam("class", formValues.class);
+        
+                if (this.gridLanguage) {
+                    proxy.setExtraParam("language", this.gridLanguage);
+                }
+        
+                if (this.parent.config && this.parent.config.context) {
+                    proxy.setExtraParam("context", Ext.encode(this.parent.config.context));
+                }
+        
+                this.updateTabTitle(formValues.query);
+            },
+        })
+    },
+
+    /**
+     * so that the search string is enclosed withing double quotes by default
+     * so that mysql full text indexing provides more relevent results
+     */
+    assetSearchOverride: function(){
+
+        Ext.override(pimcore.element.selector.asset, {
+            search: function () {
+                var formValues = this.formPanel.getForm().getFieldValues();
+        
+                var proxy = this.store.getProxy();
+                proxy.setExtraParam("type", "asset");
+                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                proxy.setExtraParam("subtype", formValues.subtype);
+        
+                if (this.parent.config && this.parent.config.context) {
+                    proxy.setExtraParam("context", Ext.encode(this.parent.config.context));
+                }
+        
+                this.pagingtoolbar.moveFirst();
+                this.updateTabTitle(formValues.query);
+            }
+        })
+
+    },
+
+    /**
+     * so that the search string is enclosed withing double quotes by default
+     * so that mysql full text indexing provides more relevent results
+     */
+    documentSearchOverride: function(){
+
+        Ext.override(pimcore.element.selector.document, {
+            search: function () {
+                var formValues = this.formPanel.getForm().getFieldValues();
+        
+                var proxy = this.store.getProxy();
+                proxy.setExtraParam("type", "document");
+                proxy.setExtraParam("query", "\"" + formValues.query + "\"");
+                proxy.setExtraParam("subtype", formValues.subtype);
+        
+                if (this.parent.config && this.parent.config.context) {
+                    proxy.setExtraParam("context", Ext.encode(this.parent.config.context));
+                }
+        
+                this.pagingtoolbar.moveFirst();
+                this.updateTabTitle(formValues.query);
+            }
+        })
+
     }
 
 });

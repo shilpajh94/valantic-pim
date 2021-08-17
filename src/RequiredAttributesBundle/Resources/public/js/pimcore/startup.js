@@ -55,6 +55,13 @@ pimcore.plugin.RequiredAttributesBundle = Class.create(pimcore.plugin.admin, {
         new pimcore.plugin.RequiredAttributesBundle.overrides().showNomenclatureCustomPanel();
         new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGetLayout();
         new pimcore.plugin.RequiredAttributesBundle.pdf_preview_override().overrideGeneratePdf();
+
+        new pimcore.plugin.RequiredAttributesBundle.overrides().overrideSelect();
+        new pimcore.plugin.RequiredAttributesBundle.overrides().overrideMultiselect();
+
+        new pimcore.plugin.RequiredAttributesBundle.overrides().dataObjectSearchOverride();
+        new pimcore.plugin.RequiredAttributesBundle.overrides().assetSearchOverride();
+        new pimcore.plugin.RequiredAttributesBundle.overrides().documentSearchOverride();
     },
     postOpenObject: function (object, type) {
 
