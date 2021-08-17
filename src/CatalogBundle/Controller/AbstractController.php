@@ -28,6 +28,19 @@ abstract class AbstractController extends FrontendController
     {
         $this->setViewAutoRender($event->getRequest(), true, 'php');
         $this->view->printermarks = $event->getRequest()->get('printermarks');
-                         
+
+      
+        $imageRecompression = null;
+        $documentId = $this->document->getId();
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        if(file_exists($printConfigFile)){
+            $printConfigFileContent = file_get_contents($printConfigFile);
+            $printConfig = json_decode( $printConfigFileContent,true);
+            $imageRecompression = $printConfig['config']['Image Quality'];  
+            $imageWidth = $printConfig['config']['Image Width'];            
+        }
+
+        $this->view->imageQuality = $imageRecompression;
+        $this->view->imageWidth = $imageWidth;
     }
 }

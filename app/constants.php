@@ -84,3 +84,12 @@ define('SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS','7');
 
 //Email Template for sending report for new Products
 define('NEW_PRODUCT_EMAIL_DOCUMENT','/Email/NewProductReportEmail');
+
+define ('CATALOG_IMAGE_THUBNAILS', array(
+    'Original' => 'catalog_thumb',
+    '2500' => 'catalog_thumb_w2500',
+    '2000' => 'catalog_thumb_w2000',
+    '1500' => 'catalog_thumb_w1500',
+    '1000' => 'catalog_thumb_w1000',
+    '500' => 'catalog_thumb_w500',
+));

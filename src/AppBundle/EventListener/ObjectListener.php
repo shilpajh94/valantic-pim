@@ -63,6 +63,18 @@ class ObjectListener
 
             //add option disableBackgroundExecution into pdf generation process (pdf reactor functionality)
             $options[] = ['name' => 'disableBackgroundExecution', 'type' => 'bool', 'default' => true];
+            $options[] = [
+                'name' => 'Image Quality',
+                'type' => 'select',
+                'values' => [ 'Original','90%', '80%', '70%', '60%', '50%','40%','30%','20%','10%'],
+                'default' => 'Original'
+            ];
+            $options[] = [
+                'name' => 'Image Width',
+                'type' => 'select',
+                'values' => [ 'Original','2500', '2000', '1500', '1000', '500'],
+                'default' => 'Original'
+            ];
         }
 
         $arguments['options'] = $options;

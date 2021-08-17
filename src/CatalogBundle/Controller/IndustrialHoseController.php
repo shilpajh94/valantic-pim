@@ -2,6 +2,7 @@
 
 namespace CatalogBundle\Controller;
 
+use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 // use Pimcore\Asset;
 use Pimcore\Model\Asset;
@@ -24,10 +25,13 @@ class IndustrialHoseController extends AbstractController
     private $columnsData = array();
     private $attributeImages = array();
     private $featuresList = array();
+    private $catalogTemplatingHelper;
 
-    public function __construct()
+
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper)
     {
         $this->db = Db::get();
+        $this->catalogTemplatingHelper = $catalogTemplatingHelper;
     }
 
     /**
@@ -359,7 +363,7 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(!$Packaging && $bvalue[$headerKeysIndex['Packaging']]) {
-                                $Packaging = nl2br($bvalue[$headerKeysIndex['Packaging']]);
+                                $Packaging = $bvalue[$headerKeysIndex['Packaging']];
                             }
 
                             if(!$longDescription && $bvalue[$headerKeysIndex['longDescription']]) {
@@ -902,7 +906,8 @@ class IndustrialHoseController extends AbstractController
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
 
         if($imgObj){
-            $s3src = $imgObj->getThumbnail('catalog_thumb');
+            // $s3src = $imgObj->getThumbnail('catalog_thumb');
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 

@@ -257,7 +257,7 @@ if ($data):
                                 if($imgSrcObj1)
                                 {
                                 ?>
-                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>" class="leftImg" width="600" height="200"/>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>" class="leftImg" width="600" height="200"/>
                                 <?php
                                 }
                             }
@@ -275,7 +275,7 @@ if ($data):
                                 if($imgSrcObj2)
                                 {
                                 ?>
-                                <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" class="rightImg" width="600" height="200"/>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" class="rightImg" width="600" height="200"/>
                                 <?php
                                 }
                             }

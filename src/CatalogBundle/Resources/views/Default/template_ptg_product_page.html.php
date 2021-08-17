@@ -216,7 +216,7 @@ if($groupData):
                                         if($imgSrcObj1)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>"width="400" height="200"/>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>"width="400" height="200"/>
                                         <?php
                                         }
                                 }
@@ -235,7 +235,7 @@ if($groupData):
                                         if($imgSrcObj2)
                                         {
                                         ?>
-                                        <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>"width="400" height="200"/>
+                                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>"width="400" height="200"/>
                                         <?php
                                         }
                                 }
