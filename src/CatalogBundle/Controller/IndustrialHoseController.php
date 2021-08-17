@@ -363,7 +363,7 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(!$Packaging && $bvalue[$headerKeysIndex['Packaging']]) {
-                                $Packaging = $bvalue[$headerKeysIndex['Packaging']];
+                                $Packaging = nl2br($bvalue[$headerKeysIndex['Packaging']]);
                             }
 
                             if(!$longDescription && $bvalue[$headerKeysIndex['longDescription']]) {
