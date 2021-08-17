@@ -1,14 +1,9 @@
 <?php 
 
 /** 
-* Generated at: 2021-08-02T10:18:56+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
-- Price [numeric]
-- TechnicalKeyData [textarea]
-- PriceUnit [input]
+- Region [select]
+- Identifier [numeric]
 */ 
 
 
@@ -121,22 +116,22 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 300,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => 2,
-                         'name' => 'Price',
-                         'title' => 'Price',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 200,
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'Region',
+                         'title' => 'Region',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -150,32 +145,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
-                         'fieldtype' => 'textarea',
-                         'width' => 300,
-                         'height' => '',
-                         'maxLength' => NULL,
-                         'showCharCount' => false,
-                         'excludeFromSearchIndex' => false,
-                         'queryColumnType' => 'longtext',
-                         'columnType' => 'longtext',
-                         'phpdocType' => 'string',
-                         'name' => 'TechnicalKeyData',
-                         'title' => 'Technical Key Data',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'float:left; margin-right: 20px; clear:left;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
                       )),
                     ),
                      'locked' => false,
@@ -200,25 +169,28 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'childs' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'fieldtype' => 'input',
-                         'width' => 50,
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'fieldtype' => 'numeric',
+                         'width' => 300,
                          'defaultValue' => NULL,
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'regex' => '',
+                         'queryColumnType' => 'double',
+                         'columnType' => 'double',
+                         'phpdocType' => 'float',
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
-                         'name' => 'PriceUnit',
-                         'title' => '',
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'name' => 'Identifier',
+                         'title' => 'Identifier',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; padding-left:10px;',
+                         'style' => 'padding-left:60px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

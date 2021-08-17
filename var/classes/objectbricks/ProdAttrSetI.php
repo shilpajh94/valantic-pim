@@ -1,13 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-23T08:05:44+02:00
-* IP: 127.0.0.1
-
-
 Fields Summary: 
-- Region [select]
-- SapCode [numeric]
+- ProductOptions [select]
 */ 
 
 
@@ -134,67 +129,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'columnLength' => 190,
                          'phpdocType' => 'string',
                          'dynamicOptions' => false,
-                         'name' => 'Region',
-                         'title' => 'Region',
+                         'name' => 'ProductOptions',
+                         'title' => 'Product options',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
                          'style' => 'float:left; margin-right: 20px; clear:left;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'locked' => false,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 100,
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'name' => 'Field Container',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => 'margin-left:20px;',
-                     'datatype' => 'layout',
-                     'permissions' => NULL,
-                     'childs' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'fieldtype' => 'numeric',
-                         'width' => 200,
-                         'defaultValue' => NULL,
-                         'queryColumnType' => 'double',
-                         'columnType' => 'double',
-                         'phpdocType' => 'float',
-                         'integer' => false,
-                         'unsigned' => false,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                         'name' => 'SapCode',
-                         'title' => 'SAP Code',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
