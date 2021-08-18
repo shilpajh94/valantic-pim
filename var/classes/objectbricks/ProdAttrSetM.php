@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'ProdAttrSetM',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Product Attributes - M',
+   'title' => 'Set - M',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -67,7 +67,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => '',
-             'title' => 'Set - M',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,

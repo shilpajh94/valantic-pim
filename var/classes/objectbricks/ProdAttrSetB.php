@@ -20,7 +20,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'ProdAttrSetB',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Product Attributes - B',
+   'title' => 'Set - B',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -67,12 +67,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => '',
-             'title' => 'Set - B',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
              'collapsed' => false,
-             'bodyStyle' => 'float:left; margin-right: 20px; clear:left;',
+             'bodyStyle' => '',
              'datatype' => 'layout',
              'permissions' => NULL,
              'childs' => 
@@ -99,8 +99,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 200,
-                     'layout' => 'vbox',
+                     'labelWidth' => 100,
+                     'layout' => 'hbox',
                      'fieldLabel' => '',
                      'name' => 'Field Container',
                      'type' => NULL,
@@ -137,7 +137,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'float:left; margin-right: 20px; clear:left;',
+                         'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -146,32 +146,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
-                    ),
-                     'locked' => false,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 40,
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'name' => 'Field Container',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => '',
-                     'width' => NULL,
-                     'height' => NULL,
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'permissions' => NULL,
-                     'childs' => 
-                    array (
-                      0 => 
+                      1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => 300,
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -190,7 +168,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'padding-left:60px;',
+                         'style' => 'margin-left:30px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

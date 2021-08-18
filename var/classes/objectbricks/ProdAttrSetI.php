@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'ProdAttrSetI',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Product Attributes - I',
+   'title' => 'Set - I',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
