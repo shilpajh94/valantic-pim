@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'ProdAttrSetY',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Product Attributes - Y',
+   'title' => 'Set - Y',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -69,7 +69,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => '',
-             'title' => 'Set - Y',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
@@ -120,7 +120,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => '',
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -138,7 +138,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -151,7 +151,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'fieldtype' => 'numeric',
-                         'width' => '',
+                         'width' => 200,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'double',
                          'columnType' => 'double',
@@ -169,7 +169,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -185,7 +185,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 200,
+                     'labelWidth' => 40,
                      'layout' => 'vbox',
                      'fieldLabel' => '',
                      'name' => 'Field Container',
@@ -204,7 +204,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => NULL,
+                         'width' => 40,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -219,8 +219,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
-                         'style' => '',
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,
@@ -232,7 +232,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => NULL,
+                         'width' => 40,
                          'defaultValue' => NULL,
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
@@ -247,8 +247,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
-                         'style' => '',
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
                          'relationType' => false,

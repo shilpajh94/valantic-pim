@@ -19,7 +19,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'key' => 'ProdAttrSetT',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Product Attributes - T',
+   'title' => 'Set - T',
    'group' => 'CONVEYOR-BELT-SOLUTION',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -66,7 +66,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'name' => 'Layout',
              'type' => NULL,
              'region' => '',
-             'title' => 'Set - T',
+             'title' => '',
              'width' => NULL,
              'height' => NULL,
              'collapsible' => true,
@@ -98,7 +98,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 200,
+                     'labelWidth' => 150,
                      'layout' => 'vbox',
                      'fieldLabel' => '',
                      'name' => 'Field Container',
@@ -135,7 +135,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => '',
                          'permissions' => NULL,
                          'datatype' => 'data',
