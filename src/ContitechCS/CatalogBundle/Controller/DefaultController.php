@@ -16,4 +16,18 @@ class DefaultController extends FrontendController
     {
         return new Response('Hello world from contitech_cs_catalog');
     }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_table_of_contents")
+     */
+    public function templateTableOfContentsAction(Request $request)
+    {
+    }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_product_page")
+     */
+    public function templateProductPageAction(Request $request)
+    {
+    }
 }
