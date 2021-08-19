@@ -69,12 +69,12 @@ class ObjectListener
                 'values' => [ 'Original','90%', '80%', '70%', '60%', '50%','40%','30%','20%','10%'],
                 'default' => 'Original'
             ];
-            $options[] = [
-                'name' => 'Image Width',
-                'type' => 'select',
-                'values' => [ 'Original','2500', '2000', '1500', '1000', '500'],
-                'default' => 'Original'
-            ];
+            // $options[] = [
+            //     'name' => 'Image Width',
+            //     'type' => 'select',
+            //     'values' => [ 'Original','2500', '2000', '1500', '1000', '500'],
+            //     'default' => 'Original'
+            // ];
         }
 
         $arguments['options'] = $options;
