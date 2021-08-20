@@ -1,11 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-07-26T11:06:39+02:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -20,7 +17,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSHierarchy',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1627290398,
+   'modificationDate' => 1629297181,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -164,134 +161,154 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
+                'key' => 'ProdAttrSetAA',
+                'value' => 'ProdAttrSetAA',
+              ),
+              1 => 
+              array (
+                'key' => 'ProdAttrSetAB',
+                'value' => 'ProdAttrSetAB',
+              ),
+              2 => 
+              array (
+                'key' => 'ProdAttrSetAC',
+                'value' => 'ProdAttrSetAC',
+              ),
+              3 => 
+              array (
                 'key' => 'ProdAttrSetA',
                 'value' => 'ProdAttrSetA',
               ),
-              1 => 
+              4 => 
               array (
                 'key' => 'ProdAttrSetB',
                 'value' => 'ProdAttrSetB',
               ),
-              2 => 
+              5 => 
               array (
                 'key' => 'ProdAttrSetC',
                 'value' => 'ProdAttrSetC',
               ),
-              3 => 
+              6 => 
               array (
                 'key' => 'ProdAttrSetD',
                 'value' => 'ProdAttrSetD',
               ),
-              4 => 
+              7 => 
               array (
                 'key' => 'ProdAttrSetE',
                 'value' => 'ProdAttrSetE',
               ),
-              5 => 
+              8 => 
               array (
                 'key' => 'ProdAttrSetF',
                 'value' => 'ProdAttrSetF',
               ),
-              6 => 
+              9 => 
               array (
                 'key' => 'ProdAttrSetG',
                 'value' => 'ProdAttrSetG',
               ),
-              7 => 
+              10 => 
               array (
                 'key' => 'ProdAttrSetH',
                 'value' => 'ProdAttrSetH',
               ),
-              8 => 
+              11 => 
               array (
                 'key' => 'ProdAttrSetI',
                 'value' => 'ProdAttrSetI',
               ),
-              9 => 
+              12 => 
               array (
                 'key' => 'ProdAttrSetJ',
                 'value' => 'ProdAttrSetJ',
               ),
-              10 => 
+              13 => 
               array (
                 'key' => 'ProdAttrSetK',
                 'value' => 'ProdAttrSetK',
               ),
-              11 => 
+              14 => 
               array (
                 'key' => 'ProdAttrSetL',
                 'value' => 'ProdAttrSetL',
               ),
-              12 => 
+              15 => 
               array (
                 'key' => 'ProdAttrSetM',
                 'value' => 'ProdAttrSetM',
               ),
-              13 => 
+              16 => 
               array (
                 'key' => 'ProdAttrSetN',
                 'value' => 'ProdAttrSetN',
               ),
-              14 => 
+              17 => 
               array (
                 'key' => 'ProdAttrSetO',
                 'value' => 'ProdAttrSetO',
               ),
-              15 => 
+              18 => 
               array (
                 'key' => 'ProdAttrSetP',
                 'value' => 'ProdAttrSetP',
               ),
-              16 => 
+              19 => 
               array (
                 'key' => 'ProdAttrSetQ',
                 'value' => 'ProdAttrSetQ',
               ),
-              17 => 
+              20 => 
               array (
                 'key' => 'ProdAttrSetR',
                 'value' => 'ProdAttrSetR',
               ),
-              18 => 
+              21 => 
               array (
                 'key' => 'ProdAttrSetS',
                 'value' => 'ProdAttrSetS',
               ),
-              19 => 
+              22 => 
               array (
                 'key' => 'ProdAttrSetT',
                 'value' => 'ProdAttrSetT',
               ),
-              20 => 
+              23 => 
               array (
                 'key' => 'ProdAttrSetU',
                 'value' => 'ProdAttrSetU',
               ),
-              21 => 
+              24 => 
               array (
                 'key' => 'ProdAttrSetV',
                 'value' => 'ProdAttrSetV',
               ),
-              22 => 
+              25 => 
               array (
                 'key' => 'ProdAttrSetW',
                 'value' => 'ProdAttrSetW',
               ),
-              23 => 
+              26 => 
               array (
                 'key' => 'ProdAttrSetX',
                 'value' => 'ProdAttrSetX',
               ),
-              24 => 
+              27 => 
               array (
                 'key' => 'ProdAttrSetY',
                 'value' => 'ProdAttrSetY',
+              ),
+              28 => 
+              array (
+                'key' => 'ProdAttrSetZ',
+                'value' => 'ProdAttrSetZ',
               ),
             ),
              'width' => '',
              'height' => 200,
              'maxItems' => '',
-             'renderType' => 'list',
+             'renderType' => 'tags',
              'optionsProviderClass' => 'ContitechCS\\ProductBundle\\OptionProvider\\CSObjectBricks',
              'optionsProviderData' => '',
              'queryColumnType' => 'text',
