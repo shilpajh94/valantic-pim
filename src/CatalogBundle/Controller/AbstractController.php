@@ -29,10 +29,11 @@ abstract class AbstractController extends FrontendController
         $this->setViewAutoRender($event->getRequest(), true, 'php');
         $this->view->printermarks = $event->getRequest()->get('printermarks');
 
+        $sourceDoc = $_SESSION["pdf_generation_request_source_document_id"];
       
         $imageRecompression = null;
-        $documentId = $this->document->getId();
-        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($documentId);
+        // $documentId = $this->document->getId();
+        $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($sourceDoc);
         if(file_exists($printConfigFile)){
             $printConfigFileContent = file_get_contents($printConfigFile);
             $printConfig = json_decode( $printConfigFileContent,true);
@@ -42,5 +43,6 @@ abstract class AbstractController extends FrontendController
 
         $this->view->imageQuality = $imageRecompression;
         $this->view->imageWidth = $imageWidth;
+        $this->view->sourceDoc = $sourceDoc;
     }
 }
