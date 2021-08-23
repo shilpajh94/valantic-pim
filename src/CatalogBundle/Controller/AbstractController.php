@@ -32,6 +32,7 @@ abstract class AbstractController extends FrontendController
         $sourceDoc = $_SESSION["pdf_generation_request_source_document_id"];
       
         $imageRecompression = null;
+        $imageWidth = null;
         // $documentId = $this->document->getId();
         $printConfigFile = \Pimcore\Web2Print\Processor::getJobConfigFile($sourceDoc);
         if(file_exists($printConfigFile)){

@@ -17,17 +17,17 @@ class CatalogTemplatingHelper extends Helper{
 
     /**
      * @param Image|Pimcore\Model\Document\Tag\Image $image
-     * @param string $selectedThumbnailName
+     * @param string $selectedThumbnaiWidth
      * 
      * @return Image\Thumbnail
      */
-    public function getImageThumbnail($image, ?string $selectedThumbnailName): ?Image\Thumbnail
+    public function getImageThumbnail($image, ?string $selectedThumbnaiWidth): ?Image\Thumbnail
     {
         $thumbnail = null;
 
-        if(array_key_exists($selectedThumbnailName,CATALOG_IMAGE_THUBNAILS))
+        if(array_key_exists($selectedThumbnaiWidth,CATALOG_IMAGE_THUBNAILS))
         {
-            $thumbnail =  $image->getThumbnail(CATALOG_IMAGE_THUBNAILS[$selectedThumbnailName]);
+            $thumbnail =  $image->getThumbnail(CATALOG_IMAGE_THUBNAILS[$selectedThumbnaiWidth]);
         }
 
         if($thumbnail === null){
