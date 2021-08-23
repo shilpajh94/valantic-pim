@@ -43,6 +43,5 @@ abstract class AbstractController extends FrontendController
 
         $this->view->imageQuality = $imageRecompression;
         $this->view->imageWidth = $imageWidth;
-        $this->view->sourceDoc = $sourceDoc;
     }
 }
