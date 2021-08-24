@@ -29,7 +29,7 @@ abstract class AbstractController extends FrontendController
         $this->setViewAutoRender($event->getRequest(), true, 'php');
         $this->view->printermarks = $event->getRequest()->get('printermarks');
 
-        $sourceDoc = $_SESSION["pdf_generation_request_source_document_id"];
+        $sourceDoc = $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY];
       
         $imageRecompression = null;
         $imageWidth = null;

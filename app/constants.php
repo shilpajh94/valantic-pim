@@ -93,3 +93,5 @@ define ('CATALOG_IMAGE_THUBNAILS', array(
     '1000' => 'catalog_thumb_w1000',
     '500' => 'catalog_thumb_w500',
 ));
+
+define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY","pdf_generation_request_source_document_id");

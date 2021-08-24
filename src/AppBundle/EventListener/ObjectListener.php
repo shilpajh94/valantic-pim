@@ -86,7 +86,7 @@ class ObjectListener
     public function listenPrintPrePdfGeneration(DocumentEvent $event)
     {
         $document = $event->getDocument();
-        $_SESSION["pdf_generation_request_source_document_id"] = $document->getId();
+        $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY] = $document->getId();
     }
 
 
