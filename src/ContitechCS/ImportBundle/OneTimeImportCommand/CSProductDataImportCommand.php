@@ -15,12 +15,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
+use Pimcore\Logger;
 
 class CSProductDataImportCommand extends AbstractCommand
 {
     private $configProviderService;
     private $t;
-
+    const LOG_FILE_NAME = "Product_Data_Import_command_log";
     protected function configure()
     {
         $this->setName('cs:one-time-import:product-data-import')
@@ -45,6 +46,16 @@ class CSProductDataImportCommand extends AbstractCommand
 
     private function import($filePath)
     {
+        
+        $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
+        $csvLogFileHandle = fopen($csvLogFilePath, "w");
+        $this->csvLog($csvLogFileHandle, array(
+            "Import Sheet Row Number",
+            "Product Name",
+            "Comment",
+            "Missing Column Name"
+        ));
+
         try {
 
             $this->configProviderService = new ConfigProviderService();
@@ -56,11 +67,14 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $data = $results['data'];
 
-            // p_r($data);
-            // p_r($productDataImportConfig);
-            // die;
-
+            $i = 0;
             foreach ($data as $key => $productData) {
+
+                $missingColName = '';
+
+                $i++;
+
+                $failedProducts = [];
 
                 $allObjectBricks = [];
             
@@ -128,8 +142,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                             }
-                            // p_r($allObjectBricks);
-                            // die;
     
                             if ($allObjectBricks) {
                                 foreach ($allObjectBricks as $brick) {
@@ -144,7 +156,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                             $brickObject->$objectBrickFieldMethod($fieldValue);
                                             # code...
                                         }
-                                        // $brickObject->setBeltRatingNMM(1);
                                         $method = 'set' . $brick;
                                         $product->getProductAttributes()->$method($brickObject);
                                     }
@@ -155,15 +166,45 @@ class CSProductDataImportCommand extends AbstractCommand
                             $parentId = $result->getId();
     
                             echo "\n" .$msg =  "Product added successfully";
+                            $comment = "Product added successfully";
+                            $missingColName = 'None';
                         } catch (\Throwable $th) {
+
+                            $failedProducts[] = $product->getName();
+                            Logger::error("[ CsProductDataImportCommand ] " . $th->getMessage());
+                            $msg =  $th->getMessage();
+                            preg_match_all("/\[([^\]]*)\]/", $msg, $matches);
+                            $missingCol = $matches[1];
+                            $missingColName ='';
+                            foreach($missingCol as $val){
+                                $missingColName = $missingColName.'   '. $val;
+                            }
                             $success = false;
-                            echo "\n" .$msg =  $th->getMessage();
+                            p_r('Cannot save Product... Check Your Log.');
                         }
+
+
+                        if(count($failedProducts)  > 0){
+                            $comment = "Products which COULD NOT be saved: [" . implode(", ", $failedProducts) . "]";
+                        }
+            
+                        $this->csvLog($csvLogFileHandle, array(
+                            $i,
+                            $hierarchyKey,
+                            $comment,
+                            $missingColName
+                        ));
+
+
                     } else {
                         $parentId = $CSProductObj->getId();
                     }
                 }
             }
+
+            fclose($csvLogFileHandle);
+
+
             
         } catch (\Throwable $th) {
             p_r($th->getMessage());
@@ -244,4 +285,16 @@ class CSProductDataImportCommand extends AbstractCommand
             );
         }
     }
+
+    /**
+     * @param $logHandler
+     * @param array $dataRow
+     */
+    private function csvLog($logHandler, array $dataRow)
+    {
+        $csvDelimiter = ",";
+
+        fputcsv($logHandler, $dataRow, $csvDelimiter);
+    }
+
 }
