@@ -62,7 +62,7 @@ class ProductSQLModel
     private $appService;
     private $weightConversionService;
     
-    const LOGGER_MODULE = 'SIOP IMPORT SHEET';
+    const LOGGER_MODULE = 'SAP IMPORT SHEET';
     const FILE_LAST_COL = 'D';
     const MAX_TOP_CAT_LVL = 6;
     const MIN_TOP_CAT_LVL = 4;
@@ -167,15 +167,20 @@ class ProductSQLModel
     
     public function import($csvData)
     {
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("SAP import started"); 
         $this->tblImpHelper->truncateTempTable();
         $this->tblImpHelper->insertDataInTemp($csvData);
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data Sheet imported in temp table");
         $this->processDeletedProducts();
-
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Removed records in data sheet, marked as unpublished.");
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG import started");
         $this->initiatePTGProductsProcess();
-        
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG import completed");
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import started");
         $this->initiateIFSProductsProcess();
-        
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS import completed");
         $this->tblImpHelper->updateMaster();
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("Data copied from temp table to master table");
         if (!empty($this->updatedArticlesArray) && count($this->updatedArticlesArray)>0) {
             echo "Object Saving started for completeness.";         
             $this->saveProducts($this->updatedArticlesArray);
@@ -183,6 +188,7 @@ class ProductSQLModel
         }
         if (!empty($this->baseSiopMismatchLog) && count($this->baseSiopMismatchLog)>0) {
             $this->tblImpHelper->removeArticlesFromMaster($this->baseSiopMismatchLog);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("failed records removed from master table.");
             $this->sendSkippedArticlesEmailNotification($this->baseSiopMismatchLog, $this->baseSiopMismatchEmailTemplate);
         }
     }
@@ -215,7 +221,8 @@ class ProductSQLModel
                 }
             }
         } catch (\Throwable $th) {
-            Logger::error("sap_import_log", $th);
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error($th);
+//            Logger::error("sap_import_log", $th);
         }
     }
     
@@ -280,7 +287,8 @@ class ProductSQLModel
         $a = time();
         $delta = $this->tblImpHelper->getDelta('ifs');
         $this->setVariablesToEmpty();
-        echo "Delta count: ".$deltaCount = count($delta).PHP_EOL; 
+        $deltaCount = count($delta);
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("IFS Delta count: ".$deltaCount);
         $j = 1;
         $this->getBaseSiopMapping();
         $this->allBaseProducts = $this->tblImpHelper->getAllBaseProducts();
@@ -317,7 +325,7 @@ class ProductSQLModel
         $delta = $this->tblImpHelper->getDelta('ptg');
         $this->setVariablesToEmpty();
         $deltaCount = count($delta);
-        echo "PTG DELTA Count is: ".$deltaCount;
+        \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->info("PTG Delta count: ".$deltaCount);
         $j = 1;
         
         $this->logArray = [];
@@ -384,6 +392,7 @@ class ProductSQLModel
             $i = $i + 1;
         }
         $this->insertDataInDB();
+        echo "inserting data into log";
         $this->tblImpHelper->insertDataToLogTable($this->logArray);
         unset($data, $row);
         $this->setVariablesToEmpty();
@@ -499,15 +508,17 @@ class ProductSQLModel
                     }
 			//}
                 }
-                print_r($objectArr);
+                
             } else {
                 if (array_key_exists($objectKey, $this->allBaseProducts)) {
                     $objectArr['o_id'] = $this->allBaseProducts[$objectKey];
                 }
             }
             
-            
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
+            if (is_array($objId) && empty($objId[0])) {
+                return $objId;
+            }
             $this->products[$currentLevelPath] = $objId;
             
             $this->getQueryTableData($objId, $record, $levelInfo, 4, $type, 'IFS');
@@ -535,6 +546,7 @@ class ProductSQLModel
         } else {
             $objId = $this->products[$currentLevelPath];
         }
+        echo "ID: = ".$objId.PHP_EOL;
         return [$objId, $currentLevelPath];
     }
     
@@ -577,6 +589,7 @@ class ProductSQLModel
                     $objectArr['parentId'] = $data[0]['o_parentId'];
                 }
             }
+            
             $objId = $this->tblImpHelper->insertInObjects($objectArr);
             $this->products[$currentLevelPath] = $objId;
             $this->getQueryTableData($objId, $record, $levelInfo, $objectIndex, $type, 'PTG');
@@ -603,6 +616,7 @@ class ProductSQLModel
         $status = 'Failed';
         $errorFlag = false;
         if (array_key_exists($siopCode, $this->categories)) {
+            
             $buCatCode = substr($siopCode, 2, 4);
             if ($this->isValidCategoryCode($buCatCode, $siopCode)) {
                 if (!empty(trim($recData[$this->getRecordIndexByKey('group')]))) {
@@ -613,6 +627,7 @@ class ProductSQLModel
                         'material'  =>  $recData[$this->getRecordIndexByKey('material')]
                     );
                     $levelInfo = $this->productHelper->getLevels($record['code'], $record);
+                    
                     if ($levelInfo['status']) {
                         
                         if (strtolower($bu) == 'ifs') {
@@ -651,12 +666,23 @@ class ProductSQLModel
                                     $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'fert', true);
                                 } else {
                                     $levelArray = $this->createIFSObject($recData, $folderId, $folderPath, $levelInfo['levels'], 'base');
-                                    $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
-                                    $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
-                                    
+                                    if (empty($levelArray[0])) {
+                                        $msg = $levelArray[1];
+                                    } else {
+                                        $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'skeleton');
+                                        if (empty($levelArray[0])) {
+                                            $msg = $levelArray[1];
+                                        } else {
+                                            $levelArray = $this->createIFSObject($recData, $levelArray[0], $levelArray[1], $levelInfo['levels'], 'fert');
+                                        }
+                                    }
                                 }
-                                $status = 'Success';
-                                $msg = 'Object Id is: '.$levelArray[0];
+                                if (empty($levelArray[0])) {
+                                    $msg = $levelArray[1];
+                                } else {
+                                    $status = 'Success';
+                                    $msg = 'Object Id is: '.$levelArray[0];
+                                }
                             }
                         } else if(strtolower($bu) == 'ptg') {
                             $folderIndex = count($levelInfo['levels'])-2;
@@ -690,6 +716,7 @@ class ProductSQLModel
         } else {
             $msg = 'SIOP Category not exists.';
         }
+        
         $logRow = [
             'id' => $recData[$this->getRecordIndexByKey('material')],
             'siopfullcode' => $siopCode,
@@ -697,6 +724,15 @@ class ProductSQLModel
             'statusCode' => $status,
             'failedReason' => $msg
         ];
+        if ($status =='Failed' && !array_key_exists($recData[$this->getRecordIndexByKey('material')], $this->baseSiopMismatchLog)) {
+            $this->baseSiopMismatchLog[$recData[$this->getRecordIndexByKey('material')]] = [
+                'articleNumber' => $recData[$this->getRecordIndexByKey('material')],
+                'siop' => $siopCode,
+                '6digit' => null,
+                'mismatchedSiopCode' => null,
+                'mismatchedArticleNumber' => null
+            ]; 
+        }
         $this->logArray[] = $logRow; 
         $logRow = null;
         unset($logRow);
