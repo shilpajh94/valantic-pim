@@ -83,8 +83,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'hbox',
+                 'labelWidth' => 130,
+                 'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
@@ -102,7 +102,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 250,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -164,8 +164,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'hbox',
+                 'labelWidth' => 50,
+                 'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,

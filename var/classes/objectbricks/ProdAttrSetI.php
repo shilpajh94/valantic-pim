@@ -81,7 +81,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 100,
+                 'labelWidth' => 120,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
