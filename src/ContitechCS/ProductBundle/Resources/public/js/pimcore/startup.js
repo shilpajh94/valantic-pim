@@ -47,10 +47,10 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             async: false,
             items: [
                     {
-                    xtype: 'label',
-                    html: '',
-                    name: 'addProductError',
-                    itemId:'addProductError'
+                        xtype: 'label',
+                        html: '',
+                        name: 'addProductError',
+                        itemId:'addProductError'
                     },
                     {
                         xtype: 'textfield',
@@ -66,7 +66,20 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         msgTarget: 'under',
                         value: this.productName,
                     },
-                    classCombo],
+                    classCombo,
+                    {
+                        xtype: 'checkbox',
+                        name: 'productCategoryCheck',
+                        style: {
+                            margin: '30px'
+                        },
+                        width: 500,
+                        labelWidth: 300,
+                        fieldLabel: 'Create Product Group at same Category Level',
+                        allowBlank: true,
+                        value: this.productCategoryCheck,
+                    },
+                ],
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -150,9 +163,8 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         });
         categories.load();
 
-        // Create the combo box, attached to the states data store
-        let combo = new Ext.create('Ext.form.ComboBox', {
-            fieldLabel: 'Select Parent Category <span style="color:red;">*</span>',
+        return new Ext.create('Ext.form.ComboBox', {
+            fieldLabel: 'Select Category <span style="color:red;">*</span>',
             name: 'categoryId',
             style: {
                 margin: '30px'
@@ -170,7 +182,6 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             value: this.categoryId,
 
         });
-        return combo;
     },
 });
 

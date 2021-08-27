@@ -60,8 +60,13 @@ class DefaultController extends FrontendController
         $productName = $request->get('productName');
         if (trim($productName)) {
             $productCategoryId = $request->get('categoryId');
+            $productCategoryCheck = $request->get('productCategoryCheck');
+
             $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
             $CSHierarchyPath = $CSHierarchyObj->getPath();
+
+            $relatedBricksSameLevel = $CSHierarchyObj->getRelatedBricks();
+
             $CSHierarchyName = $CSHierarchyObj->getName();
 
             $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
@@ -69,13 +74,18 @@ class DefaultController extends FrontendController
             $CSHierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, "", $CSHierarchyPath);
             $CSHierarchyPath = trim($CSHierarchyPath, '/');
             $productHier = explode('/', $CSHierarchyPath);
-            $productHier[] = $CSHierarchyName;
+            if (!$productCategoryCheck) {
+                $productHier[] = $CSHierarchyName;
+            }
+
             $productHier[] = $productName;
+
             $productHier = array_filter($productHier);
             $productHier = array_values($productHier);
 
             $allObjectBricks = [];
-
+            $counter = 1;
+            $productHierCount = count($productHier);
             foreach ($productHier as $key => $hierarchy) {
 
                 $hierarchyArr = array_slice($productHier, 0, $key + 1);
@@ -94,10 +104,11 @@ class DefaultController extends FrontendController
                     }
                 }
 
+                if ($counter == $productHierCount) {
+                    $allObjectBricks = $relatedBricksSameLevel;
+                }
                 $allObjectBricks = array_unique($allObjectBricks);
-
                 $CSProductObj = DataObject\CSProducts::getByPath($productPath);
-
                 if (!$CSProductObj) {
 
                     try {
@@ -106,6 +117,7 @@ class DefaultController extends FrontendController
                         $product->setKey($hierarchy);
                         $product->setName($hierarchy, 'en');
                         $product->setParentId($parentId);
+                        $product->setOmitMandatoryCheck(true);
                         $product->setPublished(true);
 
                         if ($allObjectBricks) {
@@ -128,6 +140,7 @@ class DefaultController extends FrontendController
                 } else {
                     $parentId = $CSProductObj->getId();
                 }
+                $counter++;
             }
         } else {
             $success = false;
