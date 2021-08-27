@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
+use Pimcore\Model\User;
 use ContitechCS\ImportBundle\Services\ImportConstants;
+use ContitechCS\ProductBundle\Services\UserConstants;
 
 /**
  * @package ContitechCS\ProductBundle\Controller
@@ -46,6 +48,35 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/get_users")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getUsers(Request $request)
+    {
+        $userList = $filteredList = new User\Listing();
+        $userList->load();
+
+        $fieldArray = array();
+        foreach ($userList as $list) {
+            if ($list->getName() == UserConstants::USER_PRODUCT_MANAGER) {
+                $parentId = $list->getId();
+                $filteredList->setCondition('parentId = ?', $parentId);
+
+                $filteredList->load();
+                foreach ($filteredList as $fList) {
+                    $fieldArrayTemp = array();
+                    $fieldArrayTemp['id'] = $fList->getId();
+                    $fieldArrayTemp['name'] = $fList->getName();
+                    $fieldArray[] = $fieldArrayTemp;
+                }
+            }
+        }
+        return $this->json(["userList" => $fieldArray]);
+    }
+
+    /**
      * @Route("/save_product")
      *
      * @param Request $request
@@ -61,6 +92,7 @@ class DefaultController extends FrontendController
         if (trim($productName)) {
             $productCategoryId = $request->get('categoryId');
             $productCategoryCheck = $request->get('productCategoryCheck');
+            $userId = $request->get('userId');
 
             $CSHierarchyObj = DataObject\CSHierarchy::getById($productCategoryId);
             $CSHierarchyPath = $CSHierarchyObj->getPath();
@@ -119,7 +151,7 @@ class DefaultController extends FrontendController
                         $product->setParentId($parentId);
                         $product->setOmitMandatoryCheck(true);
                         $product->setPublished(true);
-
+                        $product->setProductOwner($userId);
                         if ($allObjectBricks) {
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
