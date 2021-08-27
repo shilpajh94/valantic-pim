@@ -9,6 +9,7 @@ Fields Summary:
 - Name [input]
 - CorporateBrand [input]
 - ProductBrand [input]
+- ProductOwner [user]
 - Benefits [input]
 - ProductOptions [input]
 - Features [input]
@@ -42,7 +43,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1629314925,
+   'modificationDate' => 1630064604,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -224,6 +225,288 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+                         'fieldtype' => 'user',
+                         'unique' => false,
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'value' => 47,
+                            'key' => 'a070825 (Alan Hickenbottom)',
+                          ),
+                          1 => 
+                          array (
+                            'value' => 36,
+                            'key' => 'a352850 (Reji Joseph)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 55,
+                            'key' => 'a389752 (Randy Kish)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 2,
+                            'key' => 'admin',
+                          ),
+                          4 => 
+                          array (
+                            'value' => 23,
+                            'key' => 'Andy (Andy Speidel)',
+                          ),
+                          5 => 
+                          array (
+                            'value' => 16,
+                            'key' => 'Ben (Ben Tracey)',
+                          ),
+                          6 => 
+                          array (
+                            'value' => 11,
+                            'key' => 'cory (Cory Walter)',
+                          ),
+                          7 => 
+                          array (
+                            'value' => 82,
+                            'key' => 'CSProductManager_2',
+                          ),
+                          8 => 
+                          array (
+                            'value' => 21,
+                            'key' => 'Dave (Dave Smith)',
+                          ),
+                          9 => 
+                          array (
+                            'value' => 42,
+                            'key' => 'dobol (Laszlo Dobo)',
+                          ),
+                          10 => 
+                          array (
+                            'value' => 33,
+                            'key' => 'editor',
+                          ),
+                          11 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'Editor_1',
+                          ),
+                          12 => 
+                          array (
+                            'value' => 22,
+                            'key' => 'Eric (Eric Dupont)',
+                          ),
+                          13 => 
+                          array (
+                            'value' => 28,
+                            'key' => 'Jarek (Jarek Zakrzewski)',
+                          ),
+                          14 => 
+                          array (
+                            'value' => 20,
+                            'key' => 'Jeff (Jeff Epperson)',
+                          ),
+                          15 => 
+                          array (
+                            'value' => 25,
+                            'key' => 'Jeremy (Jeremy Lidgett)',
+                          ),
+                          16 => 
+                          array (
+                            'value' => 14,
+                            'key' => 'Joe (joe glandorf)',
+                          ),
+                          17 => 
+                          array (
+                            'value' => 26,
+                            'key' => 'Karina (Karina Robinson)',
+                          ),
+                          18 => 
+                          array (
+                            'value' => 17,
+                            'key' => 'Laszlo (Laszlo Dobo)',
+                          ),
+                          19 => 
+                          array (
+                            'value' => 12,
+                            'key' => 'macenzie',
+                          ),
+                          20 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'MarCom_1',
+                          ),
+                          21 => 
+                          array (
+                            'value' => 8,
+                            'key' => 'Mark (Rohan Kumar)',
+                          ),
+                          22 => 
+                          array (
+                            'value' => 24,
+                            'key' => 'MarkR (Mark Rosetta)',
+                          ),
+                          23 => 
+                          array (
+                            'value' => 51,
+                            'key' => 'ncem057 (Steve Davison)',
+                          ),
+                          24 => 
+                          array (
+                            'value' => 15,
+                            'key' => 'Nicole (Nicole Kostelnick)',
+                          ),
+                          25 => 
+                          array (
+                            'value' => 48,
+                            'key' => 'nlndv68 (Jeff Epperson)',
+                          ),
+                          26 => 
+                          array (
+                            'value' => 27,
+                            'key' => 'Paul (Paul Whiffin)',
+                          ),
+                          27 => 
+                          array (
+                            'value' => 35,
+                            'key' => 'Pradeep',
+                          ),
+                          28 => 
+                          array (
+                            'value' => 34,
+                            'key' => 'productmanager',
+                          ),
+                          29 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'ProductManager_1',
+                          ),
+                          30 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'RajeshReadOnly (Rajesh Kumar)',
+                          ),
+                          31 => 
+                          array (
+                            'value' => 29,
+                            'key' => 'Randy (Rohan Kumar)',
+                          ),
+                          32 => 
+                          array (
+                            'value' => 9,
+                            'key' => 'Reji',
+                          ),
+                          33 => 
+                          array (
+                            'value' => 13,
+                            'key' => 'Rohit',
+                          ),
+                          34 => 
+                          array (
+                            'value' => 18,
+                            'key' => 'Steve (Steve Davison)',
+                          ),
+                          35 => 
+                          array (
+                            'value' => 41,
+                            'key' => 'uic58260 (Evan Wasen)',
+                          ),
+                          36 => 
+                          array (
+                            'value' => 30,
+                            'key' => 'uic60917 (Krishnan Kumar)',
+                          ),
+                          37 => 
+                          array (
+                            'value' => 52,
+                            'key' => 'uie20462 (Steven De Alwis)',
+                          ),
+                          38 => 
+                          array (
+                            'value' => 40,
+                            'key' => 'V000320 (Jarek Zakrzewski)',
+                          ),
+                          39 => 
+                          array (
+                            'value' => 37,
+                            'key' => 'v000696 (Mark Dario)',
+                          ),
+                          40 => 
+                          array (
+                            'value' => 43,
+                            'key' => 'v001713 (Nicole Kostelnick)',
+                          ),
+                          41 => 
+                          array (
+                            'value' => 39,
+                            'key' => 'v002041 (Cory Walter)',
+                          ),
+                          42 => 
+                          array (
+                            'value' => 45,
+                            'key' => 'v002044 (Zach Christenson)',
+                          ),
+                          43 => 
+                          array (
+                            'value' => 46,
+                            'key' => 'v002065 (Mark Rosetta)',
+                          ),
+                          44 => 
+                          array (
+                            'value' => 44,
+                            'key' => 'V104718 (Ben Tracey)',
+                          ),
+                          45 => 
+                          array (
+                            'value' => 53,
+                            'key' => 'v106287 (Joe Glandorf)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 49,
+                            'key' => 'V111211 (James Dusek)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 50,
+                            'key' => 'v111296 (Scott Retzlaff)',
+                          ),
+                          48 => 
+                          array (
+                            'value' => 54,
+                            'key' => 'V112497 (Morgan Lackey)',
+                          ),
+                          49 => 
+                          array (
+                            'value' => 19,
+                            'key' => 'Zach (Zach Christenson)',
+                          ),
+                        ),
+                         'width' => '',
+                         'defaultValue' => NULL,
+                         'optionsProviderClass' => NULL,
+                         'optionsProviderData' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'ProductOwner',
+                         'title' => 'ProductOwner',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => 'margin-left:10px;',

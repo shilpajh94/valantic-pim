@@ -38,10 +38,11 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
     },
 
     addNewProductForm: function () {
-        let classCombo = this.getClassCombo();
+        let classCombo = this.getHierarchyClassCombo();
+        let userCombo = this.getUsersCombo();
         this.basicForm = new Ext.create("Ext.form.Panel", {
-            width: 600,
-            height: 300,
+            width: 650,
+            height: 400,
             html: '',
             url: '/contitech_cs_product/default/save_product',
             async: false,
@@ -67,6 +68,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         value: this.productName,
                     },
                     classCombo,
+                    userCombo,
                     {
                         xtype: 'checkbox',
                         name: 'productCategoryCheck',
@@ -140,11 +142,11 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
     },
 
     /**
-     * return class select combo
+     * return class select combo for Hierarchy
      *
      * @returns {Ext.create}
      */
-     getClassCombo: function () {
+     getHierarchyClassCombo: function () {
 
         let categories = new Ext.data.JsonStore({
             proxy: {
@@ -181,6 +183,50 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             labelWidth: 200,
             value: this.categoryId,
 
+        });
+    },
+
+    /**
+     * return class select combo for Users
+     *
+     * @returns {Ext.create}
+     */
+     getUsersCombo: function () {
+
+        let users = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/contitech_cs_product/default/get_users',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'userList'
+                }
+            },
+            fields: ["id", "name"],
+            sorters: [{
+                    property: 'name',
+                    direction: 'ASC'
+                }]
+        });
+        users.load();
+
+        return new Ext.create('Ext.form.ComboBox', {
+            fieldLabel: 'Select User <span style="color:red;">*</span>',
+            name: 'userId',
+            style: {
+                margin: '30px'
+            },
+            store: users,
+            queryMode: 'local',
+            editable: true,
+            allowBlank: false,
+            blankText: 'Field is required',
+            msgTarget: 'under',
+            displayField: 'name',
+            valueField: 'id',
+            width: 500,
+            labelWidth: 200,
+            value: this.userId,
         });
     },
 });
