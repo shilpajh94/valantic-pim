@@ -2,7 +2,7 @@
 
 /** 
 Fields Summary: 
-- International [textarea]
+- InternationalStandards [textarea]
 */ 
 
 
@@ -108,10 +108,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'queryColumnType' => 'longtext',
                      'columnType' => 'longtext',
                      'phpdocType' => 'string',
-                     'name' => 'International',
-                     'title' => 'International',
+                     'name' => 'InternationalStandards',
+                     'title' => 'International Standards',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,

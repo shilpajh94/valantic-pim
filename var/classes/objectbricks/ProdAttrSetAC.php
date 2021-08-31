@@ -132,7 +132,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
-                     'labelWidth' => 40,
+                     'labelWidth' => 50,
                      'layout' => 'hbox',
                      'fieldLabel' => '',
                      'name' => 'Field Container',
@@ -151,8 +151,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       0 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'fieldtype' => 'input',
-                         'width' => 40,
-                         'defaultValue' => NULL,
+                         'width' => 50,
+                         'defaultValue' => 'mm',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -164,7 +164,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'title' => '',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => false,
+                         'noteditable' => true,
                          'index' => false,
                          'locked' => false,
                          'style' => 'padding-left:10px;',
