@@ -1039,6 +1039,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   26 => 'ProdAttrSetAB',
                   27 => 'ProdAttrSetAC',
                   28 => 'ProdAttrSetZ',
+                  29 => 'ProdAttrSetAD',
                 ),
                  'maxItems' => '',
                  'border' => false,
