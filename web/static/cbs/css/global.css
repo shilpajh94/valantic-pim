@@ -1,16 +1,20 @@
-
 html,
 body {
     height: 100%;
 }
-*{
-    margin:0;
+
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-*, ::after, ::before {
+
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
+
 body {
     background-color: #ffffff;
     line-height: 1.4;
@@ -20,29 +24,52 @@ body {
     color: #43474e;
     overflow-x: hidden;
 }
-article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
     display: block;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-top: 0;
     margin-bottom: .5rem;
     font-weight: 500;
 }
+
 p {
     margin-top: 0;
     margin-bottom: 1rem;
 }
+
 a,
 button {
     cursor: pointer;
 }
-ul, ol{
+
+ul,
+ol {
     list-style-type: none;
+    font-size: 10px;
 }
+
 *:focus {
     outline: none !important;
     box-shadow: none !important;
 }
+
 a,
 a:hover,
 a img,
@@ -52,6 +79,7 @@ a:focus {
     text-decoration: none;
     outline: 0;
 }
+
 button,
 input[type="submit"] {
     cursor: pointer;
@@ -61,47 +89,61 @@ img {
     height: auto;
     max-width: 100%;
 }
-.right-side, .left-side{
+
+.wrapper {
     height: 100%;
 }
-.right-side header, .right-side #content, .right-side footer{
-    padding-left: 40px;
-    padding-right: 20px;
-}
-.left-side header, .left-side #content, .left-side footer{
-    padding-left: 20px;
-    padding-right: 40px;
-}
-header{
-    padding-top: 20px;
-    padding-bottom: 40px;   
-}
-#content {
-    padding-top: 0px;
-    /* min-height: calc(100vh - 123px); */
-    min-height: calc(100vh - 123px);
+
+.wrapper,
+.wrapper header,
+.wrapper footer {
+    padding: 0px 30px;
 }
 
-.right-side footer{
-    text-align: right;
+header {
+    padding-top: 20px !important;
+    padding-bottom: 40px !important;
 }
-.header-sec{
+
+.header-sec {
     display: flex;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
     font-size: 12px;
 }
-.media{
+
+.media {
     display: flex;
     align-items: flex-start;
 }
+
 .align-self-center {
     -ms-flex-item-align: center !important;
     align-self: center !important;
 }
-table{
+
+table {
     border-collapse: collapse;
 }
-table th, table td{
-    padding:4px;
+
+table th,
+table td {
+    padding: 4px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+#content {
+    margin-top: 77px;
+    padding-bottom: 46px;
+}
+
+section {
+    margin: 40px 0px 50px;
+}
+
+.d-flex {
+    display: flex;
 }
