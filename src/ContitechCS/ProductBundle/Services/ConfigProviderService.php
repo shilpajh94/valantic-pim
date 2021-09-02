@@ -31,6 +31,11 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH);
     }
+
+    public function getCatalogProductTablesConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH);
+    }
     
     /**
      * get yml config for the given file

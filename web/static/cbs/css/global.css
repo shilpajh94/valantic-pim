@@ -1,0 +1,149 @@
+html,
+body {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    line-height: 1.4;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: "Arial", sans-serif;
+    color: #43474e;
+    overflow-x: hidden;
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+    display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+ul,
+ol {
+    list-style-type: none;
+    font-size: 10px;
+}
+
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+a,
+a:hover,
+a img,
+a:visited,
+a:active,
+a:focus {
+    text-decoration: none;
+    outline: 0;
+}
+
+button,
+input[type="submit"] {
+    cursor: pointer;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.wrapper,
+.wrapper header,
+.wrapper footer {
+    padding: 0px 30px;
+}
+
+header {
+    padding-top: 20px !important;
+    padding-bottom: 40px !important;
+}
+
+.header-sec {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.align-self-center {
+    -ms-flex-item-align: center !important;
+    align-self: center !important;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 4px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+#content {
+    margin-top: 77px;
+    padding-bottom: 46px;
+}
+
+section {
+    margin: 40px 0px 50px;
+}
+
+.d-flex {
+    display: flex;
+}

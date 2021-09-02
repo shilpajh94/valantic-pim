@@ -1,0 +1,415 @@
+.features-benefit-sec .media {
+    margin-top: 22px;
+    margin-bottom: 0px;
+}
+
+.features-benefit-sec h2 {
+    margin-bottom: 0px;
+}
+
+.orange {
+    color: rgb(250, 162, 27);
+}
+
+.orange-bg {
+    background: rgb(250, 162, 27);
+    color: #fff;
+    -webkit-print-color-adjust: exact;
+}
+
+.grey-bg {
+    background: #e6e7e8;
+    -webkit-print-color-adjust: exact;
+}
+
+li span {
+    padding-right: 2px;
+}
+
+.fortressxp-belts h1 {
+    font-size: 32px;
+}
+
+.sub-title {
+    font-size: 16px;
+    display: block;
+    color: #43474e;
+    padding-bottom: 15px;
+}
+
+.feature-benefit-list h3 {
+    font-size: 14px;
+}
+
+.features-benefit-sec .media h2 {
+    font-size: 18px;
+}
+
+.fortressxp-belts .features-benefit-sec h1,
+.fortressxp-belts .belts-information h1 {
+    font-size: 24px;
+}
+
+.my-4 {
+    padding: 20px 0px
+}
+
+.features-benefit-sec .media p {
+    font-size: 11px;
+}
+
+.feature-benefit-list p {
+    font-size: 10px !important;
+}
+
+.features-images {
+    margin-right: 20px;
+}
+
+.features-benefit-sec .media {
+    align-items: center;
+}
+
+.features-benefit-sec .media-body {
+    flex: 1;
+}
+
+.features-benefit-sec .left-colm {
+    max-width: 70%;
+    flex-grow: 1;
+}
+
+.features-benefit-sec .right-colm {
+    max-width: 30%;
+}
+
+.fortressxp-belts .media-body {
+    flex: 80%;
+    padding-right: 20px;
+    max-width: 80%;
+}
+
+.fortressxp-belts p {
+    font-size: 13px;
+}
+
+.fortressxp-belts .seal-image img {
+    max-height: 80px;
+}
+
+.grid {
+    display: flex;
+}
+
+.table,
+.feature-benefit-list,
+.media,
+.featuring-sec,
+.labels,
+.fortressxp-belts .features-benefit-sec,
+.full-image-sec {
+    margin: 25px 0px;
+}
+.full-image-sec{
+    margin-top: 40px;
+}
+
+.feature-benefit-list ul {
+    margin-bottom: 10px;
+}
+
+.w-80 {
+    max-width: 90%;
+}
+
+.belts-information .table-data td:first-child {
+    width: 45%;
+}
+
+.table ul {
+    list-style: none;
+}
+
+.table th,
+.table td {
+    text-align: left;
+}
+
+.table thead,
+.table tbody {
+    border-bottom: 2px solid rgb(250, 162, 27);
+}
+
+.table th,
+.labels table th {
+    font-size: 12px;
+}
+
+.table td {
+    font-size: 10px;
+}
+
+.table .details {
+    padding-top: 25px;
+    font-size: 10px;
+}
+
+.labels table tr {
+    border: 2px solid rgb(250, 162, 27);
+    border-left: 0px;
+}
+
+.note {
+    font-size: 8px !important;
+}
+
+.components-sec {
+    padding-bottom: 30px;
+}
+
+.components-sec .media {
+    align-items: flex-end;
+}
+
+.components-sec .media-body {
+    max-width: 40%;
+    flex: 40%;
+}
+
+.components-sec .media-img {
+    max-width: 60%;
+}
+
+.components {
+    padding: 1em 0 0.5em 1.5em;
+}
+
+.components li {
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 10px;
+    line-height: normal;
+}
+
+.components li:last-child {
+    padding-bottom: 0px;
+}
+
+.components li::before {
+    display: inline-block;
+    content: '›';
+    color: #efa41d;
+    font-size: 16px;
+    display: inline-block;
+    width: 0.7em;
+    margin-left: -0.7em;
+    margin-top: -5px;
+    vertical-align: middle;
+}
+
+.belts-information h3 {
+    padding-top: 30px;
+}
+
+.table-data {
+    margin-bottom: 5px;
+}
+
+.table-data thead tr {
+    border-top: 2px solid #000;
+}
+
+.table-data thead tr:last-child,
+.table-data {
+    border-bottom: 2px solid #000;
+}
+
+.table-data tbody tr {
+    border-bottom: 1px solid #000;
+}
+
+.table-data tbody tr:last-child {
+    border-bottom: 0px;
+}
+
+.table-data tbody tr:nth-child(even) {
+    background: #ffedcc;
+    -webkit-print-color-adjust: exact;
+}
+
+.table-data .white-bg tbody tr:nth-child(even) {
+    background: #ffffff;
+}
+
+.table-data tbody td:first-child {
+    border-right: 1px solid #000 !important;
+}
+
+.table-data tbody tr:nth-child(even) td {
+    border-right: 5px solid #fff;
+}
+
+.table-data tbody tr:nth-child(even) td:last-child {
+    border-right: 0px;
+}
+
+.table-data tbody tr:last-child td {
+    border-bottom: 0px;
+}
+
+.table-data .orange-bg {
+    color: #000;
+}
+
+#header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+}
+
+#footer {
+    position: fixed;
+    position: running(footerLogo);
+    width: 100%;
+    bottom: 0;
+    left: 0px;
+    background: #ffffff;
+}
+
+
+
+/* print only */
+@media print {
+    .print-pg-no {
+        position: relative;
+    }
+
+    .print-pg-no:after {
+        content: counter(page);
+    }
+
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        page-break-after: avoid;
+    }
+
+    .page-break {
+        page-break-after: always;
+        break-after: always;
+    }
+
+    h1+p,
+    h2+p,
+    h3+p {
+        page-break-before: avoid;
+    }
+
+    table,
+    figure {
+        page-break-inside: avoid;
+    }
+
+    img,
+    pre {
+        break-inside: avoid-page;
+    }
+
+    .components li::before {
+        color: cmyk(0%, 31%, 88%, 6%);
+    }
+
+    .orange {
+        color: cmyk(0%, 35%, 89%, 2%);
+    }
+
+    .orange-bg {
+        background: cmyk(0%, 35%, 89%, 2%);
+        color: cmyk(0%, 0%, 0%, 0%);
+        -webkit-print-color-adjust: exact;
+    }
+
+    .grey-bg {
+        background: cmyk(1%, 0%, 0%, 9%);
+        -webkit-print-color-adjust: exact;
+    }
+
+    .table-data tbody tr:nth-child(even) {
+        background: cmyk(0%, 7%, 20%, 0%);
+        -webkit-print-color-adjust: exact;
+    }
+
+    .table-data tbody td:first-child {
+        border-right: 1px solid cmyk(NaN, NaN, NaN, 100) !important;
+    }
+
+    .table-data tbody tr:nth-child(even) td {
+        border-right: 5px solid cmyk(0%, 0%, 0%, 0%);
+    }
+
+    section:first-child {
+        page-break-before: avoid;
+        counter-reset: page;
+        padding-top: 0;
+    }
+
+    section {
+        page-break-before: always;
+        padding-top: 77px;
+        margin: 0px;
+    }
+
+    .wrapper,
+    .wrapper header,
+    .wrapper footer {
+        padding: 0px;
+    }
+
+    #content {
+        padding-bottom: 10px;
+    }
+
+
+}
+
+/* end print only */
+
+
+
+
+@page {
+    size: A4;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+@page: left {
+    margin-left: 2.5cm !important;
+    margin-right: 1.5cm !important;
+
+    @bottom-left {
+        content: element(footerLogo);
+        position: fixed;
+        left: 0;
+        right: unset;
+    }
+
+}
+
+@page: right {
+    margin-left: 1.5cm !important;
+    margin-right: 2.5cm !important;
+
+    @bottom-right {
+        content: element(footerLogo);
+        position: fixed;
+        right: 0;
+        left: unset;
+    }
+}
