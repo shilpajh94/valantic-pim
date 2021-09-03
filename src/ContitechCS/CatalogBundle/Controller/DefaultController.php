@@ -44,12 +44,19 @@ class DefaultController extends FrontendController
 
 
             $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
-            $productsList = new DataObject\CSProducts\Listing();
-            $productsList->addConditionParam("o_parentId = ?", [$HierarchyProductPath->getId()]);
-            $productsList = $productsList->load();
+            
+            if($HierarchyProductPath)
+            {
+                $productsList = new DataObject\CSProducts\Listing();
+                $productsList->addConditionParam("o_parentId = ?", [$HierarchyProductPath->getId()]);
+                $productsList = $productsList->load();
+            }
 
-            foreach ($productsList as $cat) {
-                $result[] = array('key' => $cat->getName(), 'value' => $cat->getName());
+            if($productsList)
+            {
+                foreach ($productsList as $cat) {
+                    $result[] = array('key' => $cat->getName(), 'value' => $cat->getName());
+                }
             }
             $res['data'] = $result;
         }
@@ -92,5 +99,28 @@ class DefaultController extends FrontendController
      */
     public function templateProductPageAction(Request $request)
     {
+
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_product_page')->getElement();
+
+        $productData = [];
+
+        if($catalogTableObject)
+        {
+            $catalogCategoryObjectId = $catalogTableObject->getParentId();
+            $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+        
+            $hierarchyId = ($categoryObj->getCategory());
+            if($hierarchyId)
+            {
+                $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
+            }
+
+            $productData['HierarchyNameLevel2'] = $hierarchyObj->getName();
+
+
+            p_r($productData);
+            die;
+            $this->view['data'] = $productData;
+        }
     }
 }

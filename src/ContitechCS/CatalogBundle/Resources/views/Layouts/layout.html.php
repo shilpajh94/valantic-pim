@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="/static/cbs/images/favicon.ico" />
     <link rel="stylesheet" href="/static/cbs/css/global.css" />
     <link rel="stylesheet" href="/static/cbs/css/style.css" />
+    <link rel="stylesheet" href="/static/cbs/css/print_style.css" media="print" />
     <?php if ($this->printermarks) { ?>
             <link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css" />
     <?php } ?>
