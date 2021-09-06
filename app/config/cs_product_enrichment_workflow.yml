@@ -1,0 +1,152 @@
+pimcore:
+  workflows:
+    product_enrichment:
+      label: "Product Workflow"
+      type: "state_machine"
+      supports:
+        - 'Pimcore\Model\DataObject\CSProducts'
+      places:
+              In_progress:
+                label: New product
+                color: #377ea9
+                permissions:
+                  -
+                      objectLayout: 2
+                      save: true
+                      publish: false
+                      delete: false
+                      unpublish: false
+                      condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+
+              In_review:
+                label: Review product
+                color: #377ea9
+                permissions:
+                  -
+                      objectLayout: 1
+                      save: true
+                      publish: false
+                      delete: false
+                      unpublish: false
+                      condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+
+              Published:
+                label: Publish product
+                color: #377ea9
+                permissions:
+                  -
+                      objectLayout: 1
+                      save: true
+                      publish: true
+                      delete: false
+                      unpublish: false
+                      condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+
+              Approved:
+                label: Approve product
+                color: #377ea9
+                permissions:
+                  -
+                      objectLayout: 1
+                      save: true
+                      publish: false
+                      delete: false
+                      unpublish: false
+                      condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+
+              Archived:
+                label: Archive product
+                color: #377ea9
+                permissions:
+                  -
+                      objectLayout: 2
+                      save: true
+                      publish: false
+                      delete: false
+                      unpublish: false
+                      condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'        
+
+              Paused:
+                label: Pause product
+                color: #377ea9
+                permissions:
+                  -
+                      objectLayout: 2
+                      save: true
+                      publish: false
+                      delete: false
+                      unpublish: false
+                      condition: '!(has_role("ROLE_PIMCORE_ADMIN"))'
+      transitions:
+        sent_for_review:
+          from:
+            - In_progress
+          to: In_review
+          guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PRODUCTMANAGERCS"))
+          options:
+            label: 'Sent for review'
+            notes:
+              commentEnabled: true
+              commentRequired: true
+            changePublishedState: force_unpublished
+        
+        reject_product:
+          from:
+            - In_review
+          to: In_progress
+          guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_MARCOMCS"))
+          options:
+            label: 'Reject'
+            notes:
+              commentEnabled: true
+              commentRequired: true
+            changePublishedState: force_unpublished
+          
+        approve_processing:
+          from:
+            - In_review
+          to: Approved
+          guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_MARCOMCS"))
+          options:
+            label: 'Approved'
+            notes:
+              commentEnabled: true
+              commentRequired: false
+            changePublishedState: save_version
+
+        publish_product:
+          from:
+            - Approved
+          to: Published
+          guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_MARCOMCS"))
+          options:
+            label: 'Published'
+            notes:
+              commentEnabled: true
+              commentRequired: false
+            changePublishedState: force_published
+
+        pause_product:
+          from:
+            - Published
+          to: Paused
+          guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PRODUCTMANAGERCS"))
+          options:
+            label: 'Paused'
+            notes:
+              commentEnabled: true
+              commentRequired: false
+            changePublishedState: force_published    
+
+        archived_product:
+          from:
+            - Published
+          to: Archived
+          guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PRODUCTMANAGERCS"))
+          options:
+            label: 'Archived'
+            notes:
+              commentEnabled: true
+              commentRequired: false
+            changePublishedState: force_published                                               
+        

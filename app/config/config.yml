@@ -5,6 +5,7 @@ imports:
     - { resource: "local/" }
     - { resource: product_workflow.yml }
     - { resource: cs_product_workflow.yml }
+    - { resource: cs_product_enrichment_workflow.yml }
 
 pimcore:
     # IMPORTANT Notice!
