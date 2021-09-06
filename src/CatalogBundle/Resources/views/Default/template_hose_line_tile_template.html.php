@@ -141,7 +141,7 @@ $featuresFooter = false;
                                     if($imgSrcObj1)
                                     {
                                     ?>
-                                                <img src="<?= $imgSrcObj1->getThumbnail('catalog_thumb'); ?>"width="92" height="240"/>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj1,$this->imageWidth); ?>"width="92" height="240"/>
                                                 <?php
                                     }
                                 }
@@ -248,7 +248,7 @@ $featuresFooter = false;
                             if($imgSrcObj2)
                             {
                             ?>
-                            <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="91" height="53"/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" width="91" height="53"/>
                             <?php
                                 $iccnt++;
                             }

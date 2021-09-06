@@ -25,6 +25,7 @@ use Pimcore\Model\DataObject;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Pimcore\Event\Model\DocumentEvent;
 
 
 class ObjectListener
@@ -44,7 +45,8 @@ class ObjectListener
                                 CategoryBrickMappingService $categoryBrickMappingService,
                                 UnitConverterService $unitConverterService,
                                 AppService $appService,
-                                GridHelperService $customGridHelperService)
+                                GridHelperService $customGridHelperService
+                                )
     {
         $this->requestStack = $requestStack;
         $this->categoryBrickMappingService = $categoryBrickMappingService;
@@ -63,10 +65,28 @@ class ObjectListener
 
             //add option disableBackgroundExecution into pdf generation process (pdf reactor functionality)
             $options[] = ['name' => 'disableBackgroundExecution', 'type' => 'bool', 'default' => true];
+            $options[] = [
+                'name' => 'Image Quality',
+                'type' => 'select',
+                'values' => [ 'Original','90%', '80%', '70%', '60%', '50%','40%','30%','20%','10%'],
+                'default' => 'Original'
+            ];
+            $options[] = [
+                'name' => 'Image Width',
+                'type' => 'select',
+                'values' => [ 'Original','2500', '2000', '1500', '1000', '500'],
+                'default' => 'Original'
+            ];
         }
 
         $arguments['options'] = $options;
         $event->setArguments($arguments);
+    }
+
+    public function listenPrintPrePdfGeneration(DocumentEvent $event)
+    {
+        $document = $event->getDocument();
+        $_SESSION[PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY] = $document->getId();
     }
 
 
