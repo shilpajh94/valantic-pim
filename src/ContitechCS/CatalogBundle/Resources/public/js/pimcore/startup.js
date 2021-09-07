@@ -48,12 +48,12 @@ pimcore.plugin.ContitechCSCatalogBundle = Class.create(pimcore.plugin.admin, {
 
             // Code for populating product's tables on select
             object.edit.dataFields.Products.component.on('select', function (e) {
-                this.listProductTable(object, e.value);
+                this.listProductTable(object, e.rawValue);
             }.bind(this));
 
             // Code for populating product's tables on load 
              object.edit.dataFields.Products.component.on('change', function(eve){
-                this.listProductTable(object, eve.value);
+                this.listProductTable(object, eve.rawValue);
              }.bind(this));
         }
     },

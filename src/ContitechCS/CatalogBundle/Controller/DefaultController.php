@@ -55,7 +55,7 @@ class DefaultController extends FrontendController
             if($productsList)
             {
                 foreach ($productsList as $cat) {
-                    $result[] = array('key' => $cat->getName(), 'value' => $cat->getName());
+                    $result[] = array('key' => $cat->getName(), 'value' => $cat->getId());
                 }
             }
             $res['data'] = $result;
@@ -117,9 +117,16 @@ class DefaultController extends FrontendController
 
             $productData['HierarchyNameLevel2'] = $hierarchyObj->getName();
 
+            $productId = $catalogTableObject->getProducts();
 
-            p_r($productData);
-            die;
+            $productObj = DataObject\CSProducts::getById($productId);
+
+
+
+
+            // p_r($productObj);
+            // die;
+            $productData['ProductName'] = $productObj->getName();
             $this->view['data'] = $productData;
         }
     }
