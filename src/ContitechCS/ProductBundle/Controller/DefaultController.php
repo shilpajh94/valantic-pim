@@ -152,6 +152,8 @@ class DefaultController extends FrontendController
                         $product->setOmitMandatoryCheck(true);
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
+                        $product->setParentInfo($productCategoryId);
+
                         if ($allObjectBricks) {
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;

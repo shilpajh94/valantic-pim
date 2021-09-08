@@ -54,6 +54,18 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         itemId:'addProductError'
                     },
                     {
+                        xtype: 'checkbox',
+                        name: 'productCategoryCheck',
+                        style: {
+                            margin: '30px'
+                        },
+                        width: 500,
+                        labelWidth: 200,
+                        fieldLabel: 'Create product group',
+                        allowBlank: true,
+                        value: this.productCategoryCheck,
+                    },
+                    {
                         xtype: 'textfield',
                         name: 'productName',
                         style: {
@@ -69,18 +81,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                     },
                     classCombo,
                     userCombo,
-                    {
-                        xtype: 'checkbox',
-                        name: 'productCategoryCheck',
-                        style: {
-                            margin: '30px'
-                        },
-                        width: 500,
-                        labelWidth: 300,
-                        fieldLabel: 'Create Product Group at same Category Level',
-                        allowBlank: true,
-                        value: this.productCategoryCheck,
-                    },
+                    
                 ],
             dockedItems: [
                 {
@@ -130,7 +131,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         });
         
         this.basicFormWin = new Ext.create("Ext.Window", {
-            title: 'Add Product',
+            title: 'Add new product/product group',
             modal : true,
             maskOnDisable: false,
             items: [this.basicForm]
@@ -219,7 +220,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: users,
             queryMode: 'local',
             editable: true,
-            allowBlank: false,
+            allowBlank: true,
             blankText: 'Field is required',
             msgTarget: 'under',
             displayField: 'name',

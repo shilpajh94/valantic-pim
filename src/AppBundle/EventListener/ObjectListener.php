@@ -119,6 +119,7 @@ class ObjectListener
     {
         $object = $event->getObject();
 
+    
         /**
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
@@ -193,6 +194,7 @@ class ObjectListener
 
         }
     }
+
 
     /**
      * to update the unit conversion attributes
