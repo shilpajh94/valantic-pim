@@ -3,7 +3,7 @@
 /** 
 Fields Summary: 
 - Hinge [input]
-- HingeText [input]
+- Hinge2 [input]
 */ 
 
 
@@ -138,8 +138,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'HingeText',
-                     'title' => 'Hinge text',
+                     'name' => 'Hinge2',
+                     'title' => 'Hinge 2',
                      'tooltip' => '',
                      'mandatory' => true,
                      'noteditable' => false,
