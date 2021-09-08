@@ -60,7 +60,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
-
+            $unitValueConfig = $this->configProviderService->getUnitValueConfig();
             
 
             $results = $this->getCSVData($filePath);
@@ -124,6 +124,7 @@ class CSProductDataImportCommand extends AbstractCommand
                             $product->setKey($hierarchyKey);
                             $product->setName($hierarchy, 'en');
                             $product->setParentId($parentId);
+                            $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
 
                             $bricksData = [];
@@ -155,6 +156,18 @@ class CSProductDataImportCommand extends AbstractCommand
                                             $objectBrickFieldMethod = 'set' . $fieldKey;
                                             $brickObject->$objectBrickFieldMethod($fieldValue);
                                             # code...
+                                        }
+                                        foreach($unitValueConfig as $unit =>$unitValue){
+                                        
+                                            $fieldKey = ucfirst($unitValue['fieldName']);
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+                                           
+                                            if($unitValue['objectType']==$brick){
+                                                $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
+                                            }
+                                            else{
+                                                continue;
+                                            }  
                                         }
                                         $method = 'set' . $brick;
                                         $product->getProductAttributes()->$method($brickObject);
