@@ -46,7 +46,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
     private function import($filePath)
     {
-        
+
         $csvLogFilePath = PIMCORE_LOG_DIRECTORY . "/" . self::LOG_FILE_NAME . ".csv";
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
@@ -61,7 +61,6 @@ class CSProductDataImportCommand extends AbstractCommand
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
-            
 
             $results = $this->getCSVData($filePath);
 
@@ -77,7 +76,7 @@ class CSProductDataImportCommand extends AbstractCommand
                 $failedProducts = [];
 
                 $allObjectBricks = [];
-            
+
                 $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
                 $productHier = explode('/', $productData['Product Hierarchy']);
@@ -93,19 +92,19 @@ class CSProductDataImportCommand extends AbstractCommand
 
                     $hierarchyArr = array_slice($productHier, 0, $key + 1);
 
-                    $func = function($value) {
-                        return DataObject\Service::getValidKey($value,"obejct");;
+                    $func = function ($value) {
+                        return DataObject\Service::getValidKey($value, "obejct");;
                     };
-                    $hierarchyArr = array_map($func,$hierarchyArr);
+                    $hierarchyArr = array_map($func, $hierarchyArr);
 
                     $hierarchyString = implode('/', $hierarchyArr);
-    
-                    echo "\n". $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
-    
+
+                    echo "\n" . $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
+
                     $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
-    
+
                     $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
-    
+
                     if ($hierarchyPathObj) {
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
                         if ($CSHierarchyRelatedBricks) {
@@ -113,13 +112,13 @@ class CSProductDataImportCommand extends AbstractCommand
                             $allObjectBricks = array_unique($allObjectBricks);
                         }
                     }
-    
+
                     $CSProductObj = DataObject\CSProducts::getByPath($productPath);
-    
+
                     if (!$CSProductObj) {
-    
+
                         try {
-                            $hierarchyKey = DataObject\Service::getValidKey($hierarchy,"obejct");
+                            $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "obejct");
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
                             $product->setName($hierarchy, 'en');
@@ -129,26 +128,22 @@ class CSProductDataImportCommand extends AbstractCommand
 
                             $bricksData = [];
                             foreach ($productData as $fieldCVSKey => $fieldValue) {
-                                if(isset($productDataImportConfig[$fieldCVSKey]))
-                                {
+                                if (isset($productDataImportConfig[$fieldCVSKey])) {
                                     $fieldConfig = $productDataImportConfig[$fieldCVSKey];
                                     $fieldName = ucfirst($fieldConfig['fieldName']);
-                                    if($fieldConfig['objectType'] == 'class')
-                                    {
+                                    if ($fieldConfig['objectType'] == 'class') {
                                         $method = 'set' . $fieldName;
                                         $product->$method($fieldValue);
-                                    }
-                                    else{
+                                    } else {
                                         $bricksData[$fieldConfig['objectType']][$fieldName] = $fieldValue;
                                     }
                                 }
                             }
-    
+
                             if ($allObjectBricks) {
                                 foreach ($allObjectBricks as $brick) {
 
-                                    if(isset($bricksData[$brick]))
-                                    {
+                                    if (isset($bricksData[$brick])) {
                                         $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                         $brickObject = new $class($product);
 
@@ -174,11 +169,11 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                             }
-    
+
                             $result = $product->save();
                             $parentId = $result->getId();
-    
-                            echo "\n" .$msg =  "Product added successfully";
+
+                            echo "\n" . $msg =  "Product added successfully";
                             $comment = "Product added successfully";
                             $missingColName = 'None';
                         } catch (\Throwable $th) {
@@ -188,27 +183,25 @@ class CSProductDataImportCommand extends AbstractCommand
                             $msg =  $th->getMessage();
                             preg_match_all("/\[([^\]]*)\]/", $msg, $matches);
                             $missingCol = $matches[1];
-                            $missingColName ='';
-                            foreach($missingCol as $val){
-                                $missingColName = $missingColName.'   '. $val;
+                            $missingColName = '';
+                            foreach ($missingCol as $val) {
+                                $missingColName = $missingColName . '   ' . $val;
                             }
                             $success = false;
                             p_r('Cannot save Product... Check Your Log.');
                         }
 
 
-                        if(count($failedProducts)  > 0){
+                        if (count($failedProducts)  > 0) {
                             $comment = "Products which COULD NOT be saved: [" . implode(", ", $failedProducts) . "]";
                         }
-            
+
                         $this->csvLog($csvLogFileHandle, array(
                             $i,
                             $hierarchyKey,
                             $comment,
                             $missingColName
                         ));
-
-
                     } else {
                         $parentId = $CSProductObj->getId();
                     }
@@ -216,9 +209,6 @@ class CSProductDataImportCommand extends AbstractCommand
             }
 
             fclose($csvLogFileHandle);
-
-
-            
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
@@ -309,5 +299,4 @@ class CSProductDataImportCommand extends AbstractCommand
 
         fputcsv($logHandler, $dataRow, $csvDelimiter);
     }
-
 }
