@@ -130,4 +130,11 @@ class DefaultController extends FrontendController
             $this->view['data'] = $productData;
         }
     }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_product_section_page")
+     */
+    public function templateProductSectionPageAction(Request $request)
+    {
+    }
 }
