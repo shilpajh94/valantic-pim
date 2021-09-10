@@ -92,6 +92,11 @@ class DefaultController extends FrontendController
      */
     public function templateTableOfContentsAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
 
     /**
@@ -136,5 +141,18 @@ class DefaultController extends FrontendController
      */
     public function templateProductSectionPageAction(Request $request)
     {
+    }
+
+    public function getS3ImageSrc($src)
+    {
+        $s3src = '';
+        $imgObj = \Pimcore\Model\Asset::getByPath($src);
+
+        if($imgObj){
+            $s3src = $imgObj->getThumbnail('catalog_thumb');
+//            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
+        }
+
+        return $s3src;
     }
 }

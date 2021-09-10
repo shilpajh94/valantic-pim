@@ -50,6 +50,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </div>
         </main>
         <footer id="footer" class="footer">
-            <img src="images/continental_logo.png" alt="" class="img-fluid" width="150">
+            <img src="<?= $footer_logo_src; ?>" alt="" class="img-fluid" width="150">
         </footer>
     </div>

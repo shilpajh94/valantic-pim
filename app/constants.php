@@ -85,6 +85,7 @@ define("CS_BRICK_MAPPING_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/b
 define("CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/product_data_import_config.yml");
 define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/unit_conversion/attribute_groups.yml");
 define("CS_CATALOG_PRODUCT_TABLE_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/product_table_mapping.yml");
+define("CS_CATALOG_IMAGE_MAPPING_CONFIG_FILE_PATH",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/catalog_images_mapping.yml");
 define("CS_MATERIAL_HANDLIG_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/Material Handling/');
 define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Products/Material Handling/');
 
