@@ -9,14 +9,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </div>
     <div class="bannersec">
     <?php 
-        if ($this->editmode) {
+
+        if($this->editmode)
+        {
             echo $this->image("TOC_Section_Image");
         }
         else
-        { ?>
-            <img src="<?php echo $this->image("TOC_Section_Image")->getSrc(); ?>" alt="">
+        {
+            $imgSrcObj =  $this->image("TOC_Section_Image");
+            if($imgSrcObj)
+            {
+            ?>
+            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
             <?php
+            }
         }
-        ?>
+    ?>
     </div>
 </div>
