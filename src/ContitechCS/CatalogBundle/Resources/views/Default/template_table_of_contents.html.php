@@ -31,18 +31,22 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <div class="colum-2">
                     <?php while($this->block("CBS_TOC_HeadingBlock")->loop()) { ?>
                         <h3 class="black-bg"><?= $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Featured Solutions']); ?></h3>
-                        
+                        <ul>
                         <?php while($this->block("CBS_TOC_ContentBlock")->loop()) { ?>
+                            <li>
                             <span class="chapter"><?= $this->input("CBS_TOC_Title", ['placeholder' => 'Enter title here.']); ?></span> 
                             <span class="page"><?= $this->input("CBS_TOC_Page", ['placeholder' => 'Enter page number here.']); ?></span>
-
+                        </li>
+                        <ul>
                             <?php while($this->block("CBS_TOC_ContentBlockInner")->loop()) { ?>
-
+                            <li>
                                 <span class="chapter"><?= $this->input("CBS_TOC_Title_Inner", ['placeholder' => 'Enter inner title here.']); ?></span> 
                                 <span class="page"><?= $this->input("CBS_TOC_Page_Inner", ['placeholder' => 'Enter page number here.']); ?></span>
-
+                            </li>
                                 <?php } ?>
+                            </ul>
                         <?php } ?>
+                            </ul>
 
                     <?php } ?>
                     </div>
