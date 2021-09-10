@@ -12,6 +12,11 @@
     <?php if ($this->printermarks) { ?>
             <link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css" />
     <?php } ?>
+
+    <?php if($this->editmode){ ?>
+        <link rel="stylesheet" href="/static/cbs/css/editmode.css" />
+    <?php } ?>
+    ?>
 </head>
 <body>
 
