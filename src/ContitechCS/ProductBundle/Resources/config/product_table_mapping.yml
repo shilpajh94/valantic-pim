@@ -1,0 +1,76 @@
+Fortress XP:
+    Conveyor Belt Data: 
+        Imperial:
+            Number of Plies: 'Number of Plies'
+            Fabric Type*: 'Fabric Type*'
+            Vulcanized & Fastener Rating (PIW): 'Vulcanized & Fastener Rating (PIW)'
+            Nominal Carcass Gauge (in.): 'Nominal Carcass Gauge (in.)'
+            Nominal Carcass Weight (lb./sq. ft.): 'Nominal Carcass Weight (lb./sq. ft.)'
+            Approximate 1/32 in. Cover Weight (lb./sq. ft.): 'Approximate 1/32 in. Cover Weight (lb./sq. ft.)'
+            Average Permanent Elongation (%)**: 'Average Permanent Elongation (%)**'
+            Average Elastic Modulus (PIW): 'Average Elastic Modulus (PIW)'
+            Step Length: 'Step Length'
+            Recommended Fastener Plate: 'Recommended Fastener Plate'
+            Hinge1: 'Hinge1'
+            Hinge2: 'Hinge2'
+        Metric: 
+            Number of Plies: 'Number of Plies'
+            Fabric Type*: 'Fabric Type*'
+            Belt Rating (kN/m): 'Belt Rating (kN/m)'
+            Vulcanized & Fastener Rating (kN/m): 'Vulcanized & Fastener Rating (kN/m)'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+    Elevator Belt Data: 'Elevator Belt Data'
+    Maximum Bucket Projection: 'Maximum Bucket Projection'
+
+CONTI® Titan:
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+    Elevator Belt Data: 'Elevator Belt Data'
+
+Plylon Plus®: 
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+    Elevator Belt Data: 'Elevator Belt Data'
+
+ContiFlex®: 
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+Spartan: 
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+Wood Sawyer® and Wood Sawyer® Plus:
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+Pathfinder® Plus:
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+TransConti: 
+    Conveyor Belt Data: 'Conveyor Belt Data'
+TexSteel®:
+    Conveyor Belt Data: 'Conveyor Belt Data'
+    Load Support – Maximum Belt Width Data: 'Load Support – Maximum Belt Width Data'
+    Troughability Minimum Belt Width: 'Troughability Minimum Belt Width'
+    Minimum Pulley Diameters: 'Minimum Pulley Diameters'
+Phoenix Phoenocord®:
+    Standard Specifications: 'Standard Specifications'
+Flexsteel®:
+    Standard Specifications: 'Standard Specifications'
+ContiPipe™ and MegaPipe®:
+    Sizes:
+        Diameter: 'Diameter'
+        Belt Width: 'Belt Width'
+        Type: 'Type'
