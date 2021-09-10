@@ -16,7 +16,6 @@
     <?php if($this->editmode){ ?>
         <link rel="stylesheet" href="/static/cbs/css/editmode.css" />
     <?php } ?>
-    ?>
 </head>
 <body>
 
