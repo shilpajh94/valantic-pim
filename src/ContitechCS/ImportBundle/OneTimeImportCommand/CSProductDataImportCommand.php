@@ -79,9 +79,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
                 $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
-                $productHier = explode('/', $productData['Product Hierarchy']);
-
-                $productHier[] = $productData['Product Name'];
+                $productHier = explode('->', $productData['Product Hierarchy']);
 
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
