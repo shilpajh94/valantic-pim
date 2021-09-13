@@ -55,7 +55,7 @@ class DefaultController extends FrontendController
             if($productsList)
             {
                 foreach ($productsList as $cat) {
-                    $result[] = array('key' => $cat->getName(), 'value' => $cat->getId());
+                    $result[] = array('key' => trim($cat->getName()), 'value' => trim($cat->getId()));
                 }
             }
             $res['data'] = $result;
@@ -78,7 +78,7 @@ class DefaultController extends FrontendController
         if(isset($productDataImportConfig[$product]))
         {
             foreach ($productDataImportConfig[$product] as $table => $value) {
-                $result[] = array('id' => $table, 'text' => $table);
+                $result[] = array('id' => trim($table), 'text' => trim($table));
             }
             $res['data'] = $result;
         }
@@ -132,6 +132,66 @@ class DefaultController extends FrontendController
             // p_r($productObj);
             // die;
             $productData['ProductName'] = $productObj->getName();
+            $productData['CorporateBrand'] = $productObj->getCorporateBrand();
+            $productData['ProductBrand'] = $productObj->getProductBrand();
+            $productData['ProductOwner'] = $productObj->getProductOwner();
+            $productData['Benefits'] = $productObj->getBenefits();
+            $productData['Features'] = $productObj->getFeatures();
+            $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
+            $productData['ProductDescription'] = $productObj->getProductDescription();
+            $productData['ShortText'] = $productObj->getShortText();
+            $productData['LongText'] = $productObj->getLongText();
+
+
+            $productData['IsApplicationAvailable'] = false;
+            if($productObj->getCSProductApplications())
+            {
+                $productData['IsApplicationAvailable'] = true;
+                $applicationsHtml = '<ul>';
+                foreach ($productObj->getCSProductApplications() as $key => $value) {
+                    $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
+                }
+                $applicationsHtml .= '</ul>';
+            }
+            $productData['Applications'] = $applicationsHtml;
+
+            $productData['IsFeaturesAndBenefitAvailable'] = false;
+            $featuresAndBenefit = [];
+            if($productObj->getCSProductFeaturesAndBenefits())
+            {
+                $productData['IsFeaturesAndBenefitAvailable'] = true;
+                foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value) {
+                    $feature['FeatureName'] = $value->getFeatureName();
+                    $feature['FeatureDescription'] = $value->getFeatureDescription();
+                    $feature['FeatureImage'] = $value->getFeatureImage();
+                    $featuresAndBenefit[] = $feature;
+                }
+                
+            }
+            $productData['FeaturesAndBenefits'] = $featuresAndBenefit;
+
+            $productData['IsMarketsAvailable'] = false;
+            if($productObj->getCSProductIndustries())
+            {
+                $productData['IsMarketsAvailable'] = true;
+                $marketsHtml = '<ul>';
+                foreach ($productObj->getCSProductIndustries() as $key => $value) {
+                    $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
+                }
+                $marketsHtml .= '</ul>';
+            }
+            $productData['Markets'] = $marketsHtml;
+
+            // CSProductIndustries
+
+            
+            
+            // p_r($productData);
+            // p_r($productObj);
+            // p_r($productObj->getCSProductApplications());
+            // $objects = $productObj->getMetadata();
+            // p_r($productObj->getCSProductIndustries());
+            // die;
             $this->view['data'] = $productData;
         }
     }

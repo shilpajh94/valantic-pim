@@ -17,6 +17,7 @@
     }
     .innercoverpage .black-bg{
         padding: 50px 40px 40px;
+        height: auto;
     }
     .innercoverpage .black-bg h1{
         font-size: 24px;
