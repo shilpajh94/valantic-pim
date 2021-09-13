@@ -59,7 +59,7 @@ troughability minimum belts width in mm (45):
   fieldType: Number
   objectType: ProdAttrSetAA
 vulcanized and fastener rating in N/mm:
-  fieldName: VulcanizedAndFastenerRatinginKNMM
+  fieldName: VulcanizedAndFastenerRatinginNMM
   fieldType: Number
   objectType: ProdAttrSetAA
 Recommended fastener plate:
