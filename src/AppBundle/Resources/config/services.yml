@@ -112,14 +112,7 @@ services:
             - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.postDelete, method: postDelete }
 
-    AppBundle\Workflow\ProductEnrichmentListener:
-        tags:
-            - { name: kernel.event_listener, event: workflow.product_enrichment.transition.sent_for_review, method: SentForReview }
-            - { name: kernel.event_listener, event: workflow.product_enrichment.transition.reject_product, method: RejectedProduct }
-            - { name: kernel.event_listener, event: workflow.product_enrichment.transition.approve_processing, method: ApprovedProduct} 
-            - { name: kernel.event_listener, event: workflow.product_enrichment.transition.publish_product, method: PublishedProduct } 
-            - { name: kernel.event_listener, event: workflow.product_enrichment.transition.pause_product, method: PausedProduct} 
-            - { name: kernel.event_listener, event: workflow.product_enrichment.transition.archived_product, method: ArchivedProduct } 
+    
 
     AppBundle\Services\ConfigProviderService:
       public: true
