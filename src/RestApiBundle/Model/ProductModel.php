@@ -33,7 +33,7 @@ class ProductModel
     {
         // Get Condition String.
         $conditionString = $this->getConditionString($conditionArray,$productType);
-        
+
         // Get Field String.
         $fieldString = $vCatalogMap['VirtualCatalog'][ucfirst($productType)]['Fields'];
 
@@ -213,12 +213,34 @@ class ProductModel
         if(!empty($offsetLimit)){
             $limitText = " LIMIT ".$offsetLimit['offset'].",".$offsetLimit['limit'];
         }
+
+        
+        $selectStatementAttributeArray = $this->createSelectStatementAttributeArray($conArray);
+
         $this->sqlArr [$this->fallbackLangCode] = '
-            SELECT  '.implode(",",$conArray['fields']).'
+            SELECT  '.implode(",",$selectStatementAttributeArray).'
             FROM object_localized_' . $this->classId. '_' . $this->langCode . '
             WHERE '.$conArray['condition'].' '.$limitText."\n\n";
         \Pimcore\Log\Simple::log('virtualcatalogquery', print_r($this->sqlArr [$this->fallbackLangCode],true));
         return true;
+    }
+
+    private function createSelectStatementAttributeArray($conArray)
+    {
+        $selectStatementAttributes = [];
+        $fieldConfigs = $conArray["fields"];
+        foreach($fieldConfigs as $fieldName => $fieldConfig){
+            $fieldDataType = $fieldConfig[0];
+            
+            if( is_array($fieldDataType) && array_key_first($fieldDataType) === "numeric" ){
+                $decimalPoints = $fieldDataType["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                $selectStatementAttributes[] = "ROUND(". $fieldName .",". $decimalPoints .") AS " . $fieldName;
+            }elseif($fieldDataType === "string"){
+                $selectStatementAttributes[] = $fieldName;
+            }
+
+        }
+        return $selectStatementAttributes;
     }
 
     /**
