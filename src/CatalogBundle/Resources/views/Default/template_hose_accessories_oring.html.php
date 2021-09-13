@@ -152,7 +152,7 @@ if ($data):
                             if($imgSrcObj)
                             {
                             ?>
-                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="200"/>
+                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>" width="200"/>
                             <?php
                             }
                         }
