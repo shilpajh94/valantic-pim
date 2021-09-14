@@ -137,10 +137,18 @@ class DefaultController extends FrontendController
             $productData['ProductOwner'] = $productObj->getProductOwner();
             $productData['Benefits'] = $productObj->getBenefits();
             $productData['Features'] = $productObj->getFeatures();
+            $productData['FeaturesRequired'] = false;
             $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
             $productData['ProductDescription'] = $productObj->getProductDescription();
+
+            $productData['ProductImageRequired'] = true;
+            $productData['ProductImage'] = $productObj->getProductImage();
+            
+            $productData['ShortTextRequired'] = false;
             $productData['ShortText'] = $productObj->getShortText();
             $productData['LongText'] = $productObj->getLongText();
+            $productData['TitleTagSloganRequired'] = false;
+            $productData['TitleTagSlogan'] = false;
 
 
             $productData['IsApplicationAvailable'] = false;
@@ -181,6 +189,11 @@ class DefaultController extends FrontendController
                 $marketsHtml .= '</ul>';
             }
             $productData['Markets'] = $marketsHtml;
+
+            $productData['PowerOfFortressRequired'] = true;
+            $productData['CostPerTonRequired'] = true;
+            
+            
 
             // CSProductIndustries
 

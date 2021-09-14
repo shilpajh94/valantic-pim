@@ -32,7 +32,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </div>
         </header>
         <?php 
-            //p_r($data);
+            // p_r($data);
         ?>
         <main id="content" role="main">
             <section class="fortressxp-belts">
@@ -53,10 +53,16 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 
                 </strong>
-                    <span class="sub-title">TexSteel® Will Take You There</span>
+                
+                    <?php if($data['TitleTagSloganRequired']) { ?>
+                        <span class="sub-title">
+                            <?= $this->input("PP_TitleTagSlogan", ['placeholder'=>'TexSteel® Will Take You There']) ?>
+                        </span>
+                    <?php } ?>
                     <!-- span tag add accroding to page 55 -->
                 </h1>
 
+                <?php if($data['ShortTextRequired']) { ?>
                 <p>
                 
                 <?php if($this->editmode): ?>
@@ -70,6 +76,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php endif; ?>
 
                 </p>
+                <?php } ?>
 
                 <div class="media pt-0">
                     <div class="media-body">
@@ -87,9 +94,22 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         
                         </p>
                     </div>
-                    <div class="seal-image"><img src="/static/cbs/images/woodsawyer.jpg" alt=""></div>
+                    
+                    <?php
+                        if($data['ProductImageRequired'] && $data['ProductImage'])
+                        {
+                        ?>
+                        <div class="seal-image">
+                        <img src="<?= $data['ProductImage']->getThumbnail('catalog_thumb'); ?>" alt="">
+                        </div>
+                        <?php
+                        }
+                    ?>
+
+                    
                 </div>
 
+                <?php if($data['FeaturesRequired']){ ?>
                 <div class="feature-benefit-list">
                     <h3><span class="orange"><strong>CONTI<sup>®</sup> Titan</strong></span> Features and Benefits</h3>
                     <!-- <p>CONTI<sup>®</sup> Titan is available in operating tensions up to 1500 PIW in 2-ply design.
@@ -121,8 +141,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             conveyor belt applications. </p> -->
 
                 </div>
-                <?php if($data['IsApplicationAvailable'] && $data['IsMarketsAvailable']){ ?>
+                <?php } ?>
 
+                <?php if($data['IsApplicationAvailable'] || $data['IsMarketsAvailable']){ ?>
 
                 <div class="table">
                     <table width="100%">
@@ -170,32 +191,60 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                 <?php } ?>
 
-                <div class="components-sec">
-                    <h2 class="orange">Fortified with the Power of Fortress™ Technology <br />
-                        Conveyor Belt Components</h2>
-                    <div class="media">
-                        <div class="media-img"><img src="/static/cbs/images/image2.jpg" alt="" class=""></div>
-                        <div class="media-body">
-                            <ul class="components">
-                                <li>Dual-Layer Twill Weave Design.
-                                </li>
-                                <li>Fabric technology advancements
-                                    for improved yarn design and increased yarn strength.</li>
-                                <li>More abuse-resistant fabric design
-                                    to reduce catastrophic failures.</li>
-                            </ul>
+                <?php if($data['PowerOfFortressRequired']){ ?>
+                    <div class="components-sec">
+                        <h2 class="orange">
+                        
+                            <?= $this->input("PP_PowerOfFortressTechnology", ['placeholder' => 'Enter comment']) ?>
+                        
+                        <br />
+                            <?= $this->input("PP_ConveyorBeltsComponents", ['placeholder' => 'Enter comment']) ?>
+                            
+                        </h2>
+                        <div class="media">
+                            <div class="media-img">
+                                <?php 
+                                    if($this->editmode)
+                                    {
+                                        echo $this->image("PP_ConveyorBeltsComponents_Image");
+                                    }
+                                    else
+                                    {
+                                        $cbcImgSrcObj =  $this->image("PP_ConveyorBeltsComponents_Image");
+                                        if($cbcImgSrcObj)
+                                        {
+                                        ?>
+                                        <img src="<?= $cbcImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                                        <?php
+                                        }
+                                    }
+                                ?>
+                            </div>
+                            <div class="media-body">
+                                <ul class="components">
+                                    <?php while($this->block("PP_ConveyorBeltsComponents_Points")->loop()) { ?>
+                                        <li><?= $this->input("pp_points", ['placeholder' => 'Enter comment']) ?></p1>
+                                    <?php } ?>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                <?php } ?>
+                
+                <?php if($data['CostPerTonRequired']){ ?>
                 <div class="labels">
                     <table width="100%">
                         <tr>
-                            <th>Get a lower cost-per-ton conveyed</th>
-                            <th class="orange-bg">Tension Range: 330 – 1500 PIW</th>
+                            <th>
+                                <?= $this->input("PP_CostPerTon", ['placeholder' => 'Get a lower cost-per-ton conveyed']) ?>
+                            </th>
+                            <th class="orange-bg">
+                                <?= $this->input("PP_TensionRange", ['placeholder' => 'Tension Range: 330 – 1500 PIW']) ?>
+                            </th>
                         </tr>
                     </table>
                 </div>
+                <?php } ?>
 
             <?php if($data['IsFeaturesAndBenefitAvailable']){ ?>
             <section class="features-benefit-sec">
