@@ -35,6 +35,10 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_WORKFLOW_CONFIG);
     }
+    public function getUnitValueConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
+    }
     
     /**
      * get yml config for the given file

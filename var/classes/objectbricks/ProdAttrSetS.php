@@ -82,8 +82,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'hbox',
+                 'labelWidth' => 100,
+                 'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
@@ -101,7 +101,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => '',
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -135,7 +135,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
+                 'labelWidth' => 50,
                  'layout' => 'hbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -154,7 +154,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 50,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -170,7 +170,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,

@@ -81,7 +81,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 150,
+                 'labelWidth' => 100,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -145,7 +145,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'BeltWidth',
                      'title' => 'Belt Width',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,

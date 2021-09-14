@@ -2,9 +2,11 @@
 
 /** 
 Fields Summary: 
-- CleatHeight [numeric]
+- CleatHeightMM [numeric]
 - CleatProfileSizes [input]
-- CleatHeightUnit [input]
+- CleatHeightMMUnit [input]
+- CleatHeightInch [numeric]
+- CleatHeightInchUnit [input]
 */ 
 
 
@@ -83,8 +85,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'hbox',
+                 'labelWidth' => 130,
+                 'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
@@ -102,7 +104,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
-                     'width' => 250,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'double',
                      'columnType' => 'double',
@@ -114,7 +116,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'CleatHeight',
+                     'name' => 'CleatHeightMM',
                      'title' => 'Cleat Height',
                      'tooltip' => '',
                      'mandatory' => false,
@@ -133,7 +135,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 250,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -164,8 +166,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'hbox',
+                 'labelWidth' => 50,
+                 'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
@@ -184,7 +186,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 50,
-                     'defaultValue' => NULL,
+                     'defaultValue' => 'mm',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -192,11 +194,114 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'CleatHeightUnit',
+                     'name' => 'CleatHeightMMUnit',
                      'title' => '',
                      'tooltip' => '',
                      'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'locked' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 130,
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 250,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
+                     'name' => 'CleatHeightInch',
+                     'title' => 'Cleat Height',
+                     'tooltip' => '',
+                     'mandatory' => false,
                      'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:60px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                ),
+                 'locked' => false,
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 50,
+                 'layout' => 'vbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 50,
+                     'defaultValue' => 'inch',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'CleatHeightInchUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
                      'style' => 'padding-left:10px;',

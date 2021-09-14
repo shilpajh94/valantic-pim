@@ -3,10 +3,10 @@
 /** 
 Fields Summary: 
 - PlasticLinerType [input]
+- PlasticLinerColor [input]
 - RubberType [input]
 - ProfileType [input]
 - PolymerType [input]
-- PlasticLinerColor [input]
 */ 
 
 
@@ -85,8 +85,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 200,
-                 'layout' => 'hbox',
+                 'labelWidth' => 120,
+                 'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
                  'type' => NULL,
@@ -104,7 +104,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -132,7 +132,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 200,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -141,14 +141,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'RubberType',
-                     'title' => 'Rubber type',
+                     'name' => 'PlasticLinerColor',
+                     'title' => 'Plastic Liner Color',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:60px;',
+                     'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -160,7 +160,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => 200,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -169,14 +169,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'ProfileType',
-                     'title' => 'Profile type',
+                     'name' => 'RubberType',
+                     'title' => 'Rubber type',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'padding-left:60px;',
+                     'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -188,7 +188,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   3 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -197,10 +197,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'PolymerType',
-                     'title' => 'Polymer type',
+                     'name' => 'ProfileType',
+                     'title' => 'Profile type',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -216,7 +216,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   4 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 300,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -225,10 +225,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'PlasticLinerColor',
-                     'title' => 'Plastic Liner Color',
+                     'name' => 'PolymerType',
+                     'title' => 'Polymer type',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,

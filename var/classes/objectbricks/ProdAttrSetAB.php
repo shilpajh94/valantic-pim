@@ -3,7 +3,7 @@
 /** 
 Fields Summary: 
 - Hinge [input]
-- HingeText [input]
+- Hinge2 [input]
 */ 
 
 
@@ -82,7 +82,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 100,
+                 'labelWidth' => 80,
                  'layout' => 'hbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -101,7 +101,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -113,7 +113,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'Hinge',
                      'title' => 'Hinge',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -129,7 +129,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
-                     'width' => NULL,
+                     'width' => 200,
                      'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
@@ -138,10 +138,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'HingeText',
-                     'title' => 'Hinge text',
+                     'name' => 'Hinge2',
+                     'title' => 'Hinge 2',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,

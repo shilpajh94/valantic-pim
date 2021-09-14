@@ -85,7 +85,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 150,
+                 'labelWidth' => 120,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -119,7 +119,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'CarcassGaugeinMM',
                      'title' => 'Carcass gauge',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -150,7 +150,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'NumberofPlies',
                      'title' => 'Number of plies',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -189,7 +189,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 50,
-                     'defaultValue' => NULL,
+                     'defaultValue' => 'mm',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -219,7 +219,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               2 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 150,
+                 'labelWidth' => 120,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -253,11 +253,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'CarcassGaugeinInch',
                      'title' => 'Carcass gauge',
                      'tooltip' => '',
-                     'mandatory' => false,
+                     'mandatory' => true,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => 'margin-left:50px;',
+                     'style' => 'margin-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,
@@ -292,7 +292,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 50,
-                     'defaultValue' => NULL,
+                     'defaultValue' => 'inch',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
