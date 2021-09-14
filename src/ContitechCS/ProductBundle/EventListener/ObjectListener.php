@@ -54,6 +54,11 @@ class ObjectListener
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
+        $className =$object->getClassName();
+        if($className=='CSProducts') {
+            $this->checkUniqueProduct($object);
+        }  
+ 
 
         /**
          * if object save is run through cli then do not perform the brick addition or deletion
@@ -74,6 +79,22 @@ class ObjectListener
             }
             
         }
+    }
+
+
+    // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
+    public function checkUniqueProduct($object)
+    {  
+        $productName =$object->getName();
+        $productObjectId =$object->getId();
+        if(!empty($productName)) {
+            $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
+            $list->setCondition("Name = '$productName' AND oo_id != $productObjectId");
+            $uniqueProduct=$list->load(); 
+            if(!empty($uniqueProduct)) {
+                throw new \Exception ("Duplicate product name");
+            }
+        } 
     }
 
     /**
