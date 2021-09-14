@@ -7,6 +7,9 @@ use Pimcore\Model\AbstractModel;
 use Pimcore\DataObject\GridColumnConfig\Operator\AbstractOperator;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
+use Pimcore\DataObject\GridColumnConfig\Value\DefaultValue;
+use \DistributionHubBundle\Model\DataObject\GridColumnConfig\Value\CustomDefaultValue;
+use Pimcore\Model\DataObject\Data\ObjectMetadata;
 
 
 class CustomAnyGetter extends AbstractOperator
@@ -87,9 +90,18 @@ class CustomAnyGetter extends AbstractOperator
                     }
                 }
 
-                $valueContainer = $c->getLabeledValue($forwardObject);
+                $value = null;
 
-                $value = $valueContainer->value;
+                if($c instanceof DefaultValue){
+                    $customDefaultValue = new CustomDefaultValue($c);
+                    $childResult = $customDefaultValue->getLabeledValue($element);
+                    $value = $childResult->value;
+                    $fieldDefinition = $childResult->def;
+                }else{
+                    $valueContainer = $c->getLabeledValue($forwardObject);
+                    $value = $valueContainer->value;
+                }
+
                 if ($value || $this->getReturnLastResult()) {
                     $resultElementValue = $value;
                 } else {
@@ -100,6 +112,11 @@ class CustomAnyGetter extends AbstractOperator
                     if (is_array($value)) {
                         $newValues = [];
                         foreach ($value as $o) {
+
+                            if($o instanceof ObjectMetadata){
+                                $o = $o->getObject();
+                            }
+
                             if ($this->attribute && method_exists($o, $getter)) {
                                 $targetValue = $o->$getter($this->getParam1());
                                 $def = null;
