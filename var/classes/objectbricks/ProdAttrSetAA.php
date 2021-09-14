@@ -17,7 +17,7 @@ Fields Summary:
 - TroughabilityMinimumBeltsWidthinMM20 [numeric]
 - TroughabilityMinimumBeltsWidthinMM35 [numeric]
 - TroughabilityMinimumBeltsWidthinMM45 [numeric]
-- VulcanizedAndFastenerRatinginKNMM [numeric]
+- VulcanizedAndFastenerRatinginNMM [numeric]
 - RecommendedFastenerPlate [input]
 - LoadSupportMaximumBeltWidthinMM640KGM20_Unit [input]
 - LoadSupportMaximumBeltWidthinMM640KGM35_Unit [input]
@@ -641,7 +641,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
-                     'name' => 'VulcanizedAndFastenerRatinginKNMM',
+                     'name' => 'VulcanizedAndFastenerRatinginNMM',
                      'title' => 'Vulcanized And Fastener Rating',
                      'tooltip' => '',
                      'mandatory' => true,
@@ -1131,7 +1131,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 40,
-                     'defaultValue' => 'kN/m',
+                     'defaultValue' => 'N/mm',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,

@@ -76,7 +76,7 @@ Troughability minimum belts width (45 °) Unit in mm:
 Vulcanized And Fastener Rating Unit in KNM:
   fieldName: VulcanizedAndFastenerRatinginNMMUnit
   fieldType: Input
-  fieldValue: kN/m
+  fieldValue: N/mm
   objectType: ProdAttrSetAA
 Load-support maximum belt width (0-640 kg/m²; 20 °) Unit in inch:
   fieldName: LoadSupportMaximumBeltWidthinInch640KGM20_Unit
@@ -205,7 +205,7 @@ Continuous industrial max. bucket projection in mm(Elevator Belt only) Unit:
 Belt rating Unit:
   fieldName: beltRatingNMMUnit
   fieldType: Input
-  fieldValue: kN/m
+  fieldValue: N/mm
   objectType: ProdAttrSetD
 Carcass weight Unit:
   fieldName: CarcassWeightKGMUnit
