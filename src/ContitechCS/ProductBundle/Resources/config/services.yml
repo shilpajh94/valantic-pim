@@ -28,9 +28,9 @@ services:
     #     class: ContitechCS\ProductBundle\Services\ConfigProviderService
     #     public: true
 
-    # ContitechCS\ProductBundle\EventListener\ObjectListener:
-    #     tags:
-    #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
+    ContitechCS\ProductBundle\EventListener\ObjectListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
 
     ContitechCS\ProductBundle\Services\AppService:
         public: true
