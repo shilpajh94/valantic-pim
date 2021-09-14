@@ -77,11 +77,37 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         allowBlank: false,
                         blankText: 'Field is required',
                         msgTarget: 'under',
+                        id: 'pName',
                         value: this.productName,
                     },
                     classCombo,
                     userCombo,
-                    
+                  
+                    {
+                        xtype: 'checkboxfield',
+                        name: 'productCategoryCheck',
+                        style: {
+                            margin: '30px'
+                        },
+                        listeners: {
+                            change: function(checkbox){
+                                if(checkbox.checked){
+                                    Ext.getCmp('pName').setValue(classCombo.rawValue);
+                                    this.productName = classCombo.rawValue;
+                                    Ext.getCmp('pName').setReadOnly(true);
+                                }
+                                else {
+                                    Ext.getCmp('pName').setReadOnly(false);
+                                    }
+                            }
+                        },
+                        width: 500,
+                        labelWidth: 300,
+                        fieldLabel: 'Create Product Group at same Category Level',
+                        allowBlank: true,
+                        id: 'cName',
+                        value: this.productCategoryCheck,
+                    },
                 ],
             dockedItems: [
                 {
@@ -149,6 +175,8 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
      */
      getHierarchyClassCombo: function () {
 
+        
+
         let categories = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
@@ -180,6 +208,14 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             msgTarget: 'under',
             displayField: 'name',
             valueField: 'id',
+            listeners: {
+                change: function(){
+                    if(Ext.getCmp('cName').checked){
+                        Ext.getCmp('pName').setValue(this.rawValue);
+                        this.productName =Ext.getCmp('pName').getValue();
+                    }
+                }
+            },
             width: 500,
             labelWidth: 200,
             value: this.categoryId,
