@@ -17,7 +17,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             this.leftNavigation();
         }
     },
-    
+   
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");
         let ulElement = navigation.selectNode('ul');
@@ -31,7 +31,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         li.appendChild(svg);
         ulElement.appendChild(li);
         pimcore.helpers.initMenuTooltips();
-        
+       
         Ext.get('cs_product').on('click', function (e, el) {
             this.addNewProductForm();
         }.bind(this));
@@ -54,23 +54,6 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         itemId:'addProductError'
                     },
                     {
-                        xtype: 'textfield',
-                        name: 'productName',
-                        style: {
-                            margin: '30px'
-                        },
-                        width: 500,
-                        labelWidth: 200,
-                        fieldLabel: 'Product Name <span style="color:red;">*</span>',
-                        allowBlank: false,
-                        blankText: 'Field is required',
-                        msgTarget: 'under',
-                        id: 'pName',
-                        value: this.productName,
-                    },
-                    classCombo,
-                    userCombo,
-                    {
                         xtype: 'checkboxfield',
                         name: 'productCategoryCheck',
                         style: {
@@ -89,12 +72,29 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                             }
                         },
                         width: 500,
-                        labelWidth: 300,
-                        fieldLabel: 'Create Product Group at same Category Level',
+                        labelWidth: 200,
+                        fieldLabel: 'Create product group',
                         allowBlank: true,
                         id: 'cName',
                         value: this.productCategoryCheck,
                     },
+                    {
+                        xtype: 'textfield',
+                        name: 'productName',
+                        style: {
+                            margin: '30px'
+                        },
+                        width: 500,
+                        labelWidth: 200,
+                        fieldLabel: 'Product Name <span style="color:red;">*</span>',
+                        allowBlank: false,
+                        blankText: 'Field is required',
+                        msgTarget: 'under',
+                        id: 'pName',
+                        value: this.productName,
+                    },
+                    classCombo,
+                    userCombo,
                 ],
             dockedItems: [
                 {
@@ -114,7 +114,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                             iconCls: 'pimcore_icon_apply',
                             handler: function() {
                                 var form = this.up('form');
-                                if (form.isValid()) 
+                                if (form.isValid())
                                 {
                                     form.submit({
                                         success: function(form, response) {
@@ -125,7 +125,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                                             }
                                             pimcore.helpers.openElement(response.result.objectId, 'object');
                                             pimcore.treenodelocator.showInTree(response.result.objectId, "object");
-                                            
+                                           
                                         },
                                         failure: function(form, response) {
                                             var label = Ext.ComponentQuery.query('label');
@@ -135,16 +135,16 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                                 }
                                 else{
                                     console.log('form validation failed');
-                                }   
+                                }  
                             }
                         }
                     ]
                 }
             ]
         });
-        
+       
         this.basicFormWin = new Ext.create("Ext.Window", {
-            title: 'Add Product',
+            title: 'Add new product/product group',
             modal : true,
             maskOnDisable: false,
             items: [this.basicForm]
@@ -162,7 +162,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
      */
      getHierarchyClassCombo: function () {
 
-        
+       
 
         let categories = new Ext.data.JsonStore({
             proxy: {
@@ -243,7 +243,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: users,
             queryMode: 'local',
             editable: true,
-            allowBlank: false,
+            allowBlank: true,
             blankText: 'Field is required',
             msgTarget: 'under',
             displayField: 'name',

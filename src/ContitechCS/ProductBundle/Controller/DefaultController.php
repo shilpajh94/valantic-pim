@@ -106,10 +106,10 @@ class DefaultController extends FrontendController
             $CSHierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, "", $CSHierarchyPath);
             $CSHierarchyPath = trim($CSHierarchyPath, '/');
             $productHier = explode('/', $CSHierarchyPath);
+
             if (!$productCategoryCheck) {
                 $productHier[] = $CSHierarchyName;
             }
-
             $productHier[] = $productName;
 
             $productHier = array_filter($productHier);
@@ -135,7 +135,6 @@ class DefaultController extends FrontendController
                         $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
                     }
                 }
-
                 if ($counter == $productHierCount) {
                     $allObjectBricks = $relatedBricksSameLevel;
                 }
@@ -152,6 +151,19 @@ class DefaultController extends FrontendController
                         $product->setOmitMandatoryCheck(true);
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
+                        $product->setParentCategory([$CSHierarchyObj]);
+
+                        // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
+                        if(!empty($productName)) {
+                            $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
+                            $list->setCondition('Name = ?',$productName);
+                            $uniqueProduct=$list->load(); 
+                            if(!empty($uniqueProduct)) {
+                                echo json_encode(array('success' => false, 'objectId' => $parentId, "msg" => "Duplicate product name"));
+                                die;
+                            }
+                        } 
+                       
                         if ($allObjectBricks) {
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
