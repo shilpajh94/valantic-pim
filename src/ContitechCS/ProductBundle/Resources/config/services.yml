@@ -43,11 +43,13 @@ services:
         
     ContitechCS\ProductBundle\Workflow\ProductEnrichmentListener:
         tags:
-            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.send_for_review, method: csWorkflowTransitionNotification }
-            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.reject_product, method: csWorkflowTransitionNotification }
-            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.approve_processing, method: csWorkflowTransitionNotification} 
-            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.publish_product, method: csWorkflowTransitionNotification } 
-            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.pause_product, method: csWorkflowTransitionNotification} 
-            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.archived_product, method: csWorkflowTransitionNotification } 
+            - { name: kernel.event_listener, event: workflow.product_enrichment.completed, method: csWorkflowTransitionNotification }
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.send_for_review, method: csWorkflowTransitionNotification }
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.reject_product, method: csWorkflowTransitionNotification }
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.approve_processing, method: csWorkflowTransitionNotification} 
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.publish_product, method: csWorkflowTransitionNotification } 
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.pause_product, method: csWorkflowTransitionNotification} 
+#            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.archived_product, method: csWorkflowTransitionNotification } 
+            - { name: kernel.event_listener, event: workflow.product_enrichment.transition, method: makeRequiredChanges } 
 
     
