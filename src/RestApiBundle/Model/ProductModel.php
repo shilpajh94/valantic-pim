@@ -57,6 +57,15 @@ class ProductModel
                         $product = $stmt->fetchAll();
                         if(empty($product)) {
                             return false;
+                        }else{
+                            if($productType === "base"){
+                                $objectId = $conditionArray["ids"];                                
+                                if(array_key_exists("VirtualCatalogReinforcement",$fieldString)){
+                                    $sql = "SELECT VirtualCatalogReinforcement FROM object_store_" . $this->classId;
+                                    $sql .= " WHERE  oo_id = ?";
+                                    $product[0]["VirtualCatalogReinforcement"] = $this->db->fetchOne($sql,[$objectId]);
+                                }
+                            }
                         }
                     }else{
                         return false;

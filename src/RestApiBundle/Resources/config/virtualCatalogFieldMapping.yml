@@ -48,6 +48,8 @@ VirtualCatalog:
                 - string
             rangeTemperatureC:
                 - string
+            VirtualCatalogReinforcement:
+                - string
             o_published:
                 - string
             FeaturesBenefitsBulletPoint:
@@ -145,8 +147,6 @@ VirtualCatalog:
             BrandingLayline:
                 - string
             longDescription:
-                - string
-            VirtualCatalogReinforcement:
                 - string
             grossWeight:
                 - numeric: 2
