@@ -150,6 +150,90 @@ Weight (Lb):
   fieldName: WeightLb
   fieldType: Number
   objectType: ProdAttrSetAD
+Type of Idler - Inline - 20:
+  fieldName: TypeofIdlerInline20inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Inline - 35:
+  fieldName: TypeofIdlerInline35inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Inline - 45:
+  fieldName: TypeofIdlerInline45inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset Equal - 20:
+  fieldName: TypeofIdlerOffsetEqual20inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset Equal - 35:
+  fieldName: TypeofIdlerOffsetEqual35inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset Equal - 45:
+  fieldName: TypeofIdlerOffsetEqual45inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset LC Roll - 20:
+  fieldName: TypeofIdlerOffsetLCRoll20inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset LC Roll - 35:
+  fieldName: TypeofIdlerOffsetLCRoll35inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset LC Roll - 45:
+  fieldName: TypeofIdlerOffsetLCRoll45inch
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Inline - 20:
+  fieldName: TypeofIdlerInline20mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Inline - 35:
+  fieldName: TypeofIdlerInline35mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Inline - 45:
+  fieldName: TypeofIdlerInline45mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset Equal - 20:
+  fieldName: TypeofIdlerOffsetEqual20mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset Equal - 35:
+  fieldName: TypeofIdlerOffsetEqual35mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset Equal - 45:
+  fieldName: TypeofIdlerOffsetEqual45mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset LC Roll - 20:
+  fieldName: TypeofIdlerOffsetLCRoll20mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset LC Roll - 35:
+  fieldName: TypeofIdlerOffsetLCRoll35mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Type of Idler - Offset LC Roll - 40:
+  fieldName: TypeofIdlerOffsetLCRoll40mm
+  fieldType: Number
+  objectType: ProdAttrSetAE
+Ease of Installation:
+  fieldName: EaseofInstallation
+  fieldType: Input
+  objectType: ProdAttrSetAF
+Penetration Resistance:
+  fieldName: PenetrationResistance
+  fieldType: Input
+  objectType: ProdAttrSetAF
+PermanentElongation:
+  fieldName: PermanentElongation
+  fieldType: Input
+  objectType: ProdAttrSetAG
 industrial service tension capacity in PIW (for Elevator Belt only):
   fieldName: IndustrialServiceTensionCapacityinPIW
   fieldType: Number
@@ -390,6 +474,18 @@ Length:
   fieldName: LengthMM
   fieldType: Number
   objectType: ProdAttrSetQ
+Tracking Performance:
+  fieldName: TrackingPerformance
+  fieldType: Input
+  objectType: ProdAttrSetQ
+Dynamic Performance:
+  fieldName: DynamicPerformance
+  fieldType: Input
+  objectType: ProdAttrSetQ
+Wear Resistance:
+  fieldName: WearResistance
+  fieldType: Input
+  objectType: ProdAttrSetQ
 Width-mm:
   fieldName: WidthMM
   fieldType: Number
@@ -481,6 +577,54 @@ Description:
 Max. Abration Rotating:
   fieldName: MaxAbrasionRotatingMM
   fieldType: Number
+  objectType: ProdAttrSetR
+Min. Elongation (%):
+  fieldName: MinElongationPercent
+  fieldType: Number
+  objectType: ProdAttrSetR
+Typical Elongation (%):
+  fieldName: TypicalElongationPercent
+  fieldType: Number
+  objectType: ProdAttrSetR
+Min. Tensile:
+  fieldName: MinTensileMPa
+  fieldType: Number
+  objectType: ProdAttrSetR
+Typical Tensile:
+  fieldName: TypicalTensileMPa
+  fieldType: Number
+  objectType: ProdAttrSetR
+Min. Tensile:
+  fieldName: MinTensileMPa
+  fieldType: Number
+  objectType: ProdAttrSetR
+Typical Tensile:
+  fieldName: TypicalTensilePSI
+  fieldType: Number
+  objectType: ProdAttrSetR
+Max Temperature:
+  fieldName: MaxTemperatureF
+  fieldType: Number
+  objectType: ProdAttrSetR
+Min Temperature:
+  fieldName: MinTemperatureF
+  fieldType: Number
+  objectType: ProdAttrSetR
+Abrasion Resistance:
+  fieldName: AbrasionResistance
+  fieldType: BooleanSelect
+  objectType: ProdAttrSetR
+Oil Resistance:
+  fieldName: OilResistance
+  fieldType: BooleanSelect
+  objectType: ProdAttrSetR
+Flame Resistance:
+  fieldName: FlameResistance
+  fieldType: BooleanSelect
+  objectType: ProdAttrSetR
+ISO 284 Static Conductive:
+  fieldName: ISO284StaticConductive
+  fieldType: BooleanSelect
   objectType: ProdAttrSetR
 Max. Abrasion Non-Rotating:
   fieldName: MaxAbrasionNonRotatingMM
