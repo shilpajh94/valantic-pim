@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-09-13T14:18:21+02:00
+* Generated at: 2021-09-14T08:25:42+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -13,6 +13,8 @@ Fields Summary:
 - CorporateBrand [input]
 - ProductBrand [input]
 - ProductOwner [user]
+- isPaused [checkbox]
+- isArchived [checkbox]
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
@@ -47,7 +49,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1631535501,
+   'modificationDate' => 1631600742,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -642,6 +644,52 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
                       )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'fieldtype' => 'checkbox',
+                         'defaultValue' => 0,
+                         'queryColumnType' => 'tinyint(1)',
+                         'columnType' => 'tinyint(1)',
+                         'phpdocType' => 'boolean',
+                         'name' => 'isPaused',
+                         'title' => 'is Paused',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                         'fieldtype' => 'checkbox',
+                         'defaultValue' => 0,
+                         'queryColumnType' => 'tinyint(1)',
+                         'columnType' => 'tinyint(1)',
+                         'phpdocType' => 'boolean',
+                         'name' => 'isArchived',
+                         'title' => 'is Archived',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
                     ),
                      'locked' => false,
                   )),
@@ -738,7 +786,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',

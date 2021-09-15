@@ -4,18 +4,20 @@ namespace ContitechCS\ProductBundle\Workflow;
 
 use Pimcore\Model\DataObject;
 use Pimcore\Model\Document;
-//use Symfony\Component\Workflow\Event\TransitionEvent;
+use Symfony\Component\Workflow\Event\TransitionEvent;
 use Symfony\Component\Workflow\Event\CompletedEvent as Event;
 
 
 class ProductEnrichmentListener 
 {
     private $config;
+    private $transitionConfig;
     
     public function __construct() {
         
         $wfConfigData = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\ConfigProviderService')->getWorkflowConfig()['parameters'];
-        $this->config = isset($wfConfigData['transitions']) ? $wfConfigData['transitions'] : false;
+        $this->config = isset($wfConfigData['completed']) ? $wfConfigData['completed'] : false;
+        $this->transitionConfig = isset($wfConfigData['transition']) ? $wfConfigData['transition'] : false;
         
     }
     private function getProductDeeplink($product) {
@@ -26,6 +28,45 @@ class ProductEnrichmentListener
         return $link;
     }
 
+
+    public function checkIfChildsArchive($product) {
+        $list = new DataObject\CSProducts\Listing();
+        $list->setIgnoreLocalizedFields(true);
+        $list->setCondition('o_path like '.$list->quote($product->getPath().$product->getKey()."%").' AND (`isArchived` is NULL OR `isArchived` = false) ');
+        
+        if (count($list)>0) {
+            return ['success' => false, 'msg' => 'Not able to archive as all childs are not archived.'];
+        } else {
+            return ['success' => true];
+        }
+    }
+    
+    public function makeRequiredChanges(TransitionEvent $event) {
+        $transition = $event->getTransition();
+        $transitionName = $transition->getName();
+        $product = $event->getSubject();
+        if (!empty($transitionName) && !empty($this->transitionConfig) && !empty($this->transitionConfig[$transitionName])) {
+            $transitionConfig = $this->transitionConfig[$transitionName];
+            if (!empty($transitionConfig)) {
+                if (!empty($transitionConfig['condition'])) {
+                    $validationMethods = $transitionConfig['condition']['methods'];
+                    foreach ($validationMethods as $method) {
+                        $response = $this->$method($product);
+                        if (empty($response['success'])) {
+                            throw new \Exception($response['msg']);
+                        }
+                    }
+                }
+                if (!empty($transitionConfig['action'])) {
+                    foreach($transitionConfig['action'] as $key => $value) {
+                        $setter = "set".ucfirst($key);
+                        $product->$setter($value);
+                    }
+                }
+            }
+        }
+    }
+    
     public function csWorkflowTransitionNotification(Event $event) {
         $transition = $event->getTransition();
         $transitionName = $transition->getName();
@@ -64,15 +105,18 @@ class ProductEnrichmentListener
                     if ($role->getName() != 'ProductManagerCS') {
                         $roleIds[] = $role->getId();
                     } else {
-                        $productOwnerFlag = true;
+                        $userId = $product->getProductOwner();
+                        if (!empty($userId)) {
+                            $user = \Pimcore\Model\User::getById($userId);
+                            if (!empty($user) && ($user instanceof \Pimcore\Model\User) && !empty($user->getEmail())) {
+                                array_push($emailIds, $user->getEmail());
+                            } else {
+                                $roleIds[] = $role->getId();
+                            }
+                        } else {
+                            $roleIds[] = $role->getId();
+                        }
                     }
-                }
-            }
-            if ($productOwnerFlag) {
-                $userId = $product->getProductOwner();
-                $user = \Pimcore\Model\User::getById($userId);
-                if (!empty($user->getEmail())) {
-                    array_push($emailIds, $user->getEmail());
                 }
             }
             if (!empty($roleIds)) {

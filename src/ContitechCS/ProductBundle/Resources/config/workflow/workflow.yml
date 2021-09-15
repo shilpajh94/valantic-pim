@@ -1,6 +1,6 @@
 parameters:
     host: 'https://pim.conti.de'
-    transitions:
+    completed:
         send_for_review:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForReview'
             notificationToRoles: [MarComCS]
@@ -9,11 +9,11 @@ parameters:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productRejected'
             notificationToRoles: [ProductManagerCS]
             notificationCCRoles: [MarComCS]
-        approve_processing:
+        approve_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productApproved'
             notificationToRoles: [ProductManagerCS]
             notificationCCRoles: [MarComCS]
-        publish:
+        publish_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPublished'
             notificationToRoles: [ProductManagerCS]
             notificationCCRoles: [MarComCS]
@@ -25,7 +25,25 @@ parameters:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productArchived'
             notificationToRoles: [MarComCS]
             notificationCCRoles: [ProductManagerCS]
-    
+            
+    transition: 
+        pause_product:
+            action: 
+                isPaused: true
+                published: false
+            condition:
+                
+        archive_product:
+            action: 
+                isArchived: true
+                published: false
+            condition:
+                methods: [checkIfChildsArchive]
+        publish_product:
+            action: 
+                isPaused: false
+                published: true
+        
     # Workflow reminder configuration
     # Places: Places is name of the Place which defined in workflow configuration in app/config.yml
     reminder:
