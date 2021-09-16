@@ -101,7 +101,18 @@ class S3Listener
      */
     protected function checkIfMakeAssetPublicinS3()
     {
-       return true;
+        $return = true;
+        $internalFolders = INTERNAL_ASSET_FOLDER_PATHS;
+        $currentAssetPath = $this->asset->getRealFullPath();
+        if (!empty($internalFolders) && count($internalFolders)>0) {
+            foreach ($internalFolders as $folder) {
+                if (strpos($currentAssetPath, $folder)!== false) {
+                    $return = false;
+                    break;
+                }
+            }
+        }
+        return $return;
     }
 
 
