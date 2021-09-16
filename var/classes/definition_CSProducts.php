@@ -13,6 +13,7 @@ Fields Summary:
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
+- CoverCompounds [wysiwyg]
 - localizedfields [localizedfields]
 -- ProductDescription [textarea]
 -- ShortText [textarea]
@@ -25,16 +26,27 @@ Fields Summary:
 - CSRelatedProducts [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
 - ProductAttributes [objectbricks]
+- LogoImage [image]
 - productImage [image]
 - applicationImage [image]
 - functionalityImage [image]
-- damageImage [image]
+- deviationAngleForVerticalCurves [image]
+- sidewallSizes [image]
+- anglesofInclination [image]
+- imageCrossSectionOfProducts [image]
+- overviewImageofSystem [image]
 - fieldPhoto [image]
 - softwareImage [image]
 - reportImage [image]
+- damageImage [image]
+- deviatioAngleForHorizontal [image]
+- sidewallQualities [image]
+- increasingInclinationAngle [image]
+- beltRollDiameters [image]
 - imageGallery [imageGallery]
 - systemAnimation [video]
 - systemVideo [video]
+- productAnimation [video]
 - documents [manyToManyRelation]
 */ 
 
@@ -44,7 +56,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1631769376,
+   'modificationDate' => 1631774563,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -624,6 +636,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+                         'fieldtype' => 'wysiwyg',
+                         'width' => 300,
+                         'height' => 190,
+                         'queryColumnType' => 'longtext',
+                         'columnType' => 'longtext',
+                         'phpdocType' => 'string',
+                         'toolbarConfig' => '',
+                         'excludeFromSearchIndex' => false,
+                         'name' => 'CoverCompounds',
+                         'title' => 'Cover Compounds',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:215px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                       )),
                     ),
                      'locked' => false,
@@ -1206,6 +1243,30 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'int(11)',
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'LogoImage',
+                                 'title' => 'Logo Image',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
                                  'name' => 'productImage',
                                  'title' => 'Product Image',
                                  'tooltip' => '',
@@ -1221,7 +1282,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
-                              1 => 
+                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'fieldtype' => 'image',
                                  'width' => 400,
@@ -1245,7 +1306,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
-                              2 => 
+                              3 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'fieldtype' => 'image',
                                  'width' => 400,
@@ -1269,7 +1330,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleGridView' => false,
                                  'visibleSearch' => false,
                               )),
-                              3 => 
+                              4 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
                                  'fieldtype' => 'image',
                                  'width' => 400,
@@ -1278,8 +1339,104 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'queryColumnType' => 'int(11)',
                                  'columnType' => 'int(11)',
                                  'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
-                                 'name' => 'damageImage',
-                                 'title' => 'Damage Image',
+                                 'name' => 'deviationAngleForVerticalCurves',
+                                 'title' => 'Deviation Angle For Vertical Curves',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'sidewallSizes',
+                                 'title' => ' Sidewall Sizes',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              6 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'anglesofInclination',
+                                 'title' => 'Angles of Inclination',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              7 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'imageCrossSectionOfProducts',
+                                 'title' => 'Image cross Section Of Products',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              8 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'overviewImageofSystem',
+                                 'title' => 'Overview Image of System',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
@@ -1388,6 +1545,126 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'visibleSearch' => false,
                               )),
                               3 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'damageImage',
+                                 'title' => 'Damage Image',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              4 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'deviatioAngleForHorizontal',
+                                 'title' => 'Deviation Angle For Horizontal ',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              5 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'sidewallQualities',
+                                 'title' => ' Sidewall Qualities',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              6 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'increasingInclinationAngle',
+                                 'title' => 'Increasing Inclination Angle',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              7 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                                 'fieldtype' => 'image',
+                                 'width' => 400,
+                                 'height' => '',
+                                 'uploadPath' => '',
+                                 'queryColumnType' => 'int(11)',
+                                 'columnType' => 'int(11)',
+                                 'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+                                 'name' => 'beltRollDiameters',
+                                 'title' => 'Belt Roll Diameters',
+                                 'tooltip' => '',
+                                 'mandatory' => false,
+                                 'noteditable' => false,
+                                 'index' => false,
+                                 'locked' => false,
+                                 'style' => 'margin-top:10px;margin-left:20px;',
+                                 'permissions' => NULL,
+                                 'datatype' => 'data',
+                                 'relationType' => false,
+                                 'invisible' => false,
+                                 'visibleGridView' => false,
+                                 'visibleSearch' => false,
+                              )),
+                              8 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\ImageGallery::__set_state(array(
                                  'fieldtype' => 'imageGallery',
                                  'queryColumnType' => 
@@ -1484,6 +1761,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\Video',
                          'name' => 'systemVideo',
                          'title' => 'System Video',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-top:10px;margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Video::__set_state(array(
+                         'fieldtype' => 'video',
+                         'width' => 400,
+                         'height' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => '\\Pimcore\\Model\\DataObject\\Data\\Video',
+                         'name' => 'productAnimation',
+                         'title' => 'Product Animation',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
