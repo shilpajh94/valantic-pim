@@ -14,9 +14,15 @@
         </tr>
         <?php
         $index = 0;
+        $addedProductsInTemplate = [];
         foreach ($siopArray as $siopData) { ?>
                 <?php
                 foreach ($siopData['newProducts'] as $newProduct) {
+                    $productId = $newProduct['productId'];
+                    if(in_array($productId,$addedProductsInTemplate)){
+                        continue;
+                    }
+                    $addedProductsInTemplate[] = $productId;
 
                 ?>
                   <tr style="padding: 6px;text-align: left;border-collapse: collapse;border: 2px solid black;font-family:Lucida Sans Unicode, Arial;">
