@@ -75,6 +75,15 @@ class ProductEnrichmentListener
         $deepLink = $this->getProductDeepLink($product);
         if (!empty($transitionName) && !empty($this->config) && !empty($this->config[$transitionName])) {
             $transitionConfig = $this->config[$transitionName];
+            if (!empty($transitionConfig['action'])) {
+                \Pimcore\Model\Version::disable(); 
+                foreach($transitionConfig['action'] as $key => $value) {
+                    $setter = "set".ucfirst($key);
+                    $product->$setter($value);
+                }
+                $product->save(false);
+                \Pimcore\Model\Version::enable();
+            }
             $template = $transitionConfig['templatePath'];
             $toRoles = $transitionConfig['notificationToRoles'];
             $ccRoles = $transitionConfig['notificationCCRoles'];

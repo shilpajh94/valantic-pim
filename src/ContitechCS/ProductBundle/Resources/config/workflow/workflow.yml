@@ -21,10 +21,16 @@ parameters:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPaused'
             notificationToRoles: [MarComCS]
             notificationCCRoles: [ProductManagerCS]
+            action: 
+                isPaused: true
+                published: false
         archive_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productArchived'
             notificationToRoles: [MarComCS]
             notificationCCRoles: [ProductManagerCS]
+            action: 
+                isArchived: true
+                published: false
             
     transition: 
         pause_product:
