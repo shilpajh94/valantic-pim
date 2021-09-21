@@ -103,6 +103,10 @@ class CSProductDataImportCommand extends AbstractCommand
 
                     $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
 
+                    $str = $hierarchyPath;
+                    $parentPath =  substr($str, 0,strrpos($str, '/')); 
+                    $parentPathObj = DataObject\CSHierarchy::getByPath( $parentPath);
+
                     if ($hierarchyPathObj) {
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
                         if ($CSHierarchyRelatedBricks) {
@@ -120,6 +124,7 @@ class CSProductDataImportCommand extends AbstractCommand
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
                             $product->setName($hierarchy, 'en');
+                            $product->setParentCategory([$parentPathObj]);
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
