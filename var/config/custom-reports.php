@@ -3459,5 +3459,857 @@ return [
 
         ],
         "id" => "ProductLocalization"
+    ],
+    "CS_NewProductsLastOneWeek" => [
+        "name" => "CS_NewProductsLastOneWeek",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT o1.`oo_id` as `Id`,o1.`Name`,CASE WHEN o1.`o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE( o1.`o_path`, '/Contitech_ConveyorSolution/Products/', '' ) END as `Hierarchy Level`, FROM_UNIXTIME(`o_creationDate`) as`Creation Date`, REPLACE(REPLACE(o1.`o_published`,'1','Published'), 0, 'Unpublished') as`Status`",
+                "from" => "FROM object_CSProducts o1",
+                "where" => " (o1.`o_creationDate` > UNIX_TIMESTAMP(DATE_SUB(CURDATE(), INTERVAL 7 DAY)))",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1400-1"
+            ],
+            [
+                "name" => "Hierarchy Level",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1400-2"
+            ],
+            [
+                "name" => "Status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1400-3"
+            ],
+            [
+                "name" => "Creation Date",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel1400-4"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel1400-5"
+            ]
+        ],
+        "niceName" => "CS_New Products Last One Week",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => "",
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1632128716,
+        "creationDate" => 1631861341,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "CS_NewProductsLastOneWeek"
+    ],
+    "CS_DataCompleteness" => [
+        "name" => "CS_DataCompleteness",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT o1.`oo_id` as `Id`,`Name`,CASE WHEN `o_path` = '/Contitech_ConveyorSolution/Products/' THEN 'LEVEL1' ELSE REPLACE( `o_path`, '/Contitech_ConveyorSolution/Products/', '' ) END as `Hierarchy Level`,FROM_UNIXTIME(`o_modificationDate`)as`Modification Date`,`completenessPercentage` as `Completeness Percentage`,`EmptyFields`as `Empty Fields`",
+                "from" => "FROM object_localized_CSProducts_en o1",
+                "where" => "",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel988-1"
+            ],
+            [
+                "name" => "Hierarchy Level",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel988-4"
+            ],
+            [
+                "name" => "Completeness Percentage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel988-5"
+            ],
+            [
+                "name" => "Empty Fields",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel988-3"
+            ],
+            [
+                "name" => "Modification Date",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel988-2"
+            ],
+            [
+                "name" => "Id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "columnAction" => "openObject",
+                "id" => "extModel988-6"
+            ]
+        ],
+        "niceName" => "CS_Data Completeness",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1632130013,
+        "creationDate" => 1632124921,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "CS_DataCompleteness"
+    ],
+    "CS_MissingAssetsOnProducts" => [
+        "name" => "CS_MissingAssetsOnProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT\noo_id,oo_className,Name,o_parentId,CorporateBrand,ProductBrand,\n IF(object_CSProducts.`LogoImage` IS NOT NULL, \"True\", \"False\") AS `LogoImage`,\n IF(object_CSProducts.`fieldPhoto` IS NOT NULL, \"True\", \"False\") AS `fieldPhoto`,\n IF(object_CSProducts.`productImage` IS NOT NULL, \"True\", \"False\") AS `productImage`,\n IF(object_CSProducts.`softwareImage` IS NOT NULL, \"True\", \"False\") AS `softwareImage`,\n IF(object_CSProducts.`applicationImage` IS NOT NULL, \"True\", \"False\") AS `applicationImage`,\n IF(object_CSProducts.`reportImage` IS NOT NULL, \"True\", \"False\") AS `reportImage`,\n IF(object_CSProducts.`functionalityImage` IS NOT NULL, \"True\", \"False\") AS `functionalityImage`,\n IF(object_CSProducts.`damageImage` IS NOT NULL, \"True\", \"False\") AS `damageImage`,\n IF(object_CSProducts.`deviationAngleForVerticalCurves` IS NOT NULL, \"True\", \"False\") AS `deviationAngleForVerticalCurves`,\n IF(object_CSProducts.`deviatioAngleForHorizontal` IS NOT NULL, \"True\", \"False\") AS `deviatioAngleForHorizontal`,\n IF(object_CSProducts.`sidewallSizes` IS NOT NULL, \"True\", \"False\") AS `sidewallSizes`,\n IF(object_CSProducts.`sidewallQualities` IS NOT NULL, \"True\", \"False\") AS `sidewallQualities`,\n IF(object_CSProducts.`anglesofInclination` IS NOT NULL, \"True\", \"False\") AS `anglesofInclination`,\n IF(object_CSProducts.`increasingInclinationAngle` IS NOT NULL, \"True\", \"False\") AS `increasingInclinationAngle`,\n IF(object_CSProducts.`imageCrossSectionOfProducts` IS NOT NULL, \"True\", \"False\") AS `imageCrossSectionOfProducts`,\n IF(object_CSProducts.`beltRollDiameters` IS NOT NULL, \"True\", \"False\") AS `beltRollDiameters`,\n IF(object_CSProducts.`overviewImageofSystem` IS NOT NULL, \"True\", \"False\") AS `overviewImageofSystem`,\n IF(object_CSProducts.`imageGallery__images` IS NOT NULL, \"True\", \"False\") AS `imageGallery__images`,\n IF(object_CSProducts.`systemAnimation` IS NOT NULL, \"True\", \"False\") AS `systemAnimation`,\n IF(object_CSProducts.`systemVideo` IS NOT NULL, \"True\", \"False\") AS `systemVideo`,\n IF(object_CSProducts.`productAnimation` IS NOT NULL, \"True\", \"False\") AS `productAnimation`,\n IF(object_CSProducts.`documents` IS NOT NULL, \"True\", \"False\") AS `documents`",
+                "from" => "FROM object_CSProducts",
+                "where" => "WHERE \n LogoImage is null OR\n fieldPhoto is null OR\n productImage is null OR\n softwareImage is null OR\n applicationImage is null OR\n reportImage is null OR\n functionalityImage is null OR\n damageImage is null OR\n deviationAngleForVerticalCurves is null OR\n deviatioAngleForHorizontal is null OR\n sidewallSizes is null OR\n sidewallQualities is null OR\n anglesofInclination is null OR\n increasingInclinationAngle is null OR\n imageCrossSectionOfProducts is null OR\n beltRollDiameters is null OR\n overviewImageofSystem is null OR\n imageGallery__images is null OR\n systemAnimation is null OR\n systemVideo is null OR\n productAnimation is null OR\n documents is null",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "oo_id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-1"
+            ],
+            [
+                "name" => "oo_className",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-2"
+            ],
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-3"
+            ],
+            [
+                "name" => "o_parentId",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-4"
+            ],
+            [
+                "name" => "CorporateBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-5"
+            ],
+            [
+                "name" => "ProductBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-6"
+            ],
+            [
+                "name" => "LogoImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-7"
+            ],
+            [
+                "name" => "fieldPhoto",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-8"
+            ],
+            [
+                "name" => "productImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-9"
+            ],
+            [
+                "name" => "softwareImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-10"
+            ],
+            [
+                "name" => "applicationImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-11"
+            ],
+            [
+                "name" => "reportImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-12"
+            ],
+            [
+                "name" => "functionalityImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-13"
+            ],
+            [
+                "name" => "damageImage",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-14"
+            ],
+            [
+                "name" => "deviationAngleForVerticalCurves",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-15"
+            ],
+            [
+                "name" => "deviatioAngleForHorizontal",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-16"
+            ],
+            [
+                "name" => "sidewallSizes",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-17"
+            ],
+            [
+                "name" => "sidewallQualities",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-18"
+            ],
+            [
+                "name" => "anglesofInclination",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-19"
+            ],
+            [
+                "name" => "increasingInclinationAngle",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-20"
+            ],
+            [
+                "name" => "imageCrossSectionOfProducts",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-21"
+            ],
+            [
+                "name" => "beltRollDiameters",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-22"
+            ],
+            [
+                "name" => "overviewImageofSystem",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-23"
+            ],
+            [
+                "name" => "imageGallery__images",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-24"
+            ],
+            [
+                "name" => "systemAnimation",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-25"
+            ],
+            [
+                "name" => "systemVideo",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-26"
+            ],
+            [
+                "name" => "productAnimation",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-27"
+            ],
+            [
+                "name" => "documents",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel693-28"
+            ]
+        ],
+        "niceName" => "CS_MissingAssetsOnProducts",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1632215212,
+        "creationDate" => 1632215120,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "CS_MissingAssetsOnProducts"
+    ],
+    "CS_TranslationsMissingProduct" => [
+        "name" => "CS_TranslationsMissingProduct",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \n\tobject_localized_CSProducts_en.oo_id,\n\tobject_localized_CSProducts_en.oo_className,\n\tobject_localized_CSProducts_en.Name,\n\tobject_localized_CSProducts_en.CorporateBrand,\n\tobject_localized_CSProducts_en.productBrand,\n\tobject_localized_CSProducts_en.ProductDescription AS ProductDescription_en,\n\tobject_localized_CSProducts_en.ShortText AS ShortText_en,\n    object_localized_CSProducts_en.LongText AS LongText_en,\n    object_localized_CSProducts_de.ProductDescription AS ProductDescription_de,\n\tobject_localized_CSProducts_de.ShortText AS ShortText_de,\n    object_localized_CSProducts_de.LongText AS LongText_de,\n    object_localized_CSProducts_es_MX.ProductDescription AS ProductDescription_es_MX,\n\tobject_localized_CSProducts_es_MX.ShortText AS ShortText_es_MX,\n    object_localized_CSProducts_es_MX.LongText AS LongText_es_MX,\n    object_localized_CSProducts_fr_CA.ProductDescription AS ProductDescription_fr_CA,\n\tobject_localized_CSProducts_fr_CA.ShortText AS ShortText_fr_CA,\n    object_localized_CSProducts_fr_CA.LongText AS LongText_fr_CA,\n    object_localized_CSProducts_pt_BR.ProductDescription AS ProductDescription_pt_BR,\n\tobject_localized_CSProducts_pt_BR.ShortText AS ShortText_pt_BR,\n    object_localized_CSProducts_pt_BR.LongText AS LongText_pt_BR,\n    object_localized_CSProducts_zh.ProductDescription AS ProductDescription_zh,\n\tobject_localized_CSProducts_zh.ShortText AS ShortText_zh,\n    object_localized_CSProducts_zh.LongText AS LongText_zh",
+                "from" => "FROM object_localized_CSProducts_en\nINNER JOIN object_localized_CSProducts_de ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_de.oo_id\nINNER JOIN object_localized_CSProducts_es_MX ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_es_MX.oo_id\nINNER JOIN object_localized_CSProducts_fr_CA ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_fr_CA.oo_id\nINNER JOIN object_localized_CSProducts_pt_BR ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_pt_BR.oo_id\nINNER JOIN object_localized_CSProducts_zh ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_zh.oo_id",
+                "where" => "WHERE\n\tobject_localized_CSProducts_en.ProductDescription is null OR\n\tobject_localized_CSProducts_en.ShortText is null OR\n    object_localized_CSProducts_en.LongText is null OR\n    object_localized_CSProducts_de.ProductDescription is null OR\n\tobject_localized_CSProducts_de.ShortText is null OR\n    object_localized_CSProducts_de.LongText is null OR\n    object_localized_CSProducts_es_MX.ProductDescription is null OR\n\tobject_localized_CSProducts_es_MX.ShortText is null OR\n    object_localized_CSProducts_es_MX.LongText is null OR\n    object_localized_CSProducts_fr_CA.ProductDescription is null OR\n\tobject_localized_CSProducts_fr_CA.ShortText is null OR\n    object_localized_CSProducts_fr_CA.LongText is null OR\n    object_localized_CSProducts_pt_BR.ProductDescription is null OR\n\tobject_localized_CSProducts_pt_BR.ShortText is null OR\n    object_localized_CSProducts_pt_BR.LongText is null OR\n    object_localized_CSProducts_zh.ProductDescription is null OR\n\tobject_localized_CSProducts_zh.ShortText is null OR\n    object_localized_CSProducts_zh.LongText is null",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "oo_id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-1"
+            ],
+            [
+                "name" => "oo_className",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-2"
+            ],
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-3"
+            ],
+            [
+                "name" => "CorporateBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-4"
+            ],
+            [
+                "name" => "ProductBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-5"
+            ],
+            [
+                "name" => "ProductDescription_en",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-6"
+            ],
+            [
+                "name" => "ShortText_en",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-7"
+            ],
+            [
+                "name" => "LongText_en",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-8"
+            ],
+            [
+                "name" => "ProductDescription_de",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-9"
+            ],
+            [
+                "name" => "ShortText_de",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-10"
+            ],
+            [
+                "name" => "LongText_de",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-11"
+            ],
+            [
+                "name" => "ProductDescription_es_MX",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-12"
+            ],
+            [
+                "name" => "ShortText_es_MX",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-13"
+            ],
+            [
+                "name" => "LongText_es_MX",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-14"
+            ],
+            [
+                "name" => "ProductDescription_fr_CA",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-15"
+            ],
+            [
+                "name" => "ShortText_fr_CA",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-16"
+            ],
+            [
+                "name" => "LongText_fr_CA",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-17"
+            ],
+            [
+                "name" => "ProductDescription_pt_BR",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-18"
+            ],
+            [
+                "name" => "ShortText_pt_BR",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-19"
+            ],
+            [
+                "name" => "LongText_pt_BR",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-20"
+            ],
+            [
+                "name" => "ProductDescription_zh",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-21"
+            ],
+            [
+                "name" => "ShortText_zh",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-22"
+            ],
+            [
+                "name" => "LongText_zh",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel602-23"
+            ]
+        ],
+        "niceName" => "CS_TranslationsMissingProduct",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1632215431,
+        "creationDate" => 1632215295,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "CS_TranslationsMissingProduct"
+    ],
+    "CS_ArchivedProducts" => [
+        "name" => "CS_ArchivedProducts",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \n   oo_id,\n    oo_className,\n    Name,\n    o_parentId,\n    CorporateBrand,\n    ProductBrand,\n   IF(object_CSProducts.`isArchived` = 1, \"True\", \"False\") AS `isArchived`",
+                "from" => "FROM object_CSProducts",
+                "where" => "WHERE isArchived = 1",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+
+        ],
+        "niceName" => "CS_ArchivedProducts",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1632215535,
+        "creationDate" => 1632215479,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "CS_ArchivedProducts"
+    ],
+    "CS_ProductsUnderReview" => [
+        "name" => "CS_ProductsUnderReview",
+        "sql" => "",
+        "dataSourceConfig" => [
+            [
+                "sql" => "SELECT \n   o1.oo_id,\n    o1.oo_className,\n    o1.Name,\n    o1.o_parentId,\n    o1.CorporateBrand,\n    o1.ProductBrand,\n    w.place AS status",
+                "from" => "FROM object_CSProducts AS o1\nLEFT JOIN element_workflow_state AS w on o1.oo_id = w.cid AND w.workflow = \"product_enrichment\"",
+                "where" => "WHERE w.place = 'In_review'",
+                "groupby" => "",
+                "type" => "sql"
+            ]
+        ],
+        "columnConfiguration" => [
+            [
+                "name" => "oo_id",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-1"
+            ],
+            [
+                "name" => "oo_className",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-2"
+            ],
+            [
+                "name" => "Name",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-3"
+            ],
+            [
+                "name" => "o_parentId",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-4"
+            ],
+            [
+                "name" => "CorporateBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-5"
+            ],
+            [
+                "name" => "ProductBrand",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-6"
+            ],
+            [
+                "name" => "status",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel487-7"
+            ]
+        ],
+        "niceName" => "CS_ProductsUnderReview",
+        "group" => "ContiTech CS",
+        "groupIconClass" => "",
+        "iconClass" => "",
+        "menuShortcut" => FALSE,
+        "reportClass" => "",
+        "chartType" => NULL,
+        "pieColumn" => NULL,
+        "pieLabelColumn" => NULL,
+        "xAxis" => NULL,
+        "yAxis" => [
+
+        ],
+        "modificationDate" => 1632215653,
+        "creationDate" => 1632215600,
+        "shareGlobally" => FALSE,
+        "sharedUserNames" => [
+
+        ],
+        "sharedRoleNames" => [
+
+        ],
+        "id" => "CS_ProductsUnderReview"
     ]
 ];

@@ -172,6 +172,96 @@ Weight Lb Unit:
   fieldType: Input
   fieldValue: lb
   objectType: ProdAttrSetAD
+Type of Idler In line 20inch Unit:
+  fieldName: TypeofIdlerInline20inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler In line 35inch Unit:
+  fieldName: TypeofIdlerInline35inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler In line 45inch Unit:
+  fieldName: TypeofIdlerInline45inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Offset Equal 20inch Unit:
+  fieldName: TypeofIdlerOffsetEqual20inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Offset Equal 35inch Unit:
+  fieldName: TypeofIdlerOffsetEqual35inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Offset Equal 45inch Unit:
+  fieldName: TypeofIdlerOffsetEqual45inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Offset LCRoll 20inch Unit:
+  fieldName: TypeofIdlerOffsetLCRoll20inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Offset LCRoll 35inch Unit:
+  fieldName: TypeofIdlerOffsetLCRoll35inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Offset LCRoll 45inch Unit:
+  fieldName: TypeofIdlerOffsetLCRoll45inchUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetAE
+Type of Idler Inline 20mm Unit:
+  fieldName: TypeofIdlerInline20mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Inline 35mm Unit:
+  fieldName: TypeofIdlerInline35mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Inline 45mm Unit:
+  fieldName: TypeofIdlerInline45mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Offset Equal 20mm Unit:
+  fieldName: TypeofIdlerOffsetEqual20mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Offset Equal 35mm Unit:
+  fieldName: TypeofIdlerOffsetEqual35mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Offset Equal 45mm Unit:
+  fieldName: TypeofIdlerOffsetEqual45mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Offset LCRoll 20mm Unit:
+  fieldName: TypeofIdlerOffsetLCRoll20mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Offset LCRoll 35mm Unit:
+  fieldName: TypeofIdlerOffsetLCRoll35mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
+Type of Idler Offset LCRoll 45mm Unit:
+  fieldName: TypeofIdlerOffsetLCRoll45mmUnit
+  fieldType: Input
+  fieldValue: mm
+  objectType: ProdAttrSetAE
 Industrial Service Tension Capacity in PIW Unit:
   fieldName: IndustrialServiceTensionCapacityinPIWUnit
   fieldType: Input
@@ -456,6 +546,36 @@ Typical Abrasion Non-Rotating Unit in inch:
   fieldName: TypicalAbrasionNonRotatingInchUnit
   fieldType: Input
   fieldValue: inch
+  objectType: ProdAttrSetR
+Min Tensile MPa Unit:
+  fieldName: MinTensileMPaUnit
+  fieldType: Input
+  fieldValue: MPa
+  objectType: ProdAttrSetR
+Typical Tensile MPa Unit:
+  fieldName: TypicalTensileMPaUnit
+  fieldType: Input
+  fieldValue: MPa
+  objectType: ProdAttrSetR
+Min Tensile PSI Unit:
+  fieldName: MinTensilePSIUnit
+  fieldType: Input
+  fieldValue: PSI
+  objectType: ProdAttrSetR
+Typical Tensile PSI Unit:
+  fieldName: TypicalTensilePSIUnit
+  fieldType: Input
+  fieldValue: PSI
+  objectType: ProdAttrSetR
+Max Temperature F Unit:
+  fieldName: MaxTemperatureFUnit
+  fieldType: Input
+  fieldValue: F
+  objectType: ProdAttrSetR
+Min Temperature F Unit:
+  fieldName: MinTemperatureFUnit
+  fieldType: Input
+  fieldValue: F
   objectType: ProdAttrSetR
 Belt speed Unit:
   fieldName: BeltSpeedUnit
