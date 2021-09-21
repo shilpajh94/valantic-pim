@@ -1,0 +1,33 @@
+Fortress XP
+  Corporate Brand:
+    fieldName: CorporateBrand
+    objectType: class
+  Region:
+    fieldName: Region
+    objectType: ProdAttrSetB
+  hinge:
+    fieldName: Hinge
+    objectType: ProdAttrSetAB
+  hinge 2:
+    fieldName: Hinge2
+    fieldType: Input
+    objectType: ProdAttrSetAB
+  belt rating in N/mm:
+    fieldName: beltRatingNMM
+    objectType: ProdAttrSetD
+  Belt Rating in PIW:
+    fieldName: beltRatingPIW
+    objectType: ProdAttrSetD
+  Fabric Type:
+    fieldName: FabricType
+    objectType: ProdAttrSetN
+Drive & Movement
+  Cleat Height:
+    fieldName: CleatHeightMM
+    objectType: ProdAttrSetP
+  Cleat profile sizes:
+    fieldName: CleatProfileSizes
+    objectType: ProdAttrSetP
+  Cleat Height in inch:
+    fieldName: CleatHeightInch
+    objectType: ProdAttrSetP
