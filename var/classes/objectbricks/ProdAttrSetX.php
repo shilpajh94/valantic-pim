@@ -115,7 +115,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

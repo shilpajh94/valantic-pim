@@ -57,7 +57,6 @@ class CSProductDataImportCommand extends AbstractCommand
         ));
 
         try {
-
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
@@ -68,7 +67,8 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $i = 0;
             foreach ($data as $key => $productData) {
-
+                // p_r($productData);
+                // die;
                 $missingColName = '';
 
                 $i++;
@@ -79,10 +79,12 @@ class CSProductDataImportCommand extends AbstractCommand
 
                 $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
-                $productHier = explode('->', $productData['Product Hierarchy']);
+                $productHier = explode('/', $productData['Product Hierarchy']);
 
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
+
+                $productHier[] = $productData['Product Name'];
 
                 $productData = array_slice($productData, 2);
 
@@ -167,6 +169,10 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                             }
+                            // $region = $productData['Region'];
+                            // // p_r($region);
+                            // // die;
+                            // $product->setRegion([$region]);
 
                             $result = $product->save();
                             $parentId = $result->getId();
@@ -186,7 +192,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $missingColName = $missingColName . '   ' . $val;
                             }
                             $success = false;
-                            p_r('Cannot save Product... Check Your Log.');
+                            p_r('Cannot save Product!!!.');
                         }
 
 
