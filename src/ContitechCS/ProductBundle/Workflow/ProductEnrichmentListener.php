@@ -41,7 +41,7 @@ class ProductEnrichmentListener
         }
     }
     
-    public function makeRequiredChanges(TransitionEvent $event) {
+    public function csWorkflowActions(TransitionEvent $event) {
         $transition = $event->getTransition();
         $transitionName = $transition->getName();
         $product = $event->getSubject();
@@ -67,7 +67,7 @@ class ProductEnrichmentListener
         }
     }
     
-    public function csWorkflowTransitionNotification(Event $event) {
+    public function csWorkflowNotification(Event $event) {
         $transition = $event->getTransition();
         $transitionName = $transition->getName();
         $product = $event->getSubject();
@@ -85,10 +85,10 @@ class ProductEnrichmentListener
                 \Pimcore\Model\Version::enable();
             }
             $template = $transitionConfig['templatePath'];
-            $toRoles = $transitionConfig['notificationToRoles'];
-            $ccRoles = $transitionConfig['notificationCCRoles'];
-            $toEmails = $this->getUserEmailsListByRoles($toRoles, $product);
-            $ccEmails = $this->getUserEmailsListByRoles($ccRoles, $product);
+            $to = $transitionConfig['notificationTo'];
+            $cc = $transitionConfig['notificationCC'];
+            $toEmails = $this->getUserEmailsListByRoles($to, $product);
+            $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
             $params = [
                 'template' => $template,
                 'toEmails' => $toEmails,
@@ -102,46 +102,53 @@ class ProductEnrichmentListener
     }
     
     
-    public function getUserEmailsListByRoles($roles, $product = []) {
+    public function getUserEmailsListByRoles($userRolesArray, $product = []) {
         $emailIds = [];
-        if (!empty($roles)) {
-            $roleClass = new \Pimcore\Model\User\Role\Listing();
-            $userRoles = $roleClass->getRoles(); 
-            $roleIds = [];
-            $productOwnerFlag = false;
-            foreach($userRoles as $role) {
-                if (in_array($role->getName(), $roles)) {
-                    if ($role->getName() != 'ProductManagerCS') {
-                        $roleIds[] = $role->getId();
-                    } else {
-                        $userId = $product->getProductOwner();
-                        if (!empty($userId)) {
-                            $user = \Pimcore\Model\User::getById($userId);
-                            if (!empty($user) && ($user instanceof \Pimcore\Model\User) && !empty($user->getEmail())) {
-                                array_push($emailIds, $user->getEmail());
-                            } else {
-                                $roleIds[] = $role->getId();
-                            }
-                        } else {
-                            $roleIds[] = $role->getId();
-                        }
+        if (!empty($userRolesArray)) {
+            if (!empty($userRolesArray['users']) && count($userRolesArray['users']) >0) {
+                $userIds = [];
+                if (in_array('ProductOwner', $userRolesArray['users'])) {
+                    $userIds[] = $product->getProductOwner();
+                } 
+                if (in_array('UserOwner', $userRolesArray['users'])) {
+                    $userIds[] = $product->getUserOwner();
+                }
+                $userList = new \Pimcore\Model\User\Listing();
+                $userList->setCondition("`id` IN (".implode(", ", $userIds).")");
+                foreach($userList as $user) {
+                    if (!empty($user) && ($user instanceof \Pimcore\Model\User) && !empty($user->getEmail())) {
+                        array_push($emailIds, $user->getEmail());
                     }
                 }
             }
-            if (!empty($roleIds)) {
-                $list = new \Pimcore\Model\User\Listing();
-                $list->setCondition("`roles` IN (".implode(", ", $roleIds).")");
-                $list->load();
-                $users = $list->getUsers();
-                if (!empty($users) && count($users)>0) {
-                    
-                    foreach ($users as $user) {
-                        if (!empty($user->getEmail())) {
-                            array_push($emailIds, $user->getEmail());
+            if (!empty($userRolesArray['roles']) && count($userRolesArray['roles']) >0) {
+                $roleArray = $userRolesArray['roles'];
+                $roleClass = new \Pimcore\Model\User\Role\Listing();
+                $userRoles = $roleClass->getRoles(); 
+                $roleIds = [];
+                $productOwnerFlag = false;
+                foreach($userRoles as $role) {
+                    if (in_array($role->getName(), $roleArray)) {
+                        $roleIds[] = $role->getId();
+                    }
+                }
+                if (!empty($roleIds)) {
+                    $list = new \Pimcore\Model\User\Listing();
+                    $conditionArr = [];
+                    foreach ($roleIds as $roleId) {
+                        $conditionArr[] = '( `roles` = '.$list->quote($roleId). ' OR `roles` like '.$list->quote("%,".$roleId). ' OR `roles` like '.$list->quote($roleId.",%"). ' OR `roles` like '.$list->quote("%,".$roleId.",%"). ' )';
+                    }
+                    if (!empty($conditionArr)) {
+                        $list->setCondition(implode(" OR ", $conditionArr));
+                    }
+                    $users = $list->load();
+                    if (!empty($users) && count($users)>0) {
+                        foreach ($users as $user) {
+                            if (!empty($user->getEmail())) {
+                                array_push($emailIds, $user->getEmail());
+                            }
                         }
                     }
-                    
-                    return $emailIds;
                 }
             }
         }
