@@ -1,33 +1,108 @@
 parameters:
     host: 'https://pim.conti.de'
     completed:
+        send_to_process:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForProcessing'
+            notificationTo: 
+                users: 
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - UserOwner
+#                roles:
+        send_to_edit:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentToRandD'
+            notificationTo: 
+                users:
+                roles:
+                    - EditorCS
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
         send_for_review:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForReview'
-            notificationToRoles: [MarComCS]
-            notificationCCRoles: [ProductManagerCS]
+            notificationTo: 
+                users:
+                roles:
+                    - MarComCS
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
         reject_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productRejected'
-            notificationToRoles: [ProductManagerCS]
-            notificationCCRoles: [MarComCS]
+            notificationTo: 
+                users:
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
         approve_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productApproved'
-            notificationToRoles: [ProductManagerCS]
-            notificationCCRoles: [MarComCS]
+            notificationTo: 
+                users:
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        send_to_publish:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentToPublish'
+            notificationTo: 
+                users:
+                    - UserOwner   
+                    # user owner is product creator means Product Manager
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+    
         publish_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPublished'
-            notificationToRoles: [ProductManagerCS]
-            notificationCCRoles: [MarComCS]
+            notificationTo: 
+                users:
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+
         pause_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPaused'
-            notificationToRoles: [MarComCS]
-            notificationCCRoles: [ProductManagerCS]
+            notificationTo: 
+                users:
+                    - ProductOwner
+                    - UserOwner
+                roles:
+                    - MarComCS
+                    
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
             action: 
                 isPaused: true
                 published: false
         archive_product:
             templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productArchived'
-            notificationToRoles: [MarComCS]
-            notificationCCRoles: [ProductManagerCS]
+            notificationTo: 
+                users:
+                    - ProductOwner
+                    - UserOwner
+                roles:
+                    - MarComCS
             action: 
                 isArchived: true
                 published: false
