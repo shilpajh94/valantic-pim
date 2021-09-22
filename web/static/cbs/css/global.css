@@ -22,7 +22,7 @@ body {
   font-weight: normal;
   font-family: "Arial", sans-serif;
   color: #43474e;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 article,
@@ -94,15 +94,14 @@ img {
   height: 100%;
 }
 
-.wrapper,
-.wrapper header,
-.wrapper footer {
+.wrapper
+{
   padding: 0px 30px;
 }
 
 header {
   padding-top: 20px !important;
-  padding-bottom: 40px !important;
+  padding-bottom: 0px !important;
 }
 
 .header-sec {
@@ -136,7 +135,7 @@ h1 {
 }
 
 #content {
-  margin-top: 77px;
+  margin-top: 0px;
   padding-bottom: 46px;
 }
 

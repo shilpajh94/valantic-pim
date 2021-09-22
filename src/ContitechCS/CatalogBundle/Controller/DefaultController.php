@@ -104,7 +104,6 @@ class DefaultController extends FrontendController
      */
     public function templateProductPageAction(Request $request)
     {
-
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_product_page')->getElement();
 
         $productData = [];
@@ -126,11 +125,6 @@ class DefaultController extends FrontendController
 
             $productObj = DataObject\CSProducts::getById($productId);
 
-
-
-
-            // p_r($productObj);
-            // die;
             $productData['ProductName'] = $productObj->getName();
             $productData['CorporateBrand'] = $productObj->getCorporateBrand();
             $productData['ProductBrand'] = $productObj->getProductBrand();
@@ -149,7 +143,6 @@ class DefaultController extends FrontendController
             $productData['LongText'] = $productObj->getLongText();
             $productData['TitleTagSloganRequired'] = false;
             $productData['TitleTagSlogan'] = false;
-
 
             $productData['IsApplicationAvailable'] = false;
             if($productObj->getCSProductApplications())
@@ -192,20 +185,241 @@ class DefaultController extends FrontendController
 
             $productData['PowerOfFortressRequired'] = true;
             $productData['CostPerTonRequired'] = true;
-            
-            
 
-            // CSProductIndustries
+            $children = $productObj->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
-            
-            
+            $productTables = array();
+            if($children)
+            {
+                $this->configProviderService = new ConfigProviderService();
+                $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+                $productName =  trim($productObj->getName());
+
+                $tables = $productDataImportConfig[$productName];
+
+                foreach ($tables as $tablekey => $MetricImperialFields) {
+
+                    $ColumnKeys = $MetricImperialFields['ColumnKeys'];
+
+                    unset($MetricImperialFields['ColumnKeys']);
+                    
+                    if($MetricImperialFields){
+                        
+
+                        foreach ($MetricImperialFields as $MIKey => $MIValues) {
+                            
+                            unset($Idlers);
+                            unset($HeaderKeys);
+                            unset($RemoveKeys);
+                            unset($AdditionalHeaderKey);
+                            unset($AdditionalGroupKey);
+
+                            if(isset($MIValues['Idlers']))
+                            {
+                                $Idlers = $MIValues['Idlers'];
+                                unset($MIValues['Idlers']);
+                            }
+                            if(isset($MIValues['HeaderKeys']))
+                            {
+                                $HeaderKeys = $MIValues['HeaderKeys'];
+                                unset($MIValues['HeaderKeys']);
+                            }
+
+                            if(isset($MIValues['RemoveKeys']))
+                            {
+                                $RemoveKeys = $MIValues['RemoveKeys'];
+                                unset($MIValues['RemoveKeys']);
+                            }
+
+                            if(isset($MIValues['AdditionalHeaderKey']))
+                            {
+                                $AdditionalHeaderKey = $MIValues['AdditionalHeaderKey'];
+                                unset($MIValues['AdditionalHeaderKey']);
+                            }
+
+                            if(isset($MIValues['AdditionalGroupKey']))
+                            {
+                                $AdditionalGroupKey = $MIValues['AdditionalGroupKey'];
+                                unset($MIValues['AdditionalGroupKey']);
+                            }
+
+                            $keysTitle = [];
+                            $groupingTitle = [];
+
+                            if($AdditionalGroupKey)
+                            {
+                                $groupingTitle[$AdditionalGroupKey] = 1;
+                            }
+                            
+                            foreach ($MIValues as $key => $value) {
+                                $keysTitle[$key] = $value['fieldTitle'];
+                                
+                                if(isset($value['groupingTitle']))
+                                {
+                                    $groupingTitle[$value['groupingTitle']] += 1;
+                                }
+                            }
+
+                            
+                            
+                            $MIArray = array();
+                            $theadSecondData = [];
+                            $tableHeaderKeys = [];
+                            $theadSecondData[] = $AdditionalHeaderKey;
+
+                            if($Idlers)
+                            {
+                                $theadSecondData[] = $AdditionalHeaderKey;
+                            }
+
+                            foreach ($children as $childValue) {
+
+                                $bricks = $childValue->getProductAttributes();
+                                $data = [];
+                                foreach ($MIValues as $key => $value) {
+                                    $brickName = $value['objectType'];
+                                    $getBrick = 'get' . $brickName;
+                                    $getField = 'get' . $key;
+                                    $data[$key] = $bricks->$getBrick()->$getField();
+                                }
+
+                                if($ColumnKeys)
+                                {
+                                    foreach ($HeaderKeys as $hValue) {
+                                        $tableHeaderKeys[] = $data[$hValue];
+                                    }
+
+                                    if($tableHeaderKeys)
+                                    {
+                                        $theadSecondData[] = implode('/', $tableHeaderKeys);
+                                    }
+                                }
+
+                                unset($tableHeaderKeys);
+                                $MIArray[]= $data;
+                            }
+
+                            $tbodyArray = [];
+                            $theadfirstColspan = 0;
+
+                            if($ColumnKeys)
+                            {
+                                $tableRows = [];
+                                // p_r($MIArray);
+                                if($MIArray)
+                                {
+                                    foreach ($MIArray as $variant) {
+
+                                        foreach ($variant as $key => $value) {
+                                            if($RemoveKeys)
+                                            {
+                                                if(!isset($RemoveKeys[$key]))
+                                                {
+                                                    $tableRows[$key][] = $value;
+                                                }
+                                            }
+                                            else{
+                                                $tableRows[$key][] = $value;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // p_r($tableRows);
+                                // p_r($RemoveKeys);
+                                
+                                if($tableRows)
+                                {
+                                    foreach ($tableRows as $tdkey => $trvalue) {
+
+                                        if($Idlers)
+                                        {
+                                            $rows[]= 'Idlers';
+                                        }
+                                        $rows[]= $keysTitle[$tdkey];
+                                        
+                                        foreach ($trvalue as $key => $value) {
+                                            $rows[]= $value;
+                                        }
+                                        
+                                        $tbodyArray[] = $rows;
+                                        unset($rows);
+                                    }
+                                    $theadfirstColspan = count($tbodyArray[0]);
+                                }
+
+                            }
+                            else
+                            {
+                                $tableHeadKey = $MIArray[0];
+
+                                if($RemoveKeys)
+                                {
+                                    foreach ($RemoveKeys as $key => $value) {
+
+                                        if(isset($tableHeadKey[$key]))
+                                        {
+                                            unset($tableHeadKey[$key]);
+                                        }
+                                    }
+                                    $tableHeadKey = array_keys($tableHeadKey);
+                                    $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
+                                }
+
+                                // Converting field to its title name
+
+                                foreach ($theadSecondData as $key => $value) {
+                                    if(isset($keysTitle[$value]))
+                                    {
+                                        $theadSecondData[$key] = $keysTitle[$value];
+                                    }
+                                }
+                                
+                                foreach ($MIArray as $variant) {
+
+                                    $newKey = [];
+                                    $newArray = [];
+
+                                    if($RemoveKeys)
+                                    {
+                                        foreach ($RemoveKeys as $key => $value) {
+
+                                            if(isset($variant[$key]))
+                                            {
+                                                $newKey[] = $variant[$key];
+                                                unset($variant[$key]);
+                                            }
+                                        }
+                                        $newArray[] = implode('/', $newKey);
+                                        $newArray = \array_merge($newArray,$variant);
+                                        $tbodyArray[] = array_values($newArray);
+                                    }
+                                }
+                                $theadfirstColspan = count($tbodyArray[0]);
+                            }
+                            
+                            $productTables[$tablekey][$MIKey]['tbody']= $tbodyArray;
+                            $productTables[$tablekey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
+                            
+                            if($groupingTitle)
+                            {
+                                $productTables[$tablekey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
+                            }
+                            
+                            $productTables[$tablekey][$MIKey]['theadSecondRow']= $theadSecondData;
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $productData['productTables'] = $productTables;
             // p_r($productData);
-            // p_r($productObj);
-            // p_r($productObj->getCSProductApplications());
-            // $objects = $productObj->getMetadata();
-            // p_r($productObj->getCSProductIndustries());
             // die;
             $this->view['data'] = $productData;
+
         }
     }
 
