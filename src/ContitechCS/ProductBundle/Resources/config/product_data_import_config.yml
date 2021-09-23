@@ -444,7 +444,7 @@ Certificate:
   objectType: ProdAttrSetK
 Sales unit:
   fieldName: Salesunit
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetL
 SAP Code:
   fieldName: SapCode
@@ -812,11 +812,11 @@ Inner diameter:
   objectType: ProdAttrSetV
 Rubber Compound:
   fieldName: RubberCompound
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetV
 Plastic Liner Type:
   fieldName: PlasticLinerType
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetW
 Rubber type:
   fieldName: RubberType
@@ -828,7 +828,7 @@ Profile Type:
   objectType: ProdAttrSetW
 Polymer Type:
   fieldName: PolymerType
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetW
 Plastic Liner Color:
   fieldName: PlasticLinerColor
@@ -836,7 +836,7 @@ Plastic Liner Color:
   objectType: ProdAttrSetW
 Material:
   fieldName: Material
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetX
 Minimum Belt width:
   fieldName: MinimumBeltMMWidth
@@ -933,4 +933,8 @@ Completeness Percentage:
 Empty Fields:
   fieldName: EmptyFields
   fieldType: TextArea
+  objectType: class
+Product Claim/Slogan:
+  fieldName: ProductClaimSlogan
+  fieldType: Input
   objectType: class

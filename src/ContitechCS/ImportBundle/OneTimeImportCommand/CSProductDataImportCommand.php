@@ -51,7 +51,7 @@ class CSProductDataImportCommand extends AbstractCommand
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
             "Import Sheet Row Number",
-            "Product Name",
+            "Name",
             "Comment",
             "Missing Column Name"
         ));
@@ -67,8 +67,6 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $i = 0;
             foreach ($data as $key => $productData) {
-                // p_r($productData);
-                // die;
                 $missingColName = '';
 
                 $i++;
@@ -84,7 +82,16 @@ class CSProductDataImportCommand extends AbstractCommand
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
 
-                $productHier[] = $productData['Product Name'];
+                if($productData['Product'] != null){
+                    $productName = $productData['Product Name'].'-'.$productData['Product'];
+                }
+                else{
+                    $productName = $productData['Product Name'];
+                }
+                
+
+                $productHier[] = $productName;
+
 
                 $productData = array_slice($productData, 2);
 
@@ -153,9 +160,14 @@ class CSProductDataImportCommand extends AbstractCommand
                                         $brickObject = new $class($product);
 
                                         foreach ($bricksData[$brick] as $fieldKey => $fieldValue) {
-                                            $objectBrickFieldMethod = 'set' . $fieldKey;
-                                            $brickObject->$objectBrickFieldMethod($fieldValue);
-                                            # code...
+                                            if($fieldKey == 'Region'){
+                                                $region = $productData['Region'];
+                                                $brickObject->setRegion([$region]);
+                                            }
+                                            else{
+                                                $objectBrickFieldMethod = 'set' . $fieldKey;
+                                                $brickObject->$objectBrickFieldMethod($fieldValue);
+                                            }
                                         }
                                         foreach($unitValueConfig as $unit =>$unitValue){
                                         
@@ -174,10 +186,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                             }
-                            // $region = $productData['Region'];
-                            // // p_r($region);
-                            // // die;
-                            // $product->setRegion([$region]);
 
                             $result = $product->save();
                             $parentId = $result->getId();
