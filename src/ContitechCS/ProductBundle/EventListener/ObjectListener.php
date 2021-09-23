@@ -21,7 +21,8 @@ use Pimcore\Model\DataObject;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-
+use ContitechCS\ProductBundle\Tool\Utils;
+use Pimcore\Cache;
 
 class ObjectListener
 {
@@ -54,6 +55,55 @@ class ObjectListener
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
+        $className =$object->getClassName();
+        if($className=='CSProducts') {
+            $this->checkUniqueProduct($object);
+
+            //custom brick validation
+            $product_name = $object->getName();
+            $parent = $object->getParent();
+            $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
+            $applyvalidation = false;
+            if(isset($config[$product_name])){
+                $applyvalidation = true;
+            }else{
+                $parent_name = $parent->getName();
+                if(isset($config[$parent_name])){
+                    $applyvalidation = true;
+                    $product_name = $parent_name;
+                }
+            }
+            if($applyvalidation){
+                $arr = array('Please fill all mandatory fields');
+                foreach($config[$product_name] AS $cnf){
+                    $fieldName = $cnf['fieldName'];
+                    $objectType = $cnf['objectType'];
+                    if($objectType === "class"){
+                        $method = "get$fieldName";
+                        $class = DataObject\ClassDefinition::getByName($className);
+                        $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
+                        $value = $object->$method();
+                        if(empty($value)){
+                            $arr [] = "$fieldTitle in Base Data";
+                        }
+                    }else{
+                        $getBrickMethod = "get$objectType";
+                        $getBrickAttributeMethod = "get$fieldName";
+                        $v = $object->getProductAttributes()->$getBrickMethod()->$getBrickAttributeMethod();
+                        $brickClass =  DataObject\Objectbrick\Definition::getByKey($objectType);
+                        $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
+                        $objectTitle = $brickClass->getTitle();
+                        if(empty($v)){
+                            $arr [] = "$brickfieldTitle in $objectTitle";
+                        }
+                    }
+                }
+                if(count($arr) > 1){
+                    $msg = join("<br />- ",$arr);
+                    throw new \Pimcore\Model\Element\ValidationException($msg, 1234);
+                }
+            }
+        }
          
          /**
          * if object save is run through cli then do not perform the brick addition or deletion
@@ -127,5 +177,30 @@ class ObjectListener
         }
 
         return $updatedData;
+    }
+    
+    /**
+     * get yml config for the given file
+     * caching the file data if environment is not dev
+     *
+     * @param $filePath
+     * @return mixed
+     */
+    public function getConfigFromYmlFile($filePath)
+    {
+        $env = \Pimcore\Config::getEnvironment();
+        $cacheKey = Utils::getCacheKeyForFilePath($filePath);
+
+        if ($env != "dev") {
+            $config = Cache::load($cacheKey);
+            if (!$config) {
+                $config = Utils::getYmlConfig($filePath);
+                Cache::save($config, $cacheKey);
+            }
+        } else {
+            $config = Utils::getYmlConfig($filePath);
+            Cache::save($config, $cacheKey);
+        }
+        return $config;
     }
 }

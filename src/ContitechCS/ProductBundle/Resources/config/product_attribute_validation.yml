@@ -1,4 +1,4 @@
-Fortress XP
+Fortress XP:
   Corporate Brand:
     fieldName: CorporateBrand
     objectType: class
@@ -21,7 +21,7 @@ Fortress XP
   Fabric Type:
     fieldName: FabricType
     objectType: ProdAttrSetN
-Drive & Movement
+Drive & Movement:
   Cleat Height:
     fieldName: CleatHeightMM
     objectType: ProdAttrSetP
