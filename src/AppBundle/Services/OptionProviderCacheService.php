@@ -15,6 +15,9 @@ class OptionProviderCacheService
     /**
      * this is being used to store the already loaded option providers in memory
      * This will improve the performance of the listing in grid
+     * 
+     * It will only be effective if same option provider data is requested multiple times in a 
+     * single request which is exactly what happens in grid loading
      */
     private $inMemoryOptionProviderData = [];
 
@@ -38,7 +41,7 @@ class OptionProviderCacheService
         $data = array_values($data);
         
         $result = \Pimcore\Cache::save($data, self::CACHE_KEY.$classKey, [], null, 0, true);
-        if($result){
+        if(MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY && $result){
             $this->inMemoryOptionProviderData[self::CACHE_KEY.$classKey] = $data;
         }
         
@@ -63,7 +66,7 @@ class OptionProviderCacheService
             $data =  $this->inMemoryOptionProviderData[$cacheKey];
         }else{
             $data = \Pimcore\Cache::load($cacheKey);
-            if($data){
+            if(MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY && $data){
                 $this->inMemoryOptionProviderData[$cacheKey] = $data;
             }
         }
@@ -134,7 +137,7 @@ class OptionProviderCacheService
     public function setCachedOptionProvidersKeys($optionProvidersKeys)
     {
         $result =  \Pimcore\Cache::save($optionProvidersKeys, self::CACHED_OPTION_PROVIDERS, [], null, 0, true);
-        if($result){
+        if(MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY && $result){
             $this->inMemoryOptionProviderData[self::CACHED_OPTION_PROVIDERS] = $optionProvidersKeys;    
         }
         return $result;
