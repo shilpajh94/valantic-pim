@@ -189,7 +189,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
                             $result = $product->save();
                             $parentId = $result->getId();
-
+                            \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                             echo "\n" . $msg =  "Product added successfully";
                             $comment = "Product added successfully";
                             $missingColName = 'None';
