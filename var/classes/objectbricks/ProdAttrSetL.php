@@ -2,7 +2,7 @@
 
 /** 
 Fields Summary: 
-- Salesunit [select]
+- Salesunit [input]
 - SapCode [numeric]
 */ 
 
@@ -99,27 +99,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
-                     'options' => 
-                    array (
-                    ),
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
                      'width' => 200,
-                     'defaultValue' => '',
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
+                     'defaultValue' => NULL,
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
                      'phpdocType' => 'string',
-                     'dynamicOptions' => false,
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'Salesunit',
                      'title' => 'Sales unit',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

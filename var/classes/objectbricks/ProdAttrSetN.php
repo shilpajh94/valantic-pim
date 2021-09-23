@@ -81,7 +81,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
-                 'labelWidth' => 80,
+                 'labelWidth' => 100,
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'name' => 'Field Container',
@@ -112,11 +112,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'FabricType',
                      'title' => 'Fabric Type',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
-                     'style' => '',
+                     'style' => 'padding-left:10px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
                      'relationType' => false,

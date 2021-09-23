@@ -31,10 +31,10 @@ Fields Summary:
 - AbrasionRotatingInch [numeric]
 - AbrasionNonRotatingInch [numeric]
 - TensileStrengthPIW [numeric]
+- InnerDiameter [numeric]
 - ElongationAtBreakPercent [numeric]
 - ProfileDepth [numeric]
 - TensileStrengthPSI [numeric]
-- InnerDiameter [numeric]
 - RubberCompound [input]
 - ThicknessInchUnit [input]
 - MaxTemperatureFUnit [input]
@@ -784,7 +784,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 50,
-                     'defaultValue' => 'g/cm^3',
+                     'defaultValue' => 'g/cm³',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
@@ -1059,6 +1059,37 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'unique' => false,
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
+                     'name' => 'InnerDiameter',
+                     'title' => 'Inner diameter',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:80px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  7 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'fieldtype' => 'numeric',
+                     'width' => 250,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'double',
+                     'columnType' => 'double',
+                     'phpdocType' => 'float',
+                     'integer' => false,
+                     'unsigned' => false,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => NULL,
                      'name' => 'ElongationAtBreakPercent',
                      'title' => 'Elongation at break %',
                      'tooltip' => '',
@@ -1075,7 +1106,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 250,
@@ -1106,7 +1137,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 250,
@@ -1123,37 +1154,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalPrecision' => NULL,
                      'name' => 'TensileStrengthPSI',
                      'title' => 'Tensile Strength PSI',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:80px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'fieldtype' => 'numeric',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'double',
-                     'columnType' => 'double',
-                     'phpdocType' => 'float',
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                     'name' => 'InnerDiameter',
-                     'title' => 'Inner diameter',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -1186,7 +1186,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => 'padding-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
