@@ -19,7 +19,7 @@ services:
                 - { name: kernel.event_subscriber }
     AppBundle\Workflow\ProductPublishingListener:
         tags:
-                - { name: kernel.event_product_workflow}
+                - { name: kernel.event_product_workflow}         
     ADAuthBundle\EventListener\AuthenticateListener:
         tags:
                 - { name: kernal.event_user_login, event: pimcore.admin.login.credentials, method: onLoginCredentials}
@@ -111,6 +111,8 @@ services:
             - { name: kernel.event_listener, event: pimcore.dataobject.postAdd, method: postAdd }
             - { name: kernel.event_listener, event: pimcore.dataobject.postUpdate, method: postUpdate }
             - { name: kernel.event_listener, event: pimcore.dataobject.postDelete, method: postDelete }
+
+    
 
     AppBundle\Services\ConfigProviderService:
       public: true
