@@ -39,7 +39,12 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
     }
-    
+    public function getProductAttributeValidationConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
+    }
+
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
