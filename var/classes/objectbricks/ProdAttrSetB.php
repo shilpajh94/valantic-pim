@@ -2,7 +2,7 @@
 
 /** 
 Fields Summary: 
-- Region [select]
+- Region [multiselect]
 - Identifier [numeric]
 */ 
 
@@ -99,82 +99,93 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
                      'options' => 
                     array (
                       0 => 
                       array (
+                        'key' => 'Asia-Pacific',
+                        'value' => 'Asia-Pacific',
+                      ),
+                      1 => 
+                      array (
+                        'key' => 'Europe the Middle East and Africa',
+                        'value' => 'Europe the Middle East and Africa',
+                      ),
+                      2 => 
+                      array (
                         'key' => 'South East Asia',
                         'value' => 'South East Asia',
                       ),
-                      1 => 
+                      3 => 
                       array (
                         'key' => 'Australia',
                         'value' => 'Australia',
                       ),
-                      2 => 
+                      4 => 
                       array (
                         'key' => 'India',
                         'value' => 'India',
                       ),
-                      3 => 
+                      5 => 
                       array (
                         'key' => 'China',
                         'value' => 'China',
                       ),
-                      4 => 
+                      6 => 
                       array (
-                        'key' => 'South Africa',
-                        'value' => 'South Africa',
+                        'key' => 'South Africa ',
+                        'value' => 'South Africa ',
                       ),
-                      5 => 
+                      7 => 
                       array (
                         'key' => 'Middle East/North Africa',
                         'value' => 'Middle East/North Africa',
                       ),
-                      6 => 
+                      8 => 
                       array (
                         'key' => 'Nordics/Baltics',
                         'value' => 'Nordics/Baltics',
                       ),
-                      7 => 
-                      array (
-                        'key' => 'Eastern Europe/Russia',
-                        'value' => 'Eastern Europe/Russia',
-                      ),
-                      8 => 
-                      array (
-                        'key' => 'Western Europe',
-                        'value' => 'Western Europe',
-                      ),
                       9 => 
+                      array (
+                        'key' => 'Western Europe/Russia',
+                        'value' => 'Western Europe/Russia',
+                      ),
+                      10 => 
+                      array (
+                        'key' => 'Eastern Europe',
+                        'value' => 'Eastern Europe',
+                      ),
+                      11 => 
                       array (
                         'key' => 'South America',
                         'value' => 'South America',
                       ),
-                      10 => 
+                      12 => 
                       array (
                         'key' => 'North America',
                         'value' => 'North America',
                       ),
                     ),
                      'width' => 200,
-                     'defaultValue' => '',
+                     'height' => 200,
+                     'maxItems' => '',
+                     'renderType' => 'tags',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
                      'dynamicOptions' => false,
                      'name' => 'Region',
                      'title' => 'Region',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -182,7 +193,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(

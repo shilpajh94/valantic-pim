@@ -13,8 +13,8 @@ Fields Summary:
 - OperatingTensioninKNM [numeric]
 - BeltThicknessinMM [numeric]
 - SpecificBeltMassinKGM [numeric]
-- CoverGaugeExamplesMetricinMM [input]
 - AveragePermanentElongationPercentage [numeric]
+- CoverGaugeExamplesMetricinMM [input]
 - beltRatingNMMUnit [input]
 - CarcassWeightKGMUnit [input]
 - ElasticModulusinKNMMUnit [input]
@@ -26,6 +26,7 @@ Fields Summary:
 - OperatingTensioninKNMUnit [input]
 - BeltThicknessinMMUnit [input]
 - SpecificBeltMassinKGMUnit [input]
+- AveragePermanentElongationPercentageUnit [input]
 - beltRatingPIW [numeric]
 - CarcassWeightLBS [numeric]
 - ElasticModulusinPIW [numeric]
@@ -37,6 +38,7 @@ Fields Summary:
 - OperatingTensioninPIW [numeric]
 - BeltThicknessinInch [numeric]
 - SpecificBeltMassinLBS [numeric]
+- BeltRating [input]
 - CoverGaugeExamplesImperialinInch [input]
 - beltRatingPIWUnit [input]
 - CarcassWeightLBSUnit [input]
@@ -161,7 +163,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'beltRatingNMM',
                      'title' => 'Belt rating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -485,34 +487,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 200,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'name' => 'CoverGaugeExamplesMetricinMM',
-                     'title' => 'Cover gauge examples metric',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 200,
@@ -528,7 +502,35 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'decimalSize' => NULL,
                      'decimalPrecision' => NULL,
                      'name' => 'AveragePermanentElongationPercentage',
-                     'title' => 'Average permanent elongation in %',
+                     'title' => 'Average permanent elongation',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  12 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'CoverGaugeExamplesMetricinMM',
+                     'title' => 'Cover gauge examples metric',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
@@ -873,6 +875,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
+                  11 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 40,
+                     'defaultValue' => '%',
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'AveragePermanentElongationPercentageUnit',
+                     'title' => '',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'padding-left:10px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
               )),
@@ -913,7 +943,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'beltRatingPIW',
                      'title' => 'Belt rating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1237,6 +1267,34 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   11 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
+                     'width' => 200,
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'name' => 'BeltRating',
+                     'title' => 'Belt Rating',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:50px;',
+                     'permissions' => NULL,
+                     'datatype' => 'data',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
+                  )),
+                  12 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 200,

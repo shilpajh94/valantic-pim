@@ -164,10 +164,12 @@ class DefaultController extends FrontendController
                         $product->setOmitMandatoryCheck(true);
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
-                        $product->setParentCategory([$CSHierarchyObj]);
                         $product->setUserOwner($currentUser);
                         $product->setUserModification($currentUser);
                         $product->setPublished(false);
+
+			            $product->setParentCategory([$CSHierarchyObj]);
+
                         // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
                         if(!empty($productName)) {
                             $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
@@ -190,7 +192,7 @@ class DefaultController extends FrontendController
 
                         $product->save();
                         $parentId = $product->getId();
-
+                        \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {
                         $success = false;

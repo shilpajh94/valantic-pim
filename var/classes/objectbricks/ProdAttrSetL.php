@@ -103,6 +103,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'PC',
+                        'value' => 'PC',
+                      ),
                     ),
                      'width' => 200,
                      'defaultValue' => '',
@@ -119,7 +124,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

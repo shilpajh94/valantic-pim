@@ -51,13 +51,12 @@ class CSProductDataImportCommand extends AbstractCommand
         $csvLogFileHandle = fopen($csvLogFilePath, "w");
         $this->csvLog($csvLogFileHandle, array(
             "Import Sheet Row Number",
-            "Product Name",
+            "Name",
             "Comment",
             "Missing Column Name"
         ));
 
         try {
-
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
@@ -68,7 +67,6 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $i = 0;
             foreach ($data as $key => $productData) {
-
                 $missingColName = '';
 
                 $i++;
@@ -79,10 +77,21 @@ class CSProductDataImportCommand extends AbstractCommand
 
                 $parentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER)->getId();   // createFolderByPath creates the folder assigned in the constant if not created and returns the path & if the folder is already present then returns the path of the folder.
 
-                $productHier = explode('->', $productData['Product Hierarchy']);
+                $productHier = explode('/', $productData['Product Hierarchy']);
 
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
+
+                if($productData['Product'] != null){
+                    $productName = $productData['Product Name'].'-'.$productData['Product'];
+                }
+                else{
+                    $productName = $productData['Product Name'];
+                }
+                
+
+                $productHier[] = $productName;
+
 
                 $productData = array_slice($productData, 2);
 
@@ -151,9 +160,14 @@ class CSProductDataImportCommand extends AbstractCommand
                                         $brickObject = new $class($product);
 
                                         foreach ($bricksData[$brick] as $fieldKey => $fieldValue) {
-                                            $objectBrickFieldMethod = 'set' . $fieldKey;
-                                            $brickObject->$objectBrickFieldMethod($fieldValue);
-                                            # code...
+                                            if($fieldKey == 'Region'){
+                                                $region = $productData['Region'];
+                                                $brickObject->setRegion([$region]);
+                                            }
+                                            else{
+                                                $objectBrickFieldMethod = 'set' . $fieldKey;
+                                                $brickObject->$objectBrickFieldMethod($fieldValue);
+                                            }
                                         }
                                         foreach($unitValueConfig as $unit =>$unitValue){
                                         
@@ -175,7 +189,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
                             $result = $product->save();
                             $parentId = $result->getId();
-
+                            \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                             echo "\n" . $msg =  "Product added successfully";
                             $comment = "Product added successfully";
                             $missingColName = 'None';
@@ -191,7 +205,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                 $missingColName = $missingColName . '   ' . $val;
                             }
                             $success = false;
-                            p_r('Cannot save Product... Check Your Log.');
+                            p_r('Cannot save Product!!!.');
                         }
 
 
