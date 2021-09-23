@@ -57,7 +57,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1631795078,
+   'modificationDate' => 1632143393,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',

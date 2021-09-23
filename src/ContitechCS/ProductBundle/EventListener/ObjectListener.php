@@ -54,13 +54,8 @@ class ObjectListener
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
-        $className =$object->getClassName();
-        if($className=='CSProducts') {
-            $this->checkUniqueProduct($object);
-        }  
- 
-
-        /**
+         
+         /**
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
@@ -70,6 +65,8 @@ class ObjectListener
             $object->setGetInheritedValues(true);
 
             if ($object instanceof DataObject\CSProducts) {
+
+                $this->checkUniqueProduct($object);
 
                 /**
                  * update the unit conversion attributes
