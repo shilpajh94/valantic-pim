@@ -11,5 +11,5 @@ class ImportConstants
 
     // Assets
 
-    const CONTITECH_CS_ASSET_FOLDER = self::CONTITECH_CS_FOLDER . '/CS Product Assets';
+    const CONTITECH_CS_ASSET_FOLDER = self::CONTITECH_CS_FOLDER . '/Product Assets';
 }
