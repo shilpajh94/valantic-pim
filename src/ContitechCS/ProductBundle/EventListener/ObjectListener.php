@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use ContitechCS\ProductBundle\Tool\Utils;
 use Pimcore\Cache;
+use Pimcore\Model\DataObject\ClassDefinition;
 
 class ObjectListener
 {
@@ -115,7 +116,8 @@ class ObjectListener
             $object->setGetInheritedValues(true);
 
             if ($object instanceof DataObject\CSProducts) {
-
+                
+                $this->completenessPercentage($object);
                 $this->checkUniqueProduct($object);
 
                 /**
@@ -125,6 +127,57 @@ class ObjectListener
 
             }
             
+        }
+    }
+
+    //functionality to get completePercentage & emptyAttributes
+    public function completenessPercentage($object)
+    { 
+        $count = 0;
+        $emptyFieldCounter = 0;
+        $emptyAttributes='';
+        $completedPercentage = 0;
+        
+    
+        $classDefinition = ClassDefinition::getByName($object->getClassName());
+        $fieldCount = count($classDefinition->getFieldDefinitions()); //totalFields
+        $localizedFields = $classDefinition->getFieldDefinition("localizedfields"); //complete localizedFields
+        
+        $localizedFieldsAttributes = $localizedFields->getChilds();
+        $countOfLocalizedFields = count($localizedFieldsAttributes);         //child of localiziedFields (fieldName and type)
+        $totalCount = $fieldCount-1+$countOfLocalizedFields;  //(-1 for locallizedfield)
+     
+        $langs = \Pimcore\Tool::getValidLanguages();  //available lanaguages loop
+
+        foreach ($langs as $lang) {
+            foreach ($classDefinition->getFieldDefinitions() as $field) { 
+                $fieldName = $field->getName(); //all fiels Name
+                $fieldType = $field->getFieldType(); //all fields type
+                if ($fieldType == "localizedfields") {
+                    foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
+                        $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
+                        $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
+                        if (!empty($localizedFieldValue)) {   // if value present so count
+                            $count++;
+                        } else {
+                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes 
+                        }
+                    }  
+                } else {
+                   $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
+                    if (!empty($fieldValue)) {   
+                        $count++;
+                    } else {
+                        $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
+                    }
+    
+                }
+            }
+            $completedPercentage = ($count/$totalCount)*100;
+            $object->setCompletenessPercentage($completedPercentage,$lang);       
+            $object->setEmptyFields($emptyAttributes,$lang); 
+            $emptyFieldCounter = 0;
+            $count = 0;
         }
     }
 
