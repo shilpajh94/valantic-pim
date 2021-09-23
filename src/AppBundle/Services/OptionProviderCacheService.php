@@ -12,6 +12,12 @@ class OptionProviderCacheService
     CONST CACHE_KEY = 'option_provider_';
     CONST CACHED_OPTION_PROVIDERS = 'cached_option_providers';
 
+    /**
+     * this is being used to store the already loaded option providers in memory
+     * This will improve the performance of the listing in grid
+     */
+    private $inMemoryOptionProviderData = [];
+
     public function __construct()
     {
     }
@@ -31,7 +37,12 @@ class OptionProviderCacheService
         
         $data = array_values($data);
         
-        return \Pimcore\Cache::save($data, self::CACHE_KEY.$classKey, [], null, 0, true);
+        $result = \Pimcore\Cache::save($data, self::CACHE_KEY.$classKey, [], null, 0, true);
+        if($result){
+            $this->inMemoryOptionProviderData[self::CACHE_KEY.$classKey] = $data;
+        }
+        
+        return $result;
     }
 
     /**
@@ -41,9 +52,22 @@ class OptionProviderCacheService
     public function getCachedKeyData(string $cacheKey, bool $isFullKey = FALSE)
     {
         if($isFullKey)
-            return \Pimcore\Cache::load($cacheKey);
+            return $this->loadCacheData($cacheKey);
         else
-            return \Pimcore\Cache::load(self::CACHE_KEY.$cacheKey);
+            return $this->loadCacheData(self::CACHE_KEY.$cacheKey);
+    }
+
+    public function loadCacheData($cacheKey)
+    {
+        if(MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY && array_key_exists($cacheKey,$this->inMemoryOptionProviderData)){
+            $data =  $this->inMemoryOptionProviderData[$cacheKey];
+        }else{
+            $data = \Pimcore\Cache::load($cacheKey);
+            if($data){
+                $this->inMemoryOptionProviderData[$cacheKey] = $data;
+            }
+        }
+        return $data;
     }
 
     /**
@@ -109,7 +133,11 @@ class OptionProviderCacheService
 
     public function setCachedOptionProvidersKeys($optionProvidersKeys)
     {
-        return \Pimcore\Cache::save($optionProvidersKeys, self::CACHED_OPTION_PROVIDERS, [], null, 0, true);
+        $result =  \Pimcore\Cache::save($optionProvidersKeys, self::CACHED_OPTION_PROVIDERS, [], null, 0, true);
+        if($result){
+            $this->inMemoryOptionProviderData[self::CACHED_OPTION_PROVIDERS] = $optionProvidersKeys;    
+        }
+        return $result;
     }
 
     public function getCachedOptionProvidersData($cacheKey)
