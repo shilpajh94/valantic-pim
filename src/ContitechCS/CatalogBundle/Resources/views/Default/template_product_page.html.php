@@ -556,7 +556,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </strong>
             </h3>
             
-            <div class="table-data mt-4 w-90">
+            <div class="table-data mt-4">
 
             <?php 
                 
