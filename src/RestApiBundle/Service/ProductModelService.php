@@ -63,7 +63,7 @@ class ProductModelService
         
         $conditionString = $this->model->getConditionString($parameterArray,'fert');
         $conArray['condition']= $conditionString;
-        $conArray['fields']   = ['oo_id'];
+        $conArray['fields']   = ['oo_id'=> ['string']];
         $totalCount = $this->model->getTotalCount($langCode,$conArray);
         
 
@@ -368,10 +368,10 @@ class ProductModelService
         $objectBricksMap = $this->vCatalog['VirtualCatalog'][ucfirst($productType)]['ObjectBricks'];
         foreach($objectBricksMap as $bkey=>$bvalue){
             if(isset($bvalue['Fields']) && !empty($bvalue['Fields'])){
-                foreach($bvalue['Fields'] as $fkey=>$fvalue){
+                foreach($bvalue['Fields'] as $fieldName=>$fieldConfig){
 
                     $brickText = "get".ucfirst($bkey).ucfirst($productType);
-                    $fieldText = "get".ucfirst($fvalue);
+                    $fieldText = "get".ucfirst($fieldName);
 
                     //receiving data of a Objectbrick
                     $product = DataObject\Product::getById($objId);
@@ -379,14 +379,14 @@ class ProductModelService
                     // Get Field Definition.
 
                     if($product->$productBrickField()->$brickText()){
-                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fvalue);
+                        $fieldDef = $product->$productBrickField()->$brickText()->getDefinition()->getFieldDefinition($fieldName);
 
                         if(!empty($fieldDef) && $fieldDef->getFieldtype()==="multiselect"){
                              $bDataTmp  =   $product->$productBrickField()->$brickText()->$fieldText();
                              $bData = [];
                              if(!empty($bDataTmp)){
                                 foreach($bDataTmp as $mkey=>$mvalue){
-                                   if($fvalue==='brandName'){
+                                   if($fieldName ==='brandName'){
                                     $bData[] =  $mvalue;
                                    }else{
                                     $objectIndv = DataObject::getById($mvalue);
@@ -401,8 +401,12 @@ class ProductModelService
                             $bData  =   $product->$productBrickField()->$brickText()->$fieldText();
                        }
                     }
-                    if(!empty($bData) || $bData===0){
-                        $productObjectBricksData[$fvalue] = $bData;
+                    if(!empty($bData) || $bData===0){            
+                        if(is_array($fieldConfig[0]) && array_key_first($fieldConfig[0]) === "numeric" ){
+                            $decimalPoints = $fieldConfig[0]["numeric"] ?? DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API;
+                            $bData = round(strval($bData), $decimalPoints);
+                        }
+                        $productObjectBricksData[$fieldName] = $bData;
                     }
                 }
             }

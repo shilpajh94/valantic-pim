@@ -65,9 +65,11 @@ class NewProductImportEmailCommand extends AbstractCommand
                         $siopName = $siopValue->getDescription();
                         $siopId = $siopValue->getId();
                         $siopLevelToQuery = 'SIOPLevel' . strval($siopLevel);
-                        $sql = "select oo_id,articleNumber from object_1 WHERE date(FROM_UNIXTIME(o_creationDate)) >= now() - INTERVAL " . SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS . " DAY AND ProductType = 'fert' AND {$siopLevelToQuery} LIKE '%" . $siopId . "%'";
-                        $records = $this->db->fetchAll($sql);
-                        if ($records)
+
+                        $records = $this->getNewProducts($siopLevelToQuery,$siopId);
+                        // $sql = "select oo_id,articleNumber from object_1 WHERE date(FROM_UNIXTIME(o_creationDate)) >= now() - INTERVAL " . SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS . " DAY AND ProductType = 'fert' AND {$siopLevelToQuery} LIKE '%" . $siopId . "%'";
+                        // $records = $this->db->fetchAll($sql);
+                        if ( is_array($records) && count($records) > 0 )
                             $siopNewProducts[$siopId] = ['siopName' => $siopName, 'newProducts' => $records];
                     }
                     if ($siopNewProducts) {
@@ -93,5 +95,44 @@ class NewProductImportEmailCommand extends AbstractCommand
             }
         }
         return false;
+    }
+
+    private function getNewProducts(string $siopLevelToQuery, int $siopId)
+    {
+        $records = [];
+
+        $queryString = "
+                    SELECT 
+                    product.ooo_id productId,
+                    articleNumber articleNumber,
+                    sapDescription sapDescription,
+                    cat3.description SIOP3Description,
+                    cat4.description SIOP4Description,
+                    brand.name brandName,
+                    product.CompletenessPercentage CompletenessPercentage
+                FROM
+                    object_localized_1_en product
+                        LEFT JOIN
+                    object_localized_query_2_en cat3 ON cat3.`ooo_id` = SUBSTRING(product.`SIOPLevel3`,
+                        2,
+                        (LENGTH(product.`SIOPLevel3`) - 2))
+                        LEFT JOIN
+                    object_localized_query_2_en cat4 ON cat4.`ooo_id` = SUBSTRING(product.`SIOPLevel4`,
+                        2,
+                        (LENGTH(product.`SIOPLevel4`) - 2))
+                        LEFT JOIN
+                    object_3 brand ON brand.o_id = product.brandName
+                WHERE
+                    DATE(FROM_UNIXTIME(product.o_creationDate)) >= NOW() - INTERVAL " . SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS . " DAY
+                        AND ProductType = 'fert'
+                        AND " . $siopLevelToQuery . " LIKE '%," . $siopId . ",%'
+        ";
+
+        try{
+            $records = $this->db->fetchAll($queryString);
+        }catch(\Exception $exception){
+            \AppBundle\Logger\AppLogger::log(self::LOGGER_MODULE)->error("Exception fetching data for mail: " . $exception->getMessage());
+        }
+        return $records;
     }
 }
