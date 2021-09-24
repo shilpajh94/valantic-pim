@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 
 class CSKenticoAssetImportCommand extends AbstractCommand
@@ -49,12 +50,34 @@ class CSKenticoAssetImportCommand extends AbstractCommand
 
             $data = $results['data'];
 
-            unset($result);
+            $assetsData = [];
+            if ($data) {
+                foreach ($data as $dataValue) {
+                    $level1 = trim($dataValue['Level1']);
+                    $level2 = trim($dataValue['Level2']);
+                    $level3 = trim($dataValue['Level3']);
+                    $level4 = trim($dataValue['Level4']);
+                    $level5 = trim($dataValue['Level5']);
 
-            if (isset($data) && is_array($data)) {
-                foreach ($data  as $result) {
-                    if (isset($result) && is_array($result)) {
-                        $this->createHierarchy($result);
+                    if ($level1 && $level2 && $level3 && $level4 && $level5) {
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3 . "/" . $level4][] = $level5;
+                    } else if ($level1 && $level2 && $level3 && $level5) {
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3][] = $level5;
+                    } else if ($level1 && $level2 && $level5) {
+                        $assetsData[$level1 . "/" . $level2][] = $level5;
+                    } else if ($level1 && $level5) {
+                        $assetsData[$level1][] = $level5;
+                    }
+                }
+            }
+
+            unset($result);
+            unset($data);
+
+            if (isset($assetsData) && is_array($assetsData)) {
+                foreach ($assetsData as $hierarchyPath => $images) {
+                    if (isset($images) && is_array($images)) {
+                        $this->createHierarchy($hierarchyPath, $images);
                     }
                 }
             }
@@ -63,34 +86,53 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
     }
 
-    public function createHierarchy($result)
+    public function createHierarchy($assetPathToStore, $images)
     {
-        $imageUrl = end($result);
-        $imageName = $this->getImageUrl($imageUrl);
-        $hierarchyArr = array_slice($result, 0, -1);
+        $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
+        $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $assetPathToStore;
 
-        $hierarchyString = implode('/', $hierarchyArr);
+        $CSProductObj = DataObject\CSProducts::getByPath($productPath);
 
-        $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $hierarchyString;
-        try {
-            $assetId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
-            $assetObj = new Asset();
-            $assetObj->setFilename($imageName);
-            $assetObj->setData(file_get_contents($imageUrl));
-            $assetObj->setParentId($assetId);
-            $assetObj->save();
-        } catch (\Throwable $th) {
-            p_r($th->getMessage());
+        $folderId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
+
+        $items = [];
+        foreach ($images as $key => $imageUrl) {
+            try {
+                $assetObj = new Asset();
+                $assetObj->setFilename($this->getImageUrl($imageUrl, $key));
+                $assetObj->setData(file_get_contents($imageUrl));
+                $assetObj->setParentId($folderId);
+                $assetObj->save();
+
+                $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
+                $advancedImage->setImage($assetObj);
+                $items[] = $advancedImage;
+            } catch (\Throwable $th) {
+                p_r($th->getMessage());
+            }
+        }
+
+        if ($items && $CSProductObj) {
+            $CSProductObj->setImageGallery(new \Pimcore\Model\DataObject\Data\ImageGallery($items));
+            $CSProductObj->setOmitMandatoryCheck(true);
+            $CSProductObj->setPublished(true);
+            $CSProductObj->save();
+            echo "\n\nGallery Saved in path " . $productPath;
+        } else {
+            echo "\n Product group '{$productPath}' not found.";
         }
     }
 
-    public function getImageUrl($imageUrl)
+    public function getImageUrl($imageUrl, $key)
     {
+        if (strpos($imageUrl, "attachment.aspx") !== false) {
+            $imageUrl = str_replace("attachment.aspx", "attachment.jpg.aspx", $imageUrl);
+        }
         $imageName = explode("/", $imageUrl);
         $imageName = end($imageName);
         $imageName = explode(".aspx", $imageName);
         $imageName = current($imageName);
-        return $imageName;
+        return $key . "_" . $imageName;
     }
 
     public function getCSVData($fileName)
@@ -138,16 +180,5 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                 'error' => $e->getMessage()
             );
         }
-    }
-
-    /**
-     * @param $logHandler
-     * @param array $dataRow
-     */
-    private function csvLog($logHandler, array $dataRow)
-    {
-        $csvDelimiter = ",";
-
-        fputcsv($logHandler, $dataRow, $csvDelimiter);
     }
 }
