@@ -57,21 +57,23 @@ class ObjectListener
     {
         $object = $event->getObject();
         $className =$object->getClassName();
-        if($className=='CSProducts') {
+        if($className == 'CSProducts') {
             $this->checkUniqueProduct($object);
 
             //custom brick validation
-            $product_name = $object->getName();
+            $product_name = trim($object->getName());
             $parent = $object->getParent();
             $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
             $applyvalidation = false;
             if(isset($config[$product_name])){
                 $applyvalidation = true;
             }else{
-                $parent_name = $parent->getName();
-                if(isset($config[$parent_name])){
-                    $applyvalidation = true;
-                    $product_name = $parent_name;
+                if($parent != "/Contitech_ConveyorSolution/Products"){
+                    $parent_name = trim($parent->getName());
+                    if(isset($config[$parent_name])){
+                        $applyvalidation = true;
+                        $product_name = $parent_name;
+                    }
                 }
             }
             if($applyvalidation){
@@ -99,22 +101,20 @@ class ObjectListener
                         }
                     }
                 }
+                
                 if(count($arr) > 1){
                     $msg = join("<br />- ",$arr);
                     throw new \Pimcore\Model\Element\ValidationException($msg, 1234);
                 }
             }
         }
-         
          /**
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
-
         if (php_sapi_name() != "cli") {
             // to also get the inherited values
             $object->setGetInheritedValues(true);
-
             if ($object instanceof DataObject\CSProducts) {
                 
                 $this->completenessPercentage($object);

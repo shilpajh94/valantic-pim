@@ -87,7 +87,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         },
                         width: 500,
                         labelWidth: 200,
-                        fieldLabel: 'Create product group',
+                        fieldLabel: 'Create Product Group',
                         allowBlank: true,
                         id: 'cName',
                         value: this.productCategoryCheck,
@@ -158,7 +158,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         });
        
         this.basicFormWin = new Ext.create("Ext.Window", {
-            title: 'Add new product/product group',
+            title: 'Add New Product/Product Group',
             modal : true,
             maskOnDisable: false,
             items: [this.basicForm]
@@ -249,7 +249,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         users.load();
 
         return new Ext.create('Ext.form.ComboBox', {
-            fieldLabel: 'Select User <span style="color:red;">*</span>',
+            fieldLabel: 'Select Product Owner <span style="color:red;">*</span>',
             name: 'userId',
             style: {
                 margin: '30px'
