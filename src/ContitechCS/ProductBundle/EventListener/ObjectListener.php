@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pimcore global services
  *
@@ -34,11 +35,11 @@ class ObjectListener
 
     private $unitConversionService;
 
-    public function __construct(RequestStack $requestStack,
-                                AppService $appService,
-                                UnitConverterService $unitConverterService
-                                )
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        AppService $appService,
+        UnitConverterService $unitConverterService
+    ) {
         $this->requestStack = $requestStack;
         $this->appService = $appService;
         $this->unitConversionService = $unitConverterService;
@@ -56,67 +57,71 @@ class ObjectListener
     public function preUpdate(DataObjectEvent $event)
     {
         $object = $event->getObject();
-        $className =$object->getClassName();
-        if($className=='CSProducts') {
-            $this->checkUniqueProduct($object);
+        $type = $object->getType();
+        if ($type != 'folder') {
+            $className = $object->getClassName();
 
-            //custom brick validation
-            $product_name = $object->getName();
-            $parent = $object->getParent();
-            $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
-            $applyvalidation = false;
-            if(isset($config[$product_name])){
-                $applyvalidation = true;
-            }else{
-                $parent_name = $parent->getName();
-                if(isset($config[$parent_name])){
+            if ($className == 'CSProducts') {
+                $this->checkUniqueProduct($object);
+
+                //custom brick validation
+                $product_name = trim($object->getName());
+                $parent = $object->getParent();
+                $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
+                $applyvalidation = false;
+                if (isset($config[$product_name])) {
                     $applyvalidation = true;
-                    $product_name = $parent_name;
-                }
-            }
-            if($applyvalidation){
-                $arr = array('Please fill all mandatory fields');
-                foreach($config[$product_name] AS $cnf){
-                    $fieldName = $cnf['fieldName'];
-                    $objectType = $cnf['objectType'];
-                    if($objectType === "class"){
-                        $method = "get$fieldName";
-                        $class = DataObject\ClassDefinition::getByName($className);
-                        $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
-                        $value = $object->$method();
-                        if(empty($value)){
-                            $arr [] = "$fieldTitle in Base Data";
-                        }
-                    }else{
-                        $getBrickMethod = "get$objectType";
-                        $getBrickAttributeMethod = "get$fieldName";
-                        $v = $object->getProductAttributes()->$getBrickMethod()->$getBrickAttributeMethod();
-                        $brickClass =  DataObject\Objectbrick\Definition::getByKey($objectType);
-                        $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
-                        $objectTitle = $brickClass->getTitle();
-                        if(empty($v)){
-                            $arr [] = "$brickfieldTitle in $objectTitle";
+                } else {
+                    if ($parent != "/Contitech_ConveyorSolution/Products") {
+                        $parent_name = trim($parent->getName());
+                        if (isset($config[$parent_name])) {
+                            $applyvalidation = true;
+                            $product_name = $parent_name;
                         }
                     }
                 }
-                if(count($arr) > 1){
-                    $msg = join("<br />- ",$arr);
-                    throw new \Pimcore\Model\Element\ValidationException($msg, 1234);
+                if ($applyvalidation) {
+                    $arr = array('Please fill all mandatory fields');
+                    foreach ($config[$product_name] as $cnf) {
+                        $fieldName = $cnf['fieldName'];
+                        $objectType = $cnf['objectType'];
+                        if ($objectType === "class") {
+                            $method = "get$fieldName";
+                            $class = DataObject\ClassDefinition::getByName($className);
+                            $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
+                            $value = $object->$method();
+                            if (empty($value)) {
+                                $arr[] = "$fieldTitle in Base Data";
+                            }
+                        } else {
+                            $getBrickMethod = "get$objectType";
+                            $getBrickAttributeMethod = "get$fieldName";
+                            $v = $object->getProductAttributes()->$getBrickMethod()->$getBrickAttributeMethod();
+                            $brickClass =  DataObject\Objectbrick\Definition::getByKey($objectType);
+                            $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
+                            $objectTitle = $brickClass->getTitle();
+                            if (empty($v)) {
+                                $arr[] = "$brickfieldTitle in $objectTitle";
+                            }
+                        }
+                    }
+
+                    if (count($arr) > 1) {
+                        $msg = join("<br />- ", $arr);
+                        throw new \Pimcore\Model\Element\ValidationException($msg, 1234);
+                    }
                 }
             }
         }
-         
-         /**
+        /**
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
-
         if (php_sapi_name() != "cli") {
             // to also get the inherited values
             $object->setGetInheritedValues(true);
-
             if ($object instanceof DataObject\CSProducts) {
-                
+
                 $this->completenessPercentage($object);
                 $this->checkUniqueProduct($object);
 
@@ -124,58 +129,55 @@ class ObjectListener
                  * update the unit conversion attributes
                  */
                 $this->updateUnitConversionAttributes($object);
-
             }
-            
         }
     }
 
     //functionality to get completePercentage & emptyAttributes
     public function completenessPercentage($object)
-    { 
+    {
         $count = 0;
         $emptyFieldCounter = 0;
-        $emptyAttributes='';
+        $emptyAttributes = '';
         $completedPercentage = 0;
-        
-    
+
+
         $classDefinition = ClassDefinition::getByName($object->getClassName());
         $fieldCount = count($classDefinition->getFieldDefinitions()); //totalFields
         $localizedFields = $classDefinition->getFieldDefinition("localizedfields"); //complete localizedFields
-        
+
         $localizedFieldsAttributes = $localizedFields->getChilds();
         $countOfLocalizedFields = count($localizedFieldsAttributes);         //child of localiziedFields (fieldName and type)
-        $totalCount = $fieldCount-1+$countOfLocalizedFields;  //(-1 for locallizedfield)
-     
+        $totalCount = $fieldCount - 1 + $countOfLocalizedFields;  //(-1 for locallizedfield)
+
         $langs = \Pimcore\Tool::getValidLanguages();  //available lanaguages loop
 
         foreach ($langs as $lang) {
-            foreach ($classDefinition->getFieldDefinitions() as $field) { 
+            foreach ($classDefinition->getFieldDefinitions() as $field) {
                 $fieldName = $field->getName(); //all fiels Name
                 $fieldType = $field->getFieldType(); //all fields type
                 if ($fieldType == "localizedfields") {
-                    foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
+                    foreach ($classDefinition->getFieldDefinition($fieldName)->getChilds() as $localizedField) {
                         $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
                         $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
                         if (!empty($localizedFieldValue)) {   // if value present so count
                             $count++;
                         } else {
-                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes 
+                            $emptyAttributes .= "\n\t " . ++$emptyFieldCounter . ") " . $localizedFieldName; //emptychildattributes 
                         }
-                    }  
+                    }
                 } else {
-                   $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
-                    if (!empty($fieldValue)) {   
+                    $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
+                    if (!empty($fieldValue)) {
                         $count++;
                     } else {
-                        $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
+                        $emptyAttributes .= "\n\t " . ++$emptyFieldCounter . ") " . $fieldName; //else mention emptyattributes
                     }
-    
                 }
             }
-            $completedPercentage = ($count/$totalCount)*100;
-            $object->setCompletenessPercentage($completedPercentage,$lang);       
-            $object->setEmptyFields($emptyAttributes,$lang); 
+            $completedPercentage = ($count / $totalCount) * 100;
+            $object->setCompletenessPercentage($completedPercentage, $lang);
+            $object->setEmptyFields($emptyAttributes, $lang);
             $emptyFieldCounter = 0;
             $count = 0;
         }
@@ -184,17 +186,17 @@ class ObjectListener
 
     // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
     public function checkUniqueProduct($object)
-    {  
-        $productName =$object->getName();
-        $productObjectId =$object->getId();
-        if(!empty($productName)) {
+    {
+        $productName = $object->getName();
+        $productObjectId = $object->getId();
+        if (!empty($productName)) {
             $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
             $list->setCondition("Name = '$productName' AND oo_id != $productObjectId");
-            $uniqueProduct=$list->load(); 
-            if(!empty($uniqueProduct)) {
-                throw new \Exception ("Duplicate product name");
+            $uniqueProduct = $list->load();
+            if (!empty($uniqueProduct)) {
+                throw new \Exception("Duplicate product name");
             }
-        } 
+        }
     }
 
     /**
@@ -206,7 +208,7 @@ class ObjectListener
     private function updateUnitConversionAttributes(DataObject\CSProducts $product)
     {
         $updatedData = $this->getEditedDataFromRequest();
-        if(is_array($updatedData)){
+        if (is_array($updatedData)) {
             $this->appService->updateUnitConversionAttributes($product, $updatedData);
         }
     }
@@ -231,7 +233,7 @@ class ObjectListener
 
         return $updatedData;
     }
-    
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
