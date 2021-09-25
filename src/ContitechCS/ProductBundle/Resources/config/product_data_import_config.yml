@@ -874,6 +874,22 @@ Features:
   fieldName: Features
   fieldType: Input
   objectType: class
+Applications:
+  fieldName: CSProductApplications
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Features and Benefits (combination of text and pic):
+  fieldName: CSProductFeaturesAndBenefits
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Industries:
+  fieldName: CSProductIndustries
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Related Products:
+  fieldName: CSRelatedProducts
+  fieldType: manyToManyObjectRelation
+  objectType: class
 Product description:
   fieldName: ProductDescription
   fieldType: TextArea
