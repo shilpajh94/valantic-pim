@@ -105,65 +105,70 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     array (
                       0 => 
                       array (
+                        'key' => 'Global',
+                        'value' => 'Global',
+                      ),
+                      1 => 
+                      array (
                         'key' => 'Asia-Pacific',
                         'value' => 'Asia-Pacific',
                       ),
-                      1 => 
+                      2 => 
                       array (
                         'key' => 'Europe the Middle East and Africa',
                         'value' => 'Europe the Middle East and Africa',
                       ),
-                      2 => 
+                      3 => 
                       array (
                         'key' => 'South East Asia',
                         'value' => 'South East Asia',
                       ),
-                      3 => 
+                      4 => 
                       array (
                         'key' => 'Australia',
                         'value' => 'Australia',
                       ),
-                      4 => 
+                      5 => 
                       array (
                         'key' => 'India',
                         'value' => 'India',
                       ),
-                      5 => 
+                      6 => 
                       array (
                         'key' => 'China',
                         'value' => 'China',
                       ),
-                      6 => 
+                      7 => 
                       array (
                         'key' => 'South Africa ',
                         'value' => 'South Africa ',
                       ),
-                      7 => 
+                      8 => 
                       array (
                         'key' => 'Middle East/North Africa',
                         'value' => 'Middle East/North Africa',
                       ),
-                      8 => 
+                      9 => 
                       array (
                         'key' => 'Nordics/Baltics',
                         'value' => 'Nordics/Baltics',
                       ),
-                      9 => 
+                      10 => 
                       array (
                         'key' => 'Western Europe/Russia',
                         'value' => 'Western Europe/Russia',
                       ),
-                      10 => 
+                      11 => 
                       array (
                         'key' => 'Eastern Europe',
                         'value' => 'Eastern Europe',
                       ),
-                      11 => 
+                      12 => 
                       array (
                         'key' => 'South America',
                         'value' => 'South America',
                       ),
-                      12 => 
+                      13 => 
                       array (
                         'key' => 'North America',
                         'value' => 'North America',
@@ -185,7 +190,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
