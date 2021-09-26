@@ -54,7 +54,7 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
 
             if (isset($data) && is_array($data)) {
 
-                $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_FEATURES_BENEFITS_FOLDER)->getId();
+                $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_CSFEATURESANDBENEFITS_FOLDER)->getId();
                 
                 foreach ($data  as $result) {
                     
@@ -75,15 +75,18 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
     public function insertFeatureAndBenefit($result, $parentFolderID)
     {
         $title = trim($result['Title']);
+
+        $validKey = DataObject\Service::getValidKey($title, "obejct");
+
         $description = trim($result['Description']);
 
         if ($title) {
-            $featureObj = DataObject\CSFeaturesAndBenefits::getByPath("/".ImportConstants::CONTITECH_CS_MASTERDATA_FEATURES_BENEFITS_FOLDER."/".$title);
+            $featureObj = DataObject\CSFeaturesAndBenefits::getByPath("/".ImportConstants::CONTITECH_CS_MASTERDATA_CSFEATURESANDBENEFITS_FOLDER."/".$validKey);
             
             if(!$featureObj)
             {
                 $obj = new DataObject\CSFeaturesAndBenefits();
-                $obj->setKey($title);
+                $obj->setKey($validKey);
                 $obj->setFeatureName($title);
                 $obj->setFeatureDescription($description);
                 $obj->setParentID($parentFolderID);

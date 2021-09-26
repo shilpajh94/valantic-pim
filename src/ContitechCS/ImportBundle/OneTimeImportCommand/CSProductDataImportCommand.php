@@ -60,15 +60,13 @@ class CSProductDataImportCommand extends AbstractCommand
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
-            $CSApplications = $this->getCSApplications();
-            $CSRelatedProducts = $this->getCSRelatedProducts();
-            $CSFeaturesAndBenefits = $this->getCSFeaturesAndBenefits();
-            $CSProductIndustries = $this->getCSProductIndustries();
             $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
 
             // $data = \array_slice($data, 0, 3);
+
+            $removeSlashInProductName = [];
 
             // p_r($data);
 
@@ -90,13 +88,14 @@ class CSProductDataImportCommand extends AbstractCommand
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
 
+                $productName = $productData['Product Name'];
+                $productCol = $productData['Product'];
+
                 if($productData['Product'] != null){
-                    $productName = $productData['Product Name'].'/'.$productData['Product'];
+                    $productNameCombined = $productName.'/'.$productCol;
+                    $removeSlashInProductName[$productNameCombined] = $productName;
+                    $productName = $productNameCombined;
                 }
-                else{
-                    $productName = $productData['Product Name'];
-                }
-                
 
                 $productHier[] = $productName;
                 $productData = array_slice($productData, 2);
@@ -105,7 +104,7 @@ class CSProductDataImportCommand extends AbstractCommand
                     $hierarchyArr = array_slice($productHier, 0, $key + 1);
 
                     $func = function ($value) {
-                        return DataObject\Service::getValidKey($value, "obejct");;
+                        return DataObject\Service::getValidKey($value, "obejct");
                     };
                     $hierarchyArr = array_map($func, $hierarchyArr);
 
@@ -119,7 +118,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
                     $str = $hierarchyPath;
                     $parentPath =  substr($str, 0,strrpos($str, '/')); 
-                    $parentPathObj = DataObject\CSHierarchy::getByPath( $parentPath);
+                    $parentPathObj = DataObject\CSHierarchy::getByPath($parentPath);
 
                     if ($hierarchyPathObj) {
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
@@ -134,143 +133,48 @@ class CSProductDataImportCommand extends AbstractCommand
                     if (!$CSProductObj) {
 
                         try {
+                            // echo "\n";
+                            // echo "\n Mahesh \n";
+                            // p_r($hierarchy);
+                            // echo "\n";
                             $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "obejct");
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
+
+                            if(isset($removeSlashInProductName[$hierarchy]))
+                            {
+                                $product->setName($removeSlashInProductName[$hierarchy]);
+                            }
+                            else{
+                                $product->setName($hierarchy);
+                            }
+
                             // $product->setName($hierarchy, 'en');
                             $product->setParentCategory([$parentPathObj]);
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
                             $bricksData = [];
+                            p_r($productData);
                             foreach ($productData as $fieldCVSKey => $fieldValue) {
                                 if (isset($productDataImportConfig[$fieldCVSKey])) {
                                     $fieldConfig = $productDataImportConfig[$fieldCVSKey];
+                                    
                                     $fieldName = ucfirst($fieldConfig['fieldName']);
                                     if ($fieldConfig['objectType'] == 'class') {
-                                        if($fieldConfig['fieldType'] == 'manyToManyObjectRelation'){
-                                            if($fieldConfig['fieldName'] == "CSProductApplications"){
-                                                if (strpos($fieldValue, '|') !== false) {
-                                                    $fv = explode("|",$fieldValue);
-                                                    if(count($fv) > 0){
-                                                        $csapplication_array = array();
-                                                        foreach($fv AS $app){
-                                                            $app = trim($app);
-                                                            $v = strtolower(trim($app));
-                                                            if(isset($CSApplications[$v])){
-                                                                $csApplicationsData = new \Pimcore\Model\DataObject\CSApplications();
-                                                                $csApplicationsData->setId($CSApplications[$v]['id']);
-                                                                $csApplicationsData->setApplicationCode($CSApplications[$v]['code']);
-                                                                $csApplicationsData->setApplicationName($CSApplications[$v]['name']);
-                                                                $csapplication_array[] = $csApplicationsData;
-                                                            }else{
-                                                                $appParentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_FOLDER."/Applications")->getId();
-                                                                $csApplicationsData = new \Pimcore\Model\DataObject\CSApplications();
-                                                                $csApplicationsData->setKey($app);
-                                                                $csApplicationsData->setApplicationCode($app);
-                                                                $csApplicationsData->setApplicationName($app);
-                                                                $csApplicationsData->setParentId($appParentId);
-                                                                $csApplicationsData->setPublished(true);
-                                                                $csApplicationsData->save();
-                                                                $csapplication_array[] = $csApplicationsData;
-                                                                if($csApplicationsData){
-                                                                    $fieldArrayTemp = array();
-                                                                    $fieldArrayTemp['id'] = $csApplicationsData->getId();
-                                                                    $fieldArrayTemp['code'] = $csApplicationsData->getApplicationCode();
-                                                                    $fieldArrayTemp['name'] = $csApplicationsData->getApplicationName();
-                                                                    $CSApplications[strtolower($csApplicationsData->getApplicationName())] = $fieldArrayTemp;
-                                                                }
-                                                            }
-                                                        }
-                                                        if(count($csapplication_array) > 0){
-                                                            $method = 'set' . $fieldName;
-                                                            $product->$method($csapplication_array);
-                                                        }
-                                                    }
-                                                }
+                                        if(($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)){
+                                                
+                                            $masterValueArray = explode("|", $fieldValue);
+                                            $masterValueArray = array_map('trim', $masterValueArray);
+
+                                            $masterObjects = array();
+
+                                            foreach ($masterValueArray as $val) {
+                                                $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'],$fieldConfig['createFlag']);
                                             }
-                                            if($fieldConfig['fieldName'] == "CSRelatedProducts"){
-                                                if (strpos($fieldValue, '|') !== false) {
-                                                    $fv = explode("|",$fieldValue);
-                                                    if(count($fv) > 0){
-                                                        $csRelatedProducts_array = array();
-                                                        foreach($fv AS $ril){
-                                                            $ril = trim($ril);
-                                                            $v = strtolower(trim($ril));
-                                                            if(isset($CSRelatedProducts[$v])){
-                                                                $csRelatedProductsData = new \Pimcore\Model\DataObject\CSRelatedProducts();
-                                                                $csRelatedProductsData->setId($CSRelatedProducts[$v]['id']);
-                                                                $csRelatedProductsData->setKey($CSRelatedProducts[$v]['key']);
-                                                                $csRelatedProductsData->setRelatedProduct($CSRelatedProducts[$v]['name']);
-                                                                $csRelatedProducts_array[] = $csRelatedProductsData;
-                                                            }else{
-                                                                $rilatedparentId = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_FOLDER."/Related Product")->getId();
-                                                                $csRelatedProductsData = new \Pimcore\Model\DataObject\CSRelatedProducts();
-                                                                $csRelatedProductsData->setKey($ril);
-                                                                $csRelatedProductsData->setRelatedProduct($ril);
-                                                                $csRelatedProductsData->setParentId($rilatedparentId);
-                                                                $csRelatedProductsData->setPublished(true);
-                                                                $csRelatedProductsData->save();
-                                                                $csRelatedProducts_array[] = $csRelatedProductsData;
-                                                                $fieldArrayTemp = array();
-                                                                $fieldArrayTemp['id'] = $csRelatedProductsData->getId();
-                                                                $fieldArrayTemp['key'] = $csRelatedProductsData->getKey();
-                                                                $fieldArrayTemp['name'] = $csRelatedProductsData->getRelatedProduct();
-                                                                $CSRelatedProducts[strtolower($csRelatedProductsData->getRelatedProduct())] = $fieldArrayTemp;
-                                                            }
-                                                        }
-                                                        if(count($csRelatedProducts_array) > 0){
-                                                            $method = 'set' . $fieldName;
-                                                            $product->$method($csRelatedProducts_array);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if($fieldConfig['fieldName'] == "CSProductFeaturesAndBenefits"){
-                                                if (strpos($fieldValue, '|') !== false) {
-                                                    $fv = explode("|",$fieldValue);
-                                                    if(count($fv) > 0){
-                                                        $csProductFeaturesAndBenefits_array = array();
-                                                        foreach($fv AS $v){
-                                                            $v = strtolower(trim($v));
-                                                            if(isset($CSFeaturesAndBenefits[$v])){
-                                                                $csFeaturesAndBenefitsData = new \Pimcore\Model\DataObject\CSFeaturesAndBenefits();
-                                                                $csFeaturesAndBenefitsData->setId($CSFeaturesAndBenefits[$v]['id']);
-                                                                $csFeaturesAndBenefitsData->setFeatureName($CSFeaturesAndBenefits[$v]['FeatureName']);
-                                                                $csFeaturesAndBenefitsData->setFeatureImage($CSFeaturesAndBenefits[$v]['FeatureImage']);
-                                                                $csProductFeaturesAndBenefits_array[] = $csFeaturesAndBenefitsData;
-                                                            }
-                                                        }
-                                                        if(count($csProductFeaturesAndBenefits_array) > 0){
-                                                            $method = 'set' . $fieldName;
-                                                            $product->$method($csProductFeaturesAndBenefits_array);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            if($fieldConfig['fieldName'] == "CSProductIndustries"){
-                                                // print_r($fieldValue);
-                                                if (strpos($fieldValue, '|') !== false) {
-                                                    $fv = explode("|",$fieldValue);
-                                                    if(count($fv) > 0){
-                                                        $csProductIndustries_array = array();
-                                                        foreach($fv AS $v){
-                                                            $v = strtolower(trim($v));
-                                                            if(isset($CSProductIndustries[$v])){
-                                                                $csProductIndustriesData = new \Pimcore\Model\DataObject\CSIndustries();
-                                                                $csProductIndustriesData->setId($CSProductIndustries[$v]['id']);
-                                                                $csProductIndustriesData->setIndustryCode($CSProductIndustries[$v]['IndustryCode']);
-                                                                $csProductIndustriesData->setIndustryName($CSProductIndustries[$v]['IndustryName']);
-                                                                $csProductIndustries_array[] = $csProductIndustriesData;
-                                                            }
-                                                        }
-                                                        if(count($csProductIndustries_array) > 0){
-                                                            $method = 'set' . $fieldName;
-                                                            $product->$method($csProductIndustries_array);
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                            $method = 'set' . $fieldName;
+                                            $product->$method($masterObjects);
+
                                         }else if($fieldConfig['fieldType'] == 'Multiselection'){
                                             $fieldValue = trim($fieldValue);
                                             $fieldValueArr = explode('|', $fieldValue);
@@ -396,6 +300,62 @@ class CSProductDataImportCommand extends AbstractCommand
         }
     }
 
+    /**
+     * return object or false
+     */
+    public function getRelationalObject($className, $fieldNameToSearch, $searchString, $mandatoryFields, $createFlag = false){
+        $searchString = trim($searchString);
+        $className = trim($className);
+
+        if($createFlag)
+        {    
+            $mandatoryFields = trim($mandatoryFields);
+            $validKey = DataObject\Service::getValidKey($searchString, "obejct");
+            $constant = ImportConstants::getDynamicConstant($className);
+
+            $parentId = DataObject\Service::createFolderByPath($constant)->getId();
+
+            $class = "Pimcore\\Model\\DataObject\\{$className}";
+            $object = $class::getByPath("/".$constant."/".$validKey);
+            if(!$object)
+            {
+                $object = new $class();
+                $object->setKey($validKey);
+
+                if($mandatoryFields)
+                {
+                    $mandatoryFieldsArr = explode('|', $mandatoryFields);
+                    $masterValueArray = array_map('trim', $mandatoryFieldsArr);
+
+                    foreach ($masterValueArray as $fieldName) {
+                        $method = 'set' . $fieldName;
+                        $object->$method($searchString);
+                    }
+                }
+
+                $object->setParentId($parentId);
+                $object->setOmitMandatoryCheck(true);
+                $object->setPublished(TRUE);
+                $object->save();
+            }
+        }
+        else
+        {
+            $class = "Pimcore\\Model\\DataObject\\{$className}\\Listing";
+
+            $objectlist = new $class;
+            $objectlist->setCondition("$fieldNameToSearch = ?", $searchString);
+            $objectlist->setLimit(1);
+            $objectlist->load();
+            
+            foreach ($objectlist as $object) {
+                return $object;
+            }
+
+            return false;
+        }
+        return $object;
+    }
     public function getCSVData($fileName)
     {
         try {
@@ -452,90 +412,5 @@ class CSProductDataImportCommand extends AbstractCommand
         $csvDelimiter = ",";
 
         fputcsv($logHandler, $dataRow, $csvDelimiter);
-    }
-
-    /**
-     * 
-     *
-     *
-     * @return Array
-     */
-    public function getCSApplications()
-    {
-        $csApplicationsList = new \Pimcore\Model\DataObject\CSApplications\Listing();
-        $csApplicationsList->load();
-        $fieldArray = array();
-        foreach ($csApplicationsList as $list) {
-            $fieldArrayTemp = array();
-            $fieldArrayTemp['id'] = $list->getId();
-            $fieldArrayTemp['code'] = $list->getApplicationCode();
-            $fieldArrayTemp['name'] = $list->getApplicationName();
-            $fieldArray[strtolower($list->getApplicationName())] = $fieldArrayTemp;
-        }
-        return $fieldArray;
-    }
-
-    /**
-     * 
-     *
-     *
-     * @return Array
-     */
-    public function getCSRelatedProducts()
-    {
-        $csRelatedProduct = new \Pimcore\Model\DataObject\CSRelatedProducts\Listing();
-        $csRelatedProduct->load();
-        $fieldArray = array();
-        foreach ($csRelatedProduct as $list) {
-            $fieldArrayTemp = array();
-            $fieldArrayTemp['id'] = $list->getId();
-            $fieldArrayTemp['key'] = $list->getKey();
-            $fieldArrayTemp['name'] = $list->getRelatedProduct();
-            $fieldArray[strtolower($list->getRelatedProduct())] = $fieldArrayTemp;
-        }
-        return $fieldArray;
-    }
-
-    /**
-     * 
-     *
-     *
-     * @return Array
-     */
-    public function getCSFeaturesAndBenefits()
-    {
-        $csFeaturesAndBenefits = new \Pimcore\Model\DataObject\CSFeaturesAndBenefits\Listing();
-        $csFeaturesAndBenefits->load();
-        $fieldArray = array();
-        foreach ($csFeaturesAndBenefits as $list) {
-            $fieldArrayTemp = array();
-            $fieldArrayTemp['id'] = $list->getId();
-            $fieldArrayTemp['FeatureName'] = $list->getFeatureName();
-            $fieldArrayTemp['FeatureDescription'] = $list->getFeatureDescription();
-            $fieldArrayTemp['FeatureImage'] = $list->getFeatureImage();
-            $fieldArray[strtolower($list->getFeatureName())] = $fieldArrayTemp;
-        }
-        return $fieldArray;
-    }
-
-    /**
-     * 
-     *
-     *
-     * @return Array
-     */
-    public function getCSProductIndustries()
-    {
-        $csIndustries = new \Pimcore\Model\DataObject\CSIndustries\Listing();
-        $csIndustries->load();
-        $fieldArray = array();
-        foreach ($csIndustries as $list) {
-            $fieldArrayTemp = array();
-            $fieldArrayTemp['id'] = $list->getId();
-            $fieldArrayTemp['IndustryCode'] = $list->getIndustryCode();
-            $fieldArrayTemp['IndustryName'] = $list->getIndustryName();
-            $fieldArray[strtolower($list->getIndustryName())] = $fieldArrayTemp;
-        }
-        return $fieldArray;
     }
 }
