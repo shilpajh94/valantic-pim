@@ -98,12 +98,19 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         $items = [];
         foreach ($images as $key => $imageUrl) {
             try {
-                $assetObj = new Asset();
-                $assetObj->setFilename($this->getImageUrl($imageUrl, $key));
-                $assetObj->setData(file_get_contents($imageUrl));
-                $assetObj->setParentId($folderId);
-                $assetObj->save();
+                
+                $imageName = $this->getImageUrl($imageUrl, $key);
 
+                $assetObj = Asset::getByPath($hierarchyPath."/".$imageName);
+
+                if(!$assetObj)
+                {
+                    $assetObj = new Asset();
+                    $assetObj->setFilename($imageName);
+                    $assetObj->setData(file_get_contents($imageUrl));
+                    $assetObj->setParentId($folderId);
+                    $assetObj->save();
+                }
                 $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
                 $advancedImage->setImage($assetObj);
                 $items[] = $advancedImage;
@@ -126,13 +133,13 @@ class CSKenticoAssetImportCommand extends AbstractCommand
     public function getImageUrl($imageUrl, $key)
     {
         if (strpos($imageUrl, "attachment.aspx") !== false) {
-            $imageUrl = str_replace("attachment.aspx", "attachment.jpg.aspx", $imageUrl);
+            $imageUrl = str_replace("attachment.aspx", "attachment_{$key}.jpg.aspx", $imageUrl);
         }
         $imageName = explode("/", $imageUrl);
         $imageName = end($imageName);
         $imageName = explode(".aspx", $imageName);
         $imageName = current($imageName);
-        return $key . "_" . $imageName;
+        return $imageName;
     }
 
     public function getCSVData($fileName)

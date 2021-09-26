@@ -67,6 +67,12 @@ class CSProductDataImportCommand extends AbstractCommand
             $results = $this->getCSVData($filePath);
 
             $data = $results['data'];
+
+            // $data = \array_slice($data, 0, 3);
+
+            // p_r($data);
+
+            // die;
             $i = 0;
             foreach ($data as $key => $productData) {
                 $missingColName = '';
@@ -85,7 +91,7 @@ class CSProductDataImportCommand extends AbstractCommand
                 $productHier = array_values($productHier);
 
                 if($productData['Product'] != null){
-                    $productName = $productData['Product Name'].'-'.$productData['Product'];
+                    $productName = $productData['Product Name'].'/'.$productData['Product'];
                 }
                 else{
                     $productName = $productData['Product Name'];
@@ -131,7 +137,7 @@ class CSProductDataImportCommand extends AbstractCommand
                             $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "obejct");
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
-                            $product->setName($hierarchy, 'en');
+                            // $product->setName($hierarchy, 'en');
                             $product->setParentCategory([$parentPathObj]);
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
@@ -265,12 +271,20 @@ class CSProductDataImportCommand extends AbstractCommand
                                                     }
                                                 }
                                             }
+                                        }else if($fieldConfig['fieldType'] == 'Multiselection'){
+                                            $fieldValue = trim($fieldValue);
+                                            $fieldValueArr = explode('|', $fieldValue);
+                                            $fieldValue = array_map('trim', $fieldValueArr);
+                                            $method = 'set' . $fieldName;
+                                            $product->$method($fieldValue);
+
                                         }else{
                                             $method = 'set' . $fieldName;
                                             $product->$method($fieldValue);
                                         }
                                     } else {
-                                        $bricksData[$fieldConfig['objectType']][$fieldName] = $fieldValue;
+                                        $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
+                                        $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
                                     }
                                 }
                             }
@@ -282,16 +296,17 @@ class CSProductDataImportCommand extends AbstractCommand
                                         $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                         $brickObject = new $class($product);
 
-                                        foreach ($bricksData[$brick] as $fieldKey => $fieldValue) {
-                                            if($fieldKey == 'Region'){
-                                                $region = $productData['Region'];
-                                                $brickObject->setRegion([$region]);
+                                        foreach ($bricksData[$brick] as $fieldKey => $fieldData) {
+                                            $fieldValue = trim($fieldData['fieldValue']);
+                                            $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                            if(($fieldData['fieldType'] == 'Multiselection') && $fieldValue){
+                                                $fieldValueArr = explode('|', $fieldValue);
+                                                $fieldValue = array_map('trim', $fieldValueArr);
                                             }
-                                            else{
-                                                $objectBrickFieldMethod = 'set' . $fieldKey;
-                                                $brickObject->$objectBrickFieldMethod($fieldValue);
-                                            }
+                                            $brickObject->$objectBrickFieldMethod($fieldValue);
                                         }
+
                                         foreach($unitValueConfig as $unit =>$unitValue){
                                         
                                             $fieldKey = ucfirst($unitValue['fieldName']);
