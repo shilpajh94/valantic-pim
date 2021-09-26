@@ -93,37 +93,83 @@ class ObjectListener
         $fieldCount = count($classDefinition->getFieldDefinitions()); //totalFields
         $localizedFields = $classDefinition->getFieldDefinition("localizedfields"); //complete localizedFields
         
-        $localizedFieldsAttributes = $localizedFields->getChilds();
-        $countOfLocalizedFields = count($localizedFieldsAttributes);         //child of localiziedFields (fieldName and type)
-        $totalCount = $fieldCount-1+$countOfLocalizedFields;  //(-1 for locallizedfield)
-     
+//        $localizedFieldsAttributes = $localizedFields->getChilds();
+//        $countOfLocalizedFields = count($localizedFieldsAttributes);         //child of localiziedFields (fieldName and type)
+//        $totalCount = $fieldCount-1+$countOfLocalizedFields;  //(-1 for locallizedfield)
+     //echo $countOfLocalizedFields."============".$fieldCount."===========".$totalCount.PHP_EOL; 
         $langs = \Pimcore\Tool::getValidLanguages();  //available lanaguages loop
-
+        $totalFields = 0;
         foreach ($langs as $lang) {
             foreach ($classDefinition->getFieldDefinitions() as $field) { 
                 $fieldName = $field->getName(); //all fiels Name
                 $fieldType = $field->getFieldType(); //all fields type
-                if ($fieldType == "localizedfields") {
-                    foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
-                        $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
-                        $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
-                        if (!empty($localizedFieldValue)) {   // if value present so count
+                $isInvisible = $field->getInvisible();
+                if (!$isInvisible) {
+                    if ($fieldType == "localizedfields") {
+                        foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
+                            $totalFields++;
+                            $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
+                            $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
+                            if (!empty($localizedFieldValue)) {   // if value present so count
+                                $count++;
+                            } else {
+                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes 
+                            }
+                        }  
+                    } elseif($fieldType == "objectbricks") {
+                        $attributes = $object->getProductAttributes(); 
+                        $bricks = $attributes->getBrickGetters(); 
+                        if (!empty($bricks)){
+                            foreach ($bricks as $brick) {
+                                $brickData = $attributes->$brick();
+                                if (!empty($brickData)) {
+                                    $brickName = $brickData->getType();
+                                    $defObject = new \Pimcore\Model\DataObject\Objectbrick\Definition();
+                                    $brickDef = $defObject->getByKey($brickName)->getFieldDefinitions();
+                                    foreach($brickDef as $key => $def) {
+                                        $keyGetter = "get".ucfirst($key);
+                                        if ($key=='localizedfields') {
+                                            foreach($def->getChilds() as $attr) {
+                                                $totalFields++;
+                                                $name = $attr->getName();
+                                                $fieldGetter = "get".ucfirst($name);
+                                                $value = $brickData->$fieldGetter($lang);
+                                                if (!empty($value)) {
+                                                    $count++;
+                                                } else {
+                                                    $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$name; //emptychildattributes 
+                                                }
+                                            }
+                                        } else {
+                                            $totalFields++;
+                                            $value = $brickData->$keyGetter();
+                                            if (!empty($value)) {
+                                                $count++;
+                                            } else {
+                                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$key; //emptychildattributes 
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    } else {
+                        $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
+                        if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
+                            $fieldValue = $fieldValue->getItems();
+                        }
+                        $totalFields++;
+                        if (!empty($fieldValue)) {
                             $count++;
                         } else {
-                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes 
+                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
                         }
-                    }  
-                } else {
-                   $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
-                    if (!empty($fieldValue)) {   
-                        $count++;
-                    } else {
-                        $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
+
                     }
-    
                 }
             }
-            $completedPercentage = ($count/$totalCount)*100;
+            $completedPercentage = ($count/$totalFields)*100;
             $object->setCompletenessPercentage($completedPercentage,$lang);       
             $object->setEmptyFields($emptyAttributes,$lang); 
             $emptyFieldCounter = 0;
