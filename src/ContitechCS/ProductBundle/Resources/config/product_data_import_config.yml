@@ -266,9 +266,13 @@ continuous industrial max. bucket projection in mm(Elevator Belt only):
   fieldName: ContinuousIndustrialMaxBucketProjectionMM
   fieldType: Number
   objectType: ProdAttrSetA
+Segment:
+  fieldName: Segment
+  fieldType: Multiselection
+  objectType: class
 Region:
   fieldName: Region
-  fieldType: Select
+  fieldType: Multiselection
   objectType: ProdAttrSetB
 identifier:
   fieldName: Identifier
@@ -446,7 +450,7 @@ Sales unit:
   fieldName: Salesunit
   fieldType: Select
   objectType: ProdAttrSetL
-SAP Code:
+'SAP #':
   fieldName: SapCode
   fieldType: Number
   objectType: ProdAttrSetL
@@ -858,6 +862,10 @@ Available Profile Pattern Widths:
   fieldName: AvailableProfilePatternWidths
   fieldType: Number
   objectType: ProdAttrSetZ
+Product Name:
+  fieldName: Name
+  fieldType: Input
+  objectType: class
 Corporate Brand:
   fieldName: CorporateBrand
   fieldType: Input
@@ -873,6 +881,22 @@ Benefits:
 Features:
   fieldName: Features
   fieldType: Input
+  objectType: class
+Applications:
+  fieldName: CSProductApplications
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Features and Benefits (combination of text and pic):
+  fieldName: CSProductFeaturesAndBenefits
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Industries:
+  fieldName: CSProductIndustries
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Related Products:
+  fieldName: CSRelatedProducts
+  fieldType: manyToManyObjectRelation
   objectType: class
 Product description:
   fieldName: ProductDescription
