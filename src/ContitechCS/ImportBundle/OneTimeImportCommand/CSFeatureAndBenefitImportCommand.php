@@ -13,10 +13,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\DataObject;
+use ContitechCS\ImportBundle\Services\ImportConstants;
 
 class CSFeatureAndBenefitImportCommand extends AbstractCommand
 {
     private $t;
+    private $duplicateTitle = [];
 
     protected function configure()
     {
@@ -51,28 +53,47 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
             unset($result);
 
             if (isset($data) && is_array($data)) {
+
+                $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_FEATURES_BENEFITS_FOLDER)->getId();
+                
                 foreach ($data  as $result) {
-                    $title = $result['Title'];
-                    $description = $result['Description'];
+                    
                     if (isset($result) && is_array($result)) {
-                        $this->insertFeatureAndBenefit($title, $description);
+                        $this->insertFeatureAndBenefit($result, $parentFolderID);
                     }
                 }
+
+                echo "\n Total ".count($this->duplicateTitle). " Duplicate title found. \n ";
+                p_r($this->duplicateTitle);
             }
+
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
     }
 
-    public function insertFeatureAndBenefit($title, $description)
+    public function insertFeatureAndBenefit($result, $parentFolderID)
     {
+        $title = trim($result['Title']);
+        $description = trim($result['Description']);
 
         if ($title) {
-            $obj = new DataObject\CSFeaturesAndBenefits();
-            $obj->setFeatureName($title);
-            $obj->setFeatureDescription($description);
-            $obj->setPublished(true);
-            $obj->save();
+            $featureObj = DataObject\CSFeaturesAndBenefits::getByPath("/".ImportConstants::CONTITECH_CS_MASTERDATA_FEATURES_BENEFITS_FOLDER."/".$title);
+            
+            if(!$featureObj)
+            {
+                $obj = new DataObject\CSFeaturesAndBenefits();
+                $obj->setKey($title);
+                $obj->setFeatureName($title);
+                $obj->setFeatureDescription($description);
+                $obj->setParentID($parentFolderID);
+                $obj->setPublished(true);
+                $obj->setOmitMandatoryCheck(true);
+                $obj->save();
+            }
+            else{
+                $this->duplicateTitle[] = $title;
+            }
         } else {
             echo "Title not found";
         }
@@ -95,7 +116,7 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
             $count = 0;
 
             if (($handle = fopen($csvFilePath, 'r')) !== false) {
-                while (($rowData = fgetcsv($handle, 0, $dialect->delimiter, $dialect->quotechar, $dialect->escapechar)) !== false) {
+                while (($rowData = fgetcsv($handle, 0, '@@', $dialect->quotechar, $dialect->escapechar)) !== false) {
                     if ($count == 0) {
                         foreach ($rowData as $key => $value) {
                             unset($rowData[$key]);
