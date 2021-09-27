@@ -862,10 +862,10 @@ Available Profile Pattern Widths:
   fieldName: AvailableProfilePatternWidths
   fieldType: Number
   objectType: ProdAttrSetZ
-Product Name:
-  fieldName: Name
-  fieldType: Input
-  objectType: class
+# Product Name:
+#   fieldName: Name
+#   fieldType: Input
+#   objectType: class
 Corporate Brand:
   fieldName: CorporateBrand
   fieldType: Input
@@ -885,19 +885,34 @@ Features:
 Applications:
   fieldName: CSProductApplications
   fieldType: manyToManyObjectRelation
+  className: CSApplications
+  fieldNameToSearch: ApplicationName
   objectType: class
+  mandatoryFields: "ApplicationName|ApplicationCode"
+  createFlag: true
 Features and Benefits (combination of text and pic):
   fieldName: CSProductFeaturesAndBenefits
   fieldType: manyToManyObjectRelation
+  className: CSFeaturesAndBenefits
+  fieldNameToSearch: FeatureName
   objectType: class
+  mandatoryFields: "FeatureName|FeatureDescription"
+  createFlag: true
 Industries:
   fieldName: CSProductIndustries
   fieldType: manyToManyObjectRelation
+  className: CSIndustries
+  fieldNameToSearch: IndustryName
   objectType: class
-Related Products:
-  fieldName: CSRelatedProducts
-  fieldType: manyToManyObjectRelation
-  objectType: class
+  mandatoryFields: "IndustryName|IndustryCode"
+  createFlag: true
+# Related Products:
+#   fieldName: CSProducts
+#   fieldType: manyToManyObjectRelation
+#   className: CSRelatedProducts
+#   fieldNameToSearch: Name
+#   objectType: class
+#   createFlag: false
 Product description:
   fieldName: ProductDescription
   fieldType: TextArea
