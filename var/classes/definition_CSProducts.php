@@ -61,7 +61,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1632725095,
+   'modificationDate' => 1632744154,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2378,7 +2378,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'queryColumnType' => 'text',
                  'phpdocType' => 'array',
                  'relationType' => true,
-                 'visibleFields' => 'id,key,RelatedProduct',
+                 'visibleFields' => 'Name,id,fullpath',
                  'allowToCreateNewObject' => false,
                  'optimizedAdminLoading' => false,
                  'visibleFieldDefinitions' => 

@@ -38,12 +38,12 @@ class ObjectListener
 
     private $percentageCompletionService;
 
-    public function __construct(RequestStack $requestStack,
-                                AppService $appService,
-                                UnitConverterService $unitConverterService,
-                                PercentageCompletionService $percentageCompletionService
-                                )
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        AppService $appService,
+        UnitConverterService $unitConverterService,
+        PercentageCompletionService $percentageCompletionService
+    ) {
         $this->requestStack = $requestStack;
         $this->appService = $appService;
         $this->unitConversionService = $unitConverterService;
@@ -93,7 +93,12 @@ class ObjectListener
                         if ($objectType === "class") {
                             $method = "get$fieldName";
                             $class = DataObject\ClassDefinition::getByName($className);
-                            $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
+                            $fieldTitle = $class->getFieldDefinition($fieldName);
+                            if ($fieldTitle) {
+                                $fieldTitle = $fieldTitle->getTitle();
+                            } else {
+                                $fieldTitle = $fieldName;
+                            }
                             $value = $object->$method();
                             if (empty($value)) {
                                 $arr[] = "$fieldTitle in Base Data";
@@ -126,7 +131,7 @@ class ObjectListener
             // to also get the inherited values
             $object->setGetInheritedValues(true);
             if ($object instanceof DataObject\CSProducts) {
-                
+
                 $this->percentageCompletionService->completenessPercentage($object);
                 $this->checkUniqueProduct($object);
 
@@ -138,7 +143,7 @@ class ObjectListener
         }
     }
 
-    
+
     // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
     public function checkUniqueProduct($object)
     {
