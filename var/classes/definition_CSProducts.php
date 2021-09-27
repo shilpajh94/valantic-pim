@@ -61,7 +61,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1632720497,
+   'modificationDate' => 1632720814,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -589,39 +589,28 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'key' => '',
-                            'value' => '',
-                            'id' => 'extModel1300-1',
+                            'key' => 'NA',
+                            'value' => 'NA',
                           ),
                           1 => 
                           array (
-                            'key' => 'NA',
-                            'value' => 'NA',
-                            'id' => 'extModel1300-2',
+                            'key' => 'SA',
+                            'value' => 'SA',
                           ),
                           2 => 
                           array (
-                            'key' => 'SA',
-                            'value' => 'SA',
-                            'id' => 'extModel1300-3',
+                            'key' => 'Americas',
+                            'value' => 'Americas',
                           ),
                           3 => 
                           array (
-                            'key' => 'Americas',
-                            'value' => 'Americas',
-                            'id' => 'extModel1300-4',
+                            'key' => 'APAC',
+                            'value' => 'APAC',
                           ),
                           4 => 
                           array (
-                            'key' => 'APAC',
-                            'value' => 'APAC',
-                            'id' => 'extModel1300-5',
-                          ),
-                          5 => 
-                          array (
                             'key' => 'EMEA',
                             'value' => 'EMEA',
-                            'id' => 'extModel1300-6',
                           ),
                         ),
                          'width' => 300,
@@ -2399,7 +2388,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'classes' => 'CSRelatedProducts',
+                    'classes' => 'CSProducts',
                   ),
                 ),
                  'pathFormatterClass' => '',
