@@ -13,6 +13,7 @@ Fields Summary:
 - isPaused [checkbox]
 - isArchived [checkbox]
 - Segment [multiselect]
+- NatureOfProduct [input]
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
@@ -60,7 +61,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1632555593,
+   'modificationDate' => 1632720497,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -590,31 +591,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           array (
                             'key' => '',
                             'value' => '',
+                            'id' => 'extModel1300-1',
                           ),
                           1 => 
                           array (
                             'key' => 'NA',
                             'value' => 'NA',
+                            'id' => 'extModel1300-2',
                           ),
                           2 => 
                           array (
                             'key' => 'SA',
                             'value' => 'SA',
+                            'id' => 'extModel1300-3',
                           ),
                           3 => 
                           array (
                             'key' => 'Americas',
                             'value' => 'Americas',
+                            'id' => 'extModel1300-4',
                           ),
                           4 => 
                           array (
                             'key' => 'APAC',
                             'value' => 'APAC',
+                            'id' => 'extModel1300-5',
                           ),
                           5 => 
                           array (
                             'key' => 'EMEA',
                             'value' => 'EMEA',
+                            'id' => 'extModel1300-6',
                           ),
                         ),
                          'width' => 300,
@@ -633,6 +640,33 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'fieldtype' => 'input',
+                         'width' => 300,
+                         'defaultValue' => NULL,
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'regex' => '',
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'name' => 'NatureOfProduct',
+                         'title' => 'Nature of product',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
                          'locked' => NULL,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
@@ -641,6 +675,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
