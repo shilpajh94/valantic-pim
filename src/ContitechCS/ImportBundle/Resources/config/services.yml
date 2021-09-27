@@ -53,3 +53,9 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:kentico-asset-import",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSFeatureAndBenefitImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:feature-and-benefit-import",
+              }

@@ -7,7 +7,8 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\CSProducts;
 use Pimcore\Model\DataObject\Service;
 use Symfony\Component\HttpFoundation\Request;
-
+use ContitechCS\ImportBundle\Services\ImportConstants;
+use Pimcore\Model\Asset;
 class AppService
 {
     /**
@@ -107,4 +108,25 @@ class AppService
         return $object;
     }
 
+    /**
+     * to create Assets Hierarch From product path
+     *
+     * @param $product
+     * @param string $folderpath
+     * @throws \Exception
+     */
+
+    public function createAssetsHierarch($product){
+        $folderpath = "";
+        if($product){
+            $o_path = $product->getPath();
+            $o_key = $product->getKey();
+            $product_path = ImportConstants::CONTITECH_CS_PRODUCT_FOLDER;
+            $asset_path = ImportConstants::CONTITECH_CS_ASSET_FOLDER;
+            $product_asset_path = \str_replace($product_path, $asset_path, $o_path);
+            $product_asset_path = $product_asset_path.$o_key."/";
+            $folderpath = Asset\Service::createFolderByPath($product_asset_path);
+        }
+        return $folderpath;
+    }
 }

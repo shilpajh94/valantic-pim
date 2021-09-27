@@ -2,11 +2,11 @@
 
 /** 
 Fields Summary: 
-- PlasticLinerType [input]
+- PlasticLinerType [select]
 - PlasticLinerColor [input]
 - RubberType [input]
 - ProfileType [input]
-- PolymerType [input]
+- PolymerType [select]
 */ 
 
 
@@ -102,17 +102,20 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
+                     'options' => 
+                    array (
+                    ),
                      'width' => 250,
-                     'defaultValue' => NULL,
+                     'defaultValue' => '',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
                      'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
+                     'dynamicOptions' => false,
                      'name' => 'PlasticLinerType',
                      'title' => 'Plastic Liner Type',
                      'tooltip' => '',
@@ -214,17 +217,20 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
+                     'options' => 
+                    array (
+                    ),
                      'width' => 250,
-                     'defaultValue' => NULL,
+                     'defaultValue' => '',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
                      'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
+                     'dynamicOptions' => false,
                      'name' => 'PolymerType',
                      'title' => 'Polymer type',
                      'tooltip' => '',

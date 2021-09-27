@@ -266,9 +266,13 @@ continuous industrial max. bucket projection in mm(Elevator Belt only):
   fieldName: ContinuousIndustrialMaxBucketProjectionMM
   fieldType: Number
   objectType: ProdAttrSetA
+Segment:
+  fieldName: Segment
+  fieldType: Multiselection
+  objectType: class
 Region:
   fieldName: Region
-  fieldType: Select
+  fieldType: Multiselection
   objectType: ProdAttrSetB
 identifier:
   fieldName: Identifier
@@ -444,9 +448,9 @@ Certificate:
   objectType: ProdAttrSetK
 Sales unit:
   fieldName: Salesunit
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetL
-SAP Code:
+'SAP #':
   fieldName: SapCode
   fieldType: Number
   objectType: ProdAttrSetL
@@ -812,11 +816,11 @@ Inner diameter:
   objectType: ProdAttrSetV
 Rubber Compound:
   fieldName: RubberCompound
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetV
 Plastic Liner Type:
   fieldName: PlasticLinerType
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetW
 Rubber type:
   fieldName: RubberType
@@ -828,7 +832,7 @@ Profile Type:
   objectType: ProdAttrSetW
 Polymer Type:
   fieldName: PolymerType
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetW
 Plastic Liner Color:
   fieldName: PlasticLinerColor
@@ -836,7 +840,7 @@ Plastic Liner Color:
   objectType: ProdAttrSetW
 Material:
   fieldName: Material
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetX
 Minimum Belt width:
   fieldName: MinimumBeltMMWidth
@@ -858,6 +862,10 @@ Available Profile Pattern Widths:
   fieldName: AvailableProfilePatternWidths
   fieldType: Number
   objectType: ProdAttrSetZ
+Product Name:
+  fieldName: Name
+  fieldType: Input
+  objectType: class
 Corporate Brand:
   fieldName: CorporateBrand
   fieldType: Input
@@ -873,6 +881,22 @@ Benefits:
 Features:
   fieldName: Features
   fieldType: Input
+  objectType: class
+Applications:
+  fieldName: CSProductApplications
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Features and Benefits (combination of text and pic):
+  fieldName: CSProductFeaturesAndBenefits
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Industries:
+  fieldName: CSProductIndustries
+  fieldType: manyToManyObjectRelation
+  objectType: class
+Related Products:
+  fieldName: CSRelatedProducts
+  fieldType: manyToManyObjectRelation
   objectType: class
 Product description:
   fieldName: ProductDescription
@@ -933,4 +957,8 @@ Completeness Percentage:
 Empty Fields:
   fieldName: EmptyFields
   fieldType: TextArea
+  objectType: class
+Product Claim/Slogan:
+  fieldName: ProductClaimSlogan
+  fieldType: Input
   objectType: class

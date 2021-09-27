@@ -192,7 +192,7 @@ class DefaultController extends FrontendController
 
                         $product->save();
                         $parentId = $product->getId();
-
+                        \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {
                         $success = false;
