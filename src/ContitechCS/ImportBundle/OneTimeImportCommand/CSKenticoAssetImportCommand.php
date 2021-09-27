@@ -98,13 +98,12 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         $items = [];
         foreach ($images as $key => $imageUrl) {
             try {
-                
+
                 $imageName = $this->getImageUrl($imageUrl, $key);
 
-                $assetObj = Asset::getByPath($hierarchyPath."/".$imageName);
+                $assetObj = Asset::getByPath($hierarchyPath . "/" . $imageName);
 
-                if(!$assetObj)
-                {
+                if (!$assetObj) {
                     $assetObj = new Asset();
                     $assetObj->setFilename($imageName);
                     $assetObj->setData(file_get_contents($imageUrl));

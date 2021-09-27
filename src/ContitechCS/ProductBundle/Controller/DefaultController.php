@@ -59,9 +59,9 @@ class DefaultController extends FrontendController
         $ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
         $conditionArr = [];
         foreach ($ownerRoles as $roleName) {
-            $conditionArr[] = 'name = '.$rolesList->quote($roleName);
+            $conditionArr[] = 'name = ' . $rolesList->quote($roleName);
         }
-        if (count($conditionArr)>0) {
+        if (count($conditionArr) > 0) {
             $rolesList->setCondition(implode(" OR ", $conditionArr));
         }
         $rolesList->load();
@@ -72,13 +72,13 @@ class DefaultController extends FrontendController
         $userList = new User\Listing();
         $conditionArr = [];
         foreach ($roleIds as $roleId) {
-            $conditionArr[] = '( `roles` = '.$userList->quote($roleId). ' OR `roles` like '.$userList->quote("%,".$roleId). ' OR `roles` like '.$userList->quote($roleId.",%"). ' OR `roles` like '.$userList->quote("%,".$roleId.",%"). ' )';
+            $conditionArr[] = '( `roles` = ' . $userList->quote($roleId) . ' OR `roles` like ' . $userList->quote("%," . $roleId) . ' OR `roles` like ' . $userList->quote($roleId . ",%") . ' OR `roles` like ' . $userList->quote("%," . $roleId . ",%") . ' )';
         }
-        if (count($conditionArr)>0) {
+        if (count($conditionArr) > 0) {
             $userList->setCondition(implode(" OR ", $conditionArr));
         }
         $userList->load();
-        
+
         $fieldArray = array();
         foreach ($userList as $list) {
             $fieldArrayTemp = array();
@@ -100,6 +100,7 @@ class DefaultController extends FrontendController
         $success = true;
         $msg = "";
         $parentId = '';
+        $natureOfProduct = 'Product Group';
 
         $productName = $request->get('productName');
         $currentUser = $request->get('currentUser');
@@ -123,6 +124,7 @@ class DefaultController extends FrontendController
 
             if (!$productCategoryCheck) {
                 $productHier[] = $CSHierarchyName;
+                $natureOfProduct = "Final Product";
             }
             $productHier[] = $productName;
 
@@ -166,21 +168,22 @@ class DefaultController extends FrontendController
                         $product->setProductOwner($userId);
                         $product->setUserOwner($currentUser);
                         $product->setUserModification($currentUser);
+                        $product->setNatureOfProduct($natureOfProduct);
                         $product->setPublished(false);
 
-			$product->setParentCategory([$CSHierarchyObj]);
+                        $product->setParentCategory([$CSHierarchyObj]);
 
                         // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
-                        if(!empty($productName)) {
+                        if (!empty($productName)) {
                             $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
-                            $list->setCondition('Name = ?',$productName);
-                            $uniqueProduct=$list->load(); 
-                            if(!empty($uniqueProduct)) {
+                            $list->setCondition('Name = ?', $productName);
+                            $uniqueProduct = $list->load();
+                            if (!empty($uniqueProduct)) {
                                 echo json_encode(array('success' => false, 'objectId' => $parentId, "msg" => "Duplicate product name"));
                                 die;
                             }
-                        } 
-                       
+                        }
+
                         if ($allObjectBricks) {
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
