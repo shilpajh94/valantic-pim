@@ -55,18 +55,17 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
             if (isset($data) && is_array($data)) {
 
                 $parentFolderID = DataObject\Service::createFolderByPath(ImportConstants::CONTITECH_CS_MASTERDATA_CSFEATURESANDBENEFITS_FOLDER)->getId();
-                
+
                 foreach ($data  as $result) {
-                    
+
                     if (isset($result) && is_array($result)) {
                         $this->insertFeatureAndBenefit($result, $parentFolderID);
                     }
                 }
 
-                echo "\n Total ".count($this->duplicateTitle). " Duplicate title found. \n ";
+                echo "\n Total " . count($this->duplicateTitle) . " Duplicate title found. \n ";
                 p_r($this->duplicateTitle);
             }
-
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
@@ -76,15 +75,15 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
     {
         $title = trim($result['Title']);
 
-        $validKey = DataObject\Service::getValidKey($title, "obejct");
+        $validKey = DataObject\Service::getValidKey($title, "object");
 
-        $description = trim($result['Description']);
+        $description = trim($result['Description,,,,,,,']);
+        $description = str_replace(",,,,,,,", "", $description);
 
         if ($title) {
-            $featureObj = DataObject\CSFeaturesAndBenefits::getByPath("/".ImportConstants::CONTITECH_CS_MASTERDATA_CSFEATURESANDBENEFITS_FOLDER."/".$validKey);
-            
-            if(!$featureObj)
-            {
+            $featureObj = DataObject\CSFeaturesAndBenefits::getByPath("/" . ImportConstants::CONTITECH_CS_MASTERDATA_CSFEATURESANDBENEFITS_FOLDER . "/" . $validKey);
+
+            if (!$featureObj) {
                 $obj = new DataObject\CSFeaturesAndBenefits();
                 $obj->setKey($validKey);
                 $obj->setFeatureName($title);
@@ -93,8 +92,7 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
                 $obj->setPublished(true);
                 $obj->setOmitMandatoryCheck(true);
                 $obj->save();
-            }
-            else{
+            } else {
                 $this->duplicateTitle[] = $title;
             }
         } else {
