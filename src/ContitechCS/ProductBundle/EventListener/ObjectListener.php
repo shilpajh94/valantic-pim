@@ -67,7 +67,7 @@ class ObjectListener
             $className = $object->getClassName();
 
             if ($className == 'CSProducts') {
-                $this->checkUniqueProduct($object);
+                //$this->checkUniqueProduct($object);
 
                 //custom brick validation
                 $product_name = trim($object->getName());
@@ -133,7 +133,7 @@ class ObjectListener
             if ($object instanceof DataObject\CSProducts) {
 
                 $this->percentageCompletionService->completenessPercentage($object);
-                $this->checkUniqueProduct($object);
+                //$this->checkUniqueProduct($object);
 
                 /**
                  * update the unit conversion attributes
