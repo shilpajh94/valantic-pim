@@ -153,9 +153,6 @@ ContiTitan:
     carcass gauge in inches:
         fieldName: CarcassGaugeinInch
         objectType: ProdAttrSetO
-    splice type:
-        fieldName: SpliceType
-        objectType: ProdAttrSetE
     Recommended fastener plate:
         fieldName: RecommendedFastenerPlate
         objectType: ProdAttrSetAA
