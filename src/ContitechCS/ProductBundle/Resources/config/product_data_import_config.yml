@@ -917,6 +917,10 @@ Product description:
   fieldName: ProductDescription
   fieldType: TextArea
   objectType: class
+Product Flag: 
+  fieldName: NatureOfProduct
+  fieldType: Input
+  objectType: class
 Short Text:
   fieldName: ShortText
   fieldType: TextArea
