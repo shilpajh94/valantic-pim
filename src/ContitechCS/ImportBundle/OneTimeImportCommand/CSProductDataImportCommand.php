@@ -257,9 +257,12 @@ class CSProductDataImportCommand extends AbstractCommand
                             }
                             $result = $product->save();
                             $parentId = $result->getId();
-                            \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
-                            echo "\n" . $msg =  "Product added successfully";
+                            echo "\n" . $msg = "Product added successfully";
+                            echo "\n Hierarchy created: ".$productPath;
                             $comment = "Product added successfully";
+                            echo "\n Product asset folder creation started.";
+                            \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
+                            echo "\n Product asset folder creation Done.";
                             $missingColName = 'None';
                         } catch (\Throwable $th) {
 

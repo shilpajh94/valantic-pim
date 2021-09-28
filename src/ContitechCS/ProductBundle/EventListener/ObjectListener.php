@@ -85,6 +85,7 @@ class ObjectListener
                         }
                     }
                 }
+                $applyvalidation = false;
                 if ($applyvalidation) {
                     $arr = array('Please fill all mandatory fields');
                     foreach ($config[$product_name] as $cnf) {
@@ -138,7 +139,7 @@ class ObjectListener
                 /**
                  * update the unit conversion attributes
                  */
-                $this->updateUnitConversionAttributes($object);
+                //$this->updateUnitConversionAttributes($object);
             }
         }
     }

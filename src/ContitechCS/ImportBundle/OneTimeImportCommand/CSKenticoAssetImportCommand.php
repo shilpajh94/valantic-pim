@@ -2,6 +2,7 @@
 
 /**
  * File Path: Your File path on system
+ * DownloadOrMapping: D - Downloading Assets, M - Mapping With Product
  * Command: cs:one-time-import:kentico-asset-import <filePath>
  * Des: Kentico Asset hierarchy asset import script.
  */
@@ -24,25 +25,33 @@ class CSKenticoAssetImportCommand extends AbstractCommand
     {
         $this->setName('cs:one-time-import:kentico-asset-import')
             ->setDescription('Kentico asset import script')
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ')
+            ->addArgument('DownloadOrMapping', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $filePath = $input->getArgument('filePath');
+        $downloadOrMapping = strtoupper($input->getArgument('DownloadOrMapping'));
+
+        if(!in_array($downloadOrMapping, array('D','M')))
+        {
+            echo "\n Invalid Argument: Use 'D' For Downloading Assets and 'M' for Mapping Assets with Products. \n ";
+            die;
+        }
 
         $this->t = time();
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            $this->import($filePath, $downloadOrMapping);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
 
-    private function import($filePath)
+    private function import($filePath, $downloadOrMapping)
     {
         try {
 
@@ -77,7 +86,7 @@ class CSKenticoAssetImportCommand extends AbstractCommand
             if (isset($assetsData) && is_array($assetsData)) {
                 foreach ($assetsData as $hierarchyPath => $images) {
                     if (isset($images) && is_array($images)) {
-                        $this->createHierarchy($hierarchyPath, $images);
+                        $this->createHierarchy($hierarchyPath, $images, $downloadOrMapping);
                     }
                 }
             }
@@ -86,46 +95,85 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
     }
 
-    public function createHierarchy($assetPathToStore, $images)
+    public function createHierarchy($assetPathToStore, $images, $downloadOrMapping)
     {
+        // echo "\n Calling Function ";
         $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
-        $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $assetPathToStore;
 
-        $CSProductObj = DataObject\CSProducts::getByPath($productPath);
 
-        $folderId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
+        if($downloadOrMapping == 'M'){
+            $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $assetPathToStore;
+            $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+        }
+
+        if($downloadOrMapping == 'D'){
+            echo "\n\n Folder Creation started";
+            echo "\n\n Path - ". $hierarchyPath;
+            try {
+                $folderId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
+                echo "\n\n Folder Creation Done";
+            } catch (\Throwable $th) {
+                echo "\n\n";
+                p_r($th->getMessage());
+                echo "\n\n Folder Creation Failed";
+            }
+            
+            
+        }
 
         $items = [];
+        
         foreach ($images as $key => $imageUrl) {
+            // echo "\n Key - ". $key;
             try {
-
+                
                 $imageName = $this->getImageUrl($imageUrl, $key);
+                
+                $assetObj = Asset::getByPath($hierarchyPath."/".$imageName);
 
-                $assetObj = Asset::getByPath($hierarchyPath . "/" . $imageName);
-
-                if (!$assetObj) {
+                if(!$assetObj && $folderId && $downloadOrMapping == 'D')
+                {
                     $assetObj = new Asset();
                     $assetObj->setFilename($imageName);
                     $assetObj->setData(file_get_contents($imageUrl));
                     $assetObj->setParentId($folderId);
                     $assetObj->save();
+
+                    echo "\n\n Downloaded Successfully.";
                 }
-                $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
-                $advancedImage->setImage($assetObj);
-                $items[] = $advancedImage;
+                else if($downloadOrMapping == 'D'){
+                    echo "\n\n Already Exist in Assets.";
+                }
+
+                if($assetObj && ($downloadOrMapping == 'M'))
+                {
+                    echo "\n\n Set image in Hotspot";
+                    $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
+                    $advancedImage->setImage($assetObj);
+                    $items[] = $advancedImage;
+                }
+                else if ($downloadOrMapping == 'M'){
+                    echo "\n\n ". $hierarchyPath."/".$imageName. " - Image Not Found";
+                }
             } catch (\Throwable $th) {
+                echo "\n\n";
                 p_r($th->getMessage());
+                echo "\n\n";
             }
         }
 
-        if ($items && $CSProductObj) {
-            $CSProductObj->setImageGallery(new \Pimcore\Model\DataObject\Data\ImageGallery($items));
-            $CSProductObj->setOmitMandatoryCheck(true);
-            $CSProductObj->setPublished(true);
-            $CSProductObj->save();
-            echo "\n\nGallery Saved in path " . $productPath;
-        } else {
-            echo "\n Product group '{$productPath}' not found.";
+        if($downloadOrMapping == 'M'){
+
+            if ($items && $CSProductObj) {
+                echo "\n\n Adding ".count($items). " in Gallary Started";
+                $CSProductObj->setImageGallery(new \Pimcore\Model\DataObject\Data\ImageGallery($items));
+                $CSProductObj->setOmitMandatoryCheck(true);
+                $CSProductObj->setPublished(true);
+                $CSProductObj->save();
+                echo "\n\n Gallery Saved in path " . $productPath;
+            } else {
+                echo "\n\n Product group Folder '{$productPath}' not found.";
+            }
         }
     }
 
@@ -188,3 +236,4 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
     }
 }
+

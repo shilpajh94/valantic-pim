@@ -31,14 +31,15 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH);
     }
-    public function getWorkflowConfig()
-    {
-        return $this->getConfigFromYmlFile(CS_WORKFLOW_CONFIG);
-    }
     public function getUnitValueConfig()
     {
         return $this->getConfigFromYmlFile(CS_UNIT_FIELD_IMPORT_CONFIG_FILE_PATH);
     }
+    public function getWorkflowConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_WORKFLOW_CONFIG);
+    }
+    
     public function getProductAttributeValidationConfig()
     {
         return $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
