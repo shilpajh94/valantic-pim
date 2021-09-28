@@ -57,7 +57,7 @@ class CSRelatedProductMappingCommand extends AbstractCommand
                 foreach ($data  as $result) {
 
                     if (isset($result) && is_array($result)) {
-                        $this->insertFeatureAndBenefit($result);
+                        $this->mapRelatedProduct($result);
                     }
                 }
             }
@@ -66,7 +66,7 @@ class CSRelatedProductMappingCommand extends AbstractCommand
         }
     }
 
-    public function insertFeatureAndBenefit($result)
+    public function mapRelatedProduct($result)
     {
         $productHierarchy = trim($result['Product Hierarchy']);
         $productName = trim($result['Product Name']);
@@ -107,7 +107,6 @@ class CSRelatedProductMappingCommand extends AbstractCommand
 
                 try {
                     $productObj = DataObject\CSProducts::getByPath($objectInMapPath);
-                    $productObj->setBenefits('updated field');
                     $productObj->setCSRelatedProducts($objectsToMap);
                     $productObj->setOmitMandatoryCheck(true);
                     $productObj->save();

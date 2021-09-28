@@ -77,8 +77,7 @@ class CSFeatureAndBenefitImportCommand extends AbstractCommand
 
         $validKey = DataObject\Service::getValidKey($title, "object");
 
-        $description = trim($result['Description,,,,,,,']);
-        $description = str_replace(",,,,,,,", "", $description);
+        $description = trim($result['Description']);
 
         if ($title) {
             $featureObj = DataObject\CSFeaturesAndBenefits::getByPath("/" . ImportConstants::CONTITECH_CS_MASTERDATA_CSFEATURESANDBENEFITS_FOLDER . "/" . $validKey);
