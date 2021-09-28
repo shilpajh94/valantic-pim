@@ -1,14 +1,9 @@
 <?php
 
-/**
- * User: Mahesh Lakher
- * Date: 26/07/2021
- * Time: 11:00 AM
- */
-
 namespace ContitechCS\ProductBundle\Services;
 
 use Pimcore\Model\DataObject\ClassDefinition;
+use ContitechCS\ProductBundle\Services\CompletenessUnitValueList;
 
 
 class PercentageCompletionService
@@ -21,7 +16,6 @@ class PercentageCompletionService
         $emptyAttributes='';
         $completedPercentage = 0;
         
-    
         $classDefinition = ClassDefinition::getByName($object->getClassName());
         
         $langs = \Pimcore\Tool::getValidLanguages();  //available lanaguages loop
@@ -35,13 +29,13 @@ class PercentageCompletionService
                     if ($fieldType == "localizedfields") {
                        $this->localizedFields($fieldName, $object, $lang, $classDefinition, $count, $totalFields, $emptyAttributes, $emptyFieldCounter); 
                     } elseif($fieldType == "objectbricks") {
-                        $attributes = $object->getProductAttributes(); 
+                        $attributes = $object->getProductAttributes(); //bricksgetter and values in attributes
                         $bricks = $attributes->getBrickGetters(); 
                         if (!empty($bricks)){
                             $this->objectbricks($bricks, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter);
-                        }
+                        } //die;
                         
-                    } else {
+                    }else {
                         $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
                         if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
                             $fieldValue = $fieldValue->getItems();
@@ -53,15 +47,16 @@ class PercentageCompletionService
                             $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
                         }
 
-                    }
+                    } 
                 }
             }
-            $completedPercentage = ($count/$totalFields)*100;
+            $completedPercentage = round((($count/$totalFields)*100),2);
             $object->setCompletenessPercentage($completedPercentage,$lang);       
             $object->setEmptyFields($emptyAttributes,$lang); 
             $emptyFieldCounter = 0;
             $count = 0;
             $totalFields = 0;
+            $emptyAttributes = '';
         }
     }
 
@@ -82,18 +77,22 @@ class PercentageCompletionService
 
     private function objectbricks($bricks, $attributes, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter)
     {
-        foreach ($bricks as $brick) {
-            $brickData = $attributes->$brick();
+        $skippedField = CompletenessUnitValueList::completenessPercentageUnitList();
+        foreach ($bricks as $brick) {   
+            $brickData = $attributes->$brick(); //empty
             if (!empty($brickData)) {
-                $brickName = $brickData->getType();
-                $defObject = new \Pimcore\Model\DataObject\Objectbrick\Definition();
-                $brickDef = $defObject->getByKey($brickName)->getFieldDefinitions();
+                $brickName = $brickData->getType(); 
+                $defObject = new \Pimcore\Model\DataObject\Objectbrick\Definition(); 
+                $brickDef = $defObject->getByKey($brickName)->getFieldDefinitions(); 
                 foreach($brickDef as $key => $def) {
-                    $keyGetter = "get".ucfirst($key);
+                    $keyGetter = "get".ucfirst($key);  
                     if ($key=='localizedfields') {
-                        foreach($def->getChilds() as $attr) {
-                            $totalFields++;
+                        foreach($def->getChilds() as $attr) {   
                             $name = $attr->getName();
+                            if(in_array($name,$skippedField)) {
+                                continue;
+                            }
+                            $totalFields++;
                             $fieldGetter = "get".ucfirst($name);
                             $value = $brickData->$fieldGetter($lang);
                             if (!empty($value)) {
@@ -103,6 +102,9 @@ class PercentageCompletionService
                             }
                         }
                     } else {
+                        if(in_array($key,$skippedField)) {
+                            continue;
+                        }
                         $totalFields++;
                         $value = $brickData->$keyGetter();
                         if (!empty($value)) {
