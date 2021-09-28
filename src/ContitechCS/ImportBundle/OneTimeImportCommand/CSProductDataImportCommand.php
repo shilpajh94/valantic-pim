@@ -59,6 +59,7 @@ class CSProductDataImportCommand extends AbstractCommand
         try {
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getProductDataImportConfig();
+
             $unitValueConfig = $this->configProviderService->getUnitValueConfig();
             $results = $this->getCSVData($filePath);
 
@@ -98,27 +99,39 @@ class CSProductDataImportCommand extends AbstractCommand
                 }
 
                 $productHier[] = $productName;
-                $productData = array_slice($productData, 2);
+
+                unset($productData['Product Hierarchy']);
+                unset($productData['Product Name']);
+                // // $productData = array_slice($productData, 2);
+                                                
+                // p_r($productData);
+                // die;
                 foreach ($productHier as $key => $hierarchy) {
+
+                    // p_r($hierarchy)
 
                     $hierarchyArr = array_slice($productHier, 0, $key + 1);
 
                     $func = function ($value) {
-                        return DataObject\Service::getValidKey($value, "obejct");
+                        return DataObject\Service::getValidKey($value, "object");
                     };
-                    $hierarchyArr = array_map($func, $hierarchyArr);
+                    $parentHierArr = $hierarchyArr = array_map($func, $hierarchyArr);
+                    array_pop($parentHierArr);
 
                     $hierarchyString = implode('/', $hierarchyArr);
-
-                    echo "\n" . $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
+                    $parentProductObject = '';
+                    if($parentHierArr)
+                    {
+                        $parentHierNewString = implode('/', $parentHierArr);
+                        $parentProductPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $parentHierNewString;
+                        $parentProductObject = DataObject\CSProducts::getByPath($parentProductPath);
+                    }
+                    
+                    $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
 
                     $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
 
                     $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
-
-                    $str = $hierarchyPath;
-                    $parentPath =  substr($str, 0,strrpos($str, '/')); 
-                    $parentPathObj = DataObject\CSHierarchy::getByPath($parentPath);
 
                     if ($hierarchyPathObj) {
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
@@ -131,13 +144,10 @@ class CSProductDataImportCommand extends AbstractCommand
                     $CSProductObj = DataObject\CSProducts::getByPath($productPath);
 
                     if (!$CSProductObj) {
-
+                            // p_r($productData);
                         try {
-                            // echo "\n";
-                            // echo "\n Mahesh \n";
-                            // p_r($hierarchy);
-                            // echo "\n";
-                            $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "obejct");
+
+                            $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
 
@@ -150,13 +160,21 @@ class CSProductDataImportCommand extends AbstractCommand
                             }
 
                             // $product->setName($hierarchy, 'en');
-                            $product->setParentCategory([$parentPathObj]);
+
+                            if($parentProductObject)
+                            {
+                                $product->setParentCategory([$parentProductObject]);
+                            }
+                            
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
                             $bricksData = [];
-                            p_r($productData);
+                            // p_r($productData);
+                            // die;
                             foreach ($productData as $fieldCVSKey => $fieldValue) {
+                                $fieldCVSKey = trim($fieldCVSKey);
+                                // p_r($fieldCVSKey);
                                 if (isset($productDataImportConfig[$fieldCVSKey])) {
                                     $fieldConfig = $productDataImportConfig[$fieldCVSKey];
                                     
@@ -183,6 +201,15 @@ class CSProductDataImportCommand extends AbstractCommand
                                             $product->$method($fieldValue);
 
                                         }else{
+                                            if($fieldName == 'NatureOfProduct')
+                                            {
+                                                if($fieldValue)
+                                                {
+                                                    $fieldValue = 'Final Product';
+                                                }else{
+                                                    $fieldValue = 'Product Group';
+                                                }
+                                            }
                                             $method = 'set' . $fieldName;
                                             $product->$method($fieldValue);
                                         }
@@ -228,7 +255,6 @@ class CSProductDataImportCommand extends AbstractCommand
                                     }
                                 }
                             }
-
                             $result = $product->save();
                             $parentId = $result->getId();
                             \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
@@ -310,7 +336,7 @@ class CSProductDataImportCommand extends AbstractCommand
         if($createFlag)
         {    
             $mandatoryFields = trim($mandatoryFields);
-            $validKey = DataObject\Service::getValidKey($searchString, "obejct");
+            $validKey = DataObject\Service::getValidKey($searchString, "object");
             $constant = ImportConstants::getDynamicConstant($className);
 
             $parentId = DataObject\Service::createFolderByPath($constant)->getId();
@@ -319,24 +345,30 @@ class CSProductDataImportCommand extends AbstractCommand
             $object = $class::getByPath("/".$constant."/".$validKey);
             if(!$object)
             {
-                $object = new $class();
-                $object->setKey($validKey);
+                try {
 
-                if($mandatoryFields)
-                {
-                    $mandatoryFieldsArr = explode('|', $mandatoryFields);
-                    $masterValueArray = array_map('trim', $mandatoryFieldsArr);
+                    $object = new $class();
+                    $object->setKey($validKey);
 
-                    foreach ($masterValueArray as $fieldName) {
-                        $method = 'set' . $fieldName;
-                        $object->$method($searchString);
+                    if($mandatoryFields)
+                    {
+                        $mandatoryFieldsArr = explode('|', $mandatoryFields);
+                        $masterValueArray = array_map('trim', $mandatoryFieldsArr);
+
+                        foreach ($masterValueArray as $fieldName) {
+                            $method = 'set' . $fieldName;
+                            $object->$method($searchString);
+                        }
                     }
-                }
 
-                $object->setParentId($parentId);
-                $object->setOmitMandatoryCheck(true);
-                $object->setPublished(TRUE);
-                $object->save();
+                    $object->setParentId($parentId);
+                    $object->setOmitMandatoryCheck(true);
+                    $object->setPublished(TRUE);
+                    $object->save();
+
+                    } catch (\Throwable $th) {
+                        p_r($th->getMessage());
+                    }
             }
         }
         else
