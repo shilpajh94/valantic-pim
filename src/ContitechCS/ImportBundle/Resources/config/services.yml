@@ -59,3 +59,9 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:feature-and-benefit-import",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSRelatedProductMappingCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:related-product-mapping",
+              }

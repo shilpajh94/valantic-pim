@@ -38,12 +38,12 @@ class ObjectListener
 
     private $percentageCompletionService;
 
-    public function __construct(RequestStack $requestStack,
-                                AppService $appService,
-                                UnitConverterService $unitConverterService,
-                                PercentageCompletionService $percentageCompletionService
-                                )
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        AppService $appService,
+        UnitConverterService $unitConverterService,
+        PercentageCompletionService $percentageCompletionService
+    ) {
         $this->requestStack = $requestStack;
         $this->appService = $appService;
         $this->unitConversionService = $unitConverterService;
@@ -67,7 +67,7 @@ class ObjectListener
             $className = $object->getClassName();
 
             if ($className == 'CSProducts') {
-                $this->checkUniqueProduct($object);
+                //$this->checkUniqueProduct($object);
 
                 //custom brick validation
                 $product_name = trim($object->getName());
@@ -85,6 +85,7 @@ class ObjectListener
                         }
                     }
                 }
+                $applyvalidation = false;
                 if ($applyvalidation) {
                     $arr = array('Please fill all mandatory fields');
                     foreach ($config[$product_name] as $cnf) {
@@ -93,7 +94,12 @@ class ObjectListener
                         if ($objectType === "class") {
                             $method = "get$fieldName";
                             $class = DataObject\ClassDefinition::getByName($className);
-                            $fieldTitle = $class->getFieldDefinition($fieldName)->getTitle();
+                            $fieldTitle = $class->getFieldDefinition($fieldName);
+                            if ($fieldTitle) {
+                                $fieldTitle = $fieldTitle->getTitle();
+                            } else {
+                                $fieldTitle = $fieldName;
+                            }
                             $value = $object->$method();
                             if (empty($value)) {
                                 $arr[] = "$fieldTitle in Base Data";
@@ -126,19 +132,19 @@ class ObjectListener
             // to also get the inherited values
             $object->setGetInheritedValues(true);
             if ($object instanceof DataObject\CSProducts) {
-                
+
                 $this->percentageCompletionService->completenessPercentage($object);
-                $this->checkUniqueProduct($object);
+                //$this->checkUniqueProduct($object);
 
                 /**
                  * update the unit conversion attributes
                  */
-                $this->updateUnitConversionAttributes($object);
+                //$this->updateUnitConversionAttributes($object);
             }
         }
     }
 
-    
+
     // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
     public function checkUniqueProduct($object)
     {

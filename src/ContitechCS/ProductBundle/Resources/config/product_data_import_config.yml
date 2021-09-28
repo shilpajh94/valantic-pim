@@ -218,8 +218,8 @@ Type of Idler - Offset LC Roll - 35 in mm:
   fieldName: TypeofIdlerOffsetLCRoll35mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset LC Roll - 40 in mm:
-  fieldName: TypeofIdlerOffsetLCRoll40mm
+Type of Idler - Offset LC Roll - 45 in mm:
+  fieldName: TypeofIdlerOffsetLCRoll45mm
   fieldType: Number
   objectType: ProdAttrSetAE
 Ease of Installation:
@@ -406,7 +406,7 @@ nominal cable diameter in mm:
   fieldName: NominalCableDiameterinMM
   fieldType: Number
   objectType: ProdAttrSetG
-nominal cable diameter in inch :
+nominal cable diameter in inch:
   fieldName: NominalCableDiameterinInch
   fieldType: Number
   objectType: ProdAttrSetG
@@ -450,7 +450,7 @@ Sales unit:
   fieldName: Salesunit
   fieldType: Select
   objectType: ProdAttrSetL
-'SAP #':
+"SAP #":
   fieldName: SapCode
   fieldType: Number
   objectType: ProdAttrSetL
@@ -522,7 +522,7 @@ Number of Holes:
   fieldName: NumberofHoles
   fieldType: Number
   objectType: ProdAttrSetQ
-Fastener Type:  
+Fastener Type:
   fieldName: FastenerType
   fieldType: Input
   objectType: ProdAttrSetQ
@@ -538,7 +538,7 @@ Endless or Laced:
   fieldName: EndlessOrLaced
   fieldType: Input
   objectType: ProdAttrSetQ
-Fastener or Bulk:  
+Fastener or Bulk:
   fieldName: FastenerorBulk
   fieldType: Input
   objectType: ProdAttrSetQ
@@ -574,7 +574,7 @@ Side Belt or Center Belt:
   fieldName: SideBeltorCenterBelt
   fieldType: Input
   objectType: ProdAttrSetQ
-Features (ie. Grain saver):  
+Features (ie. Grain saver):
   fieldName: FeaturesieGrainSaver
   fieldType: Input
   objectType: ProdAttrSetQ
@@ -862,10 +862,10 @@ Available Profile Pattern Widths:
   fieldName: AvailableProfilePatternWidths
   fieldType: Number
   objectType: ProdAttrSetZ
-Product Name:
-  fieldName: Name
-  fieldType: Input
-  objectType: class
+# Product Name:
+#   fieldName: Name
+#   fieldType: Input
+#   objectType: class
 Corporate Brand:
   fieldName: CorporateBrand
   fieldType: Input
@@ -885,22 +885,41 @@ Features:
 Applications:
   fieldName: CSProductApplications
   fieldType: manyToManyObjectRelation
+  className: CSApplications
+  fieldNameToSearch: ApplicationName
   objectType: class
+  mandatoryFields: "ApplicationName|ApplicationCode"
+  createFlag: true
 Features and Benefits (combination of text and pic):
   fieldName: CSProductFeaturesAndBenefits
   fieldType: manyToManyObjectRelation
+  className: CSFeaturesAndBenefits
+  fieldNameToSearch: FeatureName
   objectType: class
+  mandatoryFields: "FeatureName|FeatureDescription"
+  createFlag: true
 Industries:
   fieldName: CSProductIndustries
   fieldType: manyToManyObjectRelation
+  className: CSIndustries
+  fieldNameToSearch: IndustryName
   objectType: class
-Related Products:
-  fieldName: CSRelatedProducts
-  fieldType: manyToManyObjectRelation
-  objectType: class
+  mandatoryFields: "IndustryName|IndustryCode"
+  createFlag: true
+# Related Products:
+#   fieldName: CSProducts
+#   fieldType: manyToManyObjectRelation
+#   className: CSRelatedProducts
+#   fieldNameToSearch: Name
+#   objectType: class
+#   createFlag: false
 Product description:
   fieldName: ProductDescription
   fieldType: TextArea
+  objectType: class
+Product Flag:
+  fieldName: NatureOfProduct
+  fieldType: Input
   objectType: class
 Short Text:
   fieldName: ShortText
