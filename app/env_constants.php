@@ -49,10 +49,10 @@ if (CUSTOM_ENV == "prod") {
 } elseif (CUSTOM_ENV == "stage") {
 
     define("CDN_ENABLE", 1);
-    define("CDN_HOST", "https://d3l7tdim6hoq5l.cloudfront.net");
+    define("CDN_HOST", "https://d3hdb0w38n8gg0.cloudfront.net");
     define("S3_HOST", "https://s3.us-east-1.amazonaws.com");
-    define("S3_BUCKET", "contitech-assets-stage");
-    define("S3_REGION", "us-east-1");
+    define("S3_BUCKET", "pimcore-contitech-assets-stage");
+    define("S3_REGION", "eu-central-1");
 
     define("S3_BUCKET_BW_SAP_ARCHIVE", "");
     define("S3_REGION_BW_SAP_ARCHIVE", "");

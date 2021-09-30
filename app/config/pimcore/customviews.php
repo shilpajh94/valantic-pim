@@ -66,10 +66,10 @@ return [
         ],
         [
             'treetype' => 'asset',
-            'name' => 'Catalog Assets',
+            'name' => 'External Assets',
             'icon' => '/pimcore/static6/img/flat-color-icons/stack_of_photos.svg',
-            'id' => 'cs_asset_catalogs',
-            'rootfolder' => '/Contitech_ConveyorSolution/Catalog Assets',
+            'id' => 'cs_asset_external',
+            'rootfolder' => '/Contitech_ConveyorSolution/External Assets',
             'showroot' => true,
             'position' => 'left',
             'sort' => '5',
@@ -88,7 +88,7 @@ return [
         ],
         [
             'treetype' => 'asset',
-            'name' => 'Product Assets',
+            'name' => 'External Assets',
             'icon' => '/pimcore/static6/img/flat-color-icons/stack_of_photos.svg',
             'id' => 'cs_asset_products',
             'rootfolder' => '/Contitech_ConveyorSolution/Product Assets',
