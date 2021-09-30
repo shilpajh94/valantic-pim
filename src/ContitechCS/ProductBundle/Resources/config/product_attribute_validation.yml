@@ -597,9 +597,9 @@ Flexsteel:
   Product Claim/Slogan:
     fieldName: ProductClaimSlogan
     objectType: class
-  Product Options:
-    fieldName: ProductOptions
-    objectType: ProdAttrSetI
+  # Product Options:
+  #   fieldName: ProductOptions
+  #   objectType: ProdAttrSetI
   belt rating in N/mm:
     fieldName: beltRatingNMM
     objectType: ProdAttrSetD

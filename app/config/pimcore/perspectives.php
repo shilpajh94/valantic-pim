@@ -86,7 +86,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_catalogs',
+                'id' => 'cs_asset_external',
             ],
             [
                 'type' => 'customview',
@@ -96,14 +96,7 @@ return [
                 'sort' => 3,
                 'id' => 'cs_asset_internal',
             ],
-            [
-                'type' => 'customview',
-                'position' => 'left',
-                'expanded' => false,
-                'hidden' => false,
-                'sort' => 4,
-                'id' => 'cs_asset_products',
-            ],
+           
             [
                 'type' => 'customview',
                 'position' => 'left',
@@ -147,24 +140,17 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_catalogs',
+                'id' => 'cs_asset_products',
             ],
-//            [
-//                'type' => 'customview',
-//                'position' => 'left',
-//                'expanded' => false,
-//                'hidden' => false,
-//                'sort' => 3,
-//                'id' => 'cs_asset_internal',
-//            ],
             [
                 'type' => 'customview',
                 'position' => 'left',
                 'expanded' => false,
                 'hidden' => false,
-                'sort' => 4,
-                'id' => 'cs_asset_products',
+                'sort' => 3,
+                'id' => 'cs_asset_internal',
             ],
+           
             [
                 'type' => 'customview',
                 'position' => 'left',
@@ -208,7 +194,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_catalogs',
+                'id' => 'cs_asset_external',
             ],
             [
                 'type' => 'customview',
@@ -218,14 +204,7 @@ return [
                 'sort' => 3,
                 'id' => 'cs_asset_internal',
             ],
-            [
-                'type' => 'customview',
-                'position' => 'left',
-                'expanded' => false,
-                'hidden' => false,
-                'sort' => 4,
-                'id' => 'cs_asset_products',
-            ],
+            
             [
                 'type' => 'customview',
                 'position' => 'left',
@@ -270,7 +249,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_catalogs',
+                'id' => 'cs_asset_external',
             ],
             [
                 'type' => 'customview',
@@ -280,14 +259,7 @@ return [
                 'sort' => 3,
                 'id' => 'cs_asset_internal',
             ],
-            [
-                'type' => 'customview',
-                'position' => 'left',
-                'expanded' => false,
-                'hidden' => false,
-                'sort' => 4,
-                'id' => 'cs_asset_products',
-            ],
+            
             [
                 'type' => 'customview',
                 'position' => 'left',
