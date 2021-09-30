@@ -4,8 +4,6 @@
 * Generated at: 2021-09-30T08:35:52+02:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (2)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -64,7 +62,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1632983751,
+   'modificationDate' => 1632904381,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
