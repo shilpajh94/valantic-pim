@@ -122,6 +122,15 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
 
         $items = [];
+        if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
+            $aContext = array(
+                'http' => array(
+                    'proxy'           => 'tcp://cias.geoaws.com:8080',
+                    'request_fulluri' => true,
+                ),
+            );
+            $cxContext = stream_context_create($aContext);
+        }
         
         foreach ($images as $key => $imageUrl) {
             // echo "\n Key - ". $key;
@@ -135,7 +144,11 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                 {
                     $assetObj = new Asset();
                     $assetObj->setFilename($imageName);
-                    $assetObj->setData(file_get_contents($imageUrl));
+                    if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
+                        $assetObj->setData(file_get_contents($imageUrl, False, $cxContext));
+                    } else {
+                        $assetObj->setData(file_get_contents($imageUrl));
+                    }
                     $assetObj->setParentId($folderId);
                     $assetObj->save();
 
