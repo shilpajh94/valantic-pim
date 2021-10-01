@@ -1,6 +1,7 @@
 <?php
 
 /** 
+ * Generated at: 2021-09-30T08:35:52+02:00
  * Inheritance: no
  * Variants: no
 
