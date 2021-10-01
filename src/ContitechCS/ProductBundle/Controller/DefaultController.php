@@ -168,10 +168,10 @@ class DefaultController extends FrontendController
                         $product->setProductOwner($userId);
                         $product->setUserOwner($currentUser);
                         $product->setUserModification($currentUser);
-                        $product->setNatureOfProduct($natureOfProduct);
+                        //$product->setNatureOfProduct($natureOfProduct);
                         $product->setPublished(false);
 
-                        $product->setParentCategory([$CSHierarchyObj]);
+                        $product->setParentCategory([$CSProductObj]);
 
                         // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
                         if (!empty($productName)) {
@@ -203,6 +203,9 @@ class DefaultController extends FrontendController
                     }
                 } else {
                     $parentId = $CSProductObj->getId();
+                    // echo "Inside Else";
+                    // print_r($parentId);
+                    // echo "\n\n";
                 }
                 $counter++;
             }
