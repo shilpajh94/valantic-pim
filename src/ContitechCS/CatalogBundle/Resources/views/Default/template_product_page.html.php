@@ -153,14 +153,33 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </div>
             <?php } ?>
 
-            <?php if($data['FeaturesRequired']){ ?>
+            <?php if($data['FeaturesAndBenefitsWithoutImages']){ ?>
             <div class="feature-benefit-list">
-                <h3><span class="orange"><strong>CONTI<sup>®</sup> Titan</strong></span> Features and Benefits</h3>
-                <!-- <p>CONTI<sup>®</sup> Titan is available in operating tensions up to 1500 PIW in 2-ply design.
-                    Combined with one of Continental’s
-                    high-performance covers, CONTI® Titan will provide the lowest cost of ownership in demanding
-                    applications.</p> -->
-
+                <h3><span class="orange">
+                        <strong>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("PPF_ProductName")->isEmpty()): ?>
+                                        <?= $this->input("PPF_ProductName")->setDataFromResource($data['ProductName']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("PPF_ProductName"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("PPF_ProductName") ?>
+                        <?php endif; ?>
+                        
+                        </strong>
+                    </span> 
+                    
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("PPF_FeatureBenefitsLabel")->isEmpty()): ?>
+                                        <?= $this->input("PPF_FeatureBenefitsLabel")->setDataFromResource('Features and Benefits') ?>
+                                <?php else: ?>
+                                        <?= $this->input("PPF_FeatureBenefitsLabel"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("PPF_FeatureBenefitsLabel") ?>
+                        <?php endif; ?>
+                    </h3>
                 <ul>
                     <li><span class="orange">›</span> High-strength with exceptional dimensional stability</li>
                     <li><span class="orange">›</span> Rip and tear resistance that is 2-3 times that of conventional
@@ -173,17 +192,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     <li><span class="orange">›</span> Excellent flexibility and load support
                     </li>
                 </ul>
-                <p>CONTI<sup>®</sup> Titan is available in operating tensions up to 1500 PIW in 2-ply design.
-                    Combined with one of Continental’s
-                    high-performance covers, CONTI® Titan will provide the lowest cost of ownership in demanding
-                    applications.</p>
 
-                <!-- <h3><strong>Designed for Extreme Environments </strong></h3>
-                    <p>Phoenix Phoenocord® conveyor belts are available up to a breaking strength of 10,000 N/mm and a width of 3,200 mm.
-                        Belts can be manufactured in lengths weighing up to an incredible 60 metric tons. With decades of experience and
-                        outstanding research and development, Phoenix Phoenocord® belts have been proven to handle the most extreme
-                        conveyor belt applications. </p> -->
-
+                <?php if($this->editmode): ?>
+                    <p>
+                        <?php if($this->textarea("PPFB_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PPFB_Comment")->setDataFromResource('CONTI® Titan is available in operating tensions up to 1500 PIW in 2-ply design. Combined with one of Continental’s
+high-performance covers, CONTI® Titan will provide the lowest cost of ownership in demanding applications.') ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PPFB_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
+                <?php else: ?>
+                    <?php if(!$this->textarea("PPFB_Comment")->isEmpty()): ?>
+                        <p>
+                            <?= $this->textarea("PPFB_Comment") ?>
+                        </p>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
             <?php } ?>
 

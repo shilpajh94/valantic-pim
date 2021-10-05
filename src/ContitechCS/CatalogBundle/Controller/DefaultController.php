@@ -203,6 +203,7 @@ class DefaultController extends FrontendController
                 
                 $productData['FeaturesAndBenefitRequired'] = $PGInfo['FeaturesAndBenefitRequired'];
                 $FeaturesAndBenefits = [];
+                $FeaturesAndBenefitsWithoutImages = [];
                 if($PGInfo['FeaturesAndBenefitRequired'] && $productObj->getCSProductFeaturesAndBenefits())
                 {
                     foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value) {
@@ -213,9 +214,18 @@ class DefaultController extends FrontendController
                             $feature['FeatureImage'] = $value->getFeatureImage();
                             $FeaturesAndBenefits[] = $feature;
                         }
+                        else{
+                            $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
+                        }
                     }
                     
                 }
+
+                if(!$FeaturesAndBenefits)
+                {
+                    $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
+                }
+                
                 $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
                 $productData['CostPerTonRequired'] = $PGInfo['CostPerTonRequired'];;
 
