@@ -1,0 +1,56 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+namespace ContitechCS\ProductBundle\Helper;
+
+use Pimcore\Model\User;
+use Pimcore\Tool\Admin as AdminTool;
+/**
+ * Description of CommonHelper
+ *
+ * @author rohitsrivastava
+ */
+class CommonHelper {
+    
+    public static function getEditableFieldsByUser(User $user) {
+        $roles = $user->getRoles();
+        $attributeList = [];
+        if (!empty($roles) && count($roles)>0) {
+            $rolesList = new User\Role\Listing();
+            $rolesList->setCondition('`id` IN ('.implode(", ", $roles).' )');
+            $rolesList->load();
+            if (!empty($rolesList) && $rolesList->getItems()>0) {
+    //            print_r($rolesList); die;
+                $editableAttributes = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\ConfigProviderService')->getConfigFromYmlFile(CS_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH);
+                foreach ($rolesList->getItems() as $role) {
+                    $roleName = $role->getName();    
+                    $attributes = $editableAttributes[$roleName];
+                    foreach ($attributes as $attribute) {
+                        $attributeList[$attribute] = true;
+                    }
+                }
+            }
+        }
+        return $attributeList;
+    }
+    
+    public static function getFolderByPath($folderPath, $type = 'object') {
+        $clsType = $type;
+        if ($type =='object') {
+            $clsType = 'DataObject';
+        }
+        $cls = "\\Pimcore\\Model\\".ucfirst($clsType)."\\Service";
+        $pathExists = $cls::pathExists($folderPath);
+        if (empty($pathExists)) {
+            $folder = $cls::createFolderByPath($folderPath);
+        } else {
+            $folder = $cls::getElementByPath($type, $folderPath);
+        }
+        return $folder->getId();
+    }
+    
+}

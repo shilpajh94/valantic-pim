@@ -124,6 +124,12 @@ parameters:
             action: 
                 isPaused: false
                 published: true
+        archive_asset:
+            action:
+                path: '/Contitech_ConveyorSolution/Internal Assets'
+        unarchive_asset:
+            action:
+                path: '/Contitech_ConveyorSolution/Product Assets/Unarchived'
         
     # Workflow reminder configuration
     # Places: Places is name of the Place which defined in workflow configuration in app/config.yml
