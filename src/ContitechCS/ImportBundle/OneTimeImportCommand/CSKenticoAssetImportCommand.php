@@ -97,8 +97,20 @@ class CSKenticoAssetImportCommand extends AbstractCommand
 
     public function createHierarchy($assetPathToStore, $images, $downloadOrMapping)
     {
+        if (preg_match('/\bCollection\b/', $assetPathToStore)) { 
+            $assetPathToStore = str_replace("Collection/","",$assetPathToStore);
+        }
+        $hierarchyFolderPath = ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER;
+        $hierarchyObjectPath = '/'.$hierarchyFolderPath.'/'.$assetPathToStore;
+        $hierarchyPathObjCheck = DataObject\CSHierarchy::getByPath($hierarchyObjectPath);
+        if ($hierarchyPathObjCheck){
+            $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
+        }
+        else{
+            $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER .'/Collection' ."/" . $assetPathToStore;
+        }
         // echo "\n Calling Function ";
-        $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
+        // $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
 
 
         if($downloadOrMapping == 'M'){
@@ -249,4 +261,3 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
     }
 }
-
