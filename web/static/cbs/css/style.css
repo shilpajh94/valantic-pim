@@ -44,7 +44,7 @@ li span {
     padding-right: 2px;
 }
 
-.fortressxp-belts h1, .table-content-sec h1 {
+.fortressxp-belts h1, .table-content-sec h1{
     font-size: 32px;
 }
 
@@ -55,8 +55,9 @@ li span {
     padding-bottom: 15px;
 }
 
-.feature-benefit-list h3 {
+.feature-benefit-list h3, h3 {
     font-size: 14px;
+    font-weight: bold;
 }
 
 .features-benefit-sec .media h2 {
@@ -64,12 +65,22 @@ li span {
 }
 
 .fortressxp-belts .features-benefit-sec h1,
-.fortressxp-belts .belts-information h1 {
+.fortressxp-belts .belts-information h1, 
+.wood-product-applications h1, .wood-product-applications h2 {
     font-size: 24px;
+}
+.wood-product-applications h1{
+    margin-bottom: 2.5rem;
+}
+.wood-product-applications h2{
+    margin-top: 2.5rem;
 }
 
 .my-4 {
     padding: 20px 0px
+}
+.mb-0{
+    margin-bottom: 0px !important;
 }
 
 .features-benefit-sec .media p {
@@ -90,7 +101,13 @@ li span {
     width: 150px;
     height: auto;    
 }
-
+.environment-quality-sec .features-images{
+    margin-left: 20px;
+    max-width: 50%;
+}
+.environment-quality-sec .media{
+    margin-top: 20px;
+}
 .features-benefit-sec .media {
     align-items: center;
 }
@@ -158,6 +175,9 @@ li span {
 .w-20{
     width: 10.4%;
 }
+.w-100{
+    width: 100%;
+}
 
 
 /* .belts-information .table-data td:first-child {
@@ -199,6 +219,9 @@ li span {
 
 .note {
     font-size: 8px !important;
+}
+.page-details{
+    font-size: 10px !important;
 }
 
 .components-sec {
@@ -272,9 +295,13 @@ li span {
     border-bottom: 2px solid #000;
     z-index: 15;
 }
+.table-data.wpa-table thead:after, .table-data.wpa-table:after{
+    border-bottom: 2px solid rgb(250, 162, 27);
+}
 .table-data td, .table-data th{
     font-size: 10px;
 }
+
 
 /* .table-data tbody td{
     border-top: 1px solid #000;
@@ -339,6 +366,9 @@ li span {
     border-top: 1px solid #000;
 }
 
+.wpa-table.table-data tbody td:before, .wpa-table.table-data thead th::before{
+    border-top: 1px solid rgb(250, 162, 27);
+}
 .table-data thead tr:first-child th:before{
     border-top: 2px solid #000;
     z-index: 20;
@@ -356,10 +386,17 @@ li span {
     border-top: 0px;
 }
 .table-data tbody td:first-child:after, 
-.table-data tbody td:last-child:after, .table-data thead .white-bg th:last-child:after, .table-data tbody td.border-right:after{
+.table-data tbody td:last-child:after, .table-data thead .white-bg th:last-child:after, .table-data tbody td.border-right:after, 
+.table-data.wpa-table tbody td:last-child:after{
     border-right: 5px solid transparent;
 }
 
+.table-data.wpa-table tbody td:first-child{
+    border-right: 0px;
+}
+.table-data.wpa-table tbody td:first-child:after, .table-data.wpa-table tbody td:after{
+    border-right: 8px solid #ffffff;
+}
 
 
 /* 
@@ -375,21 +412,73 @@ li span {
     color: #000;
 }
 
+.wpa-table{
+    margin-bottom: 10px;
+}
+
+.wpa-table td{
+    vertical-align: top;
+}
+.wpa-table tbody tr{
+    background: #ffedcc;
+}
+.wpa-table tbody tr:nth-child(2n){
+    background-color: #ffffff;
+}
+.wpa-table thead th{
+    font-size: 16px;
+    text-align: left;
+    vertical-align: bottom;
+}
+.wpa-table tbody td{
+    font-size: 12px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+}
+.wpa-table tbody td ul{
+    padding-left:1.2em;
+}
+.wpa-table tbody td ul li{
+    font-weight: bold;
+    color: #000000;
+    font-size: 12px;
+    padding-bottom: 3px;
+    position: relative;
+}
+.wpa-table tbody td ul li::before{
+    display: inline-block;
+    content: '›';
+    color: rgb(250, 162, 27);
+    width: 0.7em;
+    margin-left: -0.7em;
+    font-size: 14px;
+}
+
+.wpa-table tbody td p{
+    margin-bottom: 5px;
+}
+
+
 #header {
     width: 100%;
     background: #ffffff;
     display: block;
-   
 }
 .header-txt{
     string-set: header self;
 }
 
-
-#footer {
-    position: running(footerLogo);
+#footer1, #footer {
     background: #ffffff;
-    display: block;
+}
+#footer {
+    opacity: 0;
+    height: 0;
+    position: running(footerLogo);
+}
+
+#footer img, #footer1 img{
+    width: 150px;
 }
 
 /* end print only */
