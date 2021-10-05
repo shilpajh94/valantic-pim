@@ -68,6 +68,7 @@
         break-inside: avoid-page;
     }
 
+   
     .components li::before {
         color: cmyk(0%, 31%, 88%, 6%);
     }
@@ -100,9 +101,12 @@
         color: cmyk(0%, 0%, 0%, 0%);
     }
     
-    .table-data tbody tr:nth-child(even) {
+    .table-data tbody tr:nth-child(even), .wpa-table tbody tr{
         background: cmyk(0%, 7%, 20%, 0%);
         -webkit-print-color-adjust: exact;
+    }
+    .wpa-table tbody tr:nth-child(2n){
+        background: cmyk(0%, 0%, 0%, 0%);
     }
 
     /* .table-data tbody td:first-child {
@@ -119,10 +123,12 @@
 
     section:first-child {
         page-break-before: avoid;
+        margin-top: 0px;
     }
 
     section {
         page-break-before: always;
+        margin-top: 0px;
     }
 
     section:last-child {
@@ -138,18 +144,21 @@
     #content {
         padding-bottom: 10px;
     }
+  
+}
 
-    #footer{
-        position: running(footerLogo) !important;
-
-    }
+.header-txt, .print-pg-no, #footer1{
+    opacity: 0; height: 0; 
 }
 
 @page {
     size: A4;
-    margin: 10px 0 60px;
-    padding: 20px 0 0.25in;
+    margin: 10px 0 10px;
+    padding: 70px 0 60px;
     font-size: 22pt;
+ 
+  
+
 }
 
 
@@ -157,12 +166,9 @@
     margin-left: 60px;
     margin-right: 40px;
 
-    @bottom-left {
-        content: element(footerLogo);
-        text-align: right;
-    }
+   
 
-    /* @top-left{
+    @top-left{
         content: string(header, first);
         font-size: 10px;
         padding-top: 30px;
@@ -173,7 +179,12 @@
         font-size: 10px;
         padding-top: 30px;
         padding-top: 40px;
-    } */
+    }
+
+    @bottom-right {
+        content: element(footerLogo, last);
+    }
+  
   
 }
 
@@ -181,12 +192,23 @@
     margin-left: 40px;
     margin-right: 60px;
 
-    @bottom-right {
-        content: element(footerLogo);
-        text-align: left;
+  
+      @top-left{
+        content: string(header, first);
+        font-size: 10px;
+        padding-top: 30px;
+        padding-top: 40px;
     }
-   
-    
+    @top-right{
+        content: counter(page);
+        font-size: 10px;
+        padding-top: 30px;
+        padding-top: 40px;
+    }
+    @bottom-left {
+        content: element(footerLogo, first);
+        
+    }
 
 
 }

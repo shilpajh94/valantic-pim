@@ -4,17 +4,30 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
 <div class="wrapper">
-    <header id="header">
-        <div class="header-sec">
-            <div><strong>Conveying Solutions</strong> Textile Belts</div>
-            <div class="print-pg-no"></div>
-        </div>
-    </header>
-    <main id="content" role="main">
+        <header id="header">
+            <div class="header-sec">
+                <div><strong>Conveying Solutions</strong> 
+                <?php if($this->input("Conti_Alert_header_title")->isEmpty()): ?>
+                        <?= $this->input("Conti_Alert_header_title")->setDataFromResource('Textile Belts'); ?>
+                    <?php else: ?>
+                        <?= $this->input("Conti_Alert_header_title"); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="print-pg-no"></div>
+            </div>
+        </header>    
+        <main id="content" role="main">
         <section class="fortressxp-belts">
-
-            <h1 class="orange"><strong>CONTI® Alert</strong></h1>
-            <h2 class="d-flex">A Visionary Idea in Conveyor Belt Monitoring <img src="images/contialert.jpg" alt=""
+            <?php if($this->editmode): ?>
+                <?php if($this->input("CBS_Conti_Alert_Heading")->isEmpty()): ?>
+                    <h1 class="orange"><strong><?= $this->input("CBS_Conti_Alert_Heading")->setDataFromResource('CONTI® Alert'); ?></strong></h1>
+                <?php else: ?>
+                    <h1 class="orange"><strong><?= $this->input("CBS_Conti_Alert_Heading"); ?></strong></h1>
+                <?php endif; ?>
+            <?php else: ?>
+                <h1 class="orange"><strong><?= $this->input("CBS_Conti_Alert_Heading") ?></strong></h1>
+            <?php endif; ?>
+            <h2 class="d-flex">A Visionary Idea in Conveyor Belt Monitoring <img src="/static/cbs/images/contialert.jpg" alt=""
                     style="margin-left: 22px; margin-bottom: 10px;"></h2>
             <p><b>Conti®Alert is the first and only conveyor belt innovation to let you see belt wear in real
                     time.<br />
@@ -42,7 +55,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </li>
                 </ul>
             </div>
-            <div class="full-image-sec"><img src="images/image22.jpg"></div>
+            <div class="full-image-sec"><img src="/static/cbs/images/image22.jpg"></div>
 
             <div class="feature-benefit-list">
                 <h2><span class="orange"><strong>CONTI®Alert</strong></span> Information</h2>
@@ -74,6 +87,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <div class="page-break"></div>
     </main>
     <footer id="footer" class="footer">
-        <img src="images/continental_logo.png" alt="" class="img-fluid" width="150">
+        <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
     </footer>
 </div>
