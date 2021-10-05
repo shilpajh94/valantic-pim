@@ -75,9 +75,10 @@ class DefaultController extends FrontendController
         $this->configProviderService = new ConfigProviderService();
         $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
-        if(isset($productDataImportConfig[$product]))
+        $productTables = 'Product Tables';
+        if(isset($productDataImportConfig[$product][$productTables]))
         {
-            foreach ($productDataImportConfig[$product] as $table => $value) {
+            foreach ($productDataImportConfig[$product][$productTables] as $table => $value) {
                 $result[] = array('id' => trim($table), 'text' => trim($table));
             }
             $res['data'] = $result;
@@ -122,47 +123,62 @@ class DefaultController extends FrontendController
 
             $productName =  trim($productObj->getName());
 
-            $ProductGroupInformation = [];
-
-            if(isset($productDataImportConfig[$productName]))
+            if($productObj && isset($productDataImportConfig[$productName]))
             {
                 $PGInfo = $productDataImportConfig[$productName]['Product Group Information'];
 
-                if(isset($PGInfo['HierarchyNameLevel2']) && $PGInfo['HierarchyNameLevel2'])
+                $hierarchyId = $categoryObj->getCategory();
+                if($hierarchyId)
                 {
-                    $hierarchyId = $categoryObj->getCategory();
-                    if($hierarchyId)
-                    {
-                        $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
-                    }
-
-                    $ProductGroupInformation['HierarchyNameLevel2'] = $hierarchyObj->getName();
+                    $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
                 }
 
+                $productData['HierarchyNameLevel2'] = $hierarchyObj->getName();
+                $productData['HierarchyNameLevel1'] = $PGInfo['HierarchyNameLevel1'];
 
                 $productData['ProductName'] = $productName;
-                $productData['CorporateBrand'] = $productObj->getCorporateBrand();
-                $productData['ProductBrand'] = $productObj->getProductBrand();
-                $productData['ProductOwner'] = $productObj->getProductOwner();
-                $productData['Benefits'] = $productObj->getBenefits();
-                $productData['Features'] = $productObj->getFeatures();
-                $productData['FeaturesRequired'] = false;
-                $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
-                $productData['ProductDescription'] = $productObj->getProductDescription();
 
-                $productData['ProductImageRequired'] = true;
-                $productData['ProductImage'] = $productObj->getProductImage();
-                
-                $productData['ShortTextRequired'] = false;
-                $productData['ShortText'] = $productObj->getShortText();
-                $productData['LongText'] = $productObj->getLongText();
-                $productData['TitleTagSloganRequired'] = false;
-                $productData['TitleTagSlogan'] = false;
+                // $productData['ProductClaimSlogan'] = $productObj->getProductClaimSlogan();
+                // $productData['ProductDescription'] = $productObj->getProductDescription();
 
-                $productData['IsApplicationAvailable'] = false;
-                if($productObj->getCSProductApplications())
+                if($PGInfo['TitleTagSloganRequired'])
                 {
-                    $productData['IsApplicationAvailable'] = true;
+                    $productData['TitleTagSloganRequired'] = $PGInfo['TitleTagSloganRequired'];
+                }
+
+                $productData['ShortTextRequired'] = $PGInfo['ShortTextRequired'];
+                if(isset($PGInfo['ShortTextRequired']) && $PGInfo['ShortTextRequired'])
+                {
+                    $productData['ShortText'] = $productObj->getShortText();
+                }
+
+                $productData['LongTextRequired'] = $PGInfo['LongTextRequired'];
+                if(isset($PGInfo['LongTextRequired']) && $PGInfo['LongTextRequired'])
+                {
+                    $productData['LongText'] = $productObj->getLongText();
+                }
+                
+                $productData['ProductImageRequired'] = $PGInfo['ProductImageRequired'];
+                if(isset($PGInfo['ProductImageRequired']) && $PGInfo['ProductImageRequired'])
+                {
+                    $productData['ProductImage'] = $productObj->getProductImage();
+                }
+
+                $productData['FeaturesRequired'] = $PGInfo['FeaturesRequired'];
+                if(isset($PGInfo['FeaturesRequired']) && $PGInfo['FeaturesRequired'])
+                {
+                    $productData['Features'] = $productObj->getFeatures();
+                }
+
+                $productData['BenefitsRequired'] = $PGInfo['BenefitsRequired'];
+                if(isset($PGInfo['BenefitsRequired']) && $PGInfo['BenefitsRequired'])
+                {
+                    $productData['Benefits'] = $productObj->getBenefits();
+                }
+
+                $productData['ApplicationRequired'] = $PGInfo['ApplicationRequired'];
+                if( $PGInfo['ApplicationRequired'] && $productObj->getCSProductApplications())
+                {
                     $applicationsHtml = '<ul>';
                     foreach ($productObj->getCSProductApplications() as $key => $value) {
                         $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
@@ -171,25 +187,9 @@ class DefaultController extends FrontendController
                 }
                 $productData['Applications'] = $applicationsHtml;
 
-                $productData['IsFeaturesAndBenefitAvailable'] = false;
-                $featuresAndBenefit = [];
-                if($productObj->getCSProductFeaturesAndBenefits())
+                $productData['MarketsRequired'] = $PGInfo['MarketsRequired'];
+                if($PGInfo['MarketsRequired'] && $productObj->getCSProductIndustries())
                 {
-                    $productData['IsFeaturesAndBenefitAvailable'] = true;
-                    foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value) {
-                        $feature['FeatureName'] = $value->getFeatureName();
-                        $feature['FeatureDescription'] = $value->getFeatureDescription();
-                        $feature['FeatureImage'] = $value->getFeatureImage();
-                        $featuresAndBenefit[] = $feature;
-                    }
-                    
-                }
-                $productData['FeaturesAndBenefits'] = $featuresAndBenefit;
-
-                $productData['IsMarketsAvailable'] = false;
-                if($productObj->getCSProductIndustries())
-                {
-                    $productData['IsMarketsAvailable'] = true;
                     $marketsHtml = '<ul>';
                     foreach ($productObj->getCSProductIndustries() as $key => $value) {
                         $marketsHtml .= '<li><span class="orange">›</span> '.$value->getIndustryName().' </li>';
@@ -198,8 +198,26 @@ class DefaultController extends FrontendController
                 }
                 $productData['Markets'] = $marketsHtml;
 
-                $productData['PowerOfFortressRequired'] = true;
-                $productData['CostPerTonRequired'] = true;
+                
+                $productData['PowerOfFortressRequired'] = $PGInfo['PowerOfFortressRequired'];
+                
+                $productData['FeaturesAndBenefitRequired'] = $PGInfo['FeaturesAndBenefitRequired'];
+                $FeaturesAndBenefits = [];
+                if($PGInfo['FeaturesAndBenefitRequired'] && $productObj->getCSProductFeaturesAndBenefits())
+                {
+                    foreach ($productObj->getCSProductFeaturesAndBenefits() as $key => $value) {
+                        if($value->getFeatureImage())
+                        {
+                            $feature['FeatureName'] = $value->getFeatureName();
+                            $feature['FeatureDescription'] = $value->getFeatureDescription();
+                            $feature['FeatureImage'] = $value->getFeatureImage();
+                            $FeaturesAndBenefits[] = $feature;
+                        }
+                    }
+                    
+                }
+                $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+                $productData['CostPerTonRequired'] = $PGInfo['CostPerTonRequired'];;
 
                 $children = $productObj->getChildren([DataObject::OBJECT_TYPE_OBJECT]);
 
@@ -209,12 +227,21 @@ class DefaultController extends FrontendController
                     
 
                     $tables = $productDataImportConfig[$productName]['Product Tables'];
+                    // unset($tables['Conveyor Belt Data']);
+                    // unset($tables['Load Support – Maximum Belt Width Data']);
+                    // unset($tables['Troughability Minimum Belt Width']);
+                    // unset($tables['Minimum Pulley Diameters']);
+                    // unset($tables['Elevator Belt Data']);
+                    // unset($tables['Maximum Bucket Projection']);
+                    
 
                     foreach ($tables as $tablekey => $MetricImperialFields) {
 
                         $ColumnKeys = $MetricImperialFields['ColumnKeys'];
+                        $TableComment = $MetricImperialFields['TableComment'];
 
                         unset($MetricImperialFields['ColumnKeys']);
+                        unset($MetricImperialFields['TableComment']);
                         
                         if($MetricImperialFields){
                             
@@ -272,8 +299,6 @@ class DefaultController extends FrontendController
                                         $groupingTitle[$value['groupingTitle']] += 1;
                                     }
                                 }
-
-                                
                                 
                                 $MIArray = array();
                                 $theadSecondData = [];
@@ -318,7 +343,6 @@ class DefaultController extends FrontendController
                                 if($ColumnKeys)
                                 {
                                     $tableRows = [];
-                                    // p_r($MIArray);
                                     if($MIArray)
                                     {
                                         foreach ($MIArray as $variant) {
@@ -337,9 +361,6 @@ class DefaultController extends FrontendController
                                             }
                                         }
                                     }
-
-                                    // p_r($tableRows);
-                                    // p_r($RemoveKeys);
                                     
                                     if($tableRows)
                                     {
@@ -365,15 +386,10 @@ class DefaultController extends FrontendController
                                 else
                                 {
                                     $tableHeadKey = $MIArray[0];
-
                                     if($RemoveKeys)
                                     {
                                         foreach ($RemoveKeys as $key => $value) {
-
-                                            if(isset($tableHeadKey[$key]))
-                                            {
-                                                unset($tableHeadKey[$key]);
-                                            }
+                                            unset($tableHeadKey[$key]);
                                         }
                                         $tableHeadKey = array_keys($tableHeadKey);
                                         $theadSecondData = \array_merge($theadSecondData,$tableHeadKey);
@@ -414,6 +430,7 @@ class DefaultController extends FrontendController
                                 $productTables[$tablekey][$MIKey]['tbody']= $tbodyArray;
                                 $productTables[$tablekey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
                                 
+                                
                                 if($groupingTitle)
                                 {
                                     $productTables[$tablekey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
@@ -423,6 +440,7 @@ class DefaultController extends FrontendController
                             }
 
                         }
+                        $productTables[$tablekey]['TableComment']= $TableComment;
 
                     }
 
@@ -457,5 +475,11 @@ class DefaultController extends FrontendController
         }
 
         return $s3src;
+    }
+
+    public function containerAction(Request $request)
+    {
+        $allChildren = $this->document->getAllChildren();
+        $this->view->allChildren = $allChildren;
     }
 }

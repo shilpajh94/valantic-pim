@@ -1,15 +1,22 @@
 Fortress XP:
     Product Group Information:
-        HierarchyNameLevel2: true
-        ProductName: true
-        CorporateBrand: true
-        ProductBrand: true
-        ProductOwner: true
-        Benefits: true 
-        Features: true 
-        
+        HierarchyNameLevel1: 'Conveying Solutions'
+        TitleTagSloganRequired: false
+        ShortTextRequired: true
+        LongTextRequired: true 
+        ProductImageRequired: true
+        FeaturesRequired: false
+        BenefitsRequired: false
+        ApplicationRequired: true
+        PowerOfFortressRequired: true
+        MarketsRequired: true
+        CoverCompoundsRequired: true
+        FeaturesAndBenefitRequired: true
+        CostPerTonRequired: true
     Product Tables:
         Conveyor Belt Data: 
+            TableComment: "*P/N/N = Poly/Nylon/Nylon and EPP = Polyester/Polyamide/Polyamide. **Average permanent elongation values at 100% of rated belt tension are based on ISO 9856 test procedure. Consult your Sales
+                            Representative or Distributor for elastic and total elongation calculations specific to each system based on Minuteman® calculations."
             ColumnKeys: true
             Imperial:
                 AdditionalHeaderKey: Fortress XP
@@ -40,9 +47,9 @@ Fortress XP:
                 ElasticModulusinPIW:
                     fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
-                StepLengthinInch:
-                    fieldTitle: Step Length (in.)
-                    objectType: ProdAttrSetF
+                # StepLengthinInch:
+                #     fieldTitle: Step Length (in.)
+                #     objectType: ProdAttrSetF
                 RecommendedFastenerPlate: 
                     fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
@@ -84,9 +91,9 @@ Fortress XP:
                 ElasticModulusinKNMM:
                     fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
-                StepLengthinMM:
-                    fieldTitle: Step Length (mm)
-                    objectType: ProdAttrSetF
+                # StepLengthinMM:
+                #     fieldTitle: Step Length (mm)
+                #     objectType: ProdAttrSetF
                 RecommendedFastenerPlate: 
                     fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
@@ -97,6 +104,7 @@ Fortress XP:
                     fieldTitle: Hinge 2
                     objectType: ProdAttrSetAB
         Load Support – Maximum Belt Width Data:
+            TableComment: "On systems with troughing idler spacing greater than 5 ft. (1.5 m) or idler roll gap greater than 1/2 in. (12.7 mm) consult your Sales Representative or Distributor."
             ColumnKeys: false
             Imperial:
                 AdditionalGroupKey: Material Weight
@@ -225,6 +233,9 @@ Fortress XP:
                     objectType: ProdAttrSetAA
                     groupingTitle: Over 1920 kg/cu. m
         Troughability Minimum Belt Width:
+            TableComment: "If the top cover and pulley cover are of equal gauge or less than 1/16\" in diferential, to ensure the belt will trough properly, add 6\" to the minimum recommended belt width. For belts with
+                            balanced covers, the minimum recommended width for trough-ability is possible provided the belt is run fully loaded for an extended period which will force the belt down into the systems trough
+                            configuration. Consult your Sales Representative. Additional break-in time is required when the belt has been stored prior to installation in ambient temperatures of less than 50°F (10°C). "
             ColumnKeys: true
             Imperial:
                 AdditionalHeaderKey: Fortress XP
@@ -275,6 +286,8 @@ Fortress XP:
                     fieldTitle: 45 degree
                     objectType: ProdAttrSetAA
         Minimum Pulley Diameters:
+            TableComment: "The minimum cover for vulcanized splice is 1/8 in. (3.2mm). The recommended maximum top to bottom cover ratio for one-ply is 2:1 (i.e., is 1/4 in. x 1/8 in. or 4.5 mm x 2.25 mm) and for two-ply
+                            is 3:1 (i.e., is 3/8 in. x 1/8 in. or 9 mm x 3 mm). ***The above data is based on top cover gauge equal to or greater than the bottom (pulley) cover gauge."
             ColumnKeys: true
             Imperial:
                 AdditionalHeaderKey: Fortress XP
@@ -335,6 +348,8 @@ Fortress XP:
                     fieldTitle: Tails and Snubs
                     objectType: ProdAttrSetD
         Elevator Belt Data:
+            TableComment: "Fortress XP™ rated belt tension can exceed 100%, with a maximum of 150%, during starting and stopping conditions. Fastener size recommendation may vary due to cover thickness, pulley diameters and
+                            system tension. *P/N/N = Poly/Nylon/Nylon and EPP = Polyester/Polyamide/Polyamide. "
             ColumnKeys: true
             Imperial:
                 AdditionalHeaderKey: Fortress XP
@@ -442,13 +457,28 @@ Fortress XP:
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     fieldTitle: Continuous Industrial Max. Bucket Projection
                     objectType: ProdAttrSetA
-CONTI Titan:
+ContiTitan:
     Product Group Information:
+        HierarchyNameLevel1: 'Conveying Solutions'
+        TitleTagSloganRequired: false
+        ShortTextRequired: true
+        LongTextRequired: true 
+        ProductImageRequired: false
+        FeaturesRequired: false
+        BenefitsRequired: false
+        ApplicationRequired: true
+        PowerOfFortressRequired: false
+        MarketsRequired: true
+        CoverCompoundsRequired: true
+        FeaturesAndBenefitRequired: true
+        CostPerTonRequired: true
     Product Tables:
         Conveyor Belt Data: 
+            TableComment: "Conti®Titan rated belt tension can exceed 100%, with a maximum of 150%, during starting and stopping conditions. Fastener size recommendation may vary due to cover thickness, pulley diameters and
+                            system tension. Consult your Sales Representative or fastener manufacturer. *P/N/N = Poly/Nylon/Nylon and EPP = Polyester/Polyamide/Polyamide. "
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 HeaderKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -473,20 +503,20 @@ CONTI Titan:
                 ElasticModulusinPIW:
                     fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
-                StepLengthinInch:
-                    fieldTitle: Step Length (in.)
-                    objectType: ProdAttrSetF
+                # StepLengthinInch:
+                #     fieldTitle: Step Length (in.)
+                #     objectType: ProdAttrSetF
                 RecommendedFastenerPlate: 
                     fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
-                Hinge:
-                    fieldTitle: Hinge
-                    objectType: ProdAttrSetAB
-                Hinge2:
-                    fieldTitle: Hinge 2
-                    objectType: ProdAttrSetAB
+                # Hinge:
+                #     fieldTitle: Hinge
+                #     objectType: ProdAttrSetAB
+                # Hinge2:
+                #     fieldTitle: Hinge 2
+                #     objectType: ProdAttrSetAB
             Metric: 
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 HeaderKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -514,19 +544,20 @@ CONTI Titan:
                 ElasticModulusinKNMM:
                     fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
-                StepLengthinMM:
-                    fieldTitle: Step Length (mm)
-                    objectType: ProdAttrSetF
+                # StepLengthinMM:
+                #     fieldTitle: Step Length (mm)
+                #     objectType: ProdAttrSetF
                 RecommendedFastenerPlate: 
                     fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
-                Hinge:
-                    fieldTitle: Hinge
-                    objectType: ProdAttrSetAB
-                Hinge2:
-                    fieldTitle: Hinge 2
-                    objectType: ProdAttrSetAB
+                # Hinge:
+                #     fieldTitle: Hinge
+                #     objectType: ProdAttrSetAB
+                # Hinge2:
+                #     fieldTitle: Hinge 2
+                #     objectType: ProdAttrSetAB
         Load Support – Maximum Belt Width Data:
+            TableComment: "On systems with troughing idler spacing greater than 5 ft. (1.5 m) or idler roll gap greater than 1/2 in. (12.7 mm) consult your Sales Representative or Distributor"
             ColumnKeys: false
             Imperial:
                 AdditionalGroupKey: Material Weight
@@ -655,9 +686,12 @@ CONTI Titan:
                     objectType: ProdAttrSetAA
                     groupingTitle: Over 1920 kg/cu. m
         Troughability Minimum Belt Width:
+            TableComment: "If the top cover and pulley cover are of equal gauge or less than 1/16\" in diferential, to ensure the belt will trough properly, add 6\" to the minimum recommended belt width. For belts with
+                            balanced covers, the minimum recommended width for trough-ability is possible provided the belt is run fully loaded for an extended period which will force the belt down into the systems trough
+                            configuration. Consult your Sales Representative. Additional break-in time is required when the belt has been stored prior to installation in ambient temperatures of less than 50°F (10°C)."
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 Idlers: true
                 HeaderKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
@@ -681,7 +715,7 @@ CONTI Titan:
                     fieldTitle: 45 degree
                     objectType: ProdAttrSetAA
             Metric:
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 Idlers: true
                 HeaderKeys: 
                     beltRatingNMM: beltRatingNMM
@@ -705,9 +739,12 @@ CONTI Titan:
                     fieldTitle: 45 degree
                     objectType: ProdAttrSetAA
         Minimum Pulley Diameters:
+            TableComment: "If the top cover and pulley cover are of equal gauge or less than 1/16\" in diferential, to ensure the belt will trough properly, add 6\" to the minimum recommended belt width. For belts with
+                            balanced covers, the minimum recommended width for trough-ability is possible provided the belt is run fully loaded for an extended period which will force the belt down into the systems trough
+                            configuration. Consult your Sales Representative. Additional break-in time is required when the belt has been stored prior to installation in ambient temperatures of less than 50°F (10°C)."
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -736,7 +773,7 @@ CONTI Titan:
                     fieldTitle: Tails and Snubs
                     objectType: ProdAttrSetD
             Metric: 
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -767,7 +804,7 @@ CONTI Titan:
         Elevator Belt Data:
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                 HeaderKeys: 
@@ -779,17 +816,17 @@ CONTI Titan:
                 VulcanizedAndFastenerRatinginPIW:
                     fieldTitle: Vulcanized & Fastener Rating (PIW)
                     objectType: ProdAttrSetAA
-                IndustrialServiceTensionCapacityinPIW:
-                    fieldTitle: Industrial Service Tension (PIW)
-                    objectType: ProdAttrSetA
-                SpacedIndustrialMaxBucketProjectionInch:
-                    fieldTitle: Spaced Industrial Max Bucket Projection
-                    objectType: ProdAttrSetA
-                ContinuousIndustrialMaxBucketProjectionInch: 
-                    fieldTitle: Continuous Industrial Max. Bucket Projection
-                    objectType: ProdAttrSetA
+                # IndustrialServiceTensionCapacityinPIW:
+                #     fieldTitle: Industrial Service Tension (PIW)
+                #     objectType: ProdAttrSetA
+                # SpacedIndustrialMaxBucketProjectionInch:
+                #     fieldTitle: Spaced Industrial Max Bucket Projection
+                #     objectType: ProdAttrSetA
+                # ContinuousIndustrialMaxBucketProjectionInch: 
+                #     fieldTitle: Continuous Industrial Max. Bucket Projection
+                #     objectType: ProdAttrSetA
             Metric: 
-                AdditionalHeaderKey: CONTI Titan
+                AdditionalHeaderKey: ContiTitan
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                 HeaderKeys: 
@@ -801,15 +838,15 @@ CONTI Titan:
                 beltRatingNMM: 
                     fieldTitle: Belt Rating (kN/m)
                     objectType: ProdAttrSetD
-                IndustrialServiceTensionCapacityinKNM:
-                    fieldTitle: Industrial Service Tension Capacity (kN/m)
-                    objectType: ProdAttrSetA
-                SpacedIndustrialMaxBucketProjectionMM:
-                    fieldTitle: Spaced Industrial Max. Bucket Projection
-                    objectType: ProdAttrSetA
-                ContinuousIndustrialMaxBucketProjectionMM: 
-                    fieldTitle: Continuous Industrial Max. Bucket Projection
-                    objectType: ProdAttrSetA
+                # IndustrialServiceTensionCapacityinKNM:
+                #     fieldTitle: Industrial Service Tension Capacity (kN/m)
+                #     objectType: ProdAttrSetA
+                # SpacedIndustrialMaxBucketProjectionMM:
+                #     fieldTitle: Spaced Industrial Max. Bucket Projection
+                #     objectType: ProdAttrSetA
+                # ContinuousIndustrialMaxBucketProjectionMM: 
+                #     fieldTitle: Continuous Industrial Max. Bucket Projection
+                #     objectType: ProdAttrSetA
 Plylon Plus: 
     Product Group Information:
     Product Tables:
@@ -1202,13 +1239,13 @@ Plylon Plus:
                 ContinuousIndustrialMaxBucketProjectionMM: 
                     fieldTitle: Continuous Industrial Max. Bucket Projection
                     objectType: ProdAttrSetA
-ContiFlex:
+Contiflex:
     Product Group Information:
     Product Tables:
         Conveyor Belt Data: 
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: ContiFlex
+                AdditionalHeaderKey: Contiflex
                 HeaderKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1236,20 +1273,20 @@ ContiFlex:
                 ElasticModulusinPIW:
                     fieldTitle: Average Elastic Modulus (PIW)
                     objectType: ProdAttrSetD
-                StepLengthinInch:
-                    fieldTitle: Step Length (in.)
-                    objectType: ProdAttrSetF
+                # StepLengthinInch:
+                #     fieldTitle: Step Length (in.)
+                #     objectType: ProdAttrSetF
                 RecommendedFastenerPlate: 
                     fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
-                Hinge:
-                    fieldTitle: Hinge
-                    objectType: ProdAttrSetAB
-                Hinge2:
-                    fieldTitle: Hinge 2
-                    objectType: ProdAttrSetAB
+                # Hinge:
+                #     fieldTitle: Hinge
+                #     objectType: ProdAttrSetAB
+                # Hinge2:
+                #     fieldTitle: Hinge 2
+                #     objectType: ProdAttrSetAB
             Metric: 
-                AdditionalHeaderKey: ContiFlex
+                AdditionalHeaderKey: Contiflex
                 HeaderKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies
@@ -1280,18 +1317,18 @@ ContiFlex:
                 ElasticModulusinKNMM:
                     fieldTitle: Elastic Modulus (kN/m)
                     objectType: ProdAttrSetD
-                StepLengthinMM:
-                    fieldTitle: Step Length (mm)
-                    objectType: ProdAttrSetF
+                # StepLengthinMM:
+                #     fieldTitle: Step Length (mm)
+                #     objectType: ProdAttrSetF
                 RecommendedFastenerPlate: 
                     fieldTitle: Recommended Fastener Plate 
                     objectType: ProdAttrSetAA
-                Hinge:
-                    fieldTitle: Hinge
-                    objectType: ProdAttrSetAB
-                Hinge2:
-                    fieldTitle: Hinge 2
-                    objectType: ProdAttrSetAB
+                # Hinge:
+                #     fieldTitle: Hinge
+                #     objectType: ProdAttrSetAB
+                # Hinge2:
+                #     fieldTitle: Hinge 2
+                #     objectType: ProdAttrSetAB
         Load Support – Maximum Belt Width Data:
             ColumnKeys: false
             Imperial:
@@ -1399,7 +1436,7 @@ ContiFlex:
         Troughability Minimum Belt Width:
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: ContiFlex
+                AdditionalHeaderKey: Contiflex
                 Idlers: true
                 HeaderKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
@@ -1423,7 +1460,7 @@ ContiFlex:
                     fieldTitle: 45 degree
                     objectType: ProdAttrSetAA
             Metric:
-                AdditionalHeaderKey: ContiFlex
+                AdditionalHeaderKey: Contiflex
                 Idlers: true
                 HeaderKeys: 
                     beltRatingNMM: beltRatingNMM
@@ -1449,7 +1486,7 @@ ContiFlex:
         Minimum Pulley Diameters:
             ColumnKeys: true
             Imperial:
-                AdditionalHeaderKey: ContiFlex
+                AdditionalHeaderKey: Contiflex
                 RemoveKeys: 
                     VulcanizedAndFastenerRatinginPIW: VulcanizedAndFastenerRatinginPIW
                     NumberofPlies: NumberofPlies
@@ -1478,7 +1515,7 @@ ContiFlex:
                     fieldTitle: Tails and Snubs
                     objectType: ProdAttrSetD
             Metric: 
-                AdditionalHeaderKey: ContiFlex
+                AdditionalHeaderKey: Contiflex
                 RemoveKeys: 
                     beltRatingNMM: beltRatingNMM
                     NumberofPlies: NumberofPlies

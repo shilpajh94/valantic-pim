@@ -14,10 +14,24 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         ]);
         ?>
 <?php endif; ?>
+
+<?php if($data): ?>
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong> 
+            <div class="header-txt"><strong>
+            
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("PP_HierarchyNameLevel1")->isEmpty()): ?>
+                            <?= $this->input("PP_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                    <?php else: ?>
+                            <?= $this->input("PP_HierarchyNameLevel1"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("PP_HierarchyNameLevel1") ?>
+            <?php endif; ?>
+            
+            </strong> 
             <?php if($this->editmode): ?>
                     <?php if($this->input("PP_HierarchyNameLevel2")->isEmpty()): ?>
                             <?= $this->input("PP_HierarchyNameLevel2")->setDataFromResource($data['HierarchyNameLevel2']) ?>
@@ -61,51 +75,83 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </h1>
 
             <?php if($data['ShortTextRequired']) { ?>
-            <p>
-            
-            <?php if($this->editmode): ?>
-                    <?php if($this->input("PP_ShortText")->isEmpty()): ?>
-                            <?= $this->input("PP_ShortText")->setDataFromResource($data['ShortText']) ?>
-                    <?php else: ?>
-                            <?= $this->input("PP_ShortText"); ?>
+                <?php if($this->editmode): ?>
+                    <p>
+                        <?php if($this->input("PP_ShortText")->isEmpty()): ?>
+                                <?= $this->input("PP_ShortText")->setDataFromResource($data['ShortText']) ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_ShortText"); ?>
+                        <?php endif; ?>
+                    </p>
+                <?php else: ?>
+                    <?php if(!$this->input("PP_ShortText")->isEmpty()): ?>
+                        <p>
+                        <?= $this->input("PP_ShortText") ?>
+                        </p>
                     <?php endif; ?>
-            <?php else: ?>
-                    <?= $this->input("PP_ShortText") ?>
-            <?php endif; ?>
-
-            </p>
+                <?php endif; ?>
             <?php } ?>
 
+            <?php if($data['LongTextRequired'] || $data['ProductImageRequired']) { ?>
             <div class="media pt-0">
-                <div class="media-body">
-                    <p>
-
+                <?php if($data['LongTextRequired']) { ?>
                     <?php if($this->editmode): ?>
+                        <div class="media-body">
+                            <p>
                             <?php if($this->input("PP_LongText")->isEmpty()): ?>
                                     <?= $this->input("PP_LongText")->setDataFromResource($data['LongText']) ?>
                             <?php else: ?>
                                     <?= $this->input("PP_LongText"); ?>
                             <?php endif; ?>
+                            </p>
+                        </div>
                     <?php else: ?>
-                            <?= $this->input("PP_LongText") ?>
+                        <?php if(!$this->input("PP_LongText")->isEmpty()): ?>
+                            <div class="media-body">
+                                <p>
+                                <?= $this->input("PP_LongText") ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
-                    
-                    </p>
-                </div>
-                
-                <?php
-                    if($data['ProductImageRequired'] && $data['ProductImage'])
-                    {
-                    ?>
-                    <div class="seal-image">
-                    <img src="<?= $data['ProductImage']->getThumbnail('catalog_thumb'); ?>" alt="">
-                    </div>
-                    <?php
-                    }
-                ?>
+                <?php } ?>
 
-                
+                <?php
+                    if($data['ProductImageRequired'])
+                    {
+                        if($this->editmode)
+                        {
+                            ?>
+                            <div class="seal-image">
+                            <?php
+                            if($this->image("PP_Product_Image")->isEmpty())
+                            {
+                                echo $this->image("PP_Product_Image")->setImage($data['ProductImage']);
+                            }
+                            else{
+                                echo $this->image("PP_Product_Image");
+                            }
+                            ?>
+                            </div>
+                            <?php
+                            
+                        }
+                        else
+                        {
+                            $productImgSrcObj =  $this->image("PP_Product_Image");
+                            if($productImgSrcObj)
+                            {
+                            ?>
+                            <div class="seal-image">
+                            <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                            </div>
+                            <?php
+                            }
+                        }
+                    }
+                    ?>
             </div>
+            <?php } ?>
 
             <?php if($data['FeaturesRequired']){ ?>
             <div class="feature-benefit-list">
@@ -141,17 +187,17 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </div>
             <?php } ?>
 
-            <?php if($data['IsApplicationAvailable'] || $data['IsMarketsAvailable']){ ?>
+            <?php if($data['ApplicationRequired'] || $data['MarketsRequired']){ ?>
 
             <div class="table">
                 <table width="100%">
                     <thead>
                         <tr>
-                            <?php if($data['IsMarketsAvailable']){ ?>
+                            <?php if($data['MarketsRequired'] && $data['Markets']){ ?>
                                 <th width="30%" class="orange">Markets</th>
                             <?php } ?>
 
-                            <?php if($data['IsApplicationAvailable']){ ?>
+                            <?php if($data['ApplicationRequired'] && $data['Applications']){ ?>
                                 <th width="30%" class="orange">Applications</th>
                             <?php } ?>
 
@@ -160,12 +206,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     </thead>
                     <tbody>
                         <tr valign="top">
-                            <?php if($data['IsMarketsAvailable']){ ?>
+                            <?php if($data['MarketsRequired'] && $data['Markets']){ ?>
                                 <td>
                                     <?= $data['Markets'] ?>                                        
                                 </td>
                             <?php } ?>
-                            <?php if($data['IsApplicationAvailable']){ ?>
+                            <?php if($data['ApplicationRequired'] && $data['Applications']){ ?>
                                 <td>
                                     <?= $data['Applications'] ?>
                                 </td>
@@ -182,23 +228,53 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         </tr>
                     </tbody>
                 </table>
-                <p class="note">
-                <?= $this->input("PP_ApplicationComment", ['placeholder' => 'Enter comment']) ?>
-                </p>
+                <?php if($this->editmode): ?>
+                    <p class="note">
+                        <?php if($this->input("PP_ApplicationComment")->isEmpty()): ?>
+                                <?= $this->input("PP_ApplicationComment")->setDataFromResource('See the process diagram for Aggregate, Hard Rock Mining, Sand and Gravel markets on page 9 for alternative belt recommendations.') ?>
+                        <?php else: ?>
+                                <?= $this->input("PP_ApplicationComment"); ?>
+                        <?php endif; ?>
+                    </p>
+                <?php else: ?>
+                    <?php if(!$this->input("PP_ApplicationComment")->isEmpty()): ?>
+                        <p class="note">
+                        <?= $this->input("PP_ApplicationComment") ?>
+                        </p>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
 
             <?php } ?>
 
             <?php if($data['PowerOfFortressRequired']){ ?>
                 <div class="components-sec">
-                    <h2 class="orange">
                     
-                        <?= $this->input("PP_PowerOfFortressTechnology", ['placeholder' => 'Enter comment']) ?>
+
+                        <?php if($this->editmode): ?>
+                            <h2 class="orange">
+                                <?php if($this->input("PP_PowerOfFortressTechnology")->isEmpty()): ?>
+                                        <?= $this->input("PP_PowerOfFortressTechnology")->setDataFromResource('Fortified with the Power of Fortress™ Technology') ?>
+                                <?php else: ?>
+                                        <?= $this->input("PP_PowerOfFortressTechnology"); ?>
+                                <?php endif; ?>
+                            <br />
+                                <?php if($this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
+                                        <?= $this->input("PP_ConveyorBeltsComponents")->setDataFromResource('Conveyor Belt Components') ?>
+                                <?php else: ?>
+                                        <?= $this->input("PP_ConveyorBeltsComponents"); ?>
+                                <?php endif; ?>
+                            </h2>
+                        <?php else: ?>  
+                                <?php if(!$this->input("PP_PowerOfFortressTechnology")->isEmpty() || !$this->input("PP_ConveyorBeltsComponents")->isEmpty()): ?>
+                                    <h2 class="orange">
+                                        <?= $this->input("PP_PowerOfFortressTechnology") ?>
+                                    <br />
+                                        <?= $this->input("PP_ConveyorBeltsComponents") ?>
+                                    </h2>
+                                <?php endif; ?>
+                        <?php endif; ?>
                     
-                    <br />
-                        <?= $this->input("PP_ConveyorBeltsComponents", ['placeholder' => 'Enter comment']) ?>
-                        
-                    </h2>
                     <div class="media">
                         <div class="media-img">
                             <?php 
@@ -234,19 +310,26 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <table width="100%">
                     <tr>
                         <th>
-                            <?= $this->input("PP_CostPerTon", ['placeholder' => 'Get a lower cost-per-ton conveyed']) ?>
+                            <?php if($this->input("PP_CostPerTon")->isEmpty()): ?>
+                                    <?= $this->input("PP_CostPerTon")->setDataFromResource('Get a lower cost-per-ton conveyed') ?>
+                            <?php else: ?>
+                                    <?= $this->input("PP_CostPerTon"); ?>
+                            <?php endif; ?>
                         </th>
                         <th class="orange-bg">
-                            <?= $this->input("PP_TensionRange", ['placeholder' => 'Tension Range: 330 – 1500 PIW']) ?>
+                            <?php if($this->input("PP_TensionRange")->isEmpty()): ?>
+                                    <?= $this->input("PP_TensionRange")->setDataFromResource('Tension Range: 330 – 1500 PIW') ?>
+                            <?php else: ?>
+                                    <?= $this->input("PP_TensionRange"); ?>
+                            <?php endif; ?>
                         </th>
                     </tr>
                 </table>
             </div>
             <?php } ?>
-	
-	</section>
+	    </section>
 
-        <?php if($data['IsFeaturesAndBenefitAvailable']){ ?>
+        <?php if($data['FeaturesAndBenefitRequired'] && $data['FeaturesAndBenefits']){ ?>
         <section class="features-benefit-sec">
             <h1>
                 <span class="orange">
@@ -275,25 +358,54 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
             <?php if($data['FeaturesAndBenefits']) { 
                 foreach ($data['FeaturesAndBenefits'] as $fkey => $feature) {
-                    $md5FeatureNameKey = $feature['FeatureName'];
+                    $md5FeatureNameKey = md5($feature['FeatureName']);
                 ?>
                     <div class="media">
-
                         <?php
-                            if($feature['FeatureImage'])
+                            if($this->editmode)
                             {
-                            ?>
-                            <img src="<?= $feature['FeatureImage']->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="">
-                            <?php
+                                if($this->image("PPFI_{$md5FeatureNameKey}")->isEmpty())
+                                {
+                                    echo $this->image("PPFI_{$md5FeatureNameKey}")->setImage($feature['FeatureImage']);
+                                }
+                                else{
+                                    echo $this->image("PPFI_{$md5FeatureNameKey}");
+                                }
+                            }
+                            else
+                            {
+                                $PPFIImgSrcObj =  $this->image("PPFI_{$md5FeatureNameKey}");
+                                if($PPFIImgSrcObj)
+                                {
+                                ?>
+                                <img src="<?= $PPFIImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                <?php
+                                }
                             }
                         ?>
                         
                         <div class="media-body">
                             <h2 class="orange">
-                                <?= $feature['FeatureName']; ?>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("PPFN_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                <?= $this->input("PPFN_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("PPFN_{$md5FeatureNameKey}"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("PPFN_{$md5FeatureNameKey}") ?>
+                                <?php endif; ?>
                             </h2>
                             <p>
-                                <?= $feature['FeatureDescription']; ?>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("PPFD_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                <?= $this->input("PPFD_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureDescription']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("PPFD_{$md5FeatureNameKey}"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("PPFD_{$md5FeatureNameKey}") ?>
+                                <?php endif; ?>
                             </p>
                         </div>
                     </div>
@@ -353,6 +465,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-data">
             <?php
                 $conveyorBeltData = $data['productTables']['Conveyor Belt Data'];
+                $TableComment = $conveyorBeltData['TableComment'];
+                unset($conveyorBeltData['TableComment']);
                 
                 foreach ($conveyorBeltData as $key => $value) {
                 
@@ -416,10 +530,21 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 } 
             ?>
             </div>
+
                 <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Conveyor_Belt_Data_Comment', ['class'=>'note']); ?>
+                    <p class="note">
+                        <?php if($this->textarea("PP_Conveyor_Belt_Data_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PP_Conveyor_Belt_Data_Comment")->setDataFromResource($TableComment) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PP_Conveyor_Belt_Data_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Conveyor_Belt_Data_Comment'); ?></p>
+                    <?php if(!$this->textarea("PP_Conveyor_Belt_Data_Comment")->isEmpty()): ?>
+                        <p class="note">
+                            <?= $this->textarea("PP_Conveyor_Belt_Data_Comment") ?>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             <?php 
@@ -446,6 +571,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php 
                 
                 $LoadSupportMaximumBeltWidthData = $data['productTables']['Load Support – Maximum Belt Width Data'];
+                $TableComment = $LoadSupportMaximumBeltWidthData['TableComment'];
+                unset($LoadSupportMaximumBeltWidthData['TableComment']);
                 
                 foreach ($LoadSupportMaximumBeltWidthData as $key => $value) {
                    
@@ -531,11 +658,20 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
             </div>
                 <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Load_Support_Maximum_Belt_Comment', ['class'=>'note']); ?>
+                    <p class="note">
+                        <?php if($this->textarea("PP_Load_Support_Maximum_Belt_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment")->setDataFromResource($TableComment) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Load_Support_Maximum_Belt_Comment'); ?></p>
+                    <?php if(!$this->textarea("PP_Load_Support_Maximum_Belt_Comment")->isEmpty()): ?>
+                        <p class="note">
+                            <?= $this->textarea("PP_Load_Support_Maximum_Belt_Comment") ?>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
-
             <?php 
             }
             ?>
@@ -561,6 +697,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php 
                 
                 $TroughabilityMinimumBeltWidth = $data['productTables']['Troughability Minimum Belt Width'];
+                $TableComment = $TroughabilityMinimumBeltWidth['TableComment'];
+                unset($TroughabilityMinimumBeltWidth['TableComment']);
                 
                 foreach ($TroughabilityMinimumBeltWidth as $key => $value) {
                    
@@ -651,9 +789,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
             </div>
                 <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Troughability_Minimum_Belt_Width_Comment', ['class'=>'note']); ?>
+                    <p class="note">
+                        <?php if($this->textarea("PP_Troughability_Minimum_Belt_Width_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment")->setDataFromResource($TableComment) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Troughability_Minimum_Belt_Width_Comment'); ?></p>
+                    <?php if(!$this->textarea("PP_Troughability_Minimum_Belt_Width_Comment")->isEmpty()): ?>
+                        <p class="note">
+                            <?= $this->textarea("PP_Troughability_Minimum_Belt_Width_Comment") ?>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             <?php 
@@ -679,6 +827,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-data">
             <?php
                 $MinimumPulleyDiameters = $data['productTables']['Minimum Pulley Diameters'];
+                $TableComment = $MinimumPulleyDiameters['TableComment'];
+                unset($MinimumPulleyDiameters['TableComment']);
                 
                 foreach ($MinimumPulleyDiameters as $key => $value) {
                 
@@ -740,9 +890,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             ?>
             </div>
                 <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Minimum_Pulley_Diameters_Comment', ['class'=>'note']); ?>
+                    <p class="note">
+                        <?php if($this->textarea("PP_Minimum_Pulley_Diameters_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment")->setDataFromResource($TableComment) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Minimum_Pulley_Diameters_Comment'); ?></p>
+                    <?php if(!$this->textarea("PP_Minimum_Pulley_Diameters_Comment")->isEmpty()): ?>
+                        <p class="note">
+                            <?= $this->textarea("PP_Minimum_Pulley_Diameters_Comment") ?>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             <?php 
@@ -768,6 +928,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-data">
             <?php
                 $ElevatorBeltData = $data['productTables']['Elevator Belt Data'];
+                $TableComment = $ElevatorBeltData['TableComment'];
+                unset($ElevatorBeltData['TableComment']);
+
                 
                 foreach ($ElevatorBeltData as $key => $value) {
                 
@@ -829,9 +992,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             ?>
             </div>
                 <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Elevator_Belt_Data_Comment', ['class'=>'note']); ?>
+                    <p class="note">
+                        <?php if($this->textarea("PP_Elevator_Belt_Data_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PP_Elevator_Belt_Data_Comment")->setDataFromResource($TableComment) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PP_Elevator_Belt_Data_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Elevator_Belt_Data_Comment'); ?></p>
+                    <?php if(!$this->textarea("PP_Elevator_Belt_Data_Comment")->isEmpty()): ?>
+                        <p class="note">
+                            <?= $this->textarea("PP_Elevator_Belt_Data_Comment") ?>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             <?php 
@@ -857,6 +1030,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-data">
             <?php
                 $MaximumBucketProjection = $data['productTables']['Maximum Bucket Projection'];
+                $TableComment = $MaximumBucketProjection['TableComment'];
+                unset($MaximumBucketProjection['TableComment']);
                 
                 foreach ($MaximumBucketProjection as $key => $value) {
                 
@@ -918,9 +1093,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             ?>
             </div>
                 <?php if($this->editmode): ?>
-                    <?= $this->textarea('PP_Maximum_Bucket_Projection_Comment', ['class'=>'note']); ?>
+                    <p class="note">
+                        <?php if($this->textarea("PP_Maximum_Bucket_Projection_Comment")->isEmpty()): ?>
+                                <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment")->setDataFromResource($TableComment) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment"); ?>
+                        <?php endif; ?>
+                    </p>
                 <?php else: ?>
-                    <p class="note"><?= $this->textarea('PP_Maximum_Bucket_Projection_Comment'); ?></p>
+                    <?php if(!$this->textarea("PP_Maximum_Bucket_Projection_Comment")->isEmpty()): ?>
+                        <p class="note">
+                            <?= $this->textarea("PP_Maximum_Bucket_Projection_Comment") ?>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
 
             <?php 
@@ -1022,3 +1207,4 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
     </footer>
 </div>
+<?php endif; ?>
