@@ -181,15 +181,17 @@ class CSProductDataImportCommand extends AbstractCommand
                                     $fieldName = ucfirst($fieldConfig['fieldName']);
                                     if ($fieldConfig['objectType'] == 'class') {
                                         if(($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)){
-                                                
-                                            $masterValueArray = explode("|", $fieldValue);
+                                            
+                                            $masterValueArray = explode("|", trim(ucwords($fieldValue)));
+                                           
                                             $masterValueArray = array_map('trim', $masterValueArray);
-
+                                            
                                             $masterObjects = array();
 
                                             foreach ($masterValueArray as $val) {
                                                 $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'],$fieldConfig['createFlag']);
                                             }
+                                            
                                             $method = 'set' . $fieldName;
                                             $product->$method($masterObjects);
 

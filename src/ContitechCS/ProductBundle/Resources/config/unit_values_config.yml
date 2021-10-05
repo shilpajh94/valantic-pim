@@ -263,12 +263,12 @@ Type of Idler Offset LCRoll 45mm Unit:
   fieldValue: mm
   objectType: ProdAttrSetAE
 Minimum ultimate tension PIW:
-  fieldName: MinimumUltimateTensionPIW
+  fieldName: MinimumUltimateTensionPIWUnit
   fieldType: Input
   fieldValue: PIW
   objectType: ProdAttrSetAH
 Minimum ultimate tension kN/m:
-  fieldName: MinimumUltimateTensionkNm
+  fieldName: MinimumUltimateTensionkNmUnit
   fieldType: Input
   fieldValue: kN/m
   objectType: ProdAttrSetAH
@@ -303,12 +303,12 @@ Continuous industrial max. bucket projection in mm(Elevator Belt only) Unit:
   fieldValue: mm
   objectType: ProdAttrSetA
 Cover weight per 1 mm thickness Unit:
-  fieldName: CoverWeightPer1mmThicknessKGM
+  fieldName: CoverWeightPer1mmThicknessKGMUnit
   fieldType: Input
   fieldValue: kg/m²
   objectType: ProdAttrSetC
 Cover weight per 1/32 in. thickness Unit:
-  fieldName: CoverWeightPer132inThicknessLBS
+  fieldName: CoverWeightPer132inThicknessLBSUnit
   fieldType: Input
   fieldValue: lb./sq.ft.
   objectType: ProdAttrSetC
@@ -417,8 +417,8 @@ Belt thickness Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: ProdAttrSetD
-average permanent elongation in (%) unit:
-  fieldName: AveragePermanentElongationPercentage
+average permanent elongation in (%) Unit:
+  fieldName: AveragePermanentElongationPercentageUnit
   fieldType: Input
   fieldValue: '%'
   objectType: ProdAttrSetD
@@ -437,12 +437,12 @@ Step Length Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: ProdAttrSetF
-nominal cable diameter in mm unit:
+nominal cable diameter in mm Unit:
   fieldName: NominalCableDiameterinMMUnit
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetG
-nominal cable diameter in inch  unit:
+nominal cable diameter in inch  Unit:
   fieldName: NominalCableDiameterinInchUnit
   fieldType: Input
   fieldValue: inch
@@ -462,12 +462,12 @@ Length Feet Unit:
   fieldType: Input
   fieldValue: feet
   objectType: ProdAttrSetK
-Carcass gauge Uni in mm:
+Carcass gauge Unit in mm:
   fieldName: CarcassGaugeinMM_Unit
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetO
-Carcass gauge Uni in inch:
+Carcass gauge Unit in inch:
   fieldName: CarcassGaugeinInch_Unit
   fieldType: Input
   fieldValue: inch
