@@ -100,6 +100,7 @@ class S3Listener
     {
         // get the S3 path of asset from pimcore_s3 path mapping
         $s3CustomizationService = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class);
+        $assetPath = $s3CustomizationService->getS3PathForPimcorePath($assetPath, true);
         $this->s3Client->putObjectAcl(array(
             'ACL' => 'private',
             'Owner' => array(
