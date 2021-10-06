@@ -262,6 +262,16 @@ Type of Idler Offset LCRoll 45mm Unit:
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetAE
+Minimum ultimate tension PIW:
+  fieldName: MinimumUltimateTensionPIWUnit
+  fieldType: Input
+  fieldValue: PIW
+  objectType: ProdAttrSetAH
+Minimum ultimate tension kN/m:
+  fieldName: MinimumUltimateTensionkNmUnit
+  fieldType: Input
+  fieldValue: kN/m
+  objectType: ProdAttrSetAH
 Industrial Service Tension Capacity in PIW Unit:
   fieldName: IndustrialServiceTensionCapacityinPIWUnit
   fieldType: Input
@@ -292,6 +302,16 @@ Continuous industrial max. bucket projection in mm(Elevator Belt only) Unit:
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetA
+Cover weight per 1 mm thickness Unit:
+  fieldName: CoverWeightPer1mmThicknessKGMUnit
+  fieldType: Input
+  fieldValue: kg/m²
+  objectType: ProdAttrSetC
+Cover weight per 1/32 in. thickness Unit:
+  fieldName: CoverWeightPer132inThicknessLBSUnit
+  fieldType: Input
+  fieldValue: lb./sq.ft.
+  objectType: ProdAttrSetC
 Belt rating Unit:
   fieldName: beltRatingNMMUnit
   fieldType: Input
@@ -397,6 +417,11 @@ Belt thickness Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: ProdAttrSetD
+average permanent elongation in (%) Unit:
+  fieldName: AveragePermanentElongationPercentageUnit
+  fieldType: Input
+  fieldValue: '%'
+  objectType: ProdAttrSetD
 Specific belt mass Unit in LBS:
   fieldName: SpecificBeltMassinLBSUnit
   fieldType: Input
@@ -412,21 +437,16 @@ Step Length Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: ProdAttrSetF
-nominal cable diameter in mm unit:
+nominal cable diameter in mm Unit:
   fieldName: NominalCableDiameterinMMUnit
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetG
-nominal cable diameter in inch  unit:
+nominal cable diameter in inch  Unit:
   fieldName: NominalCableDiameterinInchUnit
   fieldType: Input
   fieldValue: inch
   objectType: ProdAttrSetG
-Width Unit:
-  fieldName: WidthMMUOM
-  fieldType: Input
-  fieldValue: mm
-  objectType: ProdAttrSetK
 Length M Unit:
   fieldName: LengthMUOM
   fieldType: Input
@@ -442,12 +462,12 @@ Length Feet Unit:
   fieldType: Input
   fieldValue: feet
   objectType: ProdAttrSetK
-Carcass gauge Uni in mm:
+Carcass gauge Unit in mm:
   fieldName: CarcassGaugeinMM_Unit
   fieldType: Input
   fieldValue: mm
   objectType: ProdAttrSetO
-Carcass gauge Uni in inch:
+Carcass gauge Unit in inch:
   fieldName: CarcassGaugeinInch_Unit
   fieldType: Input
   fieldValue: inch
@@ -570,28 +590,23 @@ Typical Tensile PSI Unit:
 Max Temperature F Unit:
   fieldName: MaxTemperatureFUnit
   fieldType: Input
-  fieldValue: F
+  fieldValue: °F
   objectType: ProdAttrSetR
 Min Temperature F Unit:
   fieldName: MinTemperatureFUnit
   fieldType: Input
-  fieldValue: F
+  fieldValue: °F
   objectType: ProdAttrSetR
-Belt speed Unit:
-  fieldName: BeltSpeedUnit
+Max Temperature C Unit:
+  fieldName: MaxTemperatureCUnit
   fieldType: Input
-  fieldValue: m/s
-  objectType: ProdAttrSetU
-Input power unit:
-  fieldName: InputPowerUnit
+  fieldValue: °C
+  objectType: ProdAttrSetR
+Min Temperature C Unit:
+  fieldName: MinTemperatureCUnit
   fieldType: Input
-  fieldValue: VAC
-  objectType: ProdAttrSetU
-Humidity Unit:
-  fieldName: HumidityUnit
-  fieldType: Input
-  fieldValue: RH
-  objectType: ProdAttrSetU
+  fieldValue: °C
+  objectType: ProdAttrSetR
 Thickness MM Unit:
   fieldName: ThicknessMMUnit
   fieldType: Input
@@ -692,3 +707,8 @@ Minimum Belt width Unit in inch:
   fieldType: Input
   fieldValue: inch
   objectType: ProdAttrSetY
+Available Profile Pattern Widths Unit:
+  fieldName: AvailableProfilePatternWidthsUnit
+  fieldType: Input
+  fieldValue: inch
+  objectType: ProdAttrSetZ

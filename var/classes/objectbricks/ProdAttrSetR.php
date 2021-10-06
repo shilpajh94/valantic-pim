@@ -12,8 +12,8 @@ Fields Summary:
 - MinTemperatureF [numeric]
 - TypicalElongationPercent [numeric]
 - CutAndGougeResistance [input]
-- OilResistance [booleanSelect]
-- ISO284StaticConductive [booleanSelect]
+- OilResistance [input]
+- ISO284StaticConductive [input]
 - MaxAbrasionRotatingMMUnit [input]
 - MaxAbrasionNonRotatingMMUnit [input]
 - TypicalAbrasionRotatingMMUnit [input]
@@ -31,8 +31,8 @@ Fields Summary:
 - MaxTemperatureC [numeric]
 - MinTemperatureC [numeric]
 - MinElongationPercent [numeric]
-- AbrasionResistance [booleanSelect]
-- FlameResistance [booleanSelect]
+- AbrasionResistance [input]
+- FlameResistance [input]
 - MaxAbrasionRotatingInchUnit [input]
 - MaxAbrasionNonRotatingInchUnit [input]
 - TypicalAbrasionRotatingInchUnit [input]
@@ -153,7 +153,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'MaxAbrasionRotatingMM',
                      'title' => 'Max Abrasion Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -184,7 +184,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'MaxAbrasionNonRotatingMM',
                      'title' => 'Max Abrasion Non-Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -215,7 +215,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'TypicalAbrasionRotatingMM',
                      'title' => 'Typical Abrasion Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -246,7 +246,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'TypicalAbrasionNonRotatingMM',
                      'title' => 'Typical Abrasion Non-Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -429,7 +429,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'CutAndGougeResistance',
                      'title' => 'Cut And Gouge Resistance',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -443,40 +443,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
                      'width' => 200,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'OilResistance',
                      'title' => 'Oil Resistance',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -484,42 +468,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
                      'width' => 200,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'ISO284StaticConductive',
                      'title' => 'ISO 284 Static Conductive',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -527,6 +496,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
@@ -814,7 +784,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'MaxAbrasionRotatingInch',
                      'title' => 'Max Abrasion Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -845,7 +815,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'MaxAbrasionNonRotatingInch',
                      'title' => 'Max Abrasion Non-Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -876,7 +846,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'TypicalAbrasionRotatingInch',
                      'title' => 'Typical Abrasion Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -907,7 +877,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'TypicalAbrasionNonRotatingInch',
                      'title' => 'Typical Abrasion Non-Rotating',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1076,40 +1046,24 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
                      'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'AbrasionResistance',
                      'title' => 'Abrasion Resistance',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'padding-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1117,42 +1071,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                   10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
-                     'fieldtype' => 'booleanSelect',
-                     'yesLabel' => 'Yes',
-                     'noLabel' => 'No',
-                     'emptyLabel' => 'empty',
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'empty',
-                        'value' => 0,
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'Yes',
-                        'value' => 1,
-                      ),
-                      2 => 
-                      array (
-                        'key' => 'No',
-                        'value' => -1,
-                      ),
-                    ),
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'fieldtype' => 'input',
                      'width' => 300,
-                     'queryColumnType' => 'tinyint(1) null',
-                     'columnType' => 'tinyint(1) null',
-                     'phpdocType' => 'boolean',
+                     'defaultValue' => NULL,
+                     'queryColumnType' => 'varchar',
+                     'columnType' => 'varchar',
+                     'columnLength' => 190,
+                     'phpdocType' => 'string',
+                     'regex' => '',
+                     'unique' => false,
+                     'showCharCount' => false,
                      'name' => 'FlameResistance',
                      'title' => 'Flame Resistance',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => 'padding-left:80px;',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -1160,6 +1099,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
+                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,

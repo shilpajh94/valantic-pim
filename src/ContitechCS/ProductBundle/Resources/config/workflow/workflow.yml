@@ -1,0 +1,156 @@
+parameters:
+    host: 'https://pim.conti.de'
+    completed:
+        send_to_process:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForProcessing'
+            notificationTo: 
+                users: 
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - UserOwner
+#                roles:
+        send_to_edit:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentToRandD'
+            notificationTo: 
+                users:
+                roles:
+                    - EditorCS
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        send_for_review:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForReview'
+            notificationTo: 
+                users:
+                roles:
+                    - MarComCS
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        reject_product:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productRejected'
+            notificationTo: 
+                users:
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        approve_product:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productApproved'
+            notificationTo: 
+                users:
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+        send_to_publish:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentToPublish'
+            notificationTo: 
+                users:
+                    - UserOwner   
+                    # user owner is product creator means Product Manager
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+#                roles:
+    
+        publish_product:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPublished'
+            notificationTo: 
+                users:
+                    - ProductOwner
+                roles:
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+
+        pause_product:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPaused'
+            notificationTo: 
+                users:
+                    - ProductOwner
+                    - UserOwner
+                roles:
+                    - MarComCS
+                    
+#            notificationCC: 
+#                users: 
+#                    - ProductOwner
+#                    - UserOwner
+            action: 
+                isPaused: true
+                published: false
+        archive_product:
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productArchived'
+            notificationTo: 
+                users:
+                    - ProductOwner
+                    - UserOwner
+                roles:
+                    - MarComCS
+            action: 
+                isArchived: true
+                published: false
+            
+    transition: 
+        pause_product:
+            action: 
+                isPaused: true
+                published: false
+            condition:
+                
+        archive_product:
+            action: 
+                isArchived: true
+                published: false
+            condition:
+                methods: [checkIfChildsArchive]
+        publish_product:
+            action: 
+                isPaused: false
+                published: true
+        archive_asset:
+            action:
+                path: '/Contitech_ConveyorSolution/Internal Assets'
+        unarchive_asset:
+            action:
+                path: '/Contitech_ConveyorSolution/Product Assets/Unarchived'
+        
+    # Workflow reminder configuration
+    # Places: Places is name of the Place which defined in workflow configuration in app/config.yml
+    reminder:
+        places:
+            enrich:
+                subject: 'Product Enrich'
+                # If further action could not performed by recipent, then a reminder email will be send.
+                reminderIntervalDay:
+                    'First Reminder': 2
+                    'Second Reminder': 4
+                    'Final Reminder': 5
+                # If User will take action till last reminder, then send reminder to BU Admin after specified days.
+                reminderToBUAdminIntervalDay: [5]
+                templatePath: '/Workflow/Email Template/productEnrichReminder'
+            review_content:
+                subject: 'Product Review'
+                reminderIntervalDay:
+                    'First Reminder': 2
+                    'Second Reminder': 4
+                    'Final Reminder': 5
+                reminderToBUAdminIntervalDay: [5]
+                templatePath: '/Workflow/Email Template/productReviewReminder'
+            buAdminTemplatePath: '/Workflow/Email Template/productReminderBUAdmin'

@@ -55,23 +55,36 @@ class DefaultController extends FrontendController
      */
     public function getUsers(Request $request)
     {
-        $userList = $filteredList = new User\Listing();
+        $rolesList = new User\Role\Listing();
+        $ownerRoles = UserConstants::ALLOWED_PRODUCT_OWNER_ROLES;
+        $conditionArr = [];
+        foreach ($ownerRoles as $roleName) {
+            $conditionArr[] = 'name = ' . $rolesList->quote($roleName);
+        }
+        if (count($conditionArr) > 0) {
+            $rolesList->setCondition(implode(" OR ", $conditionArr));
+        }
+        $rolesList->load();
+        $roleIds = [];
+        foreach ($rolesList as $role) {
+            $roleIds[] = $role->getId();
+        }
+        $userList = new User\Listing();
+        $conditionArr = [];
+        foreach ($roleIds as $roleId) {
+            $conditionArr[] = '( `roles` = ' . $userList->quote($roleId) . ' OR `roles` like ' . $userList->quote("%," . $roleId) . ' OR `roles` like ' . $userList->quote($roleId . ",%") . ' OR `roles` like ' . $userList->quote("%," . $roleId . ",%") . ' )';
+        }
+        if (count($conditionArr) > 0) {
+            $userList->setCondition(implode(" OR ", $conditionArr));
+        }
         $userList->load();
 
         $fieldArray = array();
         foreach ($userList as $list) {
-            if ($list->getName() == UserConstants::USER_PRODUCT_MANAGER) {
-                $parentId = $list->getId();
-                $filteredList->setCondition('parentId = ?', $parentId);
-
-                $filteredList->load();
-                foreach ($filteredList as $fList) {
-                    $fieldArrayTemp = array();
-                    $fieldArrayTemp['id'] = $fList->getId();
-                    $fieldArrayTemp['name'] = $fList->getName();
-                    $fieldArray[] = $fieldArrayTemp;
-                }
-            }
+            $fieldArrayTemp = array();
+            $fieldArrayTemp['id'] = $list->getId();
+            $fieldArrayTemp['name'] = $list->getName();
+            $fieldArray[] = $fieldArrayTemp;
         }
         return $this->json(["userList" => $fieldArray]);
     }
@@ -87,8 +100,10 @@ class DefaultController extends FrontendController
         $success = true;
         $msg = "";
         $parentId = '';
+        $natureOfProduct = 'Product Group';
 
         $productName = $request->get('productName');
+        $currentUser = $request->get('currentUser');
         if (trim($productName)) {
             $productCategoryId = $request->get('categoryId');
             $productCategoryCheck = $request->get('productCategoryCheck');
@@ -109,6 +124,7 @@ class DefaultController extends FrontendController
 
             if (!$productCategoryCheck) {
                 $productHier[] = $CSHierarchyName;
+                $natureOfProduct = "Final Product";
             }
             $productHier[] = $productName;
 
@@ -143,7 +159,6 @@ class DefaultController extends FrontendController
                 if (!$CSProductObj) {
 
                     try {
-
                         $product = new DataObject\CSProducts();
                         $product->setKey($hierarchy);
                         $product->setName($hierarchy, 'en');
@@ -151,19 +166,24 @@ class DefaultController extends FrontendController
                         $product->setOmitMandatoryCheck(true);
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
-                        $product->setParentCategory([$CSHierarchyObj]);
+                        $product->setUserOwner($currentUser);
+                        $product->setUserModification($currentUser);
+                        //$product->setNatureOfProduct($natureOfProduct);
+                        $product->setPublished(false);
+
+                        $product->setParentCategory([$CSProductObj]);
 
                         // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
-                        if(!empty($productName)) {
+                        if (!empty($productName)) {
                             $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
-                            $list->setCondition('Name = ?',$productName);
-                            $uniqueProduct=$list->load(); 
-                            if(!empty($uniqueProduct)) {
+                            $list->setCondition('Name = ?', $productName);
+                            $uniqueProduct = $list->load();
+                            if (!empty($uniqueProduct)) {
                                 echo json_encode(array('success' => false, 'objectId' => $parentId, "msg" => "Duplicate product name"));
                                 die;
                             }
-                        } 
-                       
+                        }
+
                         if ($allObjectBricks) {
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
@@ -173,9 +193,9 @@ class DefaultController extends FrontendController
                             }
                         }
 
-                        $result = $product->save();
-                        $parentId = $result->getId();
-
+                        $product->save();
+                        $parentId = $product->getId();
+                        \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {
                         $success = false;
@@ -183,6 +203,9 @@ class DefaultController extends FrontendController
                     }
                 } else {
                     $parentId = $CSProductObj->getId();
+                    // echo "Inside Else";
+                    // print_r($parentId);
+                    // echo "\n\n";
                 }
                 $counter++;
             }

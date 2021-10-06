@@ -2,6 +2,7 @@
 
 /**
  * File Path: Your File path on system
+ * DownloadOrMapping: D - Downloading Assets, M - Mapping With Product
  * Command: cs:one-time-import:kentico-asset-import <filePath>
  * Des: Kentico Asset hierarchy asset import script.
  */
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 
 class CSKenticoAssetImportCommand extends AbstractCommand
@@ -23,25 +25,32 @@ class CSKenticoAssetImportCommand extends AbstractCommand
     {
         $this->setName('cs:one-time-import:kentico-asset-import')
             ->setDescription('Kentico asset import script')
-            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ');
+            ->addArgument('filePath', InputArgument::REQUIRED, 'Enter File Path: ')
+            ->addArgument('DownloadOrMapping', InputArgument::REQUIRED, 'Enter File Path: ');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $filePath = $input->getArgument('filePath');
+        $downloadOrMapping = strtoupper($input->getArgument('DownloadOrMapping'));
+
+        if (!in_array($downloadOrMapping, array('D', 'M'))) {
+            echo "\n Invalid Argument: Use 'D' For Downloading Assets and 'M' for Mapping Assets with Products. \n ";
+            die;
+        }
 
         $this->t = time();
         if (is_file($filePath)) {
             p_r('Script started at: ' . date('h:i:s', $this->t));
             p_r('------------------------------------------------');
-            $this->import($filePath);
+            $this->import($filePath, $downloadOrMapping);
             p_r('--------------Total Execution Time---------------');
             p_r('Script completed after: ' . (abs(time() - $this->t) / 60) . ' mnt');
         }
     }
 
 
-    private function import($filePath)
+    private function import($filePath, $downloadOrMapping)
     {
         try {
 
@@ -49,12 +58,34 @@ class CSKenticoAssetImportCommand extends AbstractCommand
 
             $data = $results['data'];
 
-            unset($result);
+            $assetsData = [];
+            if ($data) {
+                foreach ($data as $dataValue) {
+                    $level1 = trim($dataValue['Level1']);
+                    $level2 = trim($dataValue['Level2']);
+                    $level3 = trim($dataValue['Level3']);
+                    $level4 = trim($dataValue['Level4']);
+                    $level5 = trim($dataValue['Level5']);
 
-            if (isset($data) && is_array($data)) {
-                foreach ($data  as $result) {
-                    if (isset($result) && is_array($result)) {
-                        $this->createHierarchy($result);
+                    if ($level1 && $level2 && $level3 && $level4 && $level5) {
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3 . "/" . $level4][] = $level5;
+                    } else if ($level1 && $level2 && $level3 && $level5) {
+                        $assetsData[$level1 . "/" . $level2 . "/" . $level3][] = $level5;
+                    } else if ($level1 && $level2 && $level5) {
+                        $assetsData[$level1 . "/" . $level2][] = $level5;
+                    } else if ($level1 && $level5) {
+                        $assetsData[$level1][] = $level5;
+                    }
+                }
+            }
+
+            unset($result);
+            unset($data);
+
+            if (isset($assetsData) && is_array($assetsData)) {
+                foreach ($assetsData as $hierarchyPath => $images) {
+                    if (isset($images) && is_array($images)) {
+                        $this->createHierarchy($hierarchyPath, $images, $downloadOrMapping);
                     }
                 }
             }
@@ -63,29 +94,106 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         }
     }
 
-    public function createHierarchy($result)
+    public function createHierarchy($assetPathToStore, $images, $downloadOrMapping)
     {
-        $imageUrl = end($result);
-        $imageName = $this->getImageUrl($imageUrl);
-        $hierarchyArr = array_slice($result, 0, -1);
+        if (preg_match('/\bCollection\b/', $assetPathToStore)) {
+            $assetPathToStore = str_replace("Collection/", "", $assetPathToStore);
+        }
+        $hierarchyFolderPath = ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER;
+        $hierarchyObjectPath = '/' . $hierarchyFolderPath . '/' . $assetPathToStore;
+        $hierarchyPathObjCheck = DataObject\CSHierarchy::getByPath($hierarchyObjectPath);
+        if ($hierarchyPathObjCheck) {
+            $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
+        } else {
+            $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . '/Collection' . "/" . $assetPathToStore;
+        }
+        if ($downloadOrMapping == 'M') {
+            $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $assetPathToStore;
+            $CSProductObj = DataObject\CSProducts::getByPath($productPath);
+        }
 
-        $hierarchyString = implode('/', $hierarchyArr);
+        if ($downloadOrMapping == 'D') {
+            echo "\n\n Folder Creation started";
+            echo "\n\n Path - " . $hierarchyPath;
+            try {
+                $folderId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
+                echo "\n\n Folder Creation Done";
+            } catch (\Throwable $th) {
+                echo "\n\n";
+                p_r($th->getMessage());
+                echo "\n\n Folder Creation Failed";
+            }
+        }
 
-        $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $hierarchyString;
-        try {
-            $assetId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
-            $assetObj = new Asset();
-            $assetObj->setFilename($imageName);
-            $assetObj->setData(file_get_contents($imageUrl));
-            $assetObj->setParentId($assetId);
-            $assetObj->save();
-        } catch (\Throwable $th) {
-            p_r($th->getMessage());
+        $items = [];
+        if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
+            $aContext = array(
+                'http' => array(
+                    'proxy'           => 'tcp://cias.geoaws.com:8080',
+                    'request_fulluri' => true,
+                ),
+            );
+            $cxContext = stream_context_create($aContext);
+        }
+
+        foreach ($images as $key => $imageUrl) {
+            try {
+
+                $imageName = $this->getImageUrl($imageUrl, $key);
+
+                $assetObj = Asset::getByPath($hierarchyPath . "/" . $imageName);
+
+                if (!$assetObj && $folderId && $downloadOrMapping == 'D') {
+                    $assetObj = new Asset();
+                    $assetObj->setFilename($imageName);
+                    if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
+                        $assetObj->setData(file_get_contents($imageUrl, False, $cxContext));
+                    } else {
+                        $assetObj->setData(file_get_contents($imageUrl));
+                    }
+                    $assetObj->setParentId($folderId);
+                    $assetObj->save();
+
+                    echo "\n\n Downloaded Successfully.";
+                } else if ($downloadOrMapping == 'D') {
+                    echo "\n\n Already Exist in Assets.";
+                }
+
+                if ($assetObj && ($downloadOrMapping == 'M')) {
+                    echo "\n\n Set image in Hotspot";
+                    $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
+                    $advancedImage->setImage($assetObj);
+                    $items[] = $advancedImage;
+                } else if ($downloadOrMapping == 'M') {
+                    echo "\n\n " . $hierarchyPath . "/" . $imageName . " - Image Not Found";
+                }
+            } catch (\Throwable $th) {
+                echo "\n\n";
+                p_r($th->getMessage());
+                echo "\n\n";
+            }
+        }
+
+        if ($downloadOrMapping == 'M') {
+
+            if ($items && $CSProductObj) {
+                echo "\n\n Adding " . count($items) . " in Gallary Started";
+                $CSProductObj->setImageGallery(new \Pimcore\Model\DataObject\Data\ImageGallery($items));
+                $CSProductObj->setOmitMandatoryCheck(true);
+                $CSProductObj->setPublished(true);
+                $CSProductObj->save();
+                echo "\n\n Gallery Saved in path " . $productPath;
+            } else {
+                echo "\n\n Product group Folder '{$productPath}' not found.";
+            }
         }
     }
 
-    public function getImageUrl($imageUrl)
+    public function getImageUrl($imageUrl, $key)
     {
+        if (strpos($imageUrl, "attachment.aspx") !== false) {
+            $imageUrl = str_replace("attachment.aspx", "attachment_{$key}.jpg.aspx", $imageUrl);
+        }
         $imageName = explode("/", $imageUrl);
         $imageName = end($imageName);
         $imageName = explode(".aspx", $imageName);
@@ -138,16 +246,5 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                 'error' => $e->getMessage()
             );
         }
-    }
-
-    /**
-     * @param $logHandler
-     * @param array $dataRow
-     */
-    private function csvLog($logHandler, array $dataRow)
-    {
-        $csvDelimiter = ",";
-
-        fputcsv($logHandler, $dataRow, $csvDelimiter);
     }
 }

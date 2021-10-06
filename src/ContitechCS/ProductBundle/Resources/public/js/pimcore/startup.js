@@ -13,11 +13,19 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
 
     pimcoreReady: function (params, broker) {
         let user = pimcore.globalmanager.get("user");
-        if (user.admin || user.isAllowed("plugin_csproduct")) {
+        if (user.admin || user.isAllowed("plugin_cs_add_product")) {
             this.leftNavigation();
         }
     },
    
+//    preOpenObject: function (object) {
+////      if (object.data.general.o_className == 'CSProducts') {
+//object.edit.dataFields.name.component.NameVal.hide(true);
+////object.edit.datafields.Name.fieldConfig.noteditable = true;
+////console.log(object.edit.dataFields);
+//          
+////      }  
+//    },
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");
         let ulElement = navigation.selectNode('ul');
@@ -38,6 +46,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
     },
 
     addNewProductForm: function () {
+        var user = pimcore.globalmanager.get("user"); 
         let classCombo = this.getHierarchyClassCombo();
         let userCombo = this.getUsersCombo();
         this.basicForm = new Ext.create("Ext.form.Panel", {
@@ -52,6 +61,11 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         html: '',
                         name: 'addProductError',
                         itemId:'addProductError'
+                    },
+                    {
+                        xtype: 'hiddenfield',
+                        name: 'currentUser',
+                        value: user.id
                     },
                     {
                         xtype: 'checkboxfield',
@@ -73,7 +87,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                         },
                         width: 500,
                         labelWidth: 200,
-                        fieldLabel: 'Create product group',
+                        fieldLabel: 'Create Product Group',
                         allowBlank: true,
                         id: 'cName',
                         value: this.productCategoryCheck,
@@ -144,7 +158,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         });
        
         this.basicFormWin = new Ext.create("Ext.Window", {
-            title: 'Add new product/product group',
+            title: 'Add New Product/Product Group',
             modal : true,
             maskOnDisable: false,
             items: [this.basicForm]
@@ -235,7 +249,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         users.load();
 
         return new Ext.create('Ext.form.ComboBox', {
-            fieldLabel: 'Select User <span style="color:red;">*</span>',
+            fieldLabel: 'Select Product Owner <span style="color:red;">*</span>',
             name: 'userId',
             style: {
                 margin: '30px'

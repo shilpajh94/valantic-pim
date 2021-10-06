@@ -111,7 +111,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'InternationalStandards',
                      'title' => 'International Standards',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,

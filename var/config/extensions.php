@@ -2,7 +2,7 @@
 
 return [
     "bundle" => [
-        "ADAuthBundle\\ADAuthBundle" => TRUE,
+        "ADAuthBundle\\ADAuthBundle" => FALSE,
         "Elements\\Bundle\\ProcessManagerBundle\\ElementsProcessManagerBundle" => TRUE,
         "ImportBundle\\ImportBundle" => TRUE,
         "RequiredAttributesBundle\\RequiredAttributesBundle" => TRUE,

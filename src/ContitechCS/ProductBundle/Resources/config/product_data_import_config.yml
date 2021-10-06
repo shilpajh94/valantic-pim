@@ -66,51 +66,51 @@ Recommended fastener plate:
   fieldName: RecommendedFastenerPlate
   fieldType: Input
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (0-640 kg/m2 20):
+load-support maximum belt width in inches (0-40 lb./cu. ft.20):
   fieldName: LoadSupportMaximumBeltWidthinInch640KGM20
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (0-640 kg/m 35):
+load-support maximum belt width in inches (0-40 lb./cu. ft.35 ):
   fieldName: LoadSupportMaximumBeltWidthinInch640KGM35
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (0-640 kg/m2 45):
+load-support maximum belt width in inches (0-40 lb./cu. Ft.45 ):
   fieldName: LoadSupportMaximumBeltWidthinInch640KGM45
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (641-1280 kg/m2 20):
+load-support maximum belt width in inches (41-80 lb./cu. ft. 20 ):
   fieldName: LoadSupportMaximumBeltWidthinInch1280KGM20
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (641-1280 kg/m2 35):
+load-support maximum belt width in inches (41-80 lb./cu. ft.35 ):
   fieldName: LoadSupportMaximumBeltWidthinInch1280KGM35
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (641-1280 kg/m2 45):
+load-support maximum belt width in inches (41-80 lb./cu. ft.45 ):
   fieldName: LoadSupportMaximumBeltWidthinInch1280KGM45
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (1281-1920 kg/m2 20):
+load-support maximum belt width in inches (81-120 lb./cu. ft.20 ):
   fieldName: LoadSupportMaximumBeltWidthinInch1920KGM20
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (1281-1920 kg/m2 35):
+load-support maximum belt width in inches (81-120 lb./cu. ft.35 ):
   fieldName: LoadSupportMaximumBeltWidthinInch1920KGM35
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (1281-1920 kg/m2 45):
+load-support maximum belt width in inches (81-120 lb./cu. ft.45 ):
   fieldName: LoadSupportMaximumBeltWidthinInch1920KGM45
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (>1920 kg/m2 35):
+load-support maximum belt width in inches (Over 120 lb./cu. ft.35 ):
   fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM35
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (>1920 kg/m2 45):
+load-support maximum belt width in inches (Over 120 lb./cu. ft.45 ):
   fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM45
   fieldType: Number
   objectType: ProdAttrSetAA
-load-support maximum belt width in inch (>1920 kg/m2 20):
+load-support maximum belt width in inches (Over 120 lb./cu. ft.20 ):
   fieldName: LoadSupportMaximumBeltWidthinInchGreaterThan1920KGM20
   fieldType: Number
   objectType: ProdAttrSetAA
@@ -150,15 +150,15 @@ Weight (Lb):
   fieldName: WeightLb
   fieldType: Number
   objectType: ProdAttrSetAD
-Type of Idler - Inline - 20:
+Type of Idler  - Inline - 20:
   fieldName: TypeofIdlerInline20inch
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Inline - 35:
+Type of Idler  - Inline - 35:
   fieldName: TypeofIdlerInline35inch
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Inline - 45:
+Type of Idler  - Inline - 45:
   fieldName: TypeofIdlerInline45inch
   fieldType: Number
   objectType: ProdAttrSetAE
@@ -186,40 +186,40 @@ Type of Idler - Offset LC Roll - 45:
   fieldName: TypeofIdlerOffsetLCRoll45inch
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Inline - 20:
+Type of Idler - Inline - 20 in mm:
   fieldName: TypeofIdlerInline20mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Inline - 35:
+Type of Idler - Inline - 35 in mm:
   fieldName: TypeofIdlerInline35mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Inline - 45:
+Type of Idler - Inline - 45 in mm:
   fieldName: TypeofIdlerInline45mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset Equal - 20:
+Type of Idler - Offset Equal - 20 in mm:
   fieldName: TypeofIdlerOffsetEqual20mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset Equal - 35:
+Type of Idler - Offset Equal - 35 in mm:
   fieldName: TypeofIdlerOffsetEqual35mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset Equal - 45:
+Type of Idler - Offset Equal - 45 in mm:
   fieldName: TypeofIdlerOffsetEqual45mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset LC Roll - 20:
+Type of Idler - Offset LC Roll - 20 in mm:
   fieldName: TypeofIdlerOffsetLCRoll20mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset LC Roll - 35:
+Type of Idler - Offset LC Roll - 35 in mm:
   fieldName: TypeofIdlerOffsetLCRoll35mm
   fieldType: Number
   objectType: ProdAttrSetAE
-Type of Idler - Offset LC Roll - 40:
-  fieldName: TypeofIdlerOffsetLCRoll40mm
+Type of Idler - Offset LC Roll - 45 in mm:
+  fieldName: TypeofIdlerOffsetLCRoll45mm
   fieldType: Number
   objectType: ProdAttrSetAE
 Ease of Installation:
@@ -234,6 +234,14 @@ PermanentElongation:
   fieldName: PermanentElongation
   fieldType: Input
   objectType: ProdAttrSetAG
+Minimum ultimate tension PIW:
+  fieldName: MinimumUltimateTensionPIW
+  fieldType: Number
+  objectType: ProdAttrSetAH
+Minimum ultimate tension kN/m:
+  fieldName: MinimumUltimateTensionkNm
+  fieldType: Number
+  objectType: ProdAttrSetAH
 industrial service tension capacity in PIW (for Elevator Belt only):
   fieldName: IndustrialServiceTensionCapacityinPIW
   fieldType: Number
@@ -258,9 +266,13 @@ continuous industrial max. bucket projection in mm(Elevator Belt only):
   fieldName: ContinuousIndustrialMaxBucketProjectionMM
   fieldType: Number
   objectType: ProdAttrSetA
+Segment:
+  fieldName: Segment
+  fieldType: Multiselection
+  objectType: class
 Region:
   fieldName: Region
-  fieldType: Select
+  fieldType: Multiselection
   objectType: ProdAttrSetB
 identifier:
   fieldName: Identifier
@@ -374,6 +386,10 @@ cover gauge examples imperial in inch:
   fieldName: CoverGaugeExamplesImperialinInch
   fieldType: Input
   objectType: ProdAttrSetD
+Belt Rating:
+  fieldName: BeltRating
+  fieldType: Input
+  objectType: ProdAttrSetD
 splice type:
   fieldName: SpliceType
   fieldType: Input
@@ -390,7 +406,7 @@ nominal cable diameter in mm:
   fieldName: NominalCableDiameterinMM
   fieldType: Number
   objectType: ProdAttrSetG
-nominal cable diameter in inch :
+nominal cable diameter in inch:
   fieldName: NominalCableDiameterinInch
   fieldType: Number
   objectType: ProdAttrSetG
@@ -400,7 +416,7 @@ Functionality:
   objectType: ProdAttrSetH
 Product Options:
   fieldName: ProductOptions
-  fieldType: Select
+  fieldType: Input
   objectType: ProdAttrSetI
 International Standards:
   fieldName: InternationalStandards
@@ -408,7 +424,7 @@ International Standards:
   objectType: ProdAttrSetJ
 Width:
   fieldName: WidthMM
-  fieldType: Number
+  fieldType: Input
   objectType: ProdAttrSetK
 Length M:
   fieldName: LengthM
@@ -416,7 +432,7 @@ Length M:
   objectType: ProdAttrSetK
 Size:
   fieldName: Size
-  fieldType: Number
+  fieldType: Input
   objectType: ProdAttrSetK
 Width - Inch:
   fieldName: WidthInch
@@ -434,7 +450,7 @@ Sales unit:
   fieldName: Salesunit
   fieldType: Select
   objectType: ProdAttrSetL
-SAP Code:
+"SAP #":
   fieldName: SapCode
   fieldType: Number
   objectType: ProdAttrSetL
@@ -506,7 +522,7 @@ Number of Holes:
   fieldName: NumberofHoles
   fieldType: Number
   objectType: ProdAttrSetQ
-Fastener Type:  
+Fastener Type:
   fieldName: FastenerType
   fieldType: Input
   objectType: ProdAttrSetQ
@@ -522,7 +538,7 @@ Endless or Laced:
   fieldName: EndlessOrLaced
   fieldType: Input
   objectType: ProdAttrSetQ
-Fastener or Bulk:  
+Fastener or Bulk:
   fieldName: FastenerorBulk
   fieldType: Input
   objectType: ProdAttrSetQ
@@ -558,7 +574,7 @@ Side Belt or Center Belt:
   fieldName: SideBeltorCenterBelt
   fieldType: Input
   objectType: ProdAttrSetQ
-Features (ie. Grain saver):  
+Features (ie. Grain saver):
   fieldName: FeaturesieGrainSaver
   fieldType: Input
   objectType: ProdAttrSetQ
@@ -586,28 +602,36 @@ Typical Elongation (%):
   fieldName: TypicalElongationPercent
   fieldType: Number
   objectType: ProdAttrSetR
-Min. Tensile:
+Min. Tensile (MPa):
   fieldName: MinTensileMPa
   fieldType: Number
   objectType: ProdAttrSetR
-Typical Tensile:
+Typical Tensile (MPa):
   fieldName: TypicalTensileMPa
   fieldType: Number
   objectType: ProdAttrSetR
-Min. Tensile:
+Min. Tensile (PSI):
   fieldName: MinTensileMPa
   fieldType: Number
   objectType: ProdAttrSetR
-Typical Tensile:
+Typical Tensile (PSI):
   fieldName: TypicalTensilePSI
   fieldType: Number
   objectType: ProdAttrSetR
-Max Temperature:
+Max Temperature (F):
   fieldName: MaxTemperatureF
   fieldType: Number
   objectType: ProdAttrSetR
-Min Temperature:
+Min Temperature (F):
   fieldName: MinTemperatureF
+  fieldType: Number
+  objectType: ProdAttrSetR
+Max Temperature (C):
+  fieldName: MaxTemperatureC
+  fieldType: Number
+  objectType: ProdAttrSetR
+Min Temperature (C):
+  fieldName: MinTemperatureC
   fieldType: Number
   objectType: ProdAttrSetR
 Abrasion Resistance:
@@ -664,22 +688,18 @@ Volume Flow:
   objectType: ProdAttrSetS
 Belt Width:
   fieldName: BeltWidth
-  fieldType: Select
+  fieldType: Input
   objectType: ProdAttrSetT
 Belt Speed:
   fieldName: BeltSpeed
-  fieldType: Number
+  fieldType: Input
   objectType: ProdAttrSetU
 Input Power:
   fieldName: InputPower
-  fieldType: Number
+  fieldType: Input
   objectType: ProdAttrSetU
 Humidity:
   fieldName: Humidity
-  fieldType: Number
-  objectType: ProdAttrSetU
-Humidity text:
-  fieldName: HumidityText
   fieldType: Input
   objectType: ProdAttrSetU
 Input Power text:
@@ -692,7 +712,7 @@ Belt Range:
   objectType: ProdAttrSetU
 IP Class:
   fieldName: IPClass
-  fieldType: Number
+  fieldType: Input
   objectType: ProdAttrSetU
 Belt Type:
   fieldName: BeltType
@@ -701,6 +721,10 @@ Belt Type:
 System Outputs:
   fieldName: SystemOutputs
   fieldType: TextArea
+  objectType: ProdAttrSetU
+Temperature range:
+  fieldName: TemperatureRange
+  fieldType: Input
   objectType: ProdAttrSetU
 Thickness mm:
   fieldName: ThicknessMM
@@ -792,11 +816,11 @@ Inner diameter:
   objectType: ProdAttrSetV
 Rubber Compound:
   fieldName: RubberCompound
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetV
 Plastic Liner Type:
   fieldName: PlasticLinerType
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetW
 Rubber type:
   fieldName: RubberType
@@ -808,7 +832,7 @@ Profile Type:
   objectType: ProdAttrSetW
 Polymer Type:
   fieldName: PolymerType
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetW
 Plastic Liner Color:
   fieldName: PlasticLinerColor
@@ -816,7 +840,7 @@ Plastic Liner Color:
   objectType: ProdAttrSetW
 Material:
   fieldName: Material
-  fieldType: Input
+  fieldType: Select
   objectType: ProdAttrSetX
 Minimum Belt width:
   fieldName: MinimumBeltMMWidth
@@ -836,8 +860,12 @@ Maximum Belt Width Inch:
   objectType: ProdAttrSetY
 Available Profile Pattern Widths:
   fieldName: AvailableProfilePatternWidths
-  fieldType: Select
+  fieldType: Number
   objectType: ProdAttrSetZ
+# Product Name:
+#   fieldName: Name
+#   fieldType: Input
+#   objectType: class
 Corporate Brand:
   fieldName: CorporateBrand
   fieldType: Input
@@ -854,9 +882,44 @@ Features:
   fieldName: Features
   fieldType: Input
   objectType: class
+Applications:
+  fieldName: CSProductApplications
+  fieldType: manyToManyObjectRelation
+  className: CSApplications
+  fieldNameToSearch: ApplicationName
+  objectType: class
+  mandatoryFields: "ApplicationName|ApplicationCode"
+  createFlag: true
+Features and Benefits (combination of text and pic):
+  fieldName: CSProductFeaturesAndBenefits
+  fieldType: manyToManyObjectRelation
+  className: CSFeaturesAndBenefits
+  fieldNameToSearch: FeatureName
+  objectType: class
+  mandatoryFields: "FeatureName|FeatureDescription"
+  createFlag: true
+Industries:
+  fieldName: CSProductIndustries
+  fieldType: manyToManyObjectRelation
+  className: CSIndustries
+  fieldNameToSearch: IndustryName
+  objectType: class
+  mandatoryFields: "IndustryName|IndustryCode"
+  createFlag: true
+# Related Products:
+#   fieldName: CSProducts
+#   fieldType: manyToManyObjectRelation
+#   className: CSRelatedProducts
+#   fieldNameToSearch: Name
+#   objectType: class
+#   createFlag: false
 Product description:
   fieldName: ProductDescription
   fieldType: TextArea
+  objectType: class
+Product Flag:
+  fieldName: NatureOfProduct
+  fieldType: Input
   objectType: class
 Short Text:
   fieldName: ShortText
@@ -913,4 +976,8 @@ Completeness Percentage:
 Empty Fields:
   fieldName: EmptyFields
   fieldType: TextArea
+  objectType: class
+Product Claim/Slogan:
+  fieldName: ProductClaimSlogan
+  fieldType: Input
   objectType: class

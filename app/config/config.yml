@@ -4,7 +4,8 @@ imports:
     - { resource: services.yml }
     - { resource: "local/" }
     - { resource: product_workflow.yml }
-    - { resource: cs_product_workflow.yml }
+    - { resource: cs_product_enrichment_workflow.yml }
+    - { resource: cs_asset_workflow.yml }
 
 pimcore:
     # IMPORTANT Notice!
@@ -34,6 +35,7 @@ pimcore:
     models:
         class_overrides:
             'Pimcore\Model\DataObject\Product': 'AppBundle\Model\DataObject\Products'
+            'Pimcore\Model\DataObject\CSProducts': 'ContitechCS\ProductBundle\Model\DataObject\CSProducts'
 
 #### CLASS OVERRIDES EXAMPLES
 #    models:

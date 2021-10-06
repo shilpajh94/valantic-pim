@@ -2,7 +2,7 @@
 
 /** 
 Fields Summary: 
-- Material [input]
+- Material [select]
 */ 
 
 
@@ -98,24 +98,27 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => NULL,
-                     'defaultValue' => NULL,
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                     'fieldtype' => 'select',
+                     'options' => 
+                    array (
+                    ),
+                     'width' => '',
+                     'defaultValue' => '',
+                     'optionsProviderClass' => '',
+                     'optionsProviderData' => '',
                      'queryColumnType' => 'varchar',
                      'columnType' => 'varchar',
                      'columnLength' => 190,
                      'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
+                     'dynamicOptions' => false,
                      'name' => 'Material',
                      'title' => 'Material',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',

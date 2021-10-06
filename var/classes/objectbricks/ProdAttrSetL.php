@@ -103,6 +103,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'select',
                      'options' => 
                     array (
+                      0 => 
+                      array (
+                        'key' => 'PC',
+                        'value' => 'PC',
+                      ),
                     ),
                      'width' => 200,
                      'defaultValue' => '',
@@ -116,10 +121,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'Salesunit',
                      'title' => 'Sales unit',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => false,
+                     'locked' => NULL,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -169,7 +174,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'SapCode',
                      'title' => 'SAP Code',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
