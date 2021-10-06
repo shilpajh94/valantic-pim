@@ -31,7 +31,14 @@ services:
     ContitechCS\ProductBundle\EventListener\ObjectListener:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: preUpdate }
-
+    
+    ContitechCS\ProductBundle\EventListener\AssetListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.asset.postAdd, method: onPostAdd , priority: 20 }
+            
+    Pimcore\Bundle\AdminBundle\Controller\Admin\DataObject\ClassController:
+            class: ContitechCS\ProductBundle\Controller\ClassController
+        
     ContitechCS\ProductBundle\Services\AppService:
         public: true
 
@@ -41,6 +48,9 @@ services:
     ContitechCS\ProductBundle\Services\ConfigProviderService:
         public: true
         
+    ContitechCS\ProductBundle\Workflow\AssetSupportStrategy:
+        public: true
+    
     ContitechCS\ProductBundle\Workflow\ProductEnrichmentListener:
         tags:
             - { name: kernel.event_listener, event: workflow.product_enrichment.completed, method: csWorkflowNotification }
@@ -51,7 +61,11 @@ services:
 #            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.pause_product, method: csWorkflowTransitionNotification} 
 #            - { name: kernel.event_listener, event: workflow.product_enrichment.completed.archived_product, method: csWorkflowTransitionNotification } 
             - { name: kernel.event_listener, event: workflow.product_enrichment.transition, method: csWorkflowActions } 
-
+            
+    ContitechCS\ProductBundle\Workflow\AssetWorkflowListener:
+        tags:
+            - { name: kernel.event_listener, event: workflow.cs_asset_workflow.transition, method: csAssetTransitionAction }
+            
     ContitechCS\ProductBundle\Services\PercentageCompletionService:
         class: ContitechCS\ProductBundle\Services\PercentageCompletionService
         public: true

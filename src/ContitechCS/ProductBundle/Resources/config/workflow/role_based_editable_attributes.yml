@@ -1,0 +1,19 @@
+ProductManagerCS:
+    - CSRelatedProducts
+    - CSProductApplications
+    - CSProductFeaturesAndBenefits
+    - CSProductIndustries
+    - Diameter
+    - CorporateBrand
+    - ProductBrand
+    - ProductDescription
+    - LogoImage
+MarComCS:
+    - CorporateBrand
+    - ProductBrand
+    - ProductDescription
+    - ShortText
+    - LongText
+    - ProductClaimSlogan
+EditorCS:
+    - Diameter
