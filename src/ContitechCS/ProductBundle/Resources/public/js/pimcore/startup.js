@@ -257,7 +257,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: users,
             queryMode: 'local',
             editable: true,
-            allowBlank: true,
+            allowBlank: false,
             blankText: 'Field is required',
             msgTarget: 'under',
             displayField: 'name',
