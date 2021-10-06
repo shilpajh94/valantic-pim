@@ -53,7 +53,8 @@ class CSProductDataImportCommand extends AbstractCommand
             "Import Sheet Row Number",
             "Name",
             "Comment",
-            "Missing Column Name"
+            "Missing Column Name",
+            "Extra attribute data given"
         ));
 
         try {
@@ -65,13 +66,9 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $data = $results['data'];
 
-            // $data = \array_slice($data, 0, 3);
-
+            //$data = \array_slice($data, 0, 1);
             $removeSlashInProductName = [];
 
-            // p_r($data);
-
-            // die;
             $i = 0;
             foreach ($data as $key => $productData) {
                 $missingColName = '';
@@ -92,8 +89,8 @@ class CSProductDataImportCommand extends AbstractCommand
                 $productName = $productData['Product Name'];
                 $productCol = $productData['Product'];
 
-                if($productData['Product'] != null){
-                    $productNameCombined = $productName.'/'.$productCol;
+                if ($productData['Product'] != null) {
+                    $productNameCombined = $productName . '/' . $productCol;
                     $removeSlashInProductName[$productNameCombined] = $productName;
                     $productName = $productNameCombined;
                 }
@@ -103,12 +100,8 @@ class CSProductDataImportCommand extends AbstractCommand
                 unset($productData['Product Hierarchy']);
                 unset($productData['Product Name']);
                 // // $productData = array_slice($productData, 2);
-                                                
-                // p_r($productData);
-                // die;
-                foreach ($productHier as $key => $hierarchy) {
 
-                    // p_r($hierarchy)
+                foreach ($productHier as $key => $hierarchy) {
 
                     $hierarchyArr = array_slice($productHier, 0, $key + 1);
 
@@ -120,13 +113,12 @@ class CSProductDataImportCommand extends AbstractCommand
 
                     $hierarchyString = implode('/', $hierarchyArr);
                     $parentProductObject = '';
-                    if($parentHierArr)
-                    {
+                    if ($parentHierArr) {
                         $parentHierNewString = implode('/', $parentHierArr);
                         $parentProductPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $parentHierNewString;
                         $parentProductObject = DataObject\CSProducts::getByPath($parentProductPath);
                     }
-                    
+
                     $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $hierarchyString;
 
                     $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
@@ -135,6 +127,7 @@ class CSProductDataImportCommand extends AbstractCommand
 
                     if ($hierarchyPathObj) {
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
+
                         if ($CSHierarchyRelatedBricks) {
                             $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
                             $allObjectBricks = array_unique($allObjectBricks);
@@ -144,71 +137,61 @@ class CSProductDataImportCommand extends AbstractCommand
                     $CSProductObj = DataObject\CSProducts::getByPath($productPath);
 
                     if (!$CSProductObj) {
-                            // p_r($productData);
                         try {
 
                             $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
 
-                            if(isset($removeSlashInProductName[$hierarchy]))
-                            {
+                            if (isset($removeSlashInProductName[$hierarchy])) {
                                 $product->setName($removeSlashInProductName[$hierarchy]);
-                            }
-                            else{
+                            } else {
                                 $product->setName($hierarchy);
                             }
-
-                            // $product->setName($hierarchy, 'en');
-
-                            if($parentProductObject)
-                            {
+                            if ($parentProductObject) {
                                 $product->setParentCategory([$parentProductObject]);
                             }
-                            
+
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
                             $bricksData = [];
-                            // p_r($productData);
-                            // die;
+                            $fieldKeyArray = array();
+                            $natureOfProduct = 0;
+
                             foreach ($productData as $fieldCVSKey => $fieldValue) {
                                 $fieldCVSKey = trim($fieldCVSKey);
-                                // p_r($fieldCVSKey);
+
                                 if (isset($productDataImportConfig[$fieldCVSKey])) {
                                     $fieldConfig = $productDataImportConfig[$fieldCVSKey];
-                                    
                                     $fieldName = ucfirst($fieldConfig['fieldName']);
                                     if ($fieldConfig['objectType'] == 'class') {
-                                        if(($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)){
-                                            
+                                        if (($fieldConfig['fieldType'] == 'manyToManyObjectRelation') && trim($fieldValue)) {
+
                                             $masterValueArray = explode("|", trim(ucwords($fieldValue)));
-                                           
+
                                             $masterValueArray = array_map('trim', $masterValueArray);
-                                            
+
                                             $masterObjects = array();
 
                                             foreach ($masterValueArray as $val) {
-                                                $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'],$fieldConfig['createFlag']);
+                                                $masterObjects[] = $this->getRelationalObject($fieldConfig['className'], $fieldConfig['fieldNameToSearch'], $val, $fieldConfig['mandatoryFields'], $fieldConfig['createFlag']);
                                             }
-                                            
+
                                             $method = 'set' . $fieldName;
                                             $product->$method($masterObjects);
-
-                                        }else if($fieldConfig['fieldType'] == 'Multiselection'){
+                                        } else if ($fieldConfig['fieldType'] == 'Multiselection') {
                                             $fieldValue = trim($fieldValue);
                                             $fieldValueArr = explode('|', $fieldValue);
                                             $fieldValue = array_map('trim', $fieldValueArr);
                                             $method = 'set' . $fieldName;
                                             $product->$method($fieldValue);
-
-                                        }else{
-                                            if($fieldName == 'NatureOfProduct')
-                                            {
-                                                if($fieldValue)
-                                                {
+                                        } else {
+                                            if ($fieldName == 'NatureOfProduct') {
+                                                if ($fieldValue) {
                                                     $fieldValue = 'Final Product';
-                                                }else{
+                                                    $natureOfProduct = 1;
+                                                } else {
                                                     $fieldValue = 'Product Group';
                                                 }
                                             }
@@ -218,6 +201,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                     } else {
                                         $bricksData[$fieldConfig['objectType']][$fieldName]['fieldType'] = $fieldConfig['fieldType'];
                                         $bricksData[$fieldConfig['objectType']][$fieldName]['fieldValue'] = $fieldValue;
+                                        $configAttributeArray[] = $fieldValue;
                                     }
                                 }
                             }
@@ -233,34 +217,46 @@ class CSProductDataImportCommand extends AbstractCommand
                                             $fieldValue = trim($fieldData['fieldValue']);
                                             $objectBrickFieldMethod = 'set' . $fieldKey;
 
-                                            if(($fieldData['fieldType'] == 'Multiselection') && $fieldValue){
+                                            if (($fieldData['fieldType'] == 'Multiselection') && $fieldValue) {
                                                 $fieldValueArr = explode('|', $fieldValue);
                                                 $fieldValue = array_map('trim', $fieldValueArr);
                                             }
                                             $brickObject->$objectBrickFieldMethod($fieldValue);
                                         }
 
-                                        foreach($unitValueConfig as $unit =>$unitValue){
-                                        
+                                        foreach ($unitValueConfig as $unit => $unitValue) {
+
                                             $fieldKey = ucfirst($unitValue['fieldName']);
                                             $objectBrickFieldMethod = 'set' . $fieldKey;
-                                           
-                                            if($unitValue['objectType']==$brick){
+
+                                            if ($unitValue['objectType'] == $brick) {
                                                 $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
-                                            }
-                                            else{
+                                            } else {
                                                 continue;
-                                            }  
+                                            }
                                         }
                                         $method = 'set' . $brick;
                                         $product->getProductAttributes()->$method($brickObject);
+                                        if ($natureOfProduct == 1) {
+                                            unset($bricksData[$brick]);
+                                        }
+                                    }
+                                }
+                                $extraAttrString = '';
+                                if ($natureOfProduct == 1) {
+                                    foreach ($bricksData as $extraBricks) {
+                                        foreach ($extraBricks as $b => $v) {
+                                            if (!empty($v['fieldValue'])) {
+                                                $extraAttrString = $b . ", " . $extraAttrString;
+                                            }
+                                        }
                                     }
                                 }
                             }
                             $result = $product->save();
                             $parentId = $result->getId();
                             echo "\n" . $msg = "Product added successfully";
-                            echo "\n Hierarchy created: ".$productPath;
+                            echo "\n Hierarchy created: " . $productPath;
                             $comment = "Product added successfully";
                             echo "\n Product asset folder creation started.";
                             \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
@@ -290,7 +286,8 @@ class CSProductDataImportCommand extends AbstractCommand
                             $i,
                             $hierarchyKey,
                             $comment,
-                            $missingColName
+                            $missingColName,
+                            $extraAttrString
                         ));
                     } else {
                         $parentId = $CSProductObj->getId();
@@ -334,12 +331,12 @@ class CSProductDataImportCommand extends AbstractCommand
     /**
      * return object or false
      */
-    public function getRelationalObject($className, $fieldNameToSearch, $searchString, $mandatoryFields, $createFlag = false){
+    public function getRelationalObject($className, $fieldNameToSearch, $searchString, $mandatoryFields, $createFlag = false)
+    {
         $searchString = trim($searchString);
         $className = trim($className);
 
-        if($createFlag)
-        {    
+        if ($createFlag) {
             $mandatoryFields = trim($mandatoryFields);
             $validKey = DataObject\Service::getValidKey($searchString, "object");
             $constant = ImportConstants::getDynamicConstant($className);
@@ -347,16 +344,14 @@ class CSProductDataImportCommand extends AbstractCommand
             $parentId = DataObject\Service::createFolderByPath($constant)->getId();
 
             $class = "Pimcore\\Model\\DataObject\\{$className}";
-            $object = $class::getByPath("/".$constant."/".$validKey);
-            if(!$object)
-            {
+            $object = $class::getByPath("/" . $constant . "/" . $validKey);
+            if (!$object) {
                 try {
 
                     $object = new $class();
                     $object->setKey($validKey);
 
-                    if($mandatoryFields)
-                    {
+                    if ($mandatoryFields) {
                         $mandatoryFieldsArr = explode('|', $mandatoryFields);
                         $masterValueArray = array_map('trim', $mandatoryFieldsArr);
 
@@ -370,21 +365,18 @@ class CSProductDataImportCommand extends AbstractCommand
                     $object->setOmitMandatoryCheck(true);
                     $object->setPublished(TRUE);
                     $object->save();
-
-                    } catch (\Throwable $th) {
-                        p_r($th->getMessage());
-                    }
+                } catch (\Throwable $th) {
+                    p_r($th->getMessage());
+                }
             }
-        }
-        else
-        {
+        } else {
             $class = "Pimcore\\Model\\DataObject\\{$className}\\Listing";
 
             $objectlist = new $class;
             $objectlist->setCondition("$fieldNameToSearch = ?", $searchString);
             $objectlist->setLimit(1);
             $objectlist->load();
-            
+
             foreach ($objectlist as $object) {
                 return $object;
             }

@@ -34,8 +34,7 @@ class CSKenticoAssetImportCommand extends AbstractCommand
         $filePath = $input->getArgument('filePath');
         $downloadOrMapping = strtoupper($input->getArgument('DownloadOrMapping'));
 
-        if(!in_array($downloadOrMapping, array('D','M')))
-        {
+        if (!in_array($downloadOrMapping, array('D', 'M'))) {
             echo "\n Invalid Argument: Use 'D' For Downloading Assets and 'M' for Mapping Assets with Products. \n ";
             die;
         }
@@ -97,30 +96,25 @@ class CSKenticoAssetImportCommand extends AbstractCommand
 
     public function createHierarchy($assetPathToStore, $images, $downloadOrMapping)
     {
-        if (preg_match('/\bCollection\b/', $assetPathToStore)) { 
-            $assetPathToStore = str_replace("Collection/","",$assetPathToStore);
+        if (preg_match('/\bCollection\b/', $assetPathToStore)) {
+            $assetPathToStore = str_replace("Collection/", "", $assetPathToStore);
         }
         $hierarchyFolderPath = ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER;
-        $hierarchyObjectPath = '/'.$hierarchyFolderPath.'/'.$assetPathToStore;
+        $hierarchyObjectPath = '/' . $hierarchyFolderPath . '/' . $assetPathToStore;
         $hierarchyPathObjCheck = DataObject\CSHierarchy::getByPath($hierarchyObjectPath);
-        if ($hierarchyPathObjCheck){
+        if ($hierarchyPathObjCheck) {
             $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
+        } else {
+            $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . '/Collection' . "/" . $assetPathToStore;
         }
-        else{
-            $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER .'/Collection' ."/" . $assetPathToStore;
-        }
-        // echo "\n Calling Function ";
-        // $hierarchyPath = "/" . ImportConstants::CONTITECH_CS_ASSET_FOLDER . "/" . $assetPathToStore;
-
-
-        if($downloadOrMapping == 'M'){
+        if ($downloadOrMapping == 'M') {
             $productPath = "/" . ImportConstants::CONTITECH_CS_PRODUCT_FOLDER . '/' . $assetPathToStore;
             $CSProductObj = DataObject\CSProducts::getByPath($productPath);
         }
 
-        if($downloadOrMapping == 'D'){
+        if ($downloadOrMapping == 'D') {
             echo "\n\n Folder Creation started";
-            echo "\n\n Path - ". $hierarchyPath;
+            echo "\n\n Path - " . $hierarchyPath;
             try {
                 $folderId = Asset\Service::createFolderByPath($hierarchyPath)->getId();
                 echo "\n\n Folder Creation Done";
@@ -129,8 +123,6 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                 p_r($th->getMessage());
                 echo "\n\n Folder Creation Failed";
             }
-            
-            
         }
 
         $items = [];
@@ -143,17 +135,15 @@ class CSKenticoAssetImportCommand extends AbstractCommand
             );
             $cxContext = stream_context_create($aContext);
         }
-        
-        foreach ($images as $key => $imageUrl) {
-            // echo "\n Key - ". $key;
-            try {
-                
-                $imageName = $this->getImageUrl($imageUrl, $key);
-                
-                $assetObj = Asset::getByPath($hierarchyPath."/".$imageName);
 
-                if(!$assetObj && $folderId && $downloadOrMapping == 'D')
-                {
+        foreach ($images as $key => $imageUrl) {
+            try {
+
+                $imageName = $this->getImageUrl($imageUrl, $key);
+
+                $assetObj = Asset::getByPath($hierarchyPath . "/" . $imageName);
+
+                if (!$assetObj && $folderId && $downloadOrMapping == 'D') {
                     $assetObj = new Asset();
                     $assetObj->setFilename($imageName);
                     if (CUSTOM_ENV == "prod" || CUSTOM_ENV == "stage") {
@@ -165,20 +155,17 @@ class CSKenticoAssetImportCommand extends AbstractCommand
                     $assetObj->save();
 
                     echo "\n\n Downloaded Successfully.";
-                }
-                else if($downloadOrMapping == 'D'){
+                } else if ($downloadOrMapping == 'D') {
                     echo "\n\n Already Exist in Assets.";
                 }
 
-                if($assetObj && ($downloadOrMapping == 'M'))
-                {
+                if ($assetObj && ($downloadOrMapping == 'M')) {
                     echo "\n\n Set image in Hotspot";
                     $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
                     $advancedImage->setImage($assetObj);
                     $items[] = $advancedImage;
-                }
-                else if ($downloadOrMapping == 'M'){
-                    echo "\n\n ". $hierarchyPath."/".$imageName. " - Image Not Found";
+                } else if ($downloadOrMapping == 'M') {
+                    echo "\n\n " . $hierarchyPath . "/" . $imageName . " - Image Not Found";
                 }
             } catch (\Throwable $th) {
                 echo "\n\n";
@@ -187,10 +174,10 @@ class CSKenticoAssetImportCommand extends AbstractCommand
             }
         }
 
-        if($downloadOrMapping == 'M'){
+        if ($downloadOrMapping == 'M') {
 
             if ($items && $CSProductObj) {
-                echo "\n\n Adding ".count($items). " in Gallary Started";
+                echo "\n\n Adding " . count($items) . " in Gallary Started";
                 $CSProductObj->setImageGallery(new \Pimcore\Model\DataObject\Data\ImageGallery($items));
                 $CSProductObj->setOmitMandatoryCheck(true);
                 $CSProductObj->setPublished(true);
