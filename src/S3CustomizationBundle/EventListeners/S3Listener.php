@@ -95,6 +95,21 @@ class S3Listener
 //            $this->asset->update(true);
 //        }
     }
+    
+    protected function makeAssetPrivateInS3($assetPath, $isTmp = false)
+    {
+        // get the S3 path of asset from pimcore_s3 path mapping
+        $s3CustomizationService = \Pimcore::getKernel()->getContainer()->get(\S3CustomizationBundle\Services\S3CustomizationService::class);
+        $this->s3Client->putObjectAcl(array(
+            'ACL' => 'private',
+            'Owner' => array(
+                'DisplayName' => S3_BUCKET,
+            ),
+            'Bucket' => S3_BUCKET,
+            'Key' => $assetPath,
+            'RequestPayer' => S3_BUCKET,
+        ));
+    }
 
     /**
      * Check if asset need to make public in S3 bucket
@@ -131,6 +146,12 @@ class S3Listener
                         //if(!$this->asset->getProperty("isPublicInS3")) {
                         $this->makeAssetPublicInS3('assets'.$key);
                         //}
+                    } catch(\Exception $e) {
+                        // do nothing
+                    }
+                } else {
+                    try {
+                        $this->makeAssetPrivateInS3('assets'.$key);
                     } catch(\Exception $e) {
                         // do nothing
                     }
