@@ -141,7 +141,7 @@ pimcore:
                         - published
                         - in_process
                     to: in_rd_edit
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS")) or (has_role("ROLE_PRODUCTMANAGERCS") and (subject.getProductOwner() == user.getId()))
                     options:
                         label: 'Send to R&D Edit'
                         notes:
@@ -200,7 +200,7 @@ pimcore:
                     from:
                         - in_publish
                     to: published
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS")) or (has_role("ROLE_PRODUCTMANAGERCS") and (subject.getUserOwner() == user.getId()))
                     options:
                         label: 'Publish'
                         notes:
@@ -212,7 +212,7 @@ pimcore:
                     from:
                         - published
                     to: paused
-                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS"))
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS")) or (has_role("ROLE_PRODUCTMANAGERCS") and (subject.getProductOwner() == user.getId()))
                     options:
                         label: 'Pause'
                         notes:
@@ -221,14 +221,14 @@ pimcore:
                         changePublishedState: force_unpublished    
 
                 archive_product:
-                  from:
-                    - published
-                  to: archived
-                  guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_PRODUCTMANAGERCS"))
-                  options:
-                    label: 'Archive'
-                    notes:
-                      commentEnabled: true
-                      commentRequired: true
-                    changePublishedState: force_unpublished                                               
+                    from:
+                        - published
+                    to: archived
+                    guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS")) or (has_role("ROLE_PRODUCTMANAGERCS") and (subject.getProductOwner() == user.getId()))
+                    options:
+                        label: 'Archive'
+                        notes:
+                            commentEnabled: true
+                            commentRequired: true
+                        changePublishedState: force_unpublished                                               
         
