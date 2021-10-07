@@ -1,8 +1,11 @@
 <?php 
 
 /** 
+* Generated at: 2021-10-06T19:18:41+05:30
 * Inheritance: no
 * Variants: no
+* Changed by: admin (2)
+* IP: ::1
 
 
 Fields Summary: 
@@ -15,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSRegion',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1632554744,
+   'modificationDate' => 1633528121,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
