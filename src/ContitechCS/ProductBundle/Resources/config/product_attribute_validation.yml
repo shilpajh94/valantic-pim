@@ -12,7 +12,7 @@ Fortress XP:
         fieldName: CorporateBrand
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     hinge:
         fieldName: Hinge
@@ -118,7 +118,7 @@ ContiTitan:
         fieldName: CSProductIndustries
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -173,7 +173,7 @@ ContiFlex:
         fieldName: CSProductIndustries
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -235,7 +235,7 @@ Plylon Plus:
         objectType: class
 Spartan:
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -290,7 +290,7 @@ Wood Sawyer:
         fieldName: CSProductApplications
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -348,7 +348,7 @@ Pathfinder Plus:
         fieldName: CSProductIndustries
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -451,7 +451,7 @@ Pathfinder Plus:
         objectType: ProdAttrSetAE
 TransConti:
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -479,7 +479,7 @@ Flexowell - Corrugated Sidewall Belts:
         fieldName: CSProductIndustries
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -507,7 +507,7 @@ Cover Options:
         fieldName: CSProductApplications
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -577,7 +577,7 @@ Flexsteel:
         fieldName: CSProductIndustries
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     Corporate Brand:
         fieldName: CorporateBrand
@@ -789,7 +789,7 @@ Steelcord Conveyor Belts:
         fieldName: SpecificBeltMassinLBS
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -922,7 +922,7 @@ Phoenix Phoenocord:
         fieldName: SpecificBeltMassinLBS
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -1055,7 +1055,7 @@ Marathon:
         fieldName: SpecificBeltMassinLBS
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -1296,7 +1296,7 @@ Textile Conveyor Belts:
         fieldName: SpecificBeltMassinLBS
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -1522,7 +1522,7 @@ ContiFlex Plus:
         fieldName: BeltRating
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -1784,7 +1784,7 @@ Texsteel:
         fieldName: BeltRating
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -2031,7 +2031,7 @@ Wood Sawyer Plus:
         fieldName: BeltRating
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -2353,7 +2353,7 @@ ContiAgriFlex:
         fieldName: ContinuousIndustrialMaxBucketProjectionMM
         objectType: ProdAttrSetA
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -2624,7 +2624,7 @@ Solid Woven Conveyor Belts:
         fieldName: BeltRating
         objectType: ProdAttrSetD
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -2694,7 +2694,7 @@ Features:
         fieldName: CSProductIndustries
         objectType: class
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -2827,7 +2827,7 @@ Steep Incline  Conveyor Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -2978,7 +2978,7 @@ Enclosed Conveyor Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -3132,7 +3132,7 @@ Processing & Special Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -3280,7 +3280,7 @@ Drive & Movement:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -3446,7 +3446,7 @@ Filtering & Draining:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -3600,7 +3600,7 @@ Seeding & Harvesting:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -3835,7 +3835,7 @@ Pick-up Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -4070,7 +4070,7 @@ Baler Belts- Endless Wrapped Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -4311,7 +4311,7 @@ Bucket Elevator & Seed Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -4546,7 +4546,7 @@ Draper Belts for Cutter Heads:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -4781,7 +4781,7 @@ Draper Belts – Pre-cut & Laced:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -5016,7 +5016,7 @@ Swather Canvas:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -5251,7 +5251,7 @@ Tube Conveyor Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -5486,7 +5486,7 @@ Baler Belts:
         fieldName: NominalCableDiameterinInch
         objectType: ProdAttrSetG
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -5683,7 +5683,7 @@ Service Material:
         fieldName: Certificate
         objectType: ProdAttrSetK
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -5960,7 +5960,7 @@ Accessories & Components:
         fieldName: Certificate
         objectType: ProdAttrSetK
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
@@ -6102,7 +6102,7 @@ Digital Solution:
         fieldName: InternationalStandards
         objectType: ProdAttrSetJ
     Region:
-        fieldName: Region
+        fieldName: CSRegion
         objectType: class
     identifier:
         fieldName: Identifier
