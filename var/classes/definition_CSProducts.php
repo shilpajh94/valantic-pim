@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-06T19:20:07+05:30
+* Generated at: 2021-10-08T14:56:00+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -65,7 +65,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1633528206,
+   'modificationDate' => 1633685158,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2447,7 +2447,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   array (
-                    'classes' => 'CSProducts',
+                    'classes' => 'CSHierarchy',
                   ),
                 ),
                  'pathFormatterClass' => '',
@@ -2461,7 +2461,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'style' => 'margin-left:10px; clear:both;',
                  'permissions' => NULL,
                  'datatype' => 'data',
-                 'invisible' => true,
+                 'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => false,
               )),

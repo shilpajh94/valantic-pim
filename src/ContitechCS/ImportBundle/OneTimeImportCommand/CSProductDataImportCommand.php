@@ -125,7 +125,15 @@ class CSProductDataImportCommand extends AbstractCommand
 
                     $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
 
+                    if ($hierarchyPathObj && $hierarchyPathObj->getLevel() != 'Level 1') {
+                        $parentHierarchyObj = $hierarchyPathObj->getParent();
+                    }
                     if ($hierarchyPathObj) {
+                        $parentObjForLeaf = $hierarchyPathObj;
+                    }
+
+                    if ($hierarchyPathObj) {
+
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
 
                         if ($CSHierarchyRelatedBricks) {
@@ -148,15 +156,16 @@ class CSProductDataImportCommand extends AbstractCommand
                             } else {
                                 $product->setName($hierarchy);
                             }
-                            if ($parentProductObject) {
-                                $product->setParentCategory([$parentProductObject]);
+                            if ($hierarchyPathObj) {
+                                $product->setParentCategory([$parentHierarchyObj]);
+                            } else {
+                                $product->setParentCategory([$parentObjForLeaf]);
                             }
 
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
                             $bricksData = [];
-                            $fieldKeyArray = array();
                             $natureOfProduct = 0;
 
                             foreach ($productData as $fieldCVSKey => $fieldValue) {
