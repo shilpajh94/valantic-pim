@@ -1,6 +1,10 @@
 <?php 
 
 /** 
+* Generated at: 2021-10-08T11:19:28+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
 - LengthMM [numeric]
 - WidthMM [numeric]
@@ -25,7 +29,6 @@ Fields Summary:
 - WidthInch [numeric]
 - ThicknessInch [numeric]
 - CleatWidthInch [numeric]
-- OEMName [input]
 - TopCoverSurfaceImpression [input]
 - BottomCoverSurfaceImpression [input]
 - SideBeltorCenterBelt [input]
@@ -861,34 +864,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'regex' => '',
                      'unique' => false,
                      'showCharCount' => false,
-                     'name' => 'OEMName',
-                     'title' => 'OEM name',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'padding-left:80px;',
-                     'permissions' => NULL,
-                     'datatype' => 'data',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'fieldtype' => 'input',
-                     'width' => 300,
-                     'defaultValue' => NULL,
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
-                     'regex' => '',
-                     'unique' => false,
-                     'showCharCount' => false,
                      'name' => 'TopCoverSurfaceImpression',
                      'title' => 'Top cover surface impression',
                      'tooltip' => '',
@@ -905,7 +880,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  6 => 
+                  5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -933,7 +908,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  7 => 
+                  6 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -961,7 +936,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  8 => 
+                  7 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -989,7 +964,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  9 => 
+                  8 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'fieldtype' => 'input',
                      'width' => 300,
@@ -1017,7 +992,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  10 => 
+                  9 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'fieldtype' => 'numeric',
                      'width' => 300,
@@ -1048,7 +1023,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'visibleSearch' => false,
                      'defaultValueGenerator' => '',
                   )),
-                  11 => 
+                  10 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                      'fieldtype' => 'textarea',
                      'width' => 300,
