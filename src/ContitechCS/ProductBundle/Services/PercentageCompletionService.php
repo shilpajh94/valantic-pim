@@ -10,84 +10,95 @@ class PercentageCompletionService
 {
     //functionality to get completePercentage & emptyAttributes
     public function completenessPercentage($object)
-    { 
+    {
         $count = 0;
         $emptyFieldCounter = 0;
         $emptyAttributes='';
+        $emptyAttributesLocalized = '';
         $completedPercentage = 0;
-        
         $classDefinition = ClassDefinition::getByName($object->getClassName());
-        
+
         $langs = \Pimcore\Tool::getValidLanguages();  //available lanaguages loop
         $totalFields = 0;
         foreach ($langs as $lang) {
-            foreach ($classDefinition->getFieldDefinitions() as $field) { 
+            foreach ($classDefinition->getFieldDefinitions() as $field) {
                 $fieldName = $field->getName(); //all fiels Name
                 $fieldType = $field->getFieldType(); //all fields type
                 $isInvisible = $field->getInvisible();
+                if ($count==0) {
+                    $emptyAttributes .= "[ NON LOCALIZED ATTRIBUTES ]";
+                }
+
                 if (!$isInvisible) {
-                    if ($fieldType == "localizedfields") {
-                       $this->localizedFields($fieldName, $object, $lang, $classDefinition, $count, $totalFields, $emptyAttributes, $emptyFieldCounter); 
-                    } elseif($fieldType == "objectbricks") {
-                        $attributes = $object->getProductAttributes(); //bricksgetter and values in attributes
-                        $bricks = $attributes->getBrickGetters(); 
-                        if (!empty($bricks)){
-                            $this->objectbricks($bricks, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter);
-                        } //die;
-                        
-                    }else {
-                        $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue 
-                        if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
-                            $fieldValue = $fieldValue->getItems();
-                        }
-                        $totalFields++;
-                        if (!empty($fieldValue)) {
-                            $count++;
-                        } else {
-                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
+                    if ($fieldType != "localizedfields") {
+                        if($fieldType == "objectbricks") {
+                            $attributes = $object->getProductAttributes(); //bricksgetter and values in attributes
+                            $bricks = $attributes->getBrickGetters();
+                            if (!empty($bricks)){
+                                $this->objectbricks($bricks,$lang, $attributes, $count, $totalFields, $emptyAttributes, $emptyFieldCounter);
+                            }
+
+                        }else {
+                            $fieldValue = $object->{'get' . ucfirst($fieldName)}();   //all fieldValue
+                            if ($fieldValue instanceof \Pimcore\Model\DataObject\Data\ImageGallery) {
+                                $fieldValue = $fieldValue->getItems();
+                            }
+                            $totalFields++;
+                            if (!empty($fieldValue)) {
+                                $count++;
+                            } else {
+                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
+                            }
+
                         }
 
-                    } 
+                    } else {
+                        $this->localizedFields($fieldName, $object, $lang, $classDefinition, $count, $totalFields, $emptyAttributesLocalized , $emptyFieldCounter);
+                    }
+
                 }
             }
             $completedPercentage = round((($count/$totalFields)*100),2);
-            $object->setCompletenessPercentage($completedPercentage,$lang);       
-            $object->setEmptyFields($emptyAttributes,$lang); 
+            $object->setCompletenessPercentage($completedPercentage,$lang);
+            $object->setEmptyFields($emptyAttributes.$emptyAttributesLocalized ,$lang);
             $emptyFieldCounter = 0;
             $count = 0;
             $totalFields = 0;
             $emptyAttributes = '';
+            $emptyAttributesLocalized  = '';
         }
     }
 
-    private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter) 
+    private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldCounter)
     {
+        $emptyFieldCounter = 0;
+        $emptyAttributesLocalized  .= "\n [ LOCALIZED ATTRIBUTES ]";
         foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
-                    $totalFields++;
-                    $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
-                    $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
-                    if (!empty($localizedFieldValue)) {   // if value present so count
-                        $count++;
-                    } else {
-                        $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes 
-                    }
-        }  
-            
+            $totalFields++;
+            $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
+            $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
+            if (!empty($localizedFieldValue)) {   // if value present so count
+                $count++;
+            } else {
+                $emptyAttributesLocalized .= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes
+            }
+        }
+
     }
 
-    private function objectbricks($bricks, $attributes, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter)
+    private function objectbricks($bricks,$lang, $attributes, &$count, &$totalFields, &$emptyAttributes, &$emptyFieldCounter)
     {
         $skippedField = CompletenessUnitValueList::completenessPercentageUnitList();
-        foreach ($bricks as $brick) {   
+        foreach ($bricks as $brick) {
             $brickData = $attributes->$brick(); //empty
             if (!empty($brickData)) {
-                $brickName = $brickData->getType(); 
-                $defObject = new \Pimcore\Model\DataObject\Objectbrick\Definition(); 
-                $brickDef = $defObject->getByKey($brickName)->getFieldDefinitions(); 
+                $brickName = $brickData->getType();
+                $defObject = new \Pimcore\Model\DataObject\Objectbrick\Definition();
+                $brickDef = $defObject->getByKey($brickName)->getFieldDefinitions();
                 foreach($brickDef as $key => $def) {
-                    $keyGetter = "get".ucfirst($key);  
+                    $keyGetter = "get".ucfirst($key);
                     if ($key=='localizedfields') {
-                        foreach($def->getChilds() as $attr) {   
+                        foreach($def->getChilds() as $attr) {
                             $name = $attr->getName();
                             if(in_array($name,$skippedField)) {
                                 continue;
@@ -98,7 +109,7 @@ class PercentageCompletionService
                             if (!empty($value)) {
                                 $count++;
                             } else {
-                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$name; //emptychildattributes 
+                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$name; //emptychildattributes
                             }
                         }
                     } else {
@@ -110,7 +121,7 @@ class PercentageCompletionService
                         if (!empty($value)) {
                             $count++;
                         } else {
-                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$key; //emptychildattributes 
+                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$key; //emptychildattributes
                         }
                     }
                 }
@@ -119,7 +130,3 @@ class PercentageCompletionService
 
     }
 }
-
-
-
-    
