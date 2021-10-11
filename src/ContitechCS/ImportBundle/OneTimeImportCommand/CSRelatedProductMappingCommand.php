@@ -71,38 +71,33 @@ class CSRelatedProductMappingCommand extends AbstractCommand
         $productHierarchy = trim($result['Product Hierarchy']);
         $productName = trim($result['Product Name']);
         $product = trim($result['Product']);
-        $relatedProducts = trim($result['Related Products']);
+        $relatedProducts = trim(ucwords($result['Related Products']));
 
-        if($productHierarchy && $productName && $relatedProducts)
-        {
+        if ($productHierarchy && $productName && $relatedProducts) {
             $relatedProducts = explode('|', $relatedProducts);
             $relatedProducts = array_map('trim', $relatedProducts);
 
             $objectsToMap = array();
             foreach ($relatedProducts as $productKey) {
                 $object = $this->getProductObject($productKey);
-                if($object)
-                {
+                if ($object) {
                     $objectsToMap[] = $object;
                 }
             }
 
-            if($objectsToMap)
-            {
+            if ($objectsToMap) {
                 $productHierarchy = explode('/', $productHierarchy);
                 $productHierarchy = array_map('trim', $productHierarchy);
                 $productHierarchy = implode('/', $productHierarchy);
 
-                $objectInMapPath = "/".$this->productFolderPath;
-                if($productHierarchy && $productName && $product)
-                {
-                    $productKey = $productName."/". $product;
+                $objectInMapPath = "/" . $this->productFolderPath;
+                if ($productHierarchy && $productName && $product) {
+                    $productKey = $productName . "/" . $product;
                     $validProductNameKey = DataObject\Service::getValidKey($productKey, "object");
-                    $objectInMapPath = $objectInMapPath ."/".$productHierarchy."/".$validProductNameKey; 
-                }
-                else{
+                    $objectInMapPath = $objectInMapPath . "/" . $productHierarchy . "/" . $validProductNameKey;
+                } else {
                     $validProductNameKey = DataObject\Service::getValidKey($productName, "object");
-                    $objectInMapPath = $objectInMapPath ."/".$productHierarchy."/".$validProductNameKey; 
+                    $objectInMapPath = $objectInMapPath . "/" . $productHierarchy . "/" . $validProductNameKey;
                 }
 
                 try {
@@ -128,7 +123,7 @@ class CSRelatedProductMappingCommand extends AbstractCommand
         $objectlist->setCondition("o_key = ?", $validKey);
         $objectlist->setLimit(1);
         $objectlist->load();
-        
+
         foreach ($objectlist as $object) {
             return $object;
         }
