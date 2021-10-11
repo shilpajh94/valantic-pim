@@ -1,11 +1,10 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-08T14:56:00+05:30
+* Generated at: 2021-10-08T17:06:28+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
 
 
 Fields Summary: 
@@ -65,7 +64,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1633685158,
+   'modificationDate' => 1633692987,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -2563,6 +2562,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   31 => 'ProdAttrSetAF',
                   32 => 'ProdAttrSetAG',
                   33 => 'ProdAttrSetAH',
+                  34 => 'ProdAttrSetAI',
                 ),
                  'maxItems' => '',
                  'border' => false,
