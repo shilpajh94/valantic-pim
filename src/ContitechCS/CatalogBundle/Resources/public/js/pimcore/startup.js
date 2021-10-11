@@ -20,7 +20,7 @@ pimcore.plugin.ContitechCSCatalogBundle = Class.create(pimcore.plugin.admin, {
 
             // Code for populating products
             var productsOptionStore = Ext.create('Ext.data.Store', {
-                fields: ['key', 'value'],
+                fields: ['id', 'text'],
                 proxy: {
                     type: 'ajax',
                     url: '/contitech_cs_catalog/get-products',
@@ -46,48 +46,48 @@ pimcore.plugin.ContitechCSCatalogBundle = Class.create(pimcore.plugin.admin, {
             }
             productsOptionStore.load();
 
-            // Code for populating product's tables on select
-            object.edit.dataFields.Products.component.on('select', function (e) {
-                this.listProductTable(object, e.rawValue);
-            }.bind(this));
+            // // Code for populating product's tables on select
+            // object.edit.dataFields.Products.component.on('select', function (e) {
+            //     this.listProductTable(object, e.rawValue);
+            // }.bind(this));
 
-            // Code for populating product's tables on load 
-             object.edit.dataFields.Products.component.on('change', function(eve){
-                this.listProductTable(object, eve.rawValue);
-             }.bind(this));
+            // // Code for populating product's tables on load 
+            //  object.edit.dataFields.Products.component.on('change', function(eve){
+            //     this.listProductTable(object, eve.rawValue);
+            //  }.bind(this));
         }
     },
 
-    listProductTable: function (object, product) {
+    // listProductTable: function (object, product) {
 
-        var productTablesOptionsStore = Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
-            proxy: {
-                type: 'ajax',
-                url: '/contitech_cs_catalog/get-products-tables',
-                //  method:'POST',
-                extraParams: {
-                    product: product,
+    //     var productTablesOptionsStore = Ext.create('Ext.data.Store', {
+    //         fields: ['id', 'text'],
+    //         proxy: {
+    //             type: 'ajax',
+    //             url: '/contitech_cs_catalog/get-products-tables',
+    //             //  method:'POST',
+    //             extraParams: {
+    //                 product: product,
 
-                },
-                reader: {
-                    type: 'json',
-                    rootProperty: 'data'
-                }
-            },
-        });
+    //             },
+    //             reader: {
+    //                 type: 'json',
+    //                 rootProperty: 'data'
+    //             }
+    //         },
+    //     });
 
-        console.log(productTablesOptionsStore);
-        productTablesOptionsStore.load();
+    //     console.log(productTablesOptionsStore);
+    //     productTablesOptionsStore.load();
 
-        object.edit.dataFields.ProductTables.component.setStore(productTablesOptionsStore);
-            console.log(object.data.data);    
-        if (object.data.data.ProductTables !== null)
-        {
-            object.edit.dataFields.ProductTables.component.setValue(object.data.data.ProductTables);
-        }
-        productTablesOptionsStore.load();
-    },
+    //     object.edit.dataFields.ProductTables.component.setStore(productTablesOptionsStore);
+    //         console.log(object.data.data);    
+    //     if (object.data.data.ProductTables !== null)
+    //     {
+    //         object.edit.dataFields.ProductTables.component.setValue(object.data.data.ProductTables);
+    //     }
+    //     productTablesOptionsStore.load();
+    // },
 });
 
 var ContitechCSCatalogBundlePlugin = new pimcore.plugin.ContitechCSCatalogBundle();

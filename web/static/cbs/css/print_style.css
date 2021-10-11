@@ -6,6 +6,9 @@
         color-adjust: exact !important;  /*Firefox*/
         }
 
+
+        
+
     .wrapper header,
     .wrapper footer{
         padding: 0px 30px;
@@ -83,7 +86,7 @@
         -webkit-print-color-adjust: exact;
     }
 
-    .grey-bg {
+    .grey-bg, .cover-compounds-table tbody tr:nth-child(2n) {
         background: cmyk(1%, 0%, 0%, 9%);
         -webkit-print-color-adjust: exact;
     }
@@ -93,6 +96,9 @@
         color: cmyk(0%, 0%, 0%, 0%);
     }
 
+    .backcoverpage p span{
+        color: cmyk(0%, 0%, 0%, 45%);
+    }
     .table-of-contents .grey-bg{
         background:  cmyk(1%, 1%, 0%, 21%);
     }
@@ -143,6 +149,11 @@
 
     #content {
         padding-bottom: 10px;
+    }
+
+    .compounds-table th.rotate > div {
+        transform: translate(0px, 30px) rotate(-90deg);
+        width: 30px;
     }
   
 }
@@ -230,4 +241,18 @@
     @bottom-left {
         content: none;
     }
+}
+
+@page backcoverPage{
+    margin:0px 30px;
+    size: A4;
+
+    @bottom-right {
+        content: none;
+    }
+
+    @bottom-left {
+        content: none;
+    }
+
 }

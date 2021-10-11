@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-09-01T11:33:07+02:00
+* Generated at: 2021-10-06T10:07:32+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -11,7 +11,7 @@
 Fields Summary: 
 - Name [input]
 - Template [select]
-- Products [select]
+- Products [multiselect]
 - ProductTables [multiselect]
 */ 
 
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSCatalogTables',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1630488787,
+   'modificationDate' => 1633507649,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -107,11 +107,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
             array (
-              0 => 
-              array (
-                'key' => 'Product Page',
-                'value' => 'Product Page',
-              ),
             ),
              'width' => 300,
              'defaultValue' => '',
@@ -139,19 +134,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           2 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-             'fieldtype' => 'select',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+             'fieldtype' => 'multiselect',
              'options' => 
             array (
             ),
              'width' => '',
-             'defaultValue' => '',
+             'height' => '',
+             'maxItems' => '',
+             'renderType' => 'tags',
              'optionsProviderClass' => '',
              'optionsProviderData' => '',
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
+             'queryColumnType' => 'text',
+             'columnType' => 'text',
+             'phpdocType' => 'array',
              'dynamicOptions' => false,
              'name' => 'Products',
              'title' => 'Products',
@@ -159,7 +155,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => NULL,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -167,7 +163,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
-             'defaultValueGenerator' => '',
           )),
           3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
@@ -196,7 +191,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'permissions' => NULL,
              'datatype' => 'data',
              'relationType' => false,
-             'invisible' => false,
+             'invisible' => true,
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
