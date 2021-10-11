@@ -163,6 +163,7 @@ class CSProductDataImportCommand extends AbstractCommand
                             $product->setParentId($parentId);
                             $product->setOmitMandatoryCheck(true);
                             $product->setPublished(true);
+                            $product->save();
                             $bricksData = [];
                             $natureOfProduct = 0;
 
