@@ -68,20 +68,24 @@ class ObjectListener
 
             if ($className == 'CSProducts') {
                 //$this->checkUniqueProduct($object);
+                $argument = $event->getArguments();
 
-                //custom brick validation
-                $product_name = trim($object->getName());
-                $parent = $object->getParent();
-                $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
                 $applyvalidation = false;
-                if (isset($config[$product_name])) {
-                    $applyvalidation = true;
-                } else {
-                    if ($parent != "/Contitech_ConveyorSolution/Products") {
-                        $parent_name = trim($parent->getName());
-                        if (isset($config[$parent_name])) {
-                            $applyvalidation = true;
-                            $product_name = $parent_name;
+                if (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly'])) {
+                    //custom brick validation
+                    $product_name = trim($object->getName());
+                    $parent = $object->getParent();
+                    $config = $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
+
+                    if (isset($config[$product_name])) {
+                        $applyvalidation = true;
+                    } else {
+                        if ($parent != "/Contitech_ConveyorSolution/Products") {
+                            $parent_name = trim($parent->getName());
+                            if (isset($config[$parent_name])) {
+                                $applyvalidation = true;
+                                $product_name = $parent_name;
+                            }
                         }
                     }
                 }
@@ -128,7 +132,7 @@ class ObjectListener
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
-        if (php_sapi_name() != "cli") {
+//        if (php_sapi_name() != "cli") {
             // to also get the inherited values
             $object->setGetInheritedValues(true);
             if ($object instanceof DataObject\CSProducts) {
@@ -141,7 +145,7 @@ class ObjectListener
                  */
                 //$this->updateUnitConversionAttributes($object);
             }
-        }
+//        }
     }
 
 
