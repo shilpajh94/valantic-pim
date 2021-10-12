@@ -100,7 +100,7 @@ class CSProductDataImportCommand extends AbstractCommand
                 unset($productData['Product Hierarchy']);
                 unset($productData['Product Name']);
                 // // $productData = array_slice($productData, 2);
-
+                $parentHierarchyObj = $parentObjForLeaf = '';
                 foreach ($productHier as $key => $hierarchy) {
 
                     $hierarchyArr = array_slice($productHier, 0, $key + 1);
@@ -124,12 +124,12 @@ class CSProductDataImportCommand extends AbstractCommand
                     $hierarchyPath = \str_replace(ImportConstants::CONTITECH_CS_PRODUCT_FOLDER, ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER, $productPath);
 
                     $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
-                    $parentHierarchyObj = $parentObjForLeaf = '';
+
+
                     if ($hierarchyPathObj) {
+                        $parentObjForLeaf = $hierarchyPathObj;
                         if ($hierarchyPathObj->getLevel() != 'Level 1') {
                             $parentHierarchyObj = $hierarchyPathObj->getParent();
-                        } else {
-                            $parentObjForLeaf = $hierarchyPathObj;
                         }
 
                         $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
