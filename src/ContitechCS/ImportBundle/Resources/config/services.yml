@@ -65,3 +65,15 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:related-product-mapping",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSSegmentImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:segment-import",
+              }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSRegionImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:region-import",
+              }
