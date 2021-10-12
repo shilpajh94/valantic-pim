@@ -195,6 +195,10 @@ class DefaultController extends FrontendController
 
                         $product->save();
                         $parentId = $product->getId();
+                        /** code added below to change workflow state on creation of product **/
+                        $productWorkflow = \Pimcore::getContainer()->get('state_machine.product_enrichment');
+                        $productWorkflow->apply($product, 'send_to_process');
+                        /** code added above to change workflow state on creation of product **/
                         \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\AppService')->createAssetsHierarch($product);
                         $msg =  "Product added successfully";
                     } catch (\Throwable $th) {

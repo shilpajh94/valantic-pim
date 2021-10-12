@@ -69,10 +69,12 @@ class ProductEnrichmentListener
     
     public function csWorkflowNotification(Event $event) {
         $transition = $event->getTransition();
+        
         $transitionName = $transition->getName();
         $product = $event->getSubject();
         $workflow = $event->getWorkflow();
         $deepLink = $this->getProductDeepLink($product);
+        
         if (!empty($transitionName) && !empty($this->config) && !empty($this->config[$transitionName])) {
             $transitionConfig = $this->config[$transitionName];
             if (!empty($transitionConfig['action'])) {
@@ -89,19 +91,36 @@ class ProductEnrichmentListener
             $cc = $transitionConfig['notificationCC'];
             $toEmails = $this->getUserEmailsListByRoles($to, $product);
             $ccEmails = $this->getUserEmailsListByRoles($cc, $product);
+            $parentCategory = $product->getParentCategory();
+            $categoryName = '';
+            if (!empty($parentCategory) && count($parentCategory)>0) {
+                $categoryName = $parentCategory[0]->getName();
+            }
+            $actionRemark = $this->getActionRemarks($product);
             $params = [
                 'template' => $template,
                 'toEmails' => $toEmails,
                 'ccEmails' => $ccEmails,
                 'params' => [
-                    'deeplink' => $deepLink
+                    'deeplink' => $deepLink,
+                    'productName' => $product->getName(),
+                    'parentCategoryName' => $categoryName,
+                    'actionRemark' => $actionRemark
                 ]
             ];
             $this->sendMail($params);
         }
     }
     
-    
+    public function getActionRemarks($product) {
+        $db = \Pimcore\Db::get();
+        $sql = "SELECT description FROM notes WHERE cid='".$product->getId()."' ORDER BY `date` DESC LIMIT 1";
+        $result = $db->fetchOne($sql);
+        if (!empty($result)) {
+            return $result;
+        }
+        return '';
+    }
     public function getUserEmailsListByRoles($userRolesArray, $product = []) {
         $emailIds = [];
         if (!empty($userRolesArray)) {
