@@ -132,7 +132,7 @@ class ObjectListener
          * if object save is run through cli then do not perform the brick addition or deletion
          * because in this case the import script is already handling this.
          */
-        if (php_sapi_name() != "cli") {
+//        if (php_sapi_name() != "cli") {
             // to also get the inherited values
             $object->setGetInheritedValues(true);
             if ($object instanceof DataObject\CSProducts) {
@@ -145,7 +145,7 @@ class ObjectListener
                  */
                 //$this->updateUnitConversionAttributes($object);
             }
-        }
+//        }
     }
 
 
