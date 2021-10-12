@@ -273,7 +273,7 @@ Segment:
     fieldNameToSearch: SegmentName
     objectType: class
     mandatoryFields: "SegmentName"
-    createFlag: true
+    createFlag: false
 Region:
     fieldName: CSRegion
     fieldType: manyToManyObjectRelation
@@ -281,7 +281,7 @@ Region:
     fieldNameToSearch: RegionName
     objectType: class
     mandatoryFields: "RegionName"
-    createFlag: true
+    createFlag: false
 identifier:
     fieldName: Identifier
     fieldType: Number
