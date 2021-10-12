@@ -183,3 +183,22 @@ section {
 .mb-0{
   margin-bottom: 0px !important;
 }
+<<<<<<< HEAD
+=======
+.d-block{
+  display: block;
+}
+
+.mt-4{
+  margin-top: 20px;
+}
+.align-item-ends{
+  align-items: flex-end !important;
+}
+.f-12{
+  font-size: 12px !important;
+}
+.pl-2{
+  padding-left: 10px;
+}
+>>>>>>> CBS_catalogue_EditablePages

@@ -75,7 +75,9 @@ h1 strong{
 
 .fortressxp-belts .features-benefit-sec h1,
 .fortressxp-belts .belts-information h1, 
-.wood-product-applications h1, .wood-product-applications h2 {
+.wood-product-applications h1, .wood-product-applications h2,
+.fortressxp-belts.conveyor-belt h1
+{
     font-size: 24px;
 }
 .wood-product-applications h1{
@@ -116,6 +118,9 @@ h1 strong{
     align-items: center;
 }
 
+.ccs-service .media{
+    align-items: flex-start;
+}
 .features-benefit-sec .media-body {
     flex: 1;
 }
@@ -142,6 +147,12 @@ h1 strong{
 }
 
 .fortressxp-belts p {
+    font-size: 11px;
+}
+.p-medium{
+    font-size: 13px !important;
+}
+.media p{
     font-size: 13px;
 }
 
@@ -402,12 +413,21 @@ h1 strong{
 .table-data.compounds-table thead th:first-child::before {
     border-bottom: 2px solid transparent;
 }
+<<<<<<< HEAD
 
 
 .table-data.compounds-table tbody td.orange-bg::before, .table-data.compounds-table tbody td.white-bg::before{
     border-top: 1px solid #ffffff;
 }
 
+=======
+
+
+.table-data.compounds-table tbody td.orange-bg::before, .table-data.compounds-table tbody td.white-bg::before{
+    border-top: 1px solid #ffffff;
+}
+
+>>>>>>> CBS_catalogue_EditablePages
 .table-data.compounds-table tbody tr:first-child td.orange-bg::before{
     border-top: 0px solid transparent;
 }
@@ -648,6 +668,74 @@ h1 strong{
     margin-top: auto;
     display: flex;
     align-items: flex-end;
+<<<<<<< HEAD
+=======
+
+}
+.bottom-sect .backcover-logo{
+    width: 50%;
+}
+
+.backcover-logo img{
+    width: 220px;
+}
+.bottom-sect p{
+    width: 40%;
+    font-size: 8px;
+    padding-right: 20px;
+    margin-bottom: 0;
+}
+.bottom-sect p:last-child{
+    width: 10%;
+    text-orientation: mixed;
+    writing-mode: vertical-lr;
+    transform: rotate(-181deg);
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+}
+.solar-shield-table{
+    max-width: 100%;
+}
+.solar-shield-table tr{
+    vertical-align: top;
+}
+.solar-shield-table tr td:first-child{
+    font-weight: bold;
+}
+.solar-shield-table tr td{
+    padding-bottom: 10px;
+}
+.cover-compounds-table{
+    max-width: 100%;
+}
+
+.cover-compounds-table td, .cover-compounds-table th{
+    border-bottom: 1px solid #000;
+    font-size: 10px;
+}
+
+
+.cover-compounds-table tbody tr:nth-child(2n){
+    background-color: #e6e7e8;
+}
+
+.cover-compounds-table th{
+    vertical-align: bottom;
+}
+
+.nexcolumtarget{
+    break-inside: avoid;
+}
+
+.page95{
+    min-width: 100%;
+    margin: 30px -30px;
+    /* display: block; */
+    position: running(halfImage);
+    /* page:halfImage; */
+}
+>>>>>>> CBS_catalogue_EditablePages
 
 }
 .bottom-sect .backcover-logo{

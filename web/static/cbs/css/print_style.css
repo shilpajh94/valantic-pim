@@ -9,10 +9,14 @@
 
         
 
+<<<<<<< HEAD
     .wrapper header,
+=======
+    /* .wrapper header,
+>>>>>>> CBS_catalogue_EditablePages
     .wrapper footer{
         padding: 0px 30px;
-    }
+    } */
 
     /* .coverpage, .inner-coverpage{
         min-height: auto;
@@ -23,6 +27,7 @@
         width: 100%;
         height: 100%;
     }
+   
     .innercoverpage .black-bg{
         padding: 50px 40px 40px;
         height: auto;
@@ -155,6 +160,14 @@
         transform: translate(0px, 30px) rotate(-90deg);
         width: 30px;
     }
+<<<<<<< HEAD
+=======
+
+    .page95{
+        min-width: 100%;
+        margin: 0;
+    }
+>>>>>>> CBS_catalogue_EditablePages
   
 }
 
@@ -167,8 +180,10 @@
     margin: 10px 0 10px;
     padding: 70px 0 60px;
     font-size: 22pt;
- 
-  
+
+    /* @top-center{
+        content: element(halfImage);
+    } */
 
 }
 
@@ -195,7 +210,9 @@
     @bottom-right {
         content: element(footerLogo, last);
     }
+
   
+
   
 }
 
@@ -255,4 +272,10 @@
         content: none;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+
+
+>>>>>>> CBS_catalogue_EditablePages
