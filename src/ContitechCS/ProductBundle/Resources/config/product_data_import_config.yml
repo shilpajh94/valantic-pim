@@ -242,6 +242,10 @@ Minimum ultimate tension kN/m:
     fieldName: MinimumUltimateTensionkNm
     fieldType: Number
     objectType: ProdAttrSetAH
+OEM Name:
+    fieldName: OEMName
+    fieldType: Input
+    objectType: ProdAttrSetAI
 industrial service tension capacity in PIW (for Elevator Belt only):
     fieldName: IndustrialServiceTensionCapacityinPIW
     fieldType: Number
@@ -565,10 +569,6 @@ Thickness in Inch:
 Cleat Width in inch:
     fieldName: CleatWidthInch
     fieldType: Number
-    objectType: ProdAttrSetQ
-OEM Name:
-    fieldName: OEMName
-    fieldType: Input
     objectType: ProdAttrSetQ
 Top Cover Surface Impression:
     fieldName: TopCoverSurfaceImpression
