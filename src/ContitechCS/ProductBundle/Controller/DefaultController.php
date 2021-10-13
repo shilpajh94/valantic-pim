@@ -134,6 +134,7 @@ class DefaultController extends FrontendController
             $allObjectBricks = [];
             $counter = 1;
             $productHierCount = count($productHier);
+            $parentHierarchyObj = $parentObjForLeaf = '';
             foreach ($productHier as $key => $hierarchy) {
 
                 $hierarchyArr = array_slice($productHier, 0, $key + 1);
@@ -146,6 +147,10 @@ class DefaultController extends FrontendController
                 $hierarchyPathObj = DataObject\CSHierarchy::getByPath($hierarchyPath);
 
                 if ($hierarchyPathObj) {
+                    $parentObjForLeaf = $hierarchyPathObj;
+                    if ($hierarchyPathObj->getLevel() != 'Level 1') {
+                        $parentHierarchyObj = $hierarchyPathObj->getParent();
+                    }
                     $CSHierarchyRelatedBricks = $hierarchyPathObj->getRelatedBricks();
                     if ($CSHierarchyRelatedBricks) {
                         $allObjectBricks = array_merge($allObjectBricks, $CSHierarchyRelatedBricks);
@@ -164,15 +169,17 @@ class DefaultController extends FrontendController
                         $product->setName($hierarchy, 'en');
                         $product->setParentId($parentId);
                         $product->setOmitMandatoryCheck(true);
+                        if ($hierarchyPathObj) {
+                            $product->setParentCategory([$parentHierarchyObj]);
+                        } else {
+                            $product->setParentCategory([$parentObjForLeaf]);
+                        }
                         $product->setPublished(true);
                         $product->setProductOwner($userId);
                         $product->setUserOwner($currentUser);
                         $product->setUserModification($currentUser);
                         //$product->setNatureOfProduct($natureOfProduct);
                         $product->setPublished(false);
-
-                        $product->setParentCategory([$CSProductObj]);
-
                         // functionality to check if product is already exist or not, if already exists then display an error message saying “Duplicate product name”
                         if (!empty($productName)) {
                             $list = new \Pimcore\Model\DataObject\CSProducts\Listing();
