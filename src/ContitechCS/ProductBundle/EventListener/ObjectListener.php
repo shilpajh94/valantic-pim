@@ -71,7 +71,7 @@ class ObjectListener
                 $argument = $event->getArguments();
 
                 $applyvalidation = false;
-                if (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly'])) {
+                if ($object->isPublished() && (!isset($argument['saveVersionOnly']) || empty($argument['saveVersionOnly']))) {
                     //custom brick validation
                     $product_name = trim($object->getName());
                     $parent = $object->getParent();
@@ -89,7 +89,7 @@ class ObjectListener
                         }
                     }
                 }
-                //$applyvalidation = false;
+                // $applyvalidation = false;
                 if ($applyvalidation) {
                     $arr = array('Please fill all mandatory fields');
                     foreach ($config[$product_name] as $cnf) {
