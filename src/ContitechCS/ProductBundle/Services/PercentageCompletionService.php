@@ -23,6 +23,7 @@ class PercentageCompletionService
         foreach ($langs as $lang) {
             foreach ($classDefinition->getFieldDefinitions() as $field) {
                 $fieldName = $field->getName(); //all fiels Name
+                $fieldTitle = $field->getTitle();
                 $fieldType = $field->getFieldType(); //all fields type
                 $isInvisible = $field->getInvisible();
                 if ($count==0) {
@@ -47,7 +48,7 @@ class PercentageCompletionService
                             if (!empty($fieldValue)) {
                                 $count++;
                             } else {
-                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldName; //else mention emptyattributes
+                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$fieldTitle; //else mention emptyattributes
                             }
 
                         }
@@ -72,15 +73,16 @@ class PercentageCompletionService
     private function localizedFields($fieldName, $object, $lang, $classDefinition, &$count, &$totalFields, &$emptyAttributesLocalized , &$emptyFieldCounter)
     {
         $emptyFieldCounter = 0;
-        $emptyAttributesLocalized  .= "\n [ LOCALIZED ATTRIBUTES ]";
+        $emptyAttributesLocalized  .= "\n\n [ LOCALIZED ATTRIBUTES ]";
         foreach ($classDefinition->getFieldDefinition( $fieldName)->getChilds() as $localizedField) {
             $totalFields++;
             $localizedFieldName = $localizedField->getName(); //all childs of localizedfieldName
+            $localizedFieldTitle = $localizedField->getTitle(); 
             $localizedFieldValue = $object->{'get' . ucfirst($localizedFieldName)}($lang); //values in child of localizedfield
             if (!empty($localizedFieldValue)) {   // if value present so count
                 $count++;
             } else {
-                $emptyAttributesLocalized .= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldName; //emptychildattributes
+                $emptyAttributesLocalized .= "\n\t ".++$emptyFieldCounter. ") ".$localizedFieldTitle; //emptychildattributes
             }
         }
 
@@ -94,13 +96,16 @@ class PercentageCompletionService
             if (!empty($brickData)) {
                 $brickName = $brickData->getType();
                 $defObject = new \Pimcore\Model\DataObject\Objectbrick\Definition();
-                $brickDef = $defObject->getByKey($brickName)->getFieldDefinitions();
+                $brickDefinition = $defObject->getByKey($brickName);
+                $brickDef = $brickDefinition->getFieldDefinitions();
+                $brickTitle = $brickDefinition->getTitle();
                 foreach($brickDef as $key => $def) {
                     $keyGetter = "get".ucfirst($key);
                     if ($key=='localizedfields') {
                         foreach($def->getChilds() as $attr) {
                             $name = $attr->getName();
-                            if(in_array($name,$skippedField)) {
+                            $attrTitle = $attr->getTitle();
+                            if(in_array($name, $skippedField)) {
                                 continue;
                             }
                             $totalFields++;
@@ -109,11 +114,11 @@ class PercentageCompletionService
                             if (!empty($value)) {
                                 $count++;
                             } else {
-                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$name; //emptychildattributes
+                                $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickTitle.'~'.$attrTitle; //emptychildattributes
                             }
                         }
                     } else {
-                        if(in_array($key,$skippedField)) {
+                        if(in_array($key, $skippedField)) {
                             continue;
                         }
                         $totalFields++;
@@ -121,7 +126,7 @@ class PercentageCompletionService
                         if (!empty($value)) {
                             $count++;
                         } else {
-                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickName.'~'.$key; //emptychildattributes
+                            $emptyAttributes.= "\n\t ".++$emptyFieldCounter. ") ".$brickTitle.'~'.$def->getTitle(); //emptychildattributes
                         }
                     }
                 }
