@@ -124,7 +124,7 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: false
-                        changePublishedState: force_unpublished
+                        changePublishedState: save_version
 #                send_to_edit_again:
 #                    from:
 #                        - open
@@ -138,6 +138,7 @@ pimcore:
 #                        changePublishedState: force_unpublished
                 send_to_edit:
                     from:
+                        - paused
                         - published
                         - in_process
                     to: in_rd_edit
@@ -147,7 +148,7 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: false
-                        changePublishedState: force_unpublished
+                        changePublishedState: save_version
                 send_for_review:
                     from:
                         - in_rd_edit
@@ -158,18 +159,18 @@ pimcore:
                         notes:
                             commentEnabled: true
                             commentRequired: true
-                        changePublishedState: force_unpublished
+                        changePublishedState: save_version
                 reject_product:
                     from:
                         - in_review
                     to: in_process
                     guard: (has_role("ROLE_PIMCORE_ADMIN") or has_role("ROLE_PIMCORE_APPLICATIONADMINCS") or has_role("ROLE_MARCOMCS"))
                     options:
-                        label: 'Reject'
+                        label: 'Sent for Fixes'
                         notes:
                             commentEnabled: true
                             commentRequired: true
-                        changePublishedState: force_unpublished
+                        changePublishedState: save_version
 
                 approve_product:
                     from:

@@ -2,7 +2,7 @@ parameters:
     host: 'https://pim.conti.de'
     completed:
         send_to_process:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForProcessing'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Assignment Notification'
             notificationTo: 
                 users: 
                     - ProductOwner
@@ -12,7 +12,7 @@ parameters:
 #                    - UserOwner
 #                roles:
         send_to_edit:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentToRandD'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Enrichment to RND'
             notificationTo: 
                 users:
                 roles:
@@ -23,7 +23,7 @@ parameters:
 #                    - UserOwner
 #                roles:
         send_for_review:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentForReview'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Send for Review To Marcom'
             notificationTo: 
                 users:
                 roles:
@@ -34,7 +34,7 @@ parameters:
 #                    - UserOwner
 #                roles:
         reject_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productRejected'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Sent for Fixes'
             notificationTo: 
                 users:
                     - ProductOwner
@@ -45,7 +45,7 @@ parameters:
 #                    - UserOwner
 #                roles:
         approve_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productApproved'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Approved'
             notificationTo: 
                 users:
                     - ProductOwner
@@ -69,7 +69,7 @@ parameters:
 #                roles:
     
         publish_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPublished'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Notification for Publish Product to PO'
             notificationTo: 
                 users:
                     - ProductOwner
@@ -80,7 +80,7 @@ parameters:
 #                    - UserOwner
 
         pause_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productPaused'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Notification for Paused Product'
             notificationTo: 
                 users:
                     - ProductOwner
@@ -108,6 +108,11 @@ parameters:
                 published: false
             
     transition: 
+        send_to_edit:
+            action: 
+                isPaused: false
+            condition:
+                
         pause_product:
             action: 
                 isPaused: true
