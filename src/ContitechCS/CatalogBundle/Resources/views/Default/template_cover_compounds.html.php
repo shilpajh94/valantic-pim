@@ -3,6 +3,16 @@ if (!isset($this->parentContainer)) {
 $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
+<?php if($this->editmode): ?>
+        <?= $this->relation("cbs_template_cover_compound_page", [
+                "types" => ["object"],
+                "subtypes" => [
+                "object" => ["object"]
+                ],
+                "classes" => ["CSCatalogTables"],
+        ]);
+        ?>
+<?php endif; ?>
 
 <div class="wrapper">
         <header id="header">

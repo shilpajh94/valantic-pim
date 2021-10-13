@@ -531,6 +531,22 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request)
     {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cover_compound_page')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $this->configProviderService = new ConfigProviderService();
+            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+                
+            $catalogCategoryObjectId = $catalogTableObject->getParentId();
+            $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+
+            $selectedProduct = $catalogTableObject->getProducts();
+            $productObj = null;
+
+            p_r($selectedProduct);
+            die;
+        }
     }
 
     /**
