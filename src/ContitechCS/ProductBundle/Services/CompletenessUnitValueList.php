@@ -143,7 +143,8 @@ class CompletenessUnitValueList
         "MinimumBeltWidthMMUnit",
         "MaximumBeltWidthInchUnit",
         "MinimumBeltWidthInchUnit",
-        "AvailableProfilePatternWidthsUnit" 
+        "AvailableProfilePatternWidthsUnit",
+        "VolumeFlowUnit"
         ];
         return $completeUnitListValue;
     }
