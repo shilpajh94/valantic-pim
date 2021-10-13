@@ -86,7 +86,16 @@ class CSProductDataImportCommand extends AbstractCommand
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
 
-                $productName = $productData['Product Name'];
+                if (strpos($productData['Region'], '|') && ($productData['Product Flag'] == 1)) { 
+                    $region = explode('|',trim($productData['Region']))[0];
+                    $productName = $productData['Product Name'].'-'.$region;
+                }
+                else if(($productData['Region'] != null) && ($productData['Product Flag'] == 1)){
+                    $productName = $productData['Product Name'].'-'.$productData['Region'];
+                }
+                else{
+                	$productName = $productData['Product Name'];
+                }
                 $productCol = $productData['Product'];
 
                 if ($productData['Product'] != null) {
