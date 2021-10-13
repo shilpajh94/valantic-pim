@@ -13,6 +13,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <!-- <footer id="footer" >
             <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
         </footer> -->
+    <?php
+    foreach($conveyorData as  $data)
+        print_r($conveyorData);
+        ?>
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange">Continental Conveyor System Services

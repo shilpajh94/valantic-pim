@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use S3CustomizationBundle\Lib\Utils;
+use ContitechCS\ImportBundle\Services\ImportConstants;
 
 class DefaultController extends FrontendController
 {
@@ -33,10 +34,11 @@ class DefaultController extends FrontendController
      */
     public function getCategoryProducts(Request $request) {
 
-        
+
         $id = $request->get('catId');
         $categoryObj = DataObject\CSCatalogCategory::getById($id);
-        
+       // print_r($categoryObj);die;
+
         $hierarchyId = ($categoryObj->getCategory());
         $res['data'] = [];
         if($hierarchyId)
@@ -51,7 +53,7 @@ class DefaultController extends FrontendController
 
 
             $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
-            
+
             if($HierarchyProductPath)
             {
                 $productsList = new DataObject\CSProducts\Listing();
@@ -75,10 +77,10 @@ class DefaultController extends FrontendController
      * @Route("/contitech_cs_catalog/get-products-tables")
      */
     public function getCategoryProductTables(Request $request) {
-        
+
         $res['data'] = [];
         $product = $request->get('product');
-        
+
         $this->configProviderService = new ConfigProviderService();
         $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
@@ -118,14 +120,14 @@ class DefaultController extends FrontendController
         {
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
-                
+
             $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
 
             $selectedProduct = $catalogTableObject->getProducts();
             $productObj = null;
 
-            
+
             $productNameArr = [];
             if($selectedProduct){
                 foreach ($selectedProduct as $key => $singleProduct) {
@@ -143,11 +145,12 @@ class DefaultController extends FrontendController
             }
 
             $productNameTitle = implode(' and ', $productNameArr);
-            
+
 
             $productName =  trim($productObj->getName());
 
-            if($productObj && isset($productDataImportConfig[$productName]))
+           // print_r($productName);die;
+            if($productObj && isset($productDataImportConfig[$productName])) ///isset variable is assigned a value or not null
             {
                 $PGInfo = $productDataImportConfig[$productName]['Product Group Information'];
 
@@ -181,7 +184,7 @@ class DefaultController extends FrontendController
                 {
                     $productData['LongText'] = $productObj->getLongText();
                 }
-                
+
                 $productData['ProductImageRequired'] = $PGInfo['ProductImageRequired'];
                 if(isset($PGInfo['ProductImageRequired']) && $PGInfo['ProductImageRequired'])
                 {
@@ -222,11 +225,11 @@ class DefaultController extends FrontendController
                 }
                 $productData['Markets'] = $marketsHtml;
 
-                
+
                 $productData['PowerOfFortressRequired'] = $PGInfo['PowerOfFortressRequired'];
                 $productData['FeaturingSolarShield'] = $PGInfo['FeaturingSolarShield'];
                 $productData['BannerRequired'] = $PGInfo['BannerRequired'];
-                
+
                 $productData['FeaturesAndBenefitRequired'] = $PGInfo['FeaturesAndBenefitRequired'];
                 $FeaturesAndBenefits = [];
                 $FeaturesAndBenefitsWithoutImages = [];
@@ -244,14 +247,14 @@ class DefaultController extends FrontendController
                             $FeaturesAndBenefitsWithoutImages[] = $value->getFeatureName();
                         }
                     }
-                    
+
                 }
 
                 if(!$FeaturesAndBenefits)
                 {
                     $productData['FeaturesAndBenefitsWithoutImages'] = $FeaturesAndBenefitsWithoutImages;
                 }
-                
+
                 $productData['FeaturesAndBenefits'] = $FeaturesAndBenefits;
                 $productData['CostPerTonRequired'] = $PGInfo['CostPerTonRequired'];;
 
@@ -273,7 +276,7 @@ class DefaultController extends FrontendController
                 $productTables = array();
                 if($childrenData)
                 {
-                    
+
 
                     $tables = $productDataImportConfig[$productName]['Product Tables'];
                     // unset($tables['Conveyor Belt Data']);
@@ -282,7 +285,7 @@ class DefaultController extends FrontendController
                     // unset($tables['Minimum Pulley Diameters']);
                     // unset($tables['Elevator Belt Data']);
                     // unset($tables['Maximum Bucket Projection']);
-                    
+
 
                     foreach ($tables as $tablekey => $MetricImperialFields) {
 
@@ -292,7 +295,7 @@ class DefaultController extends FrontendController
                         $CS_Idlers_Label = $MetricImperialFields['CS_Idlers_Label'];
                         $CS_Idler_Angle_Label = $MetricImperialFields['CS_Idler_Angle_Label'];
                         $CS_Type_Of_Idler_Label = $MetricImperialFields['CS_Type_Of_Idler_Label'];
-                        
+
 
                         unset($MetricImperialFields['ColumnKeys']);
                         unset($MetricImperialFields['CS_Trough_Angle_Label']);
@@ -300,12 +303,12 @@ class DefaultController extends FrontendController
                         unset($MetricImperialFields['CS_Idlers_Label']);
                         unset($MetricImperialFields['CS_Idler_Angle_Label']);
                         unset($MetricImperialFields['CS_Type_Of_Idler_Label']);
-                        
+
                         if($MetricImperialFields){
-                            
+
 
                             foreach ($MetricImperialFields as $MIKey => $MIValues) {
-                                
+
                                 unset($HeaderKeys);
                                 unset($RemoveKeys);
                                 unset($AdditionalHeaderKey);
@@ -348,7 +351,7 @@ class DefaultController extends FrontendController
                                 {
                                     $AdditionalGroupKey = "CS_Type_Of_Idler_Label";
                                 }
-                                    
+
                                 // $keysTitle = [];
                                 $groupingTitle = [];
 
@@ -356,17 +359,17 @@ class DefaultController extends FrontendController
                                 {
                                     $groupingTitle[$AdditionalGroupKey] = 1;
                                 }
-                                
+
                                 foreach ($MIValues as $key => $value) {
                                     // $keysTitle[$key] = $value['fieldTitle'];
-                                    
+
                                     if(isset($value['groupingTitle']))
                                     {
                                         $groupingTitleLabel = $this->addPrefix($value['groupingTitle']);
                                         $groupingTitle[$groupingTitleLabel] += 1;
                                     }
                                 }
-                                
+
                                 $MIArray = array();
                                 $theadSecondData = [];
                                 $tableHeaderKeys = [];
@@ -428,7 +431,7 @@ class DefaultController extends FrontendController
                                             }
                                         }
                                     }
-                                    
+
                                     if($tableRows)
                                     {
                                         foreach ($tableRows as $tdkey => $trvalue) {
@@ -440,11 +443,11 @@ class DefaultController extends FrontendController
                                             // $rows[]= $keysTitle[$tdkey];
                                             $rows[]= $this->addPrefix($tdkey);
 
-                                            
+
                                             foreach ($trvalue as $key => $value) {
                                                 $rows[]= $value;
                                             }
-                                            
+
                                             $tbodyArray[] = $rows;
                                             unset($rows);
                                         }
@@ -482,7 +485,7 @@ class DefaultController extends FrontendController
 
                                         if($RemoveKeys)
                                         {
-                                            
+
                                             foreach ($RemoveKeys as $key => $value) {
                                                     $newKey[] = $variant[$key];
                                                     unset($variant[$key]);
@@ -490,23 +493,23 @@ class DefaultController extends FrontendController
 
                                             $newArray[] = implode('/', $newKey);
                                             $newArray = \array_merge($newArray,$variant);
-                                            
+
                                             $tbodyArray[] = array_values($newArray);
                                         }
                                     }
                                     $theadfirstColspan = count($tbodyArray[0]);
                                 }
-                                
+
                                 $MIKey = $this->addPrefix($MIKey);
                                 $productTables[$tablekey][$MIKey]['tbody']= $tbodyArray;
                                 $productTables[$tablekey][$MIKey]['theadfirstRowColspan']= $theadfirstColspan;
-                                
-                                
+
+
                                 if($groupingTitle)
                                 {
                                     $productTables[$tablekey][$MIKey]['theadSecondRowGroup']= $groupingTitle;
                                 }
-                                
+
                                 $productTables[$tablekey][$MIKey]['theadSecondRow']= $theadSecondData;
                             }
 
@@ -565,5 +568,31 @@ class DefaultController extends FrontendController
     {
         $allChildren = $this->document->getAllChildren();
         $this->view->allChildren = $allChildren;
+    }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
+     */
+    public function templateContinentalConveyorServicesAction(Request $request)
+    {
+       // $className = $object->getClassName();
+
+
+        $hierarchyObj = DataObject\CSHierarchy::getById(7840591);
+       // $hierarchykey = DataObject\CSHierarchy::getByPath('Conveyor Services');
+        $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/Conveyor Services";
+        $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath); // all hierarchy
+        $CSHierarchyObjChild = $CSHierarchyObj->getchildren(); // all child
+        foreach ($CSHierarchyObjChild as $object) {
+           $object->getchildren();
+        }
+        $this->view['conveyorData'] = $CSHierarchyObjChild;
+        //$object = \Pimcore\Model\DataObject\CSHierarchy::getByName('Conveyor Services');
+       // $objectData = $object->getById()
+      // $object =  \Pimcore\Model\DataObject\CSHierarchy::getById();
+     // print_r($CSHierarchyObj);die;
+       // print_r($CSHierarchyObjChild);die;
+
+
     }
 }

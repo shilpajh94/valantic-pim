@@ -16,34 +16,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <h1 class="orange"><?= $this->input("CBS_WPA_Heading"); ?></h1>
 
             <div class="table-data wpa-table">
-                <table width="100%">
-                    <thead>
-                        <?php if($this->editmode) {
-                            echo ("text");
-                             } ?>
-                        <tr>
-                            <?php  while($this->block("Table_Headers")->loop()) { ?>
-                            <th>
-                                <ul>
-
-                                    <li> <?= $this->input("Table_Header", ['placeholder' => 'Enter Name']); ?></li>
-
-                                </ul>
-                            </th>
-                            <?php } ?>
-
-
-                            <!-- <th>Service<br /> Require</th>
-                             <th>Product<br /> Options</th>
-                            <th>Special Service Construction</th>
-                            <th>Top Cover Options*</th>
-                            <th>Application Requirements</th>   -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr> <?= $this->areablock('myAreablock'); ?></tr>
-                    </tbody>
-                </table>
+                <tr> <?= $this->areablock('myAreablock'); ?></tr>
             </div>
 
             <p class="note mb-0"><?= $this->input("Note_mb"); ?></p>

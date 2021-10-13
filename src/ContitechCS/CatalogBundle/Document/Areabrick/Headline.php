@@ -13,4 +13,9 @@ class Headline extends AbstractAreabrick
     {
         return 'Headline (H1)';
     }
+
+    public function hasEditTemplate()
+    {
+        return true;
+    }
 }
