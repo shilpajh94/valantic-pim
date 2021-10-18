@@ -75,10 +75,13 @@ class ProductEnrichmentListener
                     }
                 }
                 if (!empty($transitionConfig['action'])) {
-                    foreach($transitionConfig['action'] as $key => $value) {
-                        $setter = "set".ucfirst($key);
-                        $product->$setter($value);
-                    }
+                    \Pimcore\Model\Version::disable(); 
+                        foreach($transitionConfig['action'] as $key => $value) {
+                            $setter = "set".ucfirst($key);
+                            $product->$setter($value);
+                        }
+                        $product->save(false);
+                    \Pimcore\Model\Version::enable();
                 }
             }
         }
