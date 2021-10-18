@@ -156,6 +156,7 @@ Troughability minimum belts width (45 °) Unit in inch:
 Vulcanized And Fastener Rating Unit in PIW:
   fieldName: VulcanizedAndFastenerRatinginPIWUnit
   fieldType: Input
+  fieldValue: PIW
   objectType: ProdAttrSetAA
 Diameter Unit:
   fieldName: DiameterUnit
