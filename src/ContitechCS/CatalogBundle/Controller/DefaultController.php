@@ -10,15 +10,15 @@ use Pimcore\Model\DataObject;
 use ContitechCS\ProductBundle\Services\ConfigProviderService;
 use S3CustomizationBundle\Lib\Utils;
 use ContitechCS\ImportBundle\Services\ImportConstants;
+use Pimcore\Db;
 
 class DefaultController extends FrontendController
 {
     private $configProviderService;
-    private $language;
+    private $db;
 
     public function __construct() {
-        // $this->language = $this->get('translator')->getLocale();
-        // $this->get('translator')->setLocale('de');
+        $this->db = Db::get();
     }
 
     /**
@@ -85,7 +85,7 @@ class DefaultController extends FrontendController
         $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
         $productTables = 'Product Tables';
-        if(isset($productDataImportConfig[$product][$productTables]))
+        if(isset($productDataImportConfig['Common Product Page'][$product][$productTables]))
         {
             foreach ($productDataImportConfig[$product][$productTables] as $table => $value) {
                 $result[] = array('id' => trim($table), 'text' => trim($table));
@@ -152,7 +152,7 @@ class DefaultController extends FrontendController
            // print_r($productName);die;
             if($productObj && isset($productDataImportConfig[$productName])) ///isset variable is assigned a value or not null
             {
-                $PGInfo = $productDataImportConfig[$productName]['Product Group Information'];
+                $PGInfo = $productDataImportConfig['Common Product Page'][$productName]['Product Group Information'];
 
                 $hierarchyId = $categoryObj->getCategory();
                 if($hierarchyId)
@@ -278,7 +278,7 @@ class DefaultController extends FrontendController
                 {
 
 
-                    $tables = $productDataImportConfig[$productName]['Product Tables'];
+                    $tables = $productDataImportConfig['Common Product Page'][$productName]['Product Tables'];
                     // unset($tables['Conveyor Belt Data']);
                     // unset($tables['Load Support – Maximum Belt Width Data']);
                     // unset($tables['Troughability Minimum Belt Width']);
@@ -534,6 +534,154 @@ class DefaultController extends FrontendController
      */
     public function templateCoverCompoundsAction(Request $request)
     {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cover_compound_page')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $this->configProviderService = new ConfigProviderService();
+            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+
+            $catalogCategoryObjectId = $catalogTableObject->getParentId();
+            $coverCompoundData = [];
+            if($catalogCategoryObjectId)
+            {
+                $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+
+                $selectedCategoryId = $categoryObj->getCategory();
+
+                $hierarchyObj = DataObject\CSHierarchy::getById($selectedCategoryId);
+
+                $hierarchyPath = $hierarchyObj->getPath();
+                $hierarchyName = $hierarchyObj->getName();
+
+                $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
+
+                $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
+                
+                $coverCompoundData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                $coverCompoundData['Name'] = $HierarchyProductPath->getName();
+                $coverCompoundData['ShortText'] = $HierarchyProductPath->getShortText();
+                $coverCompoundData['LongText'] = $HierarchyProductPath->getLongText();
+                $coverCompoundData['ProductClaimSlogan'] = $HierarchyProductPath->getProductClaimSlogan();
+                $coverCompoundData['productImage'] = $HierarchyProductPath->getProductImage();
+
+                $CSHierarchyObjChild = $HierarchyProductPath->getchildren(); 
+
+                $coverOptionsAttributes = $productDataImportConfig['Cover Options']['Cover Compound Attributes'];
+                $productPage = $productDataImportConfig['Cover Options']['Product Page'];
+
+                $coverCompoundMasterList = $this->getCoverCompoundMasterList();
+                // p_r($coverCompoundMasterList);
+                
+                // level 3rd object
+                $applicationData = [];
+                $level4Data = [];
+                $coverCompounds = [];
+                $level3rdObjectData = [];
+                $singleProductPage = [];
+                $coverCompoundsHeaderKeys = [];
+                $coverCompoundsHeaderKeys[] = 'Compounds';
+                $onlyOnce = false;
+                
+                foreach ($CSHierarchyObjChild as $objectLevel3rd) {
+
+                    $level3Data['Name'] = $objectLevel3rd->getName();
+                    $level3Data['LongText'] = $objectLevel3rd->getLongText();
+                    $level3rdObjectData[] = $level3Data;
+
+                    if($level3Data['Name'] === $productPage){
+
+                        $singleProductPage['Name'] = $level3Data['Name'];
+                        $singleProductPage['PerformanceCategory'] = 'Heat Resistant Compounds';
+                        // $singleProductPage['PerformanceCategory'] = ' Heat Resistant Compounds';
+                        $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
+                        $singleProductPage['LongText'] = $objectLevel3rd->getLongText();;
+                        echo "\n".$productPage;
+                        echo "\n yes";
+                        die;
+                    }
+
+                    $label4Childs = $objectLevel3rd->getchildren();
+
+                    foreach ($label4Childs as $child) {
+                        $level4Name = trim($child->getName());
+                        // p_r($child->getCoverCompound());
+                        // die;
+
+                        if($child->getCoverCompound())
+                        {
+                            foreach ($child->getCoverCompound() as $ckey => $coverCompound) {
+                                $coverCompoundName = $coverCompoundMasterList[$coverCompound];
+                                $coverCompounds[$coverCompoundName][$level4Name][] = $level4Name;
+                                $bricks = $child->getProductAttributes();
+
+                                foreach ($coverOptionsAttributes as $key => $brickName) {
+
+                                    $getBrick = 'get' . $brickName;
+                                    $getField = 'get' . $key;
+                                    if($bricks->$getBrick())
+                                    {
+                                        if(!$onlyOnce)
+                                        {
+                                            $coverCompoundsHeaderKeys[] = $key;
+                                        }
+                                        $coverCompounds[$coverCompoundName][$level4Name][] = $bricks->$getBrick()->$getField();
+                                    }
+                                   
+                                }
+                                $onlyOnce = true;
+                            }
+                        }
+                        
+                        if($child->getCSProductApplications())
+                        {
+                            foreach ($child->getCSProductApplications() as $key => $application) {
+                                $applicationData[] = $application->getApplicationName();
+                                $level4Data[$level4Name][] = $application->getApplicationName();
+                            }
+                        }
+                        else{
+                            $level4Data[$level4Name] = [];
+                        }
+                    }
+                }
+
+                if($level4Data)
+                {
+                    foreach ($level4Data as $lkey => $lvalue) {
+                        $data[] = $lkey;
+                        foreach ($applicationData as $akey => $avalue) {
+
+                            if(in_array($avalue,$lvalue))
+                            {
+                                $data[] = true;
+                            }
+                            else{
+                                $data[] = false;
+                            }
+                            
+                        }
+                        $CCAARows[] = $data;
+                        unset($data);
+                    }
+                }
+
+                $productData['CCAARows'] = $CCAARows;
+                $productData['applicationData'] = $applicationData;
+                $productData['coverCompounds'] = $coverCompounds;
+                $productData['coverCompoundsHeaderKeys'] = $coverCompoundsHeaderKeys;
+                $productData['level3rdObjectData'] = $level3rdObjectData;
+            }
+            else{
+                echo "Category Not Select In Catalog Category Object";
+                die;
+            }
+
+            $productData['coverCompoundData'] = $coverCompoundData;
+        }
+
+        $this->view['data'] = $productData;
     }
 
     /**
@@ -551,6 +699,12 @@ class DefaultController extends FrontendController
         }
         return $key;
     }
+
+    public function getCoverCompoundMasterList(){
+        $query = "select oo_id, Name from object_query_CSCoverCompounds";
+        return $this->db->fetchPairs($query);
+    }
+
     public function getS3ImageSrc($src)
     {
         $s3src = '';
