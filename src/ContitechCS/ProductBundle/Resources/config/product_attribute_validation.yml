@@ -637,9 +637,6 @@ Material Handling:
     Industries:
         fieldName: CSProductIndustries
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -791,9 +788,6 @@ Steelcord Conveyor Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
 Phoenix Phoenocord:
     Applications:
         fieldName: CSProductApplications
@@ -924,9 +918,6 @@ Phoenix Phoenocord:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
 Marathon:
     Applications:
         fieldName: CSProductApplications
@@ -1057,9 +1048,6 @@ Marathon:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
 Textile Conveyor Belts:
     Applications:
         fieldName: CSProductApplications
@@ -1298,9 +1286,6 @@ Textile Conveyor Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
 ContiFlex Plus:
     Applications:
         fieldName: CSProductApplications
@@ -1524,9 +1509,6 @@ ContiFlex Plus:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     hinge:
         fieldName: Hinge
         objectType: ProdAttrSetAB
@@ -1786,9 +1768,6 @@ Texsteel:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -2033,9 +2012,6 @@ Wood Sawyer Plus:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     hinge:
         fieldName: Hinge
         objectType: ProdAttrSetAB
@@ -2355,9 +2331,6 @@ ContiAgriFlex:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Cover weight per 1 mm thickness (kg/m2):
         fieldName: CoverWeightPer1mmThicknessKGM
         objectType: ProdAttrSetC
@@ -2626,9 +2599,6 @@ Solid Woven Conveyor Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     hinge:
         fieldName: Hinge
         objectType: ProdAttrSetAB
@@ -2696,9 +2666,6 @@ Features:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Corporate Brand:
         fieldName: CorporateBrand
         objectType: class
@@ -2829,9 +2796,6 @@ Steep Incline  Conveyor Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Available Profile Pattern Widths:
         fieldName: AvailableProfilePatternWidths
         objectType: ProdAttrSetZ
@@ -2980,9 +2944,6 @@ Enclosed Conveyor Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Cover weight per 1 mm thickness (kg/m2):
         fieldName: CoverWeightPer1mmThicknessKGM
         objectType: ProdAttrSetC
@@ -3134,9 +3095,6 @@ Processing & Special Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Cover weight per 1 mm thickness (kg/m2):
         fieldName: CoverWeightPer1mmThicknessKGM
         objectType: ProdAttrSetC
@@ -3282,9 +3240,6 @@ Drive & Movement:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Cover weight per 1 mm thickness (kg/m2):
         fieldName: CoverWeightPer1mmThicknessKGM
         objectType: ProdAttrSetC
@@ -3448,9 +3403,6 @@ Filtering & Draining:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -3602,9 +3554,6 @@ Seeding & Harvesting:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -3670,7 +3619,7 @@ Seeding & Harvesting:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -3837,9 +3786,6 @@ Pick-up Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -3905,7 +3851,7 @@ Pick-up Belts:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -4072,9 +4018,6 @@ Baler Belts- Endless Wrapped Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -4140,7 +4083,7 @@ Baler Belts- Endless Wrapped Belts:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -4313,9 +4256,6 @@ Bucket Elevator & Seed Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -4381,7 +4321,7 @@ Bucket Elevator & Seed Belts:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -4548,9 +4488,6 @@ Draper Belts for Cutter Heads:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -4616,7 +4553,7 @@ Draper Belts for Cutter Heads:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -4783,9 +4720,6 @@ Draper Belts – Pre-cut & Laced:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -4851,7 +4785,7 @@ Draper Belts – Pre-cut & Laced:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -5018,9 +4952,6 @@ Swather Canvas:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -5086,7 +5017,7 @@ Swather Canvas:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -5253,9 +5184,6 @@ Tube Conveyor Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -5321,7 +5249,7 @@ Tube Conveyor Belts:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -5488,9 +5416,6 @@ Baler Belts:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -5556,7 +5481,7 @@ Baler Belts:
         objectType: ProdAttrSetQ
     OEM Name:
         fieldName: OEMName
-        objectType: ProdAttrSetQ
+        objectType: ProdAttrSetAI
     Top Cover Surface Impression:
         fieldName: TopCoverSurfaceImpression
         objectType: ProdAttrSetQ
@@ -5685,9 +5610,6 @@ Service Material:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -5962,9 +5884,6 @@ Accessories & Components:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL
@@ -6104,9 +6023,6 @@ Digital Solution:
     Region:
         fieldName: CSRegion
         objectType: class
-    identifier:
-        fieldName: Identifier
-        objectType: ProdAttrSetB
     Sales unit:
         fieldName: Salesunit
         objectType: ProdAttrSetL

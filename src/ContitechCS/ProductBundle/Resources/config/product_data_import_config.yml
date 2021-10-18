@@ -286,10 +286,6 @@ Region:
     objectType: class
     mandatoryFields: "RegionName"
     createFlag: false
-identifier:
-    fieldName: Identifier
-    fieldType: Number
-    objectType: ProdAttrSetB
 Cover weight per 1 mm thickness (kg/m2):
     fieldName: CoverWeightPer1mmThicknessKGM
     fieldType: Number
