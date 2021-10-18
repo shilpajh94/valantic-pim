@@ -47,7 +47,8 @@ services:
 
     ContitechCS\ProductBundle\Services\ConfigProviderService:
         public: true
-        
+    ContitechCS\ProductBundle\Services\MandatoryValidationService:
+        public: true
     ContitechCS\ProductBundle\Workflow\AssetSupportStrategy:
         public: true
     

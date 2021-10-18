@@ -44,19 +44,19 @@ parameters:
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
-        approve_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Approved'
-            notificationTo: 
-                users:
-                    - ProductOwner
-                roles:
+#        approve_product:
+#            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Approved'
+#            notificationTo: 
+#                users:
+#                    - ProductOwner
+#                roles:
 #            notificationCC: 
 #                users: 
 #                    - ProductOwner
 #                    - UserOwner
 #                roles:
         send_to_publish:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productSentToPublish'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Publish Notification'
             notificationTo: 
                 users:
                     - UserOwner   
@@ -96,7 +96,7 @@ parameters:
                 isPaused: true
                 published: false
         archive_product:
-            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/productArchived'
+            templatePath: '/ConveyorBeltSolutions/WorkflowEmailTemplates/Product Archive Notification'
             notificationTo: 
                 users:
                     - ProductOwner
@@ -112,6 +112,10 @@ parameters:
             action: 
                 isPaused: false
             condition:
+                
+        approve_product:
+            condition:
+                methods: [checkForMandatoryValidation]
                 
         pause_product:
             action: 
@@ -129,6 +133,7 @@ parameters:
             action: 
                 isPaused: false
                 published: true
+                
         archive_asset:
             action:
                 path: '/Contitech_ConveyorSolution/Internal Assets'
