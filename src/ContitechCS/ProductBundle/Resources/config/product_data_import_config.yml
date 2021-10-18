@@ -270,14 +270,6 @@ continuous industrial max. bucket projection in mm(Elevator Belt only):
     fieldName: ContinuousIndustrialMaxBucketProjectionMM
     fieldType: Number
     objectType: ProdAttrSetA
-Segment:
-    fieldName: CSSegment
-    fieldType: manyToManyObjectRelation
-    className: CSSegment
-    fieldNameToSearch: SegmentName
-    objectType: class
-    mandatoryFields: "SegmentName"
-    createFlag: false
 Region:
     fieldName: CSRegion
     fieldType: manyToManyObjectRelation
