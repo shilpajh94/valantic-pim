@@ -162,6 +162,105 @@
 
                 </div>
             </div>
+
+            <h1 class="orange"><?= $this->input("Sybercord_Header_title"); ?></h1>
+            <h2 class="d-flex sub-title" style="justify-content: space-between;">
+                <?= $this->input("Sybercord_Sub_title"); ?>
+
+                <?php
+                    if($this->editmode)
+                        {
+                            echo $this->image("sybercord_Image");
+                        }
+                        else
+                        {
+                            $imgSrcObj =  $this->image("sybercord_Image");
+                            if($imgSrcObj)
+                            {
+                            ?>
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                <?php
+                        }
+                     }
+                ?>
+
+            </h2>
+
+
+
+            <div class="environment-quality-sec">
+
+                <div class="media">
+                    <div class="media-body pr-4">
+
+                        <p><?= $this->wysiwyg("sybercord_Content"); ?></p>
+
+                        <?php
+                            if($this->editmode)
+                                {
+                                    echo $this->image("Sybercord_Construction_Image");
+                                }
+                                else
+                                {
+                                    $imgSrcObj =  $this->image("Sybercord_Construction_Image");
+                                    if($imgSrcObj)
+                                    {
+                                    ?>
+                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                        <?php
+                                }
+                             }
+                        ?>
+                        </p>
+                    </div>
+
+                    <?php
+                        if($this->editmode)
+                            {
+                                echo $this->image("Sybercord_Construction_Compact_Image");
+                            }
+                            else
+                            {
+                                $imgSrcObj =  $this->image("Sybercord_Construction_Compact_Image");
+                                if($imgSrcObj)
+                                {
+                                ?>
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                    <?php
+                            }
+                         }
+                    ?>
+                </div>
+            </div>
+
+
+            <div class="feature-benefit-list">
+                <h3><?= $this->input("Sybercord_Sub_Heading1"); ?></h3>
+                <ul>
+                    <?php
+                    while($this->block("Sybercord_Sub_Heading1_Content")->loop()) { ?>
+                    <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading1_Content");?> </li>
+                    <?php
+                    } ?>
+                </ul>
+            </div>
+
+            <div class="colum-2 p-0">
+                <div class="feature-benefit-list my-0">
+                    <h3><?= $this->input("Sybercord_Sub_Heading2"); ?></h3>
+                    <ul>
+                        <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading2_Content"); ?></li>
+                    </ul>
+
+                    <div class="nexcolumtarget">
+                        <h3><?= $this->input("Sybercord_Sub_Heading3"); ?></h3>
+                        <ul>
+                            <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading3_Content"); ?></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
     </main>

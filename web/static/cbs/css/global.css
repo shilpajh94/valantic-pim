@@ -144,7 +144,7 @@ section {
 }
 
 .d-flex {
-  display: flex;
+  display: flex !important;
 }
 
 .wrapper .backcoverpage{
@@ -183,14 +183,18 @@ section {
 .mb-0{
   margin-bottom: 0px !important;
 }
-<<<<<<< HEAD
-=======
+.mb-4{
+  margin-bottom: 20px;
+}
 .d-block{
   display: block;
 }
 
 .mt-4{
   margin-top: 20px;
+}
+.pt-4{
+  padding-top: 20px;
 }
 .align-item-ends{
   align-items: flex-end !important;
@@ -201,4 +205,23 @@ section {
 .pl-2{
   padding-left: 10px;
 }
->>>>>>> CBS_catalogue_EditablePages
+.my-0{
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.row{
+  margin: 0 -15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.col-2{
+  max-width: 20%;
+  flex: 0 0 20%;
+  padding: 0 15px;
+}
+.mx-auto{
+  margin: 0 auto;
+}
+.border-b{
+  border-bottom:0px !important;
+}
