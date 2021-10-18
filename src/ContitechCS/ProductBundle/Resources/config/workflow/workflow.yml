@@ -137,6 +137,8 @@ parameters:
         archive_asset:
             action:
                 path: '/Contitech_ConveyorSolution/Internal Assets'
+            condition:
+                methods: [productMappingValidation]
         unarchive_asset:
             action:
                 path: '/Contitech_ConveyorSolution/Product Assets/Unarchived'
