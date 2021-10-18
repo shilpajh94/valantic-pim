@@ -1,10 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-08T17:06:28+05:30
+* Generated at: 2021-10-18T16:37:50+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
+* IP: ::1
 
 
 Fields Summary: 
@@ -15,6 +16,7 @@ Fields Summary:
 - isPaused [checkbox]
 - isArchived [checkbox]
 - NatureOfProduct [input]
+- CSSegment [select]
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
@@ -28,11 +30,10 @@ Fields Summary:
 - CSProductApplications [manyToManyObjectRelation]
 - CSProductFeaturesAndBenefits [manyToManyObjectRelation]
 - CSProductIndustries [manyToManyObjectRelation]
+- CoverCompounds [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
-- CSSegment [manyToManyObjectRelation]
 - CSRegion [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
-- CoverCompounds [manyToManyObjectRelation]
 - ProductAttributes [objectbricks]
 - LogoImage [image]
 - productImage [image]
@@ -64,7 +65,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1633692987,
+   'modificationDate' => 1634555268,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -527,7 +528,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'title' => 'ProductOwner',
                          'tooltip' => '',
                          'mandatory' => false,
-                         'noteditable' => true,
+                         'noteditable' => false,
                          'index' => false,
                          'locked' => false,
                          'style' => 'margin-left:10px;',
@@ -609,6 +610,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'datatype' => 'data',
                          'relationType' => false,
                          'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'SA',
+                            'value' => 'SA',
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'NA',
+                            'value' => 'NA',
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'Americas',
+                            'value' => 'Americas',
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'APAC',
+                            'value' => 'APAC',
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'EMEA',
+                            'value' => 'EMEA',
+                          ),
+                        ),
+                         'width' => 300,
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'CSSegment',
+                         'title' => 'Segment',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => NULL,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
                          'defaultValueGenerator' => '',
@@ -2206,298 +2263,331 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'visibleSearch' => true,
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'id,ApplicationCode,ApplicationName',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'fieldtype' => 'fieldcontainer',
+                 'labelWidth' => 100,
+                 'layout' => 'hbox',
+                 'fieldLabel' => '',
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => NULL,
+                 'height' => NULL,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'permissions' => NULL,
+                 'childs' => 
                 array (
                   0 => 
-                  array (
-                    'classes' => 'CSApplications',
-                  ),
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'ApplicationName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSApplications',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSProductApplications',
+                         'title' => 'Applications',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'FeatureName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSFeaturesAndBenefits',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSProductFeaturesAndBenefits',
+                         'title' => 'Features and Benefits',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'IndustryName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSIndustries',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSProductIndustries',
+                         'title' => 'Industries',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => '',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CoverCompounds',
+                         'title' => 'Cover Compounds',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'fieldtype' => 'fieldcontainer',
+                     'labelWidth' => 200,
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => '',
+                     'width' => NULL,
+                     'height' => NULL,
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'permissions' => NULL,
+                     'childs' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'Name',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSProducts',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSRelatedProducts',
+                         'title' => 'Related Products',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'RegionName',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSRegion',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'CSRegion',
+                         'title' => 'Region',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:20px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'fieldtype' => 'manyToManyObjectRelation',
+                         'width' => 495,
+                         'height' => '',
+                         'maxItems' => '',
+                         'queryColumnType' => 'text',
+                         'phpdocType' => 'array',
+                         'relationType' => true,
+                         'visibleFields' => 'Name',
+                         'allowToCreateNewObject' => false,
+                         'optimizedAdminLoading' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'CSHierarchy',
+                          ),
+                        ),
+                         'pathFormatterClass' => '',
+                         'name' => 'ParentCategory',
+                         'title' => 'Parent Category',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:20px; clear:both;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                  )),
                 ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CSProductApplications',
-                 'title' => 'Applications',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
                  'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              3 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'id,FeatureName,FeatureImage',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'CSFeaturesAndBenefits',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CSProductFeaturesAndBenefits',
-                 'title' => 'Features and Benefits',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              4 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'id,IndustryCode,IndustryName',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'CSIndustries',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CSProductIndustries',
-                 'title' => 'Industries',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              5 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'Name,id,fullpath',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'CSProducts',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CSRelatedProducts',
-                 'title' => 'Related Products',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              6 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'SegmentName,id,fullpath',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'CSSegment',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CSSegment',
-                 'title' => 'Segment',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              7 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'RegionName,id,fullpath',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'CSRegion',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CSRegion',
-                 'title' => 'Region',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              8 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 'Name,id,key',
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'CSHierarchy',
-                  ),
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'ParentCategory',
-                 'title' => 'Parent Category',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => true,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px; clear:both;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
-              )),
-              9 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'fieldtype' => 'manyToManyObjectRelation',
-                 'width' => 1010,
-                 'height' => '',
-                 'maxItems' => '',
-                 'queryColumnType' => 'text',
-                 'phpdocType' => 'array',
-                 'relationType' => true,
-                 'visibleFields' => 
-                array (
-                ),
-                 'allowToCreateNewObject' => false,
-                 'optimizedAdminLoading' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                ),
-                 'pathFormatterClass' => '',
-                 'name' => 'CoverCompounds',
-                 'title' => 'Cover Compounds',
-                 'tooltip' => '',
-                 'mandatory' => false,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => 'margin-left:10px;',
-                 'permissions' => NULL,
-                 'datatype' => 'data',
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => false,
               )),
             ),
              'locked' => false,
@@ -2529,40 +2619,39 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'allowedTypes' => 
                 array (
                   0 => 'ProdAttrSetA',
-                  1 => 'ProdAttrSetB',
-                  2 => 'ProdAttrSetC',
-                  3 => 'ProdAttrSetD',
-                  4 => 'ProdAttrSetE',
-                  5 => 'ProdAttrSetF',
-                  6 => 'ProdAttrSetG',
-                  7 => 'ProdAttrSetH',
-                  8 => 'ProdAttrSetI',
-                  9 => 'ProdAttrSetJ',
-                  10 => 'ProdAttrSetK',
-                  11 => 'ProdAttrSetL',
-                  12 => 'ProdAttrSetM',
-                  13 => 'ProdAttrSetN',
-                  14 => 'ProdAttrSetO',
-                  15 => 'ProdAttrSetP',
-                  16 => 'ProdAttrSetQ',
-                  17 => 'ProdAttrSetR',
-                  18 => 'ProdAttrSetS',
-                  19 => 'ProdAttrSetT',
-                  20 => 'ProdAttrSetU',
-                  21 => 'ProdAttrSetV',
-                  22 => 'ProdAttrSetY',
-                  23 => 'ProdAttrSetX',
-                  24 => 'ProdAttrSetW',
-                  25 => 'ProdAttrSetAA',
-                  26 => 'ProdAttrSetAB',
-                  27 => 'ProdAttrSetAC',
-                  28 => 'ProdAttrSetZ',
-                  29 => 'ProdAttrSetAD',
-                  30 => 'ProdAttrSetAE',
-                  31 => 'ProdAttrSetAF',
-                  32 => 'ProdAttrSetAG',
-                  33 => 'ProdAttrSetAH',
-                  34 => 'ProdAttrSetAI',
+                  1 => 'ProdAttrSetC',
+                  2 => 'ProdAttrSetD',
+                  3 => 'ProdAttrSetE',
+                  4 => 'ProdAttrSetF',
+                  5 => 'ProdAttrSetG',
+                  6 => 'ProdAttrSetH',
+                  7 => 'ProdAttrSetI',
+                  8 => 'ProdAttrSetJ',
+                  9 => 'ProdAttrSetK',
+                  10 => 'ProdAttrSetL',
+                  11 => 'ProdAttrSetM',
+                  12 => 'ProdAttrSetN',
+                  13 => 'ProdAttrSetO',
+                  14 => 'ProdAttrSetP',
+                  15 => 'ProdAttrSetQ',
+                  16 => 'ProdAttrSetR',
+                  17 => 'ProdAttrSetS',
+                  18 => 'ProdAttrSetT',
+                  19 => 'ProdAttrSetU',
+                  20 => 'ProdAttrSetV',
+                  21 => 'ProdAttrSetY',
+                  22 => 'ProdAttrSetX',
+                  23 => 'ProdAttrSetW',
+                  24 => 'ProdAttrSetAA',
+                  25 => 'ProdAttrSetAB',
+                  26 => 'ProdAttrSetAC',
+                  27 => 'ProdAttrSetZ',
+                  28 => 'ProdAttrSetAD',
+                  29 => 'ProdAttrSetAE',
+                  30 => 'ProdAttrSetAF',
+                  31 => 'ProdAttrSetAG',
+                  32 => 'ProdAttrSetAH',
+                  33 => 'ProdAttrSetAI',
                 ),
                  'maxItems' => '',
                  'border' => false,
