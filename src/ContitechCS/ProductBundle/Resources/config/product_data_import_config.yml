@@ -456,7 +456,7 @@ Certificate:
     objectType: ProdAttrSetK
 Sales unit:
     fieldName: Salesunit
-    fieldType: Select
+    fieldType: Multiselection
     objectType: ProdAttrSetL
 "SAP #":
     fieldName: SapCode
@@ -640,19 +640,19 @@ Min Temperature (C):
     objectType: ProdAttrSetR
 Abrasion Resistance:
     fieldName: AbrasionResistance
-    fieldType: BooleanSelect
+    fieldType: Input
     objectType: ProdAttrSetR
 Oil Resistance:
     fieldName: OilResistance
-    fieldType: BooleanSelect
+    fieldType: Input
     objectType: ProdAttrSetR
 Flame Resistance:
     fieldName: FlameResistance
-    fieldType: BooleanSelect
+    fieldType: Input
     objectType: ProdAttrSetR
 ISO 284 Static Conductive:
     fieldName: ISO284StaticConductive
-    fieldType: BooleanSelect
+    fieldType: Input
     objectType: ProdAttrSetR
 Max. Abrasion Non-Rotating:
     fieldName: MaxAbrasionNonRotatingMM
@@ -820,11 +820,11 @@ Inner diameter:
     objectType: ProdAttrSetV
 Rubber Compound:
     fieldName: RubberCompound
-    fieldType: Select
+    fieldType: Multiselection
     objectType: ProdAttrSetV
 Plastic Liner Type:
     fieldName: PlasticLinerType
-    fieldType: Select
+    fieldType: Multiselection
     objectType: ProdAttrSetW
 Rubber type:
     fieldName: RubberType
@@ -836,7 +836,7 @@ Profile Type:
     objectType: ProdAttrSetW
 Polymer Type:
     fieldName: PolymerType
-    fieldType: Select
+    fieldType: Multiselection
     objectType: ProdAttrSetW
 Plastic Liner Color:
     fieldName: PlasticLinerColor
@@ -844,7 +844,7 @@ Plastic Liner Color:
     objectType: ProdAttrSetW
 Material:
     fieldName: Material
-    fieldType: Select
+    fieldType: Multiselection
     objectType: ProdAttrSetX
 Minimum Belt width:
     fieldName: MinimumBeltMMWidth
