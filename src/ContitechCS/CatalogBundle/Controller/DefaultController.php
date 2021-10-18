@@ -726,27 +726,29 @@ class DefaultController extends FrontendController
 
     /**
      * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
-     */
+    */
     public function templateContinentalConveyorServicesAction(Request $request)
     {
-       // $className = $object->getClassName();
+        $productNameArr = [];
 
+        $parentProductObject = DataObject\CSProducts::getById(7841980);
+        $productNameArr['Name'] = trim($parentProductObject->getName()); //Array ( [0] => Field Service )
+        $productNameArr['ProductClaimSlogan'] = $parentProductObject->getProductClaimSlogan();
+        $productNameArr['ShortText'] = $parentProductObject->getShorttext();
 
-        $hierarchyObj = DataObject\CSHierarchy::getById(7840591);
-       // $hierarchykey = DataObject\CSHierarchy::getByPath('Conveyor Services');
-        $hierarchyNamePath = "/" . ImportConstants::CONTITECH_CS_MASTERDATA_PRODUCT_HIERARCHY_FOLDER . "/Conveyor Services";
-        $CSHierarchyObj = DataObject\CSHierarchy::getByPath($hierarchyNamePath); // all hierarchy
-        $CSHierarchyObjChild = $CSHierarchyObj->getchildren(); // all child
-        foreach ($CSHierarchyObjChild as $object) {
-           $object->getchildren();
+        $childrenData = [];
+        $childObject = $parentProductObject->getChildren();
+        foreach ($childObject as $childValue) {
+            $data['Name'] = $childValue->getName(); //all childs
+            $data['LongText'] = $childValue->getLongtext();
+            $data['Images'] = $childValue->getProductImage();
+
+            $childrenData[] = $data;
+            unset($data);
         }
-        $this->view['conveyorData'] = $CSHierarchyObjChild;
-        //$object = \Pimcore\Model\DataObject\CSHierarchy::getByName('Conveyor Services');
-       // $objectData = $object->getById()
-      // $object =  \Pimcore\Model\DataObject\CSHierarchy::getById();
-     // print_r($CSHierarchyObj);die;
-       // print_r($CSHierarchyObjChild);die;
 
+        $productNameArr['childrenData'] = $childrenData;
 
+        $this->view['data'] = $productNameArr;
     }
 }

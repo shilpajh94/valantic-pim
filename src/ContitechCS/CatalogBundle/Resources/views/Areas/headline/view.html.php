@@ -1,16 +1,19 @@
 <?php
 
-$totalColumnCount =  $this->block("columns")->getCount();
-$rowsCount = $this->block("rows")->getCount();
+$totalColumnCount =  $this->block("columns")->getCount(); // p_r($this->block("columns")->getCount());die; //4
+$rowsCount = $this->block("rows")->getCount(); //p_r($this->block("rows")->getCount());die;  //4
 if ($totalColumnCount>0 && $rowsCount >0) { ?>
 <table width="100%">
     <thead>
         <tr>
             <?php foreach($this->block("columns")->getElements() as $element) { ?>
+            <!-- p_r($element);  info of the block column-->
             <th><?php echo $element->getInput("heading")->getData(); ?></th>
+            <!--???? -->
             <?php } ?>
         </tr>
     </thead>
+    <!--head over -->
     <tbody>
         <?php
         $j = 0;
@@ -18,7 +21,7 @@ if ($totalColumnCount>0 && $rowsCount >0) { ?>
 //        foreach($this->block("rows")->getElements() as $element) {
 //            $current = $element->getIndex();
 
-            $evenOrOdd = ($j%2); ?>
+            $evenOrOdd = ($j%2); ?> print_r($j);die;
         <tr class="row_<?php echo $evenOrOdd ?>">
             <?php for ($i=0; $i<$totalColumnCount; $i++) { ?>
             <td>

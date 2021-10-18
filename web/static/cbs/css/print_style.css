@@ -9,11 +9,7 @@
 
         
 
-<<<<<<< HEAD
-    .wrapper header,
-=======
     /* .wrapper header,
->>>>>>> CBS_catalogue_EditablePages
     .wrapper footer{
         padding: 0px 30px;
     } */
@@ -95,6 +91,9 @@
         background: cmyk(1%, 0%, 0%, 9%);
         -webkit-print-color-adjust: exact;
     }
+    .divider{
+        border-color: cmyk(1%, 0%, 0%, 9%);
+    }
 
     .black-bg{
         background: cmyk(0%, 0%, 0%, 100%);
@@ -112,7 +111,7 @@
         color: cmyk(0%, 0%, 0%, 0%);
     }
     
-    .table-data tbody tr:nth-child(even), .wpa-table tbody tr{
+    .table-data tbody tr:nth-child(even), .wpa-table tbody tr, .table-data.contipipe-table tbody tr:nth-child(odd){
         background: cmyk(0%, 7%, 20%, 0%);
         -webkit-print-color-adjust: exact;
     }
@@ -160,14 +159,11 @@
         transform: translate(0px, 30px) rotate(-90deg);
         width: 30px;
     }
-<<<<<<< HEAD
-=======
 
     .page95{
         min-width: 100%;
         margin: 0;
     }
->>>>>>> CBS_catalogue_EditablePages
   
 }
 
@@ -272,10 +268,6 @@
         content: none;
     }
 
-<<<<<<< HEAD
-}
-=======
 }
 
 
->>>>>>> CBS_catalogue_EditablePages

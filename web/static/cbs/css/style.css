@@ -76,7 +76,7 @@ h1 strong{
 .fortressxp-belts .features-benefit-sec h1,
 .fortressxp-belts .belts-information h1, 
 .wood-product-applications h1, .wood-product-applications h2,
-.fortressxp-belts.conveyor-belt h1
+.fortressxp-belts.conveyor-belt h1, h2
 {
     font-size: 24px;
 }
@@ -215,9 +215,15 @@ h1 strong{
     padding-top: 25px;
     font-size: 10px;
 }
-
+.table.conticlean-tab thead,
+.table.conticlean-tab tbody{
+    border-bottom:0px;
+}
+.table.conticlean-tab{
+    margin: 0px;
+}
 .labels table tr {
-    border: 2px solid rgb(250, 162, 27);
+    border: 2px solid rgb(155, 146, 133);
     border-left: 0px;
 }
 
@@ -349,7 +355,7 @@ h1 strong{
     position: relative;
     overflow: hidden;
 }
-.table-data tbody td:after, .table-data thead .white-bg th:after{
+.table-data tbody td:after, .table-data thead .white-bg th:after, .table-data.contipipe-table thead th:nth-child(2n+2):after, .table-data.contipipe-table thead .grey-bg th:after{
     border-right: 5px solid #ffffff;
     position: absolute;
     right: 0;
@@ -377,7 +383,6 @@ h1 strong{
     border-top: 2px solid #000;
     z-index: 20;
 }
-
 .table-data thead th:before{
     border-bottom: 2px solid #000;
     border-top: 0px;
@@ -393,6 +398,27 @@ h1 strong{
     border-bottom: 0px;
     border-top: 2px solid #000;
 }
+.table-data.contipipe-table thead:after{
+    border-bottom: 0px;
+}
+.table-data.contipipe-table tbody tr:first-child td::before {
+    border-top: 1px solid #000000;
+}
+.table-data.contipipe-table tbody td:nth-child(2n+2):after{
+    border-right: 5px solid #ffffff;
+}
+.table-data.contipipe-table tbody td:nth-child(2n+1):after{
+    border-right: 5px solid transparent;
+}
+.table-data.contipipe-table tbody tr:nth-child(odd) {
+    background: #ffedcc;
+    -webkit-print-color-adjust: exact;
+}
+.table-data.contipipe-table tbody tr:nth-child(even) {
+    background: #ffffff;
+    -webkit-print-color-adjust: exact;
+}
+
 
 .table-data tbody td:first-child:after, 
 .table-data tbody td:last-child:after, .table-data thead .white-bg th:last-child:after, .table-data tbody td.border-right:after, 
@@ -400,7 +426,7 @@ h1 strong{
     border-right: 5px solid transparent;
 }
 
-.table-data.wpa-table tbody td:first-child{
+.table-data.wpa-table tbody td:first-child, .table-data.contipipe-table tbody td:first-child, .table-data.contipipe-table tbody td:last-child:after,  .table-data.contipipe-table thead th:last-child:after{
     border-right: 0px;
 }
 .table-data.wpa-table tbody td:first-child:after, .table-data.wpa-table tbody td:after{
@@ -413,24 +439,17 @@ h1 strong{
 .table-data.compounds-table thead th:first-child::before {
     border-bottom: 2px solid transparent;
 }
-<<<<<<< HEAD
 
 
 .table-data.compounds-table tbody td.orange-bg::before, .table-data.compounds-table tbody td.white-bg::before{
     border-top: 1px solid #ffffff;
 }
 
-=======
-
-
-.table-data.compounds-table tbody td.orange-bg::before, .table-data.compounds-table tbody td.white-bg::before{
-    border-top: 1px solid #ffffff;
-}
-
->>>>>>> CBS_catalogue_EditablePages
 .table-data.compounds-table tbody tr:first-child td.orange-bg::before{
     border-top: 0px solid transparent;
 }
+
+
 /* 
 .table-data tbody tr:nth-child(even) td:last-child {
     border-right: 0px;
@@ -668,8 +687,6 @@ h1 strong{
     margin-top: auto;
     display: flex;
     align-items: flex-end;
-<<<<<<< HEAD
-=======
 
 }
 .bottom-sect .backcover-logo{
@@ -735,57 +752,23 @@ h1 strong{
     position: running(halfImage);
     /* page:halfImage; */
 }
->>>>>>> CBS_catalogue_EditablePages
-
+.pg-6{
+    margin: 0 -30px;
 }
-.bottom-sect .backcover-logo{
-    width: 50%;
-}
-
-.backcover-logo img{
-    width: 220px;
-}
-.bottom-sect p{
-    width: 40%;
-    font-size: 8px;
-    padding-right: 20px;
-    margin-bottom: 0;
-}
-.bottom-sect p:last-child{
-    width: 10%;
-    text-orientation: mixed;
-    writing-mode: vertical-lr;
-    transform: rotate(-181deg);
-    display: flex;
-    align-items: center;
-    font-size: 10px;
-}
-.solar-shield-table{
-    max-width: 100%;
-}
-.solar-shield-table tr{
-    vertical-align: top;
-}
-.solar-shield-table tr td:first-child{
-    font-weight: bold;
-}
-.solar-shield-table tr td{
-    padding-bottom: 10px;
-}
-.cover-compounds-table{
-    max-width: 100%;
+.divider{
+    border-color: #e6e7e8;
 }
 
-.cover-compounds-table td, .cover-compounds-table th{
-    border-bottom: 1px solid #000;
-    font-size: 10px;
+.construction-tab{
+    margin: 25px auto;
+}
+
+.construction-tab th, .construction-tab td {
+    text-align: center;
+    border-bottom: 1px solid #000000;
 }
 
 
-.cover-compounds-table tbody tr:nth-child(2n){
-    background-color: #e6e7e8;
-}
-
-.cover-compounds-table th{
-    vertical-align: bottom;
+.construction-tab thead, .construction-tab tbody {
+    border-bottom: 0px;
 }
