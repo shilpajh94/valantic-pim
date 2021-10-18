@@ -6,6 +6,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\Document;
 use Symfony\Component\Workflow\Event\TransitionEvent;
 use Symfony\Component\Workflow\Event\CompletedEvent as Event;
+use Pimcore\Model\Element\ValidationException;
 
 
 class ProductEnrichmentListener 
@@ -41,6 +42,22 @@ class ProductEnrichmentListener
         }
     }
     
+    public function checkForMandatoryValidation($product) {
+        $serviceObj = \Pimcore::getContainer()->get('ContitechCS\ProductBundle\Services\MandatoryValidationService');
+        $validationApplicability = $serviceObj->checkValidationApplicability($product);
+        $success = true;
+        $msg = '';
+        if ($validationApplicability) {
+            try {
+                $serviceObj->checkForMandatoryValidation($product);
+            } catch (\Exception $ex) {
+                $success = false;
+                $msg = $ex->getMessage();
+            }
+        }
+        return ['success' => $success, 'msg' => $msg];
+    }
+    
     public function csWorkflowActions(TransitionEvent $event) {
         $transition = $event->getTransition();
         $transitionName = $transition->getName();
@@ -53,7 +70,7 @@ class ProductEnrichmentListener
                     foreach ($validationMethods as $method) {
                         $response = $this->$method($product);
                         if (empty($response['success'])) {
-                            throw new \Exception($response['msg']);
+                            throw new ValidationException($response['msg']);
                         }
                     }
                 }
