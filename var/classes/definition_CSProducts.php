@@ -2591,7 +2591,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_yellow.png',
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/label.svg',
           )),
           1 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -2672,7 +2672,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               )),
             ),
              'locked' => false,
-             'icon' => '/bundles/pimcoreadmin/img/icon/tag_green.png',
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/input.svg',
           )),
           2 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
