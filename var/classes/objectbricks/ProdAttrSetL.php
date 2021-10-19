@@ -1,8 +1,12 @@
 <?php 
 
 /** 
+* Generated at: 2021-10-18T09:59:38+02:00
+* IP: 127.0.0.1
+
+
 Fields Summary: 
-- Salesunit [select]
+- Salesunit [multiselect]
 - SapCode [numeric]
 */ 
 
@@ -99,8 +103,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'childs' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'fieldtype' => 'select',
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                     'fieldtype' => 'multiselect',
                      'options' => 
                     array (
                       0 => 
@@ -110,13 +114,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'width' => 200,
-                     'defaultValue' => '',
+                     'height' => 30,
+                     'maxItems' => '',
+                     'renderType' => 'tags',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
-                     'queryColumnType' => 'varchar',
-                     'columnType' => 'varchar',
-                     'columnLength' => 190,
-                     'phpdocType' => 'string',
+                     'queryColumnType' => 'text',
+                     'columnType' => 'text',
+                     'phpdocType' => 'array',
                      'dynamicOptions' => false,
                      'name' => 'Salesunit',
                      'title' => 'Sales unit',
@@ -124,7 +129,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
-                     'locked' => NULL,
+                     'locked' => false,
                      'style' => '',
                      'permissions' => NULL,
                      'datatype' => 'data',
@@ -132,7 +137,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'invisible' => false,
                      'visibleGridView' => false,
                      'visibleSearch' => false,
-                     'defaultValueGenerator' => '',
                   )),
                 ),
                  'locked' => false,
