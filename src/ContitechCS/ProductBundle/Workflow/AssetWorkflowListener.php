@@ -9,6 +9,8 @@
 namespace ContitechCS\ProductBundle\Workflow;
 
 use Pimcore\Model\Asset;
+use Pimcore\Model\DataObject;
+use Pimcore\Model\Element\ValidationException;
 use Symfony\Component\Workflow\Event\TransitionEvent;
 use Symfony\Component\Workflow\Event\CompletedEvent as Event;
 /**
@@ -27,6 +29,21 @@ class AssetWorkflowListener {
         
     }
     
+    public function productMappingValidation(Asset $asset) {
+        $requiredByInfo = $asset->getDependencies()->getRequiredBy();
+        if (!empty($requiredByInfo) && count($requiredByInfo)>0) {
+            foreach ($requiredByInfo as $requiredBy) {
+                if ($requiredBy['type'] == 'object' && !empty($requiredBy['id'])) {
+                    $object = DataObject::getById($requiredBy['id']);
+                    if ($object instanceof DataObject\CSProducts) {
+                        return ['success' => false, 'msg' => 'This asset is mapped with product(s). Please go to Dependency tab to remove mapping.'];
+                    }
+                }
+            }
+        }
+        return ['success' => true];
+    }
+    
     public function csAssetTransitionAction(TransitionEvent $event) {
         $transition = $event->getTransition();
         $transitionName = $transition->getName(); 
@@ -34,6 +51,15 @@ class AssetWorkflowListener {
         if (!empty($transitionName) && !empty($this->transitionConfig) && !empty($this->transitionConfig[$transitionName])) {
             $transitionConfig = $this->transitionConfig[$transitionName];
             if (!empty($transitionConfig)) {
+                if (!empty($transitionConfig['condition'])) {
+                    $validationMethods = $transitionConfig['condition']['methods'];
+                    foreach ($validationMethods as $method) {
+                        $response = $this->$method($subject);
+                        if (empty($response['success'])) {
+                            throw new ValidationException($response['msg']);
+                        }
+                    }
+                }
                 if (!empty($transitionConfig['action'])) {
                     foreach($transitionConfig['action'] as $key => $value) {
                         if ($key == 'path') {
