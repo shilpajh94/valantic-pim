@@ -89,7 +89,7 @@ class ObjectListener
                         }
                     }
                 }
-                // $applyvalidation = false;
+                 $applyvalidation = false;
                 if ($applyvalidation) {
                     $arr = array('Please fill all mandatory fields');
                     foreach ($config[$product_name] as $cnf) {

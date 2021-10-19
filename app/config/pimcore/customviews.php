@@ -144,11 +144,11 @@ return [
         ],
         [
             'treetype' => 'object',
-            'name' => 'Catalogs Data',
+            'name' => 'Catalogs Objects',
             'condition' => null,
             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/overlay-reading.svg',
             'id' => 'cs_dataobject_catalogs_data',
-            'rootfolder' => '/Contitech_ConveyorSolution/Catalogs',
+            'rootfolder' => '/Contitech_ConveyorSolution/Catalog Objects',
             'showroot' => true,
             'classes' => '',
             'position' => 'left',

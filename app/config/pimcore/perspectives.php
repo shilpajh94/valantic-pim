@@ -86,7 +86,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_external',
+                'id' => 'cs_asset_products',
             ],
             [
                 'type' => 'customview',
@@ -194,7 +194,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_external',
+                'id' => 'cs_asset_products',
             ],
             [
                 'type' => 'customview',
@@ -249,7 +249,7 @@ return [
                 'expanded' => false,
                 'hidden' => false,
                 'sort' => 2,
-                'id' => 'cs_asset_external',
+                'id' => 'cs_asset_products',
             ],
             [
                 'type' => 'customview',
