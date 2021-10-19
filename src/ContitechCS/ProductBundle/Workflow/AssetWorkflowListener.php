@@ -36,7 +36,7 @@ class AssetWorkflowListener {
                 if ($requiredBy['type'] == 'object' && !empty($requiredBy['id'])) {
                     $object = DataObject::getById($requiredBy['id']);
                     if ($object instanceof DataObject\CSProducts) {
-                        return ['success' => false, 'msg' => 'This asset is already associated with product. Please remove mapping before archiving. To check related products visit Dependency tab.'];
+                        return ['success' => false, 'msg' => 'This asset is mapped with product(s). Please go to Dependency tab to remove mapping.'];
                     }
                 }
             }
