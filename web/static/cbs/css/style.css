@@ -1,0 +1,774 @@
+.features-benefit-sec .media {
+    margin-top: 22px;
+    margin-bottom: 0px;
+}
+
+.features-benefit-sec h2 {
+    margin-bottom: 0px;
+}
+.table-of-contents h3{
+    padding: 2px 5px;
+}
+.table-of-contents .grey-bg{
+    background: #c7c8ca;
+}
+.orange {
+    color: rgb(250, 162, 27);
+}
+.black-bg{
+    background: #000;
+    color: #ffffff;
+}
+.dark-grey-bg{
+    background: #6d6e71;
+    color: #ffffff;
+}
+
+.orange-bg {
+    background: rgb(250, 162, 27);
+    color: #000000;
+    -webkit-print-color-adjust: exact;
+}
+
+.labels .orange-bg{
+    color: #fff;
+}
+
+
+.grey-bg {
+    background: #e6e7e8;
+    -webkit-print-color-adjust: exact;
+}
+
+li span {
+    padding-right: 2px;
+}
+
+
+.fortressxp-belts h1, .table-content-sec h1{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+/* remove  */
+h1 strong{
+    font-weight: bold;
+}
+
+.sub-title {
+    font-size: 16px;
+    display: block;
+    color: #43474e;
+    padding-bottom: 15px;
+    font-weight: normal;
+}
+
+.feature-benefit-list h3, h3 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.features-benefit-sec .media h2 {
+    font-size: 18px;
+}
+
+.fortressxp-belts .features-benefit-sec h1,
+.fortressxp-belts .belts-information h1, 
+.wood-product-applications h1, .wood-product-applications h2,
+.fortressxp-belts.conveyor-belt h1, h2
+{
+    font-size: 24px;
+}
+.wood-product-applications h1{
+    margin-bottom: 2.5rem;
+}
+.wood-product-applications h2{
+    margin-top: 2.5rem;
+}
+
+
+
+.features-benefit-sec .media p {
+    font-size: 11px;
+}
+
+.feature-benefit-list p {
+    font-size: 10px !important;
+}
+
+
+.features-images {
+    margin-right: 20px;
+    max-width: 150px;
+}
+
+.features-benefit-sec .features-images{
+    width: 150px;
+    height: auto;    
+}
+.environment-quality-sec .features-images{
+    margin-left: 20px;
+    max-width: 50%;
+}
+.environment-quality-sec .media{
+    margin-top: 20px;
+}
+.features-benefit-sec .media {
+    align-items: center;
+}
+
+.ccs-service .media{
+    align-items: flex-start;
+}
+.features-benefit-sec .media-body {
+    flex: 1;
+}
+
+.features-benefit-sec .left-colm {
+    max-width: 70%;
+    flex-grow: 1;
+}
+
+.features-benefit-sec .right-colm {
+    max-width: 30%;
+}
+
+/* .fortressxp-belts .media-body {
+    flex: 80%;
+    padding-right: 20px;
+    max-width: 80%;
+} */
+
+.fortressxp-belts .seal-image{
+    flex: 30%;
+    padding-left:20px;
+    width: 30%;
+}
+
+.fortressxp-belts p {
+    font-size: 11px;
+}
+.p-medium{
+    font-size: 13px !important;
+}
+.media p{
+    font-size: 13px;
+}
+
+.fortressxp-belts .seal-image img {
+    max-height: 80px;
+}
+
+.grid {
+    display: flex;
+}
+
+.table,
+.feature-benefit-list,
+.media,
+.featuring-sec,
+.labels,
+.fortressxp-belts .features-benefit-sec,
+.full-image-sec {
+    margin: 25px 0px;
+}
+.full-image-sec{
+    margin-top: 40px;
+}
+
+.feature-benefit-list ul {
+    margin-bottom: 10px;
+}
+
+
+
+
+/* .belts-information .table-data td:first-child {
+    width: 45%;
+} */
+
+.table ul {
+    list-style: none;
+}
+
+.table th,
+.table td {
+    text-align: left;
+}
+
+.table thead,
+.table tbody {
+    border-bottom: 2px solid rgb(250, 162, 27);
+}
+
+.table th,
+.labels table th {
+    font-size: 12px;
+}
+
+.table td {
+    font-size: 10px;
+}
+
+.table .details {
+    padding-top: 25px;
+    font-size: 10px;
+}
+.table.conticlean-tab thead,
+.table.conticlean-tab tbody{
+    border-bottom:0px;
+}
+.table.conticlean-tab{
+    margin: 0px;
+}
+.labels table tr {
+    border: 2px solid rgb(155, 146, 133);
+    border-left: 0px;
+}
+
+.note {
+    font-size: 8px !important;
+}
+.page-details{
+    font-size: 10px !important;
+}
+
+.components-sec {
+    padding-bottom: 30px;
+}
+
+.components-sec .media {
+    align-items: flex-end;
+}
+
+.components-sec .media-body {
+    max-width: 40%;
+    flex: 40%;
+}
+
+.components-sec .media-img {
+    max-width: 60%;
+}
+
+.components {
+    padding: 1em 0 0.5em 1.5em;
+}
+
+.components li {
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 10px;
+    line-height: normal;
+}
+
+.components li:last-child {
+    padding-bottom: 0px;
+}
+
+.components li::before {
+    display: inline-block;
+    content: '›';
+    color: #efa41d;
+    font-size: 16px;
+    display: inline-block;
+    width: 0.7em;
+    margin-left: -0.7em;
+    margin-top: -5px;
+    vertical-align: middle;
+}
+
+.belts-information h3 {
+    padding-top: 30px;
+}
+
+.table-data {
+    margin-bottom: 5px;
+}
+
+/* tr.orange-bg, tr.grey-bg:first-child{
+    border-top: 2px solid #000;
+} */
+
+.table-data thead,
+.table-data {
+    position: relative;
+}
+.table-data thead:after,
+.table-data:after{
+    content: '';
+    position: absolute;
+    bottom:0px;
+    left:0px;
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid #000;
+    z-index: 15;
+}
+.table-data.wpa-table thead:after, .table-data.wpa-table:after{
+    border-bottom: 2px solid rgb(250, 162, 27);
+}
+.table-data td, .table-data th{
+    font-size: 10px;
+}
+
+
+/* .table-data tbody td{
+    border-top: 1px solid #000;
+} */
+
+
+.border-bottom-0{
+    border-bottom: 0px;
+}
+.border-0{
+    border:none !important;
+}
+.border-right{
+    border-right: 1px solid #000;
+}
+
+
+
+.table-data tbody tr:nth-child(even) {
+    background: #ffedcc;
+    -webkit-print-color-adjust: exact;
+}
+
+.table-data .white-bg tbody tr:nth-child(even), .white-bg{
+    background: #ffffff;
+}
+
+.table-data tbody td:first-child, .table-data tbody th:first-child  {
+    border-right: 1px solid #000;
+}
+
+/* .table-data tbody tr:nth-child(even) td, .table-data .white-bg th  {
+    border-right: 5px solid #fff;
+} */
+
+/* tr.orange-bg, tr.grey-bg{
+    position: relative;
+} */
+
+.table-data tbody td, .table-data thead .white-bg th, .table-data thead th{
+    position: relative;
+    overflow: hidden;
+}
+.table-data tbody td:after, .table-data thead .white-bg th:after, .table-data.contipipe-table thead th:nth-child(2n+2):after, .table-data.contipipe-table thead .grey-bg th:after{
+    border-right: 5px solid #ffffff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 5px;
+    height: 100vh;
+    content: '';
+    display: block;
+    z-index: 10;
+}
+.table-data tbody td:before, .table-data thead th::before{
+    position: absolute;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    content: '';
+    border-top: 1px solid #000;
+}
+
+.wpa-table.table-data tbody td:before, .wpa-table.table-data thead th::before{
+    border-top: 1px solid rgb(3, 3, 2);
+}
+.table-data thead tr:first-child th:before{
+    border-top: 2px solid #000;
+    z-index: 20;
+}
+.table-data thead th:before{
+    border-bottom: 2px solid #000;
+    border-top: 0px;
+}
+.table-data tbody tr:first-child td:before{
+    border-top: 0px;
+}
+.table-data thead tr:last-child th:before{
+    border-bottom: 0px;
+    border-top: 0px;
+}
+.table-data.spartan-table thead tr:last-child th:before{
+    border-bottom: 0px;
+    border-top: 2px solid #000;
+}
+.table-data.contipipe-table thead:after{
+    border-bottom: 0px;
+}
+.table-data.contipipe-table tbody tr:first-child td::before {
+    border-top: 1px solid #000000;
+}
+.table-data.contipipe-table tbody td:nth-child(2n+2):after{
+    border-right: 5px solid #ffffff;
+}
+.table-data.contipipe-table tbody td:nth-child(2n+1):after{
+    border-right: 5px solid transparent;
+}
+.table-data.contipipe-table tbody tr:nth-child(odd) {
+    background: #ffedcc;
+    -webkit-print-color-adjust: exact;
+}
+.table-data.contipipe-table tbody tr:nth-child(even) {
+    background: #ffffff;
+    -webkit-print-color-adjust: exact;
+}
+
+
+.table-data tbody td:first-child:after, 
+.table-data tbody td:last-child:after, .table-data thead .white-bg th:last-child:after, .table-data tbody td.border-right:after, 
+.table-data.wpa-table tbody td:last-child:after{
+    border-right: 5px solid transparent;
+}
+
+.table-data.wpa-table tbody td:first-child, .table-data.contipipe-table tbody td:first-child, .table-data.contipipe-table tbody td:last-child:after,  .table-data.contipipe-table thead th:last-child:after{
+    border-right: 0px;
+}
+.table-data.wpa-table tbody td:first-child:after, .table-data.wpa-table tbody td:after{
+    border-right: 8px solid #ffffff;
+}
+.table-data.compounds-table thead tr:first-child th:before{
+    border-top: 1px solid transparent;
+} 
+
+.table-data.compounds-table thead th:first-child::before {
+    border-bottom: 2px solid transparent;
+}
+
+
+.table-data.compounds-table tbody td.orange-bg::before, .table-data.compounds-table tbody td.white-bg::before{
+    border-top: 1px solid #ffffff;
+}
+
+.table-data.compounds-table tbody tr:first-child td.orange-bg::before{
+    border-top: 0px solid transparent;
+}
+
+
+/* 
+.table-data tbody tr:nth-child(even) td:last-child {
+    border-right: 0px;
+} */
+
+.table-data tbody tr:last-child td {
+    border-bottom: 0px;
+}
+
+.table-data .orange-bg {
+    color: #000;
+}
+
+.wpa-table{
+    margin-bottom: 10px;
+}
+
+.wpa-table td{
+    vertical-align: top;
+}
+.wpa-table tbody tr{
+    background: #ffedcc;
+}
+.wpa-table tbody tr:nth-child(2n){
+    background-color: #ffffff;
+}
+.wpa-table thead th{
+    font-size: 16px;
+    text-align: left;
+    vertical-align: bottom;
+}
+.wpa-table tbody td{
+    font-size: 12px;
+    padding-bottom: 20px;
+    padding-left: 5px;
+}
+.wpa-table tbody td ul{
+    padding-left:1.2em;
+}
+.wpa-table tbody td ul li{
+    font-weight: bold;
+    color: #000000;
+    font-size: 12px;
+    padding-bottom: 3px;
+    position: relative;
+}
+.wpa-table tbody td ul li::before{
+    display: inline-block;
+    content: '›';
+    color: rgb(250, 162, 27);
+    width: 0.7em;
+    margin-left: -0.7em;
+    font-size: 14px;
+}
+
+.wpa-table tbody td p{
+    margin-bottom: 5px;
+}
+.compounds-table th{
+    padding: 12px 4px;
+
+}
+.compounds-table th.rotate{
+    height: 120px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.compounds-table th.rotate > div {
+    transform: translate(25px, 30px) rotate(-90deg);
+    width: 30px;
+}
+.compounds-table th:first-child{
+    vertical-align: bottom;
+}
+.standard-compounds h3{
+    margin: 0px;
+    font-size: 11px;
+    padding:0;
+}
+.fortressxp-belts .standard-compounds p{
+    font-size: 11px;
+}
+
+
+#header {
+    width: 100%;
+    background: #ffffff;
+    display: block;
+}
+.header-txt{
+    string-set: header self;
+}
+
+#footer1, #footer {
+    background: #ffffff;
+}
+#footer {
+    position: running(footerLogo);
+}
+
+#footer img, #footer1 img{
+    width: 150px;
+}
+
+/* end print only */
+.coverpage{
+    page:coverPage;
+    width:100%;
+    height:100%;
+    /* background-size: 100% 100% !important;
+    position: absolute;
+    max-width: 1200px;
+    min-height: 2000px; */
+}
+.innercoverpage{
+    page:coverPage;
+    width:100%;
+    height:100%;
+    position: relative;
+}
+.innercoverpage .black-bg{
+    padding: 80px 40px 40px;
+    text-align: right;
+    height: auto;
+    position:relative;
+    top:0;
+    right:0;
+    width: 100%;
+    background: #000000;
+    z-index: 1;
+    height: 220px;
+}
+.innercoverpage .black-bg h1{
+    font-size: 46px;
+}
+
+.bannersec{
+    width: 100%;
+    height: 100%;
+  
+}
+.coverpage img, .bannersec img{
+    width: 100%;
+    height: auto;
+}
+
+
+
+.table-of-contents{
+    page-break-after: always;
+    display: block;
+    padding-top: 40px;
+
+}
+.table-of-contents ul {
+    list-style-type: none;
+    margin: 0 0 5px 0;
+    padding: 0 5px 0;
+  }
+  .table-of-contents ul ul{
+      margin-bottom: 0px;
+      padding: 0 0 0 5px;
+  }
+  .colum-2{
+    /* flex: 0 0 50%;
+    max-width: 50%; */
+    padding:0 15px;
+    column-count: 2;
+    column-gap: 40px;
+  }
+  .belts-information .colum-2{
+    margin: 30px 0px 40px;
+}
+  
+  .table-of-contents ul li{
+      display:flex;
+  }
+  .table-of-contents ul li .chapter{
+      flex-grow: 1;
+  }
+  
+  .chapter {
+    position: relative;
+    overflow: hidden;
+  }
+  .table-of-contents ul li .page{
+      padding-left: 3px;
+  }
+  .chapter::after {
+    position: absolute;
+    padding-left: .25ch;
+    content: "......................................................................................................"
+    "......................................................................................................"
+    "......................................................................................................";
+    text-align: right;
+  }
+  
+  
+  /* .table-of-contents ul li:after {
+        content: leader('.') target-counter(page);
+  }
+
+  .table-of-contents ul a::after {
+    content: leader('.') target-counter(attr(href), page);
+  } */
+
+.backcoverpage{
+    height: 100%;
+    page:backcoverPage;
+}   
+.backcoverpage .black-bg{
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}  
+
+.backcoverpage h1{
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.backcoverpage p{
+    font-size: 10px;
+    color: #ffffff;
+    font-weight: bold;
+
+}
+.backcoverpage p span{
+    color: #969696;
+    display: block;
+}  
+.bottom-sect{
+    margin-top: auto;
+    display: flex;
+    align-items: flex-end;
+
+}
+.bottom-sect .backcover-logo{
+    width: 50%;
+}
+
+.backcover-logo img{
+    width: 220px;
+}
+.bottom-sect p{
+    width: 40%;
+    font-size: 8px;
+    padding-right: 20px;
+    margin-bottom: 0;
+}
+.bottom-sect p:last-child{
+    width: 10%;
+    text-orientation: mixed;
+    writing-mode: vertical-lr;
+    transform: rotate(-181deg);
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+}
+.solar-shield-table{
+    max-width: 100%;
+}
+.solar-shield-table tr{
+    vertical-align: top;
+}
+.solar-shield-table tr td:first-child{
+    font-weight: bold;
+}
+.solar-shield-table tr td{
+    padding-bottom: 10px;
+}
+.cover-compounds-table{
+    max-width: 100%;
+}
+
+.cover-compounds-table td, .cover-compounds-table th{
+    border-bottom: 1px solid #000;
+    font-size: 10px;
+}
+
+
+.cover-compounds-table tbody tr:nth-child(2n){
+    background-color: #e6e7e8;
+}
+
+.cover-compounds-table th{
+    vertical-align: bottom;
+}
+
+.nexcolumtarget{
+    break-inside: avoid;
+}
+
+.page95{
+    min-width: 100%;
+    margin: 30px -30px;
+    /* display: block; */
+    position: running(halfImage);
+    /* page:halfImage; */
+}
+.pg-6{
+    margin: 0 -30px;
+}
+.divider{
+    border-color: #e6e7e8;
+}
+
+.construction-tab{
+    margin: 25px auto;
+}
+
+.construction-tab th, .construction-tab td {
+    text-align: center;
+    border-bottom: 1px solid #000000;
+}
+
+
+.construction-tab thead, .construction-tab tbody {
+    border-bottom: 0px;
+}
