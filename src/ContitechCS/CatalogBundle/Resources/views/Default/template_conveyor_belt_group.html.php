@@ -8,9 +8,16 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <div class="black-bg">
             <div class="top-sec">
 
-                <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title"); ?></h1>
+                <h1 class="orange"><?= $this->input("Conveyor_Belt_Group_header_title",[
+                    "placeholder" =>
+                    "Enter Your  Heading"
+                    ]); ?>
+                </h1>
 
-                <?= $this->wysiwyg("CBG_About"); ?>
+                <?= $this->wysiwyg("CBG_About",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]);?>
 
             </div>
             <div class="bottom-sect">
@@ -34,9 +41,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     ?>
                 </div>
 
-                <?= $this->wysiwyg("CBG_Content"); ?>
+                <?= $this->wysiwyg("CBG_Content", [
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]);?>
 
-                <h2><?= $this->input("myHeadline", ["width" => 140]); ?></h2>
+                <h2><?= $this->input("myHeadline", ["width" => 140 ,"placeholder" =>
+                "Enter Your  Content"]); ?></h2>
 
             </div>
         </div>

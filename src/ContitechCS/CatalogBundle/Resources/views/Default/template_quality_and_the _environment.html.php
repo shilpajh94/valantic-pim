@@ -15,9 +15,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
-            <h1 class="orange"><?= $this->input("Header_title"); ?></strong></h1>
+            <h1 class="orange"><?= $this->input("Header_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></strong></h1>
 
-            <p><?= $this->wysiwyg("QAE_Content"); ?></p>
+            <p><?= $this->textarea("QAE_Content",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
 
             <div class="full-image-sec">
                 <?php
@@ -39,20 +44,33 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
             </div>
 
-            <h3 class="orange"><?= $this->input("Environment_title"); ?></h3>
+            <h3 class="orange"><?= $this->input("Environment_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h3>
 
             <div class="environment-quality-sec">
 
-                <p><?= $this->wysiwyg("Environment_Content"); ?></p>
+                <p><?= $this->wysiwyg("Environment_Content",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?></p>
 
                 <div class="media">
                     <div class="media-body">
 
-                        <p><?= $this->wysiwyg("Environment_Content2"); ?> </p>
+                        <p><?= $this->wysiwyg("Environment_Content2",[
+                            "placeholder" =>
+                            "Enter Your  Description"
+                        ]); ?> </p>
 
-                        <h3 class="orange"><?= $this->input("Quality_title"); ?></h3>
+                        <h3 class="orange"><?= $this->input("Quality_title",[
+                        "placeholder" =>
+                        "Enter Your  Heading"]); ?></h3>
 
-                        <p><?= $this->wysiwyg("Quality_Content"); ?></p>
+                        <p><?= $this->wysiwyg("Quality_Content",[
+                            "placeholder" =>
+                            "Enter Your  Description"
+                        ]); ?></p>
 
                     </div>
                     <?php

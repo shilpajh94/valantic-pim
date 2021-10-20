@@ -87,7 +87,7 @@
         -webkit-print-color-adjust: exact;
     }
 
-    .grey-bg, .cover-compounds-table tbody tr:nth-child(2n) {
+    .grey-bg, .cover-compounds-table tbody tr:nth-child(2n), .process-table td:nth-child(2n+2), .process-table th:nth-child(2n+2) {
         background: cmyk(1%, 0%, 0%, 9%);
         -webkit-print-color-adjust: exact;
     }
@@ -111,7 +111,7 @@
         color: cmyk(0%, 0%, 0%, 0%);
     }
     
-    .table-data tbody tr:nth-child(even), .wpa-table tbody tr, .table-data.contipipe-table tbody tr:nth-child(odd){
+    .table-data tbody tr:nth-child(even), .wpa-table tbody tr, .table-data.contipipe-table tbody tr:nth-child(odd),  .process-table td:nth-child(2n+3), .process-table th:nth-child(2n+3){
         background: cmyk(0%, 7%, 20%, 0%);
         -webkit-print-color-adjust: exact;
     }
