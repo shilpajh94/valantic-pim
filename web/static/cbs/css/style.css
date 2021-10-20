@@ -9,7 +9,7 @@
 .table-of-contents h3{
     padding: 2px 5px;
 }
-.table-of-contents .grey-bg{
+.table-of-contents .grey-bg, .process-table th:nth-child(2n+2), .process-table td:nth-child(2n+2){
     background: #c7c8ca;
 }
 .orange {
@@ -394,17 +394,20 @@ h1 strong{
     border-bottom: 0px;
     border-top: 0px;
 }
-.table-data.spartan-table thead tr:last-child th:before{
+.table-data.spartan-table thead tr:last-child th:before, .table-data.textile-table thead tr:last-child th:before{
     border-bottom: 0px;
     border-top: 2px solid #000;
 }
 .table-data.contipipe-table thead:after{
     border-bottom: 0px;
 }
-.table-data.contipipe-table tbody tr:first-child td::before {
+.table-data.contipipe-table tbody tr:first-child td::before, .table-data.textile-table tbody tr.white-bg td::before {
     border-top: 1px solid #000000;
 }
-.table-data.contipipe-table tbody td:nth-child(2n+2):after{
+.table-data.textile-table tbody tr.white-bg td::before {
+    z-index: 20;
+}
+.table-data.contipipe-table tbody td:nth-child(2n+2):after, .table-data.textile-table tbody td:first-child:after{
     border-right: 5px solid #ffffff;
 }
 .table-data.contipipe-table tbody td:nth-child(2n+1):after{
@@ -449,7 +452,43 @@ h1 strong{
     border-top: 0px solid transparent;
 }
 
+.table-data.textile-table{
+    margin-bottom: 30px;
+}
+ .table-data.textile-table tbody td:first-child{
+    border-right: 0px;
+}
 
+.table-data.textile-table tbody tr:nth-child(even){
+    background: #ffffff;
+}
+.table-data.textile-table tbody tr td:nth-child(2n+3),  .process-table td:nth-child(2n+3), .process-table th:nth-child(2n+3){
+    background: #ffedcc;
+    -webkit-print-color-adjust: exact;
+}
+
+.table-data.textile-table tbody tr.white-bg td{
+    background: #ffffff;
+    padding:7px 4px
+}
+
+.table.process-table{
+    margin-bottom: 10px;
+}
+.table.process-table thead,  .table.process-table tbody{
+border-bottom:0px;
+}
+
+.process-table td, .process-table th{
+    border-top: 1px solid #000;
+}
+.process-table tr:last-child td{
+    border-bottom: 1px solid #000;
+}
+.process-table ul{
+    list-style-type: disc;
+    padding-left: 0.75rem;
+}
 /* 
 .table-data tbody tr:nth-child(even) td:last-child {
     border-right: 0px;
@@ -766,9 +805,25 @@ h1 strong{
 .construction-tab th, .construction-tab td {
     text-align: center;
     border-bottom: 1px solid #000000;
+    padding: 4px 9px;
 }
 
 
 .construction-tab thead, .construction-tab tbody {
     border-bottom: 0px;
+}
+.grip-col{
+    vertical-align: top;
+}
+.grip-col td{
+    border-bottom: 0px;
+    padding-top: 20px;
+}
+.grip-col td{
+    text-align: left;
+}
+
+
+.construction-tab td > table th, .construction-tab td > table  td{
+    white-space: nowrap;
 }

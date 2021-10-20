@@ -15,16 +15,23 @@
         </footer> -->
     <main id="content" role="main">
         <section class="fortressxp-belts">
-            <h1 class="orange"><?= $this->input("Header_title"); ?></h1>
+            <h1 class="orange"><?= $this->input("Header_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
 
-            <p class="p-medium"><?= $this->input("Sub_Headings"); ?> </p>
+            <p class="p-medium"><?= $this->input("Sub_Headings",[
+            "placeholder" =>
+            "Enter Your  SubHeading"]); ?> </p>
 
-            <p><?= $this->wysiwyg("Content1"); ?> </p>
+            <p><?= $this->wysiwyg("Content1",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?> </p>
 
 
-
-
-            <h3 class="orange"><?= $this->input("SubHeading_title"); ?></h3>
+            <h3 class="orange"><?= $this->input("SubHeading_title",[
+            "placeholder" =>
+            "Enter Your  SubHeading"]); ?></h3>
 
             <?php
                 if($this->editmode)
@@ -46,7 +53,9 @@
 
 
 
-            <h3 class="orange mb-0"><?= $this->input("SubHeading_title2"); ?></h3>
+            <h3 class="orange mb-0"><?= $this->input("SubHeading_title2",[
+            "placeholder" =>
+            "Enter Your  SubHeading"]); ?></h3>
 
             <?php
                 if($this->editmode)
@@ -66,34 +75,73 @@
             ?>
 
 
-            <h2 class="orange mb-0"><?= $this->input("PPFB_title"); ?>
-                <span class="sub-title"><?= $this->input("PPFB_SubHeading"); ?>
+            <h2 class="orange mb-0"><?= $this->input("PPFB_title",[
+                "placeholder" =>
+                "Enter Your  Heading"]); ?>
+                <span class="sub-title"><?= $this->input("PPFB_SubHeading",[
+                    "placeholder" =>
+                    "Enter Your  SubHeading"]); ?>
                 </span>
             </h2>
 
 
-            <p class="p-medium"><?= $this->wysiwyg("PPFB_Content"); ?></p>
-
-            <h3><?= $this->input("PPFB_Slogan"); ?></h3>
-
-            <h3 class="orange mb-0"><?= $this->input("ZGSC_title");?> </h3>
-            <p> <?= $this->wysiwyg("ZGSC_Content"); ?></p>
-
-            <h3 class="orange mb-0"><?= $this->input("ZGSC2_title");?> </h3>
-            <p><?= $this->wysiwyg("ZGSC2_Content"); ?></p>
-
-            <h3 class="orange mb-0"><?= $this->input("ORBC_title");?> </h3>
-            <p><?= $this->wysiwyg("ORBC_Content"); ?> </p>
-
-            <h3><?= $this->input("BHE_title");?></h3>
+            <p class="p-medium"><?= $this->wysiwyg("PPFB_Content",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
 
 
-            <h3 class="orange"><?= $this->input("PPSB_title");?></h3>
-            <p> <?= $this->wysiwyg("PPSB_Content"); ?>
+            <h3><?= $this->input("PPFB_Slogan",[
+            "placeholder" =>
+            "Enter Your  Slogan"]); ?></h3>
+
+            <h3 class="orange mb-0"><?= $this->input("ZGSC_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]);?> </h3>
+            <p> <?= $this->wysiwyg("ZGSC_Content",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
+
+
+            <h3 class="orange mb-0"><?= $this->input("ZGSC2_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]);?> </h3>
+            <p><?= $this->wysiwyg("ZGSC2_Content",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
+
+            <h3 class="orange mb-0"><?= $this->input("ORBC_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]);?> </h3>
+            <p><?= $this->wysiwyg("ORBC_Content",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?> </p>
+
+
+            <h3><?= $this->input("BHE_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]);?></h3>
+
+
+            <h3 class="orange"><?= $this->input("PPSB_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]);?></h3>
+            <p> <?= $this->wysiwyg("PPSB_Content",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?>
             </p>
 
-            <h3 class="orange"><?= $this->input("FSSMO_title");?></h3>
-            <p> <?= $this->wysiwyg("FSSMO_Content"); ?> </p>
+            <h3 class="orange"><?= $this->input("FSSMO_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]);?></h3>
+            <p> <?= $this->wysiwyg("FSSMO_Content",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?> </p>
 
 
 

@@ -13,20 +13,30 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     </header>
     <main id="content" role="main">
         <section class="wood-product-applications">
-            <h1 class="orange"><?= $this->input("CBS_WPA_Heading"); ?></h1>
+            <h1 class="orange"><?= $this->input("CBS_WPA_Heading",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
 
             <div class="table-data wpa-table">
                 <tr> <?= $this->areablock('myAreablock'); ?></tr>
             </div>
 
-            <p class="note mb-0"><?= $this->input("Note_mb"); ?></p>
+            <p class="note mb-0"><?= $this->input("Note_mb",[
+            "placeholder" =>
+            "Enter Your  Note"]); ?></p>
 
-            <p class="note"><?= $this->input("Note"); ?></p>
+            <p class="note"><?= $this->input("Note",[
+            "placeholder" =>
+            "Enter Your  Note"]); ?></p>
 
 
-            <h1 class="orange"><strong><?= $this->input("CBS_WPF_Heading"); ?></strong></h1>
+            <h1 class="orange"><strong><?= $this->input("CBS_WPF_Heading",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></strong></h1>
 
-            <h1> <?= $this->input("CBS_TPPF_Heading"); ?></h1>
+            <h1> <?= $this->input("CBS_TPPF_Heading",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
 
             <?php
                 if($this->editmode)
@@ -45,7 +55,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     }
             ?>
 
-            <h1 class="orange"><?= $this->input("CBS_CBRT_Heading"); ?></h1>
+            <h1 class="orange"><?= $this->input("CBS_CBRT_Heading",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
 
             <div class="environment-quality-sec">
                 <div class="media">
@@ -88,9 +100,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             ?>
                         </p>
 
-                        <p class="note"><?= $this->wysiwyg("CBS_CBRT_text"); ?></p>
+                        <p class="note"><?= $this->wysiwyg("CBS_CBRT_text",[
+                            "placeholder" =>
+                            "Enter Your  Description"
+                        ]); ?></p>
 
-                        <p class="page-details"><?= $this->input("CBS_CBRT_Input_Text"); ?></p>
+                        <p class="page-details"><?= $this->input("CBS_CBRT_Input_Text",[
+                            "placeholder" =>
+                            "Enter Your  Description"
+                        ]); ?></p>
 
                     </div>
 
@@ -114,7 +132,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 </div>
             </div>
 
-            <h1 class="orange"><?= $this->input("CBS_TSF_Heading"); ?></h1>
+            <h1><?= $this->input("CBS_TSF_Heading",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
 
             <?php
 

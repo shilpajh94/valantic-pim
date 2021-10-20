@@ -15,7 +15,7 @@ if ($this->editmode) {
     $totalColumnCount =  $this->block("columns")->getCount(); //print_r($totalColumnCount);die; //4
     if ($totalColumnCount>0) { // 4
         echo "Select how many rows you want in table: "; //for rows
-        while ($this->block("rows")->loop()) {
+        while ($this->block("rows")->loop()) { //row loop
 //            $current = $this->block("rows")->getCurrent();
             for ($i=0; $i<$totalColumnCount; $i++) {          // i=0 ,0<4
                 while ($this->block("points_".$i)->loop()) { // points like Log Decks...

@@ -21,7 +21,7 @@ if ($totalColumnCount>0 && $rowsCount >0) { ?>
 //        foreach($this->block("rows")->getElements() as $element) {
 //            $current = $element->getIndex();
 
-            $evenOrOdd = ($j%2); ?> print_r($j);die;
+            $evenOrOdd = ($j%2); ?> 
         <tr class="row_<?php echo $evenOrOdd ?>">
             <?php for ($i=0; $i<$totalColumnCount; $i++) { ?>
             <td>

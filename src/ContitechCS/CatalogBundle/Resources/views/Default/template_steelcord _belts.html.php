@@ -16,11 +16,19 @@
     <main id="content" role="main">
         <section class="fortressxp-belts">
 
-            <h1 class="orange"><?= $this->input("Header_title"); ?></h1>
+            <h1 class="orange"><?= $this->input("Header_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
 
-            <p class="p-medium"><?= $this->wysiwyg("Content1"); ?></p>
+            <p class="p-medium"><?= $this->wysiwyg("Content1",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
 
-            <p><?= $this->wysiwyg("Content2"); ?></p>
+            <p><?= $this->wysiwyg("Content2",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
 
             <p>
                 <?php
@@ -44,11 +52,20 @@
 
             <div class="colum-2 p-0">
 
-                <p><?= $this->wysiwyg("Content3"); ?></p>
+                <p><?= $this->wysiwyg("Content3",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?></p>
 
-                <p><?= $this->wysiwyg("Content4"); ?> </p>
+                <p><?= $this->wysiwyg("Content4",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?> </p>
 
-                <p class="note"><?= $this->wysiwyg("Note1"); ?></p>
+                <p class="note"><?= $this->wysiwyg("Note1",[
+                    "placeholder" =>
+                    "Enter Your  Note"
+                ]); ?></p>
 
                 <div class="nexcolumtarget">
 
@@ -89,33 +106,61 @@
                         ?>
                     </div>
 
-                    <p class="note"><?= $this->input("Note2"); ?></p>
+                    <p class="note"><?= $this->input("Note2",[
+                        "placeholder" =>
+                        "Enter Your  Note"
+                    ]); ?></p>
 
                 </div>
             </div>
 
 
-            <h1 class="orange"><?= $this->input("SPlice_Header_title"); ?>
-                <span class="sub-title"><?= $this->input("SPlice_Sub_title"); ?></span>
+            <h1 class="orange"><?= $this->input("SPlice_Header_title",[
+                "placeholder" =>
+                "Enter Your  Heading"]); ?>
+                <span class="sub-title"><?= $this->input("SPlice_Sub_title",[
+                "placeholder" =>
+                "Enter Your  SubHeading"]); ?></span>
             </h1>
 
-            <p class="p-medium"><?= $this->wysiwyg("Splice_Content1"); ?></p>
+            <p class="p-medium"><?= $this->wysiwyg("Splice_Content1",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
 
-            <p><?= $this->wysiwyg("Splice_Content2"); ?></p>
+            <p><?= $this->wysiwyg("Splice_Content2",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?></p>
 
             <div class="colum-2 p-0 standard-compounds">
 
-                <h3><?= $this->input("Perform_Panel_Heading"); ?></h3>
+                <h3><?= $this->input("Perform_Panel_Heading",[
+                "placeholder" =>
+                "Enter Your  Heading"]); ?></h3>
 
-                <p><?= $this->wysiwyg("Perform_Panel_Content"); ?></p>
+                <p><?= $this->wysiwyg("Perform_Panel_Content",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?></p>
 
-                <h3><?= $this->input("Perform_Splice_Heading"); ?></h3>
+                <h3><?= $this->input("Perform_Splice_Heading",[
+                "placeholder" =>
+                "Enter Your  Heading"]); ?></h3>
 
-                <p><?= $this->wysiwyg("Perform_SPlice_Content"); ?></p>
+                <p><?= $this->wysiwyg("Perform_SPlice_Content",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?></p>
 
-                <h3><?= $this->input("Improved_Performance_Heading"); ?></h3>
+                <h3><?= $this->input("Improved_Performance_Heading",[
+                "placeholder" =>
+                "Enter Your  Heading"]); ?></h3>
 
-                <p><?= $this->wysiwyg("Improved_Performance_Content"); ?></p>
+                <p><?= $this->wysiwyg("Improved_Performance_Content",[
+                    "placeholder" =>
+                    "Enter Your  Description"
+                ]); ?></p>
 
                 <div class="nexcolumtarget">
                     <?php
@@ -135,13 +180,23 @@
                          }
                     ?>
 
-                    <h3><?= $this->input("Savings_Heading"); ?></h3>
+                    <h3><?= $this->input("Savings_Heading",[
+                    "placeholder" =>
+                    "Enter Your  Heading"]); ?></h3>
 
-                    <p><?= $this->wysiwyg("Saving_Content"); ?></p>
+                    <p><?= $this->wysiwyg("Saving_Content",[
+                        "placeholder" =>
+                        "Enter Your  Description"
+                    ]); ?></p>
 
-                    <h3><?= $this->input("Less_Downtime_Heading"); ?></h3>
+                    <h3><?= $this->input("Less_Downtime_Heading",[
+                    "placeholder" =>
+                    "Enter Your  Heading"]); ?></h3>
 
-                    <p><?= $this->input("Less_Downtime_Content"); ?></p>
+                    <p><?= $this->input("Less_Downtime_Content",[
+                        "placeholder" =>
+                        "Enter Your  Description"
+                    ]); ?></p>
 
                     <?php
                         if($this->editmode)
@@ -163,9 +218,13 @@
                 </div>
             </div>
 
-            <h1 class="orange"><?= $this->input("Sybercord_Header_title"); ?></h1>
+            <h1 class="orange"><?= $this->input("Sybercord_Header_title",[
+            "placeholder" =>
+            "Enter Your  Heading"]); ?></h1>
             <h2 class="d-flex sub-title" style="justify-content: space-between;">
-                <?= $this->input("Sybercord_Sub_title"); ?>
+                <?= $this->input("Sybercord_Sub_title",[
+                "placeholder" =>
+                "Enter Your  SubHeading"]); ?>
 
                 <?php
                     if($this->editmode)
@@ -193,7 +252,10 @@
                 <div class="media">
                     <div class="media-body pr-4">
 
-                        <p><?= $this->wysiwyg("sybercord_Content"); ?></p>
+                        <p><?= $this->wysiwyg("sybercord_Content",[
+                            "placeholder" =>
+                            "Enter Your  Description"
+                        ]); ?></p>
 
                         <?php
                             if($this->editmode)
@@ -225,7 +287,7 @@
                                 if($imgSrcObj)
                                 {
                                 ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
                     <?php
                             }
                          }
@@ -235,11 +297,16 @@
 
 
             <div class="feature-benefit-list">
-                <h3><?= $this->input("Sybercord_Sub_Heading1"); ?></h3>
+                <h3><?= $this->input("Sybercord_Sub_Heading1",[
+                "placeholder" =>
+                "Enter Your  Heading"]); ?></h3>
                 <ul>
                     <?php
                     while($this->block("Sybercord_Sub_Heading1_Content")->loop()) { ?>
-                    <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading1_Content");?> </li>
+                    <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading1_Content",[
+                        "placeholder" =>
+                        "Enter Your  Description"
+                    ]);?> </li>
                     <?php
                     } ?>
                 </ul>
@@ -247,15 +314,25 @@
 
             <div class="colum-2 p-0">
                 <div class="feature-benefit-list my-0">
-                    <h3><?= $this->input("Sybercord_Sub_Heading2"); ?></h3>
+                    <h3><?= $this->input("Sybercord_Sub_Heading2",[
+                    "placeholder" =>
+                    "Enter Your  Heading"]); ?></h3>
                     <ul>
-                        <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading2_Content"); ?></li>
+                        <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading2_Content",[
+                            "placeholder" =>
+                            "Enter Your  Description"
+                        ]); ?></li>
                     </ul>
 
                     <div class="nexcolumtarget">
-                        <h3><?= $this->input("Sybercord_Sub_Heading3"); ?></h3>
+                        <h3><?= $this->input("Sybercord_Sub_Heading3",[
+                        "placeholder" =>
+                        "Enter Your  Heading"]); ?></h3>
                         <ul>
-                            <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading3_Content"); ?></li>
+                            <li><span class="orange">›</span><?= $this->input("Sybercord_Sub_Heading3_Content",[
+                                "placeholder" =>
+                                "Enter Your  Description"
+                            ]); ?></li>
                         </ul>
                     </div>
 
