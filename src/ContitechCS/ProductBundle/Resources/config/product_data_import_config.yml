@@ -272,7 +272,7 @@ continuous industrial max. bucket projection in mm(Elevator Belt only):
     objectType: ProdAttrSetA
 Region:
     fieldName: CSRegion
-    fieldType: manyToManyObjectRelation
+    fieldType: Multiselection
     className: CSRegion
     fieldNameToSearch: RegionName
     objectType: class
@@ -885,7 +885,7 @@ Applications:
     fieldNameToSearch: ApplicationName
     objectType: class
     mandatoryFields: "ApplicationName|ApplicationCode"
-    createFlag: true
+    createFlag: false
 Features and Benefits (combination of text and pic):
     fieldName: CSProductFeaturesAndBenefits
     fieldType: manyToManyObjectRelation
@@ -901,7 +901,7 @@ Industries:
     fieldNameToSearch: IndustryName
     objectType: class
     mandatoryFields: "IndustryName|IndustryCode"
-    createFlag: true
+    createFlag: false
 # Related Products:
 #   fieldName: CSProducts
 #   fieldType: manyToManyObjectRelation
