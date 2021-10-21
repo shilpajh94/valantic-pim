@@ -9,7 +9,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 "subtypes" => [
                 "object" => ["object"]
                 ],
-                "classes" => ["CSCatalogTables"],
+                "classes" => ["CSCatalogCategory"],
         ]);
         ?>
 <?php endif; ?>
@@ -72,139 +72,139 @@ $coverCompound = $data['coverCompoundData'];
                     </span>
                 </h1>
 
-                    <div class="colum-2 p-0">
-                        <p>
-                            <?php if($this->editmode): ?>
-                                    <?php if($this->input("CC_ShortText")->isEmpty()): ?>
-                                            <?= $this->input("CC_ShortText")->setDataFromResource($coverCompound['ShortText']) ?>
-                                    <?php else: ?>
-                                            <?= $this->input("CC_ShortText"); ?>
-                                    <?php endif; ?>
-                            <?php else: ?>
-                                    <?= $this->input("CC_ShortText") ?>
-                            <?php endif; ?>
-                        </p>
-                        <p>
-                            <?php if($this->editmode): ?>
-                                    <?php if($this->input("CC_LongText")->isEmpty()): ?>
-                                            <?= $this->input("CC_LongText")->setDataFromResource($coverCompound['LongText']) ?>
-                                    <?php else: ?>
-                                            <?= $this->input("CC_LongText"); ?>
-                                    <?php endif; ?>
-                            <?php else: ?>
-                                    <?= $this->input("CC_LongText") ?>
-                            <?php endif; ?>
-                        </p>
-                    </div>
-                    
-                    <?php
-                        if($this->editmode)
-                        {
-                            ?>
-                            <div class="full-image-sec">
-                            <?php
-                            if($this->image("CC_productImage")->isEmpty())
-                            {
-                                echo $this->image("CC_productImage")->setImage($coverCompound['productImage']);
-                            }
-                            else{
-                                echo $this->image("CC_productImage");
-                            }
-                            ?>
-                            </div>
-                            <?php
-                            
-                        }
-                        else
-                        {
-                            $productImgSrcObj =  $this->image("CC_productImage");
-                            if($productImgSrcObj)
-                            {
-                            ?>
-                            <div class="full-image-sec">
-                            <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                            </div>
-                            <?php
-                            }
-                        }
-                    ?>
-
-                    <div class="belts-information">
-                        <h1><span class="orange">
-                        <strong>
-                            <?php if($this->editmode): ?>
-                                    <?php if($this->input("CC_CCAA")->isEmpty()): ?>
-                                            <?= $this->input("CC_CCAA",['placeholder'=>'Cover Compounds and Applications']) ?>
-                                    <?php else: ?>
-                                            <?= $this->input("CC_CCAA"); ?>
-                                    <?php endif; ?>
-                            <?php else: ?>
-                                    <?= $this->input("CC_CCAA") ?>
-                            <?php endif; ?>
-                        </strong>  
-                        </h1>
-                        <?php if($data['CCAARows']): ?>
-                        <div class="table-data compounds-table">
-                            <table width="100%" class="white-bg">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th colspan="15" class="orange">Applications</th>
-                                    </tr>
-                                    <tr class="vertical-head">
-                                        <th align="left" width="13%" class="orange">Compounds</th>
-                                        
-                                        <?php 
-                                            $applicationData = $data['applicationData'];
-
-                                            foreach ($applicationData as $key => $value) {
-                                                ?>
-                                                <th width="5.8%" class="rotate"><div><?= $value; ?></div></th>
-                                                <?php
-                                            }
-                                        ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                    foreach ($data['CCAARows'] as $key => $row) { 
-                                        
-                                    ?>
-                                        <tr align="center">
-
-                                            <?php
-                                                $firstKey = array_key_first($row);
-                                                foreach ($row as $key => $value) { 
-                                                    $style = '';
-                                                    $class = '';
-                                                    if($firstKey == $key)
-                                                    {
-                                                        $style = 'align="left"';
-                                                    }
-
-                                                    if($value === true)
-                                                    {
-                                                        $class = 'class="orange-bg"';
-                                                        $value = '';
-                                                    }
-                                            ?>
-                                                <td <?= $style; ?> <?= $class; ?>><?= $value; ?></td>
-
-                                            <?php 
-                                                } 
-                                            ?>
-
-                                        </tr>
-
-                                    <?php 
-                                    } 
-                                    ?>
-                                </tbody>
-                            </table>
-                            
-                        </div>
+                <div class="colum-2 p-0">
+                    <p>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("CC_ShortText")->isEmpty()): ?>
+                                        <?= $this->input("CC_ShortText")->setDataFromResource($coverCompound['ShortText']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("CC_ShortText"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("CC_ShortText") ?>
                         <?php endif; ?>
-    
+                    </p>
+                    <p>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("CC_LongText")->isEmpty()): ?>
+                                        <?= $this->input("CC_LongText")->setDataFromResource($coverCompound['LongText']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("CC_LongText"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("CC_LongText") ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                    
+                <?php
+                    if($this->editmode)
+                    {
+                        ?>
+                        <div class="full-image-sec">
+                        <?php
+                        if($this->image("CC_productImage")->isEmpty())
+                        {
+                            echo $this->image("CC_productImage")->setImage($coverCompound['productImage']);
+                        }
+                        else{
+                            echo $this->image("CC_productImage");
+                        }
+                        ?>
+                        </div>
+                        <?php
+                        
+                    }
+                    else
+                    {
+                        $productImgSrcObj =  $this->image("CC_productImage");
+                        if($productImgSrcObj)
+                        {
+                        ?>
+                        <div class="full-image-sec">
+                        <img src="<?= $productImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                        </div>
+                        <?php
+                        }
+                    }
+                ?>
+
+                <div class="belts-information">
+                    <h1><span class="orange">
+                    <strong>
+                        <?php if($this->editmode): ?>
+                                <?php if($this->input("CC_CCAA")->isEmpty()): ?>
+                                        <?= $this->input("CC_CCAA",['placeholder'=>'Cover Compounds and Applications']) ?>
+                                <?php else: ?>
+                                        <?= $this->input("CC_CCAA"); ?>
+                                <?php endif; ?>
+                        <?php else: ?>
+                                <?= $this->input("CC_CCAA") ?>
+                        <?php endif; ?>
+                    </strong>  
+                    </h1>
+                    <?php if($data['CCAARows']): ?>
+                    <div class="table-data compounds-table">
+                        <table width="100%" class="white-bg">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="15" class="orange">Applications</th>
+                                </tr>
+                                <tr class="vertical-head">
+                                    <th align="left" width="13%" class="orange">Compounds</th>
+                                    
+                                    <?php 
+                                        $applicationData = $data['applicationData'];
+
+                                        foreach ($applicationData as $key => $value) {
+                                            ?>
+                                            <th width="5.8%" class="rotate"><div><?= $value; ?></div></th>
+                                            <?php
+                                        }
+                                    ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                foreach ($data['CCAARows'] as $key => $row) { 
+                                    
+                                ?>
+                                    <tr align="center">
+
+                                        <?php
+                                            $firstKey = array_key_first($row);
+                                            foreach ($row as $key => $value) { 
+                                                $style = '';
+                                                $class = '';
+                                                if($firstKey == $key)
+                                                {
+                                                    $style = 'align="left"';
+                                                }
+
+                                                if($value === true)
+                                                {
+                                                    $class = 'class="orange-bg"';
+                                                    $value = '';
+                                                }
+                                        ?>
+                                            <td <?= $style; ?> <?= $class; ?>><?= $value; ?></td>
+
+                                        <?php 
+                                            } 
+                                        ?>
+
+                                    </tr>
+
+                                <?php 
+                                } 
+                                ?>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <?php endif; ?>
+
                     <h1 class="orange">
                         <?php if($this->editmode): ?>
                             <?php if($this->input("CC_Title_Standard_Compounds")->isEmpty()): ?>
@@ -219,190 +219,281 @@ $coverCompound = $data['coverCompoundData'];
 
                     <div class="colum-2 standard-compounds p-0">
 
-                    <?php
-                        $level3rdObjectData = $data['level3rdObjectData'];
-                        foreach ($level3rdObjectData as $key => $object) {
-                            ?>
-                            <h3>
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->textarea("CC_Level_3rd_Object_{$key}_Name")->isEmpty()): ?>
-                                                <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name")->setDataFromResource($object['Name']) ?>
-                                        <?php else: ?>
-                                                <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name"); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name") ?>
-                                <?php endif; ?>
-                            </h3>
-                            <p>
-                                <?php if($this->editmode): ?>
-                                        <?php if($this->textarea("CC_Level_3rd_Object_{$key}_LongText")->isEmpty()): ?>
-                                                <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText")->setDataFromResource($object['LongText']) ?>
-                                        <?php else: ?>
-                                                <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText"); ?>
-                                        <?php endif; ?>
-                                <?php else: ?>
-                                        <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText") ?>
-                                <?php endif; ?>
-                            </p>
-                            <?php
-                        }
+                        <?php
+                            $level3rdObjectData = $data['level3rdObjectData'];
+                            foreach ($level3rdObjectData as $key => $object) {
+                                ?>
+                                <h3>
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->textarea("CC_Level_3rd_Object_{$key}_Name")->isEmpty()): ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name")->setDataFromResource($object['Name']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name"); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_Name") ?>
+                                    <?php endif; ?>
+                                </h3>
+                                <p>
+                                    <?php if($this->editmode): ?>
+                                            <?php if($this->textarea("CC_Level_3rd_Object_{$key}_LongText")->isEmpty()): ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText")->setDataFromResource($object['LongText']) ?>
+                                            <?php else: ?>
+                                                    <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText"); ?>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                            <?= $this->textarea("CC_Level_3rd_Object_{$key}_LongText") ?>
+                                    <?php endif; ?>
+                                </p>
+                                <?php
+                            }
 
-                    ?>
+                        ?>
                     </div>
                 </div>
 
-                <h1 class="orange">Solar-Shield® Heat Resistant Compounds</h1>
-                    <p>Solar-Shield® series of heat resistant compounds offer high performance in extremely hot material
-                        applications. Solar-Shield® compounds maintain their physical properties through continuous exposure.
-                        This ability to resist the effects of continuous exposure to elevated temperatures results in longer belt
-                        life leading to better customer results.</p>
+                <?php 
+                    $singleProductPage = $data['singleProductPage'];
+                ?>
+                <h1 class="orange">
+                
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("CCHRPage_NamePerformanceCategory")->isEmpty()): ?>
+                                    <?= $this->input("CCHRPage_NamePerformanceCategory")->setDataFromResource($singleProductPage['NamePerformanceCategory']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("CCHRPage_NamePerformanceCategory"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("CCHRPage_NamePerformanceCategory") ?>
+                    <?php endif; ?>
+                </h1>
+                <p>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->textarea("CCHRPage_LongText")->isEmpty()): ?>
+                                    <?= $this->textarea("CCHRPage_LongText")->setDataFromResource($singleProductPage['LongText']) ?>
+                            <?php else: ?>
+                                    <?= $this->textarea("CCHRPage_LongText"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->textarea("CCHRPage_LongText") ?>
+                    <?php endif; ?>
+                    
+                </p>
 
-                        <img src="/static/cbs/images/solar-shield-com-img.png" alt="" class="w-100">
-
-                        <div class="features-benefit-sec">
-                            <div class="media">
-                                <img src="/static/cbs/images/picture1.png" class="features-images" alt="">
-                                <div class="media-body">
-                                    <h2 class="orange">Solar-Shield® carcass with fiberglass reinforcement</h2>
-                                    <p>The fiberglass fabric option offers the highest degree of burn-through resistance
-                                        of any currently available fabric reinforcement.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="environment-quality-sec">
-                            <div class="media my-4">
-                                <img src="/static/cbs/images/solar-shield-img.png" alt="" class="features-images w-50 ml-0">
-
-                                <div class="media-body pr-4">
-                                       <table class="solar-shield-table">
-                                               <tr>
-                                                   <td class="orange" width="15%">Solar-Shield®
-                                                    Classic</td>
-                                                    <td width="80%">A compound formulated for excellent heat and
-                                                        abrasion resistance up to 350°F (180°C).</td>
-                                                   </tr>
-                                                   <tr>
-                                                    <td class="orange">Solar-Shield®
-                                                        Plus</td>
-                                                     <td>A compound designed to retain flexibility while
-                                                        conveying materials with higher temperatures.
-                                                        Resists cover cracks and carcass delamination when
-                                                        intermittently exposed to loads up to 400°F (200°C)
-                                                        for longer life and reduced operating costs.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="orange">Solar-Shield®
-                                                            Extreme
-                                                            </td>
-                                                            <td>An exceptional hot material compound with superior
-                                                                heat resistance against hardening and cracking.
-                                                                Designed to handle hot material loads intermittently
-                                                                up to 750°F (400°C). Improved heat resistance means
-                                                                longer belt life.</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="orange">Solar-Shield®
-                                                            Extreme
-                                                            </td>
-                                                            <td>An exceptional hot material compound with superior
-                                                                heat resistance against hardening and cracking.
-                                                                Designed to handle hot material loads intermittently
-                                                                up to 750°F (400°C). Improved heat resistance means
-                                                                longer belt life.</td>
-                                                    </tr>
-                                       </table>
-                                       <p class="note">*The maximum allowable temperatures are influenced by the type and form of material, the time influence
-                                        and the construction of the installation. In closed systems (e.g. elevator belt, pipe conveyor) the permissible
-                                        temperature drops accordingly. Temperatures of the conveyed materials can be higher, depending on the size
-                                        of the material pieces and on the operating conditions.</p>
-                                </div>
+                <?php
+                    if($this->editmode)
+                    {
+                        if($this->image("CCHRPage_productImage")->isEmpty())
+                        {
+                            echo $this->image("CCHRPage_productImage")->setImage($singleProductPage['productImage']);
+                        }
+                        else{
+                            echo $this->image("CCHRPage_productImage");
+                        }
+                    }
+                    else
+                    {
+                        $CCHRPage_productImageObj =  $this->image("CCHRPage_productImage");
+                        if($CCHRPage_productImageObj)
+                        {
+                        ?>
+                        <img src="<?= $CCHRPage_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100"/>
+                        <?php
+                        }
+                    }
+                ?>
                         
-                            </div>
-                        </div>
-
-                        <div class="belts-information">
-                            <h1><span class="orange">
-                                <strong>
-                                    <?php if($this->editmode): ?>
-                                            <?php if($this->input("CC_TableTitle")->isEmpty()): ?>
-                                                    <?= $this->input("CC_TableTitle",['placeholder'=>'Cover Compounds']) ?>
-                                            <?php else: ?>
-                                                    <?= $this->input("CC_TableTitle"); ?>
-                                            <?php endif; ?>
-                                    <?php else: ?>
-                                            <?= $this->input("CC_TableTitle") ?>
-                                    <?php endif; ?>
-                                
-                                </strong>  
-                            </h1>
-                            <div class="cover-compounds-table">
-                                <table width="100%">
-                                    <thead>
-                                        <tr>
-                                        <?php
-                                            $coverCompoundsHeaderKeys = $data['coverCompoundsHeaderKeys'];
-                                            $firstKey = array_key_first($coverCompoundsHeaderKeys);
-                                            $colSpan = count($coverCompoundsHeaderKeys);
-                                            foreach ($coverCompoundsHeaderKeys as $hkey => $headerValue) {
-                                                if($firstKey == $hkey)
-                                                {
-                                                    $style = 'align="left"';
-                                                }
-                                                ?>
-                                                    <th <?= $style; ?> width="8%"><?= $headerValue; ?></th>
-                                                <?php
-                                            }
+                <?php if($singleProductPage['FeaturesAndBenefits']) {  ?>
+                    <div class="features-benefit-sec">
+                        <?php
+                        foreach ($singleProductPage['FeaturesAndBenefits'] as $fkey => $feature) {
+                            $md5FeatureNameKey = md5($feature['FeatureName']);
+                        ?>
+                            <div class="media">
+                                <?php
+                                    if($this->editmode)
+                                    {
+                                        if($this->image("CCHRPageFeature_{$md5FeatureNameKey}")->isEmpty())
+                                        {
+                                            echo $this->image("CCHRPageFeature_{$md5FeatureNameKey}")->setImage($feature['FeatureImage']);
+                                        }
+                                        else{
+                                            echo $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        $CCHRPageFeatureImgSrcObj =  $this->image("CCHRPageFeature_{$md5FeatureNameKey}");
+                                        if($CCHRPageFeatureImgSrcObj)
+                                        {
                                         ?>
-                                        </tr>
-                                    </thead>
-
-                                    <?php
-                                        $coverCompounds = $data['coverCompounds'];
-                                        foreach ($coverCompounds as $coverCompoundType => $coverCompoundArray) {
-                                           ?>
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="<?= $colSpan; ?>" class="orange-bg" align="left"><?= $coverCompoundType; ?></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                           <?php
-                                            foreach ($coverCompoundArray as $cc => $ccArr) {
-                                                ?>
-                                                <tr align="center">
-                                                <?php
-                                                $firstKey = array_key_first($ccArr);
-                                                foreach ($ccArr as $tdKey => $tdValue) {
-                                                    if($firstKey == $tdKey)
-                                                    {
-                                                        $style = 'align="left"';
-                                                    }
-                                                    ?>
-                                                    <td <?= $style; ?>><?= $tdValue; ?></td>
-                                                    <?php
-                                                }
-                                                ?>
-                                                </tr>
-                                                <?php
-                                            }
-                                            ?>
-                                            </tbody>
-                                            <?php
-
+                                        <img src="<?= $CCHRPageFeatureImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt=""/>
+                                        <?php
+                                        }
+                                    }
+                                ?>
+                                
+                                <div class="media-body">
+                                    <h2 class="orange">
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->input("CCHRPageFeature_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}"); ?>
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}") ?>
+                                        <?php endif; ?>
+                                    </h2>
+                                    <p>
+                                        <?php if($this->editmode): ?>
+                                                <?php if($this->input("CCHRPageFeature_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureDescription']) ?>
+                                                <?php else: ?>
+                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}"); ?>
+                                                <?php endif; ?>
+                                        <?php else: ?>
+                                                <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}") ?>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+                        
+                <div class="environment-quality-sec">
+                    
+                    <?php
+                        if($this->editmode)
+                        {
+                            ?>
+                            <div class="media my-4">
+                            <?php
+                            echo $this->image("CCHRPage_tempratureImage");
+                            ?>
+                            </div>
+                            <?php
+                        }
+                        else
+                        {
+                            $CCHRPage_tempratureImageObj =  $this->image("CCHRPage_tempratureImage");
+                            if($CCHRPage_tempratureImageObj)
+                            {
+                            ?>
+                            <div class="media my-4">
+                            <img src="<?= $CCHRPage_tempratureImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images w-50 ml-0"/>
+                            </div>
+                            <?php
+                            }
+                        }
+                    ?>
+                    <?php if($singleProductPage['Level4ObjChildData']) {  ?>
+                    <div class="media-body pr-4">
+                            <table class="solar-shield-table">
+                                    <?php 
+                                        foreach ($singleProductPage['Level4ObjChildData'] as $chKey => $chValue) {
+                                        ?>
+                                            <tr>
+                                                <td class="orange" width="15%"><?= $chValue['Name'] ?></td>
+                                                <td width="80%"><?= $chValue['LongText'] ?></td>
+                                            </tr>
+                                        <?php
                                         }
                                     ?>
-                                    
-                                </table>
-                            </div>
-                            <p class="note">*Sliderback is not recommended for systems that use variable speed drives. </p>
-                        </div
+                            </table>
 
+                            <?php if($this->editmode): ?>
+                                <p class="note">
+                                    <?= $this->textarea("CCHRPage_Comment"); ?>
+                                </p>
+                            <?php else: ?>
+                                <?php if(!$this->textarea("CCHRPage_Comment")->isEmpty()): ?>
+                                    <p class="note">
+                                        <?= $this->textarea("CCHRPage_Comment") ?>
+                                    </p>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                    </div>
+                    <?php } ?>
+                </div>
 
+                <div class="belts-information">
+                    <h1><span class="orange">
+                        <strong>
+                            <?php if($this->editmode): ?>
+                                    <?php if($this->input("CC_TableTitle")->isEmpty()): ?>
+                                            <?= $this->input("CC_TableTitle",['placeholder'=>'Cover Compounds']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("CC_TableTitle"); ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?= $this->input("CC_TableTitle") ?>
+                            <?php endif; ?>
+                        
+                        </strong>  
+                    </h1>
+                    <div class="cover-compounds-table">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                <?php
+                                    $coverCompoundsHeaderKeys = $data['coverCompoundsHeaderKeys'];
+                                    $firstKey = array_key_first($coverCompoundsHeaderKeys);
+                                    $colSpan = count($coverCompoundsHeaderKeys);
+                                    foreach ($coverCompoundsHeaderKeys as $hkey => $headerValue) {
+                                        if($firstKey == $hkey)
+                                        {
+                                            $style = 'align="left"';
+                                        }
+                                        ?>
+                                            <th <?= $style; ?> width="8%"><?= $headerValue; ?></th>
+                                        <?php
+                                    }
+                                ?>
+                                </tr>
+                            </thead>
+
+                            <?php
+                                $coverCompounds = $data['coverCompounds'];
+                                foreach ($coverCompounds as $coverCompoundType => $coverCompoundArray) {
+                                    ?>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="<?= $colSpan; ?>" class="orange-bg" align="left"><?= $coverCompoundType; ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach ($coverCompoundArray as $cc => $ccArr) {
+                                        ?>
+                                        <tr align="center">
+                                        <?php
+                                        $firstKey = array_key_first($ccArr);
+                                        foreach ($ccArr as $tdKey => $tdValue) {
+                                            if($firstKey == $tdKey)
+                                            {
+                                                $style = 'align="left"';
+                                            }
+                                            ?>
+                                            <td <?= $style; ?>><?= $tdValue; ?></td>
+                                            <?php
+                                        }
+                                        ?>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                    </tbody>
+                                    <?php
+
+                                }
+                            ?>
                             
+                        </table>
+                    </div>
+                </div>
             </section>
-            
         </main>
         <footer id="footer1" >
             <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>

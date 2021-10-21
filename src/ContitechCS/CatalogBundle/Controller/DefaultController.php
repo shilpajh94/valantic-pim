@@ -149,8 +149,7 @@ class DefaultController extends FrontendController
 
             $productName =  trim($productObj->getName());
 
-           // print_r($productName);die;
-            if($productObj && isset($productDataImportConfig[$productName])) ///isset variable is assigned a value or not null
+            if($productObj && isset($productDataImportConfig['Common Product Page'][$productName])) ///isset variable is assigned a value or not null
             {
                 $PGInfo = $productDataImportConfig['Common Product Page'][$productName]['Product Group Information'];
 
@@ -541,15 +540,20 @@ class DefaultController extends FrontendController
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
-            $catalogCategoryObjectId = $catalogTableObject->getParentId();
+            // $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $coverCompoundData = [];
-            if($catalogCategoryObjectId)
+            // echo 'dfgdf';
+            if($catalogTableObject)
             {
-                $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+                // $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
 
-                $selectedCategoryId = $categoryObj->getCategory();
+                $selectedCategoryId = $catalogTableObject->getCategory();
+
+                // p_r($selectedCategoryId);
 
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedCategoryId);
+
+                // p_r($hierarchyObj);
 
                 $hierarchyPath = $hierarchyObj->getPath();
                 $hierarchyName = $hierarchyObj->getName();
@@ -558,6 +562,8 @@ class DefaultController extends FrontendController
                 $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
 
                 $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
+                // echo 'fgd';
+                // p_r($HierarchyProductPath);
                 
                 $coverCompoundData['HierarchyNameLevel1'] = 'Conveying Solutions';
                 $coverCompoundData['Name'] = $HierarchyProductPath->getName();
@@ -593,13 +599,34 @@ class DefaultController extends FrontendController
                     if($level3Data['Name'] === $productPage){
 
                         $singleProductPage['Name'] = $level3Data['Name'];
-                        $singleProductPage['PerformanceCategory'] = 'Heat Resistant Compounds';
+                        $singleProductPage['NamePerformanceCategory'] = $level3Data['Name']. ' Heat Resistant Compounds';
                         // $singleProductPage['PerformanceCategory'] = ' Heat Resistant Compounds';
                         $singleProductPage['productImage'] = $objectLevel3rd->getProductImage();
-                        $singleProductPage['LongText'] = $objectLevel3rd->getLongText();;
-                        echo "\n".$productPage;
-                        echo "\n yes";
-                        die;
+                        $singleProductPage['LongText'] = $objectLevel3rd->getLongText();
+
+                        $FeaturesAndBenefits = [];
+
+                        foreach ($objectLevel3rd->getCSProductFeaturesAndBenefits() as $key => $value) {
+                            if($value->getFeatureImage())
+                            {
+                                $feature['FeatureName'] = $value->getFeatureName();
+                                $feature['FeatureDescription'] = $value->getFeatureDescription();
+                                $feature['FeatureImage'] = $value->getFeatureImage();
+                                $FeaturesAndBenefits[] = $feature;
+                            }
+                        }
+
+                        $singleProductPage['FeaturesAndBenefits'] = $FeaturesAndBenefits;
+
+                        $Level4ObjChild = $objectLevel3rd->getchildren(); 
+                        $level4ObjectData = [];
+                        foreach ($Level4ObjChild as $level4Value) {
+                            $level4Data['Name'] = $level4Value->getName();
+                            $level4Data['LongText'] = $level4Value->getLongText();
+                            $level4ObjectData[] = $level4Data;
+                        }
+
+                        $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
                     }
 
                     $label4Childs = $objectLevel3rd->getchildren();
@@ -672,6 +699,8 @@ class DefaultController extends FrontendController
                 $productData['coverCompounds'] = $coverCompounds;
                 $productData['coverCompoundsHeaderKeys'] = $coverCompoundsHeaderKeys;
                 $productData['level3rdObjectData'] = $level3rdObjectData;
+                $productData['singleProductPage'] = $singleProductPage;
+                
             }
             else{
                 echo "Category Not Select In Catalog Category Object";
