@@ -170,7 +170,7 @@ class ObjectListener
                     }
                 } elseif ($fieldType == 'imageGallery') {
                     $gallery = $product->$getter();
-                    if (!empty($gallery->getItems())) {
+                    if (!empty($gallery) && !empty($gallery->getItems())) {
                         $items = $gallery->getItems();
                         foreach ($items as $item) {
                             if (!empty($item)) {
