@@ -95,5 +95,6 @@ define("CS_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", CS_PRODUCTBUNDLE_C
 define("CS_WORKFLOW_CONFIG",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
 define("CS_MATERIAL_HANDLIG_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/Material Handling/');
 define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Products/Material Handling/');
+define("CS_PPRODUCT_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/');
 
 

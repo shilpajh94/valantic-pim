@@ -40,10 +40,8 @@ class CSHierarchyOptionProvider implements SelectOptionsProviderInterface
      */
     public function getOptions($context, $fieldDefinition)
     {
-        $HierarchyProductPath = DataObject\CSHierarchy::getByPath(CS_MATERIAL_HANDLIG_HIERARCHY_PATH);
         $categoryList = new DataObject\CSHierarchy\Listing();
-        $categoryList->addConditionParam("Level = ?", ["Level 2"], 'AND');
-        $categoryList->setCondition("o_parentId = ?", $HierarchyProductPath->getId());
+        $categoryList->addConditionParam("Level = ?", ["Level 1"], 'AND');
         $categoryList = $categoryList->load();
 
         foreach ($categoryList as $cat) {

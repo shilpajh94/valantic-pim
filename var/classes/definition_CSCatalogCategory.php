@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-09-01T11:34:40+02:00
+* Generated at: 2021-10-21T07:43:54+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -9,7 +9,8 @@
 
 
 Fields Summary: 
-- Category [select]
+- FirstLevelCategory [select]
+- SecondLevelCategory [select]
 */ 
 
 
@@ -18,7 +19,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSCatalogCategory',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1630488879,
+   'modificationDate' => 1634795030,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -78,38 +79,18 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               array (
-                'key' => 'Steelcord Conveyor Belts',
-                'value' => 7494284,
+                'key' => 'Material Handling',
+                'value' => 7499271,
               ),
               1 => 
               array (
-                'key' => 'Textile Conveyor Belts',
-                'value' => 7494288,
+                'key' => 'Processing & Special Belts',
+                'value' => 7499379,
               ),
               2 => 
               array (
-                'key' => 'Solid Woven Conveyor Belts',
-                'value' => 7494300,
-              ),
-              3 => 
-              array (
-                'key' => 'Cover Options',
-                'value' => 7494303,
-              ),
-              4 => 
-              array (
-                'key' => 'Features',
-                'value' => 7494304,
-              ),
-              5 => 
-              array (
-                'key' => 'Steep Incline Conveyor Belts',
-                'value' => 7494305,
-              ),
-              6 => 
-              array (
-                'key' => 'Enclosed Conveyor Belts',
-                'value' => 7494309,
+                'key' => 'Conveyor Services',
+                'value' => 7499403,
               ),
             ),
              'width' => '',
@@ -121,8 +102,39 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'columnLength' => 190,
              'phpdocType' => 'string',
              'dynamicOptions' => false,
-             'name' => 'Category',
-             'title' => 'Category',
+             'name' => 'FirstLevelCategory',
+             'title' => 'First Level Category',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'fieldtype' => 'select',
+             'options' => 
+            array (
+            ),
+             'width' => '',
+             'defaultValue' => '',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'dynamicOptions' => false,
+             'name' => 'SecondLevelCategory',
+             'title' => 'Second Level Category ',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,

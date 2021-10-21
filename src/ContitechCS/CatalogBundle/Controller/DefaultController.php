@@ -37,9 +37,8 @@ class DefaultController extends FrontendController
 
         $id = $request->get('catId');
         $categoryObj = DataObject\CSCatalogCategory::getById($id);
-       // print_r($categoryObj);die;
 
-        $hierarchyId = ($categoryObj->getCategory());
+        $hierarchyId = ($categoryObj->getSecondLevelCategory());
         $res['data'] = [];
         if($hierarchyId)
         {
@@ -94,6 +93,26 @@ class DefaultController extends FrontendController
         }
 
         echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+    /**
+     * @Route("/contitech_cs_catalog/get-hierarchy")
+     */
+    public function getHierarchy(Request $request) {
+
+        $catId = $request->get('catId');
+
+        $categoryList = new DataObject\CSHierarchy\Listing();
+        $categoryList->addConditionParam("Level = ?", ["Level 2"], 'AND');
+        $categoryList->setCondition("o_parentId = ?", $catId);
+        $categoryList = $categoryList->load();
+
+        foreach ($categoryList as $cat) {
+            $result[] = array('key' => $cat->getName(), 'value' => $cat->getId());
+        }
+
+        echo json_encode(['data' => $result]);
         die;
     }
 
