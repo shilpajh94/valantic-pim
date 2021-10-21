@@ -1,12 +1,14 @@
 <?php 
 
 /** 
+* Generated at: 2021-10-21T16:57:41+05:30
 * Inheritance: no
 * Variants: no
+* Changed by: admin (2)
+* IP: ::1
 
 
 Fields Summary: 
-- IndustryCode [input]
 - IndustryName [input]
 */ 
 
@@ -16,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSIndustries',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1629268716,
+   'modificationDate' => 1634815661,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -81,41 +83,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'regex' => '',
              'unique' => false,
              'showCharCount' => false,
-             'name' => 'IndustryCode',
-             'title' => 'Industry Code',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => NULL,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'defaultValue' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
              'name' => 'IndustryName',
              'title' => 'Industry Name',
              'tooltip' => '',
              'mandatory' => true,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
