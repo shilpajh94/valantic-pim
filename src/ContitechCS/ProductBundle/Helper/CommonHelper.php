@@ -19,6 +19,7 @@ class CommonHelper {
     public static function getEditableFieldsByUser(User $user) {
         $roles = $user->getRoles();
         $attributeList = [];
+        $allAttributeList = [];
         if (!empty($roles) && count($roles)>0) {
             $rolesList = new User\Role\Listing();
             $rolesList->setCondition('`id` IN ('.implode(", ", $roles).' )');
@@ -33,9 +34,14 @@ class CommonHelper {
                         $attributeList[$attribute] = true;
                     }
                 }
+                $allRestrictedFields = $editableAttributes['All'];     
+                foreach ($allRestrictedFields as $attribute) {
+                    $allAttributeList[$attribute] = true;
+                }
             }
         }
-        return $attributeList;
+        
+        return ['all' => $allAttributeList, 'byRole' => $attributeList];
     }
     
     public static function getFolderByPath($folderPath, $type = 'object') {
