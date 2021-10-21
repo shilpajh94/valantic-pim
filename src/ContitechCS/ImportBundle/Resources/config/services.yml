@@ -77,3 +77,21 @@ services:
                   name: "console.command",
                   command: "cs:one-time-import:region-import",
               }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSApplicationImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:application-import",
+              }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSIndustriesImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:industries-import",
+              }
+    ContitechCS\ImportBundle\OneTimeImportCommand\CSPerformanceCategoriesImportCommand:
+        tags:
+            - {
+                  name: "console.command",
+                  command: "cs:one-time-import:performance-categories-import",
+              }
