@@ -10,6 +10,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\User;
 use ContitechCS\ImportBundle\Services\ImportConstants;
 use ContitechCS\ProductBundle\Services\UserConstants;
+use ContitechCS\ProductBundle\Services\ConfigProviderService;
 
 /**
  * @package ContitechCS\ProductBundle\Controller
@@ -18,6 +19,8 @@ use ContitechCS\ProductBundle\Services\UserConstants;
 
 class DefaultController extends FrontendController
 {
+    private $configProviderService;
+    
     /**
      * @Route("/contitech_cs_product")
      */
@@ -97,6 +100,9 @@ class DefaultController extends FrontendController
      */
     public function saveProduct(Request $request)
     {
+        
+        $this->configProviderService = new ConfigProviderService();
+        $unitValueConfig = $this->configProviderService->getUnitValueConfig();
         $success = true;
         $msg = "";
         $parentId = '';
@@ -195,6 +201,18 @@ class DefaultController extends FrontendController
                             foreach ($allObjectBricks as $brick) {
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                 $brickObject = new $class($product);
+                                foreach ($unitValueConfig as $unit => $unitValue) {
+                                    
+
+                                    $fieldKey = ucfirst($unitValue['fieldName']);
+                                    $objectBrickFieldMethod = 'set' . $fieldKey;
+
+                                    if ($unitValue['objectType'] == $brick) {
+                                        $brickObject->$objectBrickFieldMethod($unitValue['fieldValue']);
+                                    } else {
+                                        continue;
+                                    }
+                                }
                                 $method = 'set' . $brick;
                                 $product->getProductAttributes()->$method($brickObject);
                             }

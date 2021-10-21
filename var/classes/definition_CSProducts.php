@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-18T16:37:50+05:30
+* Generated at: 2021-10-21T11:07:07+05:30
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
@@ -17,6 +17,8 @@ Fields Summary:
 - isArchived [checkbox]
 - NatureOfProduct [input]
 - CSSegment [select]
+- CSRegion [select]
+- CSPerformanceCategory [multiselect]
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
@@ -32,7 +34,6 @@ Fields Summary:
 - CSProductIndustries [manyToManyObjectRelation]
 - CoverCompounds [manyToManyObjectRelation]
 - CSRelatedProducts [manyToManyObjectRelation]
-- CSRegion [manyToManyObjectRelation]
 - ParentCategory [manyToManyObjectRelation]
 - ProductAttributes [objectbricks]
 - LogoImage [image]
@@ -65,7 +66,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1634555268,
+   'modificationDate' => 1634794625,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -621,34 +622,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         array (
                           0 => 
                           array (
-                            'key' => 'SA',
-                            'value' => 'SA',
+                            'key' => 'AMERICAS',
+                            'value' => 7067081,
                           ),
                           1 => 
                           array (
-                            'key' => 'NA',
-                            'value' => 'NA',
+                            'key' => 'APAC',
+                            'value' => 7067080,
                           ),
                           2 => 
                           array (
-                            'key' => 'Americas',
-                            'value' => 'Americas',
+                            'key' => 'EMEA',
+                            'value' => 7067079,
                           ),
                           3 => 
                           array (
-                            'key' => 'APAC',
-                            'value' => 'APAC',
-                          ),
-                          4 => 
-                          array (
-                            'key' => 'EMEA',
-                            'value' => 'EMEA',
+                            'key' => 'SERVICE',
+                            'value' => 7067082,
                           ),
                         ),
                          'width' => 300,
                          'defaultValue' => '',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSSegment|SegmentName',
                          'queryColumnType' => 'varchar',
                          'columnType' => 'varchar',
                          'columnLength' => 190,
@@ -656,6 +652,119 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'dynamicOptions' => false,
                          'name' => 'CSSegment',
                          'title' => 'Segment',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'fieldtype' => 'select',
+                         'options' => 
+                        array (
+                          0 => 
+                          array (
+                            'key' => 'Australia / South Pacific',
+                            'value' => 7067076,
+                          ),
+                          1 => 
+                          array (
+                            'key' => 'China & Mongolia',
+                            'value' => 7067074,
+                          ),
+                          2 => 
+                          array (
+                            'key' => 'Eastern Europe/Russia',
+                            'value' => 7067071,
+                          ),
+                          3 => 
+                          array (
+                            'key' => 'India',
+                            'value' => 7067075,
+                          ),
+                          4 => 
+                          array (
+                            'key' => 'Middle East/North Africa',
+                            'value' => 7067072,
+                          ),
+                          5 => 
+                          array (
+                            'key' => 'North America',
+                            'value' => 7067068,
+                          ),
+                          6 => 
+                          array (
+                            'key' => 'South America',
+                            'value' => 7067069,
+                          ),
+                          7 => 
+                          array (
+                            'key' => 'South East Asia',
+                            'value' => 7067077,
+                          ),
+                          8 => 
+                          array (
+                            'key' => 'Subsahara/South Africa',
+                            'value' => 7067073,
+                          ),
+                          9 => 
+                          array (
+                            'key' => 'Western Europe',
+                            'value' => 7067070,
+                          ),
+                        ),
+                         'width' => 300,
+                         'defaultValue' => '',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSRegion|RegionName',
+                         'queryColumnType' => 'varchar',
+                         'columnType' => 'varchar',
+                         'columnLength' => 190,
+                         'phpdocType' => 'string',
+                         'dynamicOptions' => false,
+                         'name' => 'CSRegion',
+                         'title' => 'Region',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'list',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'CSPerformanceCategory',
+                         'title' => 'Performance Category',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -668,7 +777,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -844,88 +952,88 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           12 => 
                           array (
+                            'key' => 'Ascension Island',
+                            'value' => 'AC',
+                          ),
+                          13 => 
+                          array (
                             'key' => 'Australia',
                             'value' => 'AU',
                           ),
-                          13 => 
+                          14 => 
                           array (
                             'key' => 'Austria',
                             'value' => 'AT',
                           ),
-                          14 => 
+                          15 => 
                           array (
                             'key' => 'Azerbaijan',
                             'value' => 'AZ',
                           ),
-                          15 => 
+                          16 => 
                           array (
                             'key' => 'Bahamas',
                             'value' => 'BS',
                           ),
-                          16 => 
+                          17 => 
                           array (
                             'key' => 'Bahrain',
                             'value' => 'BH',
                           ),
-                          17 => 
+                          18 => 
                           array (
                             'key' => 'Bangladesh',
                             'value' => 'BD',
                           ),
-                          18 => 
+                          19 => 
                           array (
                             'key' => 'Barbados',
                             'value' => 'BB',
                           ),
-                          19 => 
+                          20 => 
                           array (
                             'key' => 'Belarus',
                             'value' => 'BY',
                           ),
-                          20 => 
+                          21 => 
                           array (
                             'key' => 'Belgium',
                             'value' => 'BE',
                           ),
-                          21 => 
+                          22 => 
                           array (
                             'key' => 'Belize',
                             'value' => 'BZ',
                           ),
-                          22 => 
+                          23 => 
                           array (
                             'key' => 'Benin',
                             'value' => 'BJ',
                           ),
-                          23 => 
+                          24 => 
                           array (
                             'key' => 'Bermuda',
                             'value' => 'BM',
                           ),
-                          24 => 
+                          25 => 
                           array (
                             'key' => 'Bhutan',
                             'value' => 'BT',
                           ),
-                          25 => 
+                          26 => 
                           array (
                             'key' => 'Bolivia',
                             'value' => 'BO',
                           ),
-                          26 => 
+                          27 => 
                           array (
                             'key' => 'Bosnia & Herzegovina',
                             'value' => 'BA',
                           ),
-                          27 => 
+                          28 => 
                           array (
                             'key' => 'Botswana',
                             'value' => 'BW',
-                          ),
-                          28 => 
-                          array (
-                            'key' => 'Bouvet Island',
-                            'value' => 'BV',
                           ),
                           29 => 
                           array (
@@ -979,1057 +1087,1087 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           39 => 
                           array (
+                            'key' => 'Canary Islands',
+                            'value' => 'IC',
+                          ),
+                          40 => 
+                          array (
                             'key' => 'Cape Verde',
                             'value' => 'CV',
                           ),
-                          40 => 
+                          41 => 
                           array (
                             'key' => 'Caribbean Netherlands',
                             'value' => 'BQ',
                           ),
-                          41 => 
+                          42 => 
                           array (
                             'key' => 'Cayman Islands',
                             'value' => 'KY',
                           ),
-                          42 => 
+                          43 => 
                           array (
                             'key' => 'Central African Republic',
                             'value' => 'CF',
                           ),
-                          43 => 
+                          44 => 
+                          array (
+                            'key' => 'Ceuta & Melilla',
+                            'value' => 'EA',
+                          ),
+                          45 => 
                           array (
                             'key' => 'Chad',
                             'value' => 'TD',
                           ),
-                          44 => 
+                          46 => 
                           array (
                             'key' => 'Chile',
                             'value' => 'CL',
                           ),
-                          45 => 
+                          47 => 
                           array (
                             'key' => 'China',
                             'value' => 'CN',
                           ),
-                          46 => 
+                          48 => 
                           array (
                             'key' => 'Christmas Island',
                             'value' => 'CX',
                           ),
-                          47 => 
+                          49 => 
                           array (
                             'key' => 'Cocos (Keeling) Islands',
                             'value' => 'CC',
                           ),
-                          48 => 
+                          50 => 
                           array (
                             'key' => 'Colombia',
                             'value' => 'CO',
                           ),
-                          49 => 
+                          51 => 
                           array (
                             'key' => 'Comoros',
                             'value' => 'KM',
                           ),
-                          50 => 
+                          52 => 
                           array (
                             'key' => 'Congo - Brazzaville',
                             'value' => 'CG',
                           ),
-                          51 => 
+                          53 => 
                           array (
                             'key' => 'Congo - Kinshasa',
                             'value' => 'CD',
                           ),
-                          52 => 
+                          54 => 
                           array (
                             'key' => 'Cook Islands',
                             'value' => 'CK',
                           ),
-                          53 => 
+                          55 => 
                           array (
                             'key' => 'Costa Rica',
                             'value' => 'CR',
                           ),
-                          54 => 
+                          56 => 
                           array (
                             'key' => 'Croatia',
                             'value' => 'HR',
                           ),
-                          55 => 
+                          57 => 
                           array (
                             'key' => 'Cuba',
                             'value' => 'CU',
                           ),
-                          56 => 
+                          58 => 
                           array (
                             'key' => 'Curaçao',
                             'value' => 'CW',
                           ),
-                          57 => 
+                          59 => 
                           array (
                             'key' => 'Cyprus',
                             'value' => 'CY',
                           ),
-                          58 => 
+                          60 => 
                           array (
                             'key' => 'Czechia',
                             'value' => 'CZ',
                           ),
-                          59 => 
+                          61 => 
                           array (
                             'key' => 'Côte d’Ivoire',
                             'value' => 'CI',
                           ),
-                          60 => 
+                          62 => 
                           array (
                             'key' => 'Denmark',
                             'value' => 'DK',
                           ),
-                          61 => 
+                          63 => 
+                          array (
+                            'key' => 'Diego Garcia',
+                            'value' => 'DG',
+                          ),
+                          64 => 
                           array (
                             'key' => 'Djibouti',
                             'value' => 'DJ',
                           ),
-                          62 => 
+                          65 => 
                           array (
                             'key' => 'Dominica',
                             'value' => 'DM',
                           ),
-                          63 => 
+                          66 => 
                           array (
                             'key' => 'Dominican Republic',
                             'value' => 'DO',
                           ),
-                          64 => 
+                          67 => 
                           array (
                             'key' => 'Ecuador',
                             'value' => 'EC',
                           ),
-                          65 => 
+                          68 => 
                           array (
                             'key' => 'Egypt',
                             'value' => 'EG',
                           ),
-                          66 => 
+                          69 => 
                           array (
                             'key' => 'El Salvador',
                             'value' => 'SV',
                           ),
-                          67 => 
+                          70 => 
                           array (
                             'key' => 'Equatorial Guinea',
                             'value' => 'GQ',
                           ),
-                          68 => 
+                          71 => 
                           array (
                             'key' => 'Eritrea',
                             'value' => 'ER',
                           ),
-                          69 => 
+                          72 => 
                           array (
                             'key' => 'Estonia',
                             'value' => 'EE',
                           ),
-                          70 => 
+                          73 => 
                           array (
                             'key' => 'Eswatini',
                             'value' => 'SZ',
                           ),
-                          71 => 
+                          74 => 
                           array (
                             'key' => 'Ethiopia',
                             'value' => 'ET',
                           ),
-                          72 => 
+                          75 => 
                           array (
                             'key' => 'Falkland Islands',
                             'value' => 'FK',
                           ),
-                          73 => 
+                          76 => 
                           array (
                             'key' => 'Faroe Islands',
                             'value' => 'FO',
                           ),
-                          74 => 
+                          77 => 
                           array (
                             'key' => 'Fiji',
                             'value' => 'FJ',
                           ),
-                          75 => 
+                          78 => 
                           array (
                             'key' => 'Finland',
                             'value' => 'FI',
                           ),
-                          76 => 
+                          79 => 
                           array (
                             'key' => 'France',
                             'value' => 'FR',
                           ),
-                          77 => 
+                          80 => 
                           array (
                             'key' => 'French Guiana',
                             'value' => 'GF',
                           ),
-                          78 => 
+                          81 => 
                           array (
                             'key' => 'French Polynesia',
                             'value' => 'PF',
                           ),
-                          79 => 
+                          82 => 
                           array (
                             'key' => 'French Southern Territories',
                             'value' => 'TF',
                           ),
-                          80 => 
+                          83 => 
                           array (
                             'key' => 'Gabon',
                             'value' => 'GA',
                           ),
-                          81 => 
+                          84 => 
                           array (
                             'key' => 'Gambia',
                             'value' => 'GM',
                           ),
-                          82 => 
+                          85 => 
                           array (
                             'key' => 'Georgia',
                             'value' => 'GE',
                           ),
-                          83 => 
+                          86 => 
                           array (
                             'key' => 'Germany',
                             'value' => 'DE',
                           ),
-                          84 => 
+                          87 => 
                           array (
                             'key' => 'Ghana',
                             'value' => 'GH',
                           ),
-                          85 => 
+                          88 => 
                           array (
                             'key' => 'Gibraltar',
                             'value' => 'GI',
                           ),
-                          86 => 
+                          89 => 
                           array (
                             'key' => 'Greece',
                             'value' => 'GR',
                           ),
-                          87 => 
+                          90 => 
                           array (
                             'key' => 'Greenland',
                             'value' => 'GL',
                           ),
-                          88 => 
+                          91 => 
                           array (
                             'key' => 'Grenada',
                             'value' => 'GD',
                           ),
-                          89 => 
+                          92 => 
                           array (
                             'key' => 'Guadeloupe',
                             'value' => 'GP',
                           ),
-                          90 => 
+                          93 => 
                           array (
                             'key' => 'Guam',
                             'value' => 'GU',
                           ),
-                          91 => 
+                          94 => 
                           array (
                             'key' => 'Guatemala',
                             'value' => 'GT',
                           ),
-                          92 => 
+                          95 => 
                           array (
                             'key' => 'Guernsey',
                             'value' => 'GG',
                           ),
-                          93 => 
+                          96 => 
                           array (
                             'key' => 'Guinea',
                             'value' => 'GN',
                           ),
-                          94 => 
+                          97 => 
                           array (
                             'key' => 'Guinea-Bissau',
                             'value' => 'GW',
                           ),
-                          95 => 
+                          98 => 
                           array (
                             'key' => 'Guyana',
                             'value' => 'GY',
                           ),
-                          96 => 
+                          99 => 
                           array (
                             'key' => 'Haiti',
                             'value' => 'HT',
                           ),
-                          97 => 
-                          array (
-                            'key' => 'Heard & McDonald Islands',
-                            'value' => 'HM',
-                          ),
-                          98 => 
+                          100 => 
                           array (
                             'key' => 'Honduras',
                             'value' => 'HN',
                           ),
-                          99 => 
+                          101 => 
                           array (
                             'key' => 'Hong Kong SAR China',
                             'value' => 'HK',
                           ),
-                          100 => 
+                          102 => 
                           array (
                             'key' => 'Hungary',
                             'value' => 'HU',
                           ),
-                          101 => 
+                          103 => 
                           array (
                             'key' => 'Iceland',
                             'value' => 'IS',
                           ),
-                          102 => 
+                          104 => 
                           array (
                             'key' => 'India',
                             'value' => 'IN',
                           ),
-                          103 => 
+                          105 => 
                           array (
                             'key' => 'Indonesia',
                             'value' => 'ID',
                           ),
-                          104 => 
+                          106 => 
                           array (
                             'key' => 'Iran',
                             'value' => 'IR',
                           ),
-                          105 => 
+                          107 => 
                           array (
                             'key' => 'Iraq',
                             'value' => 'IQ',
                           ),
-                          106 => 
+                          108 => 
                           array (
                             'key' => 'Ireland',
                             'value' => 'IE',
                           ),
-                          107 => 
+                          109 => 
                           array (
                             'key' => 'Isle of Man',
                             'value' => 'IM',
                           ),
-                          108 => 
+                          110 => 
                           array (
                             'key' => 'Israel',
                             'value' => 'IL',
                           ),
-                          109 => 
+                          111 => 
                           array (
                             'key' => 'Italy',
                             'value' => 'IT',
                           ),
-                          110 => 
+                          112 => 
                           array (
                             'key' => 'Jamaica',
                             'value' => 'JM',
                           ),
-                          111 => 
+                          113 => 
                           array (
                             'key' => 'Japan',
                             'value' => 'JP',
                           ),
-                          112 => 
+                          114 => 
                           array (
                             'key' => 'Jersey',
                             'value' => 'JE',
                           ),
-                          113 => 
+                          115 => 
                           array (
                             'key' => 'Jordan',
                             'value' => 'JO',
                           ),
-                          114 => 
+                          116 => 
                           array (
                             'key' => 'Kazakhstan',
                             'value' => 'KZ',
                           ),
-                          115 => 
+                          117 => 
                           array (
                             'key' => 'Kenya',
                             'value' => 'KE',
                           ),
-                          116 => 
+                          118 => 
                           array (
                             'key' => 'Kiribati',
                             'value' => 'KI',
                           ),
-                          117 => 
+                          119 => 
+                          array (
+                            'key' => 'Kosovo',
+                            'value' => 'XK',
+                          ),
+                          120 => 
                           array (
                             'key' => 'Kuwait',
                             'value' => 'KW',
                           ),
-                          118 => 
+                          121 => 
                           array (
                             'key' => 'Kyrgyzstan',
                             'value' => 'KG',
                           ),
-                          119 => 
+                          122 => 
                           array (
                             'key' => 'Laos',
                             'value' => 'LA',
                           ),
-                          120 => 
+                          123 => 
                           array (
                             'key' => 'Latvia',
                             'value' => 'LV',
                           ),
-                          121 => 
+                          124 => 
                           array (
                             'key' => 'Lebanon',
                             'value' => 'LB',
                           ),
-                          122 => 
+                          125 => 
                           array (
                             'key' => 'Lesotho',
                             'value' => 'LS',
                           ),
-                          123 => 
+                          126 => 
                           array (
                             'key' => 'Liberia',
                             'value' => 'LR',
                           ),
-                          124 => 
+                          127 => 
                           array (
                             'key' => 'Libya',
                             'value' => 'LY',
                           ),
-                          125 => 
+                          128 => 
                           array (
                             'key' => 'Liechtenstein',
                             'value' => 'LI',
                           ),
-                          126 => 
+                          129 => 
                           array (
                             'key' => 'Lithuania',
                             'value' => 'LT',
                           ),
-                          127 => 
+                          130 => 
                           array (
                             'key' => 'Luxembourg',
                             'value' => 'LU',
                           ),
-                          128 => 
+                          131 => 
                           array (
                             'key' => 'Macao SAR China',
                             'value' => 'MO',
                           ),
-                          129 => 
+                          132 => 
                           array (
                             'key' => 'Madagascar',
                             'value' => 'MG',
                           ),
-                          130 => 
+                          133 => 
                           array (
                             'key' => 'Malawi',
                             'value' => 'MW',
                           ),
-                          131 => 
+                          134 => 
                           array (
                             'key' => 'Malaysia',
                             'value' => 'MY',
                           ),
-                          132 => 
+                          135 => 
                           array (
                             'key' => 'Maldives',
                             'value' => 'MV',
                           ),
-                          133 => 
+                          136 => 
                           array (
                             'key' => 'Mali',
                             'value' => 'ML',
                           ),
-                          134 => 
+                          137 => 
                           array (
                             'key' => 'Malta',
                             'value' => 'MT',
                           ),
-                          135 => 
+                          138 => 
                           array (
                             'key' => 'Marshall Islands',
                             'value' => 'MH',
                           ),
-                          136 => 
+                          139 => 
                           array (
                             'key' => 'Martinique',
                             'value' => 'MQ',
                           ),
-                          137 => 
+                          140 => 
                           array (
                             'key' => 'Mauritania',
                             'value' => 'MR',
                           ),
-                          138 => 
+                          141 => 
                           array (
                             'key' => 'Mauritius',
                             'value' => 'MU',
                           ),
-                          139 => 
+                          142 => 
                           array (
                             'key' => 'Mayotte',
                             'value' => 'YT',
                           ),
-                          140 => 
+                          143 => 
                           array (
                             'key' => 'Mexico',
                             'value' => 'MX',
                           ),
-                          141 => 
+                          144 => 
                           array (
                             'key' => 'Micronesia',
                             'value' => 'FM',
                           ),
-                          142 => 
+                          145 => 
                           array (
                             'key' => 'Moldova',
                             'value' => 'MD',
                           ),
-                          143 => 
+                          146 => 
                           array (
                             'key' => 'Monaco',
                             'value' => 'MC',
                           ),
-                          144 => 
+                          147 => 
                           array (
                             'key' => 'Mongolia',
                             'value' => 'MN',
                           ),
-                          145 => 
+                          148 => 
                           array (
                             'key' => 'Montenegro',
                             'value' => 'ME',
                           ),
-                          146 => 
+                          149 => 
                           array (
                             'key' => 'Montserrat',
                             'value' => 'MS',
                           ),
-                          147 => 
+                          150 => 
                           array (
                             'key' => 'Morocco',
                             'value' => 'MA',
                           ),
-                          148 => 
+                          151 => 
                           array (
                             'key' => 'Mozambique',
                             'value' => 'MZ',
                           ),
-                          149 => 
+                          152 => 
                           array (
                             'key' => 'Myanmar (Burma)',
                             'value' => 'MM',
                           ),
-                          150 => 
+                          153 => 
                           array (
                             'key' => 'Namibia',
                             'value' => 'NA',
                           ),
-                          151 => 
+                          154 => 
                           array (
                             'key' => 'Nauru',
                             'value' => 'NR',
                           ),
-                          152 => 
+                          155 => 
                           array (
                             'key' => 'Nepal',
                             'value' => 'NP',
                           ),
-                          153 => 
+                          156 => 
                           array (
                             'key' => 'Netherlands',
                             'value' => 'NL',
                           ),
-                          154 => 
+                          157 => 
                           array (
                             'key' => 'New Caledonia',
                             'value' => 'NC',
                           ),
-                          155 => 
+                          158 => 
                           array (
                             'key' => 'New Zealand',
                             'value' => 'NZ',
                           ),
-                          156 => 
+                          159 => 
                           array (
                             'key' => 'Nicaragua',
                             'value' => 'NI',
                           ),
-                          157 => 
+                          160 => 
                           array (
                             'key' => 'Niger',
                             'value' => 'NE',
                           ),
-                          158 => 
+                          161 => 
                           array (
                             'key' => 'Nigeria',
                             'value' => 'NG',
                           ),
-                          159 => 
+                          162 => 
                           array (
                             'key' => 'Niue',
                             'value' => 'NU',
                           ),
-                          160 => 
+                          163 => 
                           array (
                             'key' => 'Norfolk Island',
                             'value' => 'NF',
                           ),
-                          161 => 
+                          164 => 
                           array (
                             'key' => 'North Korea',
                             'value' => 'KP',
                           ),
-                          162 => 
+                          165 => 
                           array (
                             'key' => 'North Macedonia',
                             'value' => 'MK',
                           ),
-                          163 => 
+                          166 => 
                           array (
                             'key' => 'Northern Mariana Islands',
                             'value' => 'MP',
                           ),
-                          164 => 
+                          167 => 
                           array (
                             'key' => 'Norway',
                             'value' => 'NO',
                           ),
-                          165 => 
+                          168 => 
                           array (
                             'key' => 'Oman',
                             'value' => 'OM',
                           ),
-                          166 => 
+                          169 => 
                           array (
                             'key' => 'Pakistan',
                             'value' => 'PK',
                           ),
-                          167 => 
+                          170 => 
                           array (
                             'key' => 'Palau',
                             'value' => 'PW',
                           ),
-                          168 => 
+                          171 => 
                           array (
                             'key' => 'Palestinian Territories',
                             'value' => 'PS',
                           ),
-                          169 => 
+                          172 => 
                           array (
                             'key' => 'Panama',
                             'value' => 'PA',
                           ),
-                          170 => 
+                          173 => 
                           array (
                             'key' => 'Papua New Guinea',
                             'value' => 'PG',
                           ),
-                          171 => 
+                          174 => 
                           array (
                             'key' => 'Paraguay',
                             'value' => 'PY',
                           ),
-                          172 => 
+                          175 => 
                           array (
                             'key' => 'Peru',
                             'value' => 'PE',
                           ),
-                          173 => 
+                          176 => 
                           array (
                             'key' => 'Philippines',
                             'value' => 'PH',
                           ),
-                          174 => 
+                          177 => 
                           array (
                             'key' => 'Pitcairn Islands',
                             'value' => 'PN',
                           ),
-                          175 => 
+                          178 => 
                           array (
                             'key' => 'Poland',
                             'value' => 'PL',
                           ),
-                          176 => 
+                          179 => 
                           array (
                             'key' => 'Portugal',
                             'value' => 'PT',
                           ),
-                          177 => 
+                          180 => 
+                          array (
+                            'key' => 'Pseudo-Accents',
+                            'value' => 'XA',
+                          ),
+                          181 => 
+                          array (
+                            'key' => 'Pseudo-Bidi',
+                            'value' => 'XB',
+                          ),
+                          182 => 
                           array (
                             'key' => 'Puerto Rico',
                             'value' => 'PR',
                           ),
-                          178 => 
+                          183 => 
                           array (
                             'key' => 'Qatar',
                             'value' => 'QA',
                           ),
-                          179 => 
+                          184 => 
                           array (
                             'key' => 'Romania',
                             'value' => 'RO',
                           ),
-                          180 => 
+                          185 => 
                           array (
                             'key' => 'Russia',
                             'value' => 'RU',
                           ),
-                          181 => 
+                          186 => 
                           array (
                             'key' => 'Rwanda',
                             'value' => 'RW',
                           ),
-                          182 => 
+                          187 => 
                           array (
                             'key' => 'Réunion',
                             'value' => 'RE',
                           ),
-                          183 => 
+                          188 => 
                           array (
                             'key' => 'Samoa',
                             'value' => 'WS',
                           ),
-                          184 => 
+                          189 => 
                           array (
                             'key' => 'San Marino',
                             'value' => 'SM',
                           ),
-                          185 => 
+                          190 => 
                           array (
                             'key' => 'Saudi Arabia',
                             'value' => 'SA',
                           ),
-                          186 => 
+                          191 => 
                           array (
                             'key' => 'Senegal',
                             'value' => 'SN',
                           ),
-                          187 => 
+                          192 => 
                           array (
                             'key' => 'Serbia',
                             'value' => 'RS',
                           ),
-                          188 => 
+                          193 => 
                           array (
                             'key' => 'Seychelles',
                             'value' => 'SC',
                           ),
-                          189 => 
+                          194 => 
                           array (
                             'key' => 'Sierra Leone',
                             'value' => 'SL',
                           ),
-                          190 => 
+                          195 => 
                           array (
                             'key' => 'Singapore',
                             'value' => 'SG',
                           ),
-                          191 => 
+                          196 => 
                           array (
                             'key' => 'Sint Maarten',
                             'value' => 'SX',
                           ),
-                          192 => 
+                          197 => 
                           array (
                             'key' => 'Slovakia',
                             'value' => 'SK',
                           ),
-                          193 => 
+                          198 => 
                           array (
                             'key' => 'Slovenia',
                             'value' => 'SI',
                           ),
-                          194 => 
+                          199 => 
                           array (
                             'key' => 'Solomon Islands',
                             'value' => 'SB',
                           ),
-                          195 => 
+                          200 => 
                           array (
                             'key' => 'Somalia',
                             'value' => 'SO',
                           ),
-                          196 => 
+                          201 => 
                           array (
                             'key' => 'South Africa',
                             'value' => 'ZA',
                           ),
-                          197 => 
+                          202 => 
                           array (
                             'key' => 'South Georgia & South Sandwich Islands',
                             'value' => 'GS',
                           ),
-                          198 => 
+                          203 => 
                           array (
                             'key' => 'South Korea',
                             'value' => 'KR',
                           ),
-                          199 => 
+                          204 => 
                           array (
                             'key' => 'South Sudan',
                             'value' => 'SS',
                           ),
-                          200 => 
+                          205 => 
                           array (
                             'key' => 'Spain',
                             'value' => 'ES',
                           ),
-                          201 => 
+                          206 => 
                           array (
                             'key' => 'Sri Lanka',
                             'value' => 'LK',
                           ),
-                          202 => 
+                          207 => 
                           array (
                             'key' => 'St. Barthélemy',
                             'value' => 'BL',
                           ),
-                          203 => 
+                          208 => 
                           array (
                             'key' => 'St. Helena',
                             'value' => 'SH',
                           ),
-                          204 => 
+                          209 => 
                           array (
                             'key' => 'St. Kitts & Nevis',
                             'value' => 'KN',
                           ),
-                          205 => 
+                          210 => 
                           array (
                             'key' => 'St. Lucia',
                             'value' => 'LC',
                           ),
-                          206 => 
+                          211 => 
                           array (
                             'key' => 'St. Martin',
                             'value' => 'MF',
                           ),
-                          207 => 
+                          212 => 
                           array (
                             'key' => 'St. Pierre & Miquelon',
                             'value' => 'PM',
                           ),
-                          208 => 
+                          213 => 
                           array (
                             'key' => 'St. Vincent & Grenadines',
                             'value' => 'VC',
                           ),
-                          209 => 
+                          214 => 
                           array (
                             'key' => 'Sudan',
                             'value' => 'SD',
                           ),
-                          210 => 
+                          215 => 
                           array (
                             'key' => 'Suriname',
                             'value' => 'SR',
                           ),
-                          211 => 
+                          216 => 
                           array (
                             'key' => 'Svalbard & Jan Mayen',
                             'value' => 'SJ',
                           ),
-                          212 => 
+                          217 => 
                           array (
                             'key' => 'Sweden',
                             'value' => 'SE',
                           ),
-                          213 => 
+                          218 => 
                           array (
                             'key' => 'Switzerland',
                             'value' => 'CH',
                           ),
-                          214 => 
+                          219 => 
                           array (
                             'key' => 'Syria',
                             'value' => 'SY',
                           ),
-                          215 => 
+                          220 => 
                           array (
                             'key' => 'São Tomé & Príncipe',
                             'value' => 'ST',
                           ),
-                          216 => 
+                          221 => 
                           array (
                             'key' => 'Taiwan',
                             'value' => 'TW',
                           ),
-                          217 => 
+                          222 => 
                           array (
                             'key' => 'Tajikistan',
                             'value' => 'TJ',
                           ),
-                          218 => 
+                          223 => 
                           array (
                             'key' => 'Tanzania',
                             'value' => 'TZ',
                           ),
-                          219 => 
+                          224 => 
                           array (
                             'key' => 'Thailand',
                             'value' => 'TH',
                           ),
-                          220 => 
+                          225 => 
                           array (
                             'key' => 'Timor-Leste',
                             'value' => 'TL',
                           ),
-                          221 => 
+                          226 => 
                           array (
                             'key' => 'Togo',
                             'value' => 'TG',
                           ),
-                          222 => 
+                          227 => 
                           array (
                             'key' => 'Tokelau',
                             'value' => 'TK',
                           ),
-                          223 => 
+                          228 => 
                           array (
                             'key' => 'Tonga',
                             'value' => 'TO',
                           ),
-                          224 => 
+                          229 => 
                           array (
                             'key' => 'Trinidad & Tobago',
                             'value' => 'TT',
                           ),
-                          225 => 
+                          230 => 
+                          array (
+                            'key' => 'Tristan da Cunha',
+                            'value' => 'TA',
+                          ),
+                          231 => 
                           array (
                             'key' => 'Tunisia',
                             'value' => 'TN',
                           ),
-                          226 => 
+                          232 => 
                           array (
                             'key' => 'Turkey',
                             'value' => 'TR',
                           ),
-                          227 => 
+                          233 => 
                           array (
                             'key' => 'Turkmenistan',
                             'value' => 'TM',
                           ),
-                          228 => 
+                          234 => 
                           array (
                             'key' => 'Turks & Caicos Islands',
                             'value' => 'TC',
                           ),
-                          229 => 
+                          235 => 
                           array (
                             'key' => 'Tuvalu',
                             'value' => 'TV',
                           ),
-                          230 => 
+                          236 => 
                           array (
                             'key' => 'U.S. Outlying Islands',
                             'value' => 'UM',
                           ),
-                          231 => 
+                          237 => 
                           array (
                             'key' => 'U.S. Virgin Islands',
                             'value' => 'VI',
                           ),
-                          232 => 
+                          238 => 
                           array (
                             'key' => 'Uganda',
                             'value' => 'UG',
                           ),
-                          233 => 
+                          239 => 
                           array (
                             'key' => 'Ukraine',
                             'value' => 'UA',
                           ),
-                          234 => 
+                          240 => 
                           array (
                             'key' => 'United Arab Emirates',
                             'value' => 'AE',
                           ),
-                          235 => 
+                          241 => 
                           array (
                             'key' => 'United Kingdom',
                             'value' => 'GB',
                           ),
-                          236 => 
+                          242 => 
                           array (
                             'key' => 'United States',
                             'value' => 'US',
                           ),
-                          237 => 
+                          243 => 
                           array (
                             'key' => 'Uruguay',
                             'value' => 'UY',
                           ),
-                          238 => 
+                          244 => 
                           array (
                             'key' => 'Uzbekistan',
                             'value' => 'UZ',
                           ),
-                          239 => 
+                          245 => 
                           array (
                             'key' => 'Vanuatu',
                             'value' => 'VU',
                           ),
-                          240 => 
+                          246 => 
                           array (
                             'key' => 'Vatican City',
                             'value' => 'VA',
                           ),
-                          241 => 
+                          247 => 
                           array (
                             'key' => 'Venezuela',
                             'value' => 'VE',
                           ),
-                          242 => 
+                          248 => 
                           array (
                             'key' => 'Vietnam',
                             'value' => 'VN',
                           ),
-                          243 => 
+                          249 => 
                           array (
                             'key' => 'Wallis & Futuna',
                             'value' => 'WF',
                           ),
-                          244 => 
+                          250 => 
                           array (
                             'key' => 'Western Sahara',
                             'value' => 'EH',
                           ),
-                          245 => 
+                          251 => 
                           array (
                             'key' => 'Yemen',
                             'value' => 'YE',
                           ),
-                          246 => 
+                          252 => 
                           array (
                             'key' => 'Zambia',
                             'value' => 'ZM',
                           ),
-                          247 => 
+                          253 => 
                           array (
                             'key' => 'Zimbabwe',
                             'value' => 'ZW',
                           ),
-                          248 => 
+                          254 => 
                           array (
                             'key' => 'Åland Islands',
                             'value' => 'AX',
                           ),
                         ),
                          'width' => 300,
-                         'height' => '',
+                         'height' => 150,
                          'maxItems' => '',
                          'renderType' => 'list',
                          'optionsProviderClass' => NULL,
@@ -2430,10 +2568,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         ),
                          'classes' => 
                         array (
-                          0 => 
-                          array (
-                            'classes' => '',
-                          ),
                         ),
                          'pathFormatterClass' => '',
                          'name' => 'CoverCompounds',
@@ -2510,43 +2644,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'visibleSearch' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                         'fieldtype' => 'manyToManyObjectRelation',
-                         'width' => 495,
-                         'height' => '',
-                         'maxItems' => '',
-                         'queryColumnType' => 'text',
-                         'phpdocType' => 'array',
-                         'relationType' => true,
-                         'visibleFields' => 'RegionName',
-                         'allowToCreateNewObject' => false,
-                         'optimizedAdminLoading' => false,
-                         'visibleFieldDefinitions' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'CSRegion',
-                          ),
-                        ),
-                         'pathFormatterClass' => '',
-                         'name' => 'CSRegion',
-                         'title' => 'Region',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:20px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                      )),
-                      2 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
                          'fieldtype' => 'manyToManyObjectRelation',
                          'width' => 495,
