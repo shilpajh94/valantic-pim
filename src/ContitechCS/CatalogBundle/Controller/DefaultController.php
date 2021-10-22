@@ -739,6 +739,58 @@ class DefaultController extends FrontendController
     {
     }
 
+    /**
+     * @Route("/contitech_cs_catalog/template_product_section_page")
+     */
+    public function templateCleatedBeltsAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cleated_belts_page')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $this->configProviderService = new ConfigProviderService();
+            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+
+            // $catalogCategoryObjectId = $catalogTableObject->getParentId();
+            // $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
+
+            $selectedProduct = $catalogTableObject->getProducts();
+
+            $productId = $selectedProduct[0];
+
+            $productDetails = DataObject\CSProducts::getById($productId);
+
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+            $productData['Name'] = $productDetails->getName();
+            $productData['LongText'] = $productDetails->getLongText();
+            $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
+            $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
+
+            $productChildrenData = $productDetails->getchildren(); 
+            $childrenData = [];
+            foreach ($productChildrenData as $child) {
+                
+                $data['Name'] = $child->getName();
+                $data['LongText'] = $child->getLongText();
+                $data['ProductImage'] = $child->getProductImage();
+                $data['ApplicationImage'] = $child->getApplicationImage();
+                $childrenData[] = $data;
+            }
+
+            $productData['childrenData'] = $childrenData;
+
+
+
+
+            // $HierarchyProductPath = DataObject\CSProducts::getById($productId);
+            // 7499878
+
+            // p_r($selectedProduct);
+        }
+
+        $this->view['data'] = $productData;
+    }
+
     public function addPrefix($key): String
     {
         if(trim($key))
