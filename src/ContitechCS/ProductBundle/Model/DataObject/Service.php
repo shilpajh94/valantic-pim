@@ -73,11 +73,13 @@ class Service extends \Pimcore\Model\DataObject\Service {
         } 
         else if (!$user->isAdmin() && !empty($object) && ($object->getClassName() == 'CSProducts') && $layout instanceof Model\DataObject\ClassDefinition\Data && !($layout instanceof Model\DataObject\ClassDefinition\Data\Objectbricks) && !($layout instanceof Model\DataObject\ClassDefinition\Data\Fieldcollections)) {
             if (($context['purpose'] ?? null) !== 'gridconfig') {
-                if (count($editableFields)>0) {
-                    if (array_key_exists($layout->getName(), $editableFields)) {
-                        $layout->setNoteditable(false);
-                    } else {
-                        $layout->setNoteditable(true);
+                if (count($editableFields['byRole'])>0) {
+                    if (array_key_exists($layout->getName(), $editableFields['all'])) {
+                        if (array_key_exists($layout->getName(), $editableFields['byRole'])) {
+                            $layout->setNoteditable(false);
+                        } else {
+                            $layout->setNoteditable(true);
+                        }
                     }
                 }
             }

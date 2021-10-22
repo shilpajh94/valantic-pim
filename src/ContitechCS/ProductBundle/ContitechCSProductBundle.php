@@ -11,6 +11,7 @@ class ContitechCSProductBundle extends AbstractPimcoreBundle
         return [
             '/bundles/contitechcsproduct/js/pimcore/startup.js',
             '/bundles/contitechcsproduct/js/pimcore/tags/objectbricks.js',
+            '/bundles/contitechcsproduct/js/pimcore/object/tree.js',
             // '/bundles/contitechcsproduct/js/pimcore/object.js'
         ];
     }
