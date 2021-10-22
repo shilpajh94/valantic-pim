@@ -1,0 +1,542 @@
+<?php
+if (!isset($this->parentContainer)) {
+$this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
+}
+?>
+<?php if($this->editmode): ?>
+        <?= $this->relation("cbs_template_cleated_belts_page", [
+                "types" => ["object"],
+                "subtypes" => [
+                "object" => ["object"]
+                ],
+                "classes" => ["CSCatalogTables"],
+        ]);
+        ?>
+<?php endif; ?>
+
+<?php if($data): ?>
+<div class="wrapper">
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt">
+                <strong>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("CB_HierarchyNameLevel1")->isEmpty()): ?>
+                                    <?= $this->input("CB_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("CB_HierarchyNameLevel1"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("CB_HierarchyNameLevel1") ?>
+                    <?php endif; ?>        
+                </strong>
+            </div>
+            <div class="print-pg-no"></div>
+        </div>
+    </header>
+    <main id="content" role="main">
+        <section class="fortressxp-belts">
+            <h1 class="orange">
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductName")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductName")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductName"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductName") ?>
+                <?php endif; ?> 
+            </h1>
+            <p class="p-medium">
+                <?php if($this->editmode): ?>
+                        <?php if($this->textarea("CB_LongText")->isEmpty()): ?>
+                                <?= $this->textarea("CB_LongText")->setDataFromResource($data['LongText']) ?>
+                        <?php else: ?>
+                                <?= $this->textarea("CB_LongText"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->textarea("CB_LongText") ?>
+                <?php endif; ?>
+            </p>
+            
+            <?php 
+            if($data['childrenData'])
+            {
+            ?>
+                <h2 class="orange mb-4">
+                
+                    <?php if($this->editmode): ?>
+                            <?php if($this->textarea("CB_ProfileOption")->isEmpty()): ?>
+                                    <?= $this->textarea("CB_ProfileOption",['placeholder'=>'Profile Options']) ?>
+                            <?php else: ?>
+                                    <?= $this->textarea("CB_ProfileOption"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->textarea("CB_ProfileOption") ?>
+                    <?php endif; ?>
+                
+                </h2>
+            
+                <div class="row">
+                    
+                    <?php 
+                    foreach ($data['childrenData'] as $key => $child) 
+                    {
+                        $md5Key = md5($child['Name']);
+                    ?>
+
+                        <div class="col-2">
+
+                            <?php
+                                if($this->editmode)
+                                {
+                                    if($this->image("CBChild_productImage_{$md5Key}")->isEmpty())
+                                    {
+                                        echo $this->image("CBChild_productImage_{$md5Key}")->setImage($child['ProductImage']);
+                                    }
+                                    else{
+                                        echo $this->image("CBChild_productImage_{$md5Key}");
+                                    }
+                                }
+                                else
+                                {
+                                    $CBChild_productImageObj =  $this->image("CBChild_productImage_{$md5Key}");
+                                    if($CBChild_productImageObj)
+                                    {
+                                    ?>
+                                    <img src="<?= $CBChild_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100"/>
+                                    <?php
+                                    }
+                                }
+                            ?>
+                            
+                            <p>
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->textarea("CBChild_Name_{$md5Key}")->isEmpty()): ?>
+                                                <?= $this->textarea("CBChild_Name_{$md5Key}")->setDataFromResource($child['Name']) ?>
+                                        <?php else: ?>
+                                                <?= $this->textarea("CBChild_Name_{$md5Key}"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->textarea("CBChild_Name_{$md5Key}") ?>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+
+                    <?php 
+                    } 
+                    ?>
+                </div>
+            
+            <?php 
+            } 
+            ?>
+
+            <hr class="divider" />
+
+            <div class="table w-90 construction-tab">
+                <table width="100%">
+                    <tbody>
+
+                    <?php $myBlock = $this->block('contentblock', ['reload'=> true]) ?>
+                    <?php
+                    foreach ($myBlock as $key => $value) {
+                        // if($myBlock->current > 0)
+                        // {
+                            ?>
+                            Insert this line only after the first iteration<br />
+                            <br />
+                            <?php
+                        // }
+                        ?>
+                        <h2><?= $this->input("subline_{$key}") ?></h2>
+                        <?php
+                    }
+                    ?>
+                        <!-- <tr>
+                            <td class="border-b">
+                                <table width="100%%">
+                                    <thead>
+                                        <tr>
+                                            <th class="orange" colspan="3" align="center">P/P Belt Construction</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2 Plies</td>
+                                            <td>3 Plies</td>
+                                            <td>4 Plies</td>
+                                        </tr>
+                                        <tr>
+                                            <td>160 PIW - 220 PIW</td>
+                                            <td>240 PIW - 330 PIW</td>
+                                            <td>320 PIW - 440 PIW</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="border-b">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="orange" colspan="3">P/N Belt Construction</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2 Plies</td>
+                                            <td>3 Plies</td>
+                                            <td>4 Plies</td>
+                                        </tr>
+                                        <tr>
+                                            <td>160 PIW - 220 PIW</td>
+                                            <td>240 PIW - 330 PIW</td>
+                                            <td>320 PIW - 440 PIW</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-b  pt-4" colspan="2">
+                                <table width="50%" class="mx-auto">
+                                    <thead>
+                                        <tr>
+                                            <th class="orange" colspan="3">P/N Belt Construction</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Defender® Series</td>
+                                            <td>Gold Series</td>
+                                            <td>Shield Series</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr> -->
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <h2 class="orange">
+            <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductNameBeltRoll")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameBeltRoll")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameBeltRoll"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductNameBeltRoll") ?>
+                <?php endif; ?> 
+            </strong>
+            </h2>
+            <h2>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductNameBeltRollDiameters")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameBeltRollDiameters", ['placeholder'=>'Belt Roll Diameters']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameBeltRollDiameters"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
+                <?php endif; ?> 
+            </h2>
+
+            <?php
+                if($this->editmode)
+                {
+                    if($this->image("CB_BeltRollDiameters")->isEmpty())
+                    {
+                        echo $this->image("CB_BeltRollDiameters")->setImage($data['BeltRollDiameters']);
+                    }
+                    else{
+                        echo $this->image("CB_BeltRollDiameters");
+                    }
+                }
+                else
+                {
+                    $CB_BeltRollDiametersObj =  $this->image("CB_BeltRollDiameters");
+                    if($CB_BeltRollDiametersObj)
+                    {
+                    ?>
+                    <img src="<?= $CB_BeltRollDiametersObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                    <?php
+                    }
+                }
+            ?>
+            
+            <h2 class="orange">
+            
+            <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductNameAngleIncline")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameAngleIncline")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameAngleIncline"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductNameAngleIncline") ?>
+                <?php endif; ?> 
+            </strong>
+
+            </h2>
+            <h2>
+            
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductNameAngleOfInclination")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameAngleOfInclination", ['placeholder'=>'Angles of Inclination']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameAngleOfInclination"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductNameAngleOfInclination") ?>
+                <?php endif; ?>
+
+            </h2>
+            
+            <?php
+                if($this->editmode)
+                {
+                    if($this->image("CB_AngleOfInclination")->isEmpty())
+                    {
+                        echo $this->image("CB_AngleOfInclination")->setImage($data['AngleOfInclination']);
+                    }
+                    else{
+                        echo $this->image("CB_AngleOfInclination");
+                    }
+                }
+                else
+                {
+                    $CB_AngleOfInclinationObj =  $this->image("CB_AngleOfInclination");
+                    if($CB_AngleOfInclinationObj)
+                    {
+                    ?>
+                    <img src="<?= $CB_AngleOfInclinationObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mt-4 mb-4"/>
+                    <?php
+                    }
+                }
+            ?>
+
+            <h2 class="orange">
+            
+            <strong>
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameProfileOptions")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameProfileOptions"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductNameProfileOptions") ?>
+                <?php endif; ?> 
+            </strong>
+
+            </h2>
+            <h2>
+            
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("CB_ProductNameProfileOptionsLabel")->isEmpty()): ?>
+                                <?= $this->input("CB_ProductNameProfileOptionsLabel", ['placeholder'=>'Profile Options']) ?>
+                        <?php else: ?>
+                                <?= $this->input("CB_ProductNameProfileOptionsLabel"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("CB_ProductNameProfileOptionsLabel") ?>
+                <?php endif; ?>
+            
+            </h2>
+
+            <?php if($data['childrenData']): ?>
+            <div class="table construction-tab">
+                <?php 
+                    foreach ($data['childrenData'] as $key => $child) { 
+
+                        $md5Key = md5($child['Name']);
+                    
+                ?>
+                    
+                <table width="100%" class="mt-4">
+                    <thead class="mb-4">
+                        <th colspan="3" class="text-left">
+                            <h2 class="mb-0">
+                            <?php if($this->editmode): ?>
+                                    <?php if($this->input("CB_Profile_{$md5Key}")->isEmpty()): ?>
+                                            <?= $this->input("CB_Profile_{$md5Key}", ['placeholder'=>'Profile Name'])->setDataFromResource($child['Name']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("CB_Profile_{$md5Key}"); ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?= $this->input("CB_Profile_{$md5Key}") ?>
+                            <?php endif; ?>
+                            </h2>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr class="grip-col">
+                            <td width="50%" class="pr-5">
+                            
+                            <?php if($this->editmode): ?>
+                                    <?php if($this->textarea("CB_ProfileDesc_{$md5Key}")->isEmpty()): ?>
+                                            <?= $this->textarea("CB_ProfileDesc_{$md5Key}", ['placeholder'=>'Profile Description'])->setDataFromResource($child['LongText']) ?>
+                                    <?php else: ?>
+                                            <?= $this->textarea("CB_ProfileDesc_{$md5Key}"); ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?= $this->textarea("CB_ProfileDesc_{$md5Key}") ?>
+                            <?php endif; ?>
+
+                            </td>
+                            <td>
+                            
+                            <?php
+                                if($this->editmode)
+                                {
+                                    if($this->image("CB_ProfileOptionImage1_{$md5Key}")->isEmpty())
+                                    {
+                                        echo $this->image("CB_ProfileOptionImage1_{$md5Key}")->setImage($child['ProductImage']);
+                                    }
+                                    else{
+                                        echo $this->image("CB_ProfileOptionImage1_{$md5Key}");
+                                    }
+                                }
+                                else
+                                {
+                                    $CB_ProfileOptionImage1Obj =  $this->image("CB_ProfileOptionImage1_{$md5Key}");
+                                    if($CB_ProfileOptionImage1Obj)
+                                    {
+                                    ?>
+                                    <img src="<?= $CB_ProfileOptionImage1Obj->getThumbnail('catalog_thumb'); ?>" alt="" class=""/>
+                                    <?php
+                                    }
+                                }
+                            ?>
+                            </td>
+                            
+                            <td>
+                            
+                            <?php
+                                if($this->editmode)
+                                {
+                                    if($this->image("CB_ProfileOptionImage2_{$md5Key}")->isEmpty())
+                                    {
+                                        echo $this->image("CB_ProfileOptionImage2_{$md5Key}")->setImage($child['ApplicationImage']);
+                                    }
+                                    else{
+                                        echo $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                    }
+                                }
+                                else
+                                {
+                                    $CB_ProfileOptionImage2Obj =  $this->image("CB_ProfileOptionImage2_{$md5Key}");
+                                    if($CB_ProfileOptionImage2Obj)
+                                    {
+                                    ?>
+                                    <img src="<?= $CB_ProfileOptionImage2Obj->getThumbnail('catalog_thumb'); ?>" alt="" class=""/>
+                                    <?php
+                                    }
+                                }
+                            ?>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="border-b" colspan="3">
+                                <table class="w-80">
+                                    <tbody>
+                                        <tr>
+                                            <th class="orange text-right">Cleat Height</th>
+                                            <td colspan="6">1/4 in</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="orange text-right">Available Belt Widths</th>
+                                            <td>42 in.</td>
+                                            <td>48 in.</td>
+                                            <td>48 in.</td>
+                                            <td>48 in.</td>
+                                            <td>48 in.</td>
+                                            <td>48 in.</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="orange text-right">Available Pattern Widths</th>
+                                            <td colspan="6">Continuous</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <?php } ?>
+            </div>
+            <?php endif; ?>
+            
+
+            <h2 class="orange"><b>Cleated Belts</b></h2>
+            <h2>Profile Options</h2>
+
+            <h2 class="mt-4"><b>ContiRoll Belt Profiles </b></h2>
+            <p>ContiRoll Profiles are special conveyor belts used for conveying paper rolls in paper mills. Additional profiles on
+                the belt provide stable transport of the roll and reduces potential relative movement between belt and paper
+                roll. ContiRoll U and ContiRoll T can be produced with P/N or steel carcass.</p>
+
+                <div class="table construction-tab w-90 ml-auto">
+                        <!-- 2 colum equal width  -->
+                <table width="100%" class="mt-4">
+                    <thead class="mb-4">
+                        <th colspan="3" class="text-left">
+                            <h2 class="mb-0"><b>ContiRoll U Profile</b></h2>
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2"  height="20" class="border-b"></td>
+                        </tr>
+                        <tr valign="top">
+                            <td class="border-b pr-4" width="50%">
+                                <table class="w-100">
+                                    <tbody>
+                                        <tr>
+                                            <th class="orange text-right">Profile Width</th>
+                                            <td>9.8 in</td>
+                                            <td>250 mm</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th class="orange text-right">Belt Width </th>
+                                            <td>11.8 – 15.8 in.</td>
+                                            <td>300 – 400 mm</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="orange text-right">Additional Information</th>
+                                            <td colspan="2">Molded edges</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="border-b" width="50%">
+                                <img src="/static/cbs/images/contiroll-u-profile.jpg" alt="" class="">
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                    </div>
+
+
+        </section>
+
+    </main>
+    <footer id="footer">
+        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+    </footer>
+</div>
+<?php endif; ?>
