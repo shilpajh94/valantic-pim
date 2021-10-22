@@ -20,7 +20,7 @@ use ContitechCS\ProductBundle\Services\ConfigProviderService;
 class DefaultController extends FrontendController
 {
     private $configProviderService;
-    
+
     /**
      * @Route("/contitech_cs_product")
      */
@@ -93,6 +93,34 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/get_countries")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCountries(Request $request)
+    {
+        die("ASDF");
+        $this->configProviderService = new ConfigProviderService();
+        $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
+        foreach ($segmentCountryConfig as $segment => $country) {
+            echo $country . "\n\n";
+        }
+        die;
+        $categoryList = new \Pimcore\Model\DataObject\CSHierarchy\Listing();
+        $categoryList->load();
+
+        $fieldArray = array();
+        foreach ($categoryList as $list) {
+            $fieldArrayTemp = array();
+            $fieldArrayTemp['id'] = $list->getId();
+            $fieldArrayTemp['name'] = $list->getName();
+            $fieldArray[] = $fieldArrayTemp;
+        }
+        return $this->json(["categoryList" => $fieldArray]);
+    }
+
+    /**
      * @Route("/save_product")
      *
      * @param Request $request
@@ -100,7 +128,7 @@ class DefaultController extends FrontendController
      */
     public function saveProduct(Request $request)
     {
-        
+
         $this->configProviderService = new ConfigProviderService();
         $unitValueConfig = $this->configProviderService->getUnitValueConfig();
         $success = true;
@@ -202,7 +230,7 @@ class DefaultController extends FrontendController
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                 $brickObject = new $class($product);
                                 foreach ($unitValueConfig as $unit => $unitValue) {
-                                    
+
 
                                     $fieldKey = ucfirst($unitValue['fieldName']);
                                     $objectBrickFieldMethod = 'set' . $fieldKey;

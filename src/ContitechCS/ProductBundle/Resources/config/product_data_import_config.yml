@@ -270,14 +270,14 @@ continuous industrial max. bucket projection in mm(Elevator Belt only):
     fieldName: ContinuousIndustrialMaxBucketProjectionMM
     fieldType: Number
     objectType: ProdAttrSetA
-Region:
-    fieldName: CSRegion
-    fieldType: Multiselection
-    className: CSRegion
-    fieldNameToSearch: RegionName
-    objectType: class
-    mandatoryFields: "RegionName"
-    createFlag: false
+# Region:
+#     fieldName: CSRegion
+#     fieldType: Multiselection
+#     className: CSRegion
+#     fieldNameToSearch: RegionName
+#     objectType: class
+#     mandatoryFields: "RegionName"
+#     createFlag: false
 Cover weight per 1 mm thickness (kg/m2):
     fieldName: CoverWeightPer1mmThicknessKGM
     fieldType: Number

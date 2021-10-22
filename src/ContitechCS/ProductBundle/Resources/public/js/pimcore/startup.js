@@ -17,6 +17,57 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             this.leftNavigation();
         }
     },
+
+    postOpenObject: function(object, type){
+        let objectClassName = object.data.general.o_className;
+        if (objectClassName == 'CSProducts') {
+            object.edit.dataFields.CSSegment.component.on('select', function (e) {
+                this.listCountries(object, e.rawValue);
+            }.bind(this));
+        }
+    },
+    listCountries: function (object, segment) {
+
+        let countriesOptionStore = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/contitech_cs_product/default/get_countries',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'categoryList'
+                }
+            },
+            fields: ["id", "name"]
+        });
+        //countriesOptionStore.load();
+
+        // var countriesOptionStore = Ext.create('Ext.data.Store', {
+        //     fields: ['id', 'text'],
+        //     proxy: {
+        //         type: 'ajax',
+        //         url: '/contitech_cs_product/default/get_countries',
+        //         //  method:'POST',
+        //         extraParams: {
+        //             segment: segment,
+        //         },
+        //         reader: {
+        //             type: 'json',
+        //             rootProperty: 'data'
+        //         }
+        //     },
+        // });
+
+        // console.log(countriesOptionStore);
+        // productTablesOptionsStore.load();
+
+        // object.edit.dataFields.ProductTables.component.setStore(productTablesOptionsStore);
+        //     console.log(object.data.data);    
+        // if (object.data.data.ProductTables !== null)
+        // {
+        //     object.edit.dataFields.ProductTables.component.setValue(object.data.data.ProductTables);
+        // }
+        // productTablesOptionsStore.load();
+    },
    
 //    preOpenObject: function (object) {
 ////      if (object.data.general.o_className == 'CSProducts') {
@@ -259,7 +310,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             store: users,
             queryMode: 'local',
             editable: true,
-            allowBlank: false,
+            allowBlank: true,
             blankText: 'Field is required',
             forceSelection: true,
             msgTarget: 'under',
