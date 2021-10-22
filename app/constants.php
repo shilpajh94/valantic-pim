@@ -79,10 +79,6 @@ define('OPTION_PROVIDER_CACHE_CONFIG_FILE_PATH', APPBUNDLE_CONFIG_DIRECTORY . "/
 define('FOLDER_KEY_LENGTH_FOR_FITTING_FAMILY_DESC_THREAD_DESC', 50);
 define('GRID_SQL_EDITOR_ALLOWED_ROLES', ['ApplicationAdmin']);
 
-
-// Files older than these many days will be moved to S3 from archive folder
-define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
-
 // CS Constants
 define("CS_BRICK_MAPPING_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/brick_mapping_config.yml");
 define("CS_PRODUCT_DATA_IMPORT_CONFIG_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_data_import_config.yml");
@@ -91,4 +87,28 @@ define("CS_UNIT_CONVERSION_ATTRIBUTE_GROUP_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_D
 define("CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/product_attribute_validation.yml");
 define("CS_PRODUCT_ROLE_BASED_EDITABLE_ATTRIBUTES_FILE_PATH", CS_PRODUCTBUNDLE_CONFIG_DIRECTORY . "/workflow/role_based_editable_attributes.yml");
 define("CS_WORKFLOW_CONFIG",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflow.yml");
+
+// Files older than these many days will be moved to S3 from archive folder
+define('BW_SAP_ARCHIVE_VALIDATE_FILE_OLDER_THAN_DAYS', '7');
+
+//  Retrieving new product import data for particular interval of $time
+define('SIOP_NEW_PRODUCT_IMPORT_NUMBER_OF_DAYS','7');
+
+//Email Template for sending report for new Products
+define('NEW_PRODUCT_EMAIL_DOCUMENT','/Email/NewProductReportEmail');
+
+define ('CATALOG_IMAGE_THUBNAILS', array(
+    'Original' => 'catalog_thumb',
+    '2500' => 'catalog_thumb_w2500',
+    '2000' => 'catalog_thumb_w2000',
+    '1500' => 'catalog_thumb_w1500',
+    '1000' => 'catalog_thumb_w1000',
+    '500' => 'catalog_thumb_w500',
+));
+
+define("PDF_GENERATION_REQUEST_SOURCE_DOC_SESSION_KEY","pdf_generation_request_source_document_id");
+
+define("DEFAULT_DECIMAL_PLACES_IN_VIRTUAL_CATALOG_API",2);
+
+define("MAINTAIN_OPTION_PROVIDER_DATA_IN_MEMORY", true);
 

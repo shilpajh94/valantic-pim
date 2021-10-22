@@ -52,7 +52,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                                 if($imgSrcObj4)
                                                 {
                                                 ?>
-                                                <img src="<?= $imgSrcObj4->getThumbnail('catalog_thumb'); ?>" width="40"/>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj4,$this->imageWidth); ?>" width="40"/>
                                                 <?php
                                                 }
                                         }
@@ -86,7 +86,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                                 if($imgSrcObj3)
                                                 {
                                                 ?>
-                                                <img src="<?= $imgSrcObj3->getThumbnail('catalog_thumb'); ?>" width="40"/>
+                                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj3,$this->imageWidth); ?>" width="40"/>
                                                 <?php
                                                 }
                                         }
@@ -131,7 +131,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                         if($imgSrcObj)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>"/>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>"/>
                         <?php
                         }
                 }?>
@@ -155,7 +155,7 @@ foreach($data as $catalogGroupKey => $catalogGroupData):
                                 if($imgSrcObj2)
                                 {
                                 ?>
-                                <img src="<?= $imgSrcObj2->getThumbnail('catalog_thumb'); ?>" width="50"/>
+                                <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj2,$this->imageWidth); ?>" width="50"/>
                                 <?php
                                 }
                         }

@@ -186,7 +186,7 @@ if (isset($info['brandsData'])) {
                                             if($imgSrcObj)
                                             {
                                             ?>
-                                            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" width="1067" height="128"/>
+                                            <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>" width="1067" height="128"/>
                                             <?php
                                             }
                                         }

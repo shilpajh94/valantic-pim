@@ -118,7 +118,7 @@ class ProductImport
             }
             $data = $values = $query = $update = $valuesArr = null;
     	} catch(\Exception $e) {
-            print_r($e->getMessage()); die;
+            return [false, addslashes($e->getMessage())];
     	}
         return $lastId;
     }
@@ -245,8 +245,8 @@ class ProductImport
     public function getIFSLoad()
     {
         try {
-            
-            $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) = '13' AND (t.siopfullcode like '041000%' OR t.siopfullcode like '041500%')";
+            // galti not check condition for auto hose ifs
+            $sql = "SELECT t.id, t.record, t.siopfullcode FROM {$this->tempTable} t WHERE LENGTH(t.siopfullcode) = '13'";
             return $this->db->fetchAll($sql);
         } catch (\Exception $ex) {
             echo $ex->getMessage();

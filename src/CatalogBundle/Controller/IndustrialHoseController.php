@@ -2,6 +2,7 @@
 
 namespace CatalogBundle\Controller;
 
+use CatalogBundle\Helper\CatalogTemplatingHelper;
 use Pimcore\Db;
 // use Pimcore\Asset;
 use Pimcore\Model\Asset;
@@ -24,10 +25,13 @@ class IndustrialHoseController extends AbstractController
     private $columnsData = array();
     private $attributeImages = array();
     private $featuresList = array();
+    private $catalogTemplatingHelper;
 
-    public function __construct()
+
+    public function __construct(CatalogTemplatingHelper $catalogTemplatingHelper)
     {
         $this->db = Db::get();
+        $this->catalogTemplatingHelper = $catalogTemplatingHelper;
     }
 
     /**
@@ -313,7 +317,10 @@ class IndustrialHoseController extends AbstractController
                             }
 
                             if(isset($bvalue[$headerKeysIndex['oldMaterialCode']]) && !empty($bvalue[$headerKeysIndex['oldMaterialCode']]) && $bvalue[$headerKeysIndex['oldMaterialCode']]!=='N/A') {
-                                $oldMaterialCodeArr[$GroupingFieldNameValue][] = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6)." ".$sixDigitVirtualCatalogDescription;
+                                $sixDigit = substr($bvalue[$headerKeysIndex['oldMaterialCode']],0,6);
+                                $sixDigitDevidedIntoTwoArray = str_split($sixDigit, 3);
+                                $sixDigitDashedString = implode('-', $sixDigitDevidedIntoTwoArray);
+                                $oldMaterialCodeArr[$GroupingFieldNameValue][] = $sixDigitDashedString." ".$sixDigitVirtualCatalogDescription;
                             }
 
                             if($bvalue[$headerKeysIndex['reinforcement']]) {
@@ -899,7 +906,8 @@ class IndustrialHoseController extends AbstractController
         $imgObj = \Pimcore\Model\Asset::getByPath($src);
 
         if($imgObj){
-            $s3src = $imgObj->getThumbnail('catalog_thumb');
+            // $s3src = $imgObj->getThumbnail('catalog_thumb');
+            $s3src = $this->catalogTemplatingHelper->getImageThumbnail($imgObj,$this->view->imageWidth);
 //            $s3src = Utils::getAssetFullPathCompatibleToS3($imgObj);
         }
 

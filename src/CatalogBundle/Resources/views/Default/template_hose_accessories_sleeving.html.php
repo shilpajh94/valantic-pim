@@ -256,7 +256,7 @@ $this->extend('CatalogBundle:Layouts:layout.html.php');
                         if($imgSrcObj)
                         {
                         ?>
-                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" height="200" width="200"/>
+                        <img src="<?= $view['catalogTemplatingHelper']->getImageThumbnail($imgSrcObj,$this->imageWidth); ?>" height="200" width="200"/>
                         <?php
                         }
                 }

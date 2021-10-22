@@ -12,11 +12,26 @@
     <?php if ($this->printermarks) { ?>
             <link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css" />
     <?php } ?>
+
+    <style type="text/css">
+        <?php  
+            if($this->imageQuality && $this->imageQuality !== 'Original'  )
+            {
+                ?>
+                    img {
+                        -ro-image-recompression: jpeg(<?= $this->imageQuality ?>)
+                    }
+                <?php
+            }
+        ?>
+    </style>
 </head>
 <body>
 
         <!-- content part  -->
         <?php $this->slots()->output('_content') ?>
+
+
 
 </body>
 </html>
