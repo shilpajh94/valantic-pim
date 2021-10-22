@@ -16,11 +16,11 @@ class Constants {
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Applications', 'class' => 'CSApplications', 'parentType' => 'folder', 'allowFolder' => true], 
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Features and Benefits', 'class' => 'CSFeaturesAndBenefits', 'parentType' => 'folder', 'allowFolder' => false],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Industries', 'class' => 'CSIndustries', 'parentType' => 'folder', 'allowFolder' => true],
-        ['path' =>'/Contitech_ConveyorSolution/Master Data/Product Hierarchy', 'class' => 'CSHierarchy', 'parentType' => 'folder', 'allowFolder' => true],
+        ['path' =>'/Contitech_ConveyorSolution/Master Data/Product Hierarchy', 'class' => 'CSHierarchy', 'parentType' => 'both', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Regions', 'class' => 'CSRegion', 'parentType' => 'folder', 'allowFolder' => true],
         ['path' =>'/Contitech_ConveyorSolution/Master Data/Segment', 'class' => 'CSSegment', 'parentType' => 'folder', 'allowFolder' => true],
-        ['path' =>'/Contitech_ConveyorSolution/Master Data', 'class' => '', 'parentType' => 'folder', 'allowFolder' => false],
+        ['path' =>'/Contitech_ConveyorSolution/Master Data', 'class' => '', 'parentType' => 'both', 'allowFolder' => false],
         ['path' =>'/Contitech_ConveyorSolution/Products', 'class' => 'CSProducts', 'parentType' => 'folder', 'allowFolder' => false],
-        ['path' =>'/Contitech_ConveyorSolution/Catalog Objects', 'class' => 'CSCatalogObjects', 'parentType' => 'object', 'allowFolder' => true]
+        ['path' =>'/Contitech_ConveyorSolution/Catalog Objects', 'class' => 'CSCatalogObjects', 'parentType' => 'both', 'allowFolder' => true]
     ];
 }
