@@ -106,9 +106,9 @@ pimcore.plugin.tree = Class.create(pimcore.plugin.admin, {
                                     let condition = (newPath.toLowerCase().includes(folderPath.toLowerCase()));
                                     if(condition) {
                                         allowAll = false;
-                                        if (currentContextType.toLowerCase()== key.parentType.toLowerCase()) {
-                                            if (key.class.trim()!==record.data.className) {
-                                                if (!empty(key.class.trim()) && !in_array(key.class.trim(), allowedClassArray)) {
+                                        if (key.parentType.toLowerCase() == 'both' || (currentContextType.toLowerCase()== key.parentType.toLowerCase())) {
+                                            if (!empty(key.class.trim())) {
+                                                if (!in_array(key.class.trim(), allowedClassArray)) {
                                                     allowedClassArray.push(key.class);
                                                     folderAllowed = key.allowFolder;
                                                 }
