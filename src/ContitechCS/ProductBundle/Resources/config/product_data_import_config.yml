@@ -278,6 +278,14 @@ Region:
     objectType: class
     mandatoryFields: "RegionName"
     createFlag: false
+Segment:
+    fieldName: CSSegment
+    fieldType: Multiselection
+    className: CSSegment
+    fieldNameToSearch: SegmentName
+    objectType: class
+    mandatoryFields: "SegmentName"
+    createFlag: false
 Cover weight per 1 mm thickness (kg/m2):
     fieldName: CoverWeightPer1mmThicknessKGM
     fieldType: Number

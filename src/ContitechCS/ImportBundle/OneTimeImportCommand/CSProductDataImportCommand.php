@@ -198,9 +198,42 @@ class CSProductDataImportCommand extends AbstractCommand
                                         } else if ($fieldConfig['fieldType'] == 'Multiselection') {
                                             $fieldValue = trim($fieldValue);
                                             $fieldValueArr = explode('|', $fieldValue);
-                                            $fieldValue = array_map('trim', $fieldValueArr);
+                                            
+                                            if($fieldName == 'CSRegion'){
+                                                $regionValueArr = [];
+                                                foreach($fieldValueArr as $eachRegion){
+                                                    $regionValue = trim($eachRegion);
+                                                    $regionPath = '/'.ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER.'/'.$regionValue;
+                                                    $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
+                                                    if($regionPathObj){
+                                                        $regionPathObjId = $regionPathObj->getId();
+                                                        $regionValueArr [] = $regionPathObjId;
+                                                    }
+                                                    
+                                                }
+                                                $fieldValue = array_map('trim', $regionValueArr);
+                                            }
+                                            else if($fieldName == 'CSSegment'){
+                                                $segmentValueArr = [];
+                                                foreach($fieldValueArr as $eachSegment){
+                                                    $segmentValue = trim($eachSegment);
+                                                    $segmentPath = '/'.ImportConstants::CONTITECH_CS_MASTERDATA_SEGMENT_FOLDER.'/'.$segmentValue;
+                                                    $segmentPathObj = DataObject\CSSegment::getByPath($segmentPath);
+                                                    if($segmentPathObj){
+                                                        $segmentPathObjId = $segmentPathObj->getId();
+                                                        $segmentValueArr [] = $segmentPathObjId;
+                                                    }
+                                                    
+                                                }
+                                                $fieldValue = array_map('trim', $segmentValueArr);
+                                            }
+                                            else{
+                                                $fieldValue = array_map('trim', $fieldValueArr);
+                                                
+                                            }
                                             $method = 'set' . $fieldName;
                                             $product->$method($fieldValue);
+                                            
                                         } else {
                                             if ($fieldName == 'NatureOfProduct') {
                                                 if ($fieldValue) {
