@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-21T11:07:07+05:30
+* Generated at: 2021-10-25T09:12:55+02:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (2)
-* IP: ::1
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -16,13 +16,13 @@ Fields Summary:
 - isPaused [checkbox]
 - isArchived [checkbox]
 - NatureOfProduct [input]
-- CSSegment [select]
-- CSRegion [select]
-- CSPerformanceCategory [multiselect]
+- CSSegment [multiselect]
+- CSRegion [multiselect]
 - Benefits [input]
 - Features [input]
 - ProductClaimSlogan [input]
 - SelectCountries [countrymultiselect]
+- CSPerformanceCategory [multiselect]
 - localizedfields [localizedfields]
 -- ProductDescription [textarea]
 -- ShortText [textarea]
@@ -66,7 +66,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1634794625,
+   'modificationDate' => 1635145974,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -272,245 +272,350 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                           1 => 
                           array (
+                            'value' => 59,
+                            'key' => 'A074241 (Craig Boche)',
+                          ),
+                          2 => 
+                          array (
+                            'value' => 63,
+                            'key' => 'a207963 (Mark Merklein)',
+                          ),
+                          3 => 
+                          array (
+                            'value' => 57,
+                            'key' => 'a339063 (Marie-Josee Brisson)',
+                          ),
+                          4 => 
+                          array (
                             'value' => 36,
                             'key' => 'a352850 (Reji Joseph)',
                           ),
-                          2 => 
+                          5 => 
                           array (
                             'value' => 55,
                             'key' => 'a389752 (Randy Kish)',
                           ),
-                          3 => 
+                          6 => 
                           array (
                             'value' => 2,
                             'key' => 'admin',
                           ),
-                          4 => 
+                          7 => 
                           array (
                             'value' => 23,
                             'key' => 'Andy (Andy Speidel)',
                           ),
-                          5 => 
+                          8 => 
                           array (
                             'value' => 16,
                             'key' => 'Ben (Ben Tracey)',
                           ),
-                          6 => 
+                          9 => 
+                          array (
+                            'value' => 71,
+                            'key' => 'boulakhrifa (Abdelhakim Boulakhrif)',
+                          ),
+                          10 => 
+                          array (
+                            'value' => 61,
+                            'key' => 'C012194 (Mackenzie Brown)',
+                          ),
+                          11 => 
                           array (
                             'value' => 11,
                             'key' => 'cory (Cory Walter)',
                           ),
-                          7 => 
-                          array (
-                            'value' => 82,
-                            'key' => 'CSProductManager_2',
-                          ),
-                          8 => 
+                          12 => 
                           array (
                             'value' => 21,
                             'key' => 'Dave (Dave Smith)',
                           ),
-                          9 => 
+                          13 => 
                           array (
                             'value' => 42,
                             'key' => 'dobol (Laszlo Dobo)',
                           ),
-                          10 => 
+                          14 => 
                           array (
                             'value' => 33,
                             'key' => 'editor',
                           ),
-                          11 => 
-                          array (
-                            'value' => 73,
-                            'key' => 'Editor_1',
-                          ),
-                          12 => 
+                          15 => 
                           array (
                             'value' => 22,
                             'key' => 'Eric (Eric Dupont)',
                           ),
-                          13 => 
+                          16 => 
                           array (
                             'value' => 28,
                             'key' => 'Jarek (Jarek Zakrzewski)',
                           ),
-                          14 => 
+                          17 => 
                           array (
                             'value' => 20,
                             'key' => 'Jeff (Jeff Epperson)',
                           ),
-                          15 => 
+                          18 => 
                           array (
                             'value' => 25,
                             'key' => 'Jeremy (Jeremy Lidgett)',
                           ),
-                          16 => 
+                          19 => 
                           array (
                             'value' => 14,
                             'key' => 'Joe (joe glandorf)',
                           ),
-                          17 => 
+                          20 => 
                           array (
                             'value' => 26,
                             'key' => 'Karina (Karina Robinson)',
                           ),
-                          18 => 
+                          21 => 
                           array (
                             'value' => 17,
                             'key' => 'Laszlo (Laszlo Dobo)',
                           ),
-                          19 => 
+                          22 => 
+                          array (
+                            'value' => 77,
+                            'key' => 'lohrbergj (Joerg Lohrberg)',
+                          ),
+                          23 => 
                           array (
                             'value' => 12,
                             'key' => 'macenzie',
                           ),
-                          20 => 
-                          array (
-                            'value' => 75,
-                            'key' => 'MarCom_1',
-                          ),
-                          21 => 
+                          24 => 
                           array (
                             'value' => 8,
                             'key' => 'Mark (Rohan Kumar)',
                           ),
-                          22 => 
+                          25 => 
                           array (
                             'value' => 24,
                             'key' => 'MarkR (Mark Rosetta)',
                           ),
-                          23 => 
+                          26 => 
+                          array (
+                            'value' => 81,
+                            'key' => 'menzelm (Marisa Menzel)',
+                          ),
+                          27 => 
                           array (
                             'value' => 51,
                             'key' => 'ncem057 (Steve Davison)',
                           ),
-                          24 => 
+                          28 => 
+                          array (
+                            'value' => 75,
+                            'key' => 'neuenrothc (Christian Neuenroth)',
+                          ),
+                          29 => 
                           array (
                             'value' => 15,
                             'key' => 'Nicole (Nicole Kostelnick)',
                           ),
-                          25 => 
+                          30 => 
                           array (
                             'value' => 48,
                             'key' => 'nlndv68 (Jeff Epperson)',
                           ),
-                          26 => 
+                          31 => 
                           array (
                             'value' => 27,
                             'key' => 'Paul (Paul Whiffin)',
                           ),
-                          27 => 
+                          32 => 
+                          array (
+                            'value' => 79,
+                            'key' => 'posseltc (Christof Posselt)',
+                          ),
+                          33 => 
                           array (
                             'value' => 35,
                             'key' => 'Pradeep',
                           ),
-                          28 => 
+                          34 => 
                           array (
                             'value' => 34,
                             'key' => 'productmanager',
                           ),
-                          29 => 
+                          35 => 
                           array (
-                            'value' => 74,
-                            'key' => 'ProductManager_1',
+                            'value' => 62,
+                            'key' => 'rajputa (Amit Rajput)',
                           ),
-                          30 => 
-                          array (
-                            'value' => 66,
-                            'key' => 'RajeshReadOnly (Rajesh Kumar)',
-                          ),
-                          31 => 
+                          36 => 
                           array (
                             'value' => 29,
                             'key' => 'Randy (Rohan Kumar)',
                           ),
-                          32 => 
+                          37 => 
                           array (
                             'value' => 9,
                             'key' => 'Reji',
                           ),
-                          33 => 
+                          38 => 
                           array (
                             'value' => 13,
                             'key' => 'Rohit',
                           ),
-                          34 => 
+                          39 => 
+                          array (
+                            'value' => 67,
+                            'key' => 'schickedanzm (Malte Schickedanz)',
+                          ),
+                          40 => 
+                          array (
+                            'value' => 70,
+                            'key' => 'steinerd (Daniel Steiner)',
+                          ),
+                          41 => 
                           array (
                             'value' => 18,
                             'key' => 'Steve (Steve Davison)',
                           ),
-                          35 => 
+                          42 => 
+                          array (
+                            'value' => 66,
+                            'key' => 'uia60821 (Vandana Singal)',
+                          ),
+                          43 => 
+                          array (
+                            'value' => 74,
+                            'key' => 'uia60823 (Rony Felix)',
+                          ),
+                          44 => 
+                          array (
+                            'value' => 68,
+                            'key' => 'uia89654 (Kinsey Hastings)',
+                          ),
+                          45 => 
+                          array (
+                            'value' => 78,
+                            'key' => 'uib09594 (Lars Tiedje)',
+                          ),
+                          46 => 
+                          array (
+                            'value' => 64,
+                            'key' => 'uib68208 (Krishan Kumar)',
+                          ),
+                          47 => 
+                          array (
+                            'value' => 65,
+                            'key' => 'uib68209 (Siddharth Chaudhery)',
+                          ),
+                          48 => 
+                          array (
+                            'value' => 58,
+                            'key' => 'uib98517 (Toks Ajepe)',
+                          ),
+                          49 => 
+                          array (
+                            'value' => 72,
+                            'key' => 'uic39540 (Cedric Schulz)',
+                          ),
+                          50 => 
+                          array (
+                            'value' => 69,
+                            'key' => 'uic52020 (Oktay Oezcan)',
+                          ),
+                          51 => 
                           array (
                             'value' => 41,
                             'key' => 'uic58260 (Evan Wasen)',
                           ),
-                          36 => 
+                          52 => 
                           array (
                             'value' => 30,
                             'key' => 'uic60917 (Krishnan Kumar)',
                           ),
-                          37 => 
+                          53 => 
                           array (
                             'value' => 52,
                             'key' => 'uie20462 (Steven De Alwis)',
                           ),
-                          38 => 
+                          54 => 
+                          array (
+                            'value' => 80,
+                            'key' => 'uie42653 (DANIELA ALBUQUERQUE)',
+                          ),
+                          55 => 
+                          array (
+                            'value' => 76,
+                            'key' => 'UIE43370 (Noah Hartman)',
+                          ),
+                          56 => 
                           array (
                             'value' => 40,
                             'key' => 'V000320 (Jarek Zakrzewski)',
                           ),
-                          39 => 
+                          57 => 
                           array (
                             'value' => 37,
                             'key' => 'v000696 (Mark Dario)',
                           ),
-                          40 => 
+                          58 => 
+                          array (
+                            'value' => 60,
+                            'key' => 'v000886 (Flint Wilson)',
+                          ),
+                          59 => 
                           array (
                             'value' => 43,
                             'key' => 'v001713 (Nicole Kostelnick)',
                           ),
-                          41 => 
+                          60 => 
                           array (
                             'value' => 39,
                             'key' => 'v002041 (Cory Walter)',
                           ),
-                          42 => 
+                          61 => 
                           array (
                             'value' => 45,
                             'key' => 'v002044 (Zach Christenson)',
                           ),
-                          43 => 
+                          62 => 
                           array (
                             'value' => 46,
                             'key' => 'v002065 (Mark Rosetta)',
                           ),
-                          44 => 
+                          63 => 
                           array (
                             'value' => 44,
                             'key' => 'V104718 (Ben Tracey)',
                           ),
-                          45 => 
+                          64 => 
                           array (
                             'value' => 53,
                             'key' => 'v106287 (Joe Glandorf)',
                           ),
-                          46 => 
+                          65 => 
+                          array (
+                            'value' => 56,
+                            'key' => 'v106566 (Don Salandanan)',
+                          ),
+                          66 => 
                           array (
                             'value' => 49,
                             'key' => 'V111211 (James Dusek)',
                           ),
-                          47 => 
+                          67 => 
                           array (
                             'value' => 50,
                             'key' => 'v111296 (Scott Retzlaff)',
                           ),
-                          48 => 
+                          68 => 
                           array (
                             'value' => 54,
                             'key' => 'V112497 (Morgan Lackey)',
                           ),
-                          49 => 
+                          69 => 
+                          array (
+                            'value' => 73,
+                            'key' => 'za02860 (Chad Peters)',
+                          ),
+                          70 => 
                           array (
                             'value' => 19,
                             'key' => 'Zach (Zach Christenson)',
@@ -616,39 +721,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'fieldtype' => 'select',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
                          'options' => 
                         array (
                           0 => 
                           array (
                             'key' => 'AMERICAS',
-                            'value' => 7067081,
+                            'value' => 7883985,
                           ),
                           1 => 
                           array (
                             'key' => 'APAC',
-                            'value' => 7067080,
+                            'value' => 7883984,
                           ),
                           2 => 
                           array (
                             'key' => 'EMEA',
-                            'value' => 7067079,
+                            'value' => 7883983,
                           ),
                           3 => 
                           array (
                             'key' => 'SERVICE',
-                            'value' => 7067082,
+                            'value' => 7883986,
                           ),
                         ),
                          'width' => 300,
-                         'defaultValue' => '',
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
                          'optionsProviderData' => 'CSSegment|SegmentName',
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
                          'dynamicOptions' => false,
                          'name' => 'CSSegment',
                          'title' => 'Segment',
@@ -656,7 +762,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => false,
+                         'locked' => NULL,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -664,107 +770,75 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'invisible' => false,
                          'visibleGridView' => false,
                          'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
                       )),
                       8 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'fieldtype' => 'select',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
                          'options' => 
                         array (
                           0 => 
                           array (
                             'key' => 'Australia / South Pacific',
-                            'value' => 7067076,
+                            'value' => 7883980,
                           ),
                           1 => 
                           array (
                             'key' => 'China & Mongolia',
-                            'value' => 7067074,
+                            'value' => 7883978,
                           ),
                           2 => 
                           array (
                             'key' => 'Eastern Europe/Russia',
-                            'value' => 7067071,
+                            'value' => 7883975,
                           ),
                           3 => 
                           array (
                             'key' => 'India',
-                            'value' => 7067075,
+                            'value' => 7883979,
                           ),
                           4 => 
                           array (
                             'key' => 'Middle East/North Africa',
-                            'value' => 7067072,
+                            'value' => 7883976,
                           ),
                           5 => 
                           array (
                             'key' => 'North America',
-                            'value' => 7067068,
+                            'value' => 7883972,
                           ),
                           6 => 
                           array (
                             'key' => 'South America',
-                            'value' => 7067069,
+                            'value' => 7883973,
                           ),
                           7 => 
                           array (
                             'key' => 'South East Asia',
-                            'value' => 7067077,
+                            'value' => 7883981,
                           ),
                           8 => 
                           array (
                             'key' => 'Subsahara/South Africa',
-                            'value' => 7067073,
+                            'value' => 7883977,
                           ),
                           9 => 
                           array (
                             'key' => 'Western Europe',
-                            'value' => 7067070,
+                            'value' => 7883974,
                           ),
-                        ),
-                         'width' => 300,
-                         'defaultValue' => '',
-                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
-                         'optionsProviderData' => 'CSRegion|RegionName',
-                         'queryColumnType' => 'varchar',
-                         'columnType' => 'varchar',
-                         'columnLength' => 190,
-                         'phpdocType' => 'string',
-                         'dynamicOptions' => false,
-                         'name' => 'CSRegion',
-                         'title' => 'Region',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => 'margin-left:10px;',
-                         'permissions' => NULL,
-                         'datatype' => 'data',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => false,
-                         'defaultValueGenerator' => '',
-                      )),
-                      9 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
-                         'fieldtype' => 'multiselect',
-                         'options' => 
-                        array (
                         ),
                          'width' => 300,
                          'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
-                         'optionsProviderClass' => '',
-                         'optionsProviderData' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '\\AppBundle\\OptionProvider\\GenericOptionsProvider',
+                         'optionsProviderData' => 'CSRegion|RegionName',
                          'queryColumnType' => 'text',
                          'columnType' => 'text',
                          'phpdocType' => 'array',
                          'dynamicOptions' => false,
-                         'name' => 'CSPerformanceCategory',
-                         'title' => 'Performance Category',
+                         'name' => 'CSRegion',
+                         'title' => 'Region',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
@@ -2167,9 +2241,9 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                           ),
                         ),
                          'width' => 300,
-                         'height' => 150,
+                         'height' => '',
                          'maxItems' => '',
-                         'renderType' => 'list',
+                         'renderType' => 'tags',
                          'optionsProviderClass' => NULL,
                          'optionsProviderData' => NULL,
                          'queryColumnType' => 'text',
@@ -2178,6 +2252,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'dynamicOptions' => false,
                          'name' => 'SelectCountries',
                          'title' => 'Select Countries',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => 'margin-left:10px;',
+                         'permissions' => NULL,
+                         'datatype' => 'data',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                      )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                         'fieldtype' => 'multiselect',
+                         'options' => 
+                        array (
+                        ),
+                         'width' => 300,
+                         'height' => '',
+                         'maxItems' => '',
+                         'renderType' => 'tags',
+                         'optionsProviderClass' => '',
+                         'optionsProviderData' => '',
+                         'queryColumnType' => 'text',
+                         'columnType' => 'text',
+                         'phpdocType' => 'array',
+                         'dynamicOptions' => false,
+                         'name' => 'CSPerformanceCategory',
+                         'title' => 'Performance Category',
                          'tooltip' => '',
                          'mandatory' => false,
                          'noteditable' => false,
