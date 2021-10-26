@@ -3,6 +3,16 @@ if (!isset($this->parentContainer)) {
 $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
+<?php if($this->editmode): ?>
+    <?= $this->relation("cbs_template_belt_services_page", [
+            "types" => ["object"],
+            "subtypes" => [
+            "object" => ["object"]
+            ],
+            "classes" => ["CSCatalogCategory"],
+    ]);
+    ?>
+<?php endif; ?>
 <?php if($data): ?>
 <div class="wrapper">
     <header id="header">
