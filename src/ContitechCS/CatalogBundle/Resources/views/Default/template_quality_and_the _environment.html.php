@@ -10,16 +10,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <footer id="footer">
-        <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-    </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange"><?= $this->input("Header_title",[
             "placeholder" =>
-            "Enter Your  Heading"]); ?></strong></h1>
+            "Enter Your  Heading"]); ?></h1>
 
-            <p><?= $this->textarea("QAE_Content",[
+            <p class="p-medium"><?= $this->textarea("QAE_Content",[
                 "placeholder" =>
                 "Enter Your  Description"
             ]); ?></p>
@@ -36,7 +33,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             if($imgSrcObj)
                             {
                             ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
                 <?php
                             }
                         }
@@ -83,7 +80,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 if($imgSrcObj)
                                 {
                                 ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
+                        style="max-height:350px" />
                     <?php
                                 }
                             }
@@ -93,7 +91,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         </section>
 
     </main>
-    <footer id="footer1">
+    <footer id="footer">
         <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
     </footer>
 </div>

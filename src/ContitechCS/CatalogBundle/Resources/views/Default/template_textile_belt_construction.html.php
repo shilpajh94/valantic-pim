@@ -6,7 +6,11 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong></div>
+            <div class="header-txt"><strong>Conveying Solutions</strong>
+                <?= $this->input("TBS_title",[
+                "placeholder" =>
+                "Enter Your  Title"]); ?>
+            </div>
             <div class="print-pg-no"></div>
         </div>
         <!-- <footer id="footer" >
@@ -85,7 +89,9 @@
                     <table width="100%">
                         <thead>
                             <tr>
-                                <th width="17.2%" align="left">Industry Markets</th>
+                                <th width="17.2%" align="left"><?= $this->input("Industry_Markets",[
+                                "placeholder" =>
+                                "Enter Your  Heading"]); ?></th>
                                 <th width="9.2%">Fortress XP™</th>
                                 <th width="9.2%">CONTI® Titan</th>
                                 <th width="9.2%">Plylon Plus®</th>
@@ -189,7 +195,9 @@
                     </table>
                 </div>
 
-                <h3 class="mt-4">Example of Aggregate, Hard Rock Mining, Sand and Gravel Process</h3>
+                <h3 class="mt-4"><?= $this->input("Example_Header",[
+                "placeholder" =>
+                "Enter Your  SubHeading"]); ?></h3>
 
                 <div class="table process-table">
                     <table width="100%">
@@ -213,7 +221,6 @@
                                             }
                                         }
                                 ?>
-                                    <!-- <img src="images/process-table.jpg" alt="" style="float:right" class="w-80"> -->
                                 </th>
                             </tr>
                             <tr align="left" valign="bottom">
@@ -276,8 +283,9 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="note">Typical materials: Limestone, granite, ores, taconite, cement, rock, etc. <br />
-                    Note: For proper cover compounds and gauge, please consult pages 78–84.</p>
+                <p class="note"><?= $this->textarea("Note",[
+                "placeholder" =>
+                "Enter Your  Note"]); ?></p>
 
 
             </section>
@@ -287,6 +295,3 @@
             <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
         </footer>
 </div>
-</body>
-
-</html>

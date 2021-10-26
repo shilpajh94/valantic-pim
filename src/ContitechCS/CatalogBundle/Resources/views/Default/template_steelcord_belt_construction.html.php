@@ -6,7 +6,9 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong></div>
+            <div class="header-txt"><strong>Conveying Solutions</strong> <?= $this->input("TBS_title",[
+                "placeholder" =>
+                "Enter Your  Title"]); ?></div>
             <div class="print-pg-no"></div>
         </div>
     </header>
@@ -44,7 +46,7 @@
                         if($imgSrcObj)
                         {
                         ?>
-            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+            <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100 mb-5" />
             <?php
                         }
                     }
@@ -74,7 +76,7 @@
                     }
             ?>
 
-
+            <div class="page-break"></div>
             <h2 class="orange mb-0"><?= $this->input("PPFB_title",[
                 "placeholder" =>
                 "Enter Your  Heading"]); ?>
@@ -85,10 +87,11 @@
             </h2>
 
 
-            <p class="p-medium"><?= $this->wysiwyg("PPFB_Content",[
-                "placeholder" =>
-                "Enter Your  Description"
-            ]); ?></p>
+            <p class="p-medium">
+                <?= $this->input("PPFB_Content",[
+            "placeholder" =>
+            "Enter Your  SubHeading"]); ?>
+            </p>
 
 
             <h3><?= $this->input("PPFB_Slogan",[

@@ -811,9 +811,7 @@ class DefaultController extends FrontendController
         $this->view->allChildren = $allChildren;
     }
 
-    /**
-     * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
-    */
+
     public function templateContinentalConveyorServicesAction(Request $request)
     {
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
