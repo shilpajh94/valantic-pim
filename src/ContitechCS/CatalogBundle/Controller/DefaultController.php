@@ -171,7 +171,7 @@ class DefaultController extends FrontendController
             {
                 $PGInfo = $productDataImportConfig['Common Product Page'][$productName]['Product Group Information'];
 
-                $hierarchyId = $categoryObj->getCategory();
+                $hierarchyId = $categoryObj->getSecondLevelCategory();
                 if($hierarchyId)
                 {
                     $hierarchyObj = DataObject\CSHierarchy::getById($hierarchyId);
@@ -861,6 +861,13 @@ class DefaultController extends FrontendController
     public function templateContiProtectSystemsAction(Request $request)
     {
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
+
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        
+
         $productData = [];
         if($catalogTableObject)
         {
@@ -890,6 +897,7 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
 
     /**
@@ -931,4 +939,61 @@ class DefaultController extends FrontendController
         $this->view['data'] = $productData;
     }
     
+    /**
+     * @Route("/contitech_cs_catalog/template_mega_pipe_belt")
+    */
+    public function templateMegaPipeBeltAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
+            $singleProduct = $selectedProduct[0];
+            $productObject = DataObject\CSProducts::getById($singleProduct);
+            $productData['Name'] = $productObject->getName();
+            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productData['ShortText'] = $productObject->getShortText();
+            $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['Benefits'] = $productObject->getBenefits();
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+        }
+
+        $this->view['data'] = $productData;
+    }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_conti_pipe_belt")
+    */
+    public function templateContiPipeBeltAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
+            $singleProduct = $selectedProduct[0];
+            $productObject = DataObject\CSProducts::getById($singleProduct);
+            $productData['Name'] = $productObject->getName();
+            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productData['ShortText'] = $productObject->getShortText();
+
+            if($productObject->getCSProductApplications())
+            {
+                $applicationsHtml = '<ul>';
+                foreach ($productObject->getCSProductApplications() as $value) {
+                    $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
+                }
+                $applicationsHtml .= '</ul>';
+            }
+            $productData['Applications'] = $applicationsHtml;
+            
+            $productData['ProductImage'] = $productObject->getProductImage();
+
+            $productData['Benefits'] = $productObject->getBenefits();
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+        }
+
+        $this->view['data'] = $productData;
+    }
 }

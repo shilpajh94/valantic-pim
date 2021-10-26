@@ -36,6 +36,16 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="print-pg-no"></div>
             </div>
         </header>
+        <footer id="footer" class="footer">
+            <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+            </div>
+        </footer>
+        <footer id="footer1" class="footer">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+            </div>
+        </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
                 <h1 class="orange">
@@ -109,7 +119,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             else
                             {
                                 $CPS_productImageObj =  $this->image("CPS_productImage");
-                                if($CPS_productImageObj)
+                                if($CPS_productImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
                                 <img src="<?= $CPS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" width="280">
@@ -170,7 +180,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     else
                     {
                         $CPS_ApplicationImageObj =  $this->image("CPS_ApplicationImage");
-                        if($CPS_ApplicationImageObj)
+                        if($CPS_ApplicationImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
                         <img src="<?= $CPS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">
@@ -180,9 +190,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 ?>
             </section>
         </main>
-        <footer id="footer1">
-            <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
-        </footer>
-
+        
     </div>
 <?php endif; ?>
