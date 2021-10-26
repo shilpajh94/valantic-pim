@@ -3,10 +3,10 @@
     overflow: hidden; */
     display: flex;
     white-space: nowrap;
-  }
+}
 
-  .chapter::after {
-    content: '';
+.chapter::after {
+    content: "";
     text-align: right;
     display: inline-block;
     border-bottom: 1px dotted #000;
@@ -14,14 +14,13 @@
     width: 100%;
     height: 100%;
     position: static;
-  }
+}
+
 
 /* .innercoverpage .pimcore_tag_image_empty{
     min-height: 400px !important;
 } */
 
-
-  
 #header {
     position: relative;
     padding: 0px;
@@ -30,23 +29,54 @@
 #content {
     margin-top: 0px;
 }
+
 .table-of-contents .pimcore_block_entry {
     border: 1px dashed #737373;
     margin: 0.5em;
     padding: 0 0.2em;
 }
-.pimcore_tag_input{
-    display:inline;
-  }
 
-  .fortressxp-belts .features-benefit-sec h1, .fortressxp-belts .belts-information h1 {
-    display:flex;
+.pimcore_tag_input {
+    display: inline;
 }
-.fortressxp-belts .features-benefit-sec h1 span, .fortressxp-belts .belts-information h1 span {
+
+.fortressxp-belts .features-benefit-sec h1,
+.fortressxp-belts .belts-information h1 {
+    display: flex;
+}
+
+.fortressxp-belts .features-benefit-sec h1 span,
+.fortressxp-belts .belts-information h1 span {
     padding-right: 10px;
 }
 
-.components-sec .pimcore_tag_image_empty{
+.components-sec .pimcore_tag_image_empty {
     min-height: 250px;
     width: 400px;
+}
+
+.environment-quality-sec .pimcore_tag_image {
+    min-height: 300px;
+    min-width: 250px;
+    margin-left: 20px;
+}
+
+.features-benefit-sec .pimcore_tag_image {
+    width: 150px;
+    height: 108px;
+    margin-right: 20px;
+}
+
+.bottom-end-sec .pimcore_tag_input {
+    transform: rotate(-90deg);
+}
+
+h2.sub-title .pimcore_tag_image {
+    width: 250px !important;
+    height: 80px !important;
+}
+
+.table-of-contents .colum-2 {
+    column-count: 1;
+    width: 60%;
 }

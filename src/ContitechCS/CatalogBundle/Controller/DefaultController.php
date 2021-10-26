@@ -772,9 +772,7 @@ class DefaultController extends FrontendController
         $this->view->allChildren = $allChildren;
     }
 
-    /**
-     * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
-    */
+
     public function templateContinentalConveyorServicesAction(Request $request)
     {
         $productNameArr = [];
@@ -787,14 +785,16 @@ class DefaultController extends FrontendController
         $childrenData = [];
         $childObject = $parentProductObject->getChildren();
         foreach ($childObject as $childValue) {
-            $data['Name'] = $childValue->getName(); //all childs
-            $data['LongText'] = $childValue->getLongtext();
-            $data['Images'] = $childValue->getProductImage();
+            if(!empty($childValue->getProductImage())) {
+                $data['Name'] = $childValue->getName(); //all childs
+                $data['LongText'] = $childValue->getLongtext();
+                $data['Images'] = $childValue->getProductImage();
 
-            $childrenData[] = $data;
-            unset($data);
-        }
-
+                $childrenData[] = $data;
+                unset($data);
+            }
+        }    
+            
         $productNameArr['childrenData'] = $childrenData;
 
         $this->view['data'] = $productNameArr;

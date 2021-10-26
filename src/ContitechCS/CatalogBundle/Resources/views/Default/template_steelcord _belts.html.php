@@ -6,7 +6,9 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong></div>
+            <div class="header-txt"><strong>Conveying Solutions</strong> <?= $this->input("TBS_title",[
+                "placeholder" =>
+                "Enter Your  Title"]); ?></div>
             <div class="print-pg-no"></div>
         </div>
     </header>
@@ -19,8 +21,7 @@
             <h1 class="orange"><?= $this->input("Header_title",[
             "placeholder" =>
             "Enter Your  Heading"]); ?></h1>
-
-            <p class="p-medium"><?= $this->wysiwyg("Content1",[
+            <p class="p-medium"><?= $this->textarea("Content1",[
                 "placeholder" =>
                 "Enter Your  Description"
             ]); ?></p>
@@ -62,10 +63,12 @@
                     "Enter Your  Description"
                 ]); ?> </p>
 
-                <p class="note"><?= $this->wysiwyg("Note1",[
-                    "placeholder" =>
-                    "Enter Your  Note"
-                ]); ?></p>
+                <p class="note"><i>
+                        <?= $this->textarea("Note1",[
+                "placeholder" =>
+                "Enter Your  Description"
+            ]); ?>
+                    </i></p>
 
                 <div class="nexcolumtarget">
 
@@ -114,6 +117,8 @@
                 </div>
             </div>
 
+            <div class="page-break"></div>
+
 
             <h1 class="orange"><?= $this->input("SPlice_Header_title",[
                 "placeholder" =>
@@ -123,17 +128,19 @@
                 "Enter Your  SubHeading"]); ?></span>
             </h1>
 
-            <p class="p-medium"><?= $this->wysiwyg("Splice_Content1",[
+
+            <p class="p-medium"><?= $this->textarea("Splice_Content1",[
                 "placeholder" =>
                 "Enter Your  Description"
             ]); ?></p>
+
 
             <p><?= $this->wysiwyg("Splice_Content2",[
                 "placeholder" =>
                 "Enter Your  Description"
             ]); ?></p>
 
-            <div class="colum-2 p-0 standard-compounds">
+            <div class="colum-2 p-0 standard-compounds mb-4">
 
                 <h3><?= $this->input("Perform_Panel_Heading",[
                 "placeholder" =>
@@ -209,7 +216,8 @@
                                 if($imgSrcObj)
                                 {
                                 ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
+                        style="margin-right: 22px; margin-bottom: 0px;" width="200" />
                     <?php
                             }
                          }
@@ -217,6 +225,7 @@
 
                 </div>
             </div>
+
 
             <h1 class="orange"><?= $this->input("Sybercord_Header_title",[
             "placeholder" =>
@@ -237,7 +246,8 @@
                             if($imgSrcObj)
                             {
                             ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
+                    style="margin-right: 22px; margin-bottom: 0px;" width="200" />
                 <?php
                         }
                      }
