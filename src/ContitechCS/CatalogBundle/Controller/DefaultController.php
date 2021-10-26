@@ -48,8 +48,7 @@ class DefaultController extends FrontendController
             $hierarchyName = $hierarchyObj->getName();
 
             $hierarchyFullName = $hierarchyPath.$hierarchyName;
-            $productHierarchyPath = \str_replace($hierarchyPath, CS_MATERIAL_HANDLIG_PRODUCTS_PATH, $hierarchyFullName);
-
+            $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
 
             $HierarchyProductPath = DataObject\CSProducts::getByPath($productHierarchyPath);
 
@@ -748,12 +747,6 @@ class DefaultController extends FrontendController
         $productData = [];
         if($catalogTableObject)
         {
-            $this->configProviderService = new ConfigProviderService();
-            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
-
-            // $catalogCategoryObjectId = $catalogTableObject->getParentId();
-            // $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-
             $selectedProduct = $catalogTableObject->getProducts();
 
             $productId = $selectedProduct[0];
@@ -769,23 +762,17 @@ class DefaultController extends FrontendController
             $productChildrenData = $productDetails->getchildren(); 
             $childrenData = [];
             foreach ($productChildrenData as $child) {
-                
-                $data['Name'] = $child->getName();
-                $data['LongText'] = $child->getLongText();
-                $data['ProductImage'] = $child->getProductImage();
-                $data['ApplicationImage'] = $child->getApplicationImage();
-                $childrenData[] = $data;
+                if($child->getPrintedCatalogFlag() === true)
+                {
+                    $data['Name'] = $child->getName();
+                    $data['LongText'] = $child->getLongText();
+                    $data['ProductImage'] = $child->getProductImage();
+                    $data['ApplicationImage'] = $child->getApplicationImage();
+                    $childrenData[] = $data;
+                }
             }
 
             $productData['childrenData'] = $childrenData;
-
-
-
-
-            // $HierarchyProductPath = DataObject\CSProducts::getById($productId);
-            // 7499878
-
-            // p_r($selectedProduct);
         }
 
         $this->view['data'] = $productData;
@@ -829,26 +816,121 @@ class DefaultController extends FrontendController
     */
     public function templateContinentalConveyorServicesAction(Request $request)
     {
+        $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
+
         $productNameArr = [];
 
-        $parentProductObject = DataObject\CSProducts::getById(7841980);
-        $productNameArr['Name'] = trim($parentProductObject->getName()); //Array ( [0] => Field Service )
-        $productNameArr['ProductClaimSlogan'] = $parentProductObject->getProductClaimSlogan();
-        $productNameArr['ShortText'] = $parentProductObject->getShorttext();
+        if($catalogCategoryObject)
+        {
+            $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
 
-        $childrenData = [];
-        $childObject = $parentProductObject->getChildren();
-        foreach ($childObject as $childValue) {
-            $data['Name'] = $childValue->getName(); //all childs
-            $data['LongText'] = $childValue->getLongtext();
-            $data['Images'] = $childValue->getProductImage();
+            $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
 
-            $childrenData[] = $data;
-            unset($data);
+            $hierarchyPath = $hierarchyObj->getPath();
+            $hierarchyName = $hierarchyObj->getName();
+
+            $hierarchyFullName = $hierarchyPath.$hierarchyName;
+            $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+
+            $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+            $productNameArr['Name'] = trim($productObject->getName());
+            $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productNameArr['ShortText'] = $productObject->getShorttext();
+            $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';
+
+            $childrenData = [];
+            $childObject = $productObject->getChildren();
+            foreach ($childObject as $childValue) {
+                if($childValue->getPrintedCatalogFlag() === true){
+                    $data['Name'] = $childValue->getName();
+                    $data['LongText'] = $childValue->getLongtext();
+                    $data['ProductImage'] = $childValue->getProductImage();
+
+                    $childrenData[] = $data;
+                    unset($data);
+                }
+            }
+
+            $productNameArr['childrenData'] = $childrenData;
         }
-
-        $productNameArr['childrenData'] = $childrenData;
 
         $this->view['data'] = $productNameArr;
     }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_conti_protect_systems")
+    */
+    public function templateContiProtectSystemsAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_protect_systems')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
+            $singleProduct = $selectedProduct[0];
+            $productObject = DataObject\CSProducts::getById($singleProduct);
+            $productData['Name'] = $productObject->getName();
+            $productData['ShortText'] = $productObject->getShortText();
+            $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['ApplicationImage'] = $productObject->getApplicationImage();
+            $productData['Benefits'] = $productObject->getBenefits();
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+
+            $childrenData = [];
+            $childObject = $productObject->getChildren();
+            foreach ($childObject as $childValue) {
+                if($childValue->getPrintedCatalogFlag() === true){
+                    $data['Name'] = $childValue->getName();
+                    $data['ShortText'] = $childValue->getShortText();
+
+                    $childrenData[] = $data;
+                    unset($data);
+                }
+            }
+
+            $productData['childrenData'] = $childrenData;
+        }
+
+        $this->view['data'] = $productData;
+    }
+
+    /**
+     * @Route("/contitech_cs_catalog/template_conti_inspect_systems")
+    */
+    public function templateContiInspectSystemsAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_inspect_systems')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
+            $singleProduct = $selectedProduct[0];
+            $productObject = DataObject\CSProducts::getById($singleProduct);
+            $productData['Name'] = $productObject->getName();
+            $productData['ShortText'] = $productObject->getShortText();
+            $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['ReportImage'] = $productObject->getReportImage();
+            
+            $productData['ApplicationImage'] = $productObject->getApplicationImage();
+            $productData['Benefits'] = $productObject->getBenefits();
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+
+            $childrenData = [];
+            $childObject = $productObject->getChildren();
+            foreach ($childObject as $childValue) {
+                if($childValue->getPrintedCatalogFlag() === true){
+                    $data['Name'] = $childValue->getName();
+                    $data['ShortText'] = $childValue->getShortText();
+
+                    $childrenData[] = $data;
+                    unset($data);
+                }
+            }
+
+            $productData['childrenData'] = $childrenData;
+        }
+
+        $this->view['data'] = $productData;
+    }
+    
 }

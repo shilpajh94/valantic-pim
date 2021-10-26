@@ -67,7 +67,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 {
                                     if($this->image("CSS_Images_{$key}")->isEmpty())
                                     {
-                                        echo $this->image("CSS_Images_{$key}")->setImage($child['Images']);
+                                        echo $this->image("CSS_Images_{$key}")->setImage($child['ProductImage']);
                                     }
                                     else{
                                         echo $this->image("CSS_Images_{$key}");

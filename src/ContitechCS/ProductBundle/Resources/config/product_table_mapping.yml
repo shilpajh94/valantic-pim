@@ -3347,6 +3347,7 @@ Common Product Page:
                     CarcassWeightKGM:
                         # fieldTitle: Carcass Weight (kg/sq. m)
                         objectType: ProdAttrSetD
+    Belt Monitoring Systems:
 Cover Options:
     Cover Compound Attributes:
         InternationalStandards: ProdAttrSetJ
@@ -3362,3 +3363,4 @@ Cover Options:
         MinTensilePSI: ProdAttrSetR
         MinElongationPercent: ProdAttrSetR
     Product Page: Solar-Shield Series
+

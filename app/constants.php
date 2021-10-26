@@ -96,5 +96,6 @@ define("CS_WORKFLOW_CONFIG",CS_PRODUCTBUNDLE_CONFIG_DIRECTORY."/workflow/workflo
 define("CS_MATERIAL_HANDLIG_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/Material Handling/');
 define("CS_MATERIAL_HANDLIG_PRODUCTS_PATH", '/Contitech_ConveyorSolution/Products/Material Handling/');
 define("CS_PPRODUCT_HIERARCHY_PATH", '/Contitech_ConveyorSolution/Master Data/Product Hierarchy/');
+define("CS_PPRODUCT_PATH", '/Contitech_ConveyorSolution/Products/');
 
 

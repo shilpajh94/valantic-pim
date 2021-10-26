@@ -153,69 +153,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php
                     }
                     ?>
-                        <!-- <tr>
-                            <td class="border-b">
-                                <table width="100%%">
-                                    <thead>
-                                        <tr>
-                                            <th class="orange" colspan="3" align="center">P/P Belt Construction</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2 Plies</td>
-                                            <td>3 Plies</td>
-                                            <td>4 Plies</td>
-                                        </tr>
-                                        <tr>
-                                            <td>160 PIW - 220 PIW</td>
-                                            <td>240 PIW - 330 PIW</td>
-                                            <td>320 PIW - 440 PIW</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td class="border-b">
-                                <table width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="orange" colspan="3">P/N Belt Construction</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2 Plies</td>
-                                            <td>3 Plies</td>
-                                            <td>4 Plies</td>
-                                        </tr>
-                                        <tr>
-                                            <td>160 PIW - 220 PIW</td>
-                                            <td>240 PIW - 330 PIW</td>
-                                            <td>320 PIW - 440 PIW</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="border-b  pt-4" colspan="2">
-                                <table width="50%" class="mx-auto">
-                                    <thead>
-                                        <tr>
-                                            <th class="orange" colspan="3">P/N Belt Construction</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Defender® Series</td>
-                                            <td>Gold Series</td>
-                                            <td>Shield Series</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr> -->
 
                     </tbody>
                 </table>
@@ -476,64 +413,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php } ?>
             </div>
             <?php endif; ?>
-            
-
-            <h2 class="orange"><b>Cleated Belts</b></h2>
-            <h2>Profile Options</h2>
-
-            <h2 class="mt-4"><b>ContiRoll Belt Profiles </b></h2>
-            <p>ContiRoll Profiles are special conveyor belts used for conveying paper rolls in paper mills. Additional profiles on
-                the belt provide stable transport of the roll and reduces potential relative movement between belt and paper
-                roll. ContiRoll U and ContiRoll T can be produced with P/N or steel carcass.</p>
-
-                <div class="table construction-tab w-90 ml-auto">
-                        <!-- 2 colum equal width  -->
-                <table width="100%" class="mt-4">
-                    <thead class="mb-4">
-                        <th colspan="3" class="text-left">
-                            <h2 class="mb-0"><b>ContiRoll U Profile</b></h2>
-                        </th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="2"  height="20" class="border-b"></td>
-                        </tr>
-                        <tr valign="top">
-                            <td class="border-b pr-4" width="50%">
-                                <table class="w-100">
-                                    <tbody>
-                                        <tr>
-                                            <th class="orange text-right">Profile Width</th>
-                                            <td>9.8 in</td>
-                                            <td>250 mm</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th class="orange text-right">Belt Width </th>
-                                            <td>11.8 – 15.8 in.</td>
-                                            <td>300 – 400 mm</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="orange text-right">Additional Information</th>
-                                            <td colspan="2">Molded edges</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td class="border-b" width="50%">
-                                <img src="/static/cbs/images/contiroll-u-profile.jpg" alt="" class="">
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
-                    </div>
-
-
         </section>
-
     </main>
     <footer id="footer">
         <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
