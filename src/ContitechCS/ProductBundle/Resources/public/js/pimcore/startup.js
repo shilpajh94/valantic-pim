@@ -21,54 +21,38 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
     postOpenObject: function(object, type){
         let objectClassName = object.data.general.o_className;
         if (objectClassName == 'CSProducts') {
+            if(object.edit.dataFields.CSSegment.data !== null){
+                this.listCountries(object, object.edit.dataFields.CSSegment.data.split(","));
+            }
             object.edit.dataFields.CSSegment.component.on('select', function (e) {
-                this.listCountries(object, e.rawValue);
+                this.listCountries(object, e.getValue());
             }.bind(this));
+            
         }
     },
-    listCountries: function (object, segment) {
-
+    listCountries: function (object, segmentId) {
         let countriesOptionStore = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
                 url: '/contitech_cs_product/default/get_countries',
+                method:'POST',
+                extraParams: {
+                    segmentId: JSON.stringify(segmentId),
+                },
                 reader: {
                     type: 'json',
-                    rootProperty: 'categoryList'
+                    rootProperty: 'data'
                 }
             },
-            fields: ["id", "name"]
+            fields: ["id", "text"]
         });
-        //countriesOptionStore.load();
+        countriesOptionStore.load();
 
-        // var countriesOptionStore = Ext.create('Ext.data.Store', {
-        //     fields: ['id', 'text'],
-        //     proxy: {
-        //         type: 'ajax',
-        //         url: '/contitech_cs_product/default/get_countries',
-        //         //  method:'POST',
-        //         extraParams: {
-        //             segment: segment,
-        //         },
-        //         reader: {
-        //             type: 'json',
-        //             rootProperty: 'data'
-        //         }
-        //     },
-        // });
-
-        // console.log(countriesOptionStore);
-        // productTablesOptionsStore.load();
-
-        // object.edit.dataFields.ProductTables.component.setStore(productTablesOptionsStore);
-        //     console.log(object.data.data);    
-        // if (object.data.data.ProductTables !== null)
-        // {
-        //     object.edit.dataFields.ProductTables.component.setValue(object.data.data.ProductTables);
-        // }
-        // productTablesOptionsStore.load();
+        object.edit.dataFields.SelectCountries.component.setStore(countriesOptionStore);
+        if (object.data.data.SelectCountries !== null) {
+            object.edit.dataFields.SelectCountries.component.setValue(object.data.data.SelectCountries);
+        }
     },
-   
 //    preOpenObject: function (object) {
 ////      if (object.data.general.o_className == 'CSProducts') {
 //object.edit.dataFields.name.component.NameVal.hide(true);

@@ -100,24 +100,48 @@ class DefaultController extends FrontendController
      */
     public function getCountries(Request $request)
     {
-        die("ASDF");
+        $segmentId = $request->get('segmentId');
+        $segmentId = json_decode($segmentId);
         $this->configProviderService = new ConfigProviderService();
         $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
-        foreach ($segmentCountryConfig as $segment => $country) {
-            echo $country . "\n\n";
+        if ($segmentId) {
+            foreach ($segmentId as $id) {
+                foreach ($segmentCountryConfig as $segment => $countries) {
+                    $segmentObj = new \Pimcore\Model\DataObject\CSSegment;
+                    $requestedSegmentName = $segmentObj::getById($id)->getSegmentName();
+                    if ($segment == $requestedSegmentName) {
+                        foreach ($countries as $country) {
+                            $result[] = array('text' => $country, 'id' => $country);
+                        }
+                    }
+                }
+            }
         }
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
         die;
-        $categoryList = new \Pimcore\Model\DataObject\CSHierarchy\Listing();
-        $categoryList->load();
+    }
 
-        $fieldArray = array();
-        foreach ($categoryList as $list) {
-            $fieldArrayTemp = array();
-            $fieldArrayTemp['id'] = $list->getId();
-            $fieldArrayTemp['name'] = $list->getName();
-            $fieldArray[] = $fieldArrayTemp;
+    /**
+     * @Route("/get_countries_complete")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCountriesComplete(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
+
+        foreach ($segmentCountryConfig as $countries) {
+            foreach ($countries as $country) {
+                $result[] = array('text' => $country, 'id' => $country);
+            }
         }
-        return $this->json(["categoryList" => $fieldArray]);
+
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
     }
 
     /**
