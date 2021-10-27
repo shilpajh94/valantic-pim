@@ -39,10 +39,13 @@ class ConfigProviderService
     {
         return $this->getConfigFromYmlFile(CS_WORKFLOW_CONFIG);
     }
-    
     public function getProductAttributeValidationConfig()
     {
         return $this->getConfigFromYmlFile(CS_PRODUCT_ATTRIBUTE_VALIDATION_FILE_PATH);
+    }
+    public function getSegmentCountriesConfig()
+    {
+        return $this->getConfigFromYmlFile(CS_SEGMENT_COUNTRIES_CONFIG);
     }
 
 

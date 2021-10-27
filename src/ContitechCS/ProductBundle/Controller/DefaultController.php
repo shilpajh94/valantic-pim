@@ -20,7 +20,7 @@ use ContitechCS\ProductBundle\Services\ConfigProviderService;
 class DefaultController extends FrontendController
 {
     private $configProviderService;
-    
+
     /**
      * @Route("/contitech_cs_product")
      */
@@ -93,6 +93,58 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/get_countries")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCountries(Request $request)
+    {
+        $segmentId = $request->get('segmentId');
+        $segmentId = json_decode($segmentId);
+        $this->configProviderService = new ConfigProviderService();
+        $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
+        if ($segmentId) {
+            foreach ($segmentId as $id) {
+                foreach ($segmentCountryConfig as $segment => $countries) {
+                    $segmentObj = new \Pimcore\Model\DataObject\CSSegment;
+                    $requestedSegmentName = $segmentObj::getById($id)->getSegmentName();
+                    if ($segment == $requestedSegmentName) {
+                        foreach ($countries as $country) {
+                            $result[] = array('text' => $country, 'id' => $country);
+                        }
+                    }
+                }
+            }
+        }
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+    /**
+     * @Route("/get_countries_complete")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getCountriesComplete(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $segmentCountryConfig = $this->configProviderService->getSegmentCountriesConfig();
+
+        foreach ($segmentCountryConfig as $countries) {
+            foreach ($countries as $country) {
+                $result[] = array('text' => $country, 'id' => $country);
+            }
+        }
+
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+    /**
      * @Route("/save_product")
      *
      * @param Request $request
@@ -100,7 +152,7 @@ class DefaultController extends FrontendController
      */
     public function saveProduct(Request $request)
     {
-        
+
         $this->configProviderService = new ConfigProviderService();
         $unitValueConfig = $this->configProviderService->getUnitValueConfig();
         $success = true;
@@ -202,7 +254,7 @@ class DefaultController extends FrontendController
                                 $class = 'Pimcore\\Model\\DataObject\\Objectbrick\\Data\\' . $brick;
                                 $brickObject = new $class($product);
                                 foreach ($unitValueConfig as $unit => $unitValue) {
-                                    
+
 
                                     $fieldKey = ucfirst($unitValue['fieldName']);
                                     $objectBrickFieldMethod = 'set' . $fieldKey;
