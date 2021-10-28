@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/static/cbs/css/style.css" />
     <link rel="stylesheet" href="/static/cbs/css/print_style.css" media="print" />
     <?php if ($this->printermarks) { ?>
-            <link rel="stylesheet" type="text/css" href="/static/css/print-printermarks.css" />
+            <link rel="stylesheet" type="text/css" href="/static/cbs/css/print-printermarks.css" />
     <?php } ?>
 
     <?php if($this->editmode){ ?>

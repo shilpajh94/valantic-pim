@@ -967,32 +967,65 @@ class DefaultController extends FrontendController
     */
     public function templateContiPipeBeltAction(Request $request)
     {
-        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_mega_pipe_belt')->getElement();
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
         $productData = [];
         if($catalogTableObject)
         {
-            $selectedProduct = $catalogTableObject->getProducts();
-            $singleProduct = $selectedProduct[0];
-            $productObject = DataObject\CSProducts::getById($singleProduct);
-            $productData['Name'] = $productObject->getName();
-            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
-            $productData['ShortText'] = $productObject->getShortText();
+            $catalogCategoryObjectId = $catalogTableObject->getParentId();
+            $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
 
-            if($productObject->getCSProductApplications())
+            if($categoryObj)
             {
-                $applicationsHtml = '<ul>';
-                foreach ($productObject->getCSProductApplications() as $value) {
-                    $applicationsHtml .= '<li><span class="orange">›</span> '.$value->getApplicationName().' </li>';
-                }
-                $applicationsHtml .= '</ul>';
-            }
-            $productData['Applications'] = $applicationsHtml;
-            
-            $productData['ProductImage'] = $productObject->getProductImage();
+                $selectedSecondLevelCategoryId = $categoryObj->getSecondLevelCategory();
 
-            $productData['Benefits'] = $productObject->getBenefits();
-            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+                $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
+
+                if($hierarchyObj)
+                {
+                    $hierarchyPath = $hierarchyObj->getPath();
+                    $hierarchyName = $hierarchyObj->getName();
+
+                    $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                    $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+
+                    $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+
+                    if($productObject)
+                    {
+                        $parentProductData['Name'] = $productObject->getName();
+                        $parentProductData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                        $parentProductData['ShortText'] = $productObject->getShortText();
+                        $parentProductData['ProductImage'] = $productObject->getProductImage();
+                        $parentProductData['HierarchyNameLevel1'] = 'Conveying Solutions';
+
+                        $applications = [];
+                        if($productObject->getCSProductApplications())
+                        {
+                            foreach ($productObject->getCSProductApplications() as $value) {
+                                $applications[] = $value->getApplicationName();
+                            }
+                        }
+                        $parentProductData['Applications'] = $applications;
+                    }
+                }
+
+                $selectedProduct = $catalogTableObject->getProducts();
+
+                $singleProduct = $selectedProduct[0];
+
+                $singleProductObj = DataObject\CSProducts::getById($singleProduct);
+                $childProductData['Name'] = $singleProductObj->getName();
+                $childProductData['ProductClaimSlogan'] = $singleProductObj->getProductClaimSlogan();
+                $childProductData['ShortText'] = $singleProductObj->getShortText();
+                $childProductData['ProductImage'] = $singleProductObj->getProductImage();
+                $childProductData['Benefits'] = $singleProductObj->getBenefits();
+                
+            }
+
         }
+
+        $productData['parentProductData'] = $parentProductData;
+        $productData['childProductData'] = $childProductData;
 
         $this->view['data'] = $productData;
     }
