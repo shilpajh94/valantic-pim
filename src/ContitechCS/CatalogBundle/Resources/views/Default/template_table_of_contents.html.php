@@ -30,7 +30,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="table-of-contents">
                 <div class="colum-2">
                     <?php while($this->block("CBS_TOC_HeadingBlock")->loop()) { ?>
-                    <h3 class="black-bg">
+                    <h3 class="orange-bg">
                         <?= $this->input("CBS_TOC_HeadingName", ['placeholder' => 'Featured Solutions']); ?></h3>
                     <ul>
                         <?php while($this->block("CBS_TOC_ContentBlock")->loop()) { ?>

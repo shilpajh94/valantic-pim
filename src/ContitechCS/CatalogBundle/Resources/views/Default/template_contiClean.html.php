@@ -1,40 +1,40 @@
-    <?php
+<?php
     if (!isset($this->parentContainer)) {
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     }
     ?>
-    <div class="wrapper">
-        <header id="header">
-            <div class="header-sec">
-                <div class="header-txt"><b>Conveying Solutions</b></div>
-                <div class="print-pg-no"></div>
-            </div>
-        </header>
-        <!-- <footer id="footer">
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer> -->
-        <main id="content" role="main">
-            <section class="fortressxp-belts">
-                <h1 class="orange"><?= $this->input("CCSM_Header_title",[
+<div class="wrapper">
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><b>Conveying Solutions</b></div>
+            <div class="print-pg-no"></div>
+        </div>
+    </header>
+    <footer id="footer" class="footer">
+        <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
+    </footer>
+    <main id="content" role="main">
+        <section class="fortressxp-belts conticleanpage">
+            <h1 class="orange"><?= $this->input("CCSM_Header_title",[
                     "placeholder" =>
                     "Enter Your  Heading"]); ?>
-                    <span class="sub-title"><?= $this->input("CCSM_SubHeader_title",[
+                <span class="sub-title"><?= $this->input("CCSM_SubHeader_title",[
                     "placeholder" =>
                     "Enter Your  SubHeading"]); ?></span>
-                </h1>
-                <p class="p-medium"><?= $this->textarea("CCSM_Content", [
+            </h1>
+            <p class="p-medium"><?= $this->textarea("CCSM_Content", [
                     "placeholder" =>
                     "Enter Your  Description"
                 ]);?> </p>
 
-                <p class="p-medium"><b><?= $this->wysiwyg("CCSM_Content2", [
+            <p class="p-medium"><b><?= $this->textarea("CCSM_Content2", [
                     "placeholder" =>
                     "Enter Your  Description"
-                ]);?></b></p>
+                ]);?> </b></p>
 
 
-                <div class="full-image-sec">
-                    <?php
+            <div class="full-image-sec">
+                <?php
 
                         if($this->editmode)
                         {
@@ -46,53 +46,53 @@
                             if($imgSrcObj)
                             {
                             ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
-                    <?php
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                <?php
                         }
                     }
                     ?>
-                </div>
+            </div>
 
-                <div class="colum-2 p-0">
+            <div class="colum-2 p-0">
 
 
-                    <div class="conticlean-tab">
-                        <div class="row">
-                            <div class="col">
-                                <h3 class="orange"><?= $this->input("CCSM_Header", [
+                <div class="conticlean-tab">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="orange"><?= $this->input("CCSM_Header", [
                                     "placeholder" =>
                                     "Enter Your  TableHead"
                                 ]);?></h3>
-                                <ul>
-                                    <?php
+                            <ul>
+                                <?php
                                     while($this->block("CCSM_Header_Points")->loop()) { ?>
-                                    <li><span class="orange">›</span><?= $this->input("CCSM_Header_Points",[
+                                <li><span class="orange">›</span><?= $this->input("CCSM_Header_Points",[
                                         "placeholder" =>
                                         "Enter Your Points"
                                     ]);?> </li>
-                                    <?php
+                                <?php
                                     } ?>
-                                </ul>
-                            </div>
-                            <div class="col">
-                                <h3 class="orange"><?= $this->input("CCSM_Header2", [
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <h3 class="orange"><?= $this->input("CCSM_Header2", [
                                     "placeholder" =>
                                     "Enter Your  TableHead"
                                 ]);?></h3>
-                                <ul class="materials-list">
-                                    <?php
+                            <ul class="materials-list">
+                                <?php
                                     while($this->block("CCSM_Header_Points2")->loop()) { ?>
-                                    <li><span class="orange">›</span><?= $this->input("CCSM_Header_Points2",[
+                                <li><span class="orange">›</span><?= $this->input("CCSM_Header_Points2",[
                                         "placeholder" =>
                                         "Enter Your Points"
                                     ]);?> </li>
-                                    <?php
+                                <?php
                                     } ?>
-                                </ul>
-                            </div>
+                            </ul>
                         </div>
                     </div>
-                    <!-- <table width="100%">
+                </div>
+                <!-- <table width="100%">
                                 <thead>
                                     <tr>
                                         <th width="50%" class="orange">ContiClean® Benefits</th>
@@ -129,24 +129,24 @@
 
 
 
-                    <div class="nexcolumtarget">
-                        <div class="feature-benefit-list">
-                            <h3 class="orange"><?= $this->input("CCSM_Header3", [
+                <div class="nexcolumtarget">
+                    <div class="feature-benefit-list">
+                        <h3 class="orange"><?= $this->input("CCSM_Header3", [
                                 "placeholder" =>
                                 "Enter Your  TableHead"
                             ]);?> </h3>
-                            <ul>
-                                <?php
+                        <ul>
+                            <?php
                                 while($this->block("CCSM_Header_Points3")->loop()) { ?>
-                                <li><span class="orange">›</span> <i><?= $this->input("CCSM_Header_Points3",[
+                            <li><span class="orange">›</span> <i><?= $this->input("CCSM_Header_Points3",[
                                     "placeholder" =>
                                     "Enter Your Points"
                                 ]);?> </i></li>
-                                <?php
+                            <?php
                                 } ?>
-                            </ul>
-                        </div>
-                        <?php
+                        </ul>
+                    </div>
+                    <?php
 
                             if($this->editmode)
                             {
@@ -158,17 +158,17 @@
                                 if($imgSrcObj)
                                 {
                                 ?>
-                        <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
-                        <?php
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                    <?php
                             }
                         }
                         ?>
-                    </div>
                 </div>
+            </div>
 
 
-                <div class="page95 pg-6">
-                    <?php
+            <div class="pg-6">
+                <?php
 
                         if($this->editmode)
                         {
@@ -180,18 +180,16 @@
                             if($imgSrcObj)
                             {
                             ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
-                    <?php
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
+                <?php
                         }
                     }
                     ?>
-                </div>
+            </div>
 
 
-            </section>
+        </section>
 
-        </main>
-        <footer id="footer">
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer>
-    </div>
+    </main>
+
+</div>

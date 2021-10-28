@@ -10,6 +10,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="print-pg-no"></div>
         </div>
     </header>
+    <footer id="footer" class="footer">
+        <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
+    </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange"><?= $this->input("Header_title",[
@@ -91,7 +94,4 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         </section>
 
     </main>
-    <footer id="footer">
-        <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-    </footer>
 </div>

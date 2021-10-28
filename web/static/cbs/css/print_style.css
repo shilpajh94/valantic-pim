@@ -129,7 +129,8 @@
         transform: translate(0px, 30px) rotate(-90deg);
         width: 30px;
     }
-    .page95 {
+    .page95,
+    .pg-6 {
         min-width: 100%;
         margin: 0;
     }
@@ -152,6 +153,9 @@
     opacity: 0;
     height: 0;
 }
+
+
+/* for extra after merge remove this */
 
 @page: first {
     margin-top: 10px;
@@ -176,6 +180,8 @@
         font-size: 10px;
         padding-top: 30px;
         padding-top: 40px;
+        font-family: "Arial", sans-serif;
+        letter-spacing: 0.05em;
     }
     @top-right {
         content: counter(page);
@@ -185,6 +191,7 @@
     }
     @bottom-right {
         content: element(footerLogo, last);
+        padding-bottom: 50px;
     }
 }
 
@@ -197,6 +204,8 @@
         font-size: 10px;
         padding-top: 30px;
         padding-top: 40px;
+        font-family: "Arial", sans-serif;
+        letter-spacing: 0.05em;
     }
     @top-right {
         content: counter(page);
@@ -206,12 +215,27 @@
     }
     @bottom-left {
         content: element(footerLogo, first);
+        padding-bottom: 50px;
     }
 }
 
 ;
 @page coverPage {
     margin: 0px 0px !important;
+}
+
+@page contiClean {
+    @bottom-left {
+        content: element(conticleanImage, first);
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        left: 0;
+        z-index: 1;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
 }
 
 @page innerCoverpage {
@@ -227,8 +251,8 @@
 
 @page backcoverPage {
     margin: 0px 30px;
-    size: A4;
     padding: 0;
+    size: A4;
     @bottom-right {
         content: none;
     }

@@ -12,9 +12,9 @@
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <!-- <footer id="footer" >
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer> -->
+    <footer id="footer">
+        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+    </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange"><?= $this->input("Header_title",[
@@ -151,7 +151,5 @@
         </section>
 
     </main>
-    <footer id="footer1">
-        <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-    </footer>
+
 </div>

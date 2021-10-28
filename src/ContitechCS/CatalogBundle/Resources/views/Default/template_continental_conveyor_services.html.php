@@ -3,17 +3,29 @@ if (!isset($this->parentContainer)) {
 $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
+<?php if($this->editmode): ?>
+<?= $this->relation("cbs_template_belt_services_page", [
+            "types" => ["object"],
+            "subtypes" => [
+            "object" => ["object"]
+            ],
+            "classes" => ["CSCatalogCategory"],
+    ]);
+    ?>
+<?php endif; ?>
 <?php if($data): ?>
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><b>Conveying Solutions</b></div>
+            <div class="header-txt"><b>Conveying Solutions</b> <?= $this->input("TBS_title",[
+                "placeholder" =>
+                "Enter Your  Title"]); ?></div>
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <!-- <footer id="footer" >
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer> -->
+    <footer id="footer">
+        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+    </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange">
@@ -119,9 +131,5 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
         </section>
     </main>
-    <footer id="footer1">
-        <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-    </footer>
-
 </div>
 <?php endif; ?>

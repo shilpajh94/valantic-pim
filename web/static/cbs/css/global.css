@@ -142,6 +142,11 @@ section {
     padding: 40px 0px 50px;
 }
 
+
+/* .features-benefit-sec, .fortressxp-belts, .belts-information{
+  margin: 40px 0px 50px;
+} */
+
 .d-flex {
     display: flex !important;
 }
@@ -235,6 +240,16 @@ section {
     margin: 0 -15px;
     display: flex;
     flex-wrap: wrap;
+}
+
+.col {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .col-2 {
