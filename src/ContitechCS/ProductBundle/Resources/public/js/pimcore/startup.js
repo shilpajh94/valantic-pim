@@ -61,6 +61,20 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
 //          
 ////      }  
 //    },
+
+
+
+postSaveObject: function(object){
+
+    // reload hierarchy object on save
+    if(object.data.general.o_className == "CSHierarchy"){
+        setTimeout(function(){
+            object.reload();
+        },1);
+    }
+
+},
+
     leftNavigation: function () {
         let navigation = Ext.get("pimcore_navigation");
         let ulElement = navigation.selectNode('ul');
