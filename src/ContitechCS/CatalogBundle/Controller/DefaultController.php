@@ -747,6 +747,9 @@ class DefaultController extends FrontendController
         $productData = [];
         if($catalogTableObject)
         {
+            $this->configProviderService = new ConfigProviderService();
+            $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
+
             $selectedProduct = $catalogTableObject->getProducts();
 
             $productId = $selectedProduct[0];
@@ -759,6 +762,11 @@ class DefaultController extends FrontendController
             $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
             $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
 
+            if(isset($productDataImportConfig[$productDetails->getName()]))
+            {
+                $CommonBeltProfileAttributes = $productDataImportConfig[$productDetails->getName()]['Common Belt Profile Attributes'];
+            }
+
             $productChildrenData = $productDetails->getchildren(); 
             $childrenData = [];
             foreach ($productChildrenData as $child) {
@@ -768,13 +776,32 @@ class DefaultController extends FrontendController
                     $data['LongText'] = $child->getLongText();
                     $data['ProductImage'] = $child->getProductImage();
                     $data['ApplicationImage'] = $child->getApplicationImage();
+
+                    $bricks = $child->getProductAttributes();
+
+                    $tableFieldData = [];
+                    if($bricks)
+                    {
+                        foreach ($CommonBeltProfileAttributes as $fieldName => $brickName) {
+
+                            $getBrick = 'get' . $brickName;
+                            $getField = 'get' . $fieldName;
+                            if($bricks->$getBrick())
+                            {
+                                $tableFieldData[$fieldName] = $bricks->$getBrick()->$getField();
+                            }
+                        }
+                    }   
+                    $data['tableFieldData'] = $tableFieldData;
+                    
+                    
                     $childrenData[] = $data;
                 }
             }
 
             $productData['childrenData'] = $childrenData;
         }
-
+        
         $this->view['data'] = $productData;
     }
 

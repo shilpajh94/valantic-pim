@@ -3363,4 +3363,11 @@ Cover Options:
         MinTensilePSI: ProdAttrSetR
         MinElongationPercent: ProdAttrSetR
     Product Page: Solar-Shield Series
-
+Cleated Conveyor Belts:
+    Common Belt Profile Attributes:
+        # CleatHeightMM: ProdAttrSetP
+        CleatHeightInch: ProdAttrSetP
+        BeltWidth: ProdAttrSetT
+        AvailableProfilePatternWidths: ProdAttrSetZ
+    # ContiRoll Belt Profile Attributes:
+    #     AvailableProfilePatternWidths: ProdAttrSetZ

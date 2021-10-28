@@ -135,27 +135,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <hr class="divider" />
 
             <div class="table w-90 construction-tab">
-                <table width="100%">
-                    <tbody>
-
-                    <?php $myBlock = $this->block('contentblock', ['reload'=> true]) ?>
-                    <?php
-                    foreach ($myBlock as $key => $value) {
-                        // if($myBlock->current > 0)
-                        // {
-                            ?>
-                            Insert this line only after the first iteration<br />
-                            <br />
-                            <?php
-                        // }
-                        ?>
-                        <h2><?= $this->input("subline_{$key}") ?></h2>
-                        <?php
-                    }
-                    ?>
-
-                    </tbody>
-                </table>
+                <!-- <table width="100%">
+                    <tbody> -->
+                    <?= $this->areablock('BeltConstruction'); ?>
+                    <!-- </tbody>
+                </table> -->
             </div>
 
 
@@ -381,33 +365,28 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </td>
 
                         </tr>
+
+                        <?php if($child['tableFieldData']): ?>
                         <tr>
                             <td class="border-b" colspan="3">
                                 <table class="w-80">
                                     <tbody>
-                                        <tr>
-                                            <th class="orange text-right">Cleat Height</th>
-                                            <td colspan="6">1/4 in</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="orange text-right">Available Belt Widths</th>
-                                            <td>42 in.</td>
-                                            <td>48 in.</td>
-                                            <td>48 in.</td>
-                                            <td>48 in.</td>
-                                            <td>48 in.</td>
-                                            <td>48 in.</td>
-                                        </tr>
-                                        <tr>
-                                            <th class="orange text-right">Available Pattern Widths</th>
-                                            <td colspan="6">Continuous</td>
-                                        </tr>
 
+                                        <?php 
+                                            foreach ($child['tableFieldData'] as $fieldName => $fieldValue) {
+                                                ?>
+                                                <tr>
+                                                    <th class="orange text-right"><?= $fieldName; ?></th>
+                                                    <td colspan="6"><?= $fieldValue; ?> in</td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
-
+                        <?php endif; ?>
                     </tbody>
                 </table>
                 <?php } ?>
