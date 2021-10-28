@@ -190,7 +190,7 @@ h2 {
 }
 
 .full-image-sec {
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .feature-benefit-list ul {
@@ -237,6 +237,13 @@ h2 {
 
 .table.conticlean-tab {
     margin: 0px;
+}
+
+.conticlean-tab .materials-list {
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    flex-wrap: wrap;
 }
 
 .labels table tr {
@@ -413,7 +420,7 @@ h2 {
 
 .wpa-table.table-data tbody td:before,
 .wpa-table.table-data thead th::before {
-    border-top: 1px solid rgb(3, 3, 2);
+    border-top: 1px solid rgb(250, 162, 27);
 }
 
 .table-data thead tr:first-child th:before {
@@ -484,7 +491,8 @@ h2 {
 .table-data.wpa-table tbody td:first-child,
 .table-data.contipipe-table tbody td:first-child,
 .table-data.contipipe-table tbody td:last-child:after,
-.table-data.contipipe-table thead th:last-child:after {
+.table-data.contipipe-table thead th:last-child:after,
+.wpa-table .col:last-child tbody td:last-child:after {
     border-right: 0px;
 }
 
@@ -663,18 +671,18 @@ h2 {
     string-set: header self;
 }
 
-#footer1,
 #footer {
     background: #ffffff;
 }
 
 #footer {
-    position: running(footerLogo);
+    height: 0;
+    opacity: 0;
 }
 
-#footer img,
-#footer1 img {
+#footer img {
     width: 150px;
+    position: running(footerLogo);
 }
 
 
@@ -853,6 +861,15 @@ h2 {
     color: #969696;
 }
 
+
+/* width: 10%;
+    text-orientation: mixed;
+    writing-mode: vertical-lr;
+    transform: rotate(-181deg);
+    display: flex;
+    align-items: center;
+    font-size: 10px; */
+
 .solar-shield-table {
     max-width: 100%;
 }
@@ -895,12 +912,24 @@ h2 {
     min-width: 100%;
     margin: 30px -30px;
     /* display: block; */
-    position: running(halfImage);
     /* page:halfImage; */
+}
+
+.page95 img {
+    position: running(halfImage);
+}
+
+.conticleanpage {
+    page: contiClean;
 }
 
 .pg-6 {
     margin: 0 -30px;
+    min-width: 100%;
+}
+
+.pg-6 img {
+    position: running(conticleanImage);
 }
 
 .divider {

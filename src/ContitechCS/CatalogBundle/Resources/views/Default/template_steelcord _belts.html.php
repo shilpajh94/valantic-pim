@@ -12,9 +12,9 @@
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <!-- <footer id="footer" >
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer> -->
+    <footer id="footer" class="footer">
+        <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
+    </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
 
@@ -351,9 +351,7 @@
         </section>
 
     </main>
-    <footer id="footer1">
-        <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-    </footer>
+
 </div>
 </body>
 

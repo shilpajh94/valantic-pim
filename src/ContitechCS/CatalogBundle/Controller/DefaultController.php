@@ -839,7 +839,7 @@ class DefaultController extends FrontendController
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
-                if($childValue->getPrintedCatalogFlag() === true){
+                if(($childValue->getPrintedCatalogFlag() === true) && (!empty($childValue->getProductImage()))) {
                     $data['Name'] = $childValue->getName();
                     $data['LongText'] = $childValue->getLongtext();
                     $data['ProductImage'] = $childValue->getProductImage();
