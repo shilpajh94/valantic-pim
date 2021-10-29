@@ -8,7 +8,7 @@
     $total_rows = 0;
     while($this->block("headingblock")->loop()) 
     { 
-        $columns[] = $this->input("heading");
+        $columns[] = $this->wysiwyg("heading");
     }
     
     if($this->editmode)
@@ -36,15 +36,15 @@
                 }
             ?>
         </tr>
-    <thead>
+        <thead>
 
-    <tbody>
-        <?php
+        <tbody>
+            <?php
             for($i=0;$i<=$total_rows-1;$i++)
             {   
                 ?>
-                    <tr>
-                        <?php 
+            <tr>
+                <?php 
                             if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
                             {
                                 foreach($tds["row_".$i] as $td)
@@ -53,10 +53,9 @@
                                 }
                             }
                         ?>
-                    </tr>
-                <?php
+            </tr>
+            <?php
             }
         ?>
-    </tbody>
+        </tbody>
 </table>
-
