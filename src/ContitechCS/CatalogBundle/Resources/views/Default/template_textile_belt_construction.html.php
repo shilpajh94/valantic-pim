@@ -3,95 +3,125 @@
         $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     }
 ?>
+<?php if($this->editmode): ?>
+<?= $this->relation("cbs_template_textile_belt_services_page", [
+            "types" => ["object"],
+            "subtypes" => [
+            "object" => ["object"]
+            ],
+            "classes" => ["CSCatalogCategory"],
+    ]);
+?>
+<?php endif; ?>
+<?php if($data): ?>
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
             <div class="header-txt"><strong>Conveying Solutions</strong>
-                <?= $this->input("TBS_title",[
-                "placeholder" =>
-                "Enter Your  Title"]); ?>
+                <?= $this->input("TBS_title",["placeholder" =>"Enter Your  Title"]); ?>
             </div>
             <div class="print-pg-no"></div>
         </div>
-        <!-- <footer id="footer" >
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer> -->
+        <footer id="footer">
+            <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+        </footer>
         <main id="content" role="main">
             <section class="fortressxp-belts">
-                <h1 class="orange"><?= $this->input("Header_title",[
-                "placeholder" =>
-                "Enter Your  Heading"]); ?></h1>
+                <h1 class="orange">
+                    <?php if($this->editmode): ?>
+                    <?php if($this->input("Header_title")->isEmpty()): ?>
+                    <?= $this->input("Header_title")->setDataFromResource($data['Name']) ?>
+                    <?php else: ?>
+                    <?= $this->input("Header_title"); ?>
+                    <?php endif; ?>
+                    <?php else: ?>
+                    <?= $this->input("Header_title") ?>
+                    <?php endif; ?></h1>
 
-                <p class="p-medium"><?= $this->input("Slogan_title",[
-                "placeholder" =>
-                "Enter Your  Slogan"]); ?> </p>
+                <p class="p-medium"><?php if($this->editmode): ?>
+                    <?php if($this->textarea("TBS_ProductClaimSlogan")->isEmpty()): ?>
+                    <?= $this->textarea("TBS_ProductClaimSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
+                    <?php else: ?>
+                    <?= $this->textarea("TBS_ProductClaimSlogan"); ?>
+                    <?php endif; ?>
+                    <?php else: ?>
+                    <?= $this->textarea("TBS_ProductClaimSlogan") ?>
+                    <?php endif; ?> </p>
 
                 <div class="colum-2 p-0">
-                    <p><?= $this->wysiwyg("Content1",[
-                    "placeholder" =>
-                    "Enter Your  Description"]); ?></p>
-
-                    <p><?= $this->wysiwyg("Content2",[
-                    "placeholder" =>
-                    "Enter Your  Description"]); ?></p>
-
+                    <p>
+                        <?php if($this->editmode): ?>
+                        <?php if($this->wysiwyg("TBS_ShortText")->isEmpty()): ?>
+                        <?= $this->wysiwyg("TBS_ShortText")->setDataFromResource($data['ShortText']) ?>
+                        <?php else: ?>
+                        <?= $this->wysiwyg("TBS_ShortText"); ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                        <?= $this->wysiwyg("TBS_ShortText") ?>
+                        <?php endif; ?>
+                    </p>
                 </div>
 
-
-                <h3 class="orange"><?= $this->input("BC_Header_title",[
-                "placeholder" =>
-                "Enter Your  Heading"]); ?></h3>
+                <h3 class="orange"><?= $this->input("TBS_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h3>
 
                 <?php
-                    if($this->editmode)
-                        {
-                            echo $this->image("Belt_Components_Image");
-                        }
-                        else
-                        {
-                            $imgSrcObj =  $this->image("Belt_Components_Image");
-                            if($imgSrcObj)
+                        if($this->editmode)
                             {
+                                if($this->image("TBS_ProductImage")->isEmpty())
+                                    {
+                                        echo $this->image("TBS_ProductImage")->setImage($data['ProductImage']);
+                                    }
+                                    else{
+                                        echo $this->image("TBS_ProductImage");
+                                    }
+                                }
+                                else
+                                {
+                                    $CSSImgSrcObj =  $this->image("TBS_ProductImage");
+                                    if($CSSImgSrcObj)
+                                    {
+                                    ?>
+                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" />
+                <?php
+                                    }
+                                }
                             ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
-                <?php
-                            }
-                        }
-                ?>
 
-
-                <h3 class="orange mb-0"><?= $this->input("BNE_Header_title",[
-                "placeholder" =>
-                "Enter Your  Heading"]); ?></h3>
+                <h3 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
+                </h3>
 
                 <?php
-                    if($this->editmode)
-                        {
-                            echo $this->image("Belt_Nomenclature_Image");
-                        }
-                        else
-                        {
-                            $imgSrcObj =  $this->image("Belt_Nomenclature_Image");
-                            if($imgSrcObj)
+                        if($this->editmode)
                             {
-                            ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
+                                if($this->image("TBS_ApplicationImage")->isEmpty())
+                                    {
+                                        echo $this->image("TBS_ApplicationImage")->setImage($data['ApplicationImage']);
+                                    }
+                                    else{
+                                        echo $this->image("TBS_ApplicationImage");
+                                    }
+                                }
+                                else
+                                {
+                                    $CSSImgSrcObj =  $this->image("TBS_ApplicationImage");
+                                    if($CSSImgSrcObj)
+                                    {
+                                    ?>
+                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" />
                 <?php
-                            }
-                        }
-                ?>
+                                    }
+                                }
+                            ?>
 
-                <h1 class="orange"><?= $this->input("TBA_Header_title",[
-                "placeholder" =>
-                "Enter Your  Heading"]); ?></h1>
+                <h1 class="orange"><?= $this->input("TBA_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h1>
 
                 <div class="table-data textile-table">
                     <table width="100%">
                         <thead>
                             <tr>
                                 <th width="17.2%" align="left"><?= $this->input("Industry_Markets",[
-                                "placeholder" =>
-                                "Enter Your  Heading"]); ?></th>
+                                    "placeholder" =>
+                                    "Enter Your  Heading"]); ?></th>
                                 <th width="9.2%">Fortress XP™</th>
                                 <th width="9.2%">CONTI® Titan</th>
                                 <th width="9.2%">Plylon Plus®</th>
@@ -195,9 +225,8 @@
                     </table>
                 </div>
 
-                <h3 class="mt-4"><?= $this->input("Example_Header",[
-                "placeholder" =>
-                "Enter Your  SubHeading"]); ?></h3>
+                <h3 class="mt-4"><?= $this->input("Example_Header",["placeholder" =>"Enter Your  ExampleTagLine"]); ?>
+                </h3>
 
                 <div class="table process-table">
                     <table width="100%">
@@ -205,22 +234,28 @@
                             <tr align="right">
                                 <th colspan="4" class="p-0">
                                     <?php
-                                    if($this->editmode)
-                                        {
-                                            echo $this->image("Process_Table_Image");
-                                        }
-                                        else
-                                        {
-                                            $imgSrcObj =  $this->image("Process_Table_Image");
-                                            if($imgSrcObj)
-                                            {
-                                            ?>
-                                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
-                                        tyle="float:right" class="w-80" />
+                                            if($this->editmode)
+                                                {
+                                                    if($this->image("TBS_fieldPhoto")->isEmpty())
+                                                        {
+                                                            echo $this->image("TBS_fieldPhoto")->setImage($data['fieldPhoto']);
+                                                        }
+                                                        else{
+                                                            echo $this->image("TBS_fieldPhoto");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        $CSSImgSrcObj =  $this->image("TBS_fieldPhoto");
+                                                        if($CSSImgSrcObj)
+                                                        {
+                                                        ?>
+                                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>"
+                                        class="features-images" alt="" />
                                     <?php
-                                            }
-                                        }
-                                ?>
+                                                        }
+                                                    }
+                                                ?>
                                 </th>
                             </tr>
                             <tr align="left" valign="bottom">
@@ -283,15 +318,10 @@
                         </tbody>
                     </table>
                 </div>
-                <p class="note"><?= $this->textarea("Note",[
-                "placeholder" =>
-                "Enter Your  Note"]); ?></p>
 
+                <p class="note"><?= $this->textarea("Note",["placeholder" =>"Enter Your  Note"]); ?></p>
 
             </section>
-
         </main>
-        <footer id="footer1">
-            <div class="footer-logo"><img src="images/continental_logo.png" alt="" /></div>
-        </footer>
 </div>
+<?php endif; ?>

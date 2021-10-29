@@ -16,6 +16,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="print-pg-no"></div>
         </div>
     </header>
+    <footer id="footer" class="footer">
+        <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
+    </footer>
     <main id="content" role="main">
         <section class="table-content-sec">
             <?php if($this->editmode): ?>
@@ -58,7 +61,5 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             </div>
         </section>
     </main>
-    <footer id="footer" class="footer">
-        <img src="<?= $footer_logo_src; ?>" alt="" class="img-fluid" width="150">
-    </footer>
+
 </div>
