@@ -3,10 +3,10 @@
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     }
     ?>
-<div class="wrapper">
+<div class="wrapper conticleanpage">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><b>Conveying Solutions</b></div>
+            <div class="header-txt"><strong>Conveying Solutions</strong></div>
             <div class="print-pg-no"></div>
         </div>
     </header>
@@ -14,29 +14,21 @@
         <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
     </footer>
     <main id="content" role="main">
-        <section class="fortressxp-belts conticleanpage">
-            <h1 class="orange"><?= $this->input("CCSM_Header_title",[
-                    "placeholder" =>
-                    "Enter Your  Heading"]); ?>
-                <span class="sub-title"><?= $this->input("CCSM_SubHeader_title",[
-                    "placeholder" =>
-                    "Enter Your  SubHeading"]); ?></span>
+        <section class="fortressxp-belts">
+            <h1 class="orange"><?= $this->input("CCSM_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
+
+                <span
+                    class="sub-title"><?= $this->input("CCSM_SubHeader_title",["placeholder" =>"Enter Your  SubHeading"]); ?></span>
             </h1>
-            <p class="p-medium"><?= $this->textarea("CCSM_Content", [
-                    "placeholder" =>
-                    "Enter Your  Description"
-                ]);?> </p>
 
-            <p class="p-medium"><b><?= $this->textarea("CCSM_Content2", [
-                    "placeholder" =>
-                    "Enter Your  Description"
-                ]);?> </b></p>
+            <p class="p-medium"><?= $this->textarea("CCSM_Content", ["placeholder" =>"Enter Your  Description"]);?> </p>
 
+            <p class="p-medium black-bold">
+                <?= $this->textarea("CCSM_Content2", ["placeholder" =>"Enter Your  Description"]);?> </p>
 
             <div class="full-image-sec">
                 <?php
-
-                        if($this->editmode)
+                    if($this->editmode)
                         {
                             echo $this->image("Belt_Image");
                         }
@@ -54,40 +46,33 @@
             </div>
 
             <div class="colum-2 p-0">
-
-
                 <div class="conticlean-tab">
                     <div class="row">
-                        <div class="col">
-                            <h3 class="orange"><?= $this->input("CCSM_Header", [
-                                    "placeholder" =>
-                                    "Enter Your  TableHead"
-                                ]);?></h3>
+                        <div class="col-7">
+                            <h3 class="orange">
+                                <?= $this->input("CCSM_Header", ["placeholder" =>"Enter Your  TableHead"]);?></h3>
                             <ul>
                                 <?php
                                     while($this->block("CCSM_Header_Points")->loop()) { ?>
-                                <li><span class="orange">›</span><?= $this->input("CCSM_Header_Points",[
-                                        "placeholder" =>
-                                        "Enter Your Points"
-                                    ]);?> </li>
+                                <li><span
+                                        class="orange">›</span><?= $this->input("CCSM_Header_Points",["placeholder" =>"Enter Your Points"]);?>
+                                </li>
                                 <?php
                                     } ?>
                             </ul>
                         </div>
-                        <div class="col">
-                            <h3 class="orange"><?= $this->input("CCSM_Header2", [
-                                    "placeholder" =>
-                                    "Enter Your  TableHead"
-                                ]);?></h3>
+                        <div class="col-5">
+                            <h3 class="orange">
+                                <?= $this->input("CCSM_Header2", ["placeholder" =>"Enter Your  TableHead"]);?></h3>
+
                             <ul class="materials-list">
                                 <?php
                                     while($this->block("CCSM_Header_Points2")->loop()) { ?>
-                                <li><span class="orange">›</span><?= $this->input("CCSM_Header_Points2",[
-                                        "placeholder" =>
-                                        "Enter Your Points"
-                                    ]);?> </li>
+                                <li><span
+                                        class="orange">›</span><?= $this->input("CCSM_Header_Points2",[ "placeholder" => "Enter Your Points"]);?>
+                                </li>
                                 <?php
-                                    } ?>
+                                } ?>
                             </ul>
                         </div>
                     </div>
@@ -131,17 +116,14 @@
 
                 <div class="nexcolumtarget">
                     <div class="feature-benefit-list">
-                        <h3 class="orange"><?= $this->input("CCSM_Header3", [
-                                "placeholder" =>
-                                "Enter Your  TableHead"
-                            ]);?> </h3>
+                        <h3 class="orange">
+                            <?= $this->input("CCSM_Header3", ["placeholder" =>"Enter Your  TableHead"]);?> </h3>
                         <ul>
                             <?php
                                 while($this->block("CCSM_Header_Points3")->loop()) { ?>
-                            <li><span class="orange">›</span> <i><?= $this->input("CCSM_Header_Points3",[
-                                    "placeholder" =>
-                                    "Enter Your Points"
-                                ]);?> </i></li>
+                            <li><span class="orange">›</span>
+                                <i><?= $this->input("CCSM_Header_Points3",["placeholder" =>"Enter Your Points"]);?> </i>
+                            </li>
                             <?php
                                 } ?>
                         </ul>
@@ -165,7 +147,6 @@
                         ?>
                 </div>
             </div>
-
 
             <div class="pg-6">
                 <?php

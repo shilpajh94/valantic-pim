@@ -1056,4 +1056,70 @@ class DefaultController extends FrontendController
 
         $this->view['data'] = $productData;
     }
+    
+
+    public function templateTextileConveyorBeltsAction(Request $request)
+    {
+        $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_textile_belt_services_page')->getElement();
+
+        $productNameArr = [];
+
+        if ($catalogCategoryObject)
+        {
+            $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
+
+            $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
+
+            $hierarchyPath = $hierarchyObj->getPath();
+            $hierarchyName = $hierarchyObj->getName();
+
+            $hierarchyFullName = $hierarchyPath.$hierarchyName;
+            $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+
+            $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+    
+            if (!empty($productObject->getProductImage())) {
+                $productNameArr['Name'] = trim($productObject->getName());
+                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                $productNameArr['ShortText'] = $productObject->getShortText();
+                $productNameArr['ProductImage'] = $productObject->getProductImage();
+                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+            }
+        }
+        $this->view['data'] = $productNameArr;
+    }
+    
+    public function templateSteelcordBeltConstructionAction(Request $request)
+    {
+        $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_steelcord_belt_construction_page')->getElement();
+
+        $productNameArr = [];
+
+        if ($catalogCategoryObject)
+        {
+            $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
+
+            $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
+
+            $hierarchyPath = $hierarchyObj->getPath();
+            $hierarchyName = $hierarchyObj->getName();
+
+            $hierarchyFullName = $hierarchyPath.$hierarchyName;
+            $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+
+            $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+    
+            if (!empty($productObject->getProductImage())) {
+                $productNameArr['Name'] = trim($productObject->getName());
+                $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                $productNameArr['ShortText'] = $productObject->getShortText();
+                $productNameArr['ProductImage'] = $productObject->getProductImage();
+                $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+            }
+        }
+        $this->view['data'] = $productNameArr;
+    }
 }

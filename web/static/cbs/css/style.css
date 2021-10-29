@@ -1,3 +1,22 @@
+.orange {
+    color: #ffa500;
+}
+
+.orange-bg {
+    background: #ffa500;
+    color: #000000;
+    -webkit-print-color-adjust: exact;
+}
+
+.grey-bg {
+    background: #e6e7e8;
+    -webkit-print-color-adjust: exact;
+}
+
+h3.fnt20 {
+    font-size: 20px;
+}
+
 .features-benefit-sec .media {
     margin-top: 22px;
     margin-bottom: 0px;
@@ -17,33 +36,18 @@
     background: #c7c8ca;
 }
 
-.orange {
-    color: rgb(250, 162, 27);
-}
-
 .black-bg {
-    background: #000;
+    background: #000000;
     color: #ffffff;
 }
 
 .dark-grey-bg {
-    background: #6d6e71;
+    background: #f0f0f0;
     color: #ffffff;
-}
-
-.orange-bg {
-    background: rgb(250, 162, 27);
-    color: #000000;
-    -webkit-print-color-adjust: exact;
 }
 
 .labels .orange-bg {
     color: #fff;
-}
-
-.grey-bg {
-    background: #e6e7e8;
-    -webkit-print-color-adjust: exact;
 }
 
 li span {
@@ -52,29 +56,21 @@ li span {
 
 .fortressxp-belts h1,
 .table-content-sec h1 {
-    font-size: 32px;
-    font-weight: bold;
-}
-
-
-/* remove  */
-
-h1 strong {
-    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 1rem;
 }
 
 .sub-title {
-    font-size: 16px;
+    font-size: 22px;
     display: block;
-    color: #43474e;
+    color: #000000;
     padding-bottom: 15px;
-    font-weight: normal;
+    font-family: "ContinentalStagSansLCG-light";
 }
 
 .feature-benefit-list h3,
 h3 {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 .features-benefit-sec .media h2 {
@@ -87,7 +83,7 @@ h3 {
 .wood-product-applications h2,
 .fortressxp-belts.conveyor-belt h1,
 h2 {
-    font-size: 24px;
+    font-size: 26px;
 }
 
 .wood-product-applications h1 {
@@ -125,6 +121,10 @@ h2 {
     margin-top: 20px;
 }
 
+.environment-quality-sec .media p {
+    font-size: 12px;
+}
+
 .features-benefit-sec .media {
     align-items: center;
 }
@@ -159,16 +159,18 @@ h2 {
     width: 30%;
 }
 
-.fortressxp-belts p {
+
+/* .fortressxp-belts p {
     font-size: 11px;
-}
+} */
 
 .p-medium {
-    font-size: 13px !important;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 .media p {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .fortressxp-belts .seal-image img {
@@ -213,7 +215,7 @@ h2 {
 
 .table thead,
 .table tbody {
-    border-bottom: 2px solid rgb(250, 162, 27);
+    border-bottom: 2px solid #ffa500;
 }
 
 .table th,
@@ -239,11 +241,31 @@ h2 {
     margin: 0px;
 }
 
+.conticlean-tab ul {
+    font-size: 12px;
+}
+
+.conticlean-tab ul li {
+    padding-bottom: 4px;
+}
+
+.conticlean-tab span {
+    padding-right: 5px;
+}
+
 .conticlean-tab .materials-list {
     display: flex;
     flex-direction: column;
-    height: 70px;
+    height: 100px;
     flex-wrap: wrap;
+}
+
+.conticlean-tab .materials-list li {
+    padding-right: 10px;
+}
+
+.nexcolumtarget .feature-benefit-list li {
+    padding-bottom: 2px;
 }
 
 .labels table tr {
@@ -252,7 +274,7 @@ h2 {
 }
 
 .note {
-    font-size: 8px !important;
+    font-size: 10px !important;
 }
 
 .page-details {
@@ -335,7 +357,7 @@ h2 {
 
 .table-data.wpa-table thead:after,
 .table-data.wpa-table:after {
-    border-bottom: 2px solid rgb(250, 162, 27);
+    border-bottom: 2px solid #ffa500;
 }
 
 .table-data td,
@@ -420,7 +442,7 @@ h2 {
 
 .wpa-table.table-data tbody td:before,
 .wpa-table.table-data thead th::before {
-    border-top: 1px solid rgb(250, 162, 27);
+    border-top: 1px solid #ffa500;
 }
 
 .table-data thead tr:first-child th:before {
@@ -622,7 +644,7 @@ h2 {
 .wpa-table tbody td ul li::before {
     display: inline-block;
     content: "›";
-    color: rgb(250, 162, 27);
+    color: #ffa500;
     width: 0.7em;
     margin-left: -0.7em;
     font-size: 14px;
@@ -665,10 +687,16 @@ h2 {
     width: 100%;
     background: #ffffff;
     display: block;
+    height: 0.5in;
+    overflow: hidden;
 }
 
 .header-txt {
     string-set: header self;
+}
+
+.header-txt strong {
+    font-family: "ContinentalStagSansLCG-Medium";
 }
 
 #footer {
@@ -739,6 +767,10 @@ h2 {
     padding-top: 40px;
 }
 
+.table-of-contents h3 {
+    font-family: "ContinentalStagSansLCG-Book";
+}
+
 .table-of-contents ul {
     list-style-type: none;
     margin: 0 0 5px 0;
@@ -764,6 +796,7 @@ h2 {
 
 .table-of-contents ul li {
     display: flex;
+    font-family: "ContinentalStagSansLCG-Book";
 }
 
 .table-of-contents ul li .chapter {
@@ -809,7 +842,6 @@ h2 {
 
 .backcoverpage h1 {
     font-size: 12px;
-    font-weight: bold;
     margin-bottom: 1rem;
 }
 
@@ -920,7 +952,7 @@ h2 {
 }
 
 .conticleanpage {
-    page: contiClean;
+    page: conticleanPage;
 }
 
 .pg-6 {
