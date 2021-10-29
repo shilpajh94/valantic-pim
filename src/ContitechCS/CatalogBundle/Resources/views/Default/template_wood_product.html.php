@@ -18,7 +18,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             "Enter Your  Heading"]); ?></h1>
 
             <div class="table-data wpa-table">
-                <tr> <?= $this->areablock('myAreablock'); ?></tr>
+            
+                <?= $this->area('myArea', ['type' => 'wood-product-areabrick']); ?>
+
             </div>
 
             <p class="note mb-0"><?= $this->input("Note_mb",[
