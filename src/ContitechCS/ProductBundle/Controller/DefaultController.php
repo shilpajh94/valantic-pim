@@ -93,6 +93,35 @@ class DefaultController extends FrontendController
     }
 
     /**
+     * @Route("/get_parent_bricks")
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getParentBricks(Request $request)
+    {
+        $parentId = $request->get('parentId');
+        $parentId = json_decode($parentId);
+
+        if ($parentId) {
+            $hierarchyObj = new \Pimcore\Model\DataObject\CSHierarchy;
+            $parentObj = $hierarchyObj::getById($parentId);
+            if ($parentObj) {
+                $parentBricks = $hierarchyObj::getById($parentId)->getRelatedBricks();
+                if ($parentBricks) {
+                    foreach ($parentBricks as $parentBrick) {
+                        $result[] = array('text' => $parentBrick, 'id' => $parentBrick);
+                    }
+                }
+            }
+        }
+        $res['data'] = $result;
+        echo json_encode(['data' => $res['data']]);
+        die;
+    }
+
+
+    /**
      * @Route("/get_countries")
      *
      * @param Request $request
