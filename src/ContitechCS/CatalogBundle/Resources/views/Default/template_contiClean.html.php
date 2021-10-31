@@ -3,6 +3,19 @@
     $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     }
     ?>
+
+<?php if($this->editmode): ?>
+        <?= $this->relation("cbs_conti_clean", [
+                "types" => ["object"],
+                "subtypes" => [
+                "object" => ["object"]
+                ],
+                "classes" => ["CSCatalogTables"],
+        ]);
+        ?>
+<?php endif; ?>
+
+<?php if($data): ?>
 <div class="wrapper conticleanpage">
     <header id="header">
         <div class="header-sec">
@@ -174,3 +187,4 @@
     </main>
 
 </div>
+<?php endif; ?>

@@ -3,6 +3,17 @@ if (!isset($this->parentContainer)) {
 $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
+<?php if($this->editmode): ?>
+        <?= $this->relation("cbs_conti_pipe_belt", [
+                "types" => ["object"],
+                "subtypes" => [
+                "object" => ["object"]
+                ],
+                "classes" => ["CSCatalogTables"],
+        ]);
+        ?>
+<?php endif; ?>
+<?php if($data): ?>
 <div class="wrapper">
         <header id="header">
             <div class="header-sec">
@@ -90,3 +101,4 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
     </footer>
 </div>
+<?php endif; ?>

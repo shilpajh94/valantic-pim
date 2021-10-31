@@ -1122,4 +1122,44 @@ class DefaultController extends FrontendController
         }
         $this->view['data'] = $productNameArr;
     }
+
+    public function templateContiCleanAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_clean')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
+            $singleProduct = $selectedProduct[0];
+            $productObject = DataObject\CSProducts::getById($singleProduct);
+            $productData['Name'] = $productObject->getName();
+            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productData['ShortText'] = $productObject->getShortText();
+            $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['Benefits'] = $productObject->getBenefits();
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+        }
+
+        $this->view['data'] = $productData;
+    }
+
+    public function templateContiAlertAction(Request $request)
+    {
+        $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_alert')->getElement();
+        $productData = [];
+        if($catalogTableObject)
+        {
+            $selectedProduct = $catalogTableObject->getProducts();
+            $singleProduct = $selectedProduct[0];
+            $productObject = DataObject\CSProducts::getById($singleProduct);
+            $productData['Name'] = $productObject->getName();
+            $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productData['ShortText'] = $productObject->getShortText();
+            $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['Benefits'] = $productObject->getBenefits();
+            $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+        }
+
+        $this->view['data'] = $productData;
+    }
 }

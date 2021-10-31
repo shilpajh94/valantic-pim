@@ -47,9 +47,9 @@ Common Product Page:
                     ElasticModulusinPIW:
                         # fieldTitle: Average Elastic Modulus (PIW)
                         objectType: ProdAttrSetD
-                    # StepLengthinInch:
+                    SpliceType:
                     #     # fieldTitle: Step Length (in.)
-                    #     objectType: ProdAttrSetF
+                        objectType: ProdAttrSetE
                     RecommendedFastenerPlate: 
                         # fieldTitle: Recommended Fastener Plate 
                         objectType: ProdAttrSetAA
@@ -91,9 +91,9 @@ Common Product Page:
                     ElasticModulusinKNMM:
                         # fieldTitle: Elastic Modulus (kN/m)
                         objectType: ProdAttrSetD
-                    # StepLengthinMM:
+                    SpliceType:
                     #     # fieldTitle: Step Length (mm)
-                    #     objectType: ProdAttrSetF
+                        objectType: ProdAttrSetE
                     RecommendedFastenerPlate: 
                         # fieldTitle: Recommended Fastener Plate 
                         objectType: ProdAttrSetAA
@@ -496,9 +496,9 @@ Common Product Page:
                     ElasticModulusinPIW:
                         # fieldTitle: Average Elastic Modulus (PIW)
                         objectType: ProdAttrSetD
-                    # StepLengthinInch:
+                    SpliceType:
                     #     # fieldTitle: Step Length (in.)
-                    #     objectType: ProdAttrSetF
+                        objectType: ProdAttrSetE
                     RecommendedFastenerPlate: 
                         # fieldTitle: Recommended Fastener Plate 
                         objectType: ProdAttrSetAA
@@ -537,9 +537,9 @@ Common Product Page:
                     ElasticModulusinKNMM:
                         # fieldTitle: Elastic Modulus (kN/m)
                         objectType: ProdAttrSetD
-                    # StepLengthinMM:
+                    SpliceType:
                     #     # fieldTitle: Step Length (mm)
-                    #     objectType: ProdAttrSetF
+                        objectType: ProdAttrSetE
                     RecommendedFastenerPlate: 
                         # fieldTitle: Recommended Fastener Plate 
                         objectType: ProdAttrSetAA
