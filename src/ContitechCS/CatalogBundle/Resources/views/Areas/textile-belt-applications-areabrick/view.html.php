@@ -8,7 +8,7 @@
     $total_rows = 0;
     while($this->block("headingblock")->loop()) 
     { 
-        $columns[] = $this->wysiwyg("heading");
+        $columns[] = $this->input("heading",['width' => 200]);
     }
     
     if($this->editmode)
@@ -20,7 +20,7 @@
     {   
         foreach($columns as $key => $col)
         {
-            $tds["row_".$total_rows][] = $this->wysiwyg("data_$total_rows_$key");
+            $tds["row_".$total_rows][] = $this->input("data_$total_rows_$key",['width' => 200]);
         }  
         $total_rows++;
     }
@@ -28,28 +28,6 @@
 
 <table width="100%">
     <thead>
-        <tr align="right">
-			<th colspan="4" class="p-0">
-			<?php
-				if($this->editmode)
-				{
-					echo $this->image("Process_Table_Image");
-				}
-				else
-				{
-					$imgSrcObj =  $this->image("Process_Table_Image");
-					
-					if($imgSrcObj)
-					{
-						?>
-							<img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
-						tyle="float:right" class="w-80" />
-						<?php
-					}
-				}
-			?>
-			</th>
-		</tr>
         <tr>
             <?php
                 foreach($columns as $col_name)
@@ -65,13 +43,27 @@
             for($i=0;$i<=$total_rows-1;$i++)
             {   
                 ?>
-                    <tr align="center">
+                    <tr align="center" <?= ($total_rows-1 == $i)?"class='white-bg'":""; ?>>
                         <?php 
                             if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
                             {
                                 foreach($tds["row_".$i] as $key => $td)
                                 {   
-                                    ?><td><?= $td; ?></td><?php
+                                    if(($total_rows-1 == $i) && $key == 0)
+                                    {   
+                                        ?><td align="left"><b><?= $td; ?></b></td><?php
+                                    }
+                                    else
+                                    {   
+                                        if($key == 0)
+                                        {
+                                            ?><td align="left"><?= $td; ?></td><?php
+                                        }
+                                        else
+                                        {
+                                            ?><td><?= $td; ?></td><?php
+                                        }  
+                                    }
                                 }
                             }
                         ?>
@@ -81,4 +73,3 @@
         ?>
     </tbody>
 </table>
-

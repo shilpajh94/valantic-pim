@@ -17,7 +17,7 @@ class TextileBeltApplicationsAreaBrick extends AbstractTemplateAreabrick
 
     public function getTemplateLocation()
     {
-        return static::TEMPLATE_LOCATION_GLOBAL;
+        return static::TEMPLATE_LOCATION_BUNDLE;
     }
 }
 
