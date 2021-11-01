@@ -209,7 +209,7 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
             </div>
             <?php } ?>
 
-            <?php if($data['ApplicationRequired'] || $data['MarketsRequired']){ ?>
+            <?php if($data['ApplicationRequired'] || $data['MarketsRequired'] || $data['CoverCompoundsRequired']){ ?>
 
             <div class="table">
                 <table width="100%">
@@ -223,7 +223,9 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                                 <th width="30%" class="orange"><?= $this->translate('CS_Applications_Label') ?></th>
                             <?php } ?>
 
-                            <th width="30%" class="orange"><?= $this->translate('CS_Cover_Compounds_Label') ?></th>
+                            <?php if($data['CoverCompoundsRequired'] && $data['CoverCompounds']){ ?>
+                                <th width="30%" class="orange"><?= $this->translate('CS_Cover_Compounds_Label') ?></th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -239,14 +241,12 @@ high-performance covers, CONTI® Titan will provide the lowest cost of ownership
                                 </td>
                             <?php } ?>
 
-                            <td>
-                                <ul>
-                                    <li><span class="orange">›</span> Monster Hide® Series</li>
-                                    <li><span class="orange">›</span> Stacker® Series</li>
-                                    <li><span class="orange">›</span> Solar-Shield® Classic</li>
-                                </ul>
-                                <p class="details"><?= $this->input("PP_CoverCompoundComment", ['placeholder' => 'Enter comment']) ?></p>
-                            </td>
+                            <?php if($data['CoverCompoundsRequired'] && $data['CoverCompounds']){ ?>
+                                <td>
+                                    <?= $data['CoverCompounds'] ?>
+                                    <p class="details"><?= $this->input("PP_CoverCompoundComment", ['placeholder' => 'Enter comment']) ?></p>
+                                </td>
+                            <?php } ?>
                         </tr>
                     </tbody>
                 </table>

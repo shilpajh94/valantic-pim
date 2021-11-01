@@ -231,6 +231,17 @@ class DefaultController extends FrontendController
                 }
                 $productData['Applications'] = $applicationsHtml;
 
+                $productData['CoverCompoundsRequired'] = $PGInfo['CoverCompoundsRequired'];
+                if( $PGInfo['CoverCompoundsRequired'] && $productObj->getCoverCompounds())
+                {
+                    $CoverCompoundHtml = '<ul>';
+                    foreach ($productObj->getCoverCompounds() as $key => $value) {
+                        $CoverCompoundHtml .= '<li><span class="orange">›</span> '.$value->getName().' </li>';
+                    }
+                    $CoverCompoundHtml .= '</ul>';
+                }
+                $productData['CoverCompounds'] = $CoverCompoundHtml;
+
                 $productData['MarketsRequired'] = $PGInfo['MarketsRequired'];
                 if($PGInfo['MarketsRequired'] && $productObj->getCSProductIndustries())
                 {
@@ -1126,6 +1137,12 @@ class DefaultController extends FrontendController
     public function templateContiCleanAction(Request $request)
     {
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_clean')->getElement();
+
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        
         $productData = [];
         if($catalogTableObject)
         {
@@ -1135,12 +1152,37 @@ class DefaultController extends FrontendController
             $productData['Name'] = $productObject->getName();
             $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productData['ShortText'] = $productObject->getShortText();
-            $productData['ProductImage'] = $productObject->getProductImage();
+            // $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['ApplicationImage'] = $productObject->getApplicationImage();
+            $productData['reportImage'] = $productObject->getReportImage();
+            
+            
             $productData['Benefits'] = $productObject->getBenefits();
+
+            $benefits[0] = 'Reduced Buildup on Idlers';
+            $benefits[1] = 'Improved Housekeeping';
+            $benefits[2] = 'Increased Material Transfer';
+            $benefits[3] = 'Improved Scraper Life';
+            $benefits[4] = 'Increased Belt Life';
+
+            $productData['Benefits'] = $benefits;
+
+            $material = ['Alumina','Cement','Coal','Gypsum', 'Limestone', 'Potash', 'Salt', 'Sand', 'Silica', 'Tailings'];
+                if($material)
+                {
+                    $materialHtml = '<ul>';
+                    foreach ($material as $value) {
+                        $materialHtml .= '<li><span class="orange">›</span> '.$value.' </li>';
+                    }
+                    $materialHtml .= '</ul>';
+                }
+                $productData['Material'] = $materialHtml;
+
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 
         $this->view['data'] = $productData;
+        $this->view['footer_logo_src'] = $footer_logo_src;
     }
 
     public function templateContiAlertAction(Request $request)

@@ -1,8 +1,8 @@
 <?php
-    if (!isset($this->parentContainer)) {
-    $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
-    }
-    ?>
+if (!isset($this->parentContainer)) {
+$this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
+}
+?>
 
 <?php if($this->editmode): ?>
         <?= $this->relation("cbs_conti_clean", [
@@ -16,175 +16,205 @@
 <?php endif; ?>
 
 <?php if($data): ?>
-<div class="wrapper conticleanpage">
+<div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong></div>
+            <div class="header-txt"><strong>
+            
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("ContiC_HierarchyNameLevel1")->isEmpty()): ?>
+                            <?= $this->input("ContiC_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiC_HierarchyNameLevel1"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("ContiC_HierarchyNameLevel1") ?>
+            <?php endif; ?>
+            
+            </strong> 
+        </div>
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <footer id="footer" class="footer">
-        <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
-    </footer>
+    
     <main id="content" role="main">
         <section class="fortressxp-belts">
-            <h1 class="orange"><?= $this->input("CCSM_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
-
-                <span
-                    class="sub-title"><?= $this->input("CCSM_SubHeader_title",["placeholder" =>"Enter Your  SubHeading"]); ?></span>
+            <h1 class="orange">
+            
+            <strong>
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("ContiC_ProductName")->isEmpty()): ?>
+                            <?= $this->input("ContiC_ProductName")->setDataFromResource($data['Name']) ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiC_ProductName"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("ContiC_ProductName") ?>
+            <?php endif; ?>
+            
+            
+            </strong>
+            
             </h1>
 
-            <p class="p-medium"><?= $this->textarea("CCSM_Content", ["placeholder" =>"Enter Your  Description"]);?> </p>
+            <span class="sub-title">
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("ContiC_TitleTagSlogan")->isEmpty()): ?>
+                                <?= $this->input("ContiC_TitleTagSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
+                        <?php else: ?>
+                                <?= $this->input("ContiC_TitleTagSlogan"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("ContiC_TitleTagSlogan") ?>
+                <?php endif; ?>
+            
+            </span>
 
-            <p class="p-medium black-bold">
-                <?= $this->textarea("CCSM_Content2", ["placeholder" =>"Enter Your  Description"]);?> </p>
-
-            <div class="full-image-sec">
-                <?php
+                
+                
+            <div class="media pt-0">
+                    <?php if($this->editmode): ?>
+                        <div class="media-body">
+                            <p>
+                            <?php if($this->wysiwyg("ContiC_ShortText")->isEmpty()): ?>
+                                    <?= $this->wysiwyg("ContiC_ShortText")->setDataFromResource($data['ShortText']) ?>
+                            <?php else: ?>
+                                    <?= $this->wysiwyg("ContiC_ShortText"); ?>
+                            <?php endif; ?>
+                            </p>
+                        </div>
+                    <?php else: ?>
+                        <?php if(!$this->wysiwyg("ContiC_ShortText")->isEmpty()): ?>
+                            <div class="media-body">
+                                <p>
+                                <?= $this->wysiwyg("ContiC_ShortText") ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+            </div>
+            <div class="feature-benefit-list">
+                
+                <div class="table">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <?php if($data['Material']){ ?>
+                                    <th width="30%" class="orange"><?= $this->translate('CS_Material_Label') ?></th>
+                                <?php } ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr valign="top">
+                                <?php if($data['Material']){ ?>
+                                    <td>
+                                        <?= $data['Material'] ?>                                        
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+            <?php 
                     if($this->editmode)
-                        {
-                            echo $this->image("Belt_Image");
-                        }
-                        else
-                        {
-                            $imgSrcObj =  $this->image("Belt_Image");
-                            if($imgSrcObj)
-                            {
+                    {
+                        ?>
+                        <div class="full-image-sec">
+                            <?php
+                                if($this->image("ContiC_BannerImage")->isEmpty())
+                                {
+                                    echo $this->image("ContiC_BannerImage")->setImage($data['ApplicationImage']);
+                                }
+                                else{
+                                    echo $this->image("ContiC_BannerImage");
+                                }
                             ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" />
-                <?php
+                        </div>
+                        <?php
+                    }
+                    else
+                    {
+                        $ppBannerImgSrcObj =  $this->image("ContiC_BannerImage");
+                        if($ppBannerImgSrcObj)
+                        {
+                        ?>
+                        <div class="full-image-sec">
+                            <img src="<?= $ppBannerImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                        </div>
+                        <?php
                         }
                     }
+            ?>
+            <h3 class="orange">
+                            <?= $this->input("ContiC_BenefitsLabel", ['placeholder'=>'ContiClean® Benefits']) ?>
+                </h3>
+            <div class="feature-benefit-list">
+                
+                <ul>
+                    <?php 
+                        foreach ($data['Benefits'] as $key => $item) {
+                            ?>
+                                <li><span class="orange">›</span> <?= $item ?></li>
+                            <?php
+                        }
                     ?>
+                </ul>
             </div>
-
-            <div class="colum-2 p-0">
-                <div class="conticlean-tab">
-                    <div class="row">
-                        <div class="col-7">
-                            <h3 class="orange">
-                                <?= $this->input("CCSM_Header", ["placeholder" =>"Enter Your  TableHead"]);?></h3>
-                            <ul>
-                                <?php
-                                    while($this->block("CCSM_Header_Points")->loop()) { ?>
-                                <li><span
-                                        class="orange">›</span><?= $this->input("CCSM_Header_Points",["placeholder" =>"Enter Your Points"]);?>
-                                </li>
-                                <?php
-                                    } ?>
-                            </ul>
-                        </div>
-                        <div class="col-5">
-                            <h3 class="orange">
-                                <?= $this->input("CCSM_Header2", ["placeholder" =>"Enter Your  TableHead"]);?></h3>
-
-                            <ul class="materials-list">
-                                <?php
-                                    while($this->block("CCSM_Header_Points2")->loop()) { ?>
-                                <li><span
-                                        class="orange">›</span><?= $this->input("CCSM_Header_Points2",[ "placeholder" => "Enter Your Points"]);?>
-                                </li>
-                                <?php
-                                } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- <table width="100%">
-                                <thead>
-                                    <tr>
-                                        <th width="50%" class="orange">ContiClean® Benefits</th>
-                                        <th width="50%" class="orange" colspan="2">Materials</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr valign="top">
-                                        <td>
-                                            
-                                        </td>
-                                        <td>
-                                            <ul>
-                                                <li><span class="orange">›</span> Alumina</li>
-                                                <li><span class="orange">›</span> Cement</li>
-                                                <li><span class="orange">›</span> Coal</li>
-                                                <li><span class="orange">›</span> Gypsum</li>
-                                                <li><span class="orange">›</span> Limestone</li>
-                                            </ul>
-                                        </td>
-                                        <td>
-                                            <ul>
-                                                <li><span class="orange">›</span> Potash</li>
-                                                <li><span class="orange">›</span> Salt</li>
-                                                <li><span class="orange">›</span> Sand</li>
-                                                <li><span class="orange">›</span> Silica</li>
-                                                <li><span class="orange">›</span> Tailings</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table> -->
-
-
-
-                <div class="nexcolumtarget">
-                    <div class="feature-benefit-list">
-                        <h3 class="orange">
-                            <?= $this->input("CCSM_Header3", ["placeholder" =>"Enter Your  TableHead"]);?> </h3>
-                        <ul>
-                            <?php
-                                while($this->block("CCSM_Header_Points3")->loop()) { ?>
-                            <li><span class="orange">›</span>
-                                <i><?= $this->input("CCSM_Header_Points3",["placeholder" =>"Enter Your Points"]);?> </i>
-                            </li>
-                            <?php
-                                } ?>
-                        </ul>
-                    </div>
-                    <?php
+            <div class="components-sec">
+                <div class="media">
+                    <div class="media-img">
+                        <?php 
 
                             if($this->editmode)
                             {
-                                echo $this->image("ContiClean_Graph_Image");
+                                ?>
+                                <div class="seal-image">
+                                <?php
+                                if($this->image("ContiC_FrictionImage")->isEmpty())
+                                {
+                                    echo $this->image("ContiC_FrictionImage")->setImage($data['reportImage']);
+                                }
+                                else{
+                                    echo $this->image("ContiC_FrictionImage");
+                                }
+                                ?>
+                                </div>
+                                <?php
+                                
                             }
                             else
                             {
-                                $imgSrcObj =  $this->image("ContiClean_Graph_Image");
-                                if($imgSrcObj)
+                                $ContiC_FrictionImageObj =  $this->image("ContiC_FrictionImage");
+                                if($ContiC_FrictionImageObj)
                                 {
                                 ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
-                    <?php
+                                <img src="<?= $ContiC_FrictionImageObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                                <?php
+                                }
                             }
-                        }
+                            
                         ?>
+                    </div>
+
+                    <div class="media-body">
+                        <h3><?= $this->input("ContiC_CoeficientofFrictionLabel", ['placeholder'=>'Coeficient of Friction Text']) ?></h3>
+                        <ul class="components">
+                            <?php while($this->block("ContiC_Friction_Points")->loop()) { ?>
+                                <li><?= $this->input("CCF_points", ['placeholder' => 'Enter comment']) ?></p1>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div class="pg-6">
-                <?php
-
-                        if($this->editmode)
-                        {
-                            echo $this->image("ContiClean_Image");
-                        }
-                        else
-                        {
-                            $imgSrcObj =  $this->image("ContiClean_Image");
-                            if($imgSrcObj)
-                            {
-                            ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100" />
-                <?php
-                        }
-                    }
-                    ?>
+	    </section>
+        </main>
+        <footer id="footer" class="footer">
+            <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
             </div>
-
-
-        </section>
-
-    </main>
-
+        </footer>
+    
 </div>
 <?php endif; ?>
