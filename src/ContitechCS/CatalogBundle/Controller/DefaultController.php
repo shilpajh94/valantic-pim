@@ -1051,15 +1051,13 @@ class DefaultController extends FrontendController
 
             $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
     
-            if (!empty($productObject->getProductImage())) {
                 $productNameArr['Name'] = trim($productObject->getName());
                 $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                 $productNameArr['ShortText'] = $productObject->getShortText();
                 $productNameArr['ProductImage'] = $productObject->getProductImage();
                 $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
                 $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
-            }
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';             
         }
         $this->view['data'] = $productNameArr;
     }
@@ -1094,5 +1092,68 @@ class DefaultController extends FrontendController
             }
         }
         $this->view['data'] = $productNameArr;
+    }
+    
+    public function templateQualityAndTheEnvironmentAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $this->view['footer_logo_src'] = $footer_logo_src;
+      
+    }
+    
+    public function templateContiCleanAction(Request $request)
+    {
+      //  print_r('hey');
+    }
+    
+    public function templateWoodProductAndApplicationAction(Request $request)
+    {
+      //  print_r('hey');
+    }
+    
+    public function templateEcoSeriesPulleyCoverAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $this->view['footer_logo_src'] = $footer_logo_src;
+        
+//$catalogCategoryObject = $this->getDocumentTag('relation', 'ccbs_template_eco_series_pulley_construction_page')->getElement();
+
+            $productNameArr = [];
+
+            // if ($catalogCategoryObject)
+            // {
+            //     $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
+
+            //     $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
+
+                // $hierarchyPath = $hierarchyObj->getPath();
+                // $hierarchyName = $hierarchyObj->getName();
+
+                // $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                // $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+
+                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+    
+                if (!empty($productObject->getProductImage())) {
+                    $productNameArr['Name'] = trim($productObject->getName());
+                    $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+                    $productNameArr['ShortText'] = $productObject->getShortText();
+                    $productNameArr['ProductImage'] = $productObject->getProductImage();
+                    $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+                    $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+                }
+           // }
+        $this->view['data'] = $productNameArr;
+    }
+    
+    public function templateConveyorBeltGroupAction(Request $request)
+    {
+      //  print_r('hey');
     }
 }

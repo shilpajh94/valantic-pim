@@ -50,11 +50,11 @@
 			?>
 			</th>
 		</tr>
-        <tr>
+        <tr valign="bottom">
             <?php
                 foreach($columns as $col_name)
                 {
-                    ?><th width="9.2%"><?= $col_name; ?></th><?php
+                    ?><th width="25%"><?= $col_name; ?></th><?php
                 }
             ?>
         </tr>
@@ -65,7 +65,7 @@
             for($i=0;$i<=$total_rows-1;$i++)
             {   
                 ?>
-                    <tr align="center">
+                    <tr align="left">
                         <?php 
                             if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
                             {

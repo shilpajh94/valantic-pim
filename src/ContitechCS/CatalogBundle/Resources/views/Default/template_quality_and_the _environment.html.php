@@ -11,8 +11,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         </div>
     </header>
     <footer id="footer" class="footer">
-        <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
+        <img src="<?= $footer_logo_src; ?>" alt="" width="150">
     </footer>
+    <!-- <footer id="footer" class="footer">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+        </div>
+    </footer> -->
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange"><?= $this->input("Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h1>
