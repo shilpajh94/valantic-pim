@@ -23,8 +23,10 @@
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <footer id="footer">
-        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+    <footer id="footer" class="footer">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+        </div>
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
@@ -37,7 +39,7 @@
                 <?php endif; ?>
                 <?php else: ?>
                 <?= $this->input("Header_title") ?>
-                <?php endif; ?></h1>
+                <?php endif; ?>
             </h1>
 
             <p class="p-medium">

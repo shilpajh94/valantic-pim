@@ -114,7 +114,7 @@ body {
 }
 
 body {
-    background-color: #ffffff;
+    background: #ffffff;
     line-height: 1.2;
     font-size: 12px;
     font-weight: normal;
@@ -166,7 +166,7 @@ strong {
 }
 
 .black-bold {
-    font-family: "ContinentalStagSansLCG-Book";
+    font-family: "ContinentalStagSansLCG-Book" !important;
 }
 
 em,
@@ -371,6 +371,10 @@ section {
 
 .pl-2 {
     padding-left: 10px;
+}
+
+.mt-0 {
+    margin-top: 0px !important;
 }
 
 .my-0 {
