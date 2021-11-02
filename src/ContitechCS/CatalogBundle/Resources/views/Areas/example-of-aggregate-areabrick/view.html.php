@@ -30,24 +30,30 @@
     <thead>
         <tr align="right">
 			<th colspan="4" class="p-0">
-			<?php
-				if($this->editmode)
-				{
-					echo $this->image("Process_Table_Image");
-				}
-				else
-				{
-					$imgSrcObj =  $this->image("Process_Table_Image");
-					
-					if($imgSrcObj)
-					{
-						?>
-							<img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
-						tyle="float:right" class="w-80" />
-						<?php
-					}
-				}
-			?>
+            <?php
+                    if($this->editmode)
+                    {
+                        if($this->image("fieldPhoto")->isEmpty())
+                        {
+                            echo $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
+                        }
+                        else
+                        {
+                            echo $this->image("fieldPhoto");
+                        }
+                    }
+                    else
+                    {
+                        $CSSImgSrcObj =  $this->image("fieldPhoto")->setImage($data['fieldPhoto']);
+                        
+                        if($CSSImgSrcObj)
+                        {
+                            ?>
+                                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" style="float:right" class="w-80"/>
+                            <?php
+                        }
+                    }
+            ?>
 			</th>
 		</tr>
         <tr valign="bottom">

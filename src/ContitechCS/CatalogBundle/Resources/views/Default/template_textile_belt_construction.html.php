@@ -123,7 +123,13 @@
                 </h3>
 
                 <div class="table process-table">
-                    <?= $this->area('myArea2', ['type' => 'example-of-aggregate-areabrick']); ?>
+                    <?= $this->area('myArea2', ['type' => 'example-of-aggregate-areabrick','params' =>
+                        [
+                            'example-of-aggregate-areabrick' => [
+                                'data' => $data
+                            ]
+                        ]
+                    ]); ?>
                 </div>
 
                 <p class="note"><?= $this->textarea("Note",["placeholder" =>"Enter Your  Note"]); ?></p>
