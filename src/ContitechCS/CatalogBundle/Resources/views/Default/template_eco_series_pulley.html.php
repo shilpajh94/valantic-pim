@@ -6,9 +6,10 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong> <?= $this->input("TBS_title",[
-                "placeholder" =>
-                "Enter Your  Title"]); ?></div>
+            <div class="header-txt"><span class="first-title">Conveying Solutions</span>
+                <span class="second-title">
+                    <?= $this->input("ESP_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+            </div>
             <div class="print-pg-no"></div>
         </div>
     </header>
