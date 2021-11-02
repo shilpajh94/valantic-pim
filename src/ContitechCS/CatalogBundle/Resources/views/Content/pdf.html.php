@@ -39,9 +39,24 @@ if (!isset($this->parentContainer)) {
 </div>
 
 <style>
+#pimcore-pdf {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 #pimcore-pdf img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
+}
+
+@media print {
+    #pimcore-pdf img {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .coverPage1 {
@@ -68,8 +83,8 @@ if (!isset($this->parentContainer)) {
 @page title80 {
     margin-left: 0;
     margin-right: 0;
-    margin-top: 50px;
-    margin-bottom: 120px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     padding: 0px;
     content: counter(0);
 
@@ -79,13 +94,11 @@ if (!isset($this->parentContainer)) {
 
     @top-left-corner {
         content: "";
-
     }
 
     @top-right {
         content: "";
     }
-
 }
 
 @page title80:left {

@@ -17,8 +17,10 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong>
-                <?= $this->input("ST_title",["placeholder" =>"Enter Your  Title"]); ?></div>
+            <div class="header-txt"><span class="first-title">Conveying Solutions</span>
+                <span class="second-title">
+                    <?= $this->input("ST_title",["placeholder" =>"Enter Your  Title"]); ?></span>
+            </div>
             <div class="print-pg-no"></div>
         </div>
     </header>
@@ -29,7 +31,7 @@
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
-            <h1 class="orange">
+            <h1 class="orange mb-0">
                 <?php if($this->editmode): ?>
                 <?php if($this->input("Header_title")->isEmpty()): ?>
                 <?= $this->input("Header_title")->setDataFromResource($data['Name']) ?>
@@ -40,7 +42,7 @@
                 <?= $this->input("Header_title") ?>
                 <?php endif; ?>
             </h1>
-            <h2 class="d-flex sub-title" style="justify-content: space-between;">
+            <h2 class="d-flex sub-title black-bold" style="justify-content: space-between;">
                 <?php if($this->editmode): ?>
                 <?php if($this->textarea("ST_ProductClaimSlogan")->isEmpty()): ?>
                 <?= $this->textarea("ST_ProductClaimSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
@@ -68,8 +70,8 @@
                                     if($CSSImgSrcObj)
                                     {
                                     ?>
-                <img src=" <?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
-                    style="margin-right: 22px; margin-bottom: 0px;" width="200" />
+                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
+                    style="margin-right: 0px; margin-bottom: 0px;" width="180" />
                 <?php
                                     }
                                 }
@@ -135,8 +137,7 @@
                                         if($CSSImgSrcObj)
                                         {
                                         ?>
-                    <img src=" <?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images"
-                        width="200" />
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
                     <?php
                                         }
                                     }
@@ -163,18 +164,14 @@
             <div class="colum-2 p-0">
                 <div class="feature-benefit-list my-0">
                     <h3><?= $this->input("ST_application_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
+
                     <ul>
-                        <li><span class="orange">›</span>
-                            <?php if($this->editmode): ?>
-                            <?php if($this->input("application_points")->isEmpty()): ?>
-                            <?= $this->input("application_points")->setDataFromResource($data['CSProductApplications']) ?>
-                            <?php else: ?>
-                            <?= $this->input("application_points"); ?>
-                            <?php endif; ?>
-                            <?php else: ?>
-                            <?= $this->input("application_points") ?>
-                            <?php endif; ?>
-                        </li>
+                        <?php
+                        foreach($data['CSProductApplications'] as $key => $applictaion) {
+                           ?>
+                        <li><span class="orange">›</span> <?= $applictaion->getApplicationName(); ?></li>
+                        <?php
+                        } ?>
                     </ul>
 
                     <div class="nexcolumtarget">

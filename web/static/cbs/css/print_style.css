@@ -11,6 +11,7 @@
     }
     .template {
         max-width: 100%;
+        height: 100%;
     }
     .template>* {
         display: block;
@@ -29,7 +30,7 @@
         height: 100%;
     }
     .innercoverpage .black-bg {
-        padding: 50px 40px 40px;
+        padding: 50px 40px 30px;
         height: auto;
     }
     .innercoverpage .black-bg h1 {
@@ -155,6 +156,9 @@
         padding-top: 0px;
         margin-top: -50px;
     }
+    #header {
+        height: 0.5in;
+    }
 }
 
 .header-txt,
@@ -184,13 +188,28 @@
 @page: left {
     margin-left: 60px;
     margin-right: 40px;
-    @top-left {
-        content: string(header, first);
-        font-size: 10px;
+    @top-left-corner {
+        content: string(headerFirsttitle, first);
         padding-top: 40px;
-        font-family: "ContinentalStagSansLCG-Medium";
-        letter-spacing: 0.05em;
         vertical-align: top;
+        font-family: "ContinentalStagSansLCG-Medium";
+        font-size: 10px;
+        white-space: nowrap;
+        position: absolute;
+        left: 60px;
+        letter-spacing: 0.05em;
+    }
+    @top-left {
+        content: string(headerSecondtitle, first);
+        padding-top: 40px;
+        vertical-align: top;
+        font-size: 10px;
+        font-family: "ContinentalStagSansLCG-light" !important;
+        white-space: nowrap;
+        position: absolute;
+        left: 165px;
+        letter-spacing: 0.05em;
+        color: #000000;
     }
     @top-right {
         content: counter(page);
@@ -205,16 +224,32 @@
     }
 }
 
+;
 @page: right {
     margin-left: 40px;
     margin-right: 60px;
-    @top-left {
-        content: string(header, first);
-        font-size: 10px;
+    @top-left-corner {
+        content: string(headerFirsttitle, first);
         padding-top: 40px;
-        font-family: "ContinentalStagSansLCG-Medium";
-        letter-spacing: 0.05em;
         vertical-align: top;
+        font-family: "ContinentalStagSansLCG-Medium";
+        font-size: 10px;
+        white-space: nowrap;
+        position: absolute;
+        left: 40px;
+        letter-spacing: 0.05em;
+    }
+    @top-left {
+        content: string(headerSecondtitle, first);
+        padding-top: 40px;
+        vertical-align: top;
+        font-size: 10px;
+        font-family: "ContinentalStagSansLCG-light" !important;
+        white-space: nowrap;
+        position: absolute;
+        left: 145px;
+        letter-spacing: 0.05em;
+        color: #000000;
     }
     @top-right {
         content: counter(page);
@@ -229,6 +264,7 @@
     }
 }
 
+;
 @page conticleanPage {
     @bottom-center {
         content: element(conticleanImage, first);
@@ -244,16 +280,22 @@
 }
 
 @page coverPage {
-    margin: 0px 0px !important;
-}
-
-@page innerCoverpage {
     margin: 0;
+    padding: 0;
     size: A4;
     @bottom-right {
         content: none;
     }
     @bottom-left {
+        content: none;
+    }
+    @top-right {
+        content: none;
+    }
+    @top-left {
+        content: none;
+    }
+    @top-left-corner {
         content: none;
     }
 }
@@ -272,6 +314,9 @@
         content: none;
     }
     @top-left {
+        content: none;
+    }
+    @top-left-corner {
         content: none;
     }
 }

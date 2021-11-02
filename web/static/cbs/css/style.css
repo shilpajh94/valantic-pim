@@ -688,16 +688,18 @@ h2 {
     width: 100%;
     background: #ffffff;
     display: block;
-    height: 0.5in;
     overflow: hidden;
+    font-size: 10px;
 }
 
-.header-txt {
-    string-set: header self;
-}
-
-.header-txt strong {
+.first-title {
+    string-set: headerFirsttitle content();
     font-family: "ContinentalStagSansLCG-Medium";
+}
+
+.second-title {
+    font-family: "ContinentalStagSansLCG-light" !important;
+    string-set: headerSecondtitle content();
 }
 
 #footer {
@@ -748,12 +750,16 @@ h2 {
 }
 
 .innercoverpage .black-bg h1 {
-    font-size: 46px;
+    font-size: 36px;
+    font-family: "ContinentalStagSansLCG-light";
 }
 
 .bannersec {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 110px);
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .coverpage img,
@@ -774,13 +780,18 @@ h2 {
 
 .table-of-contents ul {
     list-style-type: none;
-    margin: 0 0 5px 0;
+    margin: 0 0 7px 0;
     padding: 0 5px 0;
+}
+
+.table-of-contents ul:last-child {
+    padding-bottom: 60px;
 }
 
 .table-of-contents ul ul {
     margin-bottom: 0px;
     padding: 0 0 0 5px;
+    padding-bottom: 0px !important;
 }
 
 .colum-2 {
@@ -798,7 +809,7 @@ h2 {
 .table-of-contents ul li {
     display: flex;
     font-family: "ContinentalStagSansLCG-Book";
-    padding-bottom: 2px;
+    padding-bottom: 3px;
 }
 
 .table-of-contents ul li .chapter {
@@ -883,6 +894,8 @@ h2 {
     padding-right: 20px;
     margin-bottom: 0;
     color: #ffffff;
+    line-height: 1.4;
+    letter-spacing: 0;
 }
 
 .bottom-mid-sec p {}

@@ -811,7 +811,9 @@ class DefaultController extends FrontendController
         $this->view->allChildren = $allChildren;
     }
 
-
+    /**
+     * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
+    */
     public function templateContinentalConveyorServicesAction(Request $request)
     {
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
@@ -839,7 +841,7 @@ class DefaultController extends FrontendController
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
-                if(($childValue->getPrintedCatalogFlag() === true) && (!empty($childValue->getProductImage()))) {
+                if ($childValue->getPrintedCatalogFlag() === true) {
                     $data['Name'] = $childValue->getName();
                     $data['LongText'] = $childValue->getLongtext();
                     $data['ProductImage'] = $childValue->getProductImage();
