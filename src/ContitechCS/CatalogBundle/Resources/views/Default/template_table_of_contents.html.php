@@ -17,7 +17,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         </div>
     </header>
     <footer id="footer" class="footer">
-        <img src="/static/cbs/images/continental_logo.png" alt="" width="150">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+        </div>
     </footer>
     <main id="content" role="main">
         <section class="table-content-sec">

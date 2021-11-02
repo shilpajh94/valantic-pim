@@ -70,7 +70,7 @@ li span {
 
 .feature-benefit-list h3,
 h3 {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .features-benefit-sec .media h2 {
@@ -95,7 +95,7 @@ h2 {
 }
 
 .features-benefit-sec .media p {
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .feature-benefit-list p {
@@ -675,13 +675,14 @@ h2 {
 
 .standard-compounds h3 {
     margin: 0px;
-    font-size: 11px;
+    font-size: 12px;
     padding: 0;
 }
 
-.fortressxp-belts .standard-compounds p {
+
+/* .fortressxp-belts .standard-compounds p{
     font-size: 11px;
-}
+} */
 
 #header {
     width: 100%;
@@ -797,6 +798,7 @@ h2 {
 .table-of-contents ul li {
     display: flex;
     font-family: "ContinentalStagSansLCG-Book";
+    padding-bottom: 2px;
 }
 
 .table-of-contents ul li .chapter {
@@ -834,7 +836,7 @@ h2 {
 }
 
 .backcoverpage .black-bg {
-    padding: 30px;
+    padding: 30px 30px 0px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -842,18 +844,21 @@ h2 {
 
 .backcoverpage h1 {
     font-size: 12px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .backcoverpage p {
     font-size: 10px;
     color: #ffffff;
-    font-weight: bold;
+    font-family: "ContinentalStagSansLCG-Book";
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
 }
 
 .backcoverpage p span {
     color: #969696;
     display: block;
+    font-family: "ContinentalStagSansLCG-Book";
 }
 
 .bottom-sect {
@@ -864,7 +869,7 @@ h2 {
 }
 
 .bottom-sect .backcover-logo {
-    width: 55%;
+    width: 50%;
 }
 
 .backcover-logo img {
@@ -872,25 +877,27 @@ h2 {
 }
 
 .bottom-mid-sec {
-    width: 40%;
-}
-
-.bottom-mid-sec p {
+    width: 45%;
+    font-family: "ContinentalStagSansLCG-Book";
     font-size: 8px;
     padding-right: 20px;
     margin-bottom: 0;
+    color: #ffffff;
 }
+
+.bottom-mid-sec p {}
 
 .bottom-end-sec {
     width: 30px;
     text-align: right;
+    color: #ffffff;
 }
 
 .bottom-end-sec p {
     transform: rotate(-90deg);
     font-size: 10px;
     white-space: nowrap;
-    color: #969696;
+    font-family: "ContinentalStagSansLCG-Light";
 }
 
 
@@ -1000,4 +1007,31 @@ h2 {
 .construction-tab td>table th,
 .construction-tab td>table td {
     white-space: nowrap;
+}
+
+.template {
+    max-width: 960px;
+    margin: auto;
+}
+
+.template>* {
+    display: flex;
+    flex-direction: column;
+}
+
+.conticleanblack p strong {
+    font-family: "ContinentalStagSansLCG-Book" !important;
+}
+
+.environment-quality-sec li {
+    padding-bottom: 2px;
+}
+
+.feature-benefit-list ul,
+.materials-list {
+    font-size: 12px !important;
+}
+
+.feature-benefit-list li span {
+    padding-right: 4px;
 }

@@ -9,6 +9,12 @@
     body {
         color: cmyk(0%, 0%, 0%, 100%);
     }
+    .template {
+        max-width: 100%;
+    }
+    .template>* {
+        display: block;
+    }
     /* .wrapper header,
     .wrapper footer{
         padding: 0px 30px;
@@ -71,7 +77,7 @@
     }
     .orange-bg {
         background: cmyk(0%, 40%, 100%, 0%);
-        color: cmyk(0%, 0%, 0%, 0%);
+        color: cmyk(0%, 0%, 0%, 100%);
         -webkit-print-color-adjust: exact;
     }
     .grey-bg,
@@ -93,7 +99,7 @@
     }
     .backcoverpage p span,
     .bottom-end-sec p {
-        color: cmyk(0%, 0%, 0%, 45%);
+        color: cmyk(0%, 0%, 0%, 0%);
     }
     .table-of-contents .grey-bg {
         background: cmyk(1%, 1%, 0%, 21%);
@@ -199,7 +205,6 @@
     }
 }
 
-;
 @page: right {
     margin-left: 40px;
     margin-right: 60px;
@@ -224,7 +229,6 @@
     }
 }
 
-;
 @page conticleanPage {
     @bottom-center {
         content: element(conticleanImage, first);
