@@ -1187,6 +1187,7 @@ class DefaultController extends FrontendController
 
     public function templateContiAlertAction(Request $request)
     {
+
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_alert')->getElement();
         $productData = [];
         if($catalogTableObject)
@@ -1200,6 +1201,7 @@ class DefaultController extends FrontendController
             $productData['ProductImage'] = $productObject->getProductImage();
             $productData['Benefits'] = $productObject->getBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
+            $productData['Benefits'][0]= 'sdfdsf';
         }
 
         $this->view['data'] = $productData;

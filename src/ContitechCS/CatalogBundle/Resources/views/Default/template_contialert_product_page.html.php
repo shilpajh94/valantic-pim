@@ -3,8 +3,9 @@ if (!isset($this->parentContainer)) {
 $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 }
 ?>
+
 <?php if($this->editmode): ?>
-        <?= $this->relation("cbs_conti_pipe_belt", [
+        <?= $this->relation("cbs_conti_alert", [
                 "types" => ["object"],
                 "subtypes" => [
                 "object" => ["object"]
@@ -13,92 +14,225 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         ]);
         ?>
 <?php endif; ?>
+
 <?php if($data): ?>
 <div class="wrapper">
-        <header id="header">
-            <div class="header-sec">
-                <div><strong>Conveying Solutions</strong> 
-                <?php if($this->input("Conti_Alert_header_title")->isEmpty()): ?>
-                        <?= $this->input("Conti_Alert_header_title")->setDataFromResource('Textile Belts'); ?>
-                    <?php else: ?>
-                        <?= $this->input("Conti_Alert_header_title"); ?>
-                    <?php endif; ?>
-                </div>
-                <div class="print-pg-no"></div>
-            </div>
-        </header>    
-        <main id="content" role="main">
-        <section class="fortressxp-belts">
+    <header id="header">
+        <div class="header-sec">
+            <div class="header-txt"><strong>
+            
             <?php if($this->editmode): ?>
-                <?php if($this->input("CBS_Conti_Alert_Heading")->isEmpty()): ?>
-                    <h1 class="orange"><strong><?= $this->input("CBS_Conti_Alert_Heading")->setDataFromResource('CONTI® Alert'); ?></strong></h1>
-                <?php else: ?>
-                    <h1 class="orange"><strong><?= $this->input("CBS_Conti_Alert_Heading"); ?></strong></h1>
-                <?php endif; ?>
+                    <?php if($this->input("ContiA_HierarchyNameLevel1")->isEmpty()): ?>
+                            <?= $this->input("ContiA_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiA_HierarchyNameLevel1"); ?>
+                    <?php endif; ?>
             <?php else: ?>
-                <h1 class="orange"><strong><?= $this->input("CBS_Conti_Alert_Heading") ?></strong></h1>
+                    <?= $this->input("ContiA_HierarchyNameLevel1") ?>
             <?php endif; ?>
-            <h2 class="d-flex">A Visionary Idea in Conveyor Belt Monitoring <img src="/static/cbs/images/contialert.jpg" alt=""
-                    style="margin-left: 22px; margin-bottom: 10px;"></h2>
-            <p><b>Conti®Alert is the first and only conveyor belt innovation to let you see belt wear in real
-                    time.<br />
-                    The red bonding layer below the top cover is exposed when it's time to change the belt,
-                    creating:</b></p>
+            
+            </strong> 
+        </div>
+            <div class="print-pg-no"></div>
+        </div>
+    </header>
+    
+    <main id="content" role="main">
+        <section class="fortressxp-belts">
+            <h1 class="orange">
+            
+            <strong>
+            <?php if($this->editmode): ?>
+                    <?php if($this->input("ContiA_ProductName")->isEmpty()): ?>
+                            <?= $this->input("ContiA_ProductName")->setDataFromResource($data['Name']) ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiA_ProductName"); ?>
+                    <?php endif; ?>
+            <?php else: ?>
+                    <?= $this->input("ContiA_ProductName") ?>
+            <?php endif; ?>
+            
+            
+            </strong>
+            
+            </h1>
 
-            <div class="feature-benefit-list">
-                <h3 class="orange"><strong>Cost savings </strong></h3>
-                <ul>
-                    <li><span class="orange">›</span> Identifying belt wear allows you to get the most out of your
-                        current belt
-                    </li>
-                    <li><span class="orange">›</span> Knowing when to change your belt helps prevent downtime and
-                        increase uptime
-                    </li>
-                </ul>
-                <h3 class="orange"><strong>Cost savings </strong></h3>
+            <span class="sub-title">
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("ContiA_TitleTagSlogan")->isEmpty()): ?>
+                                <?= $this->input("ContiA_TitleTagSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
+                        <?php else: ?>
+                                <?= $this->input("ContiA_TitleTagSlogan"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("ContiA_TitleTagSlogan") ?>
+                <?php endif; ?>
+            
+            </span>
 
-                <ul>
-                    <li><span class="orange">›</span> Identifying belt wear allows you to get the most out of your
-                        current belt
-                    </li>
-                    <li><span class="orange">›</span> Knowing when to change your belt helps prevent downtime and
-                        increase uptime
-                    </li>
-                </ul>
+                
+                
+            <div class="media pt-0">
+                    <?php if($this->editmode): ?>
+                        <div class="media-body">
+                            <p>
+                            <?php if($this->wysiwyg("ContiA_ShortText")->isEmpty()): ?>
+                                    <?= $this->wysiwyg("ContiA_ShortText")->setDataFromResource($data['ShortText']) ?>
+                            <?php else: ?>
+                                    <?= $this->wysiwyg("ContiA_ShortText"); ?>
+                            <?php endif; ?>
+                            </p>
+                        </div>
+                    <?php else: ?>
+                        <?php if(!$this->wysiwyg("ContiA_ShortText")->isEmpty()): ?>
+                            <div class="media-body">
+                                <p>
+                                <?= $this->wysiwyg("ContiA_ShortText") ?>
+                                </p>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php
+                        if($this->editmode)
+                        {
+                            ?>
+                            <div class="seal-image">
+                            <?php
+                            if($this->image("ContiA_Product_Image")->isEmpty())
+                            {
+                                echo $this->image("ContiA_Product_Image")->setImage($data['ProductImage']);
+                            }
+                            else{
+                                echo $this->image("ContiA_Product_Image");
+                            }
+                            ?>
+                            </div>
+                            <?php
+                            
+                        }
+                        else
+                        {
+                            $ContiAProductImageObj =  $this->image("ContiA_Product_Image");
+                            if($ContiAProductImageObj)
+                            {
+                            ?>
+                            <div class="seal-image">
+                            <img src="<?= $ContiAProductImageObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                            </div>
+                            <?php
+                            }
+                        }
+                    ?>
             </div>
-            <div class="full-image-sec"><img src="/static/cbs/images/image22.jpg"></div>
-
             <div class="feature-benefit-list">
-                <h2><span class="orange"><strong>CONTI®Alert</strong></span> Information</h2>
-                <p><b>Belt Specs</b><br />
-                    Plylon Plus® 250/2, 375/3, 500/4 and 600/3 with a minimum 3/16" x 1/16" to a maximum of 3/8" x
-                    1/8" covers</p>
+                
+                <div class="table">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <?php if($data['Material']){ ?>
+                                    <th width="30%" class="orange"><?= $this->translate('CS_Material_Label') ?></th>
+                                <?php } ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr valign="top">
+                                <?php if($data['Material']){ ?>
+                                    <td>
+                                        <?= $data['Material'] ?>                                        
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+            <?php 
+                    if($this->editmode)
+                    {
+                        ?>
+                        <div class="full-image-sec">
+                            <?php
+                                if($this->image("ContiA_BannerImage")->isEmpty())
+                                {
+                                    echo $this->image("ContiA_BannerImage")->setImage($data['ApplicationImage']);
+                                }
+                                else{
+                                    echo $this->image("ContiA_BannerImage");
+                                }
+                            ?>
+                        </div>
+                        <?php
+                    }
+                    else
+                    {
+                        $ppBannerImgSrcObj =  $this->image("ContiA_BannerImage");
+                        if($ppBannerImgSrcObj)
+                        {
+                        ?>
+                        <div class="full-image-sec">
+                            <img src="<?= $ppBannerImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                        </div>
+                        <?php
+                        }
+                    }
+            ?>
 
-                <div class="media" style="margin: 5px 0px;">
-                    <img src="images/icon1.jpg" class="features-images" alt="">
+            
+            <div class="components-sec">
+                <div class="media">
+                    <div class="media-img">
+                        <?php 
+
+                            if($this->editmode)
+                            {
+                                ?>
+                                <div class="seal-image">
+                                <?php
+                                if($this->image("ContiA_FrictionImage")->isEmpty())
+                                {
+                                    echo $this->image("ContiA_FrictionImage")->setImage($data['reportImage']);
+                                }
+                                else{
+                                    echo $this->image("ContiA_FrictionImage");
+                                }
+                                ?>
+                                </div>
+                                <?php
+                                
+                            }
+                            else
+                            {
+                                $ContiA_FrictionImageObj =  $this->image("ContiA_FrictionImage");
+                                if($ContiA_FrictionImageObj)
+                                {
+                                ?>
+                                <img src="<?= $ContiA_FrictionImageObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
+                                <?php
+                                }
+                            }
+                            
+                        ?>
+                    </div>
+
                     <div class="media-body">
-                        <p><b>Abrasion-resistant compound specs</b> <br />
-                            Defender Plus®, Stacker®, Survivor® and Survivor® Plus
-                        </p>
+                        <h3><?= $this->input("ContiA_CoeficientofFrictionLabel", ['placeholder'=>'Coeficient of Friction Text']) ?></h3>
+                        <ul class="components">
+                            <?php while($this->block("ContiA_Friction_Points")->loop()) { ?>
+                                <li><?= $this->input("CCF_points", ['placeholder' => 'Enter comment']) ?></p1>
+                            <?php } ?>
+                        </ul>
                     </div>
                 </div>
-                <div class="media" style="margin: 5px 0px;">
-                    <img src="images/icon1.jpg" class="features-images" alt="">
-                    <div class="media-body">
-                        <p><b>Abrasion-resistant compound specs</b> <br />
-                            Defender Plus®, Stacker®, Survivor® and Survivor® Plus
-                        </p>
-                    </div>
-                </div>
-                <p><b>Belt Specs</b><br />
-                    Plylon Plus® 250/2, 375/3, 500/4 and 600/3 with a minimum 3/16" x 1/16" to a maximum of 3/8" x
-                    1/8" covers</p>
             </div>
-        </section>
-        <div class="page-break"></div>
-    </main>
-    <footer id="footer" class="footer">
-        <img src="/static/cbs/images/continental_logo.png" alt="" class="img-fluid" width="150">
-    </footer>
+	    </section>
+        </main>
+        <footer id="footer" class="footer">
+            <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+            </div>
+        </footer>
+    
 </div>
 <?php endif; ?>
