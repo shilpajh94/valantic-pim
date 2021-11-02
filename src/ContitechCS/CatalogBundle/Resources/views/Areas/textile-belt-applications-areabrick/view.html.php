@@ -8,7 +8,7 @@
     $total_rows = 0;
     while($this->block("headingblock")->loop()) 
     { 
-        $columns[] = $this->wysiwyg("heading");
+        $columns[] = $this->input("heading",['width' => 200]);
     }
     
     if($this->editmode)
@@ -20,7 +20,7 @@
     {   
         foreach($columns as $key => $col)
         {
-            $tds["row_".$total_rows][] = $this->wysiwyg("data_$total_rows_$key");
+            $tds["row_".$total_rows][] = $this->input("data_$total_rows_$key",['width' => 200]);
         }  
         $total_rows++;
     }
@@ -36,15 +36,15 @@
                 }
             ?>
         </tr>
-    <thead>
+        <thead>
 
-    <tbody>
-        <?php
+        <tbody>
+            <?php
             for($i=0;$i<=$total_rows-1;$i++)
             {   
                 ?>
-                    <tr align="center" <?= ($total_rows-1 == $i)?"class='white-bg'":""; ?>>
-                        <?php 
+            <tr align="center" <?= ($total_rows-1 == $i)?"class='white-bg'":""; ?>>
+                <?php 
                             if(isset($tds["row_".$i]) && isset($tds["row_".$i]))
                             {
                                 foreach($tds["row_".$i] as $key => $td)
@@ -67,10 +67,9 @@
                                 }
                             }
                         ?>
-                    </tr>
-                <?php
+            </tr>
+            <?php
             }
         ?>
-    </tbody>
+        </tbody>
 </table>
-

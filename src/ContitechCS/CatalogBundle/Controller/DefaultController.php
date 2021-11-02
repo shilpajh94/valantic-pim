@@ -849,7 +849,9 @@ class DefaultController extends FrontendController
         $this->view->allChildren = $allChildren;
     }
 
-
+    /**
+     * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
+    */
     public function templateContinentalConveyorServicesAction(Request $request)
     {
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
@@ -877,7 +879,7 @@ class DefaultController extends FrontendController
             $childrenData = [];
             $childObject = $productObject->getChildren();
             foreach ($childObject as $childValue) {
-                if(($childValue->getPrintedCatalogFlag() === true) && (!empty($childValue->getProductImage()))) {
+                if ($childValue->getPrintedCatalogFlag() === true) {
                     $data['Name'] = $childValue->getName();
                     $data['LongText'] = $childValue->getLongtext();
                     $data['ProductImage'] = $childValue->getProductImage();
@@ -1089,21 +1091,25 @@ class DefaultController extends FrontendController
 
             $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
     
-            if (!empty($productObject->getProductImage())) {
                 $productNameArr['Name'] = trim($productObject->getName());
                 $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                 $productNameArr['ShortText'] = $productObject->getShortText();
                 $productNameArr['ProductImage'] = $productObject->getProductImage();
                 $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
                 $productNameArr['fieldPhoto'] = $productObject->getfieldPhoto();  
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
-            }
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';             
         }
         $this->view['data'] = $productNameArr;
     }
     
     public function templateSteelcordBeltConstructionAction(Request $request)
     {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $this->view['footer_logo_src'] = $footer_logo_src;
+        
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_steelcord_belt_construction_page')->getElement();
 
         $productNameArr = [];
@@ -1122,16 +1128,113 @@ class DefaultController extends FrontendController
 
             $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
     
-            if (!empty($productObject->getProductImage())) {
+            $productNameArr['Name'] = trim($productObject->getName());
+            $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
+            $productNameArr['ShortText'] = $productObject->getShortText();
+            $productNameArr['ProductImage'] = $productObject->getProductImage();
+            $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
+            $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+        }
+        $this->view['data'] = $productNameArr;
+        $this->view['footer_logo_src'] = $footer_logo_src;
+    }
+    
+    /**
+     * @Route("/contitech_cs_catalog/template_quality_and_the _environment")
+    */
+    public function templateQualityAndTheEnvironmentAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+
+        $this->view['footer_logo_src'] = $footer_logo_src;
+      
+    }
+    
+    /**
+     * @Route("/contitech_cs_catalog/template_template_eco_series_pulley")
+    */
+    public function templateEcoSeriesPulleyAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $this->view['footer_logo_src'] = $footer_logo_src;
+      
+    }
+    
+    /**
+     * @Route("/contitech_cs_catalog/template_wood_product")
+    */
+    public function templateWoodProductAndApplicationAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        $this->view['footer_logo_src'] = $footer_logo_src;
+    }
+    
+    /**
+     * @Route("/contitech_cs_catalog/template_sybercord_technology")
+    */
+    public function templateSybercordTechnologyAction(Request $request)
+    {
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        
+        
+        $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
+
+            $productNameArr = [];
+
+            if ($catalogCategoryObject)
+            {
+                $selectedSecondLevelCategoryId = $catalogCategoryObject->getSecondLevelCategory();
+
+                $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
+
+                $hierarchyPath = $hierarchyObj->getPath();
+                $hierarchyName = $hierarchyObj->getName();
+
+                $hierarchyFullName = $hierarchyPath.$hierarchyName;
+                $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
+
+                $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
+                
+               
                 $productNameArr['Name'] = trim($productObject->getName());
                 $productNameArr['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
                 $productNameArr['ShortText'] = $productObject->getShortText();
+                $productNameArr['LogoImage'] = $productObject->getLogoImage();     
                 $productNameArr['ProductImage'] = $productObject->getProductImage();
                 $productNameArr['ApplicationImage'] = $productObject->getApplicationImage();
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';    
+                
+                $productNameArr['Features'] = $productObject->getFeatures();
+                
+                $features[0] = 'Higher dynamic belt and splice efficiency';
+                $features[1] = 'Less complex splice with fewer stages';
+                $features[2] = 'Potential for reduced pulley diameters';
+                $features[3] = 'Improved corrosion protection lowers maintenance costs';
+                $features[4] = 'Lighter belt weight reduces energy consumption';
+                
+                $productNameArr['Features'] = $features;
+                
+                $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';           
             }
-        }
         $this->view['data'] = $productNameArr;
+        $this->view['footer_logo_src'] = $footer_logo_src;
+    }
+    
+    public function templateConveyorBeltGroupAction(Request $request)
+    {
+      //  print_r('hey');
     }
 
     public function templateContiCleanAction(Request $request)

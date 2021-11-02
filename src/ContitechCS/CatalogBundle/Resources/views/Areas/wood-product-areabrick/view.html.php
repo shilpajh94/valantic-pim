@@ -8,7 +8,7 @@
     $total_rows = 0;
     while($this->block("headingblock")->loop()) 
     { 
-        $columns[] = $this->wysiwyg("heading");
+        $columns[] = $this->input("heading",['width' => 200]);
     }
     
     if($this->editmode)

@@ -7,12 +7,12 @@ class ExampleOfAggregateAreaBrick extends AbstractTemplateAreabrick
 {
     public function getName()
     {
-        return 'Textile Belt Applications';
+        return 'Example of Aggregate';
     }
 
     public function getDescription()
     {
-        return 'Textile Belt Applications';
+        return 'Example of Aggregate, Hard Rock Mining, Sand and Gravel Process';
     }
 
     public function getTemplateLocation()

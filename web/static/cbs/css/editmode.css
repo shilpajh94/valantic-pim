@@ -80,3 +80,12 @@ h2.sub-title .pimcore_tag_image {
     column-count: 1;
     width: 60%;
 }
+
+.conticleancol.colum-2 {
+    column-count: 1;
+}
+
+.pimcore_tag_input {
+    z-index: 999 !important;
+    position: relative !important;
+}

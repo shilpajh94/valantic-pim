@@ -7,12 +7,12 @@ class WoodProductAreaBrick extends AbstractTemplateAreabrick
 {
     public function getName()
     {
-        return 'IFrame';
+        return 'Wood Product Area Brick';
     }
 
     public function getDescription()
     {
-        return 'Embed contents from other URL (websites) via iframe';
+        return 'Wood Product Area Brick';
     }
 
     public function getTemplateLocation()
