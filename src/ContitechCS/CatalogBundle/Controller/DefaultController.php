@@ -1110,6 +1110,7 @@ class DefaultController extends FrontendController
         $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
         $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+
         $this->view['footer_logo_src'] = $footer_logo_src;
       
     }
