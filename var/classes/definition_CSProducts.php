@@ -1,8 +1,8 @@
 <?php 
 
 /** 
-* Generated at: 2021-10-29T12:21:00+05:30
-* Inheritance: no
+* Generated at: 2021-11-02T13:09:42+05:30
+* Inheritance: yes
 * Variants: no
 * Changed by: admin (2)
 * IP: ::1
@@ -66,7 +66,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'CSProducts',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1635490259,
+   'modificationDate' => 1635838781,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -78,7 +78,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
+   'allowInherit' => true,
    'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => 
@@ -875,7 +875,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
-                         'locked' => NULL,
+                         'locked' => false,
                          'style' => 'margin-left:10px;',
                          'permissions' => NULL,
                          'datatype' => 'data',
@@ -1473,6 +1473,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   31 => 'ProdAttrSetAG',
                   32 => 'ProdAttrSetAH',
                   33 => 'ProdAttrSetAI',
+                  34 => 'TensionElevatorBelt',
                 ),
                  'maxItems' => '',
                  'border' => false,
