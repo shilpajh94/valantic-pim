@@ -66,6 +66,9 @@ class CSProductDataImportCommand extends AbstractCommand
 
             $data = $results['data'];
 
+            // Get all region list from Region Masters
+            $masterRegionArray = $this->getAllRegions();
+
             //$data = \array_slice($data, 0, 1);
             $removeSlashInProductName = [];
 
@@ -85,17 +88,23 @@ class CSProductDataImportCommand extends AbstractCommand
 
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
-                $region = '';
+                $regionArray = '';
 
                 if (($productData['Region'] != null) && ($productData['Product Flag'] == 1)) {
                     if (strpos($productData['Region'], '|')) {
-                        $region = explode('|', $productData['Region'])[0];
-                        $region = trim($region);
+                        $regionArray = explode('|', $productData['Region']);
                     } else {
-                        $region = trim($productData['Region']);
+                        $regionArray = array($productData['Region']);
                     }
-                    if (strpos($region, "/") !== false) {
-                        $region = str_replace("/", "-", $region);
+
+                    foreach ($regionArray as $regionName) {
+                        if (in_array(trim($regionName), $masterRegionArray)) {
+                            $region = $regionName;
+                            if (strpos($region, "/") !== false) {
+                                $region = str_replace("/", "-", $region);
+                            }
+                            break;
+                        }
                     }
                 }
 
@@ -165,7 +174,6 @@ class CSProductDataImportCommand extends AbstractCommand
                             $parentId = DataObject\Service::createFolderByPath($regionPath)->getId();
                             $productPath = $productPath . $region . "/" . $productName;
                         }
-                        echo "\n\n\n" . $productPath . "\n\n\n";
                     }
 
                     $CSProductObj = DataObject\CSProducts::getByPath($productPath);
@@ -223,6 +231,9 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 $regionValueArr = [];
                                                 foreach ($fieldValueArr as $eachRegion) {
                                                     $regionValue = trim($eachRegion);
+                                                    if (strpos($regionValue, "/" !== false)) {
+                                                        $regionValue = str_replace("/", "-", $regionValue);
+                                                    }
                                                     $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
                                                     $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
                                                     if ($regionPathObj) {
@@ -360,6 +371,18 @@ class CSProductDataImportCommand extends AbstractCommand
         } catch (\Throwable $th) {
             p_r($th->getMessage());
         }
+    }
+
+    public function getAllRegions()
+    {
+        $regionList = new \Pimcore\Model\DataObject\CSRegion\Listing();
+        $regionList->load();
+
+        $fieldArray = array();
+        foreach ($regionList as $list) {
+            $fieldArray[] = $list->getRegionName();
+        }
+        return $fieldArray;
     }
 
     public function createHierarchy($result, $brick, $parentId)
