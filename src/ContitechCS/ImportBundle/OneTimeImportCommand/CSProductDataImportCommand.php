@@ -85,15 +85,21 @@ class CSProductDataImportCommand extends AbstractCommand
 
                 $productHier = array_filter($productHier);
                 $productHier = array_values($productHier);
+                $region = '';
 
-                if (strpos($productData['Region'], '|') && ($productData['Product Flag'] == 1)) {
-                    $region = explode('|', $productData['Region'])[0];
-                    $productName = $productData['Product Name'] . '-' . trim($region);
-                } else if (($productData['Region'] != null) && ($productData['Product Flag'] == 1)) {
-                    $productName = $productData['Product Name'] . '-' . trim($productData['Region']);
-                } else {
-                    $productName = $productData['Product Name'];
+                if (($productData['Region'] != null) && ($productData['Product Flag'] == 1)) {
+                    if (strpos($productData['Region'], '|')) {
+                        $region = explode('|', $productData['Region'])[0];
+                        $region = trim($region);
+                    } else {
+                        $region = trim($productData['Region']);
+                    }
+                    if (strpos($region, "/") !== false) {
+                        $region = str_replace("/", "-", $region);
+                    }
                 }
+
+                $productName = trim($productData['Product Name']);
                 $productCol = $productData['Product'];
 
                 if ($productData['Product'] != null) {
@@ -147,11 +153,25 @@ class CSProductDataImportCommand extends AbstractCommand
                         }
                     }
 
+                    // Creating folder for each region
+                    if (!empty($region)) {
+                        if (strpos($productName, "/") !== false) {
+                            $productName = str_replace("/", "-", $productName);
+                        }
+                        if (strpos($productPath, $productName) !== false) {
+                            $productPath = str_replace($productName, "", $productPath);
+
+                            $regionPath = $productPath . $region;
+                            $parentId = DataObject\Service::createFolderByPath($regionPath)->getId();
+                            $productPath = $productPath . $region . "/" . $productName;
+                        }
+                        echo "\n\n\n" . $productPath . "\n\n\n";
+                    }
+
                     $CSProductObj = DataObject\CSProducts::getByPath($productPath);
 
                     if (!$CSProductObj) {
                         try {
-
                             $hierarchyKey = DataObject\Service::getValidKey($hierarchy, "object");
                             $product = new DataObject\CSProducts();
                             $product->setKey($hierarchyKey);
@@ -198,42 +218,36 @@ class CSProductDataImportCommand extends AbstractCommand
                                         } else if ($fieldConfig['fieldType'] == 'Multiselection') {
                                             $fieldValue = trim($fieldValue);
                                             $fieldValueArr = explode('|', $fieldValue);
-                                            
-                                            if($fieldName == 'CSRegion'){
+
+                                            if ($fieldName == 'CSRegion') {
                                                 $regionValueArr = [];
-                                                foreach($fieldValueArr as $eachRegion){
+                                                foreach ($fieldValueArr as $eachRegion) {
                                                     $regionValue = trim($eachRegion);
-                                                    $regionPath = '/'.ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER.'/'.$regionValue;
+                                                    $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
                                                     $regionPathObj = DataObject\CSRegion::getByPath($regionPath);
-                                                    if($regionPathObj){
+                                                    if ($regionPathObj) {
                                                         $regionPathObjId = $regionPathObj->getId();
-                                                        $regionValueArr [] = $regionPathObjId;
+                                                        $regionValueArr[] = $regionPathObjId;
                                                     }
-                                                    
                                                 }
                                                 $fieldValue = array_map('trim', $regionValueArr);
-                                            }
-                                            else if($fieldName == 'CSSegment'){
+                                            } else if ($fieldName == 'CSSegment') {
                                                 $segmentValueArr = [];
-                                                foreach($fieldValueArr as $eachSegment){
+                                                foreach ($fieldValueArr as $eachSegment) {
                                                     $segmentValue = trim($eachSegment);
-                                                    $segmentPath = '/'.ImportConstants::CONTITECH_CS_MASTERDATA_SEGMENT_FOLDER.'/'.$segmentValue;
+                                                    $segmentPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_SEGMENT_FOLDER . '/' . $segmentValue;
                                                     $segmentPathObj = DataObject\CSSegment::getByPath($segmentPath);
-                                                    if($segmentPathObj){
+                                                    if ($segmentPathObj) {
                                                         $segmentPathObjId = $segmentPathObj->getId();
-                                                        $segmentValueArr [] = $segmentPathObjId;
+                                                        $segmentValueArr[] = $segmentPathObjId;
                                                     }
-                                                    
                                                 }
                                                 $fieldValue = array_map('trim', $segmentValueArr);
-                                            }
-                                            else{
+                                            } else {
                                                 $fieldValue = array_map('trim', $fieldValueArr);
-                                                
                                             }
                                             $method = 'set' . $fieldName;
                                             $product->$method($fieldValue);
-                                            
                                         } else {
                                             if ($fieldName == 'NatureOfProduct') {
                                                 if ($fieldValue) {
