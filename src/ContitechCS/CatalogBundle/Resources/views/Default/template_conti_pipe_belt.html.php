@@ -212,7 +212,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     {
                         if($this->image("CPBChild_ProductImage")->isEmpty())
                         {
-                            echo $this->image("CPBChild_ProductImage")->setImage($parentProductData['ProductImage']);
+                            echo $this->image("CPBChild_ProductImage")->setImage($childProductData['ProductImage']);
                         }
                         else{
                             echo $this->image("CPBChild_ProductImage");

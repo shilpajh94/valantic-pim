@@ -576,7 +576,7 @@ class DefaultController extends FrontendController
             {
                 // $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
 
-                $selectedCategoryId = $catalogTableObject->getCategory();
+                $selectedCategoryId = $catalogTableObject->getSecondLevelCategory();
 
                 // p_r($selectedCategoryId);
 
@@ -650,9 +650,9 @@ class DefaultController extends FrontendController
                         $Level4ObjChild = $objectLevel3rd->getchildren(); 
                         $level4ObjectData = [];
                         foreach ($Level4ObjChild as $level4Value) {
-                            $level4Data['Name'] = $level4Value->getName();
-                            $level4Data['LongText'] = $level4Value->getLongText();
-                            $level4ObjectData[] = $level4Data;
+                            $level4DataPart['Name'] = $level4Value->getName();
+                            $level4DataPart['LongText'] = $level4Value->getLongText();
+                            $level4ObjectData[] = $level4DataPart;
                         }
 
                         $singleProductPage['Level4ObjChildData'] = $level4ObjectData;
@@ -665,9 +665,9 @@ class DefaultController extends FrontendController
                         // p_r($child->getCoverCompound());
                         // die;
 
-                        if($child->getCoverCompound())
+                        if($child->getCSPerformanceCategory())
                         {
-                            foreach ($child->getCoverCompound() as $ckey => $coverCompound) {
+                            foreach ($child->getCSPerformanceCategory() as $ckey => $coverCompound) {
                                 $coverCompoundName = $coverCompoundMasterList[$coverCompound];
                                 $coverCompounds[$coverCompoundName][$level4Name][] = $level4Name;
                                 $bricks = $child->getProductAttributes();
@@ -826,7 +826,7 @@ class DefaultController extends FrontendController
     }
 
     public function getCoverCompoundMasterList(){
-        $query = "select oo_id, Name from object_query_CSCoverCompounds";
+        $query = "select oo_id, PerformanceCategory from object_query_CSPerformanceCategories";
         return $this->db->fetchPairs($query);
     }
 
