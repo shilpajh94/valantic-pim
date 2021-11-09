@@ -10,5 +10,15 @@ return [
         "siteId" => 0,
         "creationDate" => 0,
         "modificationDate" => 1631020509
+    ],
+    2 => [
+        "id" => 2,
+        "name" => "default_image",
+        "language" => "",
+        "type" => "asset",
+        "data" => 6227,
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1636452830
     ]
 ];

@@ -21,8 +21,7 @@
                 <span class="second-title">
                     <?= $this->input("TBS_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
-            <div class="print-pg-no"></div>
-        </div>
+        </header>    
         <footer id="footer" class="footer">
             <div class="footer-logo">
                 <img src="<?= $footer_logo_src; ?>" alt="" width="150">

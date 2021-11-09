@@ -84,4 +84,58 @@ class ConfigProviderService
         }
         return $config;
     }
+
+
+    /**
+     * get website settings
+     *
+     * @param string $key
+     * @return string
+     */
+    public function getWebSiteSetting($key = false)
+    {   
+        try
+        {   
+            if(!$key)
+            {
+                throw new Exception("Website setting key is required");
+            }
+
+            $val    = false;
+            $obj    =  \Pimcore\Model\WebsiteSetting::getByName($key, null, 'en');
+
+            if($obj)
+            {
+                $val = $obj->getData();
+            }
+
+           return $val;
+
+        }
+        catch(Exception $e)
+        {   
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * get default image
+     *
+     * @return string
+     */
+    public function getDefaultImage()
+    {   
+        try{
+
+            $obj        = $this->getWebSiteSetting('default_image');
+
+            $thumbnail = $obj->getThumbnail('catalog_thumb');
+           
+            return $thumbnail;
+        }
+        catch(Exception $e)
+        {   
+            throw new Exception($e->getMessage());
+        }
+    }
 }

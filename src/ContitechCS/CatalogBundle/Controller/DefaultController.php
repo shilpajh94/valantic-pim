@@ -853,7 +853,14 @@ class DefaultController extends FrontendController
      * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
     */
     public function templateContinentalConveyorServicesAction(Request $request)
-    {
+    {   
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+        
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        
+        $default_image = $this->configProviderService->getDefaultImage();
+      
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
 
         $productNameArr = [];
@@ -893,6 +900,8 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productNameArr;
+        $this->view['footer_logo_src']  = $footer_logo_src;
+        $this->view['default_image']    = $default_image;
     }
 
     /**
@@ -935,6 +944,9 @@ class DefaultController extends FrontendController
 
             $productData['childrenData'] = $childrenData;
         }
+
+        $this->view['monitoring_system'] = ['Best-in-class sensor technology
+        ','Reliability and high-quality data output','User-friendly graphical interfaces'];
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;

@@ -24,8 +24,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <div class="print-pg-no"></div>
         </div>
     </header>
-    <footer id="footer">
-        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+    <footer id="footer" class="footer">
+        <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+        </div>
     </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
@@ -80,7 +82,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 {
                                     if($this->image("CSS_Images_{$key}")->isEmpty())
                                     {
-                                        echo $this->image("CSS_Images_{$key}")->setImage($child['ProductImage']);
+                                        ?>
+                                            <img src="<?= $default_image; ?>" alt="" width="150">
+                                        <?Php
+                                        
                                     }
                                     else{
                                         echo $this->image("CSS_Images_{$key}");
