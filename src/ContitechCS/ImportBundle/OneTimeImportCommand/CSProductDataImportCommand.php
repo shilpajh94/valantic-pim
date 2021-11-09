@@ -231,7 +231,7 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 $regionValueArr = [];
                                                 foreach ($fieldValueArr as $eachRegion) {
                                                     $regionValue = trim($eachRegion);
-                                                    if (strpos($regionValue, "/" !== false)) {
+                                                    if (strpos($regionValue, "/") !== false) {
                                                         $regionValue = str_replace("/", "-", $regionValue);
                                                     }
                                                     $regionPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_REGION_FOLDER . '/' . $regionValue;
