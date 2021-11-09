@@ -16,62 +16,8 @@
         </div>
     </footer>
     <main id="content" role="main">
-       <?php 
-      /* <section class="fortressxp-belts">
-            <h1 class="orange">
-                <?= $this->input("Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
-            </h1>
-            <p class="p-medium">
-                <?= $this->textarea("QAE_Content",["placeholder" =>"Enter Your  Description"]); ?>
-            </p>
-    
-        </section> */
-    ?>  
-    <section class="fortressxp-belts">
-
-        <?= $this->areablock('myAreablock'); ?>
-
-        <?php
-        /* <h3 class="orange">
-            <?= $this->input("Environment_title",["placeholder" =>"Enter Your  Heading"]); ?>
-        </h3>
-        <p>
-            <?= $this->wysiwyg("Environment_Content",["placeholder" =>"Enter Your  Description"]); ?>
-        </p> */
-        ?>
-        <?php
-        /* <div class="environment-quality-sec">
-            <div class="media">
-                <div class="media-body">
-                    
-                    <h3 class="orange">
-                        <?= $this->input("Quality_title",["placeholder" =>"Enter Your  Heading"]); ?>
-                    </h3>
-                    <p>
-                        <?= $this->wysiwyg("Quality_Content",["placeholder" =>"Enter Your  Description"]); ?>
-                    </p>
-
-                </div>
-                <?php
-                    if($this->editmode)
-                    {
-                        echo $this->image("Environment_Image");
-                    }
-                    else
-                    {
-                        $imgSrcObj =  $this->image("Environment_Image");
-                        if($imgSrcObj)
-                        {
-                            ?>
-                                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0"
-                            style="max-height:350px" />
-                            <?php
-                        }
-                    }
-                ?>
-            </div>
-        </div> */
-        ?>
-      </section>
+        <section class="fortressxp-belts">
+            <?= $this->areablock('myAreablock'); ?>
+        </section>    
     </main>
 </div>
