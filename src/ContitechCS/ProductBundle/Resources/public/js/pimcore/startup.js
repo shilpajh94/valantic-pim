@@ -127,9 +127,11 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
         var user = pimcore.globalmanager.get("user");
         let classCombo = this.getHierarchyClassCombo();
         let userCombo = this.getUsersCombo();
+        let marcomCombo = this.getMarcomCombo();
+        let editorCombo = this.getEditorCombo();
         this.basicForm = new Ext.create("Ext.form.Panel", {
-            width: 650,
-            height: 400,
+            width: 600,
+            height: 500,
             html: '',
             url: '/contitech_cs_product/default/save_product',
             async: false,
@@ -149,7 +151,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                     xtype: 'checkboxfield',
                     name: 'productCategoryCheck',
                     style: {
-                        margin: '30px'
+                        margin: '20px'
                     },
                     listeners: {
                         change: function (checkbox) {
@@ -174,7 +176,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                     xtype: 'textfield',
                     name: 'productName',
                     style: {
-                        margin: '30px'
+                        margin: '20px'
                     },
                     width: 500,
                     labelWidth: 200,
@@ -188,6 +190,8 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
                 },
                 classCombo,
                 userCombo,
+                marcomCombo,
+                editorCombo
             ],
             dockedItems: [
                 {
@@ -253,9 +257,6 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
      * @returns {Ext.create}
      */
     getHierarchyClassCombo: function () {
-
-
-
         let categories = new Ext.data.JsonStore({
             proxy: {
                 type: 'ajax',
@@ -277,7 +278,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             fieldLabel: 'Select Category <span style="color:red;">*</span>',
             name: 'categoryId',
             style: {
-                margin: '30px'
+                margin: '20px'
             },
             store: categories,
             queryMode: 'local',
@@ -314,6 +315,9 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             proxy: {
                 type: 'ajax',
                 url: '/contitech_cs_product/default/get_users',
+                extraParams: {
+                    param: 'owner',
+                },
                 reader: {
                     type: 'json',
                     rootProperty: 'userList'
@@ -331,7 +335,7 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             fieldLabel: 'Select Product Owner <span style="color:red;">*</span>',
             name: 'userId',
             style: {
-                margin: '30px'
+                margin: '20px'
             },
             store: users,
             queryMode: 'local',
@@ -345,6 +349,102 @@ pimcore.plugin.ContitechCSProductBundle = Class.create(pimcore.plugin.admin, {
             width: 500,
             labelWidth: 200,
             value: this.userId,
+        });
+    },
+
+    /**
+     * return class select combo for Marcom Users
+     *
+     * @returns {Ext.create}
+     */
+    getMarcomCombo: function () {
+
+        let marcom = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/contitech_cs_product/default/get_users',
+                extraParams: {
+                    param: 'marcom',
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'userList'
+                }
+            },
+            fields: ["id", "name"],
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+        marcom.load();
+
+        return new Ext.create('Ext.form.ComboBox', {
+            fieldLabel: 'Select Marcom User <span style="color:red;">*</span>',
+            name: 'marcomId',
+            style: {
+                margin: '20px'
+            },
+            store: marcom,
+            queryMode: 'local',
+            editable: true,
+            allowBlank: true,
+            blankText: 'Field is required',
+            forceSelection: true,
+            msgTarget: 'under',
+            displayField: 'name',
+            valueField: 'id',
+            width: 500,
+            labelWidth: 200,
+            value: this.marcomId,
+        });
+    },
+
+    /**
+     * return class select combo for Editor/R&D
+     *
+     * @returns {Ext.create}
+     */
+    getEditorCombo: function () {
+
+        let editor = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/contitech_cs_product/default/get_users',
+                extraParams: {
+                    param: 'editor',
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'userList'
+                }
+            },
+            fields: ["id", "name"],
+            sorters: [{
+                property: 'name',
+                direction: 'ASC'
+            }]
+        });
+        editor.load();
+
+        return new Ext.create('Ext.form.ComboBox', {
+            fieldLabel: 'Select Editor/R&D User <span style="color:red;">*</span>',
+            name: 'editorId',
+            style: {
+                margin: '20px'
+            },
+            store: editor,
+            queryMode: 'local',
+            editable: true,
+            allowBlank: true,
+            blankText: 'Field is required',
+            forceSelection: true,
+            msgTarget: 'under',
+            displayField: 'name',
+            valueField: 'id',
+            width: 500,
+            labelWidth: 200,
+            value: this.editorId,
         });
     },
 });
