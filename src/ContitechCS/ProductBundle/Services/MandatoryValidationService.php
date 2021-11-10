@@ -105,8 +105,8 @@ class MandatoryValidationService {
     
     public function checkForParentUnpublishValidation($product) {
         $parent = $product->getParent();
-        while($parent->getPath() != '/Contitech_ConveyorSolution/Products') {
-            if($parent->isPublished() == 0){
+        while($parent->getFullPath() != '/Contitech_ConveyorSolution/Products') {
+            if ($parent->getType() != 'folder' && $parent->isPublished() == 0) {
                 throw new \Pimcore\Model\Element\ValidationException("Cannot publish product if parent product is unpublished");
             }
             else{
