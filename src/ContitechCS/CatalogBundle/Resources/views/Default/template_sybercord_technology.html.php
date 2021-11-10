@@ -17,7 +17,7 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_Typical_Applications_Label') ?></span>
+            <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
                 <span class="second-title">
                     <?= $this->input("ST_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
