@@ -43,12 +43,14 @@ class MandatoryValidationService {
         return $applyValidation;
     }
     
-    public function checkForMandatoryValidation($product) {
+    public function checkForMandatoryValidation($product, $reqAttributesByUser = []) {
         
         // $applyvalidation = false;
         if (!empty($this->productConfig)) {
+            $product->setGetInheritedValues(true);
             $className = $product->getClassName();
             $arr = array('Please fill all mandatory fields');
+            $attributeNameArray = [];
             foreach ($this->productConfig as $cnf) {
                 $fieldName = $cnf['fieldName'];
                 $objectType = $cnf['objectType'];
@@ -63,7 +65,8 @@ class MandatoryValidationService {
                     }
                     $value = $product->$method();
                     if (empty($value)) {
-                        $arr[] = "$fieldTitle in Base Data";
+                        $arr[$fieldName] = "$fieldTitle in Base Data";
+                        $attributeNameArray[] = $fieldName;
                     }
                 } else {
                     $getBrickMethod = "get$objectType";
@@ -73,18 +76,57 @@ class MandatoryValidationService {
                     $brickfieldTitle = $brickClass->getFieldDefinition($fieldName)->getTitle();
                     $objectTitle = $brickClass->getTitle();
                     if (empty($v)) {
-                        $arr[] = "$brickfieldTitle in $objectTitle";
+                        $arr[$fieldName] = "$brickfieldTitle in $objectTitle";
+                        $attributeNameArray[] = $fieldName;
                     }
                 }
             }
 
             if (count($arr) > 1) {
-                $msg = join("<br />- ", $arr);
-                throw new ValidationException($msg, 1234);
+                if (!empty($reqAttributesByUser) && count($reqAttributesByUser)>0) {
+                    $newArray = array('Please fill all mandatory fields');
+                    foreach ($attributeNameArray as $attribute) {
+                        if (array_key_exists($attribute, $reqAttributesByUser['all']) && array_key_exists($attribute, $reqAttributesByUser['byRole'])) {
+                            $newArray[] = $arr[$attribute];
+                        }
+                    }
+                    if (count($newArray)>1) {
+                        $msg = join("<br />- ", $newArray);
+                        throw new ValidationException($msg, 1234);
+                    }
+                } else {
+                    $msg = join("<br />- ", $arr);
+                    throw new ValidationException($msg, 1234);
+                }
             }
         }
     }
     
+    
+    public function checkForParentUnpublishValidation($product) {
+        $parent = $product->getParent();
+        while($parent->getPath() != '/Contitech_ConveyorSolution/Products') {
+            if($parent->isPublished() == 0){
+                throw new \Pimcore\Model\Element\ValidationException("Cannot publish product if parent product is unpublished");
+            }
+            else{
+                $parent = $parent->getParent();
+            }
+        }
+    }
+    
+    public function checkForChildPublishValidation($product) {
+        $childProducts = $product->getChildren();
+        if($childProducts){
+            foreach($childProducts as $childProduct){
+                if(!empty($childProduct->isPublished())){
+                    throw new \Pimcore\Model\Element\ValidationException("Product with published children cannot be unpublished");
+                }
+            }
+        }
+    }
+
+
     /**
      * get yml config for the given file
      * caching the file data if environment is not dev
