@@ -17,7 +17,7 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><span class="first-title">Conveying Solutions</span>
+            <div class="header-txt"><span class="first-title"><?= $this->translate('CS_Typical_Applications_Label') ?></span>
                 <span class="second-title">
                     <?= $this->input("ST_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
@@ -70,7 +70,7 @@
                                     if($CSSImgSrcObj)
                                     {
                                     ?>
-                <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
+                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""
                     style="margin-right: 0px; margin-bottom: 0px;" width="180" />
                 <?php
                                     }
@@ -137,7 +137,7 @@
                                         if($CSSImgSrcObj)
                                         {
                                         ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
+                    <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" style="max-width:180px" />
                     <?php
                                         }
                                     }
@@ -147,13 +147,13 @@
 
 
             <div class="feature-benefit-list">
-                <h3 class="black-bold">
+                <h3 class="black-bold black mb-3">
                     <?= $this->input("ST_advantage_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
                 <ul>
                     <?php 
                         foreach ($data['Features'] as $key => $item) {
                             ?>
-                    <li><span class="orange">›</span> <?= $item ?></li>
+                    <li><?= $item ?></li>
                     <?php
                         }
                     ?>
@@ -163,23 +163,34 @@
 
             <div class="colum-2 p-0">
                 <div class="feature-benefit-list my-0">
-                    <h3><?= $this->input("ST_application_heading",["placeholder" => "Enter Your  Heading"]); ?></h3>
+                    
 
+                    <?php
+            if(count($data['CSProductApplications']) > 0)
+                {
+                 ?>
+            <h3 class="black-bold black mb-3">
+            <?= $this->input("ST_application_heading",["placeholder" => "Enter Your Heading"]); ?>
+             </h3>
+            <?php
+                }
+            ?>
+                   
+                       
                     <ul>
                         <?php
                         foreach($data['CSProductApplications'] as $key => $applictaion) {
                            ?>
-                        <li><span class="orange">›</span> <?= $applictaion->getApplicationName(); ?></li>
+                        <li><?= $applictaion->getApplicationName(); ?></li>
                         <?php
                         } ?>
                     </ul>
 
                     <div class="nexcolumtarget">
-                        <h3><?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
+                        <h3 class="black-bold black mb-3"><?= $this->input("ST_product_range_heading",["placeholder" => "Enter Your  Heading"]); ?>
                         </h3>
                         <ul>
-                            <li><span
-                                    class="orange">›</span><?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
+                            <li><?= $this->input("ST_product_range_content",["placeholder" => "Enter Your Points"]); ?>
                             </li>
                         </ul>
                     </div>

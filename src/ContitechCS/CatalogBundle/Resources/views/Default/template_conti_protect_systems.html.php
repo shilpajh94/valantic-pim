@@ -18,20 +18,19 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         <header id="header">
             <div class="header-sec">
                 <div class="header-txt">
-                
-                <strong>
+                <span class="first-title"><strong>Conveying Solutions</strong></span>
+
 
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CPS_HierarchyNameLevel1")->isEmpty()): ?>
-                                <?= $this->input("CPS_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                            <span class="second-title"> <?= $this->input("CPS_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?></span>
                         <?php else: ?>
-                                <?= $this->input("CPS_HierarchyNameLevel1"); ?>
+                            <span class="second-title">    <?= $this->input("CPS_HierarchyNameLevel1"); ?></span>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CPS_HierarchyNameLevel1") ?>
+                    <span class="second-title"><?= $this->input("CPS_HierarchyNameLevel1") ?></span>
                 <?php endif; ?> 
                 
-                <strong>
                 </div>
                 <div class="print-pg-no"></div>
             </div>
@@ -41,11 +40,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <img src="<?= $footer_logo_src; ?>" alt="" width="150">
             </div>
         </footer>
-        <footer id="footer1" class="footer">
-        <div class="footer-logo">
-            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
-            </div>
-        </footer>
+       
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
                 <h1 class="orange">
@@ -64,7 +59,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <div class="environment-quality-sec">
                     <div class="media pt-0 align-item-ends">
                         <div class="media-body">
-                            <p class="f-12">
+                            <p>
 
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CPS_ShortText")->isEmpty()): ?>
@@ -78,8 +73,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 
                             </p>
 
-                            <div class="feature-benefit-list">
-                                <h3 class="f-12">
+                            <div class="feature-benefit-list mb-0">
+                                <h3 class="f-12 conti-grey">
                                 
                                 <?php if($this->editmode): ?>
                                         <?php if($this->input("CPS_BenefitLabel")->isEmpty()): ?>
@@ -132,15 +127,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 if($CPS_productImageObj->getThumbnail('catalog_thumb'))
                                 {
                                 ?>
-                                <img src="<?= $CPS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" width="280">
+                                <img src="<?= $CPS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images mr-0">
                                 <?php
                                 }
                             }
                         ?>
                     </div>
                 </div>
-                <div class="feature-benefit-list w-80">
-                    <h3 class="orange">
+                <div class="feature-benefit-list w-80 mb-4">
+                    <h2 class="orange f-22">
                     <strong>
 
                         <?php if($this->editmode): ?>
@@ -154,7 +149,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?php endif; ?>
 
                     </strong>
-                    </h3>
+                    </h2>
 
                     <?php
 
@@ -193,7 +188,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         if($CPS_ApplicationImageObj->getThumbnail('catalog_thumb'))
                         {
                         ?>
-                        <img src="<?= $CPS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">
+                        <img src="<?= $CPS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="" >
                         <?php
                         }
                     }

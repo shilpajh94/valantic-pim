@@ -6,11 +6,13 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>Conveying Solutions</strong>
+             <div class="header-txt">
+<span class="first-title"><strong>Conveying Solutions</strong></span>
                 <?php if($this->input("TOC_header_title")->isEmpty()): ?>
-                <?= $this->input("TOC_header_title")->setDataFromResource('Table of Contents'); ?>
+                                <span class="second-title"><?= $this->input("TOC_header_title")->setDataFromResource('Table of Contents'); ?></span>
+
                 <?php else: ?>
-                <?= $this->input("TOC_header_title"); ?>
+                <span class="second-title"><?= $this->input("TOC_header_title"); ?></span>
                 <?php endif; ?>
             </div>
             <div class="print-pg-no"></div>

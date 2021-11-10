@@ -17,12 +17,14 @@
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><span class="first-title">Conveying Solutions</span>
+            <div class="header-txt"><span class="first-title"><?= $this->translate('header_title') ?></span>
                 <span class="second-title">
                     <?= $this->input("TBS_title",["placeholder" =>"Enter Your  Title"]); ?></span>
             </div>
-        </header>    
-        <footer id="footer" class="footer">
+            <div class="print-pg-no"></div>
+        </div>
+ </header>
+       <footer id="footer" class="footer">
             <div class="footer-logo">
                 <img src="<?= $footer_logo_src; ?>" alt="" width="150">
             </div>
@@ -50,7 +52,7 @@
                     <?= $this->textarea("TBS_ProductClaimSlogan") ?>
                     <?php endif; ?> </p>
 
-                <div class="colum-2 p-0">
+                <div class="colum-2 p-0 mb-5">
                     <p>
                         <?php if($this->editmode): ?>
                         <?php if($this->wysiwyg("TBS_ShortText")->isEmpty()): ?>
@@ -64,7 +66,7 @@
                     </p>
                 </div>
 
-                <h3 class="orange"><?= $this->input("TBS_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h3>
+                <h2 class="orange mb-4"><?= $this->input("TBS_Header_title",["placeholder" =>"Enter Your  Heading"]); ?></h2>
 
                 <?php
                         if($this->editmode)
@@ -83,14 +85,14 @@
                                     if($CSSImgSrcObj)
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" />
+                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="mb-4" alt="" />
                 <?php
                                     }
                                 }
                             ?>
 
-                <h3 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
-                </h3>
+                <h2 class="orange mb-0"><?= $this->input("BNE_Header_title",["placeholder" =>"Enter Your  Heading"]); ?>
+                </h2>
 
                 <?php
                         if($this->editmode)
@@ -109,7 +111,7 @@
                                     if($CSSImgSrcObj)
                                     {
                                     ?>
-                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="features-images" alt="" />
+                <img src="<?= $CSSImgSrcObj->getThumbnail('catalog_thumb'); ?>" class="w-100 mb-4" alt="" />
                 <?php
                                     }
                                 }

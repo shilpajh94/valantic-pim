@@ -16,7 +16,6 @@
     position: static;
 }
 
-
 /* .innercoverpage .pimcore_tag_image_empty{
     min-height: 400px !important;
 } */
@@ -29,13 +28,11 @@
 #content {
     margin-top: 0px;
 }
-
 .table-of-contents .pimcore_block_entry {
     border: 1px dashed #737373;
     margin: 0.5em;
     padding: 0 0.2em;
 }
-
 .pimcore_tag_input {
     display: inline;
 }
@@ -44,7 +41,6 @@
 .fortressxp-belts .belts-information h1 {
     display: flex;
 }
-
 .fortressxp-belts .features-benefit-sec h1 span,
 .fortressxp-belts .belts-information h1 span {
     padding-right: 10px;
@@ -56,7 +52,7 @@
 }
 
 .environment-quality-sec .pimcore_tag_image {
-    min-height: 300px;
+    min-height: 200px;
     min-width: 250px;
     margin-left: 20px;
 }
@@ -66,7 +62,6 @@
     height: 108px;
     margin-right: 20px;
 }
-
 .bottom-end-sec .pimcore_tag_input {
     transform: rotate(-90deg);
 }
@@ -88,4 +83,33 @@ h2.sub-title .pimcore_tag_image {
 .pimcore_tag_input {
     z-index: 999 !important;
     position: relative !important;
+}
+
+.backcoverpage .black-bg {
+    padding: 30px;
+}
+
+.conticlean-tab .materials-list {
+    height: auto;
+}
+
+.process-table .pimcore_tag_image {
+    float: right;
+    width: 100%;
+    height: auto;
+}
+
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+.align-item-ends {
+    align-items: flex-start !important;
+}
+
+h2 {
+    display: flex;
+}
+h2 span:first-child {
+    padding-right: 5px;
 }

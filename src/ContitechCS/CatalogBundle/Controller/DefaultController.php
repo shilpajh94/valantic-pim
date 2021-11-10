@@ -1008,6 +1008,19 @@ class DefaultController extends FrontendController
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();
             $productData['Benefits'] = $productObject->getBenefits();
+            $productData['Features'] = $productObject->getFeatures();
+                
+                $features[0] = 'Conveyance over mine slopes with inclinations ≤ 34°';
+                $features[1] = 'Mine depths of up to 700 m and mass flows of 5000 t/h and even more!';
+                $features[2] = 'Nominal belt breaking strength of up to 9500 N/mm';
+                $features[3] = 'Outer pipe diameter of up to 900 mm (belt width 3200 mm)';
+                $features[4] = 'Primary crushed material with lump sizes up to 350 mm';
+                $features[5] = 'Conveyor belts with steelcord and fabric carcasses';
+                $features[6] = 'Cost and Energy Efficient Siemens DirectDrives®';
+
+                $productData['Features'] = $features;
+
+            $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
 
@@ -1199,6 +1212,8 @@ class DefaultController extends FrontendController
         $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
         $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+
+        $header_title = $this->configProviderService->getWebSiteSetting('header_title');
         
         
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
@@ -1238,10 +1253,13 @@ class DefaultController extends FrontendController
                 $productNameArr['Features'] = $features;
                 
                 $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';           
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';          
             }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
+        $this->view['header_title'] = $header_title;
+
+
     }
     
     public function templateConveyorBeltGroupAction(Request $request)
@@ -1267,7 +1285,7 @@ class DefaultController extends FrontendController
             $productData['Name'] = $productObject->getName();
             $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productData['ShortText'] = $productObject->getShortText();
-            // $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['ProductImage'] = $productObject->getProductImage();
             $productData['ApplicationImage'] = $productObject->getApplicationImage();
             $productData['reportImage'] = $productObject->getReportImage();
             

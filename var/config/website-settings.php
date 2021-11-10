@@ -20,5 +20,15 @@ return [
         "siteId" => 0,
         "creationDate" => 0,
         "modificationDate" => 1636452830
+    ],
+    3 => [
+        "id" => 3,
+        "name" => "header_title",
+        "language" => "",
+        "type" => "text",
+        "data" => "Conveying Solutions",
+        "siteId" => 0,
+        "creationDate" => 0,
+        "modificationDate" => 1636533827
     ]
 ];
