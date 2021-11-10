@@ -3913,9 +3913,9 @@ return [
         "sql" => "",
         "dataSourceConfig" => [
             [
-                "sql" => "SELECT \n\tobject_localized_CSProducts_en.oo_id As 'Pimcore Id',\n\tobject_localized_CSProducts_en.Name,\n\tobject_localized_CSProducts_en.CorporateBrand As 'Corporate Brand',\n\tobject_localized_CSProducts_en.productBrand As 'Product Brand',\n\tobject_localized_CSProducts_en.ProductDescription AS 'Product Description in English',\n\tobject_localized_CSProducts_en.ShortText AS 'Short Text in English',\n    object_localized_CSProducts_en.LongText AS 'Long Text in English',\n    object_localized_CSProducts_de.ProductDescription AS 'Product Description in German',\n\tobject_localized_CSProducts_de.ShortText AS 'Short Text in German',\n    object_localized_CSProducts_de.LongText AS 'Long Text in German',   \n    object_localized_CSProducts_fr.ProductDescription AS 'Product Description in French',\n\tobject_localized_CSProducts_fr.ShortText AS 'Short Text in French',\n    object_localized_CSProducts_fr.LongText AS 'Long Text in French',\n    object_localized_CSProducts_pt_BR.ProductDescription AS 'Product Description in Portuguese (Brazil)',\n\tobject_localized_CSProducts_pt_BR.ShortText AS 'Short Text in Portuguese (Brazil)',\n    object_localized_CSProducts_pt_BR.LongText AS 'Long Text in Portuguese (Brazil)',\n    object_localized_CSProducts_zh_Hans.ProductDescription AS 'Product Description in Chinese',\n\tobject_localized_CSProducts_zh_Hans.ShortText AS 'Short Text in Chinese',\n    object_localized_CSProducts_zh_Hans.LongText AS 'Long Text in Chinese'",
-                "from" => "FROM object_localized_CSProducts_en\nINNER JOIN object_localized_CSProducts_de ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_de.oo_id\nINNER JOIN object_localized_CSProducts_fr ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_fr.oo_id\nINNER JOIN object_localized_CSProducts_pt_BR ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_pt_BR.oo_id\nINNER JOIN object_localized_CSProducts_zh_Hans ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_zh_Hans.oo_id",
-                "where" => "WHERE\n\tobject_localized_CSProducts_en.ProductDescription is null OR\n\tobject_localized_CSProducts_en.ShortText is null OR\n    object_localized_CSProducts_en.LongText is null OR\n    object_localized_CSProducts_de.ProductDescription is null OR\n\tobject_localized_CSProducts_de.ShortText is null OR\n    object_localized_CSProducts_de.LongText is null OR\n    object_localized_CSProducts_fr.ProductDescription is null OR\n\tobject_localized_CSProducts_fr.ShortText is null OR\n    object_localized_CSProducts_fr.LongText is null OR\n    object_localized_CSProducts_pt_BR.ProductDescription is null OR\n\tobject_localized_CSProducts_pt_BR.ShortText is null OR\n    object_localized_CSProducts_pt_BR.LongText is null OR\n    object_localized_CSProducts_zh_Hans.ProductDescription is null OR\n\tobject_localized_CSProducts_zh_Hans.ShortText is null OR\n    object_localized_CSProducts_zh_Hans.LongText is null",
+                "sql" => "SELECT \n\tobject_localized_CSProducts_en.oo_id As 'Pimcore Id',\n\tobject_localized_CSProducts_en.Name,\n\tobject_localized_CSProducts_en.CorporateBrand As 'Corporate Brand',\n\tobject_localized_CSProducts_en.productBrand As 'Product Brand',\n\tobject_localized_CSProducts_en.ProductDescription AS 'Product Description in English',\n\tobject_localized_CSProducts_en.ShortText AS 'Short Text in English',\n    object_localized_CSProducts_en.LongText AS 'Long Text in English',\n    object_localized_CSProducts_de.ProductDescription AS 'Product Description in German',\n\tobject_localized_CSProducts_de.ShortText AS 'Short Text in German',\n    object_localized_CSProducts_de.LongText AS 'Long Text in German',   \n    object_localized_CSProducts_fr.ProductDescription AS 'Product Description in French',\n\tobject_localized_CSProducts_fr.ShortText AS 'Short Text in French',\n    object_localized_CSProducts_fr.LongText AS 'Long Text in French',\n    object_localized_CSProducts_pt_BR.ProductDescription AS 'Product Description in Portuguese (Brazil)',\n\tobject_localized_CSProducts_pt_BR.ShortText AS 'Short Text in Portuguese (Brazil)',\n    object_localized_CSProducts_pt_BR.LongText AS 'Long Text in Portuguese (Brazil)',\n    object_localized_CSProducts_zh.ProductDescription AS 'Product Description in Chinese',\n\tobject_localized_CSProducts_zh.ShortText AS 'Short Text in Chinese',\n    object_localized_CSProducts_zh.LongText AS 'Long Text in Chinese',\n    object_localized_CSProducts_es_ES.ProductDescription AS 'Product Description in Spanish',\n\tobject_localized_CSProducts_es_ES.ShortText AS 'Short Text in Spanish',\n    object_localized_CSProducts_es_ES.LongText AS 'Long Text in Spanish'",
+                "from" => "FROM object_localized_CSProducts_en\nINNER JOIN object_localized_CSProducts_de ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_de.oo_id\nINNER JOIN object_localized_CSProducts_fr ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_fr.oo_id\nINNER JOIN object_localized_CSProducts_pt_BR ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_pt_BR.oo_id\nINNER JOIN object_localized_CSProducts_zh ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_zh.oo_id\nINNER JOIN object_localized_CSProducts_es_ES ON object_localized_CSProducts_en.oo_id = object_localized_CSProducts_es_ES.oo_id",
+                "where" => "WHERE\n\tobject_localized_CSProducts_en.ProductDescription is null OR\n\tobject_localized_CSProducts_en.ShortText is null OR\n    object_localized_CSProducts_en.LongText is null OR\n    object_localized_CSProducts_de.ProductDescription is null OR\n\tobject_localized_CSProducts_de.ShortText is null OR\n    object_localized_CSProducts_de.LongText is null OR\n    object_localized_CSProducts_fr.ProductDescription is null OR\n\tobject_localized_CSProducts_fr.ShortText is null OR\n    object_localized_CSProducts_fr.LongText is null OR\n    object_localized_CSProducts_pt_BR.ProductDescription is null OR\n\tobject_localized_CSProducts_pt_BR.ShortText is null OR\n    object_localized_CSProducts_pt_BR.LongText is null OR\n    object_localized_CSProducts_zh.ProductDescription is null OR\n\tobject_localized_CSProducts_zh.ShortText is null OR\n    object_localized_CSProducts_zh.LongText is null OR\n    object_localized_CSProducts_es_ES.ProductDescription is null OR\n\tobject_localized_CSProducts_es_ES.ShortText is null OR\n    object_localized_CSProducts_es_ES.LongText is null",
                 "groupby" => "",
                 "type" => "sql"
             ]
@@ -3928,7 +3928,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-1"
+                "id" => "extModel16094-1"
             ],
             [
                 "name" => "Pimcore Id",
@@ -3937,7 +3937,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-2"
+                "id" => "extModel16094-2"
             ],
             [
                 "name" => "Corporate Brand",
@@ -3946,7 +3946,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-3"
+                "id" => "extModel16094-3"
             ],
             [
                 "name" => "Product Brand",
@@ -3955,7 +3955,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-4"
+                "id" => "extModel16094-4"
             ],
             [
                 "name" => "Product Description in English",
@@ -3964,7 +3964,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-5"
+                "id" => "extModel16094-5"
             ],
             [
                 "name" => "Short Text in English",
@@ -3973,7 +3973,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-6"
+                "id" => "extModel16094-6"
             ],
             [
                 "name" => "Long Text in English",
@@ -3982,7 +3982,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-7"
+                "id" => "extModel16094-7"
             ],
             [
                 "name" => "Product Description in German",
@@ -3991,7 +3991,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-8"
+                "id" => "extModel16094-8"
             ],
             [
                 "name" => "Short Text in German",
@@ -4000,7 +4000,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-9"
+                "id" => "extModel16094-9"
             ],
             [
                 "name" => "Long Text in German",
@@ -4009,7 +4009,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-10"
+                "id" => "extModel16094-10"
             ],
             [
                 "name" => "Product Description in French",
@@ -4018,7 +4018,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-11"
+                "id" => "extModel16094-11"
             ],
             [
                 "name" => "Short Text in French",
@@ -4027,7 +4027,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-12"
+                "id" => "extModel16094-12"
             ],
             [
                 "name" => "Long Text in French",
@@ -4036,7 +4036,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-13"
+                "id" => "extModel16094-13"
             ],
             [
                 "name" => "Product Description in Portuguese (Brazil)",
@@ -4045,7 +4045,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-14"
+                "id" => "extModel16094-14"
             ],
             [
                 "name" => "Short Text in Portuguese (Brazil)",
@@ -4054,7 +4054,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-15"
+                "id" => "extModel16094-15"
             ],
             [
                 "name" => "Long Text in Portuguese (Brazil)",
@@ -4063,7 +4063,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-16"
+                "id" => "extModel16094-16"
             ],
             [
                 "name" => "Product Description in Chinese",
@@ -4072,7 +4072,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-17"
+                "id" => "extModel16094-17"
             ],
             [
                 "name" => "Short Text in Chinese",
@@ -4081,7 +4081,7 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-18"
+                "id" => "extModel16094-18"
             ],
             [
                 "name" => "Long Text in Chinese",
@@ -4090,7 +4090,34 @@ return [
                 "order" => TRUE,
                 "width" => "",
                 "label" => "",
-                "id" => "extModel981-19"
+                "id" => "extModel16094-19"
+            ],
+            [
+                "name" => "Product Description in Spanish",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel16094-20"
+            ],
+            [
+                "name" => "Short Text in Spanish",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel16094-21"
+            ],
+            [
+                "name" => "Long Text in Spanish",
+                "display" => TRUE,
+                "export" => TRUE,
+                "order" => TRUE,
+                "width" => "",
+                "label" => "",
+                "id" => "extModel16094-22"
             ]
         ],
         "niceName" => "CS_TranslationsMissingProduct",
@@ -4106,7 +4133,7 @@ return [
         "yAxis" => [
 
         ],
-        "modificationDate" => 1635416646,
+        "modificationDate" => 1636547544,
         "creationDate" => 1632215295,
         "shareGlobally" => FALSE,
         "sharedUserNames" => [
