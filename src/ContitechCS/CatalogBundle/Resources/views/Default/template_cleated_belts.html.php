@@ -137,11 +137,62 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <hr class="divider" />
 
             <div class="table w-90 construction-tab">
-                <!-- <table width="100%">
-                    <tbody> -->
-                    <?= $this->areablock('BeltConstruction'); ?>
-                    <!-- </tbody>
-                </table> -->
+                <table width="100%">
+                    <tbody>
+                        <tr>
+                            <td class="border-b">
+                                <div class="<?= (!$this->editmode)?'d-flex':'';  ?>">
+                                    <?= $this->areablock('BeltConstruction'); ?>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-b  pt-4">
+                                <?php
+                                
+                                
+                                $cover_compounds = array_chunk($data['cover_compounds'],3);
+                                ?>
+                                <table width="50%" class="mx-auto">
+                                    <thead>
+                                        <tr>
+                                            <th class="orange" colspan="3">
+                                            <?= $this->input("P_N_Belt_Construction"); ?>   
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php
+                                        if($cover_compounds)
+                                        {
+                                            foreach($cover_compounds as $arr)
+                                            {
+                                                ?><tr><?php
+                                                foreach($arr as $obj)
+                                                {
+                                                    ?>
+                                                        <td>
+                                                            <?= $obj->getName();?>
+                                                        </td>
+                                                    <?php   
+                                                }
+                                                ?></tr><?php
+                                            }
+                                        }
+                                    ?>
+
+                                        <tr>
+                                            <td>Defender® Series</td>
+                                            <td>Gold Series</td>
+                                            <td>Shield Series</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>    
+                    </tbody>        
+                </table>
             </div>
 
             <div class="page-break"></div>

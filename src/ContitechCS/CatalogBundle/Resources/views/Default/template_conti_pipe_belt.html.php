@@ -87,20 +87,35 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <tr valign="top">
 
                                 <?php 
-                                $count = 0;
-                                $firstKey = array_key_first($parentProductData['Applications']);
-                                $lastKey = array_key_last($parentProductData['Applications']);
-                                $td_ul = '<td><ul>';
-                                foreach ($parentProductData['Applications'] as $pKey => $pValue) { 
-                                    $td_ul .= '<li><span class="orange">›</span> '.$pValue.'</li>';
-                                } 
-                                $td_ul .= '</td></ul>';
-                                echo $td_ul;
-                                ?>
+                                $applications = $parentProductData['Applications'];
 
+                                $chunk_app = array_chunk($applications,5);
+
+                                foreach($chunk_app as $arr)
+                                {
+                                    ?>
+                                        <td>
+                                            <ul>
+                                                <?php
+                                                  foreach($arr as $val)
+                                                  {
+                                                    ?>
+                                                        <li>
+                                                            <span class="orange">›</span>
+                                                            <?= $val;?>
+                                                        <li>
+                                                    <?php
+                                                  }  
+                                                ?>
+                                            </ul>
+                                        </td>   
+                                    <?php
+                                }
+                                ?>
                             </tr>
                         </tbody>
                     </table>
