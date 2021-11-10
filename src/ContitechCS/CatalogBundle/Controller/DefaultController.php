@@ -757,7 +757,7 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cleated_belts_page')->getElement();
         $productData = [];
         if($catalogTableObject)
-        {
+        {   
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
@@ -772,6 +772,7 @@ class DefaultController extends FrontendController
             $productData['LongText'] = $productDetails->getLongText();
             $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
             $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
+            $productData['cover_compounds'] = $productDetails->getCoverCompounds();
 
             if(isset($productDataImportConfig[$productDetails->getName()]))
             {
@@ -812,7 +813,7 @@ class DefaultController extends FrontendController
 
             $productData['childrenData'] = $childrenData;
         }
-        
+
         $this->view['data'] = $productData;
     }
 
@@ -1010,38 +1011,47 @@ class DefaultController extends FrontendController
             $productData['Benefits'] = $productObject->getBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
-
+        
         $this->view['data'] = $productData;
     }
-
+    
     /**
      * @Route("/contitech_cs_catalog/template_conti_pipe_belt")
-    */
+     */
     public function templateContiPipeBeltAction(Request $request)
     {
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
         $productData = [];
+        
+        
         if($catalogTableObject)
         {
+
+            $childObject = $catalogTableObject->getChildren();
             $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-
+            
+            
+            //echo "<pre>";
+            
             if($categoryObj)
             {
+                
                 $selectedSecondLevelCategoryId = $categoryObj->getSecondLevelCategory();
-
+                
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-
+                
                 if($hierarchyObj)
                 {
                     $hierarchyPath = $hierarchyObj->getPath();
                     $hierarchyName = $hierarchyObj->getName();
-
+                    
                     $hierarchyFullName = $hierarchyPath.$hierarchyName;
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-
+                    
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-
+                    
+                    
                     if($productObject)
                     {
                         $parentProductData['Name'] = $productObject->getName();
@@ -1049,7 +1059,7 @@ class DefaultController extends FrontendController
                         $parentProductData['ShortText'] = $productObject->getShortText();
                         $parentProductData['ProductImage'] = $productObject->getProductImage();
                         $parentProductData['HierarchyNameLevel1'] = 'Conveying Solutions';
-
+                        
                         $applications = [];
                         if($productObject->getCSProductApplications())
                         {
@@ -1058,9 +1068,11 @@ class DefaultController extends FrontendController
                             }
                         }
                         $parentProductData['Applications'] = $applications;
+                        
+                        $productData['productSpecificData'] = $this->prepareProductAttributes($productObject);
                     }
                 }
-
+                
                 $selectedProduct = $catalogTableObject->getProducts();
 
                 $singleProduct = $selectedProduct[0];
@@ -1082,6 +1094,37 @@ class DefaultController extends FrontendController
         $this->view['data'] = $productData;
     }
     
+    /**
+     * Prepare ContiPipe™ and MegaPipe® Sizes table data
+     * @param object
+     * @access private 
+     * @return array
+     */
+    private function prepareProductAttributes($productObject)
+    {
+        $childObject = $productObject->getChildren();
+
+        $data = [];
+
+        $bricks = $childObject[0]->getChildren();
+        
+        if($bricks)
+        {
+            foreach($bricks as $obj)
+            {
+                $obj_attr = $obj->getProductAttributes();
+                
+                //Diameter
+                if($obj_attr->getProdAttrSetAC()->getDiameter())
+                {
+                    $data['Diameter'][$obj_attr->getProdAttrSetAC()->getDiameterUnit()][] = $obj_attr->getProdAttrSetAC()->getDiameter();
+                }
+            }
+        }
+        
+        return $data;
+    }
+
 
     public function templateTextileConveyorBeltsAction(Request $request)
     {
