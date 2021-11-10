@@ -43,9 +43,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             "placeholder" =>
             "Enter Your  Heading"]); ?></strong></h1>
 
-            <h1> <?= $this->input("CBS_TPPF_Heading",[
+            <h2> <?= $this->input("CBS_TPPF_Heading",[
             "placeholder" =>
-            "Enter Your  Heading"]); ?></h1>
+            "Enter Your  Heading"]); ?></h2>
 
             <?php
                 if($this->editmode)
@@ -64,14 +64,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     }
             ?>
 
-            <h1 class="orange"><?= $this->input("CBS_CBRT_Heading",[
+            <h2><?= $this->input("CBS_CBRT_Heading",[
             "placeholder" =>
-            "Enter Your  Heading"]); ?></h1>
+            "Enter Your  Heading"]); ?></h2>
 
             <div class="environment-quality-sec">
                 <div class="media">
                     <div class="media-body">
-                        <p>
+<p>
                             <?php
 
                                     if($this->editmode)
@@ -107,12 +107,15 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                     }
                                 }
                             ?>
-                        </p>
+</p>
 
-                        <p class="note"><?= $this->wysiwyg("CBS_CBRT_text",[
+<div class="p-medium">
+
+                        <?= $this->wysiwyg("CBS_CBRT_text",[
                             "placeholder" =>
                             "Enter Your  Description"
-                        ]); ?></p>
+                        ]); ?>
+</div>
 
                         <p class="page-details"><?= $this->input("CBS_CBRT_Input_Text",[
                             "placeholder" =>
@@ -133,7 +136,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 if($imgSrcObj)
                                 {
                                 ?>
-                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt="" width="184" height="282" />
+                    <img src="<?= $imgSrcObj->getThumbnail('catalog_thumb'); ?>" alt=""  class="features-images" />
                     <?php
                                 }
                             }

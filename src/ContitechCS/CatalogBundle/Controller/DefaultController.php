@@ -757,7 +757,7 @@ class DefaultController extends FrontendController
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_template_cleated_belts_page')->getElement();
         $productData = [];
         if($catalogTableObject)
-        {
+        {   
             $this->configProviderService = new ConfigProviderService();
             $productDataImportConfig = $this->configProviderService->getCatalogProductTablesConfig();
 
@@ -772,6 +772,7 @@ class DefaultController extends FrontendController
             $productData['LongText'] = $productDetails->getLongText();
             $productData['BeltRollDiameters'] = $productDetails->getBeltRollDiameters();
             $productData['AngleOfInclination'] = $productDetails->getAnglesofInclination();
+            $productData['cover_compounds'] = $productDetails->getCoverCompounds();
 
             if(isset($productDataImportConfig[$productDetails->getName()]))
             {
@@ -812,7 +813,7 @@ class DefaultController extends FrontendController
 
             $productData['childrenData'] = $childrenData;
         }
-        
+
         $this->view['data'] = $productData;
     }
 
@@ -853,7 +854,14 @@ class DefaultController extends FrontendController
      * @Route("/contitech_cs_catalog/template_continental_conveyor_services")
     */
     public function templateContinentalConveyorServicesAction(Request $request)
-    {
+    {   
+        $this->configProviderService = new ConfigProviderService();
+        $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
+        
+        $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+        
+        $default_image = $this->configProviderService->getDefaultImage();
+      
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_belt_services_page')->getElement();
 
         $productNameArr = [];
@@ -893,6 +901,8 @@ class DefaultController extends FrontendController
         }
 
         $this->view['data'] = $productNameArr;
+        $this->view['footer_logo_src']  = $footer_logo_src;
+        $this->view['default_image']    = $default_image;
     }
 
     /**
@@ -935,6 +945,9 @@ class DefaultController extends FrontendController
 
             $productData['childrenData'] = $childrenData;
         }
+
+        $this->view['monitoring_system'] = ['Best-in-class sensor technology
+        ','Reliability and high-quality data output','User-friendly graphical interfaces'];
 
         $this->view['data'] = $productData;
         $this->view['footer_logo_src'] = $footer_logo_src;
@@ -996,40 +1009,62 @@ class DefaultController extends FrontendController
             $productData['ShortText'] = $productObject->getShortText();
             $productData['ProductImage'] = $productObject->getProductImage();
             $productData['Benefits'] = $productObject->getBenefits();
+            $productData['Features'] = $productObject->getFeatures();
+                
+                $features[0] = 'Conveyance over mine slopes with inclinations ≤ 34°';
+                $features[1] = 'Mine depths of up to 700 m and mass flows of 5000 t/h and even more!';
+                $features[2] = 'Nominal belt breaking strength of up to 9500 N/mm';
+                $features[3] = 'Outer pipe diameter of up to 900 mm (belt width 3200 mm)';
+                $features[4] = 'Primary crushed material with lump sizes up to 350 mm';
+                $features[5] = 'Conveyor belts with steelcord and fabric carcasses';
+                $features[6] = 'Cost and Energy Efficient Siemens DirectDrives®';
+
+                $productData['Features'] = $features;
+
+            $productData['CSProductFeaturesAndBenefits'] = $productObject->getCSProductFeaturesAndBenefits();
             $productData['HierarchyNameLevel1'] = 'Conveying Solutions';
         }
-
+        
         $this->view['data'] = $productData;
     }
-
+    
     /**
      * @Route("/contitech_cs_catalog/template_conti_pipe_belt")
-    */
+     */
     public function templateContiPipeBeltAction(Request $request)
     {
         $catalogTableObject = $this->getDocumentTag('relation', 'cbs_conti_pipe_belt')->getElement();
         $productData = [];
+        
+        
         if($catalogTableObject)
         {
+
+            $childObject = $catalogTableObject->getChildren();
             $catalogCategoryObjectId = $catalogTableObject->getParentId();
             $categoryObj = DataObject\CSCatalogCategory::getById($catalogCategoryObjectId);
-
+            
+            
+            //echo "<pre>";
+            
             if($categoryObj)
             {
+                
                 $selectedSecondLevelCategoryId = $categoryObj->getSecondLevelCategory();
-
+                
                 $hierarchyObj = DataObject\CSHierarchy::getById($selectedSecondLevelCategoryId);
-
+                
                 if($hierarchyObj)
                 {
                     $hierarchyPath = $hierarchyObj->getPath();
                     $hierarchyName = $hierarchyObj->getName();
-
+                    
                     $hierarchyFullName = $hierarchyPath.$hierarchyName;
                     $productHierarchyPath = \str_replace(CS_PPRODUCT_HIERARCHY_PATH, CS_PPRODUCT_PATH, $hierarchyFullName);
-
+                    
                     $productObject = DataObject\CSProducts::getByPath($productHierarchyPath);
-
+                    
+                    
                     if($productObject)
                     {
                         $parentProductData['Name'] = $productObject->getName();
@@ -1037,7 +1072,7 @@ class DefaultController extends FrontendController
                         $parentProductData['ShortText'] = $productObject->getShortText();
                         $parentProductData['ProductImage'] = $productObject->getProductImage();
                         $parentProductData['HierarchyNameLevel1'] = 'Conveying Solutions';
-
+                        
                         $applications = [];
                         if($productObject->getCSProductApplications())
                         {
@@ -1046,9 +1081,11 @@ class DefaultController extends FrontendController
                             }
                         }
                         $parentProductData['Applications'] = $applications;
+                        
+                        $productData['productSpecificData'] = $this->prepareProductAttributes($productObject);
                     }
                 }
-
+                
                 $selectedProduct = $catalogTableObject->getProducts();
 
                 $singleProduct = $selectedProduct[0];
@@ -1070,6 +1107,37 @@ class DefaultController extends FrontendController
         $this->view['data'] = $productData;
     }
     
+    /**
+     * Prepare ContiPipe™ and MegaPipe® Sizes table data
+     * @param object
+     * @access private 
+     * @return array
+     */
+    private function prepareProductAttributes($productObject)
+    {
+        $childObject = $productObject->getChildren();
+
+        $data = [];
+
+        $bricks = $childObject[0]->getChildren();
+        
+        if($bricks)
+        {
+            foreach($bricks as $obj)
+            {
+                $obj_attr = $obj->getProductAttributes();
+                
+                //Diameter
+                if($obj_attr->getProdAttrSetAC()->getDiameter())
+                {
+                    $data['Diameter'][$obj_attr->getProdAttrSetAC()->getDiameterUnit()][] = $obj_attr->getProdAttrSetAC()->getDiameter();
+                }
+            }
+        }
+        
+        return $data;
+    }
+
 
     public function templateTextileConveyorBeltsAction(Request $request)
     {
@@ -1187,6 +1255,8 @@ class DefaultController extends FrontendController
         $getCatalogImageMappingConfig = $this->configProviderService->getCatalogImageMappingConfig();
 
         $footer_logo_src = $this->getS3ImageSrc($getCatalogImageMappingConfig['CatalogFooter']);
+
+        $header_title = $this->configProviderService->getWebSiteSetting('header_title');
         
         
         $catalogCategoryObject = $this->getDocumentTag('relation', 'cbs_template_sybercord_technology_construction_page')->getElement();
@@ -1226,10 +1296,13 @@ class DefaultController extends FrontendController
                 $productNameArr['Features'] = $features;
                 
                 $productNameArr['CSProductApplications'] = $productObject->getCSProductApplications();
-                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';           
+                $productNameArr['HierarchyNameLevel1'] = 'Conveying Solutions';          
             }
         $this->view['data'] = $productNameArr;
         $this->view['footer_logo_src'] = $footer_logo_src;
+        $this->view['header_title'] = $header_title;
+
+
     }
     
     public function templateConveyorBeltGroupAction(Request $request)
@@ -1255,7 +1328,7 @@ class DefaultController extends FrontendController
             $productData['Name'] = $productObject->getName();
             $productData['ProductClaimSlogan'] = $productObject->getProductClaimSlogan();
             $productData['ShortText'] = $productObject->getShortText();
-            // $productData['ProductImage'] = $productObject->getProductImage();
+            $productData['ProductImage'] = $productObject->getProductImage();
             $productData['ApplicationImage'] = $productObject->getApplicationImage();
             $productData['reportImage'] = $productObject->getReportImage();
             

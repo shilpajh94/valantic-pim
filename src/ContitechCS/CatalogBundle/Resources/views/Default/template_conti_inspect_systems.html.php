@@ -14,25 +14,31 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
         ?>
 <?php endif; ?>
 <?php if($data): ?>
-    <div class="wrapper">
-        <header id="header">
+    <div class="wrapper contiinspectsystem">
+        <!-- <header id="header">
             <div class="header-sec">
                 <div class="header-txt">
-                <strong>
+                <span class="first-title"><strong>Conveying Solutions</strong></span>
+
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CIS_HierarchyNameLevel1")->isEmpty()): ?>
-                                <?= $this->input("CIS_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                            <span class="second-title"> <?= $this->input("CIS_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?></span>
                         <?php else: ?>
-                                <?= $this->input("CIS_HierarchyNameLevel1"); ?>
+                            <span class="second-title">  <?= $this->input("CIS_HierarchyNameLevel1"); ?></span>
                         <?php endif; ?>
                 <?php else: ?>
-                        <?= $this->input("CIS_HierarchyNameLevel1") ?>
+                      <span class="second-title">  <?= $this->input("CIS_HierarchyNameLevel1") ?></span>
                 <?php endif; ?> 
-                </strong>
                 </div>
                 <div class="print-pg-no"></div>
             </div>
-        </header>
+        </header> -->
+        <footer id="footer" class="footer">
+            <div class="footer-logo">
+            <img src="<?= $footer_logo_src; ?>" alt="" width="150">
+            </div>
+        </footer>
+
         <main id="content" role="main">
             <section class="fortressxp-belts conveyor-belt">
                 <div class="page95">
@@ -53,7 +59,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         if($CIS_productImageObj)
                         {
                         ?>
-                        <img src="<?= $CIS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" width="280">
+                        <img src="<?= $CIS_productImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="w-100">
                         <?php
                         }
                     }
@@ -61,9 +67,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     
                 </div>
                 <div class="feature-benefit-list w-80">
-                    <h3>
-                    <strong>
-
+                    <h2>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CIS_Inspect_Systems")->isEmpty()): ?>
                                     <?= $this->input("CIS_Inspect_Systems")->setDataFromResource($data['Name']) ?>
@@ -74,8 +78,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?= $this->input("CIS_Inspect_Systems") ?>
                     <?php endif; ?>
 
-                    </strong>
-                    </h3>
+                    </h2>
 
                     <?php
 
@@ -124,7 +127,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         ?>
 
                         <div class="media-body">
-                            <h3 class="orange">
+                            <p class="orange mb-0"><strong>
                             
                             <?php if($this->editmode): ?>
                                     <?php if($this->input("CIS_BenefitsLabel")->isEmpty()): ?>
@@ -135,7 +138,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             <?php else: ?>
                                     <?= $this->input("CIS_BenefitsLabel") ?>
                             <?php endif; ?>
-                            
+                            </strong>
                             </h3>
                             <p>
 
@@ -171,16 +174,14 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         if($CIS_ApplicationImageObj)
                         {
                         ?>
-                        <img src="<?= $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="" class="features-images ml-0">
+                        <img src="<?= $CIS_ApplicationImageObj->getThumbnail('catalog_thumb'); ?>" alt="">
                         <?php
                         }
                     }
                 ?>
             </section>
         </main>
-        <footer id="footer1">
-            <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
-        </footer>
+    
 
     </div>
 <?php endif; ?>

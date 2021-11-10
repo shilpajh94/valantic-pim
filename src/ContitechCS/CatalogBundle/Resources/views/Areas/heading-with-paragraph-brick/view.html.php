@@ -29,25 +29,6 @@
     
     ?>
 
-    <?php
-        if($this->editmode):
-            ?>
-                <h3>
-                    Is paragraph's font is mediumn ?
-                    <?= $this->checkbox("paragraph_type"); ?>
-
-                </h3>
-            <?php
-        endif;
-        $paragraph_class = '';
-
-        if($this->checkbox("paragraph_type")->isChecked())
-        {
-            $paragraph_class = 'p-medium';
-        }
-
-    ?>
-
-    <p class="<?= $paragraph_class; ?>">
-        <?= $this->textarea("QAE_Content",["placeholder" =>"Enter Your  Description"]); ?>
-    </p>
+    <div class="p-medium">
+        <?= $this->wysiwyg("QAE_Content",["placeholder" =>"Enter Your  Description"]); ?>
+    </div>

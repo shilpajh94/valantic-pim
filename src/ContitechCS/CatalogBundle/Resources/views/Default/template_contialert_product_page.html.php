@@ -19,19 +19,20 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
 <div class="wrapper">
     <header id="header">
         <div class="header-sec">
-            <div class="header-txt"><strong>
+            <div class="header-txt">
+            <span class="first-title"><strong>Conveying Solutions</strong></span>
+
             
             <?php if($this->editmode): ?>
                     <?php if($this->input("ContiA_HierarchyNameLevel1")->isEmpty()): ?>
-                            <?= $this->input("ContiA_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                        <span class="second-title">  <?= $this->input("ContiA_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?></span>
                     <?php else: ?>
-                            <?= $this->input("ContiA_HierarchyNameLevel1"); ?>
+                        <span class="second-title"><?= $this->input("ContiA_HierarchyNameLevel1"); ?></span>
                     <?php endif; ?>
             <?php else: ?>
                     <?= $this->input("ContiA_HierarchyNameLevel1") ?>
             <?php endif; ?>
-            
-            </strong> 
+            </span>
         </div>
             <div class="print-pg-no"></div>
         </div>
@@ -39,9 +40,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     
     <main id="content" role="main">
         <section class="fortressxp-belts">
-            <h1 class="orange">
-            
-            <strong>
+            <h1 class="orange mb-0">
             <?php if($this->editmode): ?>
                     <?php if($this->input("ContiA_ProductName")->isEmpty()): ?>
                             <?= $this->input("ContiA_ProductName")->setDataFromResource($data['Name']) ?>
@@ -51,13 +50,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php else: ?>
                     <?= $this->input("ContiA_ProductName") ?>
             <?php endif; ?>
-            
-            
-            </strong>
-            
             </h1>
 
-            <span class="sub-title">
+            <h2 class="d-flex sub-title" style="justify-content: space-between; align-items:center; padding-bottom:0px;">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("ContiA_TitleTagSlogan")->isEmpty()): ?>
                                 <?= $this->input("ContiA_TitleTagSlogan")->setDataFromResource($data['ProductClaimSlogan']) ?>
@@ -68,35 +63,10 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("ContiA_TitleTagSlogan") ?>
                 <?php endif; ?>
             
-            </span>
-
-                
-                
-            <div class="media pt-0">
-                    <?php if($this->editmode): ?>
-                        <div class="media-body">
-                            <p>
-                            <?php if($this->wysiwyg("ContiA_ShortText")->isEmpty()): ?>
-                                    <?= $this->wysiwyg("ContiA_ShortText")->setDataFromResource($data['ShortText']) ?>
-                            <?php else: ?>
-                                    <?= $this->wysiwyg("ContiA_ShortText"); ?>
-                            <?php endif; ?>
-                            </p>
-                        </div>
-                    <?php else: ?>
-                        <?php if(!$this->wysiwyg("ContiA_ShortText")->isEmpty()): ?>
-                            <div class="media-body">
-                                <p>
-                                <?= $this->wysiwyg("ContiA_ShortText") ?>
-                                </p>
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                    <?php
+                <?php
                         if($this->editmode)
                         {
                             ?>
-                            <div class="seal-image">
                             <?php
                             if($this->image("ContiA_Product_Image")->isEmpty())
                             {
@@ -106,7 +76,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                                 echo $this->image("ContiA_Product_Image");
                             }
                             ?>
-                            </div>
                             <?php
                             
                         }
@@ -116,13 +85,33 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                             if($ContiAProductImageObj)
                             {
                             ?>
-                            <div class="seal-image">
-                            <img src="<?= $ContiAProductImageObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                            </div>
+                            <img src="<?= $ContiAProductImageObj->getThumbnail('catalog_thumb'); ?>" alt="" style="width:200px" />
                             <?php
                             }
                         }
                     ?>
+                    
+                    </h2>
+
+                
+                
+            <div class="feature-benefit-list">
+                    <?php if($this->editmode): ?>
+                            <p>
+                            <?php if($this->wysiwyg("ContiA_ShortText")->isEmpty()): ?>
+                                    <?= $this->wysiwyg("ContiA_ShortText")->setDataFromResource($data['ShortText']) ?>
+                            <?php else: ?>
+                                    <?= $this->wysiwyg("ContiA_ShortText"); ?>
+                            <?php endif; ?>
+                            </p>
+                    <?php else: ?>
+                        <?php if(!$this->wysiwyg("ContiA_ShortText")->isEmpty()): ?>
+                                <p>
+                                <?= $this->wysiwyg("ContiA_ShortText") ?>
+                                </p>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                  
             </div>
             <div class="feature-benefit-list">
                 
@@ -179,53 +168,192 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                     }
             ?>
 
+<h2>
+                <span class="orange">
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("ContiA_MoreInfoHeading")->isEmpty()): ?>
+                                <?= $this->input("ContiA_MoreInfoHeading")->setDataFromResource($data['Name']) ?>
+                        <?php else: ?>
+                                <?= $this->input("ContiA_MoreInfoHeading"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("ContiA_MoreInfoHeading") ?>
+                <?php endif; ?>
+                
+                
+                </span> 
+<span class="light-black">
+                <?php if($this->editmode): ?>
+                        <?php if($this->input("ContiA_MoreInfo")->isEmpty()): ?>
+                                <?= $this->input("ContiA_MoreInfo", ['placeholder'=>'Belt Information']) ?>
+                        <?php else: ?>
+                                <?= $this->input("ContiA_MoreInfo"); ?>
+                        <?php endif; ?>
+                <?php else: ?>
+                        <?= $this->input("ContiA_MoreInfo") ?>
+                <?php endif; ?>
+                </span>
+                </h2>
+
+                <p><b>
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("ContiA_BeltSpecsLabel")->isEmpty()): ?>
+                                    <?= $this->input("ContiA_BeltSpecsLabel", ['placeholder'=>'Belt Specs']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("ContiA_BeltSpecsLabel"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiA_BeltSpecsLabel") ?>
+                    <?php endif; ?>
+                
             
-            <div class="components-sec">
-                <div class="media">
-                    <div class="media-img">
-                        <?php 
+                </b>
+                <br />
 
-                            if($this->editmode)
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("ContiA_BeltSpecsDescription")->isEmpty()): ?>
+                                    <?= $this->input("ContiA_BeltSpecsDescription", ['placeholder'=>'Belt Specs Description']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("ContiA_BeltSpecsDescription"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiA_BeltSpecsDescription") ?>
+                    <?php endif; ?>
+                </p>
+                <div class="feature-benefit-list">
+                    <div class="media" style="margin: 5px 0px;">
+                        <?php
+                        if($this->editmode)
+                        {
+                            ?>
+                                <?php
+                                    if($this->image("ContiA_feature1")->isEmpty())
+                                    {
+                                        echo $this->image("ContiA_feature1");
+                                    }
+                                    else{
+                                        echo $this->image("ContiA_feature1");
+                                    }
+                                ?>
+                            <?php
+                        }
+                        else
+                        {
+                            $ContiA_feature1Obj =  $this->image("ContiA_feature1");
+                            if($ContiA_feature1Obj)
                             {
-                                ?>
-                                <div class="seal-image">
-                                <?php
-                                if($this->image("ContiA_FrictionImage")->isEmpty())
-                                {
-                                    echo $this->image("ContiA_FrictionImage")->setImage($data['reportImage']);
-                                }
-                                else{
-                                    echo $this->image("ContiA_FrictionImage");
-                                }
-                                ?>
-                                </div>
-                                <?php
-                                
+                            ?>
+                                <img src="<?= $ContiA_feature1Obj->getThumbnail('catalog_thumb'); ?>" class="features-images"  alt=""/>
+                            <?php
                             }
-                            else
-                            {
-                                $ContiA_FrictionImageObj =  $this->image("ContiA_FrictionImage");
-                                if($ContiA_FrictionImageObj)
-                                {
-                                ?>
-                                <img src="<?= $ContiA_FrictionImageObj->getThumbnail('catalog_thumb'); ?>" alt=""/>
-                                <?php
-                                }
-                            }
-                            
+                        }
                         ?>
+                        
+                        <div class="media-body">
+                            <p><b>
+                            <?php if($this->editmode): ?>
+                                    <?php if($this->input("ContiA_Feature1Label")->isEmpty()): ?>
+                                            <?= $this->input("ContiA_Feature1Label", ['placeholder'=>'Feature 1 Label']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("ContiA_Feature1Label"); ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?= $this->input("ContiA_Feature1Label") ?>
+                            <?php endif; ?>
+                            </b> <br />
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("ContiA_Feature1Desc")->isEmpty()): ?>
+                                                <?= $this->input("ContiA_Feature1Desc", ['placeholder'=>'Feature 1 Desc']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("ContiA_Feature1Desc"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("ContiA_Feature1Desc") ?>
+                                <?php endif; ?>
+                            </p>
+                        </div>
                     </div>
+                    <div class="media" style="margin: 5px 0px;">
 
-                    <div class="media-body">
-                        <h3><?= $this->input("ContiA_CoeficientofFrictionLabel", ['placeholder'=>'Coeficient of Friction Text']) ?></h3>
-                        <ul class="components">
-                            <?php while($this->block("ContiA_Friction_Points")->loop()) { ?>
-                                <li><?= $this->input("CCF_points", ['placeholder' => 'Enter comment']) ?></p1>
-                            <?php } ?>
-                        </ul>
+                        <?php
+                        if($this->editmode)
+                        {
+                            ?>
+                                <?php
+                                    if($this->image("ContiA_feature2")->isEmpty())
+                                    {
+                                        echo $this->image("ContiA_feature2");
+                                    }
+                                    else{
+                                        echo $this->image("ContiA_feature2");
+                                    }
+                                ?>
+                            <?php
+                        }
+                        else
+                        {
+                            $ContiA_feature2Obj =  $this->image("ContiA_feature2");
+                            if($ContiA_feature2Obj)
+                            {
+                            ?>
+                                <img src="<?= $ContiA_feature2Obj->getThumbnail('catalog_thumb'); ?>" class="features-images"  alt=""/>
+                            <?php
+                            }
+                        }
+                        ?>
+
+                        <div class="media-body">
+                        <p><b>
+                            <?php if($this->editmode): ?>
+                                    <?php if($this->input("ContiA_Feature2Label")->isEmpty()): ?>
+                                            <?= $this->input("ContiA_Feature2Label", ['placeholder'=>'Feature 2 Label']) ?>
+                                    <?php else: ?>
+                                            <?= $this->input("ContiA_Feature2Label"); ?>
+                                    <?php endif; ?>
+                            <?php else: ?>
+                                    <?= $this->input("ContiA_Feature2Label") ?>
+                            <?php endif; ?>
+                            </b> <br />
+                                <?php if($this->editmode): ?>
+                                        <?php if($this->input("ContiA_Feature2Desc")->isEmpty()): ?>
+                                                <?= $this->input("ContiA_Feature2Desc", ['placeholder'=>'Feature 2 Desc']) ?>
+                                        <?php else: ?>
+                                                <?= $this->input("ContiA_Feature2Desc"); ?>
+                                        <?php endif; ?>
+                                <?php else: ?>
+                                        <?= $this->input("ContiA_Feature2Desc") ?>
+                                <?php endif; ?>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <p>
+                    <b>
+
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("ContiA_AvailabilityLabel")->isEmpty()): ?>
+                                    <?= $this->input("ContiA_AvailabilityLabel", ['placeholder'=>'CONTI®Alert Availability']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("ContiA_AvailabilityLabel"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiA_AvailabilityLabel") ?>
+                    <?php endif; ?>
+            
+                    </b><br />
+
+                    <?php if($this->editmode): ?>
+                            <?php if($this->input("ContiA_AvailabilityDesc")->isEmpty()): ?>
+                                    <?= $this->input("ContiA_AvailabilityDesc", ['placeholder'=>'CONTI®Alert Availability Description']) ?>
+                            <?php else: ?>
+                                    <?= $this->input("ContiA_AvailabilityDesc"); ?>
+                            <?php endif; ?>
+                    <?php else: ?>
+                            <?= $this->input("ContiA_AvailabilityDesc") ?>
+                    <?php endif; ?>
+                </p>
+
 	    </section>
         </main>
         <footer id="footer" class="footer">

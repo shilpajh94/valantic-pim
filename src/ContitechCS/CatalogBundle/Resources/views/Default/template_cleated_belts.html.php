@@ -19,21 +19,23 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
     <header id="header">
         <div class="header-sec">
             <div class="header-txt">
-                <strong>
+            <span class="first-title"><strong>Conveying Solutions</strong></span>
                     <?php if($this->editmode): ?>
                             <?php if($this->input("CB_HierarchyNameLevel1")->isEmpty()): ?>
-                                    <?= $this->input("CB_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?>
+                                <span class="second-title"><?= $this->input("CB_HierarchyNameLevel1")->setDataFromResource($data['HierarchyNameLevel1']) ?></span>
                             <?php else: ?>
-                                    <?= $this->input("CB_HierarchyNameLevel1"); ?>
+                                <span class="second-title"> <?= $this->input("CB_HierarchyNameLevel1"); ?></span>
                             <?php endif; ?>
                     <?php else: ?>
-                            <?= $this->input("CB_HierarchyNameLevel1") ?>
+                        <span class="second-title"> <?= $this->input("CB_HierarchyNameLevel1") ?></span>
                     <?php endif; ?>        
-                </strong>
             </div>
             <div class="print-pg-no"></div>
         </div>
     </header>
+    <footer id="footer">
+        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
+    </footer>
     <main id="content" role="main">
         <section class="fortressxp-belts">
             <h1 class="orange">
@@ -77,7 +79,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 
                 </h2>
             
-                <div class="row">
+                <div class="row profile-option">
                     
                     <?php 
                     foreach ($data['childrenData'] as $key => $child) 
@@ -135,16 +137,67 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <hr class="divider" />
 
             <div class="table w-90 construction-tab">
-                <!-- <table width="100%">
-                    <tbody> -->
-                    <?= $this->areablock('BeltConstruction'); ?>
-                    <!-- </tbody>
-                </table> -->
+                <table width="100%">
+                    <tbody>
+                        <tr>
+                            <td class="border-b">
+                                <div class="<?= (!$this->editmode)?'d-flex':'';  ?>">
+                                    <?= $this->areablock('BeltConstruction'); ?>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-b  pt-4">
+                                <?php
+                                
+                                
+                                $cover_compounds = array_chunk($data['cover_compounds'],3);
+                                ?>
+                                <table width="50%" class="mx-auto">
+                                    <thead>
+                                        <tr>
+                                            <th class="orange" colspan="3">
+                                            <?= $this->input("P_N_Belt_Construction"); ?>   
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php
+                                        if($cover_compounds)
+                                        {
+                                            foreach($cover_compounds as $arr)
+                                            {
+                                                ?><tr><?php
+                                                foreach($arr as $obj)
+                                                {
+                                                    ?>
+                                                        <td>
+                                                            <?= $obj->getName();?>
+                                                        </td>
+                                                    <?php   
+                                                }
+                                                ?></tr><?php
+                                            }
+                                        }
+                                    ?>
+
+                                        <tr>
+                                            <td>Defender® Series</td>
+                                            <td>Gold Series</td>
+                                            <td>Shield Series</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>    
+                    </tbody>        
+                </table>
             </div>
 
+            <div class="page-break"></div>
 
             <h2 class="orange">
-            <strong>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameBeltRoll")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameBeltRoll")->setDataFromResource($data['Name']) ?>
@@ -154,9 +207,8 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->input("CB_ProductNameBeltRoll") ?>
                 <?php endif; ?> 
-            </strong>
             </h2>
-            <h2>
+            <span class="sub-title">
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameBeltRollDiameters")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameBeltRollDiameters", ['placeholder'=>'Belt Roll Diameters']) ?>
@@ -166,7 +218,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->input("CB_ProductNameBeltRollDiameters") ?>
                 <?php endif; ?> 
-            </h2>
+                </span>
 
             <?php
                 if($this->editmode)
@@ -191,9 +243,11 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 }
             ?>
             
+            <div class="page-break"></div>
+
+
             <h2 class="orange">
             
-            <strong>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameAngleIncline")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameAngleIncline")->setDataFromResource($data['Name']) ?>
@@ -203,10 +257,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->input("CB_ProductNameAngleIncline") ?>
                 <?php endif; ?> 
-            </strong>
 
             </h2>
-            <h2>
+            <span class="sub-title">
             
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameAngleOfInclination")->isEmpty()): ?>
@@ -218,7 +271,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CB_ProductNameAngleOfInclination") ?>
                 <?php endif; ?>
 
-            </h2>
+                </span>
             
             <?php
                 if($this->editmode)
@@ -243,9 +296,12 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 }
             ?>
 
+            <div class="page-break"></div>
+
+
+
             <h2 class="orange">
             
-            <strong>
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameProfileOptions")->isEmpty()): ?>
                                 <?= $this->input("CB_ProductNameProfileOptions")->setDataFromResource($data['Name']) ?>
@@ -255,10 +311,9 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                 <?php else: ?>
                         <?= $this->input("CB_ProductNameProfileOptions") ?>
                 <?php endif; ?> 
-            </strong>
 
             </h2>
-            <h2>
+            <span class="sub-title">
             
                 <?php if($this->editmode): ?>
                         <?php if($this->input("CB_ProductNameProfileOptionsLabel")->isEmpty()): ?>
@@ -270,7 +325,7 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
                         <?= $this->input("CB_ProductNameProfileOptionsLabel") ?>
                 <?php endif; ?>
             
-            </h2>
+                </span>
 
             <?php if($data['childrenData']): ?>
             <div class="table construction-tab">
@@ -394,8 +449,6 @@ $this->extend('ContitechCSCatalogBundle:Layouts:layout.html.php');
             <?php endif; ?>
         </section>
     </main>
-    <footer id="footer">
-        <div class="footer-logo"><img src="/static/cbs/images/continental_logo.png" alt="" /></div>
-    </footer>
+   
 </div>
 <?php endif; ?>
