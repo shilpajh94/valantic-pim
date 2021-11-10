@@ -246,11 +246,10 @@ class CSProductDataImportCommand extends AbstractCommand
                                                 $segmentValueArr = [];
                                                 foreach ($fieldValueArr as $eachSegment) {
                                                     $segmentValue = trim($eachSegment);
-                                                    $segmentPath = '/' . ImportConstants::CONTITECH_CS_MASTERDATA_SEGMENT_FOLDER . '/' . $segmentValue;
-                                                    $segmentPathObj = DataObject\CSSegment::getByPath($segmentPath);
-                                                    if ($segmentPathObj) {
-                                                        $segmentPathObjId = $segmentPathObj->getId();
-                                                        $segmentValueArr[] = $segmentPathObjId;
+                                                    $segment = new \Pimcore\Model\DataObject\CSSegment\Listing();
+                                                    $segment->setCondition('SegmentName = ?', $segmentValue);
+                                                    foreach ($segment as $seg) {
+                                                        $segmentValueArr[] = $seg->getId();
                                                     }
                                                 }
                                                 $fieldValue = array_map('trim', $segmentValueArr);
