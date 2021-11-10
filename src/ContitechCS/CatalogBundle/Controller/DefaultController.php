@@ -693,7 +693,7 @@ class DefaultController extends FrontendController
                         if($child->getCSProductApplications())
                         {
                             foreach ($child->getCSProductApplications() as $key => $application) {
-                                $applicationData[] = $application->getApplicationName();
+                                $applicationData[$application->getApplicationName()] = $application->getApplicationName();
                                 $level4Data[$level4Name][] = $application->getApplicationName();
                             }
                         }
@@ -702,7 +702,7 @@ class DefaultController extends FrontendController
                         }
                     }
                 }
-
+                
                 if($level4Data)
                 {
                     foreach ($level4Data as $lkey => $lvalue) {

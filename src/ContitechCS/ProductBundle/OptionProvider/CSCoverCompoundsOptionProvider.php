@@ -41,13 +41,13 @@ class CSCoverCompoundsOptionProvider implements SelectOptionsProviderInterface
     public function getOptions($context, $fieldDefinition)
     {
         // $HierarchyProductPath = DataObject\CSCoverCompounds::getByPath(CS_MATERIAL_HANDLIG_HIERARCHY_PATH);
-        $coverCompoundList = new DataObject\CSCoverCompounds\Listing();
+        $coverCompoundList = new DataObject\CSPerformanceCategories\Listing();
         // $categoryList->addConditionParam("Level = ?", ["Level 2"], 'AND');
         // $categoryList->setCondition("o_parentId = ?", $HierarchyProductPath->getId());
         $coverCompoundList = $coverCompoundList->load();
 
         foreach ($coverCompoundList as $cat) {
-            $result[] = array('key' => $cat->getName(), 'value' => $cat->getId());
+            $result[] = array('key' => $cat->getPerformanceCategory(), 'value' => $cat->getId());
         }
         return $result;
     }

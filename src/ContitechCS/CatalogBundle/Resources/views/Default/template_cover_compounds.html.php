@@ -336,24 +336,24 @@ $coverCompound = $data['coverCompoundData'];
                                 <div class="media-body">
                                     <h2 class="orange">
                                         <?php if($this->editmode): ?>
-                                                <?php if($this->input("CCHRPageFeature_{$md5FeatureNameKey}")->isEmpty()): ?>
-                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
+                                                <?php if($this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                        <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureName']) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}"); ?>
+                                                        <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}"); ?>
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}") ?>
+                                                <?= $this->input("CCHRPageFeatureTitle_{$md5FeatureNameKey}") ?>
                                         <?php endif; ?>
                                     </h2>
                                     <p>
                                         <?php if($this->editmode): ?>
-                                                <?php if($this->input("CCHRPageFeature_{$md5FeatureNameKey}")->isEmpty()): ?>
-                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureDescription']) ?>
+                                                <?php if($this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}")->isEmpty()): ?>
+                                                        <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}")->setDataFromResource($feature['FeatureDescription']) ?>
                                                 <?php else: ?>
-                                                        <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}"); ?>
+                                                        <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}"); ?>
                                                 <?php endif; ?>
                                         <?php else: ?>
-                                                <?= $this->input("CCHRPageFeature_{$md5FeatureNameKey}") ?>
+                                                <?= $this->input("CCHRPageFeatureDesc_{$md5FeatureNameKey}") ?>
                                         <?php endif; ?>
                                     </p>
                                 </div>
@@ -458,11 +458,9 @@ $coverCompound = $data['coverCompoundData'];
                                 $coverCompounds = $data['coverCompounds'];
                                 foreach ($coverCompounds as $coverCompoundType => $coverCompoundArray) {
                                     ?>
-                                    <thead>
                                         <tr>
                                             <th colspan="<?= $colSpan; ?>" class="orange-bg" align="left"><?= $coverCompoundType; ?></th>
                                         </tr>
-                                    </thead>
                                     <tbody>
                                     <?php
                                     foreach ($coverCompoundArray as $cc => $ccArr) {
